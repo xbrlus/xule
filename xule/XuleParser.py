@@ -1,6 +1,6 @@
 
 from pyparsing import (Word, Keyword,  
-                     Literal,  
+                     Literal, CaselessLiteral, 
                      Combine, Optional, nums, Forward, Group, ZeroOrMore,  
                      ParserElement,  delimitedList, Suppress, Regex, 
                      QuotedString, OneOrMore, ParseResults, oneOf, cStyleComment,
@@ -93,7 +93,7 @@ def get_grammar():
     decimalPoint = Literal(".")
     digits = Word(nums)
     integerLiteral = Group(Combine(Optional(sign) + digits).setResultsName("value")).setResultsName("integer")
-    infLiteral = Combine(Optional(sign) + Literal("INF"))
+    infLiteral = Combine(Optional(sign) + CaselessLiteral("INF"))
     floatLiteral = Group(( Combine(decimalPoint + digits + Optional (sciNot + integerLiteral)) |
                      Combine(integerLiteral + decimalPoint + digits + Optional (sciNot + integerLiteral)) |
                      Combine(integerLiteral + decimalPoint + Optional (sciNot + integerLiteral)) |

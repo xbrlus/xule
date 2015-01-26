@@ -65,4 +65,3 @@ if __name__ == "__main__":
             print("Unknown command: %s" % command)
     else:
         print("No command supplied.")
-                  

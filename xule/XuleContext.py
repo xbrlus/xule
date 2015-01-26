@@ -23,25 +23,35 @@ class XuleGlobalContext(object):
         self.include_nils = include_nils
         self._constants = {}
         self.show_trace = False
+        self.show_timing = False
+        self.show_debug = False
+        self.crash_on_error = False
+        self.function_cache = {}
+        
+        if getattr(self.cntlr, "base_taxonomy", None) is None:
+            self.get_rules_dts()        
         
     @property
     def catalog(self):
         return self.rule_set.catalog
     
     def get_rules_dts(self):
-        if self.rules_model is None:
+        if getattr(self.cntlr, "base_taxonomy", None) is None:
             start = datetime.datetime.today()
             rules_taxonomy_filesource = FileSource.openFileSource(self.rule_set.getRulesTaxonomyLocation(), self.cntlr)            
             modelManager = ModelManager.initialize(self.cntlr)
             modelXbrl = modelManager.load(rules_taxonomy_filesource)            
-            self.rules_model = modelXbrl
+            setattr(self.cntlr, "base_taxonomy", modelXbrl)          
             end = datetime.datetime.today()
 
-            self.model.log("INFO",
-                               "rules-taxonomy", 
-                               "Load time %s from '%s'" % (end - start, self.rule_set.getRulesTaxonomyLocation()))
-    
-        return self.rules_model  
+            if getattr(self.rules_model, "log", None) is not None:
+                self.rules_model.log("INFO",
+                                   "rules-taxonomy", 
+                                   "Load time %s from '%s'" % (end - start, self.rule_set.getRulesTaxonomyLocation()))
+            else:
+                print("Rules Taxonomy Loaded. Load time %s from '%s' " % (end - start, self.rule_set.getRulesTaxonomyLocation()))
+      
+        return self.cntlr.base_taxonomy  
 
 
 class XuleRuleContext(object):
@@ -127,7 +137,8 @@ class XuleRuleContext(object):
         if 'value' in var_info: #if the variable was never calculated then there is nothing to do.
             for var_result in var_info['value'].results:
                 var_result.vars = {k: v for k, v in var_result.vars.items() if k != var_info['index']}
-        #remove the variable references from the gnerated results, if it is a variable (not argument)
+                
+        #remove the variable references from the generated results, if it is a variable (not argument)
         if var_info['type'] == self._VAR_TYPE_VAR:
             for res in result_set:
                 res.del_var(var_info['index'])   
@@ -263,15 +274,14 @@ class XuleRuleContext(object):
     def show_trace(self):
         return self.global_context.show_trace
     
-
-
-
+    @property
+    def function_cache(self):
+        return self.global_context.function_cache
 
 class XuleContextXXX(object):
     '''
     classdocs
     '''
-
     #CONSTANTS
     SEVERITY_ERROR = 'error'
     SEVERITY_WARNING = 'warning'
@@ -312,6 +322,7 @@ class XuleContextXXX(object):
         self.include_nils = include_nils
         
         self.in_where_alignment = None
+        
         
     def __str__(self):
         return ("Ruleset Name: %s\n"
@@ -521,8 +532,3 @@ class XuleContextXXX(object):
     
         return self.rules_model
     
-       
-        
-        
-        
-        

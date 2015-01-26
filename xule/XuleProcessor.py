@@ -22,17 +22,22 @@ from lxml import etree as et
         
 def process_xule(rule_set, model_xbrl, cntlr, show_timing=False, show_debug=False, show_trace=False, crash_on_error=False):
     global_context = XuleGlobalContext(rule_set, model_xbrl, cntlr)
+    global_context.show_timing = show_timing
+    global_context.show_debug = show_debug
+    global_context.show_trace = show_trace
+    global_context.crash_on_error = crash_on_error
+    
     xule_context = XuleRuleContext(global_context)
     global_context.fact_index = index_model(xule_context)
     
     global_context.show_trace = show_trace
         
-    evaluate_rule_set(global_context, show_timing, show_debug, crash_on_error)
+    evaluate_rule_set(global_context)
         
-def evaluate_rule_set(global_context, show_timing, show_debug, crash_on_error):
+def evaluate_rule_set(global_context):
 
     ''' NEED TO CHECK THE RULE BASE PRECONDITION '''
-    if show_timing:
+    if global_context.show_timing:
         times = []
         total_start = datetime.datetime.today()
     #use the term "cat" for catalog information
@@ -40,11 +45,11 @@ def evaluate_rule_set(global_context, show_timing, show_debug, crash_on_error):
         for rule_name in sorted(cat_rules.keys()):
             cat_rule = cat_rules[rule_name]
         #for rule_name, cat_rule in cat_rules.items():
-            if show_debug:
+            if global_context.show_debug:
                 print("Processing: %s" % rule_name)
                 print(global_context.model.modelDocument.uri)
             try:
-                if show_timing:
+                if global_context.show_timing:
                     rule_start = datetime.datetime.today()
                 rule = global_context.rule_set.getItem(cat_rule)
                 xule_context = XuleRuleContext(global_context,
@@ -58,16 +63,16 @@ def evaluate_rule_set(global_context, show_timing, show_debug, crash_on_error):
                 xule_context.model.error("xule:error",str(e))
             
             except Exception as e:
-                if crash_on_error:
+                if global_context.crash_on_error:
                     raise
                 else:
                     xule_context.model.error("xule:error","rule %s: %s" % (rule_name, str(e)))
             
-            if show_timing:
+            if global_context.show_timing:
                 rule_end = datetime.datetime.today()
                 times.append((xule_context.rule_name, rule_end - rule_start))
                 
-    if show_timing:
+    if global_context.show_timing:
         total_end = datetime.datetime.today()
         print("Total number of rules processed: %i" % len(times))
         print("Total time to process: %s." % (total_end - total_start))
@@ -77,7 +82,6 @@ def evaluate_rule_set(global_context, show_timing, show_debug, crash_on_error):
             print("Rule %s end. Took %s" % (slow_rule[0], slow_rule[1]))
 
 def index_model(xule_context):
-    
     fact_index = collections.defaultdict(lambda :collections.defaultdict(set))
     
     fact_index[('builtin', 'lineItem')] = xule_context.model.factsByQname
@@ -169,6 +173,7 @@ def evaluate_raise(raise_rule, xule_context):
     
         message = get_message(raise_rule, result, xule_context)
         source_location = get_element_identifier(result, xule_context)
+        filing_url = xule_context.model.modelDocument.uri
 
         xule_context.model.log(severity,
                                xule_context.rule_name, 
@@ -178,7 +183,7 @@ def evaluate_raise(raise_rule, xule_context):
                                #[(fact.modelDocument.uri, fact.sourceline) for fact in hsBindings.boundFacts],
                                sourceFileLine=[source_location],
                                severity=xule_context.severity,
-                               abc="yes")
+                               filing_url=filing_url)
            
 def evaluate_report(report_rule, xule_context): 
     
@@ -199,6 +204,7 @@ def evaluate_report(report_rule, xule_context):
 
         message = get_message(report_rule, result, xule_context)
         source_location = get_element_identifier(result, xule_context)
+        filing_url = xule_context.model.modelDocument.uri
         
         xule_context.model.log(xule_context.severity.upper(),
                                xule_context.rule_name, 
@@ -208,7 +214,7 @@ def evaluate_report(report_rule, xule_context):
                                #[(fact.modelDocument.uri, fact.sourceline) for fact in hsBindings.boundFacts],
                                sourceFileLine=source_location,
                                severity=xule_context.severity,
-                               abc="xyz")
+                               filing_url=filing_url)
     
 def evaluate_formula(formula_rule, xule_context):
     '''NEED TO CHECK THE PRECONDITION'''
@@ -306,6 +312,8 @@ def evaluate_formula(formula_rule, xule_context):
             else:
                 message = str(left_value) + " does not equal " + str(right_value)
             
+            filing_url = xule_context.model.modelDocument.uri
+            
             xule_context.model.log(severity,
                                    xule_context.rule_name, 
                                    #evaluateMessage(node.message, sphinxContext, resultTags, hsBindings),
@@ -313,7 +321,8 @@ def evaluate_formula(formula_rule, xule_context):
                                    #sourceFileLine=[node.sourceFileLine] + 
                                    #[(fact.modelDocument.uri, fact.sourceline) for fact in hsBindings.boundFacts],
                                    sourceFileLine=None,
-                                   severity=xule_context.severity)
+                                   severity=severity,
+                                   filing_url=filing_url)
     
 def evaluate_message(message_expr, xule_context):
     pass
@@ -613,14 +622,13 @@ def lazy_iteration(left_result, operand_exprs, operation_function, stop_value, x
 #                 xule_context.filter_add('other', alignment_to_aspect_info(left_result.alignment, xule_context))
 
             right_expr = operand_exprs[0]
-            
-            '''Add the single value left resulte variables'''
+
+            '''Add the single value left resulte variables'''   
             single_vars = push_single_value_variables(left_result.vars, xule_context)       
-            
+
             right_result_set = evaluate(right_expr, xule_context)
             
-            '''Remove the pushed single value left result variables.'''
-            pop_single_value_variables(single_vars, right_result_set, xule_context)            
+            '''Will pop at the end of this iteration'''
             
 #             if left_result.alignment is not None:
 #                 xule_context.filter_del()
@@ -654,7 +662,10 @@ def lazy_iteration(left_result, operand_exprs, operation_function, stop_value, x
                         final_result_set.append(lazy_iteration(new_result, operand_exprs[1:], operation_function, stop_value, xule_context))
                     else:
                         final_result_set.append(new_result)
-
+                        
+            '''Remove the pushed single value left result variables.'''
+            pop_single_value_variables(single_vars, right_result_set, xule_context) 
+            
     return final_result_set
         
 def evaluate_or(or_expr, xule_context): 
@@ -777,8 +788,13 @@ def evaluate_function_ref(function_ref, xule_context):
                 if arg['tagged']:
                     for result in arg['value']:
                         result.add_tag(arg['name'], result)
-                    
-            result_set = evaluate(function_info['function_declaration'].expr[0], xule_context)
+                        
+            if len(matched_args) == 0 and function_ref.functionName in xule_context.function_cache:
+                result_set = xule_context.function_cache[function_ref.functionName]
+            else:                    
+                result_set = evaluate(function_info['function_declaration'].expr[0], xule_context)
+                if len(matched_args) == 0:
+                    xule_context.function_cache[function_ref.functionName] = result_set
             
             #remove the variables for the blcok
             for x in matched_args[::-1]:
@@ -844,9 +860,10 @@ def evaluate_property_detail(property_exprs, left_result_set, xule_context):
             #check the left object is the right type
             if len(property_info[PROP_OPERAND_TYPES]) > 0:
                 if left_result.type not in property_info[PROP_OPERAND_TYPES]:
-                    raise XuleProcessingError(_("Property '%s' is not a property of a '%s'.") % (current_property_expr.propertyName,
-                                                                                                 left_result.type), 
-                                              xule_context) 
+                    if not any([xule_castable(left_result, allowable_type, xule_context) for allowable_type in property_info[PROP_OPERAND_TYPES]]):
+                        raise XuleProcessingError(_("Property '%s' is not a property of a '%s'.") % (current_property_expr.propertyName,
+                                                                                                     left_result.type), 
+                                                  xule_context) 
 
             '''Add the single value left resulte variables'''
             single_vars = push_single_value_variables(left_result.vars, xule_context)       
@@ -2615,71 +2632,26 @@ def property_hypercube_dimension_networks(xule_context, left_result, *args):
 def property_dimension_default_networks(xule_context, left_result, *args):
     return XuleResultSet(XuleResult(get_networks(xule_context, left_result, DIMENSION_DEFAULT), 'set'))
 
+def property_dimension_domain_networks(xule_context, left_result, *args):
+    return XuleResultSet(XuleResult(get_networks(xule_context, left_result, DIMENSION_DOMAIN), 'set'))
+
 def property_concept_hypercube_all(xule_context, left_result, *args):
-    arg_result = args[0]
-    if arg_result.type != 'uri':
-        raise XuleProcessingError(_("The 'concept-hypercube-all' property requires an uri argument, found '%s'" % arg_result.type), xule_context)
-    
-    networks = get_networks(xule_context, left_result, ALL, role=arg_result.value)
-    if len(networks) == 0:
-        return XuleResultSet(XuleResult(None, 'unbound'))
-    else:
-        return XuleResultSet(next(iter(networks)))
+    return get_single_network(xule_context, left_result, args[0], ALL, 'hypercube-all')
 
 def property_dimension_default(xule_context, left_result, *args):    
-    arg_result = args[0]
-    if arg_result.type != 'uri':
-        raise XuleProcessingError(_("The 'dimension-default' property requires an uri argument, found '%s'" % arg_result.type), xule_context)
-    
-    networks = get_networks(xule_context, left_result, DIMENSION_DEFAULT, role=arg_result.value)
-    if len(networks) == 0:
-        return XuleResultSet(XuleResult(None, 'unbound'))
-    else:
-        return XuleResultSet(next(iter(networks)))
+    return get_single_network(xule_context, left_result, args[0], DIMENSION_DEFAULT, 'dimension-default')
 
 def property_dimension_domain(xule_context, left_result, *args):
-    arg_result = args[0]
-    if arg_result.type != 'uri':
-        raise XuleProcessingError(_("The 'dimension-domain' property requires an uri argument, found '%s'" % arg_result.type), xule_context)
-    
-    networks = get_networks(xule_context, left_result, DIMENSION_DOMAIN, role=arg_result.value)
-    if len(networks) == 0:
-        return XuleResultSet(XuleResult(None, 'unbound'))
-    else:
-        return XuleResultSet(next(iter(networks)))
+    return get_single_network(xule_context, left_result, args[0], DIMENSION_DOMAIN, 'dimension-domain')
 
 def property_domain_member(xule_context, left_result, *args):    
-    arg_result = args[0]
-    if arg_result.type != 'uri':
-        raise XuleProcessingError(_("The 'domain-member' property requires an uri argument, found '%s'" % arg_result.type), xule_context)
-    
-    networks = get_networks(xule_context, left_result, DOMAIN_MEMBER, role=arg_result.value)
-    if len(networks) == 0:
-        return XuleResultSet(XuleResult(None, 'unbound'))
-    else:
-        return XuleResultSet(next(iter(networks)))
+    return get_single_network(xule_context, left_result, args[0], DOMAIN_MEMBER, 'domain-member')
     
 def property_hypercube_dimension(xule_context, left_result, *args):
-    arg_result = args[0]
-    if arg_result.type != 'uri':
-        raise XuleProcessingError(_("The 'hypercube-dimension' property requires an uri argument, found '%s'" % arg_result.type), xule_context)
-    
-    networks = get_networks(xule_context, left_result, HYPERCUBE_DIMENSION, role=arg_result.value)
-    if len(networks) == 0:
-        return XuleResultSet(XuleResult(None, 'unbound'))
-    else:
-        return XuleResultSet(next(iter(networks)))
+    return get_single_network(xule_context, left_result, args[0], HYPERCUBE_DIMENSION, 'hypercube-dimension')
 
 def property_summation_item(xule_context, left_result, *args):
-    arg_result = args[0]
-    if arg_result.type != 'uri':
-        raise XuleProcessingError(_("The 'hypercube-dimension' property requires an uri argument, found '%s'" % arg_result.type), xule_context)
-    
-    networks = get_networks(xule_context, left_result, SUMMATION_ITEM, role=arg_result.value)
-    if len(networks) == 0:
-        return XuleResultSet(XuleResult(None, 'unbound'))
-    else:
-        return XuleResultSet(next(iter(networks)))
+    return get_single_network(xule_context, left_result, args[0], SUMMATION_ITEM, 'summation-item')
 
 def property_role(xule_context, left_result, *args):
     return XuleResultSet(XuleResult(left_result.value[NETWORK_INFO][NETWORK_ROLE], 'uri')) 
@@ -2712,6 +2684,20 @@ def get_networks(xule_context, dts_result, arcrole, role=None, link=None, arc=No
             networks.add(net)
     #return final_result_set
     return frozenset(networks)
+
+def get_single_network(xule_context, left_result, role_result, arc_role, property_name):
+    
+    if xule_castable(role_result, 'uri', xule_context):
+        role_uri = xule_cast(role_result, 'uri', xule_context)
+    else:
+        raise XuleProcessingError(_("The '%s' property requires an uri argument, found '%s'" % (property_name, role_result.type)), xule_context)
+    
+    networks = get_networks(xule_context, left_result, arc_role, role=role_uri)
+    if len(networks) == 0:
+        return XuleResultSet(XuleResult(None, 'unbound'))
+    else:
+        return XuleResultSet(next(iter(networks)))
+
   
 def get_base_set_info(xule_context, dts, arcrole, role=None, link=None, arc=None):
     return [x + (False,) for x in dts.baseSets if x[NETWORK_ARCROLE] == arcrole and
@@ -2737,10 +2723,12 @@ def property_descendant_relationships(xule_context, left_result, *args):
     else:
         raise XuleProcessingError(_("First argument of the 'descendant-relationships' property must be a qname or a concept. Found '%s'" % concept_arg.type), xule_context)
 
-    if depth_arg.type not in ('int', 'float', 'decimal'):
+    if xule_castable(depth_arg, 'float', xule_context):
+        depth = xule_cast(depth_arg, 'float', xule_context)
+    else:
         raise XuleProcessingError(_("Second argument for property 'descendant-relationships' must be numeric. Found '%s'" % depth_arg.type), xule_context)
 
-    depth = depth_arg.value  
+    #depth = depth_arg.value  
     
     descendant_rels = descend(network, model_concept, depth, set(), 'relationship')
     
@@ -2771,7 +2759,12 @@ def property_descendants(xule_context, left_result, *args):
     if depth_arg.type not in ('int', 'float', 'decimal'):
         raise XuleProcessingError(_("Second argument for property 'descendants' must be numeric. Found '%s'" % depth_arg.type), xule_context)
     
-    depth = depth_arg.value
+    if xule_castable(depth_arg, 'float', xule_context):
+        depth = xule_cast(depth_arg, 'float', xule_context)
+    else:
+        raise XuleProcessingError(_("Second argument for property 'descendants' must be numeric. Found '%s'" % depth_arg.type), xule_context)
+
+    #depth = depth_arg.value
                 
     descendants = descend(network, model_concept, depth, set(), 'concept')
     
@@ -2781,7 +2774,7 @@ def property_descendants(xule_context, left_result, *args):
     return XuleResultSet(XuleResult(frozenset(concepts), 'set'))    
 
 def descend(network, parent, depth, previous_concepts, return_type):
-    if depth == 0:
+    if depth < 1:
         return set()
     
     descendants = set()
@@ -2821,7 +2814,12 @@ def property_ancestor_relationships(xule_context, left_result, *args):
     if depth_arg.type not in ('int', 'float', 'decimal'):
         raise XuleProcessingError(_("Second argument for property 'ancestor-relationships' must be numeric. Found '%s'" % depth_arg.type), xule_context)
     
-    depth = depth_arg.value
+    if xule_castable(depth_arg, 'float', xule_context):
+        depth = xule_cast(depth_arg, 'float', xule_context)
+    else:
+        raise XuleProcessingError(_("Second argument for property 'ancestor-relationships' must be numeric. Found '%s'" % depth_arg.type), xule_context)
+
+    #depth = depth_arg.value
                 
     ancestor_rels = ascend(network, model_concept, depth, set(), 'relationship')
     
@@ -2851,7 +2849,13 @@ def property_ancestors(xule_context, left_result, *args):
     if depth_arg.type not in ('int', 'float', 'decimal'):
         raise XuleProcessingError(_("Second argument (depth) must be numeric. Found '%s'" % args[1].type), xule_context)
     
-    depth = depth_arg.value
+    
+    if xule_castable(depth_arg, 'float', xule_context):
+        depth = xule_cast(depth_arg, 'float', xule_context)
+    else:
+        raise XuleProcessingError(_("Second argument for property 'ancestorss' must be numeric. Found '%s'" % depth_arg.type), xule_context)
+    
+    #depth = depth_arg.value
                 
     ascendants = ascend(network, model_concept, depth, set(), 'concept')
     
@@ -2973,42 +2977,52 @@ def property_dts_document_locations(xule_context, left_result, *args):
     return final_result_set
 
 def property_length(xule_context, left_result, *args):
-    return XuleResultSet(XuleResult(len(left_result.value), 'int'))
+    if xule_castable(left_result, 'string', xule_context):
+        return XuleResultSet(XuleResult(len(xule_cast(left_result, 'string', xule_context)), 'int'))
+    else:
+        raise XuleProcessingError(_("Cannot cast '%s' to 'string' for property length" % left_result.type), xule_context)
 
-def property_substring(xule_context, left_result, *args):
-         
-    start_type, start_value = get_type_and_compute_value(args[0], xule_context)
-    end_type, end_value = get_type_and_compute_value(args[1], xule_context)
+def property_substring(xule_context, left_result, *args):     
+    left_value = xule_cast(left_result, 'string', xule_context)
+    if xule_castable(args[0], 'int', xule_context):
+        start_value = xule_cast(args[0], 'int', xule_context)
+    else:
+        raise XuleProcessingError(_("The first argument of property 'substring' is not castable to a 'int', found '%s'" % args[0].type), xule_context)
     
-    if start_type not in ('int', 'decimal', 'float'):
-        raise XuleProcessingError(_("The start argument for the 'substring' property must be numeric, found '%s'" % start_type), xule_context)
+    if xule_castable(args[1], 'int', xule_context):
+        end_value = xule_cast(args[1], 'int', xule_context)
+    else:
+        raise XuleProcessingError(_("The second argument of property 'substring' is not castable to a 'int', found '%s'" % args[1].type), xule_context)
 
-    if end_type not in ('int', 'decimal', 'float'):
-        raise XuleProcessingError(_("The end argument for the 'substring' property must be numeric, found '%s'" % end_type), xule_context)
-
-    return XuleResultSet(XuleResult(left_result.value[start_value:end_value], 'string'))
+    return XuleResultSet(XuleResult(left_value[start_value:end_value], 'string'))
     
 def property_index_of(xule_context, left_result, *args):
+    left_value = xule_cast(left_result, 'string', xule_context)
 
     arg_result = args[0]
-    if arg_result.type not in  ('string', 'uri'):
-        raise XuleProcessingError(_("The 'index-of' property requires a string argument, found '%s'" % arg_result.type), xule_context)
+    if xule_castable(arg_result, 'string', xule_context):
+        index_string = xule_cast(arg_result, 'string', xule_context)
+    else:
+        raise XuleProcessingError(_("The argument for property 'index-of' must be castable to a 'string', found '%s'" % arg_result.type), xule_context)
     
-    return XuleResultSet(XuleResult(left_result.value.find(arg_result.value), 'int'))
+    return XuleResultSet(XuleResult(left_value.find(index_string), 'int'))
 
 def property_last_index_of(xule_context, left_result, *args):
-
-    arg_result = args[0]
-    if arg_result.type not in  ('string', 'uri'):
-        raise XuleProcessingError(_("The 'index-of' property requires a string argument, found '%s'" % arg_result.type), xule_context)
+    left_value = xule_cast(left_result, 'string', xule_context)
     
-    return XuleResultSet(XuleResult(left_result.value.rfind(arg_result.value), 'int'))
+    arg_result = args[0]
+    if xule_castable(arg_result, 'string', xule_context):
+        index_string = xule_cast(arg_result, 'string', xule_context)
+    else:
+        raise XuleProcessingError(_("The argument for property 'last-index-of' must be castable to a 'string', found '%s'" % arg_result.type), xule_context)
+    
+    return XuleResultSet(XuleResult(left_value.rfind(index_string), 'int'))
 
 def property_lower_case(xule_context, left_result, *args):
-    return XuleResultSet(XuleResult(left_result.value.lower(), 'string'))
+    return XuleResultSet(XuleResult(xule_cast(left_result, 'string', xule_context).lower(), 'string'))
 
 def property_upper_case(xule_context, left_result, *args):
-    return XuleResultSet(XuleResult(left_result.value.upper(), 'string'))
+    return XuleResultSet(XuleResult(xule_cast(left_result, 'string', xule_context).upper(), 'string'))
             
 def property_size(xule_context, left_result, *args):
     return XuleResultSet(XuleResult(len(left_result.value), 'int'))
@@ -3016,10 +3030,12 @@ def property_size(xule_context, left_result, *args):
 def property_item(xule_context, left_result, *args):
 
     arg_result = args[0]
-    if arg_result.type not in ('int', 'float', 'decimal'):
+    arg_type, arg_value = get_type_and_compute_value(arg_result, xule_context)
+    
+    if arg_type not in ('int', 'float', 'decimal'):
         raise XuleProcessingError(_("The 'item' property requires a numeric argument, found '%s'" % arg_result.type), xule_context)
     
-    arg_value = int(arg_result.value)
+    arg_value = int(arg_value)
     
     if arg_value >= len(left_result.value) or arg_value < 0:
         return XuleResultSet(XuleResult(None, 'unbound'))
@@ -3030,7 +3046,9 @@ def property_item(xule_context, left_result, *args):
 def property_power(xule_context, left_result, *args):
     
     arg_result = args[0]
-    if arg_result.type not in ('int', 'float', 'decimal'):
+    arg_type, arg_value = get_type_and_compute_value(arg_result, xule_context)
+    
+    if arg_type not in ('int', 'float', 'decimal'):
         raise XuleProcessingError(_("The 'power' property requires a numeric argument, found '%s'" % arg_result.type), xule_context)
     
     combine_types = combine_xule_types(left_result, arg_result, xule_context)
@@ -3065,7 +3083,6 @@ def property_signum(xule_context, left_result, *args):
         return XuleResultSet(XuleResult(-1, 'int'))
     else:
         return XuleResultSet(XuleResult(1, 'int'))
-
 
 def property_name(xule_context, left_result, *args):
     return XuleResultSet(XuleResult(left_result.value.qname, 'qname'))
@@ -3121,16 +3138,14 @@ def property_xbrl_type(xule_context, left_result, *args):
     if left_result.type == 'fact':
         return XuleResultSet(XuleResult(left_result.value.concept.baseXbrliTypeQname, 'type'))
     else:
-        #concept
         return XuleResultSet(XuleResult(left_result.value.baseXbrliTypeQname, 'type'))
-    
+
 def property_schema_type(xule_context, left_result, *args):
     if left_result.type == 'fact':
         return XuleResultSet(XuleResult(left_result.value.concept.typeQname, 'type'))
     else:
-        #concept
         return XuleResultSet(XuleResult(left_result.value.typeQname, 'type'))
-    
+
 def property_decimals(xule_context, left_result, *args):
     return XuleResultSet(XuleResult(float(left_result.value.decimals), 'float'))
 
@@ -3243,6 +3258,7 @@ PROPERTIES = {'dimension': (property_dimension, 1, ('fact'), False),
               'domain-member-networks': (property_domain_member_networks, 0, ('taxonomy'), False),
               'hypercube-dimension-networks': (property_hypercube_dimension_networks, 0, ('taxonomy'), False),
               'dimension-default-networks': (property_dimension_default_networks, 0, ('taxonomy'), False),
+              'dimension-domain-networks': (property_dimension_domain_networks, 0, ('taxonomy'), False),
               
               'concept-hypercube-all': (property_concept_hypercube_all, 1, ('taxonomy'), False),
               'dimension-default': (property_dimension_default, 1, ('taxonomy'), False),
@@ -3317,6 +3333,7 @@ PROPERTIES = {'dimension': (property_dimension, 1, ('fact'), False),
               'to-list': (property_to_list, 0, ('list', 'set'), False),
               'to-set': (property_to_set, 0, ('list', 'set'), False),
               'iter': (property_iter, 0, ('list', 'set'), False),
+              'for-each': (property_iter, 0, ('list', 'set'), False),
               
               'type': (property_type, 0, (), False),
               'string': (property_string, 0, (), False),
@@ -3696,20 +3713,44 @@ def model_to_xule_entity(model_context, xule_context):
     return (model_context.entityIdentifier[0], model_context.entityIdentifier[1])
 
 def push_single_value_variables(result_vars, xule_context):
-    single_vars = list(result_vars.items())
-    for var_index, var_result_index in single_vars:
+    #single_vars = list(result_vars.items())
+    single_vars = []
+    for var_index, var_result_index in result_vars.items():
         var_info = xule_context.var_by_index(var_index)
-        xule_context.add_arg(var_info['name'],
-                             var_info['tag'],
-                             XuleResultSet(var_info['value'].results[var_result_index].dup())) #this should be a copy
+        
+        if 'value' in var_info:
+            xule_context.add_arg(var_info['name'],
+                                 var_info['tag'],
+                                 XuleResultSet(var_info['value'].results[var_result_index].dup())) #this should be a copy
+            single_vars.append((var_index, var_result_index))
+            
     return single_vars
 
 def pop_single_value_variables(single_vars, result_set, xule_context):
     #process the single_vars in reverse order
+    orig_var_indexes = []
     for var_index, var_result_index in single_vars[::-1]:
+        if isinstance(var_index, int):
+            orig_var_indexes.append(var_index)
         var_info = xule_context.var_by_index(var_index)
-        var_info = xule_context.del_var(var_info['name'], result_set)   
-        
+        var_info = xule_context.del_var(var_info['name'], result_set) 
+         
+    '''Need to "reset" variables that depended on this single value variable. "resetting" is done by marking it as not calculated.'''
+#     for res in result_set:
+#         for var_index, var_result_index in res.vars.items():
+#             #verify this is a var and that it is not one of the original vars.
+#             if isinstance(var_index, int) and var_index not in orig_var_indexes:
+#                 var_info = xule_context._vars[var_index]
+#                 #verify that it has been calculated
+#                 if var_info['calculated'] and var_info['type'] == xule_context._VAR_TYPE_VAR:
+#                     var_result = var_info['value'].results[var_result_index]
+#                     for sub_var_index in var_result.vars:
+#                         if sub_var_index in orig_var_indexes:
+#                             #reset the variable in var_info
+#                             if var_info['calculated']:
+#                                 var_info['calculated'] = False
+#                                 del var_info['value']
+#     
 TYPE_XULE_TO_SYSTEM = {'int': int,
                        'float': float,
                        'string': str,
@@ -3752,14 +3793,15 @@ TYPE_STANDARD_CONVERSION = {'model_date_time': (model_to_xule_model_datetime, 'i
 #             frozenset([int, decimal.Decimal]): ('decimal', decimal.Decimal, decimal.Decimal),
 #             frozenset([float, decimal.Decimal]): ('decimal', decimal.Decimal, decimal.Decimal)
 #             }
-
-TYPE_MAP = {frozenset(['int', 'float']): ('float', float),
-            frozenset(['int', 'decimal']): ('decimal', decimal.Decimal),
-            frozenset(['float', 'decimal']): ('decimal', decimal.Decimal),
-            frozenset(['balance', 'none']): ('balance', lambda x: x), #this lambda does not convert the compute value
-            frozenset(['balance', 'unbound']): ('balance', lambda x: x),
-            frozenset(['int', 'string']): ('string', str),
-            frozenset(['uri', 'string']): ('string', lambda x: x),
+'''The TYPE_MAP shows converstions between xule types. The first entry is the common conversion when comparing
+   2 values, the second entry (if present) is a reverse conversion.'''
+TYPE_MAP = {frozenset(['int', 'float']): [('float', float), ('init', int)],
+            frozenset(['int', 'decimal']): [('decimal', decimal.Decimal), ('int', int)],
+            frozenset(['float', 'decimal']): [('decimal', decimal.Decimal), ('float', float)],
+            frozenset(['balance', 'none']): [('balance', lambda x: x)], #this lambda does not convert the compute value
+            frozenset(['balance', 'unbound']): [('balance', lambda x: x)],
+            frozenset(['int', 'string']): [('string', str), ('int', int)],
+            frozenset(['uri', 'string']): [('string', lambda x: x), ('uri', lambda x: x)],
             }
 
 def combine_xule_types(left, right, xule_context):
@@ -3786,13 +3828,15 @@ def combine_xule_types(left, right, xule_context):
     else:
         type_map = TYPE_MAP.get(frozenset([left_type, right_type]))
         
-        if type_map:
-            if type_map[1] != left_type:
+        if type_map is not None:
+            type_map = type_map[0]
+        
+            if type_map[0] != left_type:
                 left_compute_value = type_map[1](str(left_value))
             else:
                 left_compute_value = left_value
             
-            if type_map[1] != right_type:
+            if type_map[0] != right_type:
                 right_compute_value = type_map[1](str(right_value))
             else:
                 right_compute_value = right_value
@@ -3819,6 +3863,49 @@ def get_type_and_compute_value(result, xule_context):
             raise XuleProcessingError(_("Do not have map to convert system type '%s' to xule type." % type(result.value.xValue).__name__), xule_context)
     else:
         return result.type, result.value
+
+
+def xule_castable(from_result, to_type, xule_context):
+    from_type, from_value = get_type_and_compute_value(from_result, xule_context)
+    
+    if from_type == to_type:
+        return True
+    
+    type_map = TYPE_MAP.get((frozenset([from_type, to_type])))
+    if type_map is None:
+        return False
+    else:
+        if type_map[0][0] == to_type:
+            return True
+        else:
+            if len(type_map) > 1:
+                if type_map[1][0] == to_type:
+                    return True
+                else:
+                    return False
+            else:
+                return False
+
+def xule_cast(from_result, to_type, xule_context):
+    from_type, from_value = get_type_and_compute_value(from_result, xule_context)
+    
+    if from_type == to_type:
+        return from_value
+    
+    type_map = TYPE_MAP.get((frozenset([from_type, to_type])))
+    if type_map is None:
+        raise XuleProcessingError(_("Type '%s' is not castable to '%s'" % (from_type, to_type)), xule_context)
+    else:
+        if type_map[0][0] == to_type:
+            return type_map[0][1](from_value)
+        else:
+            if len(type_map) > 1:
+                if type_map[1][0] == to_type:
+                    return type_map[1][1](from_value)
+                else:
+                    raise XuleProcessingError(_("Type '%s' is not castable to '%s'" % (from_type, to_type)), xule_context)
+            else:
+                raise XuleProcessingError(_("Type '%s' is not castable to '%s'" % (from_type, to_type)), xule_context)
 
 '''IMPLEMENT BIND'''        
 def align_result_sets(left, right, xule_context, align_only=False, use_defaults='both', require_binding=True):
@@ -4107,7 +4194,7 @@ def prepare_args(args, left_result, xule_context):
         current_arg_rs = evaluate(arg_expr[0], xule_context)
         
         
-        print("Prep arg[%i] count %i" % (i, len(current_arg_rs.results)))
+        #print("Prep arg[%i] count %i" % (i, len(current_arg_rs.results)))
         #align the argument result sets as they ar evaluated
         aligned_current_arg_rs = XuleResultSet()
         
@@ -4118,7 +4205,7 @@ def prepare_args(args, left_result, xule_context):
             combined['right'].vars = combined['vars']
             aligned_current_arg_rs.append(combined['right'])
 
-        print("Prep arg[%i] count after %i" %(i, len(aligned_current_arg_rs.results)))
+        #print("Prep arg[%i] count after %i" %(i, len(aligned_current_arg_rs.results)))
         i += 1
 
         #reset the left_arg_rs to align the next argument
@@ -4399,3 +4486,7 @@ def get_tree_location(model_fact):
         prev_location = "/1"
     
     return prev_location + "/" + str(model_fact._elementSequence)
+
+def caller():
+    import inspect
+    print(inspect.stack()[2][3])

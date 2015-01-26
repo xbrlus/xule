@@ -326,14 +326,3 @@ class XuleRuleSet(object):
             return os.path.join(self.location, 'base_taxonomy', self.catalog['rules_dts_location'])
         else:
             return None
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        

@@ -6,6 +6,7 @@ Copyright (c) 2014 XBRL US Inc. All rights reserved
 from .XuleParser import parseRules
 from .XuleProcessor import process_xule, XuleProcessingError
 from .XuleRuleSet import XuleRuleSet, XuleRuleSetError
+from .XuleContext import XuleGlobalContext
 from optparse import OptionParser, SUPPRESS_HELP
 
 
@@ -63,6 +64,11 @@ def xuleCmdOptions(parser):
                      action="store_true",
                      dest="xule_crash",
                      help=_("Ouptut trace information."))
+    
+    parser.add_option("--xule-server",
+                     action="store",
+                     dest="xule_server",
+                     help=_("Launch the webserver."))
 
 def xuleCmdUtilityRun(cntlr, options, **kwargs):  
     #check option combinations
@@ -78,6 +84,9 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
     if getattr(options, "xule_compile", None):
         compile_destination = getattr(options, "xule_rule_set", "xuleRules")        
         parseRules(options.xule_compile.split("|"),compile_destination)
+        
+    if getattr(options, "xule_server", None) is not None and not getattr(options, 'xule_rule_set', None):
+            parser.error(_("--xule-rule-set is required with --webserver."))
 
     #add taxonomy to rule set
     if getattr(options, "xule_add_taxonomy", None):
@@ -90,6 +99,19 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
         rule_set.addTaxonomy(options.xule_add_taxonomy, options.xule_taxonomy_entry)
 
         rule_set.close()
+        
+    if getattr(options, "xule_server", None):
+        try:
+            rule_set = XuleRuleSet()
+            rule_set.open(options.xule_rule_set)
+        except XuleRuleSetError:
+            raise
+
+        global_context = XuleGlobalContext(rule_set, cntlr=cntlr)
+        
+        # Add options to the cntlr to pass to XuleServer
+        setattr(cntlr, "xule_options", options)
+        
         
 def xuleCmdXbrlLoaded(cntlr, options, modelXbrl):
     
