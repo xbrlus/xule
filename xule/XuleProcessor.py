@@ -555,13 +555,33 @@ def evaluate_comp(comp_expr, xule_context):
 def evaluate_not(not_expr, xule_context):
     
     not_result_set = XuleResultSet()
-    for expr_result in evaluate(not_expr[0], xule_context):
+    expr_result_set = evaluate(not_expr[0], xule_context)
+    for expr_result in expr_result_set:
         not_result_set.append(XuleResult(expr_result.value if expr_result.type in ('unbound', 'none') else not expr_result.value, 
                                          expr_result.type, 
                                          expr_result.alignment,
                                          expr_result.tags,
                                          expr_result.facts,
                                          expr_result.vars))
+    
+    
+# Thought that the 'not'expression should look at the default if there are not results. This was to handle 'not exists(factset[])'. But decided to have the exists and missing
+# functions put a result in the reuslt set if there are no results. This is simulare to count and sum.
+#     if len(expr_result_set.results) == 0:
+#         if expr_result_set.default.type == 'bool':
+#             not_result_set.append(XuleResult(not expr_result_set.default.value, 'bool',
+#                                              expr_result_set.default.alignment,
+#                                              expr_result_set.default.tags,
+#                                              expr_result_set.default.facts,
+#                                              expr_result_set.default.vars))
+#     else:        
+#         for expr_result in expr_result_set:
+#             not_result_set.append(XuleResult(expr_result.value if expr_result.type in ('unbound', 'none') else not expr_result.value, 
+#                                              expr_result.type, 
+#                                              expr_result.alignment,
+#                                              expr_result.tags,
+#                                              expr_result.facts,
+#                                              expr_result.vars))
     return not_result_set 
 
 def evaluate_and(and_expr, xule_context):
@@ -1323,6 +1343,10 @@ def evaluate_factset(factset, xule_context):
             #convert the results to the underlying values
             member_values, aspect_member_alignments = convert_results_to_values(member_results, aspect_info[TYPE], aspect_info[ASPECT], xule_context)
             member_alignments += aspect_member_alignments
+            '''When the aspect key is not in the fact index, then the instance doesn't use this aspect (dimension). So create an entry for the 'None' key and put all the facts in it.'''
+            if aspect_key not in xule_context.fact_index:
+                xule_context.fact_index[aspect_key][None] = xule_context.model.factsInInstance
+            
             found_members = member_values & xule_context.fact_index[aspect_key].keys()
             
             for member in found_members:
@@ -2317,9 +2341,15 @@ def func_exists(xule_context, *args):
         if item.alignment is None:
             has_unaligned_result = True
             
-    if not has_unaligned_result:
-        final_result_set.default = XuleResult(False, 'bool')
-        
+#     if not has_unaligned_result:
+#         final_result_set.default = XuleResult(False, 'bool')
+    
+    if not has_unaligned_result:     
+        if len(final_result_set.results) == 0 :
+            final_result_set.append(XuleResult(False, 'bool'))
+        else:
+            final_result_set.default = XuleResult(False, 'bool')
+    
     return final_result_set
 
 def func_missing(xule_context, *args):
@@ -2334,9 +2364,15 @@ def func_missing(xule_context, *args):
         if item.alignment is None:
             has_unaligned_result = True
     
-    if not has_unaligned_result:
-        #there wasn't a result where there was no alignment, need to create a default one
-        final_result_set.default = XuleResult(True, 'bool')
+#     if not has_unaligned_result:
+#         #there wasn't a result where there was no alignment, need to create a default one
+#         final_result_set.default = XuleResult(True, 'bool')
+        
+    if not has_unaligned_result:     
+        if len(final_result_set.results) == 0 :
+            final_result_set.append(XuleResult(True, 'bool'))
+        else:
+            final_result_set.default = XuleResult(True, 'bool')        
         
     return final_result_set  
 
@@ -3846,7 +3882,12 @@ def combine_xule_types(left, right, xule_context):
             #raise XuleProcessingError(_("Incompatable types: '%s' and '%s'" % (left_type, right_type)), xule_context)
             
             #this was 'unknown'.
-            return ('unbound', left_value, right_value)
+            if left_type in ('unbound', 'none'):
+                return (right_type, left_value, right_value)
+            elif right_type in ('unbound', 'none'):
+                return (left_type, left_value, right_value)
+            else:
+                return ('unbound', left_value, right_value)
 
 def get_type_and_compute_value(result, xule_context):
     if result.type == 'fact':
@@ -3941,22 +3982,45 @@ def align_result_sets(left, right, xule_context, align_only=False, use_defaults=
 
     def index_results_by_alignment(result_set):
         aligned_results = collections.defaultdict(list)
+        un_unit_aligned_results = collections.defaultdict(list)
+        no_unit_aligned_results = collections.defaultdict(list)
+        
         for res in result_set:
             hashed_alignment = hash_alignment(res.alignment)          
             aligned_results[hashed_alignment].append(res)
-        return aligned_results
+            '''Handling units in alignment'''
+            if res.alignment is not None:
+                if ('builtin', 'unit') in res.alignment:
+                    un_unit_alignment = {k:v for k, v in res.alignment.items() if k != ('builtin', 'unit')}
+                    hashed_un_unit_alignment = hash_alignment(un_unit_alignment)
+                    un_unit_aligned_results[hashed_un_unit_alignment].append(res)
+                else:
+                    no_unit_aligned_results[hashed_alignment].append(res)
+            
+        return aligned_results, no_unit_aligned_results, un_unit_aligned_results
 
-    left_indexed_results = index_results_by_alignment(left)
-    right_indexed_results = index_results_by_alignment(right)
+    left_indexed_results, left_no_unit_indexed_results, left_un_unit_indexed_results = index_results_by_alignment(left)
+    right_indexed_results, right_no_unit_indexed_results, right_un_unit_indexed_results = index_results_by_alignment(right)
     
-    combined_results = {}
+    combined_results = collections.defaultdict(list)
     for k in left_indexed_results.keys() | right_indexed_results.keys():
         left_key = k if k in left_indexed_results else hash(None)
         right_key = k if k in right_indexed_results else hash(None)
         
         if (left_key in left_indexed_results and right_key in right_indexed_results):
-            combined_results[k] = (left_indexed_results[left_key], right_indexed_results[right_key])
-            
+            combined_results[(k,0)] += (left_indexed_results[left_key], right_indexed_results[right_key])
+    '''Handling units in alignment -
+       If one side has units and other side does not, then these results can match. This is handled by created indexed results by 'no_unit' and 'un_unit'. The
+       'no_unit' dictionary only contains results where there is no unit in the alignment. The 'un_unit' dictionary only contains results where there is a unit
+       in the alignment, however, the key is rebuilte by removing the unit portion of the alignment. This will create an aligment that does not have unit. Thee two
+       dictionaries are then matched up with no_unit and un_unit for each side. This will find combinations where a result with a unit can match to a result without a unit.
+    '''
+    for k in left_un_unit_indexed_results.keys() & right_no_unit_indexed_results.keys():
+        combined_results[(k,1)] = (left_un_unit_indexed_results[k], right_no_unit_indexed_results[k])
+
+    for k in left_no_unit_indexed_results.keys() & right_un_unit_indexed_results.keys():
+        combined_results[(k,2)] = (left_no_unit_indexed_results[k], right_un_unit_indexed_results[k])
+        
 #     if len(right.results) > 1:
 #         print("ALINGMENT left: %i, left_indexed: %i, right: %i, right_indexed: %i, combined: %i, left has none %s, right has none %s" % (len(left.results), 
 #                                                                                                            len(left_indexed_results), 
