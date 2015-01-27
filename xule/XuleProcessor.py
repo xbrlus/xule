@@ -762,7 +762,7 @@ def evaluate_var_ref(var_ref, xule_context):
                 var_value_rs = var_info['value']
             else:
                 #first refererence to the variable, need to evaluate it.
-                var_value_rs = evaluate(var_info['expr'], xule_context)    
+                var_value_rs = evaluate(var_info['expr'], xule_context) 
                 xule_context.var_add_value(var_ref.varName, var_value_rs)
     
     #A copy is returned so the var reference can never be messed up
@@ -2601,6 +2601,7 @@ BUILTIN_FUNCTIONS = {'all': ('aggregate', agg_all, 1),
 #duration tuple
 DURATION_START = 0
 DURATION_END = 1
+
 
 #properties
 def property_dimension(xule_context, left_result, *args):

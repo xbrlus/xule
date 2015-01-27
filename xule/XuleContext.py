@@ -3,7 +3,7 @@ Created on Dec 16, 2014
 
 copywrite (c) 2014 XBRL US Inc. All rights reserved.
 '''
-from .XuleRunTime import XuleProcessingError
+from .XuleRunTime import XuleProcessingError, XuleResultSet, XuleResult
 from arelle import FileSource
 from arelle import ModelManager
 import datetime
@@ -172,8 +172,20 @@ class XuleRuleContext(object):
                 #this is the first time for the constant. Need to retrieve it from the catalog
                 cat_const =  self.global_context.catalog['constants'].get(var_name)
                 if not cat_const:
-                    #the constant is not in the catalog
-                    var_info = None
+                    if var_name in self._BUILTIN_CONSTANTS:
+                        var_value = self._BUILTIN_CONSTANTS[var_name](self)
+                        var_info = {"name": var_name,
+                                "index": var_name,
+                                "tag": None,
+                                "type": self._VAR_TYPE_CONSTANT,
+                                "expr": None,
+                                "calculated": True,
+                                "value": var_value,
+                                "contains_facts": False,
+                                "other_values": {}}
+                    else:
+                        #the constant is not in the catalog
+                        var_info = None
                 else:
                     ast_const = self.global_context.rule_set.getItem(cat_const)
                     var_info = {"name": var_name,
@@ -248,6 +260,16 @@ class XuleRuleContext(object):
     def get_rules_dts(self):
         return self.global_context.get_rules_dts()
     
+    
+    #built in constants
+    def _const_extension_ns(self):
+        for doc in self.model.modelDocument.hrefObjects:
+            if doc[0].elementQname.localName == 'schemaRef' and doc[0].elementQname.namespaceURI == 'http://www.xbrl.org/2003/linkbase':
+                return XuleResultSet(XuleResult(doc[1].targetNamespace, 'uri'))
+        
+        return XuleResultSet()
+    
+    _BUILTIN_CONSTANTS = {'extension_ns': _const_extension_ns}    
 
     #properties from the global_context   
     @property
