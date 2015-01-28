@@ -3578,12 +3578,12 @@ def match_period(model_fact, aspect_info, period_result, xule_context):
     elif period_result.type == 'instant':
         if not model_fact.context.isInstantPeriod:
             return False
-        if period_result.value != model_fact.context.endDatetime - datetime.timedelta(days=1):
+        if period_result.value != model_fact.context.endDatetime: # - datetime.timedelta(days=1):
             return False
     elif period_result.type == 'duration':
         if model_fact.context.isStartEndPeriod:
             if (period_result.value[DURATION_START] != model_fact.context.startDatetime or 
-                period_result.value[DURATION_END] != model_fact.context.endDatetime - datetime.timedelta(days=1)):
+                period_result.value[DURATION_END] != model_fact.context.endDatetime): # - datetime.timedelta(days=1)):
                 return False
         elif model_fact.context.isForeverPeriod:
             if (period_result.value[DURATION_START] != datetime.datetime.min or 
@@ -3738,9 +3738,9 @@ def model_to_xule_model_g_year_month(model_g_year_month, xule_context):
 
 def model_to_xule_period(model_context, xule_context):
     if model_context.isStartEndPeriod:
-        return (model_context.startDatetime, model_context.endDatetime - datetime.timedelta(days=1))
+        return (model_context.startDatetime, model_context.endDatetime)# - datetime.timedelta(days=1))
     elif model_context.isInstantPeriod:
-        return model_context.endDatetime - datetime.timedelta(days=1)
+        return model_context.endDatetime # - datetime.timedelta(days=1)
     elif model_context.isForeverPeriod:
         return (datetime.datetime.min(), datetime.datetime.max)
     else:

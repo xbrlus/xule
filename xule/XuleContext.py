@@ -167,36 +167,36 @@ class XuleRuleContext(object):
         except StopIteration:
             #this exceptions happens if there is no mathcing variable name
             #Now look in constants
-            var_info = self.global_context._constants.get(var_name)
-            if not var_info:
-                #this is the first time for the constant. Need to retrieve it from the catalog
-                cat_const =  self.global_context.catalog['constants'].get(var_name)
-                if not cat_const:
-                    if var_name in self._BUILTIN_CONSTANTS:
-                        var_value = self._BUILTIN_CONSTANTS[var_name](self)
-                        var_info = {"name": var_name,
-                                "index": var_name,
-                                "tag": None,
-                                "type": self._VAR_TYPE_CONSTANT,
-                                "expr": None,
-                                "calculated": True,
-                                "value": var_value,
-                                "contains_facts": False,
-                                "other_values": {}}
-                    else:
+            if var_name in self._BUILTIN_CONSTANTS:
+                var_value = self._BUILTIN_CONSTANTS[var_name](self)
+                var_info = {"name": var_name,
+                        "index": var_name,
+                        "tag": None,
+                        "type": self._VAR_TYPE_CONSTANT,
+                        "expr": None,
+                        "calculated": True,
+                        "value": var_value,
+                        "contains_facts": False,
+                        "other_values": {}}
+            else:
+                var_info = self.global_context._constants.get(var_name)
+                if not var_info:
+                    #this is the first time for the constant. Need to retrieve it from the catalog
+                    cat_const =  self.global_context.catalog['constants'].get(var_name)
+                    if not cat_const:
                         #the constant is not in the catalog
                         var_info = None
-                else:
-                    ast_const = self.global_context.rule_set.getItem(cat_const)
-                    var_info = {"name": var_name,
-                                "index": var_name,
-                                "tag": None,
-                                "type": self._VAR_TYPE_CONSTANT,
-                                "expr": ast_const.expr[0],
-                                "calculated": False,
-                                "contains_facts": False,
-                                "other_values": {}}
-                    self.global_context._constants[var_name] = var_info
+                    else:
+                        ast_const = self.global_context.rule_set.getItem(cat_const)
+                        var_info = {"name": var_name,
+                                    "index": var_name,
+                                    "tag": None,
+                                    "type": self._VAR_TYPE_CONSTANT,
+                                    "expr": ast_const.expr[0],
+                                    "calculated": False,
+                                    "contains_facts": False,
+                                    "other_values": {}}
+                        self.global_context._constants[var_name] = var_info
         
         return var_info
 
