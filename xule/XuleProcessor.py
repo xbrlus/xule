@@ -390,9 +390,49 @@ def evaluate_unary(unary_expr, xule_context):
                                                    expr_result.facts,
                                                    expr_result.vars))                
                 #expr_result.value = expr_result.value if expr_result.type in ('unbound', 'none') else expr_result.value * -1 
+        #pass the default forward
+        if unary_result_set.default.type in ('int', 'float', 'decimal'):
+            final_result_set.default = unary_result_set.default
+            final_result_set.default.value = -1 * final_result_set.default.value
         return final_result_set
     else:
         return unary_result_set
+
+def evaluate_not(not_expr, xule_context):
+    
+    not_result_set = XuleResultSet()
+    expr_result_set = evaluate(not_expr[0], xule_context)
+    for expr_result in expr_result_set:
+        not_result_set.append(XuleResult(expr_result.value if expr_result.type in ('unbound', 'none') else not expr_result.value, 
+                                         expr_result.type, 
+                                         expr_result.alignment,
+                                         expr_result.tags,
+                                         expr_result.facts,
+                                         expr_result.vars))
+    #pass the default forward
+    if expr_result_set.default.type == 'bool':
+        not_result_set.default = expr_result_set.default
+        not_result_set.default.value = not not_result_set.default.value
+    
+# Thought that the 'not'expression should look at the default if there are not results. This was to handle 'not exists(factset[])'. But decided to have the exists and missing
+# functions put a result in the reuslt set if there are no results. This is simulare to count and sum.
+#     if len(expr_result_set.results) == 0:
+#         if expr_result_set.default.type == 'bool':
+#             not_result_set.append(XuleResult(not expr_result_set.default.value, 'bool',
+#                                              expr_result_set.default.alignment,
+#                                              expr_result_set.default.tags,
+#                                              expr_result_set.default.facts,
+#                                              expr_result_set.default.vars))
+#     else:        
+#         for expr_result in expr_result_set:
+#             not_result_set.append(XuleResult(expr_result.value if expr_result.type in ('unbound', 'none') else not expr_result.value, 
+#                                              expr_result.type, 
+#                                              expr_result.alignment,
+#                                              expr_result.tags,
+#                                              expr_result.facts,
+#                                              expr_result.vars))
+    return not_result_set 
+
 
 def evaluate_mult(mult_expr, xule_context):
     ''' This handles both multiplication and division '''
@@ -552,37 +592,7 @@ def evaluate_comp(comp_expr, xule_context):
                 
     return left_rs
 
-def evaluate_not(not_expr, xule_context):
-    
-    not_result_set = XuleResultSet()
-    expr_result_set = evaluate(not_expr[0], xule_context)
-    for expr_result in expr_result_set:
-        not_result_set.append(XuleResult(expr_result.value if expr_result.type in ('unbound', 'none') else not expr_result.value, 
-                                         expr_result.type, 
-                                         expr_result.alignment,
-                                         expr_result.tags,
-                                         expr_result.facts,
-                                         expr_result.vars))
-    
-    
-# Thought that the 'not'expression should look at the default if there are not results. This was to handle 'not exists(factset[])'. But decided to have the exists and missing
-# functions put a result in the reuslt set if there are no results. This is simulare to count and sum.
-#     if len(expr_result_set.results) == 0:
-#         if expr_result_set.default.type == 'bool':
-#             not_result_set.append(XuleResult(not expr_result_set.default.value, 'bool',
-#                                              expr_result_set.default.alignment,
-#                                              expr_result_set.default.tags,
-#                                              expr_result_set.default.facts,
-#                                              expr_result_set.default.vars))
-#     else:        
-#         for expr_result in expr_result_set:
-#             not_result_set.append(XuleResult(expr_result.value if expr_result.type in ('unbound', 'none') else not expr_result.value, 
-#                                              expr_result.type, 
-#                                              expr_result.alignment,
-#                                              expr_result.tags,
-#                                              expr_result.facts,
-#                                              expr_result.vars))
-    return not_result_set 
+
 
 def evaluate_and(and_expr, xule_context):
     ''' If any operand evaluates to none, the and expressiion will result to false. 
@@ -767,6 +777,7 @@ def evaluate_var_ref(var_ref, xule_context):
     
     #A copy is returned so the var reference can never be messed up
     copy_rs = XuleResultSet()
+    copy_rs.default = var_value_rs.default
     for res in var_value_rs:
         #copy_result = XuleResult(res.value, res.type, res.alignment, res.tags, res.facts, res.vars)
         copy_result = res.dup()
@@ -4195,6 +4206,7 @@ def prepare_property_args(left_rs, args, xule_context):
                         
     '''
     left_arg_rs = XuleResultSet()
+    left_arg_rs.default = left_rs.default
     for left_result in left_rs:
         #copy_left_result = XuleResult(left_result.value, left_result.type, left_result.alignment, left_result.tags, left_result.facts, left_result.vars)
         copy_left_result = left_result.dup()
