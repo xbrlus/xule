@@ -79,15 +79,15 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
 
     if  getattr(options, "xule_run", None) and not getattr(options, 'xule_rule_set', None):
             parser.error(_("--xule-rule-set is requrired with --xule-run."))
-    
+
+    if getattr(options, "xule_server", None) is not None and not getattr(options, 'xule_rule_set', None):
+            parser.error(_("--xule-rule-set is required with --webserver."))    
+
     #compile rules
     if getattr(options, "xule_compile", None):
         compile_destination = getattr(options, "xule_rule_set", "xuleRules")        
         parseRules(options.xule_compile.split("|"),compile_destination)
         
-    if getattr(options, "xule_server", None) is not None and not getattr(options, 'xule_rule_set', None):
-            parser.error(_("--xule-rule-set is required with --webserver."))
-
     #add taxonomy to rule set
     if getattr(options, "xule_add_taxonomy", None):
         try:
@@ -108,6 +108,7 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
             raise
 
         global_context = XuleGlobalContext(rule_set, cntlr=cntlr)
+        global_context.get_rules_dts() 
         
         # Add options to the cntlr to pass to XuleServer
         setattr(cntlr, "xule_options", options)

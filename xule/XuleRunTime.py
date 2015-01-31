@@ -113,7 +113,7 @@ class XuleResultSet:
 #             hashed_alignment = hash(None if result.alignment is None else (frozenset(result.alignment), frozenset(result.alignment.values()))) 
 #             self.results_by_alignment[hashed_alignment].append(result)
         else:
-            raise XuleProcessingError(_("XuleResultSet can only contain XuleResults. Received '%'." % type(result)))
+            raise XuleProcessingError(_("XuleResultSet can only contain XuleResults. Received '%s'." % type(result)))
         
     def append(self, results):
         if hasattr(results, '__iter__'):

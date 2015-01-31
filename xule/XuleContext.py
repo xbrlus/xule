@@ -28,8 +28,8 @@ class XuleGlobalContext(object):
         self.crash_on_error = False
         self.function_cache = {}
         
-        if getattr(self.cntlr, "base_taxonomy", None) is None:
-            self.get_rules_dts()        
+        #if getattr(self.cntlr, "base_taxonomy", None) is None:
+        #    self.get_rules_dts()        
         
     @property
     def catalog(self):
