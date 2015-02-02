@@ -1,4 +1,5 @@
 import collections
+import copy
 
 class XuleProcessingError(Exception):
     def __init__(self, msg, xule_context=None):
@@ -12,23 +13,79 @@ class XuleProcessingError(Exception):
             return self.msg
         
 class XuleResult:
-    def __init__(self, value, value_type='unknown', alignment=None, tags=None, facts=None, var_refs=None):
+    def __init__(self, value, value_type='unknown', *args, meta=None, alignment=None, tags=None, facts=None, var_refs=None, from_model=False):
+        if len(args) != 0:
+            import inspect
+            print(inspect.stack()[1][3])
+            raise XuleProcessingError(_("Internal error, recieved unamed argument to XuleResult __init__"))
+        
         self.value = value
         self.type = value_type
         #This the common aspects for fact alignment
-        self.alignment = alignment
-        self.facts = facts if facts else []
-        self.tags = tags if tags else {}
+        if meta is not None:
+            self.meta = meta
+        else:
+            self.meta = [alignment, 
+                         tags if tags else {}, 
+                         facts if facts else [], 
+                         var_refs if var_refs else {}, 
+                         from_model]
+        #self.alignment = alignment
+        #self.facts = facts if facts else []
+        #self.tags = tags if tags else {}
         self.trace = []
         '''A varible on a result is a reference to the variable in the processing context and the index of the result
            that contains the value. This is a dictionary indexed by the position in the context variable stack, with the value
            being the result index.'''
-        self.vars = var_refs if var_refs else {}
+        #self.vars = var_refs if var_refs else {}
+        #self.from_model = from_model
 
     ''' 
     def __str__(self):
         return "(%s)%s" % (self.type, self.value)
     '''
+    #Meta data constants
+    _ALIGNMENT = 0
+    _TAGS = 1
+    _FACTS = 2
+    _VARS = 3
+    _FROM_MODEL = 4
+
+    @property
+    def alignment(self):
+        return self.meta[self._ALIGNMENT]
+    @alignment.setter
+    def alignment(self, value):
+        self.meta[self._ALIGNMENT] = value
+    
+    @property
+    def tags(self):
+        return self.meta[self._TAGS]
+    @tags.setter
+    def tags(self, value):
+        self.meta[self._TAGS] = value
+    
+    @property
+    def facts(self):
+        return self.meta[self._FACTS]
+    @facts.setter
+    def facts(self, value):
+        self.meta[self._FACTS] = value
+
+    @property
+    def vars(self):
+        return self.meta[self._VARS]
+    @vars.setter
+    def vars(self, value):
+        self.meta[self._VARS] = value
+
+    @property
+    def from_model(self):
+        return self.meta[self._FROM_MODEL]
+    @from_model.setter
+    def from_model(self, value):
+        self.meta[self._FROM_MODEL] = value
+
 
     def add_fact(self, fact):
         self.fact.append(fact)
@@ -44,7 +101,12 @@ class XuleResult:
             del self.vars[var_index]
     
     def dup(self):
-        new_result = XuleResult(self.value, self.type, self.alignment, self.tags, self.facts, self.vars)
+        new_result = XuleResult(self.value, self.type, 
+                                alignment=copy.deepcopy(self.alignment),
+                                tags=self.tags,
+                                facts=self.facts,
+                                var_refs=self.vars,
+                                from_model=self.from_model)
         if hasattr(self, 'original_result'):
             new_result.original_result = self.original_result
         
