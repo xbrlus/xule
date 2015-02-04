@@ -60,7 +60,10 @@ def evaluate_rule_set(global_context):
                 evaluate(rule, xule_context)
 
             except XuleProcessingError as e:
-                xule_context.model.error("xule:error",str(e))
+                if global_context.crash_on_error:
+                    raise
+                else:
+                    xule_context.model.error("xule:error",str(e))
             
             except Exception as e:
                 if global_context.crash_on_error:
@@ -246,7 +249,6 @@ def evaluate_formula(formula_rule, xule_context):
     for var_assignment in var_assignments[::-1]:
         xule_context.del_var(var_assignment.varName, right_result_set)    
   
-    
     for combine in align_result_sets(left_result_set, right_result_set, xule_context, require_binding=False):
         left_type, left_value = get_type_and_compute_value(combine['left'], xule_context)
         right_type, right_value = get_type_and_compute_value(combine['right'], xule_context)
@@ -617,106 +619,161 @@ def evaluate_and(and_expr, xule_context):
 
     '''THIS IS THE LAZY VERSION 2015-01-09'''
     left_result_set = evaluate(and_expr[0], xule_context)
-    return lazy_iteration_start(left_result_set, and_expr[1:], lambda l, r: l and r, False, xule_context)
+    return lazy_iteration_new(left_result_set, and_expr[1:], boolean_and, False, xule_context)
 
-def lazy_iteration_start(left_result_set, operand_exprs, operation_function, stop_value, xule_context):
-    final_result_set = XuleResultSet()
-    
-    matched_alignments = []
-    for left_result in left_result_set:
-        lazy_result_set, matched_alignments = lazy_iteration(left_result, False, matched_alignments, operand_exprs, operation_function, stop_value, xule_context)
-        final_result_set.append(lazy_result_set)
-    
-    final_result_set.append(lazy_iteration(left_result_set.default, True, matched_alignments, operand_exprs, operation_function, stop_value, xule_context))
-    
-    return final_result_set    
-    
-def lazy_iteration(left_result, is_left_default, matched_alignments, operand_exprs, operation_function, stop_value, xule_context):
-    
-    final_result_set = XuleResultSet()
-
-    left_type, left_value = get_type_and_compute_value(left_result, xule_context)
-    if left_value is None:
-        if not is_left_default:
-            final_result_set.append(XuleResult(None, 'unbound', 
-                                               meta=left_result.meta
-#                                                left_result.alignment, 
-#                                                left_result.tags, 
-#                                                left_result.facts,
-#                                                left_result.vars
-                                               ))
-            matched_alignments.append(left_result.alignment)
+def boolean_and(left, right):
+    if left is not None and right is not None:
+        return left and right
+    elif left is None and right is None:
+        return None
     else:
-        if left_value == stop_value and not is_left_default:
-            #stop for this result
-            final_result_set.append(XuleResult(stop_value, 'bool',
-                                               meta=left_result.meta 
-#                                                left_result.alignment, 
-#                                                left_result.tags, 
-#                                                left_result.facts,
-#                                                left_result.vars
-                                               ))
-            if not is_left_default:
-                matched_alignments.append(left_result.alignment)
-        else:
-            #'''DONT PUSH THE FILTER. LET THE ALGIN DO THE FILTERING.'''
-            #push the filter and evaluate the right
-#             if left_result.alignment is not None:
-#                 xule_context.filter_add('other', alignment_to_aspect_info(left_result.alignment, xule_context))
-
-            right_expr = operand_exprs[0]
-
-            '''Add the single value left resulte variables'''   
-            single_vars = push_single_value_variables(left_result.vars, xule_context)       
-            right_result_set = evaluate(right_expr, xule_context)            
-            '''Will pop at the end of this iteration'''
-            
-#             if left_result.alignment is not None:
-#                 xule_context.filter_del()
-    
-            new_left_result_set = XuleResultSet()
-            
-            for combine in align_result_sets(XuleResultSet(left_result), right_result_set, xule_context, use_defaults='none' if is_left_default else 'right'):            
-                right_result = combine['right']
-                right_value = combine['right_compute_value']
-
-                if right_value is None:
-                    if not is_left_default:
-                        new_left_result_set.append(XuleResult(None, 'unbound', 
-                                                              meta=combine['meta']
-#                                                               combine['alignment'],
-#                                                               combine['tags'],
-#                                                               combine['facts'],
-#                                                               combine['vars']
-                                                              ))
-                        matched_alignments.append(right_result.alignment)
-                else:
-                    if not is_left_default or (is_left_default and combine['alignment'] not in matched_alignments):
-                        new_left_result_set.append(XuleResult(operation_function(left_value, right_value),
-                                                              'bool',
-                                                              #combine_alignment(left_result, right_result),
-                                                              #combine_tags(left_result, right_result))
-                                                              meta=combine['meta']
-#                                                               combine['alignment'],
-#                                                               combine['tags'],
-#                                                               combine['facts'],
-#                                                               combine['vars']
-                                                              ))                        
-                        if not is_left_default:
-                            matched_alignments.append(combine['alignment'])
-            
-            if len(operand_exprs) > 1:
-                final_result_set.append(lazy_iteration_start(new_left_result_set, operand_exprs[1:], operation_function, stop_value, xule_context))
+        #one is none
+        if left is None:
+            if right == False:
+                return False
             else:
-                final_result_set.append(new_left_result_set)
-            
-            '''Remove the pushed single value left result variables.'''
-            pop_single_value_variables(single_vars, right_result_set, xule_context) 
+                return None
+        else:
+            if left == False:
+                return False
+            else:
+                return None
+
+
+def lazy_iteration_new(left_result_set, right_exprs, operation_function, stop_value, xule_context):
+    final_result_set = XuleResultSet()
+    new_left_result_set = XuleResultSet()
     
-    if not is_left_default:        
-        return final_result_set, matched_alignments
-    else:
-        return final_result_set
+    #track the alignments that processed on the left.
+    left_alignments = collections.defaultdict(lambda : {'all': 0, 'stopped': 0})
+    
+    for left_result in left_result_set:
+        alignment_key = None if left_result.alignment is None else frozenset(left_result.alignment.items())
+        left_alignments[alignment_key]['alignment'] = left_result.alignment
+        left_alignments[alignment_key]['all'] += 1
+        left_type, left_value = get_type_and_compute_value(left_result, xule_context)
+        if left_value == stop_value:
+            final_result_set.append(left_result)
+            left_alignments[alignment_key]['stopped'] += 1
+        else:
+            new_left_result_set.append(left_result)
+    
+    final_result_set.default = left_result_set.default
+    new_left_result_set.default = left_result_set.default
+
+    for alignment_key, alignment_counts in left_alignments.items():
+        if alignment_counts['all'] == alignment_counts['stopped']:
+            #this alignment is no longer need in the evaluatin of the right
+            xule_context.alignment_filters.append(None if alignment_key is None else dict(alignment_key))
+    
+    if len(right_exprs) > 0:
+        right_expr = right_exprs[0]       
+        right_result_set = evaluate(right_expr, xule_context)
+        
+        interim_result_set = XuleResultSet()
+        for combined in align_result_sets(new_left_result_set, right_result_set, xule_context, require_binding=False, use_defaults='left' if len(new_left_result_set.results) == 0 else 'both'):
+            interim_result_set.append(lazy_iteration_combine(combined, operation_function, xule_context))
+        
+        interim_result_set.default = lazy_iteration_combine(combine_defaults(new_left_result_set, right_result_set, xule_context), operation_function, xule_context)
+           
+        if len(right_exprs) > 1:
+            next_iteration_result_set = lazy_iteration_new(interim_result_set, right_exprs[1:], operation_function, stop_value, xule_context)
+            final_result_set.append(next_iteration_result_set)
+            final_result_set.default = next_iteration_result_set.default
+        else:
+            final_result_set.append(interim_result_set)
+            final_result_set.defaul = interim_result_set.default
+    
+    #reset the alignment filters
+    xule_context.alignment_filters = []
+    
+    return final_result_set
+
+def lazy_iteration_combine(combined, operation_function, xule_context):
+    new_value = operation_function(combined['left_compute_value'], combined['right_compute_value'])
+    return XuleResult(new_value,
+                                         'unbound' if new_value is None else 'bool',
+                                         meta=combined['meta'])    
+
+# def lazy_iteration_start(left_result_set, operand_exprs, operation_function, stop_value, xule_context):
+#     final_result_set = XuleResultSet()
+#      
+#     has_unaligned_results = False
+#     matched_alignments = []
+#     for left_result in left_result_set:
+#         if left_result.alignment is None:
+#             has_unaligned_results = True
+#         lazy_result_set, matched_alignments = lazy_iteration(left_result, False, matched_alignments, operand_exprs, operation_function, stop_value, xule_context)
+#         final_result_set.append(lazy_result_set)
+#      
+#     if not has_unaligned_results:
+#         final_result_set.append(lazy_iteration(left_result_set.default, True, matched_alignments, operand_exprs, operation_function, stop_value, xule_context))
+#      
+#     return final_result_set    
+#      
+# def lazy_iteration(left_result, is_left_default, matched_alignments, operand_exprs, operation_function, stop_value, xule_context):
+#      
+#     final_result_set = XuleResultSet()
+#  
+#     left_type, left_value = get_type_and_compute_value(left_result, xule_context)
+#      
+# #     if left_value is None:
+# #         final_result_set.append(XuleResult(None, 'unbound', meta=left_result.meta))
+# #         if not is_left_default:
+# #             matched_alignments.append(left_result.alignment)
+# #     
+# #     else:
+#  
+#     if left_value == stop_value and not is_left_default:
+#         #stop for this result
+#         final_result_set.append(XuleResult(stop_value, 'bool',
+#                                            meta=left_result.meta 
+#                                            ))
+#         if not is_left_default:
+#             matched_alignments.append(left_result.alignment)
+#     else:
+#         #'''DONT PUSH THE FILTER. LET THE ALGIN DO THE FILTERING.'''
+#         #push the filter and evaluate the right
+# #             if left_result.alignment is not None:
+# #                 xule_context.filter_add('other', alignment_to_aspect_info(left_result.alignment, xule_context))
+#  
+#         right_expr = operand_exprs[0]
+#  
+#         '''Add the single value left resulte variables'''   
+#         single_vars = push_single_value_variables(left_result.vars, xule_context)       
+#         right_result_set = evaluate(right_expr, xule_context)            
+#         '''Will pop at the end of this iteration'''
+#          
+# #             if left_result.alignment is not None:
+# #                 xule_context.filter_del()
+#  
+#         new_left_result_set = XuleResultSet()
+#          
+#         for combine in align_result_sets(XuleResultSet(left_result), right_result_set, xule_context, require_binding=False, use_defaults='none' if is_left_default else 'right'):            
+#             right_result = combine['right']
+#             right_value = combine['right_compute_value']
+#              
+#             if not is_left_default or (is_left_default and combine['alignment'] not in matched_alignments):
+#                 combined_value = operation_function(left_value, right_value)
+#                 new_left_result_set.append(XuleResult(combined_value,
+#                                                       'unbound' if combined_value is None else 'bool',
+#                                                       meta=combine['meta']
+#                                                       ))                        
+#                 if not is_left_default:
+#                     matched_alignments.append(combine['alignment'])
+#          
+#         if len(operand_exprs) > 1:
+#             final_result_set.append(lazy_iteration_start(new_left_result_set, operand_exprs[1:], operation_function, stop_value, xule_context))
+#         else:
+#             final_result_set.append(new_left_result_set)
+#          
+#         '''Remove the pushed single value left result variables.'''
+#         pop_single_value_variables(single_vars, right_result_set, xule_context) 
+#      
+#     if not is_left_default:        
+#         return final_result_set, matched_alignments
+#     else:
+#         return final_result_set
 
 def evaluate_or(or_expr, xule_context): 
     ''' If any operand evaluates to none, the and expressiion will result to false. 
@@ -740,18 +797,27 @@ def evaluate_or(or_expr, xule_context):
 
 
     '''THIS IS THE LAZY VERSION 2015-01-09'''
-    final_result_set = XuleResultSet()
     left_result_set = evaluate(or_expr[0], xule_context)
-    
-    final_result_set.append(lazy_iteration_start(left_result_set, or_expr[1:], lambda l, r: l or r, True, xule_context))
-    
-#     if len(left_result_set.results) == 0:
-#         final_result_set.append(lazy_iteration(left_result_set.default, or_expr[1:], lambda l, r: l or r, True, xule_context))
-#     else:
-#         for left_result in left_result_set:
-#             final_result_set.append(lazy_iteration(left_result, or_expr[1:], lambda l, r: l or r, True, xule_context))
-#             
-    return final_result_set
+    return lazy_iteration_new(left_result_set, or_expr[1:], boolean_or, True, xule_context)
+
+def boolean_or(left, right):
+    if left is not None and right is not None:
+        return left or right
+    elif left is None and right is None:
+        return None
+    else:
+        #one is none
+        if left is None:
+            if right == False:
+                return None
+            else:
+                return True
+        else:
+            if left == False:
+                return None
+            else:
+                return True
+
 
 def evaluate_block(block_expr, xule_context):
     var_assignments = [i for i in block_expr if i.getName() == 'varAssign']
@@ -794,13 +860,22 @@ def evaluate_var_ref(var_ref, xule_context):
                 var_value_rs = var_info['value']
             else:
                 #first refererence to the variable, need to evaluate it.
+                #suspend any alignment_filters - want the variable to represent all the facts, the alignment filter will be used during the retrieval of the values.
+                saved_alignment_filters = xule_context.alignment_filters
+                xule_context.alignment_filters = []
                 var_value_rs = evaluate(var_info['expr'], xule_context) 
+                #restore the alignment filters
+                xule_context.alignment_filters = saved_alignment_filters
                 xule_context.var_add_value(var_ref.varName, var_value_rs)
     
     #A copy is returned so the var reference can never be messed up
     copy_rs = XuleResultSet()
     copy_rs.default = var_value_rs.default
     for res in var_value_rs:
+        #check if the result alignment is in the alignment filters
+        if res.alignment in xule_context.alignment_filters:
+            continue
+        
         #copy_result = XuleResult(res.value, res.type, res.alignment, res.tags, res.facts, res.vars)
         copy_result = res.dup()
         #this is backdoor to the original value
@@ -860,6 +935,12 @@ def evaluate_tagged(tagged_expr, xule_context):
     
     for result in result_set:
         result.add_tag(tagged_expr.tagName, result)
+    
+#     '''THIS WORKS FOR xxxx[]. NEED TO IMPLEMENT FOR [lineItem = xxx] AND THINK ABOUT [lineItem in (xxxx,xxxx)]'''
+#     if tagged_expr.expr[0].getName() == 'factset':
+#         if hasattr(tagged_expr.expr[0], 'lineItemAspect'):
+#             fact_name_rs = evaluate(tagged_expr.expr[0].lineItemAspect.qName, xule_context)
+#             result_set.default.add_tag(tagged_expr.tagName, fact_name_rs.results[0])
     
     return result_set
 
@@ -1417,7 +1498,6 @@ def evaluate_factset(factset, xule_context):
         aspect_member_alignment[(mem_align_aspect_type, mem_align_aspect)][mem_align_value ] += [mem_align_result.alignment]
     
     #start matching to facts
-    match_count = 0
     for model_fact in pre_matched_facts:
         '''There are two steps to matching facts. The first is to match the non_aglin_aspects. Then check the where clause.'''
         #Start by assuming the fact will be a match. the filtering will determine if it should be including in the final result set
@@ -1426,7 +1506,6 @@ def evaluate_factset(factset, xule_context):
         #check if nill
         if not xule_context.include_nils and model_fact.isNil:
             continue
-        
         
         '''The alignment is all the aspects that were not specified in the first part of the factset (non_align_aspects).'''
         #set up potential fact result
@@ -1467,11 +1546,10 @@ def evaluate_factset(factset, xule_context):
                     raise XuleProcessingError(_("Pushing 'with' filter alignment found unknown alignment '%s : %s'" % alignment_info), xule_context)
                 
                 alignment[alignment_info] = alignment_value           
-          
+        
         fact_result = XuleResult(model_fact, 'fact', alignment=alignment, facts=[model_fact])
-        
+
         #check if the fact matched any filters that had members that had alignment. In this case, the alignment must match
-        
         '''aspect_member_alignment'''
         for aspect_key, member_alignment in aspect_member_alignment.items():
             member_alignments = None
@@ -1603,8 +1681,11 @@ def evaluate_factset(factset, xule_context):
         if matched:
 #             print(model_fact.elementQname.localName + " " + str(model_fact.xValue))
 #             print("\n".join([str(x) for x in alignment.items()]))
-            results.append(fact_result)
-            match_count += 1
+
+            #check if the fact should be eliminated because of an alignment filter
+            if fact_result.alignment not in xule_context.alignment_filters:
+                results.append(fact_result)
+
     
     '''MAYBE THIS SHOULD ALWAYS PUT A DEFAULT UNBOUND RESULT IN?'''
     #return unbound if no facts matched    
@@ -1622,7 +1703,13 @@ def evaluate_factset(factset, xule_context):
 
 def evaluate_values(values_expr, xule_context):
     '''The values keywork effectively returns a factset that doesn't have alignment.'''
+    
+    #suspend the alignment filters
+    '''SHOULD WITH FILTERS ALSO BE SUSPENDED?'''
+    saved_alginment_filters = xule_context.alignment_filters
+    xule_context.alignment_filters = []
     factset_rs = evaluate(values_expr[0], xule_context)
+    xule_context.alignment_filters = saved_alginment_filters
     
     for result in factset_rs:
         result.alignment = None
@@ -1726,9 +1813,6 @@ def agg_all(xule_context, *args):
             
             new_meta = combine_result_meta(res, results_by_alignment[key])
             results_by_alignment[key].meta = new_meta
-#             results_by_alignment[key].tags = new_tags
-#             results_by_alignment[key].facts = new_facts
-#             results_by_alignment[key].vars = new_vars
             
             if compute_value == False:
                 results_by_alignment[key].value = False
@@ -1773,9 +1857,6 @@ def agg_any(xule_context, *args):
             
             new_meta= combine_result_meta(res, results_by_alignment[key])
             results_by_alignment[key].meta = new_meta
-#             results_by_alignment[key].tags = new_tags
-#             results_by_alignment[key].facts = new_facts
-#             results_by_alignment[key].vars = new_vars
             
             if compute_value == True:
                 results_by_alignment[key].value = True
@@ -1817,14 +1898,6 @@ def agg_sum(xule_context, *args):
                 for combined in align_result_sets(XuleResultSet(results_by_alignment[key]), XuleResultSet(res), xule_context):
                     results_by_alignment[key].value = combined['left_compute_value'] + combined['right_compute_value']
                     results_by_alignment[key].meta = combined['meta']
-#                     results_by_alignment[key].tags = combined['tags']
-#                     results_by_alignment[key].alignment = combined['alignment']
-#                     results_by_alignment[key].facts = combined['facts']
-#                     results_by_alignment[key].vars= combined['vars']
-                    
-    '''IF ARGS IS EMPTY WHAT SHOULD BE RETURNED: 0 DEFAULT OR UNBOUND?'''   
-#     if not has_unaligned_result:
-#         final_result_set.default = XuleResult(None, 'unbound')
                     
     for res in results_by_alignment.values():
         final_result_set.append(res)
@@ -1850,12 +1923,6 @@ def agg_first(xule_context, *args):
             else:
                 new_meta = combine_result_meta(res, results_by_alignment[key])
                 results_by_alignment[key].meta = new_meta
-#                 results_by_alignment[key].tags = new_tags
-#                 results_by_alignment[key].facts = new_facts
-#                 results_by_alignment[key].vars = new_vars
-
-#     if not has_unaligned_result:
-#         final_result_set.default = XuleResult(None, 'unbound')
                     
     for res in results_by_alignment.values():
         final_result_set.append(res)    
@@ -1884,9 +1951,6 @@ def agg_count(xule_context, *args):
                   
                 new_meta = combine_result_meta(res, results_by_alignment[key])
                 results_by_alignment[key].meta = new_meta  
-#                 results_by_alignment[key].tags = new_tags
-#                 results_by_alignment[key].facts = new_facts
-#                 results_by_alignment[key].vars = new_vars
 
     if not has_unaligned_result:     
         if len(results_by_alignment) == 0 :
@@ -1923,13 +1987,6 @@ def agg_max(xule_context, *args):
                     if combined['left_compute_value'] < combined['right_compute_value']:
                         results_by_alignment[key].value = combined['right'].value
                     results_by_alignment[key].meta = combined['meta']
-#                     results_by_alignment[key].tags = combined['tags']
-#                     results_by_alignment[key].alignment = combined['alignment']
-#                     results_by_alignment[key].facts = combined['facts']
-#                     results_by_alignment[key].vars = combined['vars']
-
-#     if not has_unaligned_result:
-#         final_result_set.default = XuleResult(None, 'unbound')
                     
     for res in results_by_alignment.values():
         final_result_set.append(res)    
@@ -1960,13 +2017,6 @@ def agg_min(xule_context, *args):
                     if combined['right_compute_value'] < combined['left_compute_value']:
                         results_by_alignment[key].value = combined['right'].value
                     results_by_alignment[key].meta = combined['meta']
-#                     results_by_alignment[key].tags = combined['tags']
-#                     results_by_alignment[key].alignment = combined['alignment']
-#                     results_by_alignment[key].facts = combined['facts']
-#                     results_by_alignment[key].vars = combined['vars']
-
-#     if not has_unaligned_result:
-#         final_result_set.default = XuleResult(None, 'unbound')
                     
     for res in results_by_alignment.values():
         final_result_set.append(res)
@@ -1995,9 +2045,6 @@ def agg_list(xule_context, *args):
                   
                 new_meta = combine_result_meta(res, results_by_alignment[key])  
                 results_by_alignment[key].meta = new_meta
-#                 results_by_alignment[key].tags = new_tags
-#                 results_by_alignment[key].facts = new_facts
-#                 results_by_alignment[key].vars = new_vars
 
     if not has_unaligned_result:     
         if len(results_by_alignment) == 0 :
@@ -2033,9 +2080,6 @@ def agg_set(xule_context, *args):
                   
                 new_meta = combine_result_meta(res, results_by_alignment[key])  
                 results_by_alignment[key].meta = new_meta
-#                 results_by_alignment[key].tags = new_tags
-#                 results_by_alignment[key].facts = new_facts
-#                 results_by_alignment[key].vars = new_vars
 
     if not has_unaligned_result:     
         if len(results_by_alignment) == 0 :
@@ -2062,12 +2106,13 @@ def func_exists(xule_context, *args):
 #     if not has_unaligned_result:
 #         final_result_set.default = XuleResult(False, 'bool')
     
-    if not has_unaligned_result:     
-        if len(final_result_set.results) == 0 :
-            final_result_set.append(XuleResult(False, 'bool'))
-        else:
-            final_result_set.default = XuleResult(False, 'bool')
-    
+#     if not has_unaligned_result:     
+#         if len(final_result_set.results) == 0 :
+#             final_result_set.append(XuleResult(False, 'bool'))
+#         else:
+#             final_result_set.default = XuleResult(False, 'bool')
+
+    final_result_set.default = XuleResult(False, 'bool')
     return final_result_set
 
 def func_missing(xule_context, *args):
@@ -2086,12 +2131,12 @@ def func_missing(xule_context, *args):
 #         #there wasn't a result where there was no alignment, need to create a default one
 #         final_result_set.default = XuleResult(True, 'bool')
         
-    if not has_unaligned_result:     
-        if len(final_result_set.results) == 0 :
-            final_result_set.append(XuleResult(True, 'bool'))
-        else:
-            final_result_set.default = XuleResult(True, 'bool')        
-        
+#     if not has_unaligned_result:     
+#         if len(final_result_set.results) == 0 :
+#             final_result_set.append(XuleResult(True, 'bool'))
+#         else:
+#             final_result_set.default = XuleResult(True, 'bool')        
+    final_result_set.default = XuleResult(True, 'bool')
     return final_result_set  
 
 def func_instant(xule_context, *args):
@@ -3501,12 +3546,14 @@ def push_single_value_variables(result_vars, xule_context):
     single_vars = []
     for var_index, var_result_index in result_vars.items():
         var_info = xule_context.var_by_index(var_index)
-        
-        if 'value' in var_info:
-            xule_context.add_arg(var_info['name'],
-                                 var_info['tag'],
-                                 XuleResultSet(var_info['value'].results[var_result_index].dup())) #this should be a copy
-            single_vars.append((var_index, var_result_index))
+        #check that there isn't already a single value pushed.
+        if var_info.get('has_single_value_var') != True:
+            if 'value' in var_info:
+                var_info['has_single_value_var'] = True
+                xule_context.add_arg(var_info['name'],
+                                     var_info['tag'],
+                                     XuleResultSet(var_info['value'].results[var_result_index].dup())) #this should be a copy
+                single_vars.append((var_index, var_result_index))
             
     return single_vars
 
@@ -3517,6 +3564,8 @@ def pop_single_value_variables(single_vars, result_set, xule_context):
         if isinstance(var_index, int):
             orig_var_indexes.append(var_index)
         var_info = xule_context.var_by_index(var_index)
+        #remove the indicator that the variable has a single value pushed on the variable stack.
+        del var_info['has_single_value_var']
         var_info = xule_context.del_var(var_info['name'], result_set) 
          
     '''Need to "reset" variables that depended on this single value variable. "resetting" is done by marking it as not calculated.'''
@@ -3559,7 +3608,7 @@ TYPE_SYSTEM_TO_XULE = {int: 'int',
                        set: 'set',
                        ModelRelationshipSet: 'network',
                        decimal.Decimal: 'decimal',
-                       None: 'unbound',
+                       type(None): 'unbound',
                        ModelFact: 'fact',
                        datetime.datetime: 'instant',
                        datetime.date: 'instant',
@@ -3672,7 +3721,7 @@ def get_type_and_compute_value(result, xule_context):
                 conversion_function = TYPE_STANDARD_CONVERSION[xule_type][0]
                 xule_type = TYPE_STANDARD_CONVERSION[xule_type][1]
                 compute_value = conversion_function(compute_value, xule_context)
-            
+        
             return xule_type, compute_value
         else:
             raise XuleProcessingError(_("Do not have map to convert system type '%s' to xule type." % type(result.value.xValue).__name__), xule_context)
@@ -3786,7 +3835,7 @@ def align_result_sets(left, right, xule_context, align_only=False, use_defaults=
     '''Handling units in alignment -
        If one side has units and other side does not, then these results can match. This is handled by created indexed results by 'no_unit' and 'un_unit'. The
        'no_unit' dictionary only contains results where there is no unit in the alignment. The 'un_unit' dictionary only contains results where there is a unit
-       in the alignment, however, the key is rebuilte by removing the unit portion of the alignment. This will create an aligment that does not have unit. Thee two
+       in the alignment, however, the key is rebuilt by removing the unit portion of the alignment. This will create an aligment that does not have unit. Thee two
        dictionaries are then matched up with no_unit and un_unit for each side. This will find combinations where a result with a unit can match to a result without a unit.
     '''
     for k in left_un_unit_indexed_results.keys() & right_no_unit_indexed_results.keys():
@@ -4076,26 +4125,26 @@ def print_tags(result):
     return "\n".join(tag_strings)
     
 def process_message(message_string, result, xule_context):    
+    import re 
     
     common_aspects = get_common_aspects(result.facts, xule_context)
     
     for tag_name, tag_result in result.tags.items():        
-        replacement_value = format_result_value(tag_result, xule_context)
+        replacement_value = format_result_value(tag_result, xule_context) or ''
         
         if tag_result.type == 'fact':
             
             fact_context = get_uncommon_aspects(tag_result.value, common_aspects, xule_context)
-                
-            message_string = message_string.replace('${' + tag_name + '.value}', replacement_value)
-            message_string = message_string.replace('${' + tag_name + '.context}', format_alignment(fact_context, xule_context))
-            message_string = message_string.replace('${' + tag_name + '}', replacement_value)
+            
+            message_string = re.sub('\$\s*{\s*' + tag_name + '\s*\.\s*value\s*}', replacement_value, message_string)
+            message_string = re.sub('\$\s*{\s*' + tag_name + '\s*}', replacement_value, message_string)
+            message_string = re.sub('\$\s*{\s*' + tag_name + '\s*\.\s*context\s*}', format_alignment(fact_context, xule_context), message_string)
         else:
-            message_string = message_string.replace('${' + tag_name + '}', replacement_value)
-            message_string = message_string.replace('${' + tag_name + '.value}', replacement_value)
+            message_string = re.sub('\$\s*{\s*' + tag_name + '\s*\.\s*value\s*}', replacement_value, message_string)
+            message_string = re.sub('\$\s*{\s*' + tag_name + '\s*}', replacement_value, message_string)
 
-    message_string = message_string.replace('${context}', format_alignment(common_aspects, xule_context))
-    message_string = message_string.replace('${value}', format_result_value(result, xule_context))
-
+    message_string = re.sub('\$\s*{\s*context\s*}', format_alignment(common_aspects, xule_context), message_string)
+    message_string = re.sub('\$\s*{\s*value\s*}', format_result_value(result, xule_context) or '', message_string)
     message_string = message_string.replace('%', '%%')
 
     return message_string
@@ -4107,7 +4156,6 @@ def format_result_value(result, xule_context):
     if result.type == 'fact':
         if type(result.value.xValue) == gYear:
             return str(res_value)
-    
     
     if res_type in ('float', 'decimal'):
         format_rounded = "{0:,.3f}".format(res_value)
@@ -4140,6 +4188,11 @@ def format_result_value(result, xule_context):
         
     elif res_type == 'instant':
         return "instant('%s')" % res_value.strftime("%Y-%m-%d")
+    
+    elif res_type == 'set':
+        set_value = "set(" + ", ".join([str(set_item_result.value) for set_item_result in res_value]) + ")"
+            
+        return set_value
     
     
     else:
@@ -4300,7 +4353,6 @@ def get_message(rule, result, xule_context):
                 message_string = "${value}"
         elif rule.getName() == 'formulaDeclaration':
             message_string = "${left.value} != ${right.value} ${context}"
-
     
     return process_message(message_string, result, xule_context)
             

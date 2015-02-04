@@ -1,5 +1,5 @@
 
-from pyparsing import (Word, Keyword,  
+from pyparsing import (Word, Keyword,  CaselessKeyword,
                      Literal, CaselessLiteral, 
                      Combine, Optional, nums, Forward, Group, ZeroOrMore,  
                      ParserElement,  delimitedList, Suppress, Regex, 
@@ -93,7 +93,7 @@ def get_grammar():
     decimalPoint = Literal(".")
     digits = Word(nums)
     integerLiteral = Group(Combine(Optional(sign) + digits).setResultsName("value")).setResultsName("integer")
-    infLiteral = Combine(Optional(sign) + CaselessLiteral("INF"))
+    infLiteral = Combine(Optional(sign) + CaselessKeyword("INF"))
     floatLiteral = Group(( Combine(decimalPoint + digits + Optional (sciNot + integerLiteral)) |
                      Combine(integerLiteral + decimalPoint + digits + Optional (sciNot + integerLiteral)) |
                      Combine(integerLiteral + decimalPoint + Optional (sciNot + integerLiteral)) |
@@ -110,8 +110,14 @@ def get_grammar():
     unboundLiteral = Group((Keyword("unbound")).setResultsName("value")).setResultsName("void") 
     voidLiteral = noneLiteral | unboundLiteral #Group((Keyword("none") | Keyword("unbound")).setResultsName("value")).setResultsName("void")
     
-    #severity literals   
-    severityLiteral = Group(oneOf("error warning info pass").setResultsName("severityName") + 
+    #severity literals  
+
+    errorLiteral = Keyword("error")
+    warningLiteral = Keyword("warning")
+    infoLiteral = Keyword("info")
+    passLiteral = Keyword("pass")
+    
+    severityLiteral = Group((errorLiteral | warningLiteral | infoLiteral | passLiteral).setResultsName("severityName") + 
                             Group(Optional(Suppress(lParen) +
                                            Optional(delimitedList(Group(ncName.setResultsName("tagName") +
                                                                         Suppress("=") +

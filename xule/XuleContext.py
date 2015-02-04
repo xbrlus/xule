@@ -83,6 +83,7 @@ class XuleRuleContext(object):
         self.hash_table = {}
         self.with_filters = []
         self.other_filters = []
+        self.alignment_filters = []
 
         self.trace_level = 0
         
@@ -339,6 +340,7 @@ class XuleContextXXX(object):
         self.hash_table = {}
         self.with_filters = []
         self.other_filters = []
+        self.alignment_filters = []
         
         self.trace_level = 0
         self.include_nils = include_nils
@@ -481,8 +483,22 @@ class XuleContextXXX(object):
                     self._constants[var_name] = var_info
         
         return var_info
-
     
+    def var_add_value(self, var_name, value):
+        #This may acutally return a variable or a constant.
+        var_info = self.find_var(var_name)
+        #add the variable information to the results
+        var_info['contains_facts'] = False
+        for res_index, arg_res in enumerate(value.results):
+            if len(arg_res.facts) != 0:
+                var_info["contains_facts"] = True
+            if var_info['tag'] == True:
+                arg_res.add_tag(var_info['name'], arg_res)
+            arg_res.add_var(var_info['index'], res_index)  
+                  
+        var_info['calculated'] = True
+        var_info['value'] = value 
+            
     def filter_add(self, filter_type, filter_dict):
         self.with_filters.append((filter_type, filter_dict))
 
@@ -507,23 +523,8 @@ class XuleContextXXX(object):
                     else:
                         other_filters[filter_info] = filter_member
                     
-        return with_filters, other_filters
+        return with_filters, other_filters     
     
-    def var_add_value(self, var_name, value):
-        #This may acutally return a variable or a constant.
-        var_info = self.find_var(var_name)
-        #add the variable information to the results
-        var_info['contains_facts'] = False
-        for res_index, arg_res in enumerate(value.results):
-            if len(arg_res.facts) != 0:
-                var_info["contains_facts"] = True
-            if var_info['tag'] == True:
-                arg_res.add_tag(var_info['name'], arg_res)
-            arg_res.add_var(var_info['index'], res_index)  
-                  
-        var_info['calculated'] = True
-        var_info['value'] = value      
-        
     def find_function(self, function_name):
         '''
         This is created so the processor uses the context to retrieve the function. A performance enhancement

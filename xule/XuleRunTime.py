@@ -50,6 +50,7 @@ class XuleResult:
     _FACTS = 2
     _VARS = 3
     _FROM_MODEL = 4
+    _SKIPPED_RESULTS = 5
 
     @property
     def alignment(self):
@@ -85,7 +86,6 @@ class XuleResult:
     @from_model.setter
     def from_model(self, value):
         self.meta[self._FROM_MODEL] = value
-
 
     def add_fact(self, fact):
         self.fact.append(fact)
