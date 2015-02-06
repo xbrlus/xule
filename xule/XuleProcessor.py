@@ -844,18 +844,6 @@ def evaluate_var_ref(var_ref, xule_context):
     if not var_info:
         raise XuleProcessingError(_("Variable '%s' does not exist" % var_ref.varName), xule_context)
     else:
-#         if (xule_context.in_where_alignment is not None and 
-#             var_info['type'] == xule_context._VAR_TYPE_VAR and
-#             var_info['contains_facts']):
-#             
-#             hashed_alignment = hash_alignment(xule_context.in_where_alignment)
-#             if hashed_alignment in var_info['other_values']:
-#                 var_value_rs = var_info['other_values'][hashed_alignment]
-#             else:
-#                 #recalc for the in_where_alignment
-#                 var_value_rs = evaluate(var_info['expr'], xule_context)
-#                 var_info['other_values'][hashed_alignment] = var_value_rs
-#         else:
             if var_info['calculated']:
                 var_value_rs = var_info['value']
             else:
@@ -863,9 +851,16 @@ def evaluate_var_ref(var_ref, xule_context):
                 #suspend any alignment_filters - want the variable to represent all the facts, the alignment filter will be used during the retrieval of the values.
                 saved_alignment_filters = xule_context.alignment_filters
                 xule_context.alignment_filters = []
+                #need to ignore variables from this point in the stack to the end of the stack. This prevents infinite recursion if a variable refers to a variable with the same name.
+                if var_info['type'] == xule_context._VAR_TYPE_VAR:
+                    saved_ignore_vars = xule_context.ignore_vars[:]
+                    xule_context.ignore_vars = range(var_info['index'], len(xule_context._vars))
                 var_value_rs = evaluate(var_info['expr'], xule_context) 
                 #restore the alignment filters
                 xule_context.alignment_filters = saved_alignment_filters
+                if var_info['type'] == xule_context._VAR_TYPE_VAR:
+                    xule_context.ignore_vars = saved_ignore_vars
+                
                 xule_context.var_add_value(var_ref.varName, var_value_rs)
     
     #A copy is returned so the var reference can never be messed up
