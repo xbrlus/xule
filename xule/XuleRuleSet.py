@@ -89,6 +89,7 @@ class XuleRuleSet(object):
         package_name = ""
         rule_base = None
         
+        #top level analysis
         for i in range(len(parseRes.xuleFile)):
             cur = parseRes.xuleFile[i]
             cur_name = cur.getName()
@@ -101,35 +102,57 @@ class XuleRuleSet(object):
                 else:
                     #duplicate namespace prefix
                     print("Duplicate namespace prefix: %s" % prefix)
+                    
             elif cur_name == "preconditionDeclaration":
                 preconditions[cur.preconditionName] = {"file": file_num, "index": i}
+                
             elif cur_name == "package":
                 package = {"file": file_num, "index": i}
                 package_name = cur.packageName
+                
             elif cur_name == "constantAssign":
-                constants[cur.constantName] = {"file": file_num, "index": i}
+                #check immediate dependencies
+                dependencies = self._immediate_dependencies(cur)
+                constants[cur.constantName] = {"file": file_num, "index": i, "immediate_dependencies": dependencies}
+                
             elif cur_name == "raiseDeclaration":
                 full_name = package_name + "." + cur.raiseName
                 if full_name not in rules.keys():
-                    rules[full_name] = {"file": file_num, "index": i, "type": "raise", "full_name": full_name}
+                    #check immediate dependencies
+                    dependencies = self._immediate_dependencies(cur)
+                    
+                    rules[full_name] = {"file": file_num, "index": i, "type": "raise", "full_name": full_name, "immediate_dependencies": dependencies}
                 else:
                     print("duplicate rule name: %s" % full_name)
+                    
             elif cur_name == "reportDeclaration":
                 full_name = package_name + "." + cur.reportName
                 if full_name not in rules.keys():
-                    rules[full_name] = {"file": file_num, "index": i, "type": "report", "full_name": full_name}
+                    #check immediate dependencies
+                    dependencies = self._immediate_dependencies(cur)
+                    rules[full_name] = {"file": file_num, "index": i, "type": "report", "full_name": full_name, "immediate_dependencies": dependencies}
                 else:
                     print("duplicate rule name: %s" % full_name)
+                    
             elif cur_name == "formulaDeclaration":
                 full_name = package_name + "." + cur.formulaName
                 if full_name not in rules.keys():
-                    rules[full_name] = {"file": file_num, "index": i, "type": "formula", "full_name": full_name}
+                    #check immediate dependencies
+                    dependencies = self._immediate_dependencies(cur)
+                    rules[full_name] = {"file": file_num, "index": i, "type": "formula", "full_name": full_name, "immediate_dependencies": dependencies}
                 else:
                     print("duplicate rule name: %s" % full_name)
+                    
             elif cur_name == "functionDeclaration":
-                functions[cur.functionName] = {"file": file_num, "index": i}
+                #check immediate dependencies
+                dependencies = self._immediate_dependencies(cur)
+                functions[cur.functionName] = {"file": file_num, "index": i, "immediate_dependencies": dependencies}
+                
             elif cur_name == "macroDeclaration":
-                macros[cur.macroName] = {"file": file_num, "index": i}
+                #check immediate dependencies
+                dependencies = self._immediate_dependencies(cur)
+                macros[cur.macroName] = {"file": file_num, "index": i, "immediate_dependencies": dependencies}
+                
             elif cur_name == "ruleBase":
                 rule_base = {"file": file_num, "index": i}
             else:
@@ -164,7 +187,162 @@ class XuleRuleSet(object):
             print("duplicate names:")
             for x in dups:
                 print(x)
+
+    def _immediate_dependencies(self, parseRes, varNames=None):
+        #initialize the varNames list - this is used to deterime if a variable reference is a variable or constant
+        if varNames is None:
+            varNames = []
             
+        dependencies = {'constants': set(),
+                        'functions': set(),
+                        'instance': False,
+                        'rules-taxonomy': False}
+        
+        current_part = parseRes.getName()
+        
+        #add variable names
+        if current_part == 'blockExpr':
+            var_assignments = [i for i in parseRes if i.getName() == 'varAssign']
+            for varAssign in var_assignments:
+                varNames.append(varAssign.varName)
+        if current_part == 'formulaDeclaration':
+            if 'varAssigns' in parseRes:
+                for var_assign in parseRes.varAssigns:
+                    varNames.append(var_assign.varName)
+        if current_part == 'forExpr':
+            varNames.append(parseRes.forVar)
+        if current_part == 'factset':
+            if 'aspectFilters' in parseRes:
+                for aspect_filter in parseRes.aspectFilters:
+                    if 'aspectVar' in aspect_filter:
+                        varNames.append(aspect_filter.aspectVar)
+        if current_part == 'whereExpr':
+            varNames.append('item')
+        if current_part == 'functionDeclaration':
+            for arg in parseRes.functionArgs:
+                varNames.append(arg.argName)
+        if current_part == 'macroDeclaration':
+            for arg in parseRes.macroArgs:
+                varNames.append(arg.argName)
+            
+        #dependencies
+        if current_part == 'varRef':
+            if parseRes.varName not in varNames:
+                #this must be a constant
+                dependencies['constants'].add(parseRes.varName)
+        if current_part == 'functionReference':
+            dependencies['functions'].add(parseRes.functionName)
+        if current_part == 'property':
+            if parseRes.propertyName == 'rules-taxonomy':
+                dependencies['rules-taxonomy'] = True
+            elif parseRes.propertyName == 'taxonomy':
+                dependencies['instance'] = True
+        if current_part == 'factset':
+            dependencies['instance'] = True
+        
+        #decend the syntax tree
+        for next_part in parseRes:
+            if isinstance(next_part, ParseResults):
+                next_dependencies = self._immediate_dependencies(next_part, varNames)
+                self._combine_dependencies(dependencies, next_dependencies)
+                dependencies['constants'] |= next_dependencies['constants']
+                dependencies['functions'] |= next_dependencies['functions']
+                dependencies['instance'] = dependencies['instance'] or next_dependencies['instance']
+                dependencies['rules-taxonomy'] = dependencies['rules-taxonomy'] or next_dependencies['rules-taxonomy']
+                
+        #remove variable names
+        if current_part == 'blockExpr':
+            var_assignments = [i for i in parseRes if i.getName() == 'varAssign']
+            for varAssign in var_assignments:
+                varNames.pop()
+        if current_part == 'formulaDeclaration':
+            if 'varAssigns' in parseRes:
+                for var_assign in parseRes.varAssigns:
+                    varNames.pop()                
+        if current_part == 'forExpr':
+            varNames.pop()
+        if current_part == 'factset':
+            if 'aspectFilters' in parseRes:
+                for aspect_filter in parseRes.aspectFilters:
+                    if 'aspectVar' in aspect_filter:
+                        varNames.pop()
+        if current_part == 'whereExpr':
+            varNames.pop()
+        if current_part == 'functionDeclaration':
+            for arg in parseRes.funcitonArgs:
+                varNames.pop()
+        if current_part == 'macroDeclaration':
+            for arg in parseRes.macroArgs:
+                varNames.pop()
+
+        return dependencies
+
+    def build_dependencies(self):
+        for const_info in self.catalog['constants'].values():
+            self._get_all_dependencies(const_info)
+            
+        for func_info in self.catalog['functions'].values():
+            self._get_all_dependencies(func_info)
+            
+        for macro_info in self.catalog['macros'].values():
+            self._get_all_dependencies(macro_info)
+            
+        for rule_info in self.catalog['rules'].values():
+            self._get_all_dependencies(rule_info)
+        
+        #check if constants are used
+        used_constants = set()
+        for rule_info in self.catalog['rules'].values():
+            for const_name in rule_info['dependencies']['constants']:
+                used_constants.add(const_name)
+        
+        unused_constants = set(self.catalog['constants'].keys()) - used_constants
+        for const_name in unused_constants:
+            self.catalog['constants'][const_name]['unused'] = True
+
+    def _get_all_dependencies(self, info):
+        
+        if 'dependencies' in info:
+            return
+
+        dependencies = {'constants': set(),
+                        'functions': set(),
+                        'instance': False,
+                        'rules-taxonomy': False} 
+        self._combine_dependencies(dependencies, info['immediate_dependencies'])
+        
+        for const_name in info['immediate_dependencies']['constants']:
+            const_info = self.catalog['constants'][const_name]
+            if 'dependencies' not in const_info:
+                self._get_all_dependencies(const_info)
+                
+            self._combine_dependencies(dependencies, const_info['dependencies'])
+        
+        for func_name in info['immediate_dependencies']['functions']:
+            if func_name in self.catalog['functions']:
+                #if the fucntion name is not in the list, it is assumed to be a built in fucntion
+                func_info = self.catalog['functions'][func_name]
+                if 'dependencies' not in func_info:
+                    self._get_all_dependencies(func_info)
+                    
+                self._combine_dependencies(dependencies, func_info['dependencies']) 
+                
+            #also need to check macros
+            if func_name in self.catalog['macros']:
+                macro_info = self.catalog['macros'][func_name]
+                if 'dependencies' not in macro_info:
+                    self._get_all_dependences(macro_info)
+                    
+                self._combine_dependencies(dependencies, macro_info['dependencies'])          
+        
+        info['dependencies'] = dependencies
+
+    def _combine_dependencies(self, base, additional):
+        base['constants'] |= additional['constants']
+        base['functions'] |= additional['functions']
+        base['instance'] = base['instance'] or additional['instance']
+        base['rules-taxonomy'] = base['rules-taxonomy'] or additional['rules-taxonomy']
+
     def _addXuleFile(self, file_time, file_name):
         
         #get the next file number

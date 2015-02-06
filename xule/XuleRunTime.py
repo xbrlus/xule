@@ -28,7 +28,8 @@ class XuleResult:
             self.meta = [alignment, 
                          tags if tags else {}, 
                          facts if facts else [], 
-                         var_refs if var_refs else {}, 
+                         #var_refs if var_refs else {},
+                         var_refs if var_refs else collections.defaultdict(set), 
                          from_model]
         #self.alignment = alignment
         #self.facts = facts if facts else []
@@ -94,7 +95,7 @@ class XuleResult:
         self.tags[tag] = value
         
     def add_var(self, var_index, var_result_index):
-        self.vars[var_index] = var_result_index
+        self.vars[var_index] |= {var_result_index}
     
     def del_var(self, var_index):
         if var_index in self.vars:

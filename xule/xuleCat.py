@@ -17,6 +17,15 @@ def xml_rule(rule_set_name, rule_name):
     
     print(rule.asXML())
     
+def dict_rule(rule_set_name, rule_name):
+    rule_set = XuleRuleSet()
+    rule_set.open(rule_set_name)
+    
+    cat_rule = rule_set.catalog['rules'][rule_name]
+    rule = rule_set.getItem(cat_rule)
+    
+    pprint.pprint(rule.asDict())       
+    
 def xml_file(rule_set_name, rule_name):
     rule_set = XuleRuleSet()
     rule_set.open(rule_set_name)
@@ -55,6 +64,8 @@ if __name__ == "__main__":
             print_catalog(rule_set_name)
         elif command == 'xml-rule':
             xml_rule(rule_set_name, sys.argv[3])
+        elif command == 'dict-rule':
+            dict_rule(rule_set_name, sys.argv[3])            
         elif command == 'xml-const':
             xml_const(rule_set_name, sys.argv[3])
         elif command == 'xml-func':

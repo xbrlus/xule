@@ -531,6 +531,8 @@ class XuleContextXXX(object):
         may be to save the value of function for a given set of arguments, so that if it is called again with the
         same arguments, it doesn't need to be recalculated. This however, could create a memory issue.
         '''
+        
+        '''NEED TO ADD SEARCHING FOR MACROS'''
         cat_function = self.rule_set.catalog['functions'].get(function_name)
         if not cat_function:
             return None

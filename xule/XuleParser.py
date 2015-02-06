@@ -396,7 +396,7 @@ def get_grammar():
         Group(Optional(delimitedList(Group(ncName.setResultsName("argName") + Optional(tagOp.setResultsName("tagged")) + Optional(ncName.setResultsName("tagName"))).setResultsName("macroArg")))).setResultsName("macroArgs") +
         Suppress(rParen) +
         Group(blockExpr).setResultsName("expr")
-        ).setResultsName("macroDeclaratoin")
+        ).setResultsName("macroDeclaration")
     
     raiseDeclaration = Group(
         Optional(annotation) +
@@ -525,6 +525,13 @@ def parseRules(files, dest, xml_dir=None):
                         parseFile(os.path.join(root, name), xuleGrammar, ruleSet, xml_dir)            
         else:
             print("Not a file or directory: %s" % processFile)
+    
+    
+    post_parse_start = datetime.datetime.today()
+    print("%s: post parse start" % datetime.datetime.isoformat(post_parse_start))
+    ruleSet.build_dependencies()
+    post_parse_end = datetime.datetime.today()
+    print("%s: post parse end. Took %s" %(datetime.datetime.isoformat(post_parse_end), post_parse_end - post_parse_start))
     
     ruleSet.close()
     

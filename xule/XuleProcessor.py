@@ -657,7 +657,7 @@ def lazy_iteration_new(left_result_set, right_exprs, operation_function, stop_va
             left_alignments[alignment_key]['stopped'] += 1
         else:
             new_left_result_set.append(left_result)
-    
+
     final_result_set.default = left_result_set.default
     new_left_result_set.default = left_result_set.default
 
@@ -1036,6 +1036,7 @@ def evaluate_print(print_expr, xule_context):
 
 def evaluate_if(if_expr, xule_context):
     condition_result_set = evaluate(if_expr.condition[0], xule_context)
+    
     else_ifs = [x for x in if_expr if x.getName() == 'elseIfExpr']
     return evaluate_if_start(condition_result_set, if_expr.thenExpr[0], else_ifs, if_expr.elseExpr[0], xule_context)
 
@@ -1495,7 +1496,8 @@ def evaluate_factset(factset, xule_context):
         mem_align_aspect_type = member_alignment[1]
         mem_align_aspect = member_alignment[2]
         mem_align_value = member_alignment[3]
-        aspect_member_alignment[(mem_align_aspect_type, mem_align_aspect)][mem_align_value ] += [mem_align_result.alignment]
+        #aspect_member_alignment[(mem_align_aspect_type, mem_align_aspect)][mem_align_value ] += [mem_align_result.alignment]
+        aspect_member_alignment[(mem_align_aspect_type, mem_align_aspect)][mem_align_value ] += [mem_align_result.meta]
     
     #start matching to facts
     for model_fact in pre_matched_facts:
@@ -1555,22 +1557,45 @@ def evaluate_factset(factset, xule_context):
             member_alignments = None
             if aspect_key[TYPE] == 'builtin':
                 if aspect_key[ASPECT] == 'lineItem':
-                    member_alignments = member_alignment.get(model_fact.elementQname)
+                    member_metas = member_alignment.get(model_fact.elementQname)
+                    member_alignments = None if member_metas is None else [meta[XuleResult._ALIGNMENT] for meta in member_metas]
+                    #member_alignments = member_alignment.get(model_fact.elementQname)
                 elif aspect_key[ASPECT] == 'period':
-                    member_alignments = member_alignment.get(model_to_xule_period(model_fact.context, xule_context))
+                    member_metas = member_alignment.get(model_to_xule_period(model_fact.context, xule_context))
+                    member_alignments = None if member_metas is None else [meta[XuleResult._ALIGNMENT] for meta in member_metas]
+                    #member_alignments = member_alignment.get(model_to_xule_period(model_fact.context, xule_context))
                 elif aspect_key[ASPECT] == 'unit':
-                    member_alignments = member_alignment.get(model_to_xule_unit(model_fact.unit.measures, xule_context))
+                    member_metas = member_alignment.get(model_to_xule_unit(model_fact.unit.measures, xule_context))
+                    member_alignments = None if member_metas is None else [meta[XuleResult._ALIGNMENT] for meta in member_metas]
+                    #member_alignments = member_alignment.get(model_to_xule_unit(model_fact.unit.measures, xule_context))
                 elif aspect_key[ASPECT] == 'entity':
-                    member_alignments = member_alignment.get(model_to_xule_entity(model_fact.context, xule_context))
+                    member_metas = member_alignment.get(model_to_xule_entity(model_fact.context, xule_context))
+                    member_alignments = None if member_metas is None else [meta[XuleResult._ALIGNMENT] for meta in member_metas]
+                    #member_alignments = member_alignment.get(model_to_xule_entity(model_fact.context, xule_context))
                 else:
                     raise XuleProcessingError(_("Invalid builtin aspect '%s'" % aspect_key[ASPECT]), xule_context)
             else:
                 if aspect_key[ASPECT] in model_fact.context.qnameDims:
-                    member_alignments = member_alignment.get(model_fact.context.qnameDims[aspect_key[ASPECT]].memberQname)
-            if member_alignment is not None:
+                    member_metas = member_alignment.get(model_fact.context.qnameDims[aspect_key[ASPECT]].memberQname)
+                    member_alignments = None if member_metas is None else [meta[XuleResult._ALIGNMENT] for meta in member_metas]
+                    #member_alignments = member_alignment.get(model_fact.context.qnameDims[aspect_key[ASPECT]].memberQname)
+            if member_metas is not None:
                 if fact_result.alignment not in member_alignments:
                     matched = False
                     break
+                else:
+                    #copy the meta data to the fact
+                    for member_meta in member_metas:
+                        if fact_result.alignment == member_meta[XuleResult._ALIGNMENT] or member_meta[XuleResult._ALIGNMENT] is None:
+                            combined_meta = combine_result_meta(fact_result, XuleResult(None, 'unbound', meta=member_meta))
+                            saved_alignment = fact_result.alignment
+                            fact_result.meta = combined_meta
+                            fact_result.alignment = saved_alignment
+
+#             if member_alignment is not None:
+#                 if fact_result.alignment not in member_alignments:
+#                     matched = False
+#                     break
         
         '''Check closed factset'''
         '''DO I NEED TO HANDLE BUILT IN ASPECTS????? I DON'T THINK SO. 
@@ -1664,19 +1689,14 @@ def evaluate_factset(factset, xule_context):
                 '''need to align the results.'''
                 where_matches = False
                 for combine in align_result_sets(XuleResultSet(fact_result), where_rs, xule_context, align_only=True, use_defaults='right'):
-#                   if len(where_rs.results) != 1:
-#                       raise XuleProcessingError(_("The where clause of a factset must only return one result, got %i" % len(where_rs.results)), xule_context)
                     if bool(combine['right'].value):
                         where_matches = True
-                        #preserve the alignment - only need the other meta data
-                        fact_alignment = fact_result.alignment
-                        fact_result.meta = combine['meta']
-                        fact_result.alignment = fact_alignment
-#                         fact_result.tags = combine['meta'][XuleResult._TAGS]
-#                         fact_result.facts = combine['meta'][XuleResult._FACTS]
-#                         fact_result.vars = combine['meta'][XuleResult._VARS]
-                        break
-                
+                        #aggregate the meta
+                        combine_meta = combine_result_meta(fact_result, combine['right'])
+                        saved_alignment = fact_result.alignment
+                        fact_result.meta = combine_meta
+                        fact_result.alignment = saved_alignment
+              
                 matched = where_matches
         if matched:
 #             print(model_fact.elementQname.localName + " " + str(model_fact.xValue))
@@ -3544,23 +3564,28 @@ def model_to_xule_entity(model_context, xule_context):
 def push_single_value_variables(result_vars, xule_context):
     #single_vars = list(result_vars.items())
     single_vars = []
-    for var_index, var_result_index in result_vars.items():
+    for var_index, var_result_indexes in result_vars.items():
         var_info = xule_context.var_by_index(var_index)
         #check that there isn't already a single value pushed.
         if var_info.get('has_single_value_var') != True:
             if 'value' in var_info:
                 var_info['has_single_value_var'] = True
+                var_result_set = XuleResultSet()
+                #build the variable result set
+                for var_result_index in var_result_indexes:
+                    var_result_set.append(var_info['value'].results[var_result_index].dup())
+                
                 xule_context.add_arg(var_info['name'],
                                      var_info['tag'],
-                                     XuleResultSet(var_info['value'].results[var_result_index].dup())) #this should be a copy
-                single_vars.append((var_index, var_result_index))
+                                     var_result_set) 
+                single_vars.append((var_index, var_result_indexes))
             
     return single_vars
 
 def pop_single_value_variables(single_vars, result_set, xule_context):
     #process the single_vars in reverse order
     orig_var_indexes = []
-    for var_index, var_result_index in single_vars[::-1]:
+    for var_index, var_result_indexes in single_vars[::-1]:
         if isinstance(var_index, int):
             orig_var_indexes.append(var_index)
         var_info = xule_context.var_by_index(var_index)
@@ -3570,19 +3595,20 @@ def pop_single_value_variables(single_vars, result_set, xule_context):
          
     '''Need to "reset" variables that depended on this single value variable. "resetting" is done by marking it as not calculated.'''
     for res in result_set:
-        for var_index, var_result_index in res.vars.items():
+        for var_index, var_result_indexes in res.vars.items():
             #verify this is a var and that it is not one of the original vars.
             if isinstance(var_index, int) and var_index not in orig_var_indexes:
                 var_info = xule_context._vars[var_index]
                 #verify that it has been calculated
                 if var_info['calculated'] and var_info['type'] == xule_context._VAR_TYPE_VAR:
-                    var_result = var_info['value'].results[var_result_index]
-                    for sub_var_index in var_result.vars:
-                        if sub_var_index in orig_var_indexes:
-                            #reset the variable in var_info
-                            if var_info['calculated']:
-                                var_info['calculated'] = False
-                                del var_info['value']
+                    for var_result_index in var_result_indexes:
+                        var_result = var_info['value'].results[var_result_index]
+                        for sub_var_index in var_result.vars:
+                            if sub_var_index in orig_var_indexes:
+                                #reset the variable in var_info
+                                if var_info['calculated']:
+                                    var_info['calculated'] = False
+                                    del var_info['value']
      
 TYPE_XULE_TO_SYSTEM = {'int': int,
                        'float': float,
@@ -3914,8 +3940,7 @@ def hash_alignment(alignment):
 
 def vars_aligned(left_result, right_result):
     common_var_keys = set(left_result.vars.keys()) & set(right_result.vars.keys())
-    
-    return all([left_result.vars[common_var_key] == right_result.vars[common_var_key] for common_var_key in common_var_keys])
+    return all([len(left_result.vars[common_var_key] & right_result.vars[common_var_key]) > 0 for common_var_key in common_var_keys])
 
 def combine_tags(left_result, right_result):
     return dict(list(left_result.tags.items()) + list(right_result.tags.items()))
@@ -3929,12 +3954,10 @@ def combine_facts(left_result, right_result):
     return uniquify(left_result.facts + right_result.facts)
 
 def combine_vars(left_result, right_result):
-    '''This should only happen when the variables line up. So just take all the variables on the left and add 
-       the missing variables on the right.'''
-    
-    new_dict = dict(left_result.vars)
-    new_dict.update(right_result.vars)
-    return new_dict
+    var_indexes = left_result.vars.keys() | right_result.vars.keys()
+    empty_set = set()
+    new_vars = collections.defaultdict(set, ((k, left_result.vars.get(k, empty_set) | right_result.vars.get(k, empty_set)) for k in var_indexes))
+    return new_vars
 
 def combine_from_model(left_result, right_result):
     return left_result.from_model or right_result.from_model
@@ -4081,10 +4104,11 @@ def prepare_property_args(left_rs, args, xule_context):
 
             for combined in align_result_sets(XuleResultSet(left_result), current_arg_rs, xule_context, align_only=True, use_defaults='right'):
                 new_left_result = combined['left'].dup()
-                new_left_result.alignment = combined['alignment']
-                new_left_result.tags = combined['tags']
-                new_left_result.facts = combined['facts']
-                new_left_result.vars = combined['vars']
+                new_left_result.meta = combined['meta']
+#                 new_left_result.alignment = combined['alignment']
+#                 new_left_result.tags = combined['tags']
+#                 new_left_result.facts = combined['facts']
+#                 new_left_result.vars = combined['vars']
                                
                 new_left_result.property_args = combined['left'].property_args + (combined['right'], ) #this is a singleton tuple
         
