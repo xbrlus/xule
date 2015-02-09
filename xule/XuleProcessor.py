@@ -1801,311 +1801,468 @@ EVALUATOR = {
 
 #built in functions
 def agg_all(xule_context, *args):
-    
     '''In aggregation the results are created for each alignment'''
     final_result_set = XuleResultSet()
+    final_result_set.default = XuleResult(True, 'bool')
     
-    results_by_alignment = dict()
-    has_unaligned_result = False
-    
-    for arg in args:
-        for res in arg:
-            xule_type, compute_value = get_type_and_compute_value(res, xule_context)
-            
-            if xule_type == 'unbound':
-                continue
-            
-            if xule_type != 'bool':
-                raise XuleProcessingError(_("Function all can only operator on booleans, but found '%s'." % xule_type), xule_context)
-            
-            #need to freeze the key to use as dictionary key
-            key = None if res.alignment is None else frozenset(res.alignment.items())
-            if key is None:
-                has_unaligned_result = True
-            
-            if key not in results_by_alignment:
-                results_by_alignment[key] = XuleResult(True, 'bool')
-            
-            new_meta = combine_result_meta(res, results_by_alignment[key])
-            results_by_alignment[key].meta = new_meta
-            
-            if compute_value == False:
-                results_by_alignment[key].value = False
-                #Could break here to perform lazy aggregation, but then would loose the rest of the tags.
-
-    if not has_unaligned_result:     
-        if len(results_by_alignment) == 0 :
-            results_by_alignment[None] = XuleResult(True, 'bool')
-        else:
-            final_result_set.default = XuleResult(True, 'bool')
-             
+    results_by_alignment = organize_aggregation(xule_context, *args)
     for res in results_by_alignment.values():
-        final_result_set.append(res)
-    
+        if len(res.value) > 0:
+            new_res = XuleResult(True, 'bool', meta=res.meta)
+            for sub_res in res.value:
+                sub_type, sub_value = get_type_and_compute_value(sub_res, xule_context)
+                if sub_type == 'unbound':
+                    continue
+                if sub_type != 'bool':
+                    raise XuleProcessingError(_("Function all can only operator on booleans, but found '%s'." % sub_type), xule_context)
+                new_res.value = new_res.value and sub_value
+            final_result_set.append(new_res)
+
+    if len(final_result_set.results) == 0:
+        final_result_set.append(XuleResult(True, 'bool'))
+        
     return final_result_set
+    
+#     final_result_set = XuleResultSet()
+#     
+#     results_by_alignment = dict()
+#     has_unaligned_result = False
+#     
+#     for arg in args:
+#         for res in arg:
+#             xule_type, compute_value = get_type_and_compute_value(res, xule_context)
+#             
+#             if xule_type == 'unbound':
+#                 continue
+#             
+#             if xule_type != 'bool':
+#                 raise XuleProcessingError(_("Function all can only operator on booleans, but found '%s'." % xule_type), xule_context)
+#             
+#             #need to freeze the key to use as dictionary key
+#             key = None if res.alignment is None else frozenset(res.alignment.items())
+#             if key is None:
+#                 has_unaligned_result = True
+#             
+#             if key not in results_by_alignment:
+#                 results_by_alignment[key] = XuleResult(True, 'bool')
+#             
+#             new_meta = combine_result_meta(res, results_by_alignment[key])
+#             results_by_alignment[key].meta = new_meta
+#             
+#             if compute_value == False:
+#                 results_by_alignment[key].value = False
+#                 #Could break here to perform lazy aggregation, but then would loose the rest of the tags.
+# 
+#     if not has_unaligned_result:     
+#         if len(results_by_alignment) == 0 :
+#             results_by_alignment[None] = XuleResult(True, 'bool')
+#         else:
+#             final_result_set.default = XuleResult(True, 'bool')
+#              
+#     for res in results_by_alignment.values():
+#         final_result_set.append(res)
+#     
+#     return final_result_set
 
 def agg_any(xule_context, *args):
-    
     '''In aggregation the results are created for each alignment'''
     final_result_set = XuleResultSet()
+    final_result_set.default = XuleResult(False, 'bool')
     
-    results_by_alignment = dict()
-    has_unaligned_result = False
-    
-    for arg in args:
-        for res in arg:
-            xule_type, compute_value = get_type_and_compute_value(res, xule_context)
-            
-            if xule_type == 'unbound':
-                continue
-            
-            if xule_type != 'bool':
-                raise XuleProcessingError(_("Function all can only operator on booleans, but found '%s'." % xule_type), xule_context)
-            
-            #need to freeze the key to use as dictionary key
-            key = None if res.alignment is None else frozenset(res.alignment.items())
-            if key is None:
-                has_unaligned_result = True
-            
-            if key not in results_by_alignment:
-                results_by_alignment[key] = XuleResult(False, 'bool')
-            
-            new_meta= combine_result_meta(res, results_by_alignment[key])
-            results_by_alignment[key].meta = new_meta
-            
-            if compute_value == True:
-                results_by_alignment[key].value = True
-                #Could break here to perform lazy aggregation, but then would loose the rest of the tags.
-
-    if not has_unaligned_result:     
-        if len(results_by_alignment) == 0 :
-            results_by_alignment[None] = XuleResult(False, 'bool')
-        else:
-            final_result_set.default = XuleResult(False, 'bool')
-                  
+    results_by_alignment = organize_aggregation(xule_context, *args)
     for res in results_by_alignment.values():
-        final_result_set.append(res)
-    
-    return final_result_set    
+        if len(res.value) > 0:
+            new_res = XuleResult(False, 'bool', meta=res.meta)
+            for sub_res in res.value:
+                sub_type, sub_value = get_type_and_compute_value(sub_res, xule_context)
+                if sub_type == 'unbound':
+                    continue
+                if sub_type != 'bool':
+                    raise XuleProcessingError(_("Function all can only operator on booleans, but found '%s'." % sub_type), xule_context)
+                new_res.value = new_res.value or sub_value
+            final_result_set.append(new_res)
+
+    if len(final_result_set.results) == 0:
+        final_result_set.append(XuleResult(False, 'bool'))
+        
+    return final_result_set
+
+#     
+#     final_result_set = XuleResultSet()
+#     
+#     results_by_alignment = dict()
+#     has_unaligned_result = False
+#     
+#     for arg in args:
+#         for res in arg:
+#             xule_type, compute_value = get_type_and_compute_value(res, xule_context)
+#             
+#             if xule_type == 'unbound':
+#                 continue
+#             
+#             if xule_type != 'bool':
+#                 raise XuleProcessingError(_("Function all can only operator on booleans, but found '%s'." % xule_type), xule_context)
+#             
+#             #need to freeze the key to use as dictionary key
+#             key = None if res.alignment is None else frozenset(res.alignment.items())
+#             if key is None:
+#                 has_unaligned_result = True
+#             
+#             if key not in results_by_alignment:
+#                 results_by_alignment[key] = XuleResult(False, 'bool')
+#             
+#             new_meta= combine_result_meta(res, results_by_alignment[key])
+#             results_by_alignment[key].meta = new_meta
+#             
+#             if compute_value == True:
+#                 results_by_alignment[key].value = True
+#                 #Could break here to perform lazy aggregation, but then would loose the rest of the tags.
+# 
+#     if not has_unaligned_result:     
+#         if len(results_by_alignment) == 0 :
+#             results_by_alignment[None] = XuleResult(False, 'bool')
+#         else:
+#             final_result_set.default = XuleResult(False, 'bool')
+#                   
+#     for res in results_by_alignment.values():
+#         final_result_set.append(res)
+#     
+#     return final_result_set    
 
 def agg_sum(xule_context, *args):
     '''In aggregation the results are created for each alignment'''
     final_result_set = XuleResultSet()
-    
-    results_by_alignment = dict()
-    has_unaligned_result = False
-    
-    for arg in args:
-        for res in arg:
-            
-            if res.type == 'unbound':
-                continue
-            
-            #need to freeze the key to use as dictionary key
-            key = None if res.alignment is None else frozenset(res.alignment.items())
-            if key is None:
-                has_unaligned_result = True
-                
-            if key not in results_by_alignment:
-                initial_type, initial_value = get_type_and_compute_value(res, xule_context)
-                results_by_alignment[key] = XuleResult(initial_value, initial_type, meta=res.meta)
-            else:
-                for combined in align_result_sets(XuleResultSet(results_by_alignment[key]), XuleResultSet(res), xule_context):
-                    results_by_alignment[key].value = combined['left_compute_value'] + combined['right_compute_value']
-                    results_by_alignment[key].meta = combined['meta']
-                    
+    results_by_alignment = organize_aggregation(xule_context, *args)
+
     for res in results_by_alignment.values():
-        final_result_set.append(res)
+        if len(res.value) > 0:
+            new_res = None
+            for sub_res in res.value:
+                if sub_res.type == 'unbound':
+                    continue
+                if new_res is None:
+                    new_type, new_value = get_type_and_compute_value(sub_res, xule_context)
+                    new_res = XuleResult(new_value, new_type, meta=res.meta)
+                else:
+                    combined_values = combine_xule_types(new_res, sub_res, xule_context)
+                    new_res.value = combined_values[1] + combined_values[2]
+                    new_res.type = combined_values[0]
+            final_result_set.append(new_res)
+            
+    return final_result_set    
     
-    return final_result_set
+#     final_result_set = XuleResultSet()   
+#     results_by_alignment = dict()
+#     has_unaligned_result = False
+#     
+#     for arg in args:
+#         for res in arg:
+#             
+#             if res.type == 'unbound':
+#                 continue
+#             
+#             #need to freeze the key to use as dictionary key
+#             key = None if res.alignment is None else frozenset(res.alignment.items())
+#             if key is None:
+#                 has_unaligned_result = True
+#                 
+#             if key not in results_by_alignment:
+#                 initial_type, initial_value = get_type_and_compute_value(res, xule_context)
+#                 results_by_alignment[key] = XuleResult(initial_value, initial_type, meta=res.meta)
+#             else:
+#                 for combined in align_result_sets(XuleResultSet(results_by_alignment[key]), XuleResultSet(res), xule_context):
+#                     results_by_alignment[key].value = combined['left_compute_value'] + combined['right_compute_value']
+#                     results_by_alignment[key].meta = combined['meta']
+#                     
+#     for res in results_by_alignment.values():
+#         final_result_set.append(res)
+#     
+#     return final_result_set
     
 def agg_first(xule_context, *args):
     '''In aggregation the results are created for each alignment'''
     final_result_set = XuleResultSet()
     
-    results_by_alignment = dict()
-    has_unaligned_result = False
-    
-    for arg in args:
-        for res in arg:
-            #need to freeze the key to use as dictionary key
-            key = None if res.alignment is None else frozenset(res.alignment.items())
-#             if key is None:
-#                 has_unaligned_result = True
-            
-            if key not in results_by_alignment:
-                results_by_alignment[key] = res
-            else:
-                new_meta = combine_result_meta(res, results_by_alignment[key])
-                results_by_alignment[key].meta = new_meta
-                    
+    results_by_alignment = organize_aggregation(xule_context, *args)
     for res in results_by_alignment.values():
-        final_result_set.append(res)    
-    
-    return final_result_set    
+        if len(res.value) > 0:
+            final_result_set.append(XuleResult(res.value[0].value, res.value[0].type, meta=res.meta))
+    return final_result_set
+  
+#     final_result_set = XuleResultSet()
+#     
+#     results_by_alignment = dict()
+#     has_unaligned_result = False
+#     
+#     for arg in args:
+#         for res in arg:
+#             #need to freeze the key to use as dictionary key
+#             key = None if res.alignment is None else frozenset(res.alignment.items())
+# #             if key is None:
+# #                 has_unaligned_result = True
+#             
+#             if key not in results_by_alignment:
+#                 results_by_alignment[key] = res
+#             else:
+#                 new_meta = combine_result_meta(res, results_by_alignment[key])
+#                 results_by_alignment[key].meta = new_meta
+#                     
+#     for res in results_by_alignment.values():
+#         final_result_set.append(res)    
+#     
+#     return final_result_set    
  
 def agg_count(xule_context, *args):    
     '''In aggregation the results are created for each alignment'''
     final_result_set = XuleResultSet()
     
-    results_by_alignment = dict()
-    has_unaligned_result = False
-    
-    for arg in args:
-        for res in arg:
-            if res.type != 'unbound':
-                #need to freeze the key to use as dictionary key
-                key = None if res.alignment is None else frozenset(res.alignment.items())
-                if key is None:
-                    has_unaligned_result = True
-                    
-                if key not in results_by_alignment:
-                    results_by_alignment[key] = XuleResult(1, 'int')
-                else:
-                    results_by_alignment[key].value += 1
-                  
-                new_meta = combine_result_meta(res, results_by_alignment[key])
-                results_by_alignment[key].meta = new_meta  
-
-    if not has_unaligned_result:     
-        if len(results_by_alignment) == 0 :
-            results_by_alignment[None] = XuleResult(0, 'int')
-        else:
-            final_result_set.default = XuleResult(0, 'int')
-                  
+    results_by_alignment = organize_aggregation(xule_context, *args)
     for res in results_by_alignment.values():
-        final_result_set.append(res)
-    
+        final_result_set.append(XuleResult(len(res.value), 'int', meta=res.meta))
+
     return final_result_set
+#     final_result_set = XuleResultSet()
+#     
+#     results_by_alignment = dict()
+#     has_unaligned_result = False
+#     
+#     for arg in args:
+#         for res in arg:
+#             if res.type != 'unbound':
+#                 #need to freeze the key to use as dictionary key
+#                 key = None if res.alignment is None else frozenset(res.alignment.items())
+#                 if key is None:
+#                     has_unaligned_result = True
+#                     
+#                 if key not in results_by_alignment:
+#                     results_by_alignment[key] = XuleResult(1, 'int')
+#                 else:
+#                     results_by_alignment[key].value += 1
+#                   
+#                 new_meta = combine_result_meta(res, results_by_alignment[key])
+#                 results_by_alignment[key].meta = new_meta  
+# 
+#     if not has_unaligned_result:     
+#         if len(results_by_alignment) == 0 :
+#             results_by_alignment[None] = XuleResult(0, 'int')
+#         else:
+#             final_result_set.default = XuleResult(0, 'int')
+#                   
+#     for res in results_by_alignment.values():
+#         final_result_set.append(res)
+#     
+#     return final_result_set
 
 def agg_max(xule_context, *args):
     '''In aggregation the results are created for each alignment'''
     final_result_set = XuleResultSet()
     
-    results_by_alignment = dict()
-    has_unaligned_result = False
-    
-    for arg in args:
-        for res in arg:            
-            if res.type == 'unbound':
-                continue
-            
-            #need to freeze the key to use as dictionary key
-            key = None if res.alignment is None else frozenset(res.alignment.items())
-            if key is None:
-                has_unaligned_result = True
-                
-            if key not in results_by_alignment:
-                results_by_alignment[key] = XuleResult(res.value, res.type, meta=res.meta)
-            else:
-                for combined in align_result_sets(XuleResultSet(results_by_alignment[key]), XuleResultSet(res), xule_context):
-                    if combined['left_compute_value'] < combined['right_compute_value']:
-                        results_by_alignment[key].value = combined['right'].value
-                    results_by_alignment[key].meta = combined['meta']
-                    
+    results_by_alignment = organize_aggregation(xule_context, *args)
     for res in results_by_alignment.values():
-        final_result_set.append(res)    
+        if len(res.value) > 0:
+            max_res = res.value[0]
+            for sub_res in res.value:
+                sub_type, sub_value = get_type_and_compute_value(sub_res, xule_context)
+                max_type, max_value = get_type_and_compute_value(max_res, xule_context)
+                if sub_value > max_value:
+                    max_res = sub_res
+        final_result_set.append(XuleResult(max_res.value, max_res.type, meta=res.meta))
+    return final_result_set     
     
-    return final_result_set
+#     final_result_set = XuleResultSet()
+#     
+#     results_by_alignment = dict()
+#     has_unaligned_result = False
+#     
+#     for arg in args:
+#         for res in arg:            
+#             if res.type == 'unbound':
+#                 continue
+#             
+#             #need to freeze the key to use as dictionary key
+#             key = None if res.alignment is None else frozenset(res.alignment.items())
+#             if key is None:
+#                 has_unaligned_result = True
+#                 
+#             if key not in results_by_alignment:
+#                 results_by_alignment[key] = XuleResult(res.value, res.type, meta=res.meta)
+#             else:
+#                 for combined in align_result_sets(XuleResultSet(results_by_alignment[key]), XuleResultSet(res), xule_context):
+#                     if combined['left_compute_value'] < combined['right_compute_value']:
+#                         results_by_alignment[key].value = combined['right'].value
+#                     results_by_alignment[key].meta = combined['meta']
+#                     
+#     for res in results_by_alignment.values():
+#         final_result_set.append(res)    
+#     
+#     return final_result_set
 
 def agg_min(xule_context, *args):
     '''In aggregation the results are created for each alignment'''
     final_result_set = XuleResultSet()
     
-    results_by_alignment = dict()
-    has_unaligned_result = False
-    
-    for arg in args:
-        for res in arg:       
-            if res.type == 'unbound':
-                continue
-            
-            #need to freeze the key to use as dictionary key
-            key = None if res.alignment is None else frozenset(res.alignment.items())
-            if key is None:
-                has_unaligned_result = True
-                
-            if key not in results_by_alignment:
-                results_by_alignment[key] = XuleResult(res.value, res.type, meta=res.meta)
-            else:
-                for combined in align_result_sets(XuleResultSet(results_by_alignment[key]), XuleResultSet(res), xule_context):
-                    if combined['right_compute_value'] < combined['left_compute_value']:
-                        results_by_alignment[key].value = combined['right'].value
-                    results_by_alignment[key].meta = combined['meta']
-                    
+    results_by_alignment = organize_aggregation(xule_context, *args)
     for res in results_by_alignment.values():
-        final_result_set.append(res)
+        if len(res.value) > 0:
+            min_res = res.value[0]
+            for sub_res in res.value:
+                sub_type, sub_value = get_type_and_compute_value(sub_res, xule_context)
+                mmin_type, min_value = get_type_and_compute_value(min_res, xule_context)
+                if sub_value < min_value:
+                    min_res = sub_res
+        final_result_set.append(XuleResult(min_res.value, min_res.type, meta=res.meta))
+    return final_result_set     
     
-    return final_result_set
+#     final_result_set = XuleResultSet()
+#     
+#     results_by_alignment = dict()
+#     has_unaligned_result = False
+#     
+#     for arg in args:
+#         for res in arg:       
+#             if res.type == 'unbound':
+#                 continue
+#             
+#             #need to freeze the key to use as dictionary key
+#             key = None if res.alignment is None else frozenset(res.alignment.items())
+#             if key is None:
+#                 has_unaligned_result = True
+#                 
+#             if key not in results_by_alignment:
+#                 results_by_alignment[key] = XuleResult(res.value, res.type, meta=res.meta)
+#             else:
+#                 for combined in align_result_sets(XuleResultSet(results_by_alignment[key]), XuleResultSet(res), xule_context):
+#                     if combined['right_compute_value'] < combined['left_compute_value']:
+#                         results_by_alignment[key].value = combined['right'].value
+#                     results_by_alignment[key].meta = combined['meta']
+#                     
+#     for res in results_by_alignment.values():
+#         final_result_set.append(res)
+#     
+#     return final_result_set
 
 def agg_list(xule_context, *args):    
     '''In aggregation the results are created for each alignment'''
     final_result_set = XuleResultSet()
-    
-    results_by_alignment = dict()
-    has_unaligned_result = False
-    
-    for arg in args:
-        for res in arg:
-            if res.type != 'unbound':
-                #need to freeze the key to use as dictionary key
-                key = None if res.alignment is None else frozenset(res.alignment.items())
-                if key is None:
-                    has_unaligned_result = True
-                    
-                if key not in results_by_alignment:
-                    results_by_alignment[key] = XuleResult(tuple(), 'list')
-
-                results_by_alignment[key].value += tuple([res])
-                  
-                new_meta = combine_result_meta(res, results_by_alignment[key])  
-                results_by_alignment[key].meta = new_meta
-
-    if not has_unaligned_result:     
-        if len(results_by_alignment) == 0 :
-            results_by_alignment[None] = XuleResult(tuple(), 'list')
-        else:
-            final_result_set.default = XuleResult(tuple(), 'list')
-                  
+    results_by_alignment = organize_aggregation(xule_context, *args)
     for res in results_by_alignment.values():
-        #res.value = tuple(res.value)
         final_result_set.append(res)
     
+    final_result_set.default = XuleResult(tuple(), 'list')
+    
+    if len(final_result_set.results) == 0:
+        final_result_set.append(XuleResult(tuple(), 'list'))
+
     return final_result_set
 
 def agg_set(xule_context, *args):    
     '''In aggregation the results are created for each alignment'''
     final_result_set = XuleResultSet()
+    final_result_set.default = XuleResult(frozenset(), 'set')
     
+    results_by_alignment = organize_aggregation(xule_context, *args)
+    
+    for res in results_by_alignment.values():
+        final_result_set.append(XuleResult(frozenset(res.value), 'set', meta=res.meta))
+        
+    if len(final_result_set.results) == 0:
+        final_result_set.append(XuleResult(frozenset(), 'set'))
+    
+    return final_result_set
+
+    
+#     final_result_set = XuleResultSet()
+#     
+#     results_by_alignment = dict()
+#     has_unaligned_result = False
+#     
+#     for arg in args:
+#         for res in arg:
+#             if res.type != 'unbound':
+#                 #need to freeze the key to use as dictionary key
+#                 key = None if res.alignment is None else frozenset(res.alignment.items())
+#                 if key is None:
+#                     has_unaligned_result = True
+#                     
+#                 if key not in results_by_alignment:
+#                     results_by_alignment[key] = XuleResult(frozenset(), 'set')
+# 
+#                 results_by_alignment[key].value |= frozenset([res])
+#                   
+#                 new_meta = combine_result_meta(res, results_by_alignment[key])  
+#                 results_by_alignment[key].meta = new_meta
+# 
+#     if not has_unaligned_result:     
+#         if len(results_by_alignment) == 0 :
+#             results_by_alignment[None] = XuleResult(frozenset(), 'set')
+#         else:
+#             final_result_set.default = XuleResult(frozenset(), 'set')
+#                   
+#     for res in results_by_alignment.values():
+#         final_result_set.append(res)
+#     
+#     return final_result_set
+
+def organize_aggregation(xule_context, *args):
+  
+    
+#     left_arg = XuleResultSet()
+#     
+#     #convert the first argnument to a tuple.
+#     if len(args) > 0:
+#         first_arg = args[0]
+#         for res in first_arg.results:
+#             left_arg.append(XuleResult((res,), 'list', meta=res.meta))
+# 
+#         #do the same for the default value
+#         left_arg.default = first_arg.default
+#         left_arg.default.value = (left_arg.default.value,)
+#         left_arg.default.type = 'list'
+#         left_arg.default.meta = first_arg.default.meta
+#         
+#         #combine with each of the right arguments
+#         for right_arg in args[1:]:
+#             new_left_arg = XuleResultSet()
+#             for combined in align_result_sets(left_arg, right_arg, xule_context, align_only=True, require_binding=False):
+#                 new_left_arg.append(XuleResult(combined['left'].value + (combined['right'],),
+#                                                'list',
+#                                                meta=combined['meta']))
+#             left_arg = new_left_arg
+#     
+#     return left_arg
+    
+
     results_by_alignment = dict()
-    has_unaligned_result = False
-    
     for arg in args:
         for res in arg:
-            if res.type != 'unbound':
-                #need to freeze the key to use as dictionary key
-                key = None if res.alignment is None else frozenset(res.alignment.items())
-                if key is None:
-                    has_unaligned_result = True
-                    
-                if key not in results_by_alignment:
-                    results_by_alignment[key] = XuleResult(frozenset(), 'set')
+            #need to freeze the key to use as dictionary key
+            key = None if res.alignment is None else frozenset(res.alignment.items())
+                
+            if key not in results_by_alignment:
+                if None in results_by_alignment:
+                    #reults with alignment get all the None aligned results as a starting point.
+                    results_by_alignment[key] = results_by_alignment[None].dup()
+                else:
+                    results_by_alignment[key] = XuleResult(tuple(), 'list')
 
-                results_by_alignment[key].value |= frozenset([res])
-                  
+            if key is None:
+                for agg_res in results_by_alignment.values():
+                    agg_res.value += tuple([res])
+                    new_meta = combine_result_meta(res, agg_res)  
+                    agg_res.meta = new_meta
+            else:
+                results_by_alignment[key].value += tuple([res])
+              
                 new_meta = combine_result_meta(res, results_by_alignment[key])  
                 results_by_alignment[key].meta = new_meta
 
-    if not has_unaligned_result:     
-        if len(results_by_alignment) == 0 :
-            results_by_alignment[None] = XuleResult(frozenset(), 'set')
-        else:
-            final_result_set.default = XuleResult(frozenset(), 'set')
-                  
-    for res in results_by_alignment.values():
-        final_result_set.append(res)
-    
-    return final_result_set
+    if None in results_by_alignment and len(results_by_alignment) > 1: #it is not the only result
+            del results_by_alignment[None]
+  
+#     if len(results_by_alignment) == 0 :
+#         results_by_alignment[None] = XuleResult(tuple(), 'list')
+
+    return results_by_alignment
 
 def func_exists(xule_context, *args):
 
@@ -4175,6 +4332,8 @@ def format_result_value(result, xule_context):
     if result.type == 'fact':
         if type(result.value.xValue) == gYear:
             return str(res_value)
+        else:
+            return str(res_value)
     
     if res_type in ('float', 'decimal'):
         format_rounded = "{0:,.3f}".format(res_value)
@@ -4208,12 +4367,14 @@ def format_result_value(result, xule_context):
     elif res_type == 'instant':
         return "instant('%s')" % res_value.strftime("%Y-%m-%d")
     
+    elif res_type == 'list':
+        list_value = "list(" + ", ".join([format_result_value(sub_res, xule_context) for sub_res in res_value]) + ")"
+        return list_value
+    
     elif res_type == 'set':
-        set_value = "set(" + ", ".join([str(set_item_result.value) for set_item_result in res_value]) + ")"
-            
+        set_value = "set(" + ", ".join([format_result_value(sub_res, xule_context) for sub_res in res_value]) + ")" 
         return set_value
-    
-    
+
     else:
         return str(res_value)
 
