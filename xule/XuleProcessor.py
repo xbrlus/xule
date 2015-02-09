@@ -1718,18 +1718,23 @@ def evaluate_factset(factset, xule_context):
 
 def evaluate_values(values_expr, xule_context):
     '''The values keywork effectively returns a factset that doesn't have alignment.'''
-    
+    final_result_set = XuleResultSet()
     #suspend the alignment filters
     '''SHOULD WITH FILTERS ALSO BE SUSPENDED?'''
-    saved_alginment_filters = xule_context.alignment_filters
-    xule_context.alignment_filters = []
+#     saved_alginment_filters = xule_context.alignment_filters
+#     xule_context.alignment_filters = []
     factset_rs = evaluate(values_expr[0], xule_context)
-    xule_context.alignment_filters = saved_alginment_filters
+#     xule_context.alignment_filters = saved_alginment_filters
     
-    for result in factset_rs:
-        result.alignment = None
+    final_result_set.default = factset_rs.default
+    #Need to recheck the alignment filters because the alignment is being changed on these results.
+    if None not in xule_context.alignment_filters:
+        for result in factset_rs:
+            final_result_set.append(result)
+            result.alignment = None
+    #otherwise, there shoulde be no results because the alignment filter is blocking 'None' alingments
 
-    return factset_rs
+    return final_result_set
 
 def evaluate_severity(severity_expr, xule_context):
 
