@@ -113,12 +113,16 @@ def evaluate(rule_part, xule_context):
     if xule_context.show_trace:
         print("  " * xule_context.trace_level + trace_info(rule_part))
         xule_context.trace_level += 1
-        
+
     result_set = EVALUATOR[rule_part.getName()](rule_part, xule_context) 
 
     if xule_context.show_trace:
         xule_context.trace_level -= 1
-        
+    
+    if result_set is not None:
+        for res in result_set:
+            res.trace = (rule_part.getName(), rule_part.asDict(), res, [] if res.trace is None else res.trace if isinstance(res.trace, list) else [res.trace])
+    
     return result_set
 
 def trace_info(rule_part):
@@ -2517,6 +2521,25 @@ def func_number(xule_context, *args):
             raise XuleProcessingError(_("Cannot convert '%s' to a number" % compute_value), xule_context)
     
     return final_result_set            
+
+def func_mod(xule_context, *args):
+    final_result_set = XuleResultSet()
+    
+    for combine in align_result_sets(args[0], args[1], xule_context):
+        num_xule_type, num_value = get_type_and_compute_value(combine['left'], xule_context)
+        denom_xule_type, denom_value = get_type_and_compute_value(combine['right'], xule_context)
+        
+        if num_xule_type not in ('int', 'float', 'decimal'):
+            raise XuleProcessingError(_("The numerator for the 'mod' function must be numeric, found '%s'" % num_xule_type), xule_context)
+        if denom_xule_type not in ('int', 'float', 'decimal'):
+            raise XuleProcessingError(_("The numerator for the 'mod' function must be numeric, found '%s'" % denom_xule_type), xule_context)
+        
+        final_result_set.append(XuleResult(combine['left_compute_value'] % combine['right_compute_value'],
+                                       combine['type'],
+                                       meta=combine['meta']))
+    
+    return final_result_set
+
     
 #the position of the function information
 FUNCTION_TYPE = 0
@@ -2546,6 +2569,7 @@ BUILTIN_FUNCTIONS = {'all': ('aggregate', agg_all, 1),
                      'schema-type': ('regular', func_schema_type, 1),
                      'num_to_string': ('regular', func_num_to_string, 1),
                      'number': ('regular', func_number, 1),
+                     'mod': ('regular', func_mod, 2)
                      }
 
 #duration tuple
@@ -3241,6 +3265,9 @@ def property_string(xule_context, left_result, *args):
     '''SHOULD THE META DATA BE INCLUDED???? THIS SHOULD BE HANDLED BY THE PROPERTY EVALUATOR.'''
     return XuleResultSet(XuleResult(str(left_result.value), 'string', meta=left_result.meta))
 
+def property_facts(xule_context, left_result, *args):
+    return XuleResultSet(XuleResult("\n".join([str(f.qname) + " " + str(f.xValue) for f in left_result.facts]), 'string'))
+
 #Property tuple
 PROP_FUNCTION = 0
 PROP_ARG_NUM = 1
@@ -3337,6 +3364,7 @@ PROPERTIES = {'dimension': (property_dimension, 1, ('fact'), False),
               
               'type': (property_type, 0, (), False),
               'string': (property_string, 0, (), False),
+              'facts': (property_facts, 0, (), False),
               }
 
 
@@ -3873,27 +3901,30 @@ def combine_xule_types(left, right, xule_context):
                 return ('unbound', left_value, right_value)
 
 def combine_period_values(left_result, right_result, xule_context):
-    if left_result.type != right_result.type or left_result.type not in ('instant', 'duration') or right_result.type not in ('instant', 'duration'):
+    left_type, left_value = get_type_and_compute_value(left_result, xule_context)
+    right_type, right_value = get_type_and_compute_value(right_result, xule_context)
+    
+    if left_type != right_type or left_type not in ('instant', 'duration') or right_type not in ('instant', 'duration'):
         raise XuleProcessingError(_("Internal error, combine_period_values did not get matching or appropiate date types. Recieved '%s' and '%s'" % (left_result.type, right_result.type)), xule_context)
     
     if left_result.from_model == right_result.from_model:
         return (left_result.value, right_result.value)
     else:
-        if left_result.type == 'instant':
+        if left_type == 'instant':
             if not left_result.from_model:
-                return (left_result.value + datetime.timedelta(days=1),
-                        right_result.value)
+                return (left_value + datetime.timedelta(days=1),
+                        right_value)
             else:
-                return(left_result.value,
-                       right_result.value + datetime.timedelta(days=1))
+                return(left_value,
+                       right_value + datetime.timedelta(days=1))
         else:
             #duration
             if not left_result.type.from_model:
-                return ((left_result.value[0], left_result.value[1] + datetime.timedelta(days=1)),
-                        right_result.value)
+                return ((left_value[0], left_value[1] + datetime.timedelta(days=1)),
+                        right_value)
             else:
-                return (left_result.value,
-                        (right_result.value[0], right_result.value[1] + datetime.timedelta(days=1)))
+                return (left_value,
+                        (right_value[0], right_value[1] + datetime.timedelta(days=1)))
 
 def get_type_and_compute_value(result, xule_context):
     if result.type == 'fact':
@@ -4119,12 +4150,20 @@ def combine_vars(left_result, right_result):
 def combine_from_model(left_result, right_result):
     return left_result.from_model or right_result.from_model
 
+def combine_trace(left_result, right_result):
+    
+    return ""
+    return [left_result.trace, right_result.trace]
+    
+    return [left_result.trace, right_result.trace]
+
 def combine_result_meta(left_result, right_result):
     return [combine_alignment(left_result, right_result),
             combine_tags(left_result, right_result), 
             combine_facts(left_result, right_result),
             combine_vars(left_result, right_result),
-            combine_from_model(left_result, right_result)]
+            combine_from_model(left_result, right_result),
+            combine_trace(left_result, right_result)]
 
 def combine_alignment(left_result, right_result):
     if left_result.alignment is not None:
@@ -4326,6 +4365,7 @@ def process_message(message_string, result, xule_context):
 
     message_string = re.sub('\$\s*{\s*context\s*}', format_alignment(common_aspects, xule_context), message_string)
     message_string = re.sub('\$\s*{\s*value\s*}', format_result_value(result, xule_context) or '', message_string)
+    message_string = re.sub('\$\s*{\s*trace\s*}', format_trace(xule_context, result), message_string)
     message_string = message_string.replace('%', '%%')
 
     return message_string
@@ -4336,8 +4376,6 @@ def format_result_value(result, xule_context):
 
     if result.type == 'fact':
         if type(result.value.xValue) == gYear:
-            return str(res_value)
-        else:
             return str(res_value)
     
     if res_type in ('float', 'decimal'):
@@ -4367,10 +4405,17 @@ def format_result_value(result, xule_context):
         if res_value[0] == datetime.datetime.min and res_value[1] == datetime.datetime.max:
             return "forever"
         else:
-            return"duration('%s', '%s')" % (res_value[0].strftime("%Y-%m-%d"), res_value[1].strftime("%Y-%m-%d"))
+            if result.from_model == True:
+                end_date = res_value[1] - datetime.timedelta(days=1)
+            else:
+                end_date = res_value[1]
+            return"duration('%s', '%s')" % (res_value[0].strftime("%Y-%m-%d"), end_date.strftime("%Y-%m-%d"))
         
     elif res_type == 'instant':
-        return "instant('%s')" % res_value.strftime("%Y-%m-%d")
+        if result.from_model == True:
+            return "instant('%s')" % (res_value - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+        else:
+            return res_value.strftime("%Y-%m-%d")
     
     elif res_type == 'list':
         list_value = "list(" + ", ".join([format_result_value(sub_res, xule_context) for sub_res in res_value]) + ")"
@@ -4431,9 +4476,9 @@ def format_alignment(aspects, xule_context):
             if period_info[0] == datetime.datetime.min and period_info[1] == datetime.datetime.max:
                 aspect_strings.append("period=forever")
             else:
-                aspect_strings.append("period=duration('%s', '%s')" % (period_info[0].strftime("%Y-%m-%d"), period_info[1].strftime("%Y-%m-%d")))
+                aspect_strings.append("period=duration('%s', '%s')" % (period_info[0].strftime("%Y-%m-%d"), (period_info[1] - datetime.timedelta(days=1)).strftime("%Y-%m-%d")))
         else:
-            aspect_strings.append("period=instant('%s')" % period_info.strftime("%Y-%m-%d"))
+            aspect_strings.append("period=instant('%s')" % (period_info - datetime.timedelta(days=1)).strftime("%Y-%m-%d"))
     
     if ('builtin', 'unit') in aspects:
         unit_hash = aspects[('builtin', 'unit')]
@@ -4560,6 +4605,28 @@ def get_tree_location(model_fact):
         prev_location = "/1"
     
     return prev_location + "/" + str(model_fact._elementSequence)
+
+def format_trace(xule_context, result):
+    #print(result.trace)
+    return ""
+    return walk_trace(xule_context, result.trace)
+
+def walk_trace(xule_context, trace, depth=0):
+    trace_string = ""
+
+    trace_string += "  " * depth + format_result_value(trace[2], xule_context) + " - " + format_trace_info(trace[0], trace[1]) + "\n"
+    for next_step in trace[3]:
+        trace_string += walk_trace(xule_context, next_step, depth + 1)
+    return trace_string
+
+def format_trace_info(expr_name, ast):
+    if expr_name == 'forExpr':
+        return 'for ($%s)' % ast['forVar']
+    elif expr_name == 'varRef':
+        return 'var ($%s)' % ast['varName']
+    else:
+        return expr_name
+    
 
 def caller():
     import inspect

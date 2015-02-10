@@ -13,7 +13,7 @@ class XuleProcessingError(Exception):
             return self.msg
         
 class XuleResult:
-    def __init__(self, value, value_type='unknown', *args, meta=None, alignment=None, tags=None, facts=None, var_refs=None, from_model=False):
+    def __init__(self, value, value_type='unknown', *args, meta=None, alignment=None, tags=None, facts=None, var_refs=None, from_model=False, trace=None):
         if len(args) != 0:
             import inspect
             print(inspect.stack()[1][3])
@@ -30,11 +30,11 @@ class XuleResult:
                          facts if facts else [], 
                          #var_refs if var_refs else {},
                          var_refs if var_refs else collections.defaultdict(set), 
-                         from_model]
+                         from_model,
+                         trace]
         #self.alignment = alignment
         #self.facts = facts if facts else []
         #self.tags = tags if tags else {}
-        self.trace = []
         '''A varible on a result is a reference to the variable in the processing context and the index of the result
            that contains the value. This is a dictionary indexed by the position in the context variable stack, with the value
            being the result index.'''
@@ -51,7 +51,8 @@ class XuleResult:
     _FACTS = 2
     _VARS = 3
     _FROM_MODEL = 4
-    _SKIPPED_RESULTS = 5
+    _TRACE = 5
+    
 
     @property
     def alignment(self):
@@ -88,6 +89,13 @@ class XuleResult:
     def from_model(self, value):
         self.meta[self._FROM_MODEL] = value
 
+    @property
+    def trace(self):
+        return self.meta[self._TRACE]
+    @trace.setter
+    def trace(self, value):
+        self.meta[self._TRACE] = value
+
     def add_fact(self, fact):
         self.fact.append(fact)
         
@@ -107,7 +115,8 @@ class XuleResult:
                                 tags=self.tags,
                                 facts=self.facts,
                                 var_refs=self.vars,
-                                from_model=self.from_model)
+                                from_model=self.from_model,
+                                trace=copy.copy(self.trace))
         if hasattr(self, 'original_result'):
             new_result.original_result = self.original_result
         
