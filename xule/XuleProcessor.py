@@ -7,7 +7,6 @@ Copywrite (c) 2014 XBRL US Inc. All rights reserved.
 from .XuleContext import XuleGlobalContext, XuleRuleContext #XuleContext
 from .XuleRunTime import XuleProcessingError, XuleResult, XuleResultSet
 #from  .XuleFunctions import *
-from .XuleMultiProcessing import output_message_queue
 from pyparsing import ParseResults
 import itertools as it
 from arelle.ModelValue import QName, dayTimeDuration, DateTime, gYear, gMonthDay, gYearMonth
@@ -20,26 +19,20 @@ import math
 from aniso8601.__init__ import parse_duration, parse_datetime, parse_date
 import collections
 from lxml import etree as et
-from threading import Thread
-
+        
 def process_xule(rule_set, model_xbrl, cntlr, show_timing=False, show_debug=False, show_trace=False, crash_on_error=False):
     global_context = XuleGlobalContext(rule_set, model_xbrl, cntlr)
     global_context.show_timing = show_timing
     global_context.show_debug = show_debug
     global_context.show_trace = show_trace
     global_context.crash_on_error = crash_on_error
-   
-    # Start message_queue monitoring thread
-    t = Thread(target=output_message_queue, args=(global_context,))
-    t.name = "Message Queue"
-    t.start()
-     
+    
     xule_context = XuleRuleContext(global_context)
     global_context.fact_index = index_model(xule_context)
+    
+    global_context.show_trace = show_trace
         
     evaluate_rule_set(global_context)
-    
-    global_context.message_queue.stop()
         
 def evaluate_rule_set(global_context):
 
@@ -70,13 +63,13 @@ def evaluate_rule_set(global_context):
                 if global_context.crash_on_error:
                     raise
                 else:
-                    xule_context.global_context.message_queue.error("xule:error", str(e))
+                    xule_context.model.error("xule:error",str(e))
             
             except Exception as e:
                 if global_context.crash_on_error:
                     raise
                 else:
-                    xule_context.global_context.message_queue.error("xule:error","rule %s: %s" % (rule_name, str(e)))
+                    xule_context.model.error("xule:error","rule %s: %s" % (rule_name, str(e)))
             
             if global_context.show_timing:
                 rule_end = datetime.datetime.today()
@@ -86,8 +79,7 @@ def evaluate_rule_set(global_context):
         total_end = datetime.datetime.today()
         print("Total number of rules processed: %i" % len(times))
         print("Total time to process: %s." % (total_end - total_start))
-        #slow_rules = [timing_info for timing_info in times if timing_info[1].total_seconds() > 0.001]
-        slow_rules = [timing_info for timing_info in times if timing_info[1].total_seconds() > 2]
+        slow_rules = [timing_info for timing_info in times if timing_info[1].total_seconds() > 0.001]
         print("Number of rules over 1ms: %i" % len(slow_rules))
         for slow_rule in slow_rules:
             print("Rule %s end. Took %s" % (slow_rule[0], slow_rule[1]))
@@ -119,19 +111,41 @@ def index_model(xule_context):
     
 def evaluate(rule_part, xule_context):
     if xule_context.show_trace:
-        print("  " * xule_context.trace_level + trace_info(rule_part))
         xule_context.trace_level += 1
+        cur_trace_level = xule_context.trace_level
+    
+#     if xule_context.show_trace:
+#         print("  " * xule_context.trace_level + trace_info(rule_part))
 
     result_set = EVALUATOR[rule_part.getName()](rule_part, xule_context) 
-
+    
     if xule_context.show_trace:
+        if result_set is not None:
+            for res in result_set:
+                #res.trace = (rule_part.getName(), rule_part.asDict(), res, [] if res.trace is None else res.trace if isinstance(res.trace, list) else [res.trace])
+                #res.trace = (rule_part.getName(), '', res, [] if res.trace is None else res.trace if isinstance(res.trace, list) else [res.trace])
+                res.trace.appendleft((cur_trace_level, rule_part.getName(), sugar_trace(res, rule_part, xule_context), res))
+            
         xule_context.trace_level -= 1
-    
-    if result_set is not None:
-        for res in result_set:
-            res.trace = (rule_part.getName(), rule_part.asDict(), res, [] if res.trace is None else res.trace if isinstance(res.trace, list) else [res.trace])
-    
     return result_set
+
+def sugar_trace(res, rule_part, xule_context):
+    part_name = rule_part.getName()
+    if part_name == 'forExpr':
+        return (rule_part.forVar,)
+    elif part_name == 'varRef':
+        return (rule_part.varName,)
+    elif part_name == 'functionReference':
+        function_info = xule_context.find_function(rule_part.functionName)
+        if function_info is None:
+            return (rule_part.functionName, tuple())
+        else:
+            args = tuple([x.argName for x in function_info['function_declaration'].functionArgs])
+            return (rule_part.functionName, args)
+    elif part_name == 'factset':
+        return (res,)
+    else:
+        return tuple()
 
 def trace_info(rule_part):
     trace = rule_part.getName()
@@ -190,7 +204,6 @@ def evaluate_raise(raise_rule, xule_context):
         source_location = get_element_identifier(result, xule_context)
         filing_url = xule_context.model.modelDocument.uri
 
-        '''
         xule_context.model.log(severity,
                                xule_context.rule_name, 
                                #evaluateMessage(node.message, sphinxContext, resultTags, hsBindings),
@@ -200,16 +213,6 @@ def evaluate_raise(raise_rule, xule_context):
                                sourceFileLine=[source_location],
                                severity=xule_context.severity,
                                filing_url=filing_url)
-        '''
-        xule_context.global_context.message_queue.log(severity,
-                                                      xule_context.rule_name, 
-                                                      #evaluateMessage(node.message, sphinxContext, resultTags, hsBindings),
-                                                      message,
-                                                      #sourceFileLine=[node.sourceFileLine] + 
-                                                      #[(fact.modelDocument.uri, fact.sourceline) for fact in hsBindings.boundFacts],
-                                                      sourceFileLine=[source_location],
-                                                      severity=xule_context.severity,
-                                                      filing_url=filing_url)        
            
 def evaluate_report(report_rule, xule_context): 
     
@@ -232,7 +235,6 @@ def evaluate_report(report_rule, xule_context):
         source_location = get_element_identifier(result, xule_context)
         filing_url = xule_context.model.modelDocument.uri
         
-        '''
         xule_context.model.log(xule_context.severity.upper(),
                                xule_context.rule_name, 
                                #evaluateMessage(node.message, sphinxContext, resultTags, hsBindings),
@@ -242,16 +244,6 @@ def evaluate_report(report_rule, xule_context):
                                sourceFileLine=source_location,
                                severity=xule_context.severity,
                                filing_url=filing_url)
-        '''
-        xule_context.global_context.message_queue.log(xule_context.severity.upper(),
-                                                      xule_context.rule_name, 
-                                                      #evaluateMessage(node.message, sphinxContext, resultTags, hsBindings),
-                                                      message,
-                                                      #sourceFileLine=[node.sourceFileLine] + 
-                                                      #[(fact.modelDocument.uri, fact.sourceline) for fact in hsBindings.boundFacts],
-                                                      sourceFileLine=source_location,
-                                                      severity=xule_context.severity,
-                                                      filing_url=filing_url)        
     
 def evaluate_formula(formula_rule, xule_context):
     '''NEED TO CHECK THE PRECONDITION'''
@@ -319,7 +311,7 @@ def evaluate_formula(formula_rule, xule_context):
             xule_context.del_var('left', severity_function_result_set)
             
             if len(severity_function_result_set.results) != 1:
-                raise XuleProcessingError(_("Severity function did not return a single result, got %i" % len(severity_function_result_set.results), xule_context))
+                raise XuleProcessingError(_("Severity function did not return a single result, got %i" % len(severity_function_result_set.results)), xule_context)
             if severity_function_result_set.results[0].type != 'severity':
                 raise XuleProcessingError(_("severity function did not return a severity, fount '%s'" % severity_function_result_set.results[0].type), xule_context)
             
@@ -351,7 +343,6 @@ def evaluate_formula(formula_rule, xule_context):
             
             filing_url = xule_context.model.modelDocument.uri
             
-            '''
             xule_context.model.log(severity,
                                    xule_context.rule_name, 
                                    #evaluateMessage(node.message, sphinxContext, resultTags, hsBindings),
@@ -361,17 +352,7 @@ def evaluate_formula(formula_rule, xule_context):
                                    sourceFileLine=None,
                                    severity=severity,
                                    filing_url=filing_url)
-            '''
-            xule_context.global_context.message_queue.log(severity,
-                                                          xule_context.rule_name, 
-                                                          #evaluateMessage(node.message, sphinxContext, resultTags, hsBindings),
-                                                          message,
-                                                          #sourceFileLine=[node.sourceFileLine] + 
-                                                          #[(fact.modelDocument.uri, fact.sourceline) for fact in hsBindings.boundFacts],
-                                                          sourceFileLine=None,
-                                                          severity=severity,
-                                                          filing_url=filing_url)
-            
+    
 def evaluate_bool_literal(literal, xule_context):
     if literal.value == "true":
         return XuleResultSet(XuleResult(True,'bool'))
@@ -527,7 +508,8 @@ def evaluate_mult(mult_expr, xule_context):
             right_rs = evaluate(tok, xule_context)
             interim_rs = XuleResultSet()
             
-            for combined in align_result_sets(left_rs, right_rs, xule_context):
+            for combined in align_result_sets(left_rs, right_rs, xule_context,
+                                              trace_info=collections.deque([(xule_context.trace_level + 1, '', None, XuleResult(operator, 'string'))])):
                 result = evaluate_mult_operation(combined, xule_context)
                 if result is not None:
                     interim_rs.append(result)
@@ -590,7 +572,8 @@ def evaluate_add(add_expr, xule_context):
             right_rs = evaluate(tok, xule_context)
             interim_rs = XuleResultSet()
             
-            for combined in align_result_sets(left_rs, right_rs, xule_context, require_binding=False):
+            for combined in align_result_sets(left_rs, right_rs, xule_context, require_binding=False, 
+                                              trace_info=collections.deque([(xule_context.trace_level + 1, '', None, XuleResult(operator, 'string'))])):
                 ''' determine if unbound should be zero '''
                 result = evaluate_add_operation(combined, xule_context)
                 if result is not None:
@@ -633,7 +616,8 @@ def evaluate_comp(comp_expr, xule_context):
             right_rs = evaluate(tok, xule_context)
             interim_rs = XuleResultSet()
             
-            for combined in align_result_sets(left_rs, right_rs, xule_context, require_binding=True):
+            for combined in align_result_sets(left_rs, right_rs, xule_context, require_binding=True,
+                                              trace_info=collections.deque([(xule_context.trace_level + 1, '', None, XuleResult(operator, 'string'))])):
                 interim_rs.append(evaluate_comp_operation(combined, xule_context))
 
             left_rs = interim_rs
@@ -918,6 +902,15 @@ def evaluate_var_ref(var_ref, xule_context):
         
         #copy_result = XuleResult(res.value, res.type, res.alignment, res.tags, res.facts, res.vars)
         copy_result = res.dup()
+        #adjust the trace levels in the trace. The original level is based on when the variable was declared. It needs to be adjusted for where
+        #it is referenced.
+        if xule_context.show_trace:
+            if len(copy_result.trace) > 0:
+                trace_diff = xule_context.trace_level - copy_result.trace[0][0] + 1
+                new_trace = collections.deque()
+                for step in copy_result.trace:
+                    new_trace.append((step[0] + trace_diff, step[1], step[2], step[3]))
+                copy_result.trace = new_trace
         #this is backdoor to the original value
         copy_result.original_result = res
         copy_rs.append(copy_result)
@@ -987,12 +980,14 @@ def evaluate_tagged(tagged_expr, xule_context):
 
 def evaluate_property(property_expr, xule_context):
 
+
     if 'expr' in property_expr:
         left_result_set = evaluate(property_expr.expr[0], xule_context)
     else:
         #if there is no object of the property.
         left_result_set = XuleResultSet(XuleResult(None, 'unbound'))
 
+    
     #This is the chain of properties
     properties = [x for x in property_expr.properties]
     
@@ -1010,7 +1005,9 @@ def evaluate_property_detail(property_exprs, left_result_set, xule_context):
         raise XuleProcessingError(_("'%s' is not a valid property." % current_property_expr.propertyName), xule_context)
     
     #The property table contains a row for each combination of left objects and all arguments.
-    property_table = prepare_property_args(left_result_set, current_property_expr.propertyArgs, xule_context)
+    xule_context.trace_level += 1
+    property_table = prepare_property_args(left_result_set, current_property_expr.propertyArgs, current_property_expr.propertyName, xule_context)
+    xule_context.trace_level -= 1
     
     property_info = PROPERTIES[current_property_expr.propertyName] 
     
@@ -1046,9 +1043,10 @@ def evaluate_property_detail(property_exprs, left_result_set, xule_context):
             
             '''Remove the pushed single value left result variables.'''
             pop_single_value_variables(single_vars, property_result_set, xule_context)
-        
+
         for property_result in property_result_set:
-            property_result.meta = combine_result_meta(left_result, property_result)
+            property_result.meta = combine_result_meta(property_result, left_result, 
+                                                       trace_info=collections.deque([(xule_context.trace_level + 1, 'property', (current_property_expr.propertyName,), property_result)]))
 #             property_result.alignment = left_result.alignment
 #             property_result.tags = left_result.tags
 #             property_result.facts = left_result.facts
@@ -1058,6 +1056,7 @@ def evaluate_property_detail(property_exprs, left_result_set, xule_context):
                 property_result.add_tag(current_property_expr.tagName, property_result)
             
             current_property_result_set.append(property_result)
+
 
     if len(current_property_exprs) == 0:
         #we are at the end of the property chain, so this is the final result
@@ -1070,7 +1069,7 @@ def evaluate_print(print_expr, xule_context):
     print_rs = evaluate(print_expr.printValue[0], xule_context)
     
     for res in print_rs:
-        xule_context.global_context.message_queue.log("INFO", "xule:print", "%s: %s" % (res.type, res.value))
+        xule_context.model.log("INFO", "xule:print", "%s: %s" % (res.type, res.value))
 
     return evaluate(print_expr.passThroughExpr[0], xule_context)
 
@@ -1131,18 +1130,18 @@ def evaluate_if_detail(condition_result, is_left_default, then_expr, else_if_exp
     pop_single_value_variables(single_vars, interim_result_set, xule_context)
 
     #align condition and results
-    for combined in align_result_sets(XuleResultSet(condition_result), interim_result_set, xule_context, align_only=True, use_defaults='none' if is_left_default else 'right'):
-
+    for combined in align_result_sets(XuleResultSet(condition_result), interim_result_set, xule_context, align_only=True, require_binding=False, use_defaults='none' if is_left_default else 'right'):
         if not is_left_default or (is_left_default and combined['alignment'] not in matched_alignments):
-            final_result_set.append(XuleResult(combined['right'].value, combined['right'].type,
-                                               meta=combined['meta']
-#                                                combined['alignment'],
-#                                                combined['tags'],
-#                                                combined['facts'],
-#                                                combined['vars']
-                                               ))
-            if not is_left_default:
-                matched_alignments.append(combined['alignment'])
+            if not (is_left_default and combined['left'].type == 'unbound' and combined['right'].type == 'unbound'):
+                final_result_set.append(XuleResult(combined['right'].value, combined['right'].type,
+                                                   meta=combined['meta']
+    #                                                combined['alignment'],
+    #                                                combined['tags'],
+    #                                                combined['facts'],
+    #                                                combined['vars']
+                                                   ))
+                if not is_left_default:
+                    matched_alignments.append(combined['alignment'])
     
     if not is_left_default:
         return final_result_set, matched_alignments
@@ -1308,9 +1307,10 @@ def evaluate_for(for_expr, xule_context):
     matched_alignments = []
     #use the flatten list instead of the control result set
     for control_result in control_results:
-        for_body_result_set, matched_alignments = evaluate_for_body(control_result, False, for_expr, matched_alignments, xule_context)
-        final_result_set.append(for_body_result_set)  
-    
+        if control_result.type != 'unbound':
+            for_body_result_set, matched_alignments = evaluate_for_body(control_result, False, for_expr, matched_alignments, xule_context)
+            final_result_set.append(for_body_result_set)  
+        
     '''THIS IS A BIT A KLUGE
        If the default is a list or set, it will be empty anyway, so there is nothing to atempt another iteration of the loop on.'''
     if control_rs.default.type not in ('list', 'set'):
@@ -1338,7 +1338,7 @@ def evaluate_for_body(control_result, is_left_default, for_expr, matched_alignme
     pop_single_value_variables(single_vars, for_body_result_set, xule_context)
     
     #align
-    for combined in align_result_sets(XuleResultSet(control_result), for_body_result_set, xule_context, align_only=True, use_defaults='none' if is_left_default else 'right'):
+    for combined in align_result_sets(XuleResultSet(control_result), for_body_result_set, xule_context, align_only=True, require_binding=False, use_defaults='none' if is_left_default else 'right'):
         #re-asign the alignment from the result of the combining
         if not is_left_default or (is_left_default and combined['alignment'] not in matched_alignments):
             combined['right'].meta = combined['meta']
@@ -1480,6 +1480,10 @@ def evaluate_factset(factset, xule_context):
         aspect_key = (aspect_info[TYPE], aspect_info[ASPECT])
         facts_by_aspect = set()
         
+        '''When the aspect key is not in the fact index, then the instance doesn't use this aspect (dimension). So create an entry for the 'None' key and put all the facts in it.'''
+        if aspect_key not in xule_context.fact_index:
+            xule_context.fact_index[aspect_key][None] = xule_context.model.factsInInstance
+        
         # get set of member XuleResults
         member_results = set()
         if aspect_info[SPECIAL_VALUE] is not None:
@@ -1506,9 +1510,6 @@ def evaluate_factset(factset, xule_context):
             #convert the results to the underlying values
             member_values, aspect_member_alignments = convert_results_to_values(member_results, aspect_info[TYPE], aspect_info[ASPECT], xule_context)
             member_alignments += aspect_member_alignments
-            '''When the aspect key is not in the fact index, then the instance doesn't use this aspect (dimension). So create an entry for the 'None' key and put all the facts in it.'''
-            if aspect_key not in xule_context.fact_index:
-                xule_context.fact_index[aspect_key][None] = xule_context.model.factsInInstance
             
             found_members = member_values & xule_context.fact_index[aspect_key].keys()
             
@@ -1595,6 +1596,7 @@ def evaluate_factset(factset, xule_context):
         '''aspect_member_alignment'''
         for aspect_key, member_alignment in aspect_member_alignment.items():
             member_alignments = None
+            member_metas = None
             if aspect_key[TYPE] == 'builtin':
                 if aspect_key[ASPECT] == 'lineItem':
                     member_metas = member_alignment.get(model_fact.elementQname)
@@ -1619,7 +1621,7 @@ def evaluate_factset(factset, xule_context):
                     member_metas = member_alignment.get(model_fact.context.qnameDims[aspect_key[ASPECT]].memberQname)
                     member_alignments = None if member_metas is None else [meta[XuleResult._ALIGNMENT] for meta in member_metas]
                     #member_alignments = member_alignment.get(model_fact.context.qnameDims[aspect_key[ASPECT]].memberQname)
-            if member_metas is not None:
+            if member_metas is not None and member_alignments is not None:
                 if fact_result.alignment not in member_alignments:
                     matched = False
                     break
@@ -4027,7 +4029,7 @@ def xule_cast(from_result, to_type, xule_context):
                 raise XuleProcessingError(_("Type '%s' is not castable to '%s'" % (from_type, to_type)), xule_context)
 
 '''IMPLEMENT BIND'''        
-def align_result_sets(left, right, xule_context, align_only=False, use_defaults='both', require_binding=True):
+def align_result_sets(left, right, xule_context, align_only=False, use_defaults='both', require_binding=True, trace_info=None):
     '''This function does a cartesian product of result sets but only return the combinations where
        the alignment matches.
      
@@ -4145,7 +4147,7 @@ def align_result_sets(left, right, xule_context, align_only=False, use_defaults=
             
             new_alignment = combine_alignment(combined[0], combined[1])
 
-            new_meta = combine_result_meta(combined[0], combined[1])
+            new_meta = combine_result_meta(combined[0], combined[1], trace_info=trace_info)
             new_alignment = new_meta[XuleResult._ALIGNMENT]
             new_tags = new_meta[XuleResult._TAGS]
             new_facts = new_meta[XuleResult._FACTS]
@@ -4191,20 +4193,30 @@ def combine_vars(left_result, right_result):
 def combine_from_model(left_result, right_result):
     return left_result.from_model or right_result.from_model
 
-def combine_trace(left_result, right_result):
+def combine_trace(left_result, right_result, trace_info=None): 
+      
+    new_trace = collections.deque(left_result.trace)
+    if trace_info is None:
+        new_trace.extend(right_result.trace)
+        return new_trace
+    else:
+        new_trace.extend(trace_info)
+        new_trace.extend(right_result.trace)
+        return new_trace
     
-    return ""
-    return [left_result.trace, right_result.trace]
-    
-    return [left_result.trace, right_result.trace]
-
-def combine_result_meta(left_result, right_result):
+    ''' 
+    if trace_info is None:
+        return left_result.trace + right_result.trace
+    else:
+        return left_result.trace + trace_info + right_result.trace
+    '''
+def combine_result_meta(left_result, right_result, trace_info=None):
     return [combine_alignment(left_result, right_result),
             combine_tags(left_result, right_result), 
             combine_facts(left_result, right_result),
             combine_vars(left_result, right_result),
             combine_from_model(left_result, right_result),
-            combine_trace(left_result, right_result)]
+            combine_trace(left_result, right_result, trace_info=trace_info)]
 
 def combine_alignment(left_result, right_result):
     if left_result.alignment is not None:
@@ -4299,7 +4311,7 @@ def get_alignment(model_fact, non_align_aspects, xule_context):
         
     return alignment
 
-def prepare_property_args(left_rs, args, xule_context):
+def prepare_property_args(left_rs, args, property_name, xule_context):
     '''This function creates a table of executions for a propert of the left object and the aligned arguments.'''
     
     '''A copy of the left result is created with copied results. This is so the added 'property_args' of the result are not removed by 
@@ -4339,15 +4351,15 @@ def prepare_property_args(left_rs, args, xule_context):
 #                 var_info = xule_context.var_by_index(var_index)
 #                 var_info = xule_context.del_var(var_info['name'], current_arg_rs)
 
-            for combined in align_result_sets(XuleResultSet(left_result), current_arg_rs, xule_context, align_only=True, use_defaults='right'):
-                new_left_result = combined['left'].dup()
+            for combined in align_result_sets(current_arg_rs, XuleResultSet(left_result), xule_context, align_only=True, use_defaults='right'):
+                new_left_result = combined['right'].dup()
                 new_left_result.meta = combined['meta']
 #                 new_left_result.alignment = combined['alignment']
 #                 new_left_result.tags = combined['tags']
 #                 new_left_result.facts = combined['facts']
 #                 new_left_result.vars = combined['vars']
                                
-                new_left_result.property_args = combined['left'].property_args + (combined['right'], ) #this is a singleton tuple
+                new_left_result.property_args = combined['right'].property_args + (combined['left'], ) #this is a singleton tuple
         
                 aligned_current_arg_rs.append(new_left_result)
             
@@ -4406,7 +4418,8 @@ def process_message(message_string, result, xule_context):
 
     message_string = re.sub('\$\s*{\s*context\s*}', format_alignment(common_aspects, xule_context), message_string)
     message_string = re.sub('\$\s*{\s*value\s*}', format_result_value(result, xule_context) or '', message_string)
-    message_string = re.sub('\$\s*{\s*trace\s*}', format_trace(xule_context, result), message_string)
+    if xule_context.show_trace:
+        message_string = re.sub('\$\s*{\s*trace\s*}', format_trace(xule_context, result, common_aspects), message_string)
     message_string = message_string.replace('%', '%%')
 
     return message_string
@@ -4465,7 +4478,15 @@ def format_result_value(result, xule_context):
     elif res_type == 'set':
         set_value = "set(" + ", ".join([format_result_value(sub_res, xule_context) for sub_res in res_value]) + ")" 
         return set_value
-
+    
+    elif res_type == 'concept':
+        return str(res_value.qname)
+    
+    elif res_type == 'taxonomy':
+        if res_value is xule_context.model:
+            return("instance taxonomy")
+        else:
+            return("rules taxonomy")
     else:
         return str(res_value)
 
@@ -4608,7 +4629,7 @@ def get_message(rule, result, xule_context):
             message_string = ""
             
         if len(message_result_set.results) > 1:
-            xule_context.global_context.message_queue.warning("xule:warning", "Rule '%s' produced %i message strings." % (xule_context.rule_name, len(message_result_set.results)))
+            xule_context.model.warning("xule:warning", "Rule '%s' produced %i message strings." % (xule_context.rule_name, len(message_result_set.results)))
     else:
         message_string = ""
     
@@ -4647,27 +4668,57 @@ def get_tree_location(model_fact):
     
     return prev_location + "/" + str(model_fact._elementSequence)
 
-def format_trace(xule_context, result):
-    #print(result.trace)
-    return ""
-    return walk_trace(xule_context, result.trace)
+def format_trace(xule_context, result, common_aspects):
+#     import pprint
+#     pprint.pprint(result.trace)
 
-def walk_trace(xule_context, trace, depth=0):
     trace_string = ""
+    for step in result.trace:
+        trace_string += ("  " * (step[0] - 1)) + format_result_value(step[3], xule_context) + format_trace_info(step[1], step[2], result, common_aspects, xule_context) + "\n"
 
-    trace_string += "  " * depth + format_result_value(trace[2], xule_context) + " - " + format_trace_info(trace[0], trace[1]) + "\n"
-    for next_step in trace[3]:
-        trace_string += walk_trace(xule_context, next_step, depth + 1)
+    trace_string += format_alignment(common_aspects, xule_context)
     return trace_string
 
-def format_trace_info(expr_name, ast):
-    if expr_name == 'forExpr':
-        return 'for ($%s)' % ast['forVar']
-    elif expr_name == 'varRef':
-        return 'var ($%s)' % ast['varName']
-    else:
-        return expr_name
+def format_trace_info(expr_name, sugar, result, common_aspects, xule_context):
+    trace_info = ""
     
+    if expr_name == 'forExpr':
+        trace_info += 'for ($%s)' % sugar[0]
+    elif expr_name == 'ifExpr':
+        trace_info += 'if'
+    elif expr_name == 'varRef':
+        trace_info += 'var ($%s)' % sugar[0]
+    elif expr_name == 'functionReference':
+        if len(sugar[1]) == 0:
+            args = "..."
+        else:
+            args = ",".join(sugar[1])
+        trace_info += '%s(%s)' % (sugar[0], args)
+    elif expr_name == 'addExpr':
+        trace_info += 'add/subtract'
+    elif expr_name == 'multExpr':
+        trace_info += 'multiply/divide'
+    elif expr_name == 'compExpr':
+        trace_info += 'comparison'
+    elif expr_name == 'andExpr':
+        trace_info += 'and'
+    elif expr_name == 'orExpr':
+        trace_info += 'or'
+    elif expr_name == 'property':
+        trace_info += "::%s" % sugar[0]
+    elif expr_name == 'factset':
+        fact_context = get_uncommon_aspects(sugar[0].value, common_aspects, xule_context)
+        trace_info = 'factset '
+        if ('builtin', 'lineItem') not in fact_context:
+            trace_info += str(sugar[0].qname) + " "
+        trace_info +=  format_alignment(fact_context, xule_context)
+    else:
+        trace_info += expr_name
+    
+    if len(trace_info) > 0:
+        trace_info = " - " + trace_info
+    
+    return trace_info
 
 def caller():
     import inspect

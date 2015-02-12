@@ -19,8 +19,8 @@ if __name__ == '__main__':
 
     print("Initializing Server")
     cntlr = CntlrCmdLine.parseAndRun(args)
-
     # get generated options from controller
+
     options = getattr(cntlr, "xule_options", None)
     setattr(options, "webserver", options.xule_server)
 

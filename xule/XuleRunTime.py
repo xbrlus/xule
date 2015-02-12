@@ -17,7 +17,7 @@ class XuleResult:
         if len(args) != 0:
             import inspect
             print(inspect.stack()[1][3])
-            raise XuleProcessingError(_("Internal error, received unnamed argument to XuleResult __init__"))
+            raise XuleProcessingError(_("Internal error, recieved unamed argument to XuleResult __init__"))
         
         self.value = value
         self.type = value_type
@@ -31,7 +31,7 @@ class XuleResult:
                          #var_refs if var_refs else {},
                          var_refs if var_refs else collections.defaultdict(set), 
                          from_model,
-                         trace]
+                         trace if trace else collections.deque()]
         #self.alignment = alignment
         #self.facts = facts if facts else []
         #self.tags = tags if tags else {}
@@ -116,7 +116,7 @@ class XuleResult:
                                 facts=self.facts,
                                 var_refs=self.vars,
                                 from_model=self.from_model,
-                                trace=copy.copy(self.trace))
+                                trace=collections.deque(self.trace))
         if hasattr(self, 'original_result'):
             new_result.original_result = self.original_result
         
