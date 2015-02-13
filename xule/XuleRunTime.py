@@ -17,7 +17,7 @@ class XuleResult:
         if len(args) != 0:
             import inspect
             print(inspect.stack()[1][3])
-            raise XuleProcessingError(_("Internal error, recieved unamed argument to XuleResult __init__"))
+            raise XuleProcessingError(_("Internal error, received unnamed argument to XuleResult __init__"))
         
         self.value = value
         self.type = value_type

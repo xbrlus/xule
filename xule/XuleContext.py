@@ -6,11 +6,115 @@ copywrite (c) 2014 XBRL US Inc. All rights reserved.
 from .XuleRunTime import XuleProcessingError, XuleResultSet, XuleResult
 from arelle import FileSource
 from arelle import ModelManager
+from queue import Queue
+from multiprocessing import Queue as M_Queue, Manager, cpu_count
 import datetime
+from time import sleep
+
+class XuleMessageQueue():
+    _queue = None
+    _model = None
+    _multi = False
+    _async = False
+    _printlist = []
+    
+    '''
+    use self.log to print to the queue
+    use self._model to print directly
+    '''
+    
+    def __init__(self, model, multi=False, async = False):
+        self._queue = M_Queue()
+        if model is not None:
+            self._model = model
+        self._multi = multi
+        self._async = async
+        #if not hasattr(self._model, "logger"):
+        #    print("Error during XuleMessageQueue init.  No logger available")
+        
+    def info(self, codes, msg, **args):
+        self.log('INFO', codes, msg, **args)
+
+    def warning(self, codes, msg, **args):
+        self.log('WARNING', codes, msg, **args)
+
+    def error(self, codes, msg, **args):
+        self.log('ERROR', codes, msg, **args)
+    
+
+    def log(self, level, codes, msg, **args):
+        self._queue.put((level, codes, msg, args))
+
+    def logging(self, msg):
+        ''' Logging statements for any text '''
+        self.print(msg)
+        
+    def print(self, msg):
+        print(msg)
+
+    def file(self, msg):
+        pass
+
+    def stop(self):
+        self.log('STOP', None, None)
+        
+    def clear(self):
+        ''' clears what's in the queue '''
+        for level, codes, msg, args in self._printlist:
+            self.output(level, codes, msg, **args)
+        
+
+    def loopoutput(self):
+        keep = True
+        (level, codes, msg, args) = self._queue.get()
+
+        if level == 'STOP':
+            ''' Break Loop '''
+            if self.size > 0:
+                print("aborting message break")
+            else:
+                keep = False
+        #elif 1 == 1:
+        #    return keep
+        elif not self._async:
+            self._printlist.append((level, codes, msg, args))
+        else:
+            self.output(level, codes, msg, **args)
+        
+        return keep
+
+    def output(self, level, codes, msg, **args): 
+        ''' output loop.
+            haslogger determined by hasattr(xule_context.global_context, "logger")
+        '''
+        if self._model is None:
+            print("[%s] [%s] %s" % (level, codes, msg))
+        #elif not hasattr(self._model, "logger"):
+        #    print("Error, no logger in model")
+        #    print("[%s] [%s] %s" % (level, codes, msg))
+        elif level == "ERROR":
+            self._model.error(codes, msg, **args)
+        elif level == "INFO":
+            self._model.info(codes, msg, **args)
+        elif level == "WARNING":
+            self._model.warning(codes, msg, **args)
+        else:
+            self._model.log(level, codes, msg, **args)
+
+            
+
+    @property
+    def size(self):
+        return self._queue.qsize()
+    
 
 class XuleGlobalContext(object):
     
-    def __init__(self, rule_set, model_xbrl=None, cntlr=None, include_nils=False):
+    # Constants
+    _NUM_PROCESSES = 2
+
+    
+    def __init__(self, rule_set, model_xbrl=None, cntlr=None, include_nils=False, multi=False, async=False, cpunum=None):
         '''
         Constructor
         '''
@@ -27,8 +131,32 @@ class XuleGlobalContext(object):
         self.crash_on_error = False
         self.function_cache = {}
         
-        #if getattr(self.cntlr, "base_taxonomy", None) is None:
-        #    self.get_rules_dts()        
+        # Set up various queues
+        self.message_queue = XuleMessageQueue(self.model, multi, async)
+        self.calc_constants_queue = Queue()
+        self.rules_queue = M_Queue()    
+        #self.shutdown_queue = Queue()
+        #self.stop_watch = 0
+
+        self.all_constants = None
+        self.all_rules = None
+        self.constants_done = False 
+        self.stopped_constants = False    
+        
+
+         # Set up list to track timings.  Each item should include a tuple of
+        #   (type, name, time) where type = (constant, rules); name is name 
+        #   of the type; time is the time taken for the defined to run
+        self.times = Manager().list()
+        
+        # determine number of processors to use. The number of cpus should be one 
+        #   less that what's available or 3 max
+        if cpunum is None:
+            self.num_processors = 2 if cpu_count() > 3 else cpu_count() - 2
+            if self.num_processors < 0:
+                self.num_processors = 0
+        else:
+            self.num_processors = int(cpunum) - 1
         
     @property
     def catalog(self):
@@ -52,6 +180,13 @@ class XuleGlobalContext(object):
       
         return self.cntlr.base_taxonomy  
 
+    @property
+    def constant_store(self):
+        return self._constants
+    
+    @constant_store.setter
+    def constant_store(self, value):
+        self._constants = value
 
 class XuleRuleContext(object):
 

@@ -7,6 +7,7 @@ Copywrite (c) 2014 XBRL US Inc. All rights reserved.
 from .XuleContext import XuleGlobalContext, XuleRuleContext #XuleContext
 from .XuleRunTime import XuleProcessingError, XuleResult, XuleResultSet
 #from  .XuleFunctions import *
+from .XuleMultiProcessing import output_message_queue
 from pyparsing import ParseResults
 import itertools as it
 from arelle.ModelValue import QName, dayTimeDuration, DateTime, gYear, gMonthDay, gYearMonth
@@ -19,20 +20,32 @@ import math
 from aniso8601.__init__ import parse_duration, parse_datetime, parse_date
 import collections
 from lxml import etree as et
-        
-def process_xule(rule_set, model_xbrl, cntlr, show_timing=False, show_debug=False, show_trace=False, crash_on_error=False):
-    global_context = XuleGlobalContext(rule_set, model_xbrl, cntlr)
+from threading import Thread
+
+def process_xule(rule_set, model_xbrl, cntlr, show_timing=False, show_debug=False, show_trace=False, crash_on_error=False,
+                 multi=False, async=False, cpunum=None):
+    global_context = XuleGlobalContext(rule_set, model_xbrl, cntlr, 
+                                       multi=multi, async=async,
+                                       cpunum=cpunum)    
     global_context.show_timing = show_timing
     global_context.show_debug = show_debug
     global_context.show_trace = show_trace
     global_context.crash_on_error = crash_on_error
-    
+
+    t = Thread(target=output_message_queue, args=(global_context,))
+    t.name = "Message Queue"
+    t.start()
+  
     xule_context = XuleRuleContext(global_context)
     global_context.fact_index = index_model(xule_context)
-    
-    global_context.show_trace = show_trace
         
+    global_context.message_queue.logging("Processing Filing...")
     evaluate_rule_set(global_context)
+    
+    # Shutdown Message Queue
+    global_context.message_queue.stop()
+    global_context.message_queue.clear()  
+    
         
 def evaluate_rule_set(global_context):
 
@@ -46,8 +59,8 @@ def evaluate_rule_set(global_context):
             cat_rule = cat_rules[rule_name]
         #for rule_name, cat_rule in cat_rules.items():
             if global_context.show_debug:
-                print("Processing: %s" % rule_name)
-                print(global_context.model.modelDocument.uri)
+                global_context.message_queue.print("Processing: %s" % rule_name)
+                global_context.message_queue.print(global_context.model.modelDocument.uri)
             try:
                 if global_context.show_timing:
                     rule_start = datetime.datetime.today()
@@ -63,13 +76,13 @@ def evaluate_rule_set(global_context):
                 if global_context.crash_on_error:
                     raise
                 else:
-                    xule_context.model.error("xule:error",str(e))
+                    xule_context.global_context.message_queue.error("xule:error", str(e))
             
             except Exception as e:
                 if global_context.crash_on_error:
                     raise
                 else:
-                    xule_context.model.error("xule:error","rule %s: %s" % (rule_name, str(e)))
+                    xule_context.global_context.message_queue.error("xule:error","rule %s: %s" % (rule_name, str(e)))
             
             if global_context.show_timing:
                 rule_end = datetime.datetime.today()
@@ -77,12 +90,13 @@ def evaluate_rule_set(global_context):
                 
     if global_context.show_timing:
         total_end = datetime.datetime.today()
-        print("Total number of rules processed: %i" % len(times))
-        print("Total time to process: %s." % (total_end - total_start))
-        slow_rules = [timing_info for timing_info in times if timing_info[1].total_seconds() > 0.001]
-        print("Number of rules over 1ms: %i" % len(slow_rules))
+        global_context.message_queue.print("Total number of rules processed: %i" % len(times))
+        global_context.message_queue.print("Total time to process: %s." % (total_end - total_start))
+        #slow_rules = [timing_info for timing_info in times if timing_info[1].total_seconds() > 0.001]
+        slow_rules = [timing_info for timing_info in times if timing_info[1].total_seconds() > 0.5]
+        global_context.message_queue.print("Number of rules over 0.5s: %i" % len(slow_rules))
         for slow_rule in slow_rules:
-            print("Rule %s end. Took %s" % (slow_rule[0], slow_rule[1]))
+            global_context.message_queue.print("Rule %s end. Took %s" % (slow_rule[0], slow_rule[1]))
 
 def index_model(xule_context):
     fact_index = collections.defaultdict(lambda :collections.defaultdict(set))
@@ -204,6 +218,7 @@ def evaluate_raise(raise_rule, xule_context):
         source_location = get_element_identifier(result, xule_context)
         filing_url = xule_context.model.modelDocument.uri
 
+        '''
         xule_context.model.log(severity,
                                xule_context.rule_name, 
                                #evaluateMessage(node.message, sphinxContext, resultTags, hsBindings),
@@ -213,6 +228,16 @@ def evaluate_raise(raise_rule, xule_context):
                                sourceFileLine=[source_location],
                                severity=xule_context.severity,
                                filing_url=filing_url)
+        '''
+        xule_context.global_context.message_queue.log(severity,
+                                                      xule_context.rule_name, 
+                                                      #evaluateMessage(node.message, sphinxContext, resultTags, hsBindings),
+                                                      message,
+                                                      #sourceFileLine=[node.sourceFileLine] + 
+                                                      #[(fact.modelDocument.uri, fact.sourceline) for fact in hsBindings.boundFacts],
+                                                      sourceFileLine=[source_location],
+                                                      severity=xule_context.severity,
+                                                      filing_url=filing_url)        
            
 def evaluate_report(report_rule, xule_context): 
     
@@ -235,6 +260,7 @@ def evaluate_report(report_rule, xule_context):
         source_location = get_element_identifier(result, xule_context)
         filing_url = xule_context.model.modelDocument.uri
         
+        '''
         xule_context.model.log(xule_context.severity.upper(),
                                xule_context.rule_name, 
                                #evaluateMessage(node.message, sphinxContext, resultTags, hsBindings),
@@ -244,6 +270,16 @@ def evaluate_report(report_rule, xule_context):
                                sourceFileLine=source_location,
                                severity=xule_context.severity,
                                filing_url=filing_url)
+        '''
+        xule_context.global_context.message_queue.log(xule_context.severity.upper(),
+                                                      xule_context.rule_name, 
+                                                      #evaluateMessage(node.message, sphinxContext, resultTags, hsBindings),
+                                                      message,
+                                                      #sourceFileLine=[node.sourceFileLine] + 
+                                                      #[(fact.modelDocument.uri, fact.sourceline) for fact in hsBindings.boundFacts],
+                                                      sourceFileLine=source_location,
+                                                      severity=xule_context.severity,
+                                                      filing_url=filing_url)        
     
 def evaluate_formula(formula_rule, xule_context):
     '''NEED TO CHECK THE PRECONDITION'''
@@ -343,6 +379,7 @@ def evaluate_formula(formula_rule, xule_context):
             
             filing_url = xule_context.model.modelDocument.uri
             
+            '''
             xule_context.model.log(severity,
                                    xule_context.rule_name, 
                                    #evaluateMessage(node.message, sphinxContext, resultTags, hsBindings),
@@ -352,7 +389,17 @@ def evaluate_formula(formula_rule, xule_context):
                                    sourceFileLine=None,
                                    severity=severity,
                                    filing_url=filing_url)
-    
+            '''
+            xule_context.global_context.message_queue.log(severity,
+                                                          xule_context.rule_name, 
+                                                          #evaluateMessage(node.message, sphinxContext, resultTags, hsBindings),
+                                                          message,
+                                                          #sourceFileLine=[node.sourceFileLine] + 
+                                                          #[(fact.modelDocument.uri, fact.sourceline) for fact in hsBindings.boundFacts],
+                                                          sourceFileLine=None,
+                                                          severity=severity,
+                                                          filing_url=filing_url)
+            
 def evaluate_bool_literal(literal, xule_context):
     if literal.value == "true":
         return XuleResultSet(XuleResult(True,'bool'))
