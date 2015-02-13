@@ -608,7 +608,7 @@ def evaluate_comp(comp_expr, xule_context):
             raise XuleProcessingError(_("Unknown operator '%s' found in comparison operation." % operator), xule_context)
     
     orig_left_rs = evaluate(comp_expr[0], xule_context)
-    left_rs = orig_left_rs
+    left_rs = orig_left_rs.dup()
     for tok in comp_expr[1:]:
         if tok.getName() == "op":
             operator = tok.value
@@ -701,7 +701,8 @@ def lazy_iteration_new(left_result_set, right_exprs, operation_function, stop_va
         
         interim_result_set = XuleResultSet()
         for combined in align_result_sets(new_left_result_set, right_result_set, xule_context, require_binding=False, use_defaults='left' if len(new_left_result_set.results) == 0 else 'both'):
-            interim_result_set.append(lazy_iteration_combine(combined, operation_function, xule_context))
+            if not(len(new_left_result_set.results) == 0 and combined['alignment'] is None):
+                interim_result_set.append(lazy_iteration_combine(combined, operation_function, xule_context))
         
         interim_result_set.default = lazy_iteration_combine(combine_defaults(new_left_result_set, right_result_set, xule_context), operation_function, xule_context)
            
@@ -1307,7 +1308,7 @@ def evaluate_for(for_expr, xule_context):
     matched_alignments = []
     #use the flatten list instead of the control result set
     for control_result in control_results:
-        if control_result.type != 'unbound':
+         if control_result.type != 'unbound':
             for_body_result_set, matched_alignments = evaluate_for_body(control_result, False, for_expr, matched_alignments, xule_context)
             final_result_set.append(for_body_result_set)  
         
@@ -1393,28 +1394,32 @@ def evaluate_with(with_expr, xule_context):
     return final_result_set
 
 def convert_result_to_qname(result, xule_context):
-    if result.type == 'concept':
-        return result.value.qname
-    elif result.type == 'qname':
-        return result.value
-    elif result.type in ('unbound', 'none'):
+    res_type, res_value = get_type_and_compute_value(result, xule_context)
+    
+    if res_type == 'concept':
+        return res_value.qname
+    elif res_type == 'qname':
+        return res_value
+    elif res_type in ('unbound', 'none'):
         return None
     else:
         raise XuleProcessingError(_("The value for lineItem must be a qname or concept, found '%s'." % result.type), xule_context)
 
 def convert_result_to_model_period(result, xule_context):
+    res_type, res_value = get_type_and_compute_value(result, xule_context)
+    
     if result.from_model:
-        return result.value
+        return res_value
     else:
         #need to adjust instant and end_date. The model has instant and end dates of the next day because python treats midnight as the begining of the day.
-        if result.type == 'instant':
-            return result.value + datetime.timedelta(days=1)
-        elif result.type == 'duration':
+        if res_type == 'instant':
+            return res_value + datetime.timedelta(days=1)
+        elif res_type == 'duration':
             if result.value[0] == datetime.datetime.min and result.value[1] == datetime.datetime.max:
                 #this is forever, don't do anything
-                return result.value
+                return res_value
             else:
-                return (result.value[0], result.value[1] + datetime.timedelta(days=1))
+                return (res_value[0], res_value[1] + datetime.timedelta(days=1))
         else:
             raise XuleProcessingError(_("Converting result to a period, expected 'instant' or 'duration' but found '%s'" % result.type), xule_context)
 
@@ -1435,6 +1440,44 @@ def convert_results_to_values(results, aspect_type, aspect, xule_context):
             member_alignments.append((result, aspect_type, aspect, convert_function(result, xule_context)))
 
     return member_values, member_alignments
+
+def update_member_table(aspect_type, aspect, member_table, member_results, xule_context):
+    '''THESE CONVERT FUNCTIONS SHOULD GET THE VALUE VIA get_type_and_compute_value, SO IF THE MEMBER IS A FACT, IT LOOKS AT THE UNDERLYING VALUE.'''
+    if (aspect_type == 'builtin' and aspect == 'lineItem') or aspect_type == 'explicit_dimension':
+        convert_function = convert_result_to_qname
+    elif aspect_type == 'builtin' and aspect == 'period':
+        convert_function = convert_result_to_model_period
+    else:
+        convert_function = lambda x, y: get_type_and_compute_value(x, y)[1]
+    
+    member_values = set()
+    if member_table is None:
+        #first time
+        interim_result_set = XuleResultSet()
+        interim_result_set.aspects = ((aspect_type, aspect),)
+        for member_res in member_results:
+            new_res = XuleResult(None, 'unbound', meta=member_res.meta)
+            #member_type, member_value = get_type_and_compute_value(member_res, xule_context)
+            converted_member_value = convert_function(member_res, xule_context)
+            new_res.members = (converted_member_value,)
+            interim_result_set.append(new_res)
+            member_values.add(converted_member_value)
+    else:
+        #member_results is a set. Convert it to a result set
+        member_result_set = XuleResultSet(member_results)
+        interim_result_set = XuleResultSet()
+        #update the aspect list
+        interim_result_set.aspects = member_table.aspects + ((aspect_type, aspect),)
+        
+        for combine in align_result_sets(member_table, member_result_set, xule_context, align_only=True, use_defaults='none', require_binding=False):
+            #member_type, member_value = get_type_and_compute_value(combine['right'], xule_context)  
+            interim_result = XuleResult(None, 'unbound', meta=combine['meta'])
+            converted_member_value = convert_function(combine['right'], xule_context)
+            interim_result.members = combine['left'].members + (converted_member_value,)
+            interim_result_set.append(interim_result)
+            member_values.add(converted_member_value)
+    
+    return member_values, interim_result_set
 
 def evaluate_factset(factset, xule_context):
     '''THIS CODE NEEDS A LITTLE REFACTORING. BREAK IT DOWN INTO FUNCTIONS. IMPROVE REUSE OF CODE FOR HANDLING 'IN' OPERATOR'''
@@ -1475,7 +1518,10 @@ def evaluate_factset(factset, xule_context):
        set of facts that have that aspect and member.'''
     pre_matched_facts = None
     first = True
-    member_alignments = []
+#     member_alignments = []
+    #create an empty result set to contain the aligned members across the different aspects.
+    member_table = None
+        
     for aspect_info, filter_member_rs in all_aspect_filters:
         aspect_key = (aspect_info[TYPE], aspect_info[ASPECT])
         facts_by_aspect = set()
@@ -1486,6 +1532,7 @@ def evaluate_factset(factset, xule_context):
         
         # get set of member XuleResults
         member_results = set()
+        new_member_results = []
         if aspect_info[SPECIAL_VALUE] is not None:
             if aspect_info[SPECIAL_VALUE] == 'all':
                 if aspect_info[TYPE] == 'builtin' and aspect_info[ASPECT] in ('lineItem', 'period', 'entity'):
@@ -1499,18 +1546,24 @@ def evaluate_factset(factset, xule_context):
         else:                
             if aspect_info[ASPECT_OPERATOR] == '=':
                 member_results = set(filter_member_rs.results)
+                new_member_results = filter_member_rs.results
             else:
                 #operator is "in"
                 for member_set_result in filter_member_rs:
                     if member_set_result.type in ('list', 'set'):
                         member_results |= set(member_set_result.value)
+                        new_member_results += member_set_result.value
                     else:
                         raise XuleProcessingError(_("The value for '%s' with 'in' must be a set or list, found '%s'" % (aspect_key[ASPECT], member_set_result.type)), xule_context)
                       
             #convert the results to the underlying values
-            member_values, aspect_member_alignments = convert_results_to_values(member_results, aspect_info[TYPE], aspect_info[ASPECT], xule_context)
-            member_alignments += aspect_member_alignments
+#             member_values, aspect_member_alignments = convert_results_to_values(member_results, aspect_info[TYPE], aspect_info[ASPECT], xule_context)
+#             member_alignments += aspect_member_alignments
             
+            member_values, member_table = update_member_table(aspect_info[TYPE], aspect_info[ASPECT], member_table, new_member_results, xule_context)
+#             print(member_table.aspects)
+#             for r in member_table:
+#                 print(r.members)
             found_members = member_values & xule_context.fact_index[aspect_key].keys()
             
             for member in found_members:
@@ -1528,17 +1581,17 @@ def evaluate_factset(factset, xule_context):
         #there were no apsects to start the matching, so use the full set
         pre_matched_facts = xule_context.model.factsInInstance
 
-    '''For members that have alignment, create this dictionary by the aspect and member witht he set of alginments. This will be used when
-       iterating through the facts.'''
-    aspect_member_alignment = collections.defaultdict(lambda : collections.defaultdict(list))
-    for member_alignment in member_alignments:
-        '''(result, aspect_type, aspect, convert_function(result, xule_context)'''
-        mem_align_result = member_alignment[0]
-        mem_align_aspect_type = member_alignment[1]
-        mem_align_aspect = member_alignment[2]
-        mem_align_value = member_alignment[3]
-        #aspect_member_alignment[(mem_align_aspect_type, mem_align_aspect)][mem_align_value ] += [mem_align_result.alignment]
-        aspect_member_alignment[(mem_align_aspect_type, mem_align_aspect)][mem_align_value ] += [mem_align_result.meta]
+#     '''For members that have alignment, create this dictionary by the aspect and member witht he set of alginments. This will be used when
+#        iterating through the facts.'''
+#     aspect_member_alignment = collections.defaultdict(lambda : collections.defaultdict(list))
+#     for member_alignment in member_alignments:
+#         '''(result, aspect_type, aspect, convert_function(result, xule_context)'''
+#         mem_align_result = member_alignment[0]
+#         mem_align_aspect_type = member_alignment[1]
+#         mem_align_aspect = member_alignment[2]
+#         mem_align_value = member_alignment[3]
+#         #aspect_member_alignment[(mem_align_aspect_type, mem_align_aspect)][mem_align_value ] += [mem_align_result.alignment]
+#         aspect_member_alignment[(mem_align_aspect_type, mem_align_aspect)][mem_align_value ] += [mem_align_result.meta]
     
     #start matching to facts
     for model_fact in pre_matched_facts:
@@ -1594,50 +1647,96 @@ def evaluate_factset(factset, xule_context):
 
         #check if the fact matched any filters that had members that had alignment. In this case, the alignment must match
         '''aspect_member_alignment'''
-        for aspect_key, member_alignment in aspect_member_alignment.items():
-            member_alignments = None
-            member_metas = None
-            if aspect_key[TYPE] == 'builtin':
-                if aspect_key[ASPECT] == 'lineItem':
-                    member_metas = member_alignment.get(model_fact.elementQname)
-                    member_alignments = None if member_metas is None else [meta[XuleResult._ALIGNMENT] for meta in member_metas]
-                    #member_alignments = member_alignment.get(model_fact.elementQname)
-                elif aspect_key[ASPECT] == 'period':
-                    member_metas = member_alignment.get(model_to_xule_period(model_fact.context, xule_context))
-                    member_alignments = None if member_metas is None else [meta[XuleResult._ALIGNMENT] for meta in member_metas]
-                    #member_alignments = member_alignment.get(model_to_xule_period(model_fact.context, xule_context))
-                elif aspect_key[ASPECT] == 'unit':
-                    member_metas = member_alignment.get(model_to_xule_unit(model_fact.unit.measures, xule_context))
-                    member_alignments = None if member_metas is None else [meta[XuleResult._ALIGNMENT] for meta in member_metas]
-                    #member_alignments = member_alignment.get(model_to_xule_unit(model_fact.unit.measures, xule_context))
-                elif aspect_key[ASPECT] == 'entity':
-                    member_metas = member_alignment.get(model_to_xule_entity(model_fact.context, xule_context))
-                    member_alignments = None if member_metas is None else [meta[XuleResult._ALIGNMENT] for meta in member_metas]
-                    #member_alignments = member_alignment.get(model_to_xule_entity(model_fact.context, xule_context))
-                else:
-                    raise XuleProcessingError(_("Invalid builtin aspect '%s'" % aspect_key[ASPECT]), xule_context)
+        if member_table is not None:
+            matched_rows = []
+            for member_row_res in member_table.results:
+                member_row = member_row_res.members
+                row_matches = True
+                
+                #check alignment
+                if member_row_res.alignment is not None and member_row_res.alignment != fact_result.alignment:
+                    row_matches = False
+                    continue
+                
+                #check if aspects match what is in the member table.
+                for index, aspect_info in enumerate(member_table.aspects):
+                    if aspect_info == ('builtin', 'lineItem'):
+                        if model_fact.elementQname != member_row[index]:
+                            row_matches = False
+                    elif aspect_info == ('builtin', 'period'):
+                        if model_to_xule_period(model_fact.context, xule_context) != member_row[index]:
+                            row_matches = False
+                    elif aspect_info == ('builtin', 'unit'):
+                        if model_fact.isNumeric:
+                            if model_to_xule_unit(model_fact.unit.measures, xule_context) != member_row[index]:
+                                row_matches = False
+                    elif aspect_info == ('builtin', 'entity'):
+                        if model_to_xule_entity(model_fact.context, xule_context) != member_row[index]:
+                            row_matches = False
+                    elif aspect_info[TYPE] == 'explicit_dimension':
+                        model_fact_dim = model_fact.context.qnameDims.get(aspect_info[ASPECT])
+                        if model_fact_dim is not None:
+                            if model_fact_dim.memberQname != member_row[index]:
+                                row_matches = False
+                    else:
+                        raise XuleProcessingError(_("Internal error. Unknown aspect, found ('%s', '%s')" % aspect_info), xule_context)
+            
+                if row_matches:
+                    matched_rows.append(member_row_res)
+            if len(matched_rows) == 0:
+                matched = False
             else:
-                if aspect_key[ASPECT] in model_fact.context.qnameDims:
-                    member_metas = member_alignment.get(model_fact.context.qnameDims[aspect_key[ASPECT]].memberQname)
-                    member_alignments = None if member_metas is None else [meta[XuleResult._ALIGNMENT] for meta in member_metas]
-                    #member_alignments = member_alignment.get(model_fact.context.qnameDims[aspect_key[ASPECT]].memberQname)
-            if member_metas is not None and member_alignments is not None:
-                if fact_result.alignment not in member_alignments:
-                    matched = False
-                    break
-                else:
-                    #copy the meta data to the fact
-                    for member_meta in member_metas:
-                        if fact_result.alignment == member_meta[XuleResult._ALIGNMENT] or member_meta[XuleResult._ALIGNMENT] is None:
-                            combined_meta = combine_result_meta(fact_result, XuleResult(None, 'unbound', meta=member_meta))
-                            saved_alignment = fact_result.alignment
-                            fact_result.meta = combined_meta
-                            fact_result.alignment = saved_alignment
-
-#             if member_alignment is not None:
+                #combine meta data from the matched rows
+                for matched_row_res in matched_rows:
+                    combined_meta = combine_result_meta(fact_result, XuleResult(None, 'unbound', meta=matched_row_res.meta))
+                    fact_result.meta = combined_meta
+       
+        
+        '''OLD MEMBER ALIGNMENT SECTION'''
+#         for aspect_key, member_alignment in aspect_member_alignment.items():
+#             member_alignments = None
+#             member_metas = None
+#             if aspect_key[TYPE] == 'builtin':
+#                 if aspect_key[ASPECT] == 'lineItem':
+#                     member_metas = member_alignment.get(model_fact.elementQname)
+#                     member_alignments = None if member_metas is None else [meta[XuleResult._ALIGNMENT] for meta in member_metas]
+#                     #member_alignments = member_alignment.get(model_fact.elementQname)
+#                 elif aspect_key[ASPECT] == 'period':
+#                     member_metas = member_alignment.get(model_to_xule_period(model_fact.context, xule_context))
+#                     member_alignments = None if member_metas is None else [meta[XuleResult._ALIGNMENT] for meta in member_metas]
+#                     #member_alignments = member_alignment.get(model_to_xule_period(model_fact.context, xule_context))
+#                 elif aspect_key[ASPECT] == 'unit':
+#                     member_metas = member_alignment.get(model_to_xule_unit(model_fact.unit.measures, xule_context))
+#                     member_alignments = None if member_metas is None else [meta[XuleResult._ALIGNMENT] for meta in member_metas]
+#                     #member_alignments = member_alignment.get(model_to_xule_unit(model_fact.unit.measures, xule_context))
+#                 elif aspect_key[ASPECT] == 'entity':
+#                     member_metas = member_alignment.get(model_to_xule_entity(model_fact.context, xule_context))
+#                     member_alignments = None if member_metas is None else [meta[XuleResult._ALIGNMENT] for meta in member_metas]
+#                     #member_alignments = member_alignment.get(model_to_xule_entity(model_fact.context, xule_context))
+#                 else:
+#                     raise XuleProcessingError(_("Invalid builtin aspect '%s'" % aspect_key[ASPECT]), xule_context)
+#             else:
+#                 if aspect_key[ASPECT] in model_fact.context.qnameDims:
+#                     member_metas = member_alignment.get(model_fact.context.qnameDims[aspect_key[ASPECT]].memberQname)
+#                     member_alignments = None if member_metas is None else [meta[XuleResult._ALIGNMENT] for meta in member_metas]
+#                     #member_alignments = member_alignment.get(model_fact.context.qnameDims[aspect_key[ASPECT]].memberQname)
+#             if member_metas is not None and member_alignments is not None:
 #                 if fact_result.alignment not in member_alignments:
 #                     matched = False
 #                     break
+#                 else:
+#                     #copy the meta data to the fact
+#                     for member_meta in member_metas:
+#                         if fact_result.alignment == member_meta[XuleResult._ALIGNMENT] or member_meta[XuleResult._ALIGNMENT] is None:
+#                             combined_meta = combine_result_meta(fact_result, XuleResult(None, 'unbound', meta=member_meta))
+#                             saved_alignment = fact_result.alignment
+#                             fact_result.meta = combined_meta
+#                             fact_result.alignment = saved_alignment
+# 
+# #             if member_alignment is not None:
+# #                 if fact_result.alignment not in member_alignments:
+# #                     matched = False
+# #                     break
         
         '''Check closed factset'''
         '''DO I NEED TO HANDLE BUILT IN ASPECTS????? I DON'T THINK SO. 
@@ -1855,23 +1954,26 @@ EVALUATOR = {
 def agg_all(xule_context, *args):
     '''In aggregation the results are created for each alignment'''
     final_result_set = XuleResultSet()
-    final_result_set.default = XuleResult(True, 'bool')
     
     results_by_alignment = organize_aggregation(xule_context, *args)
-    for res in results_by_alignment.values():
+    has_unaligned_result = False
+    for res in results_by_alignment.values():  
         if len(res.value) > 0:
+            if res.alignment is None:
+                has_unaligned_result = True
             new_res = XuleResult(True, 'bool', meta=res.meta)
             for sub_res in res.value:
                 sub_type, sub_value = get_type_and_compute_value(sub_res, xule_context)
-                if sub_type == 'unbound':
-                    continue
                 if sub_type != 'bool':
                     raise XuleProcessingError(_("Function all can only operator on booleans, but found '%s'." % sub_type), xule_context)
                 new_res.value = new_res.value and sub_value
             final_result_set.append(new_res)
 
-    if len(final_result_set.results) == 0:
-        final_result_set.append(XuleResult(True, 'bool'))
+    if not has_unaligned_result:     
+        if len(final_result_set.results) == 0:
+            final_result_set.append(XuleResult(True, 'bool'))
+        else:
+            final_result_set.default = XuleResult(True, 'bool')
         
     return final_result_set
     
@@ -1919,23 +2021,26 @@ def agg_all(xule_context, *args):
 def agg_any(xule_context, *args):
     '''In aggregation the results are created for each alignment'''
     final_result_set = XuleResultSet()
-    final_result_set.default = XuleResult(False, 'bool')
     
     results_by_alignment = organize_aggregation(xule_context, *args)
+    has_unaligned_result = False
     for res in results_by_alignment.values():
         if len(res.value) > 0:
+            if res.alignment is None:
+                has_unaligned_result = True
             new_res = XuleResult(False, 'bool', meta=res.meta)
             for sub_res in res.value:
                 sub_type, sub_value = get_type_and_compute_value(sub_res, xule_context)
-                if sub_type == 'unbound':
-                    continue
                 if sub_type != 'bool':
                     raise XuleProcessingError(_("Function all can only operator on booleans, but found '%s'." % sub_type), xule_context)
                 new_res.value = new_res.value or sub_value
             final_result_set.append(new_res)
 
-    if len(final_result_set.results) == 0:
-        final_result_set.append(XuleResult(False, 'bool'))
+    if not has_unaligned_result:     
+        if len(final_result_set.results) == 0:
+            final_result_set.append(XuleResult(False, 'bool'))
+        else:
+            final_result_set.default = XuleResult(False, 'bool')
         
     return final_result_set
 
@@ -1990,8 +2095,6 @@ def agg_sum(xule_context, *args):
         if len(res.value) > 0:
             new_res = None
             for sub_res in res.value:
-                if sub_res.type == 'unbound':
-                    continue
                 if new_res is None:
                     new_type, new_value = get_type_and_compute_value(sub_res, xule_context)
                     new_res = XuleResult(new_value, new_type, meta=res.meta)
@@ -2034,7 +2137,6 @@ def agg_sum(xule_context, *args):
 def agg_first(xule_context, *args):
     '''In aggregation the results are created for each alignment'''
     final_result_set = XuleResultSet()
-    
     results_by_alignment = organize_aggregation(xule_context, *args)
     for res in results_by_alignment.values():
         if len(res.value) > 0:
@@ -2068,10 +2170,19 @@ def agg_count(xule_context, *args):
     '''In aggregation the results are created for each alignment'''
     final_result_set = XuleResultSet()
     
+    has_unaligned_result = False
     results_by_alignment = organize_aggregation(xule_context, *args)
     for res in results_by_alignment.values():
+        if res.alignment is None:
+            has_unaligned_result = True
         final_result_set.append(XuleResult(len(res.value), 'int', meta=res.meta))
 
+    if not has_unaligned_result:
+        if len(final_result_set.results) == 0: 
+            final_result_set.append(XuleResult(0, 'int'))
+        else:
+            final_result_set.default = XuleResult(0, 'int')
+     
     return final_result_set
 #     final_result_set = XuleResultSet()
 #     
@@ -2112,12 +2223,15 @@ def agg_max(xule_context, *args):
     results_by_alignment = organize_aggregation(xule_context, *args)
     for res in results_by_alignment.values():
         if len(res.value) > 0:
-            max_res = res.value[0]
+            max_res = None
             for sub_res in res.value:
-                sub_type, sub_value = get_type_and_compute_value(sub_res, xule_context)
-                max_type, max_value = get_type_and_compute_value(max_res, xule_context)
-                if sub_value > max_value:
+                if max_res is None:
                     max_res = sub_res
+                else:
+                    sub_type, sub_value = get_type_and_compute_value(sub_res, xule_context)
+                    max_type, max_value = get_type_and_compute_value(max_res, xule_context)
+                    if sub_value > max_value:
+                        max_res = sub_res
         final_result_set.append(XuleResult(max_res.value, max_res.type, meta=res.meta))
     return final_result_set     
     
@@ -2156,12 +2270,15 @@ def agg_min(xule_context, *args):
     results_by_alignment = organize_aggregation(xule_context, *args)
     for res in results_by_alignment.values():
         if len(res.value) > 0:
-            min_res = res.value[0]
+            min_res = None
             for sub_res in res.value:
-                sub_type, sub_value = get_type_and_compute_value(sub_res, xule_context)
-                mmin_type, min_value = get_type_and_compute_value(min_res, xule_context)
-                if sub_value < min_value:
+                if min_res is None:
                     min_res = sub_res
+                else:
+                    sub_type, sub_value = get_type_and_compute_value(sub_res, xule_context)
+                    min_type, min_value = get_type_and_compute_value(min_res, xule_context)
+                    if sub_value < min_value:
+                        min_res = sub_res
         final_result_set.append(XuleResult(min_res.value, min_res.type, meta=res.meta))
     return final_result_set     
     
@@ -2198,7 +2315,7 @@ def agg_list(xule_context, *args):
     final_result_set = XuleResultSet()
     results_by_alignment = organize_aggregation(xule_context, *args)
     for res in results_by_alignment.values():
-        final_result_set.append(res)
+        final_result_set.append(XuleResult(tuple(res.value), 'list', meta=res.meta))
     
     final_result_set.default = XuleResult(tuple(), 'list')
     
@@ -2287,6 +2404,9 @@ def organize_aggregation(xule_context, *args):
     results_by_alignment = dict()
     for arg in args:
         for res in arg:
+            #All aggregations ignore unbound results
+            if res.type == 'unbound':
+                continue
             #need to freeze the key to use as dictionary key
             key = None if res.alignment is None else frozenset(res.alignment.items())
                 
@@ -4353,14 +4473,8 @@ def prepare_property_args(left_rs, args, property_name, xule_context):
 
             for combined in align_result_sets(current_arg_rs, XuleResultSet(left_result), xule_context, align_only=True, use_defaults='right'):
                 new_left_result = combined['right'].dup()
-                new_left_result.meta = combined['meta']
-#                 new_left_result.alignment = combined['alignment']
-#                 new_left_result.tags = combined['tags']
-#                 new_left_result.facts = combined['facts']
-#                 new_left_result.vars = combined['vars']
-                               
+                new_left_result.meta = combined['meta']   
                 new_left_result.property_args = combined['right'].property_args + (combined['left'], ) #this is a singleton tuple
-        
                 aligned_current_arg_rs.append(new_left_result)
             
         left_arg_rs = aligned_current_arg_rs

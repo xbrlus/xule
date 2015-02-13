@@ -197,6 +197,7 @@ class XuleResultSet:
     
     def dup(self):
         new_rs = XuleResultSet()
+        new_rs.default = self.default.dup()
         for res in self.results:
             new_rs.append(res.dup())
         return new_rs
