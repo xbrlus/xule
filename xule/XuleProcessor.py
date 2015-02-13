@@ -608,7 +608,7 @@ def evaluate_comp(comp_expr, xule_context):
             raise XuleProcessingError(_("Unknown operator '%s' found in comparison operation." % operator), xule_context)
     
     orig_left_rs = evaluate(comp_expr[0], xule_context)
-    left_rs = orig_left_rs.dup()
+    left_rs = orig_left_rs#.dup()
     for tok in comp_expr[1:]:
         if tok.getName() == "op":
             operator = tok.value
@@ -1046,7 +1046,7 @@ def evaluate_property_detail(property_exprs, left_result_set, xule_context):
             pop_single_value_variables(single_vars, property_result_set, xule_context)
 
         for property_result in property_result_set:
-            property_result.meta = combine_result_meta(property_result, left_result, 
+            property_result.meta = combine_result_meta(property_result, left_result, xule_context,
                                                        trace_info=collections.deque([(xule_context.trace_level + 1, 'property', (current_property_expr.propertyName,), property_result)]))
 #             property_result.alignment = left_result.alignment
 #             property_result.tags = left_result.tags
@@ -1688,7 +1688,7 @@ def evaluate_factset(factset, xule_context):
             else:
                 #combine meta data from the matched rows
                 for matched_row_res in matched_rows:
-                    combined_meta = combine_result_meta(fact_result, XuleResult(None, 'unbound', meta=matched_row_res.meta))
+                    combined_meta = combine_result_meta(fact_result, XuleResult(None, 'unbound', meta=matched_row_res.meta), xule_context)
                     fact_result.meta = combined_meta
        
         
@@ -1833,7 +1833,7 @@ def evaluate_factset(factset, xule_context):
                     if bool(combine['right'].value):
                         where_matches = True
                         #aggregate the meta
-                        combine_meta = combine_result_meta(fact_result, combine['right'])
+                        combine_meta = combine_result_meta(fact_result, combine['right'], xule_context)
                         saved_alignment = fact_result.alignment
                         fact_result.meta = combine_meta
                         fact_result.alignment = saved_alignment
@@ -2420,12 +2420,12 @@ def organize_aggregation(xule_context, *args):
             if key is None:
                 for agg_res in results_by_alignment.values():
                     agg_res.value += tuple([res])
-                    new_meta = combine_result_meta(res, agg_res)  
+                    new_meta = combine_result_meta(res, agg_res, xule_context)  
                     agg_res.meta = new_meta
             else:
                 results_by_alignment[key].value += tuple([res])
               
-                new_meta = combine_result_meta(res, results_by_alignment[key])  
+                new_meta = combine_result_meta(res, results_by_alignment[key], xule_context)  
                 results_by_alignment[key].meta = new_meta
 
     if None in results_by_alignment and len(results_by_alignment) > 1: #it is not the only result
@@ -4267,7 +4267,7 @@ def align_result_sets(left, right, xule_context, align_only=False, use_defaults=
             
             new_alignment = combine_alignment(combined[0], combined[1])
 
-            new_meta = combine_result_meta(combined[0], combined[1], trace_info=trace_info)
+            new_meta = combine_result_meta(combined[0], combined[1], xule_context, trace_info=trace_info)
             new_alignment = new_meta[XuleResult._ALIGNMENT]
             new_tags = new_meta[XuleResult._TAGS]
             new_facts = new_meta[XuleResult._FACTS]
@@ -4313,16 +4313,19 @@ def combine_vars(left_result, right_result):
 def combine_from_model(left_result, right_result):
     return left_result.from_model or right_result.from_model
 
-def combine_trace(left_result, right_result, trace_info=None): 
-      
-    new_trace = collections.deque(left_result.trace)
-    if trace_info is None:
-        new_trace.extend(right_result.trace)
-        return new_trace
+def combine_trace(left_result, right_result, xule_context, trace_info=None): 
+    
+    if xule_context.show_trace:
+        new_trace = collections.deque(left_result.trace)
+        if trace_info is None:
+            new_trace.extend(right_result.trace)
+            return new_trace
+        else:
+            new_trace.extend(trace_info)
+            new_trace.extend(right_result.trace)
+            return new_trace
     else:
-        new_trace.extend(trace_info)
-        new_trace.extend(right_result.trace)
-        return new_trace
+        return collections.deque()
     
     ''' 
     if trace_info is None:
@@ -4330,13 +4333,13 @@ def combine_trace(left_result, right_result, trace_info=None):
     else:
         return left_result.trace + trace_info + right_result.trace
     '''
-def combine_result_meta(left_result, right_result, trace_info=None):
+def combine_result_meta(left_result, right_result, xule_context, trace_info=None):
     return [combine_alignment(left_result, right_result),
             combine_tags(left_result, right_result), 
             combine_facts(left_result, right_result),
             combine_vars(left_result, right_result),
             combine_from_model(left_result, right_result),
-            combine_trace(left_result, right_result, trace_info=trace_info)]
+            combine_trace(left_result, right_result, xule_context, trace_info=trace_info)]
 
 def combine_alignment(left_result, right_result):
     if left_result.alignment is not None:
@@ -4368,7 +4371,7 @@ def combine_defaults(left_result_set, right_result_set, xule_context):
         right_result = right_result_set.default
 
         
-    meta = combine_result_meta(left_result, right_result)    
+    meta = combine_result_meta(left_result, right_result, xule_context)    
     combined_type = combine_xule_types(left_result, right_result, xule_context)
     
     return {"left": left_result, 
