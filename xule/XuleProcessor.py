@@ -139,6 +139,7 @@ def evaluate(rule_part, xule_context):
                 #res.trace = (rule_part.getName(), rule_part.asDict(), res, [] if res.trace is None else res.trace if isinstance(res.trace, list) else [res.trace])
                 #res.trace = (rule_part.getName(), '', res, [] if res.trace is None else res.trace if isinstance(res.trace, list) else [res.trace])
                 res.trace.appendleft((cur_trace_level, rule_part.getName(), sugar_trace(res, rule_part, xule_context), res))
+            result_set.default.trace.appendleft((cur_trace_level, rule_part.getName(), sugar_trace(result_set.default, rule_part, xule_context), result_set.default))
             
         xule_context.trace_level -= 1
     return result_set
@@ -943,6 +944,9 @@ def evaluate_var_ref(var_ref, xule_context):
     #A copy is returned so the var reference can never be messed up
     copy_rs = XuleResultSet()
     copy_rs.default = var_value_rs.default
+    if var_info['tag'] == True:
+        tag_default(copy_rs, var_info['expr'], var_info['name'], xule_context)
+    
     for res in var_value_rs:
         #check if the result alignment is in the alignment filters
         if res.alignment in xule_context.alignment_filters:
@@ -1017,14 +1021,48 @@ def evaluate_tagged(tagged_expr, xule_context):
     for result in result_set:
         result.add_tag(tagged_expr.tagName, result)
     
-#     '''THIS WORKS FOR xxxx[]. NEED TO IMPLEMENT FOR [lineItem = xxx] AND THINK ABOUT [lineItem in (xxxx,xxxx)]'''
-#     if tagged_expr.expr[0].getName() == 'factset':
-#         if hasattr(tagged_expr.expr[0], 'lineItemAspect'):
-#             fact_name_rs = evaluate(tagged_expr.expr[0].lineItemAspect.qName, xule_context)
-#             result_set.default.add_tag(tagged_expr.tagName, fact_name_rs.results[0])
+    tag_default(result_set, tagged_expr.expr[0], tagged_expr.tagName, xule_context)
     
     return result_set
 
+def tag_default(result_set, expr, tag_name, xule_context):
+    if expr.getName() == 'factset':
+        #for lineItem[]
+        if 'lineItemAspect' in expr:
+            fact_name_rs = evaluate(expr.lineItemAspect.qName, xule_context)
+            result_set.default.add_tag(tag_name, XuleResult(fact_name_rs.results[0], 'empty_fact'))
+        else:
+            #for [lineItem =/in ]
+            if 'aspectFilters' in expr:
+                found_line_item = False
+                for aspect_filter in expr.aspectFilters:
+                    if (aspect_filter.aspectName.qName.prefix == "*" and
+                        aspect_filter.aspectName.qName.localName == 'lineItem'):
+                        found_line_item = True
+                        if aspect_filter.aspectOperator == "=":
+                            #for [lineItem=] - this will pick up the first result
+                            aspect_member_rs = evaluate(aspect_filter.aspectExpr[0], xule_context)
+                            result_set.default.add_tag(tag_name, XuleResult(aspect_member_rs.results[0], 'empty_fact'))
+                        else:
+                            #for [lineItem in} - this will pick up each
+                            aspect_member_rs = aspect_member_rs = evaluate(aspect_filter.aspectExpr[0], xule_context)
+                            line_items = []
+                            for aspect_member_result in aspect_member_rs.results[0].value:
+                                if aspect_member_result.type == 'qname':
+                                    line_items.append(str(aspect_member_result.value))
+                                elif aspect_member_result.type == 'concept':
+                                    line_items.append(str(aspect_member_result.value.qname))
+                            if len(line_items) == 1:
+                                line_item_string = str(line_items[0])
+                            else:
+                                line_item_string = "one of (" + ", ".join(line_items) + ")"
+                            result_set.default.add_tag(tag_name, XuleResult(line_item_string, 'empty_fact'))
+                if not found_line_item:
+                    #doesn't have a line item at all
+                    result_set.default.add_tag(tag_name, XuleResult('unknown', 'empty_fact'))
+            else:
+                #there are no aspect fitlers
+                result_set.default.add_tag(tag_name, XuleResult('unknown', 'empty_fact'))
 
 def evaluate_property(property_expr, xule_context):
 
@@ -1592,13 +1630,13 @@ def evaluate_factset(factset, xule_context):
                 continue
         else:                
             if aspect_info[ASPECT_OPERATOR] == '=':
-                member_results = set(filter_member_rs.results)
+                #member_results = set(filter_member_rs.results)
                 new_member_results = filter_member_rs.results
             else:
                 #operator is "in"
                 for member_set_result in filter_member_rs:
                     if member_set_result.type in ('list', 'set'):
-                        member_results |= set(member_set_result.value)
+                        #member_results |= set(member_set_result.value)
                         new_member_results += member_set_result.value
                     else:
                         raise XuleProcessingError(_("The value for '%s' with 'in' must be a set or list, found '%s'" % (aspect_key[ASPECT], member_set_result.type)), xule_context)
@@ -2503,7 +2541,7 @@ def func_exists(xule_context, *args):
 #         else:
 #             final_result_set.default = XuleResult(False, 'bool')
 
-    final_result_set.default = XuleResult(False, 'bool')
+    final_result_set.default = XuleResult(False, 'bool', meta=args[0].default.meta)
     return final_result_set
 
 def func_missing(xule_context, *args):
@@ -2527,7 +2565,7 @@ def func_missing(xule_context, *args):
 #             final_result_set.append(XuleResult(True, 'bool'))
 #         else:
 #             final_result_set.default = XuleResult(True, 'bool')        
-    final_result_set.default = XuleResult(True, 'bool')
+    final_result_set.default = XuleResult(True, 'bool', meta=args[0].default.meta)
     return final_result_set  
 
 def func_instant(xule_context, *args):
@@ -2718,10 +2756,16 @@ def func_number(xule_context, *args):
     
     for arg_result in args[0]:
         xule_type, compute_value = get_type_and_compute_value(arg_result, xule_context)
-        if xule_type != 'string':
-            raise XuleProcessingError(_("Property 'number' requires a string argument, found '%s'" % xule_type), xule_context)
+        if xule_type not in ('string', 'int', 'decimal', 'float'):
+            raise XuleProcessingError(_("Property 'number' requires a string or numeric argument, found '%s'" % xule_type), xule_context)
         try:
-            if '.' in compute_value:
+            if xule_type == 'int':
+                final_result_set.append(XuleResult(compute_value, 'int', meta=arg_result.meta))
+            elif xule_type == 'decimal':
+                final_result_set.apend(XuleResult(compute_value, 'decimal', meta=arg_result.meta))
+            elif xule_type == 'float':
+                final_result_set.append(XuleResult(compute_value, 'float', meta=arg_result.meta))
+            elif '.' in compute_value:
                 final_result_set.append(XuleResult(decimal.Decimal(compute_value), 'decimal', meta=arg_result.meta))
             elif compute_value.lower() in ('inf', '+inf', '-inf'):
                 final_result_set.append(XuleResult(float(compute_value), 'float', meta=arg_result.meta))
@@ -3938,7 +3982,7 @@ def model_to_xule_model_g_year(model_g_year, xule_context):
     return model_g_year.year
 
 def model_to_xule_model_g_month_day(model_g_month_day, xule_context):
-    return str(model_g_month_day)
+    return "--%s-%s" % (str(model_g_month_day.month).zfill(2),str(model_g_month_day.day).zfill(2))
 
 def model_to_xule_model_g_year_month(model_g_year_month, xule_context):
     return str(model_g_year_month)
@@ -4576,6 +4620,15 @@ def process_message(message_string, result, xule_context):
             message_string = re.sub('\$\s*{\s*' + tag_name + '\s*\.\s*value\s*}', replacement_value, message_string)
             message_string = re.sub('\$\s*{\s*' + tag_name + '\s*}', replacement_value, message_string)
             message_string = re.sub('\$\s*{\s*' + tag_name + '\s*\.\s*context\s*}', format_alignment(fact_context, xule_context), message_string)
+        elif tag_result.type == 'empty_fact':
+            if ('builtin', 'lineItem') in result.alignment:
+                tag_context = format_qname(result.alignment[('builtin', 'lineItem')], xule_context)
+            else:
+                tag_context = str(tag_result.value)
+                
+            message_string = re.sub('\$\s*{\s*' + tag_name + '\s*\.\s*value\s*}', 'missing', message_string)
+            message_string = re.sub('\$\s*{\s*' + tag_name + '\s*}', 'missing', message_string)
+            message_string = re.sub('\$\s*{\s*' + tag_name + '\s*\.\s*context\s*}', tag_context, message_string)
         else:
             message_string = re.sub('\$\s*{\s*' + tag_name + '\s*\.\s*value\s*}', replacement_value, message_string)
             message_string = re.sub('\$\s*{\s*' + tag_name + '\s*}', replacement_value, message_string)
@@ -4636,7 +4689,7 @@ def format_result_value(result, xule_context):
             return res_value.strftime("%Y-%m-%d")
     
     elif res_type == 'list':
-        list_value = "list(" + ", ".join([format_result_value(sub_res, xule_context) for sub_res in res_value]) + ")"
+        list_value = ", ".join([format_result_value(sub_res, xule_context) for sub_res in res_value])
         return list_value
     
     elif res_type == 'set':
@@ -4871,11 +4924,12 @@ def format_trace_info(expr_name, sugar, result, common_aspects, xule_context):
     elif expr_name == 'property':
         trace_info += "::%s" % sugar[0]
     elif expr_name == 'factset':
-        fact_context = get_uncommon_aspects(sugar[0].value, common_aspects, xule_context)
-        trace_info = 'factset '
-        if ('builtin', 'lineItem') not in fact_context:
-            trace_info += str(sugar[0].qname) + " "
-        trace_info +=  format_alignment(fact_context, xule_context)
+        if sugar[0].value is not None:
+            fact_context = get_uncommon_aspects(sugar[0].value, common_aspects, xule_context)
+            trace_info = 'factset '
+            if ('builtin', 'lineItem') not in fact_context:
+                trace_info += str(sugar[0].qname) + " "
+            trace_info +=  format_alignment(fact_context, xule_context)
     else:
         trace_info += expr_name
     

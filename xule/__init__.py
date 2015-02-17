@@ -193,7 +193,7 @@ def xuleCmdXbrlLoaded(cntlr, options, modelXbrl):
     if getattr(options, "xule_run", None):
         try:
             rule_set = XuleRuleSet()
-            rule_set.open(options.xule_rule_set)
+            rule_set.open(options.xule_rule_set, False)
         except XuleRuleSetError:
             raise
 
