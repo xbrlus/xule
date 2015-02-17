@@ -76,9 +76,6 @@ class XuleRuleSet(object):
     
     def add(self, parseRes, file_time=None, file_name=None):
         
-        if self._openForAdd == False:
-            raise XuleRuleSetError(_("Attempting to add rule file, but rule set is not open for add"))
-        
         file_num = self._addXuleFile(file_time, file_name)
         
         # update the catalog
@@ -374,14 +371,14 @@ class XuleRuleSet(object):
     
         return pickle_name
                 
-    def open(self, ruleSetLocation, open_for_add=True):
+    def open(self, ruleSetLocation):
         #self.name = os.path.splitext(os.path.basename(ruleSetLocation))[0]
         self.location = ruleSetLocation
         try:
             with open(os.path.join(ruleSetLocation,"catalog.pik"),"rb") as i:
                 self.catalog = pickle.load(i)
             self.name = self.catalog['name']
-            self._openForAdd = open_for_add
+            self._openForAdd = True
         except FileNotFoundError:
             print("Cannot open catalog.")
             raise
@@ -483,27 +480,24 @@ class XuleRuleSet(object):
         return
         
     def addTaxonomy(self, taxonomy_location, entry_point):
-        if self._openForAdd == True:
-            base_location = os.path.join(self.location, 'base_taxonomy')
-            
-            if not os.path.isdir(taxonomy_location):
-                raise XuleRuleSetError(_("Taxonomy location '%s' is not a directory" % taxonomy_location))
-            
-            if not os.path.isfile(os.path.join(taxonomy_location, entry_point)):
-                raise XuleRuleSetError(_("Taxonomy entry point '%s' is not in '%s'" % (entry_point, taxonomy_location)))
-            
-            if os.path.exists(base_location):
-                if not os.path.isdir(base_location):
-                    raise XuleRuleSetError(_("Taxonomy location '%s' is not a directory" % base_location))
-                else:
-                    shutil.rmtree(base_location)
-    
-            #copy the taxonomy location to the rule set
-            shutil.copytree(taxonomy_location, base_location)
-            
-            self.catalog['rules_dts_location'] = entry_point
-        else:
-            raise XuleRuleSetError(_("Attempting to add taxonomy but the rule set is not open for add"))
+        base_location = os.path.join(self.location, 'base_taxonomy')
+        
+        if not os.path.isdir(taxonomy_location):
+            raise XuleRuleSetError(_("Taxonomy location '%s' is not a directory" % taxonomy_location))
+        
+        if not os.path.isfile(os.path.join(taxonomy_location, entry_point)):
+            raise XuleRuleSetError(_("Taxonomy entry point '%s' is not in '%s'" % (entry_point, taxonomy_location)))
+        
+        if os.path.exists(base_location):
+            if not os.path.isdir(base_location):
+                raise XuleRuleSetError(_("Taxonomy location '%s' is not a directory" % base_location))
+            else:
+                shutil.rmtree(base_location)
+
+        #copy the taxonomy location to the rule set
+        shutil.copytree(taxonomy_location, base_location)
+        
+        self.catalog['rules_dts_location'] = entry_point
             
     def getRulesTaxonomyLocation(self):
         if self.catalog['rules_dts_location'] is not None:

@@ -1,4 +1,4 @@
-import pprint 
+import pprint
 import sys
 from XuleRuleSet import XuleRuleSet
 

@@ -151,11 +151,11 @@ class XuleRuleContext(object):
                 return self.global_context._constants[var_index]
             else:
                 '''THIS IS AN ERROR, NEED TO REPORT ERROR'''
-                raise XuleProcessingError(_("Internal error, cannot find constant '%s' in catalog" % (var_index)), self)
-                #print("ERROR IN CONSTANT")
+                print("ERROR IN CONSTANT")
+                pass
         if var_index >= len(self._vars):
-            raise XuleProcessingError(_("Internal error, var index out of range. Index = %i, Number of vars = %i" % (var_index, len(self._vars))), self)
-            #print("ERROR IN VARIABLE")
+            #raise XuleProcessingError(_("Internal error, var index out of range. Index = %i, Number of vars = %i" % (var_index, len(self._vars))), self)
+            print("ERROR IN VARIABLE")
         else:
             return self._vars[var_index]    
     

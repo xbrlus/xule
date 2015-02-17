@@ -1,4 +1,4 @@
-''' 
+'''
 Xule is rule processor for XBRL (X)brl r(ULE). 
 
 Copyright (c) 2014 XBRL US Inc. All rights reserved
@@ -119,7 +119,7 @@ def xuleCmdXbrlLoaded(cntlr, options, modelXbrl):
     if getattr(options, "xule_run", None):
         try:
             rule_set = XuleRuleSet()
-            rule_set.open(options.xule_rule_set, False)
+            rule_set.open(options.xule_rule_set)
         except XuleRuleSetError:
             raise
 
