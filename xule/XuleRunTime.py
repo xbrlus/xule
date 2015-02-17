@@ -1,5 +1,7 @@
 import collections
 import copy
+import datetime
+from arelle.FunctionXfi import period
 
 class XuleProcessingError(Exception):
     def __init__(self, msg, xule_context=None):
@@ -114,7 +116,7 @@ class XuleResult:
                                 alignment=copy.deepcopy(self.alignment),
                                 tags=self.tags,
                                 facts=self.facts,
-                                var_refs=self.vars,
+                                var_refs=copy.deepcopy(self.vars),
                                 from_model=self.from_model,
                                 trace=collections.deque(self.trace))
         if hasattr(self, 'original_result'):
@@ -197,6 +199,79 @@ class XuleResultSet:
     
     def dup(self):
         new_rs = XuleResultSet()
+        new_rs.default = self.default.dup()
         for res in self.results:
             new_rs.append(res.dup())
         return new_rs
+
+class XulePeriodComp:
+    '''
+    This class is used to compare periods.
+    '''
+    def __init__(self, period):
+        if isinstance(period, tuple):
+            #this is a duration
+            self.start = period[0]
+            self.end = period[1]
+            self.instant = None
+            self.type = 'duration'
+        elif isinstance(period, datetime.datetime):
+            #this is an instance
+            self.start = None
+            self.end = None
+            self.instant = period
+            self.type = 'instant'
+        else:
+            raise XuleProcessingError(_("XulePeriodComp can only be initailzied with a single datetime or a tuple of two datetimes. Found '%s'" % period))
+        
+    def __eq__(self, other):
+        return (self.start == other.start  and
+                self.end == other.end and
+                self.instant == other.instant)
+    
+    def __ne__(self, other):
+        return (self.start != other.start or
+                self.end != other.end or
+                self.instant != other.instant)
+
+    def __lt__(self, other):
+        return NotImplemented
+    '''
+        if self.type ==  'instant' and other.type == 'instant':
+            return self.instant < other.instant
+        elif self.type == 'duration' and other.type == 'duration':
+            return (self.start < other.start or
+                    self.start == other.start and self.end < other.end)
+        elif self.type == 'instant' and other.type == 'duration':
+            return self.instant < other.start
+        elif self.type == 'duration' and other.type == 'instant':
+            return self.start < other.instant
+        else:
+            raise XuleProcessingError(_("Internal error: XulePeriodComp has bad types: '%s' and '%s'" % (self.type, other.type)))
+    '''
+    def __gt__(self, other):
+        return NotImplemented
+    '''
+        if self.type ==  'instant' and other.type == 'instant':
+            return self.instant > other.instant
+        elif self.type == 'duration' and other.type == 'duration':
+            return (self.end > other.end or
+                    self.end == other.end and self.start > other.start)
+        elif self.type == 'instant' and other.type == 'duration':
+            return self.instant > other.start
+        elif self.type == 'duration' and other.type == 'instant':
+            return self.start > other.instant
+        else:
+            raise XuleProcessingError(_("Internal error: XulePeriodComp has bad types: '%s' and '%s'" % (self.type, other.type)))
+    '''
+    def __le__(self, other):
+        return NotImplemented
+    '''
+        return self.__eq__(other) or self.__lt__(other)
+    '''
+    def __ge__(self, other):
+        return NotImplemented
+    '''
+        return self.__eq__(other) or self.__gt__(other)
+    '''
+           
