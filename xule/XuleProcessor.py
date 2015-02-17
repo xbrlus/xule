@@ -5,9 +5,8 @@ Copywrite (c) 2014 XBRL US Inc. All rights reserved.
 '''
 
 from .XuleContext import XuleGlobalContext, XuleRuleContext #XuleContext
-from .XuleRunTime import XuleProcessingError, XuleResult, XuleResultSet
+from .XuleRunTime import XuleProcessingError, XuleResult, XuleResultSet, XulePeriodComp
 #from  .XuleFunctions import *
-from .XuleMultiProcessing import output_message_queue
 from pyparsing import ParseResults
 import itertools as it
 from arelle.ModelValue import QName, dayTimeDuration, DateTime, gYear, gMonthDay, gYearMonth
@@ -20,32 +19,20 @@ import math
 from aniso8601.__init__ import parse_duration, parse_datetime, parse_date
 import collections
 from lxml import etree as et
-from threading import Thread
-
-def process_xule(rule_set, model_xbrl, cntlr, show_timing=False, show_debug=False, show_trace=False, crash_on_error=False,
-                 multi=False, async=False, cpunum=None):
-    global_context = XuleGlobalContext(rule_set, model_xbrl, cntlr, 
-                                       multi=multi, async=async,
-                                       cpunum=cpunum)    
+        
+def process_xule(rule_set, model_xbrl, cntlr, show_timing=False, show_debug=False, show_trace=False, crash_on_error=False):
+    global_context = XuleGlobalContext(rule_set, model_xbrl, cntlr)
     global_context.show_timing = show_timing
     global_context.show_debug = show_debug
     global_context.show_trace = show_trace
     global_context.crash_on_error = crash_on_error
-
-    t = Thread(target=output_message_queue, args=(global_context,))
-    t.name = "Message Queue"
-    t.start()
-  
+    
     xule_context = XuleRuleContext(global_context)
     global_context.fact_index = index_model(xule_context)
+    
+    global_context.show_trace = show_trace
         
-    global_context.message_queue.logging("Processing Filing...")
     evaluate_rule_set(global_context)
-    
-    # Shutdown Message Queue
-    global_context.message_queue.stop()
-    global_context.message_queue.clear()  
-    
         
 def evaluate_rule_set(global_context):
 
@@ -59,8 +46,8 @@ def evaluate_rule_set(global_context):
             cat_rule = cat_rules[rule_name]
         #for rule_name, cat_rule in cat_rules.items():
             if global_context.show_debug:
-                global_context.message_queue.print("Processing: %s" % rule_name)
-                global_context.message_queue.print(global_context.model.modelDocument.uri)
+                print("Processing: %s" % rule_name)
+                print(global_context.model.modelDocument.uri)
             try:
                 if global_context.show_timing:
                     rule_start = datetime.datetime.today()
@@ -76,13 +63,13 @@ def evaluate_rule_set(global_context):
                 if global_context.crash_on_error:
                     raise
                 else:
-                    xule_context.global_context.message_queue.error("xule:error", str(e))
+                    xule_context.model.error("xule:error",str(e))
             
             except Exception as e:
                 if global_context.crash_on_error:
                     raise
                 else:
-                    xule_context.global_context.message_queue.error("xule:error","rule %s: %s" % (rule_name, str(e)))
+                    xule_context.model.error("xule:error","rule %s: %s" % (rule_name, str(e)))
             
             if global_context.show_timing:
                 rule_end = datetime.datetime.today()
@@ -90,13 +77,12 @@ def evaluate_rule_set(global_context):
                 
     if global_context.show_timing:
         total_end = datetime.datetime.today()
-        global_context.message_queue.print("Total number of rules processed: %i" % len(times))
-        global_context.message_queue.print("Total time to process: %s." % (total_end - total_start))
-        #slow_rules = [timing_info for timing_info in times if timing_info[1].total_seconds() > 0.001]
-        slow_rules = [timing_info for timing_info in times if timing_info[1].total_seconds() > 0.5]
-        global_context.message_queue.print("Number of rules over 0.5s: %i" % len(slow_rules))
+        print("Total number of rules processed: %i" % len(times))
+        print("Total time to process: %s." % (total_end - total_start))
+        slow_rules = [timing_info for timing_info in times if timing_info[1].total_seconds() > 0.001]
+        print("Number of rules over 1ms: %i" % len(slow_rules))
         for slow_rule in slow_rules:
-            global_context.message_queue.print("Rule %s end. Took %s" % (slow_rule[0], slow_rule[1]))
+            print("Rule %s end. Took %s" % (slow_rule[0], slow_rule[1]))
 
 def index_model(xule_context):
     fact_index = collections.defaultdict(lambda :collections.defaultdict(set))
@@ -219,7 +205,6 @@ def evaluate_raise(raise_rule, xule_context):
         source_location = get_element_identifier(result, xule_context)
         filing_url = xule_context.model.modelDocument.uri
 
-        '''
         xule_context.model.log(severity,
                                xule_context.rule_name, 
                                #evaluateMessage(node.message, sphinxContext, resultTags, hsBindings),
@@ -229,16 +214,6 @@ def evaluate_raise(raise_rule, xule_context):
                                sourceFileLine=[source_location],
                                severity=xule_context.severity,
                                filing_url=filing_url)
-        '''
-        xule_context.global_context.message_queue.log(severity,
-                                                      xule_context.rule_name, 
-                                                      #evaluateMessage(node.message, sphinxContext, resultTags, hsBindings),
-                                                      message,
-                                                      #sourceFileLine=[node.sourceFileLine] + 
-                                                      #[(fact.modelDocument.uri, fact.sourceline) for fact in hsBindings.boundFacts],
-                                                      sourceFileLine=[source_location],
-                                                      severity=xule_context.severity,
-                                                      filing_url=filing_url)        
            
 def evaluate_report(report_rule, xule_context): 
     
@@ -261,7 +236,6 @@ def evaluate_report(report_rule, xule_context):
         source_location = get_element_identifier(result, xule_context)
         filing_url = xule_context.model.modelDocument.uri
         
-        '''
         xule_context.model.log(xule_context.severity.upper(),
                                xule_context.rule_name, 
                                #evaluateMessage(node.message, sphinxContext, resultTags, hsBindings),
@@ -271,16 +245,6 @@ def evaluate_report(report_rule, xule_context):
                                sourceFileLine=source_location,
                                severity=xule_context.severity,
                                filing_url=filing_url)
-        '''
-        xule_context.global_context.message_queue.log(xule_context.severity.upper(),
-                                                      xule_context.rule_name, 
-                                                      #evaluateMessage(node.message, sphinxContext, resultTags, hsBindings),
-                                                      message,
-                                                      #sourceFileLine=[node.sourceFileLine] + 
-                                                      #[(fact.modelDocument.uri, fact.sourceline) for fact in hsBindings.boundFacts],
-                                                      sourceFileLine=source_location,
-                                                      severity=xule_context.severity,
-                                                      filing_url=filing_url)        
     
 def evaluate_formula(formula_rule, xule_context):
     '''NEED TO CHECK THE PRECONDITION'''
@@ -380,7 +344,6 @@ def evaluate_formula(formula_rule, xule_context):
             
             filing_url = xule_context.model.modelDocument.uri
             
-            '''
             xule_context.model.log(severity,
                                    xule_context.rule_name, 
                                    #evaluateMessage(node.message, sphinxContext, resultTags, hsBindings),
@@ -390,17 +353,7 @@ def evaluate_formula(formula_rule, xule_context):
                                    sourceFileLine=None,
                                    severity=severity,
                                    filing_url=filing_url)
-            '''
-            xule_context.global_context.message_queue.log(severity,
-                                                          xule_context.rule_name, 
-                                                          #evaluateMessage(node.message, sphinxContext, resultTags, hsBindings),
-                                                          message,
-                                                          #sourceFileLine=[node.sourceFileLine] + 
-                                                          #[(fact.modelDocument.uri, fact.sourceline) for fact in hsBindings.boundFacts],
-                                                          sourceFileLine=None,
-                                                          severity=severity,
-                                                          filing_url=filing_url)
-            
+    
 def evaluate_bool_literal(literal, xule_context):
     if literal.value == "true":
         return XuleResultSet(XuleResult(True,'bool'))
@@ -638,20 +591,30 @@ def evaluate_comp(comp_expr, xule_context):
     '''
     
     def evaluate_comp_operation(combined, xule_context):
+        left_type, left_value = get_type_and_compute_value(combined['left'], xule_context)
+        right_type, right_value = get_type_and_compute_value(combined['right'], xule_context)
+        
+        if left_type in ('instant', 'duration') and right_type in ('instant', 'duration'):
+            left_compute_value = XulePeriodComp(left_value)
+            right_compute_value = XulePeriodComp(right_value)
+        else:
+            left_compute_value = combined['left_compute_value']
+            right_compute_value = combined['right_compute_value']
+            
         if combined['left'].type == 'unbound' or combined['right'].type == 'unbound':
             return XuleResult(None, 'unbound', meta=combined['meta'])
         elif operator == '==':
-            return XuleResult(combined['left_compute_value'] == combined['right_compute_value'], 'bool', meta=combined['meta'])
+            return XuleResult(left_compute_value == right_compute_value, 'bool', meta=combined['meta'])
         elif operator == '!=':
-            return XuleResult(combined['left_compute_value'] != combined['right_compute_value'], 'bool', meta=combined['meta'])
+            return XuleResult(left_compute_value != right_compute_value, 'bool', meta=combined['meta'])
         elif operator == '<':
-            return XuleResult(combined['left_compute_value'] < combined['right_compute_value'], 'bool', meta=combined['meta'])
+            return XuleResult(left_compute_value < right_compute_value, 'bool', meta=combined['meta'])
         elif operator == '<=':
-            return XuleResult(combined['left_compute_value'] <= combined['right_compute_value'], 'bool', meta=combined['meta'])
+            return XuleResult(left_compute_value <= right_compute_value, 'bool', meta=combined['meta'])
         elif operator == '>':
-            return XuleResult(combined['left_compute_value'] > combined['right_compute_value'], 'bool', meta=combined['meta'])
+            return XuleResult(left_compute_value > right_compute_value, 'bool', meta=combined['meta'])
         elif operator == '>=':
-            return XuleResult(combined['left_compute_value'] >= combined['right_compute_value'], 'bool', meta=combined['meta'])
+            return XuleResult(left_compute_value >= right_compute_value, 'bool', meta=combined['meta'])
         else:
             raise XuleProcessingError(_("Unknown operator '%s' found in comparison operation." % operator), xule_context)
     
@@ -933,7 +896,9 @@ def evaluate_var_ref(var_ref, xule_context):
                 if var_info['type'] == xule_context._VAR_TYPE_VAR:
                     saved_ignore_vars = xule_context.ignore_vars[:]
                     xule_context.ignore_vars = range(var_info['index'], len(xule_context._vars))
-                var_value_rs = evaluate(var_info['expr'], xule_context) 
+                var_value_rs = evaluate(var_info['expr'], xule_context)
+                if var_info['type'] == xule_context._VAR_TYPE_CONSTANT:
+                    var_value_rs = var_value_rs.dup() 
                 #restore the alignment filters
                 xule_context.alignment_filters = saved_alignment_filters
                 if var_info['type'] == xule_context._VAR_TYPE_VAR:
@@ -944,7 +909,7 @@ def evaluate_var_ref(var_ref, xule_context):
     #A copy is returned so the var reference can never be messed up
     copy_rs = XuleResultSet()
     copy_rs.default = var_value_rs.default
-    if var_info['tag'] == True:
+    if var_info['tag'] == True and 'expr' in var_info:
         tag_default(copy_rs, var_info['expr'], var_info['name'], xule_context)
     
     for res in var_value_rs:
@@ -1042,21 +1007,27 @@ def tag_default(result_set, expr, tag_name, xule_context):
                         if aspect_filter.aspectOperator == "=":
                             #for [lineItem=] - this will pick up the first result
                             aspect_member_rs = evaluate(aspect_filter.aspectExpr[0], xule_context)
-                            result_set.default.add_tag(tag_name, XuleResult(aspect_member_rs.results[0], 'empty_fact'))
+                            if len(aspect_member_rs.results) > 0:
+                                result_set.default.add_tag(tag_name, XuleResult(aspect_member_rs.results[0], 'empty_fact'))
+                            else:
+                                result_set.default.add_tag(tag_name, XuleResult('unknown', 'empty_fact'))
                         else:
                             #for [lineItem in} - this will pick up each
                             aspect_member_rs = aspect_member_rs = evaluate(aspect_filter.aspectExpr[0], xule_context)
-                            line_items = []
-                            for aspect_member_result in aspect_member_rs.results[0].value:
-                                if aspect_member_result.type == 'qname':
-                                    line_items.append(str(aspect_member_result.value))
-                                elif aspect_member_result.type == 'concept':
-                                    line_items.append(str(aspect_member_result.value.qname))
-                            if len(line_items) == 1:
-                                line_item_string = str(line_items[0])
+                            if len(aspect_member_rs.results) > 0:
+                                line_items = []
+                                for aspect_member_result in aspect_member_rs.results[0].value:
+                                    if aspect_member_result.type == 'qname':
+                                        line_items.append(str(aspect_member_result.value))
+                                    elif aspect_member_result.type == 'concept':
+                                        line_items.append(str(aspect_member_result.value.qname))
+                                if len(line_items) == 1:
+                                    line_item_string = str(line_items[0])
+                                else:
+                                    line_item_string = "one of (" + ", ".join(line_items) + ")"
+                                result_set.default.add_tag(tag_name, XuleResult(line_item_string, 'empty_fact'))
                             else:
-                                line_item_string = "one of (" + ", ".join(line_items) + ")"
-                            result_set.default.add_tag(tag_name, XuleResult(line_item_string, 'empty_fact'))
+                                result_set.default.add_tag(tag_name, XuleResult('unknown', 'empty_fact'))
                 if not found_line_item:
                     #doesn't have a line item at all
                     result_set.default.add_tag(tag_name, XuleResult('unknown', 'empty_fact'))
@@ -1121,7 +1092,7 @@ def evaluate_property_detail(property_exprs, left_result_set, xule_context):
                         raise XuleProcessingError(_("Property '%s' is not a property of a '%s'.") % (current_property_expr.propertyName,
                                                                                                      left_result.type), 
                                                   xule_context) 
-
+                        
             '''Add the single value left resulte variables'''
             single_vars = push_single_value_variables(left_result.vars, xule_context)       
             
