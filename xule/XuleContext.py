@@ -89,9 +89,9 @@ class XuleMessageQueue():
         '''
         if self._model is None:
             print("[%s] [%s] %s" % (level, codes, msg))
-        #elif not hasattr(self._model, "logger"):
-        #    print("Error, no logger in model")
-        #    print("[%s] [%s] %s" % (level, codes, msg))
+#         elif not hasattr(self._model, "logger"):
+#             print("Error, no logger in model")
+#             print("[%s] [%s] %s" % (level, codes, msg))
         elif level == "ERROR":
             self._model.error(codes, msg, **args)
         elif level == "INFO":

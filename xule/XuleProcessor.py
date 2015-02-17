@@ -44,7 +44,8 @@ def process_xule(rule_set, model_xbrl, cntlr, show_timing=False, show_debug=Fals
     
     # Shutdown Message Queue
     global_context.message_queue.stop()
-    global_context.message_queue.clear()  
+    global_context.message_queue.clear()
+    t.join()  
     
         
 def evaluate_rule_set(global_context):
