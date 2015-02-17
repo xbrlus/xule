@@ -76,9 +76,6 @@ class XuleRuleSet(object):
     
     def add(self, parseRes, file_time=None, file_name=None):
         
-        if self._openForAdd == False:
-            raise XuleRuleSetError(_("Attempting to add rule file, but rule set is not open for add"))
-        
         file_num = self._addXuleFile(file_time, file_name)
         
         # update the catalog
@@ -374,14 +371,14 @@ class XuleRuleSet(object):
     
         return pickle_name
                 
-    def open(self, ruleSetLocation, open_for_add=True):
+    def open(self, ruleSetLocation):
         #self.name = os.path.splitext(os.path.basename(ruleSetLocation))[0]
         self.location = ruleSetLocation
         try:
             with open(os.path.join(ruleSetLocation,"catalog.pik"),"rb") as i:
                 self.catalog = pickle.load(i)
             self.name = self.catalog['name']
-            self._openForAdd = open_for_add
+            self._openForAdd = True
         except FileNotFoundError:
             print("Cannot open catalog.")
             raise
@@ -483,30 +480,164 @@ class XuleRuleSet(object):
         return
         
     def addTaxonomy(self, taxonomy_location, entry_point):
-        if self._openForAdd == True:
-            base_location = os.path.join(self.location, 'base_taxonomy')
-            
-            if not os.path.isdir(taxonomy_location):
-                raise XuleRuleSetError(_("Taxonomy location '%s' is not a directory" % taxonomy_location))
-            
-            if not os.path.isfile(os.path.join(taxonomy_location, entry_point)):
-                raise XuleRuleSetError(_("Taxonomy entry point '%s' is not in '%s'" % (entry_point, taxonomy_location)))
-            
-            if os.path.exists(base_location):
-                if not os.path.isdir(base_location):
-                    raise XuleRuleSetError(_("Taxonomy location '%s' is not a directory" % base_location))
-                else:
-                    shutil.rmtree(base_location)
-    
-            #copy the taxonomy location to the rule set
-            shutil.copytree(taxonomy_location, base_location)
-            
-            self.catalog['rules_dts_location'] = entry_point
-        else:
-            raise XuleRuleSetError(_("Attempting to add taxonomy but the rule set is not open for add"))
+        base_location = os.path.join(self.location, 'base_taxonomy')
+        
+        if not os.path.isdir(taxonomy_location):
+            raise XuleRuleSetError(_("Taxonomy location '%s' is not a directory" % taxonomy_location))
+        
+        if not os.path.isfile(os.path.join(taxonomy_location, entry_point)):
+            raise XuleRuleSetError(_("Taxonomy entry point '%s' is not in '%s'" % (entry_point, taxonomy_location)))
+        
+        if os.path.exists(base_location):
+            if not os.path.isdir(base_location):
+                raise XuleRuleSetError(_("Taxonomy location '%s' is not a directory" % base_location))
+            else:
+                shutil.rmtree(base_location)
+
+        #copy the taxonomy location to the rule set
+        shutil.copytree(taxonomy_location, base_location)
+        
+        self.catalog['rules_dts_location'] = entry_point
             
     def getRulesTaxonomyLocation(self):
         if self.catalog['rules_dts_location'] is not None:
             return os.path.join(self.location, 'base_taxonomy', self.catalog['rules_dts_location'])
         else:
             return None
+    
+    
+    def get_constant_list(self, constant_name):
+        #ctype = 'c'
+        #with self.catalog['constants'][constant_name]['dependencies']: # as const:
+        if self.catalog['constants'][constant_name]['dependencies']['instance'] and \
+            self.catalog['constants'][constant_name]['dependencies']['rules-taxonomy']:
+            return 'rfrc'
+        elif self.catalog['constants'][constant_name]['dependencies']['instance']:
+            return 'frc'
+        elif self.catalog['constants'][constant_name]['dependencies']['rules-taxonomy']:
+            return 'rtc'
+        return 'c'
+
+                
+    def findnode(mylist, value):
+        ''' returns the node for the value in mylist where 
+            mylist is an llist.sllist 
+        '''
+        x = -1
+        for num in range(len(mylist)):
+            if mylist[num] == value:
+                x = num
+                break
+        return mylist.nodeat(x) if x != -1 else None                
+                        
+    def get_grouped_constants(self):
+        self.all_constants = { 'rfrc': [],
+                               'rtc' : [],
+                               'frc' : [],
+                               'c': [] 
+                             }
+        
+        for constant in self.catalog['constants'].keys():
+            if constant != ('extension_ns'):
+                if 'unused' not in self.catalog['constants'][constant]:
+                    constant_type = self.get_constant_list(constant)
+                    self.all_constants[constant_type].append(constant)
+            
+        '''
+        from llist import sllist
+        for constant_type in self.all_constants:
+            with self.all_constants[constant_type] as all_type:
+                if len(all_type) > 1:
+                    link_list = sllist(all_type)
+                    for constant in link_list:
+                        constant_index = link_list.index(constant)
+                        low_index = constant_index
+                        for dep in self.catalog['constants'][constant]['dependencies']['constants']:
+                            dep_index = index(link_list, dep)
+                            if dep_index > low_index:
+                                low_index = dep_index
+                        if low_index != constant_index:
+                            
+         '''               
+                    
+            #if constant in ('DEPRECATED_NAMES', 'TOTAL_LABEL_URIS', 'DIM_CONCEPTS'):
+            #    constant_type = 'c'
+            #elif constant in ('calcNetwork'):
+            #    constant_type = 'rtc'
+            #elif 2 == 2:
+            #    constant_type = 'frc'
+            #else:
+            #    constant_type = 'c'
+            #self.all_constants[constant_type][constant] = self.getConstant(constant)
+
+        
+        
+        
+        # remove any empty types
+        del_const = []
+        for constant_type in self.all_constants:
+            if len(self.all_constants[constant_type]) <= 0:
+                del_const.append(constant_type)
+        for constant_type in del_const:
+            del self.all_constants[constant_type]
+    
+        return self.all_constants
+    
+    
+    def get_rule_list(self, rule_name):
+        #ctype = 'c'
+        #with self.catalog['constants'][constant_name]['dependencies']: # as const:
+        if self.catalog['rules'][rule_name]['dependencies']['instance'] and \
+            self.catalog['rules'][rule_name]['dependencies']['rules-taxonomy'] and \
+            self.catalog['rules'][rule_name]['dependencies']['constants'] != set():
+            return 'alldepr'
+        elif self.catalog['rules'][rule_name]['dependencies']['rules-taxonomy'] and \
+            not self.catalog['rules'][rule_name]['dependencies']['instance'] and \
+            self.catalog['rules'][rule_name]['dependencies']['constants'] != set():
+            return 'rtcr'
+        elif self.catalog['rules'][rule_name]['dependencies']['instance'] and \
+            self.catalog['rules'][rule_name]['dependencies']['constants'] != set():
+            # and \
+            #not self.catalog['rules'][rule_name]['dependencies']['rules-taxonomy'] and \
+            #not self.catalog['rules'][rule_name]['dependencies']['instance']:
+            return 'fcr'
+        elif self.catalog['rules'][rule_name]['dependencies']['constants'] != set():
+            return 'cr'
+        elif not self.catalog['rules'][rule_name]['dependencies']['instance'] and \
+            self.catalog['rules'][rule_name]['dependencies']['constants'] == set() and \
+            not self.catalog['rules'][rule_name]['dependencies']['rules-taxonomy']:
+            return 'crap'
+        return 'r'
+        
+    def get_grouped_rules(self):
+        self.all_rules = { 'alldepr' : [],
+                           'rtr' : [],
+                           'rtfcr' : [],
+                           'rtcr' : [],
+                           'fcr' : [],
+                           'cr' : [],
+                           'r' : [],
+                           'crap' : []
+                    }
+        
+        for rule in self.catalog['rules'].keys():
+            rule_type = self.get_rule_list(rule)
+            #for dependant in self.catalog['rules'][rule]['dependencies']['constants']:
+            #    if self.get_constant_list(dependant) == 'rtc':
+            #        constant_type = 'rfrc'
+            #        break
+
+            self.all_rules[rule_type].append(rule)
+            #if rule in ('xbrlus-cc.oth.invalid_member.r14117'):
+            #all_rules[rule_type][rule] = self.getRule(rule)
+            # remove any empty types
+        del_rules = []
+        for rule_type in self.all_rules:
+            if len(self.all_rules[rule_type]) <= 0:
+                del_rules.append(rule_type)
+        for rule_type in del_rules:
+            del self.all_rules[rule_type]   
+            
+        return self.all_rules
+
+

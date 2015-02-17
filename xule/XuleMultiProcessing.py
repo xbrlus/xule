@@ -8,8 +8,11 @@ from threading import Thread
 from queue import Empty
 
 
-def start_process(rule_set, model_xbrl, cntlr, show_timing=False, show_debug=False, show_trace=False, crash_on_error=False):
-    global_context = XuleGlobalContext(rule_set, model_xbrl, cntlr)
+def start_process(rule_set, model_xbrl, cntlr, show_timing=False, show_debug=False, show_trace=False, crash_on_error=False,
+                  multi=False, async=False, cpunum=None):
+    global_context = XuleGlobalContext(rule_set, model_xbrl, cntlr, 
+                                       multi=multi, async=async,
+                                       cpunum=cpunum) 
     global_context.show_timing = show_timing
     global_context.show_debug = show_debug
     global_context.show_trace = show_trace
@@ -19,10 +22,13 @@ def start_process(rule_set, model_xbrl, cntlr, show_timing=False, show_debug=Fal
     from .XuleProcessor import index_model
     global_context.fact_index = index_model(xule_context)
 
+    global_context.message_queue.logging("Processing Filing...")
+
     # Start message_queue monitoring thread
     t = Thread(target=output_message_queue, args=(global_context,))
     t.name = "Message Queue"
     t.start()
+
     
     # Start Master Process.  This runs the filing and sends the output to 
     #   the message_queue  This is in a seperate process so the information 
@@ -33,35 +39,20 @@ def start_process(rule_set, model_xbrl, cntlr, show_timing=False, show_debug=Fal
     
     # Wait until filing as been evaluated
     master.join()
-
+    
     # Shutdown Message Queue
     global_context.message_queue.stop()
 
-    ''' Alternate methods    
-    #master_process(global_context, rule_set)
+    global_context.message_queue.clear()
     
-    #global_context.message_queue.stop()
-
-    #print("All Rules size: %d; Rules Queue: %d; Message Queue: %d" % 
-    #      (len(global_context.all_rules), global_context.rules_queue.qsize(), global_context.message_queue.size))
-    '''
 
 def output_message_queue(global_context):
-    global_context.message_queue.logging("Messaging Starting")
     c = True
     while c: 
-        c = global_context.message_queue.output()
-        
-    global_context.message_queue.logging("Messaging Shutting Down")
+        c = global_context.message_queue.loopoutput()
 
                  
 def master_process(global_context, rule_set):
-    
-    global_context.message_queue.logging("Master Process Starting")
-
-    #print("constant groups: %s" % (str([group for group in global_context.cntlr.all_constants])))
-    
-    # Move items stored on controller to the xule_context
     try:
         setattr(global_context, "all_constants", global_context.cntlr.all_constants)
         delattr(global_context.cntlr, "all_constants")
@@ -98,7 +89,7 @@ def master_process(global_context, rule_set):
     '''
     
     # Load rules into queue to start calculations
-    load_rules_queue(global_context, 'r', number=(1000 * global_context._NUM_PROCESSES))
+    load_rules_queue(global_context, 'r', number=(1000 * global_context.num_processors))
     
     ''' Debugging section
     print("All Rules size: %d; Rules Queue: %d; Sub_processes: %d; Message Queue: %d" % 
@@ -108,11 +99,13 @@ def master_process(global_context, rule_set):
 
     # Start initial queues based on the number of processes indicated    
     sub_processes = {}
-    for num in range(global_context._NUM_PROCESSES):
+    global_context.message_queue.print("numproc: %d" % (global_context.num_processors))
+    for num in range(global_context.num_processors):
         cq = Queue()
         p = Process(target=rules_process, args=(str(num), global_context, cq))
         p.name = "Sub-Process %d" % (num)
         p.start()
+        #print("masterProcess - Process: %d, pid: %d" % (num, p.pid))
         sub_processes[num] = { 'cq': cq,
                                  'p' : p
                                }
@@ -138,29 +131,19 @@ def master_process(global_context, rule_set):
       
 
     '''hold thread'''
-    
-    #while True:
-    #    if len(global_context.all_rules) <= 0 and \
-    #        global_context.rules_queue.qsize() <= 0 and \
-    #        len(sub_processes) <= 0:
-    #        break
-    
-    for num in range(global_context._NUM_PROCESSES+1):
+  
+    checks = global_context.num_processors + 1
+    for num in range(checks):
         global_context.shutdown_queue.get()
-
-
-    # Alternate methods of pausing until processes are complete
-    #    print("%d shutdown received" % (num))
-    #global_context.shutdown_queue.get()
-    #print("2nd shutdown received")
-    #print("before join")
 
     # Cleans up subprocesses
     for num in sub_processes:
+        print("Before Joining %s process(pid %d" % (num, sub_processes[num]['p'].pid))
+        #while sub_processes[num]['p'].is_alive():
+        #    pass
         sub_processes[num]['p'].join()
-    #print("after join")
-    
-    
+        print("After Joining %s process(pid %d" % (num, sub_processes[num]['p'].pid))
+        
     if global_context.show_debug:
         print("*** Master Running ***")
         print("All Rules size: %d; Rules Queue: %d; Sub_processes: %d; Message Queue: %d" % 
@@ -171,7 +154,6 @@ def master_process(global_context, rule_set):
         print("constant groups: %s" % (str([group for group in global_context.all_constants])))
 
         
-
     #print out times queues
     if global_context.show_timing:
         constants_slow = []
@@ -227,7 +209,7 @@ def rules_process(name, global_context, cq):
                 global_context.message_queue.logging("*rules queue size: %d" % (global_context.rules_queue.qsize()))
             if len(global_context.all_rules) <= 0 and global_context.rules_queue.qsize() <= 0:
                 global_context.shutdown_queue.put("stop")
-                print("Entering Shutdown Queue")
+                #print("%s: Entering Shutdown Queue" % (name))
                 break
             else:
                 if global_context.show_debug:
@@ -241,9 +223,6 @@ def rules_process(name, global_context, cq):
         except Empty:
             pass
 
-        #if global_context.show_debug:
-            #print("%s: Processing: %s" % (name, rule_name))
-            #print(global_context.model.modelDocument.uri)
         try:
             if global_context.show_timing:
                 rule_start = datetime.datetime.today()
@@ -289,10 +268,10 @@ def watch_processes(global_context, sub_processes):
             global_context.message_queue.logging("All Constants size: %d; Constant Queue: %d" % 
                   (len(global_context.all_constants), global_context.calc_constants_queue.qsize()))
             global_context.message_queue.logging("constant groups: %s" % (str([group for group in global_context.all_constants])))
-            global_context.message_queue.logging("Stop Watch: %d; Num Processes - %d" % (global_context.stop_watch, global_context._NUM_PROCESSES))
+            global_context.message_queue.logging("Stop Watch: %d; Num Processes - %d" % (global_context.stop_watch, global_context.num_processors))
             sleep(5)
 
-        if global_context.constants_done and global_context.stop_watch >= global_context._NUM_PROCESSES:
+        if global_context.constants_done and global_context.stop_watch >= global_context.num_processors:
             #global_context.message_queue.logging("stopping watch_process")
             break
 
@@ -335,9 +314,9 @@ def watch_processes(global_context, sub_processes):
         for i in del_process:
             del sub_processes[i]
 
-        if len(sub_processes) < global_context._NUM_PROCESSES and \
+        if len(sub_processes) < global_context.num_processors and \
             not global_context.rules_queue.empty():
-            for num in range(0, global_context._NUM_PROCESSES - len(sub_processes)):
+            for num in range(0, global_context.num_processors - len(sub_processes)):
                 # make sure there's no index collision
                 thisnum = num
                 while thisnum in sub_processes.keys():
@@ -347,6 +326,7 @@ def watch_processes(global_context, sub_processes):
                 p = Process(target=rules_process, args=(str(thisnum), global_context, cq))
                 p.name = "Sub-Process %d" % (thisnum)
                 p.start()
+                #print("watchProcess - Process: %d, pid: %d" % (thisnum, p.pid))
                 sub_processes[thisnum] = { 'cq': cq,
                                            'p' : p
                                          }
@@ -401,26 +381,8 @@ def process_constants(global_context, sub_processes):
         sub_processes[num]['cq'].put("STOP")
         
     # Increases the amount of processes running rules
-    global_context._NUM_PROCESSES = global_context._NUM_PROCESSES + 1
+    global_context.num_processors = global_context.num_processors + 1
     
-    '''
-    for num in range(0, global_context._NUM_PROCESSES + 1 - len(sub_processes)):
-        # make sure there's no index collision
-        thisnum = num
-        while thisnum in sub_processes.keys():
-            thisnum = thisnum + 1
-        cq = Queue()
-        p = Process(target=rules_process, args=(str(thisnum), global_context, cq))
-        p.name = "Sub-Process: %d" % (thisnum)
-        print("starting process %s" % (p.name))
-        p.start()
-        sub_processes[thisnum] = { 'cq': cq,
-                                   'p' : p
-                                 }
-        global_context.stop_watch = global_context.stop_watch + 1
-        print("adding stop_watch")  
-     '''
-        
     if global_context.show_debug:
         global_context.message_queue.logging("***** Stopping Constant Thread ******")
 
@@ -487,4 +449,5 @@ def run_constant_group(global_context, *args):
              
             # remove section from constant needed to be calculated    
             del global_context.all_constants[const_type]
+
 

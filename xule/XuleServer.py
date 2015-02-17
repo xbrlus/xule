@@ -19,17 +19,18 @@ if __name__ == '__main__':
 
     print("Initializing Server")
     cntlr = CntlrCmdLine.parseAndRun(args)
+
     # get generated options from controller
-
     options = getattr(cntlr, "xule_options", None)
-    setattr(options, "webserver", options.xule_server)
-
-    # Clear options to reduce size of cntlr object
-    setattr(cntlr, "xule_options", None)
-    setattr(options, "xule_server", None)
-
-    # start web server
-    cntlr.startLogging(logFileName='logToBuffer')
-    from arelle import CntlrWebMain
-    app = CntlrWebMain.startWebserver(cntlr, options)
+    if options is not None:
+        setattr(options, "webserver", options.xule_server)
+    
+        # Clear options to reduce size of cntlr object
+        setattr(cntlr, "xule_options", None)
+        setattr(options, "xule_server", None)
+    
+        # start web server
+        cntlr.startLogging(logFileName='logToBuffer')
+        from arelle import CntlrWebMain
+        app = CntlrWebMain.startWebserver(cntlr, options)
 
