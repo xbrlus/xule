@@ -643,8 +643,8 @@ def evaluate_comp(comp_expr, xule_context):
         right_type, right_value = get_type_and_compute_value(combined['right'], xule_context)
         
         if left_type in ('instant', 'duration') and right_type in ('instant', 'duration'):
-            left_compute_value = XulePeriodComp(left_value)
-            right_compute_value = XulePeriodComp(right_value)
+            left_compute_value = XulePeriodComp(combined['left_compute_value'])
+            right_compute_value = XulePeriodComp(combined['right_compute_value'])
         else:
             left_compute_value = combined['left_compute_value']
             right_compute_value = combined['right_compute_value']
@@ -3541,6 +3541,9 @@ def property_string(xule_context, left_result, *args):
 def property_facts(xule_context, left_result, *args):
     return XuleResultSet(XuleResult("\n".join([str(f.qname) + " " + str(f.xValue) for f in left_result.facts]), 'string'))
 
+def property_from_model(xule_contet, left_result, *args):
+    return XuleResultSet(XuleResult(left_result.from_model, 'bool'))
+
 #Property tuple
 PROP_FUNCTION = 0
 PROP_ARG_NUM = 1
@@ -3638,6 +3641,7 @@ PROPERTIES = {'dimension': (property_dimension, 1, ('fact'), False),
               'type': (property_type, 0, (), False),
               'string': (property_string, 0, (), False),
               'facts': (property_facts, 0, (), False),
+              'from-model': (property_from_model, 0, (), False),
               }
 
 
@@ -4705,7 +4709,7 @@ def format_result_value(result, xule_context):
         if result.from_model == True:
             return "instant('%s')" % (res_value - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
         else:
-            return res_value.strftime("%Y-%m-%d")
+            return "instant('%s')" % res_value.strftime("%Y-%m-%d")
     
     elif res_type == 'list':
         list_value = ", ".join([format_result_value(sub_res, xule_context) for sub_res in res_value])
