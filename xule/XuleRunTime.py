@@ -235,7 +235,14 @@ class XulePeriodComp:
                 self.instant != other.instant)
 
     def __lt__(self, other):
-        return NotImplemented
+        if self.type != other.type:
+            return NotImplemented
+        else:
+            if self.type == 'instant':
+                return self.instant < other.instant
+            else:
+                return (self.start < other.start or
+                    self.start == other.start and self.end < other.end)
     '''
         if self.type ==  'instant' and other.type == 'instant':
             return self.instant < other.instant
@@ -250,7 +257,14 @@ class XulePeriodComp:
             raise XuleProcessingError(_("Internal error: XulePeriodComp has bad types: '%s' and '%s'" % (self.type, other.type)))
     '''
     def __gt__(self, other):
-        return NotImplemented
+        if self.type != other.type:
+            return NotImplemented
+        else:
+            if self.type == 'instant':
+                return self.instant > other.instant
+            else:
+                return (self.end > other.end or
+                        self.end == other.end and self.start > other.start)
     '''
         if self.type ==  'instant' and other.type == 'instant':
             return self.instant > other.instant
@@ -265,13 +279,13 @@ class XulePeriodComp:
             raise XuleProcessingError(_("Internal error: XulePeriodComp has bad types: '%s' and '%s'" % (self.type, other.type)))
     '''
     def __le__(self, other):
-        return NotImplemented
-    '''
-        return self.__eq__(other) or self.__lt__(other)
-    '''
+        if self.type != other.type:
+            return NotImplemented
+        else:      
+            return self.__eq__(other) or self.__lt__(other)
+        
     def __ge__(self, other):
-        return NotImplemented
-    '''
-        return self.__eq__(other) or self.__gt__(other)
-    '''
-           
+        if self.type != other.type:
+            return NotImplemented
+        else:
+            return self.__eq__(other) or self.__gt__(other)
