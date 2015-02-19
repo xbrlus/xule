@@ -28,9 +28,10 @@ def start_process(rule_set, model_xbrl, cntlr, show_timing=False, show_debug=Fal
     global_context.message_queue.logging("Processing Filing...")
 
     # Start message_queue monitoring thread
-    t = Thread(target=output_message_queue, args=(global_context,))
-    t.name = "Message Queue"
-    t.start()
+    if multi:
+        t = Thread(target=output_message_queue, args=(global_context,))
+        t.name = "Message Queue"
+        t.start()
 
     
     # Start Master Process.  This runs the filing and sends the output to 
@@ -39,15 +40,34 @@ def start_process(rule_set, model_xbrl, cntlr, show_timing=False, show_debug=Fal
     master = Process(target=master_process, args=(global_context, rule_set,))
     master.name = "Master Process"
     master.start()
-    
+  
+   
     # Wait until filing as been evaluated
     master.join()
     
     # Shutdown Message Queue
-    global_context.message_queue.stop()
-
-    global_context.message_queue.clear()
+    if multi:
+        global_context.message_queue.stop()
+        global_context.message_queue.clear()
+        t.join()
     
+    
+def debug(global_context):
+    #print("Starting debug loop")
+    while True:
+        print("*** Master Running ***")
+        print("All Rules size: %d; Rules Queue: %d;  Message Queue: %d" %
+              (len(global_context.all_rules), global_context.rules_queue.qsize(), global_context.message_queue.size))
+        print("rule groups: %s" % (str([group for group in global_context.all_rules])))
+        print("All Constants size: %d; Constant Queue: %d" %
+              (len(global_context.all_constants), global_context.calc_constants_queue.qsize()))
+        print("constant groups: %s" % (str([group for group in global_context.all_constants])))
+        print("Constants done? %s" % (str(global_context.constants_done)))
+        if len(global_context.all_rules) <=0 and global_context.rules_queue.qsize() <= 0:
+            break
+        sleep(5)
+    #print("Exiting debug loop")
+ 
 
 def output_message_queue(global_context):
     c = True
@@ -92,12 +112,15 @@ def master_process(global_context, rule_set):
     '''
     
     # Load rules into queue to start calculations
+    #print("1")
     load_rules_queue(global_context, 'r', number=(1000 * global_context.num_processors))
-    
+    #print("2")  
+  
     ''' Debugging section
-    print("All Rules size: %d; Rules Queue: %d; Sub_processes: %d; Message Queue: %d" % 
-          (len(global_context.all_rules), global_context.rules_queue.qsize(), len(sub_processes), global_context.message_queue.size))
-    sleep(5)
+    while True:
+        print("All Rules size: %d; Rules Queue: %d; Message Queue: %d" % 
+              (len(global_context.all_rules), global_context.rules_queue.qsize(), global_context.message_queue.size))
+        sleep(5)
     '''
 
     # Start initial queues based on the number of processes indicated    
@@ -118,12 +141,12 @@ def master_process(global_context, rule_set):
     watch.start()
  
     ''' Debug Area
-    for const_type in xule_context.all_constants:
-        print("Constant type: %s: %d" % (const_type, len(xule_context.all_constants[const_type])))
-    print("C")
-    for rule_type in xule_context.all_rules:
-        print("Rule type: %s: %d" % (rule_type, len(xule_context.all_rules[rule_type])))
-    print("D")
+ 
+    # The following is for watching various queues and lists while the process is running
+    t_debug = Thread(target=debug, args=(global_context,))
+    t_debug.name = "Debug Thread"
+    t_debug.start()
+ 
     '''
     
     # Launch thread to calculate constants
@@ -140,11 +163,9 @@ def master_process(global_context, rule_set):
 
     # Cleans up subprocesses
     for num in sub_processes:
-        print("Before Joining %s process(pid %d" % (num, sub_processes[num]['p'].pid))
-        #while sub_processes[num]['p'].is_alive():
-        #    pass
+        #print("Before Joining %s process(pid %d" % (num, sub_processes[num]['p'].pid))
         sub_processes[num]['p'].join()
-        print("After Joining %s process(pid %d" % (num, sub_processes[num]['p'].pid))
+        #print("After Joining %s process(pid %d" % (num, sub_processes[num]['p'].pid))
         
     if global_context.show_debug:
         print("*** Master Running ***")
@@ -273,10 +294,6 @@ def watch_processes(global_context, sub_processes):
             global_context.message_queue.logging("Stop Watch: %d; Num Processes - %d" % (global_context.stop_watch, global_context.num_processors))
             sleep(5)
 
-        if global_context.constants_done and global_context.stop_watch >= global_context.num_processors:
-            #global_context.message_queue.logging("stopping watch_process")
-            break
-
         #global_context.message_queue.logging("watch-process- constant groups: %s" % (str([group for group in global_context.all_constants])))
 
         if len(global_context.all_constants) > 0: #and \
@@ -307,7 +324,11 @@ def watch_processes(global_context, sub_processes):
                 getattr(global_context.cntlr, "base_taxonomy", None) is not None:
                 load_rules_queue(global_context, 'rtcr', 'alldepr')
 
-        
+        if global_context.constants_done and len(global_context.all_rules) <=0 \
+            and global_context.stop_watch >= global_context.num_processors:
+            #global_context.message_queue.logging("stopping watch_process")
+            break       
+ 
         # if process is dead join process and remove from tracking queue
         del_process = []
         for num in sub_processes:
@@ -317,6 +338,7 @@ def watch_processes(global_context, sub_processes):
             del sub_processes[i]
 
         if len(sub_processes) < global_context.num_processors and \
+            len(global_context.all_rules) <= 0 and \
             not global_context.rules_queue.empty():
             for num in range(0, global_context.num_processors - len(sub_processes)):
                 # make sure there's no index collision
@@ -342,7 +364,7 @@ def watch_processes(global_context, sub_processes):
                     global_context.message_queue.logging("All Constants size: %d; Constant Queue: %d" % 
                           (len(global_context.all_constants), global_context.calc_constants_queue.qsize()))
                     global_context.message_queue.logging("constant groups: %s" % (str([group for group in global_context.all_constants])))       
-                
+         
 
 def process_constants(global_context, sub_processes):
     ''' send stop to kill thread '''
@@ -395,8 +417,10 @@ def load_rules_queue(context, *args, number=None):
     ''' args are the catergories of rules that should be loaed into the queue'''
     ''' number controls the amount that's loaded during this call'''
 
+    #print("begin load: %s - %s" % (str(number), str(args)))
     for rules_type in args:
         if rules_type in context.all_rules:
+            #print("working on: %s: %d" % (rules_type, len(context.all_rules[rules_type])))
             if number is None:
                 for rule in context.all_rules[rules_type]:
                     context.rules_queue.put(rule)
@@ -451,5 +475,6 @@ def run_constant_group(global_context, *args):
              
             # remove section from constant needed to be calculated    
             del global_context.all_constants[const_type]
+
 
 

@@ -146,8 +146,9 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
         global_context.message_queue.print("Using %d processors" % (global_context.num_processors+1)) 
 
         # Start Output message queue
-        t = Thread(target=output_message_queue, args=(global_context,))
-        t.start()
+        if getattr(options, "xule_multi", False):
+            t = Thread(target=output_message_queue, args=(global_context,))
+            t.start()
         
         #load rules taxonomy
         global_context.message_queue.logging("Loading rules taxonomy")        
@@ -186,6 +187,8 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
         # stop message_queue
         global_context.message_queue.stop()
         
+        if getattr(options, "xule_multi", False):
+            t.join()
      
         
 def xuleCmdXbrlLoaded(cntlr, options, modelXbrl):

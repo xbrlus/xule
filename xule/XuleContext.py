@@ -24,7 +24,8 @@ class XuleMessageQueue():
     '''
     
     def __init__(self, model, multi=False, async = False):
-        self._queue = M_Queue()
+        if multi:
+            self._queue = M_Queue()
         if model is not None:
             self._model = model
         self._multi = multi
@@ -43,7 +44,10 @@ class XuleMessageQueue():
     
 
     def log(self, level, codes, msg, **args):
-        self._queue.put((level, codes, msg, args))
+        if self._multi and self._queue is not None:
+            self._queue.put((level, codes, msg, args))
+        else:
+            self.output(level, codes, msg, **args)
 
     def logging(self, msg):
         ''' Logging statements for any text '''
@@ -62,8 +66,7 @@ class XuleMessageQueue():
         ''' clears what's in the queue '''
         for level, codes, msg, args in self._printlist:
             self.output(level, codes, msg, **args)
-        
-
+       
     def loopoutput(self):
         keep = True
         (level, codes, msg, args) = self._queue.get()
@@ -110,10 +113,6 @@ class XuleMessageQueue():
 
 class XuleGlobalContext(object):
     
-    # Constants
-    _NUM_PROCESSES = 2
-
-    
     def __init__(self, rule_set, model_xbrl=None, cntlr=None, include_nils=False, multi=False, async=False, cpunum=None):
         '''
         Constructor
@@ -135,8 +134,6 @@ class XuleGlobalContext(object):
         self.message_queue = XuleMessageQueue(self.model, multi, async)
         self.calc_constants_queue = Queue()
         self.rules_queue = M_Queue()    
-        #self.shutdown_queue = Queue()
-        #self.stop_watch = 0
 
         self.all_constants = None
         self.all_rules = None

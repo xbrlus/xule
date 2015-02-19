@@ -32,9 +32,10 @@ def process_xule(rule_set, model_xbrl, cntlr, show_timing=False, show_debug=Fals
     global_context.show_trace = show_trace
     global_context.crash_on_error = crash_on_error
 
-    t = Thread(target=output_message_queue, args=(global_context,))
-    t.name = "Message Queue"
-    t.start()
+    if multi:
+        t = Thread(target=output_message_queue, args=(global_context,))
+        t.name = "Message Queue"
+        t.start()
   
     xule_context = XuleRuleContext(global_context)
     global_context.fact_index = index_model(xule_context)
@@ -43,9 +44,10 @@ def process_xule(rule_set, model_xbrl, cntlr, show_timing=False, show_debug=Fals
     evaluate_rule_set(global_context)
     
     # Shutdown Message Queue
-    global_context.message_queue.stop()
-    global_context.message_queue.clear()
-    t.join()  
+    if multi:
+        global_context.message_queue.stop()
+        global_context.message_queue.clear()
+        t.join()  
     
         
 def evaluate_rule_set(global_context):
