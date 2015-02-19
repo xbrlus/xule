@@ -99,8 +99,8 @@ def get_grammar():
                      Combine(integerLiteral + decimalPoint + Optional (sciNot + integerLiteral)) |
                      infLiteral).setResultsName("value")).setResultsName("float")
     #string literals
-    stringLiteral = Group(( QuotedString("'", multiline=True, unquoteResults=True, escChar="\\")  | 
-                      QuotedString('"', multiline=True, unquoteResults=True, escChar="\\") ).setResultsName("value")).setResultsName("string")
+    stringLiteral = Group(( QuotedString("'", multiline=True, unquoteResults=False, escChar="\\")  | 
+                      QuotedString('"', multiline=True, unquoteResults=False, escChar="\\") ).setResultsName("value")).setResultsName("string")
     
     #boolean literals
     boolLiteral = Group((Keyword("true") | Keyword("false")).setResultsName("value")).setResultsName("boolean")

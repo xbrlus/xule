@@ -419,7 +419,14 @@ def evaluate_float_literal(literal, xule_context):
     return XuleResultSet(XuleResult(float(literal.value), 'float'))
 
 def evaluate_string_literal(literal, xule_context):
-    return XuleResultSet(XuleResult(literal.value,'string'))
+    quote_char = literal.value[0]
+    string_literal = literal.value[1:-1] #this removes the first and last characters. These are the quotes around the string
+    
+    string_literal = string_literal.replace('\\' + quote_char, quote_char)
+    string_literal = string_literal.replace('\\n', '\n')
+    string_literal = string_literal.replace('\\t', '\t')
+
+    return XuleResultSet(XuleResult(string_literal,'string'))
 
 def evaluate_qname_literal(literal, xule_context):
     prefix = literal.prefix #if literal.prefix == '*' else literal.prefix[0]
