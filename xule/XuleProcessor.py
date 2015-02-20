@@ -2634,7 +2634,9 @@ def iso_to_date(xule_context, date_string):
                 return parse_datetime(date_string)
                 #return datetime.datetime.strptime(date_string,'%Y-%m-%dT%H:%M:%S')
         except NameError:
-            raise XuleProcessingError(_("'%s' could not be converted to a date." % date_string), xule_context)    
+            raise XuleProcessingError(_("'%s' could not be converted to a date." % date_string), xule_context)
+        except Exception:
+            raise XuleProcessingError(_("Error converting date: '%s'" % date_string), xule_context)    
 
 def func_duration(xule_context, *args):
     final_result_set = XuleResultSet()
@@ -4194,7 +4196,7 @@ def combine_period_values(left_result, right_result, xule_context):
         raise XuleProcessingError(_("Internal error, combine_period_values did not get matching or appropiate date types. Recieved '%s' and '%s'" % (left_result.type, right_result.type)), xule_context)
     
     if left_result.from_model == right_result.from_model:
-        return (left_result.value, right_result.value)
+        return (left_value, right_value)
     else:
         if left_type == 'instant':
             if not left_result.from_model:
