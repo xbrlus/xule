@@ -30,6 +30,7 @@ class XuleMessageQueue():
             self._model = model
         self._multi = multi
         self._async = async
+        self._printlist = []
         #if not hasattr(self._model, "logger"):
         #    print("Error during XuleMessageQueue init.  No logger available")
         

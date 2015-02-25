@@ -10,6 +10,8 @@ from queue import Empty
 
 def start_process(rule_set, model_xbrl, cntlr, show_timing=False, show_debug=False, show_trace=False, crash_on_error=False,
                   multi=False, async=False, cpunum=None):
+    #print("Starting")
+    #begin_time = datetime.datetime.now()
     global_context = XuleGlobalContext(rule_set, model_xbrl, cntlr, 
                                        multi=multi, async=async,
                                        cpunum=cpunum) 
@@ -22,6 +24,7 @@ def start_process(rule_set, model_xbrl, cntlr, show_timing=False, show_debug=Fal
     from .XuleProcessor import index_model
     global_context.fact_index = index_model(xule_context)
     
+    #s1_time = datetime.datetime.now()
     if getattr(global_context.cntlr, "base_taxonomy", None) is None:
         global_context.get_rules_dts()
 
@@ -33,6 +36,11 @@ def start_process(rule_set, model_xbrl, cntlr, show_timing=False, show_debug=Fal
         t.name = "Message Queue"
         t.start()
 
+    #s2_time = datetime.datetime.now()
+    #global_context.times.append(('master', 'PreMaster time', s2_time - begin_time))
+    #global_context.times.append(('master', 'setup time', s1_time - begin_time))
+    #global_context.times.append(('master', 'message queue time', s2_time - s1_time))
+    
     
     # Start Master Process.  This runs the filing and sends the output to 
     #   the message_queue  This is in a seperate process so the information 
@@ -47,9 +55,12 @@ def start_process(rule_set, model_xbrl, cntlr, show_timing=False, show_debug=Fal
     
     # Shutdown Message Queue
     if multi:
+        #start_queue = datetime.datetime.now()
         global_context.message_queue.stop()
         global_context.message_queue.clear()
         t.join()
+        #end_queue = datetime.datetime.now()
+        #print("Message time: %d" % ((end_queue-start_queue).total_seconds()))
     
     
 def debug(global_context):
@@ -65,7 +76,7 @@ def debug(global_context):
         print("Constants done? %s" % (str(global_context.constants_done)))
         if len(global_context.all_rules) <=0 and global_context.rules_queue.qsize() <= 0:
             break
-        sleep(5)
+        #sleep(5)
     #print("Exiting debug loop")
  
 
@@ -76,6 +87,7 @@ def output_message_queue(global_context):
 
                  
 def master_process(global_context, rule_set):
+    #start = datetime.datetime.now()
     try:
         setattr(global_context, "all_constants", global_context.cntlr.all_constants)
         delattr(global_context.cntlr, "all_constants")
@@ -96,7 +108,8 @@ def master_process(global_context, rule_set):
     setattr(global_context, "shutdown_queue", Queue())
     setattr(global_context, "stop_watch", 0)
 
-
+    #part1 = datetime.datetime.now()
+    
     ''' Debugging section
     print("All Constants size: %d; Constant Queue: %d" % 
           (len(global_context.all_constants), global_context.calc_constants_queue.qsize()))
@@ -122,7 +135,8 @@ def master_process(global_context, rule_set):
               (len(global_context.all_rules), global_context.rules_queue.qsize(), global_context.message_queue.size))
         sleep(5)
     '''
-
+    #part2 = datetime.datetime.now()
+    
     # Start initial queues based on the number of processes indicated    
     sub_processes = {}
     for num in range(global_context.num_processors):
@@ -139,7 +153,8 @@ def master_process(global_context, rule_set):
     watch = Thread(target=watch_processes, args=(global_context, sub_processes,))
     watch.name = "Process Watcher"
     watch.start()
- 
+    #part3 = datetime.datetime.now()
+    
     ''' Debug Area
  
     # The following is for watching various queues and lists while the process is running
@@ -156,17 +171,19 @@ def master_process(global_context, rule_set):
       
 
     '''hold thread'''
-  
+    #part4 = datetime.datetime.now()
+    
     checks = global_context.num_processors + 1
     for num in range(checks):
         global_context.shutdown_queue.get()
 
+    #part5 = datetime.datetime.now()
     # Cleans up subprocesses
     for num in sub_processes:
         #print("Before Joining %s process(pid %d" % (num, sub_processes[num]['p'].pid))
         sub_processes[num]['p'].join()
         #print("After Joining %s process(pid %d" % (num, sub_processes[num]['p'].pid))
-        
+      
     if global_context.show_debug:
         print("*** Master Running ***")
         print("All Rules size: %d; Rules Queue: %d; Sub_processes: %d; Message Queue: %d" % 
@@ -176,9 +193,11 @@ def master_process(global_context, rule_set):
               (len(global_context.all_constants), global_context.calc_constants_queue.qsize()))
         print("constant groups: %s" % (str([group for group in global_context.all_constants])))
 
+    #end = datetime.datetime.now()
         
     #print out times queues
     if global_context.show_timing:
+        #master_time = []
         constants_slow = []
         constants_time = datetime.timedelta()
         rules_slow = []
@@ -186,34 +205,46 @@ def master_process(global_context, rule_set):
         for (ttype, name, timing) in global_context.times:
             if ttype == 'constant':
                 constants_time = constants_time + timing
-                if timing.total_seconds() > 1:
+                if timing.total_seconds() > 0.5:
                     constants_slow.append((name, timing))
             if ttype == 'rule':
                 rules_time = rules_time + timing
-                if timing.total_seconds() > 1:
+                if timing.total_seconds() > 0.5:
                     rules_slow.append((name, timing))
+            #if ttype == 'master':
+            #    master_time.append((name, timing))
 
         with open('data.txt', 'w') as f:
             global_context.message_queue.logging("Total Constant Calculation Time: %s seconds" % (constants_time.total_seconds()))
             global_context.message_queue.logging("Number of slow constants: %d" % (len(constants_slow)))
-            for (name, timing) in constants_slow:
+            for (name, timing) in sorted(constants_slow, key=lambda t:t[1]):
                 global_context.message_queue.logging("Constant %s: %s" % (name, timing.total_seconds()))
             global_context.message_queue.logging("Total Rules Calculation Time: %s seconds" % (rules_time.total_seconds()))
             global_context.message_queue.logging("Number of slow rules: %d" % (len(rules_slow)))
-            for (name, timing) in rules_slow:
+            for (name, timing) in sorted(rules_slow, key=lambda t:t[1]):
                 global_context.message_queue.logging("Rule %s: %s" % (name, timing.total_seconds()))
         
-            # Write debug information to a file   
+            # Write debug information to a file
+            #f.write("Pre-timing")
+            #for name, timing in master_time:
+            #    f.write("- %s: %d\n" % (name, timing.total_seconds()))  
+            #f.write("Master Process Time: %d\n" % ((end-start).total_seconds())) 
+            #f.write("- Constant Manipulate Time: %d\n" % ((part1-start).total_seconds()))
+            #f.write("- Prep Rules Queue Time: %d\n" % ((part2- part1).total_seconds()))  
+            #f.write("- Process and watch Start Time: %d\n" % ((part3 - part2).total_seconds())) 
+            #f.write("- Calc start Time: %d\n" % ((part4- part3).total_seconds())) 
+            #f.write("- Processor Queue Time: %d\n" % ((part5 - part4).total_seconds())) 
             f.write("Total Constant Calculation Time: %s seconds\n" % (constants_time.total_seconds()))
             f.write("Number of slow constants: %d\n" % (len(constants_slow)))
-            for (name, timing) in constants_slow:
+            for (name, timing) in sorted(constants_slow, key=lambda t:t[1]):
                 f.write("Constant %s: %s\n" % (name, timing.total_seconds()))
             f.write("Total Rules Calculation Time: %s seconds\n" % (rules_time.total_seconds()))
             f.write("Number of slow rules: %d\n" % (len(rules_slow)))
-            for (name, timing) in rules_slow:
+            for (name, timing) in sorted(rules_slow, key=lambda t:t[1]):
                 f.write("Rule %s: %s\n" % (name, timing.total_seconds()))
             
 
+    #global_context.times.append(('master', 'PreMaster time', s2_time - begin_time))
 
 
 # Thread Processes
