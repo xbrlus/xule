@@ -192,7 +192,6 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
      
         
 def xuleCmdXbrlLoaded(cntlr, options, modelXbrl):
-    
     if getattr(options, "xule_run", None):
         try:
             rule_set = XuleRuleSet()
@@ -252,11 +251,11 @@ def xuleRssDoWatchAction(modelXbrl, rssWatchOptions, rssItem):
 
 __pluginInfo__ = {
     'name': 'Xule 1.0 Processor',
-    'version': '1.0',
-    'description': 'This plug-in provides a Xule 1.0 rule compiler and processor.',
+    'version': '2.0',
+    'description': 'This plug-in provides a Xule 2.0 rule compiler and processor.',
     'license': 'Unknown',
-    'author': 'XBRL US Inc.',
-    'copyright': '(c) 2014 XBRL US Inc., All rights reserved',
+    'author': '',
+    'copyright': '(c) 2014',
     # classes of mount points (required)
     'ModelObjectFactory.ElementSubstitutionClasses': None, 
     'CntlrWinMain.Menu.File.Open': xuleMenuOpen,
