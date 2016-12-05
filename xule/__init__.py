@@ -2,6 +2,8 @@
 Xule is rule processor for XBRL (X)brl r(ULE). 
 
 Copyright (c) 2014 XBRL US Inc. All rights reserved
+
+$Change$
 '''
 from .XuleParser import parseRules
 from .XuleProcessor import process_xule, XuleProcessingError
@@ -12,7 +14,8 @@ from optparse import OptionParser, SUPPRESS_HELP
 from multiprocessing import Queue
 from threading import Thread
 from time import sleep
-
+from arelle import FileSource
+from arelle import ModelManager
 
 def xuleMenuOpen(cntlr, menu):
     pass
@@ -33,6 +36,13 @@ def xuleCmdOptions(parser):
                       action="store",
                       dest="xule_rule_set",
                       help=_("RULESET to use (this is the directory where compile rules are stored."))
+
+    parser.add_option("--xule-grammar",
+                      action="store",
+                      dest="xule_grammar",
+                      choices=['xule2', 'xule3'],
+                      default="xule2",
+                      help=_("Grammar version of the Xule rule file. Default is xule2")) 
     
     parser.add_option("--xule-run",
                       action="store_true",
@@ -48,26 +58,47 @@ def xuleCmdOptions(parser):
                       action="store", 
                       dest="xule_taxonomy_entry", 
                       help=_("Taxonomy entry point."))
-    
+        
     parser.add_option("--xule-time",
-                     action="store_true",
+                     action="store",
+                     type="float",
                      dest="xule_time",
-                     help=_("Output timing information."))
+                     help=_("Output timing information. Supply the minimum threshold in seconds for displaying timing information for a rule."))
     
     parser.add_option("--xule-trace",
                      action="store_true",
                      dest="xule_trace",
                      help=_("Output trace information."))
     
+    parser.add_option("--xule-trace-count",
+                      action="store",
+                      dest="xule_trace_count",
+                      help=_("Name of the file to write a trace count."))
+    
     parser.add_option("--xule-debug",
                      action="store_true",
                      dest="xule_debug",
+                     help=_("Output trace information."))    
+
+    parser.add_option("--xule-debug-table",
+                     action="store_true",
+                     dest="xule_debug_table",
                      help=_("Output trace information."))    
     
     parser.add_option("--xule-crash",
                      action="store_true",
                      dest="xule_crash",
                      help=_("Output trace information."))
+    
+    parser.add_option("--xule-pre-calc",
+                      action="store_true",
+                      dest="xule_pre_calc",
+                      help=_("Pre-calc expressions"))
+    
+    parser.add_option("--xule-filing-list",
+                      action="store",
+                      dest="xule_filing_list",
+                      help=_("File name of file that contains a list of filings to process"))
     
     parser.add_option("--xule-server",
                      action="store",
@@ -82,25 +113,61 @@ def xuleCmdOptions(parser):
     parser.add_option("--xule-cpu",
                      action="store",
                      dest="xule_cpu",
-                     help=_("overrides number of cpus to use"))
+                     help=_("overrides number of cpus per processing to use"))
     
     parser.add_option("--xule-async",
                      action="store_true",
                      dest="xule_async",
-                     help=_("overrides number of cpus to use"))
+                     help=_("Outputs onscreen output as the filing is being processed"))
+
+    parser.add_option("--xule-numthreads",
+                     action="store",
+                     dest="xule_numthreads",
+                     help=_("Indicates number of concurrents threads will run while the Xule Server is active"))
+    
+    parser.add_option("--xule-skip",
+                      action="store",
+                      dest="xule_skip",
+                      help=_("List of rules to skip"))
+    
+    parser.add_option("--xule-no-cache",
+                      action="store_true",
+                      dest="xule_no_cache",
+                      help=_("Turns off local caching for a rule."))
+    
+    parser.add_option("--xule-precalc-constants",
+                      action="store_true",
+                      dest="xule_precalc_constants",
+                      help=_("Pre-calculate constants that do not depend on the instance."))
+
+    parser.add_option("--xule-include-nils",
+                      action="store_true",
+                      dest="xule_include_nils",
+                      help=_("Indicates that the processor should include nil facts. By default, nils are ignored."))
+    
+    parser.add_option("--xule-include-dups",
+                      action="store_true",
+                      dest="xule_include_dups",
+                      help=_("Indicates that the processor should include duplicate facts. By default, duplicate facts are ignored."))    
 
 def xuleCmdUtilityRun(cntlr, options, **kwargs):  
     #check option combinations
     parser = OptionParser()
     
-    if options.xule_add_taxonomy  is not None and (options.xule_taxonomy_entry is None or options.xule_rule_set is None):
+    if getattr(options, "xule_filing_list", None) is not None and options.entrypointFile is not None:
+        parser.error(_("--xule-filing-list and -f option cannot be used together"))
+    
+    if getattr(options, "xule_add_taxonomy", None) is not None and (options.xule_taxonomy_entry is None or options.xule_rule_set is None):
             parser.error(_("--xule-rule-set and --xule-taxonomy-entry are required with --xule-add-taxonomy."))
 
-    if  getattr(options, "xule_run", None) and not getattr(options, 'xule_rule_set', None):
+    if  getattr(options, "xule_run", None) is not None and not getattr(options, 'xule_rule_set', None):
             parser.error(_("--xule-rule-set is required with --xule-run."))
     
     if getattr(options, "xule_server", None) is not None and not getattr(options, 'xule_rule_set', None):
-            parser.error(_("--xule-rule-set is required with --xule_server."))    
+            parser.error(_("--xule-rule-set is required with --xule_server."))
+            
+    if getattr(options, "xule-numthreads", None) == None:
+        setattr(options, "xule-numthreads", 1)    
 
     from os import name
     if getattr(options, "xule_multi", False) and name == 'nt':
@@ -112,7 +179,7 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
     #compile rules
     if getattr(options, "xule_compile", None):
         compile_destination = getattr(options, "xule_rule_set", "xuleRules")        
-        parseRules(options.xule_compile.split("|"),compile_destination)
+        parseRules(options.xule_compile.split("|"),compile_destination, grammar=options.xule_grammar)
         
     #add taxonomy to rule set
     if getattr(options, "xule_add_taxonomy", None):
@@ -129,21 +196,23 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
     if getattr(options, "xule_server", None):
         try:
             rule_set = XuleRuleSet()
-            rule_set.open(options.xule_rule_set)
+            rule_set.open(options.xule_rule_set, False)
         except XuleRuleSetError:
             raise
 
         # Create global Context
-        global_context = XuleGlobalContext(rule_set, cntlr=cntlr, 
-                                           multi=getattr(options, "xule_multi", False), 
-                                           async=getattr(options, "xule_async", False),
-                                           cpunum=getattr(options, "xule_cpu", None))
-        global_context.show_timing = getattr(options, "xule_time", False)
-        global_context.show_debug = getattr(options, "xule_debug", False)
-        global_context.show_trace = getattr(options, "xule_trace", False)
-        global_context.crash_on_error = getattr(options, "xule_crash", False)
+        global_context = XuleGlobalContext(rule_set, cntlr=cntlr, options=options#,
+                                           #multi=getattr(options, "xule_multi", False), 
+                                           #async=getattr(options, "xule_async", False),
+                                           #cpunum=getattr(options, "xule_cpu", None))
+                                           )
+        #global_context.show_timing = getattr(options, "xule_time", None)
+        #global_context.show_debug = getattr(options, "xule_debug", False)
+        #global_context.show_debug_table = getattr(options, "xule_debug_table", False)
+        #global_context.show_trace = getattr(options, "xule_trace", None)
+        #global_context.crash_on_error = getattr(options, "xule_crash", False)
 
-        global_context.message_queue.print("Using %d processors" % (global_context.num_processors+1)) 
+        global_context.message_queue.print("Using %d processors" % (global_context.num_processors)) 
 
         # Start Output message queue
         if getattr(options, "xule_multi", False):
@@ -151,8 +220,11 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
             t.start()
         
         #load rules taxonomy
-        global_context.message_queue.logging("Loading rules taxonomy")        
-        global_context.get_rules_dts()
+        global_context.message_queue.logging("Loading rules taxonomy")
+        global_context.get_rules_dts()        
+#        rules_dts = global_context.get_rules_dts()
+#        from .XuleProcessor import load_networks
+#        load_networks(rules_dts)
          
         global_context.message_queue.logging("Building Constant and Rule Groups")
         global_context.all_constants = rule_set.get_grouped_constants()
@@ -177,7 +249,8 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
                                    
         # Add precalculated information to the cntlr to pass to XuleServer
         setattr(cntlr, "xule_options", options)
-        setattr(cntlr, "constant_list", global_context.constant_store)
+        setattr(cntlr, "rule_set", global_context.rule_set)        
+        setattr(cntlr, "constant_list", global_context._constants)
         setattr(cntlr, "all_constants", global_context.all_constants)
         setattr(cntlr, "all_rules", global_context.all_rules)        
 
@@ -189,14 +262,33 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
         
         if getattr(options, "xule_multi", False):
             t.join()
-     
+
+    #process filing list
+    if getattr(options, "xule_filing_list", None):
+        try:
+            with open(options.xule_filing_list, "r") as filing_list:
+                for line in filing_list:
+
+                    filing = line.strip()
+                    print("Processing filing", filing)
+                    filing_filesource = FileSource.openFileSource(filing, cntlr)            
+                    modelManager = ModelManager.initialize(cntlr)
+                    modelXbrl = modelManager.load(filing_filesource) 
+                    xuleCmdXbrlLoaded(cntlr, options, modelXbrl)
+                    modelXbrl.close()
+
+        except FileNotFoundError:
+            print("Filing listing file '%s' is not found" % options.xule_filing_list)
         
-def xuleCmdXbrlLoaded(cntlr, options, modelXbrl):
-    
+def xuleCmdXbrlLoaded(cntlr, options, modelXbrl, entryPoint=None):
     if getattr(options, "xule_run", None):
         try:
-            rule_set = XuleRuleSet()
-            rule_set.open(options.xule_rule_set, False)
+            if getattr(options, "xule_multi", True) and \
+                getattr(cntlr, "rule_set", None) is not None:
+                rule_set =  getattr(cntlr, "rule_set")
+            else:
+                rule_set = XuleRuleSet()              
+                rule_set.open(options.xule_rule_set, False)
         except XuleRuleSetError:
             raise
 
@@ -204,25 +296,36 @@ def xuleCmdXbrlLoaded(cntlr, options, modelXbrl):
             start_process(rule_set, 
                          modelXbrl, 
                          cntlr, 
-                         getattr(options, "xule_time", False), 
-                         getattr(options, "xule_debug", False),
-                         getattr(options, "xule_trace", False),
-                         getattr(options, "xule_crash", False),
-                         multi=getattr(options, "xule_multi", False), 
-                         async=getattr(options, "xule_async", False),
-                         cpunum=getattr(options, "xule_cpu", None))
+                         options
+                         #getattr(options, "xule_time", None), 
+                         #getattr(options, "xule_debug", False),
+                         #getattr(options, "xule_trace", None),
+                         #getattr(options, "xule_trace_count", None),
+                         #getattr(options, "xule_crash", False),
+                         #multi=getattr(options, "xule_multi", False), 
+                         #async=getattr(options, "xule_async", False),
+                         #cpunum=getattr(options, "xule_cpu", None))#,
+                         #skip=getattr(options, "xule_skip", None))
+                         )
         else:
             process_xule(rule_set,
                          modelXbrl, 
                          cntlr, 
-                         getattr(options, "xule_time", False), 
-                         getattr(options, "xule_debug", False),
-                         getattr(options, "xule_trace", False),
-                         getattr(options, "xule_crash", False),
-                         multi=getattr(options, "xule_multi", False), 
-                         async=getattr(options, "xule_async", False),
-                         cpunum=getattr(options, "xule_cpu", None))
-
+                         options,
+                         #getattr(options, "xule_time", None), 
+                         #getattr(options, "xule_debug", False),
+                         #getattr(options, "xule_debug_table", False),
+                         #getattr(options, "xule_trace", None),
+                         #getattr(options, "xule_trace_count", None),
+                         #getattr(options, "xule_crash", False),
+                         #getattr(options, "xule_pre_calc", False),
+                         #multi=getattr(options, "xule_multi", False), 
+                         #async=getattr(options, "xule_async", False),
+                         #cpunum=getattr(options, "xule_cpu", None)
+                         #skip=getattr(options, "xule_skip", None),
+                         #no_cache=getattr(options, "xule_no_cache", False),
+                         #precalc_constants=getattr(options, "xule_precalc_constants", False))
+                         )
 def xuleValidate(val):
     pass
 
@@ -251,12 +354,12 @@ def xuleRssDoWatchAction(modelXbrl, rssWatchOptions, rssItem):
     pass
 
 __pluginInfo__ = {
-    'name': 'Xule 1.0 Processor',
-    'version': '1.0',
-    'description': 'This plug-in provides a Xule 1.0 rule compiler and processor.',
+    'name': 'Xule Processor',
+    'version': '2.0',
+    'description': 'This plug-in provides a Xule 2.0 rule compiler and processor.',
     'license': 'Unknown',
-    'author': 'XBRL US Inc.',
-    'copyright': '(c) 2014 XBRL US Inc., All rights reserved',
+    'author': '',
+    'copyright': '(c) 2014',
     # classes of mount points (required)
     'ModelObjectFactory.ElementSubstitutionClasses': None, 
     'CntlrWinMain.Menu.File.Open': xuleMenuOpen,
