@@ -90,6 +90,11 @@ def xbrlDBcommandLineOptionExtender(parser):
                            dest="xbrlusDBTime",
                            help=_("Include detailed timing of the database operations. This is used for debugging and profiling."))
     
+    parserGroup.add_option("--xbrlusDB-filing-id",
+                           action="store",
+                           dest="xbrlusDBFilingId",
+                           help=_("Filing identifier to use if it cannot be acquired from the filing or supporting files."))
+    
     parser.add_option_group(parserGroup)
     
     logging.getLogger("arelle").addHandler(LogToDbHandler())    

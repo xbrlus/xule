@@ -39,11 +39,9 @@ windows
 
 '''
 
-import time, datetime
-# from datetime import timedelta
-# from datetime import date
-# from datetime import datetime
+import time
 import datetime
+import decimal
 from arelle.ModelDocument import Type
 from arelle.ModelDtsObject import ModelConcept, ModelResource
 from arelle.ModelInstanceObject import ModelFact
@@ -86,7 +84,8 @@ def isDBPort(host, port, timeout=10):
 
 XBRLDBTABLES = {
                 "fact",
-                "entity", "entity_identifier", "entity_name_history",
+                "entity", #"entity_identifier", 
+                "entity_name_history",
                 "unit", "unit_measure", 
                 "context",  "context_dimension", "context_dimension_explicit",
                 "accession", "accession_document_association", "accession_element", "accession_timestamp",
@@ -100,7 +99,7 @@ XBRLDBTABLES = {
                 "network", "relationship",
                 "custom_arcrole_type", "custom_arcrole_used_on", "custom_role_type", "custom_role_used_on",
                 "label_resource",
-                "reference_part", "reference_part_type",
+                "reference_part", #"reference_part_type",
                 "resource",
                 "footnote_resource",
                 "enumeration_arcrole_cycles_allowed",
@@ -112,6 +111,10 @@ XBRLDBTABLES = {
                 }
 
 class XbrlPostgresDatabaseConnection(SqlDbConnection):
+    
+    class _QNameException(Exception):
+        pass
+    
     def __init__(self, modelXbrl, user, password, host, port, database, timeout, db_type, options):
         super().__init__(modelXbrl, user, password, host, port, database, timeout, db_type)
         self.options = options
@@ -277,101 +280,128 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         
         indexFile = None
         rssItem = None
-        for fileName in supportFiles:
-            if os.path.splitext(fileName)[1] == '.htm':
-                    indexFile = fileName
-            else:
-                #open the file and see if it is an rss item
-                try:
-                    rssItemTree = etree.parse(fileName)
-                    rssItem = rssItemTree.getroot()
-                    if rssItem.tag != 'item':
-                        raise XPDBException("xpgDB:rssItemSupportFileError",
-                                _("Expecting support file to be an rss item file, but the root tag is not 'item'. File '%s'." % fileName))
-                except etree.XMLSyntaxError:
-                    pass
-                except:
-                    raise XPDBException("xpgDB:badSupportFile",
-                                _("Problem opening supporting file '%s'." % fileName))
+        
+        if supportFiles is not None:
+            for fileName in supportFiles:
+                if os.path.splitext(fileName)[1] == '.htm':
+                        indexFile = fileName
+                else:
+                    #open the file and see if it is an rss item
+                    try:
+                        rssItemTree = etree.parse(fileName)
+                        rssItem = rssItemTree.getroot()
+                        if rssItem.tag != 'item':
+                            raise XPDBException("xpgDB:rssItemSupportFileError",
+                                    _("Expecting support file to be an rss item file, but the root tag is not 'item'. File '%s'." % fileName))
+                    except etree.XMLSyntaxError:
+                        pass
+                    except:
+                        raise XPDBException("xpgDB:badSupportFile",
+                                    _("Problem opening supporting file '%s'." % fileName))
+                    
+            #acquire filing attributes from the rss feed
+            if rssItem is not None:
+                rssNS = {'edgar': 'http://www.sec.gov/Archives/edgar'}
+                if not self.entityName:
+                    self.entityName = self.xmlFind(rssItem, 'edgar:xbrlFiling/edgar:companyName/text()', rssNS)
+                if not self.entityIdentifier:
+                    self.entityIdentifier = self.xmlFind(rssItem, 'edgar:xbrlFiling/edgar:cikNumber', rssNS)
+                    self.entityScheme = 'http://www.sec.gov/CIK'
+                rssDocumentType = self.xmlFind(rssItem, 'edgar:xbrlFiling/edgar:formType', rssNS)
+                if rssDocumentType is not None and rssDocumentType != self.documentType:
+                    self.documentType = rssDocumentType
                 
-        #acquire filing attributes from the rss feed
-        if rssItem is not None:
-            rssNS = {'edgar': 'http://www.sec.gov/Archives/edgar'}
-            if not self.entityName:
-                self.entityName = self.xmlFind(rssItem, 'edgar:xbrlFiling/edgar:companyName/text()', rssNS)
-            if not self.entityIdentifier:
-                self.entityIdentifier = self.xmlFind(rssItem, 'edgar:xbrlFiling/edgar:cikNumber', rssNS)
-                self.entityScheme = 'http://www.sec.gov/CIK'
-            rssDocumentType = self.xmlFind(rssItem, 'edgar:xbrlFiling/edgar:formType', rssNS)
-            if rssDocumentType is not None and rssDocumentType != self.documentType:
-                self.documentType = rssDocumentType
-            
-            if not self.period:
-                reportingPeriod = self.xmlFind(rssItem, 'edgar:xbrlFiling/edgar:period', rssNS)
-                self.period = reportingPeriod[0:4] + "-" + reportingPeriod[4:6] + "-" + reportingPeriod[6:8]
-            '''
-            # only do this if it is not found in the filing as a fact. The fact is more reliable than the rss feed data.
-            if not (bool(self.fiscalYearMonthEnd) and bool(self.fiscalYearDayEnd)):
-                fiscalYearEnd = self.xmlFind(rssItem, 'edgar:xbrlFiling/edgar:filscalYearEnd', rssNS)
-                self.fiscalYearMonthEnd = int(fiscalYearEnd[:2])
-                self.fiscalYearDayEnd = int(fiscalYearEnd[:2])
-            '''    
-            self.accessionNumber = self.xmlFind(rssItem, 'edgar:xbrlFiling/edgar:accessionNumber', rssNS)
-            self.sic = self.xmlFind(rssItem, 'edgar:xbrlFiling/edgar:assignedSic', rssNS, -1)
-            
-            rssDate = self.xmlFind(rssItem, 'edgar:xbrlFiling/edgar:acceptanceDatetime', rssNS)
-            if rssDate is None:
-                self.acceptanceDate = None
+                if not self.period:
+                    reportingPeriod = self.xmlFind(rssItem, 'edgar:xbrlFiling/edgar:period', rssNS)
+                    self.period = reportingPeriod[0:4] + "-" + reportingPeriod[4:6] + "-" + reportingPeriod[6:8]
+                '''
+                # only do this if it is not found in the filing as a fact. The fact is more reliable than the rss feed data.
+                if not (bool(self.fiscalYearMonthEnd) and bool(self.fiscalYearDayEnd)):
+                    fiscalYearEnd = self.xmlFind(rssItem, 'edgar:xbrlFiling/edgar:filscalYearEnd', rssNS)
+                    self.fiscalYearMonthEnd = int(fiscalYearEnd[:2])
+                    self.fiscalYearDayEnd = int(fiscalYearEnd[:2])
+                '''    
+                self.accessionNumber = self.xmlFind(rssItem, 'edgar:xbrlFiling/edgar:accessionNumber', rssNS)
+                self.sic = self.xmlFind(rssItem, 'edgar:xbrlFiling/edgar:assignedSic', rssNS, -1)
+                
+                rssDate = self.xmlFind(rssItem, 'edgar:xbrlFiling/edgar:acceptanceDatetime', rssNS)
+                if rssDate is None:
+                    self.acceptanceDate = None
+                else:
+                    self.acceptanceDate = rssDate[0:4] + '-' + rssDate[4:6] + '-' + rssDate[6:8] + ' ' + rssDate[8:10] + ':' + rssDate[10:12] + ':' + rssDate[14:16]
+                
+                self.filingDate = self.xmlFind(rssItem, 'edgar:xbrlFiling/edgar:filingDate', rssNS)
+                
+                self.htmlFilingInfoFile = self.xmlFind(rssItem, 'link')
+                self.entryUrl = None
+                self.htmlInstance = None
+                for fileNode in rssItem.findall('edgar:xbrlFiling/edgar:xbrlFiles/edgar:xbrlFile', rssNS):
+                    if fileNode.get('{http://www.sec.gov/Archives/edgar}type') == 'EX-101.INS':
+                        self.entryUrl = fileNode.get('{http://www.sec.gov/Archives/edgar}url')
+                        break
+                    elif fileNode.get('{http://www.sec.gov/Archives/edgar}type') == self.documentType:
+                        if os.path.splitext(fileNode.get('{http://www.sec.gov/Archives/edgar}url'))[1] != '.pdf':
+                            self.htmlInstance = fileNode.get('{http://www.sec.gov/Archives/edgar}url')
+                            
+                if self.htmlInstance is None:
+                    raise XPDBException("xpgDB:cannotFindTextFiling",
+                                    _("Cannot identify the htm or text version of the filing. This is normally the document with the same type as the filing type.")) 
+                if self.entryUrl is None:
+                    self.entryUrl = self.htmlInstance
+                
+                if self.htmlFilingInfoFile is None:
+                    raise XPDBException("xpgDB:missingSupportFiles",
+                                    _("Cannot acquire filing details. Htm index file cannot be determined from the rss item."))
+                indexFile = self.reverseMapDocumentUri(self.htmlFilingInfoFile)
+                filingAttributes = self.extractFilingDetailsFromIndex(indexFile)
+                for attrName, attrValue in filingAttributes.items():
+                    #only populate if the value hasn't already been acquired from the rss item
+                    if not hasattr(self, attrName):
+                        setattr(self, attrName, attrValue)
             else:
-                self.acceptanceDate = rssDate[0:4] + '-' + rssDate[4:6] + '-' + rssDate[6:8] + ' ' + rssDate[8:10] + ':' + rssDate[10:12] + ':' + rssDate[14:16]
-            
-            self.filingDate = self.xmlFind(rssItem, 'edgar:xbrlFiling/edgar:filingDate', rssNS)
-            
-            self.htmlFilingInfoFile = self.xmlFind(rssItem, 'link')
-            self.entryUrl = None
-            self.htmlInstance = None
-            for fileNode in rssItem.findall('edgar:xbrlFiling/edgar:xbrlFiles/edgar:xbrlFile', rssNS):
-                if fileNode.get('{http://www.sec.gov/Archives/edgar}type') == 'EX-101.INS':
-                    self.entryUrl = fileNode.get('{http://www.sec.gov/Archives/edgar}url')
-                    break
-                elif fileNode.get('{http://www.sec.gov/Archives/edgar}type') == self.documentType:
-                    if os.path.splitext(fileNode.get('{http://www.sec.gov/Archives/edgar}url'))[1] != '.pdf':
-                        self.htmlInstance = fileNode.get('{http://www.sec.gov/Archives/edgar}url')
-                        
-            if self.htmlInstance is None:
-                raise XPDBException("xpgDB:cannotFindTextFiling",
-                                _("Cannot identify the htm or text version of the filing. This is normally the document with the same type as the filing type.")) 
-            if self.entryUrl is None:
-                self.entryUrl = self.htmlInstance
-            
-            if self.htmlFilingInfoFile is None:
-                raise XPDBException("xpgDB:missingSupportFiles",
-                                _("Cannot acquire filing details. Htm index file cannot be determined from the rss item."))
-            indexFile = self.reverseMapDocumentUri(self.htmlFilingInfoFile)
-            filingAttributes = self.extractFilingDetailsFromIndex(indexFile)
-            for attrName, attrValue in filingAttributes.items():
-                #only populate if the value hasn't already been acquired from the rss item
-                if not hasattr(self, attrName):
+                #acquire filing attributes from html index file
+                if indexFile is None:
+                    raise XPDBException("xpgDB:missingSupportFiles",
+                                    _("Cannot acquire filing details. No htm index file or rss item supplied."))
+                
+                filingAttributes = self.extractFilingDetailsFromIndex(indexFile)
+                for attrName, attrValue in filingAttributes.items():
                     setattr(self, attrName, attrValue)
-        else:
-            #acquire filing attributes from html index file
-            if indexFile is None:
-                raise XPDBException("xpgDB:missingSupportFiles",
-                                _("Cannot acquire filing details. No htm index file or rss item supplied."))
-            
-            filingAttributes = self.extractFilingDetailsFromIndex(indexFile)
-            for attrName, attrValue in filingAttributes.items():
-                setattr(self, attrName, attrValue)
                 
         # default the entity identifier
-        if not self.entityIdentifier:
-            self.entityIdentifier = 'UNKNOWN'
-            self.entityScheme = 'http://www.sec.gov/CIK'
+#         if not self.entityIdentifier:
+#             self.entityIdentifier = 'UNKNOWN'
+#             self.entityScheme = 'http://www.sec.gov/CIK'
         if not self.entityName:
             self.entityName = 'UNKNOWN'
             
         self.collectionSource = 'SEC'
+        
+        #fill in defaults
+        self.defaultEntityAndFilingInfo()
 
+    def defaultEntityAndFilingInfo(self):
+        #Certain information is necessary to process a filing.
+        if getattr(self, "accessionNumber", None) is None:
+            #see if it was passed as an option
+            self.accessionNumber = getattr(self.options, "xbrlusDBFilingId", None)
+            if self.accessionNumber is None:
+                raise XPDBException("xpgDB:missingFilingId", 
+                                    _("Cannot determine the filing identifier"))
+                
+        if getattr(self, "entityIdentifier", None) is None or getattr(self, "entityScheme", None) is None:
+            #get it from  a context. This assumes that every context will have the same entity scheme and identifier.
+            if len(self.modelXbrl.contexts) > 0:
+                #Get the first alphabetic context.
+                context = self.modelXbrl.contexts[sorted(self.modelXbrl.contexts.keys())[0]]
+                if getattr(self, "entityIdentifier", None) is None:
+                    self.entityIdentifier = context.entityIdentifier[1] # entityIdentifier is a tuple 0 = scheme, 1 = identifier
+                if getattr(self, "entityScheme", None) is None:
+                    self.entityScheme = context.entityIdentifier[0]
+            else:
+                raise XPDBException("xpgDB:missingEntityInformation",
+                                    _("Cannot determine the entity scheme and/or identifier."))
+                
     def xmlFind(self, root, path, namespaces=None, default=None):
         node = root.find(path, namespaces)
         if node is None:
@@ -383,7 +413,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         #get from the CurrentFiscalYearEndDate in the filing
         self.fiscalYearMonthDayEnd = self.getSimpleFactByQname('/dei','CurrentFiscalYearEndDate')
         
-        if self.fiscalYearMonthDayEnd is None:
+        if self.fiscalYearMonthDayEnd is None and getattr(self, "filingDate", None) is not None:
             #get from previous filings
             results = self.execute(
             '''
@@ -810,12 +840,11 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         
         for f in self.modelXbrl.factsInInstance:
             conceptsUsedIncrement(f.qname, 'primary')
-            if f.context is not None:
-                for dim in f.context.qnameDims.values():
-                    conceptsUsedIncrement(dim.dimensionQname, 'dimension')
-                    if dim.isExplicit:
-                        conceptsUsedIncrement(dim.memberQname, 'member')
-        
+#             if f.context is not None:
+#                 for dim in f.context.qnameDims.values():
+#                     conceptsUsedIncrement(dim.dimensionQname, 'dimension')
+#                     if dim.isExplicit:
+#                         conceptsUsedIncrement(dim.memberQname, 'member')
         
         for cntx in self.modelXbrl.contexts.values():
             for dim in cntx.qnameDims.values():
@@ -915,7 +944,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
             return self.mapDocumentUri(doc.uri)
     
     def mapDocumentUri(self, documentUri):
-        '''Convert uri to cached location.
+        '''Convert uri from cached location.
         '''
         if self.documentCacheLocation is None:
             return documentUri
@@ -1506,11 +1535,20 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
             return None
     
     def hashDimensions(self, context):
-        normalized_dimensions = [self.hashConceptQname(context.qnameDims[dim].dimensionQname) + '=' + self.hashConceptQname(context.qnameDims[dim].memberQname) for dim in context.qnameDims.keys()]
+        normalized_dimensions = [self.hashConceptQname(context.qnameDims[dim].dimensionQname) + '=' + self.hashMember(context.qnameDims[dim]) for dim in context.qnameDims.keys()]
         normalized_dimensions.sort()
         if normalized_dimensions is not None:
             return '|'.join(normalized_dimensions)
     
+    def hashMember(self, modelDimension):
+        if modelDimension.isExplicit:
+            return self.hashConceptQname(modelDimension.memberQname)
+        elif modelDimension.isTyped:
+            return self.canonicalizeTypedDimensionMember(modelDimension.typedMember)
+        else:
+            raise XPDBException("xpgDB:UnknownMemberType",
+                                _("Dimension member is not explicit or typed"))
+            
     def hashContext(self, context):
         hash_list = [
                      self.hashEntity(),
@@ -1738,7 +1776,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                                self.getQnameId(dim.typedMember.qname) if dim.isTyped else None,
                                False, # not default
                                dim.contextElement == "segment",
-                               dim.typedMember.stringValue if dim.isTyped else None))
+                               self.canonicalizeTypedDimensionMember(dim.typedMember) if dim.isTyped else None))
 #                 explicitValues.append((self.cntxId[(accsId,cntx.id)],
 #                                self.getQnameId(dim.dimensionQname),
 #                                self.getQnameId(dim.memberQname), # may be None
@@ -1785,6 +1823,99 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         self.reportTime(e1, e2,'calendar ultimus')
         
         #self.insertFactAug()
+    
+    def canonicalizeTypedDimensionMember(self, typedMember):
+        typedElement = self.modelXbrl.qnameConcepts[typedMember.qname]
+        
+        if typedElement.baseXsdType == 'duration':
+            return self.canonicalizeDuration(typedMember.xValue)
+        elif typedElement.baseXsdType == 'QName':
+            #qnames are cononicalized by using clark notation
+            try:
+                typedMemberQname = qname(typedMember.xValue, castException=self._QNameException, prefixException=self._QNameException)
+            except self._QNameException:
+                raise XPDBException("xpgDB:TypedMemberQnameError",
+                                    _("Cannot resolve qname in typed member for dimension %s and member %s" % (typedMember.qname, typedMember.xValue)))
+            if typedMemberQname.namespaceURI is None and None not in typedMember.nsmap:
+                raise XPDBException("xpgDB:TypedMemberQnameError",
+                                    _("Typed member is a qname without a prefix and there is no default namespace for the element. Dimension is %s and member is %s." % ( typedMember.qname, typedMember.xValue)))
+            return typedMemberQname.clarkNotation
+        else:
+            return str(typedMember.xValue)
+    
+    def canonicalizeDuration(self, duration):
+        #durations are cononicalzied by the method described in XML Schema  Datatypes https://www.w3.org/TR/xmlschema11-2/#f-durationCanMap
+        #first gather the parts in the duration
+        ''' The following pattern checks for valid combinations of parts. There is a problem wiht it, PT30000S failed to match. However, the data is 
+            already validated at this point. So instead using a simplified pattern that extracts the parts but doesn't validate that the right parts
+            are there (i.e. PT would match but is not a valid duration). 
+        
+        #pattern = "-?P((((?P<year1>[0-9]+)Y((?P<month1>[0-9]+)M)?((?P<day1>[0-9]+)D)?|((?P<month2>[0-9]+)M)((?P<day2>[0-9]+)D)?|((?P<day3>[0-9]+)D))(T(((?P<hour1>[0-9]+)H)((?P<minute1>[0-9]+)M)?((?P<second1>[0-9]+(\.[0-9]+))?S)?|((?P<minute2>[0-9]+)M)((?P<second2>[0-9]+(\.[0-9]+))?S)?|((?P<second3>[0-9]+(\.[0-9]+))?S)))?)|(T(((?P<hour2>[0-9]+)H)((?P<minute3>[0-9]+)M)?((?P<second4>[0-9]+(\.[0-9]+))?S)?|((?P<minute4>[0-9]+)M)((?P<second5>[0-9]+(\.[0-9]+))?S)?|((?P<second6>[0-9]+(\.[0-9]+))?S))))$"
+        '''
+        pattern = "-?P((?P<year>[0-9]+)Y)?((?P<month>[0-9]+)M)?((?P<day>[0-9]+)D)?(T((?P<hour>[0-9]+)H)?((?P<minute>[0-9]+)M)?((?P<second>[0-9]+(\.[0-9]+)?)S)?)?"
+        partsRaw = re.match(pattern, duration)
+        parts = dict()
+        months = 0
+        seconds = decimal.Decimal(0)
+        sign = ''
+        multiplier = {'year':12, 'month':1, 'day':86400, 'hour':3600, 'minute':60}
+        monthParts = ('year', 'month')
+        secondParts = ('day', 'hour', 'minute', 'second')
+        for rawName, rawValue in partsRaw.groupdict().items():
+            for name in ('year','month','day','hour','minute','second','sign'):
+                if rawValue is not None and name in rawName:
+                    if name == 'sign':
+                        parts['sign'] = rawValue
+                    elif name == 'second':
+                        partValue = decimal.Decimal(rawValue)
+                    else:
+                        partValue = int(rawValue) * multiplier[name]
+                        
+                    if name in monthParts:
+                        months += partValue   
+                    else:
+                        seconds += partValue 
+                    break
+                
+        if months != 0 and seconds != 0:
+            return parts.get('sign','') + 'P' + self.canonicalizeYearMonth(months) + self.canonicalizeDayTime(seconds)
+        elif months is not 0:
+            return parts.get('sign', '') + 'P' + self.canonicalizeYearMonth(months)
+        else:
+            return parts.get('sign','') + 'P' + self.canonicalizeDayTime(seconds)
+    
+    def canonicalizeYearMonth(self, months):       
+        y = months // 12 # // drops the remainder
+        m = months % 12 
+
+        returnValue = ''
+        if y != 0:
+            returnValue += str(y) + 'Y'
+        if m != 0:
+            returnValue += str(m) + 'M'
+        
+        return returnValue
+
+    def canonicalizeDayTime(self, seconds):
+        
+        d = seconds // 86400
+        h = (seconds % 86400) // 3600
+        m = (seconds % 3600) // 60
+        s = seconds % 60
+        
+        returnValue = ''
+        if d != 0:
+            returnValue += str(d) + 'D'
+        if h + m + s != 0:
+            returnValue += 'T'
+        if h != 0:
+            returnValue += str(h) + 'H'
+        if m != 0:
+            returnValue += str(m) + 'M'
+        if s != 0:
+            returnValue += str(s) + 'S'
+    
+        return returnValue
     
     def updateUltimus(self, ultimusType):
         if ultimusType == 'normal':
@@ -1833,8 +1964,12 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         '''
         
         primary_extended = not self.namespaceId.get(fact.qname.namespaceURI).get("isBase")
-        dimension_extended = (any(not self.namespaceId.get(fact.context.qnameDims[dim].dimensionQname.namespaceURI).get("isBase") or
-                                  not self.namespaceId.get(fact.context.qnameDims[dim].memberQname.namespaceURI).get("isBase")
+        dimension_extended = (any(not self.namespaceId.get(fact.context.qnameDims[dim].dimensionQname.namespaceURI).get("isBase") or                                  
+                                  not (
+                                       self.namespaceId.get(fact.context.qnameDims[dim].memberQname.namespaceURI).get("isBase") if fact.context.qnameDims[dim].isExplicit 
+                                       else 
+                                       self.namespaceId.get(fact.context.qnameDims[dim].typedMember.qname.namespaceURI).get("isBase")
+                                       )
                                   for dim in fact.context.qnameDims.keys()
                               ))
         
