@@ -662,7 +662,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                                'entity_name', 'creation_software', 'standard_industrial_classification', 
                                'sec_html_url', 'entry_url', 'filing_accession_number', 'internal_revenue_service_number',
                                'business_address', 'business_phone', 'document_type', 'state_of_incorporation','entry_type',
-                               'entry_document_id', 'alternative_document_id', 'zip_url', 'reporting_period_end_date'), 
+                               'entry_document_id', 'alternative_document_id', 'zip_url', 'reporting_period_end_date', 'is_complete'), 
                               ('filing_accession_number',), 
                               ((getattr(self, "acceptanceDate",  datetime.date(datetime.MAXYEAR, 12, 31)),
                                 True,
@@ -683,7 +683,8 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                                 self.documentIds[self.cleanDocumentUri(self.modelXbrl.modelDocument)],
                                 self.documentIds[indexHtml] if indexHtml is not None else None,
                                 zipFile,
-                                self.period
+                                self.period,
+                                True
                                 ),),
                               checkIfExisting=True,
                               returnExistenceStatus=True)
