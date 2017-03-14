@@ -122,6 +122,20 @@ COMMENT ON COLUMN namespace.is_base IS 'Deprecated, use is_base on table namespa
 COMMENT ON COLUMN entity.entity_code IS 'Deprecated, use entity_identifier on table entity_identifier. Value is used for SEC reports only.';
 COMMENT ON COLUMN entity.authority_scheme IS 'Deprecated, used scheme on table entity_identifier. Value is used for SEC reports only.';	
 
+CREATE TABLE unit_base (
+	unit_base_id SERIAL NOT NULL,
+	unit_hash bytea NOT NULL,
+	unit_hash_string character varying NOT NULL,
+	unit_string character varying);
+
+CREATE UNIQUE INDEX unit_base_index01 ON unit_base (unit_hash);
+
+CREATE TABLE unit_report (
+	unit_report SERIAL NOT NULL,
+	unit_base_id integer NOT NULL,
+	unit_xml_id CHARACTER VARYING NOT NULL);
+	
+CREATE INDEX unit_report_index01 ON unit_report (unit_base_id);
 
 CREATE OR REPLACE FUNCTION delete_report(in_report_id bigint)
   RETURNS integer AS
@@ -488,6 +502,9 @@ CREATE VIEW network AS
 	FROM report r
 	JOIN dts_network dn
 	  ON dn.dts_id in (r.dts_id, r.entry_dts_id);
+	  
+INSERT INTO unit_base (unit_hash, unit_string)
+SELECT DISTINCT 
 
 
 
