@@ -537,7 +537,7 @@ class SqlDbConnection():
                                                     {"integer", "smallint", "int", "bigint",
                                                      "real", "numeric",
                                                      "int2", "int4", "int8", "float4", "float8",
-                                                     "boolean", "date", "timestamp", "bytea", "json", "jsonb"}
+                                                     "boolean", "date", "timestamp", "bytea"}
                                                else "::double precision" if fulltype.startswith("double precision") 
                                                else '',
                                               int if typename in ("integer", "smallint", "int", "bigint", "number") else
