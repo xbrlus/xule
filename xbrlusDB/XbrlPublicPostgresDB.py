@@ -841,11 +841,11 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         
         for f in self.modelXbrl.factsInInstance:
             conceptsUsedIncrement(f.qname, 'primary')
-#             if f.context is not None:
-#                 for dim in f.context.qnameDims.values():
-#                     conceptsUsedIncrement(dim.dimensionQname, 'dimension')
-#                     if dim.isExplicit:
-#                         conceptsUsedIncrement(dim.memberQname, 'member')
+            if f.context is not None:
+                for dim in f.context.qnameDims.values():
+                    conceptsUsedIncrement(dim.dimensionQname, 'dimension')
+                    if dim.isExplicit:
+                        conceptsUsedIncrement(dim.memberQname, 'member')
         
         for cntx in self.modelXbrl.contexts.values():
             for dim in cntx.qnameDims.values():
