@@ -20,34 +20,6 @@ from lxml import etree
 from arelle import ModelManager
 import optparse
 
-# def storeIntoDB(dbConnection, modelXbrl, rssItem=None, **kwargs):
-#     host = port = user = password = db = timeout = None
-#     if isinstance(dbConnection, (list, tuple)): # variable length list
-#         if len(dbConnection) > 0: host = dbConnection[0]
-#         if len(dbConnection) > 1: port = dbConnection[1]
-#         if len(dbConnection) > 2: user = dbConnection[2]
-#         if len(dbConnection) > 3: password = dbConnection[3]
-#         if len(dbConnection) > 4: db = dbConnection[4]
-#         if len(dbConnection) > 5 and dbConnection[5] and dbConnection[5].isdigit(): 
-#             timeout = int(dbConnection[5])
-# 
-#     startedAt = time.time()
-# #     product = None
-# #     if dbType in dbTypes:
-# #         insertIntoDB = dbTypes[dbType]
-# #         product = dbProduct[dbType]
-# #     elif isPostgresPort(host, port):
-# #         insertIntoDB = insertIntoPostgresDB
-# #     else:
-# #         modelXbrl.modelManager.addToLog('Server at "{0}:{1}" is not recognized to be either a Postgres or a Rexter service.'.format(host, port))
-# #         return
-#     result = insertIntoDB(modelXbrl, host=host, port=port, user=user, password=password, database=db, timeout=timeout, rssItem=rssItem, **kwargs)
-#     if kwargs.get("logStoredMsg", result): # if false/None result and no logStoredMsg parameter then skip the message
-#         modelXbrl.modelManager.addToLog(format_string(modelXbrl.modelManager.locale, 
-#                               _("stored to database in %.2f secs"), 
-#                               time.time() - startedAt), messageCode="info", file=modelXbrl.uri)
-#     return result
-
 def xbrlDBcommandLineOptionExtender(parser):
     # extend command line options to store to database
     
@@ -103,6 +75,27 @@ def xbrlDBcommandLineOptionExtender(parser):
                            dest="xbrlusDBNoCommit",
                            help=_("Will not commit data to the database."))
     
+    parserGroup.add_option("--xbrlusDB-dts-name",
+                           action="store",
+                           dest="xbrlusDBDTSName",
+                           help=_("For loading a DTS only, provides a name for the DTS."))
+    
+    parserGroup.add_option("--xbrlusDB-taxonomy-name",
+                           action="store",
+                           dest="xbrlusDBTaxonomyName",
+                           help=_("For loading a DTS only, identifies the taxonomy family name for the DTS."))
+    
+    parserGroup.add_option("--xbrlusDB-taxonomy-version",
+                           action="store",
+                           dest="xbrlusDBTaxonomyVersion",
+                           help=_("For loading a DTS only, identifies the taxonomy version within the taxonomy family for the DTS."))
+    
+    parserGroup.add_option("--xbrlusDB-taxonomy-version-document",
+                            action="store",
+                            dest="xbrlusDBTaxonomyVersionDocument",
+                            help=_("Uri of the file that determines the version of the taxonomy."))
+    
+    
     parser.add_option_group(parserGroup)
     
     logging.getLogger("arelle").addHandler(LogToDbHandler())    
@@ -126,6 +119,7 @@ def xbrlDBcommandLineOptionChecker(cntlr, options, **kwargs):
         
         
 def xbrlDBCommandLineXbrlRun(cntlr, options, modelXbrl, entryPoint):
+
     if getattr(options, "storeIntoXbrlDb", False):
         host, port, user,password, db, timeout = parseConnectionString(options)
         startedAt = time.time()

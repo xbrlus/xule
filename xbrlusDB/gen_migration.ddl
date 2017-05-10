@@ -26,6 +26,12 @@ CREATE TABLE report (
 	period_index integer,
 	properties JSONB);
 	
+CREATE UNIQUE INDEX report_index01 ON report (source_report_identifier);
+CREATE INDEX report_index02 ON report (entity_id);
+CREATE INDEX report_ts_index03 ON report USING gin (to_tsvector('english'::regconfig, entity_name::text));
+CREATE INDEX report_index04 ON report (((properties->>'standard_industrial_classificaiton')::integer));
+
+	
 ALTER TABLE accession
 	ADD COLUMN source_id integer NOT NULL DEFAULT 1;
 	
@@ -41,7 +47,8 @@ ALTER TABLE base_namespace
 ALTER TABLE fact
 	ALTER COLUMN context_id DROP NOT NULL,
 	ADD COLUMN fiscal_hash bytea,
-	ADD COLUMN fiscal_ultimus_index integer;
+	ADD COLUMN fiscal_ultimus_index integer,
+	ADD COLUMN unit_base_id integer;
 	
 ALTER TABLE element
 	ADD COLUMN is_tuple boolean NOT NULL DEFAULT false;
@@ -86,6 +93,7 @@ CREATE UNIQUE INDEX dts_index01 ON dts (dts_hash);
 CREATE TABLE dts_document (
 	dts_document_id SERIAL NOT NULL PRIMARY KEY,
 	dts_id integer NOT NULL,
+	top_level boolean NOT NULL,
 	document_id integer NOT NULL);
 
 CREATE INDEX dts_document_index01 ON dts_document (dts_id);
@@ -103,12 +111,39 @@ CREATE INDEX dts_network_index01 ON dts_network (dts_id);
 
 CREATE INDEX dts_network_index02 ON dts_network (arcrole_uri_id);
 
-CREATE TABLE document_reference (
-	document_reference_id SERIAL NOT NULL PRIMARY KEY,
-	document_id integer NOT NULL,
-	referenced_document_id integer NOT NULL);
-	
-CREATE INDEX document_reference_index01 ON document_reference (document_id);
+CREATE TABLE dts_element
+(
+  dts_element_id serial NOT NULL,
+  dts_id integer NOT NULL,
+  element_id integer NOT NULL,
+  is_base boolean NOT NULL,
+  in_relationship boolean NOT NULL
+);
+
+CREATE UNIQUE INDEX dts_element_index01 ON dts_element (dts_id, element_id);
+CREATE UNIQUE INDEX dts_element_index02 ON dts_element (element_id, dts_id);
+
+CREATE TABLE report_element
+(
+  report_element_id serial NOT NULL PRIMARY KEY,
+  report_id integer NOT NULL,
+  element_id integer NOT NULL,
+  is_base boolean NOT NULL,
+  primary_count integer,
+  dimension_count integer,
+  member_count integer
+);
+
+CREATE UNIQUE INDEX report_element_index01 ON report_element (report_id, element_id);
+
+CREATE UNIQUE INDEX report_element_index02 ON report_element (element_id, report_id);
+
+CREATE TABLE document_relationship (
+	document_relationship_id SERIAL NOT NULL PRIMARY KEY,
+	parent_document_id integer NOT NULL,
+	child_document_id integer NOT NULL);
+
+CREATE INDEX document_relationship_index01 ON document_relationship (parent_document_id, child_document_id);
 
 ALTER TABLE document
 	ADD COLUMN document_type character varying;
@@ -128,14 +163,18 @@ CREATE TABLE unit_base (
 	unit_hash_string character varying NOT NULL,
 	unit_string character varying);
 
-CREATE UNIQUE INDEX unit_base_index01 ON unit_base (unit_hash);
-
 CREATE TABLE unit_report (
-	unit_report SERIAL NOT NULL,
+	unit_report_id SERIAL NOT NULL,
+	report_id integer NOT NULL,
 	unit_base_id integer NOT NULL,
 	unit_xml_id CHARACTER VARYING NOT NULL);
-	
-CREATE INDEX unit_report_index01 ON unit_report (unit_base_id);
+
+CREATE TABLE unit_measure_base (
+	unit_measure_base_id SERIAL NOT NULL,
+	unit_base_id integer NOT NULL,
+	qname_id integer NOT NULL,
+	location_id smallint);
+COMMENT ON COLUMN unit_measure_base.location_id IS '1 = measure; 2 = numerator; 3 = denominator';
 
 CREATE OR REPLACE FUNCTION delete_report(in_report_id bigint)
   RETURNS integer AS
@@ -503,8 +542,169 @@ CREATE VIEW network AS
 	JOIN dts_network dn
 	  ON dn.dts_id in (r.dts_id, r.entry_dts_id);
 	  
-INSERT INTO unit_base (unit_hash, unit_string)
-SELECT DISTINCT 
+
+DROP TABLE IF EXISTS migration_unit_base;
+SELECT u.unit_id
+      ,u.unit_xml_id
+      ,u.accession_id
+      ,digest(coalesce(string_agg(CASE WHEN um.location_id = 1 THEN '{' || q.namespace || '}' || q.local_name end, '*')
+	       ,concat_ws('/'
+		      ,string_agg(CASE WHEN um.location_id = 2 THEN '{' || q.namespace || '}' || q.local_name end, '*')
+		      ,string_agg(CASE WHEN um.location_id = 3 THEN '{' || q.namespace || '}' || q.local_name end, '*')
+	       )), 'sha224') AS unit_hash
+      ,coalesce(string_agg(CASE WHEN um.location_id = 1 THEN '{' || q.namespace || '}' || q.local_name end, '*')
+	       ,concat_ws('/'
+		      ,string_agg(CASE WHEN um.location_id = 2 THEN '{' || q.namespace || '}' || q.local_name end, '*')
+		      ,string_agg(CASE WHEN um.location_id = 3 THEN '{' || q.namespace || '}' || q.local_name end, '*')
+	       )
+	) AS unit_hash_string
+      ,coalesce(string_agg(CASE WHEN um.location_id = 1 THEN q.local_name end, '*')
+	       ,concat_ws('/'
+		      ,string_agg(CASE WHEN um.location_id = 2 THEN q.local_name end, '*')
+		      ,string_agg(CASE WHEN um.location_id = 3 THEN q.local_name end, '*')
+	       )
+	) AS unit_string
+INTO TEMP migration_unit_base	
+FROM unit_measure um
+JOIN qname q
+  ON um.qname_id = q.qname_id
+JOIN unit u
+  ON um.unit_id = u.unit_id
+GROUP BY u.unit_id, u.unit_xml_id;
+
+CREATE INDEX migration_unit_base_index ON migration_unit_base (unit_hash);
+
+INSERT INTO unit_base (unit_hash, unit_hash_string, unit_string)
+SELECT DISTINCT ON (unit_hash) unit_hash, unit_hash_string, unit_string
+FROM migration_unit_base;
+
+CREATE UNIQUE INDEX unit_base_index01 ON unit_base (unit_hash);
+
+INSERT INTO unit_report (unit_report_id, unit_base_id, unit_xml_id, report_id)
+SELECT mub.unit_id
+      ,ub.unit_base_id
+      ,mub.unit_xml_id
+      ,mub.accession_id
+FROM migration_unit_base mub
+JOIN unit_base ub
+  ON mub.unit_hash = ub.unit_hash;
+
+SELECT setval(substring(column_default, e'nextval\\(''([^'']+)'),dn.max_id)
+FROM information_schema.columns
+CROSS JOIN (
+	SELECT max(unit_report_id) AS max_id
+	FROM unit_report
+	) dn
+WHERE column_name = 'unit_report_id'
+  AND table_schema = 'public'
+  AND table_name = 'unit_report';
+  
+
+CREATE UNIQUE INDEX unit_report_index01 ON unit_report (report_id, unit_xml_id);
+CREATE INDEX unit_report_index02 ON unit_report (unit_base_id);
+
+
+INSERT INTO unit_measure_base (unit_base_id, qname_id, location_id)
+SELECT x.unit_base_id, um.qname_id, um.location_id
+FROM (
+	SELECT DISTINCT ON (ub.unit_hash) ub.unit_base_id, mub.unit_id
+	FROM unit_base ub
+	JOIN migration_unit_base mub
+	  ON ub.unit_hash = mub.unit_hash
+) x
+JOIN unit_measure um
+  ON x.unit_id = um.unit_id
+
+
+CREATE INDEX unit_measure_base_index01 ON unit_measure_base (unit_base_id);
+
+/*
+WITH unit_conversion AS (
+	SELECT mub.unit_id, ub.unit_base_id
+	FROM migration_unit_base mub
+	JOIN unit_base ub
+	  ON mub.unit_hash = ub.unit_hash
+)
+UPDATE fact f
+SET unit_id = uc.unit_base_id
+FROM unit_conversion uc
+WHERE f.unit_id IS NOT NULL
+  AND uc.unit_id = f.unit_id;
+*/
+
+--NEED TO ADD unit_base_id TO THE fact TABLE AND LEAVE unit_id AS THE unit_report_id
+
+ALTER TABLE unit RENAME TO unit_previous;
+
+
+CREATE VIEW unit AS
+SELECT ur.unit_report_id AS unit_id
+      ,ur.report_id AS accession_id
+      ,ur.unit_xml_id
+FROM unit_report ur;  
+
+ALTER TABLE unit_measure RENAME TO unit_measure_previous;
+
+CREATE VIEW unit_measure AS
+SELECT umb.unit_measure_base_id AS unit_measure_id
+      ,ur.unit_report_id AS unit_id
+      ,umb.qname_id
+      ,umb.location_id
+FROM unit_measure_base umb
+JOIN unit_report ur
+  ON umb.unit_base_id = ur.unit_base_id;
+
+CREATE OR REPLACE FUNCTION uom(unit_id_arg integer) RETURNS varchar AS
+$$
+SELECT ub.unit_string
+FROM unit_base ub
+JOIN unit_report ur
+  ON ub.unit_base_id = ur.unit_base_id
+WHERE ur.unit_report_id = unit_id_arg
+$$ LANGUAGE sql;
+
+DROP TABLE accession;
+
+CREATE VIEW accession AS
+SELECT report_id AS accession_id
+      ,accepted_timestamp
+      ,is_most_current
+      ,(properties->>'filing_date')::date AS filing_date
+      ,entity_id
+      ,entity_name
+      ,creation_software
+      ,NULL::varchar AS creation_software_short
+      ,(properties->>'standard_industrial_classification')::integer AS standard_industrial_classification
+      ,properties->>'state_of_incorporation' As state_of_incorporation
+      ,(properties->>'internal_revenue_service_number')::integer AS internal_revenue_service_number
+      ,properties->>'business_address' AS business_address
+      ,properties->>'business_phone' AS business_phone
+      ,properties->>'sec_html_url' AS sec_html_url
+      ,entry_url
+      ,source_report_identifier As filing_accession_number
+      ,properties->>'zip_url' AS zip_url
+      ,properties->>'document_type' As document_type
+      ,(properties->>'percent_extended')::integer AS percent_extended
+      ,restatement_index
+      ,period_index
+      ,True::boolean AS is_complete
+      ,entry_type
+      ,entry_document_id
+      ,alternative_document_id
+      ,reporting_period_end_date
+FROM report r
+JOIN source s
+  ON r.source_id = s.source_id
+WHERE s.source_name = 'SEC';
+
+DROP TABLE accession_timestamp;
+
+CREATE VIEW accession_timestamp AS
+SELECT report_id AS accession_id
+      ,creation_timestamp AS creation_time
+FROM report  
+
+
 
 
 

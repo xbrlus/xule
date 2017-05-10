@@ -89,17 +89,17 @@ def isDBPort(host, port, timeout=10):
 XBRLDBTABLES = {
                 "fact",
                 "entity", #"entity_identifier", 
-                "entity_name_history",
-                "unit", "unit_measure", 
+                "entity_name_history", 
                 "context",  "context_dimension", "context_dimension_explicit",
-                "accession", "accession_document_association", "accession_element",
+                "report", "report_document", "report_element",
+                "dts", "dts_element", "dts_document",
                 "attribute_value",
                 "custom_role_type",
                 "uri",
                 "document",
                 "qname",
                 "taxonomy", "taxonomy_version", "namespace", "base_namespace",
-                "element", "element_attribute", "element_attribute_value_association",
+                "element", "element_attribute_value_association",
                 "dts_network", "relationship",
                 "custom_arcrole_type", "custom_arcrole_used_on", "custom_role_type", "custom_role_used_on",
                 "label_resource",
@@ -129,13 +129,14 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         self.cntlr = cntlr
         self.startTime = datetime.datetime.today()
         
-        self.loadSource()
         #set up info from the options
         options.xbrlusDBInfos = {}
         for nameValue in getattr(options, 'xbrlusDBInfo', None) or tuple():
             name, value = nameValue.split('=',1) #the format was validated in the parser argument checking
             options.xbrlusDBInfos[name.strip()] = value   
-                 
+        
+        self.modelXbrl.info("info",_("Connected to database. Host: {}, Port: {}, Database: {}, User: {}".format(host, port, database,user)))
+    
     def loadSource(self):
         #import source module
         sourceName = getattr(self.options, "xbrlusDBSource", None)
@@ -167,26 +168,36 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                                 missingTableNames=', '.join(t for t in sorted(missingTables))) 
             
     def insertXbrl(self, supportFiles=tuple(), documentCacheLocation=None):
-        try:                        
-            # must also have default dimensions loaded
-            from arelle import ValidateXbrlDimensions
+                        
+        # must also have default dimensions loaded
+        from arelle import ValidateXbrlDimensions
+        ValidateXbrlDimensions.loadDimensionDefaults(self.modelXbrl)
+        self.supportFiles = supportFiles
+        self.documentMap = dict()
+        #set up document map
+        self.documentCacheLocation = documentCacheLocation
+        
+        if self.modelXbrl.modelDocument.type in (Type.INSTANCE, Type.INLINEXBRL):
+            self.loadType = 'instance'
+            if getattr(self.options, 'xbrlusDBDTSName', None) is not None:
+                raise XPDBException("xpgDB:DTSNameError",
+                                    _("Entry file is an instance/inline, '--xbrlusDB-dts-name' should only be used when the entry file is a taxonomy or linkbase."))
+        elif self.modelXbrl.modelDocument.type in (Type.SCHEMA, Type.LINKBASE):
+            self.loadType = 'dts'
+        else:
+            raise XPDBException("xpgDB:unknownEntryType", 
+                                _("The entry file does not appear to be an instance, inline, schema or linkbase file.")) 
+        
+        #lock to prevent another process from updating at the same time.
+        self.execute('''LOCK ONLY config 
+                     IN ACCESS EXCLUSIVE MODE;''', fetch=False)
 
-            ValidateXbrlDimensions.loadDimensionDefaults(self.modelXbrl)
-            
-            self.supportFiles = supportFiles
-            self.documentMap = dict()
-            #set up document map
-            self.documentCacheLocation = documentCacheLocation
-            
+        self.loadSource()
+        self.timeCall(self.insertSource)
+        if self.loadType == 'instance':
             #get filing and entity info
             self.timeCall(self.identifyEntityAndFilingingInfo)
             
-            #lock to prevent another process from updating at the same time.
-            self.execute('''LOCK ONLY config 
-                         IN ACCESS EXCLUSIVE MODE;''', fetch=False)
-            
-            self.timeCall(self.insertSource)
-
             #check if the filing is already in the database
             result = self.timeCall((self.execute, 'check if exists'), "SELECT 1 FROM report WHERE source_report_identifier = '%s' AND source_id = %s;" % (self.accessionNumber, self.sourceId))
             if result:
@@ -198,58 +209,67 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
             #exclusions - This is source dependent
             if self.excludeReport():
                 #the excludeReport() method will produce the message
-                return           
-
-            self.timeCall(self.identifyPreexistingDocuments)
-            self.timeCall(self.identifyBaseNamespaces)
+                return      
+             
+        self.timeCall(self.identifyBaseNamespaces)
+        self.timeCall(self.IdentifyAndInsertDTSAndDocuments)
+        if self.loadType == 'dts':
+            self.timeCall(self.insertTaxonomyAndVersion)
+        if self.dtsExists and self.loadType == 'dts':
+            self.modelXbrl.info("info", _("%(now)s - DTS is already in the database."), now=str(datetime.datetime.today()))
+        else:                        
             self.timeCall(self.identifyConceptsUsed)
-            self.timeCall(self.insertEntity)
-            self.timeCall(self.identifyFiscalYearEnd)
-            self.timeCall(self.insertDocuments)
+            if self.loadType == 'instance':
+                self.timeCall(self.insertEntity)
+                self.timeCall(self.identifyFiscalYearEnd)
+            
             self.timeCall(self.insertQnames)
             self.timeCall(self.insertUris)
             self.timeCall(self.insertNamespaces)
             self.timeCall(self.insertElements)
+            self.timeCall(self.insertDTSElements)
             self.timeCall(self.insertCustomArcroles)
             self.timeCall(self.insertCustomRoles)
             
-            #self.commit()
-            self.timeCall(self.insertDTS)
-            self.timeCall(self.insertReport)
-            self.timeCall(self.insertAccessionDocumentAssociation)
-            self.timeCall(self.insertEntityNameHistory)
-            self.timeCall(self.insertAccessionElements)            
-            self.timeCall(self.insertFacts)
+            
+            if self.loadType == 'instance':
+                self.timeCall(self.insertReport)
+                self.timeCall(self.insertReportDocument)
+                self.timeCall(self.insertEntityNameHistory)
+                self.timeCall(self.insertReportElements)       
+                self.timeCall(self.insertFacts)
+                self.timeCall(self.updateReportStats)
+                self.timeCall(self.postLoad)
+        
             self.timeCall(self.insertNetworks)
-            self.timeCall(self.updateReportStats)
-            self.timeCall(self.postLoad)
-            
-#             self.modelXbrl.profileStat(_("XbrlPublicDB: DTS insertion"), time.time() - startedAt)
-#             startedAt = time.time()
-#             self.modelXbrl.profileStat(_("XbrlPublicDB: instance insertion"), time.time() - startedAt)
-#             startedAt = time.time()
-#            self.showStatus("Committing entries")
-            if getattr(self.options, 'xbrlusDBNoCommit', False):
-                self.modelXbrl.info("info", _("%(now)s - Changes not committed"), now=str(datetime.datetime.today()))
-            else:
-                self.commit()
-#             self.modelXbrl.profileStat(_("XbrlPublicDB: insertion committed"), time.time() - startedAt)
-            self.showStatus("DB insertion completed", clearAfter=5000)
-            
-            endTime = datetime.datetime.today()
-            hours, remainder = divmod((endTime - self.startTime).total_seconds(), 3600)
-            minutes, seconds = divmod(remainder, 60)
-            
-            self.modelXbrl.info("info", _("%(now)s - Loaded into database in %(timeTook)s %(accessionNumber)s %(companyName)s %(period)s"),
+        
+        if getattr(self.options, 'xbrlusDBNoCommit', False):
+            self.modelXbrl.info("info", _("%(now)s - Changes not committed"), now=str(datetime.datetime.today()))
+        else:
+            self.commit()
+
+        #record the final timings
+        endTime = datetime.datetime.today()
+        hours, remainder = divmod((endTime - self.startTime).total_seconds(), 3600)
+        minutes, seconds = divmod(remainder, 60)
+        
+        if not hasattr(self,'loadType'):
+            self.modelXbrl.info("info", _("%(now)s - Load process ended %(timeTook)s"),
+                timeTook='%02.0f:%02.0f:%02.4f' % (hours, minutes, seconds),
+                now=str(datetime.datetime.today()))
+        elif self.loadType == 'instance':
+            self.modelXbrl.info("info", _("%(now)s - Loaded report into database in %(timeTook)s %(accessionNumber)s %(companyName)s %(period)s"),
                 accessionNumber=self.accessionNumber, 
                 companyName=self.entityName, 
                 period=self.period,
                 timeTook='%02.0f:%02.0f:%02.4f' % (hours, minutes, seconds),
                 now=str(datetime.datetime.today()))
-    
-        except Exception as ex:
-            self.showStatus("DB insertion failed due to exception", clearAfter=5000)
-            raise
+        else:
+            self.modelXbrl.info("info", _("%(now)s - Loaded DTS into database in %(timeTook)s %(dtsNumber)s %(dtsName)s"),
+                dtsNumber=self.dtsId,
+                dtsName=getattr(self.options,'xbrlusDBDTSName', None) or self.entryUrl,
+                timeTook='%02.0f:%02.0f:%02.4f' % (hours, minutes, seconds),
+                now=str(datetime.datetime.today())) 
     
     def timeCall(self, functionInfo, *args, **kwargs):
         functionStartTime = datetime.datetime.today()
@@ -329,17 +349,32 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                     if re.search(preface['preface'], uri) is not None:
                         matchFound = True
                         prefix = self.getPrefix(uri, preface['regex'])
-                        if prefix is None:
-                            print("PREFIX IS NONE",uri)
-                        self.baseNamespaces[uri] = prefix if prefix is not None else uri
+                        self.baseNamespaces[uri] = prefix if prefix is not None else self.cleanNCName(uri)
                         self.modelXbrl.info("warning",_("New base namespace found. Check if the namespace should be associated with a taxonomy_version. Namespace is '%s', canonical prefix is '%s'" % (uri, prefix)))
                         #found the match, move on to the next namespace
                         break
 
                 if not self.getSourceSetting("hasExtensions") and not matchFound:
                     #need to force a canonical prefix - use the whole namespace as the canonical prefix
-                    self.baseNamespaces[uri] = uri
-                    
+                    self.baseNamespaces[uri] = self.cleanNCName(uri)
+    
+    def cleanNCName(self, ncname):
+        #This function will replace invalid ncname characters with a dash
+        if len(ncname) == 0:
+            return ncname
+        
+        #regex for matching ncnames
+        nameStart = r'A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD'
+        nameChar = nameStart + r'\-\.0-9\u00B7\u0300-\u036F\u203F-\u2040'
+        nameStartPattern = '[^' + nameStart + ']'
+        nameCharPattern = '[^' + nameChar + ']'
+        
+        cleanName = re.sub(nameStartPattern,'-', ncname[0])
+        if len(ncname) > 1:
+            cleanName += re.sub(nameCharPattern,'-',ncname[1:])
+        
+        return cleanName
+    
     def updateBaseNamespaceTable(self):
         baseNamespacePatterns = self.getSourceSetting("basePrefixPatterns")
         if baseNamespacePatterns is not None:
@@ -401,6 +436,65 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                         #found the match, move on to the next namespace
                         break
 
+    def insertTaxonomyAndVersion(self):
+        taxonomyName = getattr(self.options, 'xbrlusDBTaxonomyName', None)
+        taxonomyVersion = getattr(self.options, 'xbrlusDBTaxonomyVersion', None)
+        if taxonomyName is None or taxonomyVersion is None:
+            self.taxonomyId = None
+            self.taxonomyVersionId = None
+        else:
+            #add the taxonomy row
+            result = self.getTable('taxonomy', 'taxonomy_id',
+                                   ('name',),
+                                   ('name',),
+                                   ((taxonomyName,),),
+                                   checkIfExisting=True,
+                                   returnExistenceStatus=True)
+            self.taxonomyId = result[0][0]
+            if result[0][2]: #existence status
+                self.modelXbrl.info("info", _("Taxonomy %s exists" % taxonomyName))
+            else:
+                self.modelXbrl.info("info", _("Taxonomy %s is new" % taxonomyName))
+
+            taxonomyVersionDocument = getattr(self.options, 'xbrlusDBTaxonomyVersionDocument', None)
+            if taxonomyVersionDocument is None:
+                taxonomyVersionDocumentId = None
+            else:
+                taxonomyVersionDocumentId = self.documentIds.get(self.mapDocumentUri(taxonomyVersionDocument))
+                if taxonomyVersionDocumentId is None:
+                    raise XPDBException("xpgDB:taxonomyVersionDcoumentError", 
+                                    _("The taxonomy version identifying document provided is not in the DTS"))
+
+            #add the taxonomy_version row
+            result = self.getTable('taxonomy_version', 'taxonomy_version_id',
+                                   ('taxonomy_id', 'version', 'identifier_document_id'),
+                                   ('taxonomy_id', 'version'),
+                                   ((self.taxonomyId, taxonomyVersion, taxonomyVersionDocumentId),),
+                                   checkIfExisting=True,
+                                   returnExistenceStatus=True)
+            
+            self.taxonomyVersionId = result[0][0]
+            if result[0][3]: #existence status
+                if taxonomyVersionDocument: #a taxonomy version document was provided
+                    raise XPDBException("xpgDB:taxonomyVersionDcoumentError", 
+                                    _("A taxonomy version identifying document cannot be used when there is already a taxonomy version row."))
+                self.modelXbrl.info("info", _("Taxonomy version %s exists" % taxonomyVersion))
+            else:
+                self.modelXbrl.info("info", _("Taxonomy version %s is new" % taxonomyVersion))
+            
+            #add taxonomy_version_dts record for the dts
+            result = self.getTable('taxonomy_version_dts', 'taxonomy_version_dts_id',
+                          ('taxonomy_version_id', 'dts_id'),
+                          ('taxonomy_version_id', 'dts_id'),
+                          ((self.taxonomyVersionId, self.dtsId),),
+                          checkIfExisting=True,
+                          returnExistenceStatus=True)
+            
+            if result[0][3]: #taxonomy_version_dts row exists
+                self.modelXbrl.info("info", _("DTS and taxonomy version combination already exists"))
+            else:
+                self.modelXbrl.info("info", _("DTS and taxonomy version combination added"))
+            
     def identifyEntityAndFilingingInfo(self):
         
         try:
@@ -408,7 +502,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         except self._SourceFunctionError:
             info = dict()
             
-        commonInfoNames = ('acceptanceDate', 'accessionNumber', 'entityName', 'entityScheme', 'entityIdentifier', 'entryUrl', 'alternativeDocName', 'alternativeDoc', 'period')
+        commonInfoNames = ('acceptanceDate', 'accessionNumber', 'entityName', 'entityScheme', 'entityIdentifier', 'entryUrl', 'alternativeDoc', 'period', 'sourceUriMap')
         self.sourceData = dict()
         for k, v in info.items():
             if k in commonInfoNames:
@@ -423,8 +517,8 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         #Certain information is necessary to process a filing.
         
         #default to the file passed an an argument
-        if not getattr(self, 'entryUrl', None) is None:
-            self.entryUrl = self.modelXbrl.modelDocument.uri
+        if getattr(self, 'entryUrl', None) is None:
+            self.entryUrl = self.cleanDocumentUri(self.modelXbrl.modelDocument)
                 
         # default the entity name
         if not self.entityName:
@@ -471,8 +565,6 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
             return False
     
     def insertEntity(self):
-        
-        self.showStatus("insert entity")
         '''
         Going to try and get the entity name and cik from the rssItem. If there is no rssItem then
         will try to get it from the facts for the filing.
@@ -510,7 +602,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                          FROM report
                          WHERE entity_id = %s
                            AND accepted_timestamp >= %s)''', params=(self.entityId, self.acceptedTimestamp),
-                     close=False, fetch=False)
+                     fetch=False)
         #get the current entity name
         result = self.execute('''SELECT enh.entity_name
                         FROM entity_name_history enh
@@ -558,47 +650,6 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                                     and len(item.context.qnameDims) == 0]      
         if len(simpleFacts) > 0:
             return simpleFacts[0].textValue
-
-    def insertDTS(self):
-        refDocuments = tuple(x.uri for x in self.modelXbrl.modelDocument.referencesDocument.keys())
-        self.dtsId, self.dtsExists = self.addDTSRows(refDocuments)
-            
-        #add dts record for footnotes in the instance
-        #need to find if there is a base set with a link that is in the instance document
-        self.instanceBaseSets = list()
-        for (arcrole, ELR, linkqname, arcqname), baseSet in self.modelXbrl.baseSets.items():
-            if ELR and linkqname and arcqname and not arcrole.startswith("XBRL-"):
-                if len(baseSet) > 0:
-                    if baseSet[0].modelDocument is self.modelXbrl.modelDocument:
-                        self.instanceBaseSets.append((arcrole, ELR, linkqname, arcqname))
-        
-        if len(self.instanceBaseSets) > 0:
-            #need to create a dts for these base sets. The dts will be based on the instance.
-            refDocuments = (self.entryUrl,)
-            self.entryDtsId, _x = self.addDTSRows(refDocuments)
-            #need to create a dts for these base sets. The dts will be based on the instance.
-        else:
-            self.entryDtsId = None
-
-    def addDTSRows(self, dtsDocuments):
-        refDocsString = '|'.join(sorted(dtsDocuments))
-        dtshash = hashlib.sha224(refDocsString.encode()).digest()        
-        table = self.getTable('dts', 'dts_id',
-                              ('dts_hash',),
-                              ('dts_hash',),
-                              ((dtshash,),),
-                              checkIfExisting=True,
-                              returnExistenceStatus=True)
-        dtsId = table[0][0]
-        if not table[0][2]:
-            #need to add dts_document records
-            refDocIds = tuple((dtsId, self.documentIds[x]) for x in dtsDocuments)
-            self.getTable('dts_document', 'dts_document_id',
-                          ('dts_id', 'document_id',),
-                          ('dts_id', 'document_id'),
-                          refDocIds)
-            
-        return dtsId, table[0][2] #existence
     
     def insertReport(self):
         #defaults for accession id
@@ -617,10 +668,13 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         else:
             entrytype = 'UNKNOWN'
         
+        #the alternative doc is usually an html version of a report
         alternativeDoc = self.mapDocumentUri(self.alternativeDoc) if hasattr(self,'alternativeDoc') else None
+        #add the alternative doc to the database
+        self.insertDocuments((alternativeDoc,))
 
         reportProperties = self.reportProperties()
-         
+
         table = self.getTable('report', 'report_id',
                             ('source_id', 'entity_id', 'dts_id', 'entry_dts_id', 'source_report_identifier', 'accepted_timestamp',
                              'entity_name', 'creation_software', 'entry_type', 'entry_url', 'entry_document_id',
@@ -642,13 +696,13 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                              reportProperties
                              ),),
                             checkIfExisting=True)
-         
+ 
         for report_id, source_id, source_report_identifier, acceptedTimestamp in table:
             self.accessionId = report_id
             #The returned value is a modelBalue.DateTime, but we need it as a python datetime
             self.acceptedTimestamp = datetime.datetime(acceptedTimestamp.year, acceptedTimestamp.month, acceptedTimestamp.day, acceptedTimestamp.hour, acceptedTimestamp.minute, acceptedTimestamp.second, acceptedTimestamp.microsecond)
             break
-    
+
     def reportProperties(self):
         try:
             return self.sourceCall()
@@ -676,23 +730,20 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
     def insertQnames(self):
         #attributes
         attributeQNames = set()
-        for concept in self.filingDocumentConcepts:
+        for concept in self.newDocumentConcepts | self.newNonReportingConcepts:
             for atrribName, attribValue in concept.attrib.items():
                 if atrribName not in ('abstract','id','nillable','type','substitutionGroup','name'):
                     attribQName = qname(atrribName)
                     if not (attribQName.namespaceURI == 'http://www.xbrl.org/2003/instance' and attribQName.localName in ('balance','periodType')):
                         #self.attributeQNames.append((self.getQnameId(concept.qname),self.getQNameId(attribQName),attribValue))
                         attributeQNames.add(attribQName)        
-        
-        qnames = (#_DICT_SET(self.modelXbrl.qnameConcepts.keys()) |
-                  #_DICT_SET(self.modelXbrl.qnameAttributes.keys()) |
-                  _DICT_SET(self.modelXbrl.qnameTypes.keys()) |
+            
+        qnames = (_DICT_SET(self.modelXbrl.qnameTypes.keys()) |
                   set(measure
                       for unit in self.modelXbrl.units.values()
                       for measures in unit.measures
                       for measure in measures) |
-                  self.modelXbrl.qnameConcepts.keys() |
-                  #set(concept.qname for concept in self.filingDocumentConcepts | self.nonReportingConcepts) |
+                  set(concept.qname for concept in self.newDocumentConcepts | self.newNonReportingConcepts) |
                   attributeQNames 
                   )
         
@@ -704,53 +755,40 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                                     for qn in qnames),
                               checkIfExisting=True)
 
-        self.qnameId = dict((qname(ns, ln), id)
+        self.qnameId = dict((qname(ns or '', ln), id)
                             for id, ns, ln in table)
 
-        # get qname IDs for existing concepts
-#         if self.existingDocumentIds:
-#             results = self.execute("SELECT q.qname_id, q.namespace, q.local_name " +
-#                                            "FROM qname q " +
-#                                            "JOIN element e " +
-#                                            "  ON q.qname_id = e.qname_id " +
-#                                            "JOIN document d " +
-#                                            "  ON e.document_id = d.document_id " +
-#                                            "WHERE d.document_uri IN (" +
-#                                            ','.join("'%s'" % docId for docId in self.existingDocumentIds) +
-#                                            ");") 
-#             for qnameId, namespaceURI, localName in results:
-#                 self.qnameId[qname(namespaceURI, localName)] = qnameId
-#             
-        #get qname_ids for existing concepts
-#         if self.existingDocumentUsedConcepts:
-#             qnamesClause = []
-#             for concept in self.existingDocumentUsedConcepts:
-#                 qnamesClause.append("(namespace = '%s' and local_name = '%s')" % (concept.qname.namespaceURI, concept.qname.localName))
-#                 
-#                 
-#             results = self.execute("SELECT qname_id, namespace, local_name FROM qname WHERE " + ' OR '.join(qnamesClause) + ";")
-#             for qnameId, namespaceURI, localName in results:
-#                 self.qnameId[qname(namespaceURI, localName)] = qnameId
-                
-   
-#             qnamesClause.append("(namespace = '%s' and local_name = '%s')" % (concept.qname.namespaceURI, concept.qname.localName))
-#             results = self.execute("SELECT qname_id, namespace, local_name FROM qname WHERE " + ' OR '.join(qnamesClause) + ";")
-#             for qnameId, namespaceURI, localName in results:
-#                 self.qnameId[qname(namespaceURI, localName)] = qnameId
-
+        # get qnames for existing used concepts
+        existingUsedQnames = self.conceptsUsed - qnames
+        if len(existingUsedQnames) > 0:
+            valuesClauseQnames = ("('" + x.namespaceURI + "','" + x.localName + "')" for x in existingUsedQnames)
+            valuesClause = '(VALUES ' + ','.join(valuesClauseQnames) + ' ) x(namespace, local_name)'
+            
+            query = '''SELECT q.qname_id, q.namespace, q.local_name
+                       FROM qname q
+                       JOIN ''' + valuesClause + '''
+                         ON q.namespace = x.namespace
+                        AND q.local_name = x.local_name'''
+            results = self.execute(query)
+            for qnameId, namespaceURI, localName in results:
+                self.qnameId[qname(namespaceURI, localName)] = qnameId        
       
     def insertNamespaces(self):
         self.showStatus("insert namespaces")
-        namespaceUris = self.modelXbrl.namespaceDocs.keys()               
+        namespaceUris = {x.namespaceURI for x in self.qnameId.keys() if x.namespaceURI is not None} | self.modelXbrl.namespaceDocs.keys()
+        #namespaceUris = self.modelXbrl.namespaceDocs.keys()               
 
         table = self.getTable('namespace', 'namespace_id', 
                               ('uri', 'is_base', 'taxonomy_version_id', 'prefix'), 
                               ('uri',), # indexed matchcol
-                              tuple((uri, uri in self.baseNamespaces.keys(), None, self.baseNamespaces[uri] if uri in self.baseNamespaces.keys() else None) 
+                              tuple((uri, 
+                                     uri in self.baseNamespaces.keys() if self.loadType == 'instance' else True, #this is an assumption that if this is a dts load than the namespaces are base
+                                     None, 
+                                     self.baseNamespaces[uri] if uri in self.baseNamespaces.keys() else None) 
                                     for uri in namespaceUris),
                               checkIfExisting=True)
         namespaceId = {uri : id for id, uri in table}
-        
+
         self.getTable('namespace_source', 'namespace_source_id',
                       ('namespace_id', 'source_id', 'is_base'),
                       ('namespace_id', 'source_id'),
@@ -777,25 +815,364 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
             #load the pre and post functions
             databaseInstall = self.getSourceSetting('databaseInstall')
             if databaseInstall is not None:
-                self.execute(databaseInstall, close=False, fetch=False)
+                self.execute(databaseInstall, fetch=False)
 
             #add base namespaces
             self.updateBaseNamespaceTable()
             
             self.modelXbrl.info("info", _("New source '%(source)s'"),
                         source=self.sourceName)
+
+    def IdentifyAndInsertDTSAndDocuments(self):
+        #create a map between original document uris and cleaned document uris
+        self.docCleanUriMap = {self.cleanDocumentUri(modelDoc): modelDoc for modelDoc in self.modelXbrl.urlDocs.values()}
+        #identify base sets for the dts and the instance
+        self.instanceBaseSets = list()
+        self.dtsBaseSets = list()
+        for (arcrole, ELR, linkqname, arcqname), baseSet in self.modelXbrl.baseSets.items():
+            isInstance = False
+            if ELR and linkqname and arcqname and not arcrole.startswith("XBRL-"):
+                if self.loadType == 'instance':
+                    if len(baseSet) > 0:
+                        if baseSet[0].modelDocument is self.modelXbrl.modelDocument:
+                            isInstance = True
+                if isInstance:
+                    self.instanceBaseSets.append((arcrole, ELR, linkqname, arcqname))
+                else:
+                    self.dtsBaseSets.append((arcrole, ELR, linkqname, arcqname))
+
+        #walk documents for dts
+        #if this is an instance load, the dts are the documetns the instance points to, otherwise, the dts is the main document of the model.
+        dtsDocuments = self.walkDocumentTree(self.modelXbrl.modelDocument.referencesDocument.keys() if self.loadType == 'instance' else (self.modelXbrl.modelDocument,))
+        self.dtsId, self.dtsExists = self.addDTSRows(dtsDocuments)
+        self.dtsDocuments = {self.docCleanUriMap[x[0]] for x in dtsDocuments}
+        if self.dtsExists:
+            self.documentIds = self.getDTSDocumentIds()
+            self.existingDocumentIds = self.documentIds.copy()
+        else:
+            #add the documents
+            self.insertDocuments({x[0] for x in dtsDocuments})
+            self.insertDocumentRelationships(dtsDocuments)
+            #add dts_documents
+            self.addDTSDocuments(self.dtsId, dtsDocuments)
+        #At this point the only documents in documentIds are the dts documents
+        self.dtsDocumentIds = self.documentIds.copy()
+        
+        #add the instance document
+        if self.loadType == 'instance':
+            cleanInstDocumentUri = self.cleanDocumentUri(self.modelXbrl.modelDocument)
+            self.insertDocuments({cleanInstDocumentUri,})
+            instDocuments = ((cleanInstDocumentUri, 
+                             True, 
+                             tuple(self.cleanDocumentUri(x) for x in self.modelXbrl.modelDocument.referencesDocument.keys())),)
+            self.insertDocumentRelationships(instDocuments)          
+            #add dts record for footnotes in the instance        
+            if len(self.instanceBaseSets) > 0:
+                self.entryDtsId, instanceDTSExists = self.addDTSRows(instDocuments)
+                #need to create a dts for these base sets. The dts will be based on the instance.
+                if instanceDTSExists:
+                    raise XPDBException("xpgDB:instanceDTSExists",
+                            _("Instance DTS is already in the database."))
+                else:
+                    self.addDTSDocuments(self.entryDtsId, instDocuments)   
+            else:
+                self.entryDtsId = None
+        
+        #check that no uris were missed.
+        missingUris = self.docCleanUriMap.keys() - self.documentIds.keys() 
+        if len(missingUris) > 0:
+#             raise XPDBException("xpgDB:missingDocuments",
+#                                 _("Did not process the following documents: %s" % "\n".join(missingUris)))
+            self.modelXbrl.info("info",_("Did not process the following documents: %s" % "\n".join(missingUris)))
+            
+    def insertDTSElements(self):
+        #add dts_element records
+        if not self.dtsExists:
+            #find elements in relationships
+            relationshipElements = set()
+            for relationshipSetKey in self.dtsBaseSets:
+                relationshipSet = self.modelXbrl.relationshipSet(*relationshipSetKey)
+                for rel in relationshipSet.modelRelationships:
+                    if isinstance(rel.fromModelObject, ModelConcept):
+                        relationshipElements.add(rel.fromModelObject)
+                    if isinstance(rel.toModelObject, ModelConcept):
+                        relationshipElements.add(rel.toModelObject)
     
-    def identifyPreexistingDocuments(self):
-        self.existingDocumentIds = {}
-        docUris = set()
-        for modelDocument in self.modelXbrl.urlDocs.values():
-            if modelDocument.type == Type.SCHEMA:
-                docUris.add(self.dbStr(self.cleanDocumentUri(modelDocument)))
-        if docUris:
-            results = self.execute("SELECT document_id, document_uri, document_loaded FROM document WHERE document_uri IN (" +
-                                   ', '.join(docUris) + ");")
-            self.existingDocumentIds = dict((docUri,docId) for docId, docUri, docLoaded in results if docLoaded == True)
-            self.setDocumentIdsLoaded = tuple((docId, docUri) for docId, docUri, docLoaded in results if docLoaded == False)
+            #find elements defined in the dts but don't have relationships
+#             documentElements = set()
+#             for concept in self.modelXbrl.qnameConcepts.values():
+#                 if concept.modelDocument in self.dtsDocuments and concept.isItem and concept.qname.namespaceURI != 'http://www.xbrl.org/2003/instance' and concept.qname.namespaceURI != 'http://xbrl.org/2005/xbrldt':
+#                     documentElements.add(concept)    
+            
+#             for c in (relationshipElements | documentElements):
+#                 print(c.qname)
+#                 print(self.elementId[self.getQnameId(c.qname)])
+            
+            self.getTable('dts_element', 'dts_element_id',
+                          ('dts_id', 'element_id', 'is_base', 'in_relationship'),
+                          ('dts_id', 'element_id'),
+                          tuple((self.dtsId, 
+                                 self.elementId[self.getQnameId(c.qname)], 
+                                 c.qname.namespaceURI in self.baseNamespaces if self.loadType == 'instance' else False, 
+                                 c in relationshipElements) 
+                                #for c in (relationshipElements | documentElements)))   
+                                for c in relationshipElements))                       
+
+    def walkDocumentTree(self, parents, resultDocs=None, processed=None, top=True):
+        if resultDocs is None:
+            resultDocs = set()
+        if processed is None:
+            processed = set()
+        for parent in parents:
+            cleanParentUri = self.cleanDocumentUri(parent)
+            if cleanParentUri not in processed:
+                processed.add(cleanParentUri)
+                resultDocs.add((cleanParentUri, top, tuple(self.cleanDocumentUri(x) for x in parent.referencesDocument.keys())))
+                resultDocs = self.walkDocumentTree(parent.referencesDocument.keys(), resultDocs, processed, False)
+                    
+        return resultDocs
+
+    def addDTSRows(self, dtsDocuments):
+        #only include docuemnts directly referenced from the  
+        topDocs = tuple(docUri for docUri, isTop, _x in dtsDocuments if isTop)
+        refDocsString = '|'.join(sorted(topDocs))
+        dtshash = hashlib.sha224(refDocsString.encode()).digest()
+        dtsName = getattr(self.options,'xbrlusDBDTSName',None) if self.loadType == 'dts' else None
+                
+        table = self.getTable('dts', 'dts_id',
+                              ('dts_hash','dts_name'),
+                              ('dts_hash',),
+                              ((dtshash,
+                                dtsName),),
+                              checkIfExisting=True,
+                              returnExistenceStatus=True)
+        dtsId = table[0][0]
+                        
+        return dtsId, table[0][2] #existence
+
+    def addDTSDocuments(self, dtsId, dtsDocuments):
+        refDocIds = tuple((dtsId, self.documentIds[x[0]], x[1]) for x in dtsDocuments)
+        self.getTable('dts_document', 'dts_document_id',
+                      ('dts_id', 'document_id','top_level'),
+                      ('dts_id', 'document_id'),
+                      refDocIds)
+
+
+    def insertDocumentRelationships(self, docs):
+        #docs is a set of tuples. The tuples are 0 = clean parent uri, 1 = is top, 2 = clean child uri
+        self.getTable('document_structure', 'document_structure_id',
+                      ('parent_document_id', 'child_document_id'),
+                      ('parent_document_id', 'child_document_id'),
+                      tuple((self.documentIds[docInfo[0]], self.documentIds[childDoc]) for docInfo in docs for childDoc in docInfo[2]))
+                      
+    def insertDocuments(self, docUris):
+        #Determine if the document is in the database
+        query = '''
+            SELECT d.document_id, a.document_uri, d.document_loaded, d.document_id IS NOT NULL AS existing
+            FROM (VALUES %s) a(document_uri)
+            LEFT JOIN document d
+              ON a.document_uri = d.document_uri;
+        ''' % ','.join(tuple("('" + x + "')" for x in docUris))
+        docResults = self.execute(query)
+        existingDocumentIds = dict()
+        documentIds = dict()
+        docsToLoad = dict()
+        docsToUpdate = dict()
+        for docId, docUri, docLoaded, docExisting in docResults:
+            #add existing documents to the dictionary of document ids
+            if docExisting:
+                documentIds[docUri] = docId
+                
+            if docExisting and docLoaded:
+                existingDocumentIds[docUri] = docId
+            else:
+                filePath = None
+                modelDocument = self.docCleanUriMap.get(docUri)
+                #modelDocument will be none for an alternative document (usually the html document) and the content for these are loaded into the database.
+                if modelDocument is None:
+                    filePath = docUri
+                    targetNamespace = None
+                else:
+                    if modelDocument.type == Type.INLINEXBRL and modelDocument is self.modelXbrl.modelDocument:
+                        filePath = modelDocument.filepath
+                    targetNamespace = modelDocument.targetNamespace
+                    
+                if filePath is not None:
+                    with self.getFile(filePath) as inlineFile:
+                        docContent = inlineFile.read().decode()
+                    #docContent = etree.tostring(doc.xmlDocument, encoding=doc.documentEncoding)
+                else:                    
+                    docContent = None
+                if docExisting: #its in the database but not loaded.
+                    docsToUpdate[docUri] = (docId, targetNamespace, docContent)
+                else:
+                    docsToLoad[docUri] = (targetNamespace, docContent)
+        
+        # At this point the documents are devided into 3 dictionaries, existing, to load, and to update.      
+        # Add new docs
+        if len(docsToLoad) > 0:
+            table = self.getTable('document', 'document_id', 
+                          ('document_uri','content', 'document_loaded', 'target_namespace'), 
+                          ('document_uri',), 
+                          tuple((uri, content, True, targetNamespace) for uri, (targetNamespace, content) in docsToLoad.items()),
+                          checkIfExisting=True,
+                          returnExistenceStatus=True)
+            for docId, docUri, docExisting in table:
+                if docExisting:
+                    raise XPDBException("xpgDB:existingDocument",
+                        _("Trying to add document that is already in the database. %s" % docUri))
+                documentIds[docUri] = docId
+        #update documents where there is a record in the database but it was not loaded. This can happen if a DBA adds document records for new taxonomies, but no
+        #filings for that taxonomy have been added to the database. This is not common.
+        if len(docsToUpdate) > 0:
+            updateData = tuple((docId, docContent, True, targetNamespace) for docUrl, (docId, targetNamepace, content) in docsToUpdate.items())
+            self.updateTable('document', ('document_id', 'content', 'document_loaded', 'target_namespace'), updateData)
+            #the document ids are already in the documentIds dictionary.
+        
+        if hasattr(self,'documentIds'):
+            self.documentIds.update(documentIds)
+        else:
+            self.documentIds = documentIds
+            
+        if hasattr(self, 'existingDocumentIds'):
+            self.existingDocumentIds.update(existingDocumentIds)
+        else:
+            self.existingDocumentIds = existingDocumentIds
+
+    def getDTSDocumentIds(self):
+        query = '''
+            SELECT d.document_id, d.document_uri
+            FROM document d
+            JOIN dts_document dd
+              ON d.document_id  = dd.document_id
+            WHERE dd.dts_id = %s
+            ''' % self.dtsId
+        
+        results = self.execute(query)
+        documentIds = {row[1]: row[0] for row in results}
+        return documentIds
+        
+        
+#     def identifyAndInsertDocuments(self):
+#         #Determine if the document is in the database
+#         docUris = set()
+#         for modelDocument in self.modelXbrl.urlDocs.values():
+#             docUris.add('(' + self.dbStr(self.cleanDocumentUri(modelDocument)) + ',' + self.dbStr(modelDocument.uri) + ')')
+#         query = '''
+#             SELECT d.document_id, a.document_uri, a.original_uri, d.document_loaded, d.document_id IS NOT NULL AS existing
+#             FROM (VALUES %s) a(document_uri, original_uri)
+#             LEFT JOIN document d
+#               ON a.document_uri = d.document_uri;
+#         ''' % ','.join(docUris)
+#         docResults = self.execute(query)
+#         self.existingDocumentIds = dict()
+#         self.documentIds = dict()
+#         docsToLoad = dict()
+#         docsToUpdate = dict()
+#         for docId, docUri, docOriginalUri, docLoaded, docExisting in docResults:
+#             #add existing documents to the dictionary of document ids
+#             if docExisting:
+#                 self.documentIds[docUri] = docId
+#                 
+#             if docExisting and docLoaded:
+#                 self.existingDocumentIds[docUri] = docId
+#             else:
+#                 modelDocument = self.modelXbrl.urlDocs[docOriginalUri]
+#                 if modelDocument.type == Type.INLINEXBRL and modelDocument is self.modelXbrl.modelDocument:
+#                     with self.getFile(modelDocument.filepath) as inlineFile:
+#                         docContent = inlineFile.read().decode()
+#                     #docContent = etree.tostring(doc.xmlDocument, encoding=doc.documentEncoding)
+#                 else:                    
+#                     docContent = None
+#                 if docExisting: #its in the database but not loaded.
+#                     docsToUpdate[docUri] = (docId, docContent)
+#                 else:
+#                     docsToLoad[docUri] = docContent
+#         
+#         # At this point the documents are devided into 3 dictionaries, existing, to load, and to update.      
+#         # Add new docs
+#         if len(docsToLoad) > 0:
+#             table = self.getTable('document', 'document_id', 
+#                           ('document_uri','content', 'document_loaded'), 
+#                           ('document_uri',), 
+#                           tuple((uri, content, True) for uri, content in docsToLoad.items()),
+#                           checkIfExisting=True,
+#                           returnExistenceStatus=True)
+#             for docId, docUri, docExisting in table:
+#                 if docExisting:
+#                     raise XPDBException("xpgDB:existingDocument",
+#                         _("Trying to add document that is already in the database. %s" % docUri))
+#                 self.documentIds[docUri] = docId
+#         #update documents where there is a record in the database but it was not loaded. This can happen if a DBA adds document records for new taxonomies, but no
+#         #filings for that taxonomy have been added to the database. This is not common.
+#         if len(docsToUpdate) > 0:
+#             updateData = tuple((docId, docContent, True) for docUrl, docId, content in docsToUpdate.items())
+#             self.updateTable('document', ('document_id', 'content', 'document_loaded'), updateData)
+#             #the document ids are already in the self.documentIds dictionary.
+            
+#     def identifyPreexistingDocuments(self):
+#         self.existingDocumentIds = {}
+#         docUris = set()
+#         for modelDocument in self.modelXbrl.urlDocs.values():
+#             if modelDocument.type == Type.SCHEMA:
+#                 docUris.add(self.dbStr(self.cleanDocumentUri(modelDocument)))
+#         if docUris:
+#             results = self.execute("SELECT document_id, document_uri, document_loaded FROM document WHERE document_uri IN (" +
+#                                    ', '.join(docUris) + ");")
+#             self.existingDocumentIds = dict((docUri,docId) for docId, docUri, docLoaded in results if docLoaded == True)
+#             self.setDocumentIdsLoaded = tuple((docId, docUri) for docId, docUri, docLoaded in results if docLoaded == False)
+# 
+#     def insertDocuments(self):
+#         self.showStatus("insert documents")
+#     
+#         docsToLoad = dict()
+#         for doc in self.modelXbrl.urlDocs.values():
+#             docUri = self.cleanDocumentUri(doc)
+#             if docUri not in self.existingDocumentIds:
+#                 if doc.type == Type.INLINEXBRL and doc is self.modelXbrl.modelDocument:
+#                     with self.getFile(doc.filepath) as inlineFile:
+#                         docContent = inlineFile.read().decode()
+#                     #docContent = etree.tostring(doc.xmlDocument, encoding=doc.documentEncoding)
+#                 else:                    
+#                     docContent = None
+#                 docsToLoad[docUri] = docContent
+#         
+#         if hasattr(self, "alternativeDoc"):
+#             alternativeDocUri = self.mapDocumentUri(self.alternativeDoc)
+#             if alternativeDocUri not in docsToLoad:
+#                 with self.getFile(self.alternativeDoc) as htmlFile:
+#                     docsToLoad[alternativeDocUri] = htmlFile.read().decode()
+#         '''
+#         if self.modelXbrl.modelDocument.type == Type.INSTANCE and hasattr(self, "htmlInstance"):
+#             with self.getFile(self.htmlInstance) as htmlFile:
+#                 docsToLoad[self.htmlInstance] = htmlFile.read().decode()
+#         '''
+#         table = self.getTable('document', 'document_id', 
+#                               ('document_uri','content', 'document_loaded'), 
+#                               ('document_uri',), 
+#                               tuple((uri, content, True) for uri, content in docsToLoad.items()),
+#                               checkIfExisting=True,
+#                               returnExistenceStatus=True)
+#         self.documentIds = dict()
+#         updateLoaded = set()
+#         for id, uri, loaded, existed in table:
+#             self.documentIds[uri] = id
+#             if existed and loaded:
+#                 #add to existing list. This is used to determine which concepts to load
+#                 self.existingDocumentIds[uri] = id
+#             if existed and not loaded:
+#                 #update loaded status
+#                 updateLoaded.add(id)
+#         #update loaded status
+#         if len(updateLoaded) > 0:
+#             docIds = updateLoaded.join(',')
+#             self.execute('UPDATE document SET document_loaded = true WHERE document_id in (%s)' % docIds)
+# 
+#         updateData = [(docId, True) for docId, docUrl in self.setDocumentIdsLoaded]
+#         updateIds = self.updateTable('document', ('document_id', 'document_loaded'), updateData)
+#         
+#         loadedDocs = dict((docUri, docId) for docId, docUri in self.setDocumentIdsLoaded)
+#         self.documentIds.update(loadedDocs)
         
     def identifyConceptsUsed(self):
         # relationshipSets are a dts property
@@ -805,24 +1182,23 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         
         conceptsUsed = set(f.qname for f in self.modelXbrl.factsInInstance)
         
-        #this will contain concpets in facts and relationships
-        conceptsUsed2 = dict()
+        #this will contain concpets in facts
+        reportElements = dict()
         
-        def conceptsUsedIncrement(conceptQname, useType):
-            if conceptQname not in conceptsUsed2:
-                conceptsUsed2[conceptQname] = {'primary': 0, 'dimension': 0, 'member': 0, 'isBase': conceptQname.namespaceURI in self.baseNamespaces}
-            
-            if useType:
-                conceptsUsed2[conceptQname][useType] += 1
-            
+        def reportElementsIncrement(conceptQname, useType):
+            if conceptQname not in reportElements:
+                reportElements[conceptQname] = {'primary': 0, 'dimension': 0, 'member': 0, 'isBase': conceptQname.namespaceURI in self.baseNamespaces}
+            reportElements[conceptQname][useType] += 1
         
         for f in self.modelXbrl.factsInInstance:
-            conceptsUsedIncrement(f.qname, 'primary')
+            reportElementsIncrement(f.qname, 'primary')
             if f.context is not None:
                 for dim in f.context.qnameDims.values():
-                    conceptsUsedIncrement(dim.dimensionQname, 'dimension')
+                    reportElementsIncrement(dim.dimensionQname, 'dimension')
                     if dim.isExplicit:
-                        conceptsUsedIncrement(dim.memberQname, 'member')
+                        reportElementsIncrement(dim.memberQname, 'member')
+        
+        self.reportElements = reportElements
         
         for cntx in self.modelXbrl.contexts.values():
             for dim in cntx.qnameDims.values():
@@ -835,7 +1211,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         for defaultDim, defaultDimMember in self.modelXbrl.qnameDimensionDefaults.items():
             conceptsUsed.add(defaultDim)
             conceptsUsed.add(defaultDimMember)
-            
+        '''
         for relationshipSetKey in self.relationshipSets:
             relationshipSet = self.modelXbrl.relationshipSet(*relationshipSetKey)
             for rel in relationshipSet.modelRelationships:
@@ -845,76 +1221,34 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                 if isinstance(rel.toModelObject, ModelConcept):
                     conceptsUsed.add(rel.toModelObject)
                     conceptsUsedIncrement(rel.toModelObject.qname, None)
-                    
-        for qn in (XbrlConst.qnXbrliIdentifier, XbrlConst.qnXbrliPeriod, XbrlConst.qnXbrliUnit):
-            conceptsUsed.add(self.modelXbrl.qnameConcepts[qn])
-        
+        '''            
+#         for qn in (XbrlConst.qnXbrliIdentifier, XbrlConst.qnXbrliPeriod, XbrlConst.qnXbrliUnit):
+#             conceptsUsed.add(self.modelXbrl.qnameConcepts[qn])
+        conceptsUsed |= {XbrlConst.qnXbrliIdentifier, XbrlConst.qnXbrliPeriod, XbrlConst.qnXbrliUnit}
         conceptsUsed -= {None}  # remove None if in conceptsUsed
         self.conceptsUsed = conceptsUsed
-        self.conceptsUsed2 = conceptsUsed2
         
         #Determine which concepts are new. This will reduce the number of concepts and qnames to load.
-        self.filingDocumentConcepts = set()
-        self.existingDocumentUsedConcepts = set()
-        self.existingDocumentConcepts = set()
-        self.nonReportingConcepts = set()
+        self.newDocumentConcepts = set()
+#         self.existingDocumentUsedConcepts = set()
+        #self.existingDocumentConcepts = set()
+        self.newNonReportingConcepts = set()
         for concept in self.modelXbrl.qnameConcepts.values():
             if self.cleanDocumentUri(concept.modelDocument) not in self.existingDocumentIds:
-                if concept.isItem or concept.isTuple:
-                    self.filingDocumentConcepts.add(concept)
-                else:
-                    self.nonReportingConcepts.add(concept)
-            else:
-                self.existingDocumentConcepts.add(concept)
-                if concept in self.conceptsUsed:
-                    self.existingDocumentUsedConcepts.add(concept)
-                
-        
-    def insertDocuments(self):
-        self.showStatus("insert documents")
-    
-        docsToLoad = dict()
-        for doc in self.modelXbrl.urlDocs.values():
-            docUri = self.cleanDocumentUri(doc)
-            if docUri not in self.existingDocumentIds:
-                if doc.type == Type.INLINEXBRL and doc is self.modelXbrl.modelDocument:
-                    with self.getFile(doc.filepath) as inlineFile:
-                        docContent = inlineFile.read().decode()
-                    #docContent = etree.tostring(doc.xmlDocument, encoding=doc.documentEncoding)
-                else:                    
-                    docContent = None
-                docsToLoad[docUri] = docContent
-        
-        if hasattr(self, "alternativeDoc"):
-            if getattr(self, 'alternativeDocName', None):
-                alternativeDocUri = self.alternativeDocName
-            else:
-                alternativeDocUri = self.mapDocumentUri(self.alternativeDoc)
-            if alternativeDocUri not in docsToLoad:
-                with self.getFile(self.alternativeDoc) as htmlFile:
-                    docsToLoad[alternativeDocUri] = htmlFile.read().decode()
-        '''
-        if self.modelXbrl.modelDocument.type == Type.INSTANCE and hasattr(self, "htmlInstance"):
-            with self.getFile(self.htmlInstance) as htmlFile:
-                docsToLoad[self.htmlInstance] = htmlFile.read().decode()
-        '''
-        table = self.getTable('document', 'document_id', 
-                              ('document_uri','content'), 
-                              ('document_uri',), 
-                              docsToLoad.items(),
-                              checkIfExisting=True)
-        self.documentIds = dict((uri, id)
-                                for id, uri in table)
-        self.documentIds.update(self.existingDocumentIds)
-        
-        updateData = [(docId, True) for docId, docUrl in self.setDocumentIdsLoaded]
-        updateIds = self.updateTable('document', ('document_id', 'document_loaded'), updateData)
-        
-        loadedDocs = dict((docUri, docId) for docId, docUri in self.setDocumentIdsLoaded)
-        self.documentIds.update(loadedDocs)
-        
-        
+                 #if concept.qname.namespaceURI != 'http://www.xbrl.org/2003/instance': # and concept.qname.namespaceURI != 'http://xbrl.org/2005/xbrldt':
+                    if (concept.isItem or concept.isTuple) and not concept.qname.namespaceURI == 'http://www.xbrl.org/2003/instance' :
+                        self.newDocumentConcepts.add(concept)
+                    else:
+                        self.newNonReportingConcepts.add(concept)
+#                 else:
+#                     if concept.qname.namespaceURI not in ('http://www.xbrl.org/2003/instance','http://www.xbrl.org/2003/XLink','http://www.xbrl.org/2003/linkbase'):
+#                         self.newNonReportingConcepts.add(concept)
+#                 else:
+#                     #self.existingDocumentConcepts.add(concept)
+#                     if concept.qname in self.conceptsUsed:
+#                         self.existingDocumentUsedConcepts.add(concept)
 
+                
     def cleanDocumentUri(self, doc):
         if doc.filepathdir.endswith('.zip'):
             pathParts = doc.filepathdir.split('/')
@@ -927,6 +1261,11 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
     def mapDocumentUri(self, documentUri):
         '''Convert uri from cached location.
         '''
+        #check the source uri map first.
+        if hasattr(self, 'sourceUriMap'):
+            if documentUri in self.sourceUriMap:
+                return self.sourceUriMap[documentUri]
+        
         if self.documentCacheLocation is None:
             return documentUri
         
@@ -939,14 +1278,21 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         else:
             return documentUri
 
-    def insertAccessionDocumentAssociation(self):        
-        table = self.getTable('accession_document_association', 'accession_document_association_id', 
-                              ('accession_id','document_id'), 
-                              ('accession_id','document_id',), 
-                              tuple((self.accessionId, docId) 
-                                    for docId in self.documentIds.values()),
-                              checkIfExisting=True)
-        
+#     def insertAccessionDocumentAssociation(self):        
+#         table = self.getTable('accession_document_association_migration', 'accession_document_association_id', 
+#                               ('accession_id','document_id'), 
+#                               ('accession_id','document_id',), 
+#                               tuple((self.accessionId, docId) 
+#                                     for docId in self.documentIds.values()),
+#                               checkIfExisting=True)
+    
+    def insertReportDocument(self):
+        self.getTable('report_document', 'report_document_id',
+                      ('report_id', 'document_id'),
+                      ('report_id', 'document_id'),
+                      tuple((self.accessionId, docId)
+                            for docId in set(self.documentIds.values() )- set(self.dtsDocumentIds.values())))
+    
     def insertCustomArcroles(self):
         self.showStatus("insert arcrole types")
         arcroleTypesByIds = dict(((self.documentIds[self.cleanDocumentUri(arcroleType.modelDocument)],
@@ -994,11 +1340,13 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         
     def insertElements(self):
         self.showStatus("insert elements")
-
+        
+        self.reportTime()
+        
         newElements = list()
         newElementAttributes = list()
 
-        for concept in self.filingDocumentConcepts:
+        for concept in self.newDocumentConcepts:
             newElements.append((self.getQnameId(concept.qname),
                                      self.getQnameId(concept.typeQname), # may be None
                                      self.getQnameId(concept.baseXbrliTypeQname
@@ -1020,7 +1368,9 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                     
                     if not (attribQName.namespaceURI == 'http://www.xbrl.org/2003/instance' and attribQName.localName in ('balance','periodType')):
                         newElementAttributes.append((self.getQnameId(concept.qname),self.getQnameId(attribQName),attribValue))
-                    
+        
+        self.reportTime('collected new concepts')
+        
         table = self.getTable('element', 'element_id', 
                               ('qname_id', 'datatype_qname_id', 'xbrl_base_datatype_qname_id', 'balance_id',
                                'period_type_id', 'substitution_group_qname_id', 'abstract', 'nillable',
@@ -1030,19 +1380,25 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
 
         self.elementId = dict((qnameId, elementId)  # indexed by qnameId, not by qname value
                               for elementId, qnameId in table)
-        #filingDocumentConcepts.clear() # dereference
-        
-        # get existing element IDs
-        if self.existingDocumentUsedConcepts:
-            conceptQnameIds = []
-            for concept in self.existingDocumentUsedConcepts:
-                conceptQnameIds.append(str(self.getQnameId(concept.qname)))
-            results = self.execute("SELECT element_id, qname_id FROM element WHERE qname_id IN (" +
-                                   ', '.join(conceptQnameIds) + ");")
+        #newDocumentConcepts.clear() # dereference
+        self.reportTime('added elements')
+#         # get existing element IDs
+#         if self.existingDocumentUsedConcepts:
+#             conceptQnameIds = []
+#             for concept in self.existingDocumentUsedConcepts:
+#                 conceptQnameIds.append(str(self.getQnameId(concept.qname)))
+#             results = self.execute("SELECT element_id, qname_id FROM element WHERE qname_id IN (" +
+#                                    ', '.join(conceptQnameIds) + ");")
+#             for elementId, qnameId in results:
+#                 self.elementId[qnameId] = elementId
+        if len(self.existingDocumentIds) > 0:
+            query = "SELECT element_id, qname_id FROM element WHERE document_id in (" + ','.join(str(x) for x in self.existingDocumentIds.values()) + ");"
+            results = self.execute(query)
+            self.reportTime('ran existing element query')
             for elementId, qnameId in results:
                 self.elementId[qnameId] = elementId
-        #existingDocumentUsedConcepts.clear() # dereference        
-        
+            #existingDocumentUsedConcepts.clear() # dereference        
+            self.reportTime('got existing element ids')
         #element attributes
         table = self.getTable('attribute_value', 'attribute_value_id', 
                               ('qname_id', 'text_value'),
@@ -1080,6 +1436,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
             #need to get the qname_id from the database
             result = self.execute("SELECT qname_id FROM qname WHERE namespace = '%s' AND local_name = '%s'" % (qname.namespaceURI, qname.localName))
             if result:
+                self.qnameId[qname] = result[0][0]
                 return result[0][0]
             else:
                 return None
@@ -1087,39 +1444,51 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
 #                                     _("Could not retrieve the qname id for {%(namespace)s}%(localName)s"),
 #                                     namespace=qname.namespaceURI, localName=qname.localName)
     
-    def insertAccessionElements(self):
+#     def insertAccessionElements(self):
+#  
+#         table = self.getTable('accession_element', 'accession_element_id', 
+#                       ('accession_id', 'element_id', 'is_base', 'primary_count', 'dimension_count', 'member_count'), 
+#                       ('accession_id', 'element_id'), 
+#                       tuple((self.accessionId,
+#                              self.conceptElementIdByQname(conceptQname),
+#                              ae_detail['isBase'],
+#                              ae_detail['primary'] if ae_detail['primary'] > 0 else None,
+#                              ae_detail['dimension'] if ae_detail['dimension'] > 0 else None,
+#                              ae_detail['member'] if ae_detail['member'] > 0 else None)
+#                             for conceptQname, ae_detail in self.conceptsUsed2.items())
+#                      )        
+
+    def insertReportElements(self):
  
-        table = self.getTable('accession_element', 'accession_element_id', 
-                      ('accession_id', 'element_id', 'is_base', 'primary_count', 'dimension_count', 'member_count'), 
-                      ('accession_id', 'element_id'), 
+        table = self.getTable('report_element', 'report_element_id', 
+                      ('report_id', 'element_id', 'is_base', 'primary_count', 'dimension_count', 'member_count'), 
+                      ('report_id', 'element_id'), 
                       tuple((self.accessionId,
                              self.conceptElementIdByQname(conceptQname),
                              ae_detail['isBase'],
                              ae_detail['primary'] if ae_detail['primary'] > 0 else None,
                              ae_detail['dimension'] if ae_detail['dimension'] > 0 else None,
                              ae_detail['member'] if ae_detail['member'] > 0 else None)
-                            for conceptQname, ae_detail in self.conceptsUsed2.items())
+                            for conceptQname, ae_detail in self.reportElements.items())
                      )        
-                   
+    
+    
     def insertNetworks(self):
         self.reportTime()
-    
+
         if not self.dtsExists:
-            dtsBaseSets = [(arcrole, ELR, linkqname, arcqname) for arcrole, ELR, linkqname, arcqname in self.modelXbrl.baseSets.keys() 
-                                if ELR and linkqname and arcqname and not arcrole.startswith("XBRL-") and (arcrole, ELR, linkqname, arcqname) not in self.instanceBaseSets]
+            self.timeCall((self.addNetworks, 'base dts network'),self.dtsId, self.dtsBaseSets)
         
-            self.timeCall((self.addNetworks, 'base dts network'),self.dtsId, dtsBaseSets)
-        
-        if self.entryDtsId is not None:
+        if self.loadType == 'instance' and self.entryDtsId is not None:
             self.timeCall((self.addNetworks, 'instance dts network'),self.entryDtsId, self.instanceBaseSets)
         
     def addNetworks(self, dtsId, baseSets):
 #         # delete existing
 #         # the load process does not load an existing filing,  so these deletes are not needed.
 #         self.execute("DELETE from relationship r USING network n WHERE r.network_id = n.network_id AND n.accession_id = {0};".format(self.accessionId), 
-#                      close=False, fetch=False)        
+#                       fetch=False)        
 #         self.execute("DELETE from network n WHERE n.accession_id = {0};".format(self.accessionId), 
-#                      close=False, fetch=False)    
+#                      fetch=False)    
 #         self.reportTime('delete relationships and networks')
 #         '''NEED TO DELETE EXISTING resource, label_resource, footnote_resource, reference_part'''   
         # deduplicate resources (may be on multiple arcs)
@@ -1188,7 +1557,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         self.getTable('reference_part', 'reference_part_id',
                       ('resource_id', 'value', 'qname_id', 'ref_order'),
                       ('resource_id', 'qname_id'),
-                      tuple((rp[0], rp[2], self.qnameId[rp[1]], rp[3])
+                      tuple((rp[0], rp[2], self.getQnameId(rp[1]), rp[3])
                             for rp in referenceParts),
                       checkIfExisting=True)
         self.reportTime('add reference parts')
@@ -1253,7 +1622,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                           self.uriId[rel.targetRole] if rel.targetRole is not None else None
                           )
                          for rel, sequence, depth, networkId in dbRels
-                         if rel.fromModelObject is not None and rel.toModelObject is not None)
+                            if rel.fromModelObject is not None and rel.toModelObject is not None)
 
 #        copyData = "\n".join(','.join(row for row in relsData))
 
@@ -1268,7 +1637,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                               ('network_id', 'tree_sequence'), 
                               relsData)
         self.reportTime('load relationships')
-        
+                                          
     def UOMString(self, unit):
         try:
             return self.sourceCall(unit)
@@ -1290,7 +1659,17 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                 return '/'.join((numerator, denominator))
             else:
                 return numerator
-                    
+
+    def UOMDefaultString(self, unit):
+        numerator = ' * '.join(x.localName for x in unit.measures[0])
+        denominator = ' * '.join(x.localName for x in unit.measures[1])
+        
+        if numerator != '':
+            if denominator != '':
+                return '/'.join((numerator, denominator))
+            else:
+                return numerator        
+                                
     def fiscalYear(self, context):
         try:
             return self.sourceCall(context)
@@ -1511,6 +1890,9 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
             return 'F'
     
     def hashCalendarPeriod(self, context, calendarYear, calendarPeriod):
+        if calendarPeriod is None:
+            return None
+        
         if context.isStartEndPeriod or context.isInstantPeriod:
             if '-' in calendarPeriod:
                 #unknown period
@@ -1562,7 +1944,12 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         return self.entityScheme + "|" + self.entityIdentifier
      
     def hashUnit(self, fact):
-        self.unitHash.get((self.accessionId,fact.unitID))
+        #self.unitHash.get((self.accessionId,fact.unitID))
+        unitInfo = self.unitsbyXmlId.get(fact.unitID)
+        if unitInfo is None:
+            return None
+        else:
+            return unitInfo['unitHash']
 
     def hashFact(self, fact):
 
@@ -1572,7 +1959,8 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
             hash_list = [self.hashPrimary(fact),
                          self.hashEntity(),
                          self.cntxInfo.get((self.accessionId,fact.contextID))['period_hash'],
-                         self.unitHash.get((self.accessionId,fact.unitID)) or ''
+                         self.hashUnit(fact) or ''
+                         #self.unitHash.get((self.accessionId,fact.unitID)) or ''
                          ]
     
             if self.cntxInfo.get((self.accessionId,fact.contextID))['dim_hash']:
@@ -1593,7 +1981,8 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                 hash_list = [self.hashPrimary(fact),
                              self.hashEntity(),
                              self.cntxInfo.get((self.accessionId,fact.contextID))['calendar_period_hash'],
-                             self.unitHash.get((self.accessionId,fact.unitID)) or ''
+                             self.hashUnit(fact) or ''
+                             #self.unitHash.get((self.accessionId,fact.unitID)) or ''
                              ]
         
                 if self.cntxInfo.get((self.accessionId,fact.contextID))['dim_hash']:
@@ -1613,7 +2002,8 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                 hash_list = [self.hashPrimary(fact),
                              self.hashEntity(),
                              self.cntxInfo.get((self.accessionId,fact.contextID))['fiscal_period_hash'],
-                             self.unitHash.get((self.accessionId,fact.unitID)) or ''
+                             self.hashUnit(fact) or ''
+                             #self.unitHash.get((self.accessionId,fact.unitID)) or ''
                              ]
         
                 if self.cntxInfo.get((self.accessionId,fact.contextID))['dim_hash']:
@@ -1634,32 +2024,33 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         self.showStatus("insert facts")
         
         # units        
-        table = self.getTable('unit', 'unit_id', 
-                              ('accession_id', 'unit_xml_id'), 
-                              ('accession_id', 'unit_xml_id'), 
-                              tuple((accsId,
-                                     unitId)
-                                    for unitId in self.modelXbrl.units.keys()))
-        self.unitId = dict(((_accsId, xmlId), id)
-                           for id, _accsId, xmlId in table)
-        
-        self.unitString = dict(((_accsId, xmlId), self.UOMString(self.modelXbrl.units[xmlId]))
-                           for id, _accsId, xmlId in table)
-        
-        self.unitHash = dict(((_accsId, xmlId), self.UOMHash(self.modelXbrl.units[xmlId]))
-                           for id, _accsId, xmlId in table)
-        
-        # measures
-        table = self.getTable('unit_measure', 'unit_measure_id', 
-                              ('unit_id', 'qname_id', 'location_id'), 
-                              ('qname_id', 'location_id'), 
-                              tuple((self.unitId[(accsId,unit.id)],
-                                     self.getQnameId(measure),
-                                     1 if (len(unit.measures[1]) == 0) else (i + 2))
-                                    for unit in self.modelXbrl.units.values()
-                                    for i in range(2)
-                                    for measure in unit.measures[i]))
-
+#         table = self.getTable('unit', 'unit_id', 
+#                               ('accession_id', 'unit_xml_id'), 
+#                               ('accession_id', 'unit_xml_id'), 
+#                               tuple((accsId,
+#                                      unitId)
+#                                     for unitId in self.modelXbrl.units.keys()))
+#         
+#         self.unitId = dict(((_accsId, xmlId), id)
+#                            for id, _accsId, xmlId in table)
+#         
+#         self.unitString = dict(((_accsId, xmlId), self.UOMString(self.modelXbrl.units[xmlId]))
+#                            for id, _accsId, xmlId in table)
+#         
+#         self.unitHash = dict(((_accsId, xmlId), self.UOMHash(self.modelXbrl.units[xmlId]))
+#                            for id, _accsId, xmlId in table)
+#         
+#         # measures
+#         table = self.getTable('unit_measure', 'unit_measure_id', 
+#                               ('unit_id', 'qname_id', 'location_id'), 
+#                               ('qname_id', 'location_id'), 
+#                               tuple((self.unitId[(accsId,unit.id)],
+#                                      self.getQnameId(measure),
+#                                      1 if (len(unit.measures[1]) == 0) else (i + 2))
+#                                     for unit in self.modelXbrl.units.values()
+#                                     for i in range(2)
+#                                     for measure in unit.measures[i]))
+        self.insertUnit()
         self.reportTime('units')
         
         self.cntxInfo = dict()
@@ -1813,6 +2204,54 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         self.timeCall((self.updateUltimus, 'calc calendar ultimus'),'calendar')
         self.timeCall((self.updateUltimus, 'calc fiscal ultimus'),'fiscal')        
 
+    def insertUnit(self):
+        
+        unitBase = dict()
+        unitMeasureBase = dict()
+        
+        for unit in self.modelXbrl.units.values():
+            unitHashString = self.UOMDefault(unit)
+            unitHash = hashlib.sha224(unitHashString.encode()).digest()
+            unitString = self.UOMDefaultString(unit)
+            if str(unitHash) not in unitBase:
+                unitBase[str(unitHash)] = {'hash':unitHash, 'hashString':unitHashString, 'string':unitString, 'modelUnits':list()}
+            unitBase[str(unitHash)]['modelUnits'].append(unit)
+        
+        table = self.getTable('unit_base', 'unit_base_id',
+                              ('unit_hash', 'unit_hash_string', 'unit_string'),
+                              ('unit_hash',),
+                              tuple((unitValue['hash'], unitValue['hashString'], unitValue['string'])
+                                    for unitValue in unitBase.values()),
+                              checkIfExisting=True,
+                              returnExistenceStatus=True)
+        
+        for row in table:
+            unitBase[row[1]]['unitBaseId'] = row[0]
+        
+        #unit_measure_base
+        table = self.getTable('unit_measure_base', 'unit_measure_base_id',
+                              ('unit_base_id', 'qname_id', 'location_id'),
+                              ('unit_base_id', 'qname_id', 'location_id'),
+                              tuple((unitValue['unitBaseId'], 
+                                     self.getQnameId(measure), 
+                                     1 if (len(unitValue['modelUnits'][0].measures[1]) == 0) else (i + 2))
+                                    for unitValue in unitBase.values()
+                                    for i in range(2)
+                                    for measure in unitValue['modelUnits'][0].measures[i]))
+        
+        #unit report
+        table = self.getTable('unit_report', 'unit_report_id',
+                              ('report_id', 'unit_base_id', 'unit_xml_id'),
+                              ('report_id', 'unit_base_id', 'unit_xml_id'),
+                              tuple((self.accessionId, unitValue['unitBaseId'], unit.id)
+                                    for unitValue in unitBase.values()
+                                    for unit in unitValue['modelUnits']))
+        
+        self.unitsbyXmlId = dict((xmlId, {'unitReportId':id, 'unitBaseId': unitBaseId, 'unitString':self.UOMString(self.modelXbrl.units[xmlId]), 'unitHash':self.UOMHash(self.modelXbrl.units[xmlId])})
+                          for id, _x, unitBaseId, xmlId in table)        
+
+
+    
     def canonicalizeTypedDimensionMember(self, typedMember):
         typedElement = self.modelXbrl.qnameConcepts[typedMember.qname]
         
@@ -1911,49 +2350,101 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
             indexName = 'ultimus_index'
             hashName = 'fact_hash'
             factsByHash = self.factsByHashString
-            contextAugJoin = ''
+            contextJoin = ''
             orderBy = 'r.accepted_timestamp DESC, r.report_id DESC, f.fact_id DESC'
         elif ultimusType == 'calendar':
             #calendar
             indexName = 'calendar_ultimus_index'
             hashName = 'calendar_hash'
             factsByHash = self.factsByCalendarHashString
-            contextAugJoin = 'JOIN context_aug ca ON f.context_id = ca.context_id'
-            orderBy = 'r.accepted_timestamp DESC, r.report_id DESC, abs(ca.calendar_period_size_diff_percentage), abs(ca.calendar_end_offset), f.fact_id DESC'
+            contextJoin = 'JOIN context c ON f.context_id = c.context_id'
+            orderBy = 'r.accepted_timestamp DESC, r.report_id DESC, abs(c.calendar_period_size_diff_percentage), abs(c.calendar_end_offset), f.fact_id DESC'
         elif ultimusType == 'fiscal':
             indexName = 'fiscal_ultimus_index'
             hashName = 'fiscal_hash'
             factsByHash = self.factsByFiscalHashString
-            contextAugJoin = ''
+            contextJoin = ''
             orderBy = 'r.accepted_timestamp DESC, r.report_id DESC, f.fact_id DESC'            
         
+        self.reportTime()
         updateFacts = []
-        for hashString, factIds in factsByHash.items():
-            #get facts to update
-            hashQuery = '''
-                SELECT f.fact_id, {indexName} as hash_index
+        self.reportTime()
+        
+        hashQuery = '''
+            WITH ultimus_calc AS (
+                SELECT f.fact_id
+                      ,{indexName} as old_index
+                      ,row_number() OVER (PARTITION BY {hashName} ORDER BY {orderBy}) AS new_index
                 FROM report r
                 JOIN fact f
                   ON r.report_id = f.accession_id
-                {contextAugJoin}
-                WHERE f.{hashName} = decode('{hash}', 'hex')
-                ORDER BY {orderBy};
-                '''.format(indexName=indexName, contextAugJoin=contextAugJoin, hashName=hashName, hash=hashlib.sha224(hashString.encode()).hexdigest(), orderBy=orderBy)
-
-            results = self.execute(hashQuery)
-            
-            new_ultimus = 1
-            for row in results:
-                if row[1] != new_ultimus:
-                    updateFacts.append((row[0], new_ultimus))
-#                     #update the values for fact_aug
-#                     if row[0] in self.factsForFactAug:
-#                         self.factsForFactAug[row[0]][indexName] = new_ultimus
-                new_ultimus += 1
+                {contextJoin}
+                WHERE f.{hashName} in (SELECT {hashName} FROM fact WHERE accession_id = {reportId})
+            )
+            UPDATE fact f
+            SET {indexName} = ultimus_calc.new_index
+            FROM ultimus_calc
+            WHERE f.fact_id = ultimus_calc.fact_id
+              AND COALESCE(ultimus_calc.old_index, 0) <> ultimus_calc.new_index
+            '''.format(indexName=indexName, hashName=hashName, orderBy=orderBy, reportId=self.accessionId, contextJoin=contextJoin)
         
-        self.updateTable('fact',('fact_id', indexName), updateFacts)
-        #self.updateTable('fact_aug',('fact_id', indexName), updateFacts)
-    
+#         self.reportTime()
+        self.execute(hashQuery, fetch=False)
+#         self.reportTime('biq query run')
+        
+#         
+#         
+#         t = datetime.timedelta()
+#         pt = datetime.timedelta()
+#         c = 0
+#         for hashString, factIds in factsByHash.items():
+#             c += 1
+#             #get facts to update
+#             hashQuery = '''
+#                 SELECT f.fact_id, {indexName} as hash_index
+#                 FROM report r
+#                 JOIN fact f
+#                   ON r.report_id = f.accession_id
+#                 {contextAugJoin}
+#                 WHERE f.{hashName} = decode('{hash}', 'hex')
+#                 ORDER BY {orderBy};
+#                 '''.format(indexName=indexName, contextAugJoin=contextAugJoin, hashName=hashName, hash=hashlib.sha224(hashString.encode()).hexdigest(), orderBy=orderBy)
+#             
+#             s = datetime.datetime.now()
+#             results = self.execute(hashQuery)
+#             e = datetime.datetime.now()
+#             t += e - s
+#             if (c % 100) == 0:
+#                 phours, premainder = divmod((t - pt).total_seconds(), 3600)
+#                 pminutes, pseconds = divmod(premainder, 60)
+#                 thours, tremainder = divmod(t.total_seconds(), 3600)
+#                 tminutes, tseconds = divmod(tremainder, 60)
+#                 self.modelXbrl.info("info",_("count: %(c)s - 100: %(pt)s - total: %(t)s"),
+#                                               c=str(c),
+#                                               pt='%02.0f:%02.0f:%02.4f' % (phours, pminutes, pseconds),
+#                                               t='%02.0f:%02.0f:%02.4f' % (thours, tminutes, tseconds))  
+#                 pt = t
+#             new_ultimus = 1
+#             for row in results:
+#                 if row[1] != new_ultimus:
+#                     updateFacts.append((row[0], new_ultimus))
+# #                     #update the values for fact_aug
+# #                     if row[0] in self.factsForFactAug:
+# #                         self.factsForFactAug[row[0]][indexName] = new_ultimus
+#                 new_ultimus += 1
+#                 
+#                 
+#         thours, tremainder = divmod(t.total_seconds(), 3600)
+#         tminutes, tseconds = divmod(tremainder, 60)
+#         self.modelXbrl.info("info",_("final count: %(c)s - total: %(t)s"),
+#                                       c=str(c),
+#                                       t='%02.0f:%02.0f:%02.4f' % (thours, tminutes, tseconds)) 
+#                 
+#         self.reportTime('calc ultimus')
+#         self.updateTable('fact',('fact_id', indexName), updateFacts)
+#         #self.updateTable('fact_aug',('fact_id', indexName), updateFacts)
+#         self.reportTime('update ultimus')
+        
     def isExtendedFact(self, fact):
         '''
         This funciton determines if the fact has an extended component (primary or dimension or member).
@@ -2036,7 +2527,8 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                  'accession_id': self.accessionId,
                  'tuple_fact_id': tupleFactId,
                  'context_id': self.cntxId.get((self.accessionId,fact.contextID)),
-                 'unit_id': self.unitId.get((self.accessionId,fact.unitID)),
+                 'unit_id': self.unitsbyXmlId[fact.unitID]['unitReportId'] if fact.unitID in self.unitsbyXmlId else None, #self.unitId.get((self.accessionId,fact.unitID)),
+                 'unit_base_id': self.unitsbyXmlId[fact.unitID]['unitBaseId'] if fact.unitID in self.unitsbyXmlId else None,
                  'element_id': self.conceptElementId(fact.concept),
                  'effective_value': effectiveValue,
                  'fact_value': factValue,
@@ -2045,7 +2537,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                  'decimals_value': fact.xAttributes['decimals'].xValue if ('decimals' in fact.xAttributes and isinstance(fact.xAttributes['decimals'].xValue,int)) else None,
                  'is_precision_infinity': 'precision' in fact.xAttributes and fact.xAttributes['precision'].xValue == 'INF',
                  'is_decimals_infinity': 'decimals' in fact.xAttributes and fact.xAttributes['decimals'].xValue == 'INF',
-                 'uom': self.unitString.get((self.accessionId,fact.unitID)),
+                 'uom': self.unitsbyXmlId[fact.unitID]['unitString'] if fact.unitID in self.unitsbyXmlId else None, #self.unitString.get((self.accessionId,fact.unitID)),
                  'fiscal_year': self.cntxInfo.get((self.accessionId,fact.contextID))['fiscal_year'] if not fact.isTuple else None,
                  'fiscal_period': self.cntxInfo.get((self.accessionId,fact.contextID))['fiscal_period'] if not fact.isTuple else None,
                  'fiscal_hash': fiscalHash,
@@ -2061,14 +2553,14 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                  }
 
         table = self.getTable('fact', 'fact_id', 
-                              ('accession_id', 'tuple_fact_id', 'context_id', 'unit_id', 'element_id', 'effective_value', 'fact_value', 
+                              ('accession_id', 'tuple_fact_id', 'context_id', 'unit_id', 'unit_base_id', 'element_id', 'effective_value', 'fact_value', 
                                'xml_id', 'precision_value', 'decimals_value', 
                                'is_precision_infinity', 'is_decimals_infinity','uom', 
                                'fiscal_year', 'fiscal_period', 'fiscal_hash', 'fact_hash',
                                'calendar_year', 'calendar_period', 'calendar_hash', 
                                'is_extended'), 
                               ('accession_id', 'xml_id', 'uom', 'is_extended'),
-                              tuple((f['accession_id'], f['tuple_fact_id'], f['context_id'], f['unit_id'], f['element_id'], f['effective_value'], f['fact_value'], 
+                              tuple((f['accession_id'], f['tuple_fact_id'], f['context_id'], f['unit_id'], f['unit_base_id'], f['element_id'], f['effective_value'], f['fact_value'], 
                                f['xml_id'], f['precision_value'], f['decimals_value'], 
                                f['is_precision_infinity'], f['is_decimals_infinity'], f['uom'], 
                                f['fiscal_year'], f['fiscal_period'], f['fiscal_hash'], f['fact_hash'],
@@ -2106,7 +2598,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                 WINDOW w AS (partition BY entity_id, reporting_period_end_date ORDER BY accepted_timestamp DESC)) x
             WHERE r.report_id = x.report_id 
               AND x.rn <> coalesce(r.restatement_index,0)''' % (self.entityId)
-        self.execute(query, close=False, fetch=False)
+        self.execute(query, fetch=False)
         
         #recalculate the period index for all reports for the entity
         query = '''
@@ -2119,7 +2611,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                 WINDOW w AS (partition BY entity_id ORDER BY reporting_period_end_date DESC, restatement_index ASC)) x
             WHERE r.report_id = x.report_id
               AND x.rn <> coalesce(r.period_index, 0)''' % (self.entityId)
-        self.execute(query, close=False, fetch=False)
+        self.execute(query, fetch=False)
         
         #update is most current
         query = '''
@@ -2132,7 +2624,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                 WINDOW w AS (ORDER BY accepted_timestamp DESC, source_report_identifier)) x
             WHERE r.report_id = x.report_id
               AND r.is_most_current != x.is_most_current''' % (self.entityId)
-        self.execute(query, close=False, fetch=False)
+        self.execute(query, fetch=False)
 
     def getSourceSetting(self, name):
         if self.sourceMod is not None:

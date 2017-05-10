@@ -33,14 +33,15 @@ def UKCHFilingAndEntityInfo(dbLoader):
                                     _("Cannot get the registered number or the period of the report."))
     info['accessionNumber'] = ','.join((info['entityIdentifier'], info['period']))
     
-    fullFileName = dbLoader.options.entrypointFile
-    baseFileName = os.path.basename(fullFileName)
-    info['entryUrl'] = baseFileName
+    info['entryUrl'] = dbLoader.modelXbrl.modelDocument.basename
     
     if dbLoader.modelXbrl.modelDocument.type == Type.INLINEXBRL:
-        info['alternativeDocName'] = baseFileName
+        #info['alternativeDocName'] = baseFileName
         info['alternativeDoc'] = dbLoader.modelXbrl.modelDocument.uri
 
+    #UKCH files do not have permanent URI. So the document uri will just be the base file name.
+    info['sourceUriMap'] = {dbLoader.modelXbrl.modelDocument.uri: dbLoader.modelXbrl.modelDocument.basename}
+    
     return info
 
 def UKCHFiscalYearEnd(dbLoader):
