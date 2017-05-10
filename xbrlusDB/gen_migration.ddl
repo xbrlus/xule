@@ -86,7 +86,8 @@ CREATE UNIQUE INDEX namespace_source_index01 ON namespace_source (namespace_id, 
 
 CREATE TABLE dts (
 	dts_id SERIAL NOT NULL PRIMARY KEY,
-	dts_hash bytea NOT NULL);
+	dts_hash bytea NOT NULL,
+	dts_name varchar);
 
 CREATE UNIQUE INDEX dts_index01 ON dts (dts_hash);
 
@@ -138,15 +139,19 @@ CREATE UNIQUE INDEX report_element_index01 ON report_element (report_id, element
 
 CREATE UNIQUE INDEX report_element_index02 ON report_element (element_id, report_id);
 
-CREATE TABLE document_relationship (
-	document_relationship_id SERIAL NOT NULL PRIMARY KEY,
+CREATE TABLE document_structure (
+	document_structure_id SERIAL NOT NULL PRIMARY KEY,
 	parent_document_id integer NOT NULL,
 	child_document_id integer NOT NULL);
-
-CREATE INDEX document_relationship_index01 ON document_relationship (parent_document_id, child_document_id);
+	
+CREATE INDEX document_structure_index01
+  ON document_structure
+  USING btree
+  (parent_document_id, child_document_id);
 
 ALTER TABLE document
-	ADD COLUMN document_type character varying;
+	ADD COLUMN document_type character varying,
+	ADD COLUMN target_namespace character varying;
 
 CREATE UNIQUE INDEX base_namespace_index01 ON base_namespace (source_id, preface);
 
@@ -158,23 +163,156 @@ COMMENT ON COLUMN entity.entity_code IS 'Deprecated, use entity_identifier on ta
 COMMENT ON COLUMN entity.authority_scheme IS 'Deprecated, used scheme on table entity_identifier. Value is used for SEC reports only.';	
 
 CREATE TABLE unit_base (
-	unit_base_id SERIAL NOT NULL,
+	unit_base_id SERIAL NOT NULL PRIMARY KEY,
 	unit_hash bytea NOT NULL,
 	unit_hash_string character varying NOT NULL,
 	unit_string character varying);
 
-CREATE TABLE unit_report (
-	unit_report_id SERIAL NOT NULL,
-	report_id integer NOT NULL,
-	unit_base_id integer NOT NULL,
-	unit_xml_id CHARACTER VARYING NOT NULL);
-
 CREATE TABLE unit_measure_base (
-	unit_measure_base_id SERIAL NOT NULL,
+	unit_measure_base_id SERIAL NOT NULL PRIMARY KEY,
 	unit_base_id integer NOT NULL,
 	qname_id integer NOT NULL,
 	location_id smallint);
 COMMENT ON COLUMN unit_measure_base.location_id IS '1 = measure; 2 = numerator; 3 = denominator';
+
+
+CREATE TABLE unit_report (
+	unit_report_id SERIAL NOT NULL,
+
+-- Function: document_navigate(integer, integer, integer, integer[])
+
+-- DROP FUNCTION document_navigate(integer, integer, integer, integer[]);
+
+CREATE OR REPLACE FUNCTION document_navigate(
+    IN doc_id_arg integer,
+    IN tree_order_arg integer,
+    IN level_arg integer,
+    IN processed_ids integer[])
+  RETURNS TABLE(tree_order integer, level integer, document_id integer, starts_loop boolean) AS
+$BODY$
+DECLARE
+	next_doc_id int;
+	child_row	record;
+	cur_tree_order int;
+	ignore_uris	varchar[] := ARRAY['http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd',
+				   'http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd',
+				   'http://www.xbrl.org/2005/xbrldt-2005.xsd'];
+BEGIN
+	RETURN QUERY SELECT tree_order_arg, level_arg, doc_id_arg, False;
+	cur_tree_order := tree_order_arg;
+	cur_tree_order := cur_tree_order + 1;
+	FOR next_doc_id IN SELECT dr.child_document_id 
+			   FROM document_structure dr 
+			   JOIN document d
+			     ON dr.child_document_id = d.document_id
+			   WHERE dr.parent_document_id = doc_id_arg
+			     AND d.document_uri != ALL(ignore_uris)
+	LOOP
+		IF next_doc_id = ANY(processed_ids) THEN
+			RETURN QUERY SELECT cur_tree_order, level_arg + 1, next_doc_id, True;
+			CONTINUE;
+		END IF;
+		
+		FOR child_row IN SELECT * FROM document_navigate(next_doc_id, cur_tree_order, level_arg + 1, processed_ids || doc_id_arg) LOOP
+			cur_tree_order := cur_tree_order + 1;
+			RETURN QUERY SELECT child_row.tree_order, child_row.level, child_row.document_id, child_row.starts_loop;
+		END LOOP;
+	END LOOP;
+	RETURN;
+END
+
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
+  ROWS 1000;
+ALTER FUNCTION document_navigate(integer, integer, integer, integer[])
+  OWNER TO postgres;
+
+-- Function: dts_tree(integer)
+
+-- DROP FUNCTION dts_tree(integer);
+
+CREATE OR REPLACE FUNCTION dts_tree(IN dts_id_arg integer)
+  RETURNS TABLE(tree_order integer, level integer, document_id integer, starts_loop boolean) AS
+$BODY$
+
+DECLARE
+	root_doc_id	int;
+BEGIN
+	FOR root_doc_id IN SELECT dd.document_id FROM dts_document dd WHERE dd.dts_id = dts_id_arg AND top_level LOOP
+		RETURN QUERY SELECT * FROM document_navigate(root_doc_id, 0, 0, ARRAY[]::int[]);
+	END LOOP;
+
+	RETURN;
+END
+
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
+  ROWS 1000;
+ALTER FUNCTION dts_tree(integer)
+  OWNER TO postgres;
+-- Function: report_tree(integer)
+
+-- DROP FUNCTION report_tree(integer);
+
+CREATE OR REPLACE FUNCTION report_tree(IN report_id_arg integer)
+  RETURNS TABLE(tree_order integer, level integer, document_id integer, starts_loop boolean) AS
+$BODY$
+	SELECT *
+	FROM document_navigate((SELECT entry_document_id FROM report WHERE report_id = report_id_arg), 0, 0, ARRAY[]::int[]);
+$BODY$
+  LANGUAGE sql VOLATILE
+  COST 100
+  ROWS 1000;
+ALTER FUNCTION report_tree(integer)
+  OWNER TO postgres;
+
+CREATE TABLE report_document (
+	report_document_id SERIAL NOT NULL,
+	report_id integer NOT NULL,
+	document_id integer NOT NULL);
+
+CREATE UNIQUE INDEX report_document_index01 ON report_document (report_id, document_id);
+CREATE UNIQUE INDEX report_document_index02 ON report_document (document_id, report_id);
+
+
+ALTER TABLE accession_document_association RENAME TO accession_document_association_migration;
+
+
+CREATE VIEW accession_document_association AS
+WITH r AS (
+	SELECT r.report_id, r.dts_id
+	FROM report r
+)	
+SELECT rd.report_document_id AS accession_document_association_id
+      ,rd.report_id AS accession_id
+      ,rd.document_id
+FROM report_document rd
+JOIN r
+  ON rd.report_id = r.report_id
+UNION ALL
+SELECT dd.dts_document_id AS accession_document_association_id
+      ,r.report_id AS accession_id
+      ,dd.document_id
+FROM r
+JOIN dts_document dd
+  ON r.dts_id = dd.dts_id
+WHERE r.report_id IN (SELECT r.report_id FROM r);
+
+ALTER TABLE accession_element RENAME TO accession_element_migration;
+
+CREATE OR REPLACE VIEW accession_element AS 
+ SELECT COALESCE(re.report_element_id, de.dts_element_id) AS accession_element_id,
+    COALESCE(re.report_id, r.report_id) AS accession_id,
+    COALESCE(re.element_id, de.element_id) AS element_id,
+    COALESCE(re.is_base, de.is_base) AS is_base,
+    COALESCE(re.primary_count, NULL::integer) AS primary_count,
+    COALESCE(re.dimension_count, NULL::integer) AS dimension_count,
+    COALESCE(re.member_count, NULL::integer) AS member_count
+   FROM report_element re
+     FULL JOIN (dts_element de
+     JOIN report r ON de.dts_id = r.dts_id AND de.in_relationship) ON re.report_id = r.report_id AND re.element_id = de.element_id;
 
 CREATE OR REPLACE FUNCTION delete_report(in_report_id bigint)
   RETURNS integer AS
