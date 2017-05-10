@@ -37,6 +37,10 @@ class ModelManager:
 
         True for calculation linkbase validation to infer decimals (instead of precision)
 
+        .. attribute:: validateDedupCalcs
+
+        True for calculation linkbase validation de-duplicate calculations
+
         .. attribute:: validateUTR
 
         True for validation of unit type registry
@@ -52,6 +56,7 @@ class ModelManager:
         self.disclosureSystem = DisclosureSystem.DisclosureSystem(self)
         self.validateCalcLB = False
         self.validateInferDecimals = True
+        self.validateDedupCalcs = False
         self.validateInfoset = False
         self.validateUtr = False
         self.skipDTS = False
@@ -112,7 +117,7 @@ class ModelManager:
         """
         self.cntlr.reloadViews(modelXbrl)
 
-    def load(self, filesource, nextaction=None):
+    def load(self, filesource, nextaction=None, **kwargs):
         """Load an entry point modelDocument object(s), which in turn load documents they discover
         (for the case of instance, taxonomies, and versioning reports), but defer loading instances
         for test case and RSS feeds.
@@ -141,7 +146,7 @@ class ModelManager:
             if modelXbrl is not None:
                 break # custom loader did the loading
         if modelXbrl is None:  # use default xbrl loader
-            modelXbrl = ModelXbrl.load(self, filesource, nextaction)
+            modelXbrl = ModelXbrl.load(self, filesource, nextaction, **kwargs)
         self.modelXbrl = modelXbrl
         self.loadedModelXbrls.append(self.modelXbrl)
         return self.modelXbrl
@@ -208,7 +213,6 @@ class ModelManager:
                 else:
                     self.modelXbrl = None
             modelXbrl.close()
-            # Manual garbage collection takes too much time
             #gc.collect()
 
     def loadCustomTransforms(self):

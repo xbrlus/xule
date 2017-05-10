@@ -1367,7 +1367,6 @@ class XuleRuleSet(object):
         self.location = ruleSetLocation
         pickle_start = datetime.datetime.today()
         try:
-            print(os.getcwd())
             with open(os.path.join(ruleSetLocation,"catalog.pik"),"rb") as i:
                 self.catalog = pickle.load(i)
             self.name = self.catalog['name']
@@ -1660,5 +1659,6 @@ class XuleRuleSet(object):
             del self.all_rules[rule_type]   
             
         return self.all_rules
+
 
 

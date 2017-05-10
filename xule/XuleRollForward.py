@@ -94,7 +94,7 @@ def _prep_roll_forward_constants(xule_context):
     xule_context.roll_forward['CALC_EXCEPTIONS'] = \
         {QName(None, xule_context.roll_forward['US_GAAP_NS'], 'AllowanceForLoanAndLeaseLossesPeriodIncreaseDecrease'):{QName(None, xule_context.roll_forward['US_GAAP_NS'], 'ProvisionForLoanAndLeaseLosses'): 1,
                                                                                                                        QName(None, xule_context.roll_forward['US_GAAP_NS'], 'AllowanceForLoanAndLeaseLossesRecoveriesOfBadDebts'):1},
-         QName(None, xule_context.roll_forward['US_GAAP_NS'], 'DefinedBenefitPlanBenefitObligationPeriodIncreaseDecrease'):{QName(None, xule_context.roll_forward['US_GAAP_NS'], 'DefinedBenefitPlanForeignCurrencyExchangeRateChangesBenefitObligation'):1,
+         QName(None, xule_context.roll_forward['US_GAAP_NS'], 'DefinedBenefitPlanBenefitObligationPeriodIncreaseDecrease'):{QName(None, xule_context.roll_forward['US_GAAP_NS'], 'DefinedBenefitPlanForeignCurrencyExchangeRateChangesBenefitObligation'):-1,
                                                                                                                             QName(None, xule_context.roll_forward['US_GAAP_NS'], 'DefinedBenefitPlanActuarialGainLoss'):-1,
                                                                                                                             QName(None, xule_context.roll_forward['US_GAAP_NS'], 'DefinedBenefitPlanOtherChanges'):1},
          QName(None, xule_context.roll_forward['US_GAAP_NS'], 'FiniteLivedIntangibleAssetsPeriodIncreaseDecrease'):{QName(None, xule_context.roll_forward['US_GAAP_NS'], 'AmortizationOfIntangibleAssets'):-1,

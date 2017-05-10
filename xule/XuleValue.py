@@ -6,7 +6,7 @@ Copyright (c) 2014 XBRL US Inc. All rights reserved
 $Change$
 '''
 from .XuleRunTime import XuleProcessingError
-from arelle.ModelValue import QName, dayTimeDuration, DateTime, gYear, gMonthDay, gYearMonth, InvalidValue
+from arelle.ModelValue import QName, dayTimeDuration, DateTime, gYear, gMonthDay, gYearMonth, InvalidValue, IsoDuration
 from arelle.ModelInstanceObject import ModelFact
 from arelle.ModelRelationshipSet import ModelRelationshipSet
 import datetime
@@ -461,6 +461,7 @@ TYPE_SYSTEM_TO_XULE = {int: 'int',
                        datetime.datetime: 'instant',
                        datetime.date: 'instant',
                        DateTime: 'model_date_time',
+                       IsoDuration: 'iso_duration',
                        gYear: 'model_g_year',
                        gMonthDay: 'model_g_month_day',
                        gYearMonth: 'model_g_year_month'}
@@ -468,7 +469,8 @@ TYPE_SYSTEM_TO_XULE = {int: 'int',
 TYPE_STANDARD_CONVERSION = {'model_date_time': (model_to_xule_model_datetime, 'instant'),
                             'model_g_year': (model_to_xule_model_g_year, 'int'),
                             'model_g_month_day': (model_to_xule_model_g_month_day, 'string'),
-                            'model_g_year_month': (model_to_xule_model_g_year_month, 'string')}
+                            'model_g_year_month': (model_to_xule_model_g_year_month, 'string'),
+                            'iso_duration': (lambda x,c: x.sourceValue, 'string')}
 
 '''The TYPE_MAP shows converstions between xule types. The first entry is the common conversion when comparing
    2 values, the second entry (if present) is a reverse conversion.'''
@@ -496,6 +498,7 @@ def model_to_xule_type(xule_context, model_value):
 #                     xule_type = 'int'
 #                     compute_value = int(compute_value)
     else:
+        print("value ==> ", model_value)
         raise XuleProcessingError(_("Do not have map to convert system type '%s' to xule type." % type(model_value).__name__), xule_context)
 
     return xule_type, compute_value
