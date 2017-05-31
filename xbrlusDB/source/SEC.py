@@ -292,23 +292,25 @@ def SECFilingAndEntityInfo(dbLoader):
             info['htmlFilingInfoFile'] = xmlFind(rssItem, 'link')
             info['alternativeDoc'] = None
             for fileNode in rssItem.findall('edgar:xbrlFiling/edgar:xbrlFiles/edgar:xbrlFile', rssNS):
-                if fileNode.get('{http://www.sec.gov/Archives/edgar}type') == 'EX-101.INS':
-                    info['entryUrl'] = fileNode.get('{http://www.sec.gov/Archives/edgar}url')
-                    break
-                elif fileNode.get('{http://www.sec.gov/Archives/edgar}type') == info['documentType']:
+#                 if fileNode.get('{http://www.sec.gov/Archives/edgar}type') == 'EX-101.INS':
+#                     info['entryUrl'] = fileNode.get('{http://www.sec.gov/Archives/edgar}url')
+#                     break
+                if fileNode.get('{http://www.sec.gov/Archives/edgar}type') == info['documentType']:
                     if os.path.splitext(fileNode.get('{http://www.sec.gov/Archives/edgar}url'))[1] != '.pdf':
                         info['alternativeDoc'] = fileNode.get('{http://www.sec.gov/Archives/edgar}url')
+                        break
                         
             if info['alternativeDoc'] is None:
                 raise XPDBException("xpgDB:cannotFindTextFiling",
                                 _("Cannot identify the htm or text version of the filing. This is normally the document with the same type as the filing type.")) 
-            if info['entryUrl'] is None:
-                info['entryUrl'] = info['alternativeDoc']
+#             #Let the entry url default 
+#             if info['entryUrl'] is None:
+#                 info['entryUrl'] = info['alternativeDoc']
             
             if info['htmlFilingInfoFile'] is None:
                 raise XPDBException("xpgDB:missingSupportFiles",
                                 _("Cannot acquire filing details. Htm index file cannot be determined from the rss item."))
-            indexFile = reverseMapDocumentUri(info['htmlFilingInfoFile'])
+            indexFile = reverseMapDocumentUri(dbLoader, info['htmlFilingInfoFile'])
             filingAttributes = extractFilingDetailsFromIndex(dbLoader, indexFile, info)
             for attrName, attrValue in filingAttributes.items():
                 #only populate if the value hasn't already been acquired from the rss item
@@ -330,7 +332,7 @@ def SECFilingAndEntityInfo(dbLoader):
 def extractFilingDetailsFromIndex(dbLoader, indexFileName, info):
     
     with dbLoader.getFile(indexFileName) as indexFileHandler:
-        #indexFileHandler = self.getFile(indexFileName)
+        #indexFileHandler = dbLoader.getFile(indexFileName)
         htmlParser = etree.HTMLParser()
         htmlTree = etree.parse(indexFileHandler, htmlParser)
     identInfoNodes = htmlTree.xpath("//div[@class='companyInfo']")
@@ -392,21 +394,26 @@ def extractFilingDetailsFromIndex(dbLoader, indexFileName, info):
             identInfoDict['period'] = headingDiv.getnext().text.strip()
 
     identInfoDict['htmlFilingInfoFile'] = dbLoader.mapDocumentUri(indexFileName)
-    identInfoDict['entryUrl'] = dbLoader.cleanDocumentUri(dbLoader.modelXbrl.modelDocument)
+    #identInfoDict['entryUrl'] = dbLoader.cleanDocumentUri(dbLoader.modelXbrl.modelDocument) # let it default
 
     #get HTML version of the filing
+    identInfoDict['alternativeDoc'] = None
     docType = identInfoDict.get('documentType')
     if docType is not None:
         for fileTable in htmlTree.xpath("//table[@class='tableFile']"):
             for tr in fileTable:
                 if tr[3].tag.lower() == 'td' and tr[3].text == docType:
                     href = tr[2][0].get('href')
-                    if os.path.splitext(href)[1] == '.htm':
-                        #found the file
-                        if dbLoader.isUrl(os.path.dirname(indexFileName)):
-                            identInfoDict['alternativeDoc'] = urllib.parse.urljoin(indexFileName, tr[2][0].text)
-                        else:
-                            identInfoDict['alternativeDoc'] = os.path.join(os.path.dirname(indexFileName), tr[2][0].text)
+                    #if os.path.splitext(href)[1] == '.htm': #this could be a text file. Removing this constraint
+                    #found the file
+                    if dbLoader.isUrl(os.path.dirname(indexFileName)):
+                        identInfoDict['alternativeDoc'] = urllib.parse.urljoin(indexFileName, tr[2][0].text)
+                    else:
+                        identInfoDict['alternativeDoc'] = os.path.join(os.path.dirname(indexFileName), tr[2][0].text)
+
+    if identInfoDict['alternativeDoc'] is None:
+        raise XPDBException("xpgDB:cannotFindTextFiling",
+                        _("Cannot identify the htm or text version of the filing. This is normally the document with the same type as the filing type.")) 
 
     return identInfoDict
 
@@ -414,9 +421,9 @@ def SECFiscalYearEnd(dbLoader):
     #get from the CurrentFiscalYearEndDate in the filing
     fiscalYearMonthDayEnd = dbLoader.getSimpleFactByQname('/dei/','CurrentFiscalYearEndDate')
 
-    if fiscalYearMonthDayEnd is None and dbLoader.sourceDat.get("filingDate", None) is not None:
+    if fiscalYearMonthDayEnd is None and dbLoader.sourceData.get("filingDate", None) is not None:
         #get from previous filings
-        results = self.execute(
+        results = dbLoader.execute(
         '''
             SELECT f.fact_value
              FROM   fact f
@@ -446,28 +453,28 @@ def SECFiscalYearEnd(dbLoader):
                 fiscalYearMonthEnd = int(fiscalYearMonthDayEndList[2])
                 fiscalYearDayEnd = int(fiscalYearMonthDayEndList[3])
         else:
-            fiscalYearMonthEnd = int(self.fiscalYearMonthDayEnd[:2])
-            fiscalYearDayEnd = int(self.fiscalYearMonthDayEnd[2:])
+            fiscalYearMonthEnd = int(dbLoader.fiscalYearMonthDayEnd[:2])
+            fiscalYearDayEnd = int(dbLoader.fiscalYearMonthDayEnd[2:])
     
     return fiscalYearMonthEnd, fiscalYearDayEnd
     
 def getNodeText(node):
     return [x for x in etree.ElementTextIterator(node)]
         
-def xmlFind(self, root, path, namespaces=None, default=None):
+def xmlFind(root, path, namespaces=None, default=None):
     node = root.find(path, namespaces)
     if node is None:
         return default
     else:
         return node.text        
         
-def reverseMapDocumentUri(documentUri):
+def reverseMapDocumentUri(dbLoader, documentUri):
     '''Map an official uri to cache location
     '''
-    if self.documentCacheLocation is not None:
+    if dbLoader.documentCacheLocation is not None:
         uriParts = urllib.parse.urlparse(documentUri)
         if uriParts.scheme.startswith('http'):
-            cacheFile = os.path.join(self.documentCacheLocation, uriParts.netloc, uriParts.path[1:] if uriParts.path[0] == '/' else uriParts.path)
+            cacheFile = os.path.join(dbLoader.documentCacheLocation, uriParts.netloc, uriParts.path[1:] if uriParts.path[0] == '/' else uriParts.path)
             if os.path.isfile(cacheFile):
                 return cacheFile
     #Could not map to the cache
@@ -479,14 +486,21 @@ __sourceInfo__ = {
                   "basePrefixPatterns" :
                     ((r'^http://xbrl.us/',None),
                      (r'^http://xbrl.us/[^/]+/\d\d\d\d-\d\d-\d\d$',r'^http://xbrl.us/([^/]+)/\d\d\d\d-\d\d-\d\d$'),
+                     (r'^http://xbrl.us/((dis)|(stm))/',r'^http://[^/]*/([^/]*)/([^/]*)/'),
+                     
                      (r'^http://www.xbrl.org/',None),
+                     (r'^http://www.xbrl.org/dtr/',r'^http://[^/]*/[^/]*/[^/]*/([^/]*)'),
+                     (r'^http://www.xbrl.org/2009/role/negated',r'^http://[^/]*/[^/]*/[^/]*/([^/]*)'),
+                     
                      (r'^http://xbrl.org/',None),
                      (r'^http://www.w3.org/',None),
                      (r'^http://ici.org/',None),
+                     
                      (r'^http://fasb.org/',r'^http://[^/]*/([^/]*)/'),
+                     (r'^http://fasb.org/((dis)|(stm))/',r'^http://[^/]*/([^/]*)/([^/]*)/'),
+                     
                      (r'^http://xbrl.sec.gov/',r'^http://[^/]*/([^/]*)/'),
-                     (r'^http://www.xbrl.org/dtr/',r'^http://[^/]*/[^/]*/[^/]*/([^/]*)'),
-                     (r'^http://www.xbrl.org/2009/role/negated',r'^http://[^/]*/[^/]*/[^/]*/([^/]*)')
+                     
                      ),                  
                   "overrideFunctions" : {
                       "excludeReport" : SECExcludeReport,
@@ -494,7 +508,7 @@ __sourceInfo__ = {
                       "UOMHash" : SECUOMString, #note the hash and the string form of the unit of measure are the same
                       "conceptQnameHash" : SECConceptHash,
                       "reportProperties" : SECProperties,
-                      "postLoad" : SECCreateAccessionRecord,
+                      #"postLoad" : SECCreateAccessionRecord,
                       "identifyEntityAndFilingingInfo" : SECFilingAndEntityInfo,
                       "identifyFiscalYearEnd" : SECFiscalYearEnd
                   },
@@ -537,7 +551,7 @@ conceptQnameHash(dbLoader, elementQname) - string - Returns the hash of an eleme
 fiscalPeriod(dbLoader, context) - string - Returns the fiscal period for the period in the context.
 fiscalYear(dbLoader, context) - integer - Returns the fiscal year for the period in the context.
 getEntityAndFilingInfo(dbLoader) - dictionary - Returns a dictionary of entity and filing information. The common keys for the dictionary are:
-    'acceptanceDate', 'accessionNumber', 'entityName', 'entityIdentifier', 'entityScheme', 'entryUrl', 'alternativeDoc', 'alternativeDocname', 'period'
+    'acceptanceDate', 'accessionNumber', 'entityName', 'entityIdentifier', 'entityScheme', 'entryUrl', 'alternativeDoc', 'alternativeDocname', 'period', 'sourceUriMap'
     Any additional keys will be stored in the sourceData attribute of the dbLoader.
 '''
 

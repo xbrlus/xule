@@ -71,6 +71,7 @@ def insertIntoDB(cntlr, modelXbrl,
 
     try:
         xpgdb = XbrlPostgresDatabaseConnection(cntlr, modelXbrl, user, password, host, port, database, timeout, 'postgres', options)
+        xpgdb.execute("SET application_name TO 'xbrlusDB loader';", fetch=False)
         xpgdb.verifyTables()
         xpgdb.insertXbrl(supportFiles=getattr(options,"xbrlusDBFile",tuple()), documentCacheLocation=getattr(options,"xbrlusDBDocumentCache",None))
         xpgdb.close()
@@ -100,7 +101,7 @@ XBRLDBTABLES = {
                 "qname",
                 "taxonomy", "taxonomy_version", "namespace", "base_namespace",
                 "element", "element_attribute_value_association",
-                "dts_network", "relationship",
+                "dts_network", "dts_relationship",
                 "custom_arcrole_type", "custom_arcrole_used_on", "custom_role_type", "custom_role_used_on",
                 "label_resource",
                 "reference_part", #"reference_part_type",
@@ -1012,9 +1013,9 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         # Add new docs
         if len(docsToLoad) > 0:
             table = self.getTable('document', 'document_id', 
-                          ('document_uri','content', 'document_loaded', 'target_namespace'), 
+                          ('document_uri','content', 'document_loaded', 'target_namespace', 'document_type'), 
                           ('document_uri',), 
-                          tuple((uri, content, True, targetNamespace) for uri, (targetNamespace, content) in docsToLoad.items()),
+                          tuple((uri, content, True, targetNamespace, self.determineDocumentType(uri)) for uri, (targetNamespace, content) in docsToLoad.items()),
                           checkIfExisting=True,
                           returnExistenceStatus=True)
             for docId, docUri, docExisting in table:
@@ -1051,8 +1052,28 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         results = self.execute(query)
         documentIds = {row[1]: row[0] for row in results}
         return documentIds
+    
+    def determineDocumentType(self, docUri):
+        try:
+            modelDoc = self.docCleanUriMap[docUri]
+        except KeyError:
+            #the document is not in the model
+            file_ext = os.path.splitext(docUri)[1].lower()
+            if file_ext in ('.htm', '.html', '.txt'):
+                return 'report'
+            else:
+                return None
         
-        
+        if modelDoc.type == Type.SCHEMA:
+            return 'schema'
+        elif modelDoc.type == Type.LINKBASE:
+            return 'linkbase'
+        elif modelDoc.type == Type.INSTANCE:
+            return 'instance'
+        elif modelDoc.type == Type.INLINEXBRL:
+            return 'inline'
+        else:
+            return None
 #     def identifyAndInsertDocuments(self):
 #         #Determine if the document is in the database
 #         docUris = set()
@@ -1629,12 +1650,12 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         self.reportTime('build relationship data for load')
 
         del dbRels[:]   # dererefence
-        table = self.getTable('relationship', 'relationship_id', 
-                              ('network_id', 'from_element_id', 'to_element_id', 'reln_order', 
+        table = self.getTable('dts_relationship', 'dts_relationship_id', 
+                              ('dts_network_id', 'from_element_id', 'to_element_id', 'reln_order', 
                                'from_resource_id', 'to_resource_id', 'calculation_weight', 
                                'tree_sequence', 'tree_depth', 'preferred_label_role_uri_id',
                                'from_fact_id', 'to_fact_id', 'target_role_id'), 
-                              ('network_id', 'tree_sequence'), 
+                              ('dts_network_id', 'tree_sequence'), 
                               relsData)
         self.reportTime('load relationships')
                                           
@@ -2237,7 +2258,8 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                                      1 if (len(unitValue['modelUnits'][0].measures[1]) == 0) else (i + 2))
                                     for unitValue in unitBase.values()
                                     for i in range(2)
-                                    for measure in unitValue['modelUnits'][0].measures[i]))
+                                    for measure in unitValue['modelUnits'][0].measures[i]),
+                              checkIfExisting=True)
         
         #unit report
         table = self.getTable('unit_report', 'unit_report_id',
@@ -2351,20 +2373,20 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
             hashName = 'fact_hash'
             factsByHash = self.factsByHashString
             contextJoin = ''
-            orderBy = 'r.accepted_timestamp DESC, r.report_id DESC, f.fact_id DESC'
+            orderBy = 'r.accepted_timestamp DESC, r.report_id DESC, f.xml_id, f.fact_id DESC'
         elif ultimusType == 'calendar':
             #calendar
             indexName = 'calendar_ultimus_index'
             hashName = 'calendar_hash'
             factsByHash = self.factsByCalendarHashString
             contextJoin = 'JOIN context c ON f.context_id = c.context_id'
-            orderBy = 'r.accepted_timestamp DESC, r.report_id DESC, abs(c.calendar_period_size_diff_percentage), abs(c.calendar_end_offset), f.fact_id DESC'
+            orderBy = 'r.accepted_timestamp DESC, r.report_id DESC, abs(c.calendar_period_size_diff_percentage), abs(c.calendar_end_offset), f.xml_id, f.fact_id DESC'
         elif ultimusType == 'fiscal':
             indexName = 'fiscal_ultimus_index'
             hashName = 'fiscal_hash'
             factsByHash = self.factsByFiscalHashString
             contextJoin = ''
-            orderBy = 'r.accepted_timestamp DESC, r.report_id DESC, f.fact_id DESC'            
+            orderBy = 'r.accepted_timestamp DESC, r.report_id DESC, f.xml_id, f.fact_id DESC'            
         
         self.reportTime()
         updateFacts = []
