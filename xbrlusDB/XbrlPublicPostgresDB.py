@@ -477,8 +477,14 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
             self.taxonomyVersionId = result[0][0]
             if result[0][3]: #existence status
                 if taxonomyVersionDocument: #a taxonomy version document was provided
-                    raise XPDBException("xpgDB:taxonomyVersionDcoumentError", 
-                                    _("A taxonomy version identifying document cannot be used when there is already a taxonomy version row."))
+                    #check if the the taxonomy version document is the same
+                    result = self.execute("SELECT identifier_document_id FROM taxonomy_version WHERE taxonomy_id = {} AND version = '{}';".format(self.taxonomyId, taxonomyVersion))
+                    if len(result) != 1:
+                        raise XPDBException("xpgDB:taxonomyVersionDcoumentError", 
+                                    _("Querying taxonomy_version. Only expected one result but got {} for taxonomy id {} and version '{}'.".format(len(result), self.taxonomyId, taxonomyVersion)))
+                    if result[0][0] != taxonomyVersionDocumentId:
+                        raise XPDBException("xpgDB:taxonomyVersionDcoumentError", 
+                                    _("A taxonomy version identifying document already exists for the dts but is different."))
                 self.modelXbrl.info("info", _("Taxonomy version %s exists" % taxonomyVersion))
             else:
                 self.modelXbrl.info("info", _("Taxonomy version %s is new" % taxonomyVersion))
@@ -1375,7 +1381,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                                                       else concept.baseXbrliTypeQname[0]
                                                       ), # may be None or may be a list for a union
                                      {'debit':1, 'credit':2, None:None}[concept.balance],
-                                     {'instant':1, 'duration':2, 'forever':3, None:0}[concept.periodType],
+                                     {'instant':1, 'duration':2, 'forever':3, None:None}[concept.periodType],
                                      self.getQnameId(concept.substitutionGroupQname), # may be None
                                      concept.isAbstract, 
                                      concept.isNillable,
@@ -1523,7 +1529,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                                                     for xmlLoc in (elementFragmentIdentifier(resource),)
                                                         for docId in (self.documentIds[self.cleanDocumentUri(resource.modelDocument)],))
         self.reportTime('dedupping resources')
-        resourceData = tuple((self.uriId[resource_info['resource'].role.strip()],
+        resourceData = tuple((self.uriId[resource_info['resource'].role.strip()] if resource_info['resource'].role is not None else None,
                              self.getQnameId(resource_info['resource'].qname),
                              resource_info['document_id'],
                              resource_info['resource'].sourceline,
@@ -1573,7 +1579,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                 for referencePart in resource_info['resource']:
                     order += 1
                     referenceParts.append((resource_info['resource'].dbResourceId, referencePart.qname, referencePart.textValue, order))
-        self.reportTime('build reference part data for load')
+        self.reportTime('build reference part data for load. Created {} reference'.format(len(referenceParts)))
 
         self.getTable('reference_part', 'reference_part_id',
                       ('resource_id', 'value', 'qname_id', 'ref_order'),
