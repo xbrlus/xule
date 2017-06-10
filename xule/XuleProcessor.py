@@ -3138,9 +3138,25 @@ def property_parent_child(xule_context, object_value, *args):
 
 def property_role(xule_context, object_value, *args):
     if object_value.type == 'network':
-        return XuleValue(xule_context, object_value.value[NETWORK_INFO][NETWORK_ROLE], 'uri')
+        role_uri = object_value.value[NETWORK_INFO][NETWORK_ROLE]
+        #return XuleValue(xule_context, object_value.value[NETWORK_INFO][NETWORK_ROLE], 'uri')
     else:
-        return XuleValue(xule_context, object_value.value.role, 'uri')
+        role_uri = object_value.value.role
+        #return XuleValue(xule_context, object_value.value.role, 'uri')
+    
+    if role_uri in xule_context.model.roleTypes:
+        return XuleValue(xule_context, xule_context.model.roleTypes[role_uri][0], 'role')
+    else:
+        return XuleValue(xule_context, XuleRole(role_uri), 'role')
+
+def property_uri(xule_context, object_value, *args):
+    return XuleValue(xule_context, object_value.value.roleURI, 'uri')
+
+def property_definition(xule_context, object_value, *args): 
+    return XuleValue(xule_context, object_value.value.definition, 'string')
+
+def property_used_on(xule_context, object_value, *args):
+    return XuleValue(xule_context, tuple(list(XuleValue(xule_context, x, 'qname') for x in object_value.value.usedOns)), 'list')
 
 def property_descendant_relationships(xule_context, object_value, *args):
     relationships = set()
@@ -3550,6 +3566,8 @@ def property_is_monetary(xule_context, object_value, *args):
         #concept
         return XuleValue(xule_context, object_value.value.isMonetary, 'bool')
 
+def property_abstract(xule_context, object_value, *args):
+    return XuleValue(xule_context, object_value.value.isAbstract, 'bool')
 def property_xbrl_type(xule_context, object_value, *args):
     if object_value.is_fact:
         return XuleValue(xule_context, object_value.fact.concept.baseXbrliTypeQname, 'type')
@@ -3999,6 +4017,7 @@ PROPERTIES = {
                'instant': (property_instant, 0, ('period-type',), False),
                'is-numeric': (property_is_numeric, 0, ('concept', 'fact'), False),
                'is-monetary': (property_is_monetary, 0, ('concept', 'fact'), False),
+               'abstract': (property_abstract, 0, ('concept', 'fact'), False),
                'xbrl-type': (property_xbrl_type, 0, ('concept', 'fact'), False),
                'schema-type': (property_schema_type, 0, ('concept', 'fact'), False),
                'label': (property_label, -2, ('concept', 'fact'), False),
@@ -4035,6 +4054,9 @@ PROPERTIES = {
                'signum': (property_signum, 0, ('int', 'float', 'decimal', 'fact'), False),
                
                'role': (property_role, 0, ('network', 'label'), False),
+               'uri': (property_uri, 0, ('role',), False),
+               'definition': (property_definition, 0, ('role',), False),
+               'used-on': (property_used_on, 0, ('role',), False),
                'name': (property_name, 0, ('concept', 'reference-part'), False),
                'local-part': (property_local_part, 0, ('qname',), False),
                'namespace-uri': (property_namespace_uri, 0, ('qname',), False),

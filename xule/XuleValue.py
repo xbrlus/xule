@@ -321,6 +321,114 @@ class XulePeriodComp:
         else:
             return self.__eq__(other) or self.__gt__(other)
 
+class XuleRole:
+    def __init__(self, role_uri):
+        self._role_uri = role_uri
+    
+    def __str__(self):
+        return self._role_uri
+    
+    @property
+    def roleURI(self):
+        return self._role_uri
+    
+    @property
+    def definition(self):
+        return STANDARD_ROLE_DEFINITIONS.get(self._role_uri)
+    
+    @property
+    def usedOns(self):
+        if self._role_uri in STANDARD_ROLE_USEDON:
+            return {STANDARD_ROLE_USEDON[self._role_uri],}
+        else:
+            return set()
+
+STANDARD_ROLE_USEDON = {
+    'http://www.xbrl.org/2003/role/label':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+    'http://www.xbrl.org/2003/role/terseLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+    'http://www.xbrl.org/2003/role/verboseLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+    'http://www.xbrl.org/2003/role/positiveLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+    'http://www.xbrl.org/2003/role/positiveTerseLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+    'http://www.xbrl.org/2003/role/positiveVerboseLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+    'http://www.xbrl.org/2003/role/negativeLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+    'http://www.xbrl.org/2003/role/negativeTerseLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+    'http://www.xbrl.org/2003/role/negativeVerboseLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+    'http://www.xbrl.org/2003/role/zeroLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+    'http://www.xbrl.org/2003/role/zeroTerseLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+    'http://www.xbrl.org/2003/role/zeroVerboseLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+    'http://www.xbrl.org/2003/role/totalLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+    'http://www.xbrl.org/2003/role/periodStartLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+    'http://www.xbrl.org/2003/role/periodEndLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+    'http://www.xbrl.org/2003/role/documentation':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+    'http://www.xbrl.org/2003/role/definitionGuidance':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+    'http://www.xbrl.org/2003/role/disclosureGuidance':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+    'http://www.xbrl.org/2003/role/presentationGuidance':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+    'http://www.xbrl.org/2003/role/measurementGuidance':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+    'http://www.xbrl.org/2003/role/commentaryGuidance':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+    'http://www.xbrl.org/2003/role/exampleGuidance':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+    'http://www.xbrl.org/2003/role/reference':QName('link','http://www.xbrl.org/2003/linkbase','reference'),
+    'http://www.xbrl.org/2003/role/definitionRef':QName('link','http://www.xbrl.org/2003/linkbase','reference'),
+    'http://www.xbrl.org/2003/role/disclosureRef':QName('link','http://www.xbrl.org/2003/linkbase','reference'),
+    'http://www.xbrl.org/2003/role/mandatoryDisclosureRef':QName('link','http://www.xbrl.org/2003/linkbase','reference'),
+    'http://www.xbrl.org/2003/role/recommendedDisclosureRef':QName('link','http://www.xbrl.org/2003/linkbase','reference'),
+    'http://www.xbrl.org/2003/role/unspecifiedDisclosureRef':QName('link','http://www.xbrl.org/2003/linkbase','reference'),
+    'http://www.xbrl.org/2003/role/presentationRef':QName('link','http://www.xbrl.org/2003/linkbase','reference'),
+    'http://www.xbrl.org/2003/role/measurementRef':QName('link','http://www.xbrl.org/2003/linkbase','reference'),
+    'http://www.xbrl.org/2003/role/commentaryRef':QName('link','http://www.xbrl.org/2003/linkbase','reference'),
+    'http://www.xbrl.org/2003/role/exampleRef':QName('link','http://www.xbrl.org/2003/linkbase','reference'),
+    'http://www.xbrl.org/2003/role/footnote':QName('link','http://www.xbrl.org/2003/linkbase','footnote')
+                        }
+
+STANDARD_ROLE_DEFINITIONS = {'http://www.xbrl.org/2003/role/link':'Standard extended link role',
+                    'http://www.xbrl.org/2003/role/label':    'Standard label for a Concept.',
+                    'http://www.xbrl.org/2003/role/terseLabel': 'Short label for a Concept, often omitting text that should be inferable when the concept is reported in the context of other related concepts.',
+                    'http://www.xbrl.org/2003/role/verboseLabel': 'Extended label for a Concept, making sure not to omit text that is required to enable the label to be understood on a stand alone basis.',
+                    'http://www.xbrl.org/2003/role/positiveLabel': 'Label for a Concept, when the value being presented is positive (negative, zero). For example, the standard and standard positive labels might be "profit after tax" and the standard negative labels "loss after tax", the terse label and terse positive labels might both be "profit", while the negative terse label might be "loss".',
+                    'http://www.xbrl.org/2003/role/positiveTerseLabel': 'Label for a Concept, when the value being presented is positive (negative, zero). For example, the standard and standard positive labels might be "profit after tax" and the standard negative labels "loss after tax", the terse label and terse positive labels might both be "profit", while the negative terse label might be "loss".',
+                    'http://www.xbrl.org/2003/role/positiveVerboseLabel': 'Label for a Concept, when the value being presented is positive (negative, zero). For example, the standard and standard positive labels might be "profit after tax" and the standard negative labels "loss after tax", the terse label and terse positive labels might both be "profit", while the negative terse label might be "loss".',
+                    'http://www.xbrl.org/2003/role/negativeLabel': 'Label for a Concept, when the value being presented is positive (negative, zero). For example, the standard and standard positive labels might be "profit after tax" and the standard negative labels "loss after tax", the terse label and terse positive labels might both be "profit", while the negative terse label might be "loss".',
+                    'http://www.xbrl.org/2003/role/negativeTerseLabel': 'Label for a Concept, when the value being presented is positive (negative, zero). For example, the standard and standard positive labels might be "profit after tax" and the standard negative labels "loss after tax", the terse label and terse positive labels might both be "profit", while the negative terse label might be "loss".',
+                    'http://www.xbrl.org/2003/role/negativeVerboseLabel': 'Label for a Concept, when the value being presented is positive (negative, zero). For example, the standard and standard positive labels might be "profit after tax" and the standard negative labels "loss after tax", the terse label and terse positive labels might both be "profit", while the negative terse label might be "loss".',
+                    'http://www.xbrl.org/2003/role/zeroLabel': 'Label for a Concept, when the value being presented is positive (negative, zero). For example, the standard and standard positive labels might be "profit after tax" and the standard negative labels "loss after tax", the terse label and terse positive labels might both be "profit", while the negative terse label might be "loss".',
+                    'http://www.xbrl.org/2003/role/zeroTerseLabel': 'Label for a Concept, when the value being presented is positive (negative, zero). For example, the standard and standard positive labels might be "profit after tax" and the standard negative labels "loss after tax", the terse label and terse positive labels might both be "profit", while the negative terse label might be "loss".',
+                    'http://www.xbrl.org/2003/role/zeroVerboseLabel':'Label for a Concept, when the value being presented is positive (negative, zero). For example, the standard and standard positive labels might be "profit after tax" and the standard negative labels "loss after tax", the terse label and terse positive labels might both be "profit", while the negative terse label might be "loss".',
+                    'http://www.xbrl.org/2003/role/totalLabel': 'The label for a Concept for use in presenting values associated with the concept when it is being reported as the total of a set of other values.',
+                    'http://www.xbrl.org/2003/role/periodStartLabel': 'The label for a Concept with periodType="instant" for use in presenting values associated with the concept when it is being reported as a start (end) of period value.',
+                    'http://www.xbrl.org/2003/role/periodEndLabel': 'The label for a Concept with periodType="instant" for use in presenting values associated with the concept when it is being reported as a start (end) of period value.',
+                    'http://www.xbrl.org/2003/role/documentation':    'Documentation of a Concept, providing an explanation of its meaning and its appropriate usage and any other documentation deemed necessary.',
+                    'http://www.xbrl.org/2003/role/definitionGuidance':    'A precise definition of a Concept, providing an explanation of its meaning and its appropriate usage.',
+                    'http://www.xbrl.org/2003/role/disclosureGuidance':    '''An explanation of the disclosure requirements relating to the Concept. Indicates whether the disclosure is,
+mandatory (i.e. prescribed by authoritative literature);,
+recommended (i.e. encouraged by authoritative literature;,
+common practice (i.e. not prescribed by authoritative literature, but disclosure is common);,
+structural completeness (i.e., included to complete the structure of the taxonomy).''',
+                    'http://www.xbrl.org/2003/role/presentationGuidance': 'An explanation of the rules guiding presentation (placement and/or labelling) of this Concept in the context of other concepts in one or more specific types of business reports. For example, "Net Surplus should be disclosed on the face of the Profit and Loss statement".',
+                    'http://www.xbrl.org/2003/role/measurementGuidance': 'An explanation of the method(s) required to be used when measuring values associated with this Concept in business reports.',
+                    'http://www.xbrl.org/2003/role/commentaryGuidance':    'Any other general commentary on the Concept that assists in determining definition, disclosure, measurement, presentation or usage.',
+                    'http://www.xbrl.org/2003/role/exampleGuidance': 'An example of the type of information intended to be captured by the Concept.',
+
+                    'http://www.xbrl.org/2003/role/reference': 'Standard reference for a Concept',
+                    'http://www.xbrl.org/2003/role/definitionRef':'Reference to documentation that details a precise definition of the Concept.',
+                    'http://www.xbrl.org/2003/role/disclosureRef':'''Reference to documentation that details an explanation of the disclosure requirements relating to the Concept. Specified categories include:
+mandatory
+recommended''',
+                    'http://www.xbrl.org/2003/role/mandatoryDisclosureRef':'''Reference to documentation that details an explanation of the disclosure requirements relating to the Concept. Specified categories include:
+mandatory
+recommended''',
+                    'http://www.xbrl.org/2003/role/recommendedDisclosureRef':'''Reference to documentation that details an explanation of the disclosure requirements relating to the Concept. Specified categories include:
+mandatory
+recommended''',
+'                    http://www.xbrl.org/2003/role/unspecifiedDisclosureRef':'''Reference to documentation that details an explanation of the disclosure requirements relating to the Concept. Unspecified categories include, but are not limited to:
+common practice
+structural completeness
+The latter categories do not reference documentation but are indicated in the link role to indicate why the Concept has been included in the taxonomy.''',
+                    'http://www.xbrl.org/2003/role/presentationRef':'Reference to documentation which details an explanation of the presentation, placement or labelling of this Concept in the context of other Concepts in one or more specific types of business reports',
+                    'http://www.xbrl.org/2003/role/measurementRef':'Reference concerning the method(s) required to be used when measuring values associated with this Concept in business reports',
+                    'http://www.xbrl.org/2003/role/commentaryRef':'Any other general commentary on the Concept that assists in determining appropriate usage',
+                    'http://www.xbrl.org/2003/role/exampleRef':'Reference to documentation that illustrates by example the application of the Concept that assists in determining appropriate usage.',
+                    'http://www.xbrl.org/2003/role/footnote':'Standard footnote role'
+}
+
 def model_to_xule_unit(model_unit_measures, xule_context):
     numerator = tuple(sorted(model_unit_measures[0]))
     denominator = tuple(sorted(model_unit_measures[1]))
@@ -474,7 +582,7 @@ TYPE_STANDARD_CONVERSION = {'model_date_time': (model_to_xule_model_datetime, 'i
 
 '''The TYPE_MAP shows converstions between xule types. The first entry is the common conversion when comparing
    2 values, the second entry (if present) is a reverse conversion.'''
-TYPE_MAP = {frozenset(['int', 'float']): [('float', float), ('init', int)],
+TYPE_MAP = {frozenset(['int', 'float']): [('float', float), ('int', int)],
             frozenset(['int', 'decimal']): [('decimal', decimal.Decimal), ('int', int)],
             frozenset(['float', 'decimal']): [('decimal', decimal.Decimal), ('float', float)],
             frozenset(['balance', 'none']): [('balance', lambda x: x)], #this lambda does not convert the compute value
@@ -498,7 +606,6 @@ def model_to_xule_type(xule_context, model_value):
 #                     xule_type = 'int'
 #                     compute_value = int(compute_value)
     else:
-        print("value ==> ", model_value)
         raise XuleProcessingError(_("Do not have map to convert system type '%s' to xule type." % type(model_value).__name__), xule_context)
 
     return xule_type, compute_value
@@ -560,12 +667,12 @@ def combine_xule_types(left, right, xule_context):
             type_map = type_map[0]
         
             if type_map[0] != left.type:
-                left_compute_value = type_map[1](str(left_value))
+                left_compute_value = type_map[1](left_value)
             else:
                 left_compute_value = left_value
             
             if type_map[0] != right.type:
-                right_compute_value = type_map[1](str(right_value))
+                right_compute_value = type_map[1](right_value)
             else:
                 right_compute_value = right_value
             
