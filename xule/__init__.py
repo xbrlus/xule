@@ -151,10 +151,19 @@ def xuleCmdOptions(parser):
                       action="store_true",
                       dest="xule_include_dups",
                       help=_("Indicates that the processor should include duplicate facts. By default, duplicate facts are ignored."))    
+    
+    parser.add_option("--xule-version",
+                      action="store_true",
+                      dest="xule_version",
+                      help=_("Display version number of the xule module."))
 
 def xuleCmdUtilityRun(cntlr, options, **kwargs):  
     #check option combinations
     parser = OptionParser()
+    
+    if getattr(options, "xule_version", False):
+        cntlr.addToLog("Xule version: %s" % __version__)
+        cntlr.close()
     
     if getattr(options, "xule_filing_list", None) is not None and options.entrypointFile is not None:
         parser.error(_("--xule-filing-list and -f option cannot be used together"))
