@@ -17,6 +17,8 @@ from time import sleep
 from arelle import FileSource
 from arelle import ModelManager
 
+__version__ = '2.0.' + '$Change$'[9:-2]
+
 def xuleMenuOpen(cntlr, menu):
     pass
 
