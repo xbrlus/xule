@@ -418,7 +418,7 @@ recommended''',
                     'http://www.xbrl.org/2003/role/recommendedDisclosureRef':'''Reference to documentation that details an explanation of the disclosure requirements relating to the Concept. Specified categories include:
 mandatory
 recommended''',
-'                    http://www.xbrl.org/2003/role/unspecifiedDisclosureRef':'''Reference to documentation that details an explanation of the disclosure requirements relating to the Concept. Unspecified categories include, but are not limited to:
+                    'http://www.xbrl.org/2003/role/unspecifiedDisclosureRef':'''Reference to documentation that details an explanation of the disclosure requirements relating to the Concept. Unspecified categories include, but are not limited to:
 common practice
 structural completeness
 The latter categories do not reference documentation but are indicated in the link role to indicate why the Concept has been included in the taxonomy.''',
