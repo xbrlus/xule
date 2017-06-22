@@ -970,7 +970,8 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         self.getTable('document_structure', 'document_structure_id',
                       ('parent_document_id', 'child_document_id'),
                       ('parent_document_id', 'child_document_id'),
-                      tuple((self.documentIds[docInfo[0]], self.documentIds[childDoc]) for docInfo in docs for childDoc in docInfo[2]))
+                      tuple((self.documentIds[docInfo[0]], self.documentIds[childDoc]) for docInfo in docs for childDoc in docInfo[2]),
+                      checkIfExisting=True)
                       
     def insertDocuments(self, docUris):
         #Determine if the document is in the database
