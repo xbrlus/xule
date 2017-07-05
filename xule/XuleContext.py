@@ -16,26 +16,34 @@ from time import sleep
 import copy
 import collections
 from math import floor
+try:
+    import tabulate
+    _has_tablulate = True
+except ImportError:
+    _has_tablulate = False
+from io import StringIO
+import csv
+import itertools
+
 
 class XuleMessageQueue():
     _queue = None
     _model = None
     _multi = False
-    _async = False
+    _is_async = False
     _printlist = None
     
     '''
     use self.log to print to the queue
     use self._model to print directly
     '''
- 
-    def __init__(self, model, multi=False, async=False, cid=None ):
+    def __init__(self, model, multi=False, is_async=False, cid=None):
         if multi:
             self._queue = M_Queue()
         if model is not None:
             self._model = model
         self._multi = multi
-        self._async = async
+        self._is_async = is_async
         self._cid = cid
         self._printlist = []
         #if not hasattr(self._model, "logger"):
@@ -85,7 +93,7 @@ class XuleMessageQueue():
             else:
                 keep = False
         #    return keep
-        elif not self._async:
+        elif not self._is_async:
             self._printlist.append((level, codes, msg, args))
         else:
             self.output(level, codes, msg, **args)
@@ -142,7 +150,7 @@ class XuleGlobalContext(object):
         self.trace_count_file = None
         self.show_timing = False
         self.show_debug = False
-        self.show_debug_table = False
+        #self.show_debug_table = False
         self.crash_on_error = False
         self.function_cache = {}
         self.no_cache = False
@@ -760,7 +768,7 @@ class XuleIterationTable:
                 if self._ordered_tables[table_processing_id].is_empty:
                     self.del_table(table_id)
     
-                if getattr(self.xule_context.global_context.options, "sule_debug_table", False):
+                if getattr(self.xule_context.global_context.options, "xule_debug_table", False):
                 #if self.xule_context.global_context.show_debug_table:
                     print("After Next")
                     print(self.to_csv())
@@ -770,7 +778,7 @@ class XuleIterationTable:
 #         if len(values.values) == 0:
 #             values.values[None].append(XuleValue(self.xule_context, None, 'unbound'))
         
-        if getattr(self.xule_context.global_context.options, "sule_debug_table", False):
+        if getattr(self.xule_context.global_context.options, "xule_debug_table", False):
         #if self.xule_context.global_context.show_debug_table:
             print(ast_node.getName() + " " + str(ast_node.node_id))
             print("node id", ast_node.node_id)
@@ -1240,90 +1248,100 @@ class XuleIterationSubTable:
 #             new_rows[alignment].append(new_row)
 
     def to_csv(self):
-        from io import StringIO
-        import csv
-        import itertools as it
-        
-        o = StringIO()
-        csv_writer = csv.writer(o)
+        table_string = ""
         #write table title
-        csv_writer.writerow(["TABLE (%i): Processing_id %s - aggregation %s - dependent %s - %i" % (self.table_id, str(self.processing_id), 
+        table_header = ["TABLE (%i): Processing_id %s - aggregation %s - dependent %s - %i" % (self.table_id, str(self.processing_id), 
                                                                                                "yes" if self.is_aggregation else "no", 
                                                                                                "yes" if self.is_dependent else "no",
-                                                                                               len(self.facts))])
+                                                                                               len(self.facts))]
+        table_string += ' '.join(table_header)
+
         #write headers
-        header = []
+        header = ['A',]
         for col_id in self._ordered_columns: 
-#         col_keys = sorted(self._columns.keys())
-#         for col_key in col_keys:
+
             header += [self._columns[col_id].getName() + " " + str(col_id)]
-        csv_writer.writerow(header)
         
         if not self.is_empty:
-            for alignment in {self.current_alignment,} | self._unprocessed_alignments | ({None,} if self._unprocessed_none_alignment else set()):
-                cur_alignment = "C " if alignment == self.current_alignment else ""
+            alignments = tuple((x,y) for x, y in enumerate({self.current_alignment,} | self._unprocessed_alignments | ({None,} if self._unprocessed_none_alignment else set())))
+
+            if _has_tablulate:
+                table = []
+            else:
+                o = StringIO()
+                table = csv.writer(o)
+                 
+            for num, alignment in alignments:
+                cur_alignment = "C" if alignment == self.current_alignment else " "
                 if alignment is None:
-                    csv_writer.writerow([cur_alignment + "ALIGNMENT: None",])
+                    row = [cur_alignment, str(num), "ALIGNMENT: None",]
                 else:
-                    csv_writer.writerow([cur_alignment + "ALIGNMENT: " + str(alignment),])
-                col_alignments = []
-                col_length = []
-                for col_id in self._ordered_columns:
-                    if alignment in self._column_data[col_id]:
-                        col_alignments.append(alignment)
-                        col_length.append(range(len(self._column_data[col_id].values[alignment])))
-                    elif None in self._column_data[col_id]:
-                        col_alignments.append(None)
-                        col_length.append(range(len(self._column_data[col_id].values[None])))
-                    else:
-                        col_alignments.append(None)
-                        col_length.append([None,])
+                    row =[cur_alignment, str(num), "ALIGNMENT: " + str(alignment),]
+                self.write_row(table, row)
                 
-                #show list of values
-                for i in range(max([len(col_range) for col_range in col_length])):
+            if _has_tablulate:
+                table_string += "\n" + self.write_table(table)
+            else:
+                table_string += o.getvalue()
+                o.close()
+
+
+            if _has_tablulate:
+                table = []
+            else:
+                o = StringIO()
+                table = csv.writer(o) 
+            
+            self.write_row(table, header)
+            #show list of values
+            for alignment_num, alignment in alignments:
+                for row_num in itertools.count():
                     row = []
+                    row.append(alignment_num)
+                    row_is_empty = True              
                     for col_pos, col_id in enumerate(self._ordered_columns):
-                        if i < len(col_length[col_pos]):
-                            current_col_alignment, current_col_index = self._current_iteration[col_id]
-                            if current_col_alignment == alignment and current_col_index == i:
-                                is_current = "C "
-                            else:
-                                is_current = "  "
-                            
-                            if alignment in self._column_data[col_id].values:
-                                row_value = self._column_data[col_id].values[alignment][i]
-                                if row_value.type == 'string':
+                        current_col_alignment, current_col_index = self._current_iteration[col_id]
+                        if current_col_alignment == alignment and current_col_index == row_num:
+                            is_current = "C "
+                        else:
+                            is_current = "  "
+                        
+                        if alignment in self._column_data[col_id].values:
+                            if row_num < len(self._column_data[col_id].values[alignment]):    
+                                row_is_empty = False
+                                row_value = self._column_data[col_id].values[alignment][row_num]
+                                if row_value.type == 'string':                                    
                                     row.append(is_current + row_value.format_value()[:10])
                                 else:
                                     row.append(is_current + row_value.format_value())
                             else:
-                                row.append("")
+                                row.append('')
                         else:
-                            row.append("")
-                    csv_writer.writerow(row)
+                            row.append('')
+                    if row_is_empty:
+                        break
+                    self.write_row(table, row)
+
+            if _has_tablulate:
+                table_string += "\n" + self.write_table(table)
+            else:
+                table_string += o.getvalue()
+                o.close()
         else:
-            csv_writer.writerow(["EMPTY",])
-            
-            '''
-            #show combinations of values
-            for col_indices in it.product(*col_length):
-                row = []
-                for col_position, col_index in enumerate(col_indices):
-                    if col_index is None:
-                        #there is no data for this column
-                        row.append("MISSING")
-                    else:
-                        row_value = self._column_data[self._ordered_columns[col_position]].values[col_alignments[col_position]][col_index]
-                        if row_value.type == 'string':
-                            row.append(row_value.format_value()[:10])
-                        else:
-                            row.append(row_value.format_value())
-                csv_writer.writerow(row)
-             '''
-        table_string = o.getvalue()
-        o.close()
+            table_string += "\nEMPTY"
+
         return table_string
         
+        
+    def write_row(self, table, row):
+        if _has_tablulate:
+            table.append(row)
+        else:
+            table.writerow(row)
+            
+    def write_table(self, table):
+        return tabulate.tabulate(table, tablefmt=getattr(self._iteration_table.xule_context.global_context.options, "xule_debug_table_style", 'grid'))
+            
 class XuleExpressionCache:
     def __init__(self):
         '''The expressions cache is a dictionary by expression node id and dependent variables.'''
