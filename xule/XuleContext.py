@@ -1340,7 +1340,8 @@ class XuleIterationSubTable:
             table.writerow(row)
             
     def write_table(self, table):
-        return tabulate.tabulate(table, tablefmt=getattr(self._iteration_table.xule_context.global_context.options, "xule_debug_table_style", 'grid'))
+        print("style", getattr(self._iteration_table.xule_context.global_context.options, "xule_debug_table_style", None) or 'grid')
+        return tabulate.tabulate(table, tablefmt=getattr(self._iteration_table.xule_context.global_context.options, "xule_debug_table_style", None) or 'grid')
             
 class XuleExpressionCache:
     def __init__(self):
