@@ -1174,7 +1174,8 @@ class XuleIterationSubTable:
             if (not self.is_empty and 
                 self.current_alignment is None and                
                 self._saved_alignment_queues is None and
-                len(value_set.values.keys() - self._processed_alignments) > 0):
+                len(value_set.values.keys() - {None,} - self._processed_alignments) > 0):
+                #len(value_set.values.keys() - self._processed_alignments) > 0):
                 self._saved_alignment_queues = (self.current_alignment,
                                                         self._processed_alignments.copy(), #this makes a copy
                                                         self._unprocessed_alignments.copy(),
@@ -1255,22 +1256,21 @@ class XuleIterationSubTable:
                                                                                                "yes" if self.is_dependent else "no",
                                                                                                len(self.facts))]
         table_string += ' '.join(table_header)
-
-        #write headers
-        header = ['A',]
-        for col_id in self._ordered_columns: 
-
-            header += [self._columns[col_id].getName() + " " + str(col_id)]
         
         if not self.is_empty:
-            alignments = tuple((x,y) for x, y in enumerate({self.current_alignment,} | self._unprocessed_alignments | ({None,} if self._unprocessed_none_alignment else set())))
-
+            #set up table container. If tabulate, the container is a list, otherwise, it is a csv object.
             if _has_tablulate:
                 table = []
             else:
                 o = StringIO()
                 table = csv.writer(o)
-                 
+
+            #build list of alignments. These are displayed first with an id number.
+            
+            #alignments = tuple((x,y) for x, y in enumerate({self.current_alignment,} | self._unprocessed_alignments | ({None,} if self._unprocessed_none_alignment else set())))
+            #The none alignment will always be id 0.
+            alignments = ((0, None),) if self._unprocessed_none_alignment or self.current_alignment is None else tuple()
+            alignments += tuple((x,y) for x, y in enumerate(({self.current_alignment,} | self._unprocessed_alignments) - {None,}, start=1))
             for num, alignment in alignments:
                 cur_alignment = "C" if alignment == self.current_alignment else " "
                 if alignment is None:
@@ -1291,14 +1291,22 @@ class XuleIterationSubTable:
             else:
                 o = StringIO()
                 table = csv.writer(o) 
-            
-            self.write_row(table, header)
+
             #show list of values
+            #build the header for the values. This will be the name of the expression and the col_id
+            header = ['A',]
+            for col_id in self._ordered_columns: 
+                header += [self._columns[col_id].getName() + " " + str(col_id)]
+            self.write_row(table, header)
+            #go through each alignment
             for alignment_num, alignment in alignments:
+                #Each column may have a different number of rows. Loop indefinitely until all columns for the alignment are exhausted.
                 for row_num in itertools.count():
+                    #create row list.
                     row = []
                     row.append(alignment_num)
-                    row_is_empty = True              
+                    row_is_empty = True
+                    #Go through each column              
                     for col_pos, col_id in enumerate(self._ordered_columns):
                         current_col_alignment, current_col_index = self._current_iteration[col_id]
                         if current_col_alignment == alignment and current_col_index == row_num:
@@ -1315,10 +1323,13 @@ class XuleIterationSubTable:
                                 else:
                                     row.append(is_current + row_value.format_value())
                             else:
+                                #All the rows of the column have been processed.
                                 row.append('')
                         else:
+                            #column does not have this alignment
                             row.append('')
                     if row_is_empty:
+                        #all columns are exhausted
                         break
                     self.write_row(table, row)
 
@@ -1340,7 +1351,6 @@ class XuleIterationSubTable:
             table.writerow(row)
             
     def write_table(self, table):
-        print("style", getattr(self._iteration_table.xule_context.global_context.options, "xule_debug_table_style", None) or 'grid')
         return tabulate.tabulate(table, tablefmt=getattr(self._iteration_table.xule_context.global_context.options, "xule_debug_table_style", None) or 'grid')
             
 class XuleExpressionCache:
