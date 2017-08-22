@@ -10,7 +10,7 @@ import urllib.parse
 
 def SECExcludeReport(dbLoader):
     # don't want to process certain form types (if it is an sec filing).
-    excludedForms = ['497', '485BPOS', 'N-CSR', 'N-CSRS', 'N-Q', 'N-CSR/A', 'N-CESRS/A', 'N-Q/A']
+    excludedForms = ['497', '485BPOS', 'N-CSR', 'N-CSRS', 'N-Q', 'N-CSR/A', 'N-CESRS/A', 'N-Q/A', 'SDR/A']
     if dbLoader.sourceData['documentType'] is not None:
         if dbLoader.sourceData['documentType'].strip() in excludedForms:
             dbLoader.modelXbrl.info("info", _("%(now)s - Skipped filing due to excluded form type:  %(formType)s"),
@@ -349,7 +349,7 @@ def extractFilingDetailsFromIndex(dbLoader, indexFileName, info):
                     nextKey = 'irsNumber'
                 elif 'state of incorp' in x.lower():
                     nextKey = 'stateOfIncorporation'
-                elif 'type' in x.lower():
+                elif 'type:' in x.lower():
                     nextKey = 'documentType'
                 elif 'sic' in x.lower():
                     nextKey = 'sic'
@@ -365,7 +365,7 @@ def extractFilingDetailsFromIndex(dbLoader, indexFileName, info):
                     else:
                         identInfoDict[nextKey] = x.strip()
                     nextKey = None
-                    
+           
         #getting mailing address. This is in a sibling element
         for mailer in identInfoNode.getparent().xpath("div[@class='mailer']"):
             if 'business address' in mailer.text.lower():
