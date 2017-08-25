@@ -544,7 +544,7 @@ class XuleRuleSet(object):
                     if 'aspectVar' in aspect_filter:
                         var_names[aspect_filter.aspectVar].pop()
             if 'whereExpr' in parseRes:
-                var_names['item'].pop
+                var_names['item'].pop()
         if current_part == 'functionDeclaration':
             for arg in parseRes.funcitonArgs:
                 var_names[arg.argName].pop()
