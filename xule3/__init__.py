@@ -5,11 +5,13 @@ Copyright (c) 2014 XBRL US Inc. All rights reserved
 
 $Change: 21749 $
 '''
+
 from .XuleParser import parseRules
 from .XuleProcessor import process_xule, XuleProcessingError
 from .XuleRuleSet import XuleRuleSet, XuleRuleSetError
 from .XuleContext import XuleGlobalContext, XuleRuleContext
 from .XuleMultiProcessing import run_constant_group, output_message_queue, start_process
+
 from optparse import OptionParser, SUPPRESS_HELP
 from multiprocessing import Queue
 from threading import Thread
@@ -48,7 +50,7 @@ def xuleCmdOptions(parser):
                       action="store",
                       dest="xule_grammar",
                       choices=['xule2', 'xule3'],
-                      default="xule2",
+                      default="xule3",
                       help=_("Grammar version of the Xule rule file. Default is xule2")) 
     
     parserGroup.add_option("--xule-run",
@@ -283,7 +285,10 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
         
         if getattr(options, "xule_multi", False):
             t.join()
-
+    else:
+        if options.entrypointFile is None:
+            #try running the xule processor
+            xuleCmdXbrlLoaded(cntlr, options, None)
     #process filing list
     if getattr(options, "xule_filing_list", None):
         try:
@@ -300,6 +305,8 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
 
         except FileNotFoundError:
             print("Filing listing file '%s' is not found" % options.xule_filing_list)
+    
+    
         
 def xuleCmdXbrlLoaded(cntlr, options, modelXbrl, entryPoint=None):
     if getattr(options, "xule_run", None):
@@ -329,6 +336,13 @@ def xuleCmdXbrlLoaded(cntlr, options, modelXbrl, entryPoint=None):
                          #skip=getattr(options, "xule_skip", None))
                          )
         else:
+            if modelXbrl is None:
+                #check if there are any rules that need a model
+                for rule in rule_set.catalog['rules'].values():
+                    if rule['dependencies']['instance'] == True and rule['dependencies']['rules-taxonomy'] != False:
+                        raise XuleRuleSetError('Need instance to process rules')
+                    
+                    
             process_xule(rule_set,
                          modelXbrl, 
                          cntlr, 

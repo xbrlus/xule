@@ -3,328 +3,479 @@ Xule is rule processor for XBRL (X)brl r(ULE).
 
 Copyright (c) 2014 XBRL US Inc. All rights reserved
 
-$Change: 21535 $
+$Change:  $
 '''
-def get_grammar():
+
+from pyparsing import (Word, Keyword,  CaselessKeyword, ParseResults, infixNotation,
+                 Literal, CaselessLiteral, FollowedBy, opAssoc,
+                 Combine, Optional, nums, Forward, Group, ZeroOrMore,  
+                 ParserElement,  delimitedList, Suppress, Regex, 
+                 QuotedString, OneOrMore, oneOf, cStyleComment,
+                 lineEnd, White, SkipTo, Empty, stringStart, stringEnd, alphas, printables)
+
+def buildPrecedenceExpressions( baseExpr, opList, lpar=Suppress('('), rpar=Suppress(')')):
+    """Simplified and modified version of pyparsing infixNotation helper function
     
-    from pyparsing import (Word, Keyword,  CaselessKeyword,
-                     Literal, CaselessLiteral, 
-                     Combine, Optional, nums, Forward, Group, ZeroOrMore,  
-                     ParserElement,  delimitedList, Suppress, Regex, 
-                     QuotedString, OneOrMore, oneOf, cStyleComment,
-                     lineEnd, White, SkipTo, Empty, stringStart, stringEnd)
+    Args:
+        baseExpr: The parser that is the operand of the operations
+        opList: The list of operators that can be applied to the operand. This is a list in order of operator
+            precedence. Highest precedence is first. Each item in the list is a tuple of:
+                1 - operator expression: parser that is the operator
+                2 - arity: the number of operands. only 1 and 2 are supported
+                3 - associativeness: pyparsing.opAssoc.LEFT or pyparsing.opAssoc.RIGHT. Only left is supported for
+                                        arity of 2 and right for arity of 1.
+                4 - parserAction: parser action for the operation parser that is created.
+        lpar: Parenthesized expressions are not supported in this version. This is ignored.
+        rpar: Parenthesized expressions are not supported in this version. This is ignored.
+        
+    Returns:
+        This returns a pyparsing parser.
+    
+    This version only handles binary and unary operations that are left associative. It also does not handle parenthesized
+    expressions. It uses the same parameters as the infixNotation. This makes it easy to switch between this 
+    version and the official pyparsing version.
+    
+    This version add results names to the parser. When outputting as a dictionary, it will generate a structure as:
+        {'binaryExpr': [
+            {'leftExpr' : {...},
+             'rights' : [
+                             {'op': ...,
+                              'rightExpr' : {...}
+                             },
+                             ...
+                        ]
+            }
+        }
+    """
+    ret = Forward()
+    lastExpr = baseExpr #| ( lpar + ret + rpar )
+    for i,operDef in enumerate(opList):
+        opExpr,arity,rightLeftAssoc,pa,exprName = (operDef + (None, None))[:5]
+        
+        #check restrictions
+        if arity not in (1, 2):
+            raise ValueError('This is a modified version of the pyparsing infixNotation helper function. Only arity of 1 or 2 is supported.')
+        if arity == 1 and rightLeftAssoc != opAssoc.RIGHT:
+            raise ValueError('This is a modified version of the pyparsing infixNotation helper function. When arity is 1 only right associative operations are supported.')
+        if arity == 2 and rightLeftAssoc != opAssoc.LEFT:
+            raise ValueError('This is a modified version of the pyparsing infixNotation helper function. When arity is 2 only left associative operations are supported.')
+
+        if opExpr is None:
+            raise ValueError('This is a modified version of the pyparsing infixNotation helper function. opExpr must be supplied.')
+        termName = "%s term" % opExpr if arity < 3 else "%s%s term" % opExpr
+        thisExpr = Forward().setName(termName)
+        
+        if arity == 1:
+#             # try to avoid LR with this extra test
+#             if not isinstance(opExpr, Optional):
+#                 opExpr = Optional(opExpr)
+            #original - matchExpr = FollowedBy(opExpr.expr + thisExpr) + Group( opExpr + thisExpr )
+            if exprName is None:
+                exprName = 'unaryExpr'
+            matchExpr = (FollowedBy(opExpr + lastExpr) + \
+                        ( opExpr.setResultsName('op') + lastExpr.setResultsName('expr') ) + nodeName(exprName))
+        else: #arity == 2
+            #original -matchExpr = FollowedBy(lastExpr + opExpr + lastExpr) + ( lastExpr + OneOrMore( opExpr + lastExpr ) )
+            if exprName is None:
+                exprName = 'binaryExpr'
+            matchExpr = (FollowedBy(lastExpr + opExpr + lastExpr) + \
+                      ( lastExpr.setResultsName('leftExpr') + 
+                        Group(OneOrMore(Group( opExpr.setResultsName('op') + 
+                                   lastExpr.setResultsName('rightExpr') +
+                                   nodeName('rightOperation')))).setResultsName('rights') ) +
+                              nodeName(exprName)
+                         )
+            
+        if pa:
+            if isinstance(pa, (tuple, list)):
+                matchExpr.setParseAction(*pa)
+            else:
+                matchExpr.setParseAction(pa)
+        thisExpr <<= (Group(matchExpr.setName(termName)) | lastExpr )
+        lastExpr = thisExpr
+    ret <<= lastExpr
+    return ret
+
+def nodeName(name):
+    return Empty().setParseAction(lambda: name).setResultsName('exprName')
+
+def get_grammar():
+    """Return the XULE grammar"""
     
     ParserElement.enablePackrat()
+    
+    #comment = cStyleComment() | (Literal("//") + SkipTo(lineEnd()))
+    comment = cStyleComment | (Literal("//") + SkipTo(lineEnd))
     
     #expression forwards
     expr = Forward()
     blockExpr = Forward()
+
+    #keywords
+    assertKeyword = CaselessKeyword('assert')
+    outputKeyword = CaselessKeyword('output')
+    outputAttributeKeyword = CaselessKeyword('output-attribute')
+    ruleNamePrefixKeyword = CaselessKeyword('rule-name-prefix')
+    ruleNameSeparatorKeyword = CaselessKeyword('rule-name-separator')
+    namespaceKeyword = CaselessKeyword('namespace')
+    constantKeyword = CaselessKeyword('constant')
+    functionKeyword = CaselessKeyword('function')
+    
+    declarationKeywords = (assertKeyword | outputKeyword | outputAttributeKeyword | namespaceKeyword | constantKeyword | functionKeyword | ruleNamePrefixKeyword | ruleNameSeparatorKeyword)
+
+    lParen = Literal('(')
+    rParen = Literal(')')
+    lCurly = Literal('{')
+    rCurly = Literal('}')
+    lSquare = Literal('[')
+    rSquare = Literal(']')
+    bar = Literal('|')
+    coveredAspectStart = Literal('@').setParseAction(lambda s, l, t: 'covered')
+    uncoveredAspectStart = Literal('@@').setParseAction(lambda s, l, t: 'uncovered')
+    propertyOp = Literal('.')
+    assignOp = Literal('=')
+    asOp = CaselessKeyword('as')
+    commaOp = Literal(',')
+    ifOp = CaselessKeyword('if')
+    thenOp = CaselessKeyword('then')
+    elseOp = CaselessKeyword('else')
+    forOp = CaselessKeyword('for')
+    inOp = CaselessKeyword('in')
+
+    varIndicator = Literal('$')
+    methodOp = Literal(".")
     
     #operators
-    unaryOp = oneOf("+ -")
-    addOp = Group(oneOf("+| -| + - |+| |+ |-| |-").setResultsName("value")).setResultsName("op")
-    multOp = Group(oneOf("* /").setResultsName("value")).setResultsName("op")
-    andOp = Keyword("and")
-    orOp = Keyword("or")
-    notOp = Keyword("not")
-    eqOp = Group(Literal("==").setResultsName("value")).setResultsName("op")
-    neOp = Group(Literal("!=").setResultsName("value")).setResultsName("op")
-    ltOp = Group(Literal("<").setResultsName("value")).setResultsName("op")
-    leOp = Group(Literal("<=").setResultsName("value")).setResultsName("op")
-    gtOp = Group(Literal(">").setResultsName("value")).setResultsName("op")
-    geOp = Group(Literal(">=").setResultsName("value")).setResultsName("op")
-    #order is importint in the compOP (comparison operators). The >= has to be befor the > otherwise the parser thinks both > and >= are just > and will fail with >=. 
-    #The same is true for < and <=.
-    compOp = eqOp | neOp | leOp | ltOp | geOp | gtOp  
-    assignOp = Literal("=")
-    assignEnd = Literal(";")
-    tagOp = Literal("#")
-    methodOp = Literal(".")
-    commaOp = Literal(",")
-    ifOp = Keyword("if")
-    elseOp = Keyword("else")
-    forOp = Keyword("for")
-    withOp = Keyword("with")
+    unaryOp = oneOf('+ -')
+    multiOp = oneOf('* /')
+    addOp = oneOf('+> -> + - <+> <+ <-> <-')
+    notOp = CaselessKeyword('not')
+    andOp = CaselessKeyword('and')
+    orOp = CaselessKeyword('or')
+    notInOp = Combine(notOp + White().setParseAction(lambda: ' ') + inOp)
+    compOp = oneOf('== != <= < >= >') | inOp | notInOp
+    
+    #numeric literals
+    sign = oneOf("+ -")
+    sciNot = Literal("e")
+    decimalPoint = CaselessLiteral(".")
+    digits = Word(nums)
+    integerPart = Combine(Optional(sign) + digits)
+    integerLiteral = Group(integerPart.setResultsName("value") +
+                      nodeName('integer'))
+    infLiteral = Combine(Optional(sign) + CaselessKeyword("INF"))
+    floatLiteral = Group((Combine(decimalPoint + digits + Optional(sciNot + integerPart)) |
+                     Combine(integerPart + decimalPoint + Optional(digits, default='0') + Optional(sciNot + integerPart)) |
+                     infLiteral).setResultsName("value") +
+                    nodeName('float'))
+    #string literals
+    stringLiteral = Group(((QuotedString("'", multiline=True, unquoteResults=False, escChar="\\")  | 
+                      QuotedString('"', multiline=True, unquoteResults=False, escChar="\\")).setResultsName("value")) +
+                     nodeName('string'))
+    
+    #boolean literals
+    booleanLiteral = Group((CaselessKeyword("true") | CaselessKeyword("false")).setResultsName("value") + nodeName('boolean'))
+    
+    #none literal
+    noneLiteral = Group(CaselessKeyword("none").setResultsName('value') + nodeName('none'))
+    #unbound
+    unboundLiteral = Group(CaselessKeyword("unbound").setResultsName('value') + nodeName('none'))
+    
+    #severity literals  
+    errorLiteral = CaselessKeyword("error")
+    warningLiteral = CaselessKeyword("warning")
+    okLiteral = CaselessKeyword("ok")
+    passLiteral = CaselessKeyword("pass")
+    severityLiteral = Group((errorLiteral | warningLiteral | okLiteral | passLiteral).setResultsName('value') + nodeName('severity'))
+    
+    #direction keywords
+    directionLiteral = (CaselessKeyword('ancestors') | CaselessKeyword('parents') | CaselessKeyword('descendants') | CaselessKeyword('children') |
+                  CaselessKeyword('siblings') | CaselessKeyword('previous-siblings') | CaselessKeyword('following-siblings') | CaselessKeyword('self')).setResultsName('direction')
+    
     qNameOp = Literal(":")
-    formulaOp = Literal(":=")
-    annotationOp = Literal("@")
-    inOp = Keyword("in")
-    valuesOp = Keyword("values")
-    
-    lParen = Literal("(")
-    rParen = Literal(")")
-    
-    #comment = cStyleComment() | (Literal("//") + SkipTo(lineEnd()))
-    comment = cStyleComment | (Literal("//") + SkipTo(lineEnd))
-    #Literals
     ncName = Regex("([A-Za-z\xC0-\xD6\xD8-\xF6\xF8-\xFF\u0100-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD_]"
                   "[A-Za-z0-9\xC0-\xD6\xD8-\xF6\xF8-\xFF\u0100-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\u0300-\u036F\u203F-\u2040\xB7_.-]*)"
                   )
     prefix = Regex("([A-Za-z\xC0-\xD6\xD8-\xF6\xF8-\xFF\u0100-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD_]"
              "[A-Za-z0-9\xC0-\xD6\xD8-\xF6\xF8-\xFF\u0100-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\u0300-\u036F\u203F-\u2040\xB7_.-]*)"
               )
+    
+    #A simpleName is a ncName that does not allow a dot.
     simpleName = Regex("([A-Za-z\xC0-\xD6\xD8-\xF6\xF8-\xFF\u0100-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD_]"
                   "[A-Za-z0-9\xC0-\xD6\xD8-\xF6\xF8-\xFF\u0100-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\u0300-\u036F\u203F-\u2040\xB7_-]*)"
                   )
- 
     
-    #ncName = Word(r'_-.abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789')
-    #prefix = Word('_-.abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789')
-    # The + ~qNameOp is needed to disambiguate qNames with ":" from method operators "::".
-    qName = Group(Optional(Combine(prefix + ~White() + Suppress(qNameOp) + ~qNameOp), default="*").setResultsName("prefix") + 
+    qName = Group(Optional(Combine(prefix + ~White() + Suppress(qNameOp)), default="*").setResultsName("prefix") + 
                   ~White() 
-                  + ncName.setResultsName("localName")).setResultsName("qName")
-    
-    #numeric literals
-    sign = oneOf("+ -")
-    sciNot = Literal("e")
-    decimalPoint = Literal(".")
-    digits = Word(nums)
-    integerLiteral = Group(Combine(Optional(sign) + digits).setResultsName("value")).setResultsName("integer")
-    infLiteral = Combine(Optional(sign) + CaselessKeyword("INF"))
-    floatLiteral = Group(( Combine(decimalPoint + digits + Optional (sciNot + integerLiteral)) |
-                     Combine(integerLiteral + decimalPoint + digits + Optional (sciNot + integerLiteral)) |
-                     Combine(integerLiteral + decimalPoint + Optional (sciNot + integerLiteral)) |
-                     infLiteral).setResultsName("value")).setResultsName("float")
-    #string literals
-    stringLiteral = Group(( QuotedString("'", multiline=True, unquoteResults=False, escChar="\\")  | 
-                      QuotedString('"', multiline=True, unquoteResults=False, escChar="\\") ).setResultsName("value")).setResultsName("string")
-    
-    #boolean literals
-    boolLiteral = Group((Keyword("true") | Keyword("false")).setResultsName("value")).setResultsName("boolean")
-    
-    #void literals
-    noneLiteral = Group((Keyword("none")).setResultsName("value")).setResultsName("void") 
-    unboundLiteral = Group((Keyword("unbound")).setResultsName("value")).setResultsName("void") 
-    voidLiteral = noneLiteral | unboundLiteral #Group((Keyword("none") | Keyword("unbound")).setResultsName("value")).setResultsName("void")
-    
-    #severity literals  
+                  + ncName.setResultsName("localName")
+                  + nodeName('qname'))
 
-    errorLiteral = Keyword("error")
-    warningLiteral = Keyword("warning")
-    infoLiteral = Keyword("info")
-    passLiteral = Keyword("pass")
-    
-    severityLiteral = Group((errorLiteral | warningLiteral | infoLiteral | passLiteral).setResultsName("severityName") + 
-                            Group(Optional(Suppress(lParen) +
-                                           Optional(delimitedList(Group(ncName.setResultsName("tagName") +
-                                                                        Suppress("=") +
-                                                                        Group(blockExpr).setResultsName("argExpr") 
-                                                                        ).setResultsName("severityArg"))) +
-                                           Suppress(rParen))).setResultsName("severityArgs")).setResultsName("severity")
+    tagOp = Literal('#').setParseAction(lambda: True).setResultsName('tagged')
+    tagName = simpleName.setResultsName('tagName')
 
-    listLiteral = Group(Empty().setParseAction(lambda s, l, t: "list").setResultsName("functionName") +
-                        Suppress(lParen) + 
-                        Group(Optional(delimitedList(Group(blockExpr).setResultsName("functionArg")) +
-                                   Optional(Suppress(commaOp)) #This allows a trailing comma for lists and sets
-                                   )).setResultsName("functionArgs") + 
-                        Suppress(rParen)).setResultsName("functionReference")
+    covered = CaselessKeyword('covered').setParseAction(lambda: True).setResultsName('covered')
+    where = CaselessKeyword('where')
+    
 
-    # references
-    varRef = Group(Suppress(Literal("$")) + simpleName.setResultsName("varName")).setResultsName("varRef") # variable reference
-#     funcRef = Group(ncName.setResultsName("functionName") + 
-#                     Suppress(lParen) + 
-#                     Group(Optional(delimitedList(Group(Optional(ncName.setResultsName("argName") + 
-#                                                                 Suppress(assignOp + ~assignOp)) + 
-#                                                        blockExpr).setResultsName("functionArg")))).setResultsName("functionArgs") + 
-#                 Suppress(rParen)).setResultsName("functionReference") 
-    
-    funcRef = Group(ncName.setResultsName("functionName") + 
-                    Suppress(lParen) + 
-                    Group(Optional(delimitedList(Group(blockExpr).setResultsName("functionArg")) +
-                                   Optional(Suppress(commaOp)) #This allows a trailing comma for lists and sets
-                                   )).setResultsName("functionArgs") + 
-                Suppress(rParen)).setResultsName("functionReference") 
-    
-    # non precedence expressions (logical expressions)
-    
-    printExpr  = Group(Suppress(Keyword("print")) +
-                       Suppress(lParen) +
-                       Group(blockExpr).setResultsName("printValue") +
-                       Suppress(rParen) +
-                       Group(blockExpr).setResultsName("passThroughExpr")).setResultsName("printExpr")
+    properties = Group(OneOrMore(Group(Suppress(propertyOp) +
+                                       simpleName.setResultsName('propertyName') +
+                                       Optional(Group(Suppress(lParen) +
+                                                Optional(delimitedList(blockExpr)) +
+                                                Suppress(rParen)
+                                                ).setResultsName('propertyArgs')
+                                                
+                                                ) +
+                                       Optional(tagOp + tagName)
+                                       + nodeName('property')
+                                 ))
+                       ).setResultsName('properties')
 
-    aspect = Group(
-                   Suppress(Literal("@")) +
-                   Group(qName).setResultsName("aspectName") +
+
+    whereClause = Suppress(where) + blockExpr.setResultsName('whereExpr')
+
+    # Note the order of uncovered and covered is important. The uncovered must go first because it is a @@
+    # while the coveted is a single @. If the order is flipped, the parser will think a @@ is two consecute
+    # single @s instead of a single double @.
+    aspectStart = (uncoveredAspectStart | coveredAspectStart).setResultsName('coverType') + ~coveredAspectStart + ~White()
+    
+    aspectName = ((CaselessKeyword('concept') | 
+                   CaselessKeyword('unit') | 
+                   CaselessKeyword('entity') | 
+                   CaselessKeyword('period') | 
+                   CaselessKeyword('table')).setResultsName('aspectName') +
                    Optional(
-                            Suppress(lParen) +
-                            ncName.setResultsName("aspectVar") +
-                            Suppress(rParen)
-                            ) +
-                   (assignOp | inOp).setResultsName("aspectOperator") + 
-                   ( 
-                    Literal("**").setParseAction(lambda s, l, t: "allWithDefault").setResultsName("all") | 
-                    Literal("*").setParseAction(lambda s, l, t: "all").setResultsName("all") |                                 
-                    Group(blockExpr).setResultsName("aspectExpr")
+                            #properties.setResultsName('aspectProperties'))
+                        Suppress(propertyOp) +
+                        simpleName.setResultsName('propertyName') +
+                        Optional(Group(Suppress(lParen) +
+                                       Optional(delimitedList(blockExpr)) +
+                                       Suppress(rParen)
+                                       ).setResultsName('propertyArgs')
+                        )                        
                     )
-                   ).setResultsName("aspectFilter")
-
-    aspectEmptyWithVar = Group(
-                               Suppress(Literal("@")) +
-                               Group(qName).setResultsName("aspectName") +
-                               Suppress(lParen) +
-                               ncName.setResultsName("aspectVar") +
-                               Suppress(rParen)
-                               ).setResultsName("aspectFilter")
-
-    aspectLineItem = Group(
-                   Suppress(Literal("@")) +
-
-                   Group(
-                         Group(
-                               Empty().setParseAction(lambda s, l, t: "*").setResultsName("prefix") +
-                               Empty().setParseAction(lambda s, l, t: "lineItem").setResultsName("localName")
-                               ).setResultsName("qName")
-                         
-                         ).setResultsName("aspectName") +
-                   Empty().setParseAction(lambda s, l, t: "=").setResultsName("aspectOperator") +                                
-                   Group(qName).setResultsName("aspectExpr")
-                   ).setResultsName("aspectFilter")
+                  )| Optional(qName.setResultsName('aspectDimensionName'))
+    
+    aspectOp = assignOp | Literal('!=') | inOp | notInOp
+    
+    aspectFilter = (aspectStart + 
+                    Optional(aspectName +
+                             Optional(aspectOp.setResultsName('aspectOperator') + 
+                                      (Literal('*').setResultsName('wildcard') |
+                                       blockExpr.setResultsName('aspectExpr')
+                                      )
+                                      ) +
+                             Optional(Suppress(asOp) + simpleName.setResultsName('alias'))
+                             )
+                    + nodeName('aspectFilter'))
+    
+    factsetInner = (Optional(covered) + 
+                    ZeroOrMore(Group(aspectFilter)).setResultsName('aspectFilters') +
+                    Optional((whereClause) | blockExpr.setResultsName('innerExpr')
+#                     Optional(~ where + blockExpr.setResultsName('innerExpr') ) |
+#                     Optional(whereClause)
+                    )
+                    )
     
     factset = Group(
-                    Group(OneOrMore(aspect | aspectEmptyWithVar | aspectLineItem)).setResultsName("aspectFilters") +
-                    Optional(CaselessLiteral("nomoredims").setParseAction(lambda s, l, t: "closed") | CaselessLiteral("nmd").setParseAction(lambda s, l, t: "closed"), default="open").setResultsName("factsetType") +
-                    Optional(Group(
-                                   Suppress(Literal("[")) +
-                                   blockExpr + 
-                                   Suppress(Literal("]"))
-                                   ).setResultsName("whereExpr")) 
-                    ).setResultsName("factset")
+                (       
+                     (
+                      Suppress(lCurly) + 
+                      factsetInner +                    
+                      Suppress(rCurly) +
+                      Empty().setParseAction(lambda s, l, t: 'open').setResultsName('factsetType')
+                      ) |
+                     (
+                      Suppress(lSquare) + 
+                      factsetInner +                    
+                      Suppress(rSquare) +
+                      Empty().setParseAction(lambda s, l, t: 'closed').setResultsName('factsetType')
+                      ) |
+                      Optional(covered) +
+                      Group(OneOrMore(Group(aspectFilter))).setResultsName('aspectFilters') + #This is a factset without enclosing brackets
+                      Empty().setParseAction(lambda s, l, t: 'open').setResultsName('factsetType') +
+                      Optional(whereClause)
+                ) +
+                nodeName('factset')        
+            )
+    
+    returnComponents = (Group(Word(alphas)).setResultsName('returnComponents') |
+                        (Suppress('(') +
+                         Group(delimitedList(Word(alphas))).setResultsName('returnComponents') +
+                         Suppress(')'))
+                        )
+    
+    navigation = Group(
+                       Suppress(CaselessKeyword('navigate')) + 
+                       # The dimension and arcrole need the FollowedBy() look ahead. I'm not sure why, but it is because these are optional and the direction is reuired.
+                       # Without the FollowedBy() look ahead, 'navigate self' fails because the parser thinks 'navigate' is a qname and then does not know what to 
+                       # do with 'self'.
+                       Optional(CaselessKeyword('dimensions').setParseAction(lambda: True).setResultsName('dimensional') + (FollowedBy(blockExpr | directionLiteral) )) +
+                       Optional(blockExpr.setResultsName('arcrole') + FollowedBy(directionLiteral)) +  
+                       directionLiteral +
+                       Optional(Group(CaselessKeyword('include') + CaselessKeyword('start')).setParseAction(lambda: True).setResultsName('includeStart')) +
+                       Optional(Suppress(CaselessKeyword('from')) + blockExpr.setResultsName('from')) +
+                       Optional(Suppress(CaselessKeyword('to')) + blockExpr.setResultsName('to')) +
+                       Optional(Suppress(CaselessKeyword('role')) + blockExpr.setResultsName('role')) +
+                       Optional(Suppress(CaselessKeyword('drs-role')) + blockExpr.setResultsName('drsRole')) +
+                       Optional(Suppress(CaselessKeyword('linkbase')) + blockExpr.setResultsName('linkbase')) +
+                       Optional(Suppress(CaselessKeyword('table')) + blockExpr.setResultsName('table')) +
+                       Optional(Suppress(CaselessKeyword('in')) + blockExpr.setResultsName('taxonomy')) +
+                       Optional(whereClause) +
+                       Optional(Group(
+                                      Suppress(CaselessKeyword('returns')) +
+                                      Optional((
+                                                     CaselessKeyword('list') |
+                                                     CaselessKeyword('set') |
+                                                     (CaselessKeyword('network') +
+                                                           Optional(Suppress(CaselessKeyword('as')) + (CaselessKeyword('dictionary') |
+                                                                          CaselessKeyword('list')).setResultsName('networkType'))
+                                                           )
+                                                     ).setResultsName('returnType')
+                                             
+                                               ) +
+                                      Optional(CaselessKeyword('paths').setParseAction(lambda: True).setResultsName('paths')) +
+                                      Optional(returnComponents)
+                                ).setResultsName('return')
+                        ) +
+                       nodeName('navigation')
+                )
+    #function reference
+    funcRef = Group(simpleName.setResultsName("functionName") + ~White() +
+                    Suppress(lParen) + 
+                    Group(Optional(delimitedList(blockExpr)  +
+                                   Optional(Suppress(commaOp)) #This allows a trailing comma for lists and sets
+                                   )).setResultsName("functionArgs") + 
+                Suppress(rParen) +
+                nodeName('functionReference')) 
+
+    #variable reference
+    varRef = Group(Suppress(varIndicator) + simpleName.setResultsName("varName") + nodeName('varRef'))
+
+    #if expression
+    elseIfExpr = (ZeroOrMore(Group(Suppress(elseOp + ifOp) + 
+                                    blockExpr.setResultsName("condition") +
+                                    blockExpr.setResultsName("thenExpr") +
+                                    nodeName('elseIf')
+                                    )
+                              ).setResultsName("elseIfExprs")
+                   )
 
     ifExpr = Group(Suppress(ifOp) + 
-             Group(blockExpr).setResultsName("condition") + 
-             Group(blockExpr).setResultsName("thenExpr") +
-             # this will flatten nested if conditions 
-             ZeroOrMore(Group(Suppress(elseOp + ifOp) + 
-                              Suppress(lParen) +
-                              Group(blockExpr).setResultsName("condition") +
-                              Suppress(rParen) +
-                              Group(blockExpr).setResultsName("thenExpr")
-                              ).setResultsName("elseIfExpr")
-                        ) +
-             Suppress(elseOp) + 
-             Group(blockExpr).setResultsName("elseExpr")).setResultsName("ifExpr")
-     
-    forExpr = (
-               #version with parens around the for control
-               (Group(Suppress(forOp) + 
-                    Suppress(lParen) + 
-                    Group(
-                          ncName.setResultsName("forVar") + 
-                          Optional(tagOp).setResultsName("tagged") +
-                          Suppress(inOp) + 
-                          #Group(blockExpr).setResultsName("forLoop")
-                          blockExpr.setResultsName('forLoopExpr') 
-                          ).setResultsName("forControl") +
-                    Suppress(rParen) +
-                    Group(blockExpr).setResultsName("forBodyExpr")).setResultsName("forExpr")) |
-               #version without parens around the for control
-               (Group(Suppress(forOp) + 
-                    Group(
-                          ncName.setResultsName("forVar") + 
-                          Optional(tagOp).setResultsName("tagged") +
-                          Suppress(inOp) + 
-                          #Group(blockExpr).setResultsName("forLoop")
-                          blockExpr.setResultsName('forLoopExpr') 
-                          ).setResultsName("forControl") +
-                    Group(blockExpr).setResultsName("forBodyExpr")).setResultsName("forExpr"))
+                   
+                   blockExpr.setResultsName("condition") + 
+                   
+                   blockExpr.setResultsName("thenExpr") +
+                   # this will flatten nested if conditions 
+                   elseIfExpr +
+                   Suppress(elseOp) + 
+                   blockExpr.setResultsName("elseExpr") +
+                   nodeName('ifExpr')
+              ) 
+              
+    forExpr = Group(#with parens around the for control
+               ((Suppress(forOp) + 
+                #for loop control: for var name and loop expression
+                Suppress(lParen) + 
+                Combine(Suppress(varIndicator) + simpleName.setResultsName("forVar")) + 
+                Suppress(inOp) + 
+                blockExpr.setResultsName("forLoopExpr") +
+                Suppress(rParen) +
+                #for body expression
+                blockExpr.setResultsName("forBodyExpr") + 
+                nodeName('forExpr'))) |
+               
+               #without parens around the for control
+               ((Suppress(forOp) + 
+                #for loop control
+                Combine(Suppress(varIndicator) + simpleName.setResultsName("forVar")) + 
+                Suppress(inOp) + 
+                blockExpr.setResultsName("forLoopExpr") +
+                #for body expression
+                blockExpr.setResultsName("forBodyExpr") + 
+                nodeName('forExpr')))
                )
     
-    withControlExpr = Group(Group(OneOrMore(aspect | aspectEmptyWithVar | aspectLineItem)).setResultsName("aspectFilters")).setResultsName("factset")
-           
-    withExpr = Group(Suppress(withOp) + 
-                     (
-                        (
-                             Suppress(lParen) + 
-                             Group(withControlExpr).setResultsName("controlExpr") + 
-                             Suppress(rParen)
-                         ) |
-                         Group(withControlExpr).setResultsName("controlExpr")
-                      ) +
-                     Group(blockExpr).setResultsName("expr")
-                     ).setResultsName("withExpr")
+    listLiteral =  Group( 
+                        Suppress(lParen) +
+                        Group(Optional(delimitedList(blockExpr) +
+                                       Optional(Suppress(commaOp)) #This allows a trailing comma for lists and sets
+                                       )).setResultsName("functionArgs") + 
+                        Suppress(rParen) +
+                        nodeName('functionReference') +
+                       
+                       Empty().setParseAction(lambda s, l, t: "list").setResultsName("functionName")
+                       )
     
-    # Order is important here because it will match the first. 
-    # For example, the float literal has to be before the integer literal. This is because a float can starte
-    # with an integer in which case the parser will think it is an integer. When it hits the decimal point
-    # the parser will fail because an integer cannot have a decimal point. By putting the float first, it can fail matching the float and
-    # fall back to see if matches the integer.
-    # This issue is also true for "if", "for" and "with" expressions. These have to be before qNames because these expressions
-    # start with tokens that could match a qName. 
     atom = (
-            printExpr | 
+
             ifExpr |
             forExpr |
-            withExpr |
             
-#             listLiteralFunction |
-#             setLiteralFunction |
-            
+            #literals
             floatLiteral |
-            integerLiteral |    
+            integerLiteral |
             stringLiteral |
-
-            factset |
-            
+            booleanLiteral |
             severityLiteral |
-               
-            funcRef |          
-            varRef |
+            noneLiteral |
+            unboundLiteral |
             
-            boolLiteral |
-            voidLiteral |
+            factset |
+            navigation |
+            
+            funcRef | 
+            varRef|
             
             qName |
-            (Suppress(lParen) + blockExpr + Suppress(rParen)) | # parenthesized expression
-            listLiteral#.setResultsName("list")
-             )
+            
+            # parenthesized expression
+            (Suppress(lParen) + blockExpr + Suppress(rParen)) |
+            #list literal - needs to be at the end.
+            listLiteral 
+            )
 
-    valuesExpr = Group((Suppress(valuesOp) + atom)).setResultsName("valuesExpr") | atom
-    #These expressions are in order of operator precedence
-    taggedExpr = Group(Group(valuesExpr).setResultsName("expr") + Suppress(tagOp) + ncName.setResultsName("tagName")).setResultsName("taggedExpr") | valuesExpr
-    #unary expressions
-    unaryExpr = Group((unaryOp.setResultsName("unaryOp") + Group(taggedExpr).setResultsName("expr"))).setResultsName("unaryExpr") | taggedExpr
-    #property expression
-    propertyExpr = Group(Optional(Group(unaryExpr).setResultsName("expr")) + 
-                       Group(OneOrMore(Group(Suppress(methodOp) + 
-                                       simpleName.setResultsName("propertyName") +
-                                       Optional(Suppress(lParen) + 
-                                                    Group(Optional(delimitedList(Group(blockExpr).setResultsName("propertyArg")))).setResultsName("propertyArgs") +
-                                                    Suppress(rParen) 
-                                        ) +
-                                         Optional(Suppress(tagOp) +
-                                                 ncName.setResultsName("tagName")
-                                        )
-                                       
-                                       ).setResultsName("property"))).setResultsName("properties")
-                       ).setResultsName("propertyExpr") | unaryExpr
+    #expressions with precedence.
+    #taggedExpr = (Group(atom) + Suppress('#') + tagName + nodeName('taggedExpr')) | atom
     
+    taggedExpr = Group(atom.setResultsName('expr') + Suppress('#') + tagName + nodeName('taggedExpr')) | atom
+        
+#     unaryExpr = Group(unaryOp.setResultsName('op') + 
+#                        #~digits + ~CaselessLiteral('INF') + 
+#                        Group(taggedExpr).setResultsName('expr') +
+#                       nodeName('unaryExpr')) | taggedExpr
+                       
+    indexExpr = Group(taggedExpr.setResultsName('expr') +
+                      OneOrMore((Suppress(lSquare) + blockExpr + 
+                                      Suppress(rSquare) )).setResultsName('indexes') +
+                      nodeName('indexExpr')) | taggedExpr
     
-    
-    #valuesExpr = Group((Suppress(valuesOp) + propertyExpr)).setResultsName("valuesExpr") | propertyExpr
-    
-    #binary expressions
-    multExpr = Group((propertyExpr + OneOrMore(multOp + propertyExpr))).setResultsName("multExpr") | propertyExpr
-    addExpr = Group((multExpr + OneOrMore(addOp + multExpr))).setResultsName("addExpr") | multExpr
-    compExpr = Group((addExpr + OneOrMore(compOp + addExpr))).setResultsName("compExpr") | addExpr
-    notExpr = Group((Suppress(notOp) + compExpr)).setResultsName("notExpr") | compExpr
-    andExpr = Group((notExpr + OneOrMore(Suppress(andOp) + notExpr))).setResultsName("andExpr") | notExpr
-    orExpr = Group((andExpr + OneOrMore(Suppress(orOp) + andExpr))).setResultsName("orExpr") | andExpr
-    formulaExpr = Group((orExpr + OneOrMore(Suppress(formulaOp) + orExpr))).setResultsName("formulaExpr") | orExpr
-    
-    expr << formulaExpr
-    
-    # block expression is a set of varibalbe assignments followed by an exprresoin.
-    varAssign = Group(simpleName.setResultsName("varName") + 
-                      Optional(tagOp).setResultsName("tagged") + 
-                      Suppress(assignOp) + 
-                      Group(blockExpr).setResultsName("expr") + 
-                      Optional(Suppress(assignEnd))
-                ).setResultsName("varAssign")
-    blockExpr << (Group((OneOrMore(varAssign) + Group(expr).setResultsName("expr"))).setResultsName("blockExpr") | expr)
+    propertyExpr = Group(indexExpr.setResultsName('expr') +
+                         properties +
+                         nodeName('propertyExpr')) | indexExpr
+     
+    expr << buildPrecedenceExpressions(propertyExpr,
+                          [(unaryOp, 1, opAssoc.RIGHT, None, 'unaryExpr'),
+                           (multiOp, 2, opAssoc.LEFT, None, 'multExpr'),
+                           (addOp, 2, opAssoc.LEFT, None, 'addExpr'),
+                           (compOp, 2, opAssoc.LEFT, None, 'compExpr'),
+                           (notOp, 1, opAssoc.RIGHT, None, 'notExpr'),
+                           (andOp, 2, opAssoc.LEFT, None, 'andExpr'),
+                           (orOp, 2, opAssoc.LEFT, None, 'orExpr')
+                          ])
 
-    # top level parse elements.
+    varDeclaration = (
+                           Suppress(varIndicator) +
+                           simpleName.setResultsName('varName') +   
+                           Optional(tagOp +
+                                    Optional(tagName)) + 
+                           Suppress('=') +
+                           blockExpr.setResultsName('body') + Optional(Suppress(';')) +
+                           nodeName('varDeclaration')
+                           )
+
+    blockExpr << (Group((OneOrMore(Group(varDeclaration)).setResultsName('varDeclarations') + 
+                        expr.setResultsName('expr') +
+                        nodeName('blockExpr'))) | expr)
     
     #nsURI is based on XML char (http://www.w3.org/TR/xml11/#NT-Char) excluding the space character
     nsURI = Regex("["
@@ -349,133 +500,101 @@ def get_grammar():
                   "\uE0000-\uEFFFD"
                   "\uF0000-\uFFFFD"
                   "\u100000-\u10FFFD"
-                  "]*")    
-    nsDeclaration = (
-                    Group(
-                          Suppress(Keyword("namespace")) +
-                          Group(ncName).setResultsName("prefix") +
-                          Suppress(Literal("=")) +
-                          nsURI.setResultsName("namespaceUri")
-                           ).setResultsName("nsDeclaration") |
-                     Group(
-                           Suppress(Keyword("namespace")) +
-                           Empty().setParseAction(lambda s, l, t: "*").setResultsName("prefix") +
-                           nsURI.setResultsName("namespaceUri")
-                           ).setResultsName("nsDeclaration")                     
-                     )    
+                  "]*")   
 
+    namespaceDeclaration = (
+                                 Suppress(namespaceKeyword) +
+                                 (
+                                  #The prefix is optional. This either matches when the prefix is there or empty to capture the default.
+                                  (
+                                   prefix.setResultsName('prefix') +
+                                   Suppress(Literal('='))
+                                   ) |
+                                  Empty().setParseAction(lambda s, l, tok: '*').setResultsName('prefix')
+                                  ) +
+                                 nsURI.setResultsName('namespaceURI') +
+                                 nodeName('nsDeclaration')
+                                 )
 
-    #annotation
-    annotation = Group(Suppress(annotationOp) +
-                       ncName.setResultsName("annocationName") + 
-                       Optional(Suppress(lParen) + 
-                             Group(Optional(delimitedList(Group(expr).setResultsName("annotationArg")))).setResultsName("annotationArgs") +
-                             Suppress(rParen))
-                 ).setResultsName("annotation")
+#     outputAttributeDeclaration = Group(
+#                                        Suppress(outputAttributeKeyword) +
+#                                        simpleName.setResultsName('attributeName')).setResultsName('outputAttributeDeclaration')
+
+    outputAttributeDeclaration = (
+                                   Suppress(outputAttributeKeyword) +
+                                   simpleName.setResultsName('attributeName') +
+                                   nodeName('outputAttributeDeclaration')
+                                 )
     
-    #constant
-    constant = Group(
-                  Suppress(Keyword("constant")) +
-                  ncName.setResultsName("constantName") + 
-                  Optional(tagOp).setResultsName("tagged") + 
+    ruleNamePrefix = (
+                      Suppress(ruleNamePrefixKeyword) +
+                      ncName.setResultsName('prefix') +
+                      nodeName('ruleNamePrefix')
+                      )
+    
+    ruleNameSeparator = (
+                         Suppress(ruleNameSeparatorKeyword) +
+                         Word(printables).setResultsName('separator') +
+                         nodeName('ruleNameSeparator')
+                         )
+    
+    ruleResult = Group( ~declarationKeywords +
+                         (CaselessKeyword('message') | CaselessKeyword('severity') | simpleName).setResultsName('resultName') +
+                         expr.setResultsName('resultExpr') + nodeName('result')
+                    )
+
+    assertDeclaration = (
+                              Suppress(assertKeyword) +
+                              ncName.setResultsName('ruleName') +
+                              Optional(CaselessKeyword('satisfied') | CaselessKeyword('unsatisfied'), default='satisfied').setResultsName('satisfactionType') +
+                              blockExpr.setResultsName('body') +
+                              ZeroOrMore(ruleResult).setResultsName('results') +
+                              nodeName('assertion')
+                              )
+
+    outputDeclaration = (
+                              Suppress(outputKeyword) +
+                              ncName.setResultsName('ruleName') +
+                              blockExpr.setResultsName('body') +
+                              ZeroOrMore(ruleResult).setResultsName('results') +
+                              nodeName('outputRule')
+                              )
+
+    constantDeclaration = (
+                  Suppress(constantKeyword) +
+                  simpleName.setResultsName("constantName") + 
+                  Optional(tagOp +
+                           Optional(tagName)) + 
                   Suppress(assignOp) + 
-                  Group(expr).setResultsName("expr") 
-            ).setResultsName("constantAssign")
-    
-    #extras needed for top level parse elements.
-    severity = Suppress(Keyword("severity")) + ncName.setResultsName("severity")
-    message = Suppress(Keyword("message")) + Group(expr).setResultsName("message")
-    
-    #precondition
-    preconditionDeclaration = Group(Suppress(Keyword("precondition")) +
-                                    ncName.setResultsName("preconditionName") +
-                                    blockExpr.setResultsName("expr") +
-                                    Optional(Suppress(Keyword("otherwise")) +
-                                             Suppress(Keyword("raise")) + 
-                                             ncName.setResultsName("otherwiseRuleName") +
-                                             Optional(severity)) +
-                                    Optional(message)
-                                ).setResultsName("preconditionDeclaration")
-    
-    preconditionRef = Group(Suppress(Keyword("require")) + Group(delimitedList(ncName.setResultsName("preconditionName"))).setResultsName("preconditionNames")).setResultsName("preconditionRef")
-    
-    packageDeclaration = Group(Optional(annotation) + 
-                               Optional(preconditionRef) +
-                               Suppress(Keyword("package")) + 
-                               ncName.setResultsName("packageName")).setResultsName("package")
+                  expr.setResultsName("body") +
+                  nodeName('constantDeclaration')
+            )                            
 
-    functionDeclaration = Group(
-        Optional(annotation) +
-        Suppress(Keyword("function")) + 
-        ncName.setResultsName("functionName") + 
+    functionDeclaration = (
+        Suppress(functionKeyword) + 
+        simpleName.setResultsName("functionName") + ~White() +
         Suppress(lParen) + 
-        Group(Optional(delimitedList(Group(ncName.setResultsName("argName") + Optional(tagOp.setResultsName("tagged")) + Optional(ncName.setResultsName("tagName"))).setResultsName("functionArg")))).setResultsName("functionArgs") +
+        Group(Optional(delimitedList(Group(simpleName.setResultsName('argName') + nodeName('functionArg') + 
+                                           Optional(tagOp +
+                                                    Optional(tagName)))) +
+                       Optional(Suppress(commaOp)) #This allows a trailing comma for lists and sets
+        )).setResultsName("functionArgs") + 
         Suppress(rParen) +
-        Group(blockExpr).setResultsName("expr")
-        ).setResultsName("functionDeclaration")
-    
-    macroDeclaration = Group(
-        Optional(annotation) +                            
-        Suppress(Keyword("macro")) + 
-        ncName.setResultsName("macroName") + 
-        Suppress(lParen) + 
-        Group(Optional(delimitedList(Group(ncName.setResultsName("argName") + Optional(tagOp.setResultsName("tagged")) + Optional(ncName.setResultsName("tagName"))).setResultsName("macroArg")))).setResultsName("macroArgs") +
-        Suppress(rParen) +
-        Group(blockExpr).setResultsName("expr")
-        ).setResultsName("macroDeclaration")
-    
-    raiseDeclaration = Group(
-        Optional(annotation) +
-        Optional(preconditionRef) +
-        Suppress(Keyword("raise")) +
-        ncName.setResultsName("raiseName") + 
-        Optional(severity) +
-        Group(blockExpr).setResultsName("expr") +
-        Optional(message)
-        ).setResultsName("raiseDeclaration")
-        
-    reportDeclaration = Group(
-        Optional(annotation) +
-        Optional(preconditionRef) +
-        Suppress(Keyword("report")) +
-        ncName.setResultsName("reportName") + 
-        Optional(severity) +
-        Group(blockExpr).setResultsName("expr") +
-        Optional(message)
-        ).setResultsName("reportDeclaration")
-
-    formulaDeclaration = Group(
-        Optional(annotation) +
-        Optional(preconditionRef) +
-        Suppress(Keyword("formula")) +
-        ncName.setResultsName("formulaName") +
-        Optional(severity) + 
-        Optional(Suppress(Keyword("bind")) + (Keyword("both") | Keyword("left") | Keyword("right")), default="both").setResultsName("bind") +
-        Group(blockExpr).setResultsName("expr") +
-        Optional(message)
-        ).setResultsName("formulaDeclaration")
-        
-    ruleBase = Group(
-                     Optional(annotation) +
-                     Optional(preconditionRef) +
-                     Suppress(Keyword("rule-base"))
-                ).setResultsName("ruleBase")
-            
-    xuleFile = Group(stringStart +
-            ZeroOrMore(nsDeclaration) +
-            ZeroOrMore(preconditionDeclaration) +
-            Optional(packageDeclaration) +
-            ZeroOrMore(
-                    constant |
-                    functionDeclaration |
-                    macroDeclaration |
-                    raiseDeclaration |
-                    formulaDeclaration |
-                    preconditionDeclaration |
-                    reportDeclaration |
-                    ruleBase 
-                  ) + stringEnd
-                ).setResultsName("xuleFile").ignore(comment)
+        blockExpr.setResultsName("body") +
+        nodeName('functionDeclaration')
+        )
+                     
+    xuleFile = (stringStart +
+                ZeroOrMore(Group(ruleNameSeparator |
+                                 ruleNamePrefix |
+                                 namespaceDeclaration |
+                                 outputAttributeDeclaration |
+                                 functionDeclaration |
+                                 constantDeclaration |
+                                 assertDeclaration |
+                                 outputDeclaration)) +
+                stringEnd).setResultsName('xuleDoc').ignore(comment)
+    #xuleFile = Group(ZeroOrMore(factset)).setResultsName('xuleDoc')
     
     #xuleFile = (stringStart + Optional(header) + ZeroOrMore(packageBody) + stringEnd).setResultsName("xule").ignore(comment)
     

@@ -268,7 +268,7 @@ class XuleRuleContext(object):
         #self.dependent_alignment = None
         
         self.ignore_vars = []
-        self.with_filters = []
+        self.nested_factset_filters = []
         self.other_filters = []
         self.alignment_filters = []
 
@@ -352,7 +352,7 @@ class XuleRuleContext(object):
         self.aligned_result_only = False
         self.ignore_vars = []
 
-        self.with_filters = []
+        self.nested_factset_filters = []
         self.other_filters = []
         self.alignment_filters = []
 
@@ -462,20 +462,20 @@ class XuleRuleContext(object):
         return var_info                
     
     def filter_add(self, filter_type, filter_dict):
-        self.with_filters.append((filter_type, filter_dict))
+        self.nested_factset_filters.append((filter_type, filter_dict))
 
     def filter_del(self):           
-        self.with_filters.pop()
+        self.nested_factset_filters.pop()
         
     def has_other_filter(self):
-        return any([with_filter[0] == 'other' for with_filter in self.with_filters])
+        return any([filter[0] == 'other' for filter in self.nested_factset_filters])
     
     def get_current_filters(self):
         filter_aspects = set()
-        with_filters = dict()
+        nested_factset_filters = dict()
         other_filters = dict()
         
-        for filter_tup in reversed(self.with_filters):
+        for filter_tup in reversed(self.nested_factset_filters):
             filter_type = filter_tup[0]
             filter_dict = filter_tup[1]
             
@@ -483,12 +483,12 @@ class XuleRuleContext(object):
                 # 1 = the aspect name
                 if filter_info[1] not in filter_aspects:
                     filter_aspects.add(filter_info[1])
-                    if filter_type == 'with':
-                        with_filters[filter_info] = filter_member
+                    if filter_type == 'nested':
+                        nested_factset_filters[filter_info] = filter_member
                     else:
                         other_filters[filter_info] = filter_member
                     
-        return with_filters, other_filters    
+        return nested_factset_filters, other_filters    
     
     def find_function(self, function_name):
         '''
@@ -780,8 +780,8 @@ class XuleIterationTable:
         
         if getattr(self.xule_context.global_context.options, "xule_debug_table", False):
         #if self.xule_context.global_context.show_debug_table:
-            print(ast_node.getName() + " " + str(ast_node.node_id))
-            print("node id", ast_node.node_id)
+            print(ast_node['exprName'] + " " + str(ast_node['node_id']))
+            print("node id", ast_node['node_id'])
             print("Before Add (table: %i)" % table_id)
             print(self.to_csv())
             
@@ -794,7 +794,7 @@ class XuleIterationTable:
         if table_processing_id not in self._ordered_tables:
             for k, v in self._ordered_tables.items():
                 print("table", k, v.table_id)
-            raise XuleProcessingError(_("Table %i has not been created. Processing id: %s. Adding node: %s (id:%s)" % (table_id, table_processing_id, ast_node.getName(), ast_node.node_id)), self.xule_context)
+            raise XuleProcessingError(_("Table %i has not been created. Processing id: %s. Adding node: %s (id:%s)" % (table_id, table_processing_id, ast_node['exprName'], ast_node['node_id'])), self.xule_context)
             #self.add_table(table_id, processing_id)
         
         sub_table = self._ordered_tables[table_processing_id]
@@ -810,7 +810,7 @@ class XuleIterationTable:
 
         if getattr(self.xule_context.global_context.options, "xule_debug_table", False):
         #if self.xule_context.global_context.show_debug_table:
-            print(ast_node.getName() + " " + str(ast_node.node_id))
+            print(ast_node['exprName'] + " " + str(ast_node['node_id']))
             print("After Add (table: %i)" % table_id)
             print(self.to_csv())
 
@@ -1155,14 +1155,14 @@ class XuleIterationSubTable:
         #update master columns for dependencies
         is_dependent = False      
 
-        for dep in ast_node.dependent_iterables:
+        for dep in ast_node['dependent_iterables']:
             #don't include the self reference to the current node
             ''''THIS NEEDS TO BE REMOVED IN THE POST PARSE'''
-            if ast_node.node_id != dep.node_id:
+            if ast_node['node_id'] != dep['node_id']:
                 is_dependent = True
                 #The only time the master column will not be in the table is if the dependent column is in an isolated table and the master is not. In this case,
                 #the dependency does not matter. This may also happen if the master column is in a conditional (if statement) that is not executed.
-                master_processing_id = xule_context.get_processing_id(dep.node_id)
+                master_processing_id = xule_context.get_processing_id(dep['node_id'])
                 if master_processing_id in self._columns:
                     #dep_processing_id = xule_context.get_processing_id(dep.node_id)
                     self._column_dependencies[master_processing_id].add(processing_id)
@@ -1296,7 +1296,7 @@ class XuleIterationSubTable:
             #build the header for the values. This will be the name of the expression and the col_id
             header = ['A',]
             for col_id in self._ordered_columns: 
-                header += [self._columns[col_id].getName() + " " + str(col_id)]
+                header += [self._columns[col_id]['exprName'] + " " + str(col_id)]
             self.write_row(table, header)
             #go through each alignment
             for alignment_num, alignment in alignments:

@@ -13,57 +13,74 @@ import shutil
 import glob
 import collections
 import datetime
+import sys
+
+try:
+    from . import XuleFunctions as xf
+except SystemError:
+    pass
+
+import pprint
 
 class XuleRuleSetError(Exception):
     def __init__(self, msg):
         print(msg)
 
-BUILTIN_FUNCTIONS = {'list': ('aggregate', ''),
-                     'sdic_get_item': ('regular', 'single'),
-                     'duration': ('regular', 'single'),
-                     'uri': ('regular', 'single'),
-                     'time-period': ('regular', 'single'),
-                     'sdic_append': ('regular', 'single'),
-                     'sum': ('aggregate', ''),
-                     'max': ('aggregate', ''),
-                     'instant': ('regular', 'single'),
-                     'sdic_set_item': ('regular', 'single'),
-                     'extension_concepts': ('regular', 'single'),
-                     'schema-type': ('regular', 'single'),
-                     'count': ('aggregate', ''),
-                     'number': ('regular', 'single'),
-                     'roll_forward_recalc': ('regular', 'multi'),
-                     'sdic_find_items': ('regular', 'single'),
-                     'find_roll_forward': ('regular', 'single'),
-                     'entity': ('regular', 'single'),
-                     'all': ('aggregate', ''),
-                     'sdic_create': ('regular', 'single'),
-                     'set': ('aggregate', ''),
-                     'mod': ('regular', 'single'),
-                     'any': ('aggregate', ''),
-                     'qname': ('regular', 'single'),
-                     'exists': ('regular', 'single'),
-                     'min': ('aggregate', ''),
-                     'forever': ('regular', 'single'),
-                     'sdic_remove_item': ('regular', 'single'),
-                     'sdic_get_items': ('regular', 'single'),
-                     'unit': ('regular', 'single'),
-                     'first': ('aggregate', ''),
-                     'sdic_has_key': ('regular', 'single'),
-                     'missing': ('regular', 'single'),
-                     'num_to_string': ('regular', 'single')}
+# BUILTIN_FUNCTIONS = {'dict': ('aggregate', ''),
+#                      'list': ('aggregate', ''),
+#                      'sdic_get_item': ('regular', 'single'),
+#                      'duration': ('regular', 'single'),
+#                      'uri': ('regular', 'single'),
+#                      'time-period': ('regular', 'single'),
+#                      'sdic_append': ('regular', 'single'),
+#                      'sum': ('aggregate', ''),
+#                      'max': ('aggregate', ''),
+#                      'instant': ('regular', 'single'),
+#                      'sdic_set_item': ('regular', 'single'),
+#                      'extension_concepts': ('regular', 'single'),
+#                      'schema-type': ('regular', 'single'),
+#                      'count': ('aggregate', ''),
+#                      'number': ('regular', 'single'),
+#                      'roll_forward_recalc': ('regular', 'multi'),
+#                      'sdic_find_items': ('regular', 'single'),
+#                      'find_roll_forward': ('regular', 'single'),
+#                      'entity': ('regular', 'single'),
+#                      'all': ('aggregate', ''),
+#                      'sdic_create': ('regular', 'single'),
+#                      'set': ('aggregate', ''),
+#                      'mod': ('regular', 'single'),
+#                      'any': ('aggregate', ''),
+#                      'qname': ('regular', 'single'),
+#                      'exists': ('regular', 'single'),
+#                      'min': ('aggregate', ''),
+#                      'forever': ('regular', 'single'),
+#                      'sdic_remove_item': ('regular', 'single'),
+#                      'sdic_get_items': ('regular', 'single'),
+#                      'unit': ('regular', 'single'),
+#                      'first': ('aggregate', ''),
+#                      'sdic_has_key': ('regular', 'single'),
+#                      'missing': ('regular', 'single'),
+#                      'num_to_string': ('regular', 'single')}
 
 
 class XuleRuleSet(object):
-    '''
-    The ast is stored as a set of pickled files. There is a file for each rule file in the ruleset.
-    Plus an additional file for the catalog.
-    '''
+    """The XuleRuleSet class.
+    
+    The rule set contains the 'compiled' rules. This class manages the creation and querying of the ruleset. A ruleset is made of
+    a collection of Xule rule files. The files are parsed and added to the ruleset. The ruleset has a catalog with keeps track of top
+    level components (such as, rules, namespaces, user defined functions, constants). The catalog identifies which file these components
+    are in and their index in the file.
+    
+    When all the files are added, a post parse operation which determines dependencies and between components (i.e. rule A uses constant C
+    and function F. It also links variable references their declarations and identifies which expressions create iterations.
+    
+    The ruleset is stored as a set of pickled files.
+    """
     
     def __init__(self):
-        '''
-        Constructor
-        '''     
+        """Constructor
+        """
+
         self._openForAdd = False
         self.catalog = None
         self.name = None
@@ -75,6 +92,15 @@ class XuleRuleSet(object):
         self.close()
     
     def new(self, location):
+        """Create a new ruleset
+        
+        This will establish the directory of the ruleset.
+        
+        Arguments:
+            location (string): directory for the new ruleset
+        """
+        
+        #check if the ruleset is already opened.
         if self._openForAdd:
             raise XuleRuleSetError("Trying to create a new rule set in an open rule set.")
         else:
@@ -90,14 +116,11 @@ class XuleRuleSet(object):
                             "rules": {},
                             "rules_by_file": {}, 
                             "functions": {},
-                            "macros": {},
                             "constants": {},
-                            "preconditions": {},
-                            "packages": [],
-                            "rule_base": None,
+#                             "preconditions": {},
                             "rules_dts_location": None,
-                            "pre_calc_expressions": [],
-                            "node_index": {}
+                            "output_attributes": {},
+#                             "node_index": {}
                             }
             
             #delete existing files
@@ -108,10 +131,23 @@ class XuleRuleSet(object):
             self._openForAdd = True
         
     def close(self):
+        """Close the ruleset.
+        
+        If the ruleset was opened for adding, this will write out the pickle files.
+        """
         if self._openForAdd:
             #write the pickled rule files
-            for file_num, parseRes in self._pickles.items():
-                self._saveFilePickle(file_num, parseRes)
+            for file_num, parse_tree in self._pickles.items():
+                self._saveFilePickle(file_num, parse_tree)
+                
+                with open(str(file_num) + '_post_parse.json', 'w') as o:
+                    import json
+                    try:
+                        o.write(json.dumps(parse_tree, indent=4))
+                    except:
+                        import pprint
+                        pprint.pprint(parse_tree)
+                        raise 
             
             #write the catalog
             with open(os.path.join(self.location,"catalog.pik"),"wb") as o:
@@ -119,8 +155,16 @@ class XuleRuleSet(object):
         
         self._openForAdd = False
     
-    def add(self, parseRes, file_time=None, file_name=None):
+    def add(self, parse_tree, file_time=None, file_name=None):
+        """Add a parsed Xule rule file to the ruleset.
         
+        This adds a file to the ruleset. When the file is added the catalog is updated with the top level components.
+        
+        Arguments:
+            parse_tree (dictionary): AST of the rule file
+            file_time (number): The modify time of the original Xule rule file. See os.path.getmtime()
+            file_name (string): The base name of the Xule rule file.
+        """
         if self._openForAdd == False:
             raise XuleRuleSetError(_("Attempting to add rule file, but rule set is not open for add"))
         
@@ -130,279 +174,166 @@ class XuleRuleSet(object):
         namespaces = {}
         rules = {}
         functions = {}
-        macros = {}
         constants = {}
-        preconditions = {}
-        package = None
-        package_name = ""
-        rule_base = None
+#         preconditions = {}
+        output_attributes = {}
+        
+        #defaults
+        rule_name_prefix = ''
+        rule_name_separator = '.'
         
         #assign node_ids
-        self.next_id = self._assign_node_ids(file_num, parseRes, self.next_id + 1)
+        self.next_id = self._assign_node_ids(parse_tree, self.next_id + 1)
         
+        error_in_file = False
         #top level analysis
-        for i in range(len(parseRes.xuleFile)):
-            cur = parseRes.xuleFile[i]
-            cur_name = cur.getName()
+        for i, cur_node in enumerate(parse_tree['xuleDoc']):
+            cur_name = cur_node['exprName']
+            cur_node_id = cur_node['node_id']
             
             if cur_name == "nsDeclaration":
                 # add to the list of namespaces
-                prefix = cur.prefix[0] if cur.prefix else "*"
+                prefix = cur_node.get('prefix', '*')
                 if prefix not in namespaces.keys():
-                    namespaces[prefix] = {"file": file_num, "index": i, "prefix": prefix, "uri": cur.namespaceUri}
+                    namespaces[prefix] = {"file": file_num, "index": i, "prefix": prefix, "uri": cur_node['namespaceURI']}
                 else:
                     #duplicate namespace prefix
-                    print("Duplicate namespace prefix: %s" % prefix)
-                    
-            elif cur_name == "preconditionDeclaration":
-                preconditions[cur.preconditionName] = {"file": file_num, "index": i, "node_id": cur.node_id}
+                    print("Duplicate namespace prefix: %s" % prefix) #, file=stderr)
+                    error_in_file = True
                 
-            elif cur_name == "package":
-                package = {"file": file_num, "index": i}
-                package_name = cur.packageName
+            elif cur_name == 'outputAttributeDeclaration':
+                output_attributes[cur_node['attributeName']] = {"file": file_num, "index": i}
                 
-            elif cur_name == "constantAssign":
-                #check immediate dependencies
-#                 dependencies = self._immediate_dependencies(cur)
-#                 constants[cur.constantName] = {"file": file_num, "index": i, "immediate_dependencies": dependencies}
-                constants[cur.constantName] = {"file": file_num, "index": i, "node_id": cur.node_id}
+            elif cur_name == 'ruleNamePrefix':
+                rule_name_prefix = cur_node['prefix']
                 
-            elif cur_name == "raiseDeclaration":
-                full_name = package_name + "." + cur.raiseName
+            elif cur_name == 'ruleNameSeparator':
+                rule_name_separator = cur_node['separator']                
+                
+            elif cur_name == "constantDeclaration":
+                constants[cur_node['constantName']] = {"file": file_num, "index": i, "node_id": cur_node_id}
+                
+            elif cur_name == "assertion":
+                full_name = rule_name_prefix + rule_name_separator + cur_node['ruleName']
+                cur_node['fullName'] = full_name
                 if full_name not in rules.keys():
-                    #check immediate dependencies
-#                     dependencies = self._immediate_dependencies(cur)
-#                     rules[full_name] = {"file": file_num, "index": i, "type": "raise", "full_name": full_name, "immediate_dependencies": dependencies}
-                    precon_names =  []                    
-                    if 'preconditionRef' in cur:
-                        precon_names = [name for name in cur.preconditionRef.preconditionNames]
-
-                    rules[full_name] = {"file": file_num, "index": i, "type": "raise", "full_name": full_name, "preconditions": precon_names}
+#                     precon_names =  []                    
+#                     if 'preconditionRef' in cur:
+#                         precon_names = [name for name in cur.preconditionRef.preconditionNames]
+                    rules[full_name] = {"file": file_num, "index": i, "type": "assert", "full_name": full_name}#, "preconditions": precon_names}
                 else:
-                    print("duplicate rule name: %s" % full_name)
+                    print("duplicate rule name: %s" % full_name) #, file=sys.stderr)
+                    error_in_file = True
                     
-            elif cur_name == "reportDeclaration":
-                full_name = package_name + "." + cur.reportName
-                if full_name not in rules.keys():
-                    #check immediate dependencies
-#                     dependencies = self._immediate_dependencies(cur)
-#                     rules[full_name] = {"file": file_num, "index": i, "type": "report", "full_name": full_name, "immediate_dependencies": dependencies}                
-                    precon_names =  []                    
-                    if 'preconditionRef' in cur:
-                        precon_names = [name for name in cur.preconditionRef.preconditionNames]
-                    rules[full_name] = {"file": file_num, "index": i, "type": "report", "full_name": full_name, "preconditions": precon_names}
+            elif cur_name == "outputRule":
+                full_name = rule_name_prefix + rule_name_separator +cur_node['ruleName']
+                cur_node['fullName'] = full_name
+                if full_name not in rules.keys():                   
+#                     if 'preconditionRef' in cur:
+#                         precon_names = [name for name in cur.preconditionRef.preconditionNames]
+                    rules[full_name] = {"file": file_num, "index": i, "type": "output", "full_name": full_name}#, "preconditions": precon_names}
                 else:
-                    print("duplicate rule name: %s" % full_name)
-                    
-            elif cur_name == "formulaDeclaration":
-                full_name = package_name + "." + cur.formulaName
-                if full_name not in rules.keys():
-                    #check immediate dependencies
-#                     dependencies = self._immediate_dependencies(cur)
-#                     rules[full_name] = {"file": file_num, "index": i, "type": "formula", "full_name": full_name, "immediate_dependencies": dependencies}
-                    precon_names =  []                    
-                    if 'preconditionRef' in cur:
-                        precon_names = [name for name in cur.preconditionRef.preconditionNames]
-
-                    rules[full_name] = {"file": file_num, "index": i, "type": "formula", "full_name": full_name, "preconditions": precon_names}
-                else:
-                    print("duplicate rule name: %s" % full_name)
+                    print("duplicate rule name: %s" % full_name) #, file=sys.stderr)
+                    error_in_file = True
                     
             elif cur_name == "functionDeclaration":
-                #check immediate dependencies
-#                 dependencies = self._immediate_dependencies(cur)
-#                 functions[cur.functionName] = {"file": file_num, "index": i, "immediate_dependencies": dependencies}
-                functions[cur.functionName] = {"file": file_num, "index": i}
-                
-            elif cur_name == "macroDeclaration":
-                #check immediate dependencies
-#                 dependencies = self._immediate_dependencies(cur)
-#                 macros[cur.macroName] = {"file": file_num, "index": i, "immediate_dependencies": dependencies}
-                macros[cur.macroName] = {"file": file_num, "index": i}
-                
-            elif cur_name == "ruleBase":
-                rule_base = {"file": file_num, "index": i}
+                functions[cur_node['functionName']] = {"file": file_num, "index": i}
+
             else:
-                print("Unknown top level parse result: %s" % parseRes.getName()) 
+                print("Unknown top level parse result: %s" % cur_name) #, file=sys.stderr)  
+                error_in_file = True      
+
+#         with open(file_name + '_post_parse.json', 'w') as o:
+#             import json
+#             o.write(json.dumps(parse_tree, indent=4)) 
         
         #self._saveFilePickle(file_num, parseRes)
-        self._pickles[file_num] = parseRes
+        self._pickles[file_num] = parse_tree
             
         #Check for duplicate names
-        self._dup_names(preconditions.keys(), self.catalog['preconditions'].keys())
-        self._dup_names(constants.keys(), self.catalog['constants'].keys())
-        self._dup_names(rules.keys(), self.catalog['rules'].keys())
-        self._dup_names(functions.keys(), macros.keys())
-        self._dup_names(functions.keys(), self.catalog['functions'].keys())
-        self._dup_names(macros.keys(), self.catalog['macros'].keys())
+#         self._dup_names(preconditions.keys(), self.catalog['preconditions'].keys())
+        error_in_file = self._dup_names(constants.keys(), self.catalog['constants'].keys()) or error_in_file
+        error_in_file = self._dup_names(rules.keys(), self.catalog['rules'].keys()) or error_in_file
+        error_in_file = self._dup_names(functions.keys(), self.catalog['functions'].keys()) or error_in_file
+        error_in_file = self._dup_names(output_attributes.keys(), self.catalog['output_attributes'].keys()) or error_in_file
+        error_in_file = self._dup_namespace_declarations(namespaces) or error_in_file
+        
+        if error_in_file:
+            raise XuleRuleSetError("Duplicate names.")
         
         #merge current catalog info into the shelf catalog
-        self.catalog['namespaces'][file_num] = namespaces
+        self.catalog['namespaces'].update(namespaces)
         self.catalog['rules_by_file'][file_num] = rules
-        self.catalog['preconditions'].update(preconditions)
+#         self.catalog['preconditions'].update(preconditions)
         self.catalog['rules'].update(rules)
         self.catalog['constants'].update(constants)
         self.catalog['functions'].update(functions)
-        self.catalog['macros'].update(macros)
-        if package:
-            self.catalog['packages'].append(package)
-        if rule_base:
-            if self.catalog['rule_base'] is not None:
-                raise XuleRuleSetError(_("Only one 'rule-base' is allowed."))
-            else:
-                self.catalog['rule_base'] = rule_base         
+        self.catalog['output_attributes'].update(output_attributes)    
                 
     def _dup_names(self, one, two):
+        """Determine if two sets of names have duplicates.
+        
+        Arguments:
+            one (set): First set
+            two (set): Second set
+        """
         dups = set(one) & set(two)
         if len(dups) != 0:
-            print("duplicate names:")
+            print("duplicate names:") #, file=sys.stderr)
             for x in dups:
-                print(x)
-                
-    def _assign_node_ids(self, file_num, parseRes, next_id, chain=None):
-        if isinstance(parseRes, ParseResults):
-            if chain is None:
-                chain = [file_num,]
-            parseRes['node_id'] = next_id
-#             self.catalog['node_index'][next_id] = chain
-            for i, next_part in enumerate(parseRes):
-                if isinstance(next_part, ParseResults):
-                    next_id += 1
-                    next_id = self._assign_node_ids(file_num, next_part, next_id, chain + [i,]) 
-            return next_id
+                print(x) #, file=sys.stderr)
+            return True
         else:
-            return next_id
+            return False
+                
+    def _dup_namespace_declarations(self, new_namespaces):
+        """Determine if a new namespace is a duplicate.
         
-#     def _immediate_dependencies(self, parseRes): 
-#         dependencies = self._immediate_dependencies_detail(parseRes)
-#         return dependencies
-# 
-#     def _immediate_dependencies_detail(self, parseRes, var_names=None, var_exclusions=None):
-#         
-#         #initialize the varNames list - this is used to deterime if a variable reference is a variable or constant
-#         if var_names is None:
-#             var_names = collections.defaultdict(list)
-#         if var_exclusions is None:
-#             var_exclusions = []
-#             
-#         dependencies = {'constants': set(),
-#                         'functions': set(),
-#                         'instance': False,
-#                         'rules-taxonomy': False,
-#                         #'number': 0 # 0 = singleton, > 0 is multiton
-#                         }
-#         
-#         current_part = parseRes.getName()
-#         
-#         #add variable names
-#         if current_part == 'blockExpr':
-#             var_assignments = [i for i in parseRes if i.getName() == 'varAssign']
-#             for var_assign in var_assignments:
-#                 var_names[var_assign.varName].append(var_assign.node_id)
-#                 self._var_exprs[var_assign.node_id] = var_assign.expr[0]
-#         if current_part == 'varAssign':
-#             var_exclusions.append(parseRes.node_id)
-#         if current_part == 'formulaDeclaration':
-#             if 'varAssigns' in parseRes:
-#                 for var_assign in parseRes.varAssigns:
-#                     var_names[var_assign.varName].append(var_assign.node_id)
-#                     self._var_exprs[var_assign.node_id] = var_assign.expr[0]
-#         if current_part == 'forExpr':
-#             #var_names[parseRes.forVar].append(parseRes.node_id)
-#             var_names[parseRes.forControl.forVar].append(parseRes.forControl.node_id)
-#             self._var_exprs[parseRes.forControl.node_id] = parseRes.forControl           
-#         if current_part == 'factset':
-#             if 'aspectFilters' in parseRes:
-#                 for aspect_index, aspect_filter in enumerate(parseRes.aspectFilters,1):
-#                     if 'aspectVar' in aspect_filter:
-#                         var_names[aspect_filter.aspectVar].append((parseRes.node_id, aspect_index))
-#             if 'whereExpr' in parseRes:
-#                 var_names['item'].append((parseRes.node_id, 0))
-#         if current_part == 'functionDeclaration':
-#             for arg in parseRes.functionArgs:
-#                 var_names[arg.argName].append(arg.node_id)
-#         if current_part == 'macroDeclaration':
-#             for arg in parseRes.macroArgs:
-#                 var_names[arg.argName].append(arg.node_id)
-#             
-#         #dependencies
-#         if current_part == 'varRef':
-#             if parseRes.varName not in var_names:
-#                 #this must be a constant
-#                 dependencies['constants'].add(parseRes.varName)
-#                 parseRes['is_constant'] = True
-#             else:
-#                 #this is a variable reference. Find the declaration
-#                 #parseRes['var_declaration'] = var_names[parseRes.varName][-1]
-#                 for declaration_id in reversed(var_names[parseRes.varName]):
-#                     if declaration_id not in var_exclusions and (declaration_id < parseRes.node_id if not isinstance(declaration_id, tuple) else True):
-#                         parseRes['var_declaration'] = declaration_id
-#                         break
-#                 parseRes['is_constant'] = False
-#         if current_part == 'functionReference':
-#             dependencies['functions'].add(parseRes.functionName)
-#         if current_part == 'property':
-#             if parseRes.propertyName == 'rules-taxonomy':
-#                 dependencies['rules-taxonomy'] = True
-#             elif parseRes.propertyName == 'taxonomy':
-#                 dependencies['instance'] = True
-#         if current_part == 'factset':
-#             dependencies['instance'] = True
-#             #dependencies['number'] += 1
-#         #if current_part == 'forExpr':
-#             #dependencies['number'] += 1
-#         
-#         #decend the syntax tree
-#         for next_part in parseRes:
-#             if isinstance(next_part, ParseResults):
-#                 next_dependencies = self._immediate_dependencies_detail(next_part, var_names, var_exclusions)
-#                 self._combine_dependencies(dependencies, next_dependencies)
-#                 dependencies['constants'] |= next_dependencies['constants']
-#                 dependencies['functions'] |= next_dependencies['functions']
-# #                 dependencies['instance'] = dependencies['instance'] or next_dependencies['instance']
-# #                 dependencies['rules-taxonomy'] = dependencies['rules-taxonomy'] or next_dependencies['rules-taxonomy']
-#                 
-#         #remove variable names
-#         if current_part == 'blockExpr':
-#             var_assignments = [i for i in parseRes if i.getName() == 'varAssign']
-#             for var_assign in var_assignments:
-#                 var_names[var_assign.varName].pop()
-#         if current_part == 'varAssign':
-#             var_exclusions.pop()                
-#         if current_part == 'formulaDeclaration':
-#             if 'varAssigns' in parseRes:
-#                 for var_assign in parseRes.varAssigns:
-#                     var_names[var_assign.varName].pop()                
-#         if current_part == 'forExpr':
-#             var_names[parseRes.forControl.forVar].pop()
-# 
-#         if current_part == 'factset':
-#             if 'aspectFilters' in parseRes:
-#                 for aspect_filter in parseRes.aspectFilters:
-#                     if 'aspectVar' in aspect_filter:
-#                         var_names[aspect_filter.aspectVar].pop()
-#             if 'whereExpr' in parseRes:
-#                 var_names['item'].pop
-#         if current_part == 'functionDeclaration':
-#             for arg in parseRes.funcitonArgs:
-#                 var_names[arg.argName].pop()
-#         if current_part == 'macroDeclaration':
-#             for arg in parseRes.macroArgs:
-#                 var_names[arg.argName].pop()
-# 
-#         return dependencies
-
+        This will check the new namespace against the namespaces in the catalog. A duplicate is allowed if the prefix and namespace uri
+        are the same. Otherwise, an error is raised.
+        
+        Arguments:
+            new_namespaces (dictionary): A dictionary keyed by prefix of namespace uris
+        """
+        for prefix, ns in new_namespaces.items():
+            if prefix in self.catalog['namespaces']:
+                if self.catalog['namespaces'][prefix]['uri'] != ns['uri']:
+                    raise XuleRuleSetError("Duplicate namespace prefix with different namespace. Prefix is '%s' - namespaces are %s and %s" 
+                                           % (prefix, self.catalog['namespaces'][prefix]['uri'], ns['uri']))
+                
+    def _assign_node_ids(self, parse_tree, next_id):
+        """Add a unique node_id to each of the dictionaries in the AST.
+        
+        Arguments:
+            parse_tree (dictionary): AST of the Xule rule file
+            next_id (integer): The next id to be assigned
+        """
+        if isinstance(parse_tree, dict) or isinstance(parse_tree, list):
+            if isinstance(parse_tree, dict):
+                next_id += 1
+                parse_tree['node_id'] = next_id
+                
+            children = parse_tree.values() if isinstance(parse_tree, dict) else parse_tree
+            for child in children:
+                next_id = self._assign_node_ids(child, next_id)
+            return next_id       
+        else: #neither dict nor list
+            return next_id
 
     def dependencies_top(self, info):
+        """Determine which constants and functions are used by an expression.
+        
+        Also determine if the the expression uses the instance taxonomy or a base taxonomy
+        """
         if 'dependencies' not in info:
             ast = self.getItem(info['file'], info['index'])
             dependencies, immediate_dependencies = self.dependencies_detail(ast)
             info['dependencies'] = dependencies
             info['immediate_dependencies'] = immediate_dependencies
         
-    def dependencies_detail(self, parseRes, var_names=None, var_exclusions=None):
+    def dependencies_detail(self, parse_node, var_names=None, var_exclusions=None):
         
-        #initialize the varNames list - this is used to deterime if a variable reference is a variable or constant
+        #initialize the varNames list - this is used to determine if a variable reference is a variable or constant
         if var_names is None:
             var_names = collections.defaultdict(list)
         if var_exclusions is None:
@@ -417,793 +348,543 @@ class XuleRuleSet(object):
                 'functions': set(),
                 'instance': False,
                 'rules-taxonomy': False,
-                }
+                }      
         
-        current_part = parseRes.getName()
-        
+        current_part = parse_node['exprName']
+
         #add variable names
         if current_part == 'blockExpr':
-            var_assignments = [i for i in parseRes if i.getName() == 'varAssign']
-            for var_assign in var_assignments:
-                var_names[var_assign.varName].append(var_assign)
-                self._var_exprs[var_assign.node_id] = var_assign.expr[0]
-        if current_part == 'varAssign':
-            var_exclusions.append(parseRes)
-        if current_part == 'formulaDeclaration':
-            if 'varAssigns' in parseRes:
-                for var_assign in parseRes.varAssigns:
-                    var_names[var_assign.varName].append(var_assign)
-                    self._var_exprs[var_assign.node_id] = var_assign.expr[0]
+#             var_assignments = [i for i in parseRes if i.getName() == 'varAssign']
+#             for var_assign in var_assignments:
+#                 var_names[var_assign.varName].append(var_assign)
+#                 self._var_exprs[var_assign.node_id] = var_assign.expr[0]    
+                    
+            for var_decl in parse_node['varDeclarations']:
+                var_names[var_decl['varName']].append(var_decl)
+                self._var_exprs[var_decl['node_id']] = var_decl['body']
+                
+            #set up the exclusions. This is so that a variable can only reference variables that come before it.
+            exclusion_var_ids = []
+            for var_decl in reversed(parse_node['varDeclarations']):
+                exclusion_var_ids.append(var_decl['node_id'])
+                var_decl['var_exclusion_ids'] = exclusion_var_ids.copy()
+
+        if current_part == 'varDeclaration':
+            #When in a var declaration, the current declaration is excluded while traversing down the expression for the variable.
+            #This allows $a = 10 $a = $a + 5. The var reference of $a in the second expression is to the first variable declaration.
+            #var_exclusions.append(parse_node['node_id'])
+            var_exclusions.extend(parse_node['var_exclusion_ids'])
+
         if current_part == 'forExpr':
             #var_names[parseRes.forVar].append(parseRes)
-            var_names[parseRes.forControl.forVar].append(parseRes.forControl)
-            self._var_exprs[parseRes.forControl.node_id] = parseRes.forControl
-        if current_part == 'factset':
-            if 'aspectFilters' in parseRes:
-                for aspect_index, aspect_filter in enumerate(parseRes.aspectFilters,1):
-                    if 'aspectVar' in aspect_filter:
-                        #var_names[aspect_filter.aspectVar].append((parseRes, aspect_index))
-                        var_names[aspect_filter.aspectVar].append(aspect_filter)
-            if 'whereExpr' in parseRes:
-                #var_names['item'].append((parseRes, 0))
-                var_names['item'].append(parseRes.whereExpr)
-       
-        if current_part == 'functionDeclaration':
-            for arg in parseRes.functionArgs:
-                var_names[arg.argName].append(arg)
-        if current_part == 'macroDeclaration':
-            for arg in parseRes.macroArgs:
-                var_names[arg.argName].append(arg)
+            var_names[parse_node['forVar']].append(parse_node['forLoopExpr'])
+            self._var_exprs[parse_node['forLoopExpr']['node_id']] = parse_node['forLoopExpr']
             
+        if current_part == 'factset':
+            if 'aspectFilters' in parse_node:
+                for aspect_index, aspect_filter in enumerate(parse_node['aspectFilters'],1):
+                    if 'alias' in aspect_filter:
+                        var_names[aspect_filter['alias']].append(aspect_filter)
+            if 'whereExpr' in parse_node:
+                var_names['fact'].append(parse_node['whereExpr'])
+                #identify that this whereExpr is from a factset. This is needed to identify that this whereExpr is dependant on an instance
+                parse_node['whereExpr']['location'] = 'factset'
+                
+        if current_part == 'navigation':
+            if 'whereExpr' in parse_node:
+                var_names['relationship'].append(parse_node['whereExpr'])
+                parse_node['whereExpr']['location'] = 'navigate'
+#         if current_part == 'filter':
+#             if 'whereExpr' in parse_node:
+#                 var_names['item'].append(parse_node['whereExpr'])
+#                 parse_node['whereExpr']['location'] = 'filter'
+        if current_part == 'functionDeclaration':
+            for arg in parse_node['functionArgs']:
+                var_names[arg['argName']].append(arg)
+
         #dependencies
         if current_part == 'varRef':
-            if parseRes.varName not in var_names:
-                #this must be a constant
-                const_info = self.catalog['constants'][parseRes.varName]
+            if parse_node['varName'] not in var_names:
+                # this must be a constant
+                const_info = self.catalog['constants'][parse_node['varName']]
                 self.dependencies_top(const_info) 
                 self._combine_dependencies(dependencies, const_info['dependencies'])
            
-                dependencies['constants'].add(parseRes.varName)
-                immediate_dependencies['constants'].add(parseRes.varName)
-                parseRes['is_constant'] = True
+                dependencies['constants'].add(parse_node['varName'])
+                immediate_dependencies['constants'].add(parse_node['varName'])
+                
+                const_expr = self.getItem(const_info['file'], const_info['index'])
+                parse_node['var_declaration'] = const_expr['node_id']
+                           
+                parse_node['is_constant'] = True
             else:
-                #this is a variable reference. Find the declaration
-                #parseRes['var_declaration'] = var_names[parseRes.varName][-1]
-                #for declaration_id in reversed(var_names[parseRes.varName]):
-                for declaration in reversed(var_names[parseRes.varName]):
-                    #if declaration not in var_exclusions and (declaration.node_id < parseRes.node_id if not isinstance(declaration, tuple) else True):
-                    if declaration not in var_exclusions and declaration.node_id < parseRes.node_id:
-                        #if isinstance(declaration, tuple):
-                        if declaration.getName() in ('aspectFilter', 'whereExpr'):
-                            #parseRes['var_declaration'] = (declaration[0].node_id, declaration[1])
-                            parseRes['var_declaration'] = declaration.node_id
-                            #The only place the var declaration is a tuple is in the where clause of a factset. In this case the variable reference is always 'instance' dependent.
+                # this is a variable reference. Find the declaration
+                found = False
+                for declaration in reversed(var_names[parse_node['varName']]):
+                    # The declaration['node_id'] < parse_node['node_id'] is needed so we don't pick up a variable defined later. This can
+                    # happen if you have "$a = 10; $a = $a + 15; $a = 5;" The second $a should not pick up the 3rd one. This check prevents that from happening.
+                    if declaration['node_id'] not in var_exclusions: # and declaration['node_id'] < parse_node['node_id']:
+                        found = True
+                        parse_node['var_declaration'] = declaration['node_id']
+                        if declaration.get('location') == 'factset' or declaration['exprName'] == 'aspectFilter':
                             dependencies['instance'] = True
                             immediate_dependencies['instance'] = True
                         else:
-                            parseRes['var_declaration'] = declaration.node_id
                             if declaration.get('instance'):
                                 dependencies['instance'] = True
                                 immediate_dependencies['instance'] = True
-                            if declaration.get('rules-taxonomy'):
-                                dependencies['rules-taxonomy'] = True
-                                immediate_dependencies['rules-taxonomy'] = True
+                        if declaration.get('rules-taxonomy'):
+                            dependencies['rules-taxonomy'] = True
+                            immediate_dependencies['rules-taxonomy'] = True
                         break
-                parseRes['is_constant'] = False
+                if not found:
+                    print('not found', parse_node['node_id'], parse_node['exprName']) #, file=sys.stderr)
+                    raise XuleRuleSetError("Error in variables")
+                parse_node['is_constant'] = False
+                
         if current_part == 'functionReference':
-            func_info = self.catalog['functions'].get(parseRes.functionName)
+            func_info = self.catalog['functions'].get(parse_node['functionName'])
             if func_info is not None:
                 self.dependencies_top(func_info)
                 self._combine_dependencies(dependencies, func_info['dependencies'])
-            dependencies['functions'].add(parseRes.functionName)
-            immediate_dependencies['functions'].add(parseRes.functionName)
-        if current_part == 'property':
-            if parseRes.propertyName == 'rules-taxonomy':
-                dependencies['rules-taxonomy'] = True
-                immediate_dependencies['rules-taxonomy'] = True
-            elif parseRes.propertyName == 'taxonomy':
+            dependencies['functions'].add(parse_node['functionName'])
+            immediate_dependencies['functions'].add(parse_node['functionName'])
+            
+            if parse_node['functionName'] == 'taxonomy':
+                if len(parse_node['functionArgs']) == 0:
+                    # This a reference to the taxonomy of the instance
+                    dependencies['instance'] = True
+                    immediate_dependencies['instance'] = True
+                else:
+                    # This refers to another taxonomy
+                    dependencies['rules-taxonomy'] = True
+                    immediate_dependencies['rules-taxonomy'] = True
+
+        if current_part == 'navigation':
+            if 'in' not in parse_node:
+                # Navigation that does not include an 'in' is against the instance taxonomy
                 dependencies['instance'] = True
                 immediate_dependencies['instance'] = True
+
         if current_part == 'factset':
             dependencies['instance'] = True
             immediate_dependencies['instance'] = True
         
-        #decend the syntax tree
-        for next_part in parseRes:
-            if isinstance(next_part, ParseResults):
-                next_dependencies, next_immediate_dependencies = self.dependencies_detail(next_part, var_names, var_exclusions)
-                self._combine_dependencies(dependencies, next_dependencies)
-                self._combine_dependencies(immediate_dependencies, next_immediate_dependencies)
-                dependencies['constants'] |= next_dependencies['constants']
-                dependencies['functions'] |= next_dependencies['functions']
-                immediate_dependencies['constants'] |= next_immediate_dependencies['constants']
-                immediate_dependencies['functions'] |= next_immediate_dependencies['functions']
+        #descend the syntax tree
+        for child in parse_node.values():
+            next_parts = []
+            if isinstance(child, dict):
+                next_parts.append(child)
+            elif isinstance(child, list):
+                next_parts = child
+            
+            # At this point, next_parts is a list of dictionaries. The parse tree does not have lists of list. So if the child is a list, the children
+            # of the list will all be dictionaries. If the child was neither a list or dictionary, the the next_parts list will be empty.
+            for next_part in next_parts:
+                # the parser will only create a list of dictionaries, however, the build dependencies can add lists of other things (i.e. var_eclusion_ids). These should be skipped.
+                if isinstance(next_part, dict):
+                    next_dependencies, next_immediate_dependencies = self.dependencies_detail(next_part, var_names, var_exclusions)
+                    self._combine_dependencies(dependencies, next_dependencies)
+                    self._combine_dependencies(immediate_dependencies, next_immediate_dependencies)
+                    dependencies['constants'] |= next_dependencies['constants']
+                    dependencies['functions'] |= next_dependencies['functions']
+                    immediate_dependencies['constants'] |= next_immediate_dependencies['constants']
+                    immediate_dependencies['functions'] |= next_immediate_dependencies['functions']
         
 #         if dependencies['instance']:
 #             parseRes['instance'] = True
 #         if dependencies['rules-taxonomy']:
 #             parseRes['rules-taxonomy'] = True
-                
+
         #remove variable names
         if current_part == 'blockExpr':
-            var_assignments = [i for i in parseRes if i.getName() == 'varAssign']
-            for var_assign in var_assignments:
-                var_names[var_assign.varName].pop()
-        if current_part == 'varAssign':
-            var_exclusions.pop()                
-        if current_part == 'formulaDeclaration':
-            if 'varAssigns' in parseRes:
-                for var_assign in parseRes.varAssigns:
-                    var_names[var_assign.varName].pop()                
+            for var_decl in parse_node['varDeclarations']:
+                var_names[var_decl['varName']].pop()
+        if current_part == 'varDeclaration':
+            for i in parse_node['var_exclusion_ids']:
+                var_exclusions.pop()                               
         if current_part == 'forExpr':
-            var_names[parseRes.forControl.forVar].pop()
-
+            var_names[parse_node['forVar']].pop()
         if current_part == 'factset':
-            if 'aspectFilters' in parseRes:
-                for aspect_filter in parseRes.aspectFilters:
-                    if 'aspectVar' in aspect_filter:
-                        var_names[aspect_filter.aspectVar].pop()
-            if 'whereExpr' in parseRes:
-                var_names['item'].pop
+            if 'aspectFilters' in parse_node:
+                for aspect_filter in parse_node['aspectFilters']:
+                    if 'alias' in aspect_filter:
+                        var_names[aspect_filter['alias']].pop()
+            if 'whereExpr' in parse_node:
+                var_names['fact'].pop()
+        if current_part == 'navigation':
+            if 'whereExpr' in parse_node:
+                var_names['relationship'].pop()
+#         if current_part == 'filter':
+#             if 'whereExpr' in parse_node:
+#                 var_names['item'].pop()
         if current_part == 'functionDeclaration':
-            for arg in parseRes.funcitonArgs:
-                var_names[arg.argName].pop()
-        if current_part == 'macroDeclaration':
-            for arg in parseRes.macroArgs:
-                var_names[arg.argName].pop()
+            for arg in parse_node['functionArgs']:
+                var_names[arg['argName']].pop()
 
         return dependencies, immediate_dependencies
 
-    _PRE_CALC_EXPRESSIONS = ['qName',
-                            'integer',
-                            'float',
-                            'string',
-                            'boolean',
-                            'void',
-                            'ifExpr',
-                            'forExpr',
-                            'withExpr',
-                            'taggedExpr',
-                            'unaryExpr',
-                            'propertyExpr',
-                            'multExpr',
-                            'addExpr',
-                            'compExpr',
-                            'notExpr',
-                            'andExpr',
-                            'orExpr',
-                            'blockExpr',
-                            'functionReference']
+#     _PRE_CALC_EXPRESSIONS = ['qName',
+#                             'integer',
+#                             'float',
+#                             'string',
+#                             'boolean',
+#                             'void',
+#                             'ifExpr',
+#                             'forExpr',
+#                             'withExpr',
+#                             'taggedExpr',
+#                             'unaryExpr',
+#                             'propertyExpr',
+#                             'multExpr',
+#                             'addExpr',
+#                             'compExpr',
+#                             'notExpr',
+#                             'andExpr',
+#                             'orExpr',
+#                             'blockExpr',
+#                             'functionReference']
     
-    def _walk_for_iterable(self, parseRes, part_name, file_num, var_defs=None, all_expr=None):
-        '''This walk:
+    def _walk_for_iterable(self, parse_node, var_defs=None):
+        """Walk the AST
+        
+        This walk:
             1 - if an expression can produce a singleton value or a multiple values
             2 - if an expression can produce a single alignment or multiple alignments
             3 - what are the upstream variables that are used in the expression
-        '''
+            
+        Arguments:
+            parse_node (dictionary): Current node in the AST
+            var_defs (list): The variables that have been declared at this point in the AST
+        """
         pre_calc = []  
-        top = False
-        
-        if 'number' not in parseRes:
+        # Number is used as an indicator that this node has already been walked
+        if 'number' not in parse_node:
             if var_defs is None:
                 var_defs = {}
-            if all_expr is None:
-                all_expr = set()
-                top = True
                           
-            current_part = parseRes.getName()
+            current_part = parse_node['exprName']
 
-            if current_part == 'forExpr':
-                #add the for control to the forBodyExpr
-                parseRes.forBodyExpr['forControl'] = parseRes.forControl
-
+#             if current_part == 'forExpr':
+#                 #add the for control to the forBodyExpr
+#                 forControl = {'forVar': parse_node['forVar'], 
+#                               'forLoopExpr': parse_node['forLoopExpr'], 
+#                               'exprName':'forControl'}
+#                 parse_node['forBodyExpr']['forControl'] = forControl
+#                 del parse_node['forVar']
+#                 del parse_node['forLoopExpr']
+#                 import json
+#                 print(json.dumps(parse_node, indent=4))
             #descend
             descendant_number = 'single'
             descendant_has_alignment = False
-            descendant_var_refs = set()
+            descendant_var_refs = list()
             descendant_is_dependent = False
-            descendant_dependent_vars = set()
-            descendant_dependent_iterables = set()
-            descendant_downstream_iterables = set()
+            descendant_dependent_vars = list()
+            descendant_dependent_iterables = list()
+            descendant_downstream_iterables = list()
             
-            for next_part in parseRes:
-                if isinstance(next_part, ParseResults):
-                    descendent_pre_calc = self._walk_for_iterable(next_part, part_name, file_num, var_defs, all_expr)
-                    if next_part.number == 'multi':
-                        descendant_number = 'multi'
-                    if next_part.has_alignment == True:
-                        descendant_has_alignment = True
-                    if next_part.is_dependent == True:
-                        descendant_is_dependent = True
-                    descendant_var_refs |= next_part.var_refs
-                    descendant_dependent_vars |= next_part.dependent_vars
-                    descendant_dependent_iterables |= next_part.dependent_iterables
-                    descendant_downstream_iterables |= next_part.downstream_iterables
-                    pre_calc += descendent_pre_calc
+            for child in parse_node.values():
+                next_parts = []
+                if isinstance(child, dict):
+                    next_parts.append(child)
+                elif isinstance(child, list):
+                    next_parts = child
+                    
+                for next_part in next_parts:
+                    # the parser will only create a list of dictionaries, however, the build dependencies can add lists of other things (i.e. var_eclusion_ids). These should be skipped.
+                    if isinstance(next_part, dict):
+                        descendent_pre_calc = self._walk_for_iterable(next_part, var_defs)
+                        if next_part['number'] == 'multi':
+                            descendant_number = 'multi'
+                        if next_part['has_alignment'] == True:
+                            descendant_has_alignment = True
+                        if next_part['is_dependent'] == True:
+                            descendant_is_dependent = True
+                        descendant_var_refs += next_part['var_refs']
+                        descendant_dependent_vars += next_part['dependent_vars']
+                        descendant_dependent_iterables += next_part['dependent_iterables']
+                        descendant_downstream_iterables += next_part['downstream_iterables']
+                        pre_calc += descendent_pre_calc
             
             #defaults
-            parseRes['var_refs'] = descendant_var_refs
-            parseRes['number'] = descendant_number
-            parseRes['has_alignment'] = descendant_has_alignment
-            parseRes['is_dependent'] = descendant_is_dependent
-            parseRes['dependent_vars'] = descendant_dependent_vars
-            parseRes['dependent_iterables'] = descendant_dependent_iterables
-            parseRes['downstream_iterables'] = descendant_downstream_iterables
+            parse_node['var_refs'] = descendant_var_refs
+            parse_node['number'] = descendant_number
+            parse_node['has_alignment'] = descendant_has_alignment
+            parse_node['is_dependent'] = descendant_is_dependent
+            parse_node['dependent_vars'] = descendant_dependent_vars
+            parse_node['dependent_iterables'] = descendant_dependent_iterables
+            parse_node['downstream_iterables'] = descendant_downstream_iterables
             
             if current_part == 'factset':
-                parseRes['number'] = 'multi'
-                parseRes['has_alignment'] = True
+                parse_node['is_iterable'] = True
+                parse_node['number'] = 'multi'
+                if parse_node.get('covered') == True:
+                    parse_node['has_alignment'] = False
+                else:
+                    parse_node['has_alignment'] = True
+                
                 remove_refs = set()
                 
-                factset_var_def_ids = [parseRes.whereExpr.node_id] if 'whereExpr' in parseRes else []
-                if 'aspectFilters' in parseRes:
-                    factset_var_def_ids += [aspectFilter.node_id for aspectFilter in parseRes.aspectFilters]
+                factset_var_def_ids = [parse_node['whereExpr']['node_id']] if 'whereExpr' in parse_node else []
+                if 'aspectFilters' in parse_node:
+                    factset_var_def_ids += [aspectFilter['node_id'] for aspectFilter in parse_node['aspectFilters']]
 
-                for x in parseRes['var_refs']:
-                    #if isinstance(x[0], tuple):
-                    
-                    if x[0] in factset_var_def_ids:
-                        remove_refs.add(x)
+#                 for x in parse_node['var_refs']:
+#                     if x[0] in factset_var_def_ids:
+#                         remove_refs.add(x)
                 
-                parseRes['var_refs'] -= remove_refs
-                parseRes['dependent_vars'] -= remove_refs
+                #parse_node['var_refs'] -= remove_refs
+                parse_node['var_refs'] = [x for x in parse_node['var_refs'] if x[0] not in factset_var_def_ids]
+                #parse_node['dependent_vars'] -= remove_refs
+                parse_node['dependent_vars'] = [x for x in parse_node['dependent_vars'] if x[0] not in factset_var_def_ids]
 
-#                 var_ref_ids = []
-#                 if 'aspectFilters' in parseRes:
-#                     for aspect_index, aspect_filter in enumerate(parseRes.aspectFilters,1):
-#                         if 'aspectVar' in aspect_filter:
-#                             var_ref_ids.append((parseRes, aspect_index))
-#                 if 'whereExpr' in parseRes:
-#                     var_ref_ids.append((parseRes, 0))
-# 
-#                 parseRes['var_refs'] = {var_ref for var_ref in parseRes.var_refs if var_ref[0] in var_ref_ids}
-#                 parseRes['dependent_vars'] = {var_ref for var_ref in parseRes.dependent_vars if var_ref[0] not in var_ref_ids} 
-                
-                parseRes['is_iterable'] = True
-                
-#                 dependent_vars = {x for x in parseRes['var_refs'] if x[0] in var_defs if var_defs[x[0]].number == 'multi'}
-#                 if len(dependent_vars) == 0:
-#                     parseRes['is_dependent'] = False
-#                     parseRes['dependent_vars'] = dependent_vars
-#                 else:
-#                     parseRes['is_dependent'] = True
-#                     parseRes['dependent_vars'] = dependent_vars
-                #parseRes['is_dependent'] = any([var_defs[x[0]].number == 'multi' for x in parseRes['var_refs']])
-                
-#             elif current_part == 'forExpr':
-#                 parseRes['var_refs'] -= {(parseRes.node_id, parseRes.forVar),}
-#                 parseRes['dependent_vars'] -= {(parseRes.node_id, parseRes.forVar),}
-            
-            #elif current_part == 'whereExpr':
-                #reset the dependent iterables. So the only ones will be the iterables from dependent var refs.
-                #This is because this expresion is performed in an isolated table
-                #parseRes['dependent_iterables'] = set()
-            
-            elif current_part == 'whereExpr':
-                #set as iterable. The whereExpr is never directly evaluated. It is evaluated as part of the factset evaluator. However, it is used as the declaration for
-                #the $item variable. So it is set as iterable so that any referenc eto $item will be treated as depending on $item
-                #parseRes['is_iterable'] = True
-                
-                #set the table id
-                self.assign_table_id(parseRes, var_defs)
-        
-#             elif current_part == 'aspectFilter':
+#             '''NEED TO CHECK IF THIS SHOULD BE UPDATED FOR FACTSETS WITHIN FACTSET'''
+#             elif current_part == 'withExpr':
+#                 parseRes['number'] = 'multi'
+#                 parseRes['has_alignment'] = True
 #                 parseRes['is_iterable'] = True
+# 
+#                 self.assign_table_id(parseRes.expr[0], var_defs, override_node_id=parseRes.node_id)
+#
+                if 'innerExpr' in parse_node:
+                    self.assign_table_id(parse_node['innerExpr'], var_defs, override_node_id=parse_node['node_id'])           
+            
+                '''NEED TO ADD NAVIGATE AND FILTER'''
+            elif current_part == 'whereExpr':
+                '''whereExpr IS NOW IN NAVIGATION AND FILTERS. DOES THE whereExpr NEED TO HAVE A TABLE ID FOR THESE EXPRESSION?'''
+                #set the table id
+                self.assign_table_id(parse_node, var_defs)
         
             elif current_part == 'forExpr':
-                '''ALL OF THESE LINES SHOULD BE MOVED INTO THE 'forControl' SECTION'''
-#                 parseRes['var_refs'] -= {(parseRes.forControl.node_id, parseRes.forControl.forVar),}
-#                 parseRes['dependent_vars'] -= {(parseRes.forControl.node_id, parseRes.forControl.forVar),}  
-                parseRes['var_refs'] = {var_ref for var_ref in parseRes.var_refs if var_ref[0] != parseRes.forControl.node_id}
-                #parseRes['dependent_vars'] = {var_ref for var_ref in parseRes.dependent_vars if var_ref[0] != parseRes.forControl.node_id}
+                parse_node['number'] = 'multi'
+                parse_node['is_iterable'] = True
                 
-#                 parseRes['number'] = 'multi'
-#                 parseRes['is_iterable'] = True
-#                 dependent_vars = {x for x in parseRes['var_refs'] if x[0] in var_defs if var_defs[x[0]].number == 'multi'}
-#                 if len(dependent_vars) == 0:
-#                     parseRes['is_dependent'] = False
-#                     parseRes['dependent_vars'] = dependent_vars
-#                 else:
-#                     parseRes['is_dependent'] = True
-#                     parseRes['dependent_vars'] = dependent_vars
+                parse_node['var_refs'] = [var_ref for var_ref in parse_node['var_refs'] if var_ref[0] != parse_node['forLoopExpr']['node_id']]
+                # If the for body uses the loop variable (which it normally would), the var_refs from the loop control should be 
+                # aded to the for body expression.
+                var_ref_ids = [var_ref[0] for var_ref in parse_node['forBodyExpr']['var_refs']]
+                if parse_node['forLoopExpr']['node_id'] in var_ref_ids:
+                    parse_node['forBodyExpr']['var_refs'] += parse_node['forLoopExpr']['var_refs']
 
-                #parseRes.forControl.dependent_iterables |= {parseRes.forControl.forLoopExpr}
-            elif current_part == 'forBodyExpr':
-                parseRes['number'] = 'multi'
-                parseRes['is_iterable'] = True
-                
-                var_ref_ids = [var_ref[0] for var_ref in parseRes.var_refs]
-                if parseRes.forControl.node_id in var_ref_ids:
-                    parseRes.var_refs.update(parseRes.forControl.var_refs)
-                
-                
                 #set table ids
-                self.assign_table_id(parseRes, var_defs, override_node_id=parseRes.node_id)     
-                
-#                 #mark all the downstream iterables as being in a loop
-#                 for it in parseRes.downstream_iterables:
-#                     it['in_loop'] = True
-#             elif current_part == 'forControl':
-#                 #This is marked as iterable so that anything using the for control variable will be dependent on the for control expression.
-#                 parseRes['number'] = 'multi'
-#                 parseRes['is_iterable'] = True
-# #                 dependent_vars = {x for x in parseRes['var_refs'] if x[0] in var_defs if var_defs[x[0]].number == 'multi'}
-# #                 if len(dependent_vars) == 0:
-# #                     parseRes['is_dependent'] = False
-# #                     parseRes['dependent_vars'] = dependent_vars
-# #                 else:
-# #                     parseRes['is_dependent'] = True
-# #                     parseRes['dependent_vars'] = dependent_vars
-#                     
-# #             elif current_part == 'forLoop':
-# #                 parseRes['number'] = 'multi'
-# #                 parseRes['is_iterable'] = True
-# #                 dependent_vars = {x for x in parseRes['var_refs'] if x[0] in var_defs if var_defs[x[0]].number == 'multi'}
-# #                 if len(dependent_vars) == 0:
-# #                     parseRes['is_dependent'] = False
-# #                     parseRes['dependent_vars'] = dependent_vars
-# #                 else:
-# #                     parseRes['is_dependent'] = True
-# #                     parseRes['dependent_vars'] = dependent_vars
-# #                 parseRes['is_dependent'] = any([var_defs[x[0]].number == 'multi' for x in parseRes['var_refs']])
+                self.assign_table_id(parse_node, var_defs, skip=parse_node['forLoopExpr'])
 
+#             elif current_part == 'forBodyExpr':
+#                 parse_node['number'] = 'multi'
+#                 parse_node['is_iterable'] = True
+#                 
+#                 var_ref_ids = [var_ref[0] for var_ref in parse_node['var_refs']]
+#                 if parse_node['forControl']['node_id'] in var_ref_ids:
+#                     parse_node['var_refs'].update(parse_node['forControl']['var_refs'])
+#                 
+#                 #set table ids
+#                 self.assign_table_id(parse_node, var_defs)
 
             elif current_part == "ifExpr":
-                condition_dependent_vars = self.get_dependent_vars(parseRes.condition, var_defs)
-                condition_iterables = parseRes.condition.downstream_iterables | self.get_dependent_var_iterables(parseRes.condition, condition_dependent_vars, var_defs)
+                condition_dependent_vars = self.get_dependent_vars(parse_node['condition'], var_defs)
+                condition_iterables = parse_node['condition']['downstream_iterables'] + self.get_dependent_var_iterables(parse_node['condition'], condition_dependent_vars, var_defs)
                 #update the iterables in the then expression
                 if len(condition_iterables)> 0:
-                    for iterable_expr in parseRes.thenExpr.downstream_iterables:
-                        iterable_expr.dependent_iterables.update(condition_iterables)
+                    for iterable_expr in parse_node['thenExpr']['downstream_iterables']:
+                        iterable_expr.dependent_iterables.extend(condition_iterables)
                 
                 #update the else if conditions
-                for elseIfExpr in parseRes:
-                    if elseIfExpr.getName() == 'elseIfExpr':
-                        condition_dependent_vars = self.get_dependent_vars(elseIfExpr.condition, var_defs)
-                        condition_iterables.update(elseIfExpr.condition.downstream_iterables | self.get_dependent_var_iterables(elseIfExpr.condition, condition_dependent_vars, var_defs))
-                        if len(condition_iterables) > 0:
-                            for iterable_expr in elseIfExpr.thenExpr.downstream_iterables:
-                                iterable_expr.dependent_iterables.update(condition_iterables)
+                for elseIfExpr in parse_node.get('elseIfs', []):
+                    condition_dependent_vars = self.get_dependent_vars(elseIfExpr['condition'], var_defs)
+                    condition_iterables.update(elseIfExpr['condition']['downstream_iterables'] + self.get_dependent_var_iterables(elseIfExpr['condition'], condition_dependent_vars, var_defs))
+                    if len(condition_iterables) > 0:
+                        for iterable_expr in elseIfExpr['thenExpr']['downstream_iterables']:
+                            iterable_expr['dependent_iterables'].extend(condition_iterables)
                 
                 #update the else
-                for iterable_expr in parseRes.elseExpr.downstream_iterables:
-                    iterable_expr.dependent_iterables.update(condition_iterables)
-                
-#             elif current_part == 'ifExpr':# or current_part == 'elseIfExpr':
-#                 previous_dependent_condition_iterables = set()
-#                 #update the iterables in the then expression of the 'if' statement
-#                 if parseRes.condition.number == 'multi':
-#                     previous_dependent_condition_iterables.update(parseRes.condition.downstream_iterables)
-#                     #print("condition iteralbs", [x.node_id for x in previous_dependent_condition_iterables])
-#                     for iterable_expr in parseRes.thenExpr.downstream_iterables:
-#                         #print("downstream", iterable_expr.node_id)
-#                         iterable_expr.dependent_iterables.update(previous_dependent_condition_iterables)
-#                 #go through each else if expression
-#                 for elseIfExpr in parseRes:
-#                     if elseIfExpr.getName() == 'elseIfExpr':
-#                         #update the iterables in the condition
-#                         for iterable_expr in elseIfExpr.condition.downstream_iterables:
-#                             iterable_expr.dependent_iterables.update(previous_dependent_condition_iterables)
-#                         previous_dependent_condition_iterables.update(elseIfExpr.condition.dependent_iterables)
-#                         #udpate the iterables in the then expression
-#                         for iterable_expr in elseIfExpr.thenExpr.downstream_iterables:
-#                             iterable_expr.dependent_iterables.update(previous_dependent_condition_iterables)
-#                 #update the iterables in the else expression
-#                 for iterable_expr in parseRes.elseExpr.downstream_iterables:
-#                     iterable_expr.dependent_iterables.update(previous_dependent_condition_iterables)
-#                 
-#        
-#                 '''
-#                 if parseRes.condition.number == 'multi':
-#                     for dep_expr in parseRes.thenExpr.dependent_iterables | (parseRes.elseExpr.dependent_iterables if 'elseExpr' in parseRes else set()):
-#                         dep_expr.dependent_iterables.update(parseRes.condition.dependent_iterables)
-#                         
-#                 #Each elseIfExpr condidtion is dependent and any previous condition.
-#                 if current_part == 'ifExpr':
-#                     #seed with the first if condition dependent iterables.
-#                     previous_dependent_condition_iterables = parseRes.condition.dependent_iterables
-#                     for elseIfExpr in parseRes:
-#                         if isinstance(elseIfExpr, ParseResults):
-#                             if elseIfExpr.getName() == 'elseIfExpr':
-#                                 for dep_expr in elseIfExpr.dependent_iterables:
-#                                     dep_expr.dependent_iterables.update(previous_dependent_condition_iterables)
-#                                 previous_dependent_condition_iterables.
-# 
-# 
-# 
-#                                 elseIfExpr.dependent_iterables.update(previous_dependent_condition_iterables)
-#                                 previous_dependent_condition_iterables.update = elseIfExpr.dependent_iterables
-#                 '''
+                for iterable_expr in parse_node['elseExpr']['downstream_iterables']:
+                    iterable_expr['dependent_iterables'].extend(condition_iterables)
             
             elif current_part == 'functionReference':
-                if parseRes.functionName in self.catalog['functions'] and parseRes.functionName not in BUILTIN_FUNCTIONS:
+                if parse_node['functionName'] in self.catalog['functions'] and parse_node['functionName'] not in xf.BUILTIN_FUNCTIONS:
                     #Xule defined function
-                    parseRes['function_type'] = 'xule_defined'
-                    func_expr, func_info = self.getFunction(parseRes.functionName)
-                    self._walk_for_iterable(func_expr, parseRes.functionName, func_info['file'], var_defs, all_expr)
-                    if func_expr.number == 'multi' or descendant_number == 'multi':
-                        parseRes['number'] = 'multi'
-                        parseRes['is_iterable'] = True
-                        #reset the dependent iterables. So the only ones will be itself and the iterables from dependent var refs.
-                        #This is because this expresion is performed in an isolated table
-                        #parseRes['dependent_iterables'] = set()
-#                         dependent_vars = {x for x in parseRes['var_refs'] if x[0] in var_defs if var_defs[x[0]].number == 'multi'}
-#                         if len(dependent_vars) == 0:
-#                             parseRes['is_dependent'] = False
-#                             parseRes['dependent_vars'] = dependent_vars
-#                         else:
-#                             parseRes['is_dependent'] = True
-#                             parseRes['dependent_vars'] = dependent_vars
+                    parse_node['function_type'] = 'xule_defined'
+                    func_expr, func_info = self.getFunction(parse_node['functionName'])
+                    self._walk_for_iterable(func_expr, var_defs)
+                    if func_expr['number'] == 'multi' or descendant_number == 'multi':
+                        parse_node['number'] = 'multi'
+                        parse_node['is_iterable'] = True
                     else:
-                        parseRes['number'] = 'single'
-                    parseRes['has_alignment'] = func_expr.has_alignment or descendant_has_alignment
-                    #parseRes['dependent_iterables'] |= {(parseRes.node_id,) + di for di in func_expr.dependent_iterables}
-                    
-                    if len( parseRes.downstream_iterables) == 0:
-                        parseRes['cacheable'] = True
-                    
-                    #set table ids
-                    #self.assign_table_id(parseRes, var_defs, override_node_id=func_expr.node_id)
+                        parse_node['number'] = 'single'
+                    parse_node['has_alignment'] = func_expr['has_alignment'] or descendant_has_alignment
 
+                    if len( parse_node['downstream_iterables']) == 0:
+                        parse_node['cacheable'] = True
                 else:
                     #otherwise it is a built in function
-                    if parseRes.functionName in BUILTIN_FUNCTIONS:
-                        if BUILTIN_FUNCTIONS[parseRes.functionName][0] == 'aggregate':
-                            parseRes['function_type'] = 'aggregation'
-                            parseRes['cacheable'] = True
+                    if parse_node['functionName'] in xf.BUILTIN_FUNCTIONS:
+                        if xf.BUILTIN_FUNCTIONS[parse_node['functionName']][xf.FUNCTION_TYPE] == 'aggregate':
+                            parse_node['function_type'] = 'aggregation'
+                            parse_node['cacheable'] = True
                             #aggregation is a special case. If the arguments are not alignable, then the aggregation will always colapse into a single result.
                             if descendant_has_alignment == False:
-                                parseRes['number'] = 'single'
-                                parseRes['has_alignment'] = False
+                                parse_node['number'] = 'single'
+                                parse_node['has_alignment'] = False
                             else:
-                                parseRes['number'] = 'multi'
-                                parseRes['has_alignment'] = True
+                                parse_node['number'] = 'multi'
+                                parse_node['has_alignment'] = True
                             
-                            parseRes['is_iterable'] = True
-                            #reset the dependent iterables. So the only ones will be itself and the iterables from dependent var refs.
-                            #This is because this expresion is performed in an isolated table
-                            #parseRes['dependent_iterables'] = set()
-#                             dependent_vars = {x for x in parseRes['var_refs'] if x[0] in var_defs if var_defs[x[0]].number == 'multi'}
-#                             if len(dependent_vars) == 0:
-#                                 parseRes['is_dependent'] = False
-#                                 parseRes['dependent_vars'] = dependent_vars
-#                             else:
-#     #                             '''This wsa an attempt to appropiately deterime if an aggregate function is dependent or not. However, rule 14988 (roll forward) did not work correctly after
-#     #                                this change. This change was meant to correct a rule like:
-#     #                                    a = Assets[period=*];
-#     #                                    count($a)
-#     #                                Currently this would give a series of '1' values for the count even when there are more than one value for the same alignment (exlcuding period).
-#     #                                If the variable isn't used, "count(Assets[period=*])" the value is correct (for an mgm filing the value was '2'). 
-#     #                                
-#     #                                At this time, we are accepting the difference between using the variable and not using the variable. I am leaving this comment in case this decision
-#     #                                changes.'''
-#     #                             #an aggregation function is only dependent if the expression of the argument is dependent. This is a bit differenct than other dependencies.
-#     #                             is_dependent = False
-#     #                             for var in dependent_vars:
-#     #                                 if var_defs[var[0]].is_dependent:
-#     #                                     is_dependent = True
-#     #                             if is_dependent:
-#     #                                 parseRes['is_dependent'] = True
-#     #                                 parseRes['dependent_vars'] = dependent_vars
-#     #                             else:
-#     #                                 parseRes['is_dependent'] = False
-#     #                                 parseRes['dependent_vars'] = set()
-#                                  
-#                                 parseRes['is_dependent'] = True
-#                                 parseRes['dependent_vars'] = dependent_vars
+                            parse_node['is_iterable'] = True
+   
+                            self.assign_table_id(parse_node, var_defs)
                                 
-                            #set the table ids
-                            self.assign_table_id(parseRes, var_defs)    
-                        elif BUILTIN_FUNCTIONS[parseRes.functionName][1] == 'multi':
-                            parseRes['function_type'] = 'builtin'
-                            parseRes['number'] = 'multi'
-                            parseRes['has_alignment'] = True
-                            parseRes['is_iterable'] = True
-#                             
-#                             dependent_vars = {x for x in parseRes['var_refs'] if x[0] in var_defs if var_defs[x[0]].number == 'multi'}
-#                             if len(dependent_vars) == 0:
-#                                 parseRes['is_dependent'] = False
-#                                 parseRes['dependent_vars'] = dependent_vars
-#                             else:
-#                                 parseRes['is_dependent'] = True
-#                                 parseRes['dependent_vars'] = dependent_vars
-                            
+                        elif xf.BUILTIN_FUNCTIONS[parse_node['functionName']][xf.FUNCTION_RESULT_NUMBER] == 'multi':
+                            parse_node['function_type'] = 'builtin'
+                            parse_node['number'] = 'multi'
+                            parse_nodeparse_node['is_iterable'] = True                           
                         #all other built in functions use the defaults
-            elif current_part == 'functionDeclaration':
-#                 for arg in parseRes.functionArgs:
-#                     parseRes['var_refs'] -= {(arg.node_id, arg.argName),} 
-#                     parseRes['dependent_vars'] -= {(arg.node_id, arg.argName),}           
-                arg_node_ids = [arg.node_id for arg in parseRes.functionArgs]
-                parseRes['var_refs'] = {var_ref for var_ref in parseRes.var_refs if var_ref[0] not in arg_node_ids}
-                #parseRes['dependent_vars'] = {var_ref for var_ref in parseRes.dependent_vars if var_ref[0] not in arg_node_ids}                    
-            elif current_part == 'macroDeclaration':
-#                 for arg in parseRes.macroArgs:
-#                     parseRes['var_refs'] -= {(arg.node_id, arg.argname),} 
-#                     parseRes['dependent_vars'] -= {(arg.node_id, arg.argname),}
-                arg_node_ids = [arg.node_id for arg in parseRes.macroArgs]
-                parseRes['var_refs'] = {var_ref for var_ref in parseRes.var_refs if var_ref[0] not in arg_node_ids}
-                #parseRes['dependent_vars'] = {var_ref for var_ref in parseRes.dependent_vars if var_ref[0] not in arg_node_ids}                        
-                    
-            elif current_part == 'varRef':
-                #var_ref tuple: 0 = var declaration id, 1 = var name, 2 = var ref ast, 3 = var type (1=block variable or 'for' variable, 2=constant, 3=function argument, factset variable)
-                if parseRes.is_constant:
-                    const_info = self.catalog['constants'][parseRes.varName]
-                    const_expr = self.getItem(const_info['file'], const_info['index'])
-                    self._walk_for_iterable(const_expr, parseRes.varName, const_info['file'], var_defs, all_expr)
-                    parseRes['var_declaration'] = const_expr.node_id
-                    parseRes['number'] = const_expr.number
-                    parseRes['has_alignment'] = const_expr.has_alignment
-                    #save the declaration parse result object
-                    var_defs[const_expr.node_id] = const_expr
-                    parseRes['var_refs'] = {(parseRes.var_declaration, parseRes.varName, parseRes, 2),}
-                    
-#                     #if the constant creates iterations, then it needs to be added to the list of dependent iterables
-#                     if const_expr.number == 'multi':                
-#                         parseRes['is_iterable'] = True        
-#                         parseRes['dependent_vars'] = set()
-#                         #parseRes['dependent_iterables'].add(parseRes)
-                else:
-                    var_expr = self._var_exprs.get(parseRes.var_declaration)
-                    if var_expr is not None:
-                        self._walk_for_iterable(var_expr, part_name, file_num, var_defs, all_expr)
-                        parseRes['number'] = var_expr.number
-                        parseRes['has_alignment'] = var_expr.has_alignment
-                        #save the declaration parse result object
-                        var_defs[parseRes.var_declaration] = var_expr
-                        parseRes['var_refs'] = {(parseRes.var_declaration, parseRes.varName, parseRes, 1),}
                         
-#                         if var_expr.getName() == 'forControl':
-#                             parseRes['downstream_iterables'] |= {var_expr,}
-                    
-                        #The dependent iterables of variable declaration are added tot he variable reference. This way anything that uses the variables
-                        #will be dependent on the what the variable declaration is dependent on
-                        parseRes['dependent_iterables'].update(var_expr.dependent_iterables)
-                    else:
-                        parseRes['var_refs'] = {(parseRes.var_declaration, parseRes.varName, parseRes, 3),}
-                        #function declaration arguments - in this case the number and alignment are unknown because it is based 
-                        #on what is passed in the function reference. Just use the default values.
-                        #parseRes['number'] = 'single'
-                        #parseRes['has_alignment'] = False
-            
-            elif current_part == 'withExpr':
-                parseRes['number'] = 'multi'
-                parseRes['has_alignment'] = True
-                parseRes['is_iterable'] = True
-                #reset the dependent iterables. So the only ones will be itself and the iterables from dependent var refs.
-                #This is because this expresion is performed in an isolated table
-                #parseRes['dependent_iterables'] = set()
+            elif current_part == 'functionDeclaration':        
+                arg_node_ids = [arg['node_id'] for arg in parse_node['functionArgs']]
+                parse_node['var_refs'] = [var_ref for var_ref in parse_node['var_refs'] if var_ref[0] not in arg_node_ids]
 
-#                 dependent_vars = {x for x in parseRes['var_refs'] if x[0] in var_defs if var_defs[x[0]].number == 'multi'}
-#                 if len(dependent_vars) == 0:
-#                     parseRes['is_dependent'] = False
-#                     parseRes['dependent_vars'] = dependent_vars
-#                 else:
-#                     parseRes['is_dependent'] = True
-#                     parseRes['dependent_vars'] = dependent_vars
-                
-                #set the table id
-                self.assign_table_id(parseRes.expr[0], var_defs, override_node_id=parseRes.node_id)
-                                      
-            elif current_part == 'valuesExpr':
-                parseRes['has_alignment'] = False #alignment is lost in the values expression    
-                parseRes[0]['values_expression'] = True
-                 
-#                 if parseRes[0].getName() == 'taggedExpr':
-#                     parseRes[0].expr[0]['values_expression'] = True
-#                 else:     
-#                     parseRes[0]['values_expression'] = True
-                
-                
-#                 #the expression is a var ref to a constant.
-#                 if parseRes[0].getName() == 'varRef':
-#                     
-#                     parseRes['is_iterable'] = True
-#                     parseRes['is_dependent'] = False
-#                     parseRes['dependent_vars'] = set()
-#                     parseRes['var_refs'] = set()
-#                 #otherwise - the values is infront of an iterable expression.
+            elif current_part == 'varRef':
+                if parse_node['is_constant']:
+                    const_info = self.catalog['constants'][parse_node['varName']]
+                    const_expr = self.getItem(const_info['file'], const_info['index'])
+                    self._walk_for_iterable(const_expr, var_defs)
+                    #this is done in the dependencies.
+                    #parse_node['var_declaration'] = const_expr['node_id']
+                    parse_node['number'] = const_expr['number']
+                    parse_node['has_alignment'] = const_expr['has_alignment']
+                    #save the declaration parse result object
+                    var_defs[const_expr['node_id']] = const_expr
+                    parse_node['var_refs'] = [(parse_node['var_declaration'], parse_node['varName'], parse_node, 2),]
+                # is a variable (not constant)
+                else:
+                    var_expr = self._var_exprs.get(parse_node.get('var_declaration'))
+                    if var_expr is not None:
+                        self._walk_for_iterable(var_expr, var_defs)
+                        parse_node['number'] = var_expr['number']
+                        parse_node['has_alignment'] = var_expr['has_alignment']
+                        #save the declaration parse result object
+                        var_defs[parse_node['var_declaration']] = var_expr
+                        parse_node['var_refs'] = [(parse_node['var_declaration'], parse_node['varName'], parse_node, 1),]
+                        parse_node['dependent_iterables'].extend(var_expr['dependent_iterables'])
+                    else:
+                        parse_node['var_refs'] = [(parse_node['var_declaration'], parse_node['varName'], parse_node, 3),]
 
             elif current_part == 'blockExpr':
+                var_assignments = parse_node['varDeclarations']
 
-                
-                var_assignments = [i for i in parseRes if i.getName() == 'varAssign']
-#                 for var_assign in var_assignments:
-#                     parseRes['var_refs'] -= {(var_assign.node_id, var_assign.varName),}
-#                     parseRes['dependent_vars'] -= {(var_assign.node_id, var_assign.varName),}
                 #check if the variable is used
-                var_ref_ids = {var_ref[0] for var_ref in parseRes.var_refs}
+                var_ref_ids = {var_ref[0] for var_ref in parse_node['var_refs']}
                 for var_assign in var_assignments:
-                    if var_assign.node_id not in var_ref_ids:
+                    if var_assign['node_id'] not in var_ref_ids:
                         var_assign['not_used'] = True
                 
                 #removed defined variables from the var_refs and dependent vars
-                var_assign_ids = [var_assign.node_id for var_assign in var_assignments]
-                parseRes['var_refs'] = {var_ref for var_ref in parseRes.var_refs if var_ref[0] not in var_assign_ids}
+                var_assign_ids = [var_assign['node_id'] for var_assign in var_assignments]
+                parse_node['var_refs'] = [var_ref for var_ref in parse_node['var_refs'] if var_ref[0] not in var_assign_ids]
                 #parseRes['dependent_vars'] = {var_ref for var_ref in parseRes.dependent_vars if var_ref[0] not in var_assign_ids}                       
                 
-#             elif current_part == 'formulaDeclaration':
-#                 if 'varAssigns' in parseRes:
-#                     for var_assign in parseRes.varAssigns:
-#                         
-#                         parseRes['var_refs'] -= {(var_assign.node_id, var_assign.varName),}
-#                         parseRes['dependent_vars'] -= {(var_assign.node_id, var_assign.varName),}
-            elif current_part == 'qName':
+            elif current_part == 'qname':
                 #find the namespace uri for the prefix
-                parseRes['namespace_uri'] = self.getNamespaceUri(parseRes.prefix, file_num)
+                parse_node['namespace_uri'] = self.getNamespaceUri(parse_node['prefix'])
 
             elif current_part == 'constantAssign':
-                if parseRes.number == 'multi':
-                    parseRes['is_iterable'] = True
-#                     dependent_vars = {x for x in parseRes['var_refs'] if x[0] in var_defs if var_defs[x[0]].number == 'multi'}
-#                     if len(dependent_vars) == 0:
-#                         parseRes['is_dependent'] = False
-#                         parseRes['dependent_vars'] = dependent_vars
-#                     else:
-#                         parseRes['is_dependent'] = True
-#                         parseRes['dependent_vars'] = dependent_vars
-
-#             if not pre_calc and not parseRes.get('instance') and current_part in self._PRE_CALC_EXPRESSIONS:
-#                 self.catalog['pre_calc_expressions'].append(parseRes)
-#                 pre_calc = True
+                if parse_node['number'] == 'multi':
+                    parse_node['is_iterable'] = True
             
             #set the table id for the iterables under the top level node. 
-            if current_part in ('raiseDeclaration', 'reportDeclaration', 'formulaDeclaration', 'functionDeclaration', 'constantAssign', 'preconditionDeclaration'):
-                self.assign_table_id(parseRes, var_defs)
-#                 print(current_part, parseRes.node_id)
-#                 for it in parseRes.downstream_iterables:
-#                     if 'table_id' not in it:
-#                         it['table_id'] = parseRes.node_id 
+            if current_part in ('assertion', 'outputRule', 'functionDeclaration', 'constantDeclaration'):
+                self.assign_table_id(parse_node, var_defs)
+
                 #assign table id to variable references to constants.
-                for var_ref in parseRes.var_refs:
-                    #if len(var_ref) == 3: #this is a variable reference to a constant
+                for var_ref in parse_node['var_refs']:
                     if var_ref[3] == 2: #this is reference to a constant
                         if 'table_id' not in var_ref[2]:
-                            var_ref[2]['table_id'] = parseRes.node_id
+                            var_ref[2]['table_id'] = parse_node['node_id']
 
             #Update the dependant iteratables
-            if 'is_iterable' in parseRes:
+            if 'is_iterable' in parse_node:
                 #set dependent variables
-                dependent_vars = self.get_dependent_vars(parseRes, var_defs)
-                if len(dependent_vars) == 0:
-                    #parseRes['is_dependent'] = False
-                    parseRes['dependent_vars'] = dependent_vars
-                else:
-                    #parseRes['is_dependent'] = True
-                    parseRes['dependent_vars'] = dependent_vars
+                dependent_vars = self.get_dependent_vars(parse_node, var_defs)
+                parse_node['dependent_vars'] = dependent_vars
                     
-                parseRes['downstream_iterables'].add(parseRes)
+                parse_node['downstream_iterables'].append(parse_node)
                     
                 #reset the dependent_iterables. The iterable will not include downstream dependencies which is what the dependent_iterables currently contains.
-                parseRes['dependent_iterables'] = set()
-                parseRes['dependent_iterables'].add(parseRes)
-#                 if current_part == 'forControl':
-#                     parseRes['dependent_iterables'] |= control_dependent_iterables
+                parse_node['dependent_iterables'] = list()
+                parse_node['dependent_iterables'].append(parse_node)
+
                 #add iterables from the expresions for variable refs, but only if the expressions is upstream
-                additional_dependent_iterables = self.get_dependent_var_iterables(parseRes, dependent_vars, var_defs)
-                parseRes['dependent_iterables'] |= additional_dependent_iterables
+                additional_dependent_iterables = self.get_dependent_var_iterables(parse_node, dependent_vars, var_defs)
+                parse_node['dependent_iterables'] += additional_dependent_iterables
                 
                 #add downstream iterables for fucntion references. This makes the function reference dependent on the iterables in the arguments.
                 #This is needed when passing iterables (i.e. factset) in the argument.
-                if current_part == 'functionReference' and parseRes.function_type == 'xule_defined':
-                    parseRes['dependent_iterables'] |= parseRes.functionArgs.downstream_iterables
+                if current_part == 'functionReference' and parse_node['function_type'] == 'xule_defined':
+                    parse_node['dependent_iterables'] += {x['downstream_iterables'] for x in parse_node['functionArgs']}
 
-                parseRes['is_dependent'] = len(parseRes.dependent_iterables) > 1 #The dependent_iterables list will always include itself, so the miniumn count is 1
-
-#                
-#                 if current_part != 'constantAssign':
-#                     #constantAssign expressions are never dependent.
-#                     for var in parseRes.dependent_vars:
-#                         var_def_expr = var_defs[var[0]]
-#                         if var_def_expr.getName() == 'constantAssign':
-#                             parseRes['dependent_iterables'] |= {var_def_expr,}
-#                         else:
-#                             #the variable has to be assigned upstream                    
-#                             if var_def_expr.node_id < parseRes.node_id:
-#                                 if var_def_expr.getName() == 'forControl':
-#                                     parseRes['dependent_iterables'] |= {var_def_expr,}
-#                                 else:
-#                                     if 'dependent_iterables' in var_def_expr:
-#                                         parseRes['dependent_iterables'] |= var_def_expr.dependent_iterables
-            
-#             '''THIS CAN PROBABLY BE REMOVED - THE PRE CALC CACHE IS NOT BEING USED ANYMORE. CAUSE SIGNIFICANT MEMORY ISSUES'''
-#             if not parseRes.get('instance') and current_part in self._PRE_CALC_EXPRESSIONS:
-#                 #verify that only upstream constants are allowed.
-#                 #if all([len(var_ref) == 3 for var_ref in parseRes.var_refs]):
-#                 if all([var_ref[3] == 2 for var_ref in parseRes.var_refs]):
-#                     for pre_calc_node in pre_calc:
-#                         self.catalog['pre_calc_expressions'].remove(pre_calc_node)
-# 
-#                     self.catalog['pre_calc_expressions'].append(parseRes.node_id)
-#                     pre_calc = [parseRes.node_id,]
-
-#             if top:
-#                 print('CLEANING')
-#                 #Do a little cleaning up
-#                 for expr in all_expr:
-#                     print(expr.node_id)
-#                     if 'is_iterable' in expr:
-#                         expr.dependent_iterables.discard(expr.node_id)
-#                     else:
-#                         del expr['dependent_iterables']
-#             else:
-#                 all_expr.add(parseRes)      
+                parse_node['is_dependent'] = len(parse_node['dependent_iterables']) > 1 #The dependent_iterables list will always include itself, so the miniumn count is 1     
         
         return pre_calc
     
     def get_dependent_vars(self, rule_part, var_defs):
-        return {x for x in rule_part['var_refs'] if x[0] in var_defs if var_defs[x[0]].number == 'multi' or var_defs[x[0]].is_dependent}
+        return [x for x in rule_part['var_refs'] if x[0] in var_defs if var_defs[x[0]]['number'] == 'multi' or var_defs[x[0]]['is_dependent']]
     
-    def get_dependent_var_iterables(self, rule_part, dependent_vars, var_defs):
-        
-        additional_iterables = set()
+    def get_dependent_var_iterables(self, rule_part, dependent_vars, var_defs): 
+        additional_iterables = list()
 
         #for body expressions - add the dependent iterables in the control.       
-        if rule_part.getName() == 'forBodyExpr':
-            additional_iterables.update(rule_part.forControl.forLoopExpr.dependent_iterables)
+        if rule_part['exprName'] == 'forBodyExpr':
+            additional_iterables.extend(rule_part['forControl']['forLoopExpr']['dependent_iterables'])
         
-        if rule_part.getName() != 'constantAssign':
+        if rule_part['exprName'] != 'constantDeclaration':
             #constantAssign expressions are never dependent.
             for var in dependent_vars:
                 var_def_expr = var_defs[var[0]]
-                if var_def_expr.getName() == 'constantAssign':
-                    additional_iterables.add(var_def_expr)
+                if var_def_expr['exprName'] == 'constantconstantDeclaration':
+                    additional_iterables.append(var_def_expr)
                 else:
                     #the variable has to be assigned upstream   
-                    if var_def_expr.node_id < rule_part.node_id:
-#                         if 'dependent_iterables' in var_def_expr:
-#                             additional_iterables.update(var_def_expr.dependent_iterables)
-                        if var_def_expr.getName() in ('forControl', 'aspectFilter', 'whereExpr'):
-                            additional_iterables.add(var_def_expr)
+                    #if var_def_expr['node_id'] < rule_part['node_id']:
+                        if var_def_expr['exprName'] in ('forControl', 'aspectFilter', 'whereExpr'):
+                            additional_iterables.append(var_def_expr)
                         else:
                             if 'dependent_iterables' in var_def_expr:
-                                additional_iterables.update(var_def_expr.dependent_iterables)
+                                additional_iterables.extend(var_def_expr['dependent_iterables'])
 
         return additional_iterables
 
-    def assign_table_id(self, rule_part, var_defs, override_node_id=None):
-        node_id = override_node_id or rule_part.node_id
-        for it in rule_part.downstream_iterables:
-            if 'table_id' not in it:
-                it['table_id'] = node_id                
+    def assign_table_id(self, rule_part, var_defs, override_node_id=None, skip=None):
+        """Add table_id to iterable nodes.
+        
+        This will assign the parent table_id to unassigned iterables.
+        """
+        
+        if skip is None:
+            skip_list = []
+        else:
+            skip_list = [skip['node_id'],] + [x['node_id'] for x in skip['downstream_iterables']]
+        
+        node_id = override_node_id or rule_part['node_id']
+        for it in rule_part['downstream_iterables']:
+            if it['node_id'] not in skip_list:
+                if 'table_id' not in it:
+                    it['table_id'] = node_id                
 
     def build_dependencies(self):
+        """Identify constants and functions used by expressions.
         
+        Also identifies if a top level component (assert, output, constant, function) uses instance data or non instance taxonomy data.
+        """
         #immediate dependencies
         for const_info in self.catalog['constants'].values():
             self.dependencies_top(const_info)
         for func_info in self.catalog['functions'].values():
             self.dependencies_top(func_info)
-        for macro_info in self.catalog['macros'].values():
-            self.dependencies_top(macro_info)
         for rule_info in self.catalog['rules'].values():
             self.dependencies_top(rule_info)        
-        for precondition_info in self.catalog['preconditions'].values():
-            self.dependencies_top(precondition_info)      
-               
-        '''
-        #immediate dependencies
-        for const_info in self.catalog['constants'].values():
-            const_info['immediate_dependencies'] = self._immediate_dependencies(self.getItem(const_info['file'], const_info['index']))
-        for func_info in self.catalog['functions'].values():
-            func_info['immediate_dependencies'] = self._immediate_dependencies(self.getItem(func_info['file'], func_info['index']))
-        for macro_info in self.catalog['macros'].values():
-            macro_info['immediate_dependencies'] = self._immediate_dependencies(self.getItem(macro_info['file'], macro_info['index']))
-        for rule_info in self.catalog['rules'].values():
-            rule_info['immediate_dependencies'] = self._immediate_dependencies(self.getItem(rule_info['file'], rule_info['index']))
-        
-        #all dependencies
-        for const_info in self.catalog['constants'].values():
-            self._get_all_dependencies(const_info)
-            
-        for func_info in self.catalog['functions'].values():
-            self._get_all_dependencies(func_info)
-            
-        for macro_info in self.catalog['macros'].values():
-            self._get_all_dependencies(macro_info)
-            
-        for rule_info in self.catalog['rules'].values():
-            self._get_all_dependencies(rule_info)
-        '''
+#         for precondition_info in self.catalog['preconditions'].values():
+#             self.dependencies_top(precondition_info)      
             
         #check if constants are used
         used_constants = set()
@@ -1215,9 +896,9 @@ class XuleRuleSet(object):
             for const_name in function_info['dependencies']['constants']:
                 used_constants.add(const_name) 
    
-        for precondition_info in self.catalog['preconditions'].values():
-            for const_name in precondition_info['dependencies']['constants']:
-                used_constants.add(const_name)                               
+#         for precondition_info in self.catalog['preconditions'].values():
+#             for const_name in precondition_info['dependencies']['constants']:
+#                 used_constants.add(const_name)                               
         
         #if a constant is used only by a constant (as long as that constant was used)
         constant_of_constants = set()
@@ -1229,64 +910,65 @@ class XuleRuleSet(object):
         unused_constants = set(self.catalog['constants'].keys()) - used_constants
         for const_name in unused_constants:
             self.catalog['constants'][const_name]['unused'] = True          
+            
+#         #Check if a precondition is used
+#         used_preconditions = set()
+#         for rule_info in self.catalog['rules'].values():
+#             used_preconditions.update(set(rule_info['preconditions']))
+#         for precon in set(self.catalog['preconditions'].keys()) - used_preconditions:
+#             self.catalog['preconditions'][precon]['unused'] = True
 
-        #Check if a precondition is used
-        used_preconditions = set()
-        for rule_info in self.catalog['rules'].values():
-            used_preconditions.update(set(rule_info['preconditions']))
-        for precon in set(self.catalog['preconditions'].keys()) - used_preconditions:
-            self.catalog['preconditions'][precon]['unused'] = True
-
-
+         
         #determine number (single, multi) for each expression
         for const_name, const_info in self.catalog['constants'].items():
-            self._walk_for_iterable(self.getItem(const_info['file'], const_info['index']), const_name, const_info['file'])
-        for precon_name, precon_info in self.catalog['preconditions'].items():    
-            self._walk_for_iterable(self.getItem(precon_info['file'], precon_info['index']), precon_name, precon_info['file'])            
+            self._walk_for_iterable(self.getItem(const_info['file'], const_info['index']))
+#         for precon_name, precon_info in self.catalog['preconditions'].items():    
+#             self._walk_for_iterable(self.getItem(precon_info['file'], precon_info['index']), precon_info['file'])            
         for func_name, func_info in self.catalog['functions'].items():
-            self._walk_for_iterable(self.getItem(func_info['file'], func_info['index']), func_name, func_info['file'])
-        for macro_name, macro_info in self.catalog['macros'].items():
-            self._walk_for_iterable(self.getItem(macro_info['file'], macro_info['index']), macro_name, macro_info['file'])
+            self._walk_for_iterable(self.getItem(func_info['file'], func_info['index']))
         for rule_name, rule_info in self.catalog['rules'].items():
             ast_rule = self.getItem(rule_info['file'], rule_info['index'])
-            self._walk_for_iterable(ast_rule, rule_name, rule_info['file'])
-#             if ast_rule.expr[0].getName() == 'factset':
-#                 factset = ast_rule.expr[0]
-#                 #for concept[]
-#                 if 'lineItemAspect' in factset:
-#                     ast_rule['pre_check'] = factset.lineItemAspect.qName
-#                 else:
-#                     #for [lineItem = ]
-#                     if 'aspectFilters' in factset:
-#                         for aspect_filter in factset.aspectFilters:
-#                             if (aspect_filter.aspectName.qName.prefix == "*" and
-#                                 aspect_filter.aspectName.qName.localName == 'lineItem'):
-#                                 if aspect_filter.aspectOperator == "=":
-#                                     if aspect_filter.aspectExpr[0].getName() == 'qName':
-#                                         ast_rule['pre_check'] = aspect_filter.aspectExpr[0]
+            self._walk_for_iterable(ast_rule)
 
-        self.catalog['pre_calc_expressions'].sort()
+        #self.catalog['pre_calc_expressions'].sort()
         
         self._cleanup_ruleset()
 
     def _cleanup_ruleset(self):
-        '''This function removes parseRes properties that were added during the post parse procesing that are not needed for processing. This includes:
+        '''This function removes parseRes properties that were added during the post parse processing that are not needed for processing. 
+        
+        This includes:
             number, dependent_vars, dependent_iterables (except for iterables) and downstream_iterables
         '''
         for parseRes in self._pickles.values():
             self._cleanup_ruleset_detail(parseRes)
     
-    def _cleanup_ruleset_detail(self, parseRes):
-        for prop in ('number', 'dependent_vars', 'downstream_iterables'):
-            if prop in parseRes:
-                del parseRes[prop]
-        if 'dependent_iterables' in parseRes and parseRes.get('is_iterable') != True:
-            del parseRes['dependent_iterables']
-        
-        for child_parseRes in parseRes:
-            if isinstance(child_parseRes, ParseResults):
-                self._cleanup_ruleset_detail(child_parseRes)
+    def _cleanup_ruleset_detail(self, parse_node):
+        for prop in ('number', 'dependent_vars', 'downstream_iterables', 'var_exclusion_ids'):
+            if prop in parse_node:
+                del parse_node[prop]
+        if 'dependent_iterables' in parse_node:
+            if parse_node.get('is_iterable') == True:
+                #get rid of the self reference in dependent_iterables
+                parse_node['dependent_iterables'] = [x for x in parse_node['dependent_iterables'] if x['node_id'] != parse_node['node_id']]
+            else:
+                del parse_node['dependent_iterables']
+                
+        if 'var_refs' in parse_node:
+            #Get rid of the self reference in var_refs
+            parse_node['var_refs'] = [x for x in parse_node['var_refs'] if x[2]['node_id'] != parse_node['node_id']]
             
+        for child in parse_node.values():
+            next_parts = []
+            if isinstance(child, dict):
+                next_parts.append(child)
+            elif isinstance(child, list):
+                next_parts = child
+                
+            for next_part in next_parts:
+                # the parser will only create a list of dictionaries, however, the build dependencies can add lists of other things (i.e. var_eclusion_ids). These should be skipped.
+                if isinstance(next_part, dict):
+                    self._cleanup_ruleset_detail(next_part)
     
     def _get_all_dependencies(self, info):
         
@@ -1349,6 +1031,8 @@ class XuleRuleSet(object):
         return file_num
     
     def getFileInfoByName(self, file_name):
+        """Get file catalog information by file name.
+        """
         for file_info in self.catalog['files']:
             if file_info.get('name') == file_name:
                 return file_info
@@ -1363,6 +1047,12 @@ class XuleRuleSet(object):
         return pickle_name
                 
     def open(self, ruleSetLocation, open_for_add=True):
+        """Open a rule set.
+        
+        Arguments:
+            ruleSetLocation (string): The directory of the ruleset
+            open_for_add (boolean): If the rule set is being opend to add additional files.
+        """
         #self.name = os.path.splitext(os.path.basename(ruleSetLocation))[0]
         self.location = ruleSetLocation
         pickle_start = datetime.datetime.today()
@@ -1372,7 +1062,7 @@ class XuleRuleSet(object):
             self.name = self.catalog['name']
             self._openForAdd = open_for_add
         except FileNotFoundError:
-            print("Cannot open catalog.")
+            print("Cannot open catalog.") #, file=sys.stderr)
             raise
         
         if not open_for_add:
@@ -1383,6 +1073,8 @@ class XuleRuleSet(object):
         print("Rule Set Loaded", pickle_end - pickle_start)
         
     def getFile(self, file_num):
+        """Return the AST from a file in the ruleset.
+        """
         if file_num not in self._pickles.keys():
             #get the file info from the catalog
             file_item = next((file_item for file_item in self.catalog['files'] if file_item['file'] == file_num), None)
@@ -1401,41 +1093,32 @@ class XuleRuleSet(object):
                 
     
     def getItem(self, *args):
+        """Get AST of a top level component.
         
+        This method can take 1 or 2 arguments. If there is one argument, it is a catalog entry (which is a tuple). If there are two
+        arguments, the first is the file number and second is the index within the file for the top level component.
+        """        
         if len(args) == 2:
             file_num = args[0]
             index = args[1]
             
-            
             self.getFile(file_num)
-#             if file_num not in self._pickles.keys():
-#                 #get the file info from the catalog
-#                 file_item = next((file_item for file_item in self.catalog['files'] if file_item['file'] == file_num), None)
-#                 if not file_item:
-#                     raise XuleRuleSetError("File number %s not found" % str(file_num))
-#                     return
-#                 
-#                 try:
-#                     pickle_start = datetime.datetime.today()
-#                     with open(os.path.join(self.location, file_item['pickle_name']),"rb") as p:
-#                         self._pickles[file_num] = pickle.load(p, encoding="utf8")
-#                     pickle_end = datetime.datetime.today()
-#                     print("Opening pickle file", file_item['pickle_name'], file_item['name'], pickle_end - pickle_start)
-#                 except FileNotFoundError:
-#                     raise XuleRuleSetError("Pickle file %s not found." % file_item['pickle_name'])
-#                     return
-                
-            if index >= len(self._pickles[file_num][0]):
+            if index >= len(self._pickles[file_num]['xuleDoc']):
                 raise XuleRuleSetError("Item index %s for file %s is out of range" % (str(index), str(file_num)))
                 return
             
-            return self._pickles[file_num][0][index]
+            return self._pickles[file_num]['xuleDoc'][index]
         elif len(args) == 1:
             catalog_item = args[0]
             return self.getItem(catalog_item['file'], catalog_item['index'])
 
     def getItemByName(self, name, cat_type):
+        """Get the AST of a top level component by name.
         
+        Arguments:
+            name (string): Name of the component (i.e. rule name, function name, constanct name)
+            cat_type (stirng): Type of component (constant, function, rule, namespace)
+        """
         if cat_type not in ('rule','function','constant','macro'):
             raise XuleRuleSetError("%s is an invalid catalog type" % cat_type)
             return
@@ -1451,52 +1134,38 @@ class XuleRuleSet(object):
     def getFunction(self, name):
         return self.getItemByName(name, 'function')
     
-    def getMacro(self, name):
-        return self.getItemByName(name, 'macro')
-    
     def getRule(self, name):
         return self.getItemByName(name, 'rule')
     
     def getConstant(self, name):
         return self.getItemByName(name, 'constant')
     
-    def getNamespaceUri(self, prefix, file_num):
-        if file_num >= len(self.catalog['files']):
-            raise XuleRuleSetError("File number %s is not in the catalog" % str(file_num))
-        
+    def getNamespaceUri(self, prefix):
         #This case there is a file, but it didn't have any namespace declarations
-        if file_num not in self.catalog['namespaces'].keys():
-            raise XuleRuleSetError("Namespace declaration for %s does not exist in file %s" % (prefix, str(file_num)))
+        if prefix not in self.catalog['namespaces']:
+            if prefix == '*':
+                raise XuleRuleSetError("There is no default namespace declaration.")
+            else:
+                raise XuleRuleSetError("Prefix %s does not have a namespace declaration." % prefix)
         
-        if prefix not in self.catalog['namespaces'][file_num].keys():
-            raise XuleRuleSetError("Prefix %s is not declared in file %s" % (prefix, str(file_num)))
+        return self.catalog['namespaces'][prefix]['uri']
         
-        return self.catalog['namespaces'][file_num][prefix]['uri']
-        
-    def getNamespaceInfoByUri(self, namespaceUri, file_num):
-        if file_num not in self.catalog['namespaces']:
-            return
-        
-        for namespace_info in self.catalog['namespaces'][file_num].values():
+    def getNamespaceInfoByUri(self, namespaceUri):       
+        for namespace_info in self.catalog['namespaces'].values():
             if namespace_info['uri'] == namespaceUri:
                 return namespace_info
         
-        return
-        
-#     def getNodeById(self, node_id):
-#         location = self.catalog['node_index'].get(node_id)
-#         if location is None:
-#             raise XuleRuleSet("Node id %i not found in node index" % node_id)
-#         
-#         file_num = location[0]
-#         self.getFile(file_num)
-#         parent = self._pickles[file_num]
-#         for step in location[1:]:
-#             parent = parent[step]
-#         
-#         return parent        
+        return    
     
     def addTaxonomy(self, taxonomy_location, entry_point):
+        """Add a taxonomy to the ruleset.
+        
+        This will include a taxonomy in the ruleset. This is a cache for taxonomies.
+        
+        Arguments:
+            taxonomy_location (string): the directory of the taxonomy.
+            entry_point (string): The entry point file of the taxonomy.
+        """
         if self._openForAdd == True:
             base_location = os.path.join(self.location, 'base_taxonomy')
             
@@ -1525,7 +1194,6 @@ class XuleRuleSet(object):
         else:
             return None
     
-    
     def get_constant_list(self, constant_name):
         #ctype = 'c'
         #with self.catalog['constants'][constant_name]['dependencies']: # as const:
@@ -1538,18 +1206,6 @@ class XuleRuleSet(object):
             return 'rtc'
         return 'c'
 
-                
-#     def findnode(mylist, value):
-#         ''' returns the node for the value in mylist where 
-#             mylist is an llist.sllist 
-#         '''
-#         x = -1
-#         for num in range(len(mylist)):
-#             if mylist[num] == value:
-#                 x = num
-#                 break
-#         return mylist.nodeat(x) if x != -1 else None                
-                        
     def get_grouped_constants(self):
         self.all_constants = { 'rfrc': [],
                                'rtc' : [],
@@ -1562,36 +1218,6 @@ class XuleRuleSet(object):
                 if 'unused' not in self.catalog['constants'][constant]:
                     constant_type = self.get_constant_list(constant)
                     self.all_constants[constant_type].append(constant)
-            
-        '''
-        from llist import sllist
-        for constant_type in self.all_constants:
-            with self.all_constants[constant_type] as all_type:
-                if len(all_type) > 1:
-                    link_list = sllist(all_type)
-                    for constant in link_list:
-                        constant_index = link_list.index(constant)
-                        low_index = constant_index
-                        for dep in self.catalog['constants'][constant]['dependencies']['constants']:
-                            dep_index = index(link_list, dep)
-                            if dep_index > low_index:
-                                low_index = dep_index
-                        if low_index != constant_index:
-                            
-         '''               
-                    
-            #if constant in ('DEPRECATED_NAMES', 'TOTAL_LABEL_URIS', 'DIM_CONCEPTS'):
-            #    constant_type = 'c'
-            #elif constant in ('calcNetwork'):
-            #    constant_type = 'rtc'
-            #elif 2 == 2:
-            #    constant_type = 'frc'
-            #else:
-            #    constant_type = 'c'
-            #self.all_constants[constant_type][constant] = self.getConstant(constant)
-
-        
-        
         
         # remove any empty types
         del_const = []

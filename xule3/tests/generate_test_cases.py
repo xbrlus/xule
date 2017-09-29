@@ -1,7 +1,7 @@
 import sys
 import uuid
 sys.path.append('..')
-from xule_grammar4 import get_grammar
+from xule_grammar3 import get_grammar
 import argparse
 import importlib
 import os.path
@@ -26,7 +26,7 @@ import unittest
 import sys
 import pyparsing
 sys.path.append('..')
-from xule_grammar4 import get_grammar
+from xule_grammar3 import get_grammar
 
 def replace_expr(col, expr_type):
     """Replaces expression in the parse tree with 'expr'

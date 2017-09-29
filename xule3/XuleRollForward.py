@@ -11,7 +11,7 @@ import datetime
 import copy
 from arelle.ModelValue import QName
 from .XuleValue import XuleValue, XuleValueSet
-from .XuleProcessor import XuleProcessingError
+from .XuleRunTime import XuleProcessingError
 from arelle.FunctionXfi import facts_in_instance
 
 def get_networks(*args):
@@ -400,7 +400,7 @@ def func_roll_forward_recalc(xule_context, *args):
     #process each found pattern
     for roll_forward_pattern in roll_forward_pattern_set.value:
         start_concept = roll_forward_pattern['balance_concept']
-        fact_filters = [(('builtin','lineItem'), start_concept.qname)]
+        fact_filters = [(('builtin','concept'), start_concept.qname)]
         balance_facts = _get_facts(xule_context, fact_filters)
         #eliminate facts that don't match the allowed dimensions from the pattern
         balance_facts = _valid_fact_dims(xule_context, balance_facts, roll_forward_pattern['dimension_info'])
@@ -581,7 +581,7 @@ def _valid_fact_dims(xule_context, facts, pairs):
     return new_facts
 
 def _get_contrib_fact(xule_context, concept_name, start_fact, end_fact):
-    aspect_filters = [(('builtin','lineItem'), concept_name),
+    aspect_filters = [(('builtin','concept'), concept_name),
                       (('builtin','period'),(start_fact.context.endDatetime, end_fact.context.endDatetime))]
     start_normalized_dims = _normalize_dims(start_fact.context.qnameDims)
     facts = _get_facts(xule_context, aspect_filters)

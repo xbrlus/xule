@@ -5,7 +5,8 @@ Copyright (c) 2014 XBRL US Inc. All rights reserved
 
 $Change: 21535 $
 '''
-from pyparsing import ParseResults, lineno, ParseException, ParseSyntaxException
+from pyparsing import ParseResults, lineno, ParseException, ParseSyntaxException, ParserElement
+
 import os
 import datetime
 import sys
@@ -37,8 +38,8 @@ def parseFile(fileName, xuleGrammar, ruleSet, xml_dir=None):
         start_time = datetime.datetime.today()
         print("%s: parse start %s" % (datetime.datetime.isoformat(start_time), fileName))
         
-        parseRes = xuleGrammar.parseFile(fileName)
-
+        parseRes = xuleGrammar.parseFile(fileName).asDict()
+        
         if xml_dir:
             xml_file = xml_dir + "/" + os.path.basename(fileName) + ".xml"
             
@@ -47,7 +48,7 @@ def parseFile(fileName, xuleGrammar, ruleSet, xml_dir=None):
             
             with open(xml_file,"w") as o:
                 o.write(parseRes.asXML())
-        
+
         end_time = datetime.datetime.today()
         print("%s: parse end. Took %s" % (datetime.datetime.isoformat(end_time), end_time - start_time))
         
@@ -100,7 +101,7 @@ def parseRulesDetails(grammar_function, files, dest, xml_dir=None):
     ruleSet.build_dependencies()
     post_parse_end = datetime.datetime.today()
     print("%s: post parse end. Took %s" %(datetime.datetime.isoformat(post_parse_end), post_parse_end - post_parse_start))
-    
+      
     ruleSet.close()
     
     #reset the recursion limit
@@ -122,7 +123,6 @@ def parseRules(files, dest, xml_dir=None, grammar=None):
     
 if __name__ == "__main__":
     from XuleRuleSet import XuleRuleSet
-    
     import argparse
     
     aparser = argparse.ArgumentParser()
@@ -145,26 +145,6 @@ if __name__ == "__main__":
 #         else:
 #             parseRules([sys.argv[1]], dest)
 
-    parseRulesDetails(get_grammar, [args.source], args.target, xml_dir = args.xml_dir)
-    
-    '''    
-    else: 
-        try:   
-            for test in tests:
-                print("-----------------------------------------------------")
-                print(test)
-                xuleGrammar = get_grammar()
-                
-                parseRes = xuleGrammar.parseString(test)
-                
-                print(parseRes.asXML())
-        except (ParseException, ParseSyntaxException) as err:
-            print("Parse error  \n" 
-                "line: %i col: %i position: %i\n"
-                "%s\n"
-                "%s" % ( err.lineno, err.col, err.loc, err.msg, err.line)) 
-    
-            #print(parseRes.dump()) 
-    '''        
+    parseRulesDetails(get_grammar, [args.source], args.target, xml_dir = args.xml_dir)      
 else:
     from .XuleRuleSet import XuleRuleSet

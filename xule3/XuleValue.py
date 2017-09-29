@@ -14,6 +14,7 @@ import decimal
 from aniso8601.__init__ import parse_duration, parse_datetime, parse_date
 import collections
 import copy
+import pprint
 
 class XuleValueSet:
     def __init__(self, values=None):
@@ -166,6 +167,11 @@ class XuleValue:
         elif self.type == 'set':
             set_value = "set(" + ", ".join([sub_value.format_value() for sub_value in self.value]) + ")" 
             return set_value
+        
+        elif self.type == 'dictionary':
+            new_dict_value = {k_value.format_value(): v_value.format_value() for k_value, v_value in self.value}
+            
+            return pprint.pformat(new_dict_value)
         
         elif self.type == 'concept':
             return str(self.value.qname)

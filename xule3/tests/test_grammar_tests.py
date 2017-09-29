@@ -54,22 +54,22 @@ class TestFactset(unittest.TestCase):
     def test_simple_aspect_curly(self):
         res = self.grammar.parseString(r"""assert abc {@}""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'coverType': 'covered'}}], 'factsetType': 'open'}}, 'ruleName': 'abc'}}]})
+        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'factsetType': 'open', 'aspectFilters': [{'aspectFilter': {'coverType': 'covered'}}]}}, 'ruleName': 'abc'}}]})
     
     def test_simple_aspect_no_curly(self):
         res = self.grammar.parseString(r"""assert abc @""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'coverType': 'covered'}}], 'factsetType': 'open'}}, 'ruleName': 'abc'}}]})
+        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'factsetType': 'open', 'aspectFilters': [{'aspectFilter': {'coverType': 'covered'}}]}}, 'ruleName': 'abc'}}]})
     
     def test_simple_uncovered_aspect_curly(self):
         res = self.grammar.parseString(r"""assert abc{@@}""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'coverType': 'uncovered'}}], 'factsetType': 'open'}}, 'ruleName': 'abc'}}]})
+        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'factsetType': 'open', 'aspectFilters': [{'aspectFilter': {'coverType': 'uncovered'}}]}}, 'ruleName': 'abc'}}]})
     
     def test_simple_uncovered_aspect_no_curly(self):
         res = self.grammar.parseString(r"""assert abc @@""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'coverType': 'uncovered'}}], 'factsetType': 'open'}}, 'ruleName': 'abc'}}]})
+        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'factsetType': 'open', 'aspectFilters': [{'aspectFilter': {'coverType': 'uncovered'}}]}}, 'ruleName': 'abc'}}]})
     
     def test_empty_covered_bar(self):
         res = self.grammar.parseString(r"""assert abc |covered|""", parseAll=True).asDict()
@@ -79,92 +79,92 @@ class TestFactset(unittest.TestCase):
     def test_simple_aspect_bar(self):
         res = self.grammar.parseString(r"""assert abc |@|""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'coverType': 'covered'}}], 'factsetType': 'closed'}}, 'ruleName': 'abc'}}]})
+        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'factsetType': 'closed', 'aspectFilters': [{'aspectFilter': {'coverType': 'covered'}}]}}, 'ruleName': 'abc'}}]})
     
     def test_simple_uncovered_aspect_bar(self):
         res = self.grammar.parseString(r"""assert abc |@@|""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'coverType': 'uncovered'}}], 'factsetType': 'closed'}}, 'ruleName': 'abc'}}]})
+        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'factsetType': 'closed', 'aspectFilters': [{'aspectFilter': {'coverType': 'uncovered'}}]}}, 'ruleName': 'abc'}}]})
     
     def test_named_common_aspect(self):
         res = self.grammar.parseString(r"""assert abc @concept""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'coverType': 'covered', 'aspectName': 'concept'}}], 'factsetType': 'open'}}, 'ruleName': 'abc'}}]})
+        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'factsetType': 'open', 'aspectFilters': [{'aspectFilter': {'coverType': 'covered', 'aspectName': 'concept'}}]}}, 'ruleName': 'abc'}}]})
     
     def test_named_common_aspect_upper_and_lower(self):
         res = self.grammar.parseString(r"""assert abc @coNCepT""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'coverType': 'covered', 'aspectName': 'concept'}}], 'factsetType': 'open'}}, 'ruleName': 'abc'}}]})
+        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'factsetType': 'open', 'aspectFilters': [{'aspectFilter': {'coverType': 'covered', 'aspectName': 'concept'}}]}}, 'ruleName': 'abc'}}]})
     
     def test_named_default_dim_aspect(self):
         res = self.grammar.parseString(r"""assert abc @dimension""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'coverType': 'covered', 'aspectDimensionName': {'prefix': '*', 'localName': 'dimension'}}}], 'factsetType': 'open'}}, 'ruleName': 'abc'}}]})
+        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'factsetType': 'open', 'aspectFilters': [{'aspectFilter': {'coverType': 'covered', 'aspectDimensionName': {'localName': 'dimension', 'prefix': '*'}}}]}}, 'ruleName': 'abc'}}]})
     
     def test_named_prefixed_dim_aspect(self):
         res = self.grammar.parseString(r"""assert abc @dim:dimension""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'coverType': 'covered', 'aspectDimensionName': {'prefix': 'dim', 'localName': 'dimension'}}}], 'factsetType': 'open'}}, 'ruleName': 'abc'}}]})
+        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'factsetType': 'open', 'aspectFilters': [{'aspectFilter': {'coverType': 'covered', 'aspectDimensionName': {'localName': 'dimension', 'prefix': 'dim'}}}]}}, 'ruleName': 'abc'}}]})
     
     def test_named_prefixed_dim_aspect_equal(self):
         res = self.grammar.parseString(r"""assert abc @dim:dimension = block""", parseAll=True).asDict()
         replace_expr(res,"aspectExpr")
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'aspectExpr': 'expr_stop', 'coverType': 'covered', 'aspectDimensionName': {'prefix': 'dim', 'localName': 'dimension'}, 'aspectOperator': '='}}], 'factsetType': 'open'}}, 'ruleName': 'abc'}}]})
+        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'factsetType': 'open', 'aspectFilters': [{'aspectFilter': {'aspectExpr': 'expr_stop', 'coverType': 'covered', 'aspectDimensionName': {'localName': 'dimension', 'prefix': 'dim'}, 'aspectOperator': '='}}]}}, 'ruleName': 'abc'}}]})
     
     def test_named_dim_aspect_starts_with_concept(self):
         res = self.grammar.parseString(r"""assert abc @conceptabc""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'coverType': 'covered', 'aspectDimensionName': {'prefix': '*', 'localName': 'conceptabc'}}}], 'factsetType': 'open'}}, 'ruleName': 'abc'}}]})
+        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'factsetType': 'open', 'aspectFilters': [{'aspectFilter': {'coverType': 'covered', 'aspectDimensionName': {'localName': 'conceptabc', 'prefix': '*'}}}]}}, 'ruleName': 'abc'}}]})
     
     def test_simple_where_curly(self):
         res = self.grammar.parseString(r"""assert abc {where 1}""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'factsetType': 'open', 'whereExpr': {'integer': '1'}}}, 'ruleName': 'abc'}}]})
+        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'whereExpr': {'integer': '1'}, 'factsetType': 'open'}}, 'ruleName': 'abc'}}]})
     
     def test_simple_where_bar(self):
         res = self.grammar.parseString(r"""assert abc |where 1|""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'factsetType': 'closed', 'whereExpr': {'integer': '1'}}}, 'ruleName': 'abc'}}]})
+        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'whereExpr': {'integer': '1'}, 'factsetType': 'closed'}}, 'ruleName': 'abc'}}]})
     
     def test_aspect_equal(self):
         res = self.grammar.parseString(r"""assert abc @concept=block""", parseAll=True).asDict()
         replace_expr(res,"aspectExpr")
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'coverType': 'covered', 'aspectExpr': 'expr_stop', 'aspectName': 'concept', 'aspectOperator': '='}}], 'factsetType': 'open'}}, 'ruleName': 'abc'}}]})
+        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'factsetType': 'open', 'aspectFilters': [{'aspectFilter': {'coverType': 'covered', 'aspectOperator': '=', 'aspectExpr': 'expr_stop', 'aspectName': 'concept'}}]}}, 'ruleName': 'abc'}}]})
     
     def test_aspect_equal_multi(self):
         res = self.grammar.parseString(r"""assert abc @concept=block @unit=block""", parseAll=True).asDict()
         replace_expr(res,"aspectExpr")
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'coverType': 'covered', 'aspectExpr': 'expr_stop', 'aspectName': 'concept', 'aspectOperator': '='}}, {'aspectFilter': {'coverType': 'covered', 'aspectExpr': 'expr_stop', 'aspectName': 'unit', 'aspectOperator': '='}}], 'factsetType': 'open'}}, 'ruleName': 'abc'}}]})
+        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'factsetType': 'open', 'aspectFilters': [{'aspectFilter': {'coverType': 'covered', 'aspectOperator': '=', 'aspectExpr': 'expr_stop', 'aspectName': 'concept'}}, {'aspectFilter': {'coverType': 'covered', 'aspectOperator': '=', 'aspectExpr': 'expr_stop', 'aspectName': 'unit'}}]}}, 'ruleName': 'abc'}}]})
     
     def test_aspect_equal_with_alias(self):
         res = self.grammar.parseString(r"""assert abc @concept=block as con""", parseAll=True).asDict()
         replace_expr(res,"aspectExpr")
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'coverType': 'covered', 'aspectExpr': 'expr_stop', 'alias': 'con', 'aspectName': 'concept', 'aspectOperator': '='}}], 'factsetType': 'open'}}, 'ruleName': 'abc'}}]})
+        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'factsetType': 'open', 'aspectFilters': [{'aspectFilter': {'coverType': 'covered', 'aspectOperator': '=', 'aspectExpr': 'expr_stop', 'alias': 'con', 'aspectName': 'concept'}}]}}, 'ruleName': 'abc'}}]})
     
     def test_aspect_with_alias(self):
         res = self.grammar.parseString(r"""assert abc @concept as con""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'coverType': 'covered', 'aspectName': 'concept', 'alias': 'con'}}], 'factsetType': 'open'}}, 'ruleName': 'abc'}}]})
+        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'factsetType': 'open', 'aspectFilters': [{'aspectFilter': {'alias': 'con', 'coverType': 'covered', 'aspectName': 'concept'}}]}}, 'ruleName': 'abc'}}]})
     
     def test_aspect_equal_with_alias_curly(self):
         res = self.grammar.parseString(r"""assert abc {@concept=block as con}""", parseAll=True).asDict()
         replace_expr(res,"aspectExpr")
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'coverType': 'covered', 'aspectExpr': 'expr_stop', 'alias': 'con', 'aspectName': 'concept', 'aspectOperator': '='}}], 'factsetType': 'open'}}, 'ruleName': 'abc'}}]})
+        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'factsetType': 'open', 'aspectFilters': [{'aspectFilter': {'coverType': 'covered', 'aspectOperator': '=', 'aspectExpr': 'expr_stop', 'alias': 'con', 'aspectName': 'concept'}}]}}, 'ruleName': 'abc'}}]})
     
     def test_aspect_with_alias_curly(self):
         res = self.grammar.parseString(r"""assert abc {@concept as con}""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'coverType': 'covered', 'aspectName': 'concept', 'alias': 'con'}}], 'factsetType': 'open'}}, 'ruleName': 'abc'}}]})
+        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'factsetType': 'open', 'aspectFilters': [{'aspectFilter': {'alias': 'con', 'coverType': 'covered', 'aspectName': 'concept'}}]}}, 'ruleName': 'abc'}}]})
     
     def test_aspect_equal_with_alias_bar(self):
         res = self.grammar.parseString(r"""assert abc |@concept=block as con|""", parseAll=True).asDict()
         replace_expr(res,"aspectExpr")
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'coverType': 'covered', 'aspectExpr': 'expr_stop', 'alias': 'con', 'aspectName': 'concept', 'aspectOperator': '='}}], 'factsetType': 'closed'}}, 'ruleName': 'abc'}}]})
+        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'factsetType': 'closed', 'aspectFilters': [{'aspectFilter': {'coverType': 'covered', 'aspectOperator': '=', 'aspectExpr': 'expr_stop', 'alias': 'con', 'aspectName': 'concept'}}]}}, 'ruleName': 'abc'}}]})
     
     def test_aspect_with_alias_bar(self):
         res = self.grammar.parseString(r"""assert abc |@concept as con|""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'coverType': 'covered', 'aspectName': 'concept', 'alias': 'con'}}], 'factsetType': 'closed'}}, 'ruleName': 'abc'}}]})
+        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'factsetType': 'closed', 'aspectFilters': [{'aspectFilter': {'alias': 'con', 'coverType': 'covered', 'aspectName': 'concept'}}]}}, 'ruleName': 'abc'}}]})
     
     def test_factset_expr(self):
         res = self.grammar.parseString(r"""assert abc {4}""", parseAll=True).asDict()
@@ -174,12 +174,12 @@ class TestFactset(unittest.TestCase):
     def test_factset_expr_where(self):
         res = self.grammar.parseString(r"""assert abc {4 where  5}""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'innerExpr': {'integer': '4'}, 'factsetType': 'open', 'whereExpr': {'integer': '5'}}}, 'ruleName': 'abc'}}]})
+        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'innerExpr': {'integer': '4'}, 'whereExpr': {'integer': '5'}, 'factsetType': 'open'}}, 'ruleName': 'abc'}}]})
     
     def test_factset_expr_aspect_where(self):
         res = self.grammar.parseString(r"""assert abc {@Assets 4 where  5}""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'coverType': 'covered', 'aspectDimensionName': {'prefix': '*', 'localName': 'Assets'}}}], 'innerExpr': {'integer': '4'}, 'factsetType': 'open', 'whereExpr': {'integer': '5'}}}, 'ruleName': 'abc'}}]})
+        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'factset': {'innerExpr': {'integer': '4'}, 'aspectFilters': [{'aspectFilter': {'coverType': 'covered', 'aspectDimensionName': {'localName': 'Assets', 'prefix': '*'}}}], 'whereExpr': {'integer': '5'}, 'factsetType': 'open'}}, 'ruleName': 'abc'}}]})
     
     def test_no_aspect_name_with_alias(self):
         self.assertRaises(pyparsing.ParseException, self.grammar.parseString, """assert abc @ as asp""", parseAll=True)
@@ -319,12 +319,12 @@ class TestLiterals(unittest.TestCase):
     def test_qname_no_prefix(self):
         res = self.grammar.parseString(r"""assert abc hello""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'qname': {'prefix': '*', 'localName': 'hello'}}, 'ruleName': 'abc'}}]})
+        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'qname': {'localName': 'hello', 'prefix': '*'}}, 'ruleName': 'abc'}}]})
     
     def test_qname_with_prefix(self):
         res = self.grammar.parseString(r"""assert abc pre:hello""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'qname': {'prefix': 'pre', 'localName': 'hello'}}, 'ruleName': 'abc'}}]})
+        self.assertEqual(res, {'xuleDoc': [{'assertion': {'satisfactionType': 'satisfied', 'body': {'qname': {'localName': 'hello', 'prefix': 'pre'}}, 'ruleName': 'abc'}}]})
     
     def test_severity_literal_error(self):
         res = self.grammar.parseString(r"""assert abc error""", parseAll=True).asDict()
@@ -370,4 +370,12 @@ Neet tests for constants.
 Neet tests for output rules.
 Need tests for function declarations (include tags with and without tag names).
   """)
+    
+class TestVariables(unittest.TestCase):
+
+    maxDiff = None
+    
+    
+    def setUp(self):
+        self.grammar = get_grammar()
     

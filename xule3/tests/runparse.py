@@ -29,8 +29,8 @@ def timeCall(functionInfo, *args, **kwargs):
     return result
 
 if args.g is None:
-    from xule_grammar4 import get_grammar
-    print('grammar 4')
+    from xule_grammar3 import get_grammar
+    print('grammar 3')
 else:
     if args.g == '2':
         from xule_grammar2 import get_grammar
@@ -49,7 +49,8 @@ xule_parser = timeCall(get_grammar)
 
 if args.f:
     res = xule_parser.parseFile(args.f, parseAll=True)
-    print(res.asDict()) 
+    print(json.dumps(res.asDict(), indent=4))
+
 elif args.s:
     res = xule_parser.parseString(args.s, parseAll=True)
     #print(res.asDict())

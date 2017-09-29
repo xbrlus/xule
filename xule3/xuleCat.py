@@ -10,6 +10,7 @@ import sys
 from XuleRuleSet import XuleRuleSet
 from pyparsing import ParseResults
 from lxml import etree
+import json
 
 
 
@@ -24,16 +25,6 @@ def print_catalog(rule_set_name):
         
     pprint.pprint(rule_set.catalog)
             
-def xml_rule(rule_set_name, rule_name):
-    rule_set = XuleRuleSet()
-    rule_set.open(rule_set_name, open_for_add=False)
-    
-    cat_rule = rule_set.catalog['rules'][rule_name]
-    rule = rule_set.getItem(cat_rule)
-    
-    print(etree.tostring(rule_part_to_xml(rule), encoding="unicode", pretty_print=True))
-
-    
 def rule_part_to_xml(rule_part):     
     atts = dict()
     sub_parts = []
@@ -102,7 +93,7 @@ def dict_rule(rule_set_name, rule_name):
     cat_rule = rule_set.catalog['rules'][rule_name]
     rule = rule_set.getItem(cat_rule)
     
-    pprint.pprint(rule.asDict())       
+    pprint.pprint(rule)       
     
 def xml_file(rule_set_name, rule_name):
     rule_set = XuleRuleSet()
@@ -112,6 +103,20 @@ def xml_file(rule_set_name, rule_name):
     
     #print(file.asXML()) 
     print(etree.tostring(rule_part_to_xml(file), encoding="unicode", pretty_print=True))       
+    
+def json_file(rule_set_name, file_num):
+    rule_set = XuleRuleSet()
+    rule_set.open(rule_set_name, open_for_add=False)
+    
+    parse_tree = rule_set.getFile(int(file_num))
+    print(json.dumps(parse_tree, indent=4))    
+
+def dict_file(rule_set_name, file_num):
+    rule_set = XuleRuleSet()
+    rule_set.open(rule_set_name, open_for_add=False)
+    
+    parse_tree = rule_set.getFile(int(file_num))
+    pprint.pprint(parse_tree)      
     
 def xml_const(rule_set_name, rule_name):
     rule_set = XuleRuleSet()
@@ -142,6 +147,14 @@ def id_files(rule_set_name):
         parse_res = rule_set.getFile(file_info['file'])
         print("File: %s" % file_info['name'])
         print(_display_ids(parse_res))
+
+def dict_all(rule_set_name):
+    rule_set = XuleRuleSet()
+    rule_set.open(rule_set_name, open_for_add=False)
+    
+    for file_info in rule_set.catalog['files']:
+        parse_tree = rule_set.getFile(file_info['file'])
+        pprint.pprint(parse_tree) 
         
 def _display_ids(parse_res, level=0, display_string=''):
     if isinstance(parse_res, ParseResults):
@@ -276,8 +289,12 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         if command == 'cat':
             print_catalog(rule_set_name)
-        elif command == 'xml-rule':
-            xml_rule(rule_set_name, sys.argv[3])
+        elif command == 'json-file':
+            json_file(rule_set_name, sys.argv[3])
+        elif command == 'dict-file':
+            dict_file(rule_set_name, sys.argv[3])            
+        elif command == 'dict':
+            dict_all(rule_set_name) 
         elif command == 'id-rule':
             id_rule(rule_set_name, sys.argv[3])            
         elif command == 'dict-rule':

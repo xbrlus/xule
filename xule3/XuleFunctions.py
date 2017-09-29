@@ -5,7 +5,9 @@ Copyright (c) 2014 XBRL US Inc. All rights reserved
 
 $Change: 21535 $
 '''
-from .XuleValue import *
+from .XuleValue import XuleValue, iso_to_date
+from .XuleRunTime import XuleProcessingError
+from arelle.ModelValue import qname
 import collections
 from . import XuleRollForward as rf
 
@@ -156,12 +158,15 @@ def func_qname(xule_context, *args):
     namespace_uri = args[0]
     local_name = args[1]
     
-    if namespace_uri.type not in ('string', 'uri'):
-        raise XuleProcessingError(_("Function 'qname' requires the namespace_uri argument to be a string or uri, found '%s'" % namespace_uri.type), xule_context)
+    if namespace_uri.type not in ('string', 'uri', 'unbound'):
+        raise XuleProcessingError(_("Function 'qname' requires the namespace_uri argument to be a string, uri or none, found '%s'" % namespace_uri.type), xule_context)
     if local_name.type != 'string':
         raise XuleProcessingError(_("Function 'qname' requires the local_part argument to be a string, found '%s'" % local_name.type), xule_context)
     
-    return XuleValue(xule_context, QName(None, namespace_uri.value, local_name.value), 'qname')
+    if namespace_uri.type == 'unbound':
+        return XuleValue(xule_context, qname(local_name.value, noPrefixIsNoNamespace=True), 'qname')
+    else:
+        return XuleValue(xule_context, QName(None, namespace_uri.value, local_name.value), 'qname')
  
 def func_uri(xule_context, *args):
     arg = args[0]
@@ -467,7 +472,48 @@ def agg_set(xule_context, values):
     return XuleValue(xule_context, frozenset(set_values.values()), 'set', shadow_collection=frozenset(shadow))
 ''' 
 
+def agg_dict(xule_context, values):
+    set_values = []
+    shadow = []
+    tags = {}
+    facts = collections.OrderedDict()
+    
+    dict_values = dict()
+    shadow = dict()
+    
+    for current_value in values:
+        if current_value.type != 'list':
+            raise XuleProcessingError(_("Arguments for the dict() function must be lists of key/value pairs, found %s" % current_value.type),
+                                      xule_context)
+        if len(current_value.value) != 2:
+            raise XuleProcessingError(_("Arguments for the dict() function must be lists of length 2 (key/value pair). Found list of length %i" % len(current_value.value)))
+    
+        key = current_value.value[0]
+        if key.type == 'dictionary':
+            raise XuleProcessingError(_("Key to a dictionary cannot be a dictionary."), xule_context)
+        
+        value = current_value.value[1]
+        
+        if key.tags is not None:
+            tags.update(key.tags)
+        if value.tags is not None:
+            tags.update(value.tags)
+        if key.facts is not None:
+            facts.update(key.facts)     
+        if value.facts is not None:
+            facts.update(value.facts)                       
+        
+        dict_values[key] = value
+  
+        shadow[key.shadow_collection if key.type in ('list', 'set') else key.value] = value.shadow_collection if value.type in ('list', 'set', 'dictionary') else value.value
 
+    
+    return_value = XuleValue(xule_context, frozenset(dict_values.items()), 'dictionary', shadow_collection=frozenset(shadow.items()))
+    if len(tags) > 0:
+        return_value.tags = tags
+    if len(facts) > 0:
+        return_value.facts = facts
+    return return_value  
 
 def func_sdic_create(xule_context, *args):
     name = args[0].value
@@ -621,15 +667,17 @@ def built_in_functions():
              #'list': ('aggregate', agg_list, 1, None, None),
              'set': ('aggregate', agg_set, 1, frozenset(), 'set'),
              #'set': ('aggregate', agg_set, 1, None, None),
+             'dict': ('aggregate', agg_dict, 1, frozenset(), 'dictionary'),
              
              'exists': ('regular', func_exists, 1, True, 'single'),
              'missing': ('regular', func_missing, 1, True, 'single'),
              'instant': ('regular', func_instant, 1, False, 'single'),
+             'date': ('regular', func_instant, 1, False, 'single'),
              'duration': ('regular', func_duration, 2, False, 'single'),
              'forever': ('regular', func_forever, 0, False, 'single'),
              'unit': ('regular', func_unit, 1, False, 'single'),
              'entity': ('regular', func_entity, 2, False, 'single'),
-             'qname': ('regular', func_qname, 2, False, 'single'),
+             'qname': ('regular', func_qname, 2, True, 'single'),
              'uri': ('regular', func_uri, 1, False, 'single'),
              'time-period': ('regular', func_time_period, 1, False, 'single'),
              'schema-type': ('regular', func_schema_type, 1, False, 'single'),
