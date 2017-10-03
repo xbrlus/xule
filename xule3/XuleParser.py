@@ -51,7 +51,8 @@ def parseFile(fileName, xuleGrammar, ruleSet, xml_dir=None):
 
         end_time = datetime.datetime.today()
         print("%s: parse end. Took %s" % (datetime.datetime.isoformat(end_time), end_time - start_time))
-        
+#         import pprint
+#         pprint.pprint(parseRes)
         ast_start = datetime.datetime.today()
         print("%s: ast start" % datetime.datetime.isoformat(ast_start))
         ruleSet.add(parseRes, os.path.getmtime(fileName), os.path.basename(fileName))

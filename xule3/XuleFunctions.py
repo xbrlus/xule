@@ -7,7 +7,7 @@ $Change: 21535 $
 '''
 from .XuleValue import XuleValue, iso_to_date
 from .XuleRunTime import XuleProcessingError
-from arelle.ModelValue import qname
+from arelle.ModelValue import qname, QName
 import collections
 from . import XuleRollForward as rf
 
@@ -166,6 +166,7 @@ def func_qname(xule_context, *args):
     if namespace_uri.type == 'unbound':
         return XuleValue(xule_context, qname(local_name.value, noPrefixIsNoNamespace=True), 'qname')
     else:
+        '''INSTEAD OF PASSING None FOR THE PREFIX, THIS SHOULD FIND THE PREFIX FOR THE NAMESPACE URI FROM THE RULE FILE. IF IT CANNOT FIND ONE, IT SHOULD CREATE ONE.'''
         return XuleValue(xule_context, QName(None, namespace_uri.value, local_name.value), 'qname')
  
 def func_uri(xule_context, *args):
@@ -642,6 +643,15 @@ def func_sdic_set_item(xule_context, *args):
     
     return dic.set_item(key, value)
 
+def func_taxonomy(xule_context, *args):
+    if len(args) == 0:
+        return XuleValue(xule_context, xule_context.model, 'taxonomy')
+    elif len(args) > 1:
+        raise XuleProcessingError(_("Non instance taxonomies are not currently supported"), xule_context)
+    else:
+        raise XuleProcessingError(_("The taxonomy() function takes at most 1 argument, found {}".format(len(args))))
+    
+
 #the position of the function information
 FUNCTION_TYPE = 0
 FUNCTION_EVALUATOR = 1
@@ -693,7 +703,9 @@ def built_in_functions():
              'sdic_get_items': ('regular', func_sdic_get_items, 2, True, 'single'),
              'sdic_has_key': ('regular', func_sdic_has_key, 2, True, 'single'),
              'sdic_remove_item': ('regular', func_sdic_remove_item, 2, True, 'single'),
-             'sdic_set_item': ('regular', func_sdic_set_item, 3, True, 'single')
+             'sdic_set_item': ('regular', func_sdic_set_item, 3, True, 'single'),
+             
+             'taxonomy': ('regular', func_taxonomy, -1, False, 'single')
              }    
     
     

@@ -2224,7 +2224,301 @@ def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non
     return results, default_used_expressions
 
 def evaluate_navigate(nav_expr, xule_context):
-    return XuleValue(xule_context, 'This is navigation', 'string')
+    
+    '''WILL NEED TO HANDLE CASE WHEN THERE IS NOT AN ARCROLE. THIS WILL NEED TO GATHER ALL THE BASESETS ACROSS ALL ARCROLLS'''
+    '''NEED TO HANDLE BASE TAXONOMY.'''
+    dts = xule_context.model 
+
+    nav_from_concepts = nav_get_element(nav_expr, 'from', dts,  xule_context)
+    if nav_from_concepts is not None and len(nav_from_concepts) == 0:
+        # There is nothing to navigate because the from concepts are not in any relationship. Return an empty set
+        return XuleValue(xule_context, set(), 'set')
+    
+    nav_to_concepts = nav_get_element(nav_expr, 'to', dts, xule_context)
+    arcrole = nav_get_role(nav_expr, 'arcrole', xule_context)
+    role = nav_get_role(nav_expr, 'role', xule_context)
+    link_qname = evaluate(xule_context, nav_expr['link']).value if 'link' in nav_expr else None
+    arc_qname = None # This is always none. 
+    direction = nav_expr['direction']
+    include_start = nav_expr.get('includeStart', False)
+    
+    #get the relationships
+    relationship_set_infos = get_base_set_info(xule_context, dts, arcrole, role, link_qname, arc_qname)
+    # The relationship_set_info includes the includeProhibits at the end of the tuple
+    relationship_sets = [dts.relationshipSets[x] if x in dts.relationshipSets 
+                                                 else ModelRelationshipSet(dts, 
+                                                                           x[NETWORK_ARCROLE],
+                                                                           x[NETWORK_ROLE],
+                                                                           x[NETWORK_LINK],
+                                                                           x[NETWORK_ARC])
+                         for x in relationship_set_infos]
+    
+    result_items = list()
+    for relationship_set in relationship_sets:
+        if nav_from_concepts is None:
+            # The from was not in tne navigate expression. Use the roots
+            from_concepts = relationship_set.rootConcepts
+        else:
+            from_concepts = nav_from_concepts
+        for from_concept in from_concepts:
+            if direction == 'self':
+                # include_start is always False for the self direction since the self concept is always included.
+                result_items += list(y for y in (nav_decorate(rel, 'from', nav_expr, False, xule_context) for rel in relationship_set.fromModelObject(from_concept))) + list(y for y in (nav_decorate(rel, 'to', nav_expr, xule_context) for rel in relationship_set.toModelObject(from_concept))) # This will be a list            
+            if direction == 'descendants':
+                for rel in nav_traverse('down', relationship_set, from_concept, nav_to_concepts, int(nav_expr['depth'])):
+                    result_items += nav_decorate(rel, 'to', nav_expr, include_start, xule_context)
+            if direction == 'children':
+                for rel in nav_traverse('down', relationship_set, from_concept, nav_to_concepts, 1):
+                    result_items += nav_decorate(rel, 'to', nav_expr, include_start, xule_context)
+            if direction == 'ancestors':
+                for rel in nav_traverse('up', relationship_set, from_concept, nav_to_concepts, int(nav_expr['depth'])):
+                    result_items += nav_decorate(rel, 'from', nav_expr, include_start, xule_context)
+            if direction == 'parents':
+                for rel in nav_traverse('up', relationship_set, from_concept, nav_to_concepts, 1):
+                    result_items += nav_decorate(rel, 'from', nav_expr, include_start, xule_context)
+                    
+    return nav_finish_results(nav_expr, result_items, xule_context)
+
+def nav_traverse(direction, network, parent, end_concepts, depth, previous_concepts=None):
+    """Traverse a network
+    
+    Arguments:
+        direction (stirng): Either 'down' or 'up'
+        network (ModelRelationshipSet): The network of relationships.
+        parent (ModelConcept): The parent concept
+        end_concepts (set of ModelConcepts): A set of concepts if encountered the traversal should stop
+        depth (int): How many levels to traverse. -1 is infinite depth.
+        previous_concepts (set of ModelConcepts): List concepts already traversed. Used to prevent loops in the traversal
+        include_start (boolean): Indicates that the starting concept should be included in the results
+    
+    Return:
+        list of tuples of (ModelRelationship, top)
+    """
+    # Initialize previous_concepts
+    if previous_concepts is None:
+        previous_concepts = set()
+        first_time = True
+    else:
+        first_time = False
+        
+    #initialize depth
+    if depth == -1:
+        depth = float('inf') 
+           
+    if depth == 0:
+        return list()
+    
+    # 'children' is parents if the direction is up.
+    children = list()
+    children_method = network.fromModelObject if direction == 'down' else network.toModelObject
+    for rel in children_method(parent):
+        child = rel.toModelObject if direction == 'down' else rel.fromModelObject
+        children.append((rel, first_time))
+        if child not in previous_concepts:
+            previous_concepts.add(child)
+            children += nav_traverse(direction, network, child, end_concepts, depth - 1, previous_concepts)
+            
+    return children
+
+def nav_get_role(nav_expr, role_type, xule_context):
+    """Get the full role from the navigation expression.
+    
+    A roleole in the navigation expressions is either a string, uri or a non prefixed qname. If it is a string or uri, it is a full arcrole. If it is
+    a non prefixed qname, than the local name of the qname is used to match an arcrole that ends in 'localName'. If more than one arcrole is found then
+    and error is raise. This allows short form of an arcrole i.e parent-child.
+    """
+    if role_type in nav_expr:
+        short_attribute_name = '{}_short'.format(role_type)
+        role_value = evaluate(nav_expr[role_type], xule_context)
+        if role_value.type in ('string', 'uri'):
+            return role_value.value
+        elif role_value.type == 'qname':
+            if role_value.value.prefix is not None:
+                raise XuleProcessingError(_("Invalid {}. {} should be a string, uri or short role name. Found qname with value of {}".format(role_type, role_type.capitalize(), role_value.format_value())))
+            else:
+                # Check that the dictionary of short arcroles is in the context. If not, build the diction are arcrole short names
+                if not hasattr(xule_context, short_attribute_name):
+                    if role_type == 'arcrole':
+                        setattr(xule_context, short_attribute_name, CORE_ARCROLES.copy())
+                        dts_roles = xule_context.model.arcroleTypes
+                    else:
+                        setattr(xule_context, short_attribute_name, {'link': 'http://www.xbrl.org/2003/role/link'})
+                        dts_roles = xule_context.model.roleTypes
+                    
+                    short_role_dict = getattr(xule_context, short_attribute_name)
+                    for role in dts_roles:
+                        short_name = role.split('/')[-1] if '/' in role else role
+                        if short_name in short_role_dict:
+                            short_role_dict[short_name] = None # indicates that there is a dup shortname
+                        else:
+                            short_role_dict[short_name] = role
+                
+                short_role_dict = getattr(xule_context, short_attribute_name)
+                short_name = role_value.value.localName
+                if short_name not in short_role_dict:
+                    raise XuleProcessingError(_("The {} short name '{}' does not match any arcrole.".format(role_type, short_name)))
+                if short_name in (CORE_ARCROLES if role_type == 'arcrole' else {'link': 'http://www.xbrl.org/2003/role/link'}) and short_role_dict[short_name] is None:
+                    raise XuleProcessingError(_("A taxonomy defined {role} has the same short name (last portion of the {role}) as a core specification {role}. " 
+                                                "Taxonomy defined {role} is '{tax_role}'. Core specification {role} is '{core_role}'."
+                                                .format(role=role_type, 
+                                                        tax_role=xule_context.arcrole_short[short_name], 
+                                                        core_role=CORE_ARCROLES[short_name] if role_type == 'arcrole' else 'http://www.xbrl.org/2003/role/link')))
+                if short_name in short_role_dict and short_role_dict[short_name] is None:
+                    raise XuleProcessingError(_("The {} short name '{}' resolves to more than one arcrole in the taxonomy.".format(role_type, short_name)))
+                
+                return short_role_dict[short_name]
+    else:
+        return None # There is no arcrole on the navigation expression
+
+def nav_get_element(nav_expr, side, dts, xule_context):
+    """Get the element or set of elements on the from or to side of a navigation expression'
+    
+    This determines the from/to elements of a navigation expression. If the navigation expression includes the from/to component, this will be evaluated.
+    The result can be a qname, concept or a set/list of qname or concepts.
+    
+    Arguments:
+        nav_expr (dictionary): The navigation expression AST node
+        side (string): Either 'from' or 'to'.
+        xule_context (XuleRuleContext): The processing context
+        
+    Returns:
+        None - indicates that the side is not in the navigation expression
+        set of concepts - the set of the concepts if the side evaluates to a set or list of concept/concepts
+    """
+    
+    if side in nav_expr:
+        side_value = evaluate(nav_expr[side], xule_context)
+        if side_value.type == 'qname':
+            concept = get_concept(dts, side_value.value)
+            if concept is None:
+                return set()
+            else:
+                return {concept,}
+        elif side_value.type == 'concept':
+            return {side_value.value,}
+        elif side_value.type in ('set', 'list'):
+            concepts = set()
+            for item in side_value.value:
+                if item.type == 'qname':
+                    concept = get_conept(dts, item.value)
+                    if concept is not None:
+                        concepts.add(concept)
+                elif item.type == 'concept':
+                    concepts.add(time.value)
+                else:
+                    raise XuleProcessingError(_("In navigation, expecting a collection of concepts or concepts, but found {}.".format(item.type)))
+            return concepts
+        else:
+            raise XuleProcessingError(_("In navigation, expecting a concept or qname, but found {}.".format(side_value.type)))
+    else:
+        return None # The side is not in the navigation expression
+
+
+def nav_decorate(rel, side, nav_expr, include_start, xule_context):
+    """Determine what will be outputted for a single navigation item.
+    
+    Arguments:
+        rel (tuple (ModelRelationship, top)): relationship
+        side (string): 'from' or 'to'. Which side of the relationship for the concept information
+        nav_expr (dict): Navigation expression AST node
+        xule_context (XuleRuleContext): Processing context
+        
+    Returns:
+        A tuple of tuples of the return components for the relationship. The tuple is composed of:
+        0. value
+        1. xule type
+        2. return component name
+    """
+    # Get the list of return component names. If not specified then 'target' is the default
+    return_names = nav_expr.get('return', {'returnComponents': ('target',)}).get('returnComponents', ('target',))
+    result = list()
+    if include_start and rel[1] == True: # rel[1] indicates that this is a top level relationship
+        result.append(nav_decorate_gather_components(rel[0], side, return_names, True, xule_context))
+    result.append(nav_decorate_gather_components(rel[0], side, return_names, False, xule_context))
+    
+#     if side == 'from':
+#         if include_start and rel[1] == True: # rel[1] indicates that this is a top level relationship
+#             result.append(((rel[0].toModelObject, 'concept', 'target'),))
+#         result.append(((rel[0].fromModelObject, 'concept', 'target'),))
+#     else:
+#         if include_start and rel[1] == True: # rel[1] indicates that this is a top level relationship
+#             result.append(nav_decorate_get_components(rel[0]))
+#             result.append(((rel[0].fromModelObject, 'concept', 'target'),))
+#         result.append(((rel[0].toModelObject, 'concept', 'target'),))
+    
+    return result
+
+def nav_decorate_gather_components(rel, side, component_names, is_start, xule_context):
+    result = list()
+    
+    for component_name in component_names:
+        result.append(nav_decorate_component_value(rel, side, component_name, is_start, xule_context))
+    
+    return tuple(result)
+
+def nav_decorate_component_value(rel, side, component_name, is_start, xule_context):
+
+    if is_start:
+        if component_name == 'source':
+            if side == 'from':
+                return (rel.fromModelObject, 'concept', component_name)
+            else:
+                return (rel.toModelObject, 'concept', component_name)
+        elif component_name == 'target':
+            if side == 'from':
+                return (rel.toModelObject, 'concept', component_name)
+            else:
+                return (rel.fromModelObject, 'concept', component_name)
+        else:
+            # All other components are blank for the start concept
+            return (None, 'none', component_name)
+    else:
+        if component_name == 'target':
+            if side == 'from':
+                return (rel.fromModelObject, 'concept', component_name)
+            else:
+                return (rel.toModelObject, 'concept', component_name)
+        elif component_name == 'source':
+            if side == 'from':
+                return (rel.toModelObject, 'concept', component_name)
+            else:
+                return (rel.fromModelObject, 'concept', component_name)
+        elif component_name == 'weight':
+            if rel.weightDecimal is None:
+                return (0, 'decimal', component_name)
+            else:
+                return (rel.weightDecimal, 'decimal', component_name)
+        else:
+            raise XuleProcessingError(_("Component {} is not currently supported.".format(component_name)), xule_context)
+
+def nav_finish_results(nav_expr, return_items, xule_context):
+    results = set()
+    result_shadow = set()
+    for return_item in return_items:
+        if len(return_item) == 1:
+            # A list of single items is returned. 
+            # The return item only has one return component
+            if return_item[0][0] not in result_shadow:
+                results.add(XuleValue(xule_context, return_item[0][0], return_item[0][1]))
+                result_shadow.add(return_item[0][0])
+        else:
+            # A list of list of components is returned.
+            # The return_item has multiple return componenets
+            multi_result = list()
+            multi_shadow = list()
+            for return_component in return_item:
+                multi_result.append(XuleValue(xule_context, return_component[0], return_component[1]))
+                multi_shadow.append(return_component[0])
+            multi_shadow_tuple = tuple(multi_shadow)
+            
+            if multi_shadow_tuple not in result_shadow:
+                results.add(XuleValue(xule_context, tuple(multi_result), 'list', shadow_collection=tuple(multi_shadow)))
+                result_shadow.add(multi_shadow_tuple)
+
+            #raise XuleProcessingError(_("multiple returns not supported"), xule_context)
+    return XuleValue(xule_context, frozenset(results), 'set', shadow_collection=frozenset(result_shadow))
+    
+    #return XuleValue(xule_context, frozenset(XuleValue(xule_context, x[0], x[1]) for x in set(return_items)), 'set')
 
 def evaluate_function_ref(function_ref, xule_context):
     if function_ref['functionName'] in BUILTIN_FUNCTIONS:
@@ -2232,10 +2526,18 @@ def evaluate_function_ref(function_ref, xule_context):
         if function_info[FUNCTION_TYPE] == 'aggregate':
             return evaluate_aggregate_function(function_ref, function_info, xule_context)
         else:
-            if function_info[FUNCTION_TYPE] == 'regular' and len(function_ref['functionArgs']) != function_info[FUNCTION_ARG_NUM]:
-                raise XuleProcessingError(_("The '%s' function must have only %i argument, found %i." % (function_ref['functionName'], 
-                                                                                               function_info[FUNCTION_ARG_NUM],
-                                                                                               len(function_ref['functionArgs']))), xule_context)
+            if function_info[FUNCTION_ARG_NUM] >= 0:
+                if function_info[FUNCTION_TYPE] == 'regular' and len(function_ref['functionArgs']) != function_info[FUNCTION_ARG_NUM]:
+                    raise XuleProcessingError(_("The '%s' function must have only %i argument, found %i." % (function_ref['functionName'], 
+                                                                                                   function_info[FUNCTION_ARG_NUM],
+                                                                                                   len(function_ref['functionArgs']))), xule_context)
+            else:
+                # The fucntion may have a variable number of arguments.
+                if function_info[FUNCTION_TYPE] == 'regular' and len(function_ref['functionArgs']) > (function_info[FUNCTION_ARG_NUM] * -1):
+                    raise XuleProcessingError(_("The '%s' function must have no more than %i arguments, found %i." % (function_ref['functionName'], 
+                                                                                                   function_info[FUNCTION_ARG_NUM] * -1,
+                                                                                                   len(function_ref['functionArgs']))), xule_context)                
+                
             function_args = []
             for function_arg in function_ref['functionArgs']:
             #for i in range(len(function_ref.functionArgs)):
@@ -3524,10 +3826,22 @@ def get_single_network(xule_context, dts, role_result, arc_role, property_name):
 
   
 def get_base_set_info(xule_context, dts, arcrole, role=None, link=None, arc=None):
-    return [x + (False,) for x in dts.baseSets if x[NETWORK_ARCROLE] == arcrole and
-                                       (True if role is None else x[NETWORK_ROLE] == role) and
-                                       (True if link is None else x[NETWORK_LINK] == link) and
-                                       (True if arc is None else x[NETWORK_ARC] == arc)]
+#     return [x + (False,) for x in dts.baseSets if x[NETWORK_ARCROLE] == arcrole and
+#                                        (True if role is None else x[NETWORK_ROLE] == role) and
+#                                        (True if link is None else x[NETWORK_LINK] == link) and
+#                                        (True if arc is None else x[NETWORK_ARC] == arc)]
+
+    info = list()
+    for x in dts.baseSets:
+        keep = True
+        if x[NETWORK_ARCROLE] != arcrole: keep = False
+        if x[NETWORK_ROLE] is None or (x[NETWORK_ROLE] != role and role is not None): keep = False
+        if x[NETWORK_LINK] is None or (x[NETWORK_LINK] != link and link is not None): keep = False
+        if x[NETWORK_ARC] is None or (x[NETWORK_ARC] != arc and arc is not None): keep = False
+
+        if keep:
+            info.append(x + (False,))
+    return info
 
 def load_networks(dts):
     for network_info in dts.baseSets:
@@ -3720,6 +4034,18 @@ NETWORK_LINK = 2
 NETWORK_ARC = 3
 
 #arcroles
+CORE_ARCROLES = {
+                 'fact-footnote': 'http://www.xbrl.org/2003/arcrole/fact-footnote'
+                ,'concept-label':'http://www.xbrl.org/2003/arcrole/concept-label'
+                ,'concept-reference':'http://www.xbrl.org/2003/arcrole/concept-reference'
+                ,'parent-child':'http://www.xbrl.org/2003/arcrole/parent-child'
+                ,'summation-item':'http://www.xbrl.org/2003/arcrole/summation-item'
+                ,'general-special':'http://www.xbrl.org/2003/arcrole/general-special'
+                ,'essence-alias':'http://www.xbrl.org/2003/arcrole/essence-alias'
+                ,'similar-tuples':'http://www.xbrl.org/2003/arcrole/similar-tuples'
+                ,'requires-element':'http://www.xbrl.org/2003/arcrole/requires-element'
+                }
+
 SUMMATION_ITEM = 'http://www.xbrl.org/2003/arcrole/summation-item'
 PARENT_CHILD = 'http://www.xbrl.org/2003/arcrole/parent-child'
 ESSENCE_ALIAS = 'http://www.xbrl.org/2003/arcrole/essence-alias'
