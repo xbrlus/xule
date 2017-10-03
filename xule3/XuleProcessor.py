@@ -2263,7 +2263,11 @@ def evaluate_navigate(nav_expr, xule_context):
         for from_concept in from_concepts:
             if direction == 'self':
                 # include_start is always False for the self direction since the self concept is always included.
-                result_items += list(y for y in (nav_decorate(rel, 'from', nav_expr, False, xule_context) for rel in relationship_set.fromModelObject(from_concept))) + list(y for y in (nav_decorate(rel, 'to', nav_expr, xule_context) for rel in relationship_set.toModelObject(from_concept))) # This will be a list            
+                for rel in relationship_set.fromModelObject(from_concept):
+                    result_items += nav_decorate((rel, True), 'from', nav_expr, False, xule_context)
+                for rel in relationship_set.toModelObject(from_concept):
+                    result_items += mav+decprate((rel, True), 'to', nav_expr, False, xule_context) 
+                #result_items += list(y for y in (nav_decorate(rel, 'from', nav_expr, False, xule_context) for rel in relationship_set.fromModelObject(from_concept))) + list(y for y in (nav_decorate(rel, 'to', nav_expr, xule_context) for rel in relationship_set.toModelObject(from_concept))) # This will be a list            
             if direction == 'descendants':
                 for rel in nav_traverse('down', relationship_set, from_concept, nav_to_concepts, int(nav_expr['depth'])):
                     result_items += nav_decorate(rel, 'to', nav_expr, include_start, xule_context)
@@ -2436,19 +2440,25 @@ def nav_decorate(rel, side, nav_expr, include_start, xule_context):
         result.append(nav_decorate_gather_components(rel[0], side, return_names, True, xule_context))
     result.append(nav_decorate_gather_components(rel[0], side, return_names, False, xule_context))
     
-#     if side == 'from':
-#         if include_start and rel[1] == True: # rel[1] indicates that this is a top level relationship
-#             result.append(((rel[0].toModelObject, 'concept', 'target'),))
-#         result.append(((rel[0].fromModelObject, 'concept', 'target'),))
-#     else:
-#         if include_start and rel[1] == True: # rel[1] indicates that this is a top level relationship
-#             result.append(nav_decorate_get_components(rel[0]))
-#             result.append(((rel[0].fromModelObject, 'concept', 'target'),))
-#         result.append(((rel[0].toModelObject, 'concept', 'target'),))
-    
     return result
 
 def nav_decorate_gather_components(rel, side, component_names, is_start, xule_context):
+    """Get the values for all the return components for a relationship.
+    
+    Arguments:
+        rel (ModelRelationship): relationships
+        side (string): Either 'from' or 'to'. Used for source and target compoents. Determines which side of the relationship to use
+        component_names (list of strings): The list of return components to get for the relationship.
+        is_start (boolean): Indicates if the relationship should be treated as a starting relationship. This is used if the 'include start' keyword is
+                            is included in the navigation expression and the relationship is from the start of the navigation. In this case there is
+                            an extra result for the relationships for the starting concept.
+        xule_context (XuleRuleContext): The processing context.
+    Returns:
+        A tupple of return component values. Each value is a tuple of:
+            1. component value
+            2. xule type for the value
+            3. component name (used for ease of debugging)
+    """
     result = list()
     
     for component_name in component_names:
@@ -2457,32 +2467,69 @@ def nav_decorate_gather_components(rel, side, component_names, is_start, xule_co
     return tuple(result)
 
 def nav_decorate_component_value(rel, side, component_name, is_start, xule_context):
-
+    """Get the return component value for a relationship and a single return component.
+    
+    Arguments:
+        rel (ModelRelationship): relationships
+        side (string): Either 'from' or 'to'. Used for source and target compoents. Determines which side of the relationship to use
+        component_name (string): Component name
+        is_start (boolean): Indicates if the relationship should be treated as a starting relationship. This is used if the 'include start' keyword is
+                            is included in the navigation expression and the relationship is from the start of the navigation. In this case there is
+                            an extra result for the relationships for the starting concept.
+        xule_context (XuleRuleContext): The processing context.
+    Returns:
+        A tuple of:
+            1. component value
+            2. xule type for the value
+            3. component name (used for ease of debugging)
+    """        
     if is_start:
+        # If it is the start concept, then get the opposide side of the relationship. Only source and target compoents can be returned. 
+        # All other components are none.
         if component_name == 'source':
             if side == 'from':
                 return (rel.fromModelObject, 'concept', component_name)
             else:
                 return (rel.toModelObject, 'concept', component_name)
+        if component_name == 'source-name':
+            if side == 'from':
+                return (rel.fromModelObject.qname, 'qname', component_name)
+            else:
+                return (rel.toModelObject.qname, 'qname', component_name)            
         elif component_name == 'target':
             if side == 'from':
                 return (rel.toModelObject, 'concept', component_name)
             else:
                 return (rel.fromModelObject, 'concept', component_name)
+        elif component_name == 'target-name':
+            if side == 'from':
+                return (rel.toModelObject.qname, 'qname', component_name)
+            else:
+                return (rel.fromModelObject.qname, 'qname', component_name)            
         else:
             # All other components are blank for the start concept
-            return (None, 'none', component_name)
+            return (None, 'unbound', component_name)
     else:
         if component_name == 'target':
             if side == 'from':
                 return (rel.fromModelObject, 'concept', component_name)
             else:
                 return (rel.toModelObject, 'concept', component_name)
+        if component_name == 'target-name':
+            if side == 'from':
+                return (rel.fromModelObject.qname, 'qname', component_name)
+            else:
+                return (rel.toModelObject.qname, 'qname', component_name)            
         elif component_name == 'source':
             if side == 'from':
                 return (rel.toModelObject, 'concept', component_name)
             else:
                 return (rel.fromModelObject, 'concept', component_name)
+        elif component_name == 'source-name':
+            if side == 'from':
+                return (rel.toModelObject.qname, 'qname', component_name)
+            else:
+                return (rel.fromModelObject.qname, 'qname', component_name)            
         elif component_name == 'weight':
             if rel.weightDecimal is None:
                 return (0, 'decimal', component_name)

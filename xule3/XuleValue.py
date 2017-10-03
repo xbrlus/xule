@@ -586,7 +586,7 @@ TYPE_STANDARD_CONVERSION = {'model_date_time': (model_to_xule_model_datetime, 'i
                             'model_g_year_month': (model_to_xule_model_g_year_month, 'string'),
                             'iso_duration': (lambda x,c: x.sourceValue, 'string')}
 
-'''The TYPE_MAP shows converstions between xule types. The first entry is the common conversion when comparing
+'''The TYPE_MAP shows conversions between xule types. The first entry is the common conversion when comparing
    2 values, the second entry (if present) is a reverse conversion.
    
    When converting float values, the str() function is used to handle difficult floats.
@@ -597,7 +597,9 @@ TYPE_MAP = {frozenset(['int', 'float']): [('float', float), ('int', lambda x: in
             frozenset(['balance', 'none']): [('balance', lambda x: x)], #this lambda does not convert the compute value
             frozenset(['balance', 'unbound']): [('balance', lambda x: x)],
             frozenset(['int', 'string']): [('string', str), ('int', int)],
+            frozenset(['decimal', 'string']): [('string', str), ('decimal', decimal.Decimal)],
             frozenset(['uri', 'string']): [('string', lambda x: x), ('uri', lambda x: x)],
+            #frozenset(['none', 'string']): [('string', lambda x: x if x is not None else '')],
             }
 
 def model_to_xule_type(xule_context, model_value):
