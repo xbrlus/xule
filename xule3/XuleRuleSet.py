@@ -140,15 +140,14 @@ class XuleRuleSet(object):
             for file_num, parse_tree in self._pickles.items():
                 self._saveFilePickle(file_num, parse_tree)
                 
-                with open(str(file_num) + '_post_parse.json', 'w') as o:
-                    import json
-                    try:
-                        o.write(json.dumps(parse_tree, indent=4))
-                    except:
-                        import pprint
-                        pprint.pprint(parse_tree)
-                        raise 
-            
+#                 with open(str(file_num) + '_post_parse.json', 'w') as o:
+#                     import json
+#                     try:
+#                         o.write(json.dumps(parse_tree, indent=4))
+#                     except:
+#                         import pprint
+#                         pprint.pprint(parse_tree)
+#                         raise 
             #write the catalog
             with open(os.path.join(self.location,"catalog.pik"),"wb") as o:
                 pickle.dump(self.catalog, o, protocol=1)
