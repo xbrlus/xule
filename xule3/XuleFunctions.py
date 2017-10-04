@@ -645,9 +645,16 @@ def func_sdic_set_item(xule_context, *args):
 
 def func_taxonomy(xule_context, *args):
     if len(args) == 0:
+        setattr(xule_context.model, 'taxonomy_name', 'instance')
         return XuleValue(xule_context, xule_context.model, 'taxonomy')
-    elif len(args) > 1:
-        raise XuleProcessingError(_("Non instance taxonomies are not currently supported"), xule_context)
+    elif len(args) == 1:
+        taxonomy_url = args[0]
+        if taxonomy_url.type not in ('string', 'uri'):
+            raise XuleProcessingError(_("The taxonomy() function takes a string or uri, found {}.".format(taxonomy_url.type)), xule_context)
+        
+        other_taxonomy = xule_context.get_other_taxonomies(taxonomy_url.value)
+        setattr(other_taxonomy, 'taxonomy_name', taxonomy_url.value)
+        return XuleValue(xule_context, other_taxonomy , 'taxonomy')
     else:
         raise XuleProcessingError(_("The taxonomy() function takes at most 1 argument, found {}".format(len(args))))
     

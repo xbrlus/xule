@@ -2227,7 +2227,18 @@ def evaluate_navigate(nav_expr, xule_context):
     
     '''WILL NEED TO HANDLE CASE WHEN THERE IS NOT AN ARCROLE. THIS WILL NEED TO GATHER ALL THE BASESETS ACROSS ALL ARCROLLS'''
     '''NEED TO HANDLE BASE TAXONOMY.'''
-    dts = xule_context.model 
+    if 'arcrole' not in nav_expr:
+        raise XuleProcesingError(_("Not including an arcrole for navigation is currently not supported."))
+    
+    # Get the taxonomy
+    if 'taxonomy' in nav_expr:
+        dts_value = evaluate(nav_expr['taxonomy'], xule_context)
+        if dts_value.type != 'taxonomy':
+            raise XuleProcessingError(_("Expecting a taxonomy for the 'in' clause of navigate. Found {}.".format(dts_value.type)), xule_context)
+        dts = dts_value.value
+    else:
+        # Default to the taxonomy of the instance
+        dts = xule_context.model 
 
     nav_from_concepts = nav_get_element(nav_expr, 'from', dts,  xule_context)
     if nav_from_concepts is not None and len(nav_from_concepts) == 0:
@@ -2235,8 +2246,8 @@ def evaluate_navigate(nav_expr, xule_context):
         return XuleValue(xule_context, set(), 'set')
     
     nav_to_concepts = nav_get_element(nav_expr, 'to', dts, xule_context)
-    arcrole = nav_get_role(nav_expr, 'arcrole', xule_context)
-    role = nav_get_role(nav_expr, 'role', xule_context)
+    arcrole = nav_get_role(nav_expr, 'arcrole', dts, xule_context)
+    role = nav_get_role(nav_expr, 'role', dts, xule_context)
     link_qname = evaluate(xule_context, nav_expr['link']).value if 'link' in nav_expr else None
     arc_qname = None # This is always none. 
     direction = nav_expr['direction']
@@ -2324,7 +2335,7 @@ def nav_traverse(direction, network, parent, end_concepts, depth, previous_conce
             
     return children
 
-def nav_get_role(nav_expr, role_type, xule_context):
+def nav_get_role(nav_expr, role_type, dts, xule_context):
     """Get the full role from the navigation expression.
     
     A roleole in the navigation expressions is either a string, uri or a non prefixed qname. If it is a string or uri, it is a full arcrole. If it is
@@ -2332,7 +2343,7 @@ def nav_get_role(nav_expr, role_type, xule_context):
     and error is raise. This allows short form of an arcrole i.e parent-child.
     """
     if role_type in nav_expr:
-        short_attribute_name = '{}_short'.format(role_type)
+        short_attribute_name = 'xule_{}_short'.format(role_type)
         role_value = evaluate(nav_expr[role_type], xule_context)
         if role_value.type in ('string', 'uri'):
             return role_value.value
@@ -2341,15 +2352,15 @@ def nav_get_role(nav_expr, role_type, xule_context):
                 raise XuleProcessingError(_("Invalid {}. {} should be a string, uri or short role name. Found qname with value of {}".format(role_type, role_type.capitalize(), role_value.format_value())))
             else:
                 # Check that the dictionary of short arcroles is in the context. If not, build the diction are arcrole short names
-                if not hasattr(xule_context, short_attribute_name):
+                if not hasattr(dts, short_attribute_name):
                     if role_type == 'arcrole':
-                        setattr(xule_context, short_attribute_name, CORE_ARCROLES.copy())
-                        dts_roles = xule_context.model.arcroleTypes
+                        setattr(dts, short_attribute_name, CORE_ARCROLES.copy())
+                        dts_roles = dts.arcroleTypes
                     else:
-                        setattr(xule_context, short_attribute_name, {'link': 'http://www.xbrl.org/2003/role/link'})
-                        dts_roles = xule_context.model.roleTypes
+                        setattr(dts, short_attribute_name, {'link': 'http://www.xbrl.org/2003/role/link'})
+                        dts_roles = dts.roleTypes
                     
-                    short_role_dict = getattr(xule_context, short_attribute_name)
+                    short_role_dict = getattr(dts, short_attribute_name)
                     for role in dts_roles:
                         short_name = role.split('/')[-1] if '/' in role else role
                         if short_name in short_role_dict:
@@ -2357,7 +2368,7 @@ def nav_get_role(nav_expr, role_type, xule_context):
                         else:
                             short_role_dict[short_name] = role
                 
-                short_role_dict = getattr(xule_context, short_attribute_name)
+                short_role_dict = getattr(dts, short_attribute_name)
                 short_name = role_value.value.localName
                 if short_name not in short_role_dict:
                     raise XuleProcessingError(_("The {} short name '{}' does not match any arcrole.".format(role_type, short_name)))
@@ -2365,7 +2376,7 @@ def nav_get_role(nav_expr, role_type, xule_context):
                     raise XuleProcessingError(_("A taxonomy defined {role} has the same short name (last portion of the {role}) as a core specification {role}. " 
                                                 "Taxonomy defined {role} is '{tax_role}'. Core specification {role} is '{core_role}'."
                                                 .format(role=role_type, 
-                                                        tax_role=xule_context.arcrole_short[short_name], 
+                                                        tax_role=getattr(dts, short_attribute_name)[short_name], 
                                                         core_role=CORE_ARCROLES[short_name] if role_type == 'arcrole' else 'http://www.xbrl.org/2003/role/link')))
                 if short_name in short_role_dict and short_role_dict[short_name] is None:
                     raise XuleProcessingError(_("The {} short name '{}' resolves to more than one arcrole in the taxonomy.".format(role_type, short_name)))
@@ -3061,17 +3072,6 @@ def property_dimension(xule_context, object_value, *args):
         else:
             #this is a typed dimension
             return XuleValue(xule_context, member.typedMember.xValue, model_to_xule_type(xule_context, member.typedMember.xValue))
-
-def property_taxonomy(xule_context, object_value, *args):
-    xule_context.model.xule_taxonomy_type = 'taxonomy'
-    return XuleValue(xule_context, xule_context.model, 'taxonomy')
-
-def property_rules_taxonomy(xule_context, object_value, *args):
-    rules_dts = xule_context.get_rules_dts()
-    if rules_dts is None:
-        raise XuleProcessingError(_("The rule set does not contain a rule taxonomy"), xule_context)
-    rules_dts.xule_taxonomy_type = 'rules_taxonomy'
-    return XuleValue(xule_context, rules_dts, 'taxonomy')
 
 def property_summation_item_networks(xule_context, object_value, *args):
     return XuleValue(xule_context, get_networks(xule_context, object_value, SUMMATION_ITEM), 'set')
@@ -3961,8 +3961,6 @@ PROPERTIES = {
                'dimension': (property_dimension, 1, ('fact',), False),
               
                # taxonomy navigations
-               'taxonomy': (property_taxonomy, 0, ('unbound',), True),
-               'rules-taxonomy': (property_rules_taxonomy, 0, ('unbound',), True),
                'concepts': (property_concepts, 0, ('taxonomy', 'network'), False),
                'summation-item-networks': (property_summation_item_networks, 0, ('taxonomy',), False),
                'parent-child-networks': (property_parent_child_networks, 0, ('taxonomy',), False),

@@ -156,6 +156,7 @@ class XuleGlobalContext(object):
         self.no_cache = False
         self.precalc_constants = False
         self.expression_trace = dict()
+        self.other_taxonomies = dict()
         
         # Set up various queues
         self.message_queue = XuleMessageQueue(self.model, getattr(self.options, "xule_multi", False), getattr(self.options, "xule_async", False), cid=id(self.cntlr))
@@ -175,7 +176,6 @@ class XuleGlobalContext(object):
         
         if getattr(self.options, "xule_timing", False):
             self.times = Manager().list()
-        
         
         # Determines the number of threads available for calculating a filing.  If undefined it should be the 
         #   number of processors available to the server divided by the number of threads.
@@ -204,24 +204,28 @@ class XuleGlobalContext(object):
     @property
     def catalog(self):
         return self.rule_set.catalog
-    
-    def get_rules_dts(self):
-        if getattr(self.cntlr, "base_taxonomy", None) is None:
+ 
+
+    def get_other_taxonomies(self, taxonomy_url):
+        if taxonomy_url not in self.other_taxonomies:
             start = datetime.datetime.today()
-            rules_taxonomy_filesource = FileSource.openFileSource(self.rule_set.getRulesTaxonomyLocation(), self.cntlr)            
+            rules_taxonomy_filesource = FileSource.openFileSource(taxonomy_url, self.cntlr)            
             modelManager = ModelManager.initialize(self.cntlr)
-            modelXbrl = modelManager.load(rules_taxonomy_filesource)            
-            setattr(self.cntlr, "base_taxonomy", modelXbrl)          
+            modelXbrl = modelManager.load(rules_taxonomy_filesource)
+            if 'IOerror' in modelXbrl.errors:
+                raise XuleProcessingError(_("Taxonomy {} not found.".format(taxonomy_url)))
             end = datetime.datetime.today()
+            
+            self.other_taxonomies[taxonomy_url] = modelXbrl                     
 
             if getattr(self.rules_model, "log", None) is not None:
                 self.rules_model.log("INFO",
-                                   "rules-taxonomy", 
-                                   "Load time %s from '%s'" % (end - start, self.rule_set.getRulesTaxonomyLocation()))
+                                   "other-taxonomy", 
+                                   "Load taxonomy time %s from '%s'" % (end - start, taxonomy_url))
             else:
-                print("Rules Taxonomy Loaded. Load time %s from '%s' " % (end - start, self.rule_set.getRulesTaxonomyLocation()))
-      
-        return self.cntlr.base_taxonomy  
+                print("Other Taxonomy Loaded. Load time %s from '%s' " % (end - start, taxonomy_url))            
+        
+        return self.other_taxonomies[taxonomy_url]
 
     @property
     def constant_store(self):
@@ -504,11 +508,9 @@ class XuleRuleContext(object):
         function_info = {"name": function_name,
                          "function_declaration": ast_function}
         return function_info   
-      
     
-    def get_rules_dts(self):
-        return self.global_context.get_rules_dts()
-    
+    def get_other_taxonomies(self, taxonomy_url):
+        return self.global_context.get_other_taxonomies(taxonomy_url)
     
     #built in constants
     def _const_extension_ns(self):

@@ -177,10 +177,7 @@ class XuleValue:
             return str(self.value.qname)
         
         elif self.type == 'taxonomy':
-            if self.value.xule_taxonomy_type == 'taxonomy':
-                return("instance taxonomy")
-            else:
-                return("rules taxonomy")
+            return self.value.taxonomy_name
             
         elif self.type == 'network':
             return "\n" + "\n".join([str(x) for x in self.value[0]]) + "\n# of relationships: " + str(len(self.value[1].modelRelationships)) + "\n"

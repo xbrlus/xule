@@ -325,7 +325,7 @@ def get_grammar():
                        Optional(Suppress(CaselessKeyword('drs-role')) + blockExpr.setResultsName('drsRole')) +
                        Optional(Suppress(CaselessKeyword('linkbase')) + blockExpr.setResultsName('linkbase')) +
                        Optional(Suppress(CaselessKeyword('table')) + blockExpr.setResultsName('table')) +
-                       Optional(Suppress(CaselessKeyword('in')) + blockExpr.setResultsName('taxonomy')) +
+                       Optional(Suppress(CaselessKeyword('taxonomy')) + blockExpr.setResultsName('taxonomy')) +
                        Optional(whereClause) +
                        Optional(Group(
                                       Suppress(CaselessKeyword('returns')) +
