@@ -3126,7 +3126,10 @@ def property_role(xule_context, object_value, *args):
         return XuleValue(xule_context, XuleRole(role_uri), 'role')
 
 def property_uri(xule_context, object_value, *args):
-    return XuleValue(xule_context, object_value.value.roleURI, 'uri')
+    if object_value.type == 'role':
+        return XuleValue(xule_context, object_value.value.roleURI, 'uri')
+    if object_value.type == 'taxonomy':
+        return XuleValue(xule_context, object_value.value.fileSource.url, 'uri')
 
 def property_definition(xule_context, object_value, *args): 
     return XuleValue(xule_context, object_value.value.definition, 'string')
@@ -4040,7 +4043,7 @@ PROPERTIES = {
                'signum': (property_signum, 0, ('int', 'float', 'decimal', 'fact'), False),
                
                'role': (property_role, 0, ('network', 'label'), False),
-               'uri': (property_uri, 0, ('role',), False),
+               'uri': (property_uri, 0, ('role', 'taxonomy'), False),
                'definition': (property_definition, 0, ('role',), False),
                'used-on': (property_used_on, 0, ('role',), False),
                'name': (property_name, 0, ('concept', 'reference-part'), False),
