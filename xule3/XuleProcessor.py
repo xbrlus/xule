@@ -1125,7 +1125,7 @@ def evaluate_if(if_expr, xule_context):
     if_thens = []
     if_thens.append((if_expr['condition'], if_expr['thenExpr']))
 
-    for else_if in if_expr['elseIfExprs']:
+    for else_if in if_expr.get('elseIfExprs', []):
         if_thens.append((else_if['condition'], else_if['thenExpr']))
     
     for if_then in if_thens:
@@ -2275,23 +2275,23 @@ def evaluate_navigate(nav_expr, xule_context):
             if direction == 'self':
                 # include_start is always False for the self direction since the self concept is always included.
                 for rel in relationship_set.fromModelObject(from_concept):
-                    result_items += nav_decorate((rel, True), 'from', nav_expr, False, xule_context)
+                    result_items += nav_decorate({'relationship': rel}, 'from', nav_expr, False, xule_context)
                 for rel in relationship_set.toModelObject(from_concept):
-                    result_items += mav+decprate((rel, True), 'to', nav_expr, False, xule_context) 
+                    result_items += nav_decorate({'relationship':rel}, 'to', nav_expr, False, xule_context) 
                 #result_items += list(y for y in (nav_decorate(rel, 'from', nav_expr, False, xule_context) for rel in relationship_set.fromModelObject(from_concept))) + list(y for y in (nav_decorate(rel, 'to', nav_expr, xule_context) for rel in relationship_set.toModelObject(from_concept))) # This will be a list            
             if direction == 'descendants':
                 for rel in nav_traverse('down', relationship_set, from_concept, nav_to_concepts, int(nav_expr['depth'])):
-                    result_items += nav_decorate(rel, 'to', nav_expr, include_start, xule_context)
+                    result_items += nav_decorate(rel, 'down', nav_expr, include_start, xule_context)
             if direction == 'children':
                 for rel in nav_traverse('down', relationship_set, from_concept, nav_to_concepts, 1):
-                    result_items += nav_decorate(rel, 'to', nav_expr, include_start, xule_context)
+                    result_items += nav_decorate(rel, 'down', nav_expr, include_start, xule_context)
             if direction == 'ancestors':
                 for rel in nav_traverse('up', relationship_set, from_concept, nav_to_concepts, int(nav_expr['depth'])):
-                    result_items += nav_decorate(rel, 'from', nav_expr, include_start, xule_context)
+                    result_items += nav_decorate(rel, 'to', nav_expr, include_start, xule_context)
             if direction == 'parents':
                 for rel in nav_traverse('up', relationship_set, from_concept, nav_to_concepts, 1):
-                    result_items += nav_decorate(rel, 'from', nav_expr, include_start, xule_context)
-                    
+                    result_items += nav_decorate(rel, 'to', nav_expr, include_start, xule_context)
+
     return nav_finish_results(nav_expr, result_items, xule_context)
 
 def nav_traverse(direction, network, parent, end_concepts, depth, previous_concepts=None):
@@ -2326,9 +2326,9 @@ def nav_traverse(direction, network, parent, end_concepts, depth, previous_conce
     # 'children' is parents if the direction is up.
     children = list()
     children_method = network.fromModelObject if direction == 'down' else network.toModelObject
-    for rel in children_method(parent):
+    for rel in sorted(children_method(parent),key=lambda x: x.order or 1):
         child = rel.toModelObject if direction == 'down' else rel.fromModelObject
-        children.append((rel, first_time))
+        children.append({'relationship':rel, 'first': first_time})
         if child not in previous_concepts:
             previous_concepts.add(child)
             children += nav_traverse(direction, network, child, end_concepts, depth - 1, previous_concepts)
@@ -2429,12 +2429,12 @@ def nav_get_element(nav_expr, side, dts, xule_context):
         return None # The side is not in the navigation expression
 
 
-def nav_decorate(rel, side, nav_expr, include_start, xule_context):
+def nav_decorate(rel, direction, nav_expr, include_start, xule_context):
     """Determine what will be outputted for a single navigation item.
     
     Arguments:
-        rel (tuple (ModelRelationship, top)): relationship
-        side (string): 'from' or 'to'. Which side of the relationship for the concept information
+        rel (dict): A dition of the relationship and additional information from the traversal
+        direction (string): 'up' or 'down'. Direction of the traversal
         nav_expr (dict): Navigation expression AST node
         xule_context (XuleRuleContext): Processing context
         
@@ -2447,18 +2447,18 @@ def nav_decorate(rel, side, nav_expr, include_start, xule_context):
     # Get the list of return component names. If not specified then 'target' is the default
     return_names = nav_expr.get('return', {'returnComponents': ('target',)}).get('returnComponents', ('target',))
     result = list()
-    if include_start and rel[1] == True: # rel[1] indicates that this is a top level relationship
-        result.append(nav_decorate_gather_components(rel[0], side, return_names, True, xule_context))
-    result.append(nav_decorate_gather_components(rel[0], side, return_names, False, xule_context))
+    if include_start and rel.get('first', False): 
+        result.append(nav_decorate_gather_components(rel, direction, return_names, True, xule_context))
+    result.append(nav_decorate_gather_components(rel, direction, return_names, False, xule_context))
     
     return result
 
-def nav_decorate_gather_components(rel, side, component_names, is_start, xule_context):
+def nav_decorate_gather_components(rel, direction, component_names, is_start, xule_context):
     """Get the values for all the return components for a relationship.
     
     Arguments:
-        rel (ModelRelationship): relationships
-        side (string): Either 'from' or 'to'. Used for source and target compoents. Determines which side of the relationship to use
+        rel (dict): A dition of the relationship and additional information from the traversal
+        direction (string): 'up' or 'down'. Direction of the traversal
         component_names (list of strings): The list of return components to get for the relationship.
         is_start (boolean): Indicates if the relationship should be treated as a starting relationship. This is used if the 'include start' keyword is
                             is included in the navigation expression and the relationship is from the start of the navigation. In this case there is
@@ -2473,16 +2473,16 @@ def nav_decorate_gather_components(rel, side, component_names, is_start, xule_co
     result = list()
     
     for component_name in component_names:
-        result.append(nav_decorate_component_value(rel, side, component_name, is_start, xule_context))
+        result.append(nav_decorate_component_value(rel, direction, component_name, is_start, xule_context))
     
     return tuple(result)
 
-def nav_decorate_component_value(rel, side, component_name, is_start, xule_context):
+def nav_decorate_component_value(rel, direction, component_name, is_start, xule_context):
     """Get the return component value for a relationship and a single return component.
     
     Arguments:
-        rel (ModelRelationship): relationships
-        side (string): Either 'from' or 'to'. Used for source and target compoents. Determines which side of the relationship to use
+        rel (dict): A dition of the relationship and additional information from the traversal
+        direction (string): 'up' or 'down'. Direction of the traversal
         component_name (string): Component name
         is_start (boolean): Indicates if the relationship should be treated as a starting relationship. This is used if the 'include start' keyword is
                             is included in the navigation expression and the relationship is from the start of the navigation. In this case there is
@@ -2493,72 +2493,160 @@ def nav_decorate_component_value(rel, side, component_name, is_start, xule_conte
             1. component value
             2. xule type for the value
             3. component name (used for ease of debugging)
-    """        
-    if is_start:
-        # If it is the start concept, then get the opposide side of the relationship. Only source and target compoents can be returned. 
-        # All other components are none.
-        if component_name == 'source':
-            if side == 'from':
-                return (rel.fromModelObject, 'concept', component_name)
-            else:
-                return (rel.toModelObject, 'concept', component_name)
-        if component_name == 'source-name':
-            if side == 'from':
-                return (rel.fromModelObject.qname, 'qname', component_name)
-            else:
-                return (rel.toModelObject.qname, 'qname', component_name)            
-        elif component_name == 'target':
-            if side == 'from':
-                return (rel.toModelObject, 'concept', component_name)
-            else:
-                return (rel.fromModelObject, 'concept', component_name)
-        elif component_name == 'target-name':
-            if side == 'from':
-                return (rel.toModelObject.qname, 'qname', component_name)
-            else:
-                return (rel.fromModelObject.qname, 'qname', component_name)            
+    """   
+    if component_name in NAVIGATE_RETURN_COMPONENTS:
+        if NAVIGATE_RETURN_COMPONENTS[component_name][NAVIGATE_ALLOWED_ON_START]:
+            return NAVIGATE_RETURN_COMPONENTS[component_name][NAVIGATE_RETURN_FUCTION](rel, direction, component_name, is_start, xule_context)
         else:
-            # All other components are blank for the start concept
-            return (None, 'unbound', component_name)
+            if is_start:
+                return(None, 'unbound', component_name)
+            else:
+                return NAVIGATE_RETURN_COMPONENTS[component_name][NAVIGATE_RETURN_FUCTION](rel, direction, component_name, xule_context)
+    else:
+        raise XuleProcessingError(_("Component {} is not currently supported.".format(component_name)), xule_context)        
+
+def nav_decorate_component_target(rel, direction, component_name, is_start, xule_context):     
+    if is_start:
+        # If it is the start concept, then get the opposide side of the relationship. 
+        if component_name == 'target':
+            if direction == 'up':
+                return (rel['rerelationshipl'].toModelObject, 'concept', component_name)
+            else:
+                return (rel['relationship'].fromModelObject, 'concept', component_name)
+        elif component_name == 'target-name':
+            if direction == 'up':
+                return (rel['relationship'].toModelObject.qname, 'qname', component_name)
+            else:
+                return (rel['relationship'].fromModelObject.qname, 'qname', component_name)            
     else:
         if component_name == 'target':
-            if side == 'from':
-                return (rel.fromModelObject, 'concept', component_name)
+            if direction == 'up':
+                return (rel['relationship'].fromModelObject, 'concept', component_name)
             else:
-                return (rel.toModelObject, 'concept', component_name)
+                return (rel['relationship'].toModelObject, 'concept', component_name)
         if component_name == 'target-name':
-            if side == 'from':
-                return (rel.fromModelObject.qname, 'qname', component_name)
+            if direction == 'up':
+                return (rel['relationship'].fromModelObject.qname, 'qname', component_name)
             else:
-                return (rel.toModelObject.qname, 'qname', component_name)            
-        elif component_name == 'source':
-            if side == 'from':
-                return (rel.toModelObject, 'concept', component_name)
-            else:
-                return (rel.fromModelObject, 'concept', component_name)
-        elif component_name == 'source-name':
-            if side == 'from':
-                return (rel.toModelObject.qname, 'qname', component_name)
-            else:
-                return (rel.fromModelObject.qname, 'qname', component_name)            
-        elif component_name == 'weight':
-            if rel.weightDecimal is None:
-                return (0, 'decimal', component_name)
-            else:
-                return (rel.weightDecimal, 'decimal', component_name)
+                return (rel['relationship'].toModelObject.qname, 'qname', component_name)            
+
+def nav_decorate_component_source(rel, direction, component_name, xule_context): 
+
+    if component_name == 'source':
+        if direction == 'up':
+            return (rel['rerelationshipl'].toModelObject, 'concept', component_name)
         else:
-            raise XuleProcessingError(_("Component {} is not currently supported.".format(component_name)), xule_context)
+            return (rel['relationship'].fromModelObject, 'concept', component_name)
+    elif component_name == 'source-name':
+        if direction == 'up':
+            return (rel['relationship'].toModelObject.qname, 'qname', component_name)
+        else:
+            return (rel['relationship'].fromModelObject.qname, 'qname', component_name) 
+            
+def nav_decorate_component_order(rel, direction, component_name, xule_context):
+    return (rel['relationship'].orderDecimal, 'decimal', component_name)
+
+def nav_decorate_component_weight(rel, direction, component_name, xule_context):
+    if rel['relationship'].weightDecimal is None:
+        return (None, 'unbound', component_name)
+    else:
+        return (rel['relationship'].weightDecimal, 'decimal', component_name)
+
+def nav_decorate_component_preferred_label_role(rel, direction, component_name, xule_context):
+    if rel['relationship'].preferredLabel is not None:
+        return (rel['relationship'].preferredLabel, 'uri', component_name)
+    else:
+        return (None, 'unbound', component_name)  
+
+def nav_decorate_component_preferred_label(rel, direction, component_name, xule_context): 
+    if rel['relationship'].preferredLabel is not None:
+        label = get_label(xule_context, rel['relationship'].toModelObject, rel['relationship'].preferredLabel, None)
+        if label is None:
+            return (None, 'unbound', component_name)
+        else:
+            return (label, 'label', component_name)
+    else:
+        return (None, 'unbound', component_name)
+    
+def nav_decorate_component_relationship(rel, direction, component_name, xule_context):
+    return (rel['relationship'], 'relationship', component_name)
+
+def nav_decorate_component_role(rel, direction, component_name, xule_context):
+    role = get_role(rel['relatoinship'], xule_context)
+    return (role, 'role', component_name)
+
+def get_role(relationship, xule_context):
+    role_uri = relationship.linkrole
+    if role_uri in xule_context.model.roleTypes:
+        return xule_context.model.roleTypes[role_uri][0]
+    else:
+        return XuleRole(role_uri)
+
+def nav_decorate_component_role_uri(rel, direction, component_name, xule_context):
+    role_uri = rel['relationship'].linkrole
+
+    return (role_uri, 'uri', component_name)
+
+def nav_decorate_component_role_description(rel, direction, component_name, xule_context):
+    role = get_role(rel['relationship'], xule_context)
+    
+    return (role.definition, 'string', component_name)
+
+def nav_decorate_component_arcrole(rel, direction, component_name, xule_context):
+    arcrole = get_arcrole(rel['relationship'], xule_context)
+    return (arcrole, 'arcrole', component_name)
+
+def get_arcrole(relationship, xule_context):
+    arcrole_uri = relationship.arcrole
+    if arcrole_uri in xule_context.model.arcroleTypes:
+        return xule_context.model.arcroleTypes[arcrole_uri][0]
+    else:
+        return XuleArcrole(arcrole_uri)
+
+def nav_decorate_component_arcrole_uri(rel, direction, component_name, xule_context):
+    return (rel['relationship'].arcrole, 'uri', component_name)
+
+def nav_decorate_component_arcrole_description(rel, direction, component_name, xule_context):
+    arcrole = get_arcrole(rel['relationship'], xule_context)
+    return (arcrole.definition, 'string', component_name)
+
+def nav_decorate_component_cycles_allowed(rel, direction, component_name, xule_context):
+    arcrole = get_arcrole(rel['relationship'], xule_context)
+    return (arcrole.cyclesAllowed, 'string', component_name)
+
+# Navigation return component tuple locations
+NAVIGATE_RETURN_FUCTION = 0
+NAVIGATE_ALLOWED_ON_START = 1
+
+NAVIGATE_RETURN_COMPONENTS = {'source': (nav_decorate_component_source, False),
+                              'source-name': (nav_decorate_component_source, False),
+                              'target': (nav_decorate_component_target, True),
+                              'target-name': (nav_decorate_component_target, True),
+                              'order': (nav_decorate_component_order, False),
+                              'weight': (nav_decorate_component_weight, False),
+                              'preferred-label-role': (nav_decorate_component_preferred_label_role, False),
+                              'preferred-label': (nav_decorate_component_preferred_label, False),
+                              'relationship': (nav_decorate_component_relationship, False),
+                              'role': (nav_decorate_component_role, False),
+                              'role-uri': (nav_decorate_component_role_uri, False),
+                              'role-description': (nav_decorate_component_role_description, False),
+                              'arcrole': (nav_decorate_component_arcrole, False),
+                              'arcrole-uri': (nav_decorate_component_arcrole_uri, False),
+                              'arcrole-description': (nav_decorate_component_arcrole_description, False),
+                              'arcrole-cycles-allowed': (nav_decorate_component_cycles_allowed, False),
+                              }
+
 
 def nav_finish_results(nav_expr, return_items, xule_context):
-    results = set()
-    result_shadow = set()
+    results = list()
+    result_shadow = list()
     for return_item in return_items:
         if len(return_item) == 1:
             # A list of single items is returned. 
             # The return item only has one return component
             if return_item[0][0] not in result_shadow:
-                results.add(XuleValue(xule_context, return_item[0][0], return_item[0][1]))
-                result_shadow.add(return_item[0][0])
+                results.append(XuleValue(xule_context, return_item[0][0], return_item[0][1]))
+                result_shadow.append(return_item[0][0])
         else:
             # A list of list of components is returned.
             # The return_item has multiple return componenets
@@ -2570,10 +2658,11 @@ def nav_finish_results(nav_expr, return_items, xule_context):
             multi_shadow_tuple = tuple(multi_shadow)
             
             if multi_shadow_tuple not in result_shadow:
-                results.add(XuleValue(xule_context, tuple(multi_result), 'list', shadow_collection=tuple(multi_shadow)))
-                result_shadow.add(multi_shadow_tuple)
+                results.append(XuleValue(xule_context, tuple(multi_result), 'list', shadow_collection=tuple(multi_shadow)))
+                result_shadow.append(multi_shadow_tuple)
 
             #raise XuleProcessingError(_("multiple returns not supported"), xule_context)
+    return XuleValue(xule_context, tuple(results), 'list', shadow_collection=tuple(result_shadow))            
     return XuleValue(xule_context, frozenset(results), 'set', shadow_collection=frozenset(result_shadow))
     
     #return XuleValue(xule_context, frozenset(XuleValue(xule_context, x[0], x[1]) for x in set(return_items)), 'set')
@@ -3560,8 +3649,10 @@ def property_schema_type(xule_context, object_value, *args):
         return XuleValue(xule_context, object_value.value.typeQname, 'type')
 
 def property_label(xule_context, object_value, *args):
-    #label type
+    role = None
+    lang = None
     if len(args) > 0:
+        lang = None
         label_type = args[0]
         if label_type.type == 'none':
             base_label_type = None
@@ -3569,26 +3660,28 @@ def property_label(xule_context, object_value, *args):
             base_label_type = xule_cast(label_type, 'string', xule_context)
         else:
             raise XuleProcessingError(_("The first argument for property 'label' must be a string, found '%s'" % label_type.type), xule_context)
-    else:
-        base_label_type = None
-
-    #lang
-    if len(args) > 1:
+    if len(args) > 1: #there are 2 args
         lang = args[1]
         if lang.type == 'none':
             base_lang = None
         elif xule_castable(lang, 'string', xule_context):
             base_lang = xule_cast(lang, 'string', xule_context)
         else:
-            raise XuleProcessingError(_("The second argument for property 'label' must be a string, found '%s'" % lang.type), xule_context)
-    else:
-        base_lang = None
-
+            raise XuleProcessingError(_("The second argument for property 'label' must be a string, found '%s'" % lang.type), xule_context)        
+    
     if object_value.is_fact:
         concept = object_value.fact.concept
     else:
         concept = object_value.value
-
+    
+    label = get_label(xule_context, concept, base_label_type, base_lang)
+    
+    if label is None:
+        return XuleValue(xule_context, None, 'unbound')
+    else:
+        return XuleValue(xule_context, label, 'label')
+    
+def get_label(xule_context, concept, base_label_type, base_lang):#label type
     label_network = ModelRelationshipSet(concept.modelXbrl, CONCEPT_LABEL)
     label_rels = label_network.fromModelObject(concept)
     if len(label_rels) > 0:
@@ -3607,14 +3700,14 @@ def property_label(xule_context, object_value, *args):
                     if label is not None:
                         return XuleValue(xule_context, label, 'label')
             #if we are here, there were no matching labels in the ordered list of label types, so just pick one
-            return XuleValue(xule_context, next(iter(label_by_type.values())), 'label')
+            return next(iter(label_by_type.values()))
         elif len(label_by_type) > 0:
             #there is only one label just return it
-            return XuleValue(xule_context, next(iter(label_by_type.values())), 'label')
+            return next(iter(label_by_type.values()))
         else:
-            return XuleValue(xule_context, None, 'none')        
+            return None        
     else:
-        return XuleValue(xule_context, None, 'none')
+        return None
 
 def property_text(xule_context, object_value, *args):
     return XuleValue(xule_context, object_value.value.textValue, 'string')

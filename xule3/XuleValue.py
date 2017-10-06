@@ -214,6 +214,10 @@ class XuleValue:
         
         elif self.type == 'label':
             return "(" + self.value.role + ")(" + self.value.xmlLang + ") " +self.value.textValue
+        
+        elif self.type == 'relationship':
+            return "relationship from " + str(self.value.fromModelObject.qname) + " to " + str(self.value.toModelObject.qname)
+        
         else:
             return str(self.value)
 
@@ -324,6 +328,65 @@ class XulePeriodComp:
         else:
             return self.__eq__(other) or self.__gt__(other)
 
+class XuleArcrole:
+    def __init__(self, arcrole_uri):
+        self._arcrole_uri = arcrole_uri
+        
+    def __str__(self):
+        return self._arcrole_uri
+    
+    @property
+    def arcroleURI(self):
+        return self._arcrole_uri
+    
+    @property
+    def definition(self):
+        return self._STANDARD_ARCROLE_DEFINITIONS.get(self._arcrole_uri)
+    
+    @property
+    def usedOns(self):
+        if self._arcrole_uri in self._STANDARD_ARCROLE_USEDONS:
+            return {self._STANDARD_ARCROLE_USEDONS[self._arcrole_ur],}
+        else:
+            return set()
+    
+    @property
+    def cyclesAllowed(self):
+        return self._STANDARD_ARCROLE_CYCLES_ALLOWED.get(self._arcrole_uri)
+    
+    _STANDARD_ARCROLE_DEFINITIONS = {
+            'http://www.xbrl.org/2003/arcrole/fact-footnote': 'Footnote relationship',
+            'http://www.xbrl.org/2003/arcrole/concept-label': 'Label relationship',
+            'http://www.xbrl.org/2003/arcrole/concept-reference': 'Reference relationship',
+            'http://www.xbrl.org/2003/arcrole/parent-child': 'Parent/Child relationship',
+            'http://www.xbrl.org/2003/arcrole/summation-item': 'Summation/item relationship',
+            'http://www.xbrl.org/2003/arcrole/general-special': 'General/special relationships',
+            'http://www.xbrl.org/2003/arcrole/essence-alias': 'Essence/alias relatinoship',
+            'http://www.xbrl.org/2003/arcrole/similar-tuples': 'Similar tuples relationship',
+            'http://www.xbrl.org/2003/arcrole/requires-element': 'Requires element relationship'}
+    
+    _STANDARD_ARCROLE_USEDONS = {
+            'http://www.xbrl.org/2003/arcrole/fact-footnote': QName('link','http://www.xbrl.org/2003/linkbase','footnoteArc'),
+            'http://www.xbrl.org/2003/arcrole/concept-label': QName('link','http://www.xbrl.org/2003/linkbase','labelArc'),
+            'http://www.xbrl.org/2003/arcrole/concept-reference': QName('link','http://www.xbrl.org/2003/linkbase','refernceArc'),
+            'http://www.xbrl.org/2003/arcrole/parent-child': QName('link','http://www.xbrl.org/2003/linkbase','presentationArc'),
+            'http://www.xbrl.org/2003/arcrole/summation-item': QName('link','http://www.xbrl.org/2003/linkbase','calculationArc'),
+            'http://www.xbrl.org/2003/arcrole/general-special': QName('link','http://www.xbrl.org/2003/linkbase','definitionArc'),
+            'http://www.xbrl.org/2003/arcrole/essence-alias': QName('link','http://www.xbrl.org/2003/linkbase','definitionArc'),
+            'http://www.xbrl.org/2003/arcrole/similar-tuples': QName('link','http://www.xbrl.org/2003/linkbase','definitionArc'),
+            'http://www.xbrl.org/2003/arcrole/requires-element': QName('link','http://www.xbrl.org/2003/linkbase','definitionArc'),}
+    
+    _STANDARD_ARCROLE_CYCLES_ALLOWED = {
+            'http://www.xbrl.org/2003/arcrole/fact-footnote': 'any',
+            'http://www.xbrl.org/2003/arcrole/concept-label': 'any',
+            'http://www.xbrl.org/2003/arcrole/concept-reference': 'any',
+            'http://www.xbrl.org/2003/arcrole/parent-child': 'undirected',
+            'http://www.xbrl.org/2003/arcrole/summation-item': 'any',
+            'http://www.xbrl.org/2003/arcrole/general-special': 'undirected',
+            'http://www.xbrl.org/2003/arcrole/essence-alias': 'undirected',
+            'http://www.xbrl.org/2003/arcrole/similar-tuples': 'any',
+            'http://www.xbrl.org/2003/arcrole/requires-element': 'any'}
+
 class XuleRole:
     def __init__(self, role_uri):
         self._role_uri = role_uri
@@ -337,52 +400,52 @@ class XuleRole:
     
     @property
     def definition(self):
-        return STANDARD_ROLE_DEFINITIONS.get(self._role_uri)
+        return self._STANDARD_ROLE_DEFINITIONS.get(self._role_uri)
     
     @property
     def usedOns(self):
-        if self._role_uri in STANDARD_ROLE_USEDON:
-            return {STANDARD_ROLE_USEDON[self._role_uri],}
+        if self._role_uri in self._STANDARD_ROLE_USEDON:
+            return {self._STANDARD_ROLE_USEDON[self._role_uri],}
         else:
             return set()
 
-STANDARD_ROLE_USEDON = {
-    'http://www.xbrl.org/2003/role/label':QName('link','http://www.xbrl.org/2003/linkbase','label'),
-    'http://www.xbrl.org/2003/role/terseLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
-    'http://www.xbrl.org/2003/role/verboseLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
-    'http://www.xbrl.org/2003/role/positiveLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
-    'http://www.xbrl.org/2003/role/positiveTerseLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
-    'http://www.xbrl.org/2003/role/positiveVerboseLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
-    'http://www.xbrl.org/2003/role/negativeLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
-    'http://www.xbrl.org/2003/role/negativeTerseLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
-    'http://www.xbrl.org/2003/role/negativeVerboseLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
-    'http://www.xbrl.org/2003/role/zeroLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
-    'http://www.xbrl.org/2003/role/zeroTerseLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
-    'http://www.xbrl.org/2003/role/zeroVerboseLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
-    'http://www.xbrl.org/2003/role/totalLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
-    'http://www.xbrl.org/2003/role/periodStartLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
-    'http://www.xbrl.org/2003/role/periodEndLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
-    'http://www.xbrl.org/2003/role/documentation':QName('link','http://www.xbrl.org/2003/linkbase','label'),
-    'http://www.xbrl.org/2003/role/definitionGuidance':QName('link','http://www.xbrl.org/2003/linkbase','label'),
-    'http://www.xbrl.org/2003/role/disclosureGuidance':QName('link','http://www.xbrl.org/2003/linkbase','label'),
-    'http://www.xbrl.org/2003/role/presentationGuidance':QName('link','http://www.xbrl.org/2003/linkbase','label'),
-    'http://www.xbrl.org/2003/role/measurementGuidance':QName('link','http://www.xbrl.org/2003/linkbase','label'),
-    'http://www.xbrl.org/2003/role/commentaryGuidance':QName('link','http://www.xbrl.org/2003/linkbase','label'),
-    'http://www.xbrl.org/2003/role/exampleGuidance':QName('link','http://www.xbrl.org/2003/linkbase','label'),
-    'http://www.xbrl.org/2003/role/reference':QName('link','http://www.xbrl.org/2003/linkbase','reference'),
-    'http://www.xbrl.org/2003/role/definitionRef':QName('link','http://www.xbrl.org/2003/linkbase','reference'),
-    'http://www.xbrl.org/2003/role/disclosureRef':QName('link','http://www.xbrl.org/2003/linkbase','reference'),
-    'http://www.xbrl.org/2003/role/mandatoryDisclosureRef':QName('link','http://www.xbrl.org/2003/linkbase','reference'),
-    'http://www.xbrl.org/2003/role/recommendedDisclosureRef':QName('link','http://www.xbrl.org/2003/linkbase','reference'),
-    'http://www.xbrl.org/2003/role/unspecifiedDisclosureRef':QName('link','http://www.xbrl.org/2003/linkbase','reference'),
-    'http://www.xbrl.org/2003/role/presentationRef':QName('link','http://www.xbrl.org/2003/linkbase','reference'),
-    'http://www.xbrl.org/2003/role/measurementRef':QName('link','http://www.xbrl.org/2003/linkbase','reference'),
-    'http://www.xbrl.org/2003/role/commentaryRef':QName('link','http://www.xbrl.org/2003/linkbase','reference'),
-    'http://www.xbrl.org/2003/role/exampleRef':QName('link','http://www.xbrl.org/2003/linkbase','reference'),
-    'http://www.xbrl.org/2003/role/footnote':QName('link','http://www.xbrl.org/2003/linkbase','footnote')
+    _STANDARD_ROLE_USEDON = {
+        'http://www.xbrl.org/2003/role/label':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+        'http://www.xbrl.org/2003/role/terseLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+        'http://www.xbrl.org/2003/role/verboseLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+        'http://www.xbrl.org/2003/role/positiveLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+        'http://www.xbrl.org/2003/role/positiveTerseLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+        'http://www.xbrl.org/2003/role/positiveVerboseLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+        'http://www.xbrl.org/2003/role/negativeLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+        'http://www.xbrl.org/2003/role/negativeTerseLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+        'http://www.xbrl.org/2003/role/negativeVerboseLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+        'http://www.xbrl.org/2003/role/zeroLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+        'http://www.xbrl.org/2003/role/zeroTerseLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+        'http://www.xbrl.org/2003/role/zeroVerboseLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+        'http://www.xbrl.org/2003/role/totalLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+        'http://www.xbrl.org/2003/role/periodStartLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+        'http://www.xbrl.org/2003/role/periodEndLabel':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+        'http://www.xbrl.org/2003/role/documentation':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+        'http://www.xbrl.org/2003/role/definitionGuidance':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+        'http://www.xbrl.org/2003/role/disclosureGuidance':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+        'http://www.xbrl.org/2003/role/presentationGuidance':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+        'http://www.xbrl.org/2003/role/measurementGuidance':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+        'http://www.xbrl.org/2003/role/commentaryGuidance':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+        'http://www.xbrl.org/2003/role/exampleGuidance':QName('link','http://www.xbrl.org/2003/linkbase','label'),
+        'http://www.xbrl.org/2003/role/reference':QName('link','http://www.xbrl.org/2003/linkbase','reference'),
+        'http://www.xbrl.org/2003/role/definitionRef':QName('link','http://www.xbrl.org/2003/linkbase','reference'),
+        'http://www.xbrl.org/2003/role/disclosureRef':QName('link','http://www.xbrl.org/2003/linkbase','reference'),
+        'http://www.xbrl.org/2003/role/mandatoryDisclosureRef':QName('link','http://www.xbrl.org/2003/linkbase','reference'),
+        'http://www.xbrl.org/2003/role/recommendedDisclosureRef':QName('link','http://www.xbrl.org/2003/linkbase','reference'),
+        'http://www.xbrl.org/2003/role/unspecifiedDisclosureRef':QName('link','http://www.xbrl.org/2003/linkbase','reference'),
+        'http://www.xbrl.org/2003/role/presentationRef':QName('link','http://www.xbrl.org/2003/linkbase','reference'),
+        'http://www.xbrl.org/2003/role/measurementRef':QName('link','http://www.xbrl.org/2003/linkbase','reference'),
+        'http://www.xbrl.org/2003/role/commentaryRef':QName('link','http://www.xbrl.org/2003/linkbase','reference'),
+        'http://www.xbrl.org/2003/role/exampleRef':QName('link','http://www.xbrl.org/2003/linkbase','reference'),
+        'http://www.xbrl.org/2003/role/footnote':QName('link','http://www.xbrl.org/2003/linkbase','footnote')
                         }
 
-STANDARD_ROLE_DEFINITIONS = {'http://www.xbrl.org/2003/role/link':'Standard extended link role',
+    _STANDARD_ROLE_DEFINITIONS = {'http://www.xbrl.org/2003/role/link':'Standard extended link role',
                     'http://www.xbrl.org/2003/role/label':    'Standard label for a Concept.',
                     'http://www.xbrl.org/2003/role/terseLabel': 'Short label for a Concept, often omitting text that should be inferable when the concept is reported in the context of other related concepts.',
                     'http://www.xbrl.org/2003/role/verboseLabel': 'Extended label for a Concept, making sure not to omit text that is required to enable the label to be understood on a stand alone basis.',

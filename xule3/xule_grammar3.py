@@ -304,9 +304,9 @@ def get_grammar():
                 nodeName('factset')        
             )
     
-    returnComponents = (Group(Word(alphas)).setResultsName('returnComponents') |
+    returnComponents = (Group(simpleName).setResultsName('returnComponents') |
                         (Suppress('(') +
-                         Group(delimitedList(Word(alphas))).setResultsName('returnComponents') +
+                         Group(delimitedList(simpleName)).setResultsName('returnComponents') +
                          Suppress(')'))
                         )
     
