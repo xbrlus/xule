@@ -2252,6 +2252,7 @@ def evaluate_navigate(nav_expr, xule_context):
     arc_qname = None # This is always none. 
     direction = nav_expr['direction']
     include_start = nav_expr.get('includeStart', False)
+    return_names = get_return_component_names(nav_expr, xule_context)
     
     #get the relationships
     relationship_set_infos = get_base_set_info(xule_context, dts, arcrole, role, link_qname, arc_qname)
@@ -2275,30 +2276,30 @@ def evaluate_navigate(nav_expr, xule_context):
             if direction == 'self':
                 # include_start is always False for the self direction since the self concept is always included.
                 for rel in relationship_set.fromModelObject(from_concept):
-                    result_items += nav_decorate({'relationship': rel}, 'from', nav_expr, False, xule_context)
+                    result_items += nav_decorate({'relationship': rel, 'network': get_network_info(relationship_set, xule_context)}, 'from', return_names, False, xule_context)
                 for rel in relationship_set.toModelObject(from_concept):
-                    result_items += nav_decorate({'relationship':rel}, 'to', nav_expr, False, xule_context) 
+                    result_items += nav_decorate({'relationship':rel, 'network': get_network_info(relationship_set, xule_context)}, 'to', return_names, False, xule_context) 
                 #result_items += list(y for y in (nav_decorate(rel, 'from', nav_expr, False, xule_context) for rel in relationship_set.fromModelObject(from_concept))) + list(y for y in (nav_decorate(rel, 'to', nav_expr, xule_context) for rel in relationship_set.toModelObject(from_concept))) # This will be a list            
             if direction == 'descendants':
-                for rel in nav_traverse('down', relationship_set, from_concept, nav_to_concepts, int(nav_expr['depth'])):
-                    result_items += nav_decorate(rel, 'down', nav_expr, include_start, xule_context)
+                for rel in nav_traverse('down', relationship_set, from_concept, nav_to_concepts, int(nav_expr['depth']), return_names):
+                    result_items += nav_decorate(rel, 'down', return_names, include_start, xule_context)
             if direction == 'children':
-                for rel in nav_traverse('down', relationship_set, from_concept, nav_to_concepts, 1):
-                    result_items += nav_decorate(rel, 'down', nav_expr, include_start, xule_context)
+                for rel in nav_traverse('down', relationship_set, from_concept, nav_to_concepts, 1, return_names):
+                    result_items += nav_decorate(rel, 'down', return_names, include_start, xule_context)
             if direction == 'ancestors':
-                for rel in nav_traverse('up', relationship_set, from_concept, nav_to_concepts, int(nav_expr['depth'])):
-                    result_items += nav_decorate(rel, 'to', nav_expr, include_start, xule_context)
+                for rel in nav_traverse('up', relationship_set, from_concept, nav_to_concepts, int(nav_expr['depth']), return_names):
+                    result_items += nav_decorate(rel, 'to', return_names, include_start, xule_context)
             if direction == 'parents':
-                for rel in nav_traverse('up', relationship_set, from_concept, nav_to_concepts, 1):
-                    result_items += nav_decorate(rel, 'to', nav_expr, include_start, xule_context)
+                for rel in nav_traverse('up', relationship_set, from_concept, nav_to_concepts, 1, return_names):
+                    result_items += nav_decorate(rel, 'to', return_names, include_start, xule_context)
 
     return nav_finish_results(nav_expr, result_items, xule_context)
 
-def nav_traverse(direction, network, parent, end_concepts, depth, previous_concepts=None):
+def nav_traverse(direction, network, parent, end_concepts, remaining_depth, return_names, previous_concepts=None, nav_depth=1, result_order=0, arc_attribute_names=None):
     """Traverse a network
     
     Arguments:
-        direction (stirng): Either 'down' or 'up'
+        direction (string): Either 'down' or 'up'
         network (ModelRelationshipSet): The network of relationships.
         parent (ModelConcept): The parent concept
         end_concepts (set of ModelConcepts): A set of concepts if encountered the traversal should stop
@@ -2312,26 +2313,48 @@ def nav_traverse(direction, network, parent, end_concepts, depth, previous_conce
     # Initialize previous_concepts
     if previous_concepts is None:
         previous_concepts = set()
+        arc_attribute_names = {x for x in return_names if isinstance(x, QName)}
         first_time = True
     else:
         first_time = False
         
     #initialize depth
-    if depth == -1:
+    if remaining_depth == -1:
         depth = float('inf') 
            
-    if depth == 0:
+    if remaining_depth == 0:
         return list()
     
-    # 'children' is parents if the direction is up.
+    # 'children' are parents if the direction is up.
     children = list()
+    
     children_method = network.fromModelObject if direction == 'down' else network.toModelObject
-    for rel in sorted(children_method(parent),key=lambda x: x.order or 1):
+    for rel_number, rel in enumerate(sorted(children_method(parent),key=lambda x: x.order or 1), 1):
+        result_order += 1
         child = rel.toModelObject if direction == 'down' else rel.fromModelObject
-        children.append({'relationship':rel, 'first': first_time})
+        rel_info = {'relationship':rel}
+        if first_time:
+            rel_info['first'] = True
+        if 'network' in return_names:
+            rel_info['network'] = get_network_info(network, xule_context)
+        if 'navigation-order' in return_names:
+            rel_info['navigation-order'] = rel_number
+        if 'navigation-depth' in return_names:
+            rel_info['navigation-depth'] = nav_depth
+        if 'result-order' in return_names:
+            rel_info['result-order'] = result_order
+        for arc_attribute_name in arc_attribute_names:
+            rel_info[arc_attribute_name] = rel.arcElement.get(arc_attribute_name.clarkNotation)
+            
+        children.append(rel_info)
         if child not in previous_concepts:
             previous_concepts.add(child)
-            children += nav_traverse(direction, network, child, end_concepts, depth - 1, previous_concepts)
+            children += nav_traverse(direction, network, child, end_concepts, remaining_depth - 1, return_names, previous_concepts, nav_depth + 1, result_order, arc_attribute_names)
+            if 'result-order' in return_names:
+                result_order = children[-1]['result-order']
+        else:
+            #indicates a cycle
+            rel_info['cycle'] = True
             
     return children
 
@@ -2429,7 +2452,7 @@ def nav_get_element(nav_expr, side, dts, xule_context):
         return None # The side is not in the navigation expression
 
 
-def nav_decorate(rel, direction, nav_expr, include_start, xule_context):
+def nav_decorate(rel, direction, return_names, include_start, xule_context):
     """Determine what will be outputted for a single navigation item.
     
     Arguments:
@@ -2444,14 +2467,31 @@ def nav_decorate(rel, direction, nav_expr, include_start, xule_context):
         1. xule type
         2. return component name
     """
-    # Get the list of return component names. If not specified then 'target' is the default
-    return_names = nav_expr.get('return', {'returnComponents': ('target',)}).get('returnComponents', ('target',))
     result = list()
     if include_start and rel.get('first', False): 
         result.append(nav_decorate_gather_components(rel, direction, return_names, True, xule_context))
     result.append(nav_decorate_gather_components(rel, direction, return_names, False, xule_context))
     
     return result
+
+def get_return_component_names(nav_expr, xule_context):
+    component_names = list()
+    
+    if 'return' in nav_expr:
+        if 'returnComponents' in nav_expr['return']:
+            for component in nav_expr['return']['returnComponents']:
+                if isinstance(component, dict):
+                    #This is an expression which should evluate to a qname. This is an arc attribute name.
+                    component_name_value = evaluate(component, xule_context)
+                    if component_name_value.type != 'qname':
+                        raise XuleProcessingError(_("Expression in return components of a navigate expression did not evaluate to a qname. Expecting a qname for the name of a arc attribute. Found {}").format(component_name_value.type), xule_context)
+                    component_names.append(component_name_value.value)
+                else:
+                    component_names.append(component)
+    
+    return component_names
+    
+    #nav_expr.get('return', {'returnComponents': ('target',)}).get('returnComponents', ('target',))
 
 def nav_decorate_gather_components(rel, direction, component_names, is_start, xule_context):
     """Get the values for all the return components for a relationship.
@@ -2503,7 +2543,17 @@ def nav_decorate_component_value(rel, direction, component_name, is_start, xule_
             else:
                 return NAVIGATE_RETURN_COMPONENTS[component_name][NAVIGATE_RETURN_FUCTION](rel, direction, component_name, xule_context)
     else:
-        raise XuleProcessingError(_("Component {} is not currently supported.".format(component_name)), xule_context)        
+        # Could be an arc attribute name (qname)
+        if isinstance(component_name, QName):
+            attribute_value = rel[component_name]
+            if attribute_value is None:
+                return (None, 'unbound', component_name)
+            else:
+                return (attribute_value, 'string', component_name)
+
+            return ('arc attribute {}'.format(component_name), 'string', component_name)
+        else:
+            raise XuleProcessingError(_("Component {} is not currently supported.".format(component_name)), xule_context)        
 
 def nav_decorate_component_target(rel, direction, component_name, is_start, xule_context):     
     if is_start:
@@ -2614,6 +2664,40 @@ def nav_decorate_component_cycles_allowed(rel, direction, component_name, xule_c
     arcrole = get_arcrole(rel['relationship'], xule_context)
     return (arcrole.cyclesAllowed, 'string', component_name)
 
+def nav_decorate_component_link_name(rel, direction, component_name, xule_context):
+    return (rel['relationship'].linkQname, 'qname', component_name)
+
+def nav_decorate_component_arc_name(rel, direction, component_name, xule_context):
+    return (rel['relationship'].qname, 'qname', component_name)
+
+def nav_decorate_component_network(rel, direction, component_name, xule_context):
+    return (rel['network'], 'network', component_name)
+
+def get_network_info(network, xule_context):
+    network_info = (network.arcrole, network.linkrole, network.arcqname, network.linkqname, False)
+    return (network_info, network)
+
+def nav_decorate_component_cycle(rel, direction, component_name, xule_context):
+    return (rel.get('cycle', False), 'bool', component_name)
+
+def nav_decorate_component_navigation_order(rel, direction, component_name, is_start, xule_context):
+    if is_start:
+        return(0, 'int', component_name)
+    else:
+        return (rel['navigation-order'], 'int', component_name)
+
+def nav_decorate_component_navigation_depth(rel, direction, component_name, is_start, xule_context):
+    if is_start:
+        return (0, 'int', component_name)
+    else:
+        return (rel['navigation-depth'], 'int', component_name)
+
+def nav_decorate_result_order(rel, direction, component_name, is_start, xule_context):
+    if is_start:
+        return (0, 'int', component_name)
+    else:
+        return (rel['result-order'], 'int', component_name)
+
 # Navigation return component tuple locations
 NAVIGATE_RETURN_FUCTION = 0
 NAVIGATE_ALLOWED_ON_START = 1
@@ -2634,17 +2718,30 @@ NAVIGATE_RETURN_COMPONENTS = {'source': (nav_decorate_component_source, False),
                               'arcrole-uri': (nav_decorate_component_arcrole_uri, False),
                               'arcrole-description': (nav_decorate_component_arcrole_description, False),
                               'arcrole-cycles-allowed': (nav_decorate_component_cycles_allowed, False),
+                              'link-name': (nav_decorate_component_link_name, False),
+                              'arc-name': (nav_decorate_component_arc_name, False),
+                              'network': (nav_decorate_component_network, False),
+                              'cycle': (nav_decorate_component_cycle, False),
+                              'navigation-order': (nav_decorate_component_navigation_order, True),
+                              'navigation-depth': (nav_decorate_component_navigation_depth, True),
+                              'result-order': (nav_decorate_result_order, True),
                               }
 
 
 def nav_finish_results(nav_expr, return_items, xule_context):
     results = list()
     result_shadow = list()
+    
+    if 'return' in nav_expr:
+        return_type = nav_expr['return'].get('returnType', 'list')
+    else:
+        return_type = 'list'
+        
     for return_item in return_items:
         if len(return_item) == 1:
             # A list of single items is returned. 
             # The return item only has one return component
-            if return_item[0][0] not in result_shadow:
+            if return_type == 'list' or (return_type == 'set' and return_item[0][0] not in result_shadow):
                 results.append(XuleValue(xule_context, return_item[0][0], return_item[0][1]))
                 result_shadow.append(return_item[0][0])
         else:
@@ -2657,13 +2754,15 @@ def nav_finish_results(nav_expr, return_items, xule_context):
                 multi_shadow.append(return_component[0])
             multi_shadow_tuple = tuple(multi_shadow)
             
-            if multi_shadow_tuple not in result_shadow:
+            if return_type == 'list' or (return_type == 'set' and  multi_shadow_tuple not in result_shadow):
                 results.append(XuleValue(xule_context, tuple(multi_result), 'list', shadow_collection=tuple(multi_shadow)))
                 result_shadow.append(multi_shadow_tuple)
 
             #raise XuleProcessingError(_("multiple returns not supported"), xule_context)
-    return XuleValue(xule_context, tuple(results), 'list', shadow_collection=tuple(result_shadow))            
-    return XuleValue(xule_context, frozenset(results), 'set', shadow_collection=frozenset(result_shadow))
+    if return_type == 'list':
+        return XuleValue(xule_context, tuple(results), 'list', shadow_collection=tuple(result_shadow))
+    else:
+        return XuleValue(xule_context, frozenset(results), 'set', shadow_collection=frozenset(result_shadow))
     
     #return XuleValue(xule_context, frozenset(XuleValue(xule_context, x[0], x[1]) for x in set(return_items)), 'set')
 

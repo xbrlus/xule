@@ -306,7 +306,7 @@ def get_grammar():
     
     returnComponents = (Group(simpleName).setResultsName('returnComponents') |
                         (Suppress('(') +
-                         Group(delimitedList(simpleName)).setResultsName('returnComponents') +
+                         Group(delimitedList(simpleName + ~Literal(':') | blockExpr)).setResultsName('returnComponents') +
                          Suppress(')'))
                         )
     
