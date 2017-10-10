@@ -16,7 +16,7 @@ Factset = (
  }
 ,{'name': 'empty_factset_curly',
   'expr': 'assert abc {}',
-  'result': {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factset': {'factsetType': 'open'}}}}]}
+  'result': {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factsetType': 'open', 'exprName': 'factset'}, 'exprName': 'assertion'}]}
  }
 ,{'name': 'empty_factset_bar',
   'expr': 'assert abc ||',
@@ -25,32 +25,28 @@ Factset = (
 ,{'name': 'empty_covered',
   'expr': 'assert abc {covered}',
   'result':
-    {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factset': {'covered': True,
-                          'factsetType': 'open'}}}}]}
+   {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'covered': True, 'factsetType': 'open', 'exprName': 'factset'}, 'exprName': 'assertion'}]}
  }
 ,{'name': 'simple_aspect_curly',
   'expr': 'assert abc {@}',
   'result':
-    {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'coverType': 'covered'}}],
-                          'factsetType': 'open'}}}}]}
+    {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'aspectFilters': [{'coverType': 'covered', 'exprName': 'aspectFilter'}], 'factsetType': 'open', 'exprName': 'factset'}, 'exprName': 'assertion'}]}
  }
 ,{'name': 'simple_aspect_no_curly',
   'expr': 'assert abc @',
   'result':
-    {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body':{'factset': {'aspectFilters': [{'aspectFilter': {'coverType': 'covered'}}],
-                                     'factsetType': 'open'}}}}]}
+    {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'aspectFilters': [{'coverType': 'covered', 'exprName': 'aspectFilter'}], 'factsetType': 'open', 'exprName': 'factset'}, 'exprName': 'assertion'}]}
+
  }
 ,{'name': 'simple_uncovered_aspect_curly',
   'expr': 'assert abc{@@}',
   'result':
-    {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'coverType': 'uncovered'}}],
-                                     'factsetType': 'open'}}}}]}
+    {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'aspectFilters': [{'coverType': 'uncovered', 'exprName': 'aspectFilter'}], 'factsetType': 'open', 'exprName': 'factset'}, 'exprName': 'assertion'}]}
  }
 ,{'name': 'simple_uncovered_aspect_no_curly',
   'expr': 'assert abc @@',
   'result':
-    {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'coverType': 'uncovered'}}],
-                                     'factsetType': 'open'}}}}]}
+    {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'aspectFilters': [{'coverType': 'uncovered', 'exprName': 'aspectFilter'}], 'factsetType': 'open', 'exprName': 'factset'}, 'exprName': 'assertion'}]}
  }
 ,{'name': 'empty_covered_bar',
   'expr': 'assert abc |covered|',
@@ -73,58 +69,66 @@ Factset = (
 ,{'name': 'named_common_aspect',
   'expr': 'assert abc @concept',
   'result':
-    {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'aspectName': 'concept',
-                                                                         'coverType': 'covered'}}],
-                                     'factsetType': 'open'}}}}]}
+    {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'aspectFilters': [{'coverType': 'covered', 'aspectName': 'concept', 'exprName': 'aspectFilter'}], 'factsetType': 'open', 'exprName': 'factset'}, 'exprName': 'assertion'}]}
  }
 ,{'name': 'named_common_aspect_upper_and_lower',
   'expr': 'assert abc @coNCepT',
   'result':
-    {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'aspectName': 'concept',
-                                                                         'coverType': 'covered'}}],
-                                     'factsetType': 'open'}}}}]}
+    {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'aspectFilters': [{'coverType': 'covered', 'aspectName': 'concept', 'exprName': 'aspectFilter'}], 'factsetType': 'open', 'exprName': 'factset'}, 'exprName': 'assertion'}]}
+
  }           
 ,{'name': 'named_default_dim_aspect',
   'expr': 'assert abc @dimension',
   'result':
-    {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'aspectDimensionName': {'localName':'dimension',
-                                                                                      'prefix':'*'},
-                                                                         'coverType': 'covered'}}],
-                                     'factsetType': 'open'}}}}]}
+    {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'aspectFilters': [{'coverType': 'covered', 'aspectDimensionName': {'prefix': '*', 'localName': 'dimension', 'exprName': 'qname'}, 'exprName': 'aspectFilter'}], 'factsetType': 'open', 'exprName': 'factset'}, 'exprName': 'assertion'}]}
+
  }          
 ,{'name': 'named_prefixed_dim_aspect',
   'expr': 'assert abc @dim:dimension',
   'result':
-    {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body':{'factset': {'aspectFilters': [{'aspectFilter': {'aspectDimensionName': {'localName':'dimension',
-                                                                                      'prefix':'dim'},
-                                                                         'coverType': 'covered'}}],
-                                     'factsetType': 'open'}}}}]}
+    {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'aspectFilters': [{'coverType': 'covered', 'aspectDimensionName': {'prefix': 'dim', 'localName': 'dimension', 'exprName': 'qname'}, 'exprName': 'aspectFilter'}], 'factsetType': 'open', 'exprName': 'factset'}, 'exprName': 'assertion'}]}
  }                    
 ,{'name': 'named_prefixed_dim_aspect_equal',
   'expr': 'assert abc @dim:dimension = block',
   'expr_stop':'aspectExpr',
   'result':
-    {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'aspectDimensionName': {'localName':'dimension',
-                                                                                      'prefix':'dim'},
-                                                              'coverType': 'covered',
-                                                              'aspectOperator':'=',
-                                                              'aspectExpr': 'expr_stop'}}],
-                                     'factsetType': 'open'}}}}]}
+    {'xuleDoc': [{'body': {'aspectFilters': [{'aspectDimensionName': {'exprName': 'qname',
+                                                                  'localName': 'dimension',
+                                                                  'prefix': 'dim'},
+                                                              'aspectExpr': 'expr_stop',
+                                                              'aspectOperator': '=',
+                                          'coverType': 'covered',
+                                          'exprName': 'aspectFilter'}],
+                       'exprName': 'factset',
+                       'factsetType': 'open'},
+              'exprName': 'assertion',
+              'ruleName': 'abc',
+              'satisfactionType': 'satisfied'}]}
  } 
 ,{'name': 'named_dim_aspect_starts_with_concept',
   'expr': 'assert abc @conceptabc',
   'result': 
-    {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'aspectDimensionName': {'localName':'conceptabc',
-                                                                                      'prefix':'*'},
-                                                              'coverType': 'covered'}}],
-                                     'factsetType': 'open'}}}}]}         
+    {'xuleDoc': [{'body': {'aspectFilters': [{'aspectDimensionName': {'exprName': 'qname',
+                                                                  'localName': 'conceptabc',
+                                                                  'prefix': '*'},
+                                          'coverType': 'covered',
+                                          'exprName': 'aspectFilter'}],
+                       'exprName': 'factset',
+                       'factsetType': 'open'},
+              'exprName': 'assertion',
+              'ruleName': 'abc',
+              'satisfactionType': 'satisfied'}]}         
   }
        
 ,{'name': 'simple_where_curly',
   'expr': 'assert abc {where 1}',
   'result':
-    {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factset': {'factsetType': 'open',
-                                     'whereExpr': {'integer': '1'}}}}}]}
+    {'xuleDoc': [{'body': {'exprName': 'factset',
+                       'factsetType': 'open',
+                       'whereExpr': {'exprName': 'integer', 'value': '1'}},
+              'exprName': 'assertion',
+              'ruleName': 'abc',
+              'satisfactionType': 'satisfied'}]}
  }
 ,{'name': 'simple_where_bar',
   'expr': 'assert abc |where 1|',
@@ -136,69 +140,95 @@ Factset = (
   'expr': 'assert abc @concept=block',
   'expr_stop': 'aspectExpr',
   'result':
-    {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body':{'factset': {'aspectFilters': [{'aspectFilter': {'aspectExpr': 'expr_stop',
-                                                              'aspectName': 'concept',
-                                                              'aspectOperator': '=',
-                                                              'coverType': 'covered'}}],
-                          'factsetType': 'open'}}}}]}
+    {'xuleDoc': [{'body': {'aspectFilters': [{'aspectExpr': 'expr_stop',
+                                          'aspectName': 'concept',
+                                          'aspectOperator': '=',
+                                          'coverType': 'covered',
+                                          'exprName': 'aspectFilter'}],
+                       'exprName': 'factset',
+                       'factsetType': 'open'},
+              'exprName': 'assertion',
+              'ruleName': 'abc',
+              'satisfactionType': 'satisfied'}]}
  }
 ,{'name': 'aspect_equal_multi',
   'expr': 'assert abc @concept=block @unit=block',
   'expr_stop': 'aspectExpr',
   'result':
-    {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'aspectExpr': 'expr_stop',
-                                                              'aspectName': 'concept',
-                                                              'aspectOperator': '=',
-                                                              'coverType': 'covered'}},
-                                            {'aspectFilter': {'aspectExpr': 'expr_stop',
-                                                              'aspectName': 'unit',
-                                                              'aspectOperator': '=',
-                                                              'coverType': 'covered'}}
-                                            ],
-                          'factsetType': 'open'}}}}]}
+    {'xuleDoc': [{'body': {'aspectFilters': [{'aspectExpr': 'expr_stop',
+                                          'aspectName': 'concept',
+                                          'aspectOperator': '=',
+                                          'coverType': 'covered',
+                                          'exprName': 'aspectFilter'},
+                                         {'aspectExpr': 'expr_stop',
+                                          'aspectName': 'unit',
+                                          'aspectOperator': '=',
+                                          'coverType': 'covered',
+                                          'exprName': 'aspectFilter'}],
+                       'exprName': 'factset',
+                       'factsetType': 'open'},
+              'exprName': 'assertion',
+              'ruleName': 'abc',
+              'satisfactionType': 'satisfied'}]}
  }  
 ,{'name': 'aspect_equal_with_alias',
   'expr': 'assert abc @concept=block as con',
   'expr_stop': 'aspectExpr',
   'result':
-    {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'aspectExpr': 'expr_stop',
-                                                              'aspectName': 'concept',
-                                                              'aspectOperator': '=',
-                                                              'coverType': 'covered',
-                                                              'alias': 'con'}
-                                             }],
-                          'factsetType': 'open'}}}}]}
+    {'xuleDoc': [{'body': {'aspectFilters': [{'alias': 'con',
+                                          'aspectExpr': 'expr_stop',
+                                          'aspectName': 'concept',
+                                          'aspectOperator': '=',
+                                          'coverType': 'covered',
+                                          'exprName': 'aspectFilter'}],
+                       'exprName': 'factset',
+                       'factsetType': 'open'},
+              'exprName': 'assertion',
+              'ruleName': 'abc',
+              'satisfactionType': 'satisfied'}]}
  }
 ,{'name': 'aspect_with_alias',
   'expr': 'assert abc @concept as con',
   'result':
-    {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'aspectName': 'concept',
-                                                              'coverType': 'covered',
-                                                              'alias': 'con'}
-                                             }],
-                          'factsetType': 'open'}}}}]}
+    {'xuleDoc': [{'body': {'aspectFilters': [{'alias': 'con',
+                                          'aspectName': 'concept',
+                                          'coverType': 'covered',
+                                          'exprName': 'aspectFilter'}],
+                       'exprName': 'factset',
+                       'factsetType': 'open'},
+              'exprName': 'assertion',
+              'ruleName': 'abc',
+              'satisfactionType': 'satisfied'}]}
  }
            
 ,{'name': 'aspect_equal_with_alias_curly',
   'expr': 'assert abc {@concept=block as con}',
   'expr_stop': 'aspectExpr',
   'result':
-    {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body':{'factset': {'aspectFilters': [{'aspectFilter': {'aspectExpr': 'expr_stop',
-                                                              'aspectName': 'concept',
-                                                              'aspectOperator': '=',
-                                                              'coverType': 'covered',
-                                                              'alias': 'con'}
-                                             }],
-                          'factsetType': 'open'}}}}]}
+    {'xuleDoc': [{'body': {'aspectFilters': [{'alias': 'con',
+                                          'aspectExpr': 'expr_stop',
+                                          'aspectName': 'concept',
+                                          'aspectOperator': '=',
+                                          'coverType': 'covered',
+                                          'exprName': 'aspectFilter'}],
+                       'exprName': 'factset',
+                       'factsetType': 'open'},
+              'exprName': 'assertion',
+              'ruleName': 'abc',
+              'satisfactionType': 'satisfied'}]}
  }
 ,{'name': 'aspect_with_alias_curly',
   'expr': 'assert abc {@concept as con}',
   'result':
-    {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'aspectName': 'concept',
-                                                              'coverType': 'covered',
-                                                              'alias': 'con'}
-                                             }],
-                          'factsetType': 'open'}}}}]}
+    {'xuleDoc': [{'body': {'aspectFilters': [{'alias': 'con',
+                                          'aspectName': 'concept',
+                                          'coverType': 'covered',
+                                          'exprName': 'aspectFilter'}],
+                       'exprName': 'factset',
+                       'factsetType': 'open'},
+              'exprName': 'assertion',
+              'ruleName': 'abc',
+              'satisfactionType': 'satisfied'}]}
  }
 
 ,{'name': 'aspect_equal_with_alias_bar',
@@ -226,11 +256,12 @@ Factset = (
 ,{'name': 'factset_expr',
   'expr': 'assert abc {4}',
   'result': 
-    {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 
-                                'body': {'factset': {
-                                                     'factsetType': 'open',
-                                                     'innerExpr':
-                                                     {'integer': '4'}}}}}]}  
+    {'xuleDoc': [{'body': {'exprName': 'factset',
+                       'factsetType': 'open',
+                       'innerExpr': {'exprName': 'integer', 'value': '4'}},
+              'exprName': 'assertion',
+              'ruleName': 'abc',
+              'satisfactionType': 'satisfied'}]}
 }
 ,{'name': 'factset_expr_where',
   'expr': 'assert abc {4 where  5}',
@@ -271,68 +302,68 @@ Factset = (
 Literals = (
  {'name': 'integer',
   'expr': 'assert abc 1',
-  'result':{'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'integer': '1'}}}]}
+  'result':{'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'value': '1', 'exprName': 'integer'}, 'exprName': 'assertion'}]}
  }
 ,{'name': 'integer_negative',
   'expr': 'assert abc -1',
-  'result':{'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'integer': '-1'}}}]}
+  'result':{'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'op': '-', 'expr': {'value': '1', 'exprName': 'integer'}, 'exprName': 'unaryExpr'}, 'exprName': 'assertion'}]}
  }
 ,{'name': 'integer_postive',
   'expr': 'assert abc +3',
-  'result':{'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'integer': '+3'}}}]}
+  'result':{'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'op': '+', 'expr': {'value': '3', 'exprName': 'integer'}, 'exprName': 'unaryExpr'}, 'exprName': 'assertion'}]}
  }  
 ,{'name': 'float',
   'expr': 'assert abc 2.3',
-  'result':{'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'float': '2.3'}}}]}
+  'result':{'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'value': '2.3', 'exprName': 'float'}, 'exprName': 'assertion'}]}
  }                      
 ,{'name': 'float_scientific_notation',
   'expr': 'assert abc 3.4e2',
-  'result':{'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'float': '3.4e2'}}}]}
+  'result':{'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'value': '3.4e2', 'exprName': 'float'}, 'exprName': 'assertion'}]}
 }
 ,{'name': 'float_scientific_notation_negative_e',
   'expr': 'assert abc 3.4e-12',
-  'result':{'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'float': '3.4e-12'}}}]}
+  'result':{'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'value': '3.4e-12', 'exprName': 'float'}, 'exprName': 'assertion'}]}
 }
 ,{'name': 'float_negative_scientific_notation',
   'expr': 'assert abc -3.4e2',
-  'result':{'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'float': '-3.4e2'}}}]}
+  'result':{'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'op': '-', 'expr': {'value': '3.4e2', 'exprName': 'float'}, 'exprName': 'unaryExpr'}, 'exprName': 'assertion'}]}
 }
 ,{'name': 'float_postive_scientific_notation',
   'expr': 'assert abc +3.4e2',
-  'result':{'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'float': '+3.4e2'}}}]}
+  'result':{'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'op': '+', 'expr': {'value': '3.4e2', 'exprName': 'float'}, 'exprName': 'unaryExpr'}, 'exprName': 'assertion'}]}
 }            
 ,{'name': 'float_postive_scientific_notation_negative_e',
   'expr': 'assert abc +3.4e-22',
-  'result':{'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'float': '+3.4e-22'}}}]}
+  'result':{'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'op': '+', 'expr': {'value': '3.4e-22', 'exprName': 'float'}, 'exprName': 'unaryExpr'}, 'exprName': 'assertion'}]}
 }
 ,{'name': 'float_postive_scientific_notation_positive_e',
   'expr': 'assert abc +3.4e+9',
-  'result':{'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'float': '+3.4e+9'}}}]}
+  'result':{'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'op': '+', 'expr': {'value': '3.4e+9', 'exprName': 'float'}, 'exprName': 'unaryExpr'}, 'exprName': 'assertion'}]}
 }
 ,{'name': 'float_infinite',
   'expr': 'assert abc inf',
-  'result':{'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'float': 'INF'}}}]}
+  'result':{'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'value': 'INF', 'exprName': 'float'}, 'exprName': 'assertion'}]}
 }                                 
 ,{'name': 'float_postitive_infinite',
   'expr': 'assert abc +inf',
-  'result':{'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'float': '+INF'}}}]}
+  'result':{'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'op': '+', 'expr': {'value': 'INF', 'exprName': 'float'}, 'exprName': 'unaryExpr'}, 'exprName': 'assertion'}]}
 }
 ,{'name': 'float_negative_infinite',
   'expr': 'assert abc -inf',
-  'result':{'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'float': '-INF'}}}]}
+  'result':{'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'op': '-', 'expr': {'value': 'INF', 'exprName': 'float'}, 'exprName': 'unaryExpr'}, 'exprName': 'assertion'}]}
 }
 ,{'name': 'float_infinite_mixed_case',
   'expr': 'assert abc iNF',
-  'result':{'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'float': 'INF'}}}]}
+  'result':{'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'op': '-', 'expr': {'value': 'INF', 'exprName': 'float'}, 'exprName': 'unaryExpr'}, 'exprName': 'assertion'}]}
 } 
 ,{'name': 'string_single_quote',
   'expr': "assert abc 'abc'",
-  'result': {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 
-                                        'body': {'string': "'abc'"}}}]}}
+  'result': {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'value': "'abc'", 'exprName': 'string'}, 'exprName': 'assertion'}]}
+}
 ,{'name': 'string_double_quote',
   'expr': 'assert abc "abc"',
-  'result': {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 
-                                        'body': {'string': '"abc"'}}}]}}  
+  'result': {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'value': '"abc"', 'exprName': 'string'}, 'exprName': 'assertion'}]}
+}  
 ,{'name': 'string_single_quote_escaped',
   'expr': r"""assert abc 'a\'bc'""",
   'result': {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 
