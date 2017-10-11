@@ -53,13 +53,13 @@ if args.f:
 
 elif args.s:
     res = xule_parser.parseString(args.s, parseAll=True)
-    #print(res.asDict())
-    print(json.dumps(res.asDict(), indent=4))
-    print(res.dump())
-    print(res)
+    print(res.asDict())
+#     print(json.dumps(res.asDict(), indent=4))
+#     print(res.dump())
+#     print(res)
     pprint.pprint(res.asDict())
-    pprint.pprint(res.asList())
-    print(res.pprint())
+#     pprint.pprint(res.asList())
+#     print(res.pprint())
     #pprint.pprint(res.asDict())
 else:
     print("no file or string provided")

@@ -25,6 +25,29 @@ def replace_expr(col, expr_type):
     for child in children:
         replace_expr(child, expr_type)
 
+class TestConstants(unittest.TestCase):
+
+    maxDiff = None
+    
+    
+    def setUp(self):
+        self.grammar = get_grammar()
+    
+    def test_constant_as_function(self):
+        res = self.grammar.parseString(r"""constant abc = xyz()""", parseAll=True).asDict()
+        
+        self.assertEqual(res, {'xuleDoc': [{'body': {'exprName': 'functionReference', 'functionArgs': [], 'functionName': 'xyz'}, 'constantName': 'abc', 'exprName': 'constantDeclaration'}]})
+    
+    def test_constant_as_value(self):
+        res = self.grammar.parseString(r"""constant abc = 4""", parseAll=True).asDict()
+        
+        self.assertEqual(res, {'xuleDoc': [{'constantName': 'abc', 'body': {'value': '4', 'exprName': 'integer'}, 'exprName': 'constantDeclaration'}]})
+    
+    def test_constant_as_list(self):
+        res = self.grammar.parseString(r"""constant abc = (4,5,6)""", parseAll=True).asDict()
+        
+        self.assertEqual(res, {'xuleDoc': [{'body': {'exprName': 'functionReference', 'functionArgs': [{'exprName': 'integer', 'value': '4'}, {'exprName': 'integer', 'value': '5'}, {'exprName': 'integer', 'value': '6'}], 'functionName': 'list'}, 'constantName': 'abc', 'exprName': 'constantDeclaration'}]})
+    
 class TestFactset(unittest.TestCase):
 
     maxDiff = None
@@ -41,10 +64,10 @@ class TestFactset(unittest.TestCase):
         
         self.assertEqual(res, {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factsetType': 'open', 'exprName': 'factset'}, 'exprName': 'assertion'}]})
     
-    def test_empty_factset_bar(self):
-        res = self.grammar.parseString(r"""assert abc ||""", parseAll=True).asDict()
+    def test_empty_factset_bracket(self):
+        res = self.grammar.parseString(r"""assert abc []""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factset': {'factsetType': 'closed'}}}}]})
+        self.assertEqual(res, {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factsetType': 'closed', 'exprName': 'factset'}, 'exprName': 'assertion'}]})
     
     def test_empty_covered(self):
         res = self.grammar.parseString(r"""assert abc {covered}""", parseAll=True).asDict()
@@ -71,20 +94,20 @@ class TestFactset(unittest.TestCase):
         
         self.assertEqual(res, {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'aspectFilters': [{'coverType': 'uncovered', 'exprName': 'aspectFilter'}], 'factsetType': 'open', 'exprName': 'factset'}, 'exprName': 'assertion'}]})
     
-    def test_empty_covered_bar(self):
-        res = self.grammar.parseString(r"""assert abc |covered|""", parseAll=True).asDict()
+    def test_empty_covered_bracket(self):
+        res = self.grammar.parseString(r"""assert abc [covered]""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factset': {'covered': True, 'factsetType': 'closed'}}}}]})
+        self.assertEqual(res, {'xuleDoc': [{'body': {'covered': True, 'exprName': 'factset', 'factsetType': 'closed'}, 'exprName': 'assertion', 'ruleName': 'abc', 'satisfactionType': 'satisfied'}]})
     
-    def test_simple_aspect_bar(self):
-        res = self.grammar.parseString(r"""assert abc |@|""", parseAll=True).asDict()
+    def test_simple_aspect_bracket(self):
+        res = self.grammar.parseString(r"""assert abc [@]""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'coverType': 'covered'}}], 'factsetType': 'closed'}}}}]})
+        self.assertEqual(res, {'xuleDoc': [{'body': {'aspectFilters': [{'coverType': 'covered', 'exprName': 'aspectFilter'}], 'exprName': 'factset', 'factsetType': 'closed'}, 'exprName': 'assertion', 'ruleName': 'abc', 'satisfactionType': 'satisfied'}]})
     
-    def test_simple_uncovered_aspect_bar(self):
-        res = self.grammar.parseString(r"""assert abc |@@|""", parseAll=True).asDict()
+    def test_simple_uncovered_aspect_bracket(self):
+        res = self.grammar.parseString(r"""assert abc [@@]""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'coverType': 'uncovered'}}], 'factsetType': 'closed'}}}}]})
+        self.assertEqual(res, {'xuleDoc': [{'body': {'aspectFilters': [{'coverType': 'uncovered', 'exprName': 'aspectFilter'}], 'exprName': 'factset', 'factsetType': 'closed'}, 'exprName': 'assertion', 'ruleName': 'abc', 'satisfactionType': 'satisfied'}]})
     
     def test_named_common_aspect(self):
         res = self.grammar.parseString(r"""assert abc @concept""", parseAll=True).asDict()
@@ -121,10 +144,10 @@ class TestFactset(unittest.TestCase):
         
         self.assertEqual(res, {'xuleDoc': [{'body': {'exprName': 'factset', 'factsetType': 'open', 'whereExpr': {'exprName': 'integer', 'value': '1'}}, 'exprName': 'assertion', 'ruleName': 'abc', 'satisfactionType': 'satisfied'}]})
     
-    def test_simple_where_bar(self):
-        res = self.grammar.parseString(r"""assert abc |where 1|""", parseAll=True).asDict()
+    def test_simple_where_bracket(self):
+        res = self.grammar.parseString(r"""assert abc [where 1]""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factset': {'factsetType': 'closed', 'whereExpr': {'integer': '1'}}}}}]})
+        self.assertEqual(res, {'xuleDoc': [{'body': {'exprName': 'factset', 'factsetType': 'closed', 'whereExpr': {'exprName': 'integer', 'value': '1'}}, 'exprName': 'assertion', 'ruleName': 'abc', 'satisfactionType': 'satisfied'}]})
     
     def test_aspect_equal(self):
         res = self.grammar.parseString(r"""assert abc @concept=block""", parseAll=True).asDict()
@@ -156,15 +179,15 @@ class TestFactset(unittest.TestCase):
         
         self.assertEqual(res, {'xuleDoc': [{'body': {'aspectFilters': [{'alias': 'con', 'aspectName': 'concept', 'coverType': 'covered', 'exprName': 'aspectFilter'}], 'exprName': 'factset', 'factsetType': 'open'}, 'exprName': 'assertion', 'ruleName': 'abc', 'satisfactionType': 'satisfied'}]})
     
-    def test_aspect_equal_with_alias_bar(self):
-        res = self.grammar.parseString(r"""assert abc |@concept=block as con|""", parseAll=True).asDict()
-        replace_expr(res,"aspectExpr")
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'aspectExpr': 'expr_stop', 'aspectName': 'concept', 'aspectOperator': '=', 'coverType': 'covered', 'alias': 'con'}}], 'factsetType': 'closed'}}}}]})
-    
-    def test_aspect_with_alias_bar(self):
-        res = self.grammar.parseString(r"""assert abc |@concept as con|""", parseAll=True).asDict()
+    def test_aspect_equal_with_alias_bracket(self):
+        res = self.grammar.parseString(r"""assert abc [@concept=block as con]""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'aspectName': 'concept', 'coverType': 'covered', 'alias': 'con'}}], 'factsetType': 'closed'}}}}]})
+        self.assertEqual(res, {'xuleDoc': [{'body': {'aspectFilters': [{'alias': 'con', 'aspectExpr': {'exprName': 'qname', 'localName': 'block', 'prefix': '*'}, 'aspectName': 'concept', 'aspectOperator': '=', 'coverType': 'covered', 'exprName': 'aspectFilter'}], 'exprName': 'factset', 'factsetType': 'closed'}, 'exprName': 'assertion', 'ruleName': 'abc', 'satisfactionType': 'satisfied'}]})
+    
+    def test_aspect_with_alias_bracket(self):
+        res = self.grammar.parseString(r"""assert abc [@concept as con]""", parseAll=True).asDict()
+        
+        self.assertEqual(res, {'xuleDoc': [{'body': {'aspectFilters': [{'alias': 'con', 'aspectName': 'concept', 'coverType': 'covered', 'exprName': 'aspectFilter'}], 'exprName': 'factset', 'factsetType': 'closed'}, 'exprName': 'assertion', 'ruleName': 'abc', 'satisfactionType': 'satisfied'}]})
     
     def test_factset_expr(self):
         res = self.grammar.parseString(r"""assert abc {4}""", parseAll=True).asDict()
@@ -172,12 +195,12 @@ class TestFactset(unittest.TestCase):
         self.assertEqual(res, {'xuleDoc': [{'body': {'exprName': 'factset', 'factsetType': 'open', 'innerExpr': {'exprName': 'integer', 'value': '4'}}, 'exprName': 'assertion', 'ruleName': 'abc', 'satisfactionType': 'satisfied'}]})
     
     def test_factset_expr_where(self):
-        res = self.grammar.parseString(r"""assert abc {4 where  5}""", parseAll=True).asDict()
+        res = self.grammar.parseString(r"""assert abc {{4} where  5}""", parseAll=True).asDict()
         
         self.assertEqual(res, {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factset': {'factsetType': 'open', 'whereExpr': {'integer': '5'}, 'innerExpr': {'integer': '4'}}}}}]})
     
     def test_factset_expr_aspect_where(self):
-        res = self.grammar.parseString(r"""assert abc {@Assets 4 where  5}""", parseAll=True).asDict()
+        res = self.grammar.parseString(r"""assert abc {@Assets {4} where  5}""", parseAll=True).asDict()
         
         self.assertEqual(res, {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factset': {'factsetType': 'open', 'whereExpr': {'integer': '5'}, 'innerExpr': {'integer': '4'}, 'aspectFilters': [{'aspectFilter': {'aspectDimensionName': {'localName': 'Assets', 'prefix': '*'}, 'coverType': 'covered'}}]}}}}]})
     
@@ -187,8 +210,8 @@ class TestFactset(unittest.TestCase):
     def test_no_aspect_name_with_alias_curly(self):
         self.assertRaises(pyparsing.ParseException, self.grammar.parseString, """assert abc {@ as asp}""", parseAll=True)
     
-    def test_no_aspect_name_with_alias_bar(self):
-        self.assertRaises(pyparsing.ParseException, self.grammar.parseString, """assert abc |@ as asp|""", parseAll=True)
+    def test_no_aspect_name_with_alias_bracket(self):
+        self.assertRaises(pyparsing.ParseException, self.grammar.parseString, """assert abc [@ as asp]""", parseAll=True)
     
 class TestFunctions(unittest.TestCase):
 
@@ -201,22 +224,22 @@ class TestFunctions(unittest.TestCase):
     def test_function_reference_no_args(self):
         res = self.grammar.parseString(r"""assert abc xyz()""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'functionReference': {'functionName': 'xyz', 'functionArgs': []}}}}]})
+        self.assertEqual(res, {'xuleDoc': [{'body': {'exprName': 'functionReference', 'functionArgs': [], 'functionName': 'xyz'}, 'exprName': 'assertion', 'ruleName': 'abc', 'satisfactionType': 'satisfied'}]})
     
     def test_function_reference_one_args(self):
         res = self.grammar.parseString(r"""assert abc xyz(1)""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'functionReference': {'functionName': 'xyz', 'functionArgs': [{'integer': '1'}]}}}}]})
+        self.assertEqual(res, {'xuleDoc': [{'body': {'exprName': 'functionReference', 'functionArgs': [{'exprName': 'integer', 'value': '1'}], 'functionName': 'xyz'}, 'exprName': 'assertion', 'ruleName': 'abc', 'satisfactionType': 'satisfied'}]})
     
     def test_function_reference_two_args(self):
         res = self.grammar.parseString(r'''assert abc xyz(1,"arg1")''', parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'functionReference': {'functionName': 'xyz', 'functionArgs': [{'integer': '1'}, {'string': '"arg1"'}]}}}}]})
+        self.assertEqual(res, {'xuleDoc': [{'body': {'exprName': 'functionReference', 'functionArgs': [{'exprName': 'integer', 'value': '1'}, {'exprName': 'string', 'value': '"arg1"'}], 'functionName': 'xyz'}, 'exprName': 'assertion', 'ruleName': 'abc', 'satisfactionType': 'satisfied'}]})
     
     def test_function_reference_nested(self):
         res = self.grammar.parseString(r"""assert abc xyz(1,zzz(5))""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'functionReference': {'functionName': 'xyz', 'functionArgs': [{'integer': '1'}, {'functionReference': {'functionName': 'zzz', 'functionArgs': [{'integer': '5'}]}}]}}}}]})
+        self.assertEqual(res, {'xuleDoc': [{'body': {'exprName': 'functionReference', 'functionArgs': [{'exprName': 'integer', 'value': '1'}, {'exprName': 'functionReference', 'functionArgs': [{'exprName': 'integer', 'value': '5'}], 'functionName': 'zzz'}], 'functionName': 'xyz'}, 'exprName': 'assertion', 'ruleName': 'abc', 'satisfactionType': 'satisfied'}]})
     
 class TestLiterals(unittest.TestCase):
 
@@ -239,7 +262,7 @@ class TestLiterals(unittest.TestCase):
     def test_integer_postive(self):
         res = self.grammar.parseString(r"""assert abc +3""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'value': '+3', 'exprName': 'integer'}, 'exprName': 'assertion'}]})
+        self.assertEqual(res, {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'op': '+', 'expr': {'value': '3', 'exprName': 'integer'}, 'exprName': 'unaryExpr'}, 'exprName': 'assertion'}]})
     
     def test_float(self):
         res = self.grammar.parseString(r"""assert abc 2.3""", parseAll=True).asDict()
@@ -284,67 +307,67 @@ class TestLiterals(unittest.TestCase):
     def test_float_postitive_infinite(self):
         res = self.grammar.parseString(r"""assert abc +inf""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'float': '+INF'}}}]})
+        self.assertEqual(res, {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'op': '+', 'expr': {'value': 'INF', 'exprName': 'float'}, 'exprName': 'unaryExpr'}, 'exprName': 'assertion'}]})
     
     def test_float_negative_infinite(self):
         res = self.grammar.parseString(r"""assert abc -inf""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'float': '-INF'}}}]})
+        self.assertEqual(res, {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'op': '-', 'expr': {'value': 'INF', 'exprName': 'float'}, 'exprName': 'unaryExpr'}, 'exprName': 'assertion'}]})
     
     def test_float_infinite_mixed_case(self):
         res = self.grammar.parseString(r"""assert abc iNF""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'float': 'INF'}}}]})
+        self.assertEqual(res, {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'value': 'INF', 'exprName': 'float'}, 'exprName': 'assertion'}]})
     
     def test_string_single_quote(self):
         res = self.grammar.parseString(r"""assert abc 'abc'""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'string': "'abc'"}}}]})
+        self.assertEqual(res, {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'value': "'abc'", 'exprName': 'string'}, 'exprName': 'assertion'}]})
     
     def test_string_double_quote(self):
         res = self.grammar.parseString(r'''assert abc "abc"''', parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'string': '"abc"'}}}]})
+        self.assertEqual(res, {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'value': '"abc"', 'exprName': 'string'}, 'exprName': 'assertion'}]})
     
     def test_string_single_quote_escaped(self):
         res = self.grammar.parseString(r"""assert abc 'a\'bc'""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'string': "'a\\'bc'"}}}]})
+        self.assertEqual(res, {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'value': "'a\\'bc'", 'exprName': 'string'}, 'exprName': 'assertion'}]})
     
     def test_string_double_quote_escaped(self):
         res = self.grammar.parseString(r'''assert abc "ab\"c"''', parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'string': '"ab\\"c"'}}}]})
+        self.assertEqual(res, {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'value': '"ab\\"c"', 'exprName': 'string'}, 'exprName': 'assertion'}]})
     
     def test_qname_no_prefix(self):
         res = self.grammar.parseString(r"""assert abc hello""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'qname': {'localName': 'hello', 'prefix': '*'}}}}]})
+        self.assertEqual(res, {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'prefix': '*', 'localName': 'hello', 'exprName': 'qname'}, 'exprName': 'assertion'}]})
     
     def test_qname_with_prefix(self):
         res = self.grammar.parseString(r"""assert abc pre:hello""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'qname': {'localName': 'hello', 'prefix': 'pre'}}}}]})
+        self.assertEqual(res, {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'prefix': 'pre', 'localName': 'hello', 'exprName': 'qname'}, 'exprName': 'assertion'}]})
     
     def test_severity_literal_error(self):
         res = self.grammar.parseString(r"""assert abc error""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'severity': 'error'}}}]})
+        self.assertEqual(res, {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'value': 'error', 'exprName': 'severity'}, 'exprName': 'assertion'}]})
     
     def test_severity_literal_warning(self):
         res = self.grammar.parseString(r"""assert abc warning""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'severity': 'warning'}}}]})
+        self.assertEqual(res, {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'value': 'warning', 'exprName': 'severity'}, 'exprName': 'assertion'}]})
     
     def test_severity_literal_info(self):
         res = self.grammar.parseString(r"""assert abc info""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'severity': 'info'}}}]})
+        self.assertEqual(res, {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'prefix': '*', 'localName': 'info', 'exprName': 'qname'}, 'exprName': 'assertion'}]})
     
     def test_severity_literal_pass(self):
         res = self.grammar.parseString(r"""assert abc pass""", parseAll=True).asDict()
         
-        self.assertEqual(res, {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'severity': 'pass'}}}]})
+        self.assertEqual(res, {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'value': 'pass', 'exprName': 'severity'}, 'exprName': 'assertion'}]})
     
 class TestNotes(unittest.TestCase):
 

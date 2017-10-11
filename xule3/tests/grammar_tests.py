@@ -18,9 +18,9 @@ Factset = (
   'expr': 'assert abc {}',
   'result': {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factsetType': 'open', 'exprName': 'factset'}, 'exprName': 'assertion'}]}
  }
-,{'name': 'empty_factset_bar',
-  'expr': 'assert abc ||',
-  'result': {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factset': {'factsetType': 'closed'}}}}]}
+,{'name': 'empty_factset_bracket',
+  'expr': 'assert abc []',
+  'result': {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factsetType': 'closed', 'exprName': 'factset'}, 'exprName': 'assertion'}]}
  }
 ,{'name': 'empty_covered',
   'expr': 'assert abc {covered}',
@@ -48,23 +48,37 @@ Factset = (
   'result':
     {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'aspectFilters': [{'coverType': 'uncovered', 'exprName': 'aspectFilter'}], 'factsetType': 'open', 'exprName': 'factset'}, 'exprName': 'assertion'}]}
  }
-,{'name': 'empty_covered_bar',
-  'expr': 'assert abc |covered|',
+,{'name': 'empty_covered_bracket',
+  'expr': 'assert abc [covered]',
   'result':
-    {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factset': {'covered': True,
-                                     'factsetType': 'closed'}}}}]}
+    {'xuleDoc': [{'body': {'covered': True,
+                       'exprName': 'factset',
+                       'factsetType': 'closed'},
+              'exprName': 'assertion',
+              'ruleName': 'abc',
+              'satisfactionType': 'satisfied'}]}
  }
-,{'name': 'simple_aspect_bar',
-  'expr': 'assert abc |@|',
+,{'name': 'simple_aspect_bracket',
+  'expr': 'assert abc [@]',
   'result':
-    {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'coverType': 'covered'}}],
-                                     'factsetType': 'closed'}}}}]}
+    {'xuleDoc': [{'body': {'aspectFilters': [{'coverType': 'covered',
+                                          'exprName': 'aspectFilter'}],
+                       'exprName': 'factset',
+                       'factsetType': 'closed'},
+              'exprName': 'assertion',
+              'ruleName': 'abc',
+              'satisfactionType': 'satisfied'}]}
  }
-,{'name': 'simple_uncovered_aspect_bar',
-  'expr': 'assert abc |@@|',
+,{'name': 'simple_uncovered_aspect_bracket',
+  'expr': 'assert abc [@@]',
   'result':
-    {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'coverType': 'uncovered'}}],
-                                     'factsetType': 'closed'}}}}]}
+    {'xuleDoc': [{'body': {'aspectFilters': [{'coverType': 'uncovered',
+                                          'exprName': 'aspectFilter'}],
+                       'exprName': 'factset',
+                       'factsetType': 'closed'},
+              'exprName': 'assertion',
+              'ruleName': 'abc',
+              'satisfactionType': 'satisfied'}]}
  }
 ,{'name': 'named_common_aspect',
   'expr': 'assert abc @concept',
@@ -130,11 +144,15 @@ Factset = (
               'ruleName': 'abc',
               'satisfactionType': 'satisfied'}]}
  }
-,{'name': 'simple_where_bar',
-  'expr': 'assert abc |where 1|',
+,{'name': 'simple_where_bracket',
+  'expr': 'assert abc [where 1]',
   'result':
-    {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factset': {'factsetType': 'closed',
-                                     'whereExpr': {'integer': '1'}}}}}]}
+    {'xuleDoc': [{'body': {'exprName': 'factset',
+                       'factsetType': 'closed',
+                       'whereExpr': {'exprName': 'integer', 'value': '1'}},
+              'exprName': 'assertion',
+              'ruleName': 'abc',
+              'satisfactionType': 'satisfied'}]}
  }
 ,{'name': 'aspect_equal',
   'expr': 'assert abc @concept=block',
@@ -231,27 +249,35 @@ Factset = (
               'satisfactionType': 'satisfied'}]}
  }
 
-,{'name': 'aspect_equal_with_alias_bar',
-  'expr': 'assert abc |@concept=block as con|',
-  'expr_stop': 'aspectExpr',
+,{'name': 'aspect_equal_with_alias_bracket',
+  'expr': 'assert abc [@concept=block as con]',
   'result':
-    {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'factset': {'aspectFilters': [{'aspectFilter': {'aspectExpr': 'expr_stop',
-                                                              'aspectName': 'concept',
-                                                              'aspectOperator': '=',
-                                                              'coverType': 'covered',
-                                                              'alias': 'con'}
-                                             }],
-                          'factsetType': 'closed'}}}}]}
+   {'xuleDoc': [{'body': {'aspectFilters': [{'alias': 'con',
+                                          'aspectExpr': {'exprName': 'qname',
+                                                         'localName': 'block',
+                                                         'prefix': '*'},
+                                          'aspectName': 'concept',
+                                          'aspectOperator': '=',
+                                          'coverType': 'covered',
+                                          'exprName': 'aspectFilter'}],
+                       'exprName': 'factset',
+                       'factsetType': 'closed'},
+              'exprName': 'assertion',
+              'ruleName': 'abc',
+              'satisfactionType': 'satisfied'}]}
  }
-,{'name': 'aspect_with_alias_bar',
-  'expr': 'assert abc |@concept as con|',
+,{'name': 'aspect_with_alias_bracket',
+  'expr': 'assert abc [@concept as con]',
   'result':
-    {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': 
-                                {'factset': {'aspectFilters': [{'aspectFilter': {'aspectName': 'concept',
-                                                              'coverType': 'covered',
-                                                              'alias': 'con'}
-                                             }],
-                          'factsetType': 'closed'}}}}]}
+    {'xuleDoc': [{'body': {'aspectFilters': [{'alias': 'con',
+                                          'aspectName': 'concept',
+                                          'coverType': 'covered',
+                                          'exprName': 'aspectFilter'}],
+                       'exprName': 'factset',
+                       'factsetType': 'closed'},
+              'exprName': 'assertion',
+              'ruleName': 'abc',
+              'satisfactionType': 'satisfied'}]}
  }
 ,{'name': 'factset_expr',
   'expr': 'assert abc {4}',
@@ -264,7 +290,7 @@ Factset = (
               'satisfactionType': 'satisfied'}]}
 }
 ,{'name': 'factset_expr_where',
-  'expr': 'assert abc {4 where  5}',
+  'expr': 'assert abc {{4} where  5}',
   'result': 
     {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 
                                 'body': {'factset': {
@@ -273,7 +299,7 @@ Factset = (
                                                      'innerExpr': {'integer': '4'}}}}}]}  
 }
 ,{'name': 'factset_expr_aspect_where',
-  'expr': 'assert abc {@Assets 4 where  5}',
+  'expr': 'assert abc {@Assets {4} where  5}',
   'result': 
     {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 
                                 'body': {'factset': {
@@ -294,8 +320,8 @@ Factset = (
 ,{'name': 'no_aspect_name_with_alias_curly',
   'expr': 'assert abc {@ as asp}',
   'result': None}  
-,{'name': 'no_aspect_name_with_alias_bar',
-  'expr': 'assert abc |@ as asp|',
+,{'name': 'no_aspect_name_with_alias_bracket',
+  'expr': 'assert abc [@ as asp]',
   'result': None}                                           
 )
 
@@ -354,7 +380,7 @@ Literals = (
 }
 ,{'name': 'float_infinite_mixed_case',
   'expr': 'assert abc iNF',
-  'result':{'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'op': '-', 'expr': {'value': 'INF', 'exprName': 'float'}, 'exprName': 'unaryExpr'}, 'exprName': 'assertion'}]}
+  'result':{'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'value': 'INF', 'exprName': 'float'}, 'exprName': 'assertion'}]}
 } 
 ,{'name': 'string_single_quote',
   'expr': "assert abc 'abc'",
@@ -366,88 +392,181 @@ Literals = (
 }  
 ,{'name': 'string_single_quote_escaped',
   'expr': r"""assert abc 'a\'bc'""",
-  'result': {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 
-                                        'body': {'string': r"'a\'bc'"}}}]}}                       
+  'result': {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'value': "'a\\'bc'", 'exprName': 'string'}, 'exprName': 'assertion'}]}
+  }                       
 ,{'name': 'string_double_quote_escaped',
   'expr': r'''assert abc "ab\"c"''',
-  'result': {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 
-                                        'body': {'string': r'"ab\"c"'}}}]}}  
+  'result': {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'value': '"ab\\"c"', 'exprName': 'string'}, 'exprName': 'assertion'}]}
+  }  
 ,{'name': 'qname_no_prefix',
   'expr': 'assert abc hello',
-  'result': {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied',
-                                        'body': {'qname': {'localName': 'hello', 'prefix': '*'}}}}]}}
+  'result': {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'prefix': '*', 'localName': 'hello', 'exprName': 'qname'}, 'exprName': 'assertion'}]}
+  }
 ,{'name': 'qname_with_prefix',
   'expr': 'assert abc pre:hello',
-  'result': {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied',
-                                        'body': {'qname': {'localName': 'hello', 'prefix': 'pre'}}}}]}}
+  'result': {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'prefix': 'pre', 'localName': 'hello', 'exprName': 'qname'}, 'exprName': 'assertion'}]}
+  }
 ,{'name': 'severity_literal_error',
   'expr': 'assert abc error',
-  'result': {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied',
-                                        'body': {'severity': 'error'}}}]}}
+  'result': {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'value': 'error', 'exprName': 'severity'}, 'exprName': 'assertion'}]}
+  }
 ,{'name': 'severity_literal_warning',
   'expr': 'assert abc warning',
-  'result': {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied',
-                                        'body': {'severity': 'warning'}}}]}}
+  'result': {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'value': 'warning', 'exprName': 'severity'}, 'exprName': 'assertion'}]}
+  }
 ,{'name': 'severity_literal_info',
   'expr': 'assert abc info',
-  'result': {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied',
-                                        'body': {'severity': 'info'}}}]}}
+  'result': {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'prefix': '*', 'localName': 'info', 'exprName': 'qname'}, 'exprName': 'assertion'}]}
+  }
 ,{'name': 'severity_literal_pass',
   'expr': 'assert abc pass',
-  'result': {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied',
-                                        'body': {'severity': 'pass'}}}]}}
+  'result': {'xuleDoc': [{'ruleName': 'abc', 'satisfactionType': 'satisfied', 'body': {'value': 'pass', 'exprName': 'severity'}, 'exprName': 'assertion'}]}
+  }
 ) 
 
 Functions = (
  {'name': 'function_reference_no_args',
   'expr': 'assert abc xyz()',
-  'result': {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied',
-                                        'body': {'functionReference': {
-                                                                       'functionName': 'xyz',
-                                                                       'functionArgs': []
-                                                                       }}}}]}}
+  'result': {'xuleDoc': [{'body': {'exprName': 'functionReference',
+                       'functionArgs': [],
+                       'functionName': 'xyz'},
+              'exprName': 'assertion',
+              'ruleName': 'abc',
+              'satisfactionType': 'satisfied'}]}
+  }
 ,{'name': 'function_reference_one_args',
   'expr': 'assert abc xyz(1)',
-  'result': {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied',
-                                        'body': {'functionReference': {
-                                                                       'functionName': 'xyz',
-                                                                       'functionArgs': [
-                                                                                        {'integer': '1'}
-                                                                                        ]
-                                                                       }}}}]}}
+  'result': {'xuleDoc': [{'body': {'exprName': 'functionReference',
+                       'functionArgs': [{'exprName': 'integer', 'value': '1'}],
+                       'functionName': 'xyz'},
+              'exprName': 'assertion',
+              'ruleName': 'abc',
+              'satisfactionType': 'satisfied'}]}
+  }
 ,{'name': 'function_reference_two_args',
   'expr': 'assert abc xyz(1,"arg1")',
-  'result': {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied',
-                                        'body': {'functionReference': {
-                                                                       'functionName': 'xyz',
-                                                                       'functionArgs': [
-                                                                                        {'integer': '1'},
-                                                                                        {'string': '"arg1"'}
-                                                                                        ]
-                                                                       }}}}]}}
+  'result': {'xuleDoc': [{'body': {'exprName': 'functionReference',
+                       'functionArgs': [{'exprName': 'integer', 'value': '1'},
+                                        {'exprName': 'string',
+                                         'value': '"arg1"'}],
+                       'functionName': 'xyz'},
+              'exprName': 'assertion',
+              'ruleName': 'abc',
+              'satisfactionType': 'satisfied'}]}
+  }
 ,{'name': 'function_reference_nested',
   'expr': 'assert abc xyz(1,zzz(5))',
-  'result': {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied',
-                                        'body': {'functionReference': {
-                                                                       'functionName': 'xyz',
-                                                                       'functionArgs': [
-                                                                                        {'integer': '1'},
-                                                                                        {'functionReference': {
-                                                                                                               'functionName': 'zzz',
-                                                                                                               'functionArgs': [
-                                                                                                                                {'integer': '5'}
-                                                                                                                                ]
-                                                                                                               }
-                                                                                         
-                                                                                         }
-                                                                                        ]
-                                                                       }}}}]}}
+  'result': {'xuleDoc': [{'body': {'exprName': 'functionReference',
+                       'functionArgs': [{'exprName': 'integer', 'value': '1'},
+                                        {'exprName': 'functionReference',
+                                         'functionArgs': [{'exprName': 'integer',
+                                                           'value': '5'}],
+                                         'functionName': 'zzz'}],
+                       'functionName': 'xyz'},
+              'exprName': 'assertion',
+              'ruleName': 'abc',
+              'satisfactionType': 'satisfied'}]}
+  }
              
 )
 
 Variables = (
 
 
+)
+
+
+Constants = (
+{'name': 'constant_as_function',
+  'expr': 'constant abc = xyz()',
+  'result': {'xuleDoc': [{'body': {'exprName': 'functionReference',
+                       'functionArgs': [],
+                       'functionName': 'xyz'},
+              'constantName': 'abc',
+              'exprName': 'constantDeclaration'}]}
+  }
+,{'name': 'constant_as_value',
+  'expr': 'constant abc = 4',
+  'result': {'xuleDoc': [{'constantName': 'abc', 'body': {'value': '4', 'exprName': 'integer'}, 'exprName': 'constantDeclaration'}]}
+  }
+,{'name': 'constant_as_list',
+  'expr': 'constant abc = (4,5,6)',
+  'result': {'xuleDoc': [{'body': {'exprName': 'functionReference',
+                       'functionArgs': [{'exprName': 'integer', 'value': '4'},
+                                        {'exprName': 'integer', 'value': '5'},
+                                        {'exprName': 'integer', 'value': '6'}],
+                       'functionName': 'list'},
+              'constantName': 'abc',
+              'exprName': 'constantDeclaration'}]}
+  }
+# ,{'name': 'constant_as_list_in_list',
+#   'expr': 'constant abc = ((a,b) , (y,z))',
+#   'result': {'xuleDoc': [{'body': {'exprName': 'functionReference',
+#                        'functionArgs': [{'exprName': 'functionReference',
+#                                          'functionArgs': [{'exprName': 'qname',
+#                                                            'localName': 'a',
+#                                                            'prefix': '*'},
+#                                                           {'exprName': 'qname',
+#                                                            'localName': 'b',
+#                                                            'prefix': '*'}],
+#                                          'functionName': 'list'},
+#                                         {'exprName': 'functionReference',
+#                                          'functionArgs': [{'exprName': 'qname',
+#                                                            'localName': 'y',
+#                                                            'prefix': '*'},
+#                                                           {'exprName': 'qname',
+#                                                            'localName': 'z',
+#                                                            'prefix': '*'}],
+#                                          'functionName': 'list'}],
+#                        'functionName': 'list'},
+#               'constantName': 'abc',
+#               'exprName': 'constantDeclaration'}]}
+# 
+#     }
+# ,{'name': 'constant_as_add_list',
+#   'expr': 'constant abc = ((a,b) + (x,y))',
+#   'result': {'xuleDoc': [{'body': {'exprName': 'addExpr',
+#                        'leftExpr': {'exprName': 'functionReference',
+#                                     'functionArgs': [{'exprName': 'qname',
+#                                                       'localName': 'a',
+#                                                       'prefix': '*'},
+#                                                      {'exprName': 'qname',
+#                                                       'localName': 'b',
+#                                                       'prefix': '*'}],
+#                                     'functionName': 'list'},
+#                        'rights': [{'exprName': 'rightOperation',
+#                                    'op': '+',
+#                                    'rightExpr': {'exprName': 'functionReference',
+#                                                  'functionArgs': [{'exprName': 'qname',
+#                                                                    'localName': 'x',
+#                                                                    'prefix': '*'},
+#                                                                   {'exprName': 'qname',
+#                                                                    'localName': 'y',
+#                                                                    'prefix': '*'}],
+#                                                  'functionName': 'list'}}]},
+#               'constantName': 'abc',
+#               'exprName': 'constantDeclaration'}]}
+# 
+#     }
+# ,{'name': 'constant_as_add_multil_ist',
+#   'expr': 'constant abc = ((a) + (z)+(g))',
+#   'result': {'xuleDoc': [{'body': {'exprName': 'addExpr',
+#                        'leftExpr': {'exprName': 'qname',
+#                                     'localName': 'a',
+#                                     'prefix': '*'},
+#                        'rights': [{'exprName': 'rightOperation',
+#                                    'op': '+',
+#                                    'rightExpr': {'exprName': 'qname',
+#                                                  'localName': 'z',
+#                                                  'prefix': '*'}},
+#                                   {'exprName': 'rightOperation',
+#                                    'op': '+',
+#                                    'rightExpr': {'exprName': 'qname',
+#                                                  'localName': 'g',
+#                                                  'prefix': '*'}}]},
+#               'constantName': 'abc',
+#               'exprName': 'constantDeclaration'}]}
+#     }      
 )
 
 Notes = (
