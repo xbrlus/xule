@@ -2226,7 +2226,6 @@ def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non
 def evaluate_navigate(nav_expr, xule_context):
     
     '''WILL NEED TO HANDLE CASE WHEN THERE IS NOT AN ARCROLE. THIS WILL NEED TO GATHER ALL THE BASESETS ACROSS ALL ARCROLLS'''
-    '''NEED TO HANDLE BASE TAXONOMY.'''
     if 'arcrole' not in nav_expr:
         raise XuleProcesingError(_("Not including an arcrole for navigation is currently not supported."))
     
@@ -2234,7 +2233,7 @@ def evaluate_navigate(nav_expr, xule_context):
     if 'taxonomy' in nav_expr:
         dts_value = evaluate(nav_expr['taxonomy'], xule_context)
         if dts_value.type != 'taxonomy':
-            raise XuleProcessingError(_("Expecting a taxonomy for the 'in' clause of navigate. Found {}.".format(dts_value.type)), xule_context)
+            raise XuleProcessingError(_("Expecting a taxonomy for the 'taxonomy' clause of navigate. Found {}.".format(dts_value.type)), xule_context)
         dts = dts_value.value
     else:
         # Default to the taxonomy of the instance
@@ -2273,13 +2272,13 @@ def evaluate_navigate(nav_expr, xule_context):
         else:
             from_concepts = nav_from_concepts
         for from_concept in from_concepts:
-            if direction == 'self':
-                # include_start is always False for the self direction since the self concept is always included.
-                for rel in relationship_set.fromModelObject(from_concept):
-                    result_items += nav_decorate({'relationship': rel, 'network': get_network_info(relationship_set, xule_context)}, 'from', return_names, False, xule_context)
-                for rel in relationship_set.toModelObject(from_concept):
-                    result_items += nav_decorate({'relationship':rel, 'network': get_network_info(relationship_set, xule_context)}, 'to', return_names, False, xule_context) 
-                #result_items += list(y for y in (nav_decorate(rel, 'from', nav_expr, False, xule_context) for rel in relationship_set.fromModelObject(from_concept))) + list(y for y in (nav_decorate(rel, 'to', nav_expr, xule_context) for rel in relationship_set.toModelObject(from_concept))) # This will be a list            
+#             if direction == 'self':
+#                 # include_start is always False for the self direction since the self concept is always included.
+#                 for rel in relationship_set.fromModelObject(from_concept):
+#                     result_items += nav_decorate({'relationship': rel, 'network': get_network_info(relationship_set, xule_context)}, 'from', return_names, False, xule_context)
+#                 for rel in relationship_set.toModelObject(from_concept):
+#                     result_items += nav_decorate({'relationship':rel, 'network': get_network_info(relationship_set, xule_context)}, 'to', return_names, False, xule_context) 
+#                 #result_items += list(y for y in (nav_decorate(rel, 'from', nav_expr, False, xule_context) for rel in relationship_set.fromModelObject(from_concept))) + list(y for y in (nav_decorate(rel, 'to', nav_expr, xule_context) for rel in relationship_set.toModelObject(from_concept))) # This will be a list            
             if direction == 'descendants':
                 for rel in nav_traverse('down', relationship_set, from_concept, nav_to_concepts, int(nav_expr['depth']), return_names):
                     result_items += nav_decorate(rel, 'down', return_names, include_start, xule_context)
@@ -2292,7 +2291,28 @@ def evaluate_navigate(nav_expr, xule_context):
             if direction == 'parents':
                 for rel in nav_traverse('up', relationship_set, from_concept, nav_to_concepts, 1, return_names):
                     result_items += nav_decorate(rel, 'to', return_names, include_start, xule_context)
-
+            if direction == 'siblings':
+                for parent_rel in nav_traverse('up', relationship_set, from_concept, None, 1, list()):
+                    for sibling_rel in nav_traverse('down', relationship_set, parent_rel['relationship'].fromModelObject, nav_to_concepts, 1, return_names):
+                        if include_start or sibling_rel['relationship'] is not parent_rel['relationship']:
+                            result_items += nav_decorate(sibling_rel, 'to', return_names, False, xule_context)
+            if direction == 'previous-siblings':
+                for parent_rel in nav_traverse('up', relationship_set, from_concept, None, 1, list()):
+                    for sibling_rel in nav_traverse('down', relationship_set, parent_rel['relationship'].fromModelObject, nav_to_concepts, 1, return_names):
+                        if include_start or sibling_rel['relationship'] is not parent_rel['relationship']:
+                            result_items += nav_decorate(sibling_rel, 'to', return_names, False, xule_context)                
+                        if sibling_rel['relationship'] is parent_rel['relationship']:
+                            break # We are done.            
+            if direction == 'following-siblings':
+                for parent_rel in nav_traverse('up', relationship_set, from_concept, None, 1, list()):
+                    start_rel_found = False
+                    for sibling_rel in nav_traverse('down', relationship_set, parent_rel['relationship'].fromModelObject, nav_to_concepts, 1, return_names):
+                        if sibling_rel['relationship'] is parent_rel['relationship']:
+                            start_rel_found = True
+                        if start_rel_found:
+                            if include_start or sibling_rel['relationship'] is not parent_rel['relationship']:
+                                result_items += nav_decorate(sibling_rel, 'to', return_names, False, xule_context)                
+                                   
     return nav_finish_results(nav_expr, result_items, xule_context)
 
 def nav_traverse(direction, network, parent, end_concepts, remaining_depth, return_names, previous_concepts=None, nav_depth=1, result_order=0, arc_attribute_names=None):
@@ -2317,7 +2337,10 @@ def nav_traverse(direction, network, parent, end_concepts, remaining_depth, retu
         first_time = True
     else:
         first_time = False
-        
+    
+    if end_concepts is None:
+        end_concepts = set()
+    
     #initialize depth
     if remaining_depth == -1:
         depth = float('inf') 
@@ -2330,6 +2353,7 @@ def nav_traverse(direction, network, parent, end_concepts, remaining_depth, retu
     
     children_method = network.fromModelObject if direction == 'down' else network.toModelObject
     for rel_number, rel in enumerate(sorted(children_method(parent),key=lambda x: x.order or 1), 1):
+        inner_children = list()
         result_order += 1
         child = rel.toModelObject if direction == 'down' else rel.fromModelObject
         rel_info = {'relationship':rel}
@@ -2346,16 +2370,23 @@ def nav_traverse(direction, network, parent, end_concepts, remaining_depth, retu
         for arc_attribute_name in arc_attribute_names:
             rel_info[arc_attribute_name] = rel.arcElement.get(arc_attribute_name.clarkNotation)
             
-        children.append(rel_info)
-        if child not in previous_concepts:
-            previous_concepts.add(child)
-            children += nav_traverse(direction, network, child, end_concepts, remaining_depth - 1, return_names, previous_concepts, nav_depth + 1, result_order, arc_attribute_names)
-            if 'result-order' in return_names:
-                result_order = children[-1]['result-order']
-        else:
-            #indicates a cycle
-            rel_info['cycle'] = True
-            
+        inner_children.append(rel_info)
+        if child not in end_concepts:
+            if child not in previous_concepts:
+                previous_concepts.add(child)
+                next_children = nav_traverse(direction, network, child, end_concepts, remaining_depth - 1, return_names, previous_concepts, nav_depth + 1, result_order, arc_attribute_names)
+                if len(next_children) == 0 and len(end_concepts) > 0: # The to concept was never found
+                    inner_children = list()
+                else:
+                    inner_children += next_children 
+                    if 'result-order' in return_names:
+                        result_order = inner_children[-1]['result-order']
+            else:
+                #indicates a cycle
+                rel_info['cycle'] = True
+        if len(end_concepts) == 0 or child in end_concepts:
+            children += inner_children
+
     return children
 
 def nav_get_role(nav_expr, role_type, dts, xule_context):
@@ -2458,7 +2489,8 @@ def nav_decorate(rel, direction, return_names, include_start, xule_context):
     Arguments:
         rel (dict): A dition of the relationship and additional information from the traversal
         direction (string): 'up' or 'down'. Direction of the traversal
-        nav_expr (dict): Navigation expression AST node
+        return_names (list of strings): List of the return components to decoreate the relationship.
+        include_start (boolean or 'start_only'): Indicates if the start concept should be returned.
         xule_context (XuleRuleContext): Processing context
         
     Returns:
@@ -2488,7 +2520,10 @@ def get_return_component_names(nav_expr, xule_context):
                     component_names.append(component_name_value.value)
                 else:
                     component_names.append(component)
-    
+        else:
+            component_names.append('target')
+    else:
+        component_names.append('target')
     return component_names
     
     #nav_expr.get('return', {'returnComponents': ('target',)}).get('returnComponents', ('target',))
