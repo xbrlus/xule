@@ -276,11 +276,11 @@ def get_grammar():
     
     factsetInner = (Optional(covered) + 
                     ZeroOrMore(Group(aspectFilter)).setResultsName('aspectFilters') +
-                    Optional((whereClause) | blockExpr.setResultsName('innerExpr')
-#                     Optional(~ where + blockExpr.setResultsName('innerExpr') ) |
-#                     Optional(whereClause)
+#                     Optional((whereClause) | blockExpr.setResultsName('innerExpr')
+                    Optional(~ where + blockExpr.setResultsName('innerExpr') ) +
+                    Optional(whereClause)
                     )
-                    )
+                    
     
     factset = Group(
                 (       
