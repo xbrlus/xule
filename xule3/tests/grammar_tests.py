@@ -290,27 +290,31 @@ Factset = (
               'satisfactionType': 'satisfied'}]}
 }
 ,{'name': 'factset_expr_where',
-  'expr': 'assert abc {{4} where  5}',
+  'expr': 'assert abc {4 where  5}',
   'result': 
-    {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 
-                                'body': {'factset': {
-                                                     'factsetType': 'open',
-                                                     'whereExpr': {'integer': '5'},
-                                                     'innerExpr': {'integer': '4'}}}}}]}  
+    {'xuleDoc': [{'body': {'exprName': 'factset',
+                       'factsetType': 'open',
+                       'innerExpr': {'exprName': 'integer', 'value': '4'},
+                       'whereExpr': {'exprName': 'integer', 'value': '5'}},
+              'exprName': 'assertion',
+              'ruleName': 'abc',
+              'satisfactionType': 'satisfied'}]} 
 }
 ,{'name': 'factset_expr_aspect_where',
-  'expr': 'assert abc {@Assets {4} where  5}',
+  'expr': 'assert abc {@Assets 4 where  5}',
   'result': 
-    {'xuleDoc': [{'assertion': {'ruleName': 'abc', 'satisfactionType': 'satisfied', 
-                                'body': {'factset': {
-                                                     'factsetType': 'open',
-                                                     'whereExpr': {'integer': '5'},
-                                                     'innerExpr': {'integer': '4'},
-                                                     
-                                                     'aspectFilters': [{'aspectFilter': {'aspectDimensionName': {'localName': 'Assets',
-                                                                                                                 'prefix': '*'},
-                                                                                          'coverType': 'covered'}}]
-                                                     }}}}]}  
+    {'xuleDoc': [{'body': {'aspectFilters': [{'aspectDimensionName': {'exprName': 'qname',
+                                                                  'localName': 'Assets',
+                                                                  'prefix': '*'},
+                                          'coverType': 'covered',
+                                          'exprName': 'aspectFilter'}],
+                       'exprName': 'factset',
+                       'factsetType': 'open',
+                       'innerExpr': {'exprName': 'integer', 'value': '4'},
+                       'whereExpr': {'exprName': 'integer', 'value': '5'}},
+              'exprName': 'assertion',
+              'ruleName': 'abc',
+              'satisfactionType': 'satisfied'}]} 
 }           
            
 ,{'name': 'no_aspect_name_with_alias',
@@ -490,7 +494,7 @@ Constants = (
   'result': {'xuleDoc': [{'constantName': 'abc', 'body': {'value': '4', 'exprName': 'integer'}, 'exprName': 'constantDeclaration'}]}
   }
 ,{'name': 'constant_as_list',
-  'expr': 'constant abc = (4,5,6)',
+  'expr': 'constant abc = list(4,5,6)',
   'result': {'xuleDoc': [{'body': {'exprName': 'functionReference',
                        'functionArgs': [{'exprName': 'integer', 'value': '4'},
                                         {'exprName': 'integer', 'value': '5'},
@@ -499,74 +503,80 @@ Constants = (
               'constantName': 'abc',
               'exprName': 'constantDeclaration'}]}
   }
-# ,{'name': 'constant_as_list_in_list',
-#   'expr': 'constant abc = ((a,b) , (y,z))',
-#   'result': {'xuleDoc': [{'body': {'exprName': 'functionReference',
-#                        'functionArgs': [{'exprName': 'functionReference',
-#                                          'functionArgs': [{'exprName': 'qname',
-#                                                            'localName': 'a',
-#                                                            'prefix': '*'},
-#                                                           {'exprName': 'qname',
-#                                                            'localName': 'b',
-#                                                            'prefix': '*'}],
-#                                          'functionName': 'list'},
-#                                         {'exprName': 'functionReference',
-#                                          'functionArgs': [{'exprName': 'qname',
-#                                                            'localName': 'y',
-#                                                            'prefix': '*'},
-#                                                           {'exprName': 'qname',
-#                                                            'localName': 'z',
-#                                                            'prefix': '*'}],
-#                                          'functionName': 'list'}],
-#                        'functionName': 'list'},
-#               'constantName': 'abc',
-#               'exprName': 'constantDeclaration'}]}
-# 
-#     }
-# ,{'name': 'constant_as_add_list',
-#   'expr': 'constant abc = ((a,b) + (x,y))',
-#   'result': {'xuleDoc': [{'body': {'exprName': 'addExpr',
-#                        'leftExpr': {'exprName': 'functionReference',
-#                                     'functionArgs': [{'exprName': 'qname',
-#                                                       'localName': 'a',
-#                                                       'prefix': '*'},
-#                                                      {'exprName': 'qname',
-#                                                       'localName': 'b',
-#                                                       'prefix': '*'}],
-#                                     'functionName': 'list'},
-#                        'rights': [{'exprName': 'rightOperation',
-#                                    'op': '+',
-#                                    'rightExpr': {'exprName': 'functionReference',
-#                                                  'functionArgs': [{'exprName': 'qname',
-#                                                                    'localName': 'x',
-#                                                                    'prefix': '*'},
-#                                                                   {'exprName': 'qname',
-#                                                                    'localName': 'y',
-#                                                                    'prefix': '*'}],
-#                                                  'functionName': 'list'}}]},
-#               'constantName': 'abc',
-#               'exprName': 'constantDeclaration'}]}
-# 
-#     }
-# ,{'name': 'constant_as_add_multil_ist',
-#   'expr': 'constant abc = ((a) + (z)+(g))',
-#   'result': {'xuleDoc': [{'body': {'exprName': 'addExpr',
-#                        'leftExpr': {'exprName': 'qname',
-#                                     'localName': 'a',
-#                                     'prefix': '*'},
-#                        'rights': [{'exprName': 'rightOperation',
-#                                    'op': '+',
-#                                    'rightExpr': {'exprName': 'qname',
-#                                                  'localName': 'z',
-#                                                  'prefix': '*'}},
-#                                   {'exprName': 'rightOperation',
-#                                    'op': '+',
-#                                    'rightExpr': {'exprName': 'qname',
-#                                                  'localName': 'g',
-#                                                  'prefix': '*'}}]},
-#               'constantName': 'abc',
-#               'exprName': 'constantDeclaration'}]}
-#     }      
+,{'name': 'constant_as_list_in_list',
+  'expr': 'constant abc = list(list(a,b) , list(y,z))',
+  'result': {'xuleDoc': [{'body': {'exprName': 'functionReference',
+                       'functionArgs': [{'exprName': 'functionReference',
+                                         'functionArgs': [{'exprName': 'qname',
+                                                           'localName': 'a',
+                                                           'prefix': '*'},
+                                                          {'exprName': 'qname',
+                                                           'localName': 'b',
+                                                           'prefix': '*'}],
+                                         'functionName': 'list'},
+                                        {'exprName': 'functionReference',
+                                         'functionArgs': [{'exprName': 'qname',
+                                                           'localName': 'y',
+                                                           'prefix': '*'},
+                                                          {'exprName': 'qname',
+                                                           'localName': 'z',
+                                                           'prefix': '*'}],
+                                         'functionName': 'list'}],
+                       'functionName': 'list'},
+              'constantName': 'abc',
+              'exprName': 'constantDeclaration'}]}
+ 
+    }
+,{'name': 'constant_as_add_list',
+  'expr': 'constant abc = list(a,b) + list(x,y)',
+  'result': {'xuleDoc': [{'body': {'exprName': 'addExpr',
+                       'leftExpr': {'exprName': 'functionReference',
+                                    'functionArgs': [{'exprName': 'qname',
+                                                      'localName': 'a',
+                                                      'prefix': '*'},
+                                                     {'exprName': 'qname',
+                                                      'localName': 'b',
+                                                      'prefix': '*'}],
+                                    'functionName': 'list'},
+                       'rights': [{'exprName': 'rightOperation',
+                                   'op': '+',
+                                   'rightExpr': {'exprName': 'functionReference',
+                                                 'functionArgs': [{'exprName': 'qname',
+                                                                   'localName': 'x',
+                                                                   'prefix': '*'},
+                                                                  {'exprName': 'qname',
+                                                                   'localName': 'y',
+                                                                   'prefix': '*'}],
+                                                 'functionName': 'list'}}]},
+              'constantName': 'abc',
+              'exprName': 'constantDeclaration'}]}
+ 
+    }
+,{'name': 'constant_as_add_multi_list',
+  'expr': 'constant abc = list(a) + list(z) + list(g)',
+  'result': {'xuleDoc': [{'body': {'exprName': 'addExpr',
+                       'leftExpr': {'exprName': 'functionReference',
+                                    'functionArgs': [{'exprName': 'qname',
+                                                      'localName': 'a',
+                                                      'prefix': '*'}],
+                                    'functionName': 'list'},
+                       'rights': [{'exprName': 'rightOperation',
+                                   'op': '+',
+                                   'rightExpr': {'exprName': 'functionReference',
+                                                 'functionArgs': [{'exprName': 'qname',
+                                                                   'localName': 'z',
+                                                                   'prefix': '*'}],
+                                                 'functionName': 'list'}},
+                                  {'exprName': 'rightOperation',
+                                   'op': '+',
+                                   'rightExpr': {'exprName': 'functionReference',
+                                                 'functionArgs': [{'exprName': 'qname',
+                                                                   'localName': 'g',
+                                                                   'prefix': '*'}],
+                                                 'functionName': 'list'}}]},
+              'constantName': 'abc',
+              'exprName': 'constantDeclaration'}]}
+    }      
 )
 
 Notes = (
