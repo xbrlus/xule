@@ -436,9 +436,9 @@ def get_grammar():
             qName |
             
             # parenthesized expression
-            (Suppress(lParen) + blockExpr + Suppress(rParen)) |
+            (Suppress(lParen) + blockExpr + Suppress(rParen)) #|
             #list literal - needs to be at the end.
-            listLiteral 
+            #listLiteral 
             )
 
     #expressions with precedence.
