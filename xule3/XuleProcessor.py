@@ -2313,7 +2313,7 @@ def evaluate_navigate(nav_expr, xule_context):
                             if include_start or sibling_rel['relationship'] is not parent_rel['relationship']:
                                 result_items += nav_decorate(sibling_rel, 'to', return_names, False, xule_context)                
                                    
-    return nav_finish_results(nav_expr, result_items, xule_context)
+    return nav_finish_results(nav_expr, result_items, 'result-order' in return_names, xule_context)
 
 def nav_traverse(direction, network, parent, end_concepts, remaining_depth, return_names, previous_concepts=None, nav_depth=1, result_order=0, arc_attribute_names=None):
     """Traverse a network
@@ -2365,8 +2365,8 @@ def nav_traverse(direction, network, parent, end_concepts, remaining_depth, retu
             rel_info['navigation-order'] = rel_number
         if 'navigation-depth' in return_names:
             rel_info['navigation-depth'] = nav_depth
-        if 'result-order' in return_names:
-            rel_info['result-order'] = result_order
+#         if 'result-order' in return_names:
+#             rel_info['result-order'] = result_order
         for arc_attribute_name in arc_attribute_names:
             rel_info[arc_attribute_name] = rel.arcElement.get(arc_attribute_name.clarkNotation)
             
@@ -2379,8 +2379,8 @@ def nav_traverse(direction, network, parent, end_concepts, remaining_depth, retu
                     inner_children = list()
                 else:
                     inner_children += next_children 
-                    if 'result-order' in return_names:
-                        result_order = inner_children[-1]['result-order']
+#                     if 'result-order' in return_names:
+#                         result_order = inner_children[-1]['result-order']
             else:
                 #indicates a cycle
                 rel_info['cycle'] = True
@@ -2548,9 +2548,10 @@ def nav_decorate_gather_components(rel, direction, component_names, is_start, xu
     result = list()
     
     for component_name in component_names:
-        result.append(nav_decorate_component_value(rel, direction, component_name, is_start, xule_context))
-    
-    return tuple(result)
+        if component_name != 'result-order':
+            result.append(nav_decorate_component_value(rel, direction, component_name, is_start, xule_context))
+        # result-order is handled in the nav_finish step.
+    return result
 
 def nav_decorate_component_value(rel, direction, component_name, is_start, xule_context):
     """Get the return component value for a relationship and a single return component.
@@ -2763,7 +2764,7 @@ NAVIGATE_RETURN_COMPONENTS = {'source': (nav_decorate_component_source, False),
                               }
 
 
-def nav_finish_results(nav_expr, return_items, xule_context):
+def nav_finish_results(nav_expr, return_items, add_result_order, xule_context):
     results = list()
     result_shadow = list()
     
@@ -2771,8 +2772,15 @@ def nav_finish_results(nav_expr, return_items, xule_context):
         return_type = nav_expr['return'].get('returnType', 'list')
     else:
         return_type = 'list'
-        
+    
+    if add_result_order:
+        cur_order = 1
+    
     for return_item in return_items:
+        if add_result_order:
+            return_item.append((cur_order, 'int', 'result-order'))
+            cur_order += 1
+            
         if len(return_item) == 1:
             # A list of single items is returned. 
             # The return item only has one return component
