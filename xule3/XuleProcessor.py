@@ -2384,8 +2384,8 @@ def nav_traverse(direction, network, parent, end_concepts, remaining_depth, retu
             else:
                 #indicates a cycle
                 rel_info['cycle'] = True
-        if len(end_concepts) == 0 or child in end_concepts:
-            children += inner_children
+
+        children += inner_children
 
     return children
 
