@@ -2264,7 +2264,11 @@ def evaluate_navigate(nav_expr, xule_context):
                                                                            x[NETWORK_ARC])
                          for x in relationship_set_infos]
     
-    result_items = list()
+    return_by_networks = nav_expr.get('return', dict()).get('byNetwork', False)
+    if return_by_networks:
+        results_by_networks = dict()
+    
+    result_items = list()    
     for relationship_set in relationship_sets:
         if nav_from_concepts is None:
             # The from was not in tne navigate expression. Use the roots
@@ -2312,8 +2316,16 @@ def evaluate_navigate(nav_expr, xule_context):
                         if start_rel_found:
                             if include_start or sibling_rel['relationship'] is not parent_rel['relationship']:
                                 result_items += nav_decorate(sibling_rel, 'to', return_names, False, xule_context)                
-                                   
-    return nav_finish_results(nav_expr, result_items, 'result-order' in return_names, xule_context)
+        
+        if return_by_networks:
+            if len(result_items) > 0:
+                results_by_networks[get_network_info(relationship_set, xule_context)] = result_items
+            result_items = list()
+    
+    if return_by_networks:
+        return nav_finish_results(nav_expr, results_by_networks, 'result-order' in return_names, xule_context)
+    else:
+        return nav_finish_results(nav_expr, result_items, 'result-order' in return_names, xule_context)
 
 def nav_traverse(direction, network, parent, end_concepts, remaining_depth, return_names, previous_concepts=None, nav_depth=1, result_order=0, arc_attribute_names=None):
     """Traverse a network
@@ -2658,7 +2670,7 @@ def nav_decorate_component_relationship(rel, direction, component_name, xule_con
     return (rel['relationship'], 'relationship', component_name)
 
 def nav_decorate_component_role(rel, direction, component_name, xule_context):
-    role = get_role(rel['relatoinship'], xule_context)
+    role = get_role(rel['relationship'], xule_context)
     return (role, 'role', component_name)
 
 def get_role(relationship, xule_context):
@@ -2765,49 +2777,92 @@ NAVIGATE_RETURN_COMPONENTS = {'source': (nav_decorate_component_source, False),
 
 
 def nav_finish_results(nav_expr, return_items, add_result_order, xule_context):
-    results = list()
-    result_shadow = list()
+    """Format the results of navigation.
     
+    This function processes the list of results and puts them in their final form.
+    The options for the final forma are if the results are:
+     1. a list of relationships
+     2. a set of relations
+     3. a dictionary organzed by network of relationships
+     4. a nested list of paths of the traversal. The outer list is a path and the inner list contains the relationships that make up the path.
+
+    Arguments:
+        nav_expr (dictionary): The navigation expression AST node
+        return_items (list): The list of the decorated return items. 
+        add_result_order (bool): An indicator if the result order should be added to the results. This is calculated as the return_items are processed.
+        xule_context (XuleRuleContext): The processing context.
+        
+    Returns a XuleValue which is the final result of the navigation.
+    """
+        
+    if nav_expr.get('return', dict()).get('byNetwork', False):
+        by_network = dict()
+        by_network_shadow = dict()
+        for network, network_return_items in return_items.items():
+            processed_items = nav_finish_return_items(nav_expr, network_return_items, add_result_order, xule_context)
+            by_network[XuleValue(xule_context, network, 'network')] = processed_items
+            by_network_shadow[network] = processed_items.shadow_collection
+        return XuleValue(xule_context, frozenset(by_network.items()), 'dictionary', shadow_collection=frozenset(by_network_shadow.items()))
+    else:
+        return nav_finish_return_items(nav_expr, return_items, add_result_order, xule_context)
+    
+def nav_finish_return_items(nav_expr, return_items, add_result_order, xule_context):
     if 'return' in nav_expr:
         return_type = nav_expr['return'].get('returnType', 'list')
     else:
         return_type = 'list'
     
+    # The return_component_type determins if the return concompents are a list or a dictionary keyed by the component name.
+    return_component_type = nav_expr.get('return',dict()).get('returnComponentType', 'list')
+
+    results = list()
+    results_shadow = list()
+
     if add_result_order:
         cur_order = 1
-    
+        
     for return_item in return_items:
         if add_result_order:
             return_item.append((cur_order, 'int', 'result-order'))
             cur_order += 1
-            
-        if len(return_item) == 1:
-            # A list of single items is returned. 
-            # The return item only has one return component
-            if return_type == 'list' or (return_type == 'set' and return_item[0][0] not in result_shadow):
-                results.append(XuleValue(xule_context, return_item[0][0], return_item[0][1]))
-                result_shadow.append(return_item[0][0])
-        else:
-            # A list of list of components is returned.
-            # The return_item has multiple return componenets
-            multi_result = list()
-            multi_shadow = list()
+        
+        if return_component_type == 'list':
+            if len(return_item) == 1:
+                # A list of single items is returned. 
+                # The return item only has one return component
+                if return_type == 'list' or (return_type == 'set' and return_item[0][0] not in results_shadow):
+                    if return_component_type == 'list':
+                        results.append(XuleValue(xule_context, return_item[0][0], return_item[0][1]))
+                        results_shadow.append(return_item[0][0])
+            else:
+                # A list of list of components is returned.
+                # The return_item has multiple return componenets
+                multi_result = list()
+                multi_shadow = list()
+                for return_component in return_item:
+                    multi_result.append(XuleValue(xule_context, return_component[0], return_component[1]))
+                    multi_shadow.append(return_component[0])
+                multi_shadow_tuple = tuple(multi_shadow)
+                
+                if return_type == 'list' or (return_type == 'set' and  multi_shadow_tuple not in results_shadow):
+                    results.append(XuleValue(xule_context, tuple(multi_result), 'list', shadow_collection=tuple(multi_shadow)))
+                    results_shadow.append(multi_shadow_tuple)
+        else: # the return_component_type is a dictionary
+            multi_result = dict()
+            multi_shadow = dict()
             for return_component in return_item:
-                multi_result.append(XuleValue(xule_context, return_component[0], return_component[1]))
-                multi_shadow.append(return_component[0])
-            multi_shadow_tuple = tuple(multi_shadow)
+                multi_result[XuleValue(xule_context, return_component[2], 'string')] = XuleValue(xule_context, return_component[0], return_component[1])
+                multi_shadow[return_component[2]] = return_component[0]
             
-            if return_type == 'list' or (return_type == 'set' and  multi_shadow_tuple not in result_shadow):
-                results.append(XuleValue(xule_context, tuple(multi_result), 'list', shadow_collection=tuple(multi_shadow)))
-                result_shadow.append(multi_shadow_tuple)
+            if return_type == 'list' or (return_type == 'set' and frozenset(multi_shadow.items()) not in results_shadow):
+                results.append(XuleValue(xule_context, frozenset(multi_result.items()), 'dictionary'))
+                results_shadow.append(frozenset(multi_shadow.items()))
 
             #raise XuleProcessingError(_("multiple returns not supported"), xule_context)
     if return_type == 'list':
-        return XuleValue(xule_context, tuple(results), 'list', shadow_collection=tuple(result_shadow))
+        return XuleValue(xule_context, tuple(results), 'list', shadow_collection=tuple(results_shadow))
     else:
-        return XuleValue(xule_context, frozenset(results), 'set', shadow_collection=frozenset(result_shadow))
-    
-    #return XuleValue(xule_context, frozenset(XuleValue(xule_context, x[0], x[1]) for x in set(return_items)), 'set')
+        return XuleValue(xule_context, frozenset(results), 'set', shadow_collection=frozenset(results_shadow))    
 
 def evaluate_function_ref(function_ref, xule_context):
     if function_ref['functionName'] in BUILTIN_FUNCTIONS:

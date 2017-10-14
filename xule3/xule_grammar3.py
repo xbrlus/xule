@@ -329,18 +329,14 @@ def get_grammar():
                        Optional(whereClause) +
                        Optional(Group(
                                       Suppress(CaselessKeyword('returns')) +
-                                      Optional((
-                                                     CaselessKeyword('list') |
-                                                     CaselessKeyword('set') |
-                                                     (CaselessKeyword('network') +
-                                                           Optional(Suppress(CaselessKeyword('as')) + (CaselessKeyword('dictionary') |
-                                                                          CaselessKeyword('list')).setResultsName('networkType'))
-                                                           )
-                                                     ).setResultsName('returnType')
-                                             
-                                               ) +
+                                      Optional(Group(CaselessKeyword('by') + CaselessKeyword('network')).setParseAction(lambda: True).setResultsName('byNetwork')) +                                    
+                                      Optional(
+                                             CaselessKeyword('list') |
+                                             CaselessKeyword('set') 
+                                             ).setResultsName('returnType') +
                                       Optional(CaselessKeyword('paths').setParseAction(lambda: True).setResultsName('paths')) +
-                                      Optional(returnComponents) +
+                                      Optional(returnComponents +
+                                               Optional(Suppress(CaselessKeyword('as')) + CaselessKeyword('dictionary').setResultsName('returnComponentType'))) +
                                       nodeName('returnExpr')
                                 ).setResultsName('return')
                         ) +
