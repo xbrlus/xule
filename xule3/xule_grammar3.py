@@ -11,7 +11,7 @@ from pyparsing import (Word, Keyword,  CaselessKeyword, ParseResults, infixNotat
                  Combine, Optional, nums, Forward, Group, ZeroOrMore,  
                  ParserElement,  delimitedList, Suppress, Regex, 
                  QuotedString, OneOrMore, oneOf, cStyleComment,
-                 lineEnd, White, SkipTo, Empty, stringStart, stringEnd, alphas, printables)
+                 lineEnd, White, SkipTo, Empty, stringStart, stringEnd, alphas, printables, removeQuotes)
 
 def buildPrecedenceExpressions( baseExpr, opList, lpar=Suppress('('), rpar=Suppress(')')):
     """Simplified and modified version of pyparsing infixNotation helper function
@@ -169,8 +169,8 @@ def get_grammar():
                      infLiteral).setResultsName("value") +
                     nodeName('float'))
     #string literals
-    stringLiteral = Group(((QuotedString("'", multiline=True, unquoteResults=False, escChar="\\")  | 
-                      QuotedString('"', multiline=True, unquoteResults=False, escChar="\\")).setResultsName("value")) +
+    stringLiteral = Group(((QuotedString("'", multiline=True, unquoteResults=False, escChar="\\").setParseAction(removeQuotes)  | 
+                      QuotedString('"', multiline=True, unquoteResults=False, escChar="\\").setParseAction(removeQuotes)).setResultsName("value")) +
                      nodeName('string'))
     
     #boolean literals
@@ -202,18 +202,28 @@ def get_grammar():
     ncName = Regex("([A-Za-z\xC0-\xD6\xD8-\xF6\xF8-\xFF\u0100-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD_]"
                   "[A-Za-z0-9\xC0-\xD6\xD8-\xF6\xF8-\xFF\u0100-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\u0300-\u036F\u203F-\u2040\xB7_.-]*)"
                   )
-    prefix = Regex("([A-Za-z\xC0-\xD6\xD8-\xF6\xF8-\xFF\u0100-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD_]"
-             "[A-Za-z0-9\xC0-\xD6\xD8-\xF6\xF8-\xFF\u0100-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\u0300-\u036F\u203F-\u2040\xB7_.-]*)"
-              )
+#     prefix = Regex("([A-Za-z\xC0-\xD6\xD8-\xF6\xF8-\xFF\u0100-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD_]"
+#              "[A-Za-z0-9\xC0-\xD6\xD8-\xF6\xF8-\xFF\u0100-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\u0300-\u036F\u203F-\u2040\xB7_.-]*)"
+#               )
     
-    #A simpleName is a ncName that does not allow a dot.
+    # A simpleName is a ncName that does not allow a dot.
     simpleName = Regex("([A-Za-z\xC0-\xD6\xD8-\xF6\xF8-\xFF\u0100-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD_]"
                   "[A-Za-z0-9\xC0-\xD6\xD8-\xF6\xF8-\xFF\u0100-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\u0300-\u036F\u203F-\u2040\xB7_-]*)"
                   )
-    
+    # A qName normally allows a dot character as long it is not the first character. In Xule, the doc is used to indicate a property. For qName literals
+    # a dot character will have to be escaped  by a backslash. Assets\.Current is the 
+    # A qNameLocalName does not allow a dot unless it is escaped with a backslash.  Assets.local-part is a qname with a property of local-part. Assets\.local-part is a qname of "Assets.local-part".
+    qNameLocalName = Regex("([A-Za-z\xC0-\xD6\xD8-\xF6\xF8-\xFF\u0100-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF"
+                           "\uF900-\uFDCF\uFDF0-\uFFFD_]"
+                           "([A-Za-z0-9\xC0-\xD6\xD8-\xF6\xF8-\xFF\u0100-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF"
+                           "\uF900-\uFDCF\uFDF0-\uFFFD\u0300-\u036F\u203F-\u2040\xB7_-]|(\\\.))"
+                           "*)"
+                  ).setParseAction(lambda s, l, t: [t[0].replace('\\','')]) #parse action removes the escape backslash character
+    prefix = qNameLocalName
+
     qName = Group(Optional(Combine(prefix + ~White() + Suppress(qNameOp)), default="*").setResultsName("prefix") + 
                   ~White() 
-                  + ncName.setResultsName("localName")
+                  + qNameLocalName.setResultsName("localName")
                   + nodeName('qname'))
 
     tagOp = Literal('#').setParseAction(lambda: True).setResultsName('tagged')
@@ -410,10 +420,9 @@ def get_grammar():
                        )
     
     atom = (
-
             ifExpr |
             forExpr |
-            
+
             #literals
             floatLiteral |
             integerLiteral |
