@@ -574,6 +574,7 @@ def get_grammar():
 
     constantDeclaration = (
                   Suppress(constantKeyword) +
+                  (Suppress(Optional('$')) + ~ White()) +
                   simpleName.setResultsName("constantName") + 
                   Optional(tagOp +
                            Optional(tagName)) + 
