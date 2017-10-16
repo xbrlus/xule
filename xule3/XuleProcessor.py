@@ -26,7 +26,7 @@ import copy
 from lxml import etree as et
 from threading import Thread
 from . import XuleFunctions
-from . import XuleProperties
+from .XuleProperties import *
 import os
 
 def process_xule(rule_set, model_xbrl, cntlr, options):
