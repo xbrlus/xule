@@ -2285,33 +2285,33 @@ def evaluate_navigate(nav_expr, xule_context):
 #                     result_items += nav_decorate({'relationship':rel, 'network': get_network_info(relationship_set, xule_context)}, 'to', return_names, False, xule_context) 
 #                 #result_items += list(y for y in (nav_decorate(rel, 'from', nav_expr, False, xule_context) for rel in relationship_set.fromModelObject(from_concept))) + list(y for y in (nav_decorate(rel, 'to', nav_expr, xule_context) for rel in relationship_set.toModelObject(from_concept))) # This will be a list            
             if direction == 'descendants':
-                for rel in nav_traverse('down', relationship_set, from_concept, nav_to_concepts, int(nav_expr['depth']), return_names):
+                for rel in nav_traverse(nav_expr, xule_context, 'down', relationship_set, from_concept, nav_to_concepts, int(nav_expr['depth']), return_names):
                     result_items += nav_decorate(rel, 'down', return_names, include_start, xule_context)
             if direction == 'children':
-                for rel in nav_traverse('down', relationship_set, from_concept, nav_to_concepts, 1, return_names):
+                for rel in nav_traverse(nav_expr, xule_context, 'down', relationship_set, from_concept, nav_to_concepts, 1, return_names):
                     result_items += nav_decorate(rel, 'down', return_names, include_start, xule_context)
             if direction == 'ancestors':
-                for rel in nav_traverse('up', relationship_set, from_concept, nav_to_concepts, int(nav_expr['depth']), return_names):
+                for rel in nav_traverse(nav_expr, xule_context, 'up', relationship_set, from_concept, nav_to_concepts, int(nav_expr['depth']), return_names):
                     result_items += nav_decorate(rel, 'to', return_names, include_start, xule_context)
             if direction == 'parents':
-                for rel in nav_traverse('up', relationship_set, from_concept, nav_to_concepts, 1, return_names):
+                for rel in nav_traverse(nav_expr, xule_context, 'up', relationship_set, from_concept, nav_to_concepts, 1, return_names):
                     result_items += nav_decorate(rel, 'to', return_names, include_start, xule_context)
             if direction == 'siblings':
-                for parent_rel in nav_traverse('up', relationship_set, from_concept, None, 1, list()):
-                    for sibling_rel in nav_traverse('down', relationship_set, parent_rel['relationship'].fromModelObject, nav_to_concepts, 1, return_names):
+                for parent_rel in nav_traverse(nav_expr, xule_context, 'up', relationship_set, from_concept, None, 1, list()):
+                    for sibling_rel in nav_traverse(nav_expr, xule_context, 'down', relationship_set, parent_rel['relationship'].fromModelObject, nav_to_concepts, 1, return_names):
                         if include_start or sibling_rel['relationship'] is not parent_rel['relationship']:
                             result_items += nav_decorate(sibling_rel, 'to', return_names, False, xule_context)
             if direction == 'previous-siblings':
-                for parent_rel in nav_traverse('up', relationship_set, from_concept, None, 1, list()):
-                    for sibling_rel in nav_traverse('down', relationship_set, parent_rel['relationship'].fromModelObject, nav_to_concepts, 1, return_names):
+                for parent_rel in nav_traverse(nav_expr, xule_context, 'up', relationship_set, from_concept, None, 1, list()):
+                    for sibling_rel in nav_traverse(nav_expr, xule_context, 'down', relationship_set, parent_rel['relationship'].fromModelObject, nav_to_concepts, 1, return_names):
                         if include_start or sibling_rel['relationship'] is not parent_rel['relationship']:
                             result_items += nav_decorate(sibling_rel, 'to', return_names, False, xule_context)                
                         if sibling_rel['relationship'] is parent_rel['relationship']:
                             break # We are done.            
             if direction == 'following-siblings':
-                for parent_rel in nav_traverse('up', relationship_set, from_concept, None, 1, list()):
+                for parent_rel in nav_traverse(nav_expr, xule_context, 'up', relationship_set, from_concept, None, 1, list()):
                     start_rel_found = False
-                    for sibling_rel in nav_traverse('down', relationship_set, parent_rel['relationship'].fromModelObject, nav_to_concepts, 1, return_names):
+                    for sibling_rel in nav_traverse(nav_expr, xule_context, 'down', relationship_set, parent_rel['relationship'].fromModelObject, nav_to_concepts, 1, return_names):
                         if sibling_rel['relationship'] is parent_rel['relationship']:
                             start_rel_found = True
                         if start_rel_found:
@@ -2328,7 +2328,7 @@ def evaluate_navigate(nav_expr, xule_context):
     else:
         return nav_finish_results(nav_expr, result_items, 'result-order' in return_names, xule_context)
 
-def nav_traverse(direction, network, parent, end_concepts, remaining_depth, return_names, previous_concepts=None, nav_depth=1, result_order=0, arc_attribute_names=None):
+def nav_traverse(nav_expr, xule_context, direction, network, parent, end_concepts, remaining_depth, return_names, previous_concepts=None, nav_depth=1, result_order=0, arc_attribute_names=None):
     """Traverse a network
     
     Arguments:
@@ -2382,12 +2382,14 @@ def nav_traverse(direction, network, parent, end_concepts, remaining_depth, retu
 #             rel_info['result-order'] = result_order
         for arc_attribute_name in arc_attribute_names:
             rel_info[arc_attribute_name] = rel.arcElement.get(arc_attribute_name.clarkNotation)
+        
+        if nav_traverse_where(nav_expr, rel, xule_context):
+            inner_children.append(rel_info)
             
-        inner_children.append(rel_info)
         if child not in end_concepts:
             if child not in previous_concepts:
                 previous_concepts.add(child)
-                next_children = nav_traverse(direction, network, child, end_concepts, remaining_depth - 1, return_names, previous_concepts, nav_depth + 1, result_order, arc_attribute_names)
+                next_children = nav_traverse(nav_expr, xule_context, direction, network, child, end_concepts, remaining_depth - 1, return_names, previous_concepts, nav_depth + 1, result_order, arc_attribute_names)
                 if len(next_children) == 0 and len(end_concepts) > 0: # The to concept was never found
                     inner_children = list()
                 else:
@@ -2401,6 +2403,38 @@ def nav_traverse(direction, network, parent, end_concepts, remaining_depth, retu
         children += inner_children
 
     return children
+
+def nav_traverse_where(nav_expr, relationship, xule_context):
+    if 'whereExpr' not in nav_expr:
+        return True
+    else:
+        if 'is_iterable' in nav_expr['whereExpr']:
+            raise XuleProcessingError(_("Where expression in a navigation cannot return multiple values"))
+        
+        xule_context.add_arg('relationship',
+                             nav_expr['whereExpr']['node_id'],
+                             True,
+                             XuleValue(xule_context, relationship, 'relationship'),
+                             'single')                          
+        def cleanup_function():
+            #remove the args
+            xule_context.del_arg('relationship',
+                                 nav_expr['whereExpr']['node_id'])
+
+        nav_where_results = isolated_evaluation(xule_context,
+                                                     nav_expr['whereExpr']['node_id'], 
+                                                     nav_expr['whereExpr'], 
+                                                     cleanup_function=cleanup_function
+                                                     
+                                                     )
+
+        if None in nav_where_results.values:
+            if nav_where_results.values[None][0].type == 'bool':
+                return nav_where_results.values[None][0].value
+            elif nav_where_results.values[None][0].type == 'unbound':
+                return False
+        else:
+            return False
 
 def nav_get_role(nav_expr, role_type, dts, xule_context):
     """Get the full role from the navigation expression.
@@ -3173,7 +3207,7 @@ def evaluate_property(property_expr, xule_context):
     #The properties expression is an object and then a chain of properties (i.e. Assets[]::concept::name::local-part)
     for current_property_expr in property_expr['properties']:
         #Check that this is a valid property
-        if current_property_expr['propertyName'] not in PROPERTIES:
+        if current_property_expr['propertyName'] not in XuleProperties.PROPERTIES:
             raise XuleProcessingError(_("'%s' is not a valid property." % current_property_expr['propertyName']), xule_context)
         
         property_info = XuleProperties.PROPERTIES[current_property_expr['propertyName']]
@@ -3197,12 +3231,12 @@ def evaluate_property(property_expr, xule_context):
 
         if property_info[XuleProperties.PROP_ARG_NUM] is not None:
             property_args = current_property_expr.get('propertyArgs', [])
-            if property_info[PROP_ARG_NUM] >= 0 and len(property_args) != property_info[XuleProperties.PROP_ARG_NUM]:
+            if property_info[XuleProperties.PROP_ARG_NUM] >= 0 and len(property_args) != property_info[XuleProperties.PROP_ARG_NUM]:
                 raise XuleProcessingError(_("Property '%s' must have %s arguments. Found %i." % (current_property_expr['propertyName'],
                                                                                                  property_info[PROP_ARG_NUM],
                                                                                                  len(property_args))), 
                                           xule_context)
-            elif len(property_args) > property_info[PROP_ARG_NUM] * -1 and property_info[XuleProperties.PROP_ARG_NUM] < 0:
+            elif len(property_args) > property_info[XuleProperties.PROP_ARG_NUM] * -1 and property_info[XuleProperties.PROP_ARG_NUM] < 0:
                 raise XuleProcessingError(_("Property '%s' must have no more than %s arguments. Found %i." % (current_property_expr['propertyName'],
                                                                                                  property_info[XuleProperties.PROP_ARG_NUM] * -1,
                                                                                                  len(property_args))), 
