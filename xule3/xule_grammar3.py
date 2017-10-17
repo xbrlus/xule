@@ -587,7 +587,7 @@ def get_grammar():
         Suppress(functionKeyword) + 
         simpleName.setResultsName("functionName") + ~White() +
         Suppress(lParen) + 
-        Group(Optional(delimitedList(Group(simpleName.setResultsName('argName') + nodeName('functionArg') + 
+        Group(Optional(delimitedList(Group(Suppress(varIndicator) + simpleName.setResultsName('argName') + nodeName('functionArg') + 
                                            Optional(tagOp +
                                                     Optional(tagName)))) +
                        Optional(Suppress(commaOp)) #This allows a trailing comma for lists and sets
