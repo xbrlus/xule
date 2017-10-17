@@ -26,7 +26,8 @@ import copy
 from lxml import etree as et
 from threading import Thread
 from . import XuleFunctions
-from .XuleProperties import *
+#from . import XuleProperties
+from . import XuleProperties_old as XuleProperties
 import os
 
 def process_xule(rule_set, model_xbrl, cntlr, options):
@@ -689,8 +690,8 @@ def evaluate_assertion(assert_rule, xule_context):
                     raise XuleProcessingError(_("Raise %s did not evaluate to a boolean, found '%s'." % (xule_context.rule_name, xule_value.type)), xule_context)
                       
                 # Determine if a message should be sent
-                send_message = ((assert_rule['satisfactionType'] == 'satisfied' and xule_value.value == False) or
-                                (assert_rule['satisfactionType'] == 'unsatisfied' and xule_value.value == True))
+                send_message = ((assert_rule['satisfactionType'] == 'satisfied' and xule_value.value == True) or
+                                (assert_rule['satisfactionType'] == 'unsatisfied' and xule_value.value == False))
                 
                 if send_message:
                     xule_context.iter_message_count += 1
@@ -2254,14 +2255,14 @@ def evaluate_navigate(nav_expr, xule_context):
     return_names = get_return_component_names(nav_expr, xule_context)
     
     #get the relationships
-    relationship_set_infos = get_base_set_info(xule_context, dts, arcrole, role, link_qname, arc_qname)
+    relationship_set_infos = XuleProperties.get_base_set_info(xule_context, dts, arcrole, role, link_qname, arc_qname)
     # The relationship_set_info includes the includeProhibits at the end of the tuple
     relationship_sets = [dts.relationshipSets[x] if x in dts.relationshipSets 
                                                  else ModelRelationshipSet(dts, 
-                                                                           x[NETWORK_ARCROLE],
-                                                                           x[NETWORK_ROLE],
-                                                                           x[NETWORK_LINK],
-                                                                           x[NETWORK_ARC])
+                                                                           x[XuleProperties.NETWORK_ARCROLE],
+                                                                           x[XuleProperties.NETWORK_ROLE],
+                                                                           x[XuleProperties.NETWORK_LINK],
+                                                                           x[XuleProperties.NETWORK_ARC])
                          for x in relationship_set_infos]
     
     return_by_networks = nav_expr.get('return', dict()).get('byNetwork', False)
@@ -2420,7 +2421,7 @@ def nav_get_role(nav_expr, role_type, dts, xule_context):
                 # Check that the dictionary of short arcroles is in the context. If not, build the diction are arcrole short names
                 if not hasattr(dts, short_attribute_name):
                     if role_type == 'arcrole':
-                        setattr(dts, short_attribute_name, CORE_ARCROLES.copy())
+                        setattr(dts, short_attribute_name, XuleProperties.CORE_ARCROLES.copy())
                         dts_roles = dts.arcroleTypes
                     else:
                         setattr(dts, short_attribute_name, {'link': 'http://www.xbrl.org/2003/role/link'})
@@ -2438,12 +2439,12 @@ def nav_get_role(nav_expr, role_type, dts, xule_context):
                 short_name = role_value.value.localName
                 if short_name not in short_role_dict:
                     raise XuleProcessingError(_("The {} short name '{}' does not match any arcrole.".format(role_type, short_name)))
-                if short_name in (CORE_ARCROLES if role_type == 'arcrole' else {'link': 'http://www.xbrl.org/2003/role/link'}) and short_role_dict[short_name] is None:
+                if short_name in (XuleProperties.CORE_ARCROLES if role_type == 'arcrole' else {'link': 'http://www.xbrl.org/2003/role/link'}) and short_role_dict[short_name] is None:
                     raise XuleProcessingError(_("A taxonomy defined {role} has the same short name (last portion of the {role}) as a core specification {role}. " 
                                                 "Taxonomy defined {role} is '{tax_role}'. Core specification {role} is '{core_role}'."
                                                 .format(role=role_type, 
                                                         tax_role=getattr(dts, short_attribute_name)[short_name], 
-                                                        core_role=CORE_ARCROLES[short_name] if role_type == 'arcrole' else 'http://www.xbrl.org/2003/role/link')))
+                                                        core_role=XuleProperties.CORE_ARCROLES[short_name] if role_type == 'arcrole' else 'http://www.xbrl.org/2003/role/link')))
                 if short_name in short_role_dict and short_role_dict[short_name] is None:
                     raise XuleProcessingError(_("The {} short name '{}' resolves to more than one arcrole in the taxonomy.".format(role_type, short_name)))
                 
@@ -2470,7 +2471,7 @@ def nav_get_element(nav_expr, side, dts, xule_context):
     if side in nav_expr:
         side_value = evaluate(nav_expr[side], xule_context)
         if side_value.type == 'qname':
-            concept = get_concept(dts, side_value.value)
+            concept = XuleProperties.get_concept(dts, side_value.value)
             if concept is None:
                 return set()
             else:
@@ -3175,35 +3176,35 @@ def evaluate_property(property_expr, xule_context):
         if current_property_expr['propertyName'] not in PROPERTIES:
             raise XuleProcessingError(_("'%s' is not a valid property." % current_property_expr['propertyName']), xule_context)
         
-        property_info = PROPERTIES[current_property_expr['propertyName']]
+        property_info = XuleProperties.PROPERTIES[current_property_expr['propertyName']]
         
         #Check that the left object is the right type
         #if the left object is unbound then return unbound
-        if not property_info[PROP_UNBOUND_ALLOWED] and object_value.type in ('unbound', 'none'):
+        if not property_info[XuleProperties.PROP_UNBOUND_ALLOWED] and object_value.type in ('unbound', 'none'):
             return object_value
         else:
             #check the left object is the right type
-            if len(property_info[PROP_OPERAND_TYPES]) > 0:
-                if not (object_value.type in property_info[PROP_OPERAND_TYPES] or
-                        object_value.is_fact and 'fact' in property_info[PROP_OPERAND_TYPES] or
-                        any([xule_castable(object_value, allowable_type, xule_context) for allowable_type in property_info[PROP_OPERAND_TYPES]])):
+            if len(property_info[XuleProperties.PROP_OPERAND_TYPES]) > 0:
+                if not (object_value.type in property_info[XuleProperties.PROP_OPERAND_TYPES] or
+                        object_value.is_fact and 'fact' in property_info[XuleProperties.PROP_OPERAND_TYPES] or
+                        any([xule_castable(object_value, allowable_type, xule_context) for allowable_type in property_info[XuleProperties.PROP_OPERAND_TYPES]])):
                     #print(current_property_expr['node_id'])
                     raise XuleProcessingError(_("Property '%s' is not a property of a '%s'.") % (current_property_expr['propertyName'],
                                                                                                  object_value.type), 
                                               xule_context) 
         
-        property_info = PROPERTIES[current_property_expr['propertyName']]
+        property_info = XuleProperties.PROPERTIES[current_property_expr['propertyName']]
 
-        if property_info[PROP_ARG_NUM] is not None:
+        if property_info[XuleProperties.PROP_ARG_NUM] is not None:
             property_args = current_property_expr.get('propertyArgs', [])
-            if property_info[PROP_ARG_NUM] >= 0 and len(property_args) != property_info[PROP_ARG_NUM]:
+            if property_info[PROP_ARG_NUM] >= 0 and len(property_args) != property_info[XuleProperties.PROP_ARG_NUM]:
                 raise XuleProcessingError(_("Property '%s' must have %s arguments. Found %i." % (current_property_expr['propertyName'],
                                                                                                  property_info[PROP_ARG_NUM],
                                                                                                  len(property_args))), 
                                           xule_context)
-            elif len(property_args) > property_info[PROP_ARG_NUM] * -1 and property_info[PROP_ARG_NUM] < 0:
+            elif len(property_args) > property_info[PROP_ARG_NUM] * -1 and property_info[XuleProperties.PROP_ARG_NUM] < 0:
                 raise XuleProcessingError(_("Property '%s' must have no more than %s arguments. Found %i." % (current_property_expr['propertyName'],
-                                                                                                 property_info[PROP_ARG_NUM] * -1,
+                                                                                                 property_info[XuleProperties.PROP_ARG_NUM] * -1,
                                                                                                  len(property_args))), 
                                           xule_context)
         #prepare the arguments
@@ -3212,7 +3213,7 @@ def evaluate_property(property_expr, xule_context):
             arg_value = evaluate(arg_expr, xule_context)
             arg_values.append(arg_value)
             
-        object_value = property_info[PROP_FUNCTION](xule_context, object_value, *arg_values)
+        object_value = property_info[XuleProperties.PROP_FUNCTION](xule_context, object_value, *arg_values)
         
         if 'tagName' in current_property_expr:
             xule_context.tags[current_property_expr.tagName] = object_value
