@@ -2516,7 +2516,7 @@ def nav_get_element(nav_expr, side, dts, xule_context):
             concepts = set()
             for item in side_value.value:
                 if item.type == 'qname':
-                    concept = get_conept(dts, item.value)
+                    concept = XuleProperties.get_concept(dts, item.value)
                     if concept is not None:
                         concepts.add(concept)
                 elif item.type == 'concept':
