@@ -870,7 +870,7 @@ def tag_default_for_factset(expr, xule_context):
                             if aspect_member_value.type == 'qname':
                                 concepts.append(str(aspect_member_value.value))
                             elif aspect_member_value.type == 'concept':
-                                concepts.append(str(aspect_member.value.value.qname))
+                                concepts.append(str(aspect_member_value.value.qname))
                         if len(concepts) == 1:
                             return str(concepts[0])
                         else:
