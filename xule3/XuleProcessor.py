@@ -3723,8 +3723,7 @@ def result_message(rule_ast, result_ast, xule_value, xule_context):
     else:
         message_string = str(message_value.value)
     
-    process_message(message_string, xule_value, xule_context)
-    
+    message_string = process_message(message_string, xule_value, xule_context)
     
     return str(message_string)
     
