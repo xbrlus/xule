@@ -863,7 +863,7 @@ def tag_default_for_factset(expr, xule_context):
                         aspect_member_value = evaluate(aspect_filter['aspectExpr'], xule_context)
                         return str(aspect_member_value)
                 elif aspect_filter['aspectOperator'] == 'in':
-                    aspect_member_set = evalaute(aspect_filter['aspectExpr'], xule_value)
+                    aspect_member_set = evaluate(aspect_filter['aspectExpr'], xule_value)
                     if len(aspect_member_set.value) > 0:
                         concepts = []
                         for aspect_member_value in aspect_member_set.value:
