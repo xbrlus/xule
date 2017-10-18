@@ -280,7 +280,7 @@ def get_grammar():
                                        blockExpr.setResultsName('aspectExpr')
                                       )
                                       ) +
-                             Optional(Suppress(asOp) + simpleName.setResultsName('alias'))
+                             Optional(Suppress(asOp) + Suppress(varIndicator) + ~White()+ simpleName.setResultsName('alias'))
                              )
                     + nodeName('aspectFilter'))
     
@@ -389,7 +389,7 @@ def get_grammar():
                ((Suppress(forOp) + 
                 #for loop control: for var name and loop expression
                 Suppress(lParen) + 
-                Combine(Suppress(varIndicator) + simpleName.setResultsName("forVar")) + 
+                Combine(Suppress(varIndicator) + ~White() + simpleName.setResultsName("forVar")) + 
                 Suppress(inOp) + 
                 blockExpr.setResultsName("forLoopExpr") +
                 Suppress(rParen) +
@@ -400,7 +400,7 @@ def get_grammar():
                #without parens around the for control
                ((Suppress(forOp) + 
                 #for loop control
-                Combine(Suppress(varIndicator) + simpleName.setResultsName("forVar")) + 
+                Combine(Suppress(varIndicator) + ~White() + simpleName.setResultsName("forVar")) + 
                 Suppress(inOp) + 
                 blockExpr.setResultsName("forLoopExpr") +
                 #for body expression
@@ -476,7 +476,7 @@ def get_grammar():
                           ])
 
     varDeclaration = (
-                           Suppress(varIndicator) +
+                           Suppress(varIndicator) + ~White() +
                            simpleName.setResultsName('varName') +   
                            Optional(tagOp +
                                     Optional(tagName)) + 
@@ -574,7 +574,7 @@ def get_grammar():
 
     constantDeclaration = (
                   Suppress(constantKeyword) +
-                  (Suppress(Optional('$')) + ~ White()) +
+                  Suppress(varIndicator) + ~ White() +
                   simpleName.setResultsName("constantName") + 
                   Optional(tagOp +
                            Optional(tagName)) + 
@@ -587,7 +587,7 @@ def get_grammar():
         Suppress(functionKeyword) + 
         simpleName.setResultsName("functionName") + ~White() +
         Suppress(lParen) + 
-        Group(Optional(delimitedList(Group(Suppress(varIndicator) + simpleName.setResultsName('argName') + nodeName('functionArg') + 
+        Group(Optional(delimitedList(Group(Suppress(varIndicator) + ~White() + simpleName.setResultsName('argName') + nodeName('functionArg') + 
                                            Optional(tagOp +
                                                     Optional(tagName)))) +
                        Optional(Suppress(commaOp)) #This allows a trailing comma for lists and sets
