@@ -262,7 +262,7 @@ def get_grammar():
                    Optional(
                             #properties.setResultsName('aspectProperties'))
                         Suppress(propertyOp) +
-                        simpleName.setResultsName('propertyName') +
+                        ncName.setResultsName('propertyName') +
                         Optional(Group(Suppress(lParen) +
                                        Optional(delimitedList(blockExpr)) +
                                        Suppress(rParen)

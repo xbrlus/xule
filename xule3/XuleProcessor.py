@@ -302,6 +302,7 @@ def index_concept_properites(model_fact):
     props.append((('property', 'concept', 'is-numeric'), model_fact.concept.isNumeric))
     props.append((('property', 'concept', 'substitution'), model_fact.concept.substitutionGroupQname))
     props.append((('property', 'concept', 'namespace-uri'), model_fact.concept.qname.namespaceURI))
+    props.append((('property', 'concept', 'local-part'), model_fact.concept.qname.localName))
     props.append((('property', 'concept', 'is-abstract'), model_fact.concept.isAbstract))
     for attribute in model_fact.concept.elementAttributesTuple:
         # attribute[0] is the attribute name. For qnames this will be in clarknotation
@@ -1827,6 +1828,8 @@ def factset_pre_match(factset, filters, non_aligned_filters, aligned_filters, xu
             # aspect_info[ASPECT_PROPERTY][0] is the aspect property name
             # aspect_info[ASPECT_PROPERTY][1] is a tuple of the arguments
             index_key = ('property', aspect_info[ASPECT], aspect_info[ASPECT_PROPERTY][0]) + aspect_info[ASPECT_PROPERTY][1]
+            if index_key not in xule_context.fact_index:
+                raise XuleProcessingError(_("Factset aspect property '{}' is not a valid property.".format(index_key[2])), xule_context)
             
         facts_by_aspect = set()
         
