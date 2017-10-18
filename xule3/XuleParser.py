@@ -90,7 +90,7 @@ def parseRulesDetails(grammar_function, files, dest, xml_dir=None):
         elif os.path.isdir(ruleFile.strip()):
             for root, dirs, files in os.walk(ruleFile.strip()):
                 for name in files:
-                    if os.path.splitext(name)[1] == ".xsr":
+                    if os.path.splitext(name)[1] == ".xule":
                         print("Processing: %s" % os.path.basename(name))
                         parseFile(os.path.join(root, name), xuleGrammar, ruleSet, xml_dir)            
         else:
