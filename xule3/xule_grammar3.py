@@ -420,6 +420,9 @@ def get_grammar():
                        )
     
     atom = (
+            # parenthesized expression - This needs to be up front for performance. 
+            (Suppress(lParen) + blockExpr + Suppress(rParen)) |            
+            listLiteral |
             ifExpr |
             forExpr |
 
@@ -438,10 +441,9 @@ def get_grammar():
             funcRef | 
             varRef|
             
-            qName |
+            qName #|
             
-            # parenthesized expression
-            (Suppress(lParen) + blockExpr + Suppress(rParen)) #|
+
             #list literal - needs to be at the end.
             #listLiteral 
             )
