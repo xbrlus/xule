@@ -393,10 +393,10 @@ class XuleRuleSet(object):
             if 'whereExpr' in parse_node:
                 var_names['relationship'].append(parse_node['whereExpr'])
                 parse_node['whereExpr']['location'] = 'navigate'
-#         if current_part == 'filter':
-#             if 'whereExpr' in parse_node:
-#                 var_names['item'].append(parse_node['whereExpr'])
-#                 parse_node['whereExpr']['location'] = 'filter'
+        if current_part == 'filter':
+            if 'whereExpr' in parse_node:
+                var_names['item'].append(parse_node['whereExpr'])
+                parse_node['whereExpr']['location'] = 'filter'
         if current_part == 'functionDeclaration':
             for arg in parse_node['functionArgs']:
                 var_names[arg['argName']].append(arg)
@@ -460,7 +460,7 @@ class XuleRuleSet(object):
                     immediate_dependencies['rules-taxonomy'] = True
 
         if current_part == 'navigation':
-            if 'in' not in parse_node:
+            if 'taxonomy' not in parse_node:
                 # Navigation that does not include an 'in' is against the instance taxonomy
                 dependencies['instance'] = True
                 immediate_dependencies['instance'] = True
@@ -514,9 +514,9 @@ class XuleRuleSet(object):
         if current_part == 'navigation':
             if 'whereExpr' in parse_node:
                 var_names['relationship'].pop()
-#         if current_part == 'filter':
-#             if 'whereExpr' in parse_node:
-#                 var_names['item'].pop()
+        if current_part == 'filter':
+            if 'whereExpr' in parse_node:
+                var_names['item'].pop()
         if current_part == 'functionDeclaration':
             for arg in parse_node['functionArgs']:
                 var_names[arg['argName']].pop()

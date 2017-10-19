@@ -354,6 +354,13 @@ def get_grammar():
                         ) +
                        nodeName('navigation')
                 )
+    
+    filter = Group(
+                   Suppress(CaselessKeyword('filter')) +
+                   blockExpr.setResultsName('expr') + 
+                   whereClause +
+                   nodeName('filter')
+                   )
     #function reference
     funcRef = Group(simpleName.setResultsName("functionName") + ~White() +
                     Suppress(lParen) + 
@@ -440,6 +447,7 @@ def get_grammar():
             
             factset |
             navigation |
+            filter |
             
             funcRef | 
             varRef|

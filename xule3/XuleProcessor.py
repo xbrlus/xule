@@ -2248,6 +2248,43 @@ def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non
 
     return results, default_used_expressions
 
+def evaluate_filter(filter_expr, xule_context):
+
+    collection_value = evaluate(filter_expr['expr'], xule_context)
+    
+    if collection_value.type not in ('set', 'list'):
+        raise XuleProcessingError(_("Filter expresssion can only be used on a 'set' or 'list', found '{}'.".format(collection_value.type)), xule_context)
+    
+    results = list()
+    results_shadow = list()
+    
+    for item_value in collection_value.value:
+        xule_context.add_arg('item',
+                             filter_expr['whereExpr']['node_id'],
+                             True,
+                             item_value,
+                             'single')
+        
+        try:
+            filter_where_result = evaluate(filter_expr['whereExpr'], xule_context)
+        finally:    
+            #remove the args
+            xule_context.del_arg('item',
+                                 filter_expr['whereExpr']['node_id'])
+
+        if filter_where_result.type == 'bool':
+            if filter_where_result.value:
+                results.append(item_value)
+                results_shadow.append(item_value.shadow_collection if item_value.type in ('list', 'set', 'dictionary') else item_value.value)
+        elif filter_where_result.type != 'unbound':
+            raise XuleProcessingError(_("The where clause on a filter expression must evaluate to a boolean, found '{}'.".format(filter_where_result.type)), xule_context)
+    
+    if collection_value.type == 'set':
+        return XuleValue(xule_context, frozenset(results), 'set', shadow_collection=frozenset(results_shadow))
+    else: # list
+        return XuleValue(xule_context, tuple(results), 'list', shadow_collection=tuple(results_shadow))
+
+
 def evaluate_navigate(nav_expr, xule_context):
     
     '''WILL NEED TO HANDLE CASE WHEN THERE IS NOT AN ARCROLE. THIS WILL NEED TO GATHER ALL THE BASESETS ACROSS ALL ARCROLLS'''
@@ -2432,33 +2469,54 @@ def nav_traverse_where(nav_expr, relationship, xule_context):
     if 'whereExpr' not in nav_expr:
         return True
     else:
-        if 'is_iterable' in nav_expr['whereExpr']:
-            raise XuleProcessingError(_("Where expression in a navigation cannot return multiple values"))
-        
         xule_context.add_arg('relationship',
                              nav_expr['whereExpr']['node_id'],
                              True,
                              XuleValue(xule_context, relationship, 'relationship'),
-                             'single')                          
-        def cleanup_function():
+                             'single')
+        
+        try:
+            nav_where_results = evaluate(nav_expr['whereExpr'], xule_context)
+        finally:    
             #remove the args
             xule_context.del_arg('relationship',
                                  nav_expr['whereExpr']['node_id'])
 
-        nav_where_results = isolated_evaluation(xule_context,
-                                                     nav_expr['whereExpr']['node_id'], 
-                                                     nav_expr['whereExpr'], 
-                                                     cleanup_function=cleanup_function
-                                                     
-                                                     )
-
-        if None in nav_where_results.values:
-            if nav_where_results.values[None][0].type == 'bool':
-                return nav_where_results.values[None][0].value
-            elif nav_where_results.values[None][0].type == 'unbound':
-                return False
-        else:
+        if nav_where_results.type == 'bool':
+            return nav_where_results.value
+        elif nav_where_results.type == 'unbound':
             return False
+        elif filter_where_result.type != 'unbound':
+            raise XuleProcessingError(_("The where clause on a navigation expression must evaluate to a boolean, found '{}'.".format(nav_where_results.type)), xule_context)
+
+        
+#         if 'is_iterable' in nav_expr['whereExpr']:
+#             raise XuleProcessingError(_("Where expression in a navigation cannot return multiple values"))
+#         
+#         xule_context.add_arg('relationship',
+#                              nav_expr['whereExpr']['node_id'],
+#                              True,
+#                              XuleValue(xule_context, relationship, 'relationship'),
+#                              'single')                          
+#         def cleanup_function():
+#             #remove the args
+#             xule_context.del_arg('relationship',
+#                                  nav_expr['whereExpr']['node_id'])
+# 
+#         nav_where_results = isolated_evaluation(xule_context,
+#                                                      nav_expr['whereExpr']['node_id'], 
+#                                                      nav_expr['whereExpr'], 
+#                                                      cleanup_function=cleanup_function
+#                                                      
+#                                                      )
+# 
+#         if None in nav_where_results.values:
+#             if nav_where_results.values[None][0].type == 'bool':
+#                 return nav_where_results.values[None][0].value
+#             elif nav_where_results.values[None][0].type == 'unbound':
+#                 return False
+#         else:
+#             return False
 
 def nav_get_role(nav_expr, role_type, dts, xule_context):
     """Get the full role from the navigation expression.
@@ -3363,6 +3421,7 @@ EVALUATOR = {
     
     "factset": evaluate_factset,
     "navigation": evaluate_navigate,
+    "filter": evaluate_filter,
     #'valuesExpr': evaluate_values,
     
     #expressions with order of operations
