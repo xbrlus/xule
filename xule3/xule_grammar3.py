@@ -233,6 +233,7 @@ def get_grammar():
 
     covered = CaselessKeyword('covered').setParseAction(lambda: True).setResultsName('covered')
     where = CaselessKeyword('where')
+    returns = CaselessKeyword('returns')
     
 
     properties = Group(OneOrMore(Group(Suppress(propertyOp) +
@@ -250,6 +251,7 @@ def get_grammar():
 
 
     whereClause = Suppress(where) + blockExpr.setResultsName('whereExpr')
+    returnsClause = Suppress(returns) + blockExpr.setResultsName('returnsExpr')
 
     # Note the order of uncovered and covered is important. The uncovered must go first because it is a @@
     # while the coveted is a single @. If the order is flipped, the parser will think a @@ is two consecute
@@ -358,7 +360,8 @@ def get_grammar():
     filter = Group(
                    Suppress(CaselessKeyword('filter')) +
                    blockExpr.setResultsName('expr') + 
-                   whereClause +
+                   Optional(whereClause) +
+                   Optional(returnsClause) +
                    nodeName('filter')
                    )
     #function reference

@@ -2255,30 +2255,45 @@ def evaluate_filter(filter_expr, xule_context):
     if collection_value.type not in ('set', 'list'):
         raise XuleProcessingError(_("Filter expresssion can only be used on a 'set' or 'list', found '{}'.".format(collection_value.type)), xule_context)
     
+    # do nothing if there is no filtering
+    if 'whereExpr' not in filter_expr and 'returnsExpr' not in filter_expr:
+        return collection_value
+    
     results = list()
     results_shadow = list()
     
     for item_value in collection_value.value:
         xule_context.add_arg('item',
-                             filter_expr['whereExpr']['node_id'],
+                             filter_expr['node_id'],
                              True,
                              item_value,
                              'single')
         
         try:
-            filter_where_result = evaluate(filter_expr['whereExpr'], xule_context)
+            keep = True
+            if 'whereExpr' in filter_expr:
+                keep = False
+                filter_where_result = evaluate(filter_expr['whereExpr'], xule_context)
+                
+                if filter_where_result.type == 'bool':
+                    keep = filter_where_result.value
+                elif filter_where_result.type != 'unbound':
+                    raise XuleProcessingError(_("The where clause on a filter expression must evaluate to a boolean, found '{}'.".format(filter_where_result.type)), xule_context)            
+            
+            if 'returnsExpr' in filter_expr:
+                keep_item = evaluate(filter_expr['returnsExpr'], xule_context) 
+            else:
+                keep_item = item_value
+            
+            if keep:
+                results.append(keep_item)
+                results_shadow.append(keep_item.shadow_collection if keep_item.type in ('list', 'set', 'dictionary') else keep_item.value)            
+            
         finally:    
             #remove the args
             xule_context.del_arg('item',
-                                 filter_expr['whereExpr']['node_id'])
+                                 filter_expr['node_id'])
 
-        if filter_where_result.type == 'bool':
-            if filter_where_result.value:
-                results.append(item_value)
-                results_shadow.append(item_value.shadow_collection if item_value.type in ('list', 'set', 'dictionary') else item_value.value)
-        elif filter_where_result.type != 'unbound':
-            raise XuleProcessingError(_("The where clause on a filter expression must evaluate to a boolean, found '{}'.".format(filter_where_result.type)), xule_context)
-    
     if collection_value.type == 'set':
         return XuleValue(xule_context, frozenset(results), 'set', shadow_collection=frozenset(results_shadow))
     else: # list

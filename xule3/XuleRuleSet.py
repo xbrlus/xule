@@ -394,8 +394,8 @@ class XuleRuleSet(object):
                 var_names['relationship'].append(parse_node['whereExpr'])
                 parse_node['whereExpr']['location'] = 'navigate'
         if current_part == 'filter':
+            var_names['item'].append(parse_node)
             if 'whereExpr' in parse_node:
-                var_names['item'].append(parse_node['whereExpr'])
                 parse_node['whereExpr']['location'] = 'filter'
         if current_part == 'functionDeclaration':
             for arg in parse_node['functionArgs']:
@@ -515,8 +515,7 @@ class XuleRuleSet(object):
             if 'whereExpr' in parse_node:
                 var_names['relationship'].pop()
         if current_part == 'filter':
-            if 'whereExpr' in parse_node:
-                var_names['item'].pop()
+            var_names['item'].pop()
         if current_part == 'functionDeclaration':
             for arg in parse_node['functionArgs']:
                 var_names[arg['argName']].pop()
