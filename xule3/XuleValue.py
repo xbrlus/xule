@@ -70,6 +70,25 @@ class XuleValue:
                 self.shadow_collection = tuple(shadow)
             else:
                 self.shadow_collection = frozenset(shadow)
+        elif self.type == 'dictionary' and self.shadow_collection is None:
+            shadow = self.shadow_dictionary
+            self.shadow_collection = frozenset(shadow.items())
+    @property
+    def shadow_dictionary(self):
+        if self.type == 'dictionary':
+            if not hasattr(self, '_shadow_dictionary'):
+                self._shadow_dictionary = {k.shadow_collection if k.type in ('set', 'list') else k.value: v.shadow_collection if v.type in ('set', 'list', 'dictionary') else v.value for k, v in self.value}
+            return self._shadow_dictionary
+        else:
+            return None
+    @property
+    def value_dictionary(self):
+        if self.type == 'dictionary':
+            if not hasattr(self, '_value_dictionary'):
+                self._value_dictionary = {k: v for k, v in self.value}
+            return self._value_dictionary
+        else:
+            return None
     ''' 
     import traceback
     def __eq__(self, other):

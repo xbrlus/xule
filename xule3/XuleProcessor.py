@@ -8,6 +8,7 @@ $Change: 21745 $
 from .XuleContext import XuleGlobalContext, XuleRuleContext #XuleContext
 from .XuleRunTime import XuleProcessingError, XuleIterationStop, XuleException, XuleBuildTableError, XuleReEvaluate
 from .XuleValue import *
+from . import XuleUtility
 #from  .XuleFunctions import *
 from .XuleMultiProcessing import output_message_queue
 from pyparsing import ParseResults
@@ -27,7 +28,7 @@ from lxml import etree as et
 from threading import Thread
 from . import XuleFunctions
 #from . import XuleProperties
-from . import XuleProperties_old as XuleProperties
+from . import XuleProperties
 import os
 
 def process_xule(rule_set, model_xbrl, cntlr, options):
@@ -1253,11 +1254,9 @@ def evaluate_unary(unary_expr, xule_context):
 def evaluate_mult(mult_expr, xule_context):
     left = evaluate(mult_expr['leftExpr'], xule_context)
     
-    for right in mult_expr['rights']:
-        operator = right['op']
-        right_expr = right['rightExpr']
-
-        right = evaluate(right_expr, xule_context)
+    for right_side in mult_expr['rights']:
+        operator = right_side['op']
+        right = evaluate(right_side['rightExpr'], xule_context)
 
         if left.type in ('unbound', 'none') or right.type in ('unbound', 'none'):
             left = XuleValue(xule_context, None, 'unbound')
@@ -1283,6 +1282,36 @@ def evaluate_mult(mult_expr, xule_context):
                     if right_compute_value == 0:
                         raise XuleProcessingError(_("Divide by zero error."), xule_context) 
                     left = XuleValue(xule_context, left_compute_value / right_compute_value, combined_type)
+    return left
+
+def evaluate_intersect(inter_expr, xule_context):
+    left = evaluate(inter_expr['leftExpr'], xule_context)
+    for right_side in inter_expr['rights']:
+        right = evaluate(right_side['rightExpr'], xule_context)
+        if left.type in ('unbound', 'none') or right.type in ('unbound', 'none'):
+            left = XuleValue(xule_context, None, 'unbound')
+        if left.type != 'set':
+            raise XuleProcessingError(_("Intersection can only operatate on sets. The left side is a '{}'.".format(left.type)), xule_context)
+        if right.type != 'set':
+            raise XuleProcessingError(_("Intersection can only operatate on sets. The right side is a '{}'.".format(right.type)), xule_context)
+    
+        left = XuleUtility.intersect_sets(xule_context, left, right)
+    
+    return left
+
+def evaluate_symetric_difference(sym_diff_expr, xule_context):
+    left = evaluate(sym_diff_expr['leftExpr'], xule_context)
+    for right_side in sym_diff_expr['rights']:
+        right = evaluate(right_side['rightExpr'], xule_context)
+        if left.type in ('unbound', 'none') or right.type in ('unbound', 'none'):
+            left = XuleValue(xule_context, None, 'unbound')
+        if left.type != 'set':
+            raise XuleProcessingError(_("Intersection can only operatate on sets. The left side is a '{}'.".format(left.type)), xule_context)
+        if right.type != 'set':
+            raise XuleProcessingError(_("Intersection can only operatate on sets. The right side is a '{}'.".format(right.type)), xule_context)
+    
+        left = XuleUtility.symetric_difference(xule_context, left, right)
+    
     return left
 
 def evaluate_add(add_expr, xule_context):
@@ -1342,26 +1371,18 @@ def evaluate_add(add_expr, xule_context):
                 if left.type == 'set' and right.type == 'set':
                     #use union for sets
                     #left = XuleValue(xule_context, left_compute_value | right_compute_value, 'set')
-                    left = add_sets(xule_context, left, right)
+                    left = XuleUtility.add_sets(xule_context, left, right)
                 else:
                     left = XuleValue(xule_context, left_compute_value + right_compute_value, combined_type)
             elif '-' in operator:
-                left = XuleValue(xule_context, left_compute_value - right_compute_value, combined_type)
+                if left.type == 'set' and right.type == 'set':
+                    left = XuleUtility.subtract_sets(xule_context, left, right)
+                else:
+                    left = XuleValue(xule_context, left_compute_value - right_compute_value, combined_type)
             else:
                 raise XuleProcessingError(_("Unknown operator '%s' found in addition/subtraction operation." % operator), xule_context)
     
     return left  
-
-def add_sets(xule_context, left, right):
-    new_set_values = list(left.value)
-    new_shadow = list(left.shadow_collection)
-
-    for item in right.value:
-        if item.value not in new_shadow:
-            new_shadow.append(item.shadow_collection if item.type in ('set','list') else item.value)
-            new_set_values.append(item)
-    
-    return XuleValue(xule_context, frozenset(new_set_values), 'set', shadow_collection=frozenset(new_shadow))
 
 def evaluate_comp(comp_expr, xule_context):
     left = evaluate(comp_expr['leftExpr'], xule_context)
@@ -3348,6 +3369,8 @@ EVALUATOR = {
     "unaryExpr": evaluate_unary,
     "multExpr": evaluate_mult,
     "addExpr": evaluate_add,
+    "intersectExpr": evaluate_intersect,
+    "symetricDifferenceExpr": evaluate_symetric_difference,
     "compExpr": evaluate_comp,
     "notExpr": evaluate_not,
     "andExpr": evaluate_and,

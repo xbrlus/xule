@@ -149,6 +149,8 @@ def get_grammar():
     unaryOp = oneOf('+ -')
     multiOp = oneOf('* /')
     addOp = oneOf('+> -> + - <+> <+ <-> <-')
+    symDiffOp = Literal('^')
+    intersectOp = Literal('&')
     notOp = CaselessKeyword('not')
     andOp = CaselessKeyword('and')
     orOp = CaselessKeyword('or')
@@ -420,9 +422,10 @@ def get_grammar():
                        )
     
     atom = (
+            #listLiteral |
             # parenthesized expression - This needs to be up front for performance. 
             (Suppress(lParen) + blockExpr + Suppress(rParen)) |            
-            listLiteral |
+            
             ifExpr |
             forExpr |
 
@@ -442,7 +445,6 @@ def get_grammar():
             varRef|
             
             qName #|
-            
 
             #list literal - needs to be at the end.
             #listLiteral 
@@ -471,6 +473,8 @@ def get_grammar():
                           [(unaryOp, 1, opAssoc.RIGHT, None, 'unaryExpr'),
                            (multiOp, 2, opAssoc.LEFT, None, 'multExpr'),
                            (addOp, 2, opAssoc.LEFT, None, 'addExpr'),
+                           (intersectOp, 2, opAssoc.LEFT, None, 'intersectExpr'),
+                           (symDiffOp, 2, opAssoc.LEFT, None, 'symetricDifferenceExpr'),
                            (compOp, 2, opAssoc.LEFT, None, 'compExpr'),
                            (notOp, 1, opAssoc.RIGHT, None, 'notExpr'),
                            (andOp, 2, opAssoc.LEFT, None, 'andExpr'),
