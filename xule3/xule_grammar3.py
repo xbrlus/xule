@@ -150,7 +150,7 @@ def get_grammar():
     multiOp = oneOf('* /')
     addOp = oneOf('+> -> + - <+> <+ <-> <-')
     symDiffOp = Literal('^')
-    intersectOp = Literal('&')
+    intersectOp = Literal('&') | CaselessKeyword('intersect')
     notOp = CaselessKeyword('not')
     andOp = CaselessKeyword('and')
     orOp = CaselessKeyword('or')
