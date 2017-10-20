@@ -855,7 +855,7 @@ def tag_default_for_factset(expr, xule_context):
     """Get the value of the concept aspect for tagging the default None fact of a factset
     """
 
-    for aspect_filter in expr['aspectFilters']:
+    for aspect_filter in expr.get('aspectFilters', list()):
         if aspect_filter.get('aspectName') == 'concept':
             if 'aspectOperator' in aspect_filter:
                 if aspect_filter['aspectOperator'] == '=':
