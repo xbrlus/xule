@@ -289,7 +289,7 @@ def get_grammar():
                     + nodeName('aspectFilter'))
     
     factsetInner = (Optional(covered) + 
-                    ZeroOrMore(Group(aspectFilter)).setResultsName('aspectFilters') +
+                    (Suppress(Literal('@')) ^ ZeroOrMore(Group(aspectFilter)).setResultsName('aspectFilters')) +
 #                     Optional((whereClause) | blockExpr.setResultsName('innerExpr')
                     Optional(~ where + blockExpr.setResultsName('innerExpr') ) +
                     Optional(whereClause)
@@ -311,7 +311,7 @@ def get_grammar():
                       Empty().setParseAction(lambda s, l, t: 'closed').setResultsName('factsetType')
                       ) |
                       Optional(covered) +
-                      Group(OneOrMore(Group(aspectFilter))).setResultsName('aspectFilters') + #This is a factset without enclosing brackets
+                      (Suppress(Literal('@')) ^ OneOrMore(Group(aspectFilter)).setResultsName('aspectFilters')) + #This is a factset without enclosing brackets
                       Empty().setParseAction(lambda s, l, t: 'open').setResultsName('factsetType') +
                       Optional(whereClause)
                 ) +
