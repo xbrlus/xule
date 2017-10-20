@@ -164,7 +164,10 @@ def property_role(xule_context, object_value, *args):
     
 def property_arc_role(xule_context, object_value, *args):
     arcrole_uri = object_value.value[NETWORK_INFO][NETWORK_ARCROLE]
-    return XuleValue(xule_context, arcrole_uri, 'string')
+    if arcrole_uri in xule_context.model.arcroleTypes:
+        return XuleValue(xule_context, xule_context.model.arcroleTypes[arcrole_uri][0], 'role')
+    else:
+        return XuleValue(xule_context, XuleRole(arcrole_uri), 'role')
     #return XuleValue(xule_context, XuleRole(), 'role')
 
 
@@ -241,7 +244,7 @@ def property_parent_child(xule_context, object_value, *args):
  
 def property_uri(xule_context, object_value, *args):
     if object_value.type == 'role':
-        return XuleValue(xule_context, object_value.value.roleURI, 'uri')
+        return XuleValue(xule_context, object_value.value.roleURI or object_value.value.arcroleURI, 'uri')
     if object_value.type == 'taxonomy':
         return XuleValue(xule_context, object_value.value.fileSource.url, 'uri')
  

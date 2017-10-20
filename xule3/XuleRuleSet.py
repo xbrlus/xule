@@ -184,9 +184,6 @@ class XuleRuleSet(object):
         #assign node_ids
         self.next_id = self._assign_node_ids(parse_tree, self.next_id + 1)
         
-        import pprint
-        pprint.pprint(parse_tree)
-        
         error_in_file = False
         #top level analysis
         for i, cur_node in enumerate(parse_tree['xuleDoc']):
@@ -398,7 +395,7 @@ class XuleRuleSet(object):
                 parse_node['whereExpr']['location'] = 'navigate'
         if current_part == 'filter':
             if 'whereExpr' in parse_node or 'returnsExpr' in parse_node:
-                var_names['item'].append(parse_node)
+                var_names['item'].append(parse_node['expr'])
             if 'whereExpr' in parse_node:
                 parse_node['whereExpr']['location'] = 'filter'
         if current_part == 'functionDeclaration':
@@ -519,7 +516,7 @@ class XuleRuleSet(object):
             if 'whereExpr' in parse_node:
                 var_names['relationship'].pop()
         if current_part == 'filter':
-            if 'whereExpr' in parse_node or 'returnsExpr' in parse_node:
+            if 'whereExpr' or 'returnsExpr' in parse_node:
                 var_names['item'].pop()
         if current_part == 'functionDeclaration':
             for arg in parse_node['functionArgs']:
@@ -587,7 +584,6 @@ class XuleRuleSet(object):
             descendant_dependent_iterables = list()
             descendant_downstream_iterables = list()
             
-            print("processing", parse_node['exprName'], parse_node['node_id'])
             for child in parse_node.values():
                 next_parts = []
                 if isinstance(child, dict):
@@ -610,8 +606,6 @@ class XuleRuleSet(object):
                         descendant_dependent_iterables += next_part['dependent_iterables']
                         descendant_downstream_iterables += next_part['downstream_iterables']
                         pre_calc += descendent_pre_calc
-                
-                        print("    Finished", next_part['exprName'], next_part['node_id'])
             
             #defaults
             parse_node['var_refs'] = descendant_var_refs

@@ -2259,12 +2259,16 @@ def evaluate_filter(filter_expr, xule_context):
     if 'whereExpr' not in filter_expr and 'returnsExpr' not in filter_expr:
         return collection_value
     
-    results = list()
-    results_shadow = list()
+    if collection_value.type == 'set':
+        results = set()
+        results_shadow = set()
+    else: # list
+        results = list()
+        results_shadow = list()
     
     for item_value in collection_value.value:
         xule_context.add_arg('item',
-                             filter_expr['node_id'],
+                             filter_expr['expr']['node_id'],
                              True,
                              item_value,
                              'single')
@@ -2280,19 +2284,25 @@ def evaluate_filter(filter_expr, xule_context):
                 elif filter_where_result.type != 'unbound':
                     raise XuleProcessingError(_("The where clause on a filter expression must evaluate to a boolean, found '{}'.".format(filter_where_result.type)), xule_context)            
             
-            if 'returnsExpr' in filter_expr:
-                keep_item = evaluate(filter_expr['returnsExpr'], xule_context) 
-            else:
-                keep_item = item_value
-            
             if keep:
-                results.append(keep_item)
-                results_shadow.append(keep_item.shadow_collection if keep_item.type in ('list', 'set', 'dictionary') else keep_item.value)            
+                if 'returnsExpr' in filter_expr:
+                    keep_item = evaluate(filter_expr['returnsExpr'], xule_context) 
+                else:
+                    keep_item = item_value
+            
+                if collection_value.type == 'set':
+                    if (keep_item.shadow_collection if keep_item.type in ('list', 'set', 'dictionary') else keep_item.value) not in results_shadow:
+                        results.add(keep_item)
+                        results_shadow.add(keep_item.shadow_collection if keep_item.type in ('list', 'set', 'dictionary') else keep_item.value)
+                    # otherwise, this a duplicate
+                else: #list
+                    results.append(keep_item)
+                    results_shadow.append(keep_item.shadow_collection if keep_item.type in ('list', 'set', 'dictionary') else keep_item.value)            
             
         finally:    
             #remove the args
             xule_context.del_arg('item',
-                                 filter_expr['node_id'])
+                                 filter_expr['expr']['node_id'])
 
     if collection_value.type == 'set':
         return XuleValue(xule_context, frozenset(results), 'set', shadow_collection=frozenset(results_shadow))

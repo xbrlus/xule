@@ -418,6 +418,10 @@ class XuleRole:
         return self._role_uri
     
     @property
+    def arcroleURI(self):
+        return self._role_uri
+    
+    @property
     def definition(self):
         return self._STANDARD_ROLE_DEFINITIONS.get(self._role_uri)
     
