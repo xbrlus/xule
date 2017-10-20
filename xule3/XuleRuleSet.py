@@ -184,6 +184,9 @@ class XuleRuleSet(object):
         #assign node_ids
         self.next_id = self._assign_node_ids(parse_tree, self.next_id + 1)
         
+        import pprint
+        pprint.pprint(parse_tree)
+        
         error_in_file = False
         #top level analysis
         for i, cur_node in enumerate(parse_tree['xuleDoc']):
@@ -394,7 +397,8 @@ class XuleRuleSet(object):
                 var_names['relationship'].append(parse_node['whereExpr'])
                 parse_node['whereExpr']['location'] = 'navigate'
         if current_part == 'filter':
-            var_names['item'].append(parse_node)
+            if 'whereExpr' in parse_node or 'returnsExpr' in parse_node:
+                var_names['item'].append(parse_node)
             if 'whereExpr' in parse_node:
                 parse_node['whereExpr']['location'] = 'filter'
         if current_part == 'functionDeclaration':
@@ -515,7 +519,8 @@ class XuleRuleSet(object):
             if 'whereExpr' in parse_node:
                 var_names['relationship'].pop()
         if current_part == 'filter':
-            var_names['item'].pop()
+            if 'whereExpr' in parse_node or 'returnsExpr' in parse_node:
+                var_names['item'].pop()
         if current_part == 'functionDeclaration':
             for arg in parse_node['functionArgs']:
                 var_names[arg['argName']].pop()
@@ -582,6 +587,7 @@ class XuleRuleSet(object):
             descendant_dependent_iterables = list()
             descendant_downstream_iterables = list()
             
+            print("processing", parse_node['exprName'], parse_node['node_id'])
             for child in parse_node.values():
                 next_parts = []
                 if isinstance(child, dict):
@@ -604,6 +610,8 @@ class XuleRuleSet(object):
                         descendant_dependent_iterables += next_part['dependent_iterables']
                         descendant_downstream_iterables += next_part['downstream_iterables']
                         pre_calc += descendent_pre_calc
+                
+                        print("    Finished", next_part['exprName'], next_part['node_id'])
             
             #defaults
             parse_node['var_refs'] = descendant_var_refs
@@ -648,11 +656,19 @@ class XuleRuleSet(object):
                 if 'innerExpr' in parse_node:
                     self.assign_table_id(parse_node['innerExpr'], var_defs, override_node_id=parse_node['node_id'])           
             
-                '''NEED TO ADD NAVIGATE AND FILTER'''
+            elif current_part == 'navigate':
+                if 'whereExpr' in parse_node:
+                    parse_node['var_refs'] = [x for x in parse_node['var_refs'] if x[0] != parse_node['whereExpr']['node_id']]
+                    
+            elif current_part == 'filter':
+                if 'whereExpr' in parse_node or 'returnsExpr' in parse_node:
+                    parse_node['var_refs'] = [x for x in parse_node['var_refs'] if x[0] != parse_node['node_id']]
+                    
             elif current_part == 'whereExpr':
                 '''whereExpr IS NOW IN NAVIGATION AND FILTERS. DOES THE whereExpr NEED TO HAVE A TABLE ID FOR THESE EXPRESSION?'''
                 #set the table id
-                self.assign_table_id(parse_node, var_defs)
+                if parse_node['location'] == 'factset':
+                    self.assign_table_id(parse_node, var_defs)
         
             elif current_part == 'forExpr':
                 parse_node['number'] = 'multi'

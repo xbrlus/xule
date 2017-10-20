@@ -117,6 +117,58 @@ def property_values(xule_context, object_value, *args):
 #     vals_shadow = list(v for k, v in object_value.shadow_collection)
     return XuleValue(xule_context, tuple(vals), 'list', shadow_collection=tuple(vals_shadow))
 
+def property_networks(xule_context, object_value, *args):
+    
+    if len(args) > 0:
+        arcrole_value = args[0]
+        if arcrole_value.type == 'role':
+            arcrole = arcrole_value.value.roleURI
+        elif arcrole_value.type in ('uri', 'string'):
+            arcrole = arcrole_value.value
+        elif arcrole_value.type == 'qname':
+            arcrole = XuleUtility.resolve_role(arcrole_value, 'arcrole', object_value.value, xule_context)
+        elif arcrole_value.type == 'unbound':
+            arcrole = None
+        else:
+            raise XuleProcessingError(_("The first argument (arc role) of the networks property must be a uri, found '{}'.".format(arcrole_value.type)), xule_context)
+    else:
+        arcrole = None
+    
+    if len(args) > 1:
+        role_value = args[1]
+        if role_value.type == 'role':
+            role = role_value.value.roleURI
+        elif role_value.type in ('uri', 'string'):
+            role = role_value.value
+        elif role_value.type == 'qname':
+            role = XuleUtility.resolve_role(role_value, 'role', object_value.value, xule_context)
+        else:
+            raise XuleProcessingError(_("The second argument (role) of the networks property must be a uri, found '{}'.".format(role_value.type)), xule_context)
+    else:
+        role = None
+        
+    return XuleValue(xule_context, get_networks(xule_context, object_value, arcrole, role), 'set')
+
+def property_role(xule_context, object_value, *args):
+    if object_value.type == 'network':
+        role_uri = object_value.value[NETWORK_INFO][NETWORK_ROLE]
+        #return XuleValue(xule_context, object_value.value[NETWORK_INFO][NETWORK_ROLE], 'uri')
+    else:
+        role_uri = object_value.value.role
+        #return XuleValue(xule_context, object_value.value.role, 'uri')
+     
+    if role_uri in xule_context.model.roleTypes:
+        return XuleValue(xule_context, xule_context.model.roleTypes[role_uri][0], 'role')
+    else:
+        return XuleValue(xule_context, XuleRole(role_uri), 'role')
+    
+def property_arc_role(xule_context, object_value, *args):
+    arcrole_uri = object_value.value[NETWORK_INFO][NETWORK_ARCROLE]
+    return XuleValue(xule_context, arcrole_uri, 'string')
+    #return XuleValue(xule_context, XuleRole(), 'role')
+
+
+
 
 
 
@@ -185,18 +237,7 @@ def property_summation_item(xule_context, object_value, *args):
 def property_parent_child(xule_context, object_value, *args):
     return get_single_network(xule_context, object_value, args[0], PARENT_CHILD, 'parent-child')
  
-def property_role(xule_context, object_value, *args):
-    if object_value.type == 'network':
-        role_uri = object_value.value[NETWORK_INFO][NETWORK_ROLE]
-        #return XuleValue(xule_context, object_value.value[NETWORK_INFO][NETWORK_ROLE], 'uri')
-    else:
-        role_uri = object_value.value.role
-        #return XuleValue(xule_context, object_value.value.role, 'uri')
-     
-    if role_uri in xule_context.model.roleTypes:
-        return XuleValue(xule_context, xule_context.model.roleTypes[role_uri][0], 'role')
-    else:
-        return XuleValue(xule_context, XuleRole(role_uri), 'role')
+
  
 def property_uri(xule_context, object_value, *args):
     if object_value.type == 'role':
@@ -870,7 +911,7 @@ def property_list_properties(xule_context, object_value, *args):
      
     return XuleValue(xule_context, s, 'string')
 
-def get_networks(xule_context, dts_value, arcrole, role=None, link=None, arc=None):
+def get_networks(xule_context, dts_value, arcrole=None, role=None, link=None, arc=None):
     #final_result_set = XuleResultSet()
     networks = set()
     dts = dts_value.value
@@ -914,7 +955,7 @@ def get_single_network(xule_context, dts, role_result, arc_role, property_name):
         return next(iter(networks))
 
   
-def get_base_set_info(xule_context, dts, arcrole, role=None, link=None, arc=None):
+def get_base_set_info(xule_context, dts, arcrole=None, role=None, link=None, arc=None):
 #     return [x + (False,) for x in dts.baseSets if x[NETWORK_ARCROLE] == arcrole and
 #                                        (True if role is None else x[NETWORK_ROLE] == role) and
 #                                        (True if link is None else x[NETWORK_LINK] == link) and
@@ -923,7 +964,7 @@ def get_base_set_info(xule_context, dts, arcrole, role=None, link=None, arc=None
     info = list()
     for x in dts.baseSets:
         keep = True
-        if x[NETWORK_ARCROLE] != arcrole: keep = False
+        if x[NETWORK_ARCROLE] is None or (x[NETWORK_ARCROLE] != arcrole and arcrole is not None): keep = False
         if x[NETWORK_ROLE] is None or (x[NETWORK_ROLE] != role and role is not None): keep = False
         if x[NETWORK_LINK] is None or (x[NETWORK_LINK] != link and link is not None): keep = False
         if x[NETWORK_ARC] is None or (x[NETWORK_ARC] != arc and arc is not None): keep = False
@@ -1012,7 +1053,9 @@ PROPERTIES = {
               'keys': (property_keys, -1, ('dictionary',), False),
               'values': (property_values, 0, ('dictionary', ), False),
               'decimals': (property_decimals, 0, ('fact',), False),
-              
+              'networks':(property_networks, -2, ('taxonomy',), False),
+              'role': (property_role, 0, ('network', 'label'), False),
+              'arcrole':(property_arc_role, 0, ('network',), False),
               
               
               
@@ -1096,7 +1139,7 @@ PROPERTIES = {
                'abs': (property_abs, 0, ('int', 'float', 'decimal', 'fact'), False),
                'signum': (property_signum, 0, ('int', 'float', 'decimal', 'fact'), False),
                 
-               'role': (property_role, 0, ('network', 'label'), False),
+               
                'uri': (property_uri, 0, ('role', 'taxonomy'), False),
                'definition': (property_definition, 0, ('role',), False),
                'used-on': (property_used_on, 0, ('role',), False),

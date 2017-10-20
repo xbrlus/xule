@@ -2322,24 +2322,30 @@ def evaluate_navigate(nav_expr, xule_context):
         return XuleValue(xule_context, set(), 'set')
     
     nav_to_concepts = nav_get_element(nav_expr, 'to', dts, xule_context)
-    arcrole = nav_get_role(nav_expr, 'arcrole', dts, xule_context)
+    arcrole = nav_get_role(nav_expr, 'arcrole', dts, xule_context)       
     role = nav_get_role(nav_expr, 'role', dts, xule_context)
     link_qname = evaluate(xule_context, nav_expr['link']).value if 'link' in nav_expr else None
     arc_qname = None # This is always none. 
+    if (('arcrole' in nav_expr and arcrole is None) or
+        ('role' in nav_expr and role is None) or
+        ('link' in nav_expr and link_qname is None)):
+        #There are no networks to navigate
+        relationship_sets = list()
+    else:
+        #get the relationships
+        relationship_set_infos = XuleProperties.get_base_set_info(xule_context, dts, arcrole, role, link_qname, arc_qname)
+        # The relationship_set_info includes the includeProhibits at the end of the tuple
+        relationship_sets = [dts.relationshipSets[x] if x in dts.relationshipSets 
+                                                     else ModelRelationshipSet(dts, 
+                                                                               x[XuleProperties.NETWORK_ARCROLE],
+                                                                               x[XuleProperties.NETWORK_ROLE],
+                                                                               x[XuleProperties.NETWORK_LINK],
+                                                                               x[XuleProperties.NETWORK_ARC])
+                             for x in relationship_set_infos]
+
     direction = nav_expr['direction']
     include_start = nav_expr.get('includeStart', False)
     return_names = get_return_component_names(nav_expr, xule_context)
-    
-    #get the relationships
-    relationship_set_infos = XuleProperties.get_base_set_info(xule_context, dts, arcrole, role, link_qname, arc_qname)
-    # The relationship_set_info includes the includeProhibits at the end of the tuple
-    relationship_sets = [dts.relationshipSets[x] if x in dts.relationshipSets 
-                                                 else ModelRelationshipSet(dts, 
-                                                                           x[XuleProperties.NETWORK_ARCROLE],
-                                                                           x[XuleProperties.NETWORK_ROLE],
-                                                                           x[XuleProperties.NETWORK_LINK],
-                                                                           x[XuleProperties.NETWORK_ARC])
-                         for x in relationship_set_infos]
     
     return_by_networks = nav_expr.get('return', dict()).get('byNetwork', False)
     if return_by_networks:
@@ -2536,50 +2542,16 @@ def nav_traverse_where(nav_expr, relationship, xule_context):
 def nav_get_role(nav_expr, role_type, dts, xule_context):
     """Get the full role from the navigation expression.
     
-    A roleole in the navigation expressions is either a string, uri or a non prefixed qname. If it is a string or uri, it is a full arcrole. If it is
+    A role in the navigation expressions is either a string, uri or a non prefixed qname. If it is a string or uri, it is a full arcrole. If it is
     a non prefixed qname, than the local name of the qname is used to match an arcrole that ends in 'localName'. If more than one arcrole is found then
     and error is raise. This allows short form of an arcrole i.e parent-child.
     """
     if role_type in nav_expr:
-        short_attribute_name = 'xule_{}_short'.format(role_type)
         role_value = evaluate(nav_expr[role_type], xule_context)
         if role_value.type in ('string', 'uri'):
             return role_value.value
         elif role_value.type == 'qname':
-            if role_value.value.prefix is not None:
-                raise XuleProcessingError(_("Invalid {}. {} should be a string, uri or short role name. Found qname with value of {}".format(role_type, role_type.capitalize(), role_value.format_value())))
-            else:
-                # Check that the dictionary of short arcroles is in the context. If not, build the diction are arcrole short names
-                if not hasattr(dts, short_attribute_name):
-                    if role_type == 'arcrole':
-                        setattr(dts, short_attribute_name, XuleProperties.CORE_ARCROLES.copy())
-                        dts_roles = dts.arcroleTypes
-                    else:
-                        setattr(dts, short_attribute_name, {'link': 'http://www.xbrl.org/2003/role/link'})
-                        dts_roles = dts.roleTypes
-                    
-                    short_role_dict = getattr(dts, short_attribute_name)
-                    for role in dts_roles:
-                        short_name = role.split('/')[-1] if '/' in role else role
-                        if short_name in short_role_dict:
-                            short_role_dict[short_name] = None # indicates that there is a dup shortname
-                        else:
-                            short_role_dict[short_name] = role
-                
-                short_role_dict = getattr(dts, short_attribute_name)
-                short_name = role_value.value.localName
-                if short_name not in short_role_dict:
-                    raise XuleProcessingError(_("The {} short name '{}' does not match any arcrole.".format(role_type, short_name)))
-                if short_name in (XuleProperties.CORE_ARCROLES if role_type == 'arcrole' else {'link': 'http://www.xbrl.org/2003/role/link'}) and short_role_dict[short_name] is None:
-                    raise XuleProcessingError(_("A taxonomy defined {role} has the same short name (last portion of the {role}) as a core specification {role}. " 
-                                                "Taxonomy defined {role} is '{tax_role}'. Core specification {role} is '{core_role}'."
-                                                .format(role=role_type, 
-                                                        tax_role=getattr(dts, short_attribute_name)[short_name], 
-                                                        core_role=XuleProperties.CORE_ARCROLES[short_name] if role_type == 'arcrole' else 'http://www.xbrl.org/2003/role/link')))
-                if short_name in short_role_dict and short_role_dict[short_name] is None:
-                    raise XuleProcessingError(_("The {} short name '{}' resolves to more than one arcrole in the taxonomy.".format(role_type, short_name)))
-                
-                return short_role_dict[short_name]
+            return XuleUtility.resolve_role(role_value, role_type, dts, xule_context)
     else:
         return None # There is no arcrole on the navigation expression
 
