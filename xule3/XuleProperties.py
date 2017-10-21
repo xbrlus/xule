@@ -170,27 +170,68 @@ def property_arc_role(xule_context, object_value, *args):
         return XuleValue(xule_context, XuleRole(arcrole_uri), 'role')
     #return XuleValue(xule_context, XuleRole(), 'role')
 
+def property_concept(xule_context, object_value, *args):
+    '''There are two forms of this property. The first is on a fact (with no arguments). This will return the concept of the fact.
+       The second is on a taxonomy (with one argument). This will return the concept of the supplied qname argument in the taxonomy.
+    '''
+    if object_value.is_fact:
+        if len(args) != 0:
+            raise XuleProcessingError(_("Property 'concept' when used on a fact does not have any arguments, found %i" % len(args)), xule_context)
+ 
+        return XuleValue(xule_context, object_value.fact.concept, 'concept')
+     
+    elif object_value.type == 'taxonomy':
+        if len(args) != 1:
+            raise XuleProcessingError(_("Property 'concept' when used on a taxonomy requires 1 argument, found %i" % len(args)), xule_context)
+         
+        concept_qname_value = args[0]
+         
+        if concept_qname_value.type == 'unbound':
+            concept_value = None
+        else:
+            if concept_qname_value.type != 'qname':
+                raise XuleProcessingError(_("The 'concept' property of a taxonomy requires a qname argument, found '%s'" % concept_qname_value.type), xule_context)
+             
+            concept_value = get_concept(object_value.value, concept_qname_value.value)
+         
+        if concept_value is not None:
+            return XuleValue(xule_context, concept_value, 'concept')
+        else:
+            '''SHOULD THIS BE AN EMPTY RESULT SET INSTEAD OF AN UNBOUND VALUE?'''
+            return XuleValue(xule_context, None, 'unbound')
 
-
-
-
-
-
-
-
-
-
-
-
+def property_period(xule_context, object_value, *args):
+    if object_value.fact.context.isStartEndPeriod or object_value.fact.context.isForeverPeriod:
+        return XuleValue(xule_context, model_to_xule_period(object_value.fact.context, xule_context), 'duration', from_model=True)
+    else:
+        return XuleValue(xule_context, model_to_xule_period(object_value.fact.context, xule_context), 'instant', from_model=True)
+          
+def property_unit(xule_context, object_value, *args):
+    if object_value.fact.unit is None:
+        return XuleValue(xule_context, None, 'unbound')
+    else:
+        return XuleValue(xule_context, model_to_xule_unit(object_value.fact.unit.measures, xule_context), 'unit')
+ 
+def property_entity(xule_context, object_value, *args):
+    return XuleValue(xule_context, model_to_xule_entity(object_value.fact.context, xule_context), 'entity')
+ 
+def property_id(xule_context, object_value, *args):
+    return XuleValue(xule_context, object_value.value[1], 'string')
+ 
+def property_scheme(xule_context, object_value, *args):
+    return XuleValue(xule_context, object_value.value[0], 'string')
 
 def property_dimension(xule_context, object_value, *args):
     dim_name = args[0]
     model_fact = object_value.fact
-     
-    if dim_name.type != 'qname':
+    
+    if dim_name.type == 'qname':
+        dim_qname = dim_name.value
+    elif dim_name.type == 'concept':
+        dim_qname = dim_name.value.qname
+    else:
         raise XuleProcessingError(_("The argument for property 'dimension' must be a qname, found '%s'." % dim_name.type),xule_context)
      
- 
     member = model_fact.context.qnameDims.get(dim_name.value)
     if member is None:
         return XuleValue(xule_context, None, 'none')
@@ -200,6 +241,53 @@ def property_dimension(xule_context, object_value, *args):
         else:
             #this is a typed dimension
             return XuleValue(xule_context, member.typedMember.xValue, model_to_xule_type(xule_context, member.typedMember.xValue))
+
+def property_dimensions(xule_context, object_value, *args):
+    result_dict = dict()
+    result_shadow = dict()
+    
+    for dim_qname, member_model in object_value.fact.context.qnameDims.items():
+        dim_value = XuleValue(xule_context, get_concept(xule_context.model, dim_qname), 'concept')
+        if member_model.isExplicit:
+            member_value = XuleValue(xule_context, member_model.member, 'concept')
+        else: # Typed dimension
+            member_value = XuleValue(xule_context, member.typedMember.xValue, model_to_xule_type(xule_context, member.typedMember.xValue))
+            
+        result_dict[dim_value] = member_value
+        result_shadow[dim_value.value] = member_value.value
+    
+    return XuleValue(xule_context, frozenset(result_dict.items()), 'dictionary', shadow_collection=frozenset(result_shadow.items()))
+
+def property_start(xule_context, object_value, *args):
+    if object_value.type == 'instant':
+        return XuleValue(xule_context, object_value.value, 'instant', from_model=object_value.from_model)
+    else:
+        '''WHAT SHOULD BE RETURNED FOR FOREVER. CURRENTLY THIS WILL RETURN THE LARGEST DATE THAT PYTHON CAN HOLD.'''
+        return XuleValue(xule_context, object_value.value[0], 'instant', from_model=object_value.from_model)
+ 
+def property_end(xule_context, object_value, *args):
+    if object_value.type == 'instant':
+        return XuleValue(xule_context, object_value.value, 'instant', from_model=object_value.from_model)
+    else:
+        '''WHAT SHOULD BE RETURNED FOR FOREVER. CURRENTLY THIS WILL RETURN THE LARGEST DATE THAT PYTHON CAN HOLD.'''
+        return XuleValue(xule_context, object_value.value[1], 'instant', from_model=object_value.from_model)  
+ 
+def property_days(xule_context, object_value, *args):
+    if object_value.type == 'instant':
+        return XuleValue(xule_context, 0, 'int')
+    else:
+        return XuleValue(xule_context, (object_value.value[1] - object_value.value[0]).days, 'int')
+
+
+
+
+
+
+
+
+
+
+
  
 def property_summation_item_networks(xule_context, object_value, *args):
     return XuleValue(xule_context, get_networks(xule_context, object_value, SUMMATION_ITEM), 'set')
@@ -451,36 +539,7 @@ def property_preferred_label(xule_context, object_value, *args):
     else:
         return XuleValue(xule_context, None, 'unbound')    
          
-def property_concept(xule_context, object_value, *args):
-    '''There are two forms of this property. The first is on a fact (with no arguments). This will return the concept of the fact.
-       The second is on a taxonomy (with one argument). This will return the concept of the supplied qname argument in the taxonomy.
-    '''
-    if object_value.is_fact:
-        if len(args) != 0:
-            raise XuleProcessingError(_("Property 'concept' when used on a fact does not have any arguments, found %i" % len(args)), xule_context)
- 
-        return XuleValue(xule_context, object_value.fact.concept, 'concept')
-     
-    elif object_value.type == 'taxonomy':
-        if len(args) != 1:
-            raise XuleProcessingError(_("Property 'concept' when used on a taxonomy requires 1 argument, found %i" % len(args)), xule_context)
-         
-        concept_qname_value = args[0]
-         
-        if concept_qname_value.type == 'unbound':
-            concept_value = None
-        else:
-            if concept_qname_value.type != 'qname':
-                raise XuleProcessingError(_("The 'concept' property of a taxonomy requires a qname argument, found '%s'" % concept_qname_value.type), xule_context)
-             
-            concept_value = get_concept(object_value.value, concept_qname_value.value)
-         
-        if concept_value is not None:
-            return XuleValue(xule_context, concept_value, 'concept')
-        else:
-            '''SHOULD THIS BE AN EMPTY RESULT SET INSTEAD OF AN UNBOUND VALUE?'''
-            return XuleValue(xule_context, None, 'unbound')
-         
+
 def property_concepts(xule_context, object_value, *args):
      
     if object_value.type == 'taxonomy':
@@ -807,47 +866,10 @@ def property_round_by_decimals(xule_context, object_value, *args):
         rounded_value = round(object_value.value, decimals)
         return XuleValue(xule_context, rounded_value, object_value.type)
  
-def property_unit(xule_context, object_value, *args):
-    if object_value.fact.unit is None:
-        return XuleValue(xule_context, None, 'unbound')
-    else:
-        return XuleValue(xule_context, model_to_xule_unit(object_value.fact.unit.measures, xule_context), 'unit')
+
  
-def property_entity(xule_context, object_value, *args):
-    return XuleValue(xule_context, model_to_xule_entity(object_value.fact.context, xule_context), 'entity')
- 
-def property_identifier(xule_context, object_value, *args):
-    return XuleValue(xule_context, object_value.value[1], 'string')
- 
-def property_scheme(xule_context, object_value, *args):
-    return XuleValue(xule_context, object_value.value[0], 'string')
- 
-def property_period(xule_context, object_value, *args):
-    if object_value.fact.context.isStartEndPeriod or object_value.fact.context.isForeverPeriod:
-        return XuleValue(xule_context, model_to_xule_period(object_value.fact.context, xule_context), 'duration', from_model=True)
-    else:
-        return XuleValue(xule_context, model_to_xule_period(object_value.fact.context, xule_context), 'instant', from_model=True)
- 
-def property_start_date(xule_context, object_value, *args):
-    if object_value.type == 'instant':
-        return XuleValue(xule_context, object_value.value, 'instant', from_model=object_value.from_model)
-    else:
-        '''WHAT SHOULD BE RETURNED FOR FOREVER. CURRENTLY THIS WILL RETURN THE LARGEST DATE THAT PYTHON CAN HOLD.'''
-        return XuleValue(xule_context, object_value.value[0], 'instant', from_model=object_value.from_model)
- 
-def property_end_date(xule_context, object_value, *args):
-    if object_value.type == 'instant':
-        return XuleValue(xule_context, object_value.value, 'instant', from_model=object_value.from_model)
-    else:
-        '''WHAT SHOULD BE RETURNED FOR FOREVER. CURRENTLY THIS WILL RETURN THE LARGEST DATE THAT PYTHON CAN HOLD.'''
-        return XuleValue(xule_context, object_value.value[1], 'instant', from_model=object_value.from_model)  
- 
-def property_days(xule_context, object_value, *args):
-    if object_value.type == 'instant':
-        return XuleValue(xule_context, 0, 'int')
-    else:
-        return XuleValue(xule_context, (object_value.value[1] - object_value.value[0]).days, 'int')
- 
+
+
 def property_add_time_period(xule_context, object_value, *args):
     arg = args[0]
     if arg.type != 'time-period':
@@ -1059,12 +1081,24 @@ PROPERTIES = {
               'networks':(property_networks, -2, ('taxonomy',), False),
               'role': (property_role, 0, ('network', 'label'), False),
               'arcrole':(property_arc_role, 0, ('network',), False),
+              'concept': (property_concept, -1, ('fact', 'taxonomy'), False),
+              'period': (property_period, 0, ('fact',), False),
+              'unit': (property_unit, 0, ('fact',), False),
+              'entity': (property_entity, 0, ('fact',), False),
+              'id': (property_id, 0, ('entity',), False),
+              'scheme': (property_scheme, 0, ('entity',), False),
+              'dimension': (property_dimension, 1, ('fact',), False),
+              'dimensions': (property_dimensions, 0, ('fact',), False),
+              'start': (property_start, 0, ('instant', 'duration'), False),
+              'end': (property_end, 0, ('instant', 'duration'), False),
+              'days': (property_days, 0, ('instant', 'duration'), False),
+              
+              
+              
               
               
               
               #OLD PROPERTIES
-               'dimension': (property_dimension, 1, ('fact',), False),
-               
                # taxonomy navigations
                'concepts': (property_concepts, 0, ('taxonomy', 'network'), False),
                'summation-item-networks': (property_summation_item_networks, 0, ('taxonomy',), False),
@@ -1116,14 +1150,8 @@ PROPERTIES = {
                  
                
                'round-by-decimals': (property_round_by_decimals, 1, ('fact', 'int', 'decimal', 'float'), False),
-               'unit': (property_unit, 0, ('fact',), False),
-               'entity': (property_entity, 0, ('fact',), False),
-               'identifier': (property_identifier, 0, ('entity',), False),
-               'scheme': (property_scheme, 0, ('entity',), False),
-               'period': (property_period, 0, ('fact',), False),
-               'start-date': (property_start_date, 0, ('instant', 'duration'), False),
-               'end-date': (property_end_date, 0, ('instant', 'duration'), False),
-               'days': (property_days, 0, ('instant', 'duration'), False),
+
+
                'add-time-period': (property_add_time_period, 1, ('instant',), False),
                'subtract-time-period': (property_subtract_time_period, 1, ('instant',), False),
   
