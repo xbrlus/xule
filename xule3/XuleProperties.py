@@ -278,6 +278,31 @@ def property_days(xule_context, object_value, *args):
     else:
         return XuleValue(xule_context, (object_value.value[1] - object_value.value[0]).days, 'int')
 
+def property_numerator(xule_context, object_value, *args):
+    # A unit is a tuple of numerator, denominator
+    if len(object_value.value[0]) == 1:
+        return XuleValue(xule_context, object_value.value[0][0], 'qname')
+    else:
+        # There are multiple measures - return a list
+        result = list()
+        result_shadow = list()
+        for measure in object_value.value[0]:
+            result.append(XuleValue(xule_context, measure, 'qname'))
+            result_shadow.append(measure)
+        return XuleValue(xule_context, tuple(result), 'list', shadow_collection=tuple(result_shadow))
+
+def property_denominator(xule_context, object_value, *args):
+
+    if len(object_value.value[1]) == 1:
+        return XuleValue(xule_context, object_value.value[1][0], 'qname')
+    else:
+        # There are multiple measures - return a list
+        result = list()
+        result_shadow = list()
+        for measure in object_value.value[1]:
+            result.append(XuleValue(xule_context, measure, 'qname'))
+            result_shadow.append(measure)
+        return XuleValue(xule_context, tuple(result), 'list', shadow_collection=tuple(result_shadow))
 
 
 
@@ -1092,7 +1117,8 @@ PROPERTIES = {
               'start': (property_start, 0, ('instant', 'duration'), False),
               'end': (property_end, 0, ('instant', 'duration'), False),
               'days': (property_days, 0, ('instant', 'duration'), False),
-              
+              'numerator': (property_numerator, 0, ('unit', ), False),
+              'denominator': (property_denominator, 0, ('unit',), False),
               
               
               
