@@ -219,7 +219,7 @@ def index_model(xule_context):
     #         #MIGHT NEED TO HANBDLE FOREVER PERIODS
             
             if model_fact.isNumeric:
-                unit = model_to_xule_unit(model_fact.unit.measures, xule_context)
+                unit = model_to_xule_unit(model_fact.unit, xule_context)
                 #fact_index[('builtin', 'unit')][unit].add(model_fact)
                 all_aspects.append((('builtin', 'unit'), unit))
             
@@ -1891,6 +1891,13 @@ def factset_pre_match(factset, filters, non_aligned_filters, aligned_filters, xu
                     member_values = {convert_value_to_model_period(filter_member, xule_context),}
                 else:
                     member_values= {convert_value_to_model_period(x, xule_context) for x in filter_member.value}
+            # Allow units to be a qname or a xule 'unit'
+            elif index_key == ('builtin', 'unit'):
+                conversion_function = lambda x: XuleUnit(x) if x.type == 'qname' else x
+                if aspect_info[ASPECT_OPERATOR] == '=':
+                    member_values = {conversion_function(filter_member),}
+                else:
+                    member_values = {conversion_function(x) for x in filter_member.value}
             else:
                 if aspect_info[ASPECT_OPERATOR] == '=':
                     member_values = {filter_member.value,}
@@ -1992,7 +1999,7 @@ def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non
                         #alignment_value = model_fact.elementQname
                     elif alignment_info == ('builtin', 'unit'):
                         if model_fact.isNumeric:
-                            alignment_value = model_to_xule_unit(model_fact.unit.measures, xule_context)
+                            alignment_value = model_to_xule_unit(model_fact.unit, xule_context)
                     elif alignment_info == ('builtin', 'period'):
                         alignment_value = model_to_xule_period(model_fact.context, xule_context)
                     elif alignment_info == ('builtin', 'entity'):
@@ -2100,7 +2107,7 @@ def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non
                         xule_context.add_arg(var_name,
                                              declaration_id,
                                              None,
-                                             XuleValue(xule_context, model_to_xule_unit(model_fact.unit.measures, xule_context), 'unit'),
+                                             XuleValue(xule_context, model_to_xule_unit(model_fact.unit, xule_context), 'unit'),
                                              'single')
                     elif aspect_name == 'entity':
                         xule_context.add_arg(var_name,
@@ -3512,7 +3519,7 @@ def process_factset_aspects(factset, xule_context):
                 raise XuleProcessingError(_("Error while processing factset aspect. Concept %s not found." % aspect_filter_qname.value.clarkNotation), xule_context)
             if aspect_filter_model_concept.isDimensionItem:
                 # This is a dimension aspect
-                add_aspect_var(aspect_vars, 'explicit_dimension', 'concept', aspect_var_name, aspect_filter['node_id'], xule_context)
+                add_aspect_var(aspect_vars, 'explicit_dimension', aspect_filter_qname.value, aspect_var_name, aspect_filter['node_id'], xule_context)
                 aspect_info, aspect_value = process_aspect_expr(aspect_filter, 'explicit_dimension', aspect_filter_qname.value, xule_context)
                 if aspect_info is not None:
                     aspect_dictionary[aspect_info] = aspect_value                   
@@ -3604,7 +3611,7 @@ def process_aspect_expr(aspect_filter, aspect_type, aspect_name, xule_context):
             aspect_info = (aspect_type, aspect_name, aspect_filter['wildcard'], aspect_filter['aspectOperator'], prop)
             aspect_value = XuleValue(xule_context, None, 'none')
         else:
-            # This is aspect_name != *. Really this 
+            # This is aspect_name != *. Really this is the fact does not have this aspect (this aspect is in the default)
             aspect_info = (aspect_type, aspect_name, None, '=', prop)
             aspect_value = XuleValue(xule_context, None, 'none')   
     else:
@@ -3652,6 +3659,14 @@ def convert_value_to_model_period(value, xule_context):
         else:
             raise XuleProcessingError(_("Converting result to a period, expected 'instant' or 'duration' but found '%s'" % value.type), xule_context)
 
+def convert_value_to_model_unit(value, xule_context):
+    if value.type == 'unit':
+        return value.value
+    elif value.type == 'qname':
+        # A xule 'unit' is a tuple 
+        return ((value.value,),tuple())
+    
+    
 # def get_used_vars(xule_context, var_ids):    
 #     return {var_id: xule_context.vars.get(var_id) for var_id in var_ids}
 
@@ -3948,7 +3963,7 @@ def get_alignment(model_fact, non_align_aspects, xule_context):
     #unit
     if model_fact.isNumeric:
         if 'unit' not in non_align_builtins:
-            alignment[('builtin', 'unit')] = model_to_xule_unit(model_fact.unit.measures, xule_context)
+            alignment[('builtin', 'unit')] = model_to_xule_unit(model_fact.unit, xule_context)
             
     #period
     if 'period' not in non_align_builtins:
@@ -4004,12 +4019,13 @@ def format_alignment(aspects, xule_context):
     
     if ('builtin', 'unit') in aspects:
         model_unit = aspects[('builtin', 'unit')]
-        if len(model_unit[1]) == 0:
-            #no denominator
-            aspect_strings.append("unit=%s" % " * ".join([x.localName for x in model_unit[0]]))
-        else:
-            aspect_strings.append("unit=%s/%s" % (" * ".join([x.localName for x in model_unit[0]]), 
-                                                  " * ".join([x.localName for x in model_unit[1]])))
+        aspect_strings.append(str(model_unit))
+#         if len(model_unit[1]) == 0:
+#             #no denominator
+#             aspect_strings.append("unit=%s" % " * ".join([x.localName for x in model_unit[0]]))
+#         else:
+#             aspect_strings.append("unit=%s/%s" % (" * ".join([x.localName for x in model_unit[0]]), 
+#                                                   " * ".join([x.localName for x in model_unit[1]])))
             
     if ('builtin', 'entity') in aspects:
         entity_info = aspects[('builtin', 'entity')]

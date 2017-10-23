@@ -210,7 +210,7 @@ def property_unit(xule_context, object_value, *args):
     if object_value.fact.unit is None:
         return XuleValue(xule_context, None, 'unbound')
     else:
-        return XuleValue(xule_context, model_to_xule_unit(object_value.fact.unit.measures, xule_context), 'unit')
+        return XuleValue(xule_context, model_to_xule_unit(object_value.fact.unit, xule_context), 'unit')
  
 def property_entity(xule_context, object_value, *args):
     return XuleValue(xule_context, model_to_xule_entity(object_value.fact.context, xule_context), 'entity')
@@ -280,26 +280,26 @@ def property_days(xule_context, object_value, *args):
 
 def property_numerator(xule_context, object_value, *args):
     # A unit is a tuple of numerator, denominator
-    if len(object_value.value[0]) == 1:
-        return XuleValue(xule_context, object_value.value[0][0], 'qname')
+    if len(object_value.value.numerator) == 1:
+        return XuleValue(xule_context, object_value.value.numerator[0], 'qname')
     else:
         # There are multiple measures - return a list
         result = list()
         result_shadow = list()
-        for measure in object_value.value[0]:
+        for measure in object_value.value.numerator:
             result.append(XuleValue(xule_context, measure, 'qname'))
             result_shadow.append(measure)
         return XuleValue(xule_context, tuple(result), 'list', shadow_collection=tuple(result_shadow))
 
 def property_denominator(xule_context, object_value, *args):
 
-    if len(object_value.value[1]) == 1:
-        return XuleValue(xule_context, object_value.value[1][0], 'qname')
+    if len(object_value.value.denominator) == 1:
+        return XuleValue(xule_context, object_value.value.denominator[0], 'qname')
     else:
         # There are multiple measures - return a list
         result = list()
         result_shadow = list()
-        for measure in object_value.value[1]:
+        for measure in object_value.value.denominator:
             result.append(XuleValue(xule_context, measure, 'qname'))
             result_shadow.append(measure)
         return XuleValue(xule_context, tuple(result), 'list', shadow_collection=tuple(result_shadow))

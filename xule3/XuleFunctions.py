@@ -5,7 +5,7 @@ Copyright (c) 2014 XBRL US Inc. All rights reserved
 
 $Change: 21535 $
 '''
-from .XuleValue import XuleValue, iso_to_date
+from .XuleValue import XuleValue, iso_to_date, model_to_xule_unit
 from .XuleRunTime import XuleProcessingError
 from arelle.ModelValue import qname, QName
 import collections
@@ -143,7 +143,7 @@ def func_unit(xule_context, *args):
     if arg.type != 'qname':
         raise XuleProcessingError(_("The 'unit' function requires a qname argument, found '%s'." % arg.type), xule_context)
     
-    return XuleValue(xule_context, ((arg.value,), tuple()), 'unit')
+    return XuleValue(xule_context, model_to_xule_unit(arg, xule_context), 'unit')
 
 def func_entity(xule_context, *args):
     scheme = args[0]
