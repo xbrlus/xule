@@ -77,7 +77,11 @@ def property_join(xule_context, object_value, *args):
         result_string = ''
         next_sep = ''
         value_dictionary = object_value.value_dictionary
-        for k in sorted(value_dictionary.keys(), key=lambda x: x.shadow_collection if x.type in ('set', 'list') else x.value):
+        try:
+            keys = sorted(value_dictionary.keys(), key=lambda x: x.shadow_collection if x.type in ('set', 'list') else x.value)
+        except TypeError:
+            keys = value_dictionary.keys()
+        for k in keys:
             v = value_dictionary[k]
             result_string += next_sep + k.format_value() + pair_sep.value + v.format_value()
             next_sep = main_sep.value
