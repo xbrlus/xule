@@ -943,7 +943,7 @@ def calc_var(var_info, const_ref, xule_context):
                     var_info['value'].aligned_result_only = xule_context.aligned_result_only
                     var_info['value'].used_expressions = xule_context.used_expressions
                     var_info['calculated'] = True
-                    raise
+                    #raise
             finally:
                 xule_context.aligned_result_only = xule_context.aligned_result_only or saved_aligned_result_only
                 xule_context.used_expressions = saved_used_expressions | xule_context.used_expressions
