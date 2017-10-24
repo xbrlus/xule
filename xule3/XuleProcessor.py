@@ -945,8 +945,10 @@ def calc_var(var_info, const_ref, xule_context):
                     var_info['calculated'] = True
                     #raise
             finally:
-                xule_context.aligned_result_only = xule_context.aligned_result_only or saved_aligned_result_only
-                xule_context.used_expressions = saved_used_expressions | xule_context.used_expressions
+                xule_context.aligned_result_only = saved_aligned_result_only
+                xule_context.used_expressions = xule_context.used_expressions                
+#                 xule_context.aligned_result_only = xule_context.aligned_result_only or saved_aligned_result_only
+#                 xule_context.used_expressions = saved_used_expressions | xule_context.used_expressions
 
         var_value = var_info['value']
     elif var_info['type'] == xule_context._VAR_TYPE_CONSTANT:
