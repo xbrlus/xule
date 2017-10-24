@@ -5,7 +5,7 @@ Copyright (c) 2014 XBRL US Inc. All rights reserved
 
 $Change: 21535 $
 '''
-from .XuleValue import XuleValue, iso_to_date, model_to_xule_unit
+from .XuleValue import XuleValue, iso_to_date, model_to_xule_unit, XuleUnit
 from .XuleRunTime import XuleProcessingError
 from arelle.ModelValue import qname, QName
 import collections
@@ -138,12 +138,11 @@ def func_forever(xule_context, *args):
     return XuleValue(xule_context, (datetime.datetime.min, datetime.datetime.max), 'duration')
 
 def func_unit(xule_context, *args):
-    arg = args[0]
-
-    if arg.type != 'qname':
-        raise XuleProcessingError(_("The 'unit' function requires a qname argument, found '%s'." % arg.type), xule_context)
     
-    return XuleValue(xule_context, model_to_xule_unit(arg, xule_context), 'unit')
+    if len(args) == 0 or len(args) > 2:
+        raise XuleProcessingError(_("The unit() function takes 1 or 2 arguments, found {}".format(len(args))), xule_context)
+    
+    return XuleValue(xule_context, XuleUnit(*[x.value for x in args]), 'unit')
 
 def func_entity(xule_context, *args):
     scheme = args[0]
@@ -692,7 +691,7 @@ def built_in_functions():
              'date': ('regular', func_instant, 1, False, 'single'),
              'duration': ('regular', func_duration, 2, False, 'single'),
              'forever': ('regular', func_forever, 0, False, 'single'),
-             'unit': ('regular', func_unit, 1, False, 'single'),
+             'unit': ('regular', func_unit, -2, False, 'single'),
              'entity': ('regular', func_entity, 2, False, 'single'),
              'qname': ('regular', func_qname, 2, True, 'single'),
              'uri': ('regular', func_uri, 1, False, 'single'),

@@ -159,13 +159,15 @@ class XuleValue:
             return "{0:,}".format(self.value)
         
         elif self.type == 'unit':
-            if len(self.value[1]) == 0:
-                #no denominator
-                unit_string = "%s" % " * ".join([x.localName for x in self.value[0]])
-            else:
-                unit_string = "%s/%s" % (" * ".join([x.localName for x in self.value[0]]), 
-                                                 " * ".join([x.localName for x in self.value[1]]))
-            return unit_string
+            
+            return str(self.value)
+#             if len(self.value[1]) == 0:
+#                 #no denominator
+#                 unit_string = "%s" % " * ".join([x.localName for x in self.value[0]])
+#             else:
+#                 unit_string = "%s/%s" % (" * ".join([x.localName for x in self.value[0]]), 
+#                                                  " * ".join([x.localName for x in self.value[1]]))
+#             return unit_string
         
         elif self.type == 'duration':
             if self.value[0] == datetime.datetime.min and self.value[1] == datetime.datetime.max:
@@ -531,23 +533,79 @@ class XuleUnit:
                 denoms = tuple(x for x in args[0].measures[1] if x != XBRL_PURE)
                 self._denominator= tuple(sorted(denoms))
                 self._unit_xml_id = args[0].id
-            elif isinstance(args[0], XuleValue) and args[0].type == 'qname':
-                self._numerator = (args[0].value,)
-                self._denominator = tuple()
-                self._unit_xml_id = None
+                self._unit_cancel()
             elif isinstance(args[0], QName):
                 self._numerator = (args[0],)
                 self._denominator = tuple()
                 self._unit_xml_id = None
+            elif isinstance(args[0], collections.Iterable) and not isinstance(args[0], string):
+                # this a a list or list like of qnames for the numerator
+                nums = []
+                for x in args[0]:
+                    if isinstance(x, QName):
+                        nums.append(x)
+                    else:
+                        raise XuleProcessingError(_("Unit must be created from qnames, found '{}'".format(type(x))), xule_context)
+                self._numerator = tuple(sorted(nums))
+                self._denominator = tuple()
+                self._unit_xml_id = None
+            elif isinstance(args[0], XuleUnit):
+                self._numerator = args[0].numerator
+                self._denominator = args[0].denominator
+                self._unit_xml_id = args[0].xml_id
             else:
-                raise XuleProcessingError(_("Cannot create a XuleUnit from a '{}'.".format(type(arg[0]))), None)
+                raise XuleProcessingError(_("Cannot create a XuleUnit from a '{}'.".format(type(args[0]))), None)
         elif len(args) == 2:
-            #In this case the first argument is a collection of numerators and the second is a collection of denominators
-            self._numerator = tuple(sorted(args[0]))
-            self._denominator = tuple(sorted(args[1]))
-            self._unit_xml_id = None
+            #In this case the first argument is a collection of numerators or a single numerator and the second is a collection of denominators or a single denominator
+            nums = []
+            denums = []
+            
+            if isinstance(args[0], collections.Iterable) and not isinstance(args[0], string):
+                for part in args[0]:
+                    sub_nums, sub_denums = self._unit_extract_parts(part)
+                    nums += sub_nums
+                    denums + sub_denums
+            else:
+                nums.append(self._unit_extract_parts(args[0])[0][0])
+            
+            if isinstance(args[1], collections.Iterable) and not isinstance(args[1], string):
+                for part in args[1]:
+                    sub_nums, sub_denums = self._unit_extract_parts(part)
+                    nums += sub_denums
+                    denums += sub_nums
+            else:
+                denums.append(self._unit_extract_parts(args[1])[0][0])
+            
+            self._numerator = sorted(nums)
+            self._denominator = sorted(denums)
+                        
+            self._unit_cancel()
         else:
             raise XuleProcessingError(_("Cannot create a XuleUnit. Expecting 1 or 2 arguments but found {}".format(len(args))), None)
+    
+    def _unit_extract_parts(self, part):
+        if isinstance(part, XuleUnit):
+            return part.numerator, part.denominator
+        elif isinstance(part, QName):
+            return (part,), tuple()
+        else:
+            raise XuleProcessingError(_("Cannot create a unit from '{}'.".format(type(part))), None)
+    
+        
+        
+    def _unit_cancel(self):
+        #need mutable structure
+        num_list = list(self._numerator)
+        denom_list = list(self._denominator)
+         
+        for n in range(len(num_list)):
+            for d in range(len(denom_list)):
+                if num_list[n] == denom_list[d]:
+                    num_list[n] = None
+                    denom_list[d] = None
+        
+        self._numerator = tuple(x for x in num_list if x is not None)
+        self._denominator = tuple(x for x in denom_list if x is not None)                
     
     @property
     def numerator(self):
@@ -561,20 +619,20 @@ class XuleUnit:
     def xml_id(self):
         return sefl._unit_xml_id
     
-    def __str__(self):   
+    def __repr__(self):   
         if len(self._denominator) == 0:
             #no denominator
-            return "unit=%s" % " * ".join([x.clarkNotation for x in self._numerator])
+            return "%s" % " * ".join([x.clarkNotation for x in self._numerator])
         else:
-            return "unit=%s/%s" % (" * ".join([x.clarkNotation for x in self._numerator]), 
+            return "%s/%s" % (" * ".join([x.clarkNotation for x in self._numerator]), 
                                                   " * ".join([x.clarkNotation for x in sefl._denominator]))
     
     def __str__(self):
         if len(self._denominator) == 0:
             #no denominator
-            return "unit=%s" % " * ".join([x.localName for x in self._numerator])
+            return "%s" % " * ".join([x.localName for x in self._numerator])
         else:
-            return "unit=%s/%s" % (" * ".join([x.localName for x in self._numerator]), 
+            return "%s/%s" % (" * ".join([x.localName for x in self._numerator]), 
                                                   " * ".join([x.localName for x in self._denominator]))       
 
     def __eq__(self, other):
@@ -642,56 +700,56 @@ def date_to_datetime(date_value):
     else:
         return datetime.datetime.combine(date_value, datetime.datetime.min.time())
 
-def unit_multiply(left_unit, right_unit):
-    
-    left_num = tuple(x for x in left_unit[0] if x != XBRL_PURE)
-    left_denom = tuple(x for x in left_unit[1] if x != XBRL_PURE)
-                  
-    right_num = tuple(x for x in right_unit[0] if x != XBRL_PURE)
-    right_denom = tuple(x for x in right_unit[1] if x != XBRL_PURE)
-    
-    #new nuemrator and denominator before (pre) canceling
-    new_num_pre = tuple(sorted(left_num + right_num))
-    new_denom_pre = tuple(sorted(left_denom + right_denom))
-    
-    new_num, new_denom = unit_cancel(new_num_pre, new_denom_pre)
-    
-    if len(new_num) == 0:
-        new_num = (XBRL_PURE,)   
-    
-    return (new_num, new_denom)
-
-def unit_cancel(left, right):
-    #need mutable structure
-    left_list = list(left)
-    right_list = list(right)
-    
-    for l in range(len(left_list)):
-        for r in range(len(right_list)):
-            if left_list[l] == right_list[r]:
-                left_list[l] = None
-                right_list[r] = None
-    
-    return tuple(x for x in left_list if x is not None), tuple(x for x in right_list if x is not None)
-    
-def unit_divide(left_unit, right_unit):
-    
-    left_num = tuple(x for x in left_unit[0] if x != XBRL_PURE)
-    left_denom = tuple(x for x in left_unit[1] if x != XBRL_PURE)
-                  
-    right_num = tuple(x for x in right_unit[0] if x != XBRL_PURE)
-    right_denom = tuple(x for x in right_unit[1] if x != XBRL_PURE)
-    
-    #new nuemrator and denominator before (pre) canceling
-    new_num_pre = tuple(sorted(left_num + right_denom))
-    new_denom_pre = tuple(sorted(left_denom + right_num))
-    
-    new_num, new_denom = unit_cancel(new_num_pre, new_denom_pre)
-    
-    if len(new_num) == 0:
-        new_num = (XBRL_PURE,)   
-    
-    return (new_num, new_denom)
+# def unit_multiply(left_unit, right_unit):
+#     
+#     left_num = tuple(x for x in left_unit[0] if x != XBRL_PURE)
+#     left_denom = tuple(x for x in left_unit[1] if x != XBRL_PURE)
+#                   
+#     right_num = tuple(x for x in right_unit[0] if x != XBRL_PURE)
+#     right_denom = tuple(x for x in right_unit[1] if x != XBRL_PURE)
+#     
+#     #new nuemrator and denominator before (pre) canceling
+#     new_num_pre = tuple(sorted(left_num + right_num))
+#     new_denom_pre = tuple(sorted(left_denom + right_denom))
+#     
+#     new_num, new_denom = unit_cancel(new_num_pre, new_denom_pre)
+#     
+#     if len(new_num) == 0:
+#         new_num = (XBRL_PURE,)   
+#     
+#     return (new_num, new_denom)
+# 
+# def unit_cancel(left, right):
+#     #need mutable structure
+#     left_list = list(left)
+#     right_list = list(right)
+#     
+#     for l in range(len(left_list)):
+#         for r in range(len(right_list)):
+#             if left_list[l] == right_list[r]:
+#                 left_list[l] = None
+#                 right_list[r] = None
+#     
+#     return tuple(x for x in left_list if x is not None), tuple(x for x in right_list if x is not None)
+#     
+# def unit_divide(left_unit, right_unit):
+#     
+#     left_num = tuple(x for x in left_unit[0] if x != XBRL_PURE)
+#     left_denom = tuple(x for x in left_unit[1] if x != XBRL_PURE)
+#                   
+#     right_num = tuple(x for x in right_unit[0] if x != XBRL_PURE)
+#     right_denom = tuple(x for x in right_unit[1] if x != XBRL_PURE)
+#     
+#     #new nuemrator and denominator before (pre) canceling
+#     new_num_pre = tuple(sorted(left_num + right_denom))
+#     new_denom_pre = tuple(sorted(left_denom + right_num))
+#     
+#     new_num, new_denom = unit_cancel(new_num_pre, new_denom_pre)
+#     
+#     if len(new_num) == 0:
+#         new_num = (XBRL_PURE,)   
+#     
+#     return (new_num, new_denom)
 
 XBRL_PURE = QName(None, 'http://www.xbrl.org/2003/instance', 'pure')
 

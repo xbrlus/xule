@@ -1261,13 +1261,13 @@ def evaluate_mult(mult_expr, xule_context):
         if left.type in ('unbound', 'none') or right.type in ('unbound', 'none'):
             left = XuleValue(xule_context, None, 'unbound')
         else:
-            if left.type == 'unit' and right.type == 'unit':
-                #units have special handling
-                if operator == '*':
-                    left = XuleValue(xule_context, unit_multiply(left.value, right.value), 'unit')
-                else:
-                    left = XuleValue(xule_context, unit_divide(left.value, right.value), 'unit')
-            else:
+#             if left.type == 'unit' and right.type == 'unit':
+#                 #units have special handling
+#                 if operator == '*':
+#                     left = XuleValue(xule_context, unit_multiply(left.value, right.value), 'unit')
+#                 else:
+#                     left = XuleValue(xule_context, unit_divide(left.value, right.value), 'unit')
+#             else:
                 #at this point there should only be numerics.
                 if left.type not in ('int', 'float', 'decimal'):
                     raise XuleProcessingError(_("The left operand of '%s' is not numeric, found '%s'" % (operator, left.type)), xule_context)
@@ -1893,7 +1893,7 @@ def factset_pre_match(factset, filters, non_aligned_filters, aligned_filters, xu
                     member_values= {convert_value_to_model_period(x, xule_context) for x in filter_member.value}
             # Allow units to be a qname or a xule 'unit'
             elif index_key == ('builtin', 'unit'):
-                conversion_function = lambda x: XuleUnit(x) if x.type == 'qname' else x
+                conversion_function = lambda x: XuleUnit(x.value) if x.type == 'qname' else x.value
                 if aspect_info[ASPECT_OPERATOR] == '=':
                     member_values = {conversion_function(filter_member),}
                 else:
