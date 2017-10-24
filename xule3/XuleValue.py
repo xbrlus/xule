@@ -7,7 +7,7 @@ $Change: 21757 $
 '''
 from .XuleRunTime import XuleProcessingError
 from arelle.ModelValue import QName, dayTimeDuration, DateTime, gYear, gMonthDay, gYearMonth, InvalidValue, IsoDuration
-from arelle.ModelInstanceObject import ModelFact
+from arelle.ModelInstanceObject import ModelFact, ModelUnit
 from arelle.ModelRelationshipSet import ModelRelationshipSet
 import datetime
 import decimal
@@ -109,6 +109,10 @@ class XuleValue:
 #         print(traceback.format_stack())        
         return hash(self.value)
     '''
+       
+    def __str__(self):
+        return self.format_value()
+       
     def clone(self):       
         new_value = copy.copy(self)
         #new_value.value = copy.copy(self.value)
@@ -517,17 +521,80 @@ The latter categories do not reference documentation but are indicated in the li
                     'http://www.xbrl.org/2003/role/exampleRef':'Reference to documentation that illustrates by example the application of the Concept that assists in determining appropriate usage.',
                     'http://www.xbrl.org/2003/role/footnote':'Standard footnote role'
 }
+class XuleUnit:
+    def __init__(self, *args):
+        if len(args) == 1:
+            if isinstance(args[0], ModelUnit):
+                # the argument is a model unit
+                self._numerator = tuple(sorted(args[0].measures[0]))
+                #eliminate pure from the denominator.
+                denoms = tuple(x for x in args[0].measures[1] if x != XBRL_PURE)
+                self._denominator= tuple(sorted(denoms))
+                self._unit_xml_id = args[0].id
+            elif isinstance(args[0], XuleValue) and args[0].type == 'qname':
+                self._numerator = (args[0].value,)
+                self._denominator = tuple()
+                self._unit_xml_id = None
+            elif isinstance(args[0], QName):
+                self._numerator = (args[0],)
+                self._denominator = tuple()
+                self._unit_xml_id = None
+            else:
+                raise XuleProcessingError(_("Cannot create a XuleUnit from a '{}'.".format(type(arg[0]))), None)
+        elif len(args) == 2:
+            #In this case the first argument is a collection of numerators and the second is a collection of denominators
+            self._numerator = tuple(sorted(args[0]))
+            self._denominator = tuple(sorted(args[1]))
+            self._unit_xml_id = None
+        else:
+            raise XuleProcessingError(_("Cannot create a XuleUnit. Expecting 1 or 2 arguments but found {}".format(len(args))), None)
+    
+    @property
+    def numerator(self):
+        return self._numerator
+    
+    @property
+    def denominator(self):
+        return self._denominator
+    
+    @property
+    def xml_id(self):
+        return sefl._unit_xml_id
+    
+    def __str__(self):   
+        if len(self._denominator) == 0:
+            #no denominator
+            return "unit=%s" % " * ".join([x.clarkNotation for x in self._numerator])
+        else:
+            return "unit=%s/%s" % (" * ".join([x.clarkNotation for x in self._numerator]), 
+                                                  " * ".join([x.clarkNotation for x in sefl._denominator]))
+    
+    def __str__(self):
+        if len(self._denominator) == 0:
+            #no denominator
+            return "unit=%s" % " * ".join([x.localName for x in self._numerator])
+        else:
+            return "unit=%s/%s" % (" * ".join([x.localName for x in self._numerator]), 
+                                                  " * ".join([x.localName for x in self._denominator]))       
 
-def model_to_xule_unit(model_unit_measures, xule_context):
-    numerator = tuple(sorted(model_unit_measures[0]))
-    denominator = tuple(sorted(model_unit_measures[1]))
-    
-    model_unit = (numerator, denominator)
-    
-    #this is done to force the unit to be normalized. This will convert something like USD/pure to just USD.
-    normalized_unit = unit_multiply(model_unit, ((XBRL_PURE,),()))
-    
-    return normalized_unit
+    def __eq__(self, other):
+        return self._numerator == other._numerator and self._denominator == other._denominator
+
+    def __hash__(self):
+        return hash((self._numerator, self._denominator))
+
+def model_to_xule_unit(model_unit, xule_context):
+    return XuleUnit(model_unit)
+
+#     numerator = tuple(sorted(model_unit.measures[0]))
+#     denominator = tuple(sorted(model_unit_measures[1]))
+#     
+#     model_unit = (numerator, denominator)
+#     
+#     #this is done to force the unit to be normalized. This will convert something like USD/pure to just USD.
+#     normalized_unit = unit_multiply(model_unit, ((XBRL_PURE,),()))
+#     
+#     return normalized_unit
 
 def model_to_xule_model_datetime(model_date_time, xule_context):
     '''This is used for datetimes that are stored as values of facts. These use arelle.ModelValue.DateTime type.'''
@@ -682,6 +749,7 @@ TYPE_MAP = {frozenset(['int', 'float']): [('float', float), ('int', lambda x: in
             frozenset(['int', 'string']): [('string', str), ('int', int)],
             frozenset(['decimal', 'string']): [('string', str), ('decimal', decimal.Decimal)],
             frozenset(['uri', 'string']): [('string', lambda x: x), ('uri', lambda x: x)],
+            frozenset(['qname', 'unit']): [('unit', lambda x: XuleUnit(x))]
             #frozenset(['none', 'string']): [('string', lambda x: x if x is not None else '')],
             }
 
