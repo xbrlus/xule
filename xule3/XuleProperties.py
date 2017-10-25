@@ -308,7 +308,13 @@ def property_denominator(xule_context, object_value, *args):
             result_shadow.append(measure)
         return XuleValue(xule_context, tuple(result), 'list', shadow_collection=tuple(result_shadow))
 
-
+def property_id(xule_context, object_value, *args):
+    """Get the xml id of a unit.
+    """
+    if object_value.value.xml_id is None:
+        return XuleValue(xule_context, None, 'unbound')
+    else:
+        return XuleValue(xule_context, object_value.value.xml_id, 'string')
 
 
 
@@ -1123,6 +1129,7 @@ PROPERTIES = {
               'days': (property_days, 0, ('instant', 'duration'), False),
               'numerator': (property_numerator, 0, ('unit', ), False),
               'denominator': (property_denominator, 0, ('unit',), False),
+              'id': (property_id, 0, ('unit',), False),
               
               
               

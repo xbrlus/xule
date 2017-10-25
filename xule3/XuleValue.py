@@ -616,7 +616,7 @@ class XuleUnit:
     
     @property
     def xml_id(self):
-        return sefl._unit_xml_id
+        return self._unit_xml_id
     
     def __repr__(self):   
         if len(self._denominator) == 0:
