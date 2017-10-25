@@ -142,7 +142,7 @@ def func_unit(xule_context, *args):
     if len(args) == 0 or len(args) > 2:
         raise XuleProcessingError(_("The unit() function takes 1 or 2 arguments, found {}".format(len(args))), xule_context)
     
-    return XuleValue(xule_context, XuleUnit(*[x.value for x in args]), 'unit')
+    return XuleValue(xule_context, XuleUnit(*args), 'unit')
 
 def func_entity(xule_context, *args):
     scheme = args[0]

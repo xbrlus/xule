@@ -534,25 +534,24 @@ class XuleUnit:
                 self._denominator= tuple(sorted(denoms))
                 self._unit_xml_id = args[0].id
                 self._unit_cancel()
-            elif isinstance(args[0], QName):
-                self._numerator = (args[0],)
+            elif isinstance(args[0], XuleValue) and args[0].type == 'qname':
+                self._numerator = (args[0].value,)
                 self._denominator = tuple()
                 self._unit_xml_id = None
-            elif isinstance(args[0], collections.Iterable) and not isinstance(args[0], string):
-                # this a a list or list like of qnames for the numerator
+            elif isinstance(args[0], XuleValue) and args[0].type in ('set', 'list'):
                 nums = []
-                for x in args[0]:
-                    if isinstance(x, QName):
-                        nums.append(x)
+                for x in args[0].value:
+                    if x.type == 'qname':
+                        nums.append(x.value)
                     else:
-                        raise XuleProcessingError(_("Unit must be created from qnames, found '{}'".format(type(x))), xule_context)
+                        raise XuleProcessingError(_("Unit must be created from qnames, found '{}'".format(x.type)), None)
                 self._numerator = tuple(sorted(nums))
                 self._denominator = tuple()
                 self._unit_xml_id = None
-            elif isinstance(args[0], XuleUnit):
-                self._numerator = args[0].numerator
-                self._denominator = args[0].denominator
-                self._unit_xml_id = args[0].xml_id
+            elif isinstance(args[0], XuleValue) and args[0].type == 'unit': 
+                self._numerator = args[0].value.numerator
+                self._denominator = args[0].value.denominator
+                self._unit_xml_id = args[0].value.xml_id
             else:
                 raise XuleProcessingError(_("Cannot create a XuleUnit from a '{}'.".format(type(args[0]))), None)
         elif len(args) == 2:
@@ -560,16 +559,16 @@ class XuleUnit:
             nums = []
             denums = []
             
-            if isinstance(args[0], collections.Iterable) and not isinstance(args[0], string):
-                for part in args[0]:
+            if isinstance(args[0], XuleValue) and args[0].type in ('set', 'list'):
+                for part in args[0].value:
                     sub_nums, sub_denums = self._unit_extract_parts(part)
                     nums += sub_nums
-                    denums + sub_denums
+                    denums += sub_denums
             else:
                 nums.append(self._unit_extract_parts(args[0])[0][0])
             
-            if isinstance(args[1], collections.Iterable) and not isinstance(args[1], string):
-                for part in args[1]:
+            if isinstance(args[1], XuleValue) and args[1].type in ('set', 'list'):
+                for part in args[1].value:
                     sub_nums, sub_denums = self._unit_extract_parts(part)
                     nums += sub_denums
                     denums += sub_nums
@@ -584,12 +583,12 @@ class XuleUnit:
             raise XuleProcessingError(_("Cannot create a XuleUnit. Expecting 1 or 2 arguments but found {}".format(len(args))), None)
     
     def _unit_extract_parts(self, part):
-        if isinstance(part, XuleUnit):
-            return part.numerator, part.denominator
-        elif isinstance(part, QName):
-            return (part,), tuple()
+        if part.type == 'unit':
+            return part.value.numerator, part.value.denominator
+        elif part.type == 'qname':
+            return (part.value,), tuple()
         else:
-            raise XuleProcessingError(_("Cannot create a unit from '{}'.".format(type(part))), None)
+            raise XuleProcessingError(_("Cannot create a unit from '{}'.".format(part.type)), None)
     
         
         
