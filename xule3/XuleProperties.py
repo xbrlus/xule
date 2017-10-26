@@ -157,7 +157,7 @@ def property_role(xule_context, object_value, *args):
     if object_value.type == 'network':
         role_uri = object_value.value[NETWORK_INFO][NETWORK_ROLE]
         #return XuleValue(xule_context, object_value.value[NETWORK_INFO][NETWORK_ROLE], 'uri')
-    else:
+    else: # label or reference
         role_uri = object_value.value.role
         #return XuleValue(xule_context, object_value.value.role, 'uri')
      
@@ -220,7 +220,13 @@ def property_entity(xule_context, object_value, *args):
     return XuleValue(xule_context, model_to_xule_entity(object_value.fact.context, xule_context), 'entity')
  
 def property_id(xule_context, object_value, *args):
-    return XuleValue(xule_context, object_value.value[1], 'string')
+    if object_value.type == 'entity':
+        return XuleValue(xule_context, object_value.value[1], 'string')
+    else: #unit
+        if object_value.value.xml_id is None:
+            return XuleValue(xule_context, None, 'unbound')
+        else:
+            return XuleValue(xule_context, object_value.value.xml_id, 'string')
  
 def property_scheme(xule_context, object_value, *args):
     return XuleValue(xule_context, object_value.value[0], 'string')
@@ -308,13 +314,288 @@ def property_denominator(xule_context, object_value, *args):
             result_shadow.append(measure)
         return XuleValue(xule_context, tuple(result), 'list', shadow_collection=tuple(result_shadow))
 
-def property_id(xule_context, object_value, *args):
-    """Get the xml id of a unit.
-    """
-    if object_value.value.xml_id is None:
+def property_attribute(xule_context, object_value, *args):
+    attribute_name_value = args[0]
+    if attribute_name_value.type != 'qname':
+        raise XuleProcessingError(_("The argument for the 'attribute' property must be a qname, found '{}'".format(arttribute_name_value.type)), xule_context)
+    
+    attribute_value = object_value.value.get(attribute_name_value.value.clarkNotation)
+    if attribute_value is None:
         return XuleValue(xule_context, None, 'unbound')
     else:
-        return XuleValue(xule_context, object_value.value.xml_id, 'string')
+        return XuleValue(xule_context, attribute_value, 'string')
+
+def property_balance(xule_context, object_value, *args):
+    if object_value.type in ('unbound','none'):
+        return XuleValue(xule_context, None, 'unbound')
+    else:
+        return XuleValue(xule_context, object_value.value.balance, 'string')    
+
+def property_base_type(xule_context, object_value, *args):
+    if object_value.is_fact:
+        return XuleValue(xule_context, object_value.fact.concept.baseXbrliTypeQname, 'type')
+    else:
+        return XuleValue(xule_context, object_value.value.baseXbrliTypeQname, 'type')
+ 
+def property_data_type(xule_context, object_value, *args):
+    if object_value.is_fact:
+        return XuleValue(xule_context, object_value.fact.concept.typeQname, 'type')
+    else:
+        return XuleValue(xule_context, object_value.value.typeQname, 'type')
+
+def property_is_type(xule_context, object_value, *args):
+    type_name = args[0]
+    if type_name.type != 'qname':
+        raise XuleProcessingError(_("The argument for the 'is-type' property must ba a qname, founct '[]'.".format(type_name.type)), xule_context)
+    
+    if object_value.is_fact:
+        return XuleValue(xule_context, object_value.fact.concept.instanceOfType(type_name.value), 'bool')
+    else: # concept
+        return XuleValue(xule_context, object_value.value.instanceOfType(type_name.value), 'bool')
+
+def property_is_numeric(xule_context, object_value, *args):
+    if object_value.is_fact:
+        return XuleValue(xule_context, object_value.fact.concept.isNumeric, 'bool')
+    else:
+        #concept
+        return XuleValue(xule_context, object_value.value.isNumeric, 'bool')
+ 
+def property_is_monetary(xule_context, object_value, *args):
+    if object_value.is_fact:
+        return XuleValue(xule_context, object_value.fact.concept.isMonetary, 'bool')
+    else:
+        #concept
+        return XuleValue(xule_context, object_value.value.isMonetary, 'bool')
+ 
+def property_is_abstract(xule_context, object_value, *args):
+    if object_value.is_fact:
+        return XuleValue(xule_context, object_value.fact.concept.isAbstract, 'bool')
+    else:
+        return XuleValue(xule_context, object_value.value.isAbstract, 'bool')
+
+def property_label(xule_context, object_value, *args):
+    base_label_type = None
+    base_lang = None
+    if len(args) > 0:
+        lang = None
+        label_type = args[0]
+        if label_type.type == 'none':
+            base_label_type = None
+        elif xule_castable(label_type, 'string', xule_context):
+            base_label_type = xule_cast(label_type, 'string', xule_context)
+        else:
+            raise XuleProcessingError(_("The first argument for property 'label' must be a string, found '%s'" % label_type.type), xule_context)
+    if len(args) > 1: #there are 2 args
+        lang = args[1]
+        if lang.type == 'none':
+            base_lang = None
+        elif xule_castable(lang, 'string', xule_context):
+            base_lang = xule_cast(lang, 'string', xule_context)
+        else:
+            raise XuleProcessingError(_("The second argument for property 'label' must be a string, found '%s'" % lang.type), xule_context)        
+     
+    if object_value.is_fact:
+        concept = object_value.fact.concept
+    else:
+        concept = object_value.value
+     
+    label = get_label(xule_context, concept, base_label_type, base_lang)
+     
+    if label is None:
+        return XuleValue(xule_context, None, 'unbound')
+    else:
+        return XuleValue(xule_context, label, 'label')
+     
+def get_label(xule_context, concept, base_label_type, base_lang):#label type
+    label_network = ModelRelationshipSet(concept.modelXbrl, CONCEPT_LABEL)
+    label_rels = label_network.fromModelObject(concept)
+    if len(label_rels) > 0:
+        #filter the labels
+        label_by_type = dict()
+        for lab_rel in label_rels:
+            label = lab_rel.toModelObject
+            if ((base_lang is None or label.xmlLang.lower().startswith(base_lang.lower())) and
+                (base_label_type is None or label.role == base_label_type)):
+                label_by_type[label.role] = label
+ 
+        if len(label_by_type) > 1:
+            if base_label_type is None:
+                for role in ORDERED_LABEL_ROLE:
+                    label = label_by_type.get(role)
+                    if label is not None:
+                        return label
+            #if we are here, there were no matching labels in the ordered list of label types, so just pick one
+            return next(iter(label_by_type.values()))
+        elif len(label_by_type) > 0:
+            #there is only one label just return it
+            return next(iter(label_by_type.values()))
+        else:
+            return None        
+    else:
+        return None
+ 
+def property_text(xule_context, object_value, *args):
+    return XuleValue(xule_context, object_value.value.textValue, 'string')
+ 
+def property_lang(xule_context, object_value, *args):
+    return XuleValue(xule_context, object_value.value.xmlLang, 'string')
+ 
+def property_name(xule_context, object_value, *args):
+    if object_value.is_fact:
+        return XuleValue(xule_context, object_value.fact.concept.qname, 'qname')
+    else:
+        return XuleValue(xule_context, object_value.value.qname, 'qname')
+ 
+def property_local_name(xule_context, object_value, *args):
+    if object_value.value is not None:
+        if object_value.is_fact:
+            return XuleValue(xule_context, object_value.fact.concept.qname.localName, 'string')
+        elif object_value.type in ('concept', 'reference-part'):
+            return XuleValue(xule_context, object_value.value.qname.localName, 'string')
+        elif object_value.type == 'qname':
+            return XuleValue(xule_context, object_value.value.localName, 'string')
+    else:
+        return XuleValue(xule_context, '', 'string')
+     
+def property_namespace_uri(xule_context, object_value, *args):
+    if object_value.value is not None:
+        if object_value.is_fact:
+            return XuleValue(xule_context, object_value.fact.concept.qname.namespaceURI, 'uri')
+        elif object_value.type in ('concept', 'reference-part'):
+            return XuleValue(xule_context, object_value.value.qname.namespaceURI, 'uri')
+        elif object_value.type == 'qname':
+            return XuleValue(xule_context, object_value.value.namespaceURI, 'uri')
+    else:
+        return XuleValue(xule_context, '', 'uri')
+
+def property_period_type(xule_context, object_value, *args):
+    return XuleValue(xule_context, object_value.value.periodType, 'string')
+
+def property_references(xule_context, object_value, *args):
+    #reference type
+    if len(args) > 0:
+        reference_type = args[0]
+        if reference_type.type == 'none':
+            base_reference_type = None
+        elif xule_castable(reference_type, 'string', xule_context):
+            base_reference_type = xule_cast(reference_type, 'string', xule_context)
+        else:
+            raise XuleProcessingError(_("The first argument for property 'reference' must be a string, found '%s'" % reference_type.type), xule_context)
+    else:
+        base_reference_type = None    
+ 
+    if object_value.is_fact:
+        concept = object_value.fact.concept
+    else:
+        concept = object_value.value
+ 
+    reference_network = ModelRelationshipSet(concept.modelXbrl, CONCEPT_REFERENCE)
+    reference_rels = reference_network.fromModelObject(concept)
+    if len(reference_rels) > 0:
+        #filter the references
+        reference_by_type = collections.defaultdict(list)
+        for reference_rel in reference_rels:
+            reference = reference_rel.toModelObject
+            if base_reference_type is None or reference.role == base_reference_type:
+                reference_by_type[reference.role].append(reference)
+ 
+        if len(reference_by_type) > 1:
+            if base_reference_type is None:
+                for role in ORDERED_REFERENCE_ROLE:
+                    references = reference_by_type.get(role)
+                    if references is not None:
+                        xule_references = set(XuleValue(xule_context, x, 'reference') for x in references)
+            #if we are here, there were no matching references in the ordered list of label types, so just pick one
+            return XuleValue(xule_context, frozenset(set(XuleValue(xule_context, x, 'reference') for x in next(iter(reference_by_type.values())))), 'set')
+        elif len(reference_by_type) > 0:
+            #there is only one reference just return it
+            return XuleValue(xule_context, frozenset(set(XuleValue(xule_context, x, 'reference') for x in next(iter(reference_by_type.values())))), 'set')
+        else:
+            return XuleValue(xule_context, frozenset(), 'set')        
+    else:
+        return XuleValue(xule_context, frozenset(), 'set')       
+ 
+def property_parts(xule_context, object_value, *args):
+    return XuleValue(xule_context, tuple(list(XuleValue(xule_context, x, 'reference-part') for x in object_value.value)), 'list')
+ 
+def property_part_value(xule_context, object_value, *args):
+    return XuleValue(xule_context, object_value.value.textValue, 'string')
+ 
+def property_part_by_name(xule_context, object_value, *args):
+    part_name = args[0]
+     
+    if part_name.type != 'qname':
+        raise XuleProcessingError(_("The argument for property 'part_by_name' must be a qname, found '%s'." % part_name.type), xule_context)
+     
+    for part in object_value.value:
+        if part.qname == part_name.value:
+            return XuleValue(xule_context, part, 'reference-part')
+     
+    #if we get here, then the part was not found
+    return XuleValue(xule_context, None, 'unbound')
+
+def property_order(xule_context, object_value, *args):
+    if object_value.type == 'relationship':
+        if object_value.value.order is not None:
+            return XuleValue(xule_context, float(object_value.value.order), 'float')
+        else:
+            return XuleValue(xule_context, None, 'unbound')
+    else: #reference-part
+        part = object_value.value
+        reference = part.getparent()
+        for position, child in enumerate(reference, 1):
+            if child is part:
+                return XuleValue(xule_context, position, 'int')
+        # Should never get here, but just in case
+        return XuleValue(xule_context, None, 'none')
+
+def property_concepts(xule_context, object_value, *args):
+     
+    if object_value.type == 'taxonomy':
+        concepts = set(XuleValue(xule_context, x, 'concept') for x in object_value.value.qnameConcepts.values() if x.isItem or x.isTuple)
+    elif object_value.type == 'network':
+        concepts = set(XuleValue(xule_context, x, 'concept') for x in (object_value.value[1].fromModelObjects().keys()) | frozenset(object_value.value[1].toModelObjects().keys()))
+    else:
+        raise XuleProcessingError(_("'concepts' is not a property of '%s'" % object_value.type), xule_context)
+ 
+    return XuleValue(xule_context, frozenset(concepts), 'set')
+
+def property_concept_names(xule_context, object_value, *args):
+     
+    if object_value.type == 'taxonomy':
+        concepts = set(XuleValue(xule_context, x.qname, 'qanme') for x in object_value.value.qnameConcepts.values() if x.isItem or x.isTuple)
+    elif object_value.type == 'network':
+        concepts = set(XuleValue(xule_context, x.qname, 'qname') for x in (object_value.value[1].fromModelObjects().keys()) | frozenset(object_value.value[1].toModelObjects().keys()))
+    else:
+        raise XuleProcessingError(_("'concept-names' is not a property of '%s'" % object_value.type), xule_context)
+ 
+    return XuleValue(xule_context, frozenset(concepts), 'set')
+
+def property_relationships(xule_context, object_value, *args):        
+    relationships = set()
+     
+    for relationship in object_value.value[1].modelRelationships:
+        relationships.add(XuleValue(xule_context, relationship, 'relationship'))
+     
+    return XuleValue(xule_context, frozenset(relationships), 'set')
+
+def property_source_concepts(xule_context, object_value, *args):
+    concepts = frozenset(XuleValue(xule_context, x, 'concept') for x in object_value.value[1].fromModelObjects().keys())
+    return XuleValue(xule_context, concepts, 'set')
+ 
+def property_target_concepts(xule_context, object_value, *args):
+    concepts = frozenset(XuleValue(xule_context, x, 'concept') for x in object_value.value[1].toModelObjects().keys())        
+    return XuleValue(xule_context, concepts, 'set')
+ 
+def property_roots(xule_context, object_value, *args):
+    concepts = frozenset(XuleValue(xule_context, x, 'concept') for x in object_value.value[1].rootConcepts)
+    return XuleValue(xule_context, concepts, 'set')  
+
+
+
+
+
+
 
 
 
@@ -371,7 +652,7 @@ def property_uri(xule_context, object_value, *args):
     if object_value.type == 'taxonomy':
         return XuleValue(xule_context, object_value.value.fileSource.url, 'uri')
  
-def property_definition(xule_context, object_value, *args): 
+def property_description(xule_context, object_value, *args): 
     return XuleValue(xule_context, object_value.value.definition, 'string')
  
 def property_used_on(xule_context, object_value, *args):
@@ -534,21 +815,8 @@ def property_children(xule_context, object_value, *args):
 def property_parents(xule_context, object_value, *args):
     return property_ancestors(xule_context, object_value, args[0], XuleValue(xule_context, 1, 'int'))
  
-def property_source_concepts(xule_context, object_value, *args):
-    concepts = frozenset(XuleValue(xule_context, x, 'concept') for x in object_value.value[1].fromModelObjects().keys())
-    return XuleValue(xule_context, concepts, 'set')
- 
-def property_target_concepts(xule_context, object_value, *args):
-    concepts = frozenset(XuleValue(xule_context, x, 'concept') for x in object_value.value[1].toModelObjects().keys())        
-    return XuleValue(xule_context, concepts, 'set')
- 
-def property_relationships(xule_context, object_value, *args):        
-    relationships = set()
-     
-    for relationship in object_value.value[1].modelRelationships:
-        relationships.add(XuleValue(xule_context, relationship, 'relationship'))
-     
-    return XuleValue(xule_context, frozenset(relationships), 'set')
+
+
  
 def property_source(xule_context, object_value, *args):
     return XuleValue(xule_context, object_value.value.fromModelObject, 'concept')
@@ -562,11 +830,8 @@ def property_weight(xule_context, object_value, *args):
     else:
         return XuleValue(xule_context, None, 'unbound')
  
-def property_order(xule_context, object_value, *args):
-    if object_value.value.order is not None:
-        return XuleValue(xule_context, float(object_value.value.order), 'float')
-    else:
-        return XuleValue(xule_context, None, 'unbound')
+
+                
      
 def property_preferred_label(xule_context, object_value, *args):
     if object_value.value.preferredLabel is not None:
@@ -575,16 +840,7 @@ def property_preferred_label(xule_context, object_value, *args):
         return XuleValue(xule_context, None, 'unbound')    
          
 
-def property_concepts(xule_context, object_value, *args):
-     
-    if object_value.type == 'taxonomy':
-        concepts = set(XuleValue(xule_context, x, 'concept') for x in object_value.value.qnameConcepts.values() if x.isItem or x.isTuple)
-    elif object_value.type == 'network':
-        concepts = set(XuleValue(xule_context, x, 'concept') for x in (object_value.value[1].fromModelObjects().keys()) | frozenset(object_value.value[1].toModelObjects().keys()))
-    else:
-        raise XuleProcessingError(_("'concepts' is not a property of '%s'" % object_value.type), xule_context)
- 
-    return XuleValue(xule_context, frozenset(concepts), 'set')
+
  
 def property_dts_document_locations(xule_context, object_value, *args):
     locations = set()
@@ -636,9 +892,6 @@ def property_lower_case(xule_context, object_value, *args):
 def property_upper_case(xule_context, object_value, *args):
     return XuleValue(xule_context, xule_cast(object_value, 'string', xule_context).upper(), 'string')
  
-
-
- 
 def property_item(xule_context, object_value, *args):
     arg = args[0]
      
@@ -684,199 +937,25 @@ def property_signum(xule_context, object_value, *args):
     else:
         return XuleValue(xule_context, 1, 'int')
  
-def property_name(xule_context, object_value, *args):
-    return XuleValue(xule_context, object_value.value.qname, 'qname')
  
-def property_local_part(xule_context, object_value, *args):
-    if object_value.value is not None:
-        return XuleValue(xule_context, object_value.value.localName, 'string')
-    else:
-        return XuleValue(xule_context, '', 'string')
-     
-def property_namespace_uri(xule_context, object_value, *args):
-    return XuleValue(xule_context, object_value.value.namespaceURI, 'uri')
+
  
-def property_debit(xule_context, object_value, *args):
-    return XuleValue(xule_context, 'debit', 'balance')
+
  
-def property_credit(xule_context, object_value, *args):
-    return XuleValue(xule_context, 'credit', 'balance')
+
+
+
+
+
+
+
+
+
+
+
  
-def property_balance(xule_context, object_value, *args):
-    if object_value.type in ('unbound','none'):
-        return XuleValue(xule_context, None, 'balance')
-    else:
-        return XuleValue(xule_context, object_value.value.balance, 'balance')
- 
-def property_instant(xule_context, object_value, *args):
-    return XuleValue(xule_context, 'instant', 'period-type')
- 
-def property_duration(xule_context, object_value, *args):
-    return XuleValue(xule_context, 'duration', 'period-type')
- 
-def property_period_type(xule_context, object_value, *args):
-    if object_value.type in ('unbound', 'none'):
-        return XuleValue(xule_context, None, 'period-type')
-    else:
-        return XuleValue(xule_context, object_value.value.periodType, 'period-type')
- 
-def property_is_numeric(xule_context, object_value, *args):
-    if object_value.is_fact:
-        return XuleValue(xule_context, object_value.fact.concept.isNumeric, 'bool')
-    else:
-        #concept
-        return XuleValue(xule_context, object_value.value.isNumeric, 'bool')
- 
-def property_is_monetary(xule_context, object_value, *args):
-    if object_value.is_fact:
-        return XuleValue(xule_context, object_value.fact.concept.isMonetary, 'bool')
-    else:
-        #concept
-        return XuleValue(xule_context, object_value.value.isMonetary, 'bool')
- 
-def property_abstract(xule_context, object_value, *args):
-    return XuleValue(xule_context, object_value.value.isAbstract, 'bool')
-def property_xbrl_type(xule_context, object_value, *args):
-    if object_value.is_fact:
-        return XuleValue(xule_context, object_value.fact.concept.baseXbrliTypeQname, 'type')
-    else:
-        return XuleValue(xule_context, object_value.value.baseXbrliTypeQname, 'type')
- 
-def property_schema_type(xule_context, object_value, *args):
-    if object_value.is_fact:
-        return XuleValue(xule_context, object_value.fact.concept.typeQname, 'type')
-    else:
-        return XuleValue(xule_context, object_value.value.typeQname, 'type')
- 
-def property_label(xule_context, object_value, *args):
-    role = None
-    lang = None
-    if len(args) > 0:
-        lang = None
-        label_type = args[0]
-        if label_type.type == 'none':
-            base_label_type = None
-        elif xule_castable(label_type, 'string', xule_context):
-            base_label_type = xule_cast(label_type, 'string', xule_context)
-        else:
-            raise XuleProcessingError(_("The first argument for property 'label' must be a string, found '%s'" % label_type.type), xule_context)
-    if len(args) > 1: #there are 2 args
-        lang = args[1]
-        if lang.type == 'none':
-            base_lang = None
-        elif xule_castable(lang, 'string', xule_context):
-            base_lang = xule_cast(lang, 'string', xule_context)
-        else:
-            raise XuleProcessingError(_("The second argument for property 'label' must be a string, found '%s'" % lang.type), xule_context)        
-     
-    if object_value.is_fact:
-        concept = object_value.fact.concept
-    else:
-        concept = object_value.value
-     
-    label = get_label(xule_context, concept, base_label_type, base_lang)
-     
-    if label is None:
-        return XuleValue(xule_context, None, 'unbound')
-    else:
-        return XuleValue(xule_context, label, 'label')
-     
-def get_label(xule_context, concept, base_label_type, base_lang):#label type
-    label_network = ModelRelationshipSet(concept.modelXbrl, CONCEPT_LABEL)
-    label_rels = label_network.fromModelObject(concept)
-    if len(label_rels) > 0:
-        #filter the labels
-        label_by_type = dict()
-        for lab_rel in label_rels:
-            label = lab_rel.toModelObject
-            if ((base_lang is None or label.xmlLang.lower().startswith(base_lang.lower())) and
-                (base_label_type is None or label.role == base_label_type)):
-                label_by_type[label.role] = label
- 
-        if len(label_by_type) > 1:
-            if base_label_type is None:
-                for role in ORDERED_LABEL_ROLE:
-                    label = label_by_type.get(role)
-                    if label is not None:
-                        return XuleValue(xule_context, label, 'label')
-            #if we are here, there were no matching labels in the ordered list of label types, so just pick one
-            return next(iter(label_by_type.values()))
-        elif len(label_by_type) > 0:
-            #there is only one label just return it
-            return next(iter(label_by_type.values()))
-        else:
-            return None        
-    else:
-        return None
- 
-def property_text(xule_context, object_value, *args):
-    return XuleValue(xule_context, object_value.value.textValue, 'string')
- 
-def property_lang(xule_context, object_value, *args):
-    return XuleValue(xule_context, object_value.value.xmlLang, 'string')
- 
-def property_references(xule_context, object_value, *args):
-    #reference type
-    if len(args) > 0:
-        reference_type = args[0]
-        if reference_type.type == 'none':
-            base_reference_type = None
-        elif xule_castable(reference_type, 'string', xule_context):
-            base_reference_type = xule_cast(reference_type, 'string', xule_context)
-        else:
-            raise XuleProcessingError(_("The first argument for property 'reference' must be a string, found '%s'" % reference_type.type), xule_context)
-    else:
-        base_reference_type = None    
- 
-    if object_value.is_fact:
-        concept = object_value.fact.concept
-    else:
-        concept = object_value.value
- 
-    reference_network = ModelRelationshipSet(concept.modelXbrl, CONCEPT_REFERENCE)
-    reference_rels = reference_network.fromModelObject(concept)
-    if len(reference_rels) > 0:
-        #filter the references
-        reference_by_type = collections.defaultdict(list)
-        for reference_rel in reference_rels:
-            reference = reference_rel.toModelObject
-            if base_reference_type is None or reference.role == base_reference_type:
-                reference_by_type[reference.role].append(reference)
- 
-        if len(reference_by_type) > 1:
-            if base_reference_type is None:
-                for role in ORDERED_REFERENCE_ROLE:
-                    references = reference_by_type.get(role)
-                    if references is not None:
-                        xule_references = set(XuleValue(xule_context, x, 'reference') for x in references)
-            #if we are here, there were no matching references in the ordered list of label types, so just pick one
-            return XuleValue(xule_context, frozenset(set(XuleValue(xule_context, x, 'reference') for x in next(iter(reference_by_type.values())))), 'set')
-        elif len(reference_by_type) > 0:
-            #there is only one reference just return it
-            return XuleValue(xule_context, frozenset(set(XuleValue(xule_context, x, 'reference') for x in next(iter(reference_by_type.values())))), 'set')
-        else:
-            return XuleValue(xule_context, frozenset(), 'set')        
-    else:
-        return XuleValue(xule_context, frozenset(), 'set')       
- 
-def property_parts(xule_context, object_value, *args):
-    return XuleValue(xule_context, tuple(list(XuleValue(xule_context, x, 'reference-part') for x in object_value.value)), 'list')
- 
-def property_part_value(xule_context, object_value, *args):
-    return XuleValue(xule_context, object_value.value.textValue, 'string')
- 
-def property_part_by_name(xule_context, object_value, *args):
-    part_name = args[0]
-     
-    if part_name.type != 'qname':
-        raise XuleProcessingError(_("The argument for property 'part_by_name' must be a qname, found '%s'." % part_name.type), xule_context)
-     
-    for part in object_value.value:
-        if part.qname == part_name.value:
-            return XuleValue(xule_context, part, 'reference-part')
-     
-    #if we get here, then the part was not found
-    return XuleValue(xule_context, None, 'unbound')
+
+
  
 def property_decimals(xule_context, object_value, *args):
     if object_value.fact.decimals is not None:
@@ -932,7 +1011,7 @@ def property_compute_type(xule_context, object_value, *args):
  
 def property_string(xule_context, object_value, *args):
     '''SHOULD THE META DATA BE INCLUDED???? THIS SHOULD BE HANDLED BY THE PROPERTY EVALUATOR.'''
-    return XuleValue(xule_context, str(object_value.value), 'string')
+    return XuleValue(xule_context, object_value.format_value(), 'string')
  
 def property_facts(xule_context, object_value, *args):
     return XuleValue(xule_context, "\n".join([str(f.qname) + " " + str(f.xValue) for f in xule_context.facts]), 'string')
@@ -1114,13 +1193,13 @@ PROPERTIES = {
               'values': (property_values, 0, ('dictionary', ), False),
               'decimals': (property_decimals, 0, ('fact',), False),
               'networks':(property_networks, -2, ('taxonomy',), False),
-              'role': (property_role, 0, ('network', 'label'), False),
+              'role': (property_role, 0, ('network', 'label', 'reference'), False),
               'arcrole':(property_arc_role, 0, ('network',), False),
               'concept': (property_concept, -1, ('fact', 'taxonomy'), False),
               'period': (property_period, 0, ('fact',), False),
               'unit': (property_unit, 0, ('fact',), False),
               'entity': (property_entity, 0, ('fact',), False),
-              'id': (property_id, 0, ('entity',), False),
+              'id': (property_id, 0, ('entity','unit'), False),
               'scheme': (property_scheme, 0, ('entity',), False),
               'dimension': (property_dimension, 1, ('fact',), False),
               'dimensions': (property_dimensions, 0, ('fact',), False),
@@ -1129,15 +1208,38 @@ PROPERTIES = {
               'days': (property_days, 0, ('instant', 'duration'), False),
               'numerator': (property_numerator, 0, ('unit', ), False),
               'denominator': (property_denominator, 0, ('unit',), False),
-              'id': (property_id, 0, ('unit',), False),
-              
-              
-              
-              
+              'attribute': (property_attribute, 1, ('concept',), False),
+              'balance': (property_balance, 0, ('concept',), False),              
+              'base-type': (property_base_type, 0, ('concept', 'fact'), False),
+              'data-type': (property_data_type, 0, ('concept', 'fact'), False),     
+              'is-type': (property_is_type, 1, ('concept', 'fact'), False),          
+              'is-numeric': (property_is_numeric, 0, ('concept', 'fact'), False),
+              'is-monetary': (property_is_monetary, 0, ('concept', 'fact'), False),
+              'is-abstract': (property_is_abstract, 0, ('concept', 'fact'), False),
+              'label': (property_label, -2, ('concept', 'fact'), False),
+              'text': (property_text, 0, ('label',), False),
+              'lang': (property_lang, 0, ('label',), False),              
+              'name': (property_name, 0, ('fact', 'concept', 'reference-part'), False),
+              'local-name': (property_local_name, 0, ('qname', 'concept', 'fact', 'reference-part'), False),
+              'namespace-uri': (property_namespace_uri, 0, ('qname', 'concept', 'fact', 'reference-part'), False),              
+              'period-type': (property_period_type, 0, ('concept',), False),
+              'parts': (property_parts, 0, ('reference',), False),
+              'part-value': (property_part_value, 0, ('reference-part',), False),
+              'part-by-name': (property_part_by_name, 1, ('reference',), False),              
+              'references':(property_references, -1, ('concept', 'fact'), False),
+              'relationships': (property_relationships, 0, ('network',), False),
+              'concepts': (property_concepts, 0, ('taxonomy', 'network'), False),
+              'concept-names': (property_concept_names, 0, ('taxonomy', 'network'), False),
+              'source-concepts': (property_source_concepts, 0, ('network',), False),
+              'target-concepts': (property_target_concepts, 0, ('network',), False),
+              'roots': (property_roots, 0, ('network',), False),
+              'uri': (property_uri, 0, ('role', 'taxonomy'), False),
+              'description': (property_description, 0, ('role',), False),
+              'used-on': (property_used_on, 0, ('role',), False),
               
               #OLD PROPERTIES
                # taxonomy navigations
-               'concepts': (property_concepts, 0, ('taxonomy', 'network'), False),
+               
                'summation-item-networks': (property_summation_item_networks, 0, ('taxonomy',), False),
                'parent-child-networks': (property_parent_child_networks, 0, ('taxonomy',), False),
                'domain-member-networks': (property_domain_member_networks, 0, ('taxonomy',), False),
@@ -1153,37 +1255,31 @@ PROPERTIES = {
                'summation-item': (property_summation_item, 1, ('taxonomy',), False),
                'parent-child': (property_parent_child, 1, ('taxonomy',), False),
                 
-               'source-concepts': (property_source_concepts, 0, ('network',), False),
-               'target-concepts': (property_target_concepts, 0, ('network',), False),
+
                'descendants': (property_descendants, 2, ('network',), False),
                'children': (property_children, 1, ('network',), False),
                'ancestors': (property_ancestors, 2, ('network',), False),
                'parents': (property_parents, 1, ('network',), False),
                 
-               'relationships': (property_relationships, 0, ('network',), False),
+               
                'descendant-relationships': (property_descendant_relationships, 2, ('network',), False),
                'ancestor-relationships': (property_ancestor_relationships, 2, ('network',), False),
                 
                'source': (property_source, 0, ('relationship',), False),
                'target': (property_target, 0, ('relationship',), False),
                'weight': (property_weight, 0, ('relationship',), False),
-               'order': (property_order, 0, ('relationship',), False),
+               'order': (property_order, 0, ('relationship', 'reference-part'), False),
                'preferred-label': (property_preferred_label, 0, ('relationship',), False),
                 
-               'concept': (property_concept, -1, ('fact', 'taxonomy'), False),
-               'balance': (property_balance, 0, ('concept', 'unbound', 'none'), True),
-               'debit': (property_debit, 0, ('balance',), False),
-               'credit': (property_credit, 0, ('balance',), False),
-               'period-type': (property_period_type, 0, ('concept', 'unbound', 'none'), True),
-               'duration': (property_duration, 0, ('period-type',), False),
-               'instant': (property_instant, 0, ('period-type',), False),
-               'is-numeric': (property_is_numeric, 0, ('concept', 'fact'), False),
-               'is-monetary': (property_is_monetary, 0, ('concept', 'fact'), False),
-               'abstract': (property_abstract, 0, ('concept', 'fact'), False),
-               'xbrl-type': (property_xbrl_type, 0, ('concept', 'fact'), False),
-               'schema-type': (property_schema_type, 0, ('concept', 'fact'), False),
-               'label': (property_label, -2, ('concept', 'fact'), False),
-               'references':(property_references, -1, ('concept', 'fact'), False),
+
+
+
+               
+
+
+
+               
+               
                  
                
                'round-by-decimals': (property_round_by_decimals, 1, ('fact', 'int', 'decimal', 'float'), False),
@@ -1208,18 +1304,11 @@ PROPERTIES = {
                'signum': (property_signum, 0, ('int', 'float', 'decimal', 'fact'), False),
                 
                
-               'uri': (property_uri, 0, ('role', 'taxonomy'), False),
-               'definition': (property_definition, 0, ('role',), False),
-               'used-on': (property_used_on, 0, ('role',), False),
-               'name': (property_name, 0, ('concept', 'reference-part'), False),
-               'local-part': (property_local_part, 0, ('qname',), False),
-               'namespace-uri': (property_namespace_uri, 0, ('qname',), False),
+
+
                 
-               'text': (property_text, 0, ('label',), False),
-               'lang': (property_lang, 0, ('label',), False),
-               'parts': (property_parts, 0, ('reference',), False),
-               'part-value': (property_part_value, 0, ('reference-part',), False),
-               'part-by-name': (property_part_by_name, 1, ('reference',), False),
+
+
                 
 
  

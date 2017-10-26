@@ -238,11 +238,16 @@ class XuleValue:
             return "\n".join(s)
         
         elif self.type == 'label':
-            return "(" + self.value.role + ")(" + self.value.xmlLang + ") " +self.value.textValue
+            return "(" + self.value.role + ") (" + self.value.xmlLang + ") " +self.value.textValue
         
         elif self.type == 'relationship':
             return "relationship from " + str(self.value.fromModelObject.qname) + " to " + str(self.value.toModelObject.qname)
         
+        elif self.type == 'reference':
+            reference_string = self.value.role + '\n'
+            for part in self.value:
+                reference_string += '\t' + str(part.qname) + ': ' + part.textValue + '\n'
+            return reference_string
         else:
             return str(self.value)
 

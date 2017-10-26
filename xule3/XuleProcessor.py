@@ -835,7 +835,10 @@ def evaluate_qname_literal(literal, xule_context):
 
 def evaluate_severity(severity_expr, xule_context):
     return XuleValue(xule_context, severity_expr['value'], 'severity')
-    
+
+def evaluate_string_keyword(expr, xule_context):
+    return XuleValue(xule_context, expr['value'], 'string')
+
 def evaluate_tagged(tagged_expr, xule_context):
     try:
         tagged_value = evaluate(tagged_expr['expr'], xule_context)
@@ -2719,8 +2722,6 @@ def nav_decorate_component_value(rel, direction, component_name, is_start, xule_
                 return (None, 'unbound', component_name)
             else:
                 return (attribute_value, 'string', component_name)
-
-            return ('arc attribute {}'.format(component_name), 'string', component_name)
         else:
             raise XuleProcessingError(_("Component {} is not currently supported.".format(component_name)), xule_context)        
 
@@ -3298,49 +3299,78 @@ def evaluate_property(property_expr, xule_context):
         
         property_info = XuleProperties.PROPERTIES[current_property_expr['propertyName']]
         
-        #Check that the left object is the right type
-        #if the left object is unbound then return unbound
-        if not property_info[XuleProperties.PROP_UNBOUND_ALLOWED] and object_value.type in ('unbound', 'none'):
-            return object_value
+        #Check if the property can operate on a set or list. 
+        if object_value.type not in ('set', 'list') or (object_value.type in ('set', 'list') and len({'set', 'list'} & set(property_info[XuleProperties.PROP_OPERAND_TYPES])) > 0): 
+            pass
+            object_value = process_property(current_property_expr, object_value, property_info, xule_context)
         else:
-            #check the left object is the right type
-            if len(property_info[XuleProperties.PROP_OPERAND_TYPES]) > 0:
-                if not (object_value.type in property_info[XuleProperties.PROP_OPERAND_TYPES] or
-                        object_value.is_fact and 'fact' in property_info[XuleProperties.PROP_OPERAND_TYPES] or
-                        any([xule_castable(object_value, allowable_type, xule_context) for allowable_type in property_info[XuleProperties.PROP_OPERAND_TYPES]])):
-                    #print(current_property_expr['node_id'])
-                    raise XuleProcessingError(_("Property '%s' is not a property of a '%s'.") % (current_property_expr['propertyName'],
-                                                                                                 object_value.type), 
-                                              xule_context) 
-        
-        property_info = XuleProperties.PROPERTIES[current_property_expr['propertyName']]
-
-        if property_info[XuleProperties.PROP_ARG_NUM] is not None:
-            property_args = current_property_expr.get('propertyArgs', [])
-            if property_info[XuleProperties.PROP_ARG_NUM] >= 0 and len(property_args) != property_info[XuleProperties.PROP_ARG_NUM]:
-                raise XuleProcessingError(_("Property '%s' must have %s arguments. Found %i." % (current_property_expr['propertyName'],
-                                                                                                 property_info[PROP_ARG_NUM],
-                                                                                                 len(property_args))), 
-                                          xule_context)
-            elif len(property_args) > property_info[XuleProperties.PROP_ARG_NUM] * -1 and property_info[XuleProperties.PROP_ARG_NUM] < 0:
-                raise XuleProcessingError(_("Property '%s' must have no more than %s arguments. Found %i." % (current_property_expr['propertyName'],
-                                                                                                 property_info[XuleProperties.PROP_ARG_NUM] * -1,
-                                                                                                 len(property_args))), 
-                                          xule_context)
-        #prepare the arguments
-        arg_values = []
-        for arg_expr in property_args:
-            arg_value = evaluate(arg_expr, xule_context)
-            arg_values.append(arg_value)
-            
-        object_value = property_info[XuleProperties.PROP_FUNCTION](xule_context, object_value, *arg_values)
-        
-        if 'tagName' in current_property_expr:
-            xule_context.tags[current_property_expr.tagName] = object_value
-        
+            # This is a set or list. The property is not for a set or list, so try to create a new set or list after applying the property to the members.
+            if object_value.type == 'set':
+                new_list = set()
+                new_shadow = set()
+            else:
+                new_list = list()
+                new_shadow = list()
+            for item in object_value.value:
+                new_value = process_property(current_property_expr, item, property_info, xule_context)
+                if object_value.type == 'set':
+                    if (new_value.shadow_collection if new_value.type in ('set', 'list', 'dictionary') else new_value.value) not in new_shadow:
+                        new_list.add(new_value)
+                        new_shadow.add(new_value.shadow_collection if new_value.type in ('set', 'list', 'dictionary') else new_value.value)
+                else: #list
+                    new_list.append(new_value)
+                    new_shadow.append(new_value.shadow_collection if new_value.type in ('set', 'list', 'dictionary') else new_value.value)
+                
+            if object_value.type == 'set':
+                object_value = XuleValue(xule_context, frozenset(new_list), 'set', shadow_collection=frozenset(new_shadow))
+            else: #list
+                object_value = XuleValue(xule_context, tuple(new_list), 'list', shadow_collection=frozenset(new_shadow))
+                
     return object_value
                 
-                
+def process_property(current_property_expr, object_value, property_info, xule_context):
+    #Check that the left object is the right type
+    #if the left object is unbound then return unbound
+    if not property_info[XuleProperties.PROP_UNBOUND_ALLOWED] and object_value.type in ('unbound', 'none'):
+        return object_value
+    else:
+        #check the left object is the right type
+        if len(property_info[XuleProperties.PROP_OPERAND_TYPES]) > 0:
+            if not (object_value.type in property_info[XuleProperties.PROP_OPERAND_TYPES] or
+                    object_value.is_fact and 'fact' in property_info[XuleProperties.PROP_OPERAND_TYPES] or
+                    any([xule_castable(object_value, allowable_type, xule_context) for allowable_type in property_info[XuleProperties.PROP_OPERAND_TYPES]])):
+                #print(current_property_expr['node_id'])
+                raise XuleProcessingError(_("Property '%s' is not a property of a '%s'.") % (current_property_expr['propertyName'],
+                                                                                             object_value.type), 
+                                          xule_context) 
+    
+    property_info = XuleProperties.PROPERTIES[current_property_expr['propertyName']]
+
+    if property_info[XuleProperties.PROP_ARG_NUM] is not None:
+        property_args = current_property_expr.get('propertyArgs', [])
+        if property_info[XuleProperties.PROP_ARG_NUM] >= 0 and len(property_args) != property_info[XuleProperties.PROP_ARG_NUM]:
+            raise XuleProcessingError(_("Property '%s' must have %s arguments. Found %i." % (current_property_expr['propertyName'],
+                                                                                             property_info[XuleProperties.PROP_ARG_NUM],
+                                                                                             len(property_args))), 
+                                      xule_context)
+        elif len(property_args) > property_info[XuleProperties.PROP_ARG_NUM] * -1 and property_info[XuleProperties.PROP_ARG_NUM] < 0:
+            raise XuleProcessingError(_("Property '%s' must have no more than %s arguments. Found %i." % (current_property_expr['propertyName'],
+                                                                                             property_info[XuleProperties.PROP_ARG_NUM] * -1,
+                                                                                             len(property_args))), 
+                                      xule_context)
+    #prepare the arguments
+    arg_values = []
+    for arg_expr in property_args:
+        arg_value = evaluate(arg_expr, xule_context)
+        arg_values.append(arg_value)
+        
+    object_value = property_info[XuleProperties.PROP_FUNCTION](xule_context, object_value, *arg_values)
+    
+    if 'tagName' in current_property_expr:
+        xule_context.tags[current_property_expr.tagName] = object_value
+
+    return object_value
+
 def evaluate_index(index_expr, xule_context):
     
     # evaluate the left side of the expression
@@ -3441,6 +3471,10 @@ EVALUATOR = {
     
     #severity
     'severity': evaluate_severity,
+    
+    #balance
+    'balance': evaluate_string_keyword,
+    'periodType': evaluate_string_keyword,
     
     }
 

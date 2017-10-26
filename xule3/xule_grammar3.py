@@ -190,6 +190,11 @@ def get_grammar():
     passLiteral = CaselessKeyword("pass")
     severityLiteral = Group((errorLiteral | warningLiteral | okLiteral | passLiteral).setResultsName('value') + nodeName('severity'))
     
+    #balance literals
+    balanceLiteral = Group((CaselessKeyword('debit') | CaselessKeyword('credit')).setResultsName('value') + nodeName('balance'))
+    periodTypeLiteral = Group((CaselessKeyword('instant') | CaselessKeyword('duration')).setResultsName('value') + nodeName('periodType'))
+    
+    
     #direction keywords
     directionLiteral = ((CaselessKeyword('ancestors').setResultsName('direction') + Optional(digits, -1).setResultsName('depth')) |  
                         (CaselessKeyword('descendants').setResultsName('direction')  + Optional(digits, -1).setResultsName('depth')) | 
@@ -234,7 +239,6 @@ def get_grammar():
     covered = CaselessKeyword('covered').setParseAction(lambda: True).setResultsName('covered')
     where = CaselessKeyword('where')
     returns = CaselessKeyword('returns')
-    
 
     properties = Group(OneOrMore(Group(Suppress(propertyOp) +
                                        simpleName.setResultsName('propertyName') +
@@ -445,6 +449,8 @@ def get_grammar():
             stringLiteral |
             booleanLiteral |
             severityLiteral |
+            balanceLiteral |
+            periodTypeLiteral |
             noneLiteral |
             unboundLiteral |
             
