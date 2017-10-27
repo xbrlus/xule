@@ -2988,106 +2988,165 @@ def nav_finish_return_items(nav_expr, return_items, add_result_order, xule_conte
 
 def evaluate_function_ref(function_ref, xule_context):
     if function_ref['functionName'] in BUILTIN_FUNCTIONS:
-        function_info = BUILTIN_FUNCTIONS[function_ref['functionName']]
+        function_info = BUILTIN_FUNCTIONS.get(function_ref['functionName'])
         if function_info[FUNCTION_TYPE] == 'aggregate':
             return evaluate_aggregate_function(function_ref, function_info, xule_context)
+        elif function_info[FUNCTION_TYPE] == 'regular':
+            return regular_function(xule_context, function_ref, function_info)
         else:
-            if function_info[FUNCTION_ARG_NUM] >= 0:
-                if function_info[FUNCTION_TYPE] == 'regular' and len(function_ref['functionArgs']) != function_info[FUNCTION_ARG_NUM]:
-                    raise XuleProcessingError(_("The '%s' function must have only %i argument, found %i." % (function_ref['functionName'], 
-                                                                                                   function_info[FUNCTION_ARG_NUM],
-                                                                                                   len(function_ref['functionArgs']))), xule_context)
-            else:
-                # The fucntion may have a variable number of arguments.
-                if function_info[FUNCTION_TYPE] == 'regular' and len(function_ref['functionArgs']) > (function_info[FUNCTION_ARG_NUM] * -1):
-                    raise XuleProcessingError(_("The '%s' function must have no more than %i arguments, found %i." % (function_ref['functionName'], 
-                                                                                                   function_info[FUNCTION_ARG_NUM] * -1,
-                                                                                                   len(function_ref['functionArgs']))), xule_context)                
-                
-            function_args = []
-            for function_arg in function_ref['functionArgs']:
-            #for i in range(len(function_ref.functionArgs)):
-                if function_info[FUNCTION_ALLOW_UNBOUND_ARGS]:
-                    try:
-                        arg = evaluate(function_arg, xule_context)
-                    except XuleIterationStop as xis:
-                        arg = xis.stop_value
-                else:
-                    arg = evaluate(function_arg, xule_context)
-                              
-                function_args.append(arg)
-
-            return function_info[FUNCTION_EVALUATOR](xule_context, *function_args)
+            raise XuleProcessingError(_("Unknown function type '{}'.".format(function_info[FUNCTION_TYPE])), xule_context)
+    elif function_ref['functionName'] in XuleProperties.PROPERTIES:
+        return property_as_function(xule_context, function_ref)
     else:
         #xule defined function
-        #check fucntion cache - The function cache is very basic. It only caches on functions that have no args.
-        if len(function_ref['functionArgs']) == 0 and function_ref['functionName'] in xule_context.global_context.function_cache:
-            return xule_context.global_context.function_cache[function_ref['functionName']]                
+        return user_defined_function(xule_context, function_ref, function_info)
 
-        function_info = xule_context.find_function(function_ref['functionName'])
-        if function_info is None:
-            raise XuleProcessingError("Function '%s' not found" % function_ref['functionName'], xule_context)
+def property_as_function(xule_context, function_ref):
+    """Evaluate a function that is a property.
+    
+    Some functions are just a function version of a property. In these cases, the first argument is the object of the property and the rest of the args are
+    arguments to the property. 
+    
+    Example:
+        -10.abs is the same as abs(-10)
+    """
+    # Get the property information
+    property_info = XuleProperties.PROPERTIES[function_ref['functionName']]
+    
+    # Check that there is at least one argument. This is the property object
+    if len(function_ref['functionArgs']) == 0:
+        raise XuleProcessingError(_("The '{}' function must have at least one argumenrt, found none.".format(function_ref['functionName'])), xule_context)
+    
+    # Check that the first argument is the right type
+    property_object = evaluate(function_ref['functionArgs'][0], xule_context)
+    
+    if len(property_info[XuleProperties.PROP_OPERAND_TYPES]) > 0:
+        if not (property_object.type in property_info[XuleProperties.PROP_OPERAND_TYPES] or
+                property_object.is_fact and 'fact' in property_info[XuleProperties.PROP_OPERAND_TYPES] or
+                any([xule_castable(property_object, allowable_type, xule_context) for allowable_type in property_info[XuleProperties.PROP_OPERAND_TYPES]])):
+    
+            raise XuleProcessingError(_("The first argument of function '{}' is not the right type. expecting {}, found '{}.".format(function_ref['functionName'],
+                                                                                                                                     ', '.join(XuleProperties.PROP_OPERAND_TYPES),
+                                                                                                                                     property_object.type)), xule_context)
+    
+    
+    if property_info[XuleProperties.PROP_ARG_NUM] is not None:
+        property_args = function_ref['functionArgs'][1:]
+        if property_info[XuleProperties.PROP_ARG_NUM] >= 0 and len(property_args) != property_info[XuleProperties.PROP_ARG_NUM]:
+            raise XuleProcessingError(_("Property '%s' must have %s arguments. Found %i." % (function_ref['functionName'],
+                                                                                             property_info[XuleProperties.PROP_ARG_NUM],
+                                                                                             len(property_args))), 
+                                      xule_context)
+        elif len(property_args) > property_info[XuleProperties.PROP_ARG_NUM] * -1 and property_info[XuleProperties.PROP_ARG_NUM] < 0:
+            raise XuleProcessingError(_("Property '%s' must have no more than %s arguments. Found %i." % (function_ref['functionName'],
+                                                                                             property_info[XuleProperties.PROP_ARG_NUM] * -1,
+                                                                                             len(property_args))), 
+                                      xule_context)
+    #prepare the arguments
+    arg_values = []
+    for arg_expr in property_args:
+        arg_value = evaluate(arg_expr, xule_context)
+        arg_values.append(arg_value)
+        
+    return property_info[XuleProperties.PROP_FUNCTION](xule_context, property_object, *arg_values)
+    
+def regular_function(xule_context, function_ref, function_info):
+        if function_info[FUNCTION_ARG_NUM] >= 0:
+            if function_info[FUNCTION_TYPE] == 'regular' and len(function_ref['functionArgs']) != function_info[FUNCTION_ARG_NUM]:
+                raise XuleProcessingError(_("The '%s' function must have only %i argument, found %i." % (function_ref['functionName'], 
+                                                                                               function_info[FUNCTION_ARG_NUM],
+                                                                                               len(function_ref['functionArgs']))), xule_context)
         else:
-            #Get the list of variables and their values. This will put the current single value for the variable as an argument
-            for var_ref in sorted(function_ref['var_refs'], key=lambda x: x[1]):
-                '''NOT SURE THIS IS NEEDED. THE ARGUMENTS WILL BE EXVALUTED WHEN THE for arg in matched_args IS PROCESSED'''
-                #0 = var declaration id, 1 = var name, 2 = var_ref, 3 = var type (1 = var/arg, 2 = constant)
-                var_value = evaluate(var_ref[2], xule_context)
-                            
-            matched_args = match_function_arguments(function_ref, function_info['function_declaration'], xule_context)
-            for arg in matched_args:
+            # The fucntion may have a variable number of arguments.
+            if function_info[FUNCTION_TYPE] == 'regular' and len(function_ref['functionArgs']) > (function_info[FUNCTION_ARG_NUM] * -1):
+                raise XuleProcessingError(_("The '%s' function must have no more than %i arguments, found %i." % (function_ref['functionName'], 
+                                                                                               function_info[FUNCTION_ARG_NUM] * -1,
+                                                                                               len(function_ref['functionArgs']))), xule_context)                
+            
+        function_args = []
+        for function_arg in function_ref['functionArgs']:
+        #for i in range(len(function_ref.functionArgs)):
+            if function_info[FUNCTION_ALLOW_UNBOUND_ARGS]:
                 try:
-                    arg_value = evaluate(arg['expr'], xule_context)
+                    arg = evaluate(function_arg, xule_context)
                 except XuleIterationStop as xis:
-                    arg_value = xis.stop_value
-                xule_context.add_arg(arg['name'],
-                                     arg['node_id'],
-                                     arg['tagged'],
-                                     arg_value,
-                                     'single')            
-
-            #add the node_id of the function reference to the prefix used for calculating the processing node id
-            #This is done before adding the args so the id prefix is set with the function delcaration id before the args are added as varaiables.
-            xule_context.id_prefix.append(function_ref['node_id'])
-            
-            body_expr = function_info['function_declaration']['body']
-            save_aligned_result_only = xule_context.aligned_result_only
-                    
-            def cleanup_function():
-                #remove the args
-                for arg in matched_args:
-                    xule_context.del_arg(arg['name'],
-                                         arg['node_id'])
-
-                #pop the function reference node id off the prefix
-                xule_context.id_prefix.pop()    
-                #reset the aligned only results.
-                xule_context.aligned_result_only = save_aligned_result_only
-                #xule_context.used_expressions = save_used_expressions    
-            
-
-            function_result_values = isolated_evaluation(xule_context,
-                                                         function_info['function_declaration']['node_id'], 
-                                                         body_expr, 
-                                                         cleanup_function=cleanup_function #, 
-                                                         #iteration_reset_function=iteration_reset,
-                                                         )
-            if 'is_iterable' in function_ref:
-                function_results = function_result_values
+                    arg = xis.stop_value
             else:
-                if None in function_result_values.values:
-                    function_results = function_result_values.values[None][0]
-                else:
-                    function_results = XuleValue(xule_context, None, 'unbound')
-            
-            #Cache fucntion results that don't have any arguments.
-            if len(function_ref['functionArgs']) == 0:
-                xule_context.global_context.function_cache[function_ref['functionName']] = function_results
+                arg = evaluate(function_arg, xule_context)
+                          
+            function_args.append(arg)
+
+        return function_info[FUNCTION_EVALUATOR](xule_context, *function_args)
+
+def user_defined_function(xule_context, function_ref, function_info):
+    #check fucntion cache - The function cache is very basic. It only caches on functions that have no args.
+    if len(function_ref['functionArgs']) == 0 and function_ref['functionName'] in xule_context.global_context.function_cache:
+        return xule_context.global_context.function_cache[function_ref['functionName']]                
+
+    function_info = xule_context.find_function(function_ref['functionName'])
+    if function_info is None:
+        raise XuleProcessingError("Function '%s' not found" % function_ref['functionName'], xule_context)
+    else:
+        #Get the list of variables and their values. This will put the current single value for the variable as an argument
+        for var_ref in sorted(function_ref['var_refs'], key=lambda x: x[1]):
+            '''NOT SURE THIS IS NEEDED. THE ARGUMENTS WILL BE EXVALUTED WHEN THE for arg in matched_args IS PROCESSED'''
+            #0 = var declaration id, 1 = var name, 2 = var_ref, 3 = var type (1 = var/arg, 2 = constant)
+            var_value = evaluate(var_ref[2], xule_context)
+                        
+        matched_args = match_function_arguments(function_ref, function_info['function_declaration'], xule_context)
+        for arg in matched_args:
+            try:
+                arg_value = evaluate(arg['expr'], xule_context)
+            except XuleIterationStop as xis:
+                arg_value = xis.stop_value
+            xule_context.add_arg(arg['name'],
+                                 arg['node_id'],
+                                 arg['tagged'],
+                                 arg_value,
+                                 'single')            
+
+        #add the node_id of the function reference to the prefix used for calculating the processing node id
+        #This is done before adding the args so the id prefix is set with the function delcaration id before the args are added as varaiables.
+        xule_context.id_prefix.append(function_ref['node_id'])
+        
+        body_expr = function_info['function_declaration']['body']
+        save_aligned_result_only = xule_context.aligned_result_only
+                
+        def cleanup_function():
+            #remove the args
+            for arg in matched_args:
+                xule_context.del_arg(arg['name'],
+                                     arg['node_id'])
+
+            #pop the function reference node id off the prefix
+            xule_context.id_prefix.pop()    
+            #reset the aligned only results.
+            xule_context.aligned_result_only = save_aligned_result_only
+            #xule_context.used_expressions = save_used_expressions    
+        
+
+        function_result_values = isolated_evaluation(xule_context,
+                                                     function_info['function_declaration']['node_id'], 
+                                                     body_expr, 
+                                                     cleanup_function=cleanup_function #, 
+                                                     #iteration_reset_function=iteration_reset,
+                                                     )
+        if 'is_iterable' in function_ref:
+            function_results = function_result_values
+        else:
+            if None in function_result_values.values:
+                function_results = function_result_values.values[None][0]
+            else:
+                function_results = XuleValue(xule_context, None, 'unbound')
+        
+        #Cache fucntion results that don't have any arguments.
+        if len(function_ref['functionArgs']) == 0:
+            xule_context.global_context.function_cache[function_ref['functionName']] = function_results
 #             if function_ref.get('cacheable') == True:
 #                 xule_context.global_context.function_cache[cache_key] = function_results
 #             
-            return function_results    
-            
+        return function_results
+         
 def isolated_evaluation(xule_context, node_id, expr, setup_function=None, cleanup_function=None, iteration_reset_function=None):
     save_aligned_result_only = xule_context.aligned_result_only
     save_used_expressions = xule_context.used_expressions
@@ -3344,7 +3403,7 @@ def process_property(current_property_expr, object_value, property_info, xule_co
                                                                                              object_value.type), 
                                           xule_context) 
     
-    property_info = XuleProperties.PROPERTIES[current_property_expr['propertyName']]
+    #property_info = XuleProperties.PROPERTIES[current_property_expr['propertyName']]
 
     if property_info[XuleProperties.PROP_ARG_NUM] is not None:
         property_args = current_property_expr.get('propertyArgs', [])

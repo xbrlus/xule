@@ -11,7 +11,6 @@ from arelle.ModelValue import qname, QName
 import collections
 from . import XuleRollForward as rf
 
-
 class XuleSDic(XuleValue):
     def __init__(self, xule_context, name):
         super().__init__(xule_context, None, 'sdic')
@@ -656,7 +655,7 @@ def func_taxonomy(xule_context, *args):
         return XuleValue(xule_context, other_taxonomy , 'taxonomy')
     else:
         raise XuleProcessingError(_("The taxonomy() function takes at most 1 argument, found {}".format(len(args))))
-    
+
 
 #the position of the function information
 FUNCTION_TYPE = 0
@@ -711,7 +710,8 @@ def built_in_functions():
              'sdic_remove_item': ('regular', func_sdic_remove_item, 2, True, 'single'),
              'sdic_set_item': ('regular', func_sdic_set_item, 3, True, 'single'),
              
-             'taxonomy': ('regular', func_taxonomy, -1, False, 'single')
+             'taxonomy': ('regular', func_taxonomy, -1, False, 'single'),
+
              }    
     
     
