@@ -10,7 +10,7 @@ from pyparsing import (Word, Keyword,  CaselessKeyword, ParseResults, infixNotat
                  Literal, CaselessLiteral, FollowedBy, opAssoc,
                  Combine, Optional, nums, Forward, Group, ZeroOrMore,  
                  ParserElement,  delimitedList, Suppress, Regex, 
-                 QuotedString, OneOrMore, oneOf, cStyleComment,
+                 QuotedString, OneOrMore, oneOf, cStyleComment, CharsNotIn,
                  lineEnd, White, SkipTo, Empty, stringStart, stringEnd, alphas, printables, removeQuotes)
 
 def buildPrecedenceExpressions( baseExpr, opList, lpar=Suppress('('), rpar=Suppress(')')):
@@ -146,7 +146,7 @@ def get_grammar():
     methodOp = Literal(".")
     
     #operators
-    unaryOp = oneOf('+ -')
+    unaryOp = oneOf('+ -') + ~oneOf(nums)
     multiOp = oneOf('* /')
     addOp = oneOf('+> -> + - <+> <+ <-> <-')
     symDiffOp = Literal('^')
@@ -167,7 +167,9 @@ def get_grammar():
                       nodeName('integer'))
     infLiteral = Combine(Optional(sign) + CaselessKeyword("INF"))
     floatLiteral = Group((Combine(decimalPoint + digits + Optional(sciNot + integerPart)) |
-                     Combine(integerPart + decimalPoint + Optional(digits, default='0') + Optional(sciNot + integerPart)) |
+                     Combine(integerPart + decimalPoint + 
+                             ~CharsNotIn('0123456789') + ~(sciNot + ~integerPart) # This prevents matching a property of a literal number
+                             + Optional(digits, default='0') + Optional(sciNot + integerPart)) |
                      infLiteral).setResultsName("value") +
                     nodeName('float'))
     #string literals

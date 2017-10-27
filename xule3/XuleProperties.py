@@ -3,6 +3,7 @@ from .XuleRunTime import XuleProcessingError, XuleIterationStop, XuleException, 
 from .XuleValue import *
 from . import XuleUtility
 from . import XuleFunctions
+import math
 
 def property_union(xule_context, object_value, *args):
     other_set = args[0]
@@ -687,7 +688,85 @@ def property_network(xule_context, object_value, *args):
     
     return XuleValue(xule_context, network, 'network')
     
-                                    
+def property_power(xule_context, object_value, *args):  
+    arg = args[0]
+     
+    if arg.type not in ('int', 'float', 'decimal'):
+        raise XuleProcessingError(_("The 'power' property requires a numeric argument, found '%s'" % arg.type), xule_context)
+     
+    combine_types = combine_xule_types(object_value, arg, xule_context)
+     
+    return XuleValue(xule_context, combine_types[1]**combine_types[2], combine_types[0])
+ 
+def property_log10(xule_context, object_value, *args):
+    if object_value.value == 0:
+        return XuleValue(xule_context, float('-inf'), 'float')
+    elif object_value.value < 0:
+        return XuleValue(xule_context, float('nan'), 'float')
+    else:
+        return XuleValue(xule_context, math.log10(object_value.value), 'float')
+ 
+def property_abs(xule_context, object_value, *args):
+    try:
+        return XuleValue(xule_context, abs(object_value.value), object_value.type)
+    except Exception as e:       
+        raise XuleProcessingError(_("Error calculating absolute value: %s" % str(e)), xule_context)
+ 
+def property_signum(xule_context, object_value, *args):
+    if object_value.value == 0:
+        return XuleValue(xule_context, 0, 'int')
+    elif object_value.value < 0:
+        return XuleValue(xule_context, -1, 'int')
+    else:
+        return XuleValue(xule_context, 1, 'int')                                    
+
+def property_trunc(xule_context, object_value, *args):
+    return XuleValue(xule_context, math.trunc(object_value.value), 'int')
+
+def property_round(xule_context, object_value, *args):
+    if args[0].type == 'int':
+        round_to = args[0].value
+    elif object_value.type == 'float':
+        if args[0].value.is_integer():
+            round_to = int(object_value.value)
+        else:
+            raise XuleProcessingError(_("The argument to the 'round' property must be an integer value, found {}.".format(args[0].value)), xule_context)
+    elif args[0].type == 'decimal':
+        if args[0].value.to_integral_value() == args[0].value:
+            round_to = int(args[0].value)
+        else:
+            raise XuleProcessingError(_("The argument to the 'round' property must be an integer value, found {}.".format(args[0].value)), xule_context)            
+    else:
+        raise XuleProcessingError(_("The argument to the 'round' property must be a number, found {}.".format(args[0].type)), xule_context)
+    
+    return XuleValue(xule_context, round(object_value.value, round_to), object_value.type)
+
+def property_mod(xule_context, object_value, *args):
+
+    if args[0].type not in ('int', 'float', 'decimal'):
+        raise XuleProcessingError(_("The argument for the 'mod' property must be numeric, found '%s'" % args[0].type), xule_context)
+    
+    combined_type, numerator_compute_value, denominator_compute_value = combine_xule_types(object_value, args[0], xule_context)
+    return XuleValue(xule_context, numerator_compute_value % denominator_compute_value, combined_type)    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -979,37 +1058,7 @@ def property_item(xule_context, object_value, *args):
     else:
         return object_value.value[arg_value]
          
-def property_power(xule_context, object_value, *args):  
-    arg = args[0]
-     
-    if arg.type not in ('int', 'float', 'decimal'):
-        raise XuleProcessingError(_("The 'power' property requires a numeric argument, found '%s'" % arg.type), xule_context)
-     
-    combine_types = combine_xule_types(object_value, arg, xule_context)
-     
-    return XuleValue(xule_context, combine_types[1]**combine_types[2], combine_types[0])
- 
-def property_log10(xule_context, object_value, *args):
-    if object_value.value == 0:
-        return XuleValue(xule_context, float('-inf'), 'float')
-    elif object_value.value < 0:
-        return XuleValue(xule_context, float('nan'), 'float')
-    else:
-        return XuleValue(xule_context, math.log10(object_value.value), 'float')
- 
-def property_abs(xule_context, object_value, *args):
-    try:
-        return XuleValue(xule_context, abs(object_value.value), object_value.type)
-    except Exception as e:       
-        raise XuleProcessingError(_("Error calculating absolute value: %s" % str(e)), xule_context)
- 
-def property_signum(xule_context, object_value, *args):
-    if object_value.value == 0:
-        return XuleValue(xule_context, 0, 'int')
-    elif object_value.value < 0:
-        return XuleValue(xule_context, -1, 'int')
-    else:
-        return XuleValue(xule_context, 1, 'int')
+
  
  
 
@@ -1324,8 +1373,13 @@ PROPERTIES = {
               'link-name': (property_link_name, 0, ('relationship',), False),
               'arc-name': (property_arc_name, 0, ('relationship',), False),
               'network': (property_network, 0, ('relationship',), False),
-
-              
+              'power': (property_power, 1, ('int', 'float', 'decimal'), False),
+              'log10': (property_log10, 0, ('int', 'float', 'decimal'), False),
+              'abs': (property_abs, 0, ('int', 'float', 'decimal', 'fact'), False),
+              'signum': (property_signum, 0, ('int', 'float', 'decimal', 'fact'), False),
+              'trunc': (property_trunc, 0, ('init', 'float', 'decimal', 'fact'), False),
+              'round': (property_round, 1, ('init', 'float', 'decimal', 'fact'), False),
+              'mod': (property_mod, 1 ,('init', 'float', 'decimal', 'fact'), False),
               #OLD PROPERTIES
                # taxonomy navigations
                
@@ -1384,10 +1438,7 @@ PROPERTIES = {
 
                'item': (property_item, 1, ('list',), False),
                 
-               'power': (property_power, 1, ('int', 'float', 'decimal'), False),
-               'log10': (property_log10, 0, ('int', 'float', 'decimal'), False),
-               'abs': (property_abs, 0, ('int', 'float', 'decimal', 'fact'), False),
-               'signum': (property_signum, 0, ('int', 'float', 'decimal', 'fact'), False),
+
                 
                
 
