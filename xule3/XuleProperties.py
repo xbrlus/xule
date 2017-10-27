@@ -157,6 +157,8 @@ def property_role(xule_context, object_value, *args):
     if object_value.type == 'network':
         role_uri = object_value.value[NETWORK_INFO][NETWORK_ROLE]
         #return XuleValue(xule_context, object_value.value[NETWORK_INFO][NETWORK_ROLE], 'uri')
+    elif object_value.type == 'relationship':
+        role_uri = object_value.value.linkrole
     else: # label or reference
         role_uri = object_value.value.role
         #return XuleValue(xule_context, object_value.value.role, 'uri')
@@ -165,14 +167,66 @@ def property_role(xule_context, object_value, *args):
         return XuleValue(xule_context, xule_context.model.roleTypes[role_uri][0], 'role')
     else:
         return XuleValue(xule_context, XuleRole(role_uri), 'role')
+
+def property_role_uri(xule_context, object_value, *args):
+    if object_value.type == 'network':
+        role_uri = object_value.value[NETWORK_INFO][NETWORK_ROLE]
+        #return XuleValue(xule_context, object_value.value[NETWORK_INFO][NETWORK_ROLE], 'uri')
+    elif object_value.type == 'relationship':
+        role_uri = object_value.value.linkrole
+    else: # label or reference
+        role_uri = object_value.value.role
+        #return XuleValue(xule_context, object_value.value.role, 'uri')
     
-def property_arc_role(xule_context, object_value, *args):
-    arcrole_uri = object_value.value[NETWORK_INFO][NETWORK_ARCROLE]
+    return XuleValue(xule_context, role_uri, 'uri')
+
+def property_role_description(xule_context, object_value, *args):
+    if object_value.type == 'network':
+        role_uri = object_value.value[NETWORK_INFO][NETWORK_ROLE]
+        #return XuleValue(xule_context, object_value.value[NETWORK_INFO][NETWORK_ROLE], 'uri')
+    elif object_value.type == 'relationship':
+        role_uri = object_value.value.linkrole        
+    else: # label or reference
+        role_uri = object_value.value.role
+        #return XuleValue(xule_context, object_value.value.role, 'uri')
+
+    if role_uri in xule_context.model.roleTypes:
+        model_role = xule_context.model.roleTypes[role_uri][0]
+    else:
+        model_role = XuleRole(role_uri)
+    
+    return XuleValue(xule_context, model_role.definition, 'string')
+    
+def property_arcrole(xule_context, object_value, *args):
+    if object_value.type == 'network':
+        arcrole_uri = object_value.value[NETWORK_INFO][NETWORK_ARCROLE]
+    else: # relationship
+        arcrole_uri = object_value.value.arcrole
+    
     if arcrole_uri in xule_context.model.arcroleTypes:
         return XuleValue(xule_context, xule_context.model.arcroleTypes[arcrole_uri][0], 'role')
     else:
-        return XuleValue(xule_context, XuleRole(arcrole_uri), 'role')
-    #return XuleValue(xule_context, XuleRole(), 'role')
+        return XuleValue(xule_context, XuleArcrole(arcrole_uri), 'role')
+
+def property_arcrole_uri(xule_context, object_value, *args):
+    if object_value.type == 'network':
+        arcrole_uri = object_value.value[NETWORK_INFO][NETWORK_ARCROLE]
+    else: # relationship
+        arcrole_uri = object_value.value.arcrole
+    return XuleValue(xule_context, arcrole_uri, 'uri')
+
+def property_arcrole_description(xule_context, object_value, *args):
+    if object_value.type == 'network':
+        arcrole_uri = object_value.value[NETWORK_INFO][NETWORK_ARCROLE]
+    else: # relationship
+        arcrole_uri = object_value.value.arcrole
+            
+    if arcrole_uri in xule_context.model.arcroleTypes:
+        model_arcrole = xule_context.model.arcroleTypes[arcrole_uri][0]
+    else:
+        model_arcrole = XuleArcrole(arcrole_uri)
+    
+    return XuleValue(xule_context, model_arcrole.definition, 'string')
 
 def property_concept(xule_context, object_value, *args):
     '''There are two forms of this property. The first is on a fact (with no arguments). This will return the concept of the fact.
@@ -591,9 +645,29 @@ def property_roots(xule_context, object_value, *args):
     concepts = frozenset(XuleValue(xule_context, x, 'concept') for x in object_value.value[1].rootConcepts)
     return XuleValue(xule_context, concepts, 'set')  
 
+def property_source(xule_context, object_value, *args):
+    return XuleValue(xule_context, object_value.value.fromModelObject, 'concept')
+ 
+def property_target(xule_context, object_value, *args):
+    return XuleValue(xule_context, object_value.value.toModelObject, 'concept')
 
+def property_source_name(xule_context, object_value, *args):
+    return XuleValue(xule_context, object_value.value.fromModelObject.qname, 'qname')
+ 
+def property_target_name(xule_context, object_value, *args):
+    return XuleValue(xule_context, object_value.value.toModelObject.qname, 'qname')
 
+def property_weight(xule_context, object_value, *args):
+    if object_value.value.weight is not None:
+        return XuleValue(xule_context, float(object_value.value.weight), 'float')
+    else:
+        return XuleValue(xule_context, None, 'unbound')
 
+def property_preferred_label(xule_context, object_value, *args):
+    if object_value.value.preferredLabel is not None:
+        return XuleValue(xule_context, object_value.value.preferredLabel, 'uri')
+    else:
+        return XuleValue(xule_context, None, 'unbound')
 
 
 
@@ -817,27 +891,9 @@ def property_parents(xule_context, object_value, *args):
  
 
 
- 
-def property_source(xule_context, object_value, *args):
-    return XuleValue(xule_context, object_value.value.fromModelObject, 'concept')
- 
-def property_target(xule_context, object_value, *args):
-    return XuleValue(xule_context, object_value.value.toModelObject, 'concept')
- 
-def property_weight(xule_context, object_value, *args):
-    if object_value.value.weight is not None:
-        return XuleValue(xule_context, float(object_value.value.weight), 'float')
-    else:
-        return XuleValue(xule_context, None, 'unbound')
- 
 
-                
-     
-def property_preferred_label(xule_context, object_value, *args):
-    if object_value.value.preferredLabel is not None:
-        return XuleValue(xule_context, object_value.value.preferredLabel, 'uri')
-    else:
-        return XuleValue(xule_context, None, 'unbound')    
+ 
+    
          
 
 
@@ -1193,8 +1249,12 @@ PROPERTIES = {
               'values': (property_values, 0, ('dictionary', ), False),
               'decimals': (property_decimals, 0, ('fact',), False),
               'networks':(property_networks, -2, ('taxonomy',), False),
-              'role': (property_role, 0, ('network', 'label', 'reference'), False),
-              'arcrole':(property_arc_role, 0, ('network',), False),
+              'role': (property_role, 0, ('network', 'label', 'reference', 'relationship'), False),
+              'role-uri': (property_role_uri, 0, ('network', 'label', 'reference', 'relationship'), False),
+              'role-description': (property_role_description, 0, ('network', 'label', 'reference', 'relationship'), False),
+              'arcrole':(property_arcrole, 0, ('network', 'relationship'), False),
+              'arcrole-uri':(property_arcrole_uri, 0, ('network', 'relationship'), False),
+              'arcrole-description':(property_arcrole_description, 0, ('network', 'relationship'), False),
               'concept': (property_concept, -1, ('fact', 'taxonomy'), False),
               'period': (property_period, 0, ('fact',), False),
               'unit': (property_unit, 0, ('fact',), False),
@@ -1236,6 +1296,15 @@ PROPERTIES = {
               'uri': (property_uri, 0, ('role', 'taxonomy'), False),
               'description': (property_description, 0, ('role',), False),
               'used-on': (property_used_on, 0, ('role',), False),
+              'source': (property_source, 0, ('relationship',), False),
+              'target': (property_target, 0, ('relationship',), False),              
+              'source-name': (property_source_name, 0, ('relationship',), False),
+              'target-name': (property_target_name, 0, ('relationship',), False),              
+              'weight': (property_weight, 0, ('relationship',), False),
+              'order': (property_order, 0, ('relationship', 'reference-part'), False),
+              'preferred-label': (property_preferred_label, 0, ('relationship',), False),
+
+
               
               #OLD PROPERTIES
                # taxonomy navigations
@@ -1265,11 +1334,8 @@ PROPERTIES = {
                'descendant-relationships': (property_descendant_relationships, 2, ('network',), False),
                'ancestor-relationships': (property_ancestor_relationships, 2, ('network',), False),
                 
-               'source': (property_source, 0, ('relationship',), False),
-               'target': (property_target, 0, ('relationship',), False),
-               'weight': (property_weight, 0, ('relationship',), False),
-               'order': (property_order, 0, ('relationship', 'reference-part'), False),
-               'preferred-label': (property_preferred_label, 0, ('relationship',), False),
+
+
                 
 
 
