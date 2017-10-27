@@ -749,7 +749,53 @@ def property_mod(xule_context, object_value, *args):
     combined_type, numerator_compute_value, denominator_compute_value = combine_xule_types(object_value, args[0], xule_context)
     return XuleValue(xule_context, numerator_compute_value % denominator_compute_value, combined_type)    
 
-
+def property_substring(xule_context, object_value, *args):     
+    if len(args) == 0:
+        raise XuleProcessingError(_("Substring reuqires at least 1 argument, found none."), xule_context)
+    cast_value = xule_cast(object_value, 'string', xule_context)
+    
+    if xule_castable(args[0], 'int', xule_context):
+        start_value = xule_cast(args[0], 'int', xule_context) - 1
+    else:
+        raise XuleProcessingError(_("The first argument of property 'substring' is not castable to a 'int', found '%s'" % args[0].type), xule_context)
+    
+    if len(args) == 1:
+        return XuleValue(xule_context, cast_value[start_value:], 'string')
+    else:
+        if xule_castable(args[1], 'int', xule_context):
+            end_value = xule_cast(args[1], 'int', xule_context)
+        else:
+            raise XuleProcessingError(_("The second argument of property 'substring' is not castable to a 'int', found '%s'" % args[1].type), xule_context)
+ 
+        return XuleValue(xule_context, cast_value[start_value:end_value], 'string')
+     
+def property_index_of(xule_context, object_value, *args):
+    cast_value = xule_cast(object_value, 'string', xule_context)
+ 
+    arg_result = args[0]
+    if xule_castable(arg_result, 'string', xule_context):
+        index_string = xule_cast(arg_result, 'string', xule_context)
+    else:
+        raise XuleProcessingError(_("The argument for property 'index-of' must be castable to a 'string', found '%s'" % arg_result.type), xule_context)
+     
+    return XuleValue(xule_context, cast_value.find(index_string) + 1, 'int')
+ 
+def property_last_index_of(xule_context, object_value, *args):
+    cast_value = xule_cast(object_value, 'string', xule_context)
+     
+    arg_result = args[0]
+    if xule_castable(arg_result, 'string', xule_context):
+        index_string = xule_cast(arg_result, 'string', xule_context)
+    else:
+        raise XuleProcessingError(_("The argument for property 'last-index-of' must be castable to a 'string', found '%s'" % arg_result.type), xule_context)
+     
+    return XuleValue(xule_context, cast_value.rfind(index_string) + 1, 'int')
+ 
+def property_lower_case(xule_context, object_value, *args):
+    return XuleValue(xule_context, xule_cast(object_value, 'string', xule_context).lower(), 'string')
+ 
+def property_upper_case(xule_context, object_value, *args):
+    return XuleValue(xule_context, xule_cast(object_value, 'string', xule_context).upper(), 'string')
 
 
 
@@ -1003,47 +1049,7 @@ def property_dts_document_locations(xule_context, object_value, *args):
  
 
  
-def property_substring(xule_context, object_value, *args):     
-    cast_value = xule_cast(object_value, 'string', xule_context)
-    if xule_castable(args[0], 'int', xule_context):
-        start_value = xule_cast(args[0], 'int', xule_context)
-    else:
-        raise XuleProcessingError(_("The first argument of property 'substring' is not castable to a 'int', found '%s'" % args[0].type), xule_context)
-     
-    if xule_castable(args[1], 'int', xule_context):
-        end_value = xule_cast(args[1], 'int', xule_context)
-    else:
-        raise XuleProcessingError(_("The second argument of property 'substring' is not castable to a 'int', found '%s'" % args[1].type), xule_context)
- 
-    return XuleValue(xule_context, cast_value[start_value:end_value], 'string')
-     
-def property_index_of(xule_context, object_value, *args):
-    cast_value = xule_cast(object_value, 'string', xule_context)
- 
-    arg_result = args[0]
-    if xule_castable(arg_result, 'string', xule_context):
-        index_string = xule_cast(arg_result, 'string', xule_context)
-    else:
-        raise XuleProcessingError(_("The argument for property 'index-of' must be castable to a 'string', found '%s'" % arg_result.type), xule_context)
-     
-    return XuleValue(xule_context, cast_value.find(index_string), 'int')
- 
-def property_last_index_of(xule_context, object_value, *args):
-    cast_value = xule_cast(object_value, 'string', xule_context)
-     
-    arg_result = args[0]
-    if xule_castable(arg_result, 'string', xule_context):
-        index_string = xule_cast(arg_result, 'string', xule_context)
-    else:
-        raise XuleProcessingError(_("The argument for property 'last-index-of' must be castable to a 'string', found '%s'" % arg_result.type), xule_context)
-     
-    return XuleValue(xule_context, cast_value.rfind(index_string), 'int')
- 
-def property_lower_case(xule_context, object_value, *args):
-    return XuleValue(xule_context, xule_cast(object_value, 'string', xule_context).lower(), 'string')
- 
-def property_upper_case(xule_context, object_value, *args):
-    return XuleValue(xule_context, xule_cast(object_value, 'string', xule_context).upper(), 'string')
+
  
 def property_item(xule_context, object_value, *args):
     arg = args[0]
@@ -1380,6 +1386,13 @@ PROPERTIES = {
               'trunc': (property_trunc, 0, ('init', 'float', 'decimal', 'fact'), False),
               'round': (property_round, 1, ('init', 'float', 'decimal', 'fact'), False),
               'mod': (property_mod, 1 ,('init', 'float', 'decimal', 'fact'), False),
+              'substring': (property_substring, -2, ('string', 'uri'), False),
+              'index-of': (property_index_of, 1, ('string', 'uri'), False),
+              'last-index-of': (property_last_index_of, 1, ('string', 'uri'), False),
+              'lower-case': (property_lower_case, 0, ('string', 'uri'), False),
+              'upper-case': (property_upper_case, 0, ('string', 'uri'), False),              
+              
+              
               #OLD PROPERTIES
                # taxonomy navigations
                
@@ -1430,11 +1443,7 @@ PROPERTIES = {
   
                'dts-document-locations': (property_dts_document_locations, 0, ('taxonomy',), False),
                 
-               'substring': (property_substring, 2, ('string', 'uri'), False),
-               'index-of': (property_index_of, 1, ('string', 'uri'), False),
-               'last-index-of': (property_last_index_of, 1, ('string', 'uri'), False),
-               'lower-case': (property_lower_case, 0, ('string', 'uri'), False),
-               'upper-case': (property_upper_case, 0, ('string', 'uri'), False),
+
 
                'item': (property_item, 1, ('list',), False),
                 
