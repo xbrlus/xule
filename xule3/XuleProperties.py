@@ -669,7 +669,25 @@ def property_preferred_label(xule_context, object_value, *args):
     else:
         return XuleValue(xule_context, None, 'unbound')
 
+def property_link_name(xule_context, object_value, *args):
+    return XuleValue(xule_context, object_value.value.linkQname, 'qname')
 
+def property_arc_name(xule_context, object_value, *args):
+    return XuleValue(xule_context, object_value.value.qname, 'qname')
+
+def property_network(xule_context, object_value, *args):
+    network_info = (object_value.value.arcrole, object_value.value.linkrole, object_value.value.linkQname, object_value.value.qname, False)
+
+    network = (network_info, 
+               ModelRelationshipSet(object_value.value.modelXbrl, 
+                                    network_info[NETWORK_ARCROLE],
+                                    network_info[NETWORK_ROLE],
+                                    network_info[NETWORK_LINK],
+                                    network_info[NETWORK_ARC]))
+    
+    return XuleValue(xule_context, network, 'network')
+    
+                                    
 
 
 
@@ -1303,7 +1321,9 @@ PROPERTIES = {
               'weight': (property_weight, 0, ('relationship',), False),
               'order': (property_order, 0, ('relationship', 'reference-part'), False),
               'preferred-label': (property_preferred_label, 0, ('relationship',), False),
-
+              'link-name': (property_link_name, 0, ('relationship',), False),
+              'arc-name': (property_arc_name, 0, ('relationship',), False),
+              'network': (property_network, 0, ('relationship',), False),
 
               
               #OLD PROPERTIES
