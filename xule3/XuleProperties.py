@@ -3,6 +3,7 @@ from .XuleRunTime import XuleProcessingError, XuleIterationStop, XuleException, 
 from .XuleValue import *
 from . import XuleUtility
 from . import XuleFunctions
+from arelle.ModelDocument import Type
 import math
 
 def property_union(xule_context, object_value, *args):
@@ -132,7 +133,7 @@ def property_networks(xule_context, object_value, *args):
             arcrole = arcrole_value.value
         elif arcrole_value.type == 'qname':
             arcrole = XuleUtility.resolve_role(arcrole_value, 'arcrole', object_value.value, xule_context)
-        elif arcrole_value.type == 'unbound':
+        elif arcrole_value.type == 'none':
             arcrole = None
         else:
             raise XuleProcessingError(_("The first argument (arc role) of the networks property must be a uri, found '{}'.".format(arcrole_value.type)), xule_context)
@@ -245,7 +246,7 @@ def property_concept(xule_context, object_value, *args):
          
         concept_qname_value = args[0]
          
-        if concept_qname_value.type == 'unbound':
+        if concept_qname_value.type == 'none':
             concept_value = None
         else:
             if concept_qname_value.type != 'qname':
@@ -256,8 +257,7 @@ def property_concept(xule_context, object_value, *args):
         if concept_value is not None:
             return XuleValue(xule_context, concept_value, 'concept')
         else:
-            '''SHOULD THIS BE AN EMPTY RESULT SET INSTEAD OF AN UNBOUND VALUE?'''
-            return XuleValue(xule_context, None, 'unbound')
+            return XuleValue(xule_context, None, 'none')
 
 def property_period(xule_context, object_value, *args):
     if object_value.fact.context.isStartEndPeriod or object_value.fact.context.isForeverPeriod:
@@ -267,7 +267,7 @@ def property_period(xule_context, object_value, *args):
           
 def property_unit(xule_context, object_value, *args):
     if object_value.fact.unit is None:
-        return XuleValue(xule_context, None, 'unbound')
+        return XuleValue(xule_context, None, 'none')
     else:
         return XuleValue(xule_context, model_to_xule_unit(object_value.fact.unit, xule_context), 'unit')
  
@@ -279,7 +279,7 @@ def property_id(xule_context, object_value, *args):
         return XuleValue(xule_context, object_value.value[1], 'string')
     else: #unit
         if object_value.value.xml_id is None:
-            return XuleValue(xule_context, None, 'unbound')
+            return XuleValue(xule_context, None, 'none')
         else:
             return XuleValue(xule_context, object_value.value.xml_id, 'string')
  
@@ -376,13 +376,13 @@ def property_attribute(xule_context, object_value, *args):
     
     attribute_value = object_value.value.get(attribute_name_value.value.clarkNotation)
     if attribute_value is None:
-        return XuleValue(xule_context, None, 'unbound')
+        return XuleValue(xule_context, None, 'none')
     else:
         return XuleValue(xule_context, attribute_value, 'string')
 
 def property_balance(xule_context, object_value, *args):
-    if object_value.type in ('unbound','none'):
-        return XuleValue(xule_context, None, 'unbound')
+    if object_value.type in ('none'):
+        return XuleValue(xule_context, None, 'none')
     else:
         return XuleValue(xule_context, object_value.value.balance, 'string')    
 
@@ -457,7 +457,7 @@ def property_label(xule_context, object_value, *args):
     label = get_label(xule_context, concept, base_label_type, base_lang)
      
     if label is None:
-        return XuleValue(xule_context, None, 'unbound')
+        return XuleValue(xule_context, None, 'none')
     else:
         return XuleValue(xule_context, label, 'label')
      
@@ -587,14 +587,14 @@ def property_part_by_name(xule_context, object_value, *args):
             return XuleValue(xule_context, part, 'reference-part')
      
     #if we get here, then the part was not found
-    return XuleValue(xule_context, None, 'unbound')
+    return XuleValue(xule_context, None, 'none')
 
 def property_order(xule_context, object_value, *args):
     if object_value.type == 'relationship':
         if object_value.value.order is not None:
             return XuleValue(xule_context, float(object_value.value.order), 'float')
         else:
-            return XuleValue(xule_context, None, 'unbound')
+            return XuleValue(xule_context, None, 'none')
     else: #reference-part
         part = object_value.value
         reference = part.getparent()
@@ -662,13 +662,13 @@ def property_weight(xule_context, object_value, *args):
     if object_value.value.weight is not None:
         return XuleValue(xule_context, float(object_value.value.weight), 'float')
     else:
-        return XuleValue(xule_context, None, 'unbound')
+        return XuleValue(xule_context, None, 'none')
 
 def property_preferred_label(xule_context, object_value, *args):
     if object_value.value.preferredLabel is not None:
         return XuleValue(xule_context, object_value.value.preferredLabel, 'uri')
     else:
-        return XuleValue(xule_context, None, 'unbound')
+        return XuleValue(xule_context, None, 'none')
 
 def property_link_name(xule_context, object_value, *args):
     return XuleValue(xule_context, object_value.value.linkQname, 'qname')
@@ -804,74 +804,8 @@ def property_month(xule_context, object_value, *args):
     return XuleValue(xule_context, object_value.value.month, 'int')
 
 def property_year(xule_context, object_value, *args):
-    return XuleValue(xule_context, object_value.value.year, 'int')
+    return XuleValue(xule_context, object_value.value.year, 'int') 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-def property_summation_item_networks(xule_context, object_value, *args):
-    return XuleValue(xule_context, get_networks(xule_context, object_value, SUMMATION_ITEM), 'set')
- 
-def property_parent_child_networks(xule_context, object_value, *args):
-    return XuleValue(xule_context, get_networks(xule_context, object_value, PARENT_CHILD), 'set')
- 
-def property_domain_member_networks(xule_context, object_value, *args):
-    return XuleValue(xule_context, get_networks(xule_context, object_value, DOMAIN_MEMBER), 'set')
- 
-def property_hypercube_dimension_networks(xule_context, object_value, *args):
-    return XuleValue(xule_context, get_networks(xule_context, object_value, HYPERCUBE_DIMENSION), 'set')
- 
-def property_dimension_default_networks(xule_context, object_value, *args):
-    return XuleValue(xule_context, get_networks(xule_context, object_value, DIMENSION_DEFAULT), 'set')
- 
-def property_dimension_domain_networks(xule_context, object_value, *args):
-    return XuleValue(xule_context, get_networks(xule_context, object_value, DIMENSION_DOMAIN), 'set')
- 
-def property_concept_hypercube_all(xule_context, object_value, *args):
-    return get_single_network(xule_context, object_value, args[0], ALL, 'hypercube-all')
- 
-def property_dimension_default(xule_context, object_value, *args):    
-    return get_single_network(xule_context, object_value, args[0], DIMENSION_DEFAULT, 'dimension-default')
- 
-def property_dimension_domain(xule_context, object_value, *args):
-    return get_single_network(xule_context, object_value, args[0], DIMENSION_DOMAIN, 'dimension-domain')
- 
-def property_domain_member(xule_context, object_value, *args):    
-    return get_single_network(xule_context, object_value, args[0], DOMAIN_MEMBER, 'domain-member')
-     
-def property_hypercube_dimension(xule_context, object_value, *args):
-    return get_single_network(xule_context, object_value, args[0], HYPERCUBE_DIMENSION, 'hypercube-dimension')
- 
-def property_summation_item(xule_context, object_value, *args):
-    return get_single_network(xule_context, object_value, args[0], SUMMATION_ITEM, 'summation-item')
- 
-def property_parent_child(xule_context, object_value, *args):
-    return get_single_network(xule_context, object_value, args[0], PARENT_CHILD, 'parent-child')
- 
-
- 
 def property_uri(xule_context, object_value, *args):
     if object_value.type == 'role':
         return XuleValue(xule_context, object_value.value.roleURI or object_value.value.arcroleURI, 'uri')
@@ -883,233 +817,98 @@ def property_description(xule_context, object_value, *args):
  
 def property_used_on(xule_context, object_value, *args):
     return XuleValue(xule_context, tuple(list(XuleValue(xule_context, x, 'qname') for x in object_value.value.usedOns)), 'list')
- 
-def property_descendant_relationships(xule_context, object_value, *args):
-    relationships = set()
-     
-    network = object_value.value[NETWORK_RELATIONSHIP_SET]
-    concept_arg = args[0]
-    depth_arg = args[1]
-     
-    if concept_arg.type == 'qname':
-        model_concept = get_concept(network.modelXbrl, concept_arg.value)
-        if model_concept is None:
-            return XuleValue(xule_context, frozenset(), 'set')
-    elif concept_arg.type == 'concept':
-        #The concept may not have come fromt he same model, so re-get the concept by its qname
-        model_concept = get_concept(network.modelXbrl, concept_arg.value.qname)
-        if model_concept is None:
-            return XuleValue(xule_context, frozenset(), 'set')
-    elif concept_arg.type in ('unbound', 'none'):
-        return XuleValue(xule_context, frozenset(), 'set')
-    else:
-        raise XuleProcessingError(_("First argument of the 'descendant-relationships' property must be a qname or a concept. Found '%s'" % concept_arg.type), xule_context)
- 
-    if xule_castable(depth_arg, 'float', xule_context):
-        depth = xule_cast(depth_arg, 'float', xule_context)
-    else:
-        raise XuleProcessingError(_("Second argument for property 'descendant-relationships' must be numeric. Found '%s'" % depth_arg.type), xule_context)
- 
-    #depth = depth_arg.value  
-     
-    descendant_rels = descend(network, model_concept, depth, set(), 'relationship')
-     
-    for descendant_rel in descendant_rels:
-        relationships.add(XuleValue(xule_context, descendant_rel, 'relationship'))
-     
-    return XuleValue(xule_context, frozenset(relationships), 'set')
- 
-def property_descendants(xule_context, object_value, *args):
- 
-    concepts = set()
- 
-    network = object_value.value[NETWORK_RELATIONSHIP_SET]
-    concept_arg = args[0]
-    depth_arg = args[1]
-     
-    if concept_arg.type == 'qname':
-        model_concept = get_concept(network.modelXbrl, concept_arg.value)
-        if model_concept is None:
-            return XuleValue(xule_context, frozenset(), 'set')
-    elif concept_arg.type == 'concept':
-        #The concept may not have come fromt he same model, so re-get the concept by its qname
-        model_concept = get_concept(network.modelXbrl, concept_arg.value.qname)
-        if model_concept is None:
-            return XuleValue(xule_context, frozenset(), 'set')
-    elif concept_arg.type in ('unbound', 'none'):
-        return XuleValue(xule_context, frozenset(), 'set')
-    else:
-        raise XuleProcessingError(_("First argument of the 'descendants' property must be a qname or a concept. Found '%s'" % concept_arg.type), xule_context)
-     
-    if depth_arg.type not in ('int', 'float', 'decimal'):
-        raise XuleProcessingError(_("Second argument for property 'descendants' must be numeric. Found '%s'" % depth_arg.type), xule_context)
-     
-    if xule_castable(depth_arg, 'float', xule_context):
-        depth = xule_cast(depth_arg, 'float', xule_context)
-    else:
-        raise XuleProcessingError(_("Second argument for property 'descendants' must be numeric. Found '%s'" % depth_arg.type), xule_context)
- 
-    #depth = depth_arg.value
-                 
-    descendants = descend(network, model_concept, depth, set(), 'concept')
-     
-    for descendant in descendants:
-        concepts.add(XuleValue(xule_context, descendant, 'concept'))
-         
-    return XuleValue(xule_context, frozenset(concepts), 'set')
- 
-def property_ancestor_relationships(xule_context, object_value, *args):
-    relationships = set()
- 
-    network = object_value.value[NETWORK_RELATIONSHIP_SET]
-    concept_arg = args[0]
-    depth_arg = args[1]
-     
-    if concept_arg.type == 'qname':
-        model_concept = get_concept(network.modelXbrl, concept_arg.value)
-        if model_concept is None:
-            return XuleValue(xule_context, frozenset(), 'set')
-    elif concept_arg.type == 'concept':
-        #The concept may not have come fromt he same model, so re-get the concept by its qname
-        model_concept = get_concept(network.modelXbrl, concept_arg.value.qname)
-        if model_concept is None:
-            return XuleValue(xule_context, frozenset(), 'set')
-    elif concept_arg.type in ('unbound', 'none'):
-        return XuleValue(xule_context, frozenset(), 'set')
-    else:
-        raise XuleProcessingError(_("First argument of the 'ancestor-relationships' property must be a qname or a concept. Found '%s'" % concept_arg.type), xule_context)
-     
-    if depth_arg.type not in ('int', 'float', 'decimal'):
-        raise XuleProcessingError(_("Second argument for property 'ancestor-relationships' must be numeric. Found '%s'" % depth_arg.type), xule_context)
-     
-    if xule_castable(depth_arg, 'float', xule_context):
-        depth = xule_cast(depth_arg, 'float', xule_context)
-    else:
-        raise XuleProcessingError(_("Second argument for property 'ancestor-relationships' must be numeric. Found '%s'" % depth_arg.type), xule_context)
- 
-    #depth = depth_arg.value
-                 
-    ancestor_rels = ascend(network, model_concept, depth, set(), 'relationship')
-     
-    for ancestor_rel in ancestor_rels:
-        relationships.add(XuleValue(xule_context, ancestor_rel, 'relationship'))
-         
-    return XuleValue(xule_context, frozenset(relationships), 'set')
- 
-def property_ancestors(xule_context, object_value, *args):   
-    concepts = set()
- 
-    network = object_value.value[NETWORK_RELATIONSHIP_SET]
-    concept_arg = args[0]
-    depth_arg = args[1]
- 
-    if concept_arg.type == 'qname':
-        model_concept = get_concept(network.modelXbrl, concept_arg.value)
-        if model_concept is None:
-            return XuleValue(xule_context, frozenset(), 'set')
-    elif concept_arg.type == 'concept':
-        #The concept may not have come fromt he same model, so re-get the concept by its qname
-        model_concept = get_concept(network.modelXbrl, concept_arg.value.qname)
-        if model_concept is None:
-            return XuleValue(xule_context, frozenset(), 'set')
-    elif concept_arg.type in ('unbound', 'none'):
-        return XuleValue(xule_context, frozenset(), 'set')
-    else:
-        raise XuleProcessingError(_("First argument of the 'ancesotors' property must be a qname of a concept or a concept. Found '%s'" % args[0].type), xule_context)
-     
-    if depth_arg.type not in ('int', 'float', 'decimal'):
-        raise XuleProcessingError(_("Second argument (depth) must be numeric. Found '%s'" % args[1].type), xule_context)
-     
-     
-    if xule_castable(depth_arg, 'float', xule_context):
-        depth = xule_cast(depth_arg, 'float', xule_context)
-    else:
-        raise XuleProcessingError(_("Second argument for property 'ancestorss' must be numeric. Found '%s'" % depth_arg.type), xule_context)
-     
-    #depth = depth_arg.value
-                 
-    ascendants = ascend(network, model_concept, depth, set(), 'concept')
-     
-    for ascendant in ascendants:
-        concepts.add(XuleValue(xule_context, ascendant, 'concept'))
-     
-    return XuleValue(xule_context, frozenset(concepts), 'set')
- 
-def property_children(xule_context, object_value, *args):
-    return property_descendants(xule_context, object_value, args[0], XuleValue(xule_context, 1, 'int'))
- 
-def property_parents(xule_context, object_value, *args):
-    return property_ancestors(xule_context, object_value, args[0], XuleValue(xule_context, 1, 'int'))
- 
 
-
-
- 
-    
-         
-
-
- 
 def property_dts_document_locations(xule_context, object_value, *args):
     locations = set()
     for doc_url in object_value.value.urlDocs:
         locations.add(XuleValue(xule_context, doc_url, 'uri'))
-    return XuleValue(xule_context, frozenset(locations), 'set')    
- 
+    return XuleValue(xule_context, frozenset(locations), 'set') 
 
- 
+def property_entry_point(xule_context, object_value, *args):
+    dts = object_value.value
+    
+    return XuleValue(xule_context, get_taxonomy_entry_point_doc(dts).uri, 'uri')
 
-         
+def get_taxonomy_entry_point_doc(dts):
+    
+    if dts.modelDocument.type in (Type.INSTANCE, Type.INLINEXBRL):
+        # This will take the first document
+        return list(dts.modelDocument.referencesDocument.keys())[0]
+    else:
+        return dts.modelDocument
 
- 
- 
+def property_entry_point_namespace(xule_context, object_value, *args):
+    dts = object_value.value
+    namespace = get_taxonomy_entry_point_doc(dts).targetNamespace
+    
+    if namespace is None:
+        return XuleValue(xule_context, None, 'none')
+    else:
+        return XuleValue(xule_context, namespace, 'uri')
 
- 
-
- 
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
+def get_concept(dts, concept_qname):
+    concept = dts.qnameConcepts.get(concept_qname)
+    if concept is None:
+        return None
+    else:
+        if concept.isItem or concept.isTuple:
+            return concept
+        else:
+            return None
  
 def property_decimals(xule_context, object_value, *args):
     if object_value.fact.decimals is not None:
         return XuleValue(xule_context, float(object_value.fact.decimals), 'float')
     else:
-        return Xulevalue(xule_context, None, 'unbound')
- 
-def property_round_by_decimals(xule_context, object_value, *args):
-    if object_value.type not in ('int', 'decimal', 'float'):
-        raise XuleProcessingError(_("Property 'round-by-decimals' can only be used on a number, found '%s'." % object_value.type), xule_context)
-     
-    arg = args[0]
-     
-    if arg.type not in ('int', 'decimal', 'float'):
-        raise XuleProcessingError(_("Property 'round-by-decimals' requires a numeric argument, found '%s'" % arg.type), xule_context)
- 
-    if arg.value == float('inf'):
-        return object_value
-    else:
-        #convert to int
-        decimals = int(arg.value)
-        rounded_value = round(object_value.value, decimals)
-        return XuleValue(xule_context, rounded_value, object_value.type)
- 
+        return Xulevalue(xule_context, None, 'none')
 
- 
+def get_networks(xule_context, dts_value, arcrole=None, role=None, link=None, arc=None):
+    #final_result_set = XuleResultSet()
+    networks = set()
+    dts = dts_value.value
+    network_infos = get_base_set_info(xule_context, dts, arcrole, role, link, arc)
+    
+    for network_info in network_infos:
+        '''I THINK THESE NETWORKS ARE REALLY COMBINATION OF NETWORKS, SO I AM IGNORING THEM.
+           NEED TO CHECK IF THIS IS TRUE.'''
+        if (network_info[NETWORK_ROLE] is not None and
+            network_info[NETWORK_LINK] is not None and
+            network_info[NETWORK_ARC] is not None):
+            
+            if network_info in dts.relationshipSets:
+                net = XuleValue(xule_context, (network_info, dts.relationshipSets[network_info]), 'network')
+            else:
+                net = XuleValue(xule_context, 
+                                (network_info, 
+                                    ModelRelationshipSet(dts, 
+                                               network_info[NETWORK_ARCROLE],
+                                               network_info[NETWORK_ROLE],
+                                               network_info[NETWORK_LINK],
+                                               network_info[NETWORK_ARC])),
+                                     'network')
+            
+            #final_result_set.append(net)
+            networks.add(net)
+    #return final_result_set
+    return frozenset(networks)
 
+def get_base_set_info(xule_context, dts, arcrole=None, role=None, link=None, arc=None):
+#     return [x + (False,) for x in dts.baseSets if x[NETWORK_ARCROLE] == arcrole and
+#                                        (True if role is None else x[NETWORK_ROLE] == role) and
+#                                        (True if link is None else x[NETWORK_LINK] == link) and
+#                                        (True if arc is None else x[NETWORK_ARC] == arc)]
 
+    info = list()
+    for x in dts.baseSets:
+        keep = True
+        if x[NETWORK_ARCROLE] is None or (x[NETWORK_ARCROLE] != arcrole and arcrole is not None): keep = False
+        if x[NETWORK_ROLE] is None or (x[NETWORK_ROLE] != role and role is not None): keep = False
+        if x[NETWORK_LINK] is None or (x[NETWORK_LINK] != link and link is not None): keep = False
+        if x[NETWORK_ARC] is None or (x[NETWORK_ARC] != arc and arc is not None): keep = False
 
+        if keep:
+            info.append(x + (False,))
+    return info
      
 def property_type(xule_context, object_value, *args):
     if object_value.is_fact:
@@ -1161,127 +960,13 @@ def property_list_properties(xule_context, object_value, *args):
      
     return XuleValue(xule_context, s, 'string')
 
-def get_networks(xule_context, dts_value, arcrole=None, role=None, link=None, arc=None):
-    #final_result_set = XuleResultSet()
-    networks = set()
-    dts = dts_value.value
-    network_infos = get_base_set_info(xule_context, dts, arcrole, role, link, arc)
-    
-    for network_info in network_infos:
-        '''I THINK THESE NETWORKS ARE REALLY COMBINATION OF NETWORKS, SO I AM IGNORING THEM.
-           NEED TO CHECK IF THIS IS TRUE.'''
-        if (network_info[NETWORK_ROLE] is not None and
-            network_info[NETWORK_LINK] is not None and
-            network_info[NETWORK_ARC] is not None):
-            
-            if network_info in dts.relationshipSets:
-                net = XuleValue(xule_context, (network_info, dts.relationshipSets[network_info]), 'network')
-            else:
-                net = XuleValue(xule_context, 
-                                (network_info, 
-                                    ModelRelationshipSet(dts, 
-                                               network_info[NETWORK_ARCROLE],
-                                               network_info[NETWORK_ROLE],
-                                               network_info[NETWORK_LINK],
-                                               network_info[NETWORK_ARC])),
-                                     'network')
-            
-            #final_result_set.append(net)
-            networks.add(net)
-    #return final_result_set
-    return frozenset(networks)
 
-def get_single_network(xule_context, dts, role_result, arc_role, property_name):
-    
-    if xule_castable(role_result, 'uri', xule_context):
-        role_uri = xule_cast(role_result, 'uri', xule_context)
-    else:
-        raise XuleProcessingError(_("The '%s' property requires an uri argument, found '%s'" % (property_name, role_result.type)), xule_context)
-    
-    networks = get_networks(xule_context, dts, arc_role, role=role_uri)
-    if len(networks) == 0:
-        return XuleValue(xule_context, None, 'unbound')
-    else:
-        return next(iter(networks))
 
-  
-def get_base_set_info(xule_context, dts, arcrole=None, role=None, link=None, arc=None):
-#     return [x + (False,) for x in dts.baseSets if x[NETWORK_ARCROLE] == arcrole and
-#                                        (True if role is None else x[NETWORK_ROLE] == role) and
-#                                        (True if link is None else x[NETWORK_LINK] == link) and
-#                                        (True if arc is None else x[NETWORK_ARC] == arc)]
 
-    info = list()
-    for x in dts.baseSets:
-        keep = True
-        if x[NETWORK_ARCROLE] is None or (x[NETWORK_ARCROLE] != arcrole and arcrole is not None): keep = False
-        if x[NETWORK_ROLE] is None or (x[NETWORK_ROLE] != role and role is not None): keep = False
-        if x[NETWORK_LINK] is None or (x[NETWORK_LINK] != link and link is not None): keep = False
-        if x[NETWORK_ARC] is None or (x[NETWORK_ARC] != arc and arc is not None): keep = False
 
-        if keep:
-            info.append(x + (False,))
-    return info
 
-def load_networks(dts):
-    for network_info in dts.baseSets:
-        if (network_info[NETWORK_ARCROLE] is not None and
-            network_info[NETWORK_ROLE] is not None and
-            network_info[NETWORK_LINK] is not None and
-            network_info[NETWORK_ARC] is not None):
-            
-            if (network_info[NETWORK_LINK].namespaceURI == 'http://www.xbrl.org/2003/linkbase' and
-                network_info[NETWORK_LINK].localName in ('definitionLink', 'presentationLink', 'calculationLink')):
 
-                ModelRelationshipSet(dts,
-                                     network_info[NETWORK_ARCROLE],
-                                     network_info[NETWORK_ROLE],
-                                     network_info[NETWORK_LINK],
-                                     network_info[NETWORK_ARC])
-         
-def get_concept(dts, concept_qname):
-    concept = dts.qnameConcepts.get(concept_qname)
-    if concept is None:
-        return None
-    else:
-        if concept.isItem or concept.isTuple:
-            return concept
-        else:
-            return None
 
-def descend(network, parent, depth, previous_concepts, return_type):
-    if depth < 1:
-        return set()
-    
-    descendants = set()
-    for rel in network.fromModelObject(parent):
-        child = rel.toModelObject
-        if return_type == 'concept':
-            descendants.add(child)
-        else:
-            descendants.add(rel)
-        if child not in previous_concepts:
-            previous_concepts.add(child)
-            descendants = descendants | descend(network, child, depth -1, previous_concepts, return_type)
-            
-    return descendants
-
-def ascend(network, parent, depth, previous_concepts, return_type):
-    if depth == 0:
-        return set()
-    
-    ascendants = set()
-    for rel in network.toModelObject(parent):
-        parent = rel.fromModelObject
-        if return_type == 'concept':
-            ascendants.add(parent)
-        else:
-            ascendants.add(rel)
-        if parent not in previous_concepts:
-            previous_concepts.add(parent)
-            ascendants = ascendants | ascend(network, parent, depth -1, previous_concepts, return_type)
-            
-    return ascendants
 
 
 #Property tuple
@@ -1377,7 +1062,9 @@ PROPERTIES = {
               'month': (property_month, 0, ('instant',), False),
               'year': (property_year, 0, ('instant',), False),
               'string': (property_string, 0, (), False),
-              
+              'dts-document-locations': (property_dts_document_locations, 0, ('taxonomy',), False),
+              'entry-point': (property_entry_point, 0, ('taxonomy',), False),
+              'entry-point-namespace': (property_entry_point_namespace, 0, ('taxonomy',), False),
               
               # Debugging properties
               '_type': (property_type, 0, (), False),
@@ -1389,45 +1076,6 @@ PROPERTIES = {
               
               #Generate a list of available properties  
               'list-properties': (property_list_properties, 0, ('unbound',), True),
-              
-              
-              #OLD PROPERTIES
-               # taxonomy navigations
-               
-               'summation-item-networks': (property_summation_item_networks, 0, ('taxonomy',), False),
-               'parent-child-networks': (property_parent_child_networks, 0, ('taxonomy',), False),
-               'domain-member-networks': (property_domain_member_networks, 0, ('taxonomy',), False),
-               'hypercube-dimension-networks': (property_hypercube_dimension_networks, 0, ('taxonomy',), False),
-               'dimension-default-networks': (property_dimension_default_networks, 0, ('taxonomy',), False),
-               'dimension-domain-networks': (property_dimension_domain_networks, 0, ('taxonomy',), False),
-                
-               'concept-hypercube-all': (property_concept_hypercube_all, 1, ('taxonomy',), False),
-               'dimension-default': (property_dimension_default, 1, ('taxonomy',), False),
-               'dimension-domain': (property_dimension_domain, 1, ('taxonomy',), False),
-               'domain-member': (property_domain_member, 1, ('taxonomy',), False),
-               'hypercube-dimension': (property_hypercube_dimension, 1, ('taxonomy',), False),
-               'summation-item': (property_summation_item, 1, ('taxonomy',), False),
-               'parent-child': (property_parent_child, 1, ('taxonomy',), False),
-                
-
-               'descendants': (property_descendants, 2, ('network',), False),
-               'children': (property_children, 1, ('network',), False),
-               'ancestors': (property_ancestors, 2, ('network',), False),
-               'parents': (property_parents, 1, ('network',), False),
-                
-               
-               'descendant-relationships': (property_descendant_relationships, 2, ('network',), False),
-               'ancestor-relationships': (property_ancestor_relationships, 2, ('network',), False),
-                
-
-               
-               'round-by-decimals': (property_round_by_decimals, 1, ('fact', 'int', 'decimal', 'float'), False),
-
-  
-               'dts-document-locations': (property_dts_document_locations, 0, ('taxonomy',), False),
-                
-
-
               }
 
 

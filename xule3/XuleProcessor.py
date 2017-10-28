@@ -825,9 +825,9 @@ def evaluate_float_literal(literal, xule_context):
     return XuleValue(xule_context, float(literal['value']), 'float')
 
 def evaluate_void_literal(literal, xule_context):
-    ''' This could be 'none' or 'unbound'.
+    ''' This could be 'none' or 'skip'.
     '''
-    return XuleValue(xule_context, None, 'unbound')
+    return XuleValue(xule_context, None, 'none' if literal['value'] == 'none' else 'unbound')
 
 def evaluate_qname_literal(literal, xule_context):
     prefix = literal['prefix']
@@ -3505,7 +3505,7 @@ EVALUATOR = {
     "float": evaluate_float_literal,
     "string": evaluate_string_literal,
     "qname": evaluate_qname_literal,
-    #"unbound": evaluate_void_literal,
+    #"skip": evaluate_void_literal,
     "none": evaluate_void_literal,
     
     #atomic expressions

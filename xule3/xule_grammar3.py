@@ -182,8 +182,7 @@ def get_grammar():
     
     #none literal
     noneLiteral = Group(CaselessKeyword("none").setResultsName('value') + nodeName('none'))
-    #unbound
-    skipLiteral = Group(CaselessKeyword("skip").setParseAction(lambda: 'unbound').setResultsName('value') + nodeName('none'))
+    skipLiteral = Group(CaselessKeyword("skip").setResultsName('value') + nodeName('none'))
     
     #severity literals  
     errorLiteral = CaselessKeyword("error")
