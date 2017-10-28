@@ -183,7 +183,7 @@ def get_grammar():
     #none literal
     noneLiteral = Group(CaselessKeyword("none").setResultsName('value') + nodeName('none'))
     #unbound
-    unboundLiteral = Group(CaselessKeyword("unbound").setResultsName('value') + nodeName('none'))
+    skipLiteral = Group(CaselessKeyword("skip").setParseAction(lambda: 'unbound').setResultsName('value') + nodeName('none'))
     
     #severity literals  
     errorLiteral = CaselessKeyword("error")
@@ -462,7 +462,7 @@ def get_grammar():
             balanceLiteral |
             periodTypeLiteral |
             noneLiteral |
-            unboundLiteral |
+            skipLiteral |
             
             qName #|
 

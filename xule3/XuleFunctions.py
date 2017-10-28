@@ -157,7 +157,7 @@ def func_qname(xule_context, *args):
     namespace_uri = args[0]
     local_name = args[1]
     
-    if namespace_uri.type not in ('string', 'uri', 'unbound'):
+    if namespace_uri.type not in ('string', 'uri', 'unbound', 'none'):
         raise XuleProcessingError(_("Function 'qname' requires the namespace_uri argument to be a string, uri or none, found '%s'" % namespace_uri.type), xule_context)
     if local_name.type != 'string':
         raise XuleProcessingError(_("Function 'qname' requires the local_part argument to be a string, found '%s'" % local_name.type), xule_context)

@@ -1376,6 +1376,19 @@ PROPERTIES = {
               'day': (property_day, 0, ('instant',), False),
               'month': (property_month, 0, ('instant',), False),
               'year': (property_year, 0, ('instant',), False),
+              'string': (property_string, 0, (), False),
+              
+              
+              # Debugging properties
+              '_type': (property_type, 0, (), False),
+              '_alignment': (property_alignment, 0, (), False),
+              '_compute-type': (property_compute_type, 0, (), False),
+              '_facts': (property_facts, 0, (), False),
+              '_from-model': (property_from_model, 0, (), False),
+              '_hash': (property_hash, 0, (), True),
+              
+              #Generate a list of available properties  
+              'list-properties': (property_list_properties, 0, ('unbound',), True),
               
               
               #OLD PROPERTIES
@@ -1407,18 +1420,6 @@ PROPERTIES = {
                'ancestor-relationships': (property_ancestor_relationships, 2, ('network',), False),
                 
 
-
-                
-
-
-
-               
-
-
-
-               
-               
-                 
                
                'round-by-decimals': (property_round_by_decimals, 1, ('fact', 'int', 'decimal', 'float'), False),
 
@@ -1427,22 +1428,6 @@ PROPERTIES = {
                 
 
 
-
-                
-
-
-                
-
- 
-               'type': (property_type, 0, (), False),
-               'alignment': (property_alignment, 0, (), False),
-               'compute-type': (property_compute_type, 0, (), False),
-               'string': (property_string, 0, (), False),
-               'facts': (property_facts, 0, (), False),
-               'from-model': (property_from_model, 0, (), False),
-               'hash': (property_hash, 0, (), True),
-                
-               'list-properties': (property_list_properties, 0, ('unbound',), True)
               }
 
 
