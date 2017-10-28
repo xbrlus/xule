@@ -1195,6 +1195,7 @@ PROPERTIES = {
               'max': (property_max, 0, ('set', 'list'), False),
               'min': (property_min, 0, ('set', 'list'), False),           
               'stdev': (property_stats, 0, ('set', 'list'), False, stats.stdev),
+              'avg': (property_stats, 0, ('set', 'list'), False, stats.mean),
               # Debugging properties
               '_type': (property_type, 0, (), False),
               '_alignment': (property_alignment, 0, (), False),

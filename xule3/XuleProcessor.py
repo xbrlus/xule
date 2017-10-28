@@ -3060,8 +3060,11 @@ def property_as_function(xule_context, function_ref):
     for arg_expr in property_args:
         arg_value = evaluate(arg_expr, xule_context)
         arg_values.append(arg_value)
-        
-    return property_info[XuleProperties.PROP_FUNCTION](xule_context, property_object, *arg_values)
+    
+    if len(property_info) > 4:
+        return property_info[XuleProperties.PROP_FUNCTION](xule_context, property_object, property_info[XuleProperties.PROP_DATA], *arg_values)
+    else:
+        return property_info[XuleProperties.PROP_FUNCTION](xule_context, property_object, *arg_values)
     
 def regular_function(xule_context, function_ref, function_info):
         if function_info[FUNCTION_ARG_NUM] >= 0:
