@@ -3,6 +3,7 @@ from .XuleRunTime import XuleProcessingError, XuleIterationStop, XuleException, 
 from .XuleValue import *
 from . import XuleUtility
 from . import XuleFunctions
+import statistics as stats
 from arelle.ModelDocument import Type
 import math
 
@@ -909,7 +910,126 @@ def get_base_set_info(xule_context, dts, arcrole=None, role=None, link=None, arc
         if keep:
             info.append(x + (False,))
     return info
-     
+
+def property_sum(xule_context, object_value, *args):
+    if len(object_value.value) == 0:
+        sum_value = XuleValue(xule_context, None, 'none')
+    else:
+        values = list(object_value.value)
+        sum_value = values[0].clone()
+        for next_value in values[1:]:
+            combined_type, left, right = combine_xule_types(sum_value, next_value, xule_context)
+            if combined_type == 'set':
+                sum_value = XuleValue(xule_context, left | right, combined_type)
+            else:
+                sum_value = XuleValue(xule_context, left + right, combined_type)
+                
+    sum_value.tags = object_value.tags
+    sum_value.facts = object_value.facts
+    
+    return sum_value
+
+def property_max(xule_context, object_value, *args):
+    if len(object_value.value) == 0:
+        max_value = XuleValue(xule_context, None, 'none')
+    else:
+        values = list(object_value.value)
+        max_value = values[0].clone()
+        for next_value in values[1:]:
+            if next_value.value > max_value.value:
+                max_value = next_value.clone()
+    
+    max_value.tags = object_value.tags
+    max_value.facts = object_value.facts
+    
+    return max_value
+
+def property_min(xule_context, object_value, *args):
+    if len(object_value.value) == 0:
+        min_value = XuleValue(xule_context, None, 'none')
+    else:
+        values = list(object_value.value)
+        min_value = values[0].clone()
+        for next_value in values[1:]:
+            if next_value.value < min_value.value:
+                min_value = next_value.clone()
+    
+    min_value.tags = object_value.tags
+    min_value.facts = object_value.facts
+    
+    return min_value
+
+def property_count(xule_context, object_value, *args):
+    count_value = XuleValue(xule_context, len(object_value.value), 'int')
+    count_value.tags = object_value.tags
+    count_value.facts = object_value.facts
+    return count_value
+
+def property_first(xule_context, object_value, *args):
+    if len(object_value.value) == 0:
+        first_value = XuleValue(xule_context, None, 'none')
+    else:
+        if object_value.type == 'list':
+            first_value = object_value.value[0].clone()
+        else:
+            first_value = list(object_value.value)[0].clone()
+    
+    first_value.tags = object_value.tags
+    first_value.facts = object_value.facts
+    return first_value
+
+def property_last(xule_context, object_value, *args):
+    if len(object_value.value) == 0:
+        last_value = XuleValue(xule_context, None, 'none')
+    else:
+        if object_value.type == 'list':
+            last_value = object_value.value[-1].clone()
+        else:
+            last_value = list(object_value.value)[-1].clone()
+    
+    last_value.tags = object_value.tags
+    last_value.facts = object_value.facts
+    return last_value
+
+def property_any(xule_context, object_value, *args):
+    any_value = False
+    for next_value in list(object_value.value):
+        if next_value.type != 'bool':
+            raise XuleProcessingError(_("Property any can only operator on booleans, but found '%s'." % next_value.type), xule_context)
+        
+        any_value = any_value or next_value.value
+    
+    any_value = XuleValue(xule_context, any_value, 'bool')
+    any_value.tags = object_value.tags
+    any_value.facts = object_value.facts
+    return any_value
+
+def property_all(xule_context, object_value, *args):
+    all_value = True
+    for next_value in list(object_value.value):
+        if next_value.type != 'bool':
+            raise XuleProcessingError(_("Property all can only operator on booleans, but found '%s'." % next_value.type), xule_context)
+        
+        all_value = all_value and next_value.value
+    
+    all_value = XuleValue(xule_context, all_value, 'bool')
+    all_value.tags = object_value.tags
+    all_value.facts = object_value.facts
+    return all_value
+
+def property_stats(xule_context, object_value, stat_function, *args):
+    values = list()
+    for next_value in object_value.value:
+        if next_value.type not in ('int', 'float', 'decimal'):
+            raise XuleProcessingError(_("Statistic properties expect nuemric inputs, found '{}'.".format(next_value.type)), xule_context)
+        values.append(next_value.value)
+    
+    stat_calc_value = stat_function(values)
+    stat_value = XuleValue(xule_context, stat_calc_value, 'float')
+    stat_value.tags = object_value.tags
+    stat_value.facts = object_value.facts
+    return stat_value
+
 def property_type(xule_context, object_value, *args):
     if object_value.is_fact:
         return XuleValue(xule_context, 'fact', 'string')
@@ -974,6 +1094,7 @@ PROP_FUNCTION = 0
 PROP_ARG_NUM = 1 #arg num allows negative numbers to indicated that the arguments are optional
 PROP_OPERAND_TYPES = 2
 PROP_UNBOUND_ALLOWED = 3
+PROP_DATA = 4
 
 PROPERTIES = {
               #NEW PROPERTIES
@@ -1065,7 +1186,15 @@ PROPERTIES = {
               'dts-document-locations': (property_dts_document_locations, 0, ('taxonomy',), False),
               'entry-point': (property_entry_point, 0, ('taxonomy',), False),
               'entry-point-namespace': (property_entry_point_namespace, 0, ('taxonomy',), False),
-              
+              'all': (property_all, 0, ('set', 'list'), False),
+              'any': (property_any, 0, ('set', 'list'), False),
+              'first': (property_first, 0, ('set', 'list'), False),
+              'last': (property_last, 0, ('set', 'list'), False),
+              'count': (property_count, 0, ('set', 'list'), False),
+              'sum': (property_sum, 0, ('set', 'list'), False),
+              'max': (property_max, 0, ('set', 'list'), False),
+              'min': (property_min, 0, ('set', 'list'), False),           
+              'stdev': (property_stats, 0, ('set', 'list'), False, stats.stdev),
               # Debugging properties
               '_type': (property_type, 0, (), False),
               '_alignment': (property_alignment, 0, (), False),

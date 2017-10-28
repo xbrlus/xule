@@ -672,13 +672,14 @@ FUNCTION_RESULT_NUMBER = 4
    
 
 def built_in_functions():
-    funcs = {'all': ('aggregate', agg_all, 1, True, 'bool'),
-             'any': ('aggregate', agg_any, 1, False, 'bool'),
-             'first': ('aggregate', agg_first, 1, None, None),
-             'count': ('aggregate', agg_count, 1, 0, 'int'),
-             'sum': ('aggregate', agg_sum, 1, None, None),
-             'max': ('aggregate', agg_max, 1, None, None), 
-             'min': ('aggregate', agg_min, 1, None, None),
+    funcs = {
+#              'all': ('aggregate', agg_all, 1, True, 'bool'),
+#              'any': ('aggregate', agg_any, 1, False, 'bool'),
+#              'first': ('aggregate', agg_first, 1, None, None),
+#              'count': ('aggregate', agg_count, 1, 0, 'int'),
+#              'sum': ('aggregate', agg_sum, 1, None, None),
+#              'max': ('aggregate', agg_max, 1, None, None), 
+#              'min': ('aggregate', agg_min, 1, None, None),
              'list': ('aggregate', agg_list, 1, tuple(), 'list'),
              #'list': ('aggregate', agg_list, 1, None, None),
              'set': ('aggregate', agg_set, 1, frozenset(), 'set'),

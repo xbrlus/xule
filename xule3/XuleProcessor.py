@@ -3435,8 +3435,11 @@ def process_property(current_property_expr, object_value, property_info, xule_co
     for arg_expr in property_args:
         arg_value = evaluate(arg_expr, xule_context)
         arg_values.append(arg_value)
-        
-    object_value = property_info[XuleProperties.PROP_FUNCTION](xule_context, object_value, *arg_values)
+    
+    if len(property_info) > 4: # There is property data
+        object_value = property_info[XuleProperties.PROP_FUNCTION](xule_context, object_value, property_info[XuleProperties.PROP_DATA], *arg_values)
+    else:    
+        object_value = property_info[XuleProperties.PROP_FUNCTION](xule_context, object_value, *arg_values)
     
     if 'tagName' in current_property_expr:
         xule_context.tags[current_property_expr.tagName] = object_value
