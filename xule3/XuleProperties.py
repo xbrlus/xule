@@ -797,6 +797,15 @@ def property_lower_case(xule_context, object_value, *args):
 def property_upper_case(xule_context, object_value, *args):
     return XuleValue(xule_context, xule_cast(object_value, 'string', xule_context).upper(), 'string')
 
+def property_day(xule_context, object_value, *args):
+    return XuleValue(xule_context, object_value.value.day, 'int')
+
+def property_month(xule_context, object_value, *args):
+    return XuleValue(xule_context, object_value.value.month, 'int')
+
+def property_year(xule_context, object_value, *args):
+    return XuleValue(xule_context, object_value.value.year, 'int')
+
 
 
 
@@ -1050,19 +1059,6 @@ def property_dts_document_locations(xule_context, object_value, *args):
 
  
 
- 
-def property_item(xule_context, object_value, *args):
-    arg = args[0]
-     
-    if arg.type not in ('int', 'float', 'decimal'):
-        raise XuleProcessingError(_("The 'item' property requires a numeric argument, found '%s'" % arg.type), xule_context)
-     
-    arg_value = int(arg.value)
-     
-    if arg_value >= len(object_value.value) or arg_value < 0:
-        return XuleValue(xule_context, None, 'unbound')
-    else:
-        return object_value.value[arg_value]
          
 
  
@@ -1113,20 +1109,6 @@ def property_round_by_decimals(xule_context, object_value, *args):
  
 
 
-def property_add_time_period(xule_context, object_value, *args):
-    arg = args[0]
-    if arg.type != 'time-period':
-        raise XuleProcessingError(_("Property 'add-time-period' requires a time-period argument, found '%s'" % arg.type), xule_context)
-     
-    return XuleValue(xule_context, object_value.value + arg.value, 'instant', from_model=object_value.from_model)
- 
-def property_subtract_time_period(xule_context, object_value, *args):
-    arg = args[0]
-    if arg.type != 'time-period':
-        raise XuleProcessingError(_("Property 'add-time-period' requires a time-period argument, found '%s'" % arg.type), xule_context)
-     
-    return XuleValue(xule_context, object_value.value - arg.value, 'instant', from_model=object_value.from_model)
- 
 
      
 def property_type(xule_context, object_value, *args):
@@ -1391,6 +1373,9 @@ PROPERTIES = {
               'last-index-of': (property_last_index_of, 1, ('string', 'uri'), False),
               'lower-case': (property_lower_case, 0, ('string', 'uri'), False),
               'upper-case': (property_upper_case, 0, ('string', 'uri'), False),              
+              'day': (property_day, 0, ('instant',), False),
+              'month': (property_month, 0, ('instant',), False),
+              'year': (property_year, 0, ('instant',), False),
               
               
               #OLD PROPERTIES
@@ -1437,19 +1422,10 @@ PROPERTIES = {
                
                'round-by-decimals': (property_round_by_decimals, 1, ('fact', 'int', 'decimal', 'float'), False),
 
-
-               'add-time-period': (property_add_time_period, 1, ('instant',), False),
-               'subtract-time-period': (property_subtract_time_period, 1, ('instant',), False),
   
                'dts-document-locations': (property_dts_document_locations, 0, ('taxonomy',), False),
                 
 
-
-               'item': (property_item, 1, ('list',), False),
-                
-
-                
-               
 
 
                 

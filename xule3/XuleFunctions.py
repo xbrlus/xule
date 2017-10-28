@@ -10,6 +10,7 @@ from .XuleRunTime import XuleProcessingError
 from arelle.ModelValue import qname, QName
 import collections
 from . import XuleRollForward as rf
+from aniso8601 import parse_duration
 
 class XuleSDic(XuleValue):
     def __init__(self, xule_context, name):
@@ -111,7 +112,7 @@ def func_missing(xule_context, *args):
     #return XuleValue(xule_context, args[0].type in ('unbound', 'none'), 'bool')
     return XuleValue(xule_context, args[0].type == 'unbound', 'bool')
 
-def func_instant(xule_context, *args):
+def func_date(xule_context, *args):
     arg = args[0]
 
     if arg.type == 'instant':
@@ -119,14 +120,14 @@ def func_instant(xule_context, *args):
     elif arg.type == 'string':
         return XuleValue(xule_context, iso_to_date(xule_context, arg.value), 'instant')
     else:
-        raise XuleProcessingError(_("function 'instant' requires a string argument, found '%s'" % arg.type), xule_context)
+        raise XuleProcessingError(_("function 'date' requires a string argument, found '%s'" % arg.type), xule_context)
 
 def func_duration(xule_context, *args):
     start = args[0]
     end = args[1]
     
-    start_instant = func_instant(xule_context, start)
-    end_instant = func_instant(xule_context, end)
+    start_instant = func_date(xule_context, start)
+    end_instant = func_date(xule_context, end)
     
     if end_instant.value < start_instant.value:
         return XuleValue(xule_context, None, 'unbound')
@@ -177,11 +178,11 @@ def func_uri(xule_context, *args):
     else:
         raise XuleProcessingError(_("The 'uri' function requires a string argument, found '%s'." % arg.type), xule_context) 
 
-def func_time_period(xule_context, *args):
+def func_time_span(xule_context, *args):
     arg = args[0]
     
     if arg.type != 'string':
-        raise XuleProcessingError(_("Function 'time-period' expects a string, fount '%s'." % arg.type), xule_context)
+        raise XuleProcessingError(_("Function 'time-span' expects a string, fount '%s'." % arg.type), xule_context)
     
     try:
         return XuleValue(xule_context, parse_duration(arg.value.upper()), 'time-period')
@@ -686,15 +687,15 @@ def built_in_functions():
              
              'exists': ('regular', func_exists, 1, True, 'single'),
              'missing': ('regular', func_missing, 1, True, 'single'),
-             'instant': ('regular', func_instant, 1, False, 'single'),
-             'date': ('regular', func_instant, 1, False, 'single'),
+             #'instant': ('regular', func_instant, 1, False, 'single'),
+             'date': ('regular', func_date, 1, False, 'single'),
              'duration': ('regular', func_duration, 2, False, 'single'),
              'forever': ('regular', func_forever, 0, False, 'single'),
              'unit': ('regular', func_unit, -2, False, 'single'),
              'entity': ('regular', func_entity, 2, False, 'single'),
              'qname': ('regular', func_qname, 2, True, 'single'),
              'uri': ('regular', func_uri, 1, False, 'single'),
-             'time-period': ('regular', func_time_period, 1, False, 'single'),
+             'time-span': ('regular', func_time_span, 1, False, 'single'),
              'schema-type': ('regular', func_schema_type, 1, False, 'single'),
              'num_to_string': ('regular', func_num_to_string, 1, False, 'single'),
              'number': ('regular', func_number, 1, False, 'single'),

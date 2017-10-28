@@ -21,7 +21,7 @@ import decimal
 import datetime
 import math
 import re 
-from aniso8601.__init__ import parse_duration, parse_datetime, parse_date
+from aniso8601 import parse_duration, parse_datetime, parse_date
 import collections
 import copy
 from lxml import etree as et
@@ -1329,10 +1329,14 @@ def evaluate_add(add_expr, xule_context):
             left = xis.stop_value #XuleValue(xule_context, None, 'unbound')
     
     for right in add_expr['rights']:
+        
         operator = right['op']
         right_bar = operator[-1] == '>' 
         left_bar = operator[0] == '<'
         right_expr = right['rightExpr']
+        
+        if left.type not in ('int', 'float', 'decimal', 'string', 'uri', 'instant', 'time-period', 'set', 'list', 'unbound'):
+            raise XuleProcessingError(_("Left side of a {} operation cannot be {}.".format(operator, left.type)), xule_context)
         
         if right_bar:
             right = evaluate(right_expr, xule_context)
@@ -1342,6 +1346,13 @@ def evaluate_add(add_expr, xule_context):
                 right = evaluate(right_expr, xule_context)
             except XuleIterationStop as xis:
                 right = xis.stop_value 
+
+        if right.type not in ('int', 'float', 'decimal', 'string', 'uri', 'instant', 'time-period', 'set', 'list', 'unbound'):
+            raise XuleProcessingError(_("Right side of a {} operation cannot be {}.".format(operator, right.type)), xule_context)
+
+        # A time-period can be on the left only if the right is also a time period.
+        if left.type == 'time-period' and right.type != 'time-period':
+            raise XuleProcessingError(_("Incompatabile operands {} {} {}.".format(left.type, operator, right.type)), xule_context)
 
         do_calc = True
         
@@ -1369,6 +1380,8 @@ def evaluate_add(add_expr, xule_context):
         
         if do_calc:
             combined_type, left_compute_value, right_compute_value = combine_xule_types(left, right, xule_context)
+            if combined_type == 'unbound':
+                raise XuleProcessingError(_("Incompatabile operands {} {} {}.".format(left.type, operator, right.type)), xule_context)
             
             if '+' in operator:
                 if left.type == 'set' and right.type == 'set':
@@ -2999,7 +3012,7 @@ def evaluate_function_ref(function_ref, xule_context):
         return property_as_function(xule_context, function_ref)
     else:
         #xule defined function
-        return user_defined_function(xule_context, function_ref, function_info)
+        return user_defined_function(xule_context, function_ref)
 
 def property_as_function(xule_context, function_ref):
     """Evaluate a function that is a property.
@@ -3078,7 +3091,7 @@ def regular_function(xule_context, function_ref, function_info):
 
         return function_info[FUNCTION_EVALUATOR](xule_context, *function_args)
 
-def user_defined_function(xule_context, function_ref, function_info):
+def user_defined_function(xule_context, function_ref):
     #check fucntion cache - The function cache is very basic. It only caches on functions that have no args.
     if len(function_ref['functionArgs']) == 0 and function_ref['functionName'] in xule_context.global_context.function_cache:
         return xule_context.global_context.function_cache[function_ref['functionName']]                

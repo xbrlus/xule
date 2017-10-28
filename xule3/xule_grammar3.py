@@ -450,11 +450,6 @@ def get_grammar():
             integerLiteral |
             stringLiteral |
             booleanLiteral |
-            severityLiteral |
-            balanceLiteral |
-            periodTypeLiteral |
-            noneLiteral |
-            unboundLiteral |
             
             factset |
             navigation |
@@ -462,6 +457,12 @@ def get_grammar():
             
             funcRef | 
             varRef|
+            
+            severityLiteral |
+            balanceLiteral |
+            periodTypeLiteral |
+            noneLiteral |
+            unboundLiteral |
             
             qName #|
 

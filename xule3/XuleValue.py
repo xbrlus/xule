@@ -811,7 +811,8 @@ TYPE_MAP = {frozenset(['int', 'float']): [('float', float), ('int', lambda x: in
             frozenset(['int', 'string']): [('string', str), ('int', int)],
             frozenset(['decimal', 'string']): [('string', str), ('decimal', decimal.Decimal)],
             frozenset(['uri', 'string']): [('string', lambda x: x), ('uri', lambda x: x)],
-            frozenset(['qname', 'unit']): [('unit', lambda x: XuleUnit(x))]
+            frozenset(['qname', 'unit']): [('unit', lambda x: XuleUnit(x))],
+            frozenset(['instant', 'time-period']): [('instant', lambda x:x)]
             #frozenset(['none', 'string']): [('string', lambda x: x if x is not None else '')],
             }
 
