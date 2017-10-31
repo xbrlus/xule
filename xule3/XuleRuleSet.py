@@ -695,7 +695,7 @@ class XuleRuleSet(object):
                 #update the iterables in the then expression
                 if len(condition_iterables)> 0:
                     for iterable_expr in parse_node['thenExpr']['downstream_iterables']:
-                        iterable_expr.dependent_iterables.extend(condition_iterables)
+                        iterable_expr['dependent_iterables'].extend(condition_iterables)
                 
                 #update the else if conditions
                 for elseIfExpr in parse_node.get('elseIfs', []):
