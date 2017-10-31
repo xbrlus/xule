@@ -3,7 +3,7 @@ from .XuleRunTime import XuleProcessingError, XuleIterationStop, XuleException, 
 from .XuleValue import *
 from . import XuleUtility
 from . import XuleFunctions
-import statistics as stats
+import numpy
 from arelle.ModelDocument import Type
 import math
 
@@ -1194,8 +1194,8 @@ PROPERTIES = {
               'sum': (property_sum, 0, ('set', 'list'), False),
               'max': (property_max, 0, ('set', 'list'), False),
               'min': (property_min, 0, ('set', 'list'), False),           
-              'stdev': (property_stats, 0, ('set', 'list'), False, stats.stdev),
-              'avg': (property_stats, 0, ('set', 'list'), False, stats.mean),
+              'stdev': (property_stats, 0, ('set', 'list'), False, numpy.std),
+              'avg': (property_stats, 0, ('set', 'list'), False, numpy.mean),
               # Debugging properties
               '_type': (property_type, 0, (), False),
               '_alignment': (property_alignment, 0, (), False),
