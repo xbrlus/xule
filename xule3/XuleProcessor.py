@@ -2572,6 +2572,11 @@ def nav_traverse_where(nav_expr, relationship, xule_context):
 #         else:
 #             return False
 
+
+NAV_DIMENSION_ARC_ROLES = {'hypercube-primery':{'root':None, 'arcroles':None},
+                           'dimension-member': {'root':None, 'arcroles':None},
+                           'primary-member': {'root':None, 'arcroles':None}}
+
 def nav_get_role(nav_expr, role_type, dts, xule_context):
     """Get the full role from the navigation expression.
     
@@ -3038,8 +3043,8 @@ def property_as_function(xule_context, function_ref):
                 property_object.is_fact and 'fact' in property_info[XuleProperties.PROP_OPERAND_TYPES] or
                 any([xule_castable(property_object, allowable_type, xule_context) for allowable_type in property_info[XuleProperties.PROP_OPERAND_TYPES]])):
     
-            raise XuleProcessingError(_("The first argument of function '{}' is not the right type. expecting {}, found '{}.".format(function_ref['functionName'],
-                                                                                                                                     ', '.join(XuleProperties.PROP_OPERAND_TYPES),
+            raise XuleProcessingError(_("The first argument of function '{}' must be {}, found '{}'.".format(function_ref['functionName'],
+                                                                                                                                     ', '.join(property_info[XuleProperties.PROP_OPERAND_TYPES]),
                                                                                                                                      property_object.type)), xule_context)
     
     
