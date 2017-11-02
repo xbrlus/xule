@@ -1,10 +1,13 @@
 #from .XuleContext import XuleGlobalContext, XuleRuleContext #XuleContext
 from .XuleRunTime import XuleProcessingError, XuleIterationStop, XuleException, XuleBuildTableError, XuleReEvaluate
-from .XuleValue import *
-from . import XuleUtility
+#from .XuleValue import *
+from . import XuleValue as xv
+from . import XuleUtility 
 from . import XuleFunctions
+import arelle.ModelRelationshipSet as mrs
 import numpy
 from arelle.ModelDocument import Type
+
 import math
 
 def property_union(xule_context, object_value, *args):
@@ -19,16 +22,16 @@ def property_contains(xule_context, object_value, *args):
     search_item = args[0]
  
     if search_item.type == 'unbound':
-        return XuleValue(xule_context, None, 'unbound')
+        return xv.XuleValue(xule_context, None, 'unbound')
     elif object_value.type in ('set', 'list'):
         if search_item.type in ('set','list'):
             search_value = search_item.shadow_collection
         else:
             search_value = search_item.value
-        return XuleValue(xule_context, search_value in object_value.shadow_collection, 'bool')
+        return xv.XuleValue(xule_context, search_value in object_value.shadow_collection, 'bool')
     elif object_value.type in ('string', 'uri'):
         if search_item.type in ('string', 'uri'):
-            return XuleValue(xule_context, search_item.value in object_value.value, 'bool')
+            return xv.XuleValue(xule_context, search_item.value in object_value.value, 'bool')
     else:
         raise XuleProcessingError(_("Property 'contains' cannot operator on a '%s' and '%s'" % (object_value.type, search_item.type)), xule_context)
 
@@ -36,11 +39,11 @@ def property_length(xule_context, object_value, *args):
     if object_value.type in ('string', 'uri'):
         cast_value = xule_cast(object_value, 'string', xule_context)
         if xule_castable(object_value, 'string', xule_context):
-            return XuleValue(xule_context, len(cast_value), 'int')
+            return xv.XuleValue(xule_context, len(cast_value), 'int')
         else:
             raise XuleProcessingError(_("Cannot cast '%s' to 'string' for property length" % object_value.type), xule_context)
     else: #set, list or dictionary
-        return XuleValue(xule_context, len(object_value.value), 'int')
+        return xv.XuleValue(xule_context, len(object_value.value), 'int')
 
 def property_to_list(xule_context, object_value, *args):
     # The input set is sorted so that two sets that ocntain the same items will produce identical lists. Because python sets are un ordered, there
@@ -48,7 +51,7 @@ def property_to_list(xule_context, object_value, *args):
     def set_sort(item):
         return item.value
      
-    return XuleValue(xule_context, tuple(sorted(object_value.value, key=set_sort)), 'list')
+    return xv.XuleValue(xule_context, tuple(sorted(object_value.value, key=set_sort)), 'list')
  
 def property_to_set(xule_context, object_value, *args):
     return XuleFunctions.agg_set(xule_context, object_value.value)
@@ -89,12 +92,12 @@ def property_join(xule_context, object_value, *args):
             result_string += next_sep + k.format_value() + pair_sep.value + v.format_value()
             next_sep = main_sep.value
         
-    return XuleValue(xule_context, result_string, 'string')
+    return xv.XuleValue(xule_context, result_string, 'string')
         
 def property_sort(xule_context, object_value, *args):
     sorted_list = sorted(object_value.value, key=lambda x: x.shadow_collection if x.type in ('set', 'list', 'dictionary') else x.value)
     
-    return XuleValue(xule_context, tuple(sorted_list), 'list')
+    return xv.XuleValue(xule_context, tuple(sorted_list), 'list')
     
 def property_keys(xule_context, object_value, *args):
     if len(args) == 1:
@@ -113,7 +116,7 @@ def property_keys(xule_context, object_value, *args):
     else:    
         keys = set(k for k, v in object_value.value)
         keys_shadow = set(k for k, v in object_value.shadow_collection)
-    return XuleValue(xule_context, frozenset(keys), 'set', shadow_collection=frozenset(keys_shadow))
+    return xv.XuleValue(xule_context, frozenset(keys), 'set', shadow_collection=frozenset(keys_shadow))
 
 def property_values(xule_context, object_value, *args):
     keys = sorted(object_value.value_dictionary.keys(), key=lambda x: x.shadow_collection if x.type in ('set', 'list') else x.value)
@@ -122,7 +125,7 @@ def property_values(xule_context, object_value, *args):
     
 #     vals = list(v for k, v in object_value.value)
 #     vals_shadow = list(v for k, v in object_value.shadow_collection)
-    return XuleValue(xule_context, tuple(vals), 'list', shadow_collection=tuple(vals_shadow))
+    return xv.XuleValue(xule_context, tuple(vals), 'list', shadow_collection=tuple(vals_shadow))
 
 def property_networks(xule_context, object_value, *args):
     
@@ -154,51 +157,51 @@ def property_networks(xule_context, object_value, *args):
     else:
         role = None
         
-    return XuleValue(xule_context, get_networks(xule_context, object_value, arcrole, role), 'set')
+    return xv.XuleValue(xule_context, get_networks(xule_context, object_value, arcrole, role), 'set')
 
 def property_role(xule_context, object_value, *args):
     if object_value.type == 'network':
         role_uri = object_value.value[NETWORK_INFO][NETWORK_ROLE]
-        #return XuleValue(xule_context, object_value.value[NETWORK_INFO][NETWORK_ROLE], 'uri')
+        #return xv.XuleValue(xule_context, object_value.value[NETWORK_INFO][NETWORK_ROLE], 'uri')
     elif object_value.type == 'relationship':
         role_uri = object_value.value.linkrole
     else: # label or reference
         role_uri = object_value.value.role
-        #return XuleValue(xule_context, object_value.value.role, 'uri')
+        #return xv.XuleValue(xule_context, object_value.value.role, 'uri')
      
     if role_uri in xule_context.model.roleTypes:
-        return XuleValue(xule_context, xule_context.model.roleTypes[role_uri][0], 'role')
+        return xv.XuleValue(xule_context, xule_context.model.roleTypes[role_uri][0], 'role')
     else:
-        return XuleValue(xule_context, XuleRole(role_uri), 'role')
+        return xv.XuleValue(xule_context, XuleRole(role_uri), 'role')
 
 def property_role_uri(xule_context, object_value, *args):
     if object_value.type == 'network':
         role_uri = object_value.value[NETWORK_INFO][NETWORK_ROLE]
-        #return XuleValue(xule_context, object_value.value[NETWORK_INFO][NETWORK_ROLE], 'uri')
+        #return xv.XuleValue(xule_context, object_value.value[NETWORK_INFO][NETWORK_ROLE], 'uri')
     elif object_value.type == 'relationship':
         role_uri = object_value.value.linkrole
     else: # label or reference
         role_uri = object_value.value.role
-        #return XuleValue(xule_context, object_value.value.role, 'uri')
+        #return xv.XuleValue(xule_context, object_value.value.role, 'uri')
     
-    return XuleValue(xule_context, role_uri, 'uri')
+    return xv.XuleValue(xule_context, role_uri, 'uri')
 
 def property_role_description(xule_context, object_value, *args):
     if object_value.type == 'network':
         role_uri = object_value.value[NETWORK_INFO][NETWORK_ROLE]
-        #return XuleValue(xule_context, object_value.value[NETWORK_INFO][NETWORK_ROLE], 'uri')
+        #return xv.XuleValue(xule_context, object_value.value[NETWORK_INFO][NETWORK_ROLE], 'uri')
     elif object_value.type == 'relationship':
         role_uri = object_value.value.linkrole        
     else: # label or reference
         role_uri = object_value.value.role
-        #return XuleValue(xule_context, object_value.value.role, 'uri')
+        #return xv.XuleValue(xule_context, object_value.value.role, 'uri')
 
     if role_uri in xule_context.model.roleTypes:
         model_role = xule_context.model.roleTypes[role_uri][0]
     else:
         model_role = XuleRole(role_uri)
     
-    return XuleValue(xule_context, model_role.definition, 'string')
+    return xv.XuleValue(xule_context, model_role.definition, 'string')
     
 def property_arcrole(xule_context, object_value, *args):
     if object_value.type == 'network':
@@ -207,16 +210,16 @@ def property_arcrole(xule_context, object_value, *args):
         arcrole_uri = object_value.value.arcrole
     
     if arcrole_uri in xule_context.model.arcroleTypes:
-        return XuleValue(xule_context, xule_context.model.arcroleTypes[arcrole_uri][0], 'role')
+        return xv.XuleValue(xule_context, xule_context.model.arcroleTypes[arcrole_uri][0], 'role')
     else:
-        return XuleValue(xule_context, XuleArcrole(arcrole_uri), 'role')
+        return xv.XuleValue(xule_context, XuleArcrole(arcrole_uri), 'role')
 
 def property_arcrole_uri(xule_context, object_value, *args):
     if object_value.type == 'network':
         arcrole_uri = object_value.value[NETWORK_INFO][NETWORK_ARCROLE]
     else: # relationship
         arcrole_uri = object_value.value.arcrole
-    return XuleValue(xule_context, arcrole_uri, 'uri')
+    return xv.XuleValue(xule_context, arcrole_uri, 'uri')
 
 def property_arcrole_description(xule_context, object_value, *args):
     if object_value.type == 'network':
@@ -229,7 +232,7 @@ def property_arcrole_description(xule_context, object_value, *args):
     else:
         model_arcrole = XuleArcrole(arcrole_uri)
     
-    return XuleValue(xule_context, model_arcrole.definition, 'string')
+    return xv.XuleValue(xule_context, model_arcrole.definition, 'string')
 
 def property_concept(xule_context, object_value, *args):
     '''There are two forms of this property. The first is on a fact (with no arguments). This will return the concept of the fact.
@@ -239,7 +242,7 @@ def property_concept(xule_context, object_value, *args):
         if len(args) != 0:
             raise XuleProcessingError(_("Property 'concept' when used on a fact does not have any arguments, found %i" % len(args)), xule_context)
  
-        return XuleValue(xule_context, object_value.fact.concept, 'concept')
+        return xv.XuleValue(xule_context, object_value.fact.concept, 'concept')
      
     elif object_value.type == 'taxonomy':
         if len(args) != 1:
@@ -256,36 +259,36 @@ def property_concept(xule_context, object_value, *args):
             concept_value = get_concept(object_value.value, concept_qname_value.value)
          
         if concept_value is not None:
-            return XuleValue(xule_context, concept_value, 'concept')
+            return xv.XuleValue(xule_context, concept_value, 'concept')
         else:
-            return XuleValue(xule_context, None, 'none')
+            return xv.XuleValue(xule_context, None, 'none')
 
 def property_period(xule_context, object_value, *args):
     if object_value.fact.context.isStartEndPeriod or object_value.fact.context.isForeverPeriod:
-        return XuleValue(xule_context, model_to_xule_period(object_value.fact.context, xule_context), 'duration', from_model=True)
+        return xv.XuleValue(xule_context, model_to_xule_period(object_value.fact.context, xule_context), 'duration', from_model=True)
     else:
-        return XuleValue(xule_context, model_to_xule_period(object_value.fact.context, xule_context), 'instant', from_model=True)
+        return xv.XuleValue(xule_context, model_to_xule_period(object_value.fact.context, xule_context), 'instant', from_model=True)
           
 def property_unit(xule_context, object_value, *args):
     if object_value.fact.unit is None:
-        return XuleValue(xule_context, None, 'none')
+        return xv.XuleValue(xule_context, None, 'none')
     else:
-        return XuleValue(xule_context, model_to_xule_unit(object_value.fact.unit, xule_context), 'unit')
+        return xv.XuleValue(xule_context, model_to_xule_unit(object_value.fact.unit, xule_context), 'unit')
  
 def property_entity(xule_context, object_value, *args):
-    return XuleValue(xule_context, model_to_xule_entity(object_value.fact.context, xule_context), 'entity')
+    return xv.XuleValue(xule_context, model_to_xule_entity(object_value.fact.context, xule_context), 'entity')
  
 def property_id(xule_context, object_value, *args):
     if object_value.type == 'entity':
-        return XuleValue(xule_context, object_value.value[1], 'string')
+        return xv.XuleValue(xule_context, object_value.value[1], 'string')
     else: #unit
         if object_value.value.xml_id is None:
-            return XuleValue(xule_context, None, 'none')
+            return xv.XuleValue(xule_context, None, 'none')
         else:
-            return XuleValue(xule_context, object_value.value.xml_id, 'string')
+            return xv.XuleValue(xule_context, object_value.value.xml_id, 'string')
  
 def property_scheme(xule_context, object_value, *args):
-    return XuleValue(xule_context, object_value.value[0], 'string')
+    return xv.XuleValue(xule_context, object_value.value[0], 'string')
 
 def property_dimension(xule_context, object_value, *args):
     dim_name = args[0]
@@ -300,75 +303,75 @@ def property_dimension(xule_context, object_value, *args):
      
     member = model_fact.context.qnameDims.get(dim_name.value)
     if member is None:
-        return XuleValue(xule_context, None, 'none')
+        return xv.XuleValue(xule_context, None, 'none')
     else:
         if member.isExplicit:
-            return XuleValue(xule_context, member.memberQname, 'qname')
+            return xv.XuleValue(xule_context, member.memberQname, 'qname')
         else:
             #this is a typed dimension
-            return XuleValue(xule_context, member.typedMember.xValue, model_to_xule_type(xule_context, member.typedMember.xValue))
+            return xv.XuleValue(xule_context, member.typedMember.xValue, model_to_xule_type(xule_context, member.typedMember.xValue))
 
 def property_dimensions(xule_context, object_value, *args):
     result_dict = dict()
     result_shadow = dict()
     
     for dim_qname, member_model in object_value.fact.context.qnameDims.items():
-        dim_value = XuleValue(xule_context, get_concept(xule_context.model, dim_qname), 'concept')
+        dim_value = xv.XuleValue(xule_context, get_concept(xule_context.model, dim_qname), 'concept')
         if member_model.isExplicit:
-            member_value = XuleValue(xule_context, member_model.member, 'concept')
+            member_value = xv.XuleValue(xule_context, member_model.member, 'concept')
         else: # Typed dimension
-            member_value = XuleValue(xule_context, member.typedMember.xValue, model_to_xule_type(xule_context, member.typedMember.xValue))
+            member_value = xv.XuleValue(xule_context, member.typedMember.xValue, model_to_xule_type(xule_context, member.typedMember.xValue))
             
         result_dict[dim_value] = member_value
         result_shadow[dim_value.value] = member_value.value
     
-    return XuleValue(xule_context, frozenset(result_dict.items()), 'dictionary', shadow_collection=frozenset(result_shadow.items()))
+    return xv.XuleValue(xule_context, frozenset(result_dict.items()), 'dictionary', shadow_collection=frozenset(result_shadow.items()))
 
 def property_start(xule_context, object_value, *args):
     if object_value.type == 'instant':
-        return XuleValue(xule_context, object_value.value, 'instant', from_model=object_value.from_model)
+        return xv.XuleValue(xule_context, object_value.value, 'instant', from_model=object_value.from_model)
     else:
         '''WHAT SHOULD BE RETURNED FOR FOREVER. CURRENTLY THIS WILL RETURN THE LARGEST DATE THAT PYTHON CAN HOLD.'''
-        return XuleValue(xule_context, object_value.value[0], 'instant', from_model=object_value.from_model)
+        return xv.XuleValue(xule_context, object_value.value[0], 'instant', from_model=object_value.from_model)
  
 def property_end(xule_context, object_value, *args):
     if object_value.type == 'instant':
-        return XuleValue(xule_context, object_value.value, 'instant', from_model=object_value.from_model)
+        return xv.XuleValue(xule_context, object_value.value, 'instant', from_model=object_value.from_model)
     else:
         '''WHAT SHOULD BE RETURNED FOR FOREVER. CURRENTLY THIS WILL RETURN THE LARGEST DATE THAT PYTHON CAN HOLD.'''
-        return XuleValue(xule_context, object_value.value[1], 'instant', from_model=object_value.from_model)  
+        return xv.XuleValue(xule_context, object_value.value[1], 'instant', from_model=object_value.from_model)  
  
 def property_days(xule_context, object_value, *args):
     if object_value.type == 'instant':
-        return XuleValue(xule_context, 0, 'int')
+        return xv.XuleValue(xule_context, 0, 'int')
     else:
-        return XuleValue(xule_context, (object_value.value[1] - object_value.value[0]).days, 'int')
+        return xv.XuleValue(xule_context, (object_value.value[1] - object_value.value[0]).days, 'int')
 
 def property_numerator(xule_context, object_value, *args):
     # A unit is a tuple of numerator, denominator
     if len(object_value.value.numerator) == 1:
-        return XuleValue(xule_context, object_value.value.numerator[0], 'qname')
+        return xv.XuleValue(xule_context, object_value.value.numerator[0], 'qname')
     else:
         # There are multiple measures - return a list
         result = list()
         result_shadow = list()
         for measure in object_value.value.numerator:
-            result.append(XuleValue(xule_context, measure, 'qname'))
+            result.append(xv.XuleValue(xule_context, measure, 'qname'))
             result_shadow.append(measure)
-        return XuleValue(xule_context, tuple(result), 'list', shadow_collection=tuple(result_shadow))
+        return xv.XuleValue(xule_context, tuple(result), 'list', shadow_collection=tuple(result_shadow))
 
 def property_denominator(xule_context, object_value, *args):
 
     if len(object_value.value.denominator) == 1:
-        return XuleValue(xule_context, object_value.value.denominator[0], 'qname')
+        return xv.XuleValue(xule_context, object_value.value.denominator[0], 'qname')
     else:
         # There are multiple measures - return a list
         result = list()
         result_shadow = list()
         for measure in object_value.value.denominator:
-            result.append(XuleValue(xule_context, measure, 'qname'))
+            result.append(xv.XuleValue(xule_context, measure, 'qname'))
             result_shadow.append(measure)
-        return XuleValue(xule_context, tuple(result), 'list', shadow_collection=tuple(result_shadow))
+        return xv.XuleValue(xule_context, tuple(result), 'list', shadow_collection=tuple(result_shadow))
 
 def property_attribute(xule_context, object_value, *args):
     attribute_name_value = args[0]
@@ -377,27 +380,27 @@ def property_attribute(xule_context, object_value, *args):
     
     attribute_value = object_value.value.get(attribute_name_value.value.clarkNotation)
     if attribute_value is None:
-        return XuleValue(xule_context, None, 'none')
+        return xv.XuleValue(xule_context, None, 'none')
     else:
-        return XuleValue(xule_context, attribute_value, 'string')
+        return xv.XuleValue(xule_context, attribute_value, 'string')
 
 def property_balance(xule_context, object_value, *args):
     if object_value.type in ('none'):
-        return XuleValue(xule_context, None, 'none')
+        return xv.XuleValue(xule_context, None, 'none')
     else:
-        return XuleValue(xule_context, object_value.value.balance, 'string')    
+        return xv.XuleValue(xule_context, object_value.value.balance, 'string')    
 
 def property_base_type(xule_context, object_value, *args):
     if object_value.is_fact:
-        return XuleValue(xule_context, object_value.fact.concept.baseXbrliTypeQname, 'type')
+        return xv.XuleValue(xule_context, object_value.fact.concept.baseXbrliTypeQname, 'type')
     else:
-        return XuleValue(xule_context, object_value.value.baseXbrliTypeQname, 'type')
+        return xv.XuleValue(xule_context, object_value.value.baseXbrliTypeQname, 'type')
  
 def property_data_type(xule_context, object_value, *args):
     if object_value.is_fact:
-        return XuleValue(xule_context, object_value.fact.concept.typeQname, 'type')
+        return xv.XuleValue(xule_context, object_value.fact.concept.typeQname, 'type')
     else:
-        return XuleValue(xule_context, object_value.value.typeQname, 'type')
+        return xv.XuleValue(xule_context, object_value.value.typeQname, 'type')
 
 def property_is_type(xule_context, object_value, *args):
     type_name = args[0]
@@ -405,29 +408,29 @@ def property_is_type(xule_context, object_value, *args):
         raise XuleProcessingError(_("The argument for the 'is-type' property must ba a qname, founct '[]'.".format(type_name.type)), xule_context)
     
     if object_value.is_fact:
-        return XuleValue(xule_context, object_value.fact.concept.instanceOfType(type_name.value), 'bool')
+        return xv.XuleValue(xule_context, object_value.fact.concept.instanceOfType(type_name.value), 'bool')
     else: # concept
-        return XuleValue(xule_context, object_value.value.instanceOfType(type_name.value), 'bool')
+        return xv.XuleValue(xule_context, object_value.value.instanceOfType(type_name.value), 'bool')
 
 def property_is_numeric(xule_context, object_value, *args):
     if object_value.is_fact:
-        return XuleValue(xule_context, object_value.fact.concept.isNumeric, 'bool')
+        return xv.XuleValue(xule_context, object_value.fact.concept.isNumeric, 'bool')
     else:
         #concept
-        return XuleValue(xule_context, object_value.value.isNumeric, 'bool')
+        return xv.XuleValue(xule_context, object_value.value.isNumeric, 'bool')
  
 def property_is_monetary(xule_context, object_value, *args):
     if object_value.is_fact:
-        return XuleValue(xule_context, object_value.fact.concept.isMonetary, 'bool')
+        return xv.XuleValue(xule_context, object_value.fact.concept.isMonetary, 'bool')
     else:
         #concept
-        return XuleValue(xule_context, object_value.value.isMonetary, 'bool')
+        return xv.XuleValue(xule_context, object_value.value.isMonetary, 'bool')
  
 def property_is_abstract(xule_context, object_value, *args):
     if object_value.is_fact:
-        return XuleValue(xule_context, object_value.fact.concept.isAbstract, 'bool')
+        return xv.XuleValue(xule_context, object_value.fact.concept.isAbstract, 'bool')
     else:
-        return XuleValue(xule_context, object_value.value.isAbstract, 'bool')
+        return xv.XuleValue(xule_context, object_value.value.isAbstract, 'bool')
 
 def property_label(xule_context, object_value, *args):
     base_label_type = None
@@ -458,9 +461,9 @@ def property_label(xule_context, object_value, *args):
     label = get_label(xule_context, concept, base_label_type, base_lang)
      
     if label is None:
-        return XuleValue(xule_context, None, 'none')
+        return xv.XuleValue(xule_context, None, 'none')
     else:
-        return XuleValue(xule_context, label, 'label')
+        return xv.XuleValue(xule_context, label, 'label')
      
 def get_label(xule_context, concept, base_label_type, base_lang):#label type
     label_network = ModelRelationshipSet(concept.modelXbrl, CONCEPT_LABEL)
@@ -491,41 +494,41 @@ def get_label(xule_context, concept, base_label_type, base_lang):#label type
         return None
  
 def property_text(xule_context, object_value, *args):
-    return XuleValue(xule_context, object_value.value.textValue, 'string')
+    return xv.XuleValue(xule_context, object_value.value.textValue, 'string')
  
 def property_lang(xule_context, object_value, *args):
-    return XuleValue(xule_context, object_value.value.xmlLang, 'string')
+    return xv.XuleValue(xule_context, object_value.value.xmlLang, 'string')
  
 def property_name(xule_context, object_value, *args):
     if object_value.is_fact:
-        return XuleValue(xule_context, object_value.fact.concept.qname, 'qname')
+        return xv.XuleValue(xule_context, object_value.fact.concept.qname, 'qname')
     else:
-        return XuleValue(xule_context, object_value.value.qname, 'qname')
+        return xv.XuleValue(xule_context, object_value.value.qname, 'qname')
  
 def property_local_name(xule_context, object_value, *args):
     if object_value.value is not None:
         if object_value.is_fact:
-            return XuleValue(xule_context, object_value.fact.concept.qname.localName, 'string')
+            return xv.XuleValue(xule_context, object_value.fact.concept.qname.localName, 'string')
         elif object_value.type in ('concept', 'reference-part'):
-            return XuleValue(xule_context, object_value.value.qname.localName, 'string')
+            return xv.XuleValue(xule_context, object_value.value.qname.localName, 'string')
         elif object_value.type == 'qname':
-            return XuleValue(xule_context, object_value.value.localName, 'string')
+            return xv.XuleValue(xule_context, object_value.value.localName, 'string')
     else:
-        return XuleValue(xule_context, '', 'string')
+        return xv.XuleValue(xule_context, '', 'string')
      
 def property_namespace_uri(xule_context, object_value, *args):
     if object_value.value is not None:
         if object_value.is_fact:
-            return XuleValue(xule_context, object_value.fact.concept.qname.namespaceURI, 'uri')
+            return xv.XuleValue(xule_context, object_value.fact.concept.qname.namespaceURI, 'uri')
         elif object_value.type in ('concept', 'reference-part'):
-            return XuleValue(xule_context, object_value.value.qname.namespaceURI, 'uri')
+            return xv.XuleValue(xule_context, object_value.value.qname.namespaceURI, 'uri')
         elif object_value.type == 'qname':
-            return XuleValue(xule_context, object_value.value.namespaceURI, 'uri')
+            return xv.XuleValue(xule_context, object_value.value.namespaceURI, 'uri')
     else:
-        return XuleValue(xule_context, '', 'uri')
+        return xv.XuleValue(xule_context, '', 'uri')
 
 def property_period_type(xule_context, object_value, *args):
-    return XuleValue(xule_context, object_value.value.periodType, 'string')
+    return xv.XuleValue(xule_context, object_value.value.periodType, 'string')
 
 def property_references(xule_context, object_value, *args):
     #reference type
@@ -560,22 +563,22 @@ def property_references(xule_context, object_value, *args):
                 for role in ORDERED_REFERENCE_ROLE:
                     references = reference_by_type.get(role)
                     if references is not None:
-                        xule_references = set(XuleValue(xule_context, x, 'reference') for x in references)
+                        xule_references = set(xv.XuleValue(xule_context, x, 'reference') for x in references)
             #if we are here, there were no matching references in the ordered list of label types, so just pick one
-            return XuleValue(xule_context, frozenset(set(XuleValue(xule_context, x, 'reference') for x in next(iter(reference_by_type.values())))), 'set')
+            return xv.XuleValue(xule_context, frozenset(set(xv.XuleValue(xule_context, x, 'reference') for x in next(iter(reference_by_type.values())))), 'set')
         elif len(reference_by_type) > 0:
             #there is only one reference just return it
-            return XuleValue(xule_context, frozenset(set(XuleValue(xule_context, x, 'reference') for x in next(iter(reference_by_type.values())))), 'set')
+            return xv.XuleValue(xule_context, frozenset(set(xv.XuleValue(xule_context, x, 'reference') for x in next(iter(reference_by_type.values())))), 'set')
         else:
-            return XuleValue(xule_context, frozenset(), 'set')        
+            return xv.XuleValue(xule_context, frozenset(), 'set')        
     else:
-        return XuleValue(xule_context, frozenset(), 'set')       
+        return xv.XuleValue(xule_context, frozenset(), 'set')       
  
 def property_parts(xule_context, object_value, *args):
-    return XuleValue(xule_context, tuple(list(XuleValue(xule_context, x, 'reference-part') for x in object_value.value)), 'list')
+    return xv.XuleValue(xule_context, tuple(list(xv.XuleValue(xule_context, x, 'reference-part') for x in object_value.value)), 'list')
  
 def property_part_value(xule_context, object_value, *args):
-    return XuleValue(xule_context, object_value.value.textValue, 'string')
+    return xv.XuleValue(xule_context, object_value.value.textValue, 'string')
  
 def property_part_by_name(xule_context, object_value, *args):
     part_name = args[0]
@@ -585,97 +588,97 @@ def property_part_by_name(xule_context, object_value, *args):
      
     for part in object_value.value:
         if part.qname == part_name.value:
-            return XuleValue(xule_context, part, 'reference-part')
+            return xv.XuleValue(xule_context, part, 'reference-part')
      
     #if we get here, then the part was not found
-    return XuleValue(xule_context, None, 'none')
+    return xv.XuleValue(xule_context, None, 'none')
 
 def property_order(xule_context, object_value, *args):
     if object_value.type == 'relationship':
         if object_value.value.order is not None:
-            return XuleValue(xule_context, float(object_value.value.order), 'float')
+            return xv.XuleValue(xule_context, float(object_value.value.order), 'float')
         else:
-            return XuleValue(xule_context, None, 'none')
+            return xv.XuleValue(xule_context, None, 'none')
     else: #reference-part
         part = object_value.value
         reference = part.getparent()
         for position, child in enumerate(reference, 1):
             if child is part:
-                return XuleValue(xule_context, position, 'int')
+                return xv.XuleValue(xule_context, position, 'int')
         # Should never get here, but just in case
-        return XuleValue(xule_context, None, 'none')
+        return xv.XuleValue(xule_context, None, 'none')
 
 def property_concepts(xule_context, object_value, *args):
      
     if object_value.type == 'taxonomy':
-        concepts = set(XuleValue(xule_context, x, 'concept') for x in object_value.value.qnameConcepts.values() if x.isItem or x.isTuple)
+        concepts = set(xv.XuleValue(xule_context, x, 'concept') for x in object_value.value.qnameConcepts.values() if x.isItem or x.isTuple)
     elif object_value.type == 'network':
-        concepts = set(XuleValue(xule_context, x, 'concept') for x in (object_value.value[1].fromModelObjects().keys()) | frozenset(object_value.value[1].toModelObjects().keys()))
+        concepts = set(xv.XuleValue(xule_context, x, 'concept') for x in (object_value.value[1].fromModelObjects().keys()) | frozenset(object_value.value[1].toModelObjects().keys()))
     else:
         raise XuleProcessingError(_("'concepts' is not a property of '%s'" % object_value.type), xule_context)
  
-    return XuleValue(xule_context, frozenset(concepts), 'set')
+    return xv.XuleValue(xule_context, frozenset(concepts), 'set')
 
 def property_concept_names(xule_context, object_value, *args):
      
     if object_value.type == 'taxonomy':
-        concepts = set(XuleValue(xule_context, x.qname, 'qanme') for x in object_value.value.qnameConcepts.values() if x.isItem or x.isTuple)
+        concepts = set(xv.XuleValue(xule_context, x.qname, 'qanme') for x in object_value.value.qnameConcepts.values() if x.isItem or x.isTuple)
     elif object_value.type == 'network':
-        concepts = set(XuleValue(xule_context, x.qname, 'qname') for x in (object_value.value[1].fromModelObjects().keys()) | frozenset(object_value.value[1].toModelObjects().keys()))
+        concepts = set(xv.XuleValue(xule_context, x.qname, 'qname') for x in (object_value.value[1].fromModelObjects().keys()) | frozenset(object_value.value[1].toModelObjects().keys()))
     else:
         raise XuleProcessingError(_("'concept-names' is not a property of '%s'" % object_value.type), xule_context)
  
-    return XuleValue(xule_context, frozenset(concepts), 'set')
+    return xv.XuleValue(xule_context, frozenset(concepts), 'set')
 
 def property_relationships(xule_context, object_value, *args):        
     relationships = set()
      
     for relationship in object_value.value[1].modelRelationships:
-        relationships.add(XuleValue(xule_context, relationship, 'relationship'))
+        relationships.add(xv.XuleValue(xule_context, relationship, 'relationship'))
      
-    return XuleValue(xule_context, frozenset(relationships), 'set')
+    return xv.XuleValue(xule_context, frozenset(relationships), 'set')
 
 def property_source_concepts(xule_context, object_value, *args):
-    concepts = frozenset(XuleValue(xule_context, x, 'concept') for x in object_value.value[1].fromModelObjects().keys())
-    return XuleValue(xule_context, concepts, 'set')
+    concepts = frozenset(xv.XuleValue(xule_context, x, 'concept') for x in object_value.value[1].fromModelObjects().keys())
+    return xv.XuleValue(xule_context, concepts, 'set')
  
 def property_target_concepts(xule_context, object_value, *args):
-    concepts = frozenset(XuleValue(xule_context, x, 'concept') for x in object_value.value[1].toModelObjects().keys())        
-    return XuleValue(xule_context, concepts, 'set')
+    concepts = frozenset(xv.XuleValue(xule_context, x, 'concept') for x in object_value.value[1].toModelObjects().keys())        
+    return xv.XuleValue(xule_context, concepts, 'set')
  
 def property_roots(xule_context, object_value, *args):
-    concepts = frozenset(XuleValue(xule_context, x, 'concept') for x in object_value.value[1].rootConcepts)
-    return XuleValue(xule_context, concepts, 'set')  
+    concepts = frozenset(xv.XuleValue(xule_context, x, 'concept') for x in object_value.value[1].rootConcepts)
+    return xv.XuleValue(xule_context, concepts, 'set')  
 
 def property_source(xule_context, object_value, *args):
-    return XuleValue(xule_context, object_value.value.fromModelObject, 'concept')
+    return xv.XuleValue(xule_context, object_value.value.fromModelObject, 'concept')
  
 def property_target(xule_context, object_value, *args):
-    return XuleValue(xule_context, object_value.value.toModelObject, 'concept')
+    return xv.XuleValue(xule_context, object_value.value.toModelObject, 'concept')
 
 def property_source_name(xule_context, object_value, *args):
-    return XuleValue(xule_context, object_value.value.fromModelObject.qname, 'qname')
+    return xv.XuleValue(xule_context, object_value.value.fromModelObject.qname, 'qname')
  
 def property_target_name(xule_context, object_value, *args):
-    return XuleValue(xule_context, object_value.value.toModelObject.qname, 'qname')
+    return xv.XuleValue(xule_context, object_value.value.toModelObject.qname, 'qname')
 
 def property_weight(xule_context, object_value, *args):
     if object_value.value.weight is not None:
-        return XuleValue(xule_context, float(object_value.value.weight), 'float')
+        return xv.XuleValue(xule_context, float(object_value.value.weight), 'float')
     else:
-        return XuleValue(xule_context, None, 'none')
+        return xv.XuleValue(xule_context, None, 'none')
 
 def property_preferred_label(xule_context, object_value, *args):
     if object_value.value.preferredLabel is not None:
-        return XuleValue(xule_context, object_value.value.preferredLabel, 'uri')
+        return xv.XuleValue(xule_context, object_value.value.preferredLabel, 'uri')
     else:
-        return XuleValue(xule_context, None, 'none')
+        return xv.XuleValue(xule_context, None, 'none')
 
 def property_link_name(xule_context, object_value, *args):
-    return XuleValue(xule_context, object_value.value.linkQname, 'qname')
+    return xv.XuleValue(xule_context, object_value.value.linkQname, 'qname')
 
 def property_arc_name(xule_context, object_value, *args):
-    return XuleValue(xule_context, object_value.value.qname, 'qname')
+    return xv.XuleValue(xule_context, object_value.value.qname, 'qname')
 
 def property_network(xule_context, object_value, *args):
     network_info = (object_value.value.arcrole, object_value.value.linkrole, object_value.value.linkQname, object_value.value.qname, False)
@@ -687,7 +690,7 @@ def property_network(xule_context, object_value, *args):
                                     network_info[NETWORK_LINK],
                                     network_info[NETWORK_ARC]))
     
-    return XuleValue(xule_context, network, 'network')
+    return xv.XuleValue(xule_context, network, 'network')
     
 def property_power(xule_context, object_value, *args):  
     arg = args[0]
@@ -697,32 +700,32 @@ def property_power(xule_context, object_value, *args):
      
     combine_types = combine_xule_types(object_value, arg, xule_context)
      
-    return XuleValue(xule_context, combine_types[1]**combine_types[2], combine_types[0])
+    return xv.XuleValue(xule_context, combine_types[1]**combine_types[2], combine_types[0])
  
 def property_log10(xule_context, object_value, *args):
     if object_value.value == 0:
-        return XuleValue(xule_context, float('-inf'), 'float')
+        return xv.XuleValue(xule_context, float('-inf'), 'float')
     elif object_value.value < 0:
-        return XuleValue(xule_context, float('nan'), 'float')
+        return xv.XuleValue(xule_context, float('nan'), 'float')
     else:
-        return XuleValue(xule_context, math.log10(object_value.value), 'float')
+        return xv.XuleValue(xule_context, math.log10(object_value.value), 'float')
  
 def property_abs(xule_context, object_value, *args):
     try:
-        return XuleValue(xule_context, abs(object_value.value), object_value.type)
+        return xv.XuleValue(xule_context, abs(object_value.value), object_value.type)
     except Exception as e:       
         raise XuleProcessingError(_("Error calculating absolute value: %s" % str(e)), xule_context)
  
 def property_signum(xule_context, object_value, *args):
     if object_value.value == 0:
-        return XuleValue(xule_context, 0, 'int')
+        return xv.XuleValue(xule_context, 0, 'int')
     elif object_value.value < 0:
-        return XuleValue(xule_context, -1, 'int')
+        return xv.XuleValue(xule_context, -1, 'int')
     else:
-        return XuleValue(xule_context, 1, 'int')                                    
+        return xv.XuleValue(xule_context, 1, 'int')                                    
 
 def property_trunc(xule_context, object_value, *args):
-    return XuleValue(xule_context, math.trunc(object_value.value), 'int')
+    return xv.XuleValue(xule_context, math.trunc(object_value.value), 'int')
 
 def property_round(xule_context, object_value, *args):
     if args[0].type == 'int':
@@ -740,7 +743,7 @@ def property_round(xule_context, object_value, *args):
     else:
         raise XuleProcessingError(_("The argument to the 'round' property must be a number, found {}.".format(args[0].type)), xule_context)
     
-    return XuleValue(xule_context, round(object_value.value, round_to), object_value.type)
+    return xv.XuleValue(xule_context, round(object_value.value, round_to), object_value.type)
 
 def property_mod(xule_context, object_value, *args):
 
@@ -748,7 +751,7 @@ def property_mod(xule_context, object_value, *args):
         raise XuleProcessingError(_("The argument for the 'mod' property must be numeric, found '%s'" % args[0].type), xule_context)
     
     combined_type, numerator_compute_value, denominator_compute_value = combine_xule_types(object_value, args[0], xule_context)
-    return XuleValue(xule_context, numerator_compute_value % denominator_compute_value, combined_type)    
+    return xv.XuleValue(xule_context, numerator_compute_value % denominator_compute_value, combined_type)    
 
 def property_substring(xule_context, object_value, *args):     
     if len(args) == 0:
@@ -761,14 +764,14 @@ def property_substring(xule_context, object_value, *args):
         raise XuleProcessingError(_("The first argument of property 'substring' is not castable to a 'int', found '%s'" % args[0].type), xule_context)
     
     if len(args) == 1:
-        return XuleValue(xule_context, cast_value[start_value:], 'string')
+        return xv.XuleValue(xule_context, cast_value[start_value:], 'string')
     else:
         if xule_castable(args[1], 'int', xule_context):
             end_value = xule_cast(args[1], 'int', xule_context)
         else:
             raise XuleProcessingError(_("The second argument of property 'substring' is not castable to a 'int', found '%s'" % args[1].type), xule_context)
  
-        return XuleValue(xule_context, cast_value[start_value:end_value], 'string')
+        return xv.XuleValue(xule_context, cast_value[start_value:end_value], 'string')
      
 def property_index_of(xule_context, object_value, *args):
     cast_value = xule_cast(object_value, 'string', xule_context)
@@ -779,7 +782,7 @@ def property_index_of(xule_context, object_value, *args):
     else:
         raise XuleProcessingError(_("The argument for property 'index-of' must be castable to a 'string', found '%s'" % arg_result.type), xule_context)
      
-    return XuleValue(xule_context, cast_value.find(index_string) + 1, 'int')
+    return xv.XuleValue(xule_context, cast_value.find(index_string) + 1, 'int')
  
 def property_last_index_of(xule_context, object_value, *args):
     cast_value = xule_cast(object_value, 'string', xule_context)
@@ -790,45 +793,45 @@ def property_last_index_of(xule_context, object_value, *args):
     else:
         raise XuleProcessingError(_("The argument for property 'last-index-of' must be castable to a 'string', found '%s'" % arg_result.type), xule_context)
      
-    return XuleValue(xule_context, cast_value.rfind(index_string) + 1, 'int')
+    return xv.XuleValue(xule_context, cast_value.rfind(index_string) + 1, 'int')
  
 def property_lower_case(xule_context, object_value, *args):
-    return XuleValue(xule_context, xule_cast(object_value, 'string', xule_context).lower(), 'string')
+    return xv.XuleValue(xule_context, xule_cast(object_value, 'string', xule_context).lower(), 'string')
  
 def property_upper_case(xule_context, object_value, *args):
-    return XuleValue(xule_context, xule_cast(object_value, 'string', xule_context).upper(), 'string')
+    return xv.XuleValue(xule_context, xule_cast(object_value, 'string', xule_context).upper(), 'string')
 
 def property_day(xule_context, object_value, *args):
-    return XuleValue(xule_context, object_value.value.day, 'int')
+    return xv.XuleValue(xule_context, object_value.value.day, 'int')
 
 def property_month(xule_context, object_value, *args):
-    return XuleValue(xule_context, object_value.value.month, 'int')
+    return xv.XuleValue(xule_context, object_value.value.month, 'int')
 
 def property_year(xule_context, object_value, *args):
-    return XuleValue(xule_context, object_value.value.year, 'int') 
+    return xv.XuleValue(xule_context, object_value.value.year, 'int') 
 
 def property_uri(xule_context, object_value, *args):
     if object_value.type == 'role':
-        return XuleValue(xule_context, object_value.value.roleURI or object_value.value.arcroleURI, 'uri')
+        return xv.XuleValue(xule_context, object_value.value.roleURI or object_value.value.arcroleURI, 'uri')
     if object_value.type == 'taxonomy':
-        return XuleValue(xule_context, object_value.value.fileSource.url, 'uri')
+        return xv.XuleValue(xule_context, object_value.value.fileSource.url, 'uri')
  
 def property_description(xule_context, object_value, *args): 
-    return XuleValue(xule_context, object_value.value.definition, 'string')
+    return xv.XuleValue(xule_context, object_value.value.definition, 'string')
  
 def property_used_on(xule_context, object_value, *args):
-    return XuleValue(xule_context, tuple(list(XuleValue(xule_context, x, 'qname') for x in object_value.value.usedOns)), 'list')
+    return xv.XuleValue(xule_context, tuple(list(xv.XuleValue(xule_context, x, 'qname') for x in object_value.value.usedOns)), 'list')
 
 def property_dts_document_locations(xule_context, object_value, *args):
     locations = set()
     for doc_url in object_value.value.urlDocs:
-        locations.add(XuleValue(xule_context, doc_url, 'uri'))
-    return XuleValue(xule_context, frozenset(locations), 'set') 
+        locations.add(xv.XuleValue(xule_context, doc_url, 'uri'))
+    return xv.XuleValue(xule_context, frozenset(locations), 'set') 
 
 def property_entry_point(xule_context, object_value, *args):
     dts = object_value.value
     
-    return XuleValue(xule_context, get_taxonomy_entry_point_doc(dts).uri, 'uri')
+    return xv.XuleValue(xule_context, get_taxonomy_entry_point_doc(dts).uri, 'uri')
 
 def get_taxonomy_entry_point_doc(dts):
     
@@ -843,9 +846,9 @@ def property_entry_point_namespace(xule_context, object_value, *args):
     namespace = get_taxonomy_entry_point_doc(dts).targetNamespace
     
     if namespace is None:
-        return XuleValue(xule_context, None, 'none')
+        return xv.XuleValue(xule_context, None, 'none')
     else:
-        return XuleValue(xule_context, namespace, 'uri')
+        return xv.XuleValue(xule_context, namespace, 'uri')
 
 def get_concept(dts, concept_qname):
     concept = dts.qnameConcepts.get(concept_qname)
@@ -859,9 +862,9 @@ def get_concept(dts, concept_qname):
  
 def property_decimals(xule_context, object_value, *args):
     if object_value.fact.decimals is not None:
-        return XuleValue(xule_context, float(object_value.fact.decimals), 'float')
+        return xv.XuleValue(xule_context, float(object_value.fact.decimals), 'float')
     else:
-        return Xulevalue(xule_context, None, 'none')
+        return xv.XuleValue(xule_context, None, 'none')
 
 def get_networks(xule_context, dts_value, arcrole=None, role=None, link=None, arc=None):
     #final_result_set = XuleResultSet()
@@ -877,11 +880,11 @@ def get_networks(xule_context, dts_value, arcrole=None, role=None, link=None, ar
             network_info[NETWORK_ARC] is not None):
             
             if network_info in dts.relationshipSets:
-                net = XuleValue(xule_context, (network_info, dts.relationshipSets[network_info]), 'network')
+                net = xv.XuleValue(xule_context, (network_info, dts.relationshipSets[network_info]), 'network')
             else:
-                net = XuleValue(xule_context, 
+                net = xv.XuleValue(xule_context, 
                                 (network_info, 
-                                    ModelRelationshipSet(dts, 
+                                    mrs.ModelRelationshipSet(dts, 
                                                network_info[NETWORK_ARCROLE],
                                                network_info[NETWORK_ROLE],
                                                network_info[NETWORK_LINK],
@@ -913,16 +916,16 @@ def get_base_set_info(dts, arcrole=None, role=None, link=None, arc=None):
 
 def property_sum(xule_context, object_value, *args):
     if len(object_value.value) == 0:
-        sum_value = XuleValue(xule_context, None, 'none')
+        sum_value = xv.XuleValue(xule_context, None, 'none')
     else:
         values = list(object_value.value)
         sum_value = values[0].clone()
         for next_value in values[1:]:
             combined_type, left, right = combine_xule_types(sum_value, next_value, xule_context)
             if combined_type == 'set':
-                sum_value = XuleValue(xule_context, left | right, combined_type)
+                sum_value = xv.XuleValue(xule_context, left | right, combined_type)
             else:
-                sum_value = XuleValue(xule_context, left + right, combined_type)
+                sum_value = xv.XuleValue(xule_context, left + right, combined_type)
                 
     sum_value.tags = object_value.tags
     sum_value.facts = object_value.facts
@@ -931,7 +934,7 @@ def property_sum(xule_context, object_value, *args):
 
 def property_max(xule_context, object_value, *args):
     if len(object_value.value) == 0:
-        max_value = XuleValue(xule_context, None, 'none')
+        max_value = xv.XuleValue(xule_context, None, 'none')
     else:
         values = list(object_value.value)
         max_value = values[0].clone()
@@ -946,7 +949,7 @@ def property_max(xule_context, object_value, *args):
 
 def property_min(xule_context, object_value, *args):
     if len(object_value.value) == 0:
-        min_value = XuleValue(xule_context, None, 'none')
+        min_value = xv.XuleValue(xule_context, None, 'none')
     else:
         values = list(object_value.value)
         min_value = values[0].clone()
@@ -960,14 +963,14 @@ def property_min(xule_context, object_value, *args):
     return min_value
 
 def property_count(xule_context, object_value, *args):
-    count_value = XuleValue(xule_context, len(object_value.value), 'int')
+    count_value = xv.XuleValue(xule_context, len(object_value.value), 'int')
     count_value.tags = object_value.tags
     count_value.facts = object_value.facts
     return count_value
 
 def property_first(xule_context, object_value, *args):
     if len(object_value.value) == 0:
-        first_value = XuleValue(xule_context, None, 'none')
+        first_value = xv.XuleValue(xule_context, None, 'none')
     else:
         if object_value.type == 'list':
             first_value = object_value.value[0].clone()
@@ -980,7 +983,7 @@ def property_first(xule_context, object_value, *args):
 
 def property_last(xule_context, object_value, *args):
     if len(object_value.value) == 0:
-        last_value = XuleValue(xule_context, None, 'none')
+        last_value = xv.XuleValue(xule_context, None, 'none')
     else:
         if object_value.type == 'list':
             last_value = object_value.value[-1].clone()
@@ -999,7 +1002,7 @@ def property_any(xule_context, object_value, *args):
         
         any_value = any_value or next_value.value
     
-    any_value = XuleValue(xule_context, any_value, 'bool')
+    any_value = xv.XuleValue(xule_context, any_value, 'bool')
     any_value.tags = object_value.tags
     any_value.facts = object_value.facts
     return any_value
@@ -1012,7 +1015,7 @@ def property_all(xule_context, object_value, *args):
         
         all_value = all_value and next_value.value
     
-    all_value = XuleValue(xule_context, all_value, 'bool')
+    all_value = xv.XuleValue(xule_context, all_value, 'bool')
     all_value.tags = object_value.tags
     all_value.facts = object_value.facts
     return all_value
@@ -1025,35 +1028,35 @@ def property_stats(xule_context, object_value, stat_function, *args):
         values.append(next_value.value)
     
     stat_calc_value = stat_function(values)
-    stat_value = XuleValue(xule_context, stat_calc_value, 'float')
+    stat_value = xv.XuleValue(xule_context, stat_calc_value, 'float')
     stat_value.tags = object_value.tags
     stat_value.facts = object_value.facts
     return stat_value
 
 def property_type(xule_context, object_value, *args):
     if object_value.is_fact:
-        return XuleValue(xule_context, 'fact', 'string')
+        return xv.XuleValue(xule_context, 'fact', 'string')
     else:
-        return XuleValue(xule_context, object_value.type, 'string') 
+        return xv.XuleValue(xule_context, object_value.type, 'string') 
  
 def property_compute_type(xule_context, object_value, *args):
-    return XuleValue(xule_context, object_value.type, 'string')
+    return xv.XuleValue(xule_context, object_value.type, 'string')
  
 def property_string(xule_context, object_value, *args):
     '''SHOULD THE META DATA BE INCLUDED???? THIS SHOULD BE HANDLED BY THE PROPERTY EVALUATOR.'''
-    return XuleValue(xule_context, object_value.format_value(), 'string')
+    return xv.XuleValue(xule_context, object_value.format_value(), 'string')
  
 def property_facts(xule_context, object_value, *args):
-    return XuleValue(xule_context, "\n".join([str(f.qname) + " " + str(f.xValue) for f in xule_context.facts]), 'string')
+    return xv.XuleValue(xule_context, "\n".join([str(f.qname) + " " + str(f.xValue) for f in xule_context.facts]), 'string')
  
 def property_from_model(xule_context, object_value, *args):
-    return XuleValue(xule_context, object_value.from_model, 'bool')
+    return xv.XuleValue(xule_context, object_value.from_model, 'bool')
  
 def property_alignment(xule_context, object_value, *args):
-    return XuleValue(xule_context, str(object_value.alignment), 'string') 
+    return xv.XuleValue(xule_context, str(object_value.alignment), 'string') 
  
 def property_hash(xule_context, object_value, *args):
-    return XuleValue(xule_context, str(hash(object_value)), 'string')   
+    return xv.XuleValue(xule_context, str(hash(object_value)), 'string')   
  
 def property_list_properties(xule_context, object_value, *args):
     object_prop = collections.defaultdict(list)
@@ -1078,7 +1081,7 @@ def property_list_properties(xule_context, object_value, *args):
         for prop in props:
             s += "\n\t" + prop[0] + "," + prop[1]
      
-    return XuleValue(xule_context, s, 'string')
+    return xv.XuleValue(xule_context, s, 'string')
 
 
 

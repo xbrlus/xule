@@ -768,10 +768,10 @@ class XuleDimensionRelationshipSet:
                         if child_concept.isExplicitDimension: self._concept_types[child_concept][DIMENSION_SUB_TYPE] = 'explicit' 
                         if child_concept.isTypedDimension: self._concept_types[child_concept][DIMENSION_SUB_TYPE] = 'typed'
                     else: #this is a member of some kind
-                        self._concept_types[child_concept][DIMENSION_USABLE] = child_rel.isUsable
                         if side == 'primary':
                             self._concept_types[child_concept][DIMENSION_TYPE] = 'primary-member'
                         else:
+                            self._concept_types[child_concept][DIMENSION_USABLE] = child_rel.isUsable
                             self._concept_types[child_concept][DIMENSION_TYPE] = 'dimension-member'                    
                             if child_concept is self._dimension_default.get(dimension_concept):
                                 self._concept_types[child_concept][DIMENSION_SUB_TYPE] = 'default'
