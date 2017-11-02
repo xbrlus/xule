@@ -37,8 +37,8 @@ def property_contains(xule_context, object_value, *args):
 
 def property_length(xule_context, object_value, *args):
     if object_value.type in ('string', 'uri'):
-        cast_value = xv.xv.xule_cast(object_value, 'string', xule_context)
-        if xv.xv.xule_castable(object_value, 'string', xule_context):
+        cast_value = xv.xule_cast(object_value, 'string', xule_context)
+        if xv.xule_castable(object_value, 'string', xule_context):
             return xv.XuleValue(xule_context, len(cast_value), 'int')
         else:
             raise XuleProcessingError(_("Cannot cast '%s' to 'string' for property length" % object_value.type), xule_context)
@@ -440,16 +440,16 @@ def property_label(xule_context, object_value, *args):
         label_type = args[0]
         if label_type.type == 'none':
             base_label_type = None
-        elif xv.xv.xule_castable(label_type, 'string', xule_context):
-            base_label_type = xv.xv.xule_cast(label_type, 'string', xule_context)
+        elif xv.xule_castable(label_type, 'string', xule_context):
+            base_label_type = xv.xule_cast(label_type, 'string', xule_context)
         else:
             raise XuleProcessingError(_("The first argument for property 'label' must be a string, found '%s'" % label_type.type), xule_context)
     if len(args) > 1: #there are 2 args
         lang = args[1]
         if lang.type == 'none':
             base_lang = None
-        elif xv.xv.xule_castable(lang, 'string', xule_context):
-            base_lang = xv.xv.xule_cast(lang, 'string', xule_context)
+        elif xv.xule_castable(lang, 'string', xule_context):
+            base_lang = xv.xule_cast(lang, 'string', xule_context)
         else:
             raise XuleProcessingError(_("The second argument for property 'label' must be a string, found '%s'" % lang.type), xule_context)        
      
@@ -536,8 +536,8 @@ def property_references(xule_context, object_value, *args):
         reference_type = args[0]
         if reference_type.type == 'none':
             base_reference_type = None
-        elif xv.xv.xule_castable(reference_type, 'string', xule_context):
-            base_reference_type = xv.xv.xule_cast(reference_type, 'string', xule_context)
+        elif xv.xule_castable(reference_type, 'string', xule_context):
+            base_reference_type = xv.xule_cast(reference_type, 'string', xule_context)
         else:
             raise XuleProcessingError(_("The first argument for property 'reference' must be a string, found '%s'" % reference_type.type), xule_context)
     else:
@@ -785,21 +785,21 @@ def property_index_of(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, xv.cast_value.find(index_string) + 1, 'int')
  
 def property_last_index_of(xule_context, object_value, *args):
-    cast_value = xv.xv.xule_cast(object_value, 'string', xule_context)
+    cast_value = xv.xule_cast(object_value, 'string', xule_context)
      
     arg_result = args[0]
-    if xv.xv.xule_castable(arg_result, 'string', xule_context):
-        index_string = xv.xv.xule_cast(arg_result, 'string', xule_context)
+    if xv.xule_castable(arg_result, 'string', xule_context):
+        index_string = xv.xule_cast(arg_result, 'string', xule_context)
     else:
         raise XuleProcessingError(_("The argument for property 'last-index-of' must be castable to a 'string', found '%s'" % arg_result.type), xule_context)
      
     return xv.XuleValue(xule_context, xv.cast_value.rfind(index_string) + 1, 'int')
  
 def property_lower_case(xule_context, object_value, *args):
-    return xv.XuleValue(xule_context, xv.xv.xule_cast(object_value, 'string', xule_context).lower(), 'string')
+    return xv.XuleValue(xule_context, xv.xule_cast(object_value, 'string', xule_context).lower(), 'string')
  
 def property_upper_case(xule_context, object_value, *args):
-    return xv.XuleValue(xule_context, xv.xv.xule_cast(object_value, 'string', xule_context).upper(), 'string')
+    return xv.XuleValue(xule_context, xv.xule_cast(object_value, 'string', xule_context).upper(), 'string')
 
 def property_day(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, object_value.value.day, 'int')
