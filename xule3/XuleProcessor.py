@@ -3558,7 +3558,13 @@ def evaluate_index(index_expr, xule_context):
                                           xule_context)
             left_value = left_value.value[index_number -1]
         elif left_value.type == 'dictionary':
-            pass
+            if index_value.type in ('set', 'list'):
+                key_value = index_value.shadow_collection
+            else:
+                key_value = index_value.value
+            
+            return left_value.key_search_dictionary.get(key_value, XuleValue(xule_context, None, 'none'))
+        
         else:
             raise XuleProcessingError(_("Index epxressions can only operate on a list, found '%s'" % left_value.type), 
                                         xule_context)

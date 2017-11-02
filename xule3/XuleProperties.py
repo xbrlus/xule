@@ -24,7 +24,7 @@ def property_contains(xule_context, object_value, *args):
     if search_item.type == 'unbound':
         return xv.XuleValue(xule_context, None, 'unbound')
     elif object_value.type in ('set', 'list'):
-        if search_item.type in ('set','list'):
+        if search_item.type in ('set','list','dictionary'):
             search_value = search_item.shadow_collection
         else:
             search_value = search_item.value

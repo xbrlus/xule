@@ -92,6 +92,15 @@ class XuleValue:
             return self._value_dictionary
         else:
             return None
+        
+    @property
+    def key_search_dictionary(self):
+        if self.type == 'dictionary':
+            if not hasattr(self, '_key_search_dictionary'):
+                self._key_search_dictionary = {k.shadow_collection if k.type in ('set', 'list') else k.value: v for k, v in self.value}
+            return self._key_search_dictionary
+        else:
+            return None      
     ''' 
     import traceback
     def __eq__(self, other):
