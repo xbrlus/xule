@@ -1,6 +1,10 @@
 
-from .XuleValue import *
+#from .XuleValue import *
+from . import XuleValue
 from . import XuleProperties
+from . import XuleConstants as xc
+from arelle.ModelRelationshipSet import ModelRelationshipSet
+import collections
 
 def add_sets(xule_context, left, right):
     new_set_values = list(left.value)
@@ -11,7 +15,7 @@ def add_sets(xule_context, left, right):
             new_shadow.append(item.shadow_collection if item.type in ('set','list','dictionary') else item.value)
             new_set_values.append(item)
     
-    return XuleValue(xule_context, frozenset(new_set_values), 'set', shadow_collection=frozenset(new_shadow))
+    return XuleValue.XuleValue(xule_context, frozenset(new_set_values), 'set', shadow_collection=frozenset(new_shadow))
 
 def subtract_sets(xule_context, left, right):
     new_set_values = set()
@@ -23,7 +27,7 @@ def subtract_sets(xule_context, left, right):
             new_set_values.add(item)
             new_shadow.add(item.shadow_collection if item.type in ('set', 'list', 'dictionary') else item.value)
             
-    return XuleValue(xule_context, frozenset(new_set_values), 'set', shadow_collection=frozenset(new_shadow))
+    return XuleValue.XuleValue(xule_context, frozenset(new_set_values), 'set', shadow_collection=frozenset(new_shadow))
 
 def symetric_difference(xule_context, left, right):
     new_set_values = set()
@@ -41,7 +45,7 @@ def symetric_difference(xule_context, left, right):
             new_set_values.add(item)
             new_shadow.add(item.shadow_collection if item.type in ('set', 'list', 'dictionary') else item.value)                    
 
-    return XuleValue(xule_context, frozenset(new_set_values), 'set', shadow_collection=frozenset(new_shadow))
+    return XuleValue.XuleValue(xule_context, frozenset(new_set_values), 'set', shadow_collection=frozenset(new_shadow))
 
 def intersect_sets(xule_context, left, right):
     new_set_values = set()
@@ -53,7 +57,7 @@ def intersect_sets(xule_context, left, right):
             new_set_values.add(item)
             new_shadow.add(item.shadow_collection if item.type in ('set', 'list', 'dictionary') else item.value)
     
-    return XuleValue(xule_context, frozenset(new_set_values), 'set', shadow_collection=frozenset(new_shadow))
+    return XuleValue.XuleValue(xule_context, frozenset(new_set_values), 'set', shadow_collection=frozenset(new_shadow))
 
 def resolve_role(role_value, role_type, dts, xule_context):
     """Resolve a role.
@@ -66,6 +70,8 @@ def resolve_role(role_value, role_type, dts, xule_context):
     if role_value.value.prefix is not None:
         raise XuleProcessingError(_("Invalid {}. {} should be a string, uri or short role name. Found qname with value of {}".format(role_type, role_type.capitalize(), role_value.format_value())))
     else:
+        if role_type == 'arcrole' and role_value.value.localName in xc.DIMENSION_PSEDDO_ARCROLES:
+            return role_value.value.localName
         # Check that the dictionary of short arcroles is in the context. If not, build the diction are arcrole short names
         short_attribute_name = 'xule_{}_short'.format(role_type)
         if not hasattr(dts, short_attribute_name):
@@ -99,3 +105,59 @@ def resolve_role(role_value, role_type, dts, xule_context):
             raise XuleProcessingError(_("The {} short name '{}' resolves to more than one arcrole in the taxonomy.".format(role_type, short_name)))
         
         return short_role_dict[short_name]
+
+def base_dimension_sets(dts):
+    """Get the Xule base dimension sets.
+    
+    This is like the baseSets dictionary of a model. The base dimension set is a dictionary keyed by the drs role and hypercube. The drs role is the role of the initial 'all' relationship or the target role of the initial
+    'all' relationship if ther eis a target role. The value of the diction is a set of the 'all' relationships.
+    """ 
+    if not hasattr(dts, 'xuleBaseDimensionSets'):
+        dts.xuleBaseDimensionSets = collections.defaultdict(set)
+        for base_set in dts.baseSets:
+            if (base_set[XuleProperties.NETWORK_ARCROLE] == 'http://xbrl.org/int/dim/arcrole/all' and 
+                base_set[XuleProperties.NETWORK_ROLE] is not None and 
+                base_set[XuleProperties.NETWORK_LINK] is not None and 
+                base_set[XuleProperties.NETWORK_ARC] is not None):
+                # This is an 'all' dimension base set find the hypercubes
+                relationship_set =dts.relationshipSets.get(base_set,
+                                                            ModelRelationshipSet(dts, 
+                                                                               base_set[XuleProperties.NETWORK_ARCROLE],
+                                                                               base_set[XuleProperties.NETWORK_ROLE],
+                                                                               base_set[XuleProperties.NETWORK_LINK],
+                                                                               base_set[XuleProperties.NETWORK_ARC]))
+                
+                for rel in relationship_set.modelRelationships:
+                    drs_role = rel.targetRole or base_set[XuleProperties.NETWORK_ROLE]
+                    hypercube = rel.toModelObject
+                    dts.xuleBaseDimensionSets[(drs_role, hypercube)].add(rel)
+
+    return dts.xuleBaseDimensionSets
+
+def dimension_sets(dts):
+    """The dimension sets in a dts.
+    
+    A dimension set is identified by a drs role and hypercube. 
+    """
+    if not hasattr(dts, 'xuleDimensionSets'):
+        dts.xuleDimensionSets = dict()
+    
+    return dts.xuleDimensionSets
+
+def dimension_set(dts, dimension_set_info):
+    
+    return dimension_sets(dts).get(dimension_set_info,
+                                   XuleValue.XuleDimensionRelationshipSet(dts, *dimension_set_info))
+    
+def relationship_set(dts, relationship_set_info):
+
+    return (dts.relationshipSets[relationship_set_info] 
+                if relationship_set_info in dts.relationshipSets 
+                else ModelRelationshipSet(dts, 
+                                          relationship_set_info[XuleProperties.NETWORK_ARCROLE],
+                                          relationship_set_info[XuleProperties.NETWORK_ROLE],
+                                          relationship_set_info[XuleProperties.NETWORK_LINK],
+                                          relationship_set_info[XuleProperties.NETWORK_ARC]))
+    
+DIMENSION_SET_ROLE = 0
+DIMENSION_SET_HYPERCUBE = 1

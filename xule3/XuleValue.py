@@ -6,9 +6,12 @@ Copyright (c) 2014 XBRL US Inc. All rights reserved
 $Change: 21757 $
 '''
 from .XuleRunTime import XuleProcessingError
+from . import XuleProperties
+from . import XuleUtility
 from arelle.ModelValue import QName, dayTimeDuration, DateTime, gYear, gMonthDay, gYearMonth, InvalidValue, IsoDuration
 from arelle.ModelInstanceObject import ModelFact, ModelUnit
 from arelle.ModelRelationshipSet import ModelRelationshipSet
+from arelle.ModelDtsObject import ModelRelationship
 import datetime
 import decimal
 from aniso8601.__init__ import parse_duration, parse_datetime, parse_date
@@ -645,6 +648,187 @@ class XuleUnit:
     def __hash__(self):
         return hash((self._numerator, self._denominator))
 
+DIMENSION_TYPE = 0
+DIMENSION_SUB_TYPE = 1
+DIMENSION_USABLE = 2
+
+class DimensionRelationship(ModelRelationship):
+    def __init__(self, modelRelationship, dimension_set, side=None):
+        self.__class__ = type(modelRelationship.__class__.__name__,
+                              (self.__class__, modelRelationship.__class__),
+                              {})
+        self.__dict__ = modelRelationship.__dict__     
+        
+        self.modelRelationship = modelRelationship
+        self.dimension_set = dimension_set
+        self.dimension_type = None
+        self.dimension_sub_type = None
+        if modelRelationship.arcrole in ('http://xbrl.org/int/dim/arcrole/domain-member', 'http://xbrl.org/int/dim/arcrole/dimension-domain'):
+            self.side = side
+        else:
+            self.side = None
+
+    #override from and to methods
+    @property
+    def toModelObject(self):
+        if self.arcrole == 'http://xbrl.org/int/dim/arcrole/all':
+            return self.modelRelationship.fromModelObject
+        else:
+            return self.modelRelationship.toModelObject
+
+    @property        
+    def fromModelObject(self):
+        if self.arcrole == 'http://xbrl.org/int/dim/arcrole/all':
+            return self.modelRelationship.toModelObject
+        else:
+            return self.modelRelationship.fromModelObject
+    
+    @property
+    def fromDimensionType(self):
+        return self.dimension_set.dimensionType(self.fromModelObject)[DIMENSION_TYPE]
+    
+    @property
+    def toDimensionType(self):
+        return self.dimension_set.dimensionType(self.toModelObject)[DIMENSION_TYPE]
+
+    @property
+    def fromDimensionSubType(self):
+        return self.dimension_set.dimensionType(self.fromModelObject)[DIMENSION_SUB_TYPE]
+    
+    @property
+    def toDimensionSubType(self):
+        return self.dimension_set.dimensionType(self.toModelObject)[DIMENSION_SUB_TYPE]    
+        
+
+class XuleDimensionRelationshipSet:
+       
+    def __init__(self, dts, drs_role, hypercube):
+        if (drs_role, hypercube) in XuleUtility.dimension_sets(dts):
+            # The dimension set is already here, just return it.
+            return XuleUtility.dimension_sets(dts)[(drs_role, hypercube)]
+        else:
+            if(drs_role, hypercube) not in XuleUtility.base_dimension_sets(dts):
+                raise XuleProcessingError(_("Dimension base set for drs role '{}' and hypercube '{}' does not exists.".format(drs_role, str(hypercube.qname))))
+            
+            self._drs_role = drs_role
+            self._hypercube = hypercube
+            self._from_relationships = collections.defaultdict(list)
+            self._to_relationships = collections.defaultdict(list)
+            #self._from_concepts = collections.defaultdict(set)
+            #self._to_concepts = collections.defaultdict(set)
+            self._relationships = set()
+            self._primaries = set()
+            self._root_primaries = set()
+            self._dimension_members = collections.defaultdict(set)
+            self._dimension_domains = collections.defaultdict(set)
+            self._dimension_default = dict()
+            self._concept_types = collections.defaultdict(lambda: [None, None, None]) # This is a dictionary keyed by concept with a value of a list of 2 items, the dimension type and the dimension sub type
+
+            consecutive_arcroles = {'http://xbrl.org/int/dim/arcrole/all': 'http://xbrl.org/int/dim/arcrole/hypercube-dimension',
+                                    'http://xbrl.org/int/dim/arcrole/notAll': 'http://xbrl.org/int/dim/arcrole/hypercube-dimension',
+                                    'http://xbrl.org/int/dim/arcrole/hypercube-dimension': 'http://xbrl.org/int/dim/arcrole/dimension-domain',
+                                    'http://xbrl.org/int/dim/arcrole/dimension-domain': 'http://xbrl.org/int/dim/arcrole/domain-member',
+                                    'http://xbrl.org/int/dim/arcrole/domain-member': 'http://xbrl.org/int/dim/arcrole/domain-member'}
+                        
+            def traverse_dimension_relationships(dts, side, parent, arcrole, role, link_name, arc_name, previous=None, dimension_concept=None):
+                if previous is None: previous = list()
+                relationship_set = XuleUtility.relationship_set(dts, (arcrole, role, link_name, arc_name))
+                for model_child_rel in relationship_set.fromModelObjects().get(parent, list()):
+                    child_rel = DimensionRelationship(model_child_rel, self, 'primary' if dimension_concept is None else 'dimension')
+                    self._from_relationships[child_rel.fromModelObject].append(child_rel)
+                    self._to_relationships[child_rel.toModelObject].append(child_rel)
+                    #self._from_concepts[child_rel.fromModelObject].add(child_rel.toModelObject)
+                    #self._to_concepts[child_rel.toModelObject].add(child_rel.fromModelObject)
+                    
+                    child_concept = child_rel.toModelObject
+                    if side == 'primary':
+                        self._primaries.add(child_concept)
+                    else: # 'dimension'
+                        if child_rel.arcrole.endswith('dimension'):
+                            dimension_concept = child_concept
+                            self._dimension_members[dimension_concept]
+                            # Check for dimension default.
+                            default_relationship_set = XuleUtility.relationship_set(dts,('http://xbrl.org/int/dim/arcrole/dimension-default', child_rel.targetRole or role, link_name, arc_name))
+                            default_concept = set(rel.toModelObject for rel in default_relationship_set.fromModelObject(dimension_concept))
+                            if len(default_concept) == 0:
+                                self._dimension_default[dimension_concept] = None
+                            elif len(default_concept) == 1:
+                                self._dimension_default[dimension_concept] = next(iter(default_concept))
+                            else:
+                                raise XuleProcessingError(_("Dimension {} has multiple defaults ({}).".format(dimension_concept.qname, ', '.join([x.qname for x in default_concept]))), None)
+                        elif child_rel.arcrole.endswith('member'):
+                            self._dimension_members[dimension_concept].add(child_concept)
+                        elif child_rel.arcrole.endswith('domain'):
+                            self._dimension_members[dimension_concept].add(child_concept)
+                            self._dimension_domains[dimension_concept].add(child_concept)
+                    
+                    # Identify type of child concpet
+                    if arcrole.endswith('dimension'):
+                        self._concept_types[child_concept][DIMENSION_TYPE] = 'dimension'
+                        if child_concept.isExplicitDimension: self._concept_types[child_concept][DIMENSION_SUB_TYPE] = 'explicit' 
+                        if child_concept.isTypedDimension: self._concept_types[child_concept][DIMENSION_SUB_TYPE] = 'typed'
+                    else: #this is a member of some kind
+                        self._concept_types[child_concept][DIMENSION_USABLE] = child_rel.isUsable
+                        if side == 'primary':
+                            self._concept_types[child_concept][DIMENSION_TYPE] = 'primary-member'
+                        else:
+                            self._concept_types[child_concept][DIMENSION_TYPE] = 'dimension-member'                    
+                            if child_concept is self._dimension_default.get(dimension_concept):
+                                self._concept_types[child_concept][DIMENSION_SUB_TYPE] = 'default'
+                    
+                    traverse_dimension_relationships(dts, side, child_rel.toModelObject, consecutive_arcroles[arcrole], child_rel.targetRole or role, link_name, arc_name, previous, dimension_concept)
+                
+            
+            for model_all_rel in XuleUtility.base_dimension_sets(dts).get((drs_role, hypercube),set()):
+                all_rel = DimensionRelationship(model_all_rel, self)
+                self._root_primaries.add(all_rel.toModelObject)
+                self._primaries.add(all_rel.toModelObject)
+                self._relationships.add(all_rel)
+                # The xbrel direction of the 'all' relationship is from primary to hypercube, but in the xule model, the hypercube is the top, so the direction is the opposite. This is
+                # handled by the DimensionRelationship() object.
+                self._from_relationships[all_rel.fromModelObject].append(all_rel)
+                self._to_relationships[all_rel.toModelObject].append(all_rel)
+                
+                #identify concepts
+                self._concept_types[all_rel.fromModelObject][DIMENSION_TYPE] = 'hypdercube'
+                self._concept_types[all_rel.toModelObject][DIMENSION_TYPE] = 'primary-member'
+                self._concept_types[all_rel.toModelObject][DIMENSION_SUB_TYPE] = 'primary'
+                #traverse the primary domain-member
+                traverse_dimension_relationships(dts, 'primary', all_rel.toModelObject, 'http://xbrl.org/int/dim/arcrole/domain-member', all_rel.linkrole, all_rel.linkQname, all_rel.qname)
+                #traverse the dimensions
+                traverse_dimension_relationships(dts, 'dimension', all_rel.fromModelObject, 'http://xbrl.org/int/dim/arcrole/hypercube-dimension', all_rel.targetRole or all_rel.linkrole, all_rel.linkQname, all_rel.qname)
+    
+    @property
+    def drs_role(self):
+        return self._drs_role
+    
+    def fromModelObject(self, concept):
+        return self._from_relationships.get(concept, [])
+    
+    @property
+    def fromModelObjects(sef):
+        pass
+    
+    def toModelObject(self, concept):
+        return self._to_relationships.get(concept, [])
+    
+    @property
+    def toModelObjects(self):
+        pass
+    
+    def modelRelationships(self):
+        pass
+    
+    @property
+    def rootConcepts(self):
+        return [self._hypercube,]
+    
+    def dimensionType(self, concept):
+        return self._concept_types.get(concept)
+
+    def isUsable(self, concept):
+        return self._concept_types[concept][DIMENSION_USABLE]
+    
 def model_to_xule_unit(model_unit, xule_context):
     return XuleUnit(model_unit)
 

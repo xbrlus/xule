@@ -1,4 +1,4 @@
-from .XuleContext import XuleGlobalContext, XuleRuleContext #XuleContext
+#from .XuleContext import XuleGlobalContext, XuleRuleContext #XuleContext
 from .XuleRunTime import XuleProcessingError, XuleIterationStop, XuleException, XuleBuildTableError, XuleReEvaluate
 from .XuleValue import *
 from . import XuleUtility
@@ -867,7 +867,7 @@ def get_networks(xule_context, dts_value, arcrole=None, role=None, link=None, ar
     #final_result_set = XuleResultSet()
     networks = set()
     dts = dts_value.value
-    network_infos = get_base_set_info(xule_context, dts, arcrole, role, link, arc)
+    network_infos = get_base_set_info(dts, arcrole, role, link, arc)
     
     for network_info in network_infos:
         '''I THINK THESE NETWORKS ARE REALLY COMBINATION OF NETWORKS, SO I AM IGNORING THEM.
@@ -893,7 +893,7 @@ def get_networks(xule_context, dts_value, arcrole=None, role=None, link=None, ar
     #return final_result_set
     return frozenset(networks)
 
-def get_base_set_info(xule_context, dts, arcrole=None, role=None, link=None, arc=None):
+def get_base_set_info(dts, arcrole=None, role=None, link=None, arc=None):
 #     return [x + (False,) for x in dts.baseSets if x[NETWORK_ARCROLE] == arcrole and
 #                                        (True if role is None else x[NETWORK_ROLE] == role) and
 #                                        (True if link is None else x[NETWORK_LINK] == link) and
