@@ -2350,99 +2350,103 @@ def evaluate_navigate(nav_expr, xule_context):
         # Default to the taxonomy of the instance
         dts = xule_context.model 
 
-    nav_from_concepts = nav_get_element(nav_expr, 'from', dts,  xule_context)
-    if nav_from_concepts is not None and len(nav_from_concepts) == 0:
-        # There is nothing to navigate because the from concepts are not in any relationship. Return an empty set
-        return XuleValue(xule_context, set(), 'set')
-    
-    nav_to_concepts = nav_get_element(nav_expr, 'to', dts, xule_context)
-    arcrole = nav_get_role(nav_expr, 'arcrole', dts, xule_context)       
-    role = nav_get_role(nav_expr, 'role', dts, xule_context)
-    link_qname = evaluate(xule_context, nav_expr['link']).value if 'link' in nav_expr else None
-    arc_qname = None # This is always none. 
-    dimension_arcroles = None
-    
-    if (('arcrole' in nav_expr and arcrole is None) or
-        ('role' in nav_expr and role is None) or
-        ('link' in nav_expr and link_qname is None)):
-        #There are no networks to navigate
-        relationship_sets = list()
-    else:
-        #get the relationships
-        if nav_expr.get('dimensional'):
-            drs_role = nav_get_role(nav_expr, 'drsRole', dts, xule_context)
-            table_concepts = nav_get_element(nav_expr, 'table', dts, xule_context)
-            if arcrole is not  None:
-                dimension_arcroles = xc.DIMENSION_PSEDDO_ARCROLES.get(arcrole, ('all', {arcrole,}))
-            relationship_sets = [XuleUtility.dimension_set(dts, x) for x in XuleUtility.base_dimension_sets(dts) if ((drs_role is None or x[XuleUtility.DIMENSION_SET_ROLE] == drs_role) and
-                                                                                                                     (table_concepts is None or x[XuleUtility.DIMENSION_SET_HYPERCUBE] in table_concepts))]
-        else:
-            relationship_set_infos = XuleProperties.get_base_set_info(dts, arcrole, role, link_qname, arc_qname)
-            # The relationship_set_info includes the includeProhibits at the end of the tuple
-            relationship_sets = [XuleUtility.relationship_set(dts, x) for x in relationship_set_infos]
 
-    direction = nav_expr['direction']
-    include_start = nav_expr.get('includeStart', False)
-    return_names = get_return_component_names(nav_expr, xule_context)
-    
+    # Set up the variables for the results of the traversal
     return_by_networks = nav_expr.get('return', dict()).get('byNetwork', False)
     if return_by_networks:
         results_by_networks = dict()
+    result_items = list()
     
-    result_items = list()    
-    for relationship_set in relationship_sets:
-        if nav_from_concepts is None:
-            # The from was not in tne navigate expression. Use the roots
-            from_concepts = relationship_set.rootConcepts
+    return_names = get_return_component_names(nav_expr, xule_context)
+    
+    #Get the from and to concepts if they are supplied in the expression
+    nav_from_concepts = nav_get_element(nav_expr, 'from', dts,  xule_context)
+    nav_to_concepts = nav_get_element(nav_expr, 'to', dts, xule_context)
+    
+    # This checks if there was 'from' concept in the expression, but no concepts were return. Same for the 'to' concept in the expression. Then there is not navigation to do
+    if (nav_from_concepts is None or len(nav_from_concepts) > 0) and (nav_to_concepts is None or len(nav_to_concepts) > 0):    
+        arcrole = nav_get_role(nav_expr, 'arcrole', dts, xule_context)       
+        role = nav_get_role(nav_expr, 'role', dts, xule_context)
+        link_qname = evaluate(xule_context, nav_expr['link']).value if 'link' in nav_expr else None
+        arc_qname = None # This is always none. 
+        dimension_arcroles = None
+        
+        # Find the relationships
+        if (('arcrole' in nav_expr and arcrole is None) or
+            ('role' in nav_expr and role is None) or
+            ('link' in nav_expr and link_qname is None)):
+            #There are no networks to navigate
+            relationship_sets = list()
         else:
-            from_concepts = nav_from_concepts
-          
-        for from_concept in from_concepts:
-#             if direction == 'self':
-#                 # include_start is always False for the self direction since the self concept is always included.
-#                 for rel in relationship_set.fromModelObject(from_concept):
-#                     result_items += nav_decorate({'relationship': rel, 'network': get_network_info(relationship_set, xule_context)}, 'from', return_names, False, xule_context)
-#                 for rel in relationship_set.toModelObject(from_concept):
-#                     result_items += nav_decorate({'relationship':rel, 'network': get_network_info(relationship_set, xule_context)}, 'to', return_names, False, xule_context) 
-#                 #result_items += list(y for y in (nav_decorate(rel, 'from', nav_expr, False, xule_context) for rel in relationship_set.fromModelObject(from_concept))) + list(y for y in (nav_decorate(rel, 'to', nav_expr, xule_context) for rel in relationship_set.toModelObject(from_concept))) # This will be a list            
-            if direction == 'descendants':
-                for rel in nav_traverse(nav_expr, xule_context, 'down', relationship_set, from_concept, nav_to_concepts, int(nav_expr['depth']), return_names, dimension_arcroles):
-                    result_items += nav_decorate(rel, 'down', return_names, include_start, xule_context)
-            if direction == 'children':
-                for rel in nav_traverse(nav_expr, xule_context, 'down', relationship_set, from_concept, nav_to_concepts, 1, return_names, dimension_arcroles):
-                    result_items += nav_decorate(rel, 'down', return_names, include_start, xule_context)
-            if direction == 'ancestors':
-                for rel in nav_traverse(nav_expr, xule_context, 'up', relationship_set, from_concept, nav_to_concepts, int(nav_expr['depth']), return_names, dimension_arcroles):
-                    result_items += nav_decorate(rel, 'up', return_names, include_start, xule_context)
-            if direction == 'parents':
-                for rel in nav_traverse(nav_expr, xule_context, 'up', relationship_set, from_concept, nav_to_concepts, 1, return_names, dimension_arcroles):
-                    result_items += nav_decorate(rel, 'up', return_names, include_start, xule_context)
-            if direction == 'siblings':
-                for parent_rel in nav_traverse(nav_expr, xule_context, 'up', relationship_set, from_concept, None, 1, list(), dimension_arcroles):
-                    for sibling_rel in nav_traverse(nav_expr, xule_context, 'down', relationship_set, parent_rel['relationship'].fromModelObject, nav_to_concepts, 1, return_names, dimension_arcroles):
-                        if include_start or sibling_rel['relationship'] is not parent_rel['relationship']:
-                            result_items += nav_decorate(sibling_rel, 'up', return_names, False, xule_context)
-            if direction == 'previous-siblings':
-                for parent_rel in nav_traverse(nav_expr, xule_context, 'up', relationship_set, from_concept, None, 1, list(), dimension_arcroles):
-                    for sibling_rel in nav_traverse(nav_expr, xule_context, 'down', relationship_set, parent_rel['relationship'].fromModelObject, nav_to_concepts, 1, return_names, dimension_arcroles):
-                        if include_start or sibling_rel['relationship'] is not parent_rel['relationship']:
-                            result_items += nav_decorate(sibling_rel, 'up', return_names, False, xule_context)                
-                        if sibling_rel['relationship'] is parent_rel['relationship']:
-                            break # We are done.            
-            if direction == 'following-siblings':
-                for parent_rel in nav_traverse(nav_expr, xule_context, 'up', relationship_set, from_concept, None, 1, list(), dimension_arcroles):
-                    start_rel_found = False
-                    for sibling_rel in nav_traverse(nav_expr, xule_context, 'down', relationship_set, parent_rel['relationship'].fromModelObject, nav_to_concepts, 1, return_names, dimension_arcroles):
-                        if sibling_rel['relationship'] is parent_rel['relationship']:
-                            start_rel_found = True
-                        if start_rel_found:
+            #get the relationships
+            if nav_expr.get('dimensional'):
+                drs_role = nav_get_role(nav_expr, 'drsRole', dts, xule_context)
+                table_concepts = nav_get_element(nav_expr, 'table', dts, xule_context)
+                if arcrole is not  None:
+                    dimension_arcroles = xc.DIMENSION_PSEDDO_ARCROLES.get(arcrole, ('all', {arcrole,}))
+                relationship_sets = [XuleUtility.dimension_set(dts, x) for x in XuleUtility.base_dimension_sets(dts) if ((drs_role is None or x[XuleUtility.DIMENSION_SET_ROLE] == drs_role) and
+                                                                                                                         (table_concepts is None or x[XuleUtility.DIMENSION_SET_HYPERCUBE] in table_concepts))]
+            else:
+                relationship_set_infos = XuleProperties.get_base_set_info(dts, arcrole, role, link_qname, arc_qname)
+                # The relationship_set_info includes the includeProhibits at the end of the tuple
+                relationship_sets = [XuleUtility.relationship_set(dts, x) for x in relationship_set_infos]
+    
+        direction = nav_expr['direction']
+        include_start = nav_expr.get('includeStart', False)
+        
+        for relationship_set in relationship_sets:
+            if nav_from_concepts is None:
+                # The from was not in tne navigate expression. Use the roots
+                from_concepts = relationship_set.rootConcepts
+            else:
+                from_concepts = nav_from_concepts
+              
+            for from_concept in from_concepts:
+    #             if direction == 'self':
+    #                 # include_start is always False for the self direction since the self concept is always included.
+    #                 for rel in relationship_set.fromModelObject(from_concept):
+    #                     result_items += nav_decorate({'relationship': rel, 'network': get_network_info(relationship_set, xule_context)}, 'from', return_names, False, xule_context)
+    #                 for rel in relationship_set.toModelObject(from_concept):
+    #                     result_items += nav_decorate({'relationship':rel, 'network': get_network_info(relationship_set, xule_context)}, 'to', return_names, False, xule_context) 
+    #                 #result_items += list(y for y in (nav_decorate(rel, 'from', nav_expr, False, xule_context) for rel in relationship_set.fromModelObject(from_concept))) + list(y for y in (nav_decorate(rel, 'to', nav_expr, xule_context) for rel in relationship_set.toModelObject(from_concept))) # This will be a list            
+                if direction == 'descendants':
+                    for rel in nav_traverse(nav_expr, xule_context, 'down', relationship_set, from_concept, nav_to_concepts, int(nav_expr['depth']), return_names, dimension_arcroles):
+                        result_items += nav_decorate(rel, 'down', return_names, include_start, xule_context)
+                if direction == 'children':
+                    for rel in nav_traverse(nav_expr, xule_context, 'down', relationship_set, from_concept, nav_to_concepts, 1, return_names, dimension_arcroles):
+                        result_items += nav_decorate(rel, 'down', return_names, include_start, xule_context)
+                if direction == 'ancestors':
+                    for rel in nav_traverse(nav_expr, xule_context, 'up', relationship_set, from_concept, nav_to_concepts, int(nav_expr['depth']), return_names, dimension_arcroles):
+                        result_items += nav_decorate(rel, 'up', return_names, include_start, xule_context)
+                if direction == 'parents':
+                    for rel in nav_traverse(nav_expr, xule_context, 'up', relationship_set, from_concept, nav_to_concepts, 1, return_names, dimension_arcroles):
+                        result_items += nav_decorate(rel, 'up', return_names, include_start, xule_context)
+                if direction == 'siblings':
+                    for parent_rel in nav_traverse(nav_expr, xule_context, 'up', relationship_set, from_concept, None, 1, list(), dimension_arcroles):
+                        for sibling_rel in nav_traverse(nav_expr, xule_context, 'down', relationship_set, parent_rel['relationship'].fromModelObject, nav_to_concepts, 1, return_names, dimension_arcroles):
+                            if include_start or sibling_rel['relationship'] is not parent_rel['relationship']:
+                                result_items += nav_decorate(sibling_rel, 'up', return_names, False, xule_context)
+                if direction == 'previous-siblings':
+                    for parent_rel in nav_traverse(nav_expr, xule_context, 'up', relationship_set, from_concept, None, 1, list(), dimension_arcroles):
+                        for sibling_rel in nav_traverse(nav_expr, xule_context, 'down', relationship_set, parent_rel['relationship'].fromModelObject, nav_to_concepts, 1, return_names, dimension_arcroles):
                             if include_start or sibling_rel['relationship'] is not parent_rel['relationship']:
                                 result_items += nav_decorate(sibling_rel, 'up', return_names, False, xule_context)                
-        
-        if return_by_networks:
-            if len(result_items) > 0:
-                results_by_networks[get_network_info(relationship_set, xule_context)] = result_items
-            result_items = list()
+                            if sibling_rel['relationship'] is parent_rel['relationship']:
+                                break # We are done.            
+                if direction == 'following-siblings':
+                    for parent_rel in nav_traverse(nav_expr, xule_context, 'up', relationship_set, from_concept, None, 1, list(), dimension_arcroles):
+                        start_rel_found = False
+                        for sibling_rel in nav_traverse(nav_expr, xule_context, 'down', relationship_set, parent_rel['relationship'].fromModelObject, nav_to_concepts, 1, return_names, dimension_arcroles):
+                            if sibling_rel['relationship'] is parent_rel['relationship']:
+                                start_rel_found = True
+                            if start_rel_found:
+                                if include_start or sibling_rel['relationship'] is not parent_rel['relationship']:
+                                    result_items += nav_decorate(sibling_rel, 'up', return_names, False, xule_context)                
+            
+            if return_by_networks:
+                if len(result_items) > 0:
+                    results_by_networks[get_network_info(relationship_set, xule_context)] = result_items
+                result_items = list()
     
     if return_by_networks:
         return nav_finish_results(nav_expr, results_by_networks, 'result-order' in return_names, xule_context)
@@ -2535,7 +2539,9 @@ def nav_traverse(nav_expr, xule_context, direction, network, parent, end_concept
                 rel_info['cycle'] = True
 
         children += inner_children
-
+        # This only allows the first child of the initial call to nav_traverse to be marked as first.The first is used to indicate when to use
+        # the from side of the relationship for 'ionclude start'.
+        first_time = False 
     return children
 
 def nav_traverse_where(nav_expr, relationship, xule_context):
@@ -3003,7 +3009,7 @@ def nav_finish_results(nav_expr, return_items, add_result_order, xule_context):
         
     Returns a XuleValue which is the final result of the navigation.
     """
-        
+
     if nav_expr.get('return', dict()).get('byNetwork', False):
         by_network = dict()
         by_network_shadow = dict()
