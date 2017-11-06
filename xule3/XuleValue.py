@@ -816,17 +816,17 @@ class XuleDimensionRelationshipSet:
     
     @property
     def fromModelObjects(sef):
-        pass
+        return set(x for x in self._from_relationships.values())
     
     def toModelObject(self, concept):
         return self._to_relationships.get(concept, [])
     
     @property
     def toModelObjects(self):
-        pass
+        return set(x for x in self._to_relationships.values())
     
     def modelRelationships(self):
-        pass
+        return self._relationships
     
     @property
     def rootConcepts(self):

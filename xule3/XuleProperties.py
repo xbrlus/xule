@@ -1083,10 +1083,70 @@ def property_list_properties(xule_context, object_value, *args):
      
     return xv.XuleValue(xule_context, s, 'string')
 
+def property_effective_weight(xule_context, object_value, *args):
+    dts = object_value.value
+    if args[0].type == 'concept':
+        top = args[0].value
+    elif args[0].type == 'qname':
+        top = get_concept(dts, args[0].value)
+    else:
+        raise XuleProcessingError(_("The arguments for the 'effective-weight' property must be a 'concpet' or 'qname', found '{}'.".format(args[0].type)), xule_context)
+    
+    if args[1].type == 'concept':
+        bottom = args[1].value
+    elif args[1].type == 'qname':
+        bottom = get_concept(dts, args[1].value)
+    else:
+        raise XuleProcessingError(_("The arguments for the 'effective-weight' property must be a 'concpet' or 'qname', found '{}'.".format(args[0].type)), xule_context)
+    
+    if top is None or bottom is None:
+        # The top or bottom is not in the taxonomy
+        return xv.XuleValue(xule_context, None, 'none')
+    
+    paths = []
+    for network in get_networks(xule_context, object_value, CORE_ARCROLES['summation-item']):
+        if len(network.value[1].fromModelObject(top)) > 0 and len(network.value[1].toModelObject(bottom)) > 0:
+            paths += [x for x in traverse_for_weight(network.value[1], top, bottom)]
+    
+    weights = {numpy.prod(x) for x in paths}
+    if len(weights) ==1:
+        return xv.XuleValue(xule_context, next(iter(weights)), 'float')
+    else:
+        return xv.XuleValue(xule_context, float(0), 'float')
+    
+    print(paths)
+    print(weights)
 
-
-
-
+def traverse_for_weight(network, parent, stop_concept, previous_concepts=None, previous_weights=None):
+    """Find all the weights between two concepts in a network.
+    """
+    if parent is stop_concept:
+        # should only get here is if the initial call the parent is the stop concept. In this case, the effective weight is 1
+        return [1,]
+    
+    results = []
+    
+    previous_concepts = (previous_concepts or []) + [parent,]
+    previous_weights = previous_weights or []
+    
+    for child_rel in network.fromModelObject(parent):
+        if child_rel.toModelObject in previous_concepts:
+            # In a cyle - skip this child.
+            Continue
+        if child_rel.toModelObject is stop_concept:
+            results.append(previous_weights + [child_rel.weight,])
+        else:
+            next_result = traverse_for_weight(network, child_rel.toModelObject, stop_concept, previous_concepts, previous_weights + [child_rel.weight,])
+            if len(next_result) > 0:
+                for x in next_result:
+                    results.append(x)
+    
+    return results 
+        
+            
+        
+    
+            
 
 
 
@@ -1189,6 +1249,7 @@ PROPERTIES = {
               'dts-document-locations': (property_dts_document_locations, 0, ('taxonomy',), False),
               'entry-point': (property_entry_point, 0, ('taxonomy',), False),
               'entry-point-namespace': (property_entry_point_namespace, 0, ('taxonomy',), False),
+              'effective-weight': (property_effective_weight, 2, ('taxonomy',), False),
               'all': (property_all, 0, ('set', 'list'), False),
               'any': (property_any, 0, ('set', 'list'), False),
               'first': (property_first, 0, ('set', 'list'), False),
@@ -1199,6 +1260,7 @@ PROPERTIES = {
               'min': (property_min, 0, ('set', 'list'), False),           
               'stdev': (property_stats, 0, ('set', 'list'), False, numpy.std),
               'avg': (property_stats, 0, ('set', 'list'), False, numpy.mean),
+              
               # Debugging properties
               '_type': (property_type, 0, (), False),
               '_alignment': (property_alignment, 0, (), False),

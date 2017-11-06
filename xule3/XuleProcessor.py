@@ -715,11 +715,16 @@ def evaluate_assertion(assert_rule, xule_context):
                     main_message = messages.get('message', 'No message supplied')
                     messages.pop('message', None)
                     
+                    full_rule_name = xule_context.rule_name
+                    # Handle rule suffix
+                    if 'rule-suffix' in messages:
+                        full_rule_name += '.' + messages['rule-suffix']                    
+                    
                     source_location = get_element_identifier(xule_value, xule_context)
                     filing_url = xule_context.model.modelDocument.uri if xule_context.model is not None else ''
              
                     xule_context.global_context.message_queue.log(severity.upper(),
-                                                                  xule_context.rule_name, 
+                                                                  full_rule_name, 
                                                                   main_message,
                                                                   sourceFileLine=[source_location],
                                                                   filing_url=filing_url,
@@ -779,11 +784,16 @@ def evaluate_output_rule(output_rule, xule_context):
                 main_message = messages.get('message', process_message("${value} ${context}", xule_value, xule_context))
                 messages.pop('message', None)
                 
+                full_rule_name = xule_context.rule_name
+                # Handle rule suffix
+                if 'rule-suffix' in messages:
+                    full_rule_name += '.' + messages['rule-suffix']
+                
                 source_location = get_element_identifier(xule_value, xule_context)
                 filing_url = xule_context.model.modelDocument.uri if xule_context.model is not None else ''
          
                 xule_context.global_context.message_queue.log(severity.upper(),
-                                                              xule_context.rule_name, 
+                                                              full_rule_name, 
                                                               main_message,
                                                               sourceFileLine=[source_location],
                                                               filing_url=filing_url,
@@ -2356,6 +2366,9 @@ def evaluate_navigate(nav_expr, xule_context):
     if return_by_networks:
         results_by_networks = dict()
     result_items = list()
+
+    # Determine if we are returning paths.
+    paths = nav_expr.get('return', dict()).get('paths', False)
     
     return_names = get_return_component_names(nav_expr, xule_context)
     
@@ -2453,7 +2466,7 @@ def evaluate_navigate(nav_expr, xule_context):
     else:
         return nav_finish_results(nav_expr, result_items, 'result-order' in return_names, xule_context)
 
-def nav_traverse(nav_expr, xule_context, direction, network, parent, end_concepts, remaining_depth, return_names, dimension_arcroles=None, previous_concepts=None, nav_depth=1, result_order=0, arc_attribute_names=None):
+def nav_traverse(nav_expr, xule_context, direction, network, parent, end_concepts, remaining_depth, return_names, dimension_arcroles=None, previous_concepts=None, nav_depth=1, result_order=0, arc_attribute_names=None, paths=False):
     """Traverse a network
     
     Arguments:
@@ -2495,6 +2508,7 @@ def nav_traverse(nav_expr, xule_context, direction, network, parent, end_concept
         result_order += 1
         child = rel.toModelObject if direction == 'down' else rel.fromModelObject
         rel_info = {'relationship':rel}
+        
         if first_time:
             rel_info['first'] = True
         if 'network' in return_names:
@@ -2523,20 +2537,30 @@ def nav_traverse(nav_expr, xule_context, direction, network, parent, end_concept
             )
             ):
             inner_children.append(rel_info)
+        else:
+            if paths:
+                rel_info = None
             
         if child not in end_concepts:
             if child not in previous_concepts:
                 previous_concepts.add(child)
-                next_children = nav_traverse(nav_expr, xule_context, direction, network, child, end_concepts, remaining_depth - 1, return_names, dimension_arcroles, previous_concepts, nav_depth + 1, result_order, arc_attribute_names)
+                next_children = nav_traverse(nav_expr, xule_context, direction, network, child, end_concepts, remaining_depth - 1, return_names, dimension_arcroles, previous_concepts, nav_depth + 1, result_order, arc_attribute_names)                
                 if len(next_children) == 0 and len(end_concepts) > 0: # The to concept was never found
                     inner_children = list()
+                elif len(next_children) == 0 and paths:
+                    inner_children = [[inner_children[0],]]
                 else:
-                    inner_children += next_children 
+                    if paths:
+                        for i in next_children:
+                            inner_child.append([rel_info,] + i)
+                    else:
+                        inner_children += next_children 
 #                     if 'result-order' in return_names:
 #                         result_order = inner_children[-1]['result-order']
             else:
-                #indicates a cycle
-                rel_info['cycle'] = True
+                if rel_info is not None:
+                    #indicates a cycle
+                    rel_info['cycle'] = True
 
         children += inner_children
         # This only allows the first child of the initial call to nav_traverse to be marked as first.The first is used to indicate when to use
@@ -2748,20 +2772,29 @@ def nav_decorate_component_value(rel, direction, component_name, is_start, xule_
     """   
     if component_name in NAVIGATE_RETURN_COMPONENTS:
         if NAVIGATE_RETURN_COMPONENTS[component_name][NAVIGATE_ALLOWED_ON_START]:
-            return NAVIGATE_RETURN_COMPONENTS[component_name][NAVIGATE_RETURN_FUCTION](rel, direction, component_name, is_start, xule_context)
+            if rel is None:
+                return (None, 'none', componend_name)
+            else:
+                return NAVIGATE_RETURN_COMPONENTS[component_name][NAVIGATE_RETURN_FUCTION](rel, direction, component_name, is_start, xule_context)
         else:
             if is_start:
                 return(None, 'none', component_name)
             else:
-                return NAVIGATE_RETURN_COMPONENTS[component_name][NAVIGATE_RETURN_FUCTION](rel, direction, component_name, xule_context)
+                if rel is None:
+                    return (None, 'none', component_name)
+                else:
+                    return NAVIGATE_RETURN_COMPONENTS[component_name][NAVIGATE_RETURN_FUCTION](rel, direction, component_name, xule_context)
     else:
         # Could be an arc attribute name (qname)
         if isinstance(component_name, QName):
-            attribute_value = rel[component_name]
-            if attribute_value is None:
+            if rel is None:
                 return (None, 'none', component_name)
             else:
-                return (attribute_value, 'string', component_name)
+                attribute_value = rel[component_name]
+                if attribute_value is None:
+                    return (None, 'none', component_name)
+                else:
+                    return (attribute_value, 'string', component_name)
         else:
             raise XuleProcessingError(_("Component {} is not currently supported.".format(component_name)), xule_context)        
 
