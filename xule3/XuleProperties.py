@@ -1257,6 +1257,7 @@ PROPERTIES = {
               'min': (property_min, 0, ('set', 'list'), False),           
               'stdev': (property_stats, 0, ('set', 'list'), False, numpy.std),
               'avg': (property_stats, 0, ('set', 'list'), False, numpy.mean),
+              'prod': (property_stats, 0, ('set', 'list'), False, numpy.prod),
               
               # Debugging properties
               '_type': (property_type, 0, (), False),
