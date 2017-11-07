@@ -2548,9 +2548,19 @@ def nav_traverse(nav_expr, xule_context, direction, network, parent, end_concept
         else:
             keep_rel = None
         
-        if child not in end_concepts:
-            if child not in previous_concepts:
-                previous_concepts.add(child)
+        #if child not in end_concepts:
+        
+        
+        if child not in previous_concepts:
+            previous_concepts.add(child)
+            
+            if child in end_concepts:
+                # This is the end of the traversal because the child is a 'to' concept.
+                if paths:
+                    inner_children.append([keep_rel,])
+                else:
+                    inner_children += [keep_rel,]
+            else:
                 next_children = nav_traverse(nav_expr, 
                                              xule_context, 
                                              direction, 
@@ -2581,14 +2591,14 @@ def nav_traverse(nav_expr, xule_context, direction, network, parent, end_concept
                         inner_children += [keep_rel,] + next_children
 #                     if 'result-order' in return_names:
 #                         result_order = inner_children[-1]['result-order']
+        else:
+            if keep_rel is not None:
+                #indicates a cycle
+                keep_rel['cycle'] = True
+            if paths:
+                inner_children.append([keep_rel,])
             else:
-                if keep_rel is not None:
-                    #indicates a cycle
-                    keep_rel['cycle'] = True
-                if paths:
-                    inner_children.append([keep_rel,])
-                else:
-                    inner_children.append(keep_rel)
+                inner_children.append(keep_rel)
 
         children += inner_children
         # This only allows the first child of the initial call to nav_traverse to be marked as first.The first is used to indicate when to use
