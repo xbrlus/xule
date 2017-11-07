@@ -2588,7 +2588,7 @@ def nav_traverse(nav_expr, xule_context, direction, network, parent, end_concept
                 if paths:
                     inner_children.append([keep_rel,])
                 else:
-                    inner_child.append(keep_rel)
+                    inner_children.append(keep_rel)
 
         children += inner_children
         # This only allows the first child of the initial call to nav_traverse to be marked as first.The first is used to indicate when to use
