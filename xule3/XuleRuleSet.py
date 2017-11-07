@@ -438,8 +438,8 @@ class XuleRuleSet(object):
                             immediate_dependencies['rules-taxonomy'] = True
                         break
                 if not found:
-                    print('not found', parse_node['node_id'], parse_node['exprName']) #, file=sys.stderr)
-                    raise XuleRuleSetError("Error in variables")
+                    #print('not found', parse_node['node_id'], parse_node['exprName']) #, file=sys.stderr)
+                    raise XuleRuleSetError("Error in variables, cannot find variable '{}'".format(parse_node['varName']))
                 parse_node['is_constant'] = False
                 
         if current_part == 'functionReference':
