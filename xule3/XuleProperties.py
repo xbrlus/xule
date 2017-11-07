@@ -1113,9 +1113,6 @@ def property_effective_weight(xule_context, object_value, *args):
         return xv.XuleValue(xule_context, next(iter(weights)), 'float')
     else:
         return xv.XuleValue(xule_context, float(0), 'float')
-    
-    print(paths)
-    print(weights)
 
 def traverse_for_weight(network, parent, stop_concept, previous_concepts=None, previous_weights=None):
     """Find all the weights between two concepts in a network.
