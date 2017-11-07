@@ -2546,8 +2546,7 @@ def nav_traverse(nav_expr, xule_context, direction, network, parent, end_concept
             keep_rel = rel_info
             #inner_children.append(rel_info)
         else:
-            if paths:
-                keep_rel = None
+            keep_rel = None
         
         if child not in end_concepts:
             if child not in previous_concepts:
