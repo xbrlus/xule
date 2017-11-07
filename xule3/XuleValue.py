@@ -68,7 +68,7 @@ class XuleValue:
         
         if self.type in ('list', 'set') and self.shadow_collection is None:
         #if self.type in ('list', 'set'):            
-            shadow = [x.shadow_collection if x.type in ('set','list') else x.value for x in self.value]
+            shadow = [x.shadow_collection if x.type in ('set', 'list', 'dictionary') else x.value for x in self.value]
             if self.type == 'list':
                 self.shadow_collection = tuple(shadow)
             else:
