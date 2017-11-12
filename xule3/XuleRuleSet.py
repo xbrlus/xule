@@ -829,7 +829,7 @@ class XuleRuleSet(object):
                 #add downstream iterables for fucntion references. This makes the function reference dependent on the iterables in the arguments.
                 #This is needed when passing iterables (i.e. factset) in the argument.
                 if current_part == 'functionReference' and parse_node['function_type'] == 'xule_defined':
-                    parse_node['dependent_iterables'] += {x['downstream_iterables'] for x in parse_node['functionArgs']}
+                    parse_node['dependent_iterables'] += [x['downstream_iterables'] for x in parse_node['functionArgs']]
 
                 parse_node['is_dependent'] = len(parse_node['dependent_iterables']) > 1 #The dependent_iterables list will always include itself, so the miniumn count is 1     
         
