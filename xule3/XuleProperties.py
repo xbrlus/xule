@@ -265,18 +265,18 @@ def property_concept(xule_context, object_value, *args):
 
 def property_period(xule_context, object_value, *args):
     if object_value.fact.context.isStartEndPeriod or object_value.fact.context.isForeverPeriod:
-        return xv.XuleValue(xule_context, model_to_xule_period(object_value.fact.context, xule_context), 'duration', from_model=True)
+        return xv.XuleValue(xule_context, xv.model_to_xule_period(object_value.fact.context, xule_context), 'duration', from_model=True)
     else:
-        return xv.XuleValue(xule_context, model_to_xule_period(object_value.fact.context, xule_context), 'instant', from_model=True)
+        return xv.XuleValue(xule_context, xv.model_to_xule_period(object_value.fact.context, xule_context), 'instant', from_model=True)
           
 def property_unit(xule_context, object_value, *args):
     if object_value.fact.unit is None:
         return xv.XuleValue(xule_context, None, 'none')
     else:
-        return xv.XuleValue(xule_context, model_to_xule_unit(object_value.fact.unit, xule_context), 'unit')
+        return xv.XuleValue(xule_context, xv.model_to_xule_unit(object_value.fact.unit, xule_context), 'unit')
  
 def property_entity(xule_context, object_value, *args):
-    return xv.XuleValue(xule_context, model_to_xule_entity(object_value.fact.context, xule_context), 'entity')
+    return xv.XuleValue(xule_context, xv.model_to_xule_entity(object_value.fact.context, xule_context), 'entity')
  
 def property_id(xule_context, object_value, *args):
     if object_value.type == 'entity':
@@ -309,7 +309,7 @@ def property_dimension(xule_context, object_value, *args):
             return xv.XuleValue(xule_context, member.memberQname, 'qname')
         else:
             #this is a typed dimension
-            return xv.XuleValue(xule_context, member.typedMember.xValue, model_to_xule_type(xule_context, member.typedMember.xValue))
+            return xv.XuleValue(xule_context, member.typedMember.xValue, xv.model_to_xule_type(xule_context, member.typedMember.xValue))
 
 def property_dimensions(xule_context, object_value, *args):
     result_dict = dict()
@@ -320,7 +320,7 @@ def property_dimensions(xule_context, object_value, *args):
         if member_model.isExplicit:
             member_value = xv.XuleValue(xule_context, member_model.member, 'concept')
         else: # Typed dimension
-            member_value = xv.XuleValue(xule_context, member.typedMember.xValue, model_to_xule_type(xule_context, member.typedMember.xValue))
+            member_value = xv.XuleValue(xule_context, member.typedMember.xValue, xv.model_to_xule_type(xule_context, member.typedMember.xValue))
             
         result_dict[dim_value] = member_value
         result_shadow[dim_value.value] = member_value.value
