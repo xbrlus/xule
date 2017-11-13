@@ -698,7 +698,7 @@ def property_power(xule_context, object_value, *args):
     if arg.type not in ('int', 'float', 'decimal'):
         raise XuleProcessingError(_("The 'power' property requires a numeric argument, found '%s'" % arg.type), xule_context)
      
-    combine_types = combine_xule_types(object_value, arg, xule_context)
+    combine_types = xv.combine_xule_types(object_value, arg, xule_context)
      
     return xv.XuleValue(xule_context, combine_types[1]**combine_types[2], combine_types[0])
  
