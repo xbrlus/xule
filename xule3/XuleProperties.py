@@ -750,7 +750,7 @@ def property_mod(xule_context, object_value, *args):
     if args[0].type not in ('int', 'float', 'decimal'):
         raise XuleProcessingError(_("The argument for the 'mod' property must be numeric, found '%s'" % args[0].type), xule_context)
     
-    combined_type, numerator_compute_value, denominator_compute_value = combine_xule_types(object_value, args[0], xule_context)
+    combined_type, numerator_compute_value, denominator_compute_value = xv.combine_xule_types(object_value, args[0], xule_context)
     return xv.XuleValue(xule_context, numerator_compute_value % denominator_compute_value, combined_type)    
 
 def property_substring(xule_context, object_value, *args):     
@@ -921,7 +921,7 @@ def property_sum(xule_context, object_value, *args):
         values = list(object_value.value)
         sum_value = values[0].clone()
         for next_value in values[1:]:
-            combined_type, left, right = combine_xule_types(sum_value, next_value, xule_context)
+            combined_type, left, right = xv.combine_xule_types(sum_value, next_value, xule_context)
             if combined_type == 'set':
                 sum_value = xv.XuleValue(xule_context, left | right, combined_type)
             else:
