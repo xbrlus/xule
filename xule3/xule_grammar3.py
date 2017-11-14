@@ -18,12 +18,10 @@ INRESULT = False
 def in_result():
     global INRESULT
     INRESULT = True
-    print("in", INRESULT)
 
-def out_result():
+def out_result(*args):
     global INRESULT
     INRESULT = False
-    print("out", INRESULT)
 
 def buildPrecedenceExpressions( baseExpr, opList, lpar=Suppress('('), rpar=Suppress(')')):
     """Simplified and modified version of pyparsing infixNotation helper function
