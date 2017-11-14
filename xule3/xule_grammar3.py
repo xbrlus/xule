@@ -13,6 +13,18 @@ from pyparsing import (Word, Keyword,  CaselessKeyword, ParseResults, infixNotat
                  QuotedString, OneOrMore, oneOf, cStyleComment, CharsNotIn,
                  lineEnd, White, SkipTo, Empty, stringStart, stringEnd, alphas, printables, removeQuotes)
 
+INRESULT = False
+
+def in_result():
+    global INRESULT
+    INRESULT = True
+    print("in", INRESULT)
+
+def out_result():
+    global INRESULT
+    INRESULT = False
+    print("out", INRESULT)
+
 def buildPrecedenceExpressions( baseExpr, opList, lpar=Suppress('('), rpar=Suppress(')')):
     """Simplified and modified version of pyparsing infixNotation helper function
     
@@ -101,6 +113,7 @@ def nodeName(name):
 
 def get_grammar():
     """Return the XULE grammar"""
+    global INRESULT
     
     ParserElement.enablePackrat()
     
@@ -173,10 +186,16 @@ def get_grammar():
                      infLiteral).setResultsName("value") +
                     nodeName('float'))
     #string literals
-    stringLiteral = Group(((QuotedString("'", multiline=True, unquoteResults=False, escChar="\\").setParseAction(removeQuotes)  | 
-                      QuotedString('"', multiline=True, unquoteResults=False, escChar="\\").setParseAction(removeQuotes)).setResultsName("value")) +
-                     nodeName('string'))
+#     stringLiteral = Group(((QuotedString("'", multiline=True, unquoteResults=False, escChar="\\").setParseAction(removeQuotes)  | 
+#                       QuotedString('"', multiline=True, unquoteResults=False, escChar="\\").setParseAction(removeQuotes)).setResultsName("value")) +
+#                      nodeName('string'))
     
+    stringEscape = Group(Suppress(Literal('\\')) + Regex('.').setResultsName('value') + nodeName('escape'))
+    stringExpr = Suppress(Literal('{')) + blockExpr + Suppress(Literal('}'))
+    singleQuoteString = Suppress(Literal("'")) + ZeroOrMore(stringEscape | stringExpr | Group(Combine(OneOrMore(Regex("[^\\\\'{]"))).setResultsName('value') + nodeName('baseString'))) + Suppress(Literal("'"))
+    doubleQuoteString = Suppress(Literal('"')) + ZeroOrMore(stringEscape | stringExpr | Group(Combine(OneOrMore(Regex('[^\\\\"{]'))).setResultsName('value') + nodeName('baseString'))) + Suppress(Literal('"'))
+    stringLiteral = Group((Group(singleQuoteString | doubleQuoteString).setResultsName('stringList') + nodeName('string'))).leaveWhitespace()
+
     #boolean literals
     booleanLiteral = Group((CaselessKeyword("true") | CaselessKeyword("false")).setResultsName("value") + nodeName('boolean'))
     
@@ -379,7 +398,11 @@ def get_grammar():
                 nodeName('functionReference')) 
 
     #variable reference
-    varRef = Group(Suppress(varIndicator) + simpleName.setResultsName("varName") + nodeName('varRef'))
+    #varRef = Group(Suppress(varIndicator) + simpleName.setResultsName("varName") + nodeName('varRef'))
+    
+
+        
+    varRef = Group(Suppress(varIndicator) + simpleName.setResultsName('varName') + Empty().setParseAction(lambda: 'tagRef' if INRESULT else 'varRef').setResultsName('exprName'))
 
     #if expression
     elseIfExpr = (ZeroOrMore(Group(Suppress(elseOp + ifOp) + 
@@ -576,8 +599,8 @@ def get_grammar():
                          )
     
     ruleResult = Group( ~declarationKeywords +
-                         (CaselessKeyword('message') | CaselessKeyword('severity') | simpleName).setResultsName('resultName') +
-                         expr.setResultsName('resultExpr') + nodeName('result')
+                         (CaselessKeyword('message') | CaselessKeyword('severity') | simpleName).setResultsName('resultName') + Empty().setParseAction(in_result) +
+                         expr.setResultsName('resultExpr').setParseAction(out_result).setFailAction(out_result) + nodeName('result')
                     )
 
     assertDeclaration = (

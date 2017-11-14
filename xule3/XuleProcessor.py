@@ -819,15 +819,39 @@ def evaluate_bool_literal(literal, xule_context):
         raise XuleProcessingError(_("Invalid boolean literal found: %s" % literal.value), xule_context)
 
 def evaluate_string_literal(literal, xule_context):
-    string_literal = literal['value']
+    """Evaluate a string literal
     
-    string_literal = string_literal.replace('\\n', '\n')
-    string_literal = string_literal.replace('\\t', '\t')
-    string_literal = string_literal.replace('\\"', '"')
-    string_literal = string_literal.replace("\\'", "'")
-    string_literal = string_literal.replace('\\\\', '\\')
-
-    return XuleValue(xule_context, string_literal, 'string')
+    A string can consist of a string of characters, escaped characters or an expression to evaluate. This is handled as a list of 
+    string expressions (baseString, escape, and an expression)."""
+    
+    result_string = ''
+    
+    for string_item in literal['stringList']:
+        if string_item['exprName'] == 'baseString':
+            result_string += string_item['value']
+        elif string_item['exprName'] == 'escape':
+            if string_item['value'] == 'n':
+               result_string += '\n'
+            elif string_item['value'] == 't':
+                result_string += '\t'
+            else:
+                result_string += string_item['value']
+        else:
+            # This is an expression.
+            expr_value = evaluate(string_item, xule_context)
+            result_string += expr_value.format_value()
+        
+    return XuleValue(xule_context, result_string, 'string')
+    
+#     string_literal = literal['value']
+#     
+#     string_literal = string_literal.replace('\\n', '\n')
+#     string_literal = string_literal.replace('\\t', '\t')
+#     string_literal = string_literal.replace('\\"', '"')
+#     string_literal = string_literal.replace("\\'", "'")
+#     string_literal = string_literal.replace('\\\\', '\\')
+# 
+#     return XuleValue(xule_context, string_literal, 'string')
 
 def evaluate_int_literal(literal, xule_context):
     return XuleValue(xule_context, int(literal['value']), 'int')
@@ -971,8 +995,8 @@ def calc_var(var_info, const_ref, xule_context):
         raise XuleProcessingError(_("Internal error: unkown variable type '%s'" % var_info['type']), xule_context) 
     
     var_value = var_value.clone()
-    if var_info['tagged']:
-        xule_context.tags[var_info['name']] = var_value
+    #if var_info['tagged']:
+    xule_context.tags[var_info['name']] = var_value
 
     return var_value
 
@@ -1320,9 +1344,9 @@ def evaluate_symetric_difference(sym_diff_expr, xule_context):
         if left.type in ('unbound', 'none') or right.type in ('unbound', 'none'):
             left = XuleValue(xule_context, None, 'unbound')
         if left.type != 'set':
-            raise XuleProcessingError(_("Intersection can only operatate on sets. The left side is a '{}'.".format(left.type)), xule_context)
+            raise XuleProcessingError(_("Symetric difference can only operatate on sets. The left side is a '{}'.".format(left.type)), xule_context)
         if right.type != 'set':
-            raise XuleProcessingError(_("Intersection can only operatate on sets. The right side is a '{}'.".format(right.type)), xule_context)
+            raise XuleProcessingError(_("Symetric difference can only operatate on sets. The right side is a '{}'.".format(right.type)), xule_context)
     
         left = XuleUtility.symetric_difference(xule_context, left, right)
     
@@ -3694,7 +3718,12 @@ def evaluate_index(index_expr, xule_context):
                                         xule_context)
         
     return left_value
-        
+
+def evaluate_tag_ref(tag_ref, xule_context):
+    if tag_ref['varName'] in xule_context.tags:
+        return xule_context.tags[tag_ref['varName']]
+    else:
+        return XuleValue(xule_context, None, 'none')
                  
 #aspect info indexes
 TYPE = 0
@@ -3732,6 +3761,7 @@ EVALUATOR = {
     
     "blockExpr": evaluate_block,
     "varRef": evaluate_var_ref,
+    "tagRef": evaluate_tag_ref,
     "functionReference": evaluate_function_ref,
     "taggedExpr": evaluate_tagged,
     "propertyExpr": evaluate_property,
