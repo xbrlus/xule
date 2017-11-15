@@ -281,11 +281,13 @@ def property_entity(xule_context, object_value, *args):
 def property_id(xule_context, object_value, *args):
     if object_value.type == 'entity':
         return xv.XuleValue(xule_context, object_value.value[1], 'string')
-    else: #unit
+    elif object_value.type == 'unit':
         if object_value.value.xml_id is None:
             return xv.XuleValue(xule_context, None, 'none')
         else:
             return xv.XuleValue(xule_context, object_value.value.xml_id, 'string')
+    elif object_value.is_fact:
+        return xv.XuleValue(xule_context, object_value.fact.id, 'string')
  
 def property_scheme(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, object_value.value[0], 'string')
@@ -1180,7 +1182,7 @@ PROPERTIES = {
               'period': (property_period, 0, ('fact',), False),
               'unit': (property_unit, 0, ('fact',), False),
               'entity': (property_entity, 0, ('fact',), False),
-              'id': (property_id, 0, ('entity','unit'), False),
+              'id': (property_id, 0, ('entity','unit','fact'), False),
               'scheme': (property_scheme, 0, ('entity',), False),
               'dimension': (property_dimension, 1, ('fact',), False),
               'dimensions': (property_dimensions, 0, ('fact',), False),
