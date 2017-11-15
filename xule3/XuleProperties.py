@@ -4,7 +4,7 @@ from .XuleRunTime import XuleProcessingError, XuleIterationStop, XuleException, 
 from . import XuleValue as xv
 from . import XuleUtility 
 from . import XuleFunctions
-import arelle.ModelRelationshipSet as mrs
+from arelle.ModelRelationshipSet import ModelRelationshipSet
 import numpy
 from arelle.ModelDocument import Type
 
@@ -884,7 +884,7 @@ def get_networks(xule_context, dts_value, arcrole=None, role=None, link=None, ar
             else:
                 net = xv.XuleValue(xule_context, 
                                 (network_info, 
-                                    mrs.ModelRelationshipSet(dts, 
+                                    ModelRelationshipSet(dts, 
                                                network_info[NETWORK_ARCROLE],
                                                network_info[NETWORK_ROLE],
                                                network_info[NETWORK_LINK],
