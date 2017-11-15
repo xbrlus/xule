@@ -545,7 +545,7 @@ class XuleRuleSet(object):
 #                             'blockExpr',
 #                             'functionReference']
     
-    def _walk_for_iterable(self, parse_node, var_defs=None):
+    def _walk_for_iterable(self, item_name, parse_node, var_defs=None):
         """Walk the AST
         
         This walk:
@@ -594,7 +594,7 @@ class XuleRuleSet(object):
                 for next_part in next_parts:
                     # the parser will only create a list of dictionaries, however, the build dependencies can add lists of other things (i.e. var_eclusion_ids). These should be skipped.
                     if isinstance(next_part, dict):
-                        descendent_pre_calc = self._walk_for_iterable(next_part, var_defs)
+                        descendent_pre_calc = self._walk_for_iterable(item_name, next_part, var_defs)
                         if next_part['number'] == 'multi':
                             descendant_number = 'multi'
                         if next_part['has_alignment'] == True:
@@ -714,7 +714,7 @@ class XuleRuleSet(object):
                     #Xule defined function
                     parse_node['function_type'] = 'xule_defined'
                     func_expr, func_info = self.getFunction(parse_node['functionName'])
-                    self._walk_for_iterable(func_expr, var_defs)
+                    self._walk_for_iterable(item_name, func_expr, var_defs)
                     if func_expr['number'] == 'multi' or descendant_number == 'multi':
                         parse_node['number'] = 'multi'
                         parse_node['is_iterable'] = True
@@ -756,7 +756,7 @@ class XuleRuleSet(object):
                 if parse_node['is_constant']:
                     const_info = self.catalog['constants'][parse_node['varName']]
                     const_expr = self.getItem(const_info['file'], const_info['index'])
-                    self._walk_for_iterable(const_expr, var_defs)
+                    self._walk_for_iterable(item_name, const_expr, var_defs)
                     #this is done in the dependencies.
                     #parse_node['var_declaration'] = const_expr['node_id']
                     parse_node['number'] = const_expr['number']
@@ -768,7 +768,7 @@ class XuleRuleSet(object):
                 else:
                     var_expr = self._var_exprs.get(parse_node.get('var_declaration'))
                     if var_expr is not None:
-                        self._walk_for_iterable(var_expr, var_defs)
+                        self._walk_for_iterable(item_name, var_expr, var_defs)
                         parse_node['number'] = var_expr['number']
                         parse_node['has_alignment'] = var_expr['has_alignment']
                         #save the declaration parse result object
@@ -799,6 +799,10 @@ class XuleRuleSet(object):
             elif current_part == 'constantAssign':
                 if parse_node['number'] == 'multi':
                     parse_node['is_iterable'] = True
+                    
+            elif current_part == 'result':
+                if parse_node['number'] == 'multi' or len(parse_node['downstream_iterables']) > 0:
+                    raise XuleRuleSetError("In rule {} the message of a rule cannot contain expressions that create multiple values (i.e factsets or for loops).".format(item_name))
             
             #set the table id for the iterables under the top level node. 
             if current_part in ('assertion', 'outputRule', 'functionDeclaration', 'constantDeclaration'):
@@ -930,14 +934,14 @@ class XuleRuleSet(object):
          
         #determine number (single, multi) for each expression
         for const_name, const_info in self.catalog['constants'].items():
-            self._walk_for_iterable(self.getItem(const_info['file'], const_info['index']))
+            self._walk_for_iterable(const_name, self.getItem(const_info['file'], const_info['index']))
 #         for precon_name, precon_info in self.catalog['preconditions'].items():    
 #             self._walk_for_iterable(self.getItem(precon_info['file'], precon_info['index']), precon_info['file'])            
         for func_name, func_info in self.catalog['functions'].items():
-            self._walk_for_iterable(self.getItem(func_info['file'], func_info['index']))
+            self._walk_for_iterable(func_name, self.getItem(func_info['file'], func_info['index']))
         for rule_name, rule_info in self.catalog['rules'].items():
             ast_rule = self.getItem(rule_info['file'], rule_info['index'])
-            self._walk_for_iterable(ast_rule)
+            self._walk_for_iterable(rule_name, ast_rule)
 
         #self.catalog['pre_calc_expressions'].sort()
         
