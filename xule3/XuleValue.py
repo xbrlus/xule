@@ -189,13 +189,13 @@ class XuleValue:
                     end_date = self.value[1] - datetime.timedelta(days=1)
                 else:
                     end_date = self.value[1]
-                return"duration('%s', '%s')" % (self.value[0].strftime("%Y-%m-%d"), end_date.strftime("%Y-%m-%d"))
+                return"%s - %s" % (self.value[0].strftime("%Y-%m-%d"), end_date.strftime("%Y-%m-%d"))
             
         elif self.type == 'instant':
             if self.from_model == True:
-                return "instant('%s')" % (self.value - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+                return "%s" % (self.value - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
             else:
-                return "instant('%s')" % self.value.strftime("%Y-%m-%d")
+                return "%s" % self.value.strftime("%Y-%m-%d")
         
         elif self.type == 'list':
             list_value = ", ".join([sub_value.format_value() for sub_value in self.value])
