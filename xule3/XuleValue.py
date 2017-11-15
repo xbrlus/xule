@@ -189,7 +189,7 @@ class XuleValue:
                     end_date = self.value[1] - datetime.timedelta(days=1)
                 else:
                     end_date = self.value[1]
-                return"%s - %s" % (self.value[0].strftime("%Y-%m-%d"), end_date.strftime("%Y-%m-%d"))
+                return"%s to %s" % (self.value[0].strftime("%Y-%m-%d"), end_date.strftime("%Y-%m-%d"))
             
         elif self.type == 'instant':
             if self.from_model == True:
