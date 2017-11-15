@@ -287,8 +287,23 @@ def property_id(xule_context, object_value, *args):
         else:
             return xv.XuleValue(xule_context, object_value.value.xml_id, 'string')
     elif object_value.is_fact:
-        return xv.XuleValue(xule_context, object_value.fact.id, 'string')
+        if object_value.fact.id is None:
+            return xv.XuleValue(xule_context, None, 'none')
+        else:
+            return xv.XuleValue(xule_context, object_value.fact.id, 'string')
+
+def property_scale(xule_context, object_value, *args):
+    if hasattr(object_value.fact, 'scaleInt'):
+        return xv.XuleValue(xule_context, object_value.fact.scaleInt, 'int')
+    else:
+        return xv.XuleValue(xule_context, None, 'none')
  
+def property_format(xule_context, object_value, *args):
+    if hasattr(object_value.fact, 'format'):
+        return xv.XuleValue(xule_context, object_value.fact.format, 'qname')
+    else:
+        return xv.XuleValue(xule_context, None, 'none')
+
 def property_scheme(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, object_value.value[0], 'string')
 
@@ -1199,6 +1214,8 @@ PROPERTIES = {
               'is-numeric': (property_is_numeric, 0, ('concept', 'fact'), False),
               'is-monetary': (property_is_monetary, 0, ('concept', 'fact'), False),
               'is-abstract': (property_is_abstract, 0, ('concept', 'fact'), False),
+              'scale': (property_scale, 0, ('fact',), False),
+              'format': (property_format, 0, ('fact',), False),
               'label': (property_label, -2, ('concept', 'fact'), False),
               'text': (property_text, 0, ('label',), False),
               'lang': (property_lang, 0, ('label',), False),              
