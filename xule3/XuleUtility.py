@@ -146,9 +146,12 @@ def dimension_sets(dts):
 
 def dimension_set(dts, dimension_set_info):
     
-    return dimension_sets(dts).get(dimension_set_info,
-                                   XuleValue.XuleDimensionRelationshipSet(dts, *dimension_set_info))
-    
+    if dimension_set_info not in dimension_sets(dts):
+        import datetime
+        dimension_sets(dts)[dimension_set_info] = XuleValue.XuleDimensionRelationshipSet(dts, *dimension_set_info)
+
+    return dimension_sets(dts)[dimension_set_info]                                                         
+                                                                                        
 def relationship_set(dts, relationship_set_info):
 
     return (dts.relationshipSets[relationship_set_info] 

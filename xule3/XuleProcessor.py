@@ -2188,7 +2188,7 @@ def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non
        
                         
             #add the $item variable for the fact
-            xule_context.add_arg('item',
+            xule_context.add_arg('fact',
                                  #(factset['node_id'], 0),
                                  factset['whereExpr']['node_id'],
                                  None, #tagged
@@ -2430,7 +2430,7 @@ def evaluate_navigate(nav_expr, xule_context):
     
         direction = nav_expr['direction']
         include_start = nav_expr.get('includeStart', False)
-        
+
         for relationship_set in relationship_sets:
             if nav_from_concepts is None:
                 # The from was not in tne navigate expression. Use the roots

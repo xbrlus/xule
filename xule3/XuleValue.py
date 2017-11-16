@@ -741,7 +741,7 @@ class XuleDimensionRelationshipSet:
                         
             def traverse_dimension_relationships(dts, side, parent, arcrole, role, link_name, arc_name, previous=None, dimension_concept=None):
                 if previous is None: previous = list()
-                relationship_set = XuleUtility.relationship_set(dts, (arcrole, role, link_name, arc_name))
+                relationship_set = XuleUtility.relationship_set(dts, (arcrole, role, link_name, arc_name, False))
                 for model_child_rel in relationship_set.fromModelObjects().get(parent, list()):
                     child_rel = DimensionRelationship(model_child_rel, self, 'primary' if dimension_concept is None else 'dimension')
                     self._from_relationships[child_rel.fromModelObject].append(child_rel)
@@ -757,7 +757,7 @@ class XuleDimensionRelationshipSet:
                             dimension_concept = child_concept
                             self._dimension_members[dimension_concept]
                             # Check for dimension default.
-                            default_relationship_set = XuleUtility.relationship_set(dts,('http://xbrl.org/int/dim/arcrole/dimension-default', child_rel.targetRole or role, link_name, arc_name))
+                            default_relationship_set = XuleUtility.relationship_set(dts,('http://xbrl.org/int/dim/arcrole/dimension-default', child_rel.targetRole or role, link_name, arc_name, False))
                             default_concept = set(rel.toModelObject for rel in default_relationship_set.fromModelObject(dimension_concept))
                             if len(default_concept) == 0:
                                 self._dimension_default[dimension_concept] = None
@@ -793,7 +793,7 @@ class XuleDimensionRelationshipSet:
                 self._root_primaries.add(all_rel.toModelObject)
                 self._primaries.add(all_rel.toModelObject)
                 self._relationships.add(all_rel)
-                # The xbrel direction of the 'all' relationship is from primary to hypercube, but in the xule model, the hypercube is the top, so the direction is the opposite. This is
+                # The xbrl direction of the 'all' relationship is from primary to hypercube, but in the xule model, the hypercube is the top, so the direction is the opposite. This is
                 # handled by the DimensionRelationship() object.
                 self._from_relationships[all_rel.fromModelObject].append(all_rel)
                 self._to_relationships[all_rel.toModelObject].append(all_rel)
