@@ -119,7 +119,10 @@ def property_keys(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, frozenset(keys), 'set', shadow_collection=frozenset(keys_shadow))
 
 def property_values(xule_context, object_value, *args):
-    keys = sorted(object_value.value_dictionary.keys(), key=lambda x: x.shadow_collection if x.type in ('set', 'list') else x.value)
+    try:
+        keys = sorted(object_value.value_dictionary.keys(), key=lambda x: x.shadow_collection if x.type in ('set', 'list') else x.value)
+    except TypeError: #unsortable types
+        keys = object_value.value_dictionary.keys()
     vals = list(object_value.value_dictionary[k] for k in keys)
     vals_shadow = list(object_value.shadow_dictionary[k.shadow_colleciton if k.type in ('list', 'set') else k.value] for k in keys)
     
