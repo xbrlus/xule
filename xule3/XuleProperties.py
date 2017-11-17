@@ -322,14 +322,14 @@ def property_dimension(xule_context, object_value, *args):
         raise XuleProcessingError(_("The argument for property 'dimension' must be a qname, found '%s'." % dim_name.type),xule_context)
      
     member_model = model_fact.context.qnameDims.get(dim_name.value)
-    if member is None:
+    if member_model is None:
         return xv.XuleValue(xule_context, None, 'none')
     else:
-        if member.isExplicit:
+        if member_model.isExplicit:
             return xv.XuleValue(xule_context, member_model.member, 'concept')
         else:
             #this is a typed dimension
-            return xv.XuleValue(xule_context, member_model.typedMember.xValue, xv.model_to_xule_type(xule_context, member.typedMember.xValue))
+            return xv.XuleValue(xule_context, member_model.typedMember.xValue, xv.model_to_xule_type(xule_context, member_model.typedMember.xValue))
 
 def property_dimensions(xule_context, object_value, *args):
     result_dict = dict()
