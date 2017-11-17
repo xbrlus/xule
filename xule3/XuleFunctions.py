@@ -437,7 +437,7 @@ def agg_set(xule_context, values):
     facts = collections.OrderedDict()
     
     for current_value in values:
-        if current_value.type in ('set', 'list'):
+        if current_value.type in ('set', 'list', 'dictionary'):
             if current_value.shadow_collection not in shadow:
                 set_values.append(current_value)
                 shadow.append(current_value.shadow_collection)

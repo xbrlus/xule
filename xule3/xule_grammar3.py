@@ -457,6 +457,18 @@ def get_grammar():
                        Empty().setParseAction(lambda s, l, t: "list").setResultsName("functionName")
                        )
     
+    dictExpr = Group(Suppress(CaselessKeyword('dict')) + 
+                     Group(delimitedList(Group(blockExpr.setResultsName('key') + Literal('=') + blockExpr.setResultsName('value') + nodeName('item')))).setResultsName('items') +
+                     nodeName('dictExpr'))
+    
+    listExpr = Group(Suppress(CaselessKeyword('list')) +
+                     Group(delimitedList(blockExpr)).setResultsName('items') +
+                     nodeName('listExpr'))
+    
+    setExpr = Group(Suppress(CaselessKeyword('set')) + 
+                    Group(delimitedList(blockExpr)).setResultsName('items') +
+                    nodeName('setExpr'))
+    
     atom = (
             #listLiteral |
             # parenthesized expression - This needs to be up front for performance. 
@@ -484,8 +496,12 @@ def get_grammar():
             noneLiteral |
             skipLiteral |
             
+            dictExpr |
+            listExpr |
+            setExpr |
+            
             qName #|
-
+            
             #list literal - needs to be at the end.
             #listLiteral 
             )

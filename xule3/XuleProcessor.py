@@ -2306,6 +2306,44 @@ def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non
 
     return results, default_used_expressions
 
+def evaluate_dict(dict_expr, xule_context):
+    result_dict = dict()
+    result_shadow = dict()
+    
+    for pair in dict_expr['items']:
+        key = evaluate(pair['key'], xule_context)
+        value = evaluate(pair['value'], xule_context)
+    
+        if key.type == 'dictionary':
+            raise XuleProcessingError(_("Key to a dictionary cannot be a dictionary."), xule_context)
+        
+        if key.shadow_collection if key.type in ('set', 'list') else key.value  not in result_shadow:
+            result_dict[key] = value
+            result_shadow[key.shadow_collection if key.type in ('set', 'list') else key.value] = value.shadow_collection if value.type in ('set', 'list', 'dictionary') else value.value
+    
+    return XuleValue(xule_context, frozenset(result_dict.items()), 'dictionary', shadow_collection=frozenset(result_shadow.items()))
+
+def evaluate_list(list_expr, xule_context):
+    result = list()
+    result_shadow = list()
+    for item in list_expr['items']:
+        item_value = evaluate(item, xule_context)
+        result.append(item_value)
+        result_shadow.append(item_value.value)
+    
+    return XuleValue(xule_context, tuple(result), 'list', shadow_collection=tuple(result_shadow))
+
+def evaluate_set(set_expr, xule_context):
+    result = list()
+    result_shadow = list()
+    for item in set_expr['items']:
+        item_value = evaluate(item, xule_context)
+        if item_value.shadow_collection if item_value.type in ('set', 'list', 'dictionary') else item_value.value not in result_shadow:
+            result.append(item_value)
+            result_shadow.append(item_value.value)
+    
+    return XuleValue(xule_context, frozenset(result), 'set', shadow_collection=frozenset(result_shadow))
+
 def evaluate_filter(filter_expr, xule_context):
 
     collection_value = evaluate(filter_expr['expr'], xule_context)
@@ -3770,6 +3808,9 @@ EVALUATOR = {
     "factset": evaluate_factset,
     "navigation": evaluate_navigate,
     "filter": evaluate_filter,
+    "dictExpr": evaluate_dict,
+    "listExpr": evaluate_list,
+    "setExpr": evaluate_set,
     #'valuesExpr': evaluate_values,
     
     #expressions with order of operations
