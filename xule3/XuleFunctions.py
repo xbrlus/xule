@@ -11,6 +11,8 @@ from arelle.ModelValue import qname, QName
 import collections
 from . import XuleRollForward as rf
 from aniso8601 import parse_duration
+import urllib.request
+import decimal
 
 class XuleSDic(XuleValue):
     def __init__(self, xule_context, name):
@@ -515,132 +517,132 @@ def agg_dict(xule_context, values):
         return_value.facts = facts
     return return_value  
 
-def func_sdic_create(xule_context, *args):
-    name = args[0].value
-
-    return XuleSDic(xule_context, name)
-
-def func_sdic_from_paired_list(xule_context, *args):
-    name = args[0].value
-    pairs = args[1]
-    unique = args[2]
-    
-    dic = XuleSDic(xule_context, name)
-    
-    if pairs.type == 'unbound':
-        return dic
-    
-    if pairs.type not in  ('list','set'):
-        raise XuleProcessingError(_("Second argument to 'sdic_from_paired_list' must be a list or set, found %s" % pairs.type), xule_context)
-    
-    if unique.type != 'bool':
-        raise XuleProcessingError(_("Third argument to 'sdic_from_paired_list' must be a boolean, found %s" % unique.type), xule_context)
-    
-    for pair in pairs.value:
-        if pair.type != 'list':
-            raise XuleProcessingError(_("In 'sdic_from_paried_list', the second level must be a list, found %s" % pair.type), xule_context)
-        if len(pair.value) != 2:
-            raise XuleProcessingError(_("In 'sdic_from_paried_list', the second level must be a list of length 2, found %i" % len(pair.value)), xule_context)
-        
-        if unique.value:
-            func_sdic_set_item(xule_context, dic, pair.value[0], pair.value[1])
-        else:
-            func_sdic_append(xule_context, dic, pair.value[0], pair.value[1])
-    
-    return dic
-    
-def func_sdic_append(xule_context, *args):
-    dic = args[0]
-    key = args[1]
-    value = args[2]
-
-    if dic.type == 'unbound':
-        return dic
-    if dic.type != 'sdic':
-        raise XuleProcessingError(_("First argument to 'sdic_append' must be a sdic, found %s" % dic.type), xule_context)
-
-    if key.type == 'unbound':
-        return dic
-
-    return dic.append(key, value)
-
-def func_sdic_find_items(xule_context, *args):
-    dic = args[0]
-    value = args[1]
-    
-    if dic.type == 'unbound':
-        return dic
-    if dic.type != 'sdic':
-        raise XuleProcessingError(_("First argument to 'sdic_find_items' must be a sdic, found %s" % dic.type), xule_context)    
-
-    return dic.find_items(value)
-    
-def func_sdic_get_item(xule_context, *args):
-    dic = args[0]
-    key = args[1]
-    
-    if dic.type == 'unbound':
-        return dic
-    if dic.type != 'sdic':
-        #return XuleValue(xule_context, None, 'unbound')
-        raise XuleProcessingError(_("First argument to 'sdic_get_item' must be a sdic, found %s" % dic.type), xule_context)    
-    if key.type == 'unbound':
-        raise XuleProcessingError(_("Key for a sdic cannout be missing"), xule_context)
-    
-    return dic.get_item(key)
-
-def func_sdic_get_items(xule_context, *args):
-    dic = args[0]
-    key = args[1]
-
-    if dic.type == 'unbound':
-        return dic
-    if dic.type != 'sdic':
-        raise XuleProcessingError(_("First argument to 'sdic_get_items' must be a sdic, found %s" % dic.type), xule_context)    
-    if key.type == 'unbound':
-        raise XuleProcessingError(_("Key for a sdic cannout be missing"), xule_context)
-    
-    return dic.get_items(key)
-
-def func_sdic_has_key(xule_context, *args):
-    dic = args[0]
-    key = args[1]
-
-    if dic.type == 'unbound':
-        return dic
-    if dic.type != 'sdic':
-        raise XuleProcessingError(_("First argument to 'sdic_has_key' must be a sdic, found %s" % dic.type), xule_context)    
-    if key.type == 'unbound':
-        raise XuleProcessingError(_("Key for a sdic cannout be missing"), xule_context)    
-    
-    return dic.has_key(key)
-
-def func_sdic_remove_item(xule_context, *args):
-    dic = args[0]
-    key = args[1]
-
-    if dic.type == 'unbound':
-        return dic
-    if dic.type != 'sdic':
-        raise XuleProcessingError(_("First argument to 'sdic_remove_item' must be a sdic, found %s" % dic.type), xule_context)    
-    if key.type == 'unbound':
-        raise XuleProcessingError(_("Key for a sdic cannout be missing"), xule_context)  
-
-    return dic.remove_item(key)
-
-def func_sdic_set_item(xule_context, *args):
-    dic = args[0]
-    key = args[1]
-    value = args[2]
-
-    if dic.type == 'unbound':
-        return dic
-    if dic.type != 'sdic':
-        raise XuleProcessingError(_("First argument to 'sdic_set_item' must be a sdic, found %s" % dic.type), xule_context)    
-    if key.type == 'unbound':
-        raise XuleProcessingError(_("Key for a sdic cannout be missing"), xule_context) 
-    
-    return dic.set_item(key, value)
+# def func_sdic_create(xule_context, *args):
+#     name = args[0].value
+# 
+#     return XuleSDic(xule_context, name)
+# 
+# def func_sdic_from_paired_list(xule_context, *args):
+#     name = args[0].value
+#     pairs = args[1]
+#     unique = args[2]
+#     
+#     dic = XuleSDic(xule_context, name)
+#     
+#     if pairs.type == 'unbound':
+#         return dic
+#     
+#     if pairs.type not in  ('list','set'):
+#         raise XuleProcessingError(_("Second argument to 'sdic_from_paired_list' must be a list or set, found %s" % pairs.type), xule_context)
+#     
+#     if unique.type != 'bool':
+#         raise XuleProcessingError(_("Third argument to 'sdic_from_paired_list' must be a boolean, found %s" % unique.type), xule_context)
+#     
+#     for pair in pairs.value:
+#         if pair.type != 'list':
+#             raise XuleProcessingError(_("In 'sdic_from_paried_list', the second level must be a list, found %s" % pair.type), xule_context)
+#         if len(pair.value) != 2:
+#             raise XuleProcessingError(_("In 'sdic_from_paried_list', the second level must be a list of length 2, found %i" % len(pair.value)), xule_context)
+#         
+#         if unique.value:
+#             func_sdic_set_item(xule_context, dic, pair.value[0], pair.value[1])
+#         else:
+#             func_sdic_append(xule_context, dic, pair.value[0], pair.value[1])
+#     
+#     return dic
+#     
+# def func_sdic_append(xule_context, *args):
+#     dic = args[0]
+#     key = args[1]
+#     value = args[2]
+# 
+#     if dic.type == 'unbound':
+#         return dic
+#     if dic.type != 'sdic':
+#         raise XuleProcessingError(_("First argument to 'sdic_append' must be a sdic, found %s" % dic.type), xule_context)
+# 
+#     if key.type == 'unbound':
+#         return dic
+# 
+#     return dic.append(key, value)
+# 
+# def func_sdic_find_items(xule_context, *args):
+#     dic = args[0]
+#     value = args[1]
+#     
+#     if dic.type == 'unbound':
+#         return dic
+#     if dic.type != 'sdic':
+#         raise XuleProcessingError(_("First argument to 'sdic_find_items' must be a sdic, found %s" % dic.type), xule_context)    
+# 
+#     return dic.find_items(value)
+#     
+# def func_sdic_get_item(xule_context, *args):
+#     dic = args[0]
+#     key = args[1]
+#     
+#     if dic.type == 'unbound':
+#         return dic
+#     if dic.type != 'sdic':
+#         #return XuleValue(xule_context, None, 'unbound')
+#         raise XuleProcessingError(_("First argument to 'sdic_get_item' must be a sdic, found %s" % dic.type), xule_context)    
+#     if key.type == 'unbound':
+#         raise XuleProcessingError(_("Key for a sdic cannout be missing"), xule_context)
+#     
+#     return dic.get_item(key)
+# 
+# def func_sdic_get_items(xule_context, *args):
+#     dic = args[0]
+#     key = args[1]
+# 
+#     if dic.type == 'unbound':
+#         return dic
+#     if dic.type != 'sdic':
+#         raise XuleProcessingError(_("First argument to 'sdic_get_items' must be a sdic, found %s" % dic.type), xule_context)    
+#     if key.type == 'unbound':
+#         raise XuleProcessingError(_("Key for a sdic cannout be missing"), xule_context)
+#     
+#     return dic.get_items(key)
+# 
+# def func_sdic_has_key(xule_context, *args):
+#     dic = args[0]
+#     key = args[1]
+# 
+#     if dic.type == 'unbound':
+#         return dic
+#     if dic.type != 'sdic':
+#         raise XuleProcessingError(_("First argument to 'sdic_has_key' must be a sdic, found %s" % dic.type), xule_context)    
+#     if key.type == 'unbound':
+#         raise XuleProcessingError(_("Key for a sdic cannout be missing"), xule_context)    
+#     
+#     return dic.has_key(key)
+# 
+# def func_sdic_remove_item(xule_context, *args):
+#     dic = args[0]
+#     key = args[1]
+# 
+#     if dic.type == 'unbound':
+#         return dic
+#     if dic.type != 'sdic':
+#         raise XuleProcessingError(_("First argument to 'sdic_remove_item' must be a sdic, found %s" % dic.type), xule_context)    
+#     if key.type == 'unbound':
+#         raise XuleProcessingError(_("Key for a sdic cannout be missing"), xule_context)  
+# 
+#     return dic.remove_item(key)
+# 
+# def func_sdic_set_item(xule_context, *args):
+#     dic = args[0]
+#     key = args[1]
+#     value = args[2]
+# 
+#     if dic.type == 'unbound':
+#         return dic
+#     if dic.type != 'sdic':
+#         raise XuleProcessingError(_("First argument to 'sdic_set_item' must be a sdic, found %s" % dic.type), xule_context)    
+#     if key.type == 'unbound':
+#         raise XuleProcessingError(_("Key for a sdic cannout be missing"), xule_context) 
+#     
+#     return dic.set_item(key, value)
 
 def func_taxonomy(xule_context, *args):
     if len(args) == 0:
@@ -657,6 +659,106 @@ def func_taxonomy(xule_context, *args):
     else:
         raise XuleProcessingError(_("The taxonomy() function takes at most 1 argument, found {}".format(len(args))))
 
+def func_data(xule_context, *args):
+    
+    file_type = args[0]
+    file_url = args[1]
+    print(file_url)
+    if len(args) < 2:
+        raise XuleProcessingError(_("The data() function requires at least 2 arguments (file type, file url), found {} arguments.".format(len(args))), xule_context)
+    if len(args) > 3:
+        raise XuleProcessingError(_("The data() function takes no more than 3 arguments (file type, file url, column types), found {} arguments.".format(len(args))), xule_context)
+    
+    if file_type.value == 'csv':
+        pass
+    else:
+        raise XuleProcessingError(_("The data() function currently only supports csv. Found '{}'.".format(file_type.value)), xule_value)
+    
+    if file_url.type not in ('string', 'uri'):
+        raise XuleProcessingError(_("The data file name must be a string or uri, Found '{}'.".format(file_url.value)), xule_value)
+    
+    if len(args) == 3:    
+        column_types = args[2]
+        if column_types.type != 'list':
+            raise XuleProcessingError(_("The thrid argument of the data() fucntion must be list, found '{}'.".format(column_types.type)), xule_context)
+        
+        ordered_cols = list()
+        for col in column_types.value:
+            if col.type != 'string':
+                raise XuleProcessingError(_("The thrid argument of the data() function must be a list of strings, found '{}'.".format(col.type)), xule_context)
+            ordered_cols.append(col.value)
+    else:
+        ordered_cols = None
+        
+    result = list()
+    result_shadow = list()
+
+    if file_url.value.startswith('http://') or file_url.value.startswith('https://'):
+        try:
+            data_source = urllib.request.urlopen(file_url.value).read().decode('utf-8').splitlines()
+        except urllib.error.HTTPError as he:
+            raise XuleProcessingError(_("Trying to open url '{}', got HTTP {} - {}, error".format(file_url.value, he.code, he.reason)), xule_context)
+    else:
+        try:
+            with open(file_url.value, 'r', newline='') as data_file:
+                data_source = data_file.readlines()
+        except FileNotFoundError:
+            raise XuleProcessingError(_("Trying to open file '{}', but file is not found.".format(file_url.value)), xule_context)
+        
+    import csv
+    reader = csv.reader(data_source)
+    for line in reader:
+        result_line = list()
+        result_line_shadow = list()
+        for col_num, item in enumerate(line):
+            if ordered_cols is not None and col_num >= len(ordered_cols):
+                raise XuleProcessingError(_("The nubmer of columns in the data source is greater than the number of column types provided in the third argument of the data() function"), xule_context)
+            
+            item_value = convert_file_data_item(item, ordered_cols[col_num] if ordered_cols is not None else None, xule_context)
+
+            result_line.append(item_value)
+            result_line_shadow.append(item_value.value)
+        result.append(XuleValue(xule_context, tuple(result_line), 'list', shadow_collection=tuple(result_line_shadow)))
+          
+
+
+    return XuleValue(xule_context, tuple(result), 'list', shadow_collection=tuple(result_shadow))
+                
+def convert_file_data_item(item, type, xule_context):
+    
+    if type is None:
+        return XuleValue(xule_context, item, 'string')
+    elif type == 'qname':
+        if item.count(':') == 0:
+            prefix = '*' # This indicates the default namespace
+            local_name = item
+        elif item.count(':') == 1:
+            prefix, local_name = item.split(':')
+        else:
+            raise XuleProcessingError(_("While processing a data file, QName in a file can only have one ':', found {} ':'s".format(item.count(':'))), xule_context)
+        
+        namespace = xule_context.rule_set.getNamespaceUri(prefix)
+        
+        return XuleValue(xule_context, QName(prefix if prefix != '*' else None, namespace, local_name), 'qname')
+    elif type == 'int':
+        try:
+            return XuleValue(xule_context, int(item), 'int')
+        except ValueError:
+            raise XuleProcessingError(_("While processing a data file, cannot convert '{}' to an {}.".format(item, type)), xule_context)
+    elif type == 'float':
+        try:
+            return XuleValue(xule_context, float(item), 'float')
+        except ValueError:
+            raise XuleProcessingError(_("While processing a data file, cannot convert '{}' to a {}.".format(item, type)), xule_context)
+    elif type == 'decimal':
+        try:
+            return XuleValue(xule_context, decimal.Decimal(item), 'decimal')
+        except decimal.InvalidOperation:
+            raise XuleProcessingError(_("While processing a data file, cannot convert '{}' to a {}.".format(item, type)), xule_context)
+    elif type == 'string':
+        return XuleValue(xule_context, item, type)        
+    else:
+        raise XuleProcessingError(_("While processing a data file, {} is not implemented.".format(type)), xule_context)
 
 #the position of the function information
 FUNCTION_TYPE = 0
@@ -702,17 +804,18 @@ def built_in_functions():
              'number': ('regular', func_number, 1, False, 'single'),
              'mod': ('regular', func_mod, 2, False, 'single'),
              'extension_concepts': ('regular', func_extension_concept, 0, False, 'single'),             
-             'sdic_create': ('regular', func_sdic_create, 1, False, 'single'),
-             'sdic_from_paired_list': ('regular', func_sdic_from_paired_list, 3, True, 'single'),
-             'sdic_append': ('regular', func_sdic_append, 3, True, 'single'),             
-             'sdic_find_items': ('regular', func_sdic_find_items, 2, True, 'single'),
-             'sdic_get_item': ('regular', func_sdic_get_item, 2, True, 'single'),
-             'sdic_get_items': ('regular', func_sdic_get_items, 2, True, 'single'),
-             'sdic_has_key': ('regular', func_sdic_has_key, 2, True, 'single'),
-             'sdic_remove_item': ('regular', func_sdic_remove_item, 2, True, 'single'),
-             'sdic_set_item': ('regular', func_sdic_set_item, 3, True, 'single'),
+#              'sdic_create': ('regular', func_sdic_create, 1, False, 'single'),
+#              'sdic_from_paired_list': ('regular', func_sdic_from_paired_list, 3, True, 'single'),
+#              'sdic_append': ('regular', func_sdic_append, 3, True, 'single'),             
+#              'sdic_find_items': ('regular', func_sdic_find_items, 2, True, 'single'),
+#              'sdic_get_item': ('regular', func_sdic_get_item, 2, True, 'single'),
+#              'sdic_get_items': ('regular', func_sdic_get_items, 2, True, 'single'),
+#              'sdic_has_key': ('regular', func_sdic_has_key, 2, True, 'single'),
+#              'sdic_remove_item': ('regular', func_sdic_remove_item, 2, True, 'single'),
+#              'sdic_set_item': ('regular', func_sdic_set_item, 3, True, 'single'),
              
              'taxonomy': ('regular', func_taxonomy, -1, False, 'single'),
+             'data': ('regular', func_data, -3, False, 'single'),
 
              }    
     
