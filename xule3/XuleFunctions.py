@@ -696,10 +696,13 @@ def func_data(xule_context, *args):
     if file_url.value.startswith('http://') or file_url.value.startswith('https://'):
         
         if file_url.value.startswith('https://') and getattr(xule_context.global_context.options, 'noCertificateCheck', False):
-            import ssl
-            context = ssl.create_default_context()
-            context.check_hostname = False
-            context.verify_mode = ssl.CERT_NONE
+            try:
+                import ssl
+                context = ssl.create_default_context()
+                context.check_hostname = False
+                context.verify_mode = ssl.CERT_NONE
+            except ImportError:
+                context=None
         else:
             context = None
         try:
