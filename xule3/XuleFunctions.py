@@ -694,8 +694,16 @@ def func_data(xule_context, *args):
     result_shadow = list()
 
     if file_url.value.startswith('http://') or file_url.value.startswith('https://'):
+        
+        if file_url.value.startswith('https://') and getattr(xule_context.global_context.options, 'noCertificateCheck', False):
+            import ssl
+            context = ssl.create_default_context()
+            context.check_hostname = False
+            context.verify_mode = ssl.CERT_NONE
+        else:
+            context = None
         try:
-            data_source = urllib.request.urlopen(file_url.value).read().decode('utf-8').splitlines()
+            data_source = urllib.request.urlopen(file_url.value, context=context).read().decode('utf-8').splitlines()
         except urllib.error.HTTPError as he:
             raise XuleProcessingError(_("Trying to open url '{}', got HTTP {} - {}, error".format(file_url.value, he.code, he.reason)), xule_context)
     else:
