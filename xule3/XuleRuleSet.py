@@ -745,7 +745,11 @@ class XuleRuleSet(object):
                         elif xf.BUILTIN_FUNCTIONS[parse_node['functionName']][xf.FUNCTION_RESULT_NUMBER] == 'multi':
                             parse_node['function_type'] = 'builtin'
                             parse_node['number'] = 'multi'
-                            parse_nodeparse_node['is_iterable'] = True                           
+                            parse_nodeparse_node['is_iterable'] = True     
+                        else:
+                            #regular builtin function
+                            if parse_node['number'] == 'single':
+                                parse_node['cacheable'] = True     
                         #all other built in functions use the defaults
                         
             elif current_part == 'functionDeclaration':        
@@ -957,7 +961,8 @@ class XuleRuleSet(object):
             self._cleanup_ruleset_detail(parseRes)
     
     def _cleanup_ruleset_detail(self, parse_node):
-        for prop in ('number', 'dependent_vars', 'downstream_iterables', 'var_exclusion_ids'):
+        #for prop in ('number', 'dependent_vars', 'downstream_iterables', 'var_exclusion_ids'):
+        for prop in ('dependent_vars', 'downstream_iterables', 'var_exclusion_ids'):
             if prop in parse_node:
                 del parse_node[prop]
         if 'dependent_iterables' in parse_node:

@@ -511,23 +511,35 @@ def evaluate(rule_part, xule_context, is_values=False, trace_dependent=False, ov
                 raise XuleProcessingError(_("Internal error: Found iterable (%s) that does not have a dependency flag." % rule_part_name),xule_context)
         else: # is_iterable
             trace_source = "e"
-            try:
-                value = EVALUATOR[rule_part_name](rule_part, xule_context)
-            except XuleIterationStop:
-                if getattr(xule_context.global_context.options, "xule_trace", False):
-                #if xule_context.show_trace: 
-                    xule_context.trace_level -= 1
-                if getattr(xule_context.global_context.options, "xule_trace_count", False):
-                #if xule_context.show_trace_count:
-                    xule_context.expression_trace[rule_part['node_id']]['iterations-t'] += datetime.datetime.today() - expression_trace_start
-                    xule_context.expression_trace[rule_part['node_id']]['ise-t'] += datetime.datetime.today() - expression_trace_start
-                    xule_context.expression_trace[rule_part['node_id']]['ise'] += 1
-                    trace_written = True
-                raise
-            except XuleReEvaluate as e:
-                trace_source = 'r'
-                raise
-
+            # Check the cache - only if the expression does have something in it that produces multiple results and its not a varRef.
+            if rule_part['number'] == 'single' and rule_part['exprName'] != 'varRef':
+                local_cache_key = get_local_cache_key(rule_part, xule_context)
+            else:
+                local_cache_key = None
+            if local_cache_key is None:
+                value = None
+            else:
+                value = xule_context.local_cache.get(local_cache_key)
+            if value is None:
+                try:
+                    value = EVALUATOR[rule_part_name](rule_part, xule_context)
+                except XuleIterationStop:
+                    if getattr(xule_context.global_context.options, "xule_trace", False):
+                    #if xule_context.show_trace: 
+                        xule_context.trace_level -= 1
+                    if getattr(xule_context.global_context.options, "xule_trace_count", False):
+                    #if xule_context.show_trace_count:
+                        xule_context.expression_trace[rule_part['node_id']]['iterations-t'] += datetime.datetime.today() - expression_trace_start
+                        xule_context.expression_trace[rule_part['node_id']]['ise-t'] += datetime.datetime.today() - expression_trace_start
+                        xule_context.expression_trace[rule_part['node_id']]['ise'] += 1
+                        trace_written = True
+                    raise
+                except XuleReEvaluate as e:
+                    trace_source = 'r'
+                    raise
+                
+                if local_cache_key is not None:
+                    xule_context.local_cache[local_cache_key] = value
     
         #If the look_for_alignment flag is set, check if there is now alignment after adding the column. This is used in 'where' clause processing.
         #if xule_context.look_for_alignment and xule_context.iteration_table.any_alignment is not None:
