@@ -656,7 +656,7 @@ class XuleRuleSet(object):
                     
             elif current_part == 'filter':
                 if 'whereExpr' in parse_node or 'returnsExpr' in parse_node:
-                    parse_node['var_refs'] = [x for x in parse_node['var_refs'] if x[0] != parse_node['node_id']]
+                    parse_node['var_refs'] = [x for x in parse_node['var_refs'] if x[0] != parse_node['expr']['node_id']]
                     
             elif current_part == 'whereExpr':
                 '''whereExpr IS NOW IN NAVIGATION AND FILTERS. DOES THE whereExpr NEED TO HAVE A TABLE ID FOR THESE EXPRESSION?'''
