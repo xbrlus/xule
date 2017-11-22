@@ -800,7 +800,7 @@ class XuleRuleSet(object):
                 #find the namespace uri for the prefix
                 parse_node['namespace_uri'] = self.getNamespaceUri(parse_node['prefix'])
 
-            elif current_part == 'constantAssign':
+            elif current_part == 'constantDeclaration':
                 if parse_node['number'] == 'multi':
                     parse_node['is_iterable'] = True
                     
@@ -858,7 +858,7 @@ class XuleRuleSet(object):
             #constantAssign expressions are never dependent.
             for var in dependent_vars:
                 var_def_expr = var_defs[var[0]]
-                if var_def_expr['exprName'] == 'constantconstantDeclaration':
+                if var_def_expr['exprName'] == 'constantDeclaration':
                     additional_iterables.append(var_def_expr)
                 else:
                     #the variable has to be assigned upstream   

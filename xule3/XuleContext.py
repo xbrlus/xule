@@ -436,7 +436,7 @@ class XuleRuleContext(object):
                         ast_const = self.global_context.rule_set.getItem(cat_const)
                         var_value = self._BUILTIN_CONSTANTS[var_name](self)
                         var_info = {"name": var_name,
-                                    "tagged": None,
+                                    "tagged": True,
                                     "type": self._VAR_TYPE_CONSTANT,
                                     "expr": ast_const,
                                     "calculated": True,
@@ -456,7 +456,7 @@ class XuleRuleContext(object):
                     else:
                         ast_const = self.global_context.rule_set.getItem(cat_const)
                         var_info = {"name": var_name,
-                                    "tagged": 'tagged' in ast_const,
+                                    "tagged": True,
                                     "type": self._VAR_TYPE_CONSTANT,
                                     "expr": ast_const,
                                     "calculated": False,

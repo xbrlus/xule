@@ -459,7 +459,7 @@ def evaluate(rule_part, xule_context, is_values=False, trace_dependent=False, ov
                         #if xule_context.global_context.no_cache:
                             values = None
                         else:
-                            if (rule_part['table_id'] != xule_context.iteration_table.main_table_id or
+                            if (rule_part.get('table_id') != xule_context.iteration_table.main_table_id or
                                 is_dependent):
                                 
                                 local_cache_key =  get_local_cache_key(rule_part, xule_context) 
@@ -472,7 +472,7 @@ def evaluate(rule_part, xule_context, is_values=False, trace_dependent=False, ov
                             trace_source = "E" 
                             if not getattr(xule_context.global_context.options, "xule_no_cache", False):
                             #if not xule_context.global_context.no_cache:
-                                if (rule_part['table_id'] != xule_context.iteration_table.main_table_id or
+                                if (rule_part.get('table_id') != xule_context.iteration_table.main_table_id or
                                 is_dependent):
                                     local_cache_key =  get_local_cache_key(rule_part, xule_context) 
                                     if local_cache_key is not None:  
@@ -512,10 +512,15 @@ def evaluate(rule_part, xule_context, is_values=False, trace_dependent=False, ov
         else: # is_iterable
             trace_source = "e"
             # Check the cache - only if the expression does have something in it that produces multiple results and its not a varRef.
-            if rule_part['number'] == 'single' and rule_part['exprName'] != 'varRef':
-                local_cache_key = get_local_cache_key(rule_part, xule_context)
-            else:
+            if getattr(xule_context.global_context.options, "xule_no_cache", False): 
                 local_cache_key = None
+            else: 
+                if rule_part['number'] == 'single' and rule_part['exprName'] not in ('varRef', 'tagRef'):
+                    local_cache_key = get_local_cache_key(rule_part, xule_context)
+                else:
+                    local_cache_key = None
+
+                
             if local_cache_key is None:
                 value = None
             else:
@@ -538,8 +543,9 @@ def evaluate(rule_part, xule_context, is_values=False, trace_dependent=False, ov
                     trace_source = 'r'
                     raise
                 
-                if local_cache_key is not None:
-                    xule_context.local_cache[local_cache_key] = value
+                if not getattr(xule_context.global_context.options, "xule_no_cache", False):  
+                    if local_cache_key is not None:
+                        xule_context.local_cache[local_cache_key] = value
     
         #If the look_for_alignment flag is set, check if there is now alignment after adding the column. This is used in 'where' clause processing.
         #if xule_context.look_for_alignment and xule_context.iteration_table.any_alignment is not None:
@@ -713,7 +719,7 @@ def evaluate_assertion(assert_rule, xule_context):
                     messages = dict()
                     # Process each of the results in the rule. The Results are the messages that are produced.
                     for rule_result in assert_rule.get('results', list()):
-                        message_context = xule_context.create_message_copy(xule_context.get_processing_id(assert_rule['node_id']))
+                        #message_context = xule_context.create_message_copy(xule_context.get_processing_id(assert_rule['node_id']))
                         #messages[rule_result['resultName']] = get_message(assert_rule, xule_value, xule_context.iteration_table.current_alignment, message_context)
                         messages[rule_result['resultName']] = result_message(assert_rule, rule_result, xule_value, xule_context)
                     
@@ -784,7 +790,7 @@ def evaluate_output_rule(output_rule, xule_context):
                 messages = dict()
                 # Process each of the results in the rule. The Results are the messages that are produced.
                 for rule_result in output_rule.get('results', list()):
-                    message_context = xule_context.create_message_copy(xule_context.get_processing_id(output_rule['node_id']))
+                    #message_context = xule_context.create_message_copy(xule_context.get_processing_id(output_rule['node_id']))
                     messages[rule_result['resultName']] = result_message(output_rule, rule_result, xule_value, xule_context)
                 
                 #get severity
@@ -4148,16 +4154,16 @@ def alignment_to_aspect_info(alignment, xule_context):
 def sugar_trace(value, rule_part, xule_context):
     part_name = rule_part['exprName']
     if part_name == 'forExpr':
-        return (rule_part.forControl.forVar,)
+        return (rule_part['forLoopExpr']['forVar'],)
     elif part_name == 'varRef':
-        return (rule_part.varName,)
+        return (rule_part['varName'],)
     elif part_name == 'functionReference':
-        function_info = xule_context.find_function(rule_part.functionName)
+        function_info = xule_context.find_function(rule_part['functionName'])
         if function_info is None:
-            return (rule_part.functionName, tuple())
+            return (rule_part['functionName'], tuple())
         else:
-            args = tuple([x.argName for x in function_info['function_declaration'].functionArgs])
-            return (rule_part.functionName, args)
+            args = tuple([x.argName for x in function_info['function_declaration']['functionArgs']])
+            return (rule_part['functionName'], args)
     elif part_name == 'factset':
         return (value,)
     else:
@@ -4214,15 +4220,25 @@ def format_trace_info(expr_name, sugar, common_aspects, xule_context):
 
 def result_message(rule_ast, result_ast, xule_value, xule_context):
     message_context = xule_context.create_message_copy(xule_context.get_processing_id(rule_ast['node_id']))
-
-    message_value = evaluate(result_ast['resultExpr'], message_context)
+    try:
+        # Caching does not work for expressions with tagRefs. The The results portion of a rule will have a tagRef for each varRef. This conversion is
+        # done during the post parse step. So it is neccessary to turn local caching off when evaluating the result expression. There is a command line option
+        # for doing this. This code will turn this command line option on.
+        saved_no_cache = getattr(message_context.global_context.options, 'xule_no_cache')
+        xule_context.global_context.options.xule_no_cache = True
+        
+        message_value = evaluate(result_ast['resultExpr'], message_context)
+    finally:
+        if hasattr(message_context.global_context.options, 'xule_no_cache'):
+            xule_context.global_context.options.xule_no_cache = saved_no_cache   
+                 
     if message_value.type == 'unbound':
         message_string = ""
     else:
         message_string = str(message_value.value)
-    
-    message_string = process_message(message_string, xule_value, xule_context)
-    
+        
+        #message_string = process_message(message_string, xule_value, xule_context)
+        
     return str(message_string)
     
 # def get_message(rule, xule_value, alignment, xule_context):
