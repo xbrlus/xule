@@ -650,7 +650,7 @@ class XuleRuleSet(object):
                 if 'innerExpr' in parse_node:
                     self.assign_table_id(parse_node['innerExpr'], var_defs, override_node_id=parse_node['node_id'])           
             
-            elif current_part == 'navigate':
+            elif current_part == 'navigation':
                 if 'whereExpr' in parse_node:
                     parse_node['var_refs'] = [x for x in parse_node['var_refs'] if x[0] != parse_node['whereExpr']['node_id']]
                     
