@@ -798,8 +798,9 @@ def evaluate_output_rule(output_rule, xule_context):
                     severity = 'INFO'
                 
                 #message - this is the main message
-                #ain_message = messages.get('message', xule_value.format_value())
-                main_message = messages.get('message', process_message("${value} ${context}", xule_value, xule_context))
+                #main_message = messages.get('message', xule_value.format_value())
+                #main_message = messages.get('message', process_message("${value} ${context}", xule_value, xule_context))
+                main_message = messages.get('message', xule_value.format_value())
                 messages.pop('message', None)
                 
                 full_rule_name = xule_context.rule_name
@@ -1930,24 +1931,32 @@ def factset_pre_match(factset, filters, non_aligned_filters, aligned_filters, xu
         
         if aspect_info[SPECIAL_VALUE] is not None:
             if aspect_info[SPECIAL_VALUE] == '*':
-                if aspect_info[TYPE] == 'builtin' and aspect_info[ASPECT] in ('concept', 'period', 'entity'):
-                    #this is all facts
-                    continue
-                else:
-                    #need to combine all the facts that have that aspect
-                    facts_by_aspect = set(it.chain.from_iterable(v for k, v in xule_context.fact_index[index_key].items() if k is not None))
+                if aspect_info[ASPECT_OPERATOR] == '=':
+                    if aspect_info[TYPE] == 'builtin' and aspect_info[ASPECT] in ('concept', 'period', 'entity'):
+                        #this is all facts
+                        continue
+                    else:
+                        #need to combine all the facts that have that aspect
+                        facts_by_aspect = set(it.chain.from_iterable(v for k, v in xule_context.fact_index[index_key].items() if k is not None))
+                else: # the operator is != ('in' and 'not in' are not allowed with a special value)
+                    if aspect_info[TYPE] == 'builtin' and aspect_info[ASPECT] in ('concept', 'period', 'entity'):
+                        # No facts can match these aspects not equal to * (i.e. @concept != *)
+                        pre_matched_facts = []
+                        break
+                    else:
+                        facts_by_aspect = xule_context.fact_index[index_key][None]
         else:                
             if aspect_info[ASPECT_OPERATOR] == 'in' and filter_member.type not in ('list', 'set'):
                     raise XuleProcessingError(_("The value for '%s' with 'in' must be a set or list, found '%s'" % (index_key[ASPECT], filter_member.type)), xule_context)
 
             #fix for aspects that take qname members (concept and explicit dimensions. The member can be a concept or a qname. The index is by qname.
             if index_key == ('builtin', 'concept'):
-                if aspect_info[ASPECT_OPERATOR] == '=':
+                if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
                     member_values = {convert_value_to_qname(filter_member, xule_context),}
                 else:
                     member_values = {convert_value_to_qname(x, xule_context) for x in filter_member.value}
             elif index_key[TYPE] == 'explicit_dimension':
-                if aspect_info[ASPECT_OPERATOR] == '=':
+                if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
                     if filter_member.type == 'concept':
                         member_values = {convert_value_to_qname(filter_member, xule_context),}
                     else:
@@ -1956,29 +1965,33 @@ def factset_pre_match(factset, filters, non_aligned_filters, aligned_filters, xu
                     member_values = {convert_value_to_qname(x, xule_context) if x.type == 'concept' else x.value for x in filter_member.value}
             #Also fix for period aspect
             elif index_key == ('builtin', 'period'):
-                if aspect_info[ASPECT_OPERATOR] == '=':
+                if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
                     member_values = {convert_value_to_model_period(filter_member, xule_context),}
                 else:
                     member_values= {convert_value_to_model_period(x, xule_context) for x in filter_member.value}
             # Allow units to be a qname or a xule 'unit'
             elif index_key == ('builtin', 'unit'):
                 conversion_function = lambda x: XuleUnit(x.value) if x.type == 'qname' else x.value
-                if aspect_info[ASPECT_OPERATOR] == '=':
+                if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
                     member_values = {conversion_function(filter_member),}
                 else:
                     member_values = {conversion_function(x) for x in filter_member.value}
             else:
-                if aspect_info[ASPECT_OPERATOR] == '=':
+                if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
                     member_values = {filter_member.value,}
                 else:
                     member_values = {x.value for x in filter_member.value}
                     '''THIS COULD USE THE SHADOW COLLECTION
                     member_values = set(filter_member.shadow_collection)
-                    '''        
-            found_members = member_values & xule_context.fact_index[index_key].keys()      
+                    ''' 
+            if aspect_info[ASPECT_OPERATOR] in ('=', 'in'):       
+                found_members = member_values & xule_context.fact_index[index_key].keys()      
+            else: # aspect operator is '!=' or 'not in'
+                found_members = (xule_context.fact_index[index_key].keys() - {None,}) - member_values 
+
             for member in found_members:
                 facts_by_aspect |= xule_context.fact_index[index_key][member]
-        
+                
         #intersect the facts with previous facts by aspect
         if first:
             first = False
@@ -4220,6 +4233,7 @@ def format_trace_info(expr_name, sugar, common_aspects, xule_context):
 
 def result_message(rule_ast, result_ast, xule_value, xule_context):
     message_context = xule_context.create_message_copy(xule_context.get_processing_id(rule_ast['node_id']))
+    message_context.tags['rule-value'] = xule_value
     try:
         # Caching does not work for expressions with tagRefs. The The results portion of a rule will have a tagRef for each varRef. This conversion is
         # done during the post parse step. So it is neccessary to turn local caching off when evaluating the result expression. There is a command line option
@@ -4266,92 +4280,92 @@ def result_message(rule_ast, result_ast, xule_value, xule_context):
 #     
 #     return process_message(message_string, xule_value, alignment, xule_context)
 
-def process_message(message_string, xule_value, xule_context):    
+# def process_message(message_string, xule_value, xule_context):    
+# 
+#     alignment = xule_context.iteration_table.current_alignment
+# 
+#     common_facts = [tag_value.fact for tag_value in xule_context.tags.values() if tag_value.is_fact]
+#     if not common_facts: #common_facts is empty, no facts are tagged.
+#         common_facts = xule_context.facts
+# 
+#     common_aspects = get_common_aspects(common_facts, xule_context)
+#     
+#     #Check if there is a fact tag that uses the .context. If so and the lineItem is in the common aspects, the line item should be removed from the common aspects
+#     if ('builtin','concept') in common_aspects:
+#         for tag_name, tag_value in xule_context.tags.items():
+#             if tag_value.is_fact or tag_value.type == 'empty_fact':
+#                 tag_context_pattern = '\$\s*{\s*' + tag_name + '\s*\.\s*(?i)context\s*}'
+#                 if re.search(tag_context_pattern, message_string):
+#                     del common_aspects[('builtin','concept')]
+#                     break
+#      
+#     for tag_name, tag_value in xule_context.tags.items():        
+#         replacement_value = tag_value.format_value() or ''
+#         
+#         if tag_value.is_fact: 
+#             message_string = re.sub('\$\s*{\s*' + tag_name + '\s*\.\s*value\s*}', replacement_value, message_string)
+#             message_string = re.sub('\$\s*{\s*' + tag_name + '\s*}', replacement_value, message_string)
+#             
+#             for tag_sub_part in MESSAGE_TAG_SUB_PARTS:
+#                 tag_pattern = '\$\s*{\s*' + tag_name + '\s*\.\s*(?i)' + tag_sub_part[0] + '\s*}'
+#                 if re.search(tag_pattern, message_string) is not None:
+#                     if tag_sub_part[1] == format_alignment:
+#                         message_string = re.sub(tag_pattern, format_alignment(get_uncommon_aspects(tag_value.fact, common_aspects, xule_context), xule_context), message_string)
+#                     else:
+#                         new_value = tag_sub_part[1](xule_context, tag_value)
+#                         message_string = re.sub(tag_pattern, new_value or "", message_string)
+#                         
+#         elif tag_value.type == 'empty_fact':
+#             if alignment is not None and ('builtin', 'concept') in alignment:
+#                     tag_context = format_qname(alignment[('builtin', 'concept')], xule_context)
+#             else:
+#                 tag_context = str(tag_value.value)
+#                 
+#             message_string = re.sub('\$\s*{\s*' + tag_name + '\s*\.\s*value\s*}', 'missing', message_string)
+#             message_string = re.sub('\$\s*{\s*' + tag_name + '\s*}', 'missing', message_string)
+#             message_string = re.sub('\$\s*{\s*' + tag_name + '\s*\.\s*context\s*}', tag_context, message_string)
+#             
+#             for tag_sub_part in MESSAGE_TAG_SUB_PARTS:
+#                 tag_pattern = '\$\s*{\s*' + tag_name + '\s*\.\s*(?i)' + tag_sub_part[0] + '\s*}'
+#                 if re.search(tag_pattern, message_string) is not None:
+#                     message_string = re.sub(tag_pattern, 'missing', message_string)
+# 
+#         else:
+#             message_string = re.sub('\$\s*{\s*' + tag_name + '\s*\.\s*value\s*}', replacement_value, message_string)
+#             message_string = re.sub('\$\s*{\s*' + tag_name + '\s*}', replacement_value, message_string)
+# 
+#     message_string = re.sub('\$\s*{\s*context\s*}', format_alignment(common_aspects, xule_context), message_string)
+#     message_string = re.sub('\$\s*{\s*value\s*}', xule_value.format_value() or '', message_string)
+#     '''ADD TRACE'''
+# #     if xule_context.show_trace:
+# #         message_string = re.sub('\$\s*{\s*trace\s*}', format_trace(xule_context, result, common_aspects), message_string)
+#     message_string = message_string.replace('%', '%%')
+# 
+#     return message_string
 
-    alignment = xule_context.iteration_table.current_alignment
-
-    common_facts = [tag_value.fact for tag_value in xule_context.tags.values() if tag_value.is_fact]
-    if not common_facts: #common_facts is empty, no facts are tagged.
-        common_facts = xule_context.facts
-
-    common_aspects = get_common_aspects(common_facts, xule_context)
-    
-    #Check if there is a fact tag that uses the .context. If so and the lineItem is in the common aspects, the line item should be removed from the common aspects
-    if ('builtin','concept') in common_aspects:
-        for tag_name, tag_value in xule_context.tags.items():
-            if tag_value.is_fact or tag_value.type == 'empty_fact':
-                tag_context_pattern = '\$\s*{\s*' + tag_name + '\s*\.\s*(?i)context\s*}'
-                if re.search(tag_context_pattern, message_string):
-                    del common_aspects[('builtin','concept')]
-                    break
-     
-    for tag_name, tag_value in xule_context.tags.items():        
-        replacement_value = tag_value.format_value() or ''
-        
-        if tag_value.is_fact: 
-            message_string = re.sub('\$\s*{\s*' + tag_name + '\s*\.\s*value\s*}', replacement_value, message_string)
-            message_string = re.sub('\$\s*{\s*' + tag_name + '\s*}', replacement_value, message_string)
-            
-            for tag_sub_part in MESSAGE_TAG_SUB_PARTS:
-                tag_pattern = '\$\s*{\s*' + tag_name + '\s*\.\s*(?i)' + tag_sub_part[0] + '\s*}'
-                if re.search(tag_pattern, message_string) is not None:
-                    if tag_sub_part[1] == format_alignment:
-                        message_string = re.sub(tag_pattern, format_alignment(get_uncommon_aspects(tag_value.fact, common_aspects, xule_context), xule_context), message_string)
-                    else:
-                        new_value = tag_sub_part[1](xule_context, tag_value)
-                        message_string = re.sub(tag_pattern, new_value or "", message_string)
-                        
-        elif tag_value.type == 'empty_fact':
-            if alignment is not None and ('builtin', 'concept') in alignment:
-                    tag_context = format_qname(alignment[('builtin', 'concept')], xule_context)
-            else:
-                tag_context = str(tag_value.value)
-                
-            message_string = re.sub('\$\s*{\s*' + tag_name + '\s*\.\s*value\s*}', 'missing', message_string)
-            message_string = re.sub('\$\s*{\s*' + tag_name + '\s*}', 'missing', message_string)
-            message_string = re.sub('\$\s*{\s*' + tag_name + '\s*\.\s*context\s*}', tag_context, message_string)
-            
-            for tag_sub_part in MESSAGE_TAG_SUB_PARTS:
-                tag_pattern = '\$\s*{\s*' + tag_name + '\s*\.\s*(?i)' + tag_sub_part[0] + '\s*}'
-                if re.search(tag_pattern, message_string) is not None:
-                    message_string = re.sub(tag_pattern, 'missing', message_string)
-
-        else:
-            message_string = re.sub('\$\s*{\s*' + tag_name + '\s*\.\s*value\s*}', replacement_value, message_string)
-            message_string = re.sub('\$\s*{\s*' + tag_name + '\s*}', replacement_value, message_string)
-
-    message_string = re.sub('\$\s*{\s*context\s*}', format_alignment(common_aspects, xule_context), message_string)
-    message_string = re.sub('\$\s*{\s*value\s*}', xule_value.format_value() or '', message_string)
-    '''ADD TRACE'''
-#     if xule_context.show_trace:
-#         message_string = re.sub('\$\s*{\s*trace\s*}', format_trace(xule_context, result, common_aspects), message_string)
-    message_string = message_string.replace('%', '%%')
-
-    return message_string
-
-def get_common_aspects(dict_model_facts, xule_context):
-    
-    model_facts = list(dict_model_facts)
-    
-    if len(model_facts) > 0:
-        common_aspects = get_all_aspects(model_facts[0], xule_context)
-    else:
-        common_aspects = {}    
-    
-    for model_fact in model_facts[1:]:
-        fact_aspects = get_all_aspects(model_fact, xule_context)
-        for aspect_info, aspect_value in fact_aspects.items():
-            if aspect_info in common_aspects:
-                if aspect_value != common_aspects[aspect_info]:
-                    del common_aspects[aspect_info]
-        for missing_aspect in common_aspects.keys() - fact_aspects.keys():
-            del common_aspects[missing_aspect]
-        
-    #remove lineItem
-    if ('builtin', 'concept') in common_aspects and len(model_facts) > 1:
-        del common_aspects[('builtin', 'concept')]
-    
-    return common_aspects
+# def get_common_aspects(dict_model_facts, xule_context):
+#     
+#     model_facts = list(dict_model_facts)
+#     
+#     if len(model_facts) > 0:
+#         common_aspects = get_all_aspects(model_facts[0], xule_context)
+#     else:
+#         common_aspects = {}    
+#     
+#     for model_fact in model_facts[1:]:
+#         fact_aspects = get_all_aspects(model_fact, xule_context)
+#         for aspect_info, aspect_value in fact_aspects.items():
+#             if aspect_info in common_aspects:
+#                 if aspect_value != common_aspects[aspect_info]:
+#                     del common_aspects[aspect_info]
+#         for missing_aspect in common_aspects.keys() - fact_aspects.keys():
+#             del common_aspects[missing_aspect]
+#         
+#     #remove lineItem
+#     if ('builtin', 'concept') in common_aspects and len(model_facts) > 1:
+#         del common_aspects[('builtin', 'concept')]
+#     
+#     return common_aspects
 
 def get_all_aspects(model_fact, xule_context):
     '''This function gets all the apsects of a fact'''
