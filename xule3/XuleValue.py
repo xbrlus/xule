@@ -101,6 +101,26 @@ class XuleValue:
             return self._key_search_dictionary
         else:
             return None      
+        
+        
+    @property
+    def sort_value(self):
+        if not hasattr(self, '_sort_value'):
+            if self.type == 'list':
+                self._sort_value = [x.sort_value for x in self.value]
+            elif self.type == 'set':
+                self._sort_value = {x.sort_value for x in self.value}
+            elif self.type == 'dictonary':
+                self._sort_value = [[k.sort_value, v.sort_value] for k, v in self.value]
+            elif self.type == 'concept':
+                self._sort_value = self.value.qname.clarkNotation
+            elif self.type == 'qname':
+                self._sort_value = self.value.clarkNotation
+            else:
+                self._sort_value = self.value
+        
+        return self._sort_value
+        
     ''' 
     import traceback
     def __eq__(self, other):

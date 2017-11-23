@@ -407,6 +407,7 @@ class XuleRuleContext(object):
         #self.vars[self.get_processing_id(node_id)] = var_info  
         #self.vars[node_id] = var_info  
         self.vars[node_id].append(var_info)
+        self.tags[name] = value
     
     def del_arg(self, name, node_id):
         #del self.vars[self.get_processing_id(node_id)]

@@ -54,7 +54,16 @@ def property_to_list(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, tuple(sorted(object_value.value, key=set_sort)), 'list')
  
 def property_to_set(xule_context, object_value, *args):
-    return XuleFunctions.agg_set(xule_context, object_value.value)
+    if object_value.type == 'dictionary':
+        result = []
+        shadow = []
+        for k, v in object_value.value:
+            item_value = XuleFunctions.agg_list(xule_context, (k, v))
+            result.append(item_value)
+            shadow.append(item_value.shadow_collection)
+        return xv.XuleValue(xule_context, frozenset(result), 'set', shadow_collection=frozenset(shadow))
+    else: #list or set
+        return XuleFunctions.agg_set(xule_context, object_value.value)
 
 def property_join(xule_context, object_value, *args):
     if object_value.type in ('list', 'set'):
@@ -95,10 +104,15 @@ def property_join(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, result_string, 'string')
         
 def property_sort(xule_context, object_value, *args):
-    sorted_list = sorted(object_value.value, key=lambda x: x.shadow_collection if x.type in ('set', 'list', 'dictionary') else x.value)
-    
-    return xv.XuleValue(xule_context, tuple(sorted_list), 'list')
-    
+    #sorted_list = sorted(object_value.value, key=lambda x: x.shadow_collection if x.type in ('set', 'list', 'dictionary') else x.value)
+
+    try:
+        sorted_list = sorted(object_value.value, key=lambda x: x.sort_value)
+        return xv.XuleValue(xule_context, tuple(sorted_list), 'list')
+    except TypeError:
+        # items are not sortable
+        return XuleFunctions.agg_list(xule_context, object_value.value)
+
 def property_keys(xule_context, object_value, *args):
     if len(args) == 1:
         val = args[0]
@@ -346,6 +360,39 @@ def property_dimensions(xule_context, object_value, *args):
         result_shadow[dim_value.value] = member_value.value
     
     return xv.XuleValue(xule_context, frozenset(result_dict.items()), 'dictionary', shadow_collection=frozenset(result_shadow.items()))
+
+def property_aspects(xule_context, object_value, *args):
+    result_dict = dict()
+    result_shadow = dict()
+    
+    concept_value = property_concept(xule_context, object_value)
+    result_dict[xv.XuleValue(xule_context, 'concept', 'string')] = concept_value
+    result_shadow['concept'] = concept_value.value
+    
+    entity_value = property_entity(xule_context, object_value)
+    result_dict[xv.XuleValue(xule_context, 'entity', 'string')] = entity_value
+    result_shadow['entity'] = entity_value.value
+    
+    period_value = property_period(xule_context, object_value)
+    result_dict[xv.XuleValue(xule_context, 'period', 'string')] = period_value
+    result_shadow['period'] = period_value.value
+    
+    unit_value = property_unit(xule_context, object_value)
+    if unit_value.value is not None:
+        result_dict[xv.XuleValue(xule_context, 'unit', 'string')] = unit_value
+        result_shadow['unit'] = unit_value.value
+        
+    for dim_qname, member_model in object_value.fact.context.qnameDims.items():
+        dim_value = xv.XuleValue(xule_context, get_concept(xule_context.model, dim_qname), 'concept')
+        if member_model.isExplicit:
+            member_value = xv.XuleValue(xule_context, member_model.member, 'concept')
+        else: # Typed dimension
+            member_value = xv.XuleValue(xule_context, member.typedMember.xValue, xv.model_to_xule_type(xule_context, member.typedMember.xValue))
+            
+        result_dict[dim_value] = member_value
+        result_shadow[dim_value.value] = member_value.value
+    
+    return xv.XuleValue(xule_context, frozenset(result_dict.items()), 'dictionary', shadow_collection=frozenset(result_shadow.items()))    
 
 def property_start(xule_context, object_value, *args):
     if object_value.type == 'instant':
@@ -1183,7 +1230,7 @@ PROPERTIES = {
               'contains': (property_contains, 1, ('set', 'list', 'string', 'uri'), False),
               'length': (property_length, 0, ('string', 'uri', 'set', 'list', 'dictionary'), False),
               'to-list': (property_to_list, 0, ('list', 'set'), False),
-              'to-set': (property_to_set, 0, ('list', 'set'), False),              
+              'to-set': (property_to_set, 0, ('list', 'set', 'dictionary'), False),              
               'join': (property_join, -2, ('list', 'set', 'dictionary'), False),
               'sort': (property_sort, 0, ('list', 'set'), False),
               'keys': (property_keys, -1, ('dictionary',), False),
@@ -1204,6 +1251,7 @@ PROPERTIES = {
               'scheme': (property_scheme, 0, ('entity',), False),
               'dimension': (property_dimension, 1, ('fact',), False),
               'dimensions': (property_dimensions, 0, ('fact',), False),
+              'aspects': (property_aspects, 0, ('fact',), False),
               'start': (property_start, 0, ('instant', 'duration'), False),
               'end': (property_end, 0, ('instant', 'duration'), False),
               'days': (property_days, 0, ('instant', 'duration'), False),
