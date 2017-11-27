@@ -552,7 +552,7 @@ def evaluate(rule_part, xule_context, is_values=False, trace_dependent=False, ov
         if (xule_context.look_for_alignment and 
             #rule_part.has_alignment and
             value.aligned_result_only and
-            rule_part['table_id'] in xule_context.where_table_ids and
+            rule_part.get('table_id') in xule_context.where_table_ids and
             rule_part['node_id'] in xule_context.where_dependent_iterables):
                 raise XuleReEvaluate(xule_context.iteration_table.any_alignment)
     
