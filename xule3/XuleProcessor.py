@@ -464,9 +464,8 @@ def evaluate(rule_part, xule_context, is_values=False, trace_dependent=False, ov
                                 
                                 local_cache_key =  get_local_cache_key(rule_part, xule_context) 
                                 if local_cache_key is not None:                                                                                  
-                                    values = xule_context.local_cache.get(local_cache_key)
-                                    #print("checking", "not found" if values is None else "found", rule_part['node_id'], [(x[0], x[1].format_value()[:10]) for x in local_cache_key[1]])
-                        
+                                    cache_values = xule_context.local_cache.get(local_cache_key)
+                                    values = cache_values.clone() if cache_values is not None else None
                         if values is None:                        
                             values = EVALUATOR[rule_part_name](rule_part, xule_context)
                             trace_source = "E" 
@@ -519,12 +518,11 @@ def evaluate(rule_part, xule_context, is_values=False, trace_dependent=False, ov
                     local_cache_key = get_local_cache_key(rule_part, xule_context)
                 else:
                     local_cache_key = None
-
-                
             if local_cache_key is None:
                 value = None
             else:
-                value = xule_context.local_cache.get(local_cache_key)
+                cache_value = xule_context.local_cache.get(local_cache_key)
+                value = cache_value.clone() if cache_value is not None else None
             if value is None:
                 try:
                     value = EVALUATOR[rule_part_name](rule_part, xule_context)
@@ -609,7 +607,11 @@ def post_evaluate_value(rule_part, value, xule_context):
 #         print("after", len(xule_context.facts), len(set(xule_context.facts)))
         xule_context.facts.update(value.facts)
     if value.tags is not None:
-        xule_context.tags.update(value.tags)
+        # Need to make sure that the current version of the tags stay and the update only adds new tags from the value.
+        new_tags = value.tags.copy()
+        new_tags.update(xule_context.tags)
+        xule_context.tags = new_tags 
+        #xule_context.tags.update(value.tags)
     if value.aligned_result_only == True:
         xule_context.aligned_result_only = True
     
