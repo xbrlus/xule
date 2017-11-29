@@ -460,12 +460,12 @@ def evaluate(rule_part, xule_context, is_values=False, trace_dependent=False, ov
                             values = None
                         else:
                             if (rule_part.get('table_id') != xule_context.iteration_table.main_table_id or
-                                is_dependent):
-                                
-                                local_cache_key =  get_local_cache_key(rule_part, xule_context) 
+                                is_dependent):     
+                                local_cache_key = get_local_cache_key(rule_part, xule_context) 
                                 if local_cache_key is not None:                                                                                  
-                                    cache_values = xule_context.local_cache.get(local_cache_key)
-                                    values = cache_values.clone() if cache_values is not None else None
+                                    values = xule_context.local_cache.get(local_cache_key)
+                                else:
+                                    values = None
                         if values is None:                        
                             values = EVALUATOR[rule_part_name](rule_part, xule_context)
                             trace_source = "E" 
