@@ -3708,7 +3708,8 @@ def process_property(current_property_expr, object_value, property_info, xule_co
         if len(property_info[XuleProperties.PROP_OPERAND_TYPES]) > 0:
             if not (object_value.type in property_info[XuleProperties.PROP_OPERAND_TYPES] or
                     object_value.is_fact and 'fact' in property_info[XuleProperties.PROP_OPERAND_TYPES] or
-                    any([xule_castable(object_value, allowable_type, xule_context) for allowable_type in property_info[XuleProperties.PROP_OPERAND_TYPES]])):
+                    any([xule_castable(object_value, allowable_type, xule_context) for allowable_type in property_info[XuleProperties.PROP_OPERAND_TYPES]]) or
+                    (object_value.type in ('none', 'unbound') and property_info[XuleProperties.PROP_UNBOUND_ALLOWED])):
                 #print(current_property_expr['node_id'])
                 raise XuleProcessingError(_("Property '%s' is not a property of a '%s'.") % (current_property_expr['propertyName'],
                                                                                              object_value.type), 
