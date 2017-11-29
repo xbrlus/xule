@@ -523,6 +523,10 @@ def evaluate(rule_part, xule_context, is_values=False, trace_dependent=False, ov
             else:
                 cache_value = xule_context.local_cache.get(local_cache_key)
                 value = cache_value.clone() if cache_value is not None else None
+                if value is not None and value.tags is not None:
+                    new_tags = value.tags.copy()
+                    new_tags.update(xule_context.tags)
+                    value.tags = new_tags                 
             if value is None:
                 try:
                     value = EVALUATOR[rule_part_name](rule_part, xule_context)
@@ -607,11 +611,11 @@ def post_evaluate_value(rule_part, value, xule_context):
 #         print("after", len(xule_context.facts), len(set(xule_context.facts)))
         xule_context.facts.update(value.facts)
     if value.tags is not None:
-        # Need to make sure that the current version of the tags stay and the update only adds new tags from the value.
-        new_tags = value.tags.copy()
-        new_tags.update(xule_context.tags)
-        xule_context.tags = new_tags 
-        #xule_context.tags.update(value.tags)
+#         # Need to make sure that the current version of the tags stay and the update only adds new tags from the value.
+#         new_tags = value.tags.copy()
+#         new_tags.update(xule_context.tags)
+#         xule_context.tags = new_tags 
+         xule_context.tags.update(value.tags)
     if value.aligned_result_only == True:
         xule_context.aligned_result_only = True
     
