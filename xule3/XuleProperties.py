@@ -279,22 +279,33 @@ def property_concept(xule_context, object_value, *args):
             return xv.XuleValue(xule_context, concept_value, 'concept')
         else:
             return xv.XuleValue(xule_context, None, 'none')
+    else: # None value
+        return object_value
 
 def property_period(xule_context, object_value, *args):
-    if object_value.fact.context.isStartEndPeriod or object_value.fact.context.isForeverPeriod:
-        return xv.XuleValue(xule_context, xv.model_to_xule_period(object_value.fact.context, xule_context), 'duration', from_model=True)
-    else:
-        return xv.XuleValue(xule_context, xv.model_to_xule_period(object_value.fact.context, xule_context), 'instant', from_model=True)
+    if object_value.is_fact:
+        if object_value.fact.context.isStartEndPeriod or object_value.fact.context.isForeverPeriod:
+            return xv.XuleValue(xule_context, xv.model_to_xule_period(object_value.fact.context, xule_context), 'duration', from_model=True)
+        else:
+            return xv.XuleValue(xule_context, xv.model_to_xule_period(object_value.fact.context, xule_context), 'instant', from_model=True)
+    else: #none value
+        return object_value
           
 def property_unit(xule_context, object_value, *args):
-    if object_value.fact.unit is None:
-        return xv.XuleValue(xule_context, None, 'none')
+    if object_value.is_fact:
+        if object_value.fact.unit is None:
+            return xv.XuleValue(xule_context, None, 'none')
+        else: #none value
+            return xv.XuleValue(xule_context, xv.model_to_xule_unit(object_value.fact.unit, xule_context), 'unit')
     else:
-        return xv.XuleValue(xule_context, xv.model_to_xule_unit(object_value.fact.unit, xule_context), 'unit')
- 
+        return object_value
+    
 def property_entity(xule_context, object_value, *args):
-    return xv.XuleValue(xule_context, xv.model_to_xule_entity(object_value.fact.context, xule_context), 'entity')
- 
+    if object_value.is_fact:
+        return xv.XuleValue(xule_context, xv.model_to_xule_entity(object_value.fact.context, xule_context), 'entity')
+    else: #none value
+        return object_value
+    
 def property_id(xule_context, object_value, *args):
     if object_value.type == 'entity':
         return xv.XuleValue(xule_context, object_value.value[1], 'string')
@@ -308,23 +319,35 @@ def property_id(xule_context, object_value, *args):
             return xv.XuleValue(xule_context, None, 'none')
         else:
             return xv.XuleValue(xule_context, object_value.fact.id, 'string')
-
+    else: #none value
+        return object_value 
+    
 def property_scale(xule_context, object_value, *args):
-    if hasattr(object_value.fact, 'scaleInt'):
-        return xv.XuleValue(xule_context, object_value.fact.scaleInt, 'int')
-    else:
-        return xv.XuleValue(xule_context, None, 'none')
- 
+    if object_value.is_fact:
+        if hasattr(object_value.fact, 'scaleInt'):
+            return xv.XuleValue(xule_context, object_value.fact.scaleInt, 'int')
+        else:
+            return xv.XuleValue(xule_context, None, 'none')
+    else: #none value
+        return object_value
+    
 def property_format(xule_context, object_value, *args):
-    if hasattr(object_value.fact, 'format'):
-        return xv.XuleValue(xule_context, object_value.fact.format, 'qname')
-    else:
-        return xv.XuleValue(xule_context, None, 'none')
-
+    if object_value.is_fact:
+        if hasattr(object_value.fact, 'format'):
+            return xv.XuleValue(xule_context, object_value.fact.format, 'qname')
+        else:
+            return xv.XuleValue(xule_context, None, 'none')
+    else: #none value
+        return object_value
+    
 def property_scheme(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, object_value.value[0], 'string')
 
 def property_dimension(xule_context, object_value, *args):
+    
+    if not object_value.is_fact:
+        return object_value
+    
     dim_name = args[0]
     model_fact = object_value.fact
     
@@ -346,6 +369,9 @@ def property_dimension(xule_context, object_value, *args):
             return xv.XuleValue(xule_context, member_model.typedMember.xValue, xv.model_to_xule_type(xule_context, member_model.typedMember.xValue))
 
 def property_dimensions(xule_context, object_value, *args):
+    if not object_value.is_fact:
+        return object_value
+    
     result_dict = dict()
     result_shadow = dict()
     
@@ -362,6 +388,9 @@ def property_dimensions(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, frozenset(result_dict.items()), 'dictionary', shadow_collection=frozenset(result_shadow.items()))
 
 def property_aspects(xule_context, object_value, *args):
+    if not object_value.is_fact:
+        return object_value
+    
     result_dict = dict()
     result_shadow = dict()
     
@@ -460,15 +489,19 @@ def property_balance(xule_context, object_value, *args):
 def property_base_type(xule_context, object_value, *args):
     if object_value.is_fact:
         return xv.XuleValue(xule_context, object_value.fact.concept.baseXbrliTypeQname, 'type')
-    else:
+    elif object_value.type == 'concept':
         return xv.XuleValue(xule_context, object_value.value.baseXbrliTypeQname, 'type')
+    else: #none value
+        return object_value
  
 def property_data_type(xule_context, object_value, *args):
     if object_value.is_fact:
         return xv.XuleValue(xule_context, object_value.fact.concept.typeQname, 'type')
-    else:
+    elif object_value.type == 'concept':
         return xv.XuleValue(xule_context, object_value.value.typeQname, 'type')
-
+    else: #none value
+        return object_value
+    
 def property_is_type(xule_context, object_value, *args):
     type_name = args[0]
     if type_name.type != 'qname':
@@ -476,30 +509,46 @@ def property_is_type(xule_context, object_value, *args):
     
     if object_value.is_fact:
         return xv.XuleValue(xule_context, object_value.fact.concept.instanceOfType(type_name.value), 'bool')
-    else: # concept
+    elif object_value.type == 'concept': # concept
         return xv.XuleValue(xule_context, object_value.value.instanceOfType(type_name.value), 'bool')
-
+    else: #none value
+        return object_value
+    
 def property_is_numeric(xule_context, object_value, *args):
     if object_value.is_fact:
         return xv.XuleValue(xule_context, object_value.fact.concept.isNumeric, 'bool')
-    else:
+    elif object_value.type == 'concept':
         #concept
         return xv.XuleValue(xule_context, object_value.value.isNumeric, 'bool')
- 
+    else:
+        return object_value
+    
 def property_is_monetary(xule_context, object_value, *args):
     if object_value.is_fact:
         return xv.XuleValue(xule_context, object_value.fact.concept.isMonetary, 'bool')
-    else:
+    elif object_value.type == 'concept':
         #concept
         return xv.XuleValue(xule_context, object_value.value.isMonetary, 'bool')
- 
+    else: #none value
+        return object_value
+    
 def property_is_abstract(xule_context, object_value, *args):
     if object_value.is_fact:
         return xv.XuleValue(xule_context, object_value.fact.concept.isAbstract, 'bool')
-    else:
+    elif object_value.type == 'concept':
         return xv.XuleValue(xule_context, object_value.value.isAbstract, 'bool')
-
+    else: #none value
+        return object_value
+    
 def property_label(xule_context, object_value, *args):
+    
+    if object_value.is_fact:
+        concept = object_value.fact.concept
+    elif object_value.type == 'concept':
+        concept = object_value.value
+    else: #none value
+        return object_value
+    
     base_label_type = None
     base_lang = None
     if len(args) > 0:
@@ -519,11 +568,6 @@ def property_label(xule_context, object_value, *args):
             base_lang = xv.xule_cast(lang, 'string', xule_context)
         else:
             raise XuleProcessingError(_("The second argument for property 'label' must be a string, found '%s'" % lang.type), xule_context)        
-     
-    if object_value.is_fact:
-        concept = object_value.fact.concept
-    else:
-        concept = object_value.value
      
     label = get_label(xule_context, concept, base_label_type, base_lang)
      
@@ -569,28 +613,33 @@ def property_lang(xule_context, object_value, *args):
 def property_name(xule_context, object_value, *args):
     if object_value.is_fact:
         return xv.XuleValue(xule_context, object_value.fact.concept.qname, 'qname')
-    else:
+    elif object_value.type in ('concept', 'reference-part'):
         return xv.XuleValue(xule_context, object_value.value.qname, 'qname')
- 
+    else: #none value
+        return object_value
+    
 def property_local_name(xule_context, object_value, *args):
-    if object_value.value is not None:
-        if object_value.is_fact:
-            return xv.XuleValue(xule_context, object_value.fact.concept.qname.localName, 'string')
-        elif object_value.type in ('concept', 'reference-part'):
-            return xv.XuleValue(xule_context, object_value.value.qname.localName, 'string')
-        elif object_value.type == 'qname':
-            return xv.XuleValue(xule_context, object_value.value.localName, 'string')
+
+    if object_value.is_fact:
+        return xv.XuleValue(xule_context, object_value.fact.concept.qname.localName, 'string')
+    elif object_value.type in ('concept', 'reference-part'):
+        return xv.XuleValue(xule_context, object_value.value.qname.localName, 'string')
+    elif object_value.type == 'qname':
+        return xv.XuleValue(xule_context, object_value.value.localName, 'string')
+    elif object_value.type == 'none':
+        return object_value
     else:
         return xv.XuleValue(xule_context, '', 'string')
      
 def property_namespace_uri(xule_context, object_value, *args):
-    if object_value.value is not None:
-        if object_value.is_fact:
-            return xv.XuleValue(xule_context, object_value.fact.concept.qname.namespaceURI, 'uri')
-        elif object_value.type in ('concept', 'reference-part'):
-            return xv.XuleValue(xule_context, object_value.value.qname.namespaceURI, 'uri')
-        elif object_value.type == 'qname':
-            return xv.XuleValue(xule_context, object_value.value.namespaceURI, 'uri')
+    if object_value.is_fact:
+        return xv.XuleValue(xule_context, object_value.fact.concept.qname.namespaceURI, 'uri')
+    elif object_value.type in ('concept', 'reference-part'):
+        return xv.XuleValue(xule_context, object_value.value.qname.namespaceURI, 'uri')
+    elif object_value.type == 'qname':
+        return xv.XuleValue(xule_context, object_value.value.namespaceURI, 'uri')
+    elif object_value.type == 'none':
+        return object_value
     else:
         return xv.XuleValue(xule_context, '', 'uri')
 
@@ -1235,7 +1284,7 @@ PROPERTIES = {
               'sort': (property_sort, 0, ('list', 'set'), False),
               'keys': (property_keys, -1, ('dictionary',), False),
               'values': (property_values, 0, ('dictionary', ), False),
-              'decimals': (property_decimals, 0, ('fact',), False),
+              'decimals': (property_decimals, 0, ('fact',), True),
               'networks':(property_networks, -2, ('taxonomy',), False),
               'role': (property_role, 0, ('network', 'label', 'reference', 'relationship'), False),
               'role-uri': (property_role_uri, 0, ('network', 'label', 'reference', 'relationship'), False),
@@ -1243,15 +1292,15 @@ PROPERTIES = {
               'arcrole':(property_arcrole, 0, ('network', 'relationship'), False),
               'arcrole-uri':(property_arcrole_uri, 0, ('network', 'relationship'), False),
               'arcrole-description':(property_arcrole_description, 0, ('network', 'relationship'), False),
-              'concept': (property_concept, -1, ('fact', 'taxonomy'), False),
-              'period': (property_period, 0, ('fact',), False),
-              'unit': (property_unit, 0, ('fact',), False),
-              'entity': (property_entity, 0, ('fact',), False),
-              'id': (property_id, 0, ('entity','unit','fact'), False),
+              'concept': (property_concept, -1, ('fact', 'taxonomy'), True),
+              'period': (property_period, 0, ('fact',), True),
+              'unit': (property_unit, 0, ('fact',), True),
+              'entity': (property_entity, 0, ('fact',), True),
+              'id': (property_id, 0, ('entity','unit','fact'), True),
               'scheme': (property_scheme, 0, ('entity',), False),
-              'dimension': (property_dimension, 1, ('fact',), False),
-              'dimensions': (property_dimensions, 0, ('fact',), False),
-              'aspects': (property_aspects, 0, ('fact',), False),
+              'dimension': (property_dimension, 1, ('fact',), True),
+              'dimensions': (property_dimensions, 0, ('fact',), True),
+              'aspects': (property_aspects, 0, ('fact',), True),
               'start': (property_start, 0, ('instant', 'duration'), False),
               'end': (property_end, 0, ('instant', 'duration'), False),
               'days': (property_days, 0, ('instant', 'duration'), False),
@@ -1259,25 +1308,25 @@ PROPERTIES = {
               'denominator': (property_denominator, 0, ('unit',), False),
               'attribute': (property_attribute, 1, ('concept',), False),
               'balance': (property_balance, 0, ('concept',), False),              
-              'base-type': (property_base_type, 0, ('concept', 'fact'), False),
-              'data-type': (property_data_type, 0, ('concept', 'fact'), False),     
-              'is-type': (property_is_type, 1, ('concept', 'fact'), False),          
-              'is-numeric': (property_is_numeric, 0, ('concept', 'fact'), False),
-              'is-monetary': (property_is_monetary, 0, ('concept', 'fact'), False),
-              'is-abstract': (property_is_abstract, 0, ('concept', 'fact'), False),
-              'scale': (property_scale, 0, ('fact',), False),
-              'format': (property_format, 0, ('fact',), False),
-              'label': (property_label, -2, ('concept', 'fact'), False),
+              'base-type': (property_base_type, 0, ('concept', 'fact'), True),
+              'data-type': (property_data_type, 0, ('concept', 'fact'), True),     
+              'is-type': (property_is_type, 1, ('concept', 'fact'), True),          
+              'is-numeric': (property_is_numeric, 0, ('concept', 'fact'), True),
+              'is-monetary': (property_is_monetary, 0, ('concept', 'fact'), True),
+              'is-abstract': (property_is_abstract, 0, ('concept', 'fact'), True),
+              'scale': (property_scale, 0, ('fact',), True),
+              'format': (property_format, 0, ('fact',), True),
+              'label': (property_label, -2, ('concept', 'fact'), True),
               'text': (property_text, 0, ('label',), False),
               'lang': (property_lang, 0, ('label',), False),              
-              'name': (property_name, 0, ('fact', 'concept', 'reference-part'), False),
-              'local-name': (property_local_name, 0, ('qname', 'concept', 'fact', 'reference-part'), False),
-              'namespace-uri': (property_namespace_uri, 0, ('qname', 'concept', 'fact', 'reference-part'), False),              
+              'name': (property_name, 0, ('fact', 'concept', 'reference-part'), True),
+              'local-name': (property_local_name, 0, ('qname', 'concept', 'fact', 'reference-part'), True),
+              'namespace-uri': (property_namespace_uri, 0, ('qname', 'concept', 'fact', 'reference-part'), True),              
               'period-type': (property_period_type, 0, ('concept',), False),
               'parts': (property_parts, 0, ('reference',), False),
               'part-value': (property_part_value, 0, ('reference-part',), False),
               'part-by-name': (property_part_by_name, 1, ('reference',), False),              
-              'references':(property_references, -1, ('concept', 'fact'), False),
+              'references':(property_references, -1, ('concept', 'fact'), True),
               'relationships': (property_relationships, 0, ('network',), False),
               'concepts': (property_concepts, 0, ('taxonomy', 'network'), False),
               'concept-names': (property_concept_names, 0, ('taxonomy', 'network'), False),

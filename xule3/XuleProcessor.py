@@ -3701,7 +3701,7 @@ def evaluate_property(property_expr, xule_context):
 def process_property(current_property_expr, object_value, property_info, xule_context):
     #Check that the left object is the right type
     #if the left object is unbound then return unbound
-    if not property_info[XuleProperties.PROP_UNBOUND_ALLOWED] and object_value.type in ('unbound', 'none') and not object_value.is_fact:
+    if not property_info[XuleProperties.PROP_UNBOUND_ALLOWED] and object_value.type in ('unbound', 'none'):
         return object_value
     else:
         #check the left object is the right type
