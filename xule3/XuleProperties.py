@@ -539,7 +539,13 @@ def property_is_abstract(xule_context, object_value, *args):
         return xv.XuleValue(xule_context, object_value.value.isAbstract, 'bool')
     else: #none value
         return object_value
-    
+
+def property_is_nil(xule_context, object_value, *args):
+    if object_value.is_fact:
+        return xv.XuleValue(xule_context, object_value.fact.isNil, 'bool')
+    #The object is none
+    return object_value
+
 def property_label(xule_context, object_value, *args):
     
     if object_value.is_fact:
@@ -1314,6 +1320,7 @@ PROPERTIES = {
               'is-numeric': (property_is_numeric, 0, ('concept', 'fact'), True),
               'is-monetary': (property_is_monetary, 0, ('concept', 'fact'), True),
               'is-abstract': (property_is_abstract, 0, ('concept', 'fact'), True),
+              'is-nil': (property_is_nil, 0, ('fact'), True),
               'scale': (property_scale, 0, ('fact',), True),
               'format': (property_format, 0, ('fact',), True),
               'label': (property_label, -2, ('concept', 'fact'), True),
