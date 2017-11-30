@@ -4258,7 +4258,8 @@ def result_message(rule_ast, result_ast, xule_value, xule_context):
     if message_value.type == 'unbound':
         message_string = ""
     else:
-        message_string = str(message_value.value)
+        # The log formatter uses % as the format character. Need to escape any % in the message with a  double %
+        message_string = str(message_value.value).replace('%','%%')
         
         #message_string = process_message(message_string, xule_value, xule_context)
         
