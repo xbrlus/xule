@@ -255,6 +255,8 @@ def get_grammar():
     tagName = simpleName.setResultsName('tagName')
 
     covered = CaselessKeyword('covered').setParseAction(lambda: True).setResultsName('covered')
+    includeNils = (CaselessKeyword('include') + CaselessKeyword('nils')).setParseAction(lambda: True).setResultsName('includeNils')
+    excludeNils = (CaselessKeyword('exclude') + CaselessKeyword('nils')).setParseAction(lambda: True).setResultsName('excludeNils')
     where = CaselessKeyword('where')
     returns = CaselessKeyword('returns')
 
@@ -310,7 +312,8 @@ def get_grammar():
                              )
                     + nodeName('aspectFilter'))
     
-    factsetInner = (Optional(covered) + 
+    factsetInner = (Optional(excludeNils | includeNils) +
+                    Optional(covered) + 
                     (Suppress(Literal('@')) ^ ZeroOrMore(Group(aspectFilter)).setResultsName('aspectFilters')) +
 #                     Optional((whereClause) | blockExpr.setResultsName('innerExpr')
                     Optional(~ where + blockExpr.setResultsName('innerExpr') ) +
@@ -332,10 +335,11 @@ def get_grammar():
                       Suppress(rSquare) +
                       Empty().setParseAction(lambda s, l, t: 'closed').setResultsName('factsetType')
                       ) |
+                      (Optional(excludeNils | includeNils) +
                       Optional(covered) +
                       (Suppress(Literal('@')) ^ OneOrMore(Group(aspectFilter)).setResultsName('aspectFilters')) + #This is a factset without enclosing brackets
                       Empty().setParseAction(lambda s, l, t: 'open').setResultsName('factsetType') +
-                      Optional(whereClause)
+                      Optional(whereClause))
                 ) +
                 nodeName('factset')        
             )
