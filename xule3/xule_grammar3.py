@@ -255,8 +255,8 @@ def get_grammar():
     tagName = simpleName.setResultsName('tagName')
 
     covered = CaselessKeyword('covered').setParseAction(lambda: True).setResultsName('covered')
-    includeNils = (CaselessKeyword('include') + CaselessKeyword('nils')).setParseAction(lambda: True).setResultsName('includeNils')
-    excludeNils = (CaselessKeyword('exclude') + CaselessKeyword('nils')).setParseAction(lambda: True).setResultsName('excludeNils')
+    includeNils = CaselessKeyword('nils').setParseAction(lambda: True).setResultsName('includeNils')
+    excludeNils = CaselessKeyword('nonils').setParseAction(lambda: True).setResultsName('excludeNils')
     where = CaselessKeyword('where')
     returns = CaselessKeyword('returns')
 
