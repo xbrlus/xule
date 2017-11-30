@@ -2811,7 +2811,7 @@ def nav_get_element(nav_expr, side, dts, xule_context):
                     if concept is not None:
                         concepts.add(concept)
                 elif item.type == 'concept':
-                    concepts.add(time.value)
+                    concepts.add(item.value)
                 else:
                     raise XuleProcessingError(_("In navigation, expecting a collection of concepts or concepts, but found {}.".format(item.type)))
             return concepts

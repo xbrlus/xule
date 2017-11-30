@@ -218,7 +218,8 @@ class XuleValue:
                 return "%s" % self.value.strftime("%Y-%m-%d")
         
         elif self.type == 'list':
-            list_value = ", ".join([sub_value.format_value() for sub_value in self.value])
+            #list_value = ", ".join([sub_value.format_value() for sub_value in self.value])
+            list_value = "list(" + ", ".join([sub_value.format_value() for sub_value in self.value]) + ")" 
             return list_value
         
         elif self.type == 'set':
