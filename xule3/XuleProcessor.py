@@ -523,6 +523,8 @@ def evaluate(rule_part, xule_context, is_values=False, trace_dependent=False, ov
             else:
                 cache_value = xule_context.local_cache.get(local_cache_key)
                 value = cache_value.clone() if cache_value is not None else None
+                # The tags on the value may not apply to this iteration.  For exmaple, if the expression is not dependent, then it will
+                # be evaluated once and stored in the local cache with the tags from the first evaluation.
                 if value is not None and value.tags is not None:
                     new_tags = value.tags.copy()
                     new_tags.update(xule_context.tags)
