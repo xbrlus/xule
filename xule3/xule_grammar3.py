@@ -312,8 +312,8 @@ def get_grammar():
                              )
                     + nodeName('aspectFilter'))
     
-    factsetInner = (Optional(excludeNils | includeNils) +
-                    Optional(covered) + 
+    factsetInner =  ((Optional(excludeNils | includeNils) &
+                    Optional(covered)) + 
                     (Suppress(Literal('@')) ^ ZeroOrMore(Group(aspectFilter)).setResultsName('aspectFilters')) +
 #                     Optional((whereClause) | blockExpr.setResultsName('innerExpr')
                     Optional(~ where + blockExpr.setResultsName('innerExpr') ) +
