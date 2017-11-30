@@ -154,10 +154,10 @@ def xuleCmdOptions(parser):
                       dest="xule_precalc_constants",
                       help=_("Pre-calculate constants that do not depend on the instance."))
 
-    parserGroup.add_option("--xule-include-nils",
+    parserGroup.add_option("--xule-exclude-nils",
                       action="store_true",
-                      dest="xule_include_nils",
-                      help=_("Indicates that the processor should include nil facts. By default, nils are ignored."))
+                      dest="xule_exclude_nils",
+                      help=_("Indicates that the processor should exclude nil facts. By default, nils are included."))
     
     parserGroup.add_option("--xule-include-dups",
                       action="store_true",

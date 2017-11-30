@@ -2065,8 +2065,7 @@ def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non
         matched = True
         
         #check if nill
-        #print("nils", getattr(xule_context.global_context.options, "xule_include_nils", False))
-        if not getattr(xule_context.global_context.options, "xule_include_nils", False) and model_fact.isNil:
+        if getattr(xule_context.global_context.options, "xule_exclude_nils", False) and model_fact.isNil:
         #if not xule_context.include_nils and model_fact.isNil:
             continue
         
