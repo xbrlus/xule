@@ -83,7 +83,10 @@ def buildPrecedenceExpressions( baseExpr, opList, lpar=Suppress('('), rpar=Suppr
             if exprName is None:
                 exprName = 'unaryExpr'
             matchExpr = (FollowedBy(opExpr + lastExpr) + \
-                        ( opExpr.setResultsName('op') + lastExpr.setResultsName('expr') ) + nodeName(exprName))
+                        ( opExpr.setResultsName('op') + ~Word(nums) + lastExpr.setResultsName('expr') ) + nodeName(exprName))
+                        #Group(OneOrMore(Group(opExpr.setResultsName('op') + nodeName('opExpr')))).setResultsName('ops') + lastExpr.setResultsName('expr') + nodeName(exprName) )
+
+                            
         else: #arity == 2
             #original -matchExpr = FollowedBy(lastExpr + opExpr + lastExpr) + ( lastExpr + OneOrMore( opExpr + lastExpr ) )
             if exprName is None:
@@ -157,7 +160,7 @@ def get_grammar():
     methodOp = Literal(".")
     
     #operators
-    unaryOp = oneOf('+ -') + ~oneOf(nums)
+    unaryOp = oneOf('+ -') #+ ~oneOf(nums)
     multiOp = oneOf('* /')
     addOp = oneOf('+> -> + - <+> <+ <-> <-')
     symDiffOp = Literal('^')
