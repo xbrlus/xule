@@ -7,7 +7,7 @@ from . import XuleFunctions
 from arelle.ModelRelationshipSet import ModelRelationshipSet
 import numpy
 from arelle.ModelDocument import Type
-
+import decimal
 import math
 
 def property_union(xule_context, object_value, *args):
@@ -854,13 +854,19 @@ def property_trunc(xule_context, object_value, *args):
             power = args[0].value
         elif args[0].type in ('float', 'decimal'):
             if int(args[0].value) == args[0].value:
-                power = args[0]
+                if args[0].type == 'float':
+                    power = int(args[0].value)
+                else: #decimal
+                    power = args[0].value.to_integral_value()
             else:
                 raise XuleProcessingError(_("For the trunc() property, the places argument must be an integer value, found {}".format(args[0].value)), xule_context)
         else:
             raise XuleProcessingError(_("For the trunc() property, the places argument must be an integer value, found {}".format(args[0].type)), xule_context)
-        
-    return xv.XuleValue(xule_context, math.trunc(object_value.value*10**power)*10**-power, 'int')
+
+    #working in decimals because we cannot combine a decimal and a float in arithmetic operations (like power and multiply).
+    working_value = decimal.Decimal(object_value.value)
+
+    return xv.XuleValue(xule_context, math.trunc(working_value*decimal.Decimal(10**power))*decimal.Decimal(10**-power), 'int')
 
 def property_round(xule_context, object_value, *args):
     if args[0].type == 'int':
