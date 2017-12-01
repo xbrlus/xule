@@ -847,7 +847,20 @@ def property_signum(xule_context, object_value, *args):
         return xv.XuleValue(xule_context, 1, 'int')                                    
 
 def property_trunc(xule_context, object_value, *args):
-    return xv.XuleValue(xule_context, math.trunc(object_value.value), 'int')
+    if len(args) == 0:
+        power = 0
+    else:
+        if args[0].type == 'int':
+            power = args[0].value
+        elif args[0].type in ('float', 'decimal'):
+            if int(args[0].value) == args[0].value:
+                power = args[0]
+            else:
+                raise XuleProcessingError(_("For the trunc() property, the places argument must be an integer value, found {}".format(args[0].value)), xule_context)
+        else:
+            raise XuleProcessingError(_("For the trunc() property, the places argument must be an integer value, found {}".format(args[0].type)), xule_context)
+        
+    return xv.XuleValue(xule_context, math.trunc(object_value.value*10**power)*10**-power, 'int')
 
 def property_round(xule_context, object_value, *args):
     if args[0].type == 'int':
@@ -1357,7 +1370,7 @@ PROPERTIES = {
               'log10': (property_log10, 0, ('int', 'float', 'decimal'), False),
               'abs': (property_abs, 0, ('int', 'float', 'decimal', 'fact'), False),
               'signum': (property_signum, 0, ('int', 'float', 'decimal', 'fact'), False),
-              'trunc': (property_trunc, 0, ('init', 'float', 'decimal', 'fact'), False),
+              'trunc': (property_trunc, -1, ('init', 'float', 'decimal', 'fact'), False),
               'round': (property_round, 1, ('init', 'float', 'decimal', 'fact'), False),
               'mod': (property_mod, 1 ,('init', 'float', 'decimal', 'fact'), False),
               'substring': (property_substring, -2, ('string', 'uri'), False),
