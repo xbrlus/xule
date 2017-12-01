@@ -865,7 +865,7 @@ def property_trunc(xule_context, object_value, *args):
 def property_round(xule_context, object_value, *args):
     if args[0].type == 'int':
         round_to = args[0].value
-    elif object_value.type == 'float':
+    elif args[0].type == 'float':
         if args[0].value.is_integer():
             round_to = int(object_value.value)
         else:
