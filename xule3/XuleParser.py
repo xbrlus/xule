@@ -10,6 +10,7 @@ from pyparsing import ParseResults, lineno, ParseException, ParseSyntaxException
 import os
 import datetime
 import sys
+from .xule_grammar import get_grammar
 
 def printRes(pr, level=0):
     level = level + 1
@@ -113,12 +114,6 @@ def parseRulesDetails(grammar_function, files, dest, xml_dir=None):
     print("%s: Parsing finished. Took %s" %(datetime.datetime.isoformat(parse_end), parse_end - parse_start))
 
 def parseRules(files, dest, xml_dir=None, grammar=None):
-    print("%s: Using grammar %s" % (datetime.datetime.isoformat(datetime.datetime.today()), grammar))    
-    
-    if grammar == "xule3":
-        from .xule_grammar3 import get_grammar
-    else:
-        from .xule_grammar2 import get_grammar 
     
     parseRulesDetails(get_grammar, files, dest, xml_dir)
     

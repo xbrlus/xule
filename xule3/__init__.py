@@ -45,13 +45,6 @@ def xuleCmdOptions(parser):
                       action="store",
                       dest="xule_rule_set",
                       help=_("RULESET to use (this is the directory where compile rules are stored."))
-
-    parserGroup.add_option("--xule-grammar",
-                      action="store",
-                      dest="xule_grammar",
-                      choices=['xule2', 'xule3'],
-                      default="xule3",
-                      help=_("Grammar version of the Xule rule file. Default is xule2")) 
     
     parserGroup.add_option("--xule-run",
                       action="store_true",
@@ -202,7 +195,7 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
     #compile rules
     if getattr(options, "xule_compile", None):
         compile_destination = getattr(options, "xule_rule_set", "xuleRules")        
-        parseRules(options.xule_compile.split("|"),compile_destination, grammar=options.xule_grammar)
+        parseRules(options.xule_compile.split("|"),compile_destination)
         
     #add taxonomy to rule set
     if getattr(options, "xule_add_taxonomy", None):
