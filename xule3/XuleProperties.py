@@ -867,7 +867,7 @@ def property_round(xule_context, object_value, *args):
         round_to = args[0].value
     elif args[0].type == 'float':
         if args[0].value.is_integer():
-            round_to = int(object_value.value)
+            round_to = int(args[0].value)
         else:
             raise XuleProcessingError(_("The argument to the 'round' property must be an integer value, found {}.".format(args[0].value)), xule_context)
     elif args[0].type == 'decimal':
