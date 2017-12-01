@@ -1397,7 +1397,7 @@ def evaluate_add(add_expr, xule_context):
         left_bar = operator[0] == '<'
         right_expr = right['rightExpr']
         
-        if left.type not in ('int', 'float', 'decimal', 'string', 'uri', 'instant', 'time-period', 'set', 'list', 'unbound'):
+        if left.type not in ('int', 'float', 'decimal', 'string', 'uri', 'instant', 'time-period', 'set', 'list', 'unbound', 'none'):
             raise XuleProcessingError(_("Left side of a {} operation cannot be {}.".format(operator, left.type)), xule_context)
         
         if right_bar:
@@ -1409,7 +1409,7 @@ def evaluate_add(add_expr, xule_context):
             except XuleIterationStop as xis:
                 right = xis.stop_value 
 
-        if right.type not in ('int', 'float', 'decimal', 'string', 'uri', 'instant', 'time-period', 'set', 'list', 'unbound'):
+        if right.type not in ('int', 'float', 'decimal', 'string', 'uri', 'instant', 'time-period', 'set', 'list', 'unbound', 'none'):
             raise XuleProcessingError(_("Right side of a {} operation cannot be {}.".format(operator, right.type)), xule_context)
 
         # A time-period can be on the left only if the right is also a time period.
@@ -1419,25 +1419,25 @@ def evaluate_add(add_expr, xule_context):
         do_calc = True
         
         if left_bar and right_bar: # <+>
-            if left.type == 'unbound' or right.type =='unbound':
+            if left.type in ('unbound', 'none') or right.type in ('unbound', 'none'):
                 raise XuleIterationStop(XuleValue(xule_context, None, 'unbound'))
         elif left_bar and not right_bar: #<+
-            if left.type == 'unbound':
+            if left.type in ('unbound', 'none'):
                 raise XuleIterationStop(XuleValue(xule_context, None, 'unbound'))
-            if right.type == 'unbound':
+            if right.type in  ('unbound', 'none'):
                 #the left value is the interim value
                 do_calc = False
         elif not left_bar and right_bar: # +>
-            if right.type == 'unbound':
+            if right.type in ('unbound', 'none'):
                 raise XuleIterationStop(XuleValue(xule_context, None, 'unbound'))
-            if left.type == 'unbound':
+            if left.type in ('unbound', 'none'):
                 left = right
                 do_calc = False
         else: #no bars
-            if left.type == 'unbound':
+            if left.type in ('unbound', 'none'):
                 left = right
                 do_calc = False
-            elif right.type == 'unbound':
+            elif right.type in ('unbound', 'none'):
                 do_calc = False #the value is already in the left
         
         if do_calc:
@@ -1546,22 +1546,22 @@ def evaluate_and(and_expr, xule_context):
                 right = evaluate(expr, xule_context)
             except XuleIterationStop as xis:
                 right = xis.stop_value #XuleValue(xule_context, None, 'unbound')
-            if right.type == 'unbound':
+            if right.type in ('unbound', 'none'):
                 has_unbound = True
-            if left.type not in ('unbound', 'bool') or right.type not in ('unbound', 'bool'):
+            if left.type not in ('unbound', 'none', 'bool') or right.type not in ('unbound', 'none', 'bool'):
                 raise XuleProcessingError(_("Operand of 'and' expression is not boolean. Left and right operand types are '%s' and '%s'." % (left.type, right.type)), xule_context)
             
             if left.type == 'bool' and right.type == 'bool':
                 left = XuleValue(xule_context, left.value and right.value, 'bool')
                 if left.value == False:
                     value_found = True
-            elif left.type == 'unbound' and right.type == 'unbound':
+            elif left.type in ('unbound', 'none') and right.type in ('unbound', 'none'):
                 continue
-            elif left.type == 'unbound' and right.type == 'bool':
+            elif left.type in ('unbound', 'none') and right.type == 'bool':
                 left = right
                 if left.value == False:
                     value_found = True
-            elif left.type == 'bool' and right.type == 'unbound':
+            elif left.type == 'bool' and right.type in ('unbound', 'none'):
                 if left.value == False:
                     value_found = True
     
@@ -1586,84 +1586,28 @@ def evaluate_or(or_expr, xule_context):
                 right = evaluate(expr, xule_context)
             except XuleIterationStop as xis:
                 right = xis.stop_value #XuleValue(xule_context, None, 'unbound')
-            if right.type == 'unbound':
+            if right.type in ('unbound', 'none'):
                 has_unbound = True
-            if left.type not in ('unbound', 'bool') or right.type not in ('unbound', 'bool'):
+            if left.type not in ('unbound', 'none', 'bool') or right.type not in ('unbound', 'none', 'bool'):
                 raise XuleProcessingError(_("Operand of 'or' expression is not boolean. Left and right operand types are '%s' and '%s'." % (left.type, right.type)), xule_context)
             
             if left.type == 'bool' and right.type == 'bool':
                 left = XuleValue(xule_context, left.value or right.value, 'bool')
                 if left.value == True:
                     value_found = True
-            elif left.type == 'unbound' and right.type == 'unbound':
+            elif left.type in ('unbound', 'none') and right.type in ('unbound', 'none'):
                 continue
-            elif left.type == 'unbound' and right.type == 'bool':
+            elif left.type in ('unbound', 'none') and right.type == 'bool':
                 left = right
                 if left.value == True:
                     value_found = True
-            elif left.type == 'bool' and right.type == 'unbound':
+            elif left.type == 'bool' and right.type in ('unbound', 'none'):
                 if left.value == True:
                     value_found = True
     if (has_unbound and value_found) or not has_unbound:
         return left
     else:
         return XuleValue(xule_context, None, 'unbound')
-
-def evaluate_values(values_expr, xule_context):
-    pass
-
-def validate_values(values_expr, xule_context):
-    #The 'values' expression is only allowed on an expression that is iterable with alignment. These are factsets and aggregations where the content is a factset).
-    #The expression can also be a constant if the constant expression is iterable with alignment.
-    if values_expr[0]['exprName'] == 'taggedExpr':
-        inner_expression = values_expr[0].expr[0]
-    else:
-        inner_expression = values_expr[0]
-
-    if not(inner_expression.get('has_alignment') == True and inner_expression.get('is_iterable') == True):
-        if inner_expression.get('is_constant') == True:
-            #Check the constant expression
-            const_info = xule_context.find_var(inner_expression.varName, inner_expression.var_declaration)
-            if const_info is None:
-                raise XuleProcessingError(_("Internal error: constant not found during 'values' evaluation"), xule_context)
-            else:
-                if not(const_info['expr'].get('has_alignment') == True and const_info['expr'].get('is_iterable') == True):
-                    raise XuleProcessingError(_("'values' can only preceed expressions that return aligned values"), xule_context)
-        else:
-            raise XuleProcessingError(_("'values' can only preceed expressions that return aligned values"), xule_context)
-  
-# 
-#     
-#     #For constants, take the values of the constant and remove the alignments
-#     if values_expr[0].get('is_constant') == True:
-#         if const_info['type'] != xule_context._VAR_TYPE_CONSTANT:
-#             raise XuleProcessingError(_("Internal error: var ref in a 'values' expression must be a constant"), xule_context)
-#         else:
-#             if const_info['calculated'] == False:
-#                 aligned_values = calc_constant(const_info, xule_context)
-#                 const_info['calculated'] = True
-#                 const_info['value'] = aligned_values
-#             else:
-#                 aligned_values = const_info['value']
-#         #The 'values' expression can only be infront of an iterable expression that has alignment. The 'None' aligned values are really default values that are
-#         #used if they are combined with something with alignment. When applying the 'values' expressions, these 'None' aligned values are discarded.
-#         unaligned_values = XuleValueSet()
-#         for alignment, values in aligned_values.values.items():
-#             if alignment is not None:
-#                 for value in values:
-#                     unaligned_value = value.clone()
-#                     unaligned_value.alignment = None
-#                     unaligned_value.aligned_result_only = False
-#                     unaligned_values.append(unaligned_value)
-#         return unaligned_values
-#     else:
-#         #The expression is not a constant, so it needs to be evaluated.
-#         xule_context.no_alignment = True
-#         try:
-#             return_value = evaluate(values_expr[0], xule_context)
-#         finally:
-#             xule_context.no_alignment = False
-#         return return_value
 
 import time
 
@@ -3861,7 +3805,6 @@ EVALUATOR = {
     "dictExpr": evaluate_dict,
     "listExpr": evaluate_list,
     "setExpr": evaluate_set,
-    #'valuesExpr': evaluate_values,
     
     #expressions with order of operations
     "unaryExpr": evaluate_unary,
