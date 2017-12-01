@@ -1492,18 +1492,26 @@ def evaluate_comp(comp_expr, xule_context):
             interim_value = XuleValue(xule_context, left_compute_value == right_compute_value, 'bool')
         elif operator == '!=':
             interim_value = XuleValue(xule_context, left_compute_value != right_compute_value, 'bool')
-        elif operator == '<':
-            interim_value = XuleValue(xule_context, left_compute_value < right_compute_value, 'bool')
-        elif operator == '<=':
-            interim_value = XuleValue(xule_context, left_compute_value <= right_compute_value, 'bool')
-        elif operator == '>':
-            interim_value = XuleValue(xule_context, left_compute_value > right_compute_value, 'bool')
-        elif operator == '>=':
-            interim_value = XuleValue(xule_context, left_compute_value >= right_compute_value, 'bool')  
         elif operator == 'in':
             interim_value = XuleValue(xule_context, left_compute_value in right_compute_value, 'bool')
         elif operator == 'not in':
-            interim_value = XuleValue(xule_context, left_compute_value not in right_compute_value, 'bool')
+            interim_value = XuleValue(xule_context, left_compute_value not in right_compute_value, 'bool')        
+        elif operator in ('<', '>'):
+            if left.type == 'none' or right.type == 'none':
+                interim_value = XuleValue(xule_context, None, 'none')
+            elif operator == '<':
+                interim_value = XuleValue(xule_context, left_compute_value < right_compute_value, 'bool')
+            elif operator == '>':
+                 interim_value = XuleValue(xule_context, left_compute_value > right_compute_value, 'bool')
+        elif operator in ('<=', '>='):
+            if left.type == 'none' and right.type == 'none':
+                interim_value = XuleValue(xule_context, True, 'bool')
+            elif left.type == 'none' or right.type == 'none':
+                interim_value = XuleValue(xule_context, None, 'none')
+            elif operator == '<=':
+                interim_value = XuleValue(xule_context, left_compute_value <= right_compute_value, 'bool')
+            elif operator == '>=':
+                interim_value = XuleValue(xule_context, left_compute_value >= right_compute_value, 'bool')  
         else:
             raise XuleProcessingError(_("Unknown operator '%s'." % operator), xule_context)  
 
