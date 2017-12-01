@@ -2258,7 +2258,7 @@ def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non
 
                     if where_matched:
                         default_used_expressions.update(set(xule_context.used_expressions))
-                        if where_value.type == 'unbound':
+                        if where_value.type in ('unbound', 'none'):
                             pass
                         elif where_value.type == 'bool':                                
                             if where_value.value:
@@ -2370,7 +2370,7 @@ def evaluate_filter(filter_expr, xule_context):
                 
                 if filter_where_result.type == 'bool':
                     keep = filter_where_result.value
-                elif filter_where_result.type != 'unbound':
+                elif filter_where_result.type not in ('unbound', 'none'):
                     raise XuleProcessingError(_("The where clause on a filter expression must evaluate to a boolean, found '{}'.".format(filter_where_result.type)), xule_context)            
             
             if keep:
@@ -2681,9 +2681,9 @@ def nav_traverse_where(nav_expr, relationship, xule_context):
 
         if nav_where_results.type == 'bool':
             return nav_where_results.value
-        elif nav_where_results.type == 'unbound':
+        elif nav_where_results.type in ('unbound', 'none'):
             return False
-        elif filter_where_result.type != 'unbound':
+        elif filter_where_result.type not in ('unbound', 'none'):
             raise XuleProcessingError(_("The where clause on a navigation expression must evaluate to a boolean, found '{}'.".format(nav_where_results.type)), xule_context)
 
         
