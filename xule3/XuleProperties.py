@@ -866,7 +866,7 @@ def property_trunc(xule_context, object_value, *args):
     #working in decimals because we cannot combine a decimal and a float in arithmetic operations (like power and multiply).
     working_value = decimal.Decimal(object_value.value)
 
-    return xv.XuleValue(xule_context, math.trunc(working_value*decimal.Decimal(10**power))*decimal.Decimal(10**-power), 'int')
+    return xv.XuleValue(xule_context, math.trunc(working_value*decimal.Decimal(10)**power)*decimal.Decimal(10)**-power, 'int')
 
 def property_round(xule_context, object_value, *args):
     if args[0].type == 'int':
