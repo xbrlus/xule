@@ -853,8 +853,12 @@ def property_trunc(xule_context, object_value, *args):
         if args[0].type == 'int':
             power = args[0].value
         elif args[0].type in ('float', 'decimal'):
-            if int(args[0].value) == args[0].value:
-                if args[0].type == 'float':
+            if args[0].value == float('inf'):
+                return object_value
+            if args[0].value == float('-inf'):
+                return xv.XuleValue(xule_context, 0, 'int') 
+            if int(args[0].value) == args[0].value:                
+                if args[0].type == 'float':                   
                     power = int(args[0].value)
                 else: #decimal
                     power = args[0].value.to_integral_value()
@@ -872,6 +876,10 @@ def property_round(xule_context, object_value, *args):
     if args[0].type == 'int':
         round_to = args[0].value
     elif args[0].type == 'float':
+        if args[0].value == float('inf'):
+            return object_value
+        if args[0].value == float('-inf'):
+            return xv.XuleValue(xule_context, 0, 'int')
         if args[0].value.is_integer():
             round_to = int(args[0].value)
         else:
