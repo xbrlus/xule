@@ -189,7 +189,7 @@ def property_role(xule_context, object_value, *args):
     if role_uri in xule_context.model.roleTypes:
         return xv.XuleValue(xule_context, xule_context.model.roleTypes[role_uri][0], 'role')
     else:
-        return xv.XuleValue(xule_context, XuleRole(role_uri), 'role')
+        return xv.XuleValue(xule_context, xv.XuleRole(role_uri), 'role')
 
 def property_role_uri(xule_context, object_value, *args):
     if object_value.type == 'network':
