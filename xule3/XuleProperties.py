@@ -216,7 +216,7 @@ def property_role_description(xule_context, object_value, *args):
     if role_uri in xule_context.model.roleTypes:
         model_role = xule_context.model.roleTypes[role_uri][0]
     else:
-        model_role = XuleRole(role_uri)
+        model_role = xv.XuleRole(role_uri)
     
     return xv.XuleValue(xule_context, model_role.definition, 'string')
     
