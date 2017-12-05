@@ -762,14 +762,16 @@ def func_csv_data(xule_context, *args):
     
     if len(args) >= 3:    
         column_types = args[2]
-        if column_types.type != 'list':
+        if column_types.type == 'none':
+            ordered_cols = None
+        elif column_types.type == 'list':
+            ordered_cols = list()
+            for col in column_types.value:
+                if col.type != 'string':
+                    raise XuleProcessingError(_("The type list argument (3rd argument) of the csv-data() function must be a list of strings, found '{}'.".format(col.type)), xule_context)
+                ordered_cols.append(col.value)
+        else:
             raise XuleProcessingError(_("The type list argument (3rd argument) of the csv-data() fucntion must be list, found '{}'.".format(column_types.type)), xule_context)
-        
-        ordered_cols = list()
-        for col in column_types.value:
-            if col.type != 'string':
-                raise XuleProcessingError(_("The type list argument (3rd argument) of the csv-data() function must be a list of strings, found '{}'.".format(col.type)), xule_context)
-            ordered_cols.append(col.value)
     else:
         ordered_cols = None
     
