@@ -788,30 +788,41 @@ def func_csv_data(xule_context, *args):
         
     result = list()
     result_shadow = list()
+    
+    from arelle import PackageManager
+    mapped_file_url = PackageManager.mappedUrl(file_url.value)
 
-    if file_url.value.startswith('http://') or file_url.value.startswith('https://'):
-        
-        if file_url.value.startswith('https://') and getattr(xule_context.global_context.options, 'noCertificateCheck', False):
-            try:
-                import ssl
-                context = ssl.create_default_context()
-                context.check_hostname = False
-                context.verify_mode = ssl.CERT_NONE
-            except ImportError:
-                context=None
-        else:
-            context = None
-        try:
-            data_source = urllib.request.urlopen(file_url.value, context=context).read().decode('utf-8').splitlines()
-        except urllib.error.HTTPError as he:
-            raise XuleProcessingError(_("Trying to open url '{}', got HTTP {} - {}, error".format(file_url.value, he.code, he.reason)), xule_context)
-    else:
-        try:
-            with open(file_url.value, 'r', newline='') as data_file:
-                data_source = data_file.readlines()
-        except FileNotFoundError:
-            raise XuleProcessingError(_("Trying to open file '{}', but file is not found.".format(file_url.value)), xule_context)
-        
+    # Using the FileSource object in arelle. This will open the file and handle taxonomy package mappings.
+    from arelle import FileSource
+    file_source = FileSource.openFileSource(file_url.value, xule_context.global_context.cntlr)
+    file = file_source.file(file_url.value, binary=True)
+    # file is  tuple of one item as a BytesIO stream. Since this is in bytes, it needs to be converted to text via a decoder.
+    # Assuming the file is in utf-8. 
+    data_source = [x.decode('utf-8') for x in file[0].readlines()]
+
+#     if mapped_file_url.startswith('http://') or mapped_file_url.startswith('https://'):
+#         
+#         if mapped_file_url.startswith('https://') and getattr(xule_context.global_context.options, 'noCertificateCheck', False):
+#             try:
+#                 import ssl
+#                 context = ssl.create_default_context()
+#                 context.check_hostname = False
+#                 context.verify_mode = ssl.CERT_NONE
+#             except ImportError:
+#                 context=None
+#         else:
+#             context = None
+#         try:
+#             data_source = urllib.request.urlopen(mapped_file_url, context=context).read().decode('utf-8').splitlines()
+#         except urllib.error.HTTPError as he:
+#             raise XuleProcessingError(_("Trying to open url '{}', got HTTP {} - {}, error".format(mapped_file_url, he.code, he.reason)), xule_context)
+#     else:
+#         try:
+#             with open(mapped_file_url, 'r', newline='') as data_file:
+#                 data_source = data_file.readlines()
+#         except FileNotFoundError:
+#             raise XuleProcessingError(_("Trying to open file '{}', but file is not found.".format(mapped_file_url)), xule_context)
+ 
     import csv
     reader = csv.reader(data_source)
     first_line = True
@@ -847,7 +858,8 @@ def func_csv_data(xule_context, *args):
                 result_line_shadow.append(item_value.value)
             else: #dictonary
                 if col_num >= len(column_names):
-                    raise xule_context(_("The number of columns on row {} is greater than the number of headers in the csv file. File: {}".format(row_num, file_url.value)), xule_context)
+                    raise xule_context(_("The number of columns on row {} is greater than the number of headers in the csv file. File: {}".format(row_num, 
+                                                                                                                                                  mappedUrl if mapped_file_url == file_url.value else file_url.value + ' --> ' + mapped_file_url)), xule_context)
 
                 result_line[XuleValue(xule_context, column_names[col_num], 'string')] = item_value
                 result_line_shadow[column_names[col_num]] = item_value.value
