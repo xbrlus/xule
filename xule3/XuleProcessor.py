@@ -898,6 +898,9 @@ def evaluate_qname_literal(literal, xule_context):
 def evaluate_severity(severity_expr, xule_context):
     return XuleValue(xule_context, severity_expr['value'], 'severity')
 
+def evaluate_aspect_name(literal, xule_context):
+    return XuleValue(xule_context, literal['value'], 'aspect_name')
+
 def evaluate_string_keyword(expr, xule_context):
     return XuleValue(xule_context, expr['value'], 'string')
 
@@ -916,52 +919,76 @@ def evaluate_tagged(tagged_expr, xule_context):
         
     return tagged_value
 
-def tag_default_for_factset(expr, xule_context):
+def tag_default_for_factset(aspect_filters, xule_context):
     """Get the value of the concept aspect for tagging the default None fact of a factset
     """
 
-    for aspect_filter in expr.get('aspectFilters', list()):
-        if aspect_filter.get('aspectName') == 'concept':
-            if 'aspectOperator' in aspect_filter:
-                if aspect_filter['aspectOperator'] == '=':
-                    if 'wildcard' in aspect_filter:
-                        return 'unknown'
+    for aspect_info, aspect_value in aspect_filters.items():
+        #aspect_inf is the aspect_info that is the key to the aspect_filters dictionary
+        #aspect_info is a tuple. The 0 = type (builtin or explicit_dimension, 1 = aspect name, 2 = wildcard, 3 = operator, properties
+
+        if aspect_info[0] == 'builtin' and aspect_info[1] == 'concept':
+            if aspect_info[2] is None: # there isn't a wildcard
+                if aspect_info[3] == '=': # the operator is '=' and it is not a wildcard
+                    return str(aspect_value)
+                elif aspect_info[3] == 'in':
+                    # the aspect_value is a list or set of names.
+                    concepts = []
+                    for aspect_name in aspect_value.value:
+                        if aspect_name == 'qname':
+                            concepts.append(str(aspect_name.value))
+                        elif aspect_name == 'concept':
+                            concepts.append(str(aspect_name.value.qname))
+                    if len(concetps) == 1:
+                        return str(concepts[0])
                     else:
-                        aspect_member_value = evaluate(aspect_filter['aspectExpr'], xule_context)
-                        return str(aspect_member_value)
-                elif aspect_filter['aspectOperator'] == 'in':
-                    aspect_member_set = evaluate(aspect_filter['aspectExpr'], xule_context)
-                    if len(aspect_member_set.value) > 0:
-                        concepts = []
-                        for aspect_member_value in aspect_member_set.value:
-                            if aspect_member_value.type == 'qname':
-                                concepts.append(str(aspect_member_value.value))
-                            elif aspect_member_value.type == 'concept':
-                                concepts.append(str(aspect_member_value.value.qname))
-                        if len(concepts) == 1:
-                            return str(concepts[0])
-                        else:
-                            return 'one of (' + ', '.join(concepts) + ')'
-                    else:
-                        return 'unknown'
-                else:
-                    return 'unknown'
-            else:
-                # There is no aspectoperator
-                return 'unknown'
-            
-        elif 'aspectDimensionName' in aspect_filter:
-            #check if this is dimension concept. If not, then this is the default concept aspect
-            aspect_dimension_qname = evaluate(aspect_filter['aspectDimensionName'], xule_context)
-            aspect_filter_model_concept = xule_context.model.qnameConcepts.get(aspect_dimension_qname.value)
-            if aspect_filter_model_concept is None:
-                raise XuleProcessingError(_("Error while processing factset aspect. Concept %s not found." % aspect_filter_qname.value.clarkNotation), xule_context)            
-            if not aspect_filter_model_concept.isDimensionItem:
-                #This is the default concept aspect where the qname is the aspect member.
-                return str(aspect_dimension_qname.value)
-        
-    # Doesn't have a concept aspect at all 
+                        return 'one of (' + ', '.join(concepts) + ')'
+    
+    #If we get here, then the default tag is unknown
     return 'unknown'
+            
+#     for aspect_filter in expr.get('aspectFilters', list()):
+#         if aspect_filter.get('aspectName') == 'concept':
+#             if 'aspectOperator' in aspect_filter:
+#                 if aspect_filter['aspectOperator'] == '=':
+#                     if 'wildcard' in aspect_filter:
+#                         return 'unknown'
+#                     else:
+#                         aspect_member_value = evaluate(aspect_filter['aspectExpr'], xule_context)
+#                         return str(aspect_member_value)
+#                 elif aspect_filter['aspectOperator'] == 'in':
+#                     aspect_member_set = evaluate(aspect_filter['aspectExpr'], xule_context)
+#                     if len(aspect_member_set.value) > 0:
+#                         concepts = []
+#                         for aspect_member_value in aspect_member_set.value:
+#                             if aspect_member_value.type == 'qname':
+#                                 concepts.append(str(aspect_member_value.value))
+#                             elif aspect_member_value.type == 'concept':
+#                                 concepts.append(str(aspect_member_value.value.qname))
+#                         if len(concepts) == 1:
+#                             return str(concepts[0])
+#                         else:
+#                             return 'one of (' + ', '.join(concepts) + ')'
+#                     else:
+#                         return 'unknown'
+#                 else:
+#                     return 'unknown'
+#             else:
+#                 # There is no aspectoperator
+#                 return 'unknown'
+#             
+#         elif 'aspectDimensionName' in aspect_filter:
+#             #check if this is dimension concept. If not, then this is the default concept aspect
+#             aspect_dimension_qname = evaluate(aspect_filter['aspectDimensionName'], xule_context)
+#             aspect_filter_model_concept = xule_context.model.qnameConcepts.get(aspect_dimension_qname.value)
+#             if aspect_filter_model_concept is None:
+#                 raise XuleProcessingError(_("Error while processing factset aspect. Concept %s not found." % aspect_filter_qname.value.clarkNotation), xule_context)            
+#             if not aspect_filter_model_concept.isDimensionItem:
+#                 #This is the default concept aspect where the qname is the aspect member.
+#                 return str(aspect_dimension_qname.value)
+#         
+#     # Doesn't have a concept aspect at all 
+#     return 'unknown'
 
 
 def evaluate_block(block_expr, xule_context):
@@ -1827,7 +1854,10 @@ def evaluate_factset_detail(factset, xule_context):
             xule_context.where_dependent_iterables = saved_where_dependent_iterables
         
     if None not in results.values:        
-        default_value = XuleValue(xule_context, None, 'unbound', tag=XuleValue(xule_context, tag_default_for_factset(factset, xule_context), 'empty_fact'))
+        expr_aspect_filters = non_align_aspects.copy()
+        expr_aspect_filters.update(align_aspects)       
+        #default_value = XuleValue(xule_context, None, 'unbound', tag=XuleValue(xule_context, tag_default_for_factset(expr_aspect_filters, xule_context), 'empty_fact'))
+        default_value = XuleValue(xule_context, None, 'unbound', tag=XuleValue(xule_context, None, 'none'))
         '''The current list of facts and tags are not inlcuded on the default None fact in a factset. This was causing problems with a exists() and missing().
            The default None fact in the missing would have the tags and facts from the first evaluation, but then these would be applied on consequent
            iterations where the tags from the first iteration would overwrite the tags on the consequent iterations.'''
@@ -3820,14 +3850,14 @@ EVALUATOR = {
     #severity
     'severity': evaluate_severity,
     
+    #aspect name literal
+    'aspectName': evaluate_aspect_name,
+    
     #balance
     'balance': evaluate_string_keyword,
     'periodType': evaluate_string_keyword,
     
     }
-
-
- 
     
 #the position of the function information
 FUNCTION_TYPE = 0
@@ -3884,35 +3914,39 @@ def process_factset_aspects(factset, xule_context):
         # Set the dictionary to use based on if the aspect is covered (single @ - non aligned) vs. uncoverted (double @ - aligned)
         aspect_dictionary = non_align_aspects if aspect_filter['coverType'] == 'covered' else align_aspects        
         aspect_var_name = aspect_filter.get('alias')
-        if 'aspectName' in aspect_filter:
+        
+        #evaluate the aspectName
+        aspect_name = evaluate(aspect_filter['aspectName'], xule_context)
+        
+        if aspect_name.type == 'aspect_name':
             # This is a built in aspect - one of concept, period, entity, unit or table
             add_aspect_var(aspect_vars, 'builtin', aspect_filter['aspectName'], aspect_var_name, aspect_filter['node_id'], xule_context)
-            if aspect_filter['aspectName'] == 'concept' and alternate_notation:
+            if aspect_name.value == 'concept' and alternate_notation:
                 raise XuleProcessingError(_("The factset specifies the concept aspect as both @{0} and @concept={0}. Only one method should be used".format(aspect_filter_qname.value)), xule_context)
-            aspect_info, aspect_value = process_aspect_expr(aspect_filter, 'builtin', aspect_filter['aspectName'], xule_context)
+            aspect_info, aspect_value = process_aspect_expr(aspect_filter, 'builtin', aspect_name.value, xule_context)
             if aspect_info is not None:
                 aspect_dictionary[aspect_info] = aspect_value
-        else:
+        elif aspect_name.type == 'qname':
             # This is either a dimension aspect or the default concept aspect. The aspect name is determined by evaluating the aspectDimensionName
-            aspect_filter_qname = evaluate(aspect_filter['aspectDimensionName'], xule_context)
             #Get the model concept to determine if the aspect is a dimension
-            aspect_filter_model_concept = xule_context.model.qnameConcepts.get(aspect_filter_qname.value)
+            aspect_filter_model_concept = xule_context.model.qnameConcepts.get(aspect_name.value)
             if aspect_filter_model_concept is None:
                 raise XuleProcessingError(_("Error while processing factset aspect. Concept %s not found." % aspect_filter_qname.value.clarkNotation), xule_context)
             if aspect_filter_model_concept.isDimensionItem:
                 # This is a dimension aspect
-                add_aspect_var(aspect_vars, 'explicit_dimension', aspect_filter_qname.value, aspect_var_name, aspect_filter['node_id'], xule_context)
-                aspect_info, aspect_value = process_aspect_expr(aspect_filter, 'explicit_dimension', aspect_filter_qname.value, xule_context)
+                add_aspect_var(aspect_vars, 'explicit_dimension', aspect_name.value, aspect_var_name, aspect_filter['node_id'], xule_context)
+                aspect_info, aspect_value = process_aspect_expr(aspect_filter, 'explicit_dimension', aspect_name.value, xule_context)
                 if aspect_info is not None:
                     aspect_dictionary[aspect_info] = aspect_value                   
             else:
-                # This is a concept aspect and the filter name is really the aspect value (i.e. @Assets
+                # This is a concept aspect and the filter name is really the aspect value (i.e. @Assets)
                 if aspect_in_filters('builtin', 'concept', aspect_dictionary):
-                    raise XuleProcessingError(_("The factset specifies the concept aspect as both @{0} and @concept={0}. Only one method should be used".format(aspect_filter_qname.value)), xule_context)
+                    raise XuleProcessingError(_("The factset specifies the concept aspect as both @{0} and @concept={0}. Only one method should be used".format(aspect_name.value)), xule_context)
                 alternate_notation = True #Indicate that the concept aspect is provided
-                aspect_dictionary[('builtin', 'concept', None, '=', None)] = aspect_filter_qname
+                aspect_dictionary[('builtin', 'concept', None, '=', None)] = aspect_name
                 add_aspect_var(aspect_vars, 'builtin', 'concept', aspect_var_name, aspect_filter['node_id'], xule_context)
-
+        else:
+            raise XuleProcessingError(_("An aspect name must be one of 'concept', 'unit', 'period', 'entity' or a dimension qname, found '{}'.".format(aspect_name.type)), xule_context)
 
 #         aspect_filter_qname = evaluate(aspect_filter.aspectName.qName, xule_context).value
 #         #verify that lineItem is not used in both forms of the notation, i.e. Assets[lineItem=Liabilities].

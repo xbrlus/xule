@@ -263,6 +263,9 @@ def get_grammar():
     where = CaselessKeyword('where')
     returns = CaselessKeyword('returns')
 
+    #variable reference
+    varRef = Group(Suppress(varIndicator) + simpleName.setResultsName('varName') + Empty().setParseAction(lambda: 'tagRef' if INRESULT else 'varRef').setResultsName('exprName'))
+
     properties = Group(OneOrMore(Group(Suppress(propertyOp) +
                                        simpleName.setResultsName('propertyName') +
                                        Optional(Group(Suppress(lParen) +
@@ -285,39 +288,45 @@ def get_grammar():
     # single @s instead of a single double @.
     aspectStart = (uncoveredAspectStart | coveredAspectStart).setResultsName('coverType') + ~coveredAspectStart + ~White()
     
-    aspectName = ((CaselessKeyword('concept') | 
-                   CaselessKeyword('unit') | 
-                   CaselessKeyword('entity') | 
-                   CaselessKeyword('period') | 
-                   CaselessKeyword('table')).setResultsName('aspectName') +
-                   Optional(
-                            #properties.setResultsName('aspectProperties'))
-                        Suppress(propertyOp) +
-                        ncName.setResultsName('propertyName') +
-                        Optional(Group(Suppress(lParen) +
-                                       Optional(delimitedList(blockExpr)) +
-                                       Suppress(rParen)
-                                       ).setResultsName('propertyArgs')
-                        )                        
-                    )
-                  )| Optional(qName.setResultsName('aspectDimensionName'))
+    aspectNameLiteral = Group((CaselessKeyword('concept').setResultsName('value') | 
+                               CaselessKeyword('unit').setResultsName('value') | 
+                               CaselessKeyword('entity').setResultsName('value') | 
+                               CaselessKeyword('period').setResultsName('value') | 
+                               CaselessKeyword('table').setResultsName('value')) + nodeName('aspectName')
+                              )
+    
+    aspectName = ((aspectNameLiteral.setResultsName('aspectName') +
+                    Optional(
+                             #properties.setResultsName('aspectProperties'))
+                         Suppress(propertyOp) +
+                         ncName.setResultsName('propertyName') +
+                         Optional(Group(Suppress(lParen) +
+                                        Optional(delimitedList(blockExpr)) +
+                                        Suppress(rParen)
+                                        ).setResultsName('propertyArgs')
+                         )                        
+                     )
+                   )| 
+                   qName.setResultsName('aspectName') | 
+                   varRef.setResultsName('aspectName')
+                  )
     
     aspectOp = assignOp | Literal('!=') | inOp | notInOp
     
     aspectFilter = (aspectStart + 
-                    Optional(aspectName +
+                    aspectName +
                              Optional(aspectOp.setResultsName('aspectOperator') + 
                                       (Literal('*').setResultsName('wildcard') |
                                        blockExpr.setResultsName('aspectExpr')
                                       )
                                       ) +
                              Optional(Suppress(asOp) + Suppress(varIndicator) + ~White()+ simpleName.setResultsName('alias'))
-                             )
+                             
                     + nodeName('aspectFilter'))
     
     factsetInner =  ((Optional(excludeNils | includeNils) &
                     Optional(covered)) + 
-                    (Suppress(Literal('@')) ^ ZeroOrMore(Group(aspectFilter)).setResultsName('aspectFilters')) +
+                    (ZeroOrMore(Group(aspectFilter)).setResultsName('aspectFilters') ) +
 #                     Optional((whereClause) | blockExpr.setResultsName('innerExpr')
                     Optional(~ where + blockExpr.setResultsName('innerExpr') ) +
                     Optional(whereClause)
@@ -401,13 +410,6 @@ def get_grammar():
                                    )).setResultsName("functionArgs") + 
                 Suppress(rParen) +
                 nodeName('functionReference')) 
-
-    #variable reference
-    #varRef = Group(Suppress(varIndicator) + simpleName.setResultsName("varName") + nodeName('varRef'))
-    
-
-        
-    varRef = Group(Suppress(varIndicator) + simpleName.setResultsName('varName') + Empty().setParseAction(lambda: 'tagRef' if INRESULT else 'varRef').setResultsName('exprName'))
 
     #if expression
     elseIfExpr = (ZeroOrMore(Group(Suppress(elseOp + ifOp) + 
@@ -502,6 +504,8 @@ def get_grammar():
             periodTypeLiteral |
             noneLiteral |
             skipLiteral |
+            
+            aspectNameLiteral |
             
             dictExpr |
             listExpr |
