@@ -550,7 +550,7 @@ def evaluate(rule_part, xule_context, is_values=False, trace_dependent=False, ov
                 if not getattr(xule_context.global_context.options, "xule_no_cache", False):  
                     if local_cache_key is not None:
                         #The cache value is cloned so it is not corrupted by further processing after this point.
-                        xule_context.local_cache[local_cache_key] = value.clone()
+                        xule_context.local_cache[local_cache_key] = value.clone() if value is not None else value
     
         #If the look_for_alignment flag is set, check if there is now alignment after adding the column. This is used in 'where' clause processing.
         #if xule_context.look_for_alignment and xule_context.iteration_table.any_alignment is not None:
