@@ -721,7 +721,7 @@ def run_constant_group(global_context, *args):
 
                 cat_const = global_context.catalog['constants'].get(constant_name)
                 ast_const = global_context.rule_set.getItem(cat_const)
-                node_id = ast_const.node_id
+                node_id = ast_const['node_id']
                 file_num = global_context.catalog['constants'][constant_name]['file']
                 xule_context = XuleRuleContext(global_context,
                                                constant_name,
