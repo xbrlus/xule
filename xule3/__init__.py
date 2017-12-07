@@ -235,12 +235,12 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
             t = Thread(target=output_message_queue, args=(global_context,))
             t.start()
         
-        #load rules taxonomy
-        global_context.message_queue.logging("Loading rules taxonomy")
-        global_context.get_rules_dts()        
-#        rules_dts = global_context.get_rules_dts()
-#        from .XuleProcessor import load_networks
-#        load_networks(rules_dts)
+#         #load rules taxonomy
+#         global_context.message_queue.logging("Loading rules taxonomy")
+#         global_context.get_rules_dts()        
+# #        rules_dts = global_context.get_rules_dts()
+# #        from .XuleProcessor import load_networks
+# #        load_networks(rules_dts)
          
         global_context.message_queue.logging("Building Constant and Rule Groups")
         global_context.all_constants = rule_set.get_grouped_constants()
