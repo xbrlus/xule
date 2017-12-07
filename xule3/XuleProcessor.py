@@ -503,7 +503,7 @@ def evaluate(rule_part, xule_context, is_values=False, trace_dependent=False, ov
                     else:
                         #add - add values to expression cache
                         xule_context.iteration_table.add_column(rule_part, override_table_id or rule_part['table_id'], processing_id, values, xule_context)
-                        value = xule_context.iteration_table.current_value(processing_id, xule_context)           
+                        value = xule_context.iteration_table.current_value(processing_id, xule_context) 
                 else:
                     trace_source = "T"
             else:
@@ -549,7 +549,8 @@ def evaluate(rule_part, xule_context, is_values=False, trace_dependent=False, ov
                 
                 if not getattr(xule_context.global_context.options, "xule_no_cache", False):  
                     if local_cache_key is not None:
-                        xule_context.local_cache[local_cache_key] = value
+                        #The cache value is cloned so it is not corrupted by further processing after this point.
+                        xule_context.local_cache[local_cache_key] = value.clone()
     
         #If the look_for_alignment flag is set, check if there is now alignment after adding the column. This is used in 'where' clause processing.
         #if xule_context.look_for_alignment and xule_context.iteration_table.any_alignment is not None:
@@ -4238,6 +4239,8 @@ def result_message(rule_ast, result_ast, xule_value, xule_context):
         xule_context.global_context.options.xule_no_cache = True
         
         message_value = evaluate(result_ast['resultExpr'], message_context)
+    except XuleIterationStop as xis:
+        raise XuleProcessingError(_("Cannot produce message. An expression in the message has a skip value."), xule_context)
     finally:
         if hasattr(message_context.global_context.options, 'xule_no_cache'):
             xule_context.global_context.options.xule_no_cache = saved_no_cache   
