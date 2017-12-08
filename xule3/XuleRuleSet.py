@@ -213,7 +213,7 @@ class XuleRuleSet(object):
                 constants[cur_node['constantName']] = {"file": file_num, "index": i, "node_id": cur_node_id}
                 
             elif cur_name == "assertion":
-                full_name = rule_name_prefix + rule_name_separator + cur_node['ruleName']
+                full_name = ('' if rule_name_prefix == '' else (rule_name_prefix + rule_name_separator)) + cur_node['ruleName']
                 cur_node['fullName'] = full_name
                 if full_name not in rules.keys():
 #                     precon_names =  []                    
@@ -225,7 +225,7 @@ class XuleRuleSet(object):
                     error_in_file = True
                     
             elif cur_name == "outputRule":
-                full_name = rule_name_prefix + rule_name_separator +cur_node['ruleName']
+                full_name = ('' if rule_name_prefix == '' else (rule_name_prefix + rule_name_separator)) + cur_node['ruleName']
                 cur_node['fullName'] = full_name
                 if full_name not in rules.keys():                   
 #                     if 'preconditionRef' in cur:
