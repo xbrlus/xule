@@ -1998,7 +1998,7 @@ def factset_pre_match(factset, filters, non_aligned_filters, aligned_filters, xu
     
     if starting_facts is None: 
         #Check the alignment of pre matched facts to the dependent alignment
-        if xule_context.dependent_alignment is not None and factset.is_dependent:
+        if xule_context.dependent_alignment is not None and factset.get('is_dependent', False):
             match_aligned_facts = set()
             for fact in pre_matched_facts:
     #             print("dep", xule_context.dependent_alignment)
