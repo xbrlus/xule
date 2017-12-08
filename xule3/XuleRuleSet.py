@@ -204,10 +204,17 @@ class XuleRuleSet(object):
                 output_attributes[cur_node['attributeName']] = {"file": file_num, "index": i}
                 
             elif cur_name == 'ruleNamePrefix':
-                rule_name_prefix = cur_node['prefix']
+                if cur_node['prefix'].lower() == 'none':
+                    rule_name_prefix = ''
+                else:
+                    rule_name_prefix = cur_node['prefix']
                 
             elif cur_name == 'ruleNameSeparator':
-                rule_name_separator = cur_node['separator']                
+                print("SEPARATOR", cur_node['separator'], cur_node['separator'].lower() == 'none')
+                if cur_node['separator'].lower() == 'none':
+                    rule_name_separator = ''
+                else:
+                    rule_name_separator = cur_node['separator']                
                 
             elif cur_name == "constantDeclaration":
                 constants[cur_node['constantName']] = {"file": file_num, "index": i, "node_id": cur_node_id}
