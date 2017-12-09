@@ -1248,6 +1248,9 @@ def evaluate_for(for_expr, xule_context):
         used_expressions = xule_context.used_expressions
         xule_context.used_expressions = saved_used_expressions | used_expressions
 
+    if for_loop_collection.type not in ('list', 'set'):
+        raise XuleProcessingError(_("For loop requires a set or list, found '{}'.".format(for_loop_collection.type)), xule_context)
+
     for for_loop_var in for_loop_collection.value:
         if for_loop_var.used_expressions is None:
             for_loop_var.used_expressions = used_expressions
