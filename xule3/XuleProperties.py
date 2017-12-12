@@ -9,6 +9,7 @@ import numpy
 from arelle.ModelDocument import Type
 import decimal
 import math
+import collections
 
 def property_union(xule_context, object_value, *args):
     other_set = args[0]
