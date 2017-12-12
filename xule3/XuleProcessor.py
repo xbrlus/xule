@@ -801,12 +801,12 @@ def evaluate_output_rule(output_rule, xule_context):
                 for rule_result in output_rule.get('results', list()):
                     #message_context = xule_context.create_message_copy(xule_context.get_processing_id(output_rule['node_id']))
                     messages[rule_result['resultName']] = result_message(output_rule, rule_result, xule_value, xule_context)
-                
+
                 #get severity
                 if 'severity' not in messages:
-                    severity = 'INFO'
-                else:
-                    severity = messages['severity']
+                    #default severity
+                    messages['severity'] = 'info'
+                severity = messages['severity']            
                 #message - this is the main message
                 #main_message = messages.get('message', xule_value.format_value())
                 #main_message = messages.get('message', process_message("${value} ${context}", xule_value, xule_context))
