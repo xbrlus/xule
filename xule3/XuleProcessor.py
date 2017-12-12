@@ -805,7 +805,8 @@ def evaluate_output_rule(output_rule, xule_context):
                 #get severity
                 if 'severity' not in messages:
                     severity = 'INFO'
-                
+                else:
+                    severity = messages['severity']
                 #message - this is the main message
                 #main_message = messages.get('message', xule_value.format_value())
                 #main_message = messages.get('message', process_message("${value} ${context}", xule_value, xule_context))
