@@ -3292,12 +3292,12 @@ def nav_finish_return_items(nav_expr, return_items, add_result_order, xule_conte
 def evaluate_function_ref(function_ref, xule_context):
     if function_ref['functionName'] in BUILTIN_FUNCTIONS:
         function_info = BUILTIN_FUNCTIONS.get(function_ref['functionName'])
-        if function_info[FUNCTION_TYPE] == 'aggregate':
+        if function_info[XuleFunctions.FUNCTION_TYPE] == 'aggregate':
             return evaluate_aggregate_function(function_ref, function_info, xule_context)
-        elif function_info[FUNCTION_TYPE] == 'regular':
+        elif function_info[XuleFunctions.FUNCTION_TYPE] == 'regular':
             return regular_function(xule_context, function_ref, function_info)
         else:
-            raise XuleProcessingError(_("Unknown function type '{}'.".format(function_info[FUNCTION_TYPE])), xule_context)
+            raise XuleProcessingError(_("Unknown function type '{}'.".format(function_info[XuleFunctions.FUNCTION_TYPE])), xule_context)
     elif function_ref['functionName'] in XuleProperties.PROPERTIES:
         return property_as_function(xule_context, function_ref)
     else:
@@ -3357,22 +3357,22 @@ def property_as_function(xule_context, function_ref):
         return property_info[XuleProperties.PROP_FUNCTION](xule_context, property_object, *arg_values)
     
 def regular_function(xule_context, function_ref, function_info):
-        if function_info[FUNCTION_ARG_NUM] >= 0:
-            if function_info[FUNCTION_TYPE] == 'regular' and len(function_ref['functionArgs']) != function_info[FUNCTION_ARG_NUM]:
+        if function_info[XuleFunctions.FUNCTION_ARG_NUM] >= 0:
+            if function_info[XuleFunctions.FUNCTION_TYPE] == 'regular' and len(function_ref['functionArgs']) != function_info[XuleFunctions.FUNCTION_ARG_NUM]:
                 raise XuleProcessingError(_("The '%s' function must have only %i argument, found %i." % (function_ref['functionName'], 
-                                                                                               function_info[FUNCTION_ARG_NUM],
+                                                                                               function_info[XuleFunctions.FUNCTION_ARG_NUM],
                                                                                                len(function_ref['functionArgs']))), xule_context)
         else:
             # The fucntion may have a variable number of arguments.
-            if function_info[FUNCTION_TYPE] == 'regular' and len(function_ref['functionArgs']) > (function_info[FUNCTION_ARG_NUM] * -1):
+            if function_info[XuleFunctions.FUNCTION_TYPE] == 'regular' and len(function_ref['functionArgs']) > (function_info[XuleFunctions.FUNCTION_ARG_NUM] * -1):
                 raise XuleProcessingError(_("The '%s' function must have no more than %i arguments, found %i." % (function_ref['functionName'], 
-                                                                                               function_info[FUNCTION_ARG_NUM] * -1,
+                                                                                               function_info[XuleFunctions.FUNCTION_ARG_NUM] * -1,
                                                                                                len(function_ref['functionArgs']))), xule_context)                
             
         function_args = []
         for function_arg in function_ref['functionArgs']:
         #for i in range(len(function_ref.functionArgs)):
-            if function_info[FUNCTION_ALLOW_UNBOUND_ARGS]:
+            if function_info[XuleFunctions.FUNCTION_ALLOW_UNBOUND_ARGS]:
                 try:
                     arg = evaluate(function_arg, xule_context)
                 except XuleIterationStop as xis:
@@ -3382,7 +3382,7 @@ def regular_function(xule_context, function_ref, function_info):
                           
             function_args.append(arg)
 
-        return function_info[FUNCTION_EVALUATOR](xule_context, *function_args)
+        return function_info[XuleFunctions.FUNCTION_EVALUATOR](xule_context, *function_args)
 
 def user_defined_function(xule_context, function_ref):
     #check fucntion cache - The function cache is very basic. It only caches on functions that have no args.
@@ -3499,17 +3499,19 @@ def isolated_evaluation(xule_context, node_id, expr, setup_function=None, cleanu
     return return_values
 
 def evaluate_aggregate_function(function_ref, function_info, xule_context):
-#     if function_ref.functionName.lower() in ('count', 'sum', 'all'):
-#         return evaluate_aggregate_function_concurrent(function_ref, function_info, xule_context)
+    """Evaluate an aggregation function
     
+    Aggregation do 2 things. They aggregate iterations and then apply an operation over the values from the aggregation.
+    The name of the function indicates what operation should be applied.
+    """
+    
+    #First step, evaluate the arguments and aggregate the values from the args.
     values_by_alignment = collections.defaultdict(list)
-    facts_by_alignment = collections.defaultdict(collections.OrderedDict)
     aligned_result_only = False 
     save_aligned_result_only = xule_context.aligned_result_only
     used_expressions = set()
     save_used_expressions = xule_context.used_expressions
     for function_arg in function_ref['functionArgs']:
-        #pre_aggregation_table_list_size = len(xule_context.iteration_table)
         aggregation_table = xule_context.iteration_table.add_table(function_ref['node_id'], xule_context.get_processing_id(function_ref['node_id']), is_aggregation=True)
         try:
             while True:
@@ -3552,24 +3554,26 @@ def evaluate_aggregate_function(function_ref, function_info, xule_context):
     agg_values = XuleValueSet()
     
     #add default value if there are no None aligned results and the aggregation has a default value.
-    if None not in values_by_alignment and function_info[FUNCTION_DEFAULT_VALUE] is not None:
-        agg_values.append(XuleValue(xule_context, function_info[FUNCTION_DEFAULT_VALUE], function_info[FUNCTION_DEFAULT_TYPE]))
-            
+    if None not in values_by_alignment and function_info[XuleFunctions.FUNCTION_DEFAULT_VALUE] is not None:
+        agg_values.append(XuleValue(xule_context, function_info[XuleFunctions.FUNCTION_DEFAULT_VALUE], function_info[XuleFunctions.FUNCTION_DEFAULT_TYPE]))
+    
+    #Second step, For each alignment, peroform the operation for the collected values        
     for alignment in values_by_alignment:
         values = [x for x in values_by_alignment[alignment] if x.type != 'unbound']
         
+        function_meta_data = function_info[XuleFunctions.FUNCTION_AGG_META_DATA]
+        agg_function_args = (xule_context, values) + (function_meta_data or tuple())
         if len(values) > 0:
-            agg_value = function_info[FUNCTION_EVALUATOR](xule_context, values)
+            agg_value = function_info[XuleFunctions.FUNCTION_EVALUATOR](*agg_function_args)
         else:
-            if function_info[FUNCTION_DEFAULT_VALUE] is not None:
-                agg_value = XuleValue(xule_context, function_info[FUNCTION_DEFAULT_VALUE], function_info[FUNCTION_DEFAULT_TYPE])
+            if function_info[XuleFunctions.FUNCTION_DEFAULT_VALUE] is not None:
+                agg_value = XuleValue(xule_context, function_info[XuleFunctions.FUNCTION_DEFAULT_VALUE], function_info[XuleFunctions.FUNCTION_DEFAULT_TYPE])
             else:
                 agg_value = None
         
         if agg_value is not None:
             agg_value.alignment = alignment
             agg_value.aligned_result_only = aligned_result_only
-            #print("agg", function_ref['exprName'], function_ref['node_id'], len(xule_context.used_expressions), len(used_expressions))
             agg_value.used_expressions = used_expressions
             agg_values.append(agg_value)
 
@@ -3637,8 +3641,8 @@ def evaluate_aggregate_function_concurrent(function_ref, function_info, xule_con
     agg_values = XuleValueSet()
     
     #add default value if there are no None aligned results and the aggregation has a default value.
-    if None not in agg_result_by_alignment and function_info[FUNCTION_DEFAULT_VALUE] is not None:
-        agg_values.append(XuleValue(xule_context, function_info[FUNCTION_DEFAULT_VALUE], function_info[FUNCTION_DEFAULT_TYPE]))
+    if None not in agg_result_by_alignment and function_info[XuleFunctions.FUNCTION_DEFAULT_VALUE] is not None:
+        agg_values.append(XuleValue(xule_context, function_info[XuleFunctions.FUNCTION_DEFAULT_VALUE], function_info[XuleFunctions.FUNCTION_DEFAULT_TYPE]))
             
     for alignment, agg_value in agg_result_by_alignment.items():
         #agg_value.alignment = alignment
@@ -3863,18 +3867,6 @@ EVALUATOR = {
     'periodType': evaluate_string_keyword,
     
     }
-    
-#the position of the function information
-FUNCTION_TYPE = 0
-FUNCTION_EVALUATOR = 1
-FUNCTION_ARG_NUM = 2
-#aggregate only 
-FUNCTION_DEFAULT_VALUE = 3
-FUNCTION_DEFAULT_TYPE = 4
-#non aggregate only
-FUNCTION_ALLOW_UNBOUND_ARGS = 3
-FUNCTION_RESULT_NUMBER = 4
-
     
 def built_in_functions():
     return XuleFunctions.BUILTIN_FUNCTIONS
