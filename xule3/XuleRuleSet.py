@@ -398,17 +398,23 @@ class XuleRuleSet(object):
                 
         if current_part == 'navigation':
             if 'whereExpr' in parse_node:
-                var_names['relationship'].append(parse_node['whereExpr'])
-                parse_node['whereExpr']['location'] = 'navigate'
-        if current_part == 'filter':
-            if 'whereExpr' in parse_node or 'returnsExpr' in parse_node:
-                var_names['item'].append(parse_node['expr'])
+                #var_names['relationship'].append(parse_node['whereExpr'])
+                parse_node['whereExpr']['location'] = 'navigation'
+        if current_part == 'filter':                         
             if 'whereExpr' in parse_node:
                 parse_node['whereExpr']['location'] = 'filter'
+            if 'returnsExpr' in parse_node:
+                parse_node['returnsExpr']['location'] = 'filter'
         if current_part == 'functionDeclaration':
             for arg in parse_node['functionArgs']:
                 var_names[arg['argName']].append(arg)
-
+        
+        if parse_node.get('location')  == 'filter':
+            var_names['item'].append(parse_node['parent']['expr'])
+            
+        if parse_node.get('location') == 'navigation':
+            var_names['relationship'].append(parse_node['parent']['whereExpr'])
+            
         #dependencies
         if current_part == 'varRef':
             if parse_node['varName'] not in var_names:
@@ -478,26 +484,28 @@ class XuleRuleSet(object):
             immediate_dependencies['instance'] = True
         
         #descend the syntax tree
-        for child in parse_node.values():
-            next_parts = []
-            if isinstance(child, dict):
-                next_parts.append(child)
-            elif isinstance(child, list):
-                next_parts = child
-            
-            # At this point, next_parts is a list of dictionaries. The parse tree does not have lists of list. So if the child is a list, the children
-            # of the list will all be dictionaries. If the child was neither a list or dictionary, the the next_parts list will be empty.
-            for next_part in next_parts:
-                # the parser will only create a list of dictionaries, however, the build dependencies can add lists of other things (i.e. var_eclusion_ids). These should be skipped.
-                if isinstance(next_part, dict):
-                    next_dependencies, next_immediate_dependencies = self.dependencies_detail(next_part, var_names, var_exclusions)
-                    self._combine_dependencies(dependencies, next_dependencies)
-                    self._combine_dependencies(immediate_dependencies, next_immediate_dependencies)
-                    dependencies['constants'] |= next_dependencies['constants']
-                    dependencies['functions'] |= next_dependencies['functions']
-                    immediate_dependencies['constants'] |= next_immediate_dependencies['constants']
-                    immediate_dependencies['functions'] |= next_immediate_dependencies['functions']
-        
+        for key, child in parse_node.items():
+            if key != 'parent':
+                next_parts = []
+                if isinstance(child, dict):
+                    next_parts.append(child)
+                elif isinstance(child, list):
+                    next_parts = child
+                
+                # At this point, next_parts is a list of dictionaries. The parse tree does not have lists of list. So if the child is a list, the children
+                # of the list will all be dictionaries. If the child was neither a list or dictionary, the the next_parts list will be empty.
+                for next_part in next_parts:
+                    # the parser will only create a list of dictionaries, however, the build dependencies can add lists of other things (i.e. var_eclusion_ids). These should be skipped.
+                    if isinstance(next_part, dict):
+                        next_part['parent'] = parse_node
+                        next_dependencies, next_immediate_dependencies = self.dependencies_detail(next_part, var_names, var_exclusions)
+                        self._combine_dependencies(dependencies, next_dependencies)
+                        self._combine_dependencies(immediate_dependencies, next_immediate_dependencies)
+                        dependencies['constants'] |= next_dependencies['constants']
+                        dependencies['functions'] |= next_dependencies['functions']
+                        immediate_dependencies['constants'] |= next_immediate_dependencies['constants']
+                        immediate_dependencies['functions'] |= next_immediate_dependencies['functions']
+                        del next_part['parent']
 #         if dependencies['instance']:
 #             parseRes['instance'] = True
 #         if dependencies['rules-taxonomy']:
@@ -519,15 +527,21 @@ class XuleRuleSet(object):
                         var_names[aspect_filter['alias']].pop()
             if 'whereExpr' in parse_node:
                 var_names['fact'].pop()
-        if current_part == 'navigation':
-            if 'whereExpr' in parse_node:
-                var_names['relationship'].pop()
-        if current_part == 'filter':
-            if 'whereExpr' or 'returnsExpr' in parse_node:
-                var_names['item'].pop()
+#         if current_part == 'navigation':
+#             if 'whereExpr' in parse_node:
+#                 var_names['relationship'].pop()
+#         if current_part == 'filter':
+#             if 'whereExpr' or 'returnsExpr' in parse_node:
+#                 var_names['item'].pop()
         if current_part == 'functionDeclaration':
             for arg in parse_node['functionArgs']:
                 var_names[arg['argName']].pop()
+
+        if parse_node.get('location') == 'filter':
+            var_names['item'].pop()
+            
+        if parse_node.get('location') == 'navigation':
+            var_names['relationship'].pop()
 
         return dependencies, immediate_dependencies
 
@@ -969,7 +983,7 @@ class XuleRuleSet(object):
     
     def _cleanup_ruleset_detail(self, parse_node):
         #for prop in ('number', 'dependent_vars', 'downstream_iterables', 'var_exclusion_ids'):
-        for prop in ('dependent_vars', 'downstream_iterables', 'var_exclusion_ids'):
+        for prop in ('dependent_vars', 'downstream_iterables', 'var_exclusion_ids', 'location', 'parent'):
             if prop in parse_node:
                 del parse_node[prop]
         if 'dependent_iterables' in parse_node:
