@@ -127,13 +127,7 @@ if __name__ == "__main__":
     aparser.add_argument("--xml-dir", dest="xml_dir", help="Directory of where to put xml version of the parsed files.")
     aparser.add_argument("--xule-grammar", dest="xule_grammar", choices=['xule2', 'xule3'], default="xule2", help="Grammar version of the Xule rule file. Default is xule2")
     args = aparser.parse_args()
-    
-    print("%s: Using grammar %s" % (datetime.datetime.isoformat(datetime.datetime.today()), args.xule_grammar))
-    if args.xule_grammar == "xule3":
-        from xule_grammar3 import *
-    else:
-        from xule_grammar2 import *
-    
+
 #     if len(sys.argv) > 1:
 #         dest = sys.argv[2].strip() if len(sys.argv) > 2 else "xuleRules"
 #         if len(sys.argv) > 3:
