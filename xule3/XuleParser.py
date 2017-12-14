@@ -30,6 +30,7 @@ def add_location(src, loc, toks):
     return toks
 
 def parseFile(fileName, xuleGrammar, ruleSet, xml_dir=None):
+    parse_errors = []
     try:
         '''WOULD LIKE TO CHECK IF THE FILE IS ALREADY IN THE RULE SET AND IF IT HAS CHANGED.
            IF IT HASN'T CAN SKIP THE PARSING AND USE THE EXISTING PICKLED FILE. HOWEVER,
@@ -62,16 +63,19 @@ def parseFile(fileName, xuleGrammar, ruleSet, xml_dir=None):
         
         
     except (ParseException, ParseSyntaxException) as err:
-        print("Parse error in %s \n" 
+        error_message = ("Parse error in %s \n" 
             "line: %i col: %i position: %i\n"
             "%s\n"
-            "%s" % (sys.argv[1], err.lineno, err.col, err.loc, err.msg, err.line))
-
-
-
-def parseRulesDetails(grammar_function, files, dest, xml_dir=None):
+            "%s\n" % (fileName, err.lineno, err.col, err.loc, err.msg, err.line))
+        parse_errors.append(error_message)
+        print(error_message)
     
+    return parse_errors
+
+def parseRules(files, dest, xml_dir=None):
+
     parse_start = datetime.datetime.today()
+    parse_errors = []
     
     #Need to check the recursion limit. 1000 is too small for some rules.
     new_depth = 2500
@@ -79,46 +83,45 @@ def parseRulesDetails(grammar_function, files, dest, xml_dir=None):
     if orig_recursionlimit < new_depth:
         sys.setrecursionlimit(new_depth)
     
-    xuleGrammar = grammar_function()
+    xuleGrammar = get_grammar()
     ruleSet = XuleRuleSet()
     ruleSet.new(dest)
     
     for ruleFile in files:
         processFile = ruleFile.strip()
         if os.path.isfile(processFile):
-            parseFile(processFile, xuleGrammar, ruleSet, xml_dir)
+            parse_errors += parseFile(processFile, xuleGrammar, ruleSet, xml_dir)
 
         elif os.path.isdir(ruleFile.strip()):
             for root, dirs, files in os.walk(ruleFile.strip()):
                 for name in files:
                     if os.path.splitext(name)[1] == ".xule":
                         print("Processing: %s" % os.path.basename(name))
-                        parseFile(os.path.join(root, name), xuleGrammar, ruleSet, xml_dir)            
+                        parse_errors += parseFile(os.path.join(root, name), xuleGrammar, ruleSet, xml_dir)            
         else:
             print("Not a file or directory: %s" % processFile)
     
-    
-    post_parse_start = datetime.datetime.today()
-    print("%s: post parse start" % datetime.datetime.isoformat(post_parse_start))
-    ruleSet.build_dependencies()
-    post_parse_end = datetime.datetime.today()
-    print("%s: post parse end. Took %s" %(datetime.datetime.isoformat(post_parse_end), post_parse_end - post_parse_start))
-      
-    ruleSet.close()
-    
     #reset the recursion limit
     if orig_recursionlimit != sys.getrecursionlimit():
-        sys.setrecursionlimit(orig_recursionlimit)    
+        sys.setrecursionlimit(orig_recursionlimit)
+    
+    if len(parse_errors) == 0:
+        post_parse_start = datetime.datetime.today()
+        print("%s: post parse start" % datetime.datetime.isoformat(post_parse_start))
+        ruleSet.build_dependencies()
+        post_parse_end = datetime.datetime.today()
+        print("%s: post parse end. Took %s" %(datetime.datetime.isoformat(post_parse_end), post_parse_end - post_parse_start))
+        ruleSet.close()
+    else: #there are errors from parsing
+        raise XuleRuleSetError("Unable to parse rules due to the following errors:\n" + "\n".join(parse_errors))
 
     parse_end = datetime.datetime.today()
     print("%s: Parsing finished. Took %s" %(datetime.datetime.isoformat(parse_end), parse_end - parse_start))
 
-def parseRules(files, dest, xml_dir=None, grammar=None):
-    
-    parseRulesDetails(get_grammar, files, dest, xml_dir)
+
     
 if __name__ == "__main__":
-    from XuleRuleSet import XuleRuleSet
+    from XuleRuleSet import XuleRuleSet, XuleRuleSetError
     import argparse
     
     aparser = argparse.ArgumentParser()
@@ -135,6 +138,6 @@ if __name__ == "__main__":
 #         else:
 #             parseRules([sys.argv[1]], dest)
 
-    parseRulesDetails(get_grammar, [args.source], args.target, xml_dir = args.xml_dir)      
+    parseRules([args.source], args.target, xml_dir = args.xml_dir)      
 else:
-    from .XuleRuleSet import XuleRuleSet
+    from .XuleRuleSet import XuleRuleSet, XuleRuleSetError

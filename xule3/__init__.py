@@ -169,12 +169,6 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
     if getattr(options, "xule_version", False):
         cntlr.addToLog("Xule version: %s" % __version__)
         cntlr.close()
-    
-    if getattr(options, "xule_filing_list", None) is not None and options.entrypointFile is not None:
-        parser.error(_("--xule-filing-list and -f option cannot be used together"))
-    
-    if getattr(options, "xule_add_taxonomy", None) is not None and (options.xule_taxonomy_entry is None or options.xule_rule_set is None):
-            parser.error(_("--xule-rule-set and --xule-taxonomy-entry are required with --xule-add-taxonomy."))
 
     if  getattr(options, "xule_run", None) is not None and not getattr(options, 'xule_rule_set', None):
             parser.error(_("--xule-rule-set is required with --xule-run."))
@@ -196,18 +190,6 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
     if getattr(options, "xule_compile", None):
         compile_destination = getattr(options, "xule_rule_set", "xuleRules")        
         parseRules(options.xule_compile.split("|"),compile_destination)
-        
-    #add taxonomy to rule set
-    if getattr(options, "xule_add_taxonomy", None):
-        try:
-            rule_set = XuleRuleSet()
-            rule_set.open(options.xule_rule_set)
-        except XuleRuleSetError:
-            raise
-
-        rule_set.addTaxonomy(options.xule_add_taxonomy, options.xule_taxonomy_entry)
-
-        rule_set.close()
         
     if getattr(options, "xule_server", None):
         try:
@@ -298,9 +280,7 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
 
         except FileNotFoundError:
             print("Filing listing file '%s' is not found" % options.xule_filing_list)
-    
-    
-        
+
 def xuleCmdXbrlLoaded(cntlr, options, modelXbrl, entryPoint=None):
     if getattr(options, "xule_run", None):
         try:
