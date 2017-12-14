@@ -5,7 +5,7 @@ Copyright (c) 2014 XBRL US Inc. All rights reserved
 
 $Change: 21535 $
 '''
-from .XuleValue import XuleValue, iso_to_date, model_to_xule_unit, XuleUnit, combine_xule_types
+from .XuleValue import XuleValue, iso_to_date, model_to_xule_unit, XuleUnit
 from .XuleRunTime import XuleProcessingError
 from arelle.ModelValue import qname, QName
 import collections
@@ -13,7 +13,6 @@ from . import XuleRollForward as rf
 from aniso8601 import parse_duration
 import urllib.request
 import decimal
-import numpy
 
 class XuleSDic(XuleValue):
     def __init__(self, xule_context, name):
@@ -225,6 +224,18 @@ def func_number(xule_context, *args):
             raise XuleProcessingError(_("Cannot convert '%s' to a number" % arg.value), xule_context)
     else:
         raise XuleProcessingError(_("Property 'number' requires a string or numeric argument, found '%s'" % arg.type), xule_context)
+        
+def func_mod(xule_context, *args):
+    numerator = args[0]
+    denominator = args[1]
+    
+    if numerator.type not in ('int', 'float', 'decimal'):
+        raise XuleProcessingError(_("The numerator for the 'mod' function must be numeric, found '%s'" % numerator.type), xule_context) 
+    if denominator.type not in ('int', 'float', 'decimal'):
+        raise XuleProcessingError(_("The denominator for the 'mod' function must be numeric, found '%s'" % denominator.type), xule_context)
+    
+    combined_type, numerator_compute_value, denominator_compute_value = combine_xule_types(numerator, denominator, xule_context)
+    return XuleValue(xule_context, numerator_compute_value % denominator_compute_value, combined_type)
 
 def func_extension_concept(xule_context, *args):   
     extension_ns_value_set = xule_context._const_extension_ns()
@@ -506,32 +517,132 @@ def agg_dict(xule_context, values):
         return_value.facts = facts
     return return_value  
 
-def agg_stats(xule_context, values, stat_function, *extra_args):
-    """Calculate an statistical value.
-    
-    This function will apply a set of values from aggregation to a statistical function.
-    """
-
-    tags = {}
-    facts = collections.OrderedDict()
-    prepared_values = []
-    
-    for val in values:
-        if val.type not in ('int', 'float', 'decimal'):
-            raise XuleProcessingError(_("Statistic properties expect nuemric inputs, found '{}'.".format(val.type)), xule_context)
-        prepared_values.append(val.value)
-        if val.tags is not None:
-            tags.update(val.tags)
-        if val.facts is not None:
-            facts.update(val.facts)
-    
-    computed_value = stat_function(prepared_values)
-    agg_value = XuleValue(xule_context, computed_value, 'float')
-    if len(tags) > 0:
-        agg_value.tags = tags
-    if len(facts) > 0:
-        agg_value.facts = facts
-    return agg_value
+# def func_sdic_create(xule_context, *args):
+#     name = args[0].value
+# 
+#     return XuleSDic(xule_context, name)
+# 
+# def func_sdic_from_paired_list(xule_context, *args):
+#     name = args[0].value
+#     pairs = args[1]
+#     unique = args[2]
+#     
+#     dic = XuleSDic(xule_context, name)
+#     
+#     if pairs.type == 'unbound':
+#         return dic
+#     
+#     if pairs.type not in  ('list','set'):
+#         raise XuleProcessingError(_("Second argument to 'sdic_from_paired_list' must be a list or set, found %s" % pairs.type), xule_context)
+#     
+#     if unique.type != 'bool':
+#         raise XuleProcessingError(_("Third argument to 'sdic_from_paired_list' must be a boolean, found %s" % unique.type), xule_context)
+#     
+#     for pair in pairs.value:
+#         if pair.type != 'list':
+#             raise XuleProcessingError(_("In 'sdic_from_paried_list', the second level must be a list, found %s" % pair.type), xule_context)
+#         if len(pair.value) != 2:
+#             raise XuleProcessingError(_("In 'sdic_from_paried_list', the second level must be a list of length 2, found %i" % len(pair.value)), xule_context)
+#         
+#         if unique.value:
+#             func_sdic_set_item(xule_context, dic, pair.value[0], pair.value[1])
+#         else:
+#             func_sdic_append(xule_context, dic, pair.value[0], pair.value[1])
+#     
+#     return dic
+#     
+# def func_sdic_append(xule_context, *args):
+#     dic = args[0]
+#     key = args[1]
+#     value = args[2]
+# 
+#     if dic.type == 'unbound':
+#         return dic
+#     if dic.type != 'sdic':
+#         raise XuleProcessingError(_("First argument to 'sdic_append' must be a sdic, found %s" % dic.type), xule_context)
+# 
+#     if key.type == 'unbound':
+#         return dic
+# 
+#     return dic.append(key, value)
+# 
+# def func_sdic_find_items(xule_context, *args):
+#     dic = args[0]
+#     value = args[1]
+#     
+#     if dic.type == 'unbound':
+#         return dic
+#     if dic.type != 'sdic':
+#         raise XuleProcessingError(_("First argument to 'sdic_find_items' must be a sdic, found %s" % dic.type), xule_context)    
+# 
+#     return dic.find_items(value)
+#     
+# def func_sdic_get_item(xule_context, *args):
+#     dic = args[0]
+#     key = args[1]
+#     
+#     if dic.type == 'unbound':
+#         return dic
+#     if dic.type != 'sdic':
+#         #return XuleValue(xule_context, None, 'unbound')
+#         raise XuleProcessingError(_("First argument to 'sdic_get_item' must be a sdic, found %s" % dic.type), xule_context)    
+#     if key.type == 'unbound':
+#         raise XuleProcessingError(_("Key for a sdic cannout be missing"), xule_context)
+#     
+#     return dic.get_item(key)
+# 
+# def func_sdic_get_items(xule_context, *args):
+#     dic = args[0]
+#     key = args[1]
+# 
+#     if dic.type == 'unbound':
+#         return dic
+#     if dic.type != 'sdic':
+#         raise XuleProcessingError(_("First argument to 'sdic_get_items' must be a sdic, found %s" % dic.type), xule_context)    
+#     if key.type == 'unbound':
+#         raise XuleProcessingError(_("Key for a sdic cannout be missing"), xule_context)
+#     
+#     return dic.get_items(key)
+# 
+# def func_sdic_has_key(xule_context, *args):
+#     dic = args[0]
+#     key = args[1]
+# 
+#     if dic.type == 'unbound':
+#         return dic
+#     if dic.type != 'sdic':
+#         raise XuleProcessingError(_("First argument to 'sdic_has_key' must be a sdic, found %s" % dic.type), xule_context)    
+#     if key.type == 'unbound':
+#         raise XuleProcessingError(_("Key for a sdic cannout be missing"), xule_context)    
+#     
+#     return dic.has_key(key)
+# 
+# def func_sdic_remove_item(xule_context, *args):
+#     dic = args[0]
+#     key = args[1]
+# 
+#     if dic.type == 'unbound':
+#         return dic
+#     if dic.type != 'sdic':
+#         raise XuleProcessingError(_("First argument to 'sdic_remove_item' must be a sdic, found %s" % dic.type), xule_context)    
+#     if key.type == 'unbound':
+#         raise XuleProcessingError(_("Key for a sdic cannout be missing"), xule_context)  
+# 
+#     return dic.remove_item(key)
+# 
+# def func_sdic_set_item(xule_context, *args):
+#     dic = args[0]
+#     key = args[1]
+#     value = args[2]
+# 
+#     if dic.type == 'unbound':
+#         return dic
+#     if dic.type != 'sdic':
+#         raise XuleProcessingError(_("First argument to 'sdic_set_item' must be a sdic, found %s" % dic.type), xule_context)    
+#     if key.type == 'unbound':
+#         raise XuleProcessingError(_("Key for a sdic cannout be missing"), xule_context) 
+#     
+#     return dic.set_item(key, value)
 
 def func_taxonomy(xule_context, *args):
     if len(args) == 0:
@@ -807,7 +918,6 @@ FUNCTION_ARG_NUM = 2
 #aggregate only 
 FUNCTION_DEFAULT_VALUE = 3
 FUNCTION_DEFAULT_TYPE = 4
-FUNCTION_AGG_META_DATA = 5
 #non aggregate only
 FUNCTION_ALLOW_UNBOUND_ARGS = 3
 FUNCTION_RESULT_NUMBER = 4
@@ -816,22 +926,22 @@ FUNCTION_RESULT_NUMBER = 4
 
 def built_in_functions():
     funcs = {
-             'all': ('aggregate', agg_all, 1, True, 'bool', None),
-             'any': ('aggregate', agg_any, 1, False, 'bool', None),
-             'first': ('aggregate', agg_first, 1, None, None, None),
-             'count': ('aggregate', agg_count, 1, 0, 'int', None),
-             'sum': ('aggregate', agg_sum, 1, None, None, None),
-             'max': ('aggregate', agg_max, 1, None, None, None), 
-             'min': ('aggregate', agg_min, 1, None, None, None),
-             'list': ('aggregate', agg_list, 1, tuple(), 'list', None),
-             'set': ('aggregate', agg_set, 1, frozenset(), 'set', None),
-             'dict': ('aggregate', agg_dict, 1, frozenset(), 'dictionary', None),
-             'avg': ('aggregate', agg_stats, 1, None, None, (numpy.mean,)), 
-             'stdev': ('aggregate', agg_stats, 1, None, None, (numpy.std,)),
-             'prod': ('aggregate', agg_stats, 1, None, None, (numpy.prod,)),
+#              'all': ('aggregate', agg_all, 1, True, 'bool'),
+#              'any': ('aggregate', agg_any, 1, False, 'bool'),
+#              'first': ('aggregate', agg_first, 1, None, None),
+#              'count': ('aggregate', agg_count, 1, 0, 'int'),
+#              'sum': ('aggregate', agg_sum, 1, None, None),
+#              'max': ('aggregate', agg_max, 1, None, None), 
+#              'min': ('aggregate', agg_min, 1, None, None),
+             'list': ('aggregate', agg_list, 1, tuple(), 'list'),
+             #'list': ('aggregate', agg_list, 1, None, None),
+             'set': ('aggregate', agg_set, 1, frozenset(), 'set'),
+             #'set': ('aggregate', agg_set, 1, None, None),
+             'dict': ('aggregate', agg_dict, 1, frozenset(), 'dictionary'),
              
              'exists': ('regular', func_exists, 1, True, 'single'),
              'missing': ('regular', func_missing, 1, True, 'single'),
+             #'instant': ('regular', func_instant, 1, False, 'single'),
              'date': ('regular', func_date, 1, False, 'single'),
              'duration': ('regular', func_duration, 2, False, 'single'),
              'forever': ('regular', func_forever, 0, False, 'single'),
@@ -843,8 +953,18 @@ def built_in_functions():
              'schema-type': ('regular', func_schema_type, 1, False, 'single'),
              'num_to_string': ('regular', func_num_to_string, 1, False, 'single'),
              'number': ('regular', func_number, 1, False, 'single'),
+             'mod': ('regular', func_mod, 2, False, 'single'),
              'extension_concepts': ('regular', func_extension_concept, 0, False, 'single'),             
-
+#              'sdic_create': ('regular', func_sdic_create, 1, False, 'single'),
+#              'sdic_from_paired_list': ('regular', func_sdic_from_paired_list, 3, True, 'single'),
+#              'sdic_append': ('regular', func_sdic_append, 3, True, 'single'),             
+#              'sdic_find_items': ('regular', func_sdic_find_items, 2, True, 'single'),
+#              'sdic_get_item': ('regular', func_sdic_get_item, 2, True, 'single'),
+#              'sdic_get_items': ('regular', func_sdic_get_items, 2, True, 'single'),
+#              'sdic_has_key': ('regular', func_sdic_has_key, 2, True, 'single'),
+#              'sdic_remove_item': ('regular', func_sdic_remove_item, 2, True, 'single'),
+#              'sdic_set_item': ('regular', func_sdic_set_item, 3, True, 'single'),
+             
              'taxonomy': ('regular', func_taxonomy, -1, False, 'single'),
              'data': ('regular', func_data, -3, False, 'single'),
              'csv-data': ('regular', func_csv_data, -4, False, 'single')
