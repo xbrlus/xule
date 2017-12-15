@@ -6,7 +6,6 @@ Copyright (c) 2014 XBRL US Inc. All rights reserved
 $Change: 21691 $
 '''
 import pickle
-#from pickle import Pickler
 from pyparsing import ParseResults
 import os
 import shutil
@@ -14,6 +13,7 @@ import glob
 import collections
 import datetime
 import sys
+import zipfile
 
 try:
     from . import XuleFunctions as xf
@@ -25,43 +25,6 @@ import pprint
 class XuleRuleSetError(Exception):
     def __init__(self, msg):
         print(msg)
-
-# BUILTIN_FUNCTIONS = {'dict': ('aggregate', ''),
-#                      'list': ('aggregate', ''),
-#                      'sdic_get_item': ('regular', 'single'),
-#                      'duration': ('regular', 'single'),
-#                      'uri': ('regular', 'single'),
-#                      'time-period': ('regular', 'single'),
-#                      'sdic_append': ('regular', 'single'),
-#                      'sum': ('aggregate', ''),
-#                      'max': ('aggregate', ''),
-#                      'instant': ('regular', 'single'),
-#                      'sdic_set_item': ('regular', 'single'),
-#                      'extension_concepts': ('regular', 'single'),
-#                      'schema-type': ('regular', 'single'),
-#                      'count': ('aggregate', ''),
-#                      'number': ('regular', 'single'),
-#                      'roll_forward_recalc': ('regular', 'multi'),
-#                      'sdic_find_items': ('regular', 'single'),
-#                      'find_roll_forward': ('regular', 'single'),
-#                      'entity': ('regular', 'single'),
-#                      'all': ('aggregate', ''),
-#                      'sdic_create': ('regular', 'single'),
-#                      'set': ('aggregate', ''),
-#                      'mod': ('regular', 'single'),
-#                      'any': ('aggregate', ''),
-#                      'qname': ('regular', 'single'),
-#                      'exists': ('regular', 'single'),
-#                      'min': ('aggregate', ''),
-#                      'forever': ('regular', 'single'),
-#                      'sdic_remove_item': ('regular', 'single'),
-#                      'sdic_get_items': ('regular', 'single'),
-#                      'unit': ('regular', 'single'),
-#                      'first': ('aggregate', ''),
-#                      'sdic_has_key': ('regular', 'single'),
-#                      'missing': ('regular', 'single'),
-#                      'num_to_string': ('regular', 'single')}
-
 
 class XuleRuleSet(object):
     """The XuleRuleSet class.
@@ -104,11 +67,10 @@ class XuleRuleSet(object):
         if self._openForAdd:
             raise XuleRuleSetError("Trying to create a new rule set in an open rule set.")
         else:
-            self.name = os.path.splitext(os.path.basename(location))[0]
+            self.name = os.path.basename(location)
             self.location = location
-            if not os.path.exists(location):
-                os.makedirs(location)
-                
+            self.path = os.path.dirname(location)
+
             self.catalog = {
                             "name": self.name,
                             "files": [],
@@ -123,11 +85,6 @@ class XuleRuleSet(object):
 #                             "node_index": {}
                             }
             
-            #delete existing files
-            existing_files = glob.glob(os.path.join(self.name,"*.pik"))
-            for f in existing_files:
-                os.remove(f)
-            
             self._openForAdd = True
         
     def close(self):
@@ -136,22 +93,27 @@ class XuleRuleSet(object):
         If the ruleset was opened for adding, this will write out the pickle files.
         """
         if self._openForAdd:
-            #write the pickled rule files
-            for file_num, parse_tree in self._pickles.items():
-                self._saveFilePickle(file_num, parse_tree)
-                
-#                 with open(str(file_num) + '_post_parse.json', 'w') as o:
-#                     import json
-#                     try:
-#                         o.write(json.dumps(parse_tree, indent=4))
-#                     except:
-#                         import pprint
-#                         pprint.pprint(parse_tree)
-#                         raise 
-            #write the catalog
-            with open(os.path.join(self.location,"catalog.pik"),"wb") as o:
-                pickle.dump(self.catalog, o, protocol=1)
-        
+            path = os.path.dirname(self.location)
+            #Make sure the directory exists
+            if len(path) > 0 and not os.path.exists(path):
+                os.makedirs(path)            
+            
+            #Create the zip file
+            with zipfile.ZipFile(self.location, 'w', zipfile.ZIP_DEFLATED) as zf:
+                #write the pickled rule files
+                for file_num, parse_tree in self._pickles.items():
+                    self._saveFilePickle(zf, file_num, parse_tree)
+                    
+    #                 with open(str(file_num) + '_post_parse.json', 'w') as o:
+    #                     import json
+    #                     try:
+    #                         o.write(json.dumps(parse_tree, indent=4))
+    #                     except:
+    #                         import pprint
+    #                         pprint.pprint(parse_tree)
+    #                         raise 
+                #write the catalog
+                zf.writestr('catalog', pickle.dumps(self.catalog, protocol=2))        
         self._openForAdd = False
     
     def add(self, parse_tree, file_time=None, file_name=None):
@@ -1059,7 +1021,7 @@ class XuleRuleSet(object):
         
         #get the next file number
         file_num = len(self.catalog["files"])
-        pickle_name = "%s.%i.pik" %(self.name, file_num)
+        pickle_name = "rule_file%i" %(file_num,)
         file_dict = {"file": file_num, "pickle_name": pickle_name}
         if file_time:
             file_dict['mtime'] = file_time
@@ -1076,13 +1038,11 @@ class XuleRuleSet(object):
             if file_info.get('name') == file_name:
                 return file_info
     
-    def _saveFilePickle(self, file_num, parseRes):
+    def _saveFilePickle(self, rule_set_file, file_num, parseRes):
         
-        pickle_name = "%s.%i.pik" %(self.name, file_num)
+        pickle_name = "rule_file%i" %(file_num,)
         #save the pickle
-        with open(os.path.join(self.location, pickle_name),"wb") as o:
-            pickle.dump(parseRes, o, protocol=1)
-    
+        rule_set_file.writestr(pickle_name, pickle.dumps(parseRes, protocol=2))    
         return pickle_name
                 
     def open(self, ruleSetLocation, open_for_add=True):
@@ -1096,11 +1056,12 @@ class XuleRuleSet(object):
         self.location = ruleSetLocation
         pickle_start = datetime.datetime.today()
         try:
-            with open(os.path.join(ruleSetLocation,"catalog.pik"),"rb") as i:
-                self.catalog = pickle.load(i)
+            with zipfile.ZipFile(self.location, 'r') as zf:
+                self.catalog = pickle.loads(zf.open('catalog','r').read())
+
             self.name = self.catalog['name']
             self._openForAdd = open_for_add
-        except FileNotFoundError:
+        except (FileNotFoundError, KeyError):
             print("Cannot open catalog.") #, file=sys.stderr)
             raise
         
@@ -1122,9 +1083,10 @@ class XuleRuleSet(object):
                 return
             
             try:
-                with open(os.path.join(self.location, file_item['pickle_name']),"rb") as p:
-                    self._pickles[file_num] = pickle.load(p, encoding="utf8")
-            except FileNotFoundError:
+                with zipfile.ZipFile(self.location, 'r') as zf:
+                    with zf.open(file_item['pickle_name'], "r") as p:
+                        self._pickles[file_num] = pickle.load(p, encoding="utf8")
+            except (FileNotFoundError, KeyError): #KeyError if the file is not in the archive
                 raise XuleRuleSetError("Pickle file %s not found." % file_item['pickle_name'])
                 return
             
@@ -1195,43 +1157,6 @@ class XuleRuleSet(object):
                 return namespace_info
         
         return    
-    
-    def addTaxonomy(self, taxonomy_location, entry_point):
-        """Add a taxonomy to the ruleset.
-        
-        This will include a taxonomy in the ruleset. This is a cache for taxonomies.
-        
-        Arguments:
-            taxonomy_location (string): the directory of the taxonomy.
-            entry_point (string): The entry point file of the taxonomy.
-        """
-        if self._openForAdd == True:
-            base_location = os.path.join(self.location, 'base_taxonomy')
-            
-            if not os.path.isdir(taxonomy_location):
-                raise XuleRuleSetError(_("Taxonomy location '%s' is not a directory" % taxonomy_location))
-            
-            if not os.path.isfile(os.path.join(taxonomy_location, entry_point)):
-                raise XuleRuleSetError(_("Taxonomy entry point '%s' is not in '%s'" % (entry_point, taxonomy_location)))
-            
-            if os.path.exists(base_location):
-                if not os.path.isdir(base_location):
-                    raise XuleRuleSetError(_("Taxonomy location '%s' is not a directory" % base_location))
-                else:
-                    shutil.rmtree(base_location)
-    
-            #copy the taxonomy location to the rule set
-            shutil.copytree(taxonomy_location, base_location)
-            
-            self.catalog['rules_dts_location'] = entry_point
-        else:
-            raise XuleRuleSetError(_("Attempting to add taxonomy but the rule set is not open for add"))
-            
-    def getRulesTaxonomyLocation(self):
-        if self.catalog['rules_dts_location'] is not None:
-            return os.path.join(self.location, 'base_taxonomy', self.catalog['rules_dts_location'])
-        else:
-            return None
     
     def get_constant_list(self, constant_name):
         #ctype = 'c'

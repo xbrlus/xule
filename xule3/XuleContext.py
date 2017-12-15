@@ -223,7 +223,7 @@ class XuleGlobalContext(object):
                                    "other-taxonomy", 
                                    "Load taxonomy time %s from '%s'" % (end - start, taxonomy_url))
             else:
-                print("Other Taxonomy Loaded. Load time %s from '%s' " % (end - start, taxonomy_url))            
+                print("Taxonomy Loaded. Load time %s from '%s' " % (end - start, taxonomy_url))            
         
         return self.other_taxonomies[taxonomy_url]
 
