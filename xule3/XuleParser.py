@@ -11,6 +11,7 @@ import os
 import datetime
 import sys
 from .xule_grammar import get_grammar
+import hashlib
 
 def printRes(pr, level=0):
     level = level + 1
@@ -29,7 +30,7 @@ def add_location(src, loc, toks):
     
     return toks
 
-def parseFile(fileName, xuleGrammar, ruleSet, xml_dir=None):
+def parseFile(dir, fileName, xuleGrammar, ruleSet):
     parse_errors = []
     try:
         '''WOULD LIKE TO CHECK IF THE FILE IS ALREADY IN THE RULE SET AND IF IT HAS CHANGED.
@@ -37,42 +38,44 @@ def parseFile(fileName, xuleGrammar, ruleSet, xml_dir=None):
            NEED TO CHANGE THE WAY 'NEW' IS DONE IN THE XULERULESET, SO THAT IT PRESERVES THE 
            EXISTING FILES AND CATALOGS AND THEN CLEANS EVERYTHING UP WHEN THE RULESET IS CLOSED.
         '''
-        start_time = datetime.datetime.today()
-        print("%s: parse start %s" % (datetime.datetime.isoformat(start_time), fileName))
         
-        parseRes = xuleGrammar.parseFile(fileName).asDict()
+        full_file_name = os.path.join(dir, fileName)
+        with open(full_file_name, 'rb') as xule_file:
+            buffer = None
+            file_hash_contents = hashlib.sha256()
+            while buffer != b'':
+                buffer = xule_file.read(4096)
+                file_hash_contents.update(buffer)
+            file_hash = file_hash_contents.hexdigest()
         
-        if xml_dir:
-            xml_file = xml_dir + "/" + os.path.basename(fileName) + ".xml"
-            
-            if not os.path.exists(xml_dir):
-                os.makedirs(xml_dir)
-            
-            with open(xml_file,"w") as o:
-                o.write(parseRes.asXML())
-
-        end_time = datetime.datetime.today()
-        print("%s: parse end. Took %s" % (datetime.datetime.isoformat(end_time), end_time - start_time))
-#         import pprint
-#         pprint.pprint(parseRes)
-        ast_start = datetime.datetime.today()
-        print("%s: ast start" % datetime.datetime.isoformat(ast_start))
-        ruleSet.add(parseRes, os.path.getmtime(fileName), os.path.basename(fileName))
-        ast_end = datetime.datetime.today()
-        print("%s: ast end. Took %s" %(datetime.datetime.isoformat(ast_end), ast_end - ast_start))
+        #check if the file has changed
+        if ruleSet.getFileHash(fileName) == file_hash:
+            #The file has not changed.
+            ruleSet.markFileKeep(fileName)
+        else:
+            start_time = datetime.datetime.today()
+            print("%s: ast start" % datetime.datetime.isoformat(start_time))
+            parseRes = xuleGrammar.parseFile(full_file_name).asDict()
+            end_time = datetime.datetime.today()
+            print("%s: parse end. Took %s" % (datetime.datetime.isoformat(end_time), end_time - start_time))
+            ast_start = datetime.datetime.today()
+            print("%s: ast start" % datetime.datetime.isoformat(ast_start))
+            ruleSet.add(parseRes, os.path.getmtime(full_file_name), fileName, file_hash)
+            ast_end = datetime.datetime.today()
+            print("%s: ast end. Took %s" %(datetime.datetime.isoformat(ast_end), ast_end - ast_start))
         
         
     except (ParseException, ParseSyntaxException) as err:
         error_message = ("Parse error in %s \n" 
             "line: %i col: %i position: %i\n"
             "%s\n"
-            "%s\n" % (fileName, err.lineno, err.col, err.loc, err.msg, err.line))
+            "%s\n" % (full_file_name, err.lineno, err.col, err.loc, err.msg, err.line))
         parse_errors.append(error_message)
         print(error_message)
     
     return parse_errors
 
-def parseRules(files, dest, xml_dir=None):
+def parseRules(files, dest):
 
     parse_start = datetime.datetime.today()
     parse_errors = []
@@ -85,19 +88,25 @@ def parseRules(files, dest, xml_dir=None):
     
     xuleGrammar = get_grammar()
     ruleSet = XuleRuleSet()
-    ruleSet.new(dest)
+    ruleSet.append(dest)
     
     for ruleFile in files:
         processFile = ruleFile.strip()
         if os.path.isfile(processFile):
-            parse_errors += parseFile(processFile, xuleGrammar, ruleSet, xml_dir)
+            root = os.path.dirname(processFile)
+            parse_errors += parseFile(root, os.path.basename(processFile), xuleGrammar, ruleSet)
 
-        elif os.path.isdir(ruleFile.strip()):
+        elif os.path.isdir(processFile):
+            #Remove an ending slash if there is one
+            processFile = processFile[:-1] if processFile.endswith(os.sep) else processFile
             for root, dirs, files in os.walk(ruleFile.strip()):
                 for name in files:
                     if os.path.splitext(name)[1] == ".xule":
                         print("Processing: %s" % os.path.basename(name))
-                        parse_errors += parseFile(os.path.join(root, name), xuleGrammar, ruleSet, xml_dir)            
+                        relpath = os.path.relpath(root, processFile)
+                        if relpath == '.': 
+                            relpath = ''
+                        parse_errors += parseFile(processFile, os.path.join(relpath,name), xuleGrammar, ruleSet)            
         else:
             print("Not a file or directory: %s" % processFile)
     
@@ -108,7 +117,7 @@ def parseRules(files, dest, xml_dir=None):
     if len(parse_errors) == 0:
         post_parse_start = datetime.datetime.today()
         print("%s: post parse start" % datetime.datetime.isoformat(post_parse_start))
-        ruleSet.build_dependencies()
+        ruleSet.post_parse()
         post_parse_end = datetime.datetime.today()
         print("%s: post parse end. Took %s" %(datetime.datetime.isoformat(post_parse_end), post_parse_end - post_parse_start))
         ruleSet.close()
@@ -127,7 +136,6 @@ if __name__ == "__main__":
     aparser = argparse.ArgumentParser()
     aparser.add_argument("source", help="Xule rule file or directory of rule files.")
     aparser.add_argument("target", help="Xule rul set directory. Location where the rule set will be created. Existing rule set files in this directory will be deleted")
-    aparser.add_argument("--xml-dir", dest="xml_dir", help="Directory of where to put xml version of the parsed files.")
     aparser.add_argument("--xule-grammar", dest="xule_grammar", choices=['xule2', 'xule3'], default="xule2", help="Grammar version of the Xule rule file. Default is xule2")
     args = aparser.parse_args()
 
@@ -138,6 +146,6 @@ if __name__ == "__main__":
 #         else:
 #             parseRules([sys.argv[1]], dest)
 
-    parseRules([args.source], args.target, xml_dir = args.xml_dir)      
+    parseRules([args.source], args.target)      
 else:
     from .XuleRuleSet import XuleRuleSet, XuleRuleSetError

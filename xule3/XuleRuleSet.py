@@ -47,9 +47,10 @@ class XuleRuleSet(object):
         self._openForAdd = False
         self.catalog = None
         self.name = None
-        self._pickles = {}
+        self._xule_file_expression_trees = {}
         self.next_id = -1
         self._var_exprs = {}
+        self._file_status = {}
     
     def __del__(self):
         self.close()
@@ -79,14 +80,17 @@ class XuleRuleSet(object):
                             "rules_by_file": {}, 
                             "functions": {},
                             "constants": {},
-#                             "preconditions": {},
-                            "rules_dts_location": None,
                             "output_attributes": {},
-#                             "node_index": {}
                             }
             
             self._openForAdd = True
-        
+    
+    def append(self, location):
+        try:
+            self.open(location, True)
+        except FileNotFoundError:
+            self.new(location)
+    
     def close(self):
         """Close the ruleset.
         
@@ -96,27 +100,25 @@ class XuleRuleSet(object):
             path = os.path.dirname(self.location)
             #Make sure the directory exists
             if len(path) > 0 and not os.path.exists(path):
-                os.makedirs(path)            
+                os.makedirs(path)
             
             #Create the zip file
             with zipfile.ZipFile(self.location, 'w', zipfile.ZIP_DEFLATED) as zf:
                 #write the pickled rule files
-                for file_num, parse_tree in self._pickles.items():
+                for file_num, parse_tree in self._xule_file_expression_trees.items():
                     self._saveFilePickle(zf, file_num, parse_tree)
-                    
-    #                 with open(str(file_num) + '_post_parse.json', 'w') as o:
-    #                     import json
-    #                     try:
-    #                         o.write(json.dumps(parse_tree, indent=4))
-    #                     except:
-    #                         import pprint
-    #                         pprint.pprint(parse_tree)
-    #                         raise 
+
                 #write the catalog
                 zf.writestr('catalog', pickle.dumps(self.catalog, protocol=2))        
         self._openForAdd = False
+        self._file_status = {}
     
-    def add(self, parse_tree, file_time=None, file_name=None):
+    def markFileKeep(self, file_name):
+        file_info = self.getFileInfoByName(file_name)
+        self._file_status[file_info['file']] = 'keep'
+        self._top_level_analysis(self._xule_file_expression_trees[file_info['file']], file_info['file'])
+    
+    def add(self, parse_tree, file_time=None, file_name=None, file_hash=None):
         """Add a parsed Xule rule file to the ruleset.
         
         This adds a file to the ruleset. When the file is added the catalog is updated with the top level components.
@@ -129,8 +131,11 @@ class XuleRuleSet(object):
         if self._openForAdd == False:
             raise XuleRuleSetError(_("Attempting to add rule file, but rule set is not open for add"))
         
-        file_num = self._addXuleFile(file_time, file_name)
-        
+        file_num = self._addXuleFile(file_time, file_name, file_hash)
+    
+        self._top_level_analysis(parse_tree, file_num)
+    
+    def _top_level_analysis(self, parse_tree, file_num):
         # update the catalog
         namespaces = {}
         rules = {}
@@ -216,7 +221,7 @@ class XuleRuleSet(object):
 #             o.write(json.dumps(parse_tree, indent=4)) 
         
         #self._saveFilePickle(file_num, parseRes)
-        self._pickles[file_num] = parse_tree
+        self._xule_file_expression_trees[file_num] = parse_tree
             
         #Check for duplicate names
 #         self._dup_names(preconditions.keys(), self.catalog['preconditions'].keys())
@@ -506,27 +511,6 @@ class XuleRuleSet(object):
             var_names['relationship'].pop()
 
         return dependencies, immediate_dependencies
-
-#     _PRE_CALC_EXPRESSIONS = ['qName',
-#                             'integer',
-#                             'float',
-#                             'string',
-#                             'boolean',
-#                             'void',
-#                             'ifExpr',
-#                             'forExpr',
-#                             'withExpr',
-#                             'taggedExpr',
-#                             'unaryExpr',
-#                             'propertyExpr',
-#                             'multExpr',
-#                             'addExpr',
-#                             'compExpr',
-#                             'notExpr',
-#                             'andExpr',
-#                             'orExpr',
-#                             'blockExpr',
-#                             'functionReference']
     
     def _walk_for_iterable(self, item_name, parse_node, var_defs=None):
         """Walk the AST
@@ -548,16 +532,6 @@ class XuleRuleSet(object):
                           
             current_part = parse_node['exprName']
 
-#             if current_part == 'forExpr':
-#                 #add the for control to the forBodyExpr
-#                 forControl = {'forVar': parse_node['forVar'], 
-#                               'forLoopExpr': parse_node['forLoopExpr'], 
-#                               'exprName':'forControl'}
-#                 parse_node['forBodyExpr']['forControl'] = forControl
-#                 del parse_node['forVar']
-#                 del parse_node['forLoopExpr']
-#                 import json
-#                 print(json.dumps(parse_node, indent=4))
             #descend
             descendant_number = 'single'
             descendant_has_alignment = False
@@ -871,20 +845,21 @@ class XuleRuleSet(object):
                 if 'table_id' not in it:
                     it['table_id'] = node_id                
 
-    def build_dependencies(self):
+    def post_parse(self):
         """Identify constants and functions used by expressions.
         
         Also identifies if a top level component (assert, output, constant, function) uses instance data or non instance taxonomy data.
         """
+        
+        self._cleanup_for_append()
+        
         #immediate dependencies
         for const_info in self.catalog['constants'].values():
             self.dependencies_top(const_info)
         for func_info in self.catalog['functions'].values():
             self.dependencies_top(func_info)
         for rule_info in self.catalog['rules'].values():
-            self.dependencies_top(rule_info)        
-#         for precondition_info in self.catalog['preconditions'].values():
-#             self.dependencies_top(precondition_info)      
+            self.dependencies_top(rule_info)            
             
         #check if constants are used
         used_constants = set()
@@ -894,11 +869,7 @@ class XuleRuleSet(object):
         
         for function_info in self.catalog['functions'].values():
             for const_name in function_info['dependencies']['constants']:
-                used_constants.add(const_name) 
-   
-#         for precondition_info in self.catalog['preconditions'].values():
-#             for const_name in precondition_info['dependencies']['constants']:
-#                 used_constants.add(const_name)                               
+                used_constants.add(const_name)                               
         
         #if a constant is used only by a constant (as long as that constant was used)
         constant_of_constants = set()
@@ -910,37 +881,22 @@ class XuleRuleSet(object):
         unused_constants = set(self.catalog['constants'].keys()) - used_constants
         for const_name in unused_constants:
             self.catalog['constants'][const_name]['unused'] = True          
-            
-#         #Check if a precondition is used
-#         used_preconditions = set()
-#         for rule_info in self.catalog['rules'].values():
-#             used_preconditions.update(set(rule_info['preconditions']))
-#         for precon in set(self.catalog['preconditions'].keys()) - used_preconditions:
-#             self.catalog['preconditions'][precon]['unused'] = True
 
-         
         #determine number (single, multi) for each expression
         for const_name, const_info in self.catalog['constants'].items():
-            self._walk_for_iterable(const_name, self.getItem(const_info['file'], const_info['index']))
-#         for precon_name, precon_info in self.catalog['preconditions'].items():    
-#             self._walk_for_iterable(self.getItem(precon_info['file'], precon_info['index']), precon_info['file'])            
+            self._walk_for_iterable(const_name, self.getItem(const_info['file'], const_info['index']))            
         for func_name, func_info in self.catalog['functions'].items():
             self._walk_for_iterable(func_name, self.getItem(func_info['file'], func_info['index']))
         for rule_name, rule_info in self.catalog['rules'].items():
             ast_rule = self.getItem(rule_info['file'], rule_info['index'])
             self._walk_for_iterable(rule_name, ast_rule)
 
-        #self.catalog['pre_calc_expressions'].sort()
-        
         self._cleanup_ruleset()
 
     def _cleanup_ruleset(self):
         '''This function removes parseRes properties that were added during the post parse processing that are not needed for processing. 
-        
-        This includes:
-            number, dependent_vars, dependent_iterables (except for iterables) and downstream_iterables
         '''
-        for parseRes in self._pickles.values():
+        for parseRes in self._xule_file_expression_trees.values():
             self._cleanup_ruleset_detail(parseRes)
     
     def _cleanup_ruleset_detail(self, parse_node):
@@ -971,6 +927,54 @@ class XuleRuleSet(object):
                 if isinstance(next_part, dict):
                     self._cleanup_ruleset_detail(next_part)
     
+    def _cleanup_for_append(self):
+        #clean up catalog - remove dependency information. This will be recalculated.
+        for info in list(self.catalog['rules'].values()) + list(self.catalog['functions'].values()) + list(self.catalog['constants'].values()):
+            try:
+                del info['dependencies']
+            except KeyError:
+                pass
+            try:
+                del info['immediate_dependencies']
+            except KeyError:
+                pass
+            
+        delete_file_numbers = []
+        for file_info in self.catalog['files']:
+            if self._file_status.get(file_info['file']) == 'keep':
+                #clean up ast in ruleset
+                self._cleanup_for_append_ruleset_detail(self._xule_file_expression_trees[file_info['file']])
+            elif self._file_status.get(file_info['file']) is None:
+                delete_file_numbers.append(file_info['file'])
+        
+        if len(delete_file_numbers) > 0:
+            #pickled files
+            for file_number in delete_file_numbers:
+                del self._xule_file_expression_trees[file_number]
+                
+            #delete catalog files
+            self.catalog['files'] = [x for x in self.catalog['files'] if x['file'] not in delete_file_numbers]
+
+    def _cleanup_for_append_ruleset_detail(self, parse_node):
+        remove_list = ('var_refs', 'number', 'is_constant', 'var_declaration', 'has_alignment', 'is_dependent', 
+                       'dependent_iterables', 'is_iterable', 'function_type', 'cacheable', 'not_used', 'namespace_uri',
+                       'table_id')
+        for prop in remove_list:
+            if prop in parse_node:
+                del parse_node[prop]
+
+        for child in parse_node.values():
+            next_parts = []
+            if isinstance(child, dict):
+                next_parts.append(child)
+            elif isinstance(child, list):
+                next_parts = child
+                
+            for next_part in next_parts:
+                # the parser will only create a list of dictionaries, however, the build dependencies can add lists of other things (i.e. var_eclusion_ids). These should be skipped.
+                if isinstance(next_part, dict):
+                    self._cleanup_for_append_ruleset_detail(next_part)
+            
     def _get_all_dependencies(self, info):
         
         if 'dependencies' in info:
@@ -1017,16 +1021,22 @@ class XuleRuleSet(object):
         base['rules-taxonomy'] = base['rules-taxonomy'] or additional['rules-taxonomy']
         #base['number'] = base['number'] + additional['number']
 
-    def _addXuleFile(self, file_time, file_name):
+    def _addXuleFile(self, file_time, file_name, file_hash):
         
         #get the next file number
-        file_num = len(self.catalog["files"])
+        if len(self.catalog['files']) == 0:
+            file_num = 0
+        else:
+            file_num = max([x['file'] for x in self.catalog["files"]]) + 1
+            
         pickle_name = "rule_file%i" %(file_num,)
         file_dict = {"file": file_num, "pickle_name": pickle_name}
         if file_time:
             file_dict['mtime'] = file_time
         if file_name:
             file_dict['name'] = file_name
+        file_dict['file_hash'] = file_hash
+        self._file_status[file_num] = 'new'
         self.catalog['files'].append(file_dict)
         
         return file_num
@@ -1037,6 +1047,12 @@ class XuleRuleSet(object):
         for file_info in self.catalog['files']:
             if file_info.get('name') == file_name:
                 return file_info
+    
+    def getFileHash(self, file_name):
+        file_info = self.getFileInfoByName(file_name)
+        if file_info is not None:
+            return file_info['file_hash']
+        return None
     
     def _saveFilePickle(self, rule_set_file, file_num, parseRes):
         
@@ -1061,21 +1077,32 @@ class XuleRuleSet(object):
 
             self.name = self.catalog['name']
             self._openForAdd = open_for_add
-        except (FileNotFoundError, KeyError):
-            print("Cannot open catalog.") #, file=sys.stderr)
+        except KeyError:
+            print("Error in the rule set. Cannot open catalog.") #, file=sys.stderr)
+            raise
+        except FileNotFoundError:
             raise
         
-        if not open_for_add:
-            for file_info in self.catalog['files']:
-                self.getFile(file_info['file'])
-                
+        #load up all the rules.
+        for file_info in self.catalog['files']:
+            self.getFile(file_info['file'])
+        
+        if open_for_add:
+            #clear out the catalog. This will be rebuilt as files are added.
+            self.catalog['namespaces'] = {}
+            self.catalog['rules'] = {}
+            self.catalog['rules_by_file'] = {}
+            self.catalog['functions'] = {}
+            self.catalog['constants'] = {}
+            self.catalog['output_attributes'] = {}        
+            
         pickle_end = datetime.datetime.today()
         print("Rule Set Loaded", pickle_end - pickle_start)
         
     def getFile(self, file_num):
         """Return the AST from a file in the ruleset.
         """
-        if file_num not in self._pickles.keys():
+        if file_num not in self._xule_file_expression_trees.keys():
             #get the file info from the catalog
             file_item = next((file_item for file_item in self.catalog['files'] if file_item['file'] == file_num), None)
             if not file_item:
@@ -1085,12 +1112,12 @@ class XuleRuleSet(object):
             try:
                 with zipfile.ZipFile(self.location, 'r') as zf:
                     with zf.open(file_item['pickle_name'], "r") as p:
-                        self._pickles[file_num] = pickle.load(p, encoding="utf8")
+                        self._xule_file_expression_trees[file_num] = pickle.load(p, encoding="utf8")
             except (FileNotFoundError, KeyError): #KeyError if the file is not in the archive
                 raise XuleRuleSetError("Pickle file %s not found." % file_item['pickle_name'])
                 return
             
-        return self._pickles[file_num]
+        return self._xule_file_expression_trees[file_num]
                 
     
     def getItem(self, *args):
@@ -1104,11 +1131,11 @@ class XuleRuleSet(object):
             index = args[1]
             
             self.getFile(file_num)
-            if index >= len(self._pickles[file_num]['xuleDoc']):
+            if index >= len(self._xule_file_expression_trees[file_num]['xuleDoc']):
                 raise XuleRuleSetError("Item index %s for file %s is out of range" % (str(index), str(file_num)))
                 return
             
-            return self._pickles[file_num]['xuleDoc'][index]
+            return self._xule_file_expression_trees[file_num]['xuleDoc'][index]
         elif len(args) == 1:
             catalog_item = args[0]
             return self.getItem(catalog_item['file'], catalog_item['index'])
