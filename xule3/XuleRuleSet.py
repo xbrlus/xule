@@ -115,8 +115,13 @@ class XuleRuleSet(object):
         #self.name = os.path.splitext(os.path.basename(ruleSetLocation))[0]
         self.location = ruleSetLocation
         pickle_start = datetime.datetime.today()
+
+        from arelle import FileSource
+        file_source = FileSource.openFileSource(self.location, self._cntlr)
+        file_object = file_source.file(self.location, binary=True)[0]       
+        
         try:
-            with zipfile.ZipFile(self.location, 'r') as zf:
+            with zipfile.ZipFile(file_object, 'r') as zf:
                 self.catalog = pickle.loads(zf.open('catalog','r').read())
                 #open packages in the ruleset
                 if open_packages:
