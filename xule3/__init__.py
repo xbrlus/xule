@@ -68,6 +68,11 @@ def xuleCmdOptions(parser):
                      action="store_true",
                      dest="xule_show_packages",
                      help=_("Show list of packages in the rule set."))    
+
+    parserGroup.add_option("--xule-bypass-packages",
+                     action="store_true",
+                     dest="xule_bypass_packages",
+                     help=_("Indicates that the packages in the rule set will not be activated."))  
     
     parserGroup.add_option("--xule-time",
                      action="store",
@@ -329,7 +334,7 @@ def xuleCmdXbrlLoaded(cntlr, options, modelXbrl, entryPoint=None):
                 rule_set =  getattr(cntlr, "rule_set")
             else:
                 rule_set = xr.XuleRuleSet(cntlr)              
-                rule_set.open(options.xule_rule_set)
+                rule_set.open(options.xule_rule_set, open_packages=not getattr(options, 'xule_bypass_packages', False))
         except xr.XuleRuleSetError:
             raise
 
