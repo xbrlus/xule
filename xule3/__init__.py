@@ -194,7 +194,7 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
     #add packages
     if getattr(options, "xule_add_packages", None):
         from . import XuleRuleSetBuilder as xrsb
-        rule_set = xrsb.XuleRuleSetBuilder()
+        rule_set = xrsb.XuleRuleSetBuilder(cntlr)
         packages = options.xule_add_packages.split('|')
         rule_set.add_packages(getattr(options, "xule_rule_set"), packages)
     
@@ -295,7 +295,7 @@ def xuleCmdXbrlLoaded(cntlr, options, modelXbrl, entryPoint=None):
                 getattr(cntlr, "rule_set", None) is not None:
                 rule_set =  getattr(cntlr, "rule_set")
             else:
-                rule_set = xr.XuleRuleSet()              
+                rule_set = xr.XuleRuleSet(cntlr)              
                 rule_set.open(options.xule_rule_set)
         except xr.XuleRuleSetError:
             raise

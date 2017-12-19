@@ -30,7 +30,7 @@ class XuleRuleSet(object):
     The ruleset is stored as a set of pickled files.
     """
     
-    def __init__(self):
+    def __init__(self, cntlr=None):
         """Constructor
         """
 
@@ -41,6 +41,7 @@ class XuleRuleSet(object):
         self.next_id = -1
         self._var_exprs = {}
         self._file_status = {}
+        self._cntlr = cntlr
     
     def __del__(self):
         self.close()
@@ -136,21 +137,22 @@ class XuleRuleSet(object):
         print("Rule Set Loaded", pickle_end - pickle_start)
     
     def _open_packages(self, rule_file):
+        if self._cntlr is None:
+            raise XuleRuleSetError("Internal error, cannot open packages from rule set.")
         temp_dir = tempfile.TemporaryDirectory()
         for file_name in rule_file.namelist():
             if file_name.startswith('packages/'):
                 package_file = rule_file.extract(file_name, temp_dir.name)
-                package_info = PackageManager.addPackage(self, package_file)
+                package_info = PackageManager.addPackage(self._cntlr, package_file)
                 if package_info:
-                    print("Activation of package {0} successful.".format(package_info.get("name")))    
-#                     self.cntlr.addToLog(_("Activation of package {0} successful.").format(package_info.get("name")), 
-#                                   messageCode="info", file=package_info.get("URL"))
+#                     print("Activation of package {0} successful.".format(package_info.get("name")))    
+                    self._cntlr.addToLog(_("Activation of package {0} successful.").format(package_info.get("name")), 
+                                  messageCode="info", file=package_info.get("URL"))
                 else:
-                    print("Unable to load package \"{}\". ".format(file_name))
-                   
-#                     self.cntlr.addToLog(_("Unable to load package \"%(name)s\". "),
-#                                   messageCode="arelle:packageLoadingError", 
-#                                   messageArgs={"name": cmd, "file": cmd}, level=logging.ERROR)
+#                     print("Unable to load package \"{}\". ".format(file_name))                
+                    self._cntlr.addToLog(_("Unable to load package \"%(name)s\". "),
+                                  messageCode="arelle:packageLoadingError", 
+                                  messageArgs={"name": cmd, "file": cmd}, level=logging.ERROR)
     
     def getFile(self, file_num):
         """Return the AST from a file in the ruleset.

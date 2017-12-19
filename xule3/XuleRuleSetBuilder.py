@@ -9,8 +9,8 @@ from . import XuleFunctions as xf
 
 class XuleRuleSetBuilder(xr.XuleRuleSet):
     
-    def __init__(self):
-        super().__init__()
+    def __init__(self, cntlr=None):
+        super().__init__(cntlr)
     
     def markFileKeep(self, file_name):
         file_info = self.getFileInfoByName(file_name)
@@ -974,11 +974,13 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
     
     def add_packages(self, rule_set_location, package_files):
         #open the rule set
+        if self._cntlr is None:
+            raise xr.XuleRuleSetException("Internal error, cannot add packages.")
         try:
             with zipfile.ZipFile(rule_set_location, 'a') as zf:
                 for package_file in package_files:
                     if os.path.isfile(package_file):
-                        print("Adding package '{}'".format(os.path.basename(package_file)))
+                        print("Adding package {}".format(os.path.basename(package_file)))
                         zf.write(package_file, 'packages/' + os.path.basename(package_file))
                     else:
                         raise FileNotFoundError("Package '{}' is not found.".format(package_file))
