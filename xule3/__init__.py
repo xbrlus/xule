@@ -21,6 +21,7 @@ from time import sleep
 from arelle import FileSource
 from arelle import ModelManager
 import optparse
+import os 
 
 __version__ = '2.0.' + '$Change: 21749 $'[9:-2]
 
@@ -52,11 +53,22 @@ def xuleCmdOptions(parser):
                       action="store_true",
                       dest="xule_run",
                       help=_("Indicates that the rules should be processed."))
+    
     parserGroup.add_option("--xule-add-packages",
                            action="store",
                            dest="xule_add_packages",
-                           help=_("Add packages to xule rule set. Multiple package files are separated with a |."))
-        
+                           help=_("Add packages to a xule rule set. Multiple package files are separated with a |."))
+
+    parserGroup.add_option("--xule-remove-packages",
+                           action="store",
+                           dest="xule_remove_packages",
+                           help=_("Remove packages from a xule rule set. Multiple package files are separated with a |."))
+    
+    parserGroup.add_option("--xule-show-packages",
+                     action="store_true",
+                     dest="xule_show_packages",
+                     help=_("Show list of packages in the rule set."))    
+    
     parserGroup.add_option("--xule-time",
                      action="store",
                      type="float",
@@ -178,6 +190,12 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
     if getattr(options, 'xule_add_packages', None) is not None and not getattr(options, 'xule_rule_set', None):
         parser.error(_("--xule-rule-set is required with --xule-add-packages.")) 
 
+    if getattr(options, 'xule_remove_packages', None) is not None and not getattr(options, 'xule_rule_set', None):
+        parser.error(_("--xule-rule-set is required with --xule-remove-packages.")) 
+
+    if getattr(options, 'xule_show_packages', None) is not None and not getattr(options, 'xule_rule_set', None):
+        parser.error(_("--xule-rule-set is required with --xule-show-packages.")) 
+
     from os import name
     if getattr(options, "xule_multi", False) and name == 'nt':
             parser.error(_("--xule-multi can't be used in Windows"))    
@@ -193,10 +211,25 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
     
     #add packages
     if getattr(options, "xule_add_packages", None):
-        from . import XuleRuleSetBuilder as xrsb
-        rule_set = xrsb.XuleRuleSetBuilder(cntlr)
+        rule_set = xr.XuleRuleSet(cntlr)
+        rule_set.open(getattr(options, "xule_rule_set"), open_packages=False, open_files=False)
         packages = options.xule_add_packages.split('|')
-        rule_set.add_packages(getattr(options, "xule_rule_set"), packages)
+        rule_set.manage_packages(packages, 'add')
+
+    #remove packages
+    if getattr(options, "xule_remove_packages", None):
+        rule_set = xr.XuleRuleSet(cntlr)
+        rule_set.open(getattr(options, "xule_rule_set"), open_packages=False, open_files=False)
+        packages = options.xule_remove_packages.split('|')
+        rule_set.manage_packages(packages, 'del')
+    
+    #show packages
+    if getattr(options, "xule_show_packages", False):
+        rule_set = xr.XuleRuleSet(cntlr)
+        rule_set.open(getattr(options, "xule_rule_set"), open_packages=False, open_files=False)
+        print("Packages in rule set:")
+        for package_info in rule_set.get_packages_info():
+            print('\t' + package_info.get('name') + ' (' + os.path.basename(package_info.get('URL')) + ')' )
     
     if getattr(options, "xule_server", None):
         try:

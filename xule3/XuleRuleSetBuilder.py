@@ -5,6 +5,7 @@ import shutil
 import collections
 import datetime
 import zipfile
+import tempfile
 from . import XuleFunctions as xf
 
 class XuleRuleSetBuilder(xr.XuleRuleSet):
@@ -970,32 +971,4 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
         pickle_name = "rule_file%i" %(file_num,)
         #save the pickle
         rule_set_file.writestr(pickle_name, pickle.dumps(parseRes, protocol=2))    
-        return pickle_name   
-    
-    def add_packages(self, rule_set_location, package_files):
-        #open the rule set
-        if self._cntlr is None:
-            raise xr.XuleRuleSetException("Internal error, cannot add packages.")
-        try:
-            with zipfile.ZipFile(rule_set_location, 'a') as zf:
-                for package_file in package_files:
-                    if os.path.isfile(package_file):
-                        print("Adding package {}".format(os.path.basename(package_file)))
-                        zf.write(package_file, 'packages/' + os.path.basename(package_file))
-                    else:
-                        raise FileNotFoundError("Package '{}' is not found.".format(package_file))
-            #open packages in the ruleset to check that added packages are ok
-            with zipfile.ZipFile(rule_set_location) as zf:
-                self._open_packages(zf)
-              
-        except KeyError:
-            print("Error in the rule set. Cannot open catalog.") #, file=sys.stderr)
-            raise
-        except FileNotFoundError:
-            raise
-        
-        
-        
-        
-        
-    
+        return pickle_name

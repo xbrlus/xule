@@ -10,6 +10,7 @@ import os
 import datetime
 import zipfile
 import tempfile
+import logging
 from arelle import PackageManager
 
 class XuleRuleSetError(Exception):
@@ -105,7 +106,7 @@ class XuleRuleSet(object):
             if file_info.get('name') == file_name:
                 return file_info
                 
-    def open(self, ruleSetLocation, open_packages=True):
+    def open(self, ruleSetLocation, open_packages=True, open_files=True):
         """Open a rule set.
         
         Arguments:
@@ -128,9 +129,11 @@ class XuleRuleSet(object):
         except FileNotFoundError:
             raise
         
+
         #load up all the rules.
-        for file_info in self.catalog['files']:
-            self.getFile(file_info['file'])
+        if open_files:
+            for file_info in self.catalog['files']:
+                self.getFile(file_info['file'])
     
         #Check for packages
         pickle_end = datetime.datetime.today()
@@ -143,17 +146,83 @@ class XuleRuleSet(object):
         for file_name in rule_file.namelist():
             if file_name.startswith('packages/'):
                 package_file = rule_file.extract(file_name, temp_dir.name)
-                package_info = PackageManager.addPackage(self._cntlr, package_file)
-                if package_info:
-#                     print("Activation of package {0} successful.".format(package_info.get("name")))    
-                    self._cntlr.addToLog(_("Activation of package {0} successful.").format(package_info.get("name")), 
-                                  messageCode="info", file=package_info.get("URL"))
-                else:
-#                     print("Unable to load package \"{}\". ".format(file_name))                
-                    self._cntlr.addToLog(_("Unable to load package \"%(name)s\". "),
-                                  messageCode="arelle:packageLoadingError", 
-                                  messageArgs={"name": cmd, "file": cmd}, level=logging.ERROR)
+                if self.open_package_file(package_file) is None:
+                    raise XuleRuleSetError(_("Cannot open package '{}' from rule set.".format(file_name.partition('packages/')[2])))
     
+    def open_package_file(self, file_name):
+        package_info = PackageManager.addPackage(self._cntlr, file_name)
+        if package_info:
+#                     print("Activation of package {0} successful.".format(package_info.get("name")))    
+            self._cntlr.addToLog(_("Activation of package {0} successful.").format(package_info.get("name")), 
+                          messageCode="info", file=package_info.get("URL"))
+        else:
+#                     print("Unable to load package \"{}\". ".format(file_name))                
+            self._cntlr.addToLog(_("Unable to load package \"%(name)s\". "),
+                          messageCode="arelle:packageLoadingError", 
+                          level=logging.ERROR) 
+        return package_info
+
+    def get_packages_info(self):
+        results = []
+        temp_dir = tempfile.TemporaryDirectory()
+        with zipfile.ZipFile(self.location, 'r') as zf:
+            for package_file_name in zf.namelist():
+                if package_file_name.startswith('packages/'):
+                    package_file = zf.extract(package_file_name, temp_dir.name)
+                    package_info = PackageManager.addPackage(self._cntlr, package_file)
+                    results.append(package_info)
+
+        return results
+
+    def manage_packages(self, package_files, mode):
+        #The zipfile module cannot remove files or replace files. So, The original zip file will be opened and the contents
+        #copied to a new zip file without the packages. Then the packages will be added.
+
+        #open the rule set
+        if self._cntlr is None:
+            raise xr.XuleRuleSetException("Internal error, cannot add packages.")
+        try:
+            working_dir = tempfile.TemporaryDirectory()
+            new_zip_file_name = os.path.join(working_dir.name, 'new.zip')
+            new_package_names = [os.path.basename(x) for x in package_files]
+            old_package_names = set()
+            with zipfile.ZipFile(new_zip_file_name, 'w', zipfile.ZIP_DEFLATED) as new_zip:            
+                with zipfile.ZipFile(self.location, 'r') as old_zip:
+                    #copy the files from the original zip to the new zip excluding new packages
+                    for old_file in old_zip.namelist():
+                        keep = False
+                        if old_file.startswith('packages/'):
+                            package_name = old_file.partition('packages/')[2]
+                            old_package_names.add(package_name)
+                            if package_name not in new_package_names:
+                                keep = True
+                            elif mode == 'del':
+                                print("Removing package '{}' from rule set.".format(package_name))
+                        else:
+                            keep = True
+                        if keep:
+                            new_zip.writestr(old_file, old_zip.open(old_file).read())
+                    
+                    if mode == 'add':
+                        #add new packages
+                        for package_file in package_files:
+                            if os.path.isfile(package_file):
+                                #open the package to make sure it is valie
+                                if self.open_package_file(package_file) is None:
+                                    raise xr.XuleRuleSetError(_("Package '{}' is not a valid package.".format(os.path.basename(package_file))))
+                                new_zip.write(package_file, 'packages/' + os.path.basename(package_file))
+                            else:
+                                raise FileNotFoundError("Package '{}' is not found.".format(package_file))
+                    
+                    if mode == 'del':
+                        for package_name in set(new_package_names) - old_package_names:
+                            print("Package '{}' was not in the rule set.".format(package_name))
+            #replace the old file with the new
+            os.replace(new_zip_file_name, self.location)
+              
+        except KeyError:
+            raise xr.XuleRuleSetError(_("Error in rule set. Cannot open catalog."))
+               
     def getFile(self, file_num):
         """Return the AST from a file in the ruleset.
         """
