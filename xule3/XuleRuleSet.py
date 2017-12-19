@@ -9,8 +9,8 @@ import pickle
 import os
 import datetime
 import zipfile
-
-import pprint
+import tempfile
+from arelle import PackageManager
 
 class XuleRuleSetError(Exception):
     def __init__(self, msg):
@@ -104,12 +104,11 @@ class XuleRuleSet(object):
             if file_info.get('name') == file_name:
                 return file_info
                 
-    def open(self, ruleSetLocation):
+    def open(self, ruleSetLocation, open_packages=True):
         """Open a rule set.
         
         Arguments:
             ruleSetLocation (string): The directory of the ruleset
-            open_for_add (boolean): If the rule set is being opend to add additional files.
         """
         #self.name = os.path.splitext(os.path.basename(ruleSetLocation))[0]
         self.location = ruleSetLocation
@@ -117,9 +116,11 @@ class XuleRuleSet(object):
         try:
             with zipfile.ZipFile(self.location, 'r') as zf:
                 self.catalog = pickle.loads(zf.open('catalog','r').read())
-
+                #open packages in the ruleset
+                if open_packages:
+                    self._open_packages(zf)
             self.name = self.catalog['name']
-            self._open_for_add = False
+            self._open_for_add = False                
         except KeyError:
             print("Error in the rule set. Cannot open catalog.") #, file=sys.stderr)
             raise
@@ -129,10 +130,28 @@ class XuleRuleSet(object):
         #load up all the rules.
         for file_info in self.catalog['files']:
             self.getFile(file_info['file'])
-                    
+    
+        #Check for packages
         pickle_end = datetime.datetime.today()
         print("Rule Set Loaded", pickle_end - pickle_start)
-        
+    
+    def _open_packages(self, rule_file):
+        temp_dir = tempfile.TemporaryDirectory()
+        for file_name in rule_file.namelist():
+            if file_name.startswith('packages/'):
+                package_file = rule_file.extract(file_name, temp_dir.name)
+                package_info = PackageManager.addPackage(self, package_file)
+                if package_info:
+                    print("Activation of package {0} successful.".format(package_info.get("name")))    
+#                     self.cntlr.addToLog(_("Activation of package {0} successful.").format(package_info.get("name")), 
+#                                   messageCode="info", file=package_info.get("URL"))
+                else:
+                    print("Unable to load package \"{}\". ".format(file_name))
+                   
+#                     self.cntlr.addToLog(_("Unable to load package \"%(name)s\". "),
+#                                   messageCode="arelle:packageLoadingError", 
+#                                   messageArgs={"name": cmd, "file": cmd}, level=logging.ERROR)
+    
     def getFile(self, file_num):
         """Return the AST from a file in the ruleset.
         """

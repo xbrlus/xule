@@ -43,7 +43,7 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
 
     def open(self, ruleSetLocation):
 
-        super().open(ruleSetLocation)
+        super().open(ruleSetLocation, open_packages=False)
         self._open_for_add = True
 
         #clear out the catalog. This will be rebuilt as files are added.
@@ -971,4 +971,29 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
         #save the pickle
         rule_set_file.writestr(pickle_name, pickle.dumps(parseRes, protocol=2))    
         return pickle_name   
+    
+    def add_packages(self, rule_set_location, package_files):
+        #open the rule set
+        try:
+            with zipfile.ZipFile(rule_set_location, 'a') as zf:
+                for package_file in package_files:
+                    if os.path.isfile(package_file):
+                        print("Adding package '{}'".format(os.path.basename(package_file)))
+                        zf.write(package_file, 'packages/' + os.path.basename(package_file))
+                    else:
+                        raise FileNotFoundError("Package '{}' is not found.".format(package_file))
+            #open packages in the ruleset to check that added packages are ok
+            with zipfile.ZipFile(rule_set_location) as zf:
+                self._open_packages(zf)
+              
+        except KeyError:
+            print("Error in the rule set. Cannot open catalog.") #, file=sys.stderr)
+            raise
+        except FileNotFoundError:
+            raise
+        
+        
+        
+        
+        
     

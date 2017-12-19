@@ -52,16 +52,10 @@ def xuleCmdOptions(parser):
                       action="store_true",
                       dest="xule_run",
                       help=_("Indicates that the rules should be processed."))
-    
-    parserGroup.add_option("--xule-add-taxonomy",
-                      action="store",
-                      dest="xule_add_taxonomy",
-                      help=_("Add the taxonomy location specified to the rule set."))
-
-    parserGroup.add_option("--xule-taxonomy-entry", 
-                      action="store", 
-                      dest="xule_taxonomy_entry", 
-                      help=_("Taxonomy entry point."))
+    parserGroup.add_option("--xule-add-packages",
+                           action="store",
+                           dest="xule_add_packages",
+                           help=_("Add packages to xule rule set. Multiple package files are separated with a |."))
         
     parserGroup.add_option("--xule-time",
                      action="store",
@@ -179,7 +173,10 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
             parser.error(_("--xule-rule-set is required with --xule_server."))
             
     if getattr(options, "xule-numthreads", None) == None:
-        setattr(options, "xule-numthreads", 1)    
+        setattr(options, "xule-numthreads", 1)   
+    
+    if getattr(options, 'xule_add_packages', None) is not None and not getattr(options, 'xule_rule_set', None):
+        parser.error(_("--xule-rule-set is required with --xule-add-packages.")) 
 
     from os import name
     if getattr(options, "xule_multi", False) and name == 'nt':
@@ -193,7 +190,14 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
         compile_destination = getattr(options, "xule_rule_set", "xuleRules") 
         from .XuleParser import parseRules
         parseRules(options.xule_compile.split("|"),compile_destination)
-        
+    
+    #add packages
+    if getattr(options, "xule_add_packages", None):
+        from . import XuleRuleSetBuilder as xrsb
+        rule_set = xrsb.XuleRuleSetBuilder()
+        packages = options.xule_add_packages.split('|')
+        rule_set.add_packages(getattr(options, "xule_rule_set"), packages)
+    
     if getattr(options, "xule_server", None):
         try:
             rule_set = xr.XuleRuleSet()
