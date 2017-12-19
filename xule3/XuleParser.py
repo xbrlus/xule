@@ -6,11 +6,12 @@ Copyright (c) 2014 XBRL US Inc. All rights reserved
 $Change: 21535 $
 '''
 from pyparsing import ParseResults, lineno, ParseException, ParseSyntaxException, ParserElement
-
+from . import XuleRuleSet as xrs
+from . import XuleRuleSetBuilder as xrsb
+from .xule_grammar import get_grammar
 import os
 import datetime
 import sys
-from .xule_grammar import get_grammar
 import hashlib
 
 def printRes(pr, level=0):
@@ -33,12 +34,6 @@ def add_location(src, loc, toks):
 def parseFile(dir, fileName, xuleGrammar, ruleSet):
     parse_errors = []
     try:
-        '''WOULD LIKE TO CHECK IF THE FILE IS ALREADY IN THE RULE SET AND IF IT HAS CHANGED.
-           IF IT HASN'T CAN SKIP THE PARSING AND USE THE EXISTING PICKLED FILE. HOWEVER,
-           NEED TO CHANGE THE WAY 'NEW' IS DONE IN THE XULERULESET, SO THAT IT PRESERVES THE 
-           EXISTING FILES AND CATALOGS AND THEN CLEANS EVERYTHING UP WHEN THE RULESET IS CLOSED.
-        '''
-        
         full_file_name = os.path.join(dir, fileName)
         with open(full_file_name, 'rb') as xule_file:
             buffer = None
@@ -87,7 +82,7 @@ def parseRules(files, dest):
         sys.setrecursionlimit(new_depth)
     
     xuleGrammar = get_grammar()
-    ruleSet = XuleRuleSet()
+    ruleSet = xrsb.XuleRuleSetBuilder()
     ruleSet.append(dest)
     
     for ruleFile in files:
@@ -122,30 +117,8 @@ def parseRules(files, dest):
         print("%s: post parse end. Took %s" %(datetime.datetime.isoformat(post_parse_end), post_parse_end - post_parse_start))
         ruleSet.close()
     else: #there are errors from parsing
-        raise XuleRuleSetError("Unable to parse rules due to the following errors:\n" + "\n".join(parse_errors))
+        raise xrs.XuleRuleSetError("Unable to parse rules due to the following errors:\n" + "\n".join(parse_errors))
 
     parse_end = datetime.datetime.today()
     print("%s: Parsing finished. Took %s" %(datetime.datetime.isoformat(parse_end), parse_end - parse_start))
 
-
-    
-if __name__ == "__main__":
-    from XuleRuleSet import XuleRuleSet, XuleRuleSetError
-    import argparse
-    
-    aparser = argparse.ArgumentParser()
-    aparser.add_argument("source", help="Xule rule file or directory of rule files.")
-    aparser.add_argument("target", help="Xule rul set directory. Location where the rule set will be created. Existing rule set files in this directory will be deleted")
-    aparser.add_argument("--xule-grammar", dest="xule_grammar", choices=['xule2', 'xule3'], default="xule2", help="Grammar version of the Xule rule file. Default is xule2")
-    args = aparser.parse_args()
-
-#     if len(sys.argv) > 1:
-#         dest = sys.argv[2].strip() if len(sys.argv) > 2 else "xuleRules"
-#         if len(sys.argv) > 3:
-#             parseRules([sys.argv[1]], dest, xml_dir = sys.argv[3])
-#         else:
-#             parseRules([sys.argv[1]], dest)
-
-    parseRules([args.source], args.target)      
-else:
-    from .XuleRuleSet import XuleRuleSet, XuleRuleSetError

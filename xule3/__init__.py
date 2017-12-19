@@ -6,9 +6,11 @@ Copyright (c) 2014 XBRL US Inc. All rights reserved
 $Change: 21749 $
 '''
 
-from .XuleParser import parseRules
+#from .XuleParser import parseRules
+
 from .XuleProcessor import process_xule, XuleProcessingError
-from .XuleRuleSet import XuleRuleSet, XuleRuleSetError
+#from .XuleRuleSet import XuleRuleSet, XuleRuleSetError
+from . import XuleRuleSet as xr
 from .XuleContext import XuleGlobalContext, XuleRuleContext
 from .XuleMultiProcessing import run_constant_group, output_message_queue, start_process
 
@@ -188,14 +190,15 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
 
     #compile rules
     if getattr(options, "xule_compile", None):
-        compile_destination = getattr(options, "xule_rule_set", "xuleRules")        
+        compile_destination = getattr(options, "xule_rule_set", "xuleRules") 
+        from .XuleParser import parseRules
         parseRules(options.xule_compile.split("|"),compile_destination)
         
     if getattr(options, "xule_server", None):
         try:
-            rule_set = XuleRuleSet()
+            rule_set = xr.XuleRuleSet()
             rule_set.open(options.xule_rule_set, False)
-        except XuleRuleSetError:
+        except xr.XuleRuleSetError:
             raise
 
         # Create global Context
@@ -288,9 +291,9 @@ def xuleCmdXbrlLoaded(cntlr, options, modelXbrl, entryPoint=None):
                 getattr(cntlr, "rule_set", None) is not None:
                 rule_set =  getattr(cntlr, "rule_set")
             else:
-                rule_set = XuleRuleSet()              
-                rule_set.open(options.xule_rule_set, False)
-        except XuleRuleSetError:
+                rule_set = xr.XuleRuleSet()              
+                rule_set.open(options.xule_rule_set)
+        except xr.XuleRuleSetError:
             raise
 
         if getattr(options, "xule_multi", False):
@@ -313,7 +316,7 @@ def xuleCmdXbrlLoaded(cntlr, options, modelXbrl, entryPoint=None):
                 #check if there are any rules that need a model
                 for rule in rule_set.catalog['rules'].values():
                     if rule['dependencies']['instance'] == True and rule['dependencies']['rules-taxonomy'] != False:
-                        raise XuleRuleSetError('Need instance to process rules')
+                        raise xr.XuleRuleSetError('Need instance to process rules')
                     
                     
             process_xule(rule_set,

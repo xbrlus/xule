@@ -10,7 +10,8 @@ import re
 import datetime
 import copy
 from arelle.ModelValue import QName
-from .XuleValue import XuleValue, XuleValueSet
+#from .XuleValue import XuleValue, XuleValueSet
+from . import XuleValue as xv
 from .XuleRunTime import XuleProcessingError
 from arelle.FunctionXfi import facts_in_instance
 
@@ -66,7 +67,7 @@ def func_find_roll_forward(xule_context, *args):
     '''Leave the roll forward constants for the next rule'''
     #_clean_up_roll_forward_constants(xule_context)
 
-    return XuleValue(xule_context, tuple(roll_forward_patterns), 'roll_forward_set')
+    return xv.XuleValue(xule_context, tuple(roll_forward_patterns), 'roll_forward_set')
 
 def _prep_roll_forward_constants(xule_context):
     xule_context.roll_forward = dict()
@@ -114,7 +115,7 @@ def _clean_up_roll_forward_constants(xule_context):
 def _get_balance(xule_context):
     start_rels = collections.defaultdict(list)
     
-    for pres_net in get_networks(xule_context, XuleValue(xule_context, xule_context.model, 'taxonomy'), 'http://www.xbrl.org/2003/arcrole/parent-child'):
+    for pres_net in get_networks(xule_context, xv.XuleValue(xule_context, xule_context.model, 'taxonomy'), 'http://www.xbrl.org/2003/arcrole/parent-child'):
         for rel in pres_net.value[1].modelRelationships:
             if rel.preferredLabel == 'http://www.xbrl.org/2003/role/periodStartLabel':
                 if rel.toModelObject.qname not in xule_context.roll_forward['ROLL_FORWARD_EXCEPTIONS']:
@@ -211,7 +212,7 @@ def _has_matching_calc(xule_context, sum_concept, contrib_concepts):
     base_dts = xule_context.get_rules_dts()
     if xule_context.roll_forward['BASE_RF_CALCS'] is None:
         calcs = collections.defaultdict(list)
-        for calc_net in get_networks(xule_context, XuleValue(xule_context, base_dts, 'taxonomy'), 'http://www.xbrl.org/2003/arcrole/summation-item'):
+        for calc_net in get_networks(xule_context, xv.XuleValue(xule_context, base_dts, 'taxonomy'), 'http://www.xbrl.org/2003/arcrole/summation-item'):
             calc_items = [item for item in calc_net.value[1].fromModelObject(sum_concept)]
             calcs[sum_concept].append(calc_items)
             
@@ -234,7 +235,7 @@ def _get_base_period_increase_decrease(xule_context, balance_concept):
     if xule_context.roll_forward['BASE_PERIOD_TOTALS'] is None:
         period_totals = collections.defaultdict(set)
         base_dts = xule_context.get_rules_dts()
-        for base_pres_net in get_networks(xule_context, XuleValue(xule_context, base_dts, 'taxonomy'), 'http://www.xbrl.org/2003/arcrole/parent-child'):            
+        for base_pres_net in get_networks(xule_context, xv.XuleValue(xule_context, base_dts, 'taxonomy'), 'http://www.xbrl.org/2003/arcrole/parent-child'):            
             for start_rel in base_pres_net.value[1].modelRelationships:
                 if start_rel.preferredLabel == 'http://www.xbrl.org/2003/role/periodStartLabel':
                     #found start concept, now look for the total in the
@@ -251,7 +252,7 @@ def _get_ext_default(xule_context, dimension_name):
     
     if xule_context.roll_forward['EXT_DEFAULTS'] is None:
         defaults = dict()
-        for net in get_networks(xule_context, XuleValue(xule_context, xule_context.model, 'taxonomy'), 'http://xbrl.org/int/dim/arcrole/dimension-default'):
+        for net in get_networks(xule_context, xv.XuleValue(xule_context, xule_context.model, 'taxonomy'), 'http://xbrl.org/int/dim/arcrole/dimension-default'):
             for rel in net.value[1].modelRelationships:
                 defaults[rel.fromModelObject.qname] = rel.toModelObject.qname
         xule_context.roll_forward['EXT_DEFAULTS'] = defaults
@@ -273,15 +274,15 @@ def _get_axis_member_pairs(xule_context, pres_net, balance_concept):
     arcroles = ['http://xbrl.org/int/dim/arcrole/all',
                 'http://xbrl.org/int/dim/arcrole/hypercube-dimension']
 
-    dimensions = _navigate_networks(xule_context, XuleValue(xule_context, xule_context.model, 'taxonomy'), line_items, pres_net.linkrole, arcroles, 1)
+    dimensions = _navigate_networks(xule_context, xv.XuleValue(xule_context, xule_context.model, 'taxonomy'), line_items, pres_net.linkrole, arcroles, 1)
     if len(dimensions) == 0:
         return pairs
     
     for dimension in dimensions:
-        domains = _navigate_networks(xule_context, XuleValue(xule_context, xule_context.model, 'taxonomy'), [dimension], pres_net.linkrole, ['http://xbrl.org/int/dim/arcrole/dimension-domain'], 1)
+        domains = _navigate_networks(xule_context, xv.XuleValue(xule_context, xule_context.model, 'taxonomy'), [dimension], pres_net.linkrole, ['http://xbrl.org/int/dim/arcrole/dimension-domain'], 1)
         if len(domains) > 0:
             default = _get_ext_default(xule_context, dimension.qname)
-            members = _navigate_networks(xule_context, XuleValue(xule_context, xule_context.model, 'taxonomy'), domains, pres_net.linkrole, ['http://xbrl.org/int/dim/arcrole/domain-member'], float('inf'))  
+            members = _navigate_networks(xule_context, xv.XuleValue(xule_context, xule_context.model, 'taxonomy'), domains, pres_net.linkrole, ['http://xbrl.org/int/dim/arcrole/domain-member'], float('inf'))  
             pairs[dimension.qname] = {"has_default": default is not None, "members": {x.qname for x in members}}
         
     return pairs
@@ -290,10 +291,10 @@ def _in_any_cube(xule_context, line_item, linkrole=None):
     #if the linkrole is none, than all networks are checked. otherwise only the network for the linkrole
     if xule_context.roll_forward['LINE_ITEM_CUBE'] is None:
         cubed_line_items = collections.defaultdict(set)
-        for net in get_networks(xule_context, XuleValue(xule_context, xule_context.model, 'taxonomy'), 'http://xbrl.org/int/dim/arcrole/all'):
+        for net in get_networks(xule_context, xv.XuleValue(xule_context, xule_context.model, 'taxonomy'), 'http://xbrl.org/int/dim/arcrole/all'):
             for rel in net.value[1].modelRelationships:
                 cubed_line_items[rel.fromModelObject].add(net.value[1].linkrole)
-                domain_member_net = _get_single_network(xule_context, XuleValue(xule_context, xule_context.model, 'taxonomy'), 'http://xbrl.org/int/dim/arcrole/domain-member', net.value[1].linkrole)
+                domain_member_net = _get_single_network(xule_context, xv.XuleValue(xule_context, xule_context.model, 'taxonomy'), 'http://xbrl.org/int/dim/arcrole/domain-member', net.value[1].linkrole)
                 if domain_member_net is not None:
                     for mem_concept in descend(domain_member_net, rel.fromModelObject, float('inf'), set(), 'concept'): 
                         cubed_line_items[mem_concept].add(net.value[1].linkrole)
@@ -349,14 +350,14 @@ def _deterime_calc_sign(xule_context, contrib_concept, base_total_concepts):
             base_contrib_concept = xule_context.get_rules_dts().qnameConcepts.get(contrib_concept.qname)
             if base_contrib_concept is None:
                 return None
-            weight = _get_effective_weight(xule_context, base_total_concept, base_contrib_concept, XuleValue(xule_context, xule_context.get_rules_dts(), 'taxonomy'))
+            weight = _get_effective_weight(xule_context, base_total_concept, base_contrib_concept, xv.XuleValue(xule_context, xule_context.get_rules_dts(), 'taxonomy'))
             if weight is not None:
                 return weight
     #check the effetive weitht in the extension taxonomy
     for base_total_concept in base_total_concepts:
         ext_total_concept = xule_context.model.qnameConcepts.get(base_total_concept.qname)
         if ext_total_concept is not None:
-            weight = _get_effective_weight(xule_context, ext_total_concept, contrib_concept, XuleValue(xule_context, xule_context.model, 'taxonomy'))
+            weight = _get_effective_weight(xule_context, ext_total_concept, contrib_concept, xv.XuleValue(xule_context, xule_context.model, 'taxonomy'))
             if weight is not None:
                 return weight
     
@@ -391,7 +392,7 @@ roll_forward_patterns.append({'balance_concept': start_concept,
 '''
    
 def func_roll_forward_recalc(xule_context, *args):
-    all_results = XuleValueSet()
+    all_results = xv.XuleValueSet()
     
     roll_forward_pattern_set = args[0]
     if roll_forward_pattern_set.type != 'roll_forward_set':
@@ -474,21 +475,21 @@ def func_roll_forward_recalc(xule_context, *args):
                     display = "\n".join(display)
                                             
                     #set up result sdic
-                    result = func_sdic_create(xule_context, XuleValue(xule_context, "ROLL-FORWARD-RESULT", 'string'))
+                    result = func_sdic_create(xule_context, xv.XuleValue(xule_context, "ROLL-FORWARD-RESULT", 'string'))
                     if diff != 0:
-                        result = func_sdic_append(xule_context, result, XuleValue(xule_context, "RECONCILED", 'string'), XuleValue(xule_context, False, 'bool'))
+                        result = func_sdic_append(xule_context, result, xv.XuleValue(xule_context, "RECONCILED", 'string'), xv.XuleValue(xule_context, False, 'bool'))
                     else:
-                        result = func_sdic_append(xule_context, result, XuleValue(xule_context, "RECONCILED", 'string'), XuleValue(xule_context, True, 'bool'))
-                    result = func_sdic_append(xule_context, result, XuleValue(xule_context, "END_VALUE", 'string'), XuleValue(xule_context, end_fact, 'fact'))
-                    result = func_sdic_append(xule_context, result, XuleValue(xule_context, "CALC_VALUE", 'string'), XuleValue(xule_context, end_calc, 'decimal'))
-                    result = func_sdic_append(xule_context, result, XuleValue(xule_context, "START_VALUE", 'string'), XuleValue(xule_context, start_fact, 'fact'))
-                    result = func_sdic_append(xule_context, result, XuleValue(xule_context, "DIFFERENCE", 'string'), XuleValue(xule_context, diff, 'decimal'))
-                    result = func_sdic_append(xule_context, result, XuleValue(xule_context, "MOVEMENT", 'string'), XuleValue(xule_context, movement, 'decimal'))
-                    result = func_sdic_append(xule_context, result, XuleValue(xule_context, "START_PERIOD", 'string'), XuleValue(xule_context, start_fact.context.endDatetime, 'instant', from_model=True))
-                    result = func_sdic_append(xule_context, result, XuleValue(xule_context, "END_PERIOD", 'string'), XuleValue(xule_context, end_fact.context.endDatetime, 'instant', from_model=True))
-                    result = func_sdic_append(xule_context, result, XuleValue(xule_context, "DURATION", 'string'), XuleValue(xule_context, (start_fact.context.endDatetime, end_fact.context.endDatetime), 'duration', from_model=True))
-                    result = func_sdic_append(xule_context, result, XuleValue(xule_context, "DISPLAY", 'string'), XuleValue(xule_context, display, 'string'))
-                    result = func_sdic_append(xule_context, result, XuleValue(xule_context, "NETWORK_ROLE", 'string'), XuleValue(xule_context, role_description + '" - ' + role_uri, 'string'))
+                        result = func_sdic_append(xule_context, result, xv.XuleValue(xule_context, "RECONCILED", 'string'), xv.XuleValue(xule_context, True, 'bool'))
+                    result = func_sdic_append(xule_context, result, xv.XuleValue(xule_context, "END_VALUE", 'string'), xv.XuleValue(xule_context, end_fact, 'fact'))
+                    result = func_sdic_append(xule_context, result, xv.XuleValue(xule_context, "CALC_VALUE", 'string'), xv.XuleValue(xule_context, end_calc, 'decimal'))
+                    result = func_sdic_append(xule_context, result, xv.XuleValue(xule_context, "START_VALUE", 'string'), xv.XuleValue(xule_context, start_fact, 'fact'))
+                    result = func_sdic_append(xule_context, result, xv.XuleValue(xule_context, "DIFFERENCE", 'string'), xv.XuleValue(xule_context, diff, 'decimal'))
+                    result = func_sdic_append(xule_context, result, xv.XuleValue(xule_context, "MOVEMENT", 'string'), xv.XuleValue(xule_context, movement, 'decimal'))
+                    result = func_sdic_append(xule_context, result, xv.XuleValue(xule_context, "START_PERIOD", 'string'), xv.XuleValue(xule_context, start_fact.context.endDatetime, 'instant', from_model=True))
+                    result = func_sdic_append(xule_context, result, xv.XuleValue(xule_context, "END_PERIOD", 'string'), xv.XuleValue(xule_context, end_fact.context.endDatetime, 'instant', from_model=True))
+                    result = func_sdic_append(xule_context, result, xv.XuleValue(xule_context, "DURATION", 'string'), xv.XuleValue(xule_context, (start_fact.context.endDatetime, end_fact.context.endDatetime), 'duration', from_model=True))
+                    result = func_sdic_append(xule_context, result, xv.XuleValue(xule_context, "DISPLAY", 'string'), xv.XuleValue(xule_context, display, 'string'))
+                    result = func_sdic_append(xule_context, result, xv.XuleValue(xule_context, "NETWORK_ROLE", 'string'), xv.XuleValue(xule_context, role_description + '" - ' + role_uri, 'string'))
                     
                     #add facts
                     all_facts = dict()
@@ -620,7 +621,7 @@ def _in_any_calc(xule_context, possible_parents, concept):
         if base_concept is None:
             xule_context.roll_forward['HAS_CALC'][key] = False
             return False
-        for net in get_networks(xule_context, XuleValue(xule_context, xule_context.get_rules_dts(), 'taxonomy'), 'http://www.xbrl.org/2003/arcrole/summation-item'):
+        for net in get_networks(xule_context, xv.XuleValue(xule_context, xule_context.get_rules_dts(), 'taxonomy'), 'http://www.xbrl.org/2003/arcrole/summation-item'):
             child = base_concept
             
             while True:

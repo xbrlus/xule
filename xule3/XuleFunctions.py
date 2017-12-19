@@ -5,7 +5,8 @@ Copyright (c) 2014 XBRL US Inc. All rights reserved
 
 $Change: 21535 $
 '''
-from .XuleValue import XuleValue, iso_to_date, model_to_xule_unit, XuleUnit
+#from .XuleValue import XuleValue, iso_to_date, model_to_xule_unit, XuleUnit
+from . import XuleValue as xv
 from .XuleRunTime import XuleProcessingError
 from arelle.ModelValue import qname, QName
 import collections
@@ -14,105 +15,14 @@ from aniso8601 import parse_duration
 import urllib.request
 import decimal
 
-class XuleSDic(XuleValue):
-    def __init__(self, xule_context, name):
-        super().__init__(xule_context, None, 'sdic')
-        self.name = name
-        self.data = collections.defaultdict(list)
-        self.keys = dict()
-
-    def __repr__(self):
-        return "sdic('%s')" % self.name
-    
-    def __str__(self):
-        return_string = self.__repr__()
-        for k, v in self.data.items():
-            for v_item in v:
-                return_string += "\n" + self.keys[k].format_value() + ": " + v_item.format_value() 
-            
-        return return_string
-
-    def format_value(self):
-        return self.__str__()
-
-    def append(self, key, value):
-        if not isinstance(key, XuleValue):
-            raise KeyError
-        if not isinstance(value, XuleValue):
-            raise TypeError
-        
-        self.data[key.value].append(value)
-        if key.value not in self.keys:
-            self.keys[key.value] = key
-        
-        return self
-    
-    def find_items(self, value):
-        if not isinstance(value, XuleValue):
-            raise TypeError
-        
-        found_keys = set()
-        for k, vs in self.data.items():
-            for v in vs:
-                if value.value == v.value:
-                    found_keys.add(self.keys[k])
-        
-        return XuleValue(None, frozenset(found_keys), 'set')
-
-    def get_item(self, key):
-        if not isinstance(key, XuleValue):
-            raise KeyError
-        
-        if key.value in self.data:
-            return self.data[key.value][0]
-            
-        else:
-            return XuleValue(None, None, 'unbound')
-    
-    def get_items(self, key):
-        if not isinstance(key, XuleValue):
-            raise KeyError
-    
-        if key.value in self.data:
-            return XuleValue(None, tuple(self.data[key.value]), 'list')
-        else:
-            return XuleValue(None, None, 'unbound')
-        
-    def has_key(self, key):
-        if not isinstance(key, XuleValue):
-            raise KeyError
-        
-        return XuleValue(None, key.value in self.data, 'bool')
-    
-    def remove_item(self, key):
-        if not isinstance(key, XuleValue):
-            raise KeyError
-        
-        if key.value in self.data:
-            del self.data[key.value]
-            del self.keys[key.value]
-            
-        return self
-    
-    def set_item(self, key, value):
-        if not isinstance(key, XuleValue):
-            raise KeyError
-        if not isinstance(value, XuleValue):
-            raise TypeError
-        
-        self.data[key.value] = [value,]
-        if key.value not in self.keys:
-            self.keys[key.value] = key
-            
-        return self
 
 def func_exists(xule_context, *args):   
-    #return XuleValue(xule_context, args[0].type not in ('unbound', 'none'), 'bool')
-    return XuleValue(xule_context, args[0].type != 'unbound', 'bool')
+    #return xv.xv.XuleValue(xule_context, args[0].type not in ('unbound', 'none'), 'bool')
+    return xv.XuleValue(xule_context, args[0].type != 'unbound', 'bool')
 
 def func_missing(xule_context, *args):
-    #return XuleValue(xule_context, args[0].type in ('unbound', 'none'), 'bool')
-    return XuleValue(xule_context, args[0].type == 'unbound', 'bool')
+    #return xv.XuleValue(xule_context, args[0].type in ('unbound', 'none'), 'bool')
+    return xv.XuleValue(xule_context, args[0].type == 'unbound', 'bool')
 
 def func_date(xule_context, *args):
     arg = args[0]
@@ -120,7 +30,7 @@ def func_date(xule_context, *args):
     if arg.type == 'instant':
         return arg
     elif arg.type == 'string':
-        return XuleValue(xule_context, iso_to_date(xule_context, arg.value), 'instant')
+        return xv.XuleValue(xule_context, xv.iso_to_date(xule_context, arg.value), 'instant')
     else:
         raise XuleProcessingError(_("function 'date' requires a string argument, found '%s'" % arg.type), xule_context)
 
@@ -132,19 +42,19 @@ def func_duration(xule_context, *args):
     end_instant = func_date(xule_context, end)
     
     if end_instant.value < start_instant.value:
-        return XuleValue(xule_context, None, 'unbound')
+        return xv.XuleValue(xule_context, None, 'unbound')
     else:
-        return XuleValue(xule_context, (start_instant.value, end_instant.value), 'duration', from_model=start.from_model or end.from_model)
+        return xv.XuleValue(xule_context, (start_instant.value, end_instant.value), 'duration', from_model=start.from_model or end.from_model)
 
 def func_forever(xule_context, *args):
-    return XuleValue(xule_context, (datetime.datetime.min, datetime.datetime.max), 'duration')
+    return xv.XuleValue(xule_context, (datetime.datetime.min, datetime.datetime.max), 'duration')
 
 def func_unit(xule_context, *args):
     
     if len(args) == 0 or len(args) > 2:
         raise XuleProcessingError(_("The unit() function takes 1 or 2 arguments, found {}".format(len(args))), xule_context)
     
-    return XuleValue(xule_context, XuleUnit(*args), 'unit')
+    return xv.XuleValue(xule_context, xv.XuleUnit(*args), 'unit')
 
 def func_entity(xule_context, *args):
     scheme = args[0]
@@ -153,7 +63,7 @@ def func_entity(xule_context, *args):
     if scheme.type != 'string' or identifier.type != 'string':
         raise XuleProcessingError(_("The entity scheme and identifier must be strings. Found '%s' and '%s'" % (scheme.type, identifier.type)), xule_context)
     
-    return XuleValue(xule_context, (scheme.value, identifier.value), 'entity')
+    return xv.XuleValue(xule_context, (scheme.value, identifier.value), 'entity')
 
 def func_qname(xule_context, *args):
     namespace_uri = args[0]
@@ -165,16 +75,16 @@ def func_qname(xule_context, *args):
         raise XuleProcessingError(_("Function 'qname' requires the local_part argument to be a string, found '%s'" % local_name.type), xule_context)
     
     if namespace_uri.type == 'unbound':
-        return XuleValue(xule_context, qname(local_name.value, noPrefixIsNoNamespace=True), 'qname')
+        return xv.XuleValue(xule_context, qname(local_name.value, noPrefixIsNoNamespace=True), 'qname')
     else:
         '''INSTEAD OF PASSING None FOR THE PREFIX, THIS SHOULD FIND THE PREFIX FOR THE NAMESPACE URI FROM THE RULE FILE. IF IT CANNOT FIND ONE, IT SHOULD CREATE ONE.'''
-        return XuleValue(xule_context, QName(None, namespace_uri.value, local_name.value), 'qname')
+        return xv.XuleValue(xule_context, QName(None, namespace_uri.value, local_name.value), 'qname')
  
 def func_uri(xule_context, *args):
     arg = args[0]
 
     if arg.type == 'string':
-        return XuleValue(xule_context, arg.value, 'uri')
+        return xv.XuleValue(xule_context, arg.value, 'uri')
     elif arg.type == 'uri':
         return arg
     else:
@@ -187,7 +97,7 @@ def func_time_span(xule_context, *args):
         raise XuleProcessingError(_("Function 'time-span' expects a string, fount '%s'." % arg.type), xule_context)
     
     try:
-        return XuleValue(xule_context, parse_duration(arg.value.upper()), 'time-period')
+        return xv.XuleValue(xule_context, parse_duration(arg.value.upper()), 'time-period')
     except:
         raise XuleProcessingError(_("Could not convert '%s' into a time-period." % arg.value), xule_context)
 
@@ -195,7 +105,7 @@ def func_schema_type(xule_context, *args):
     arg = args[0]
     
     if arg.type == 'qname':
-        return XuleValue(xule_context, arg.value, 'type')
+        return xv.XuleValue(xule_context, arg.value, 'type')
     else:
         raise XuleProcessingError(_("Function 'schema' expects a qname argument, found '%s'" % arg.type), xule_context)
 
@@ -203,7 +113,7 @@ def func_num_to_string(xule_context, *args):
     arg = args[0]
     
     if arg.type in ('int', 'float', 'decimal'):
-        return XuleValue(xule_context, format(arg.value, ","), 'string')
+        return xv.XuleValue(xule_context, format(arg.value, ","), 'string')
     else:
         raise XuleProcessingError(_("function 'num_to_string' requires a numeric argument, found '%s'" % arg.type), xule_context)
 
@@ -215,11 +125,11 @@ def func_number(xule_context, *args):
     elif arg.type == 'string':
         try:
             if '.' in arg.value:
-                return XuleValue(xule_context, decimal.Decimal(arg.value), 'decimal')
+                return xv.XuleValue(xule_context, decimal.Decimal(arg.value), 'decimal')
             elif arg.value.lower() in ('inf', '+inf', '-inf'):
-                return XuleValue(xule_context, float(arg.value), 'float')
+                return xv.XuleValue(xule_context, float(arg.value), 'float')
             else:
-                return XuleValue(xule_context, int(arg.value), 'int')
+                return xv.XuleValue(xule_context, int(arg.value), 'int')
         except Exception:
             raise XuleProcessingError(_("Cannot convert '%s' to a number" % arg.value), xule_context)
     else:
@@ -235,7 +145,7 @@ def func_mod(xule_context, *args):
         raise XuleProcessingError(_("The denominator for the 'mod' function must be numeric, found '%s'" % denominator.type), xule_context)
     
     combined_type, numerator_compute_value, denominator_compute_value = combine_xule_types(numerator, denominator, xule_context)
-    return XuleValue(xule_context, numerator_compute_value % denominator_compute_value, combined_type)
+    return xv.XuleValue(xule_context, numerator_compute_value % denominator_compute_value, combined_type)
 
 def func_extension_concept(xule_context, *args):   
     extension_ns_value_set = xule_context._const_extension_ns()
@@ -244,13 +154,13 @@ def func_extension_concept(xule_context, *args):
     else:
         raise XuleProcessingError(_("Cannot determine extension namespace."), xule_context)
     
-    concepts = set(XuleValue(xule_context, x, 'concept') for x in xule_context.model.qnameConcepts.values() if (x.isItem or x.isTuple) and x.qname.namespaceURI == extension_ns)
+    concepts = set(xv.XuleValue(xule_context, x, 'concept') for x in xule_context.model.qnameConcepts.values() if (x.isItem or x.isTuple) and x.qname.namespaceURI == extension_ns)
     
-    return XuleValue(xule_context, frozenset(concepts), 'set')
+    return xv.XuleValue(xule_context, frozenset(concepts), 'set')
 
 def agg_count_concurrent(xule_context, current_agg_value, current_value, value_alignment):
     if current_agg_value is None:
-        return XuleValue(xule_context, 1, 'int', alignment=value_alignment)
+        return xv.XuleValue(xule_context, 1, 'int', alignment=value_alignment)
     else:
         current_agg_value.value += 1
         return current_agg_value
@@ -279,7 +189,7 @@ def agg_all_concurrent(xule_context, current_agg_value, current_value, value_ali
 
 def agg_count(xule_context, values):
     alignment = values[0].alignment if len(values) > 0 else None
-    return_value = XuleValue(xule_context, len(values), 'int', alignment=alignment)
+    return_value = xv.XuleValue(xule_context, len(values), 'int', alignment=alignment)
     tags = {}
     facts = collections.OrderedDict()
     
@@ -292,7 +202,7 @@ def agg_count(xule_context, values):
         return_value.tags = tags
     if len(facts) > 0:
         return_value.facts = facts
-    return return_value #XuleValue(xule_context, len(values), 'int', alignment=alignment)
+    return return_value #xv.XuleValue(xule_context, len(values), 'int', alignment=alignment)
 
 def agg_sum(xule_context, values):
     agg_value = values[0].clone()
@@ -302,9 +212,9 @@ def agg_sum(xule_context, values):
     for current_value in values[1:]:
         combined_types = combine_xule_types(agg_value, current_value, xule_context)
         if combined_types[0] == 'set':
-            agg_value = XuleValue(xule_context, combined_types[1] | combined_types[2], combined_types[0], alignment=agg_value.alignment)
+            agg_value = xv.XuleValue(xule_context, combined_types[1] | combined_types[2], combined_types[0], alignment=agg_value.alignment)
         else:
-            agg_value = XuleValue(xule_context, combined_types[1] + combined_types[2], combined_types[0], alignment=agg_value.alignment)
+            agg_value = xv.XuleValue(xule_context, combined_types[1] + combined_types[2], combined_types[0], alignment=agg_value.alignment)
         if current_value.tags is not None:
             tags.update(current_value.tags)
         if current_value.facts is not None:
@@ -333,13 +243,13 @@ def agg_all(xule_context, values):
         if not all_value:
             break
     
-    return_value = XuleValue(xule_context, all_value, 'bool')
+    return_value = xv.XuleValue(xule_context, all_value, 'bool')
     if len(tags) > 0:
         return_value.tags = tags
     if len(facts) > 0:
         return_value.facts = facts
         
-    return return_value #XuleValue(xule_context, all_value, 'bool')
+    return return_value #xv.XuleValue(xule_context, all_value, 'bool')
 
 def agg_any(xule_context, values):
     any_value = False
@@ -357,12 +267,12 @@ def agg_any(xule_context, values):
         any_value = any_value or current_value.value
         if any_value:
             break
-    return_value = XuleValue(xule_context, any_value, 'bool')
+    return_value = xv.XuleValue(xule_context, any_value, 'bool')
     if len(tags) > 0:
         return_value.tags = tags
     if len(facts) > 0 :
         return_value.facts = facts
-    return return_value #XuleValue(xule_context, any_value, 'bool')
+    return return_value #xv.XuleValue(xule_context, any_value, 'bool')
 
 def agg_first(xule_context, values):
     return values[0].clone()
@@ -394,7 +304,7 @@ def agg_list(xule_context, values):
 #         list_values.append(current_value)
 #         shadow.append(current_value.shadow_collection if current_value.type in ('list','set') else current_value.value)
 #         
-#     return XuleValue(xule_context, tuple(list_values), 'list', shadow_collection=tuple(shadow))
+#     return xv.XuleValue(xule_context, tuple(list_values), 'list', shadow_collection=tuple(shadow))
 
     list_values = []
     shadow = []
@@ -409,12 +319,12 @@ def agg_list(xule_context, values):
         if current_value.facts is not None:
             facts.update(current_value.facts)
     
-    return_value = XuleValue(xule_context, tuple(list_values), 'list', shadow_collection=tuple(shadow))
+    return_value = xv.XuleValue(xule_context, tuple(list_values), 'list', shadow_collection=tuple(shadow))
     if len(tags) > 0:
         return_value.tags = tags
     if len(facts) > 0:
         return_value.facts = facts
-    return return_value #XuleValue(xule_context, tuple(list_values), 'list')
+    return return_value #xv.XuleValue(xule_context, tuple(list_values), 'list')
 
 def agg_set(xule_context, values):
 #Commented out for the elimination of the shadow_collection
@@ -431,7 +341,7 @@ def agg_set(xule_context, values):
 #                 set_values.append(current_value)
 #                 shadow.append(current_value.value)
 #     
-#     return XuleValue(xule_context, frozenset(set_values), 'set', shadow_collection=frozenset(shadow)) 
+#     return xv.XuleValue(xule_context, frozenset(set_values), 'set', shadow_collection=frozenset(shadow)) 
 
     set_values = []
     shadow = []
@@ -456,12 +366,12 @@ def agg_set(xule_context, values):
                 if current_value.facts is not None:
                     facts.update(current_value.facts)
     
-    return_value = XuleValue(xule_context, frozenset(set_values), 'set', shadow_collection=frozenset(shadow))
+    return_value = xv.XuleValue(xule_context, frozenset(set_values), 'set', shadow_collection=frozenset(shadow))
     if len(tags) > 0:
         return_value.tags = tags
     if len(facts) > 0:
         return_value.facts = facts
-    return return_value #XuleValue(xule_context, frozenset(set_values), 'set') 
+    return return_value #xv.XuleValue(xule_context, frozenset(set_values), 'set') 
         
 '''        
         if current_value.is_fact:
@@ -471,7 +381,7 @@ def agg_set(xule_context, values):
         
         shadow.append(current_value.shadow_collection if current_value.type in ('list','set') else current_value.value)
 
-    return XuleValue(xule_context, frozenset(set_values.values()), 'set', shadow_collection=frozenset(shadow))
+    return xv.XuleValue(xule_context, frozenset(set_values.values()), 'set', shadow_collection=frozenset(shadow))
 ''' 
 
 def agg_dict(xule_context, values):
@@ -510,144 +420,17 @@ def agg_dict(xule_context, values):
         shadow[key.shadow_collection if key.type in ('list', 'set') else key.value] = value.shadow_collection if value.type in ('list', 'set', 'dictionary') else value.value
 
     
-    return_value = XuleValue(xule_context, frozenset(dict_values.items()), 'dictionary', shadow_collection=frozenset(shadow.items()))
+    return_value = xv.XuleValue(xule_context, frozenset(dict_values.items()), 'dictionary', shadow_collection=frozenset(shadow.items()))
     if len(tags) > 0:
         return_value.tags = tags
     if len(facts) > 0:
         return_value.facts = facts
     return return_value  
 
-# def func_sdic_create(xule_context, *args):
-#     name = args[0].value
-# 
-#     return XuleSDic(xule_context, name)
-# 
-# def func_sdic_from_paired_list(xule_context, *args):
-#     name = args[0].value
-#     pairs = args[1]
-#     unique = args[2]
-#     
-#     dic = XuleSDic(xule_context, name)
-#     
-#     if pairs.type == 'unbound':
-#         return dic
-#     
-#     if pairs.type not in  ('list','set'):
-#         raise XuleProcessingError(_("Second argument to 'sdic_from_paired_list' must be a list or set, found %s" % pairs.type), xule_context)
-#     
-#     if unique.type != 'bool':
-#         raise XuleProcessingError(_("Third argument to 'sdic_from_paired_list' must be a boolean, found %s" % unique.type), xule_context)
-#     
-#     for pair in pairs.value:
-#         if pair.type != 'list':
-#             raise XuleProcessingError(_("In 'sdic_from_paried_list', the second level must be a list, found %s" % pair.type), xule_context)
-#         if len(pair.value) != 2:
-#             raise XuleProcessingError(_("In 'sdic_from_paried_list', the second level must be a list of length 2, found %i" % len(pair.value)), xule_context)
-#         
-#         if unique.value:
-#             func_sdic_set_item(xule_context, dic, pair.value[0], pair.value[1])
-#         else:
-#             func_sdic_append(xule_context, dic, pair.value[0], pair.value[1])
-#     
-#     return dic
-#     
-# def func_sdic_append(xule_context, *args):
-#     dic = args[0]
-#     key = args[1]
-#     value = args[2]
-# 
-#     if dic.type == 'unbound':
-#         return dic
-#     if dic.type != 'sdic':
-#         raise XuleProcessingError(_("First argument to 'sdic_append' must be a sdic, found %s" % dic.type), xule_context)
-# 
-#     if key.type == 'unbound':
-#         return dic
-# 
-#     return dic.append(key, value)
-# 
-# def func_sdic_find_items(xule_context, *args):
-#     dic = args[0]
-#     value = args[1]
-#     
-#     if dic.type == 'unbound':
-#         return dic
-#     if dic.type != 'sdic':
-#         raise XuleProcessingError(_("First argument to 'sdic_find_items' must be a sdic, found %s" % dic.type), xule_context)    
-# 
-#     return dic.find_items(value)
-#     
-# def func_sdic_get_item(xule_context, *args):
-#     dic = args[0]
-#     key = args[1]
-#     
-#     if dic.type == 'unbound':
-#         return dic
-#     if dic.type != 'sdic':
-#         #return XuleValue(xule_context, None, 'unbound')
-#         raise XuleProcessingError(_("First argument to 'sdic_get_item' must be a sdic, found %s" % dic.type), xule_context)    
-#     if key.type == 'unbound':
-#         raise XuleProcessingError(_("Key for a sdic cannout be missing"), xule_context)
-#     
-#     return dic.get_item(key)
-# 
-# def func_sdic_get_items(xule_context, *args):
-#     dic = args[0]
-#     key = args[1]
-# 
-#     if dic.type == 'unbound':
-#         return dic
-#     if dic.type != 'sdic':
-#         raise XuleProcessingError(_("First argument to 'sdic_get_items' must be a sdic, found %s" % dic.type), xule_context)    
-#     if key.type == 'unbound':
-#         raise XuleProcessingError(_("Key for a sdic cannout be missing"), xule_context)
-#     
-#     return dic.get_items(key)
-# 
-# def func_sdic_has_key(xule_context, *args):
-#     dic = args[0]
-#     key = args[1]
-# 
-#     if dic.type == 'unbound':
-#         return dic
-#     if dic.type != 'sdic':
-#         raise XuleProcessingError(_("First argument to 'sdic_has_key' must be a sdic, found %s" % dic.type), xule_context)    
-#     if key.type == 'unbound':
-#         raise XuleProcessingError(_("Key for a sdic cannout be missing"), xule_context)    
-#     
-#     return dic.has_key(key)
-# 
-# def func_sdic_remove_item(xule_context, *args):
-#     dic = args[0]
-#     key = args[1]
-# 
-#     if dic.type == 'unbound':
-#         return dic
-#     if dic.type != 'sdic':
-#         raise XuleProcessingError(_("First argument to 'sdic_remove_item' must be a sdic, found %s" % dic.type), xule_context)    
-#     if key.type == 'unbound':
-#         raise XuleProcessingError(_("Key for a sdic cannout be missing"), xule_context)  
-# 
-#     return dic.remove_item(key)
-# 
-# def func_sdic_set_item(xule_context, *args):
-#     dic = args[0]
-#     key = args[1]
-#     value = args[2]
-# 
-#     if dic.type == 'unbound':
-#         return dic
-#     if dic.type != 'sdic':
-#         raise XuleProcessingError(_("First argument to 'sdic_set_item' must be a sdic, found %s" % dic.type), xule_context)    
-#     if key.type == 'unbound':
-#         raise XuleProcessingError(_("Key for a sdic cannout be missing"), xule_context) 
-#     
-#     return dic.set_item(key, value)
-
 def func_taxonomy(xule_context, *args):
     if len(args) == 0:
         setattr(xule_context.model, 'taxonomy_name', 'instance')
-        return XuleValue(xule_context, xule_context.model, 'taxonomy')
+        return xv.XuleValue(xule_context, xule_context.model, 'taxonomy')
     elif len(args) == 1:
         taxonomy_url = args[0]
         if taxonomy_url.type not in ('string', 'uri'):
@@ -655,7 +438,7 @@ def func_taxonomy(xule_context, *args):
         
         other_taxonomy = xule_context.get_other_taxonomies(taxonomy_url.value)
         setattr(other_taxonomy, 'taxonomy_name', taxonomy_url.value)
-        return XuleValue(xule_context, other_taxonomy , 'taxonomy')
+        return xv.XuleValue(xule_context, other_taxonomy , 'taxonomy')
     else:
         raise XuleProcessingError(_("The taxonomy() function takes at most 1 argument, found {}".format(len(args))))
 
@@ -729,11 +512,11 @@ def func_data(xule_context, *args):
 
             result_line.append(item_value)
             result_line_shadow.append(item_value.value)
-        result.append(XuleValue(xule_context, tuple(result_line), 'list', shadow_collection=tuple(result_line_shadow)))
+        result.append(xv.XuleValue(xule_context, tuple(result_line), 'list', shadow_collection=tuple(result_line_shadow)))
           
 
 
-    return XuleValue(xule_context, tuple(result), 'list', shadow_collection=tuple(result_shadow))
+    return xv.XuleValue(xule_context, tuple(result), 'list', shadow_collection=tuple(result_shadow))
                 
 def func_csv_data(xule_context, *args):
     """Read a csv file/url.
@@ -863,22 +646,22 @@ def func_csv_data(xule_context, *args):
                     raise xule_context(_("The number of columns on row {} is greater than the number of headers in the csv file. File: {}".format(row_num, 
                                                                                                                                                   mappedUrl if mapped_file_url == file_url.value else file_url.value + ' --> ' + mapped_file_url)), xule_context)
 
-                result_line[XuleValue(xule_context, column_names[col_num], 'string')] = item_value
+                result_line[xv.XuleValue(xule_context, column_names[col_num], 'string')] = item_value
                 result_line_shadow[column_names[col_num]] = item_value.value
                 
         if return_row_type == 'list':
-            result.append(XuleValue(xule_context, tuple(result_line), 'list', shadow_collection=tuple(result_line_shadow)))
+            result.append(xv.XuleValue(xule_context, tuple(result_line), 'list', shadow_collection=tuple(result_line_shadow)))
             result_shadow.append(result_line_shadow)
         else: #dictionary
-            result.append(XuleValue(xule_context, frozenset(result_line.items()), 'dictionary', shadow_collection=frozenset(result_line_shadow.items())))
+            result.append(xv.XuleValue(xule_context, frozenset(result_line.items()), 'dictionary', shadow_collection=frozenset(result_line_shadow.items())))
             result_shadow.append(frozenset(result_line_shadow.items()))
           
-    return XuleValue(xule_context, tuple(result), 'list', shadow_collection=tuple(result_shadow))
+    return xv.XuleValue(xule_context, tuple(result), 'list', shadow_collection=tuple(result_shadow))
                 
 def convert_file_data_item(item, type, xule_context):
     
     if type is None:
-        return XuleValue(xule_context, item, 'string')
+        return xv.XuleValue(xule_context, item, 'string')
     elif type == 'qname':
         if item.count(':') == 0:
             prefix = '*' # This indicates the default namespace
@@ -890,24 +673,24 @@ def convert_file_data_item(item, type, xule_context):
         
         namespace = xule_context.rule_set.getNamespaceUri(prefix)
         
-        return XuleValue(xule_context, QName(prefix if prefix != '*' else None, namespace, local_name), 'qname')
+        return xv.XuleValue(xule_context, QName(prefix if prefix != '*' else None, namespace, local_name), 'qname')
     elif type == 'int':
         try:
-            return XuleValue(xule_context, int(item), 'int')
+            return xv.XuleValue(xule_context, int(item), 'int')
         except ValueError:
             raise XuleProcessingError(_("While processing a data file, cannot convert '{}' to an {}.".format(item, type)), xule_context)
     elif type == 'float':
         try:
-            return XuleValue(xule_context, float(item), 'float')
+            return xv.XuleValue(xule_context, float(item), 'float')
         except ValueError:
             raise XuleProcessingError(_("While processing a data file, cannot convert '{}' to a {}.".format(item, type)), xule_context)
     elif type == 'decimal':
         try:
-            return XuleValue(xule_context, decimal.Decimal(item), 'decimal')
+            return xv.XuleValue(xule_context, decimal.Decimal(item), 'decimal')
         except decimal.InvalidOperation:
             raise XuleProcessingError(_("While processing a data file, cannot convert '{}' to a {}.".format(item, type)), xule_context)
     elif type == 'string':
-        return XuleValue(xule_context, item, type)        
+        return xv.XuleValue(xule_context, item, type)        
     else:
         raise XuleProcessingError(_("While processing a data file, {} is not implemented.".format(type)), xule_context)
 
