@@ -407,12 +407,12 @@ def xuleRssDoWatchAction(modelXbrl, rssWatchOptions, rssItem):
     pass
 
 __pluginInfo__ = {
-    'name': 'Xule Processor',
-    'version': '2.0',
-    'description': 'This plug-in provides a Xule 2.0 rule compiler and processor.',
-    'license': 'Unknown',
-    'author': '',
-    'copyright': '(c) 2014',
+    'name': 'DQC XBRL rule processor (xule)',
+    'version': '1.0',
+    'description': 'This plug-in provides a DQC 1.- processor.',
+    'license': 'Apache-2',
+    'author': 'XBRL US Inc.',
+    'copyright': '(c) 2017',
     # classes of mount points (required)
     'ModelObjectFactory.ElementSubstitutionClasses': None, 
     'CntlrWinMain.Menu.File.Open': xuleMenuOpen,
