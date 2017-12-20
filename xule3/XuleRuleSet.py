@@ -115,17 +115,22 @@ class XuleRuleSet(object):
         #self.name = os.path.splitext(os.path.basename(ruleSetLocation))[0]
         self.location = ruleSetLocation
         pickle_start = datetime.datetime.today()
-
-        from arelle import FileSource
-        file_source = FileSource.openFileSource(self.location, self._cntlr)
-        file_object = file_source.file(self.location, binary=True)[0]       
         
+        file_object = self._get_rule_set_file_object()
+            
         try:
             with zipfile.ZipFile(file_object, 'r') as zf:
                 self.catalog = pickle.loads(zf.open('catalog','r').read())
                 #open packages in the ruleset
                 if open_packages:
                     self._open_packages(zf)
+                
+                #load the files
+                if open_files:
+                    for file_info in self.catalog['files']:
+                        with zf.open(file_info['pickle_name'], "r") as p:
+                            self._xule_file_expression_trees[file_info['file']] = pickle.load(p, encoding="utf8")
+                            
             self.name = self.catalog['name']
             self._open_for_add = False                
         except KeyError:
@@ -133,16 +138,23 @@ class XuleRuleSet(object):
             raise
         except FileNotFoundError:
             raise
-        
+        finally:
+            file_object.close()
 
-        #load up all the rules.
-        if open_files:
-            for file_info in self.catalog['files']:
-                self.getFile(file_info['file'])
+#         #load up all the rules.
+#         if open_files:
+#             for file_info in self.catalog['files']:
+#                 self.getFile(file_info['file'])
     
         #Check for packages
         pickle_end = datetime.datetime.today()
         print("Rule Set Loaded", pickle_end - pickle_start)
+
+    def _get_rule_set_file_object(self):
+        from arelle import FileSource
+        file_source = FileSource.openFileSource(self.location, self._cntlr)
+        file_object = file_source.file(self.location, binary=True)[0]    
+        return file_object
     
     def _open_packages(self, rule_file):
         if self._cntlr is None:
@@ -231,24 +243,23 @@ class XuleRuleSet(object):
     def getFile(self, file_num):
         """Return the AST from a file in the ruleset.
         """
-        if file_num not in self._xule_file_expression_trees.keys():
-            #get the file info from the catalog
-            file_item = next((file_item for file_item in self.catalog['files'] if file_item['file'] == file_num), None)
-            if not file_item:
-                raise XuleRuleSetError("File number %s not found" % str(file_num))
-                return
-            
-            try:
-                with zipfile.ZipFile(self.location, 'r') as zf:
-                    with zf.open(file_item['pickle_name'], "r") as p:
-                        self._xule_file_expression_trees[file_num] = pickle.load(p, encoding="utf8")
-            except (FileNotFoundError, KeyError): #KeyError if the file is not in the archive
-                raise XuleRuleSetError("Pickle file %s not found." % file_item['pickle_name'])
-                return
+#         if file_num not in self._xule_file_expression_trees.keys():
+#             #get the file info from the catalog
+#             file_item = next((file_item for file_item in self.catalog['files'] if file_item['file'] == file_num), None)
+#             if not file_item:
+#                 raise XuleRuleSetError("File number %s not found" % str(file_num))
+#                 return
+#             
+#             try:
+#                 with zipfile.ZipFile(self.location, 'r') as zf:
+#                     with zf.open(file_item['pickle_name'], "r") as p:
+#                         self._xule_file_expression_trees[file_num] = pickle.load(p, encoding="utf8")
+#             except (FileNotFoundError, KeyError): #KeyError if the file is not in the archive
+#                 raise XuleRuleSetError("Pickle file %s not found." % file_item['pickle_name'])
+#                 return
             
         return self._xule_file_expression_trees[file_num]
                 
-    
     def getItem(self, *args):
         """Get AST of a top level component.
         
