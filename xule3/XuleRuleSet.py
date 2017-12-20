@@ -116,8 +116,8 @@ class XuleRuleSet(object):
         self.location = ruleSetLocation
         pickle_start = datetime.datetime.today()
         
+        #Using arelle file source object. This will handle files from the web.
         file_object = self._get_rule_set_file_object()
-            
         try:
             with zipfile.ZipFile(file_object, 'r') as zf:
                 self.catalog = pickle.loads(zf.open('catalog','r').read())
@@ -182,13 +182,18 @@ class XuleRuleSet(object):
     def get_packages_info(self):
         results = []
         temp_dir = tempfile.TemporaryDirectory()
-        with zipfile.ZipFile(self.location, 'r') as zf:
-            for package_file_name in zf.namelist():
-                if package_file_name.startswith('packages/'):
-                    package_file = zf.extract(package_file_name, temp_dir.name)
-                    package_info = PackageManager.addPackage(self._cntlr, package_file)
-                    results.append(package_info)
-
+        #Using arelle file source object. This will handle files from the web.
+        file_object = self._get_rule_set_file_object()
+        try:
+            with zipfile.ZipFile(file_object, 'r') as zf:
+                for package_file_name in zf.namelist():
+                    if package_file_name.startswith('packages/'):
+                        package_file = zf.extract(package_file_name, temp_dir.name)
+                        package_info = PackageManager.addPackage(self._cntlr, package_file)
+                        results.append(package_info)
+        finally:
+            file_object.close()
+            
         return results
 
     def manage_packages(self, package_files, mode):
