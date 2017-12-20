@@ -753,7 +753,7 @@ def evaluate_assertion(assert_rule, xule_context):
                     xule_context.global_context.message_queue.log(severity.upper(),
                                                                   full_rule_name, 
                                                                   main_message,
-                                                                  sourceFileLine=[source_location],
+                                                                  sourceFileLine=source_location,
                                                                   filing_url=filing_url,
                                                                   **messages)        
                 else:
@@ -824,7 +824,7 @@ def evaluate_output_rule(output_rule, xule_context):
                 xule_context.global_context.message_queue.log(severity.upper(),
                                                               full_rule_name, 
                                                               main_message,
-                                                              sourceFileLine=[source_location],
+                                                              sourceFileLine=source_location,
                                                               filing_url=filing_url,
                                                               **messages)        
             else:
