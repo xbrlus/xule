@@ -1,0 +1,18 @@
+DQC Rule Plugin for Arelle (xule)
+=================================
+
+:mod:`XuleProcessor` Module
+---------------------------
+
+.. automodule:: arelle.plugin.xule.XuleProcessor
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+:mod:`XuleContext` Module
+---------------------------	
+.. automodule:: arelle.plugin.xule.XuleContext
+    :members:
+    :undoc-members:
+    :show-inheritance:	
