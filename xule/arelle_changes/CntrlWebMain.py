@@ -309,21 +309,22 @@ def runOptionsAndGetResult(options, media, viewFile, sourceZipStream=None):
 
     :returns: html, xml, csv, text -- Return per media type argument and request arguments
     """
+
     
+    if media == "zip" and not viewFile:
+        responseZipStream = io.BytesIO()
+    else:
+        responseZipStream = None
+    
+    """ Handle multiprocessing call """
     print("starting run, thread id: %s" % (str(threading.current_thread().ident)))
     from multiprocessing import Process
     p = Process(target=runprocess, args=(cntlr, options, sourceZipStream, media, p_Output, threading.current_thread().ident,))
     p.start()
     p.join()    
     successful = p_Output[str(threading.current_thread().ident) + 'success']
-    #True #cntlr.run(options, sourceZipStream)
     print("finished run")    
     
-    
-    if media == "zip" and not viewFile:
-        responseZipStream = io.BytesIO()
-    else:
-        responseZipStream = None
     if media == "xml":
         response.content_type = 'text/xml; charset=UTF-8'
     elif media == "csv":
