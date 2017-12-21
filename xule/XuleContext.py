@@ -1,10 +1,28 @@
-'''
-Xule is rule processor for XBRL (X)brl r(ULE). 
+"""XuleContext
 
-Copyright (c) 2014 XBRL US Inc. All rights reserved
+Xule is a rule processor for XBRL (X)brl r(ULE). 
+
+The XuleContext module defines classes for managing the processing context. The processing context manages the rule set and stores data
+for keeping track of the processing (including the iterations that are created when processing a rule).
+
+DOCSKIP
+Copyright 2017 XBRL US Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 
 $Change: 21817 $
-'''
+DOCSKIP
+"""
 from .XuleRunTime import XuleProcessingError
 from .XuleValue import XuleValue, XuleValueSet
 from arelle import FileSource
@@ -16,17 +34,23 @@ from time import sleep
 import copy
 import collections
 from math import floor
+from io import StringIO
+import csv
+import itertools
+#tabulate is used for debugging reports.
 try:
     import tabulate
     _has_tablulate = True
 except ImportError:
     _has_tablulate = False
-from io import StringIO
-import csv
-import itertools
-
 
 class XuleMessageQueue():
+    """Message handler
+    
+    The XuleMessageQueue handles Arelle logging messages. When the processor is run in multiprocessing mode on a server, the messages are not directly 
+    sent to Arelle. Instead they are sent on a message queue to handled by the master process. When the plugin is run in stand alone mode, the messages are
+    sent to the Arelle logger.
+    """
     _queue = None
     _model = None
     _multi = False
@@ -128,14 +152,29 @@ class XuleMessageQueue():
     
 
 class XuleGlobalContext(object):
-
+    """Global Context
+    
+    The processing context is divided into 2 parts: global context and the rule context. The global context manages the information for the processor
+    that is not specific to rule. This includes:
+        * command line options
+        * the rule set
+        * the model of the instance document
+        * models for additional taxonomies
+        * caching constants and functions
+    """
     def __init__(self, rule_set, model_xbrl=None, cntlr=None, options=None):
-
-        '''
-        Constructor
-        '''
-        self.options = options
+        """Global Context constructor
         
+        :param rule_set: The rule set
+        :type rule_set: XuleRuleSet
+        :param model_xbrl: The model for the instance document
+        :type model_xbrl: ModelXbrl
+        :param cntlr: The Arelle controller
+        :type cntlr: cntlr
+        :param options: The Arelle command line options used when Arelle was invoked
+        :type options: optparse
+        """
+        self.options = options      
         self.cntlr = cntlr
         self.model = model_xbrl
         self.rules_model = None
@@ -150,7 +189,6 @@ class XuleGlobalContext(object):
         self.trace_count_file = None
         self.show_timing = False
         self.show_debug = False
-        #self.show_debug_table = False
         self.crash_on_error = False
         self.function_cache = {}
         self.no_cache = False
@@ -165,9 +203,6 @@ class XuleGlobalContext(object):
 
         self.all_constants = None
         self.all_rules = None
-        #self.constants_done = False 
-        #self.stopped_constants = False    
-        
 
         ## enable only tracking timings        
         # Set up list to track timings.  Each item should include a tuple of
@@ -200,13 +235,22 @@ class XuleGlobalContext(object):
             self.num_processors = int(cpunum) - 1
         '''
 
-        
     @property
     def catalog(self):
+        """The rule set catalog"""
         return self.rule_set.catalog
  
-
     def get_other_taxonomies(self, taxonomy_url):
+        """Load a taxonomy
+
+        :param taxonomy_url: Url for the taxonomy to load
+        :type taxonomy_url: str
+        :returns: A model of the loaded taxonomy
+        :rtype: ModelXbrl
+        
+        Loads a taxonomy into an Arelle model from a url. The taxonomy is stored in the global context. On subsequent requests, will return the stored
+        model for the taxonomy.
+        """
         if taxonomy_url not in self.other_taxonomies:
             start = datetime.datetime.today()
             rules_taxonomy_filesource = FileSource.openFileSource(taxonomy_url, self.cntlr)            
@@ -229,6 +273,7 @@ class XuleGlobalContext(object):
 
     @property
     def constant_store(self):
+        """Cache for storing constant values"""
         return self._constants
     
     @constant_store.setter
@@ -236,7 +281,19 @@ class XuleGlobalContext(object):
         self._constants = value
 
 class XuleRuleContext(object):
-
+    """Rule Context
+    
+    The processing context is divided into 2 parts: global context and the rule context. The rule context manages the information specific to processing a
+    rule. This includes:
+        * variables
+        * local expression cache
+        * iteration table
+        * facts used during processing of an iteration of a rule
+        * tags created during processing of an iteration
+        * processing flags
+        
+    A new rule context is created before processing a rule.
+    """
     #CONSTANTS
     SEVERITY_ERROR = 'error'
     SEVERITY_WARNING = 'warning'
@@ -250,42 +307,32 @@ class XuleRuleContext(object):
     _VAR_TYPE_CONSTANT = 2
     _VAR_TYPE_ARG = 3
 
-    def __init__(self, global_context, rule_name=None, cat_file_num=None, severity_type=None, severity=None):
-        '''
-        Constructor
-        '''
+    def __init__(self, global_context, rule_name=None, cat_file_num=None):
+        """Rule Context constructor
+        
+        :param global_context: The global context
+        :type global_context: XuleGlobalContext
+        :param rule_name: The name of the rule being processed
+        :type rule_name: str
+        :param cat_file_num: The file number from the rule set
+        """
         self.global_context = global_context
-        self.severity_type = severity_type
-        self.severity = severity
         self.rule_name = rule_name
         self.cat_file_num = cat_file_num
         
         self.iteration_table = XuleIterationTable(self)
-        #self.expression_cache = XuleExpressionCache()
-        #self.vars = {}
         self.vars = collections.defaultdict(list)
-#         self.facts = []
-#         self.tags = {}
-        self.id_prefix = []
-        
+        self.id_prefix = []     
         self.no_alignment = False
-        #self.dependent_alignment = None
-        
         self.ignore_vars = []
         self.nested_factset_filters = []
         self.other_filters = []
         self.alignment_filters = []
-
         self.trace_level = 0      
         self.trace = collections.deque()
         self.in_where_alignment = None
-        
         self.build_table = False
-        
-        self.formula_bind = None
-
         self.local_cache = {}
-        
         self.look_for_alignment = False
         self.where_table_ids = None
         self.where_dependent_iterables = None
@@ -297,11 +344,6 @@ class XuleRuleContext(object):
         self.iter_except_count = 0
         
         self.fact_alignments = collections.defaultdict(dict)
-        
-        #self.global_context._constants = {}
-        
-#         self.used_vars = []
-#         self.used_expressions = []
 
     @property
     def tags(self):
@@ -348,10 +390,8 @@ class XuleRuleContext(object):
         self.tags[tag] = value
 
     def reset_iteration(self):
-        #self.vars = {}
+        """Reset the rule context for the next iteration of a rule"""
         self.vars = collections.defaultdict(list)
-#         self.facts = []
-#         self.tags = {}
         self.id_prefix = []
         self.aligned_result_only = False
         self.ignore_vars = []
@@ -364,59 +404,94 @@ class XuleRuleContext(object):
         self.trace = collections.deque()
         
         self.in_where_alignment = None
-        #self.global_context._constants = {}
         self.build_table = False
         
         self.formula_left = None
         self.formula_right = None
         self.formula_difference = None
-        
-#         self.used_vars = []
-#         self.used_expressions = []
+
         self.iteration_table.used_expressions = set()
 
     def get_processing_id(self, node_id):
         return tuple(self.id_prefix) + (node_id,)   
          
     def add_var(self, name, node_id, tag, expr):
-
+        """Add a variable to the rule context
+        
+        :param name: The name of the vaiable
+        :type name: str
+        :param node_id: The expression node_id of the variable declaration. This is used to identify the variable.
+        :type node_id: int
+        :param tag: Identifies if the variable should also define a tag
+        :type tag: bool
+        :param expr: The expression which calculates the value for the variable
+        :type expr: xule expression as a dict
+                
+        This only adds the variable declaration to the rule context. It does not calculate the variable or store the value of the variable.
+        """
         var_info = {"name": name,
                     "tagged": tag,
                     "type": self._VAR_TYPE_VAR,
                     "expr": expr,
                     "calculated": False
                     }
-        
-        #self.vars[self.get_processing_id(node_id)] = var_info
-        #self.vars[node_id] = var_info
+
         self.vars[node_id].append(var_info)
                   
         return var_info
         
     def add_arg(self, name, node_id, tag, value, number):
-        #arguments are just like variables, but they don't have an expression and they are already calculated
+        """Add an argument (variable) to the rule context
+        
+        Arguments are just like variables, but they don't have an expression and they are already calculated.
+        
+        :param name: The name of the vaiable
+        :type name: str
+        :param node_id: The expression node_id of the variable declaration. This is used to identify the variable.
+        :type node_id: int
+        :param tag: Identifies if the variable should also define a tag
+        :type tag: bool
+        :param value: The value of the argument
+        :type value: XuleValue
+        :param number: Indicates if the argument is a single or multi value
+        :type number: str
+        """   
         var_info = {"name": name,
                     "tagged": tag,
                     "type": self._VAR_TYPE_ARG,
                     "calculated": True,
                     "value": value,
+                    '''THESE FOLLOWING ITEMS CAN PROBABLY BE REMOVED. THE number ARGUMENT CAN BE REMOVED'''
                     "number": number,
                     "contains_facts": False,
                     "other_values": {}}
 
-        #self.vars[self.get_processing_id(node_id)] = var_info  
-        #self.vars[node_id] = var_info  
         self.vars[node_id].append(var_info)
         self.tags[name] = value
     
     def del_arg(self, name, node_id):
-        #del self.vars[self.get_processing_id(node_id)]
-        #del self.vars[node_id]
+        """Removes an argument from the variable stack"""
         self.vars[node_id].pop()
         if len(self.vars[node_id]) == 0:
             del self.vars[node_id]
         
     def find_var(self, var_name, node_id, constant_only=False):
+        """Finds a variable in the variable stack
+        
+        :param var_name: Name of the variable
+        :type var_name: str
+        :param node_id: The expression node_id of the variable declaration. This is used to identify the variable.
+        :type node_id: int
+        :param constant_only: A flag if only the constants should be searched
+        :type constant_only: bool
+        
+        A variable can be one of:
+            * declared variable
+            * built in variable from an expression (i.e. $fact in a fact set expression)
+            * a for loop variable
+            * a function argument
+            * a constant
+        """
         if constant_only:
             var_info = None
         else:
@@ -467,15 +542,30 @@ class XuleRuleContext(object):
         return var_info                
     
     def filter_add(self, filter_type, filter_dict):
+        """Add a factset filter to the filter stack
+        
+        :param filter_type: The type of filter being added.
+        :type filter_type: str
+        :param filter_dict: The aspect filters being added to the stack
+        :type filter_dict: dict
+        
+        Factset filters are used for nested factsets. When the outer factset is evaluated, the aspect filters are added to the filter stack in the 
+        rule context. Then the inner factset is evaluated, these filters are used to determine the facts that match the inner factset.
+        """
         self.nested_factset_filters.append((filter_type, filter_dict))
 
-    def filter_del(self):           
+    def filter_del(self):   
+        """Pops a factset filter from the filter stack"""        
         self.nested_factset_filters.pop()
         
-    def has_other_filter(self):
-        return any([filter[0] == 'other' for filter in self.nested_factset_filters])
-    
     def get_current_filters(self):
+        """Returns the factset filters currently onthe filter stack
+        
+        :returns: A 2 item tuple:
+                    1. A dictionary of nested factset filters
+                    2. A dictionary of other factset filters.
+        :rtype: dict
+        """
         filter_aspects = set()
         nested_factset_filters = dict()
         other_filters = dict()
@@ -496,11 +586,16 @@ class XuleRuleContext(object):
         return nested_factset_filters, other_filters    
     
     def find_function(self, function_name):
-        '''
-        This is created so the processor uses the context to retrieve the function. A performance enhancement
-        may be to save the value of function for a given set of arguments, so that if it is called again with the
-        same arguments, it doesn't need to be recalculated. This however, could create a memory issue.
-        '''
+        """Find a function from the rule set
+        
+        :param function_name: The name of the function to find
+        :type function_name: str
+        :returns: A function information dictionary.
+        :rtype: dict
+        
+        The functions in the rule set are xule defined functions created in the rules by the rule author. This method looks up the function
+        in the rule set and returns the function expression.
+        """
         cat_function = self.global_context.rule_set.catalog['functions'].get(function_name)
         if not cat_function:
             return None
@@ -511,6 +606,10 @@ class XuleRuleContext(object):
         return function_info   
     
     def get_other_taxonomies(self, taxonomy_url):
+        """Load a taxonomy
+        
+        See :func:`XuleGlobalContext.get_other_taxonomies`
+        """
         return self.global_context.get_other_taxonomies(taxonomy_url)
     
     #built in constants
@@ -618,9 +717,24 @@ class XuleRuleContext(object):
         return self.global_context.expression_trace
 
 class XuleIterationTable:
-    def __init__(self, xule_context):
-        #self._tables = []
+    """Iteration table
+    
+    The iteration table keeps track of iterations for a single rule. Iterations are created from evaluating iterable expressions. These include:
+        * factsets
+        * for loops
+        * aggregation functions
+        * potentially built in functions
         
+    The iteration table is in fact a collection of :class:`XuleContext.XuleIterationSubTable`s. During the processing of a rule, sub tables are created 
+    to isolate certain expression evaluations. One of the sub table is always identified as the current table. When operations are performed on the iteration
+    table, it will perform the operation on the current sub table.
+    """
+    def __init__(self, xule_context):
+        """Iteration Table Constructor
+        
+        :param xule_context: The rule context
+        :type xule_context: XuleContext
+        """
         self._ordered_tables = collections.OrderedDict()
         
         #This is a dictionary of which table the column is in.
@@ -730,19 +844,15 @@ class XuleIterationTable:
         return len(self._tables)
     
     def current_value(self, processing_id, xule_context):
-        #print("Number of tables %i" % len(self._tables))        
-#         if processing_id in self._columns:
-#             if self.current_table.is_aggregation and not self.current_table.is_dependent:
-#                 #the column must be on the aggregation table
-#                 if self._columns[processing_id][-1] is self.current_table:
-#                     return self._columns[processing_id][-1].current_value(processing_id, xule_context, dependent=dependent)
-#                 else:
-#                     return None
-#             else:      
-#                 return self._columns[processing_id][-1].current_value(processing_id, xule_context, dependent=dependent)
-#         else:
-#             return None
+        """Get current value for a column
         
+        :param processing_id: The processing id of the colum. This is based on the node_id of the expression that generates the values for the column
+        :type processing_id: tuple
+        :param xule_context: The rule context
+        :type xule_context: XuleContext
+        
+        This method gets the current value for a column on the current sub table. If the column is not on the table it will return Nonee.
+        """
         if processing_id in self._columns:
             #return self._columns[processing_id][-1].current_value(processing_id, xule_context)
             return self._columns[processing_id].current_value(processing_id, xule_context)
