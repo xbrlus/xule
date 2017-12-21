@@ -10,7 +10,7 @@ from . import XuleValue as xv
 from .XuleRunTime import XuleProcessingError
 from arelle.ModelValue import qname, QName
 import collections
-from . import XuleRollForward as rf
+#from . import XuleRollForward as rf
 from aniso8601 import parse_duration
 import urllib.request
 import decimal
