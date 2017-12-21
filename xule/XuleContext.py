@@ -860,6 +860,11 @@ class XuleIterationTable:
             return None    
 
     def next(self, table_id):
+        """Next iteration
+        
+        :param table_id: The id of the sub table
+        :type table_id: int
+        """
         table_processing_id = self.xule_context.get_processing_id(table_id)
         if table_processing_id in self._ordered_tables:
             if not self._ordered_tables[table_processing_id].is_empty:
@@ -887,22 +892,25 @@ class XuleIterationTable:
                     print(self.to_csv())
 
     def add_column(self, ast_node, table_id, processing_id, values, xule_context):
-                 
-#         if len(values.values) == 0:
-#             values.values[None].append(XuleValue(self.xule_context, None, 'unbound'))
+        """Add a column to a table
         
+        :param ast_node: The rule expression for the column
+        :type ast_node: xule expression as a dict
+        :param table_id: The table id to add the column to
+        :type table_id: int
+        :param processing_id: The processing id of the colum. This is based on the node_id of the expression that generates the values for the column
+        :type processing_id: tuple
+        :param values: The values that are being added as the column
+        :type values: XuleValueSet
+        :param xule_context: The rule context
+        :type xule_context: XuleContext  
+        """
         if getattr(self.xule_context.global_context.options, "xule_debug_table", False):
-        #if self.xule_context.global_context.show_debug_table:
             print(ast_node['exprName'] + " " + str(ast_node['node_id']))
             print("node id", ast_node['node_id'])
             print("Before Add (table: %i)" % table_id)
             print(self.to_csv())
             
-#         if dependent:
-#             self.add_dependent_table(processing_id)
-        
-#         if self.is_empty:
-#             self.add_table(processing_id)
         table_processing_id = self.xule_context.get_processing_id(table_id)
         if table_processing_id not in self._ordered_tables:
             for k, v in self._ordered_tables.items():
@@ -929,19 +937,23 @@ class XuleIterationTable:
 
 
     def add_table(self, table_id, processing_id, is_aggregation=False):
-
+        """Creat a new sub table
+        
+        :param table_id: The table id for the new table
+        :type table_id: int
+        :param processing_id: The processing id of the colum. This is based on the node_id of the expression that generates the values for the column
+        :type processing_id: tuple
+        :param is_aggregation: An indicator if the new sub table is for calculating an aggregation
+        :type is_aggregation: bool
+        
+        DOCSKIP
+        THE is_aggregation ARGUMENT IS NO LONGER NEED. THIS CAN BE REMOVED.
+        DOCSKIP
+        """
         #the table is always dependent if the current table is dependent 
         parent_table = None       
         if not self.is_empty:
-            parent_table = self.current_table
-#             if self.current_table.is_dependent:
-#                 is_dependent=True
-#             if seed_table:
-#                 current_alignment = self.current_alignment
-#                 columns = copy.copy(self.current_table._columns)
-#                 tags = copy.copy(self.current_table.tags)
-#                 facts = copy.copy(self.current_table.facts)
-#                 aligned_result_only = self.current_table.aligned_result_only        
+            parent_table = self.current_table      
 
         child_table = XuleIterationSubTable(table_id, self, processing_id, is_aggregation=is_aggregation)
         table_processing_id = self.xule_context.get_processing_id(table_id)
@@ -949,22 +961,17 @@ class XuleIterationTable:
 
         if parent_table is not None:
             child_table.dependent_alignment = parent_table.dependent_alignment
-#             if seed_table:
-#                 #add the current row to the dependent table
-#                 child_table._table[current_alignment] = collections.deque([parent_table._table[current_alignment][0]])
-#                 child_table.current_alignment = current_alignment        
-#                 child_table.tags = tags
-#                 child_table.facts = facts
-#                 child_table.aligned_result_only = aligned_result_only
-#                 child_table._columns = columns
-#                 for col_key in columns:
-#                     self._columns[col_key].append(child_table)
         else:
             self.main_table_id = table_id
             
         return child_table
 
     def del_table(self, table_id):
+        """Delete sub table
+        
+        :param table_id: The table_id of the sub table to delete
+        :type table_id: int
+        """
         table_processing_id = self.xule_context.get_processing_id(table_id)
         if table_processing_id not in self._ordered_tables:
             #there is no table, so just return
@@ -983,53 +990,10 @@ class XuleIterationTable:
             '''
         #remove the table
         del self._ordered_tables[table_processing_id]        
-        
-        '''
-        #remove the columns from the manager for the table that is being deleted
-        for column_key in self.current_table._columns:
-            self._columns[column_key].pop()
-            if len(self._columns[column_key]) == 0:
-                del self._columns[column_key]
-
-        #remove the table
-        self._ordered_tables.pop()
-        '''
     
     def is_table_empty(self, table_id):
         table_processing_id = self.xule_context.get_processing_id(table_id)
         return table_processing_id not in self._ordered_tables or self._ordered_tables[table_processing_id].is_empty
-
-    
-#     '''THIS NEEDS TO BE COMMENTED OUT'''
-#     def add_dependent_table(self, processing_id):
-#         for i in range(10):
-#             print("IN ADD DEPENDENT TABLE - SHOULD NOT BE HERE - GET OUT")
-#         exit()
-#         #pop the current row
-#         if not self.is_empty:
-#             if not self.current_table.is_empty:
-#                 current_alignment = self.current_alignment
-#                 columns = copy.copy(self.current_table._columns)
-#                 tags = copy.copy(self.current_table.tags)
-#                 facts = copy.copy(self.current_table.facts)
-#                 aligned_result_only = self.current_table.aligned_result_only
-#                 parent_is_aggregation = self.current_table.is_aggregation
-#                 processed_alignments = copy.copy(self.current_table.processed_alignments)
-#                 current_row = self.del_current()
-#     
-#                 dependent_table = self.add_table(processing_id, is_dependent=True, is_aggregation=parent_is_aggregation)
-#                 
-#                 #add the current row to the dependent table
-#                 dependent_table.dependent_alignment = current_alignment
-#                 dependent_table._table[current_alignment] = collections.deque([current_row])
-#                 dependent_table.current_alignment = current_alignment        
-#                 dependent_table.tags = tags
-#                 dependent_table.facts = facts
-#                 dependent_table.aligned_result_only = aligned_result_only
-#                 dependent_table._columns = columns
-#                 dependent_table.processed_alignments = processed_alignments
-#                 for col_key in columns:
-#                     self._columns[col_key].append(dependent_table)
 
     def to_csv(self):
         table_strings = [self.xule_context.rule_name]
@@ -1043,8 +1007,36 @@ class XuleIterationTable:
         return "\n".join(table_strings)
 
 class XuleIterationSubTable:
+    """Iteration sub table
+    
+    An iteration sub table contains a set of columns of values. The values are the result of evaluating iterable 
+    expressions in a rule. The columns are organized by alignemnt. The alignment is the value pairs of aspect 
+    name and aspect value for the aspects that are implicitly matched. The alignment is determined when evaluating 
+    a factset. Factsets are the only expressions that produce aligned valeus. Other iterable expressions will have 'none' 
+    aligned values. Alignment is stored as a dictionary keyed by the aspect name. For the 'none' alignment, the key is None.
+    
+    The sub table is processed for each alignment. Within an alignment, there may be multiple iterations. The sub table keeps track of a 
+    current iteration. The current iteration identifies for each column which value to use. The current iteration is stored as
+    a dictionary keyed by column id. The value is the index to the current item in the column. When a table is 'nexted' the 
+    current iteration is updated to select the appropiate values in each column.
+    
+    The sub table keeps track of which alignments and iterations have been processed. When the 'next' operation is at the end, the current iteration 
+    will be None which marks the table as empty.
+    """    
     def __init__(self, table_id, iteration_table, processing_id=None, is_dependent=False, is_aggregation=False):
+        """Iteration sub table constructor
         
+        :param table_id: The table id of the new sub table
+        :type table_id: int
+        :param iteration_table: The iteration table object that creates this sub table
+        :type iteration_table: XuleIterationTable
+        :param processing_id: The processing id of the operation that is creating this table
+        :type processing_id: tuple
+        :param is_dependent: Indicator if this table is from an expression that is dependent on another expression
+        :type is_dependent: bool
+        :param is_aggregation: Indicator if the sub table is being created for an aggregation function
+        :type is_aggregation: bool        
+        """
         self.is_aggregation = is_aggregation
         #self.is_dependent = is_dependent
         self.processing_id = processing_id
@@ -1100,6 +1092,13 @@ class XuleIterationSubTable:
             self.dependent_alignment = self.current_alignment
 
     def current_value(self, processing_id, xule_context):
+        """Get current value for a column
+        
+        :param processing_id: The processing id of the colum. This is based on the node_id of the expression that generates the values for the column
+        :type processing_id: tuple
+        :param xule_context: The rule context
+        :type xule_context: XuleContext
+        """        
         if processing_id in self._columns:
             self._used_columns.add(processing_id)
             row_alignment, row_index = self._current_iteration[processing_id]
@@ -1111,6 +1110,11 @@ class XuleIterationSubTable:
             return None
 
     def next(self, xule_context):   
+        """Next iteration
+        
+        :param xule_context: The rule context
+        :type xule_context: XuleContext
+        """        
         deleted_cols = set()
            
         if not self.is_empty:
@@ -1203,6 +1207,15 @@ class XuleIterationSubTable:
         return deleted_cols
 
     def remove_dependent_columns(self, col_id):
+        """Delete columns that were dependent on the column that is having its value changed
+        
+        :param col_id: The processing id of the master column
+        :type col_id: tuple
+        
+        When a column value is changed (next iteration) or the column is deleted, any column that is dependent on it is 
+        delete from the sub table. This will force the expressions for the dependent columns to be re-evaluated based 
+        on the new value for the 'master' column.
+        """
         deleted_cols = set()
         if col_id in self._column_dependencies:
             for dependent_col_id in self._column_dependencies[col_id]:
@@ -1224,6 +1237,7 @@ class XuleIterationSubTable:
         return deleted_cols
     
     def next_alignment(self):
+        """Advance to the next alignment in the sub table"""
         #All the rows for the alignment are finished, go to the next alignment
         self._processed_alignments.add(self.current_alignment)
         if len(self._unprocessed_alignments) > 0:
@@ -1253,10 +1267,19 @@ class XuleIterationSubTable:
                 self._current_iteration[col_id] = (None, 0)
             else:
                 self._current_iteration[col_id] = (None, None)
-       
-
 
     def add_column(self, ast_node, processing_id, value_set, xule_context):    
+        """Add a column to the sub table
+        
+        :param ast_node: The rule expression for the column
+        :type ast_node: xule expression as a dict
+        :param processing_id: The processing id of the colum. This is based on the node_id of the expression that generates the values for the column
+        :type processing_id: tuple
+        :param value_set: The values that are being added as the column
+        :type value_set: XuleValueSet
+        :param xule_context: The rule context
+        :type xule_context: XuleContext  
+        """        
         if processing_id in self._columns:
             raise XuleProcessingError(_("Internal error: Trying to add an existing column to the iteratoin table"), self.xule_context)
 
@@ -1329,23 +1352,6 @@ class XuleIterationSubTable:
                     self.current_alignment = self._unprocessed_alignments.pop()
                     #We were on the None alignment, but now am switching to a non none alignment, so eventually we will need to go back process the None alignments
                     self._unprocessed_none_alignment = True
-                    '''
-                    if is_dependent and self._saved_alignment_queues is None:
-                        #copy the current alignment queues
-                        self._saved_alignment_queues = (self.current_alignment,
-                                                        self._processed_alignments.copy(), #this makes a copy
-                                                        self._unprocessed_alignments.copy(),
-                                                        self._unprocessed_none_alignment)
-                        self._dependent_alignment_switch = processing_id
-                   ''' 
-                '''
-                unprocssed_new_column_alignments = (value_set.values.keys() & self._unprocessed_alignments) - {None,}
-                if len(unprocssed_new_column_alignments) > 0:
-                    #the alignment is switched
-                    self.current_alignment = next(iter(unprocssed_new_column_alignments))
-                    #We were on the None alignment, but now am switching to a non none alignment, so eventually we will need to go back process the None alignments
-                    self._unprocessed_none_alignment = True
-                '''
 
         #add the current iteration position
         if self.current_alignment in value_set.values:
@@ -1354,14 +1360,16 @@ class XuleIterationSubTable:
             self._current_iteration[processing_id] = (None, 0)
         else:
             self._current_iteration[processing_id] = (None, None)
-        
-#     def _copy_row(self, processing_id, table_row, values, alignment, new_rows):
-#         for value in values:
-#             new_row = copy.copy(table_row)
-#             new_row[processing_id] = value
-#             new_rows[alignment].append(new_row)
+
 
     def to_csv(self):
+        """Create a displayable version of the sub table
+        
+        This is used for debugging purposes. This will create a string representation of the sub table
+        DOCSKIP
+        THIS SHOULD BE RENAMED TO display_table. IT USED TO CREATE A CSV OUTPUT, BUT NO CREATES A STRING REPRESENTATION.
+        DOCSKIP
+        """
         table_string = ""
         #write table title
         table_header = ["TABLE (%i): Processing_id %s - aggregation %s - dependent %s - %i" % (self.table_id, str(self.processing_id), 
@@ -1465,25 +1473,4 @@ class XuleIterationSubTable:
             
     def write_table(self, table):
         return tabulate.tabulate(table, tablefmt=getattr(self._iteration_table.xule_context.global_context.options, "xule_debug_table_style", None) or 'grid')
-            
-class XuleExpressionCache:
-    def __init__(self):
-        '''The expressions cache is a dictionary by expression node id and dependent variables.'''
-        self._cache = dict()
-        
-    def add(self, expr_id, upstream_vars, alignment, values):
-        key = (expr_id, upstream_vars, alignment)
-        self._cache[key] = values
-    
-    def get(self, expr_id, upstream_vars, alignment):
-        key = (expr_id, upstream_vars, alignment)
-        if key in self._cache:
-            return self._cache[key]
-        else:
-            return None
-
-    def __iter__(self):
-        for key in self._cache:
-            yield key
-
-    
+  

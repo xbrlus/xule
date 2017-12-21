@@ -2068,7 +2068,7 @@ def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non
             alignment = calc_fact_alignment(factset, model_fact, non_align_aspects, False, xule_context)       
     #         if len(alignment) == 0:
     #             alignment = None
-            '''If we are in a with clause, the alignment needs to be adjusted. Each aspect in the with should be in the alignment even if
+            '''If we are in a innner factset, the alignment needs to be adjusted. Each aspect in the outer factset should be in the alignment even if
                if it is in the factset aspects (which would normally take that aspect out of the alignment).'''
             for nested_aspect_info in nested_filters:
                 alignment_info = (nested_aspect_info[TYPE], nested_aspect_info[ASPECT])
