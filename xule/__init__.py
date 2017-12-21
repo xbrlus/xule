@@ -12,12 +12,7 @@ from .XuleProcessor import process_xule, XuleProcessingError
 #from .XuleRuleSet import XuleRuleSet, XuleRuleSetError
 from . import XuleRuleSet as xr
 from .XuleContext import XuleGlobalContext, XuleRuleContext
-from .XuleMultiProcessing import run_constant_group, output_message_queue, start_process
-
 from optparse import OptionParser, SUPPRESS_HELP
-from multiprocessing import Queue
-from threading import Thread
-from time import sleep
 from arelle import FileSource
 from arelle import ModelManager
 import optparse
@@ -183,6 +178,9 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
         cntlr.addToLog("Xule version: %s" % __version__)
         cntlr.close()
 
+    if getattr(options, "xule_cpu", None) is not None and not getattr(options, 'xule_multi', None):
+            parser.error(_("--xule-multi is required with --xule_cpu."))
+
     if  getattr(options, "xule_run", None) is not None and not getattr(options, 'xule_rule_set', None):
             parser.error(_("--xule-rule-set is required with --xule-run."))
     
@@ -237,6 +235,9 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
             print('\t' + package_info.get('name') + ' (' + os.path.basename(package_info.get('URL')) + ')' )
     
     if getattr(options, "xule_server", None):
+        from .XuleMultiProcessing import run_constant_group, output_message_queue
+        from threading import Thread
+        
         try:
             rule_set = xr.XuleRuleSet()
             rule_set.open(options.xule_rule_set, False)
@@ -339,19 +340,11 @@ def xuleCmdXbrlLoaded(cntlr, options, modelXbrl, entryPoint=None):
             raise
 
         if getattr(options, "xule_multi", False):
+            from .XuleMultiProcessing import start_process
             start_process(rule_set, 
                          modelXbrl, 
                          cntlr, 
                          options
-                         #getattr(options, "xule_time", None), 
-                         #getattr(options, "xule_debug", False),
-                         #getattr(options, "xule_trace", None),
-                         #getattr(options, "xule_trace_count", None),
-                         #getattr(options, "xule_crash", False),
-                         #multi=getattr(options, "xule_multi", False), 
-                         #async=getattr(options, "xule_async", False),
-                         #cpunum=getattr(options, "xule_cpu", None))#,
-                         #skip=getattr(options, "xule_skip", None))
                          )
         else:
             if modelXbrl is None:
@@ -365,19 +358,6 @@ def xuleCmdXbrlLoaded(cntlr, options, modelXbrl, entryPoint=None):
                          modelXbrl, 
                          cntlr, 
                          options,
-                         #getattr(options, "xule_time", None), 
-                         #getattr(options, "xule_debug", False),
-                         #getattr(options, "xule_debug_table", False),
-                         #getattr(options, "xule_trace", None),
-                         #getattr(options, "xule_trace_count", None),
-                         #getattr(options, "xule_crash", False),
-                         #getattr(options, "xule_pre_calc", False),
-                         #multi=getattr(options, "xule_multi", False), 
-                         #async=getattr(options, "xule_async", False),
-                         #cpunum=getattr(options, "xule_cpu", None)
-                         #skip=getattr(options, "xule_skip", None),
-                         #no_cache=getattr(options, "xule_no_cache", False),
-                         #precalc_constants=getattr(options, "xule_precalc_constants", False))
                          )
 def xuleValidate(val):
     pass
