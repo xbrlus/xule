@@ -27,8 +27,6 @@ from .XuleRunTime import XuleProcessingError, XuleIterationStop, XuleException, 
 from .XuleValue import *
 from . import XuleConstants as xc
 from . import XuleUtility
-from .XuleMultiProcessing import output_message_queue
-from pyparsing import ParseResults
 import itertools as it
 from arelle.ModelValue import QName, dayTimeDuration, DateTime, gYear, gMonthDay, gYearMonth, qname
 from arelle.ModelInstanceObject import ModelFact
@@ -81,6 +79,7 @@ def process_xule(rule_set, model_xbrl, cntlr, options):
         total_start = datetime.datetime.today()
         
     if getattr(global_context.options, "xule_multi", False):
+        from .XuleMultiProcessing import output_message_queue
         t = Thread(target=output_message_queue, args=(global_context,))
         t.name = "Message Queue"
         t.start()
