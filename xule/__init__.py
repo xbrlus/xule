@@ -34,7 +34,7 @@ from arelle import ModelManager
 import optparse
 import os 
 
-__version__ = '2.0.' + '$Change: 21749 $'[9:-2]
+__version__ = '2.0.' + '$Change$'[9:-2]
 
 def xuleMenuOpen(cntlr, menu):
     pass
