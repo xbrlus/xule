@@ -1,9 +1,38 @@
+"""XuleContext
+
+Xule is a rule processor for XBRL (X)brl r(ULE). 
+
+The XuleContext module defines classes for managing the processing context. The processing context manages the rule set and stores data
+for keeping track of the processing (including the iterations that are created when processing a rule).
+
+DOCSKIP
+Copyright 2017 XBRL US Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+$Change: 21691 $
+DOCSKIP
+"""
+
+
+
+
 '''
 Xule is rule processor for XBRL (X)brl r(ULE). 
 
 Copyright (c) 2014 XBRL US Inc. All rights reserved
 
-$Change: 21691 $
+
 '''
 import pickle
 import os

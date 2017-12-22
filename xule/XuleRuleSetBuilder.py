@@ -35,6 +35,35 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
     
         self._top_level_analysis(parse_tree, file_num)
 
+    def new(self, location):
+        """Create a new ruleset
+        
+        This will establish the directory of the ruleset.
+        
+        Arguments:
+            location (string): directory for the new ruleset
+        """
+        
+        #check if the ruleset is already opened.
+        if self._open_for_add:
+            raise XuleRuleSetError("Trying to create a new rule set in an open rule set.")
+        else:
+            self.name = os.path.basename(location)
+            self.location = location
+            self.path = os.path.dirname(location)
+
+            self.catalog = {
+                            "name": self.name,
+                            "files": [],
+                            "namespaces": {},
+                            "rules": {},
+                            "rules_by_file": {}, 
+                            "functions": {},
+                            "constants": {},
+                            "output_attributes": {},
+                            }
+            
+            self._open_for_add = True
     
     def append(self, location):
         try:
