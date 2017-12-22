@@ -49,18 +49,16 @@ class XuleRuleSet(object):
         * functions
         * constants
         * namespace declarations
-        
 
-    When all the files are added, a post parse operation which determines dependencies and between components (i.e. rule A uses constant C
-    and function F. It also links variable references their declarations and identifies which expressions create iterations.
-    
-    The ruleset is stored as a set of pickled files.
+    The catalog identifies where a componet is in the rule set.
     """
     
     def __init__(self, cntlr=None):
-        """Constructor
+        """XuleRuleSet constructor
+        
+        :param cntlr: The Arelle controller
+        :type cntlr: Arelle.Cntlr
         """
-
         self._open_for_add = False
         self.catalog = None
         self.name = None
@@ -74,10 +72,7 @@ class XuleRuleSet(object):
         self.close()
     
     def close(self):
-        """Close the ruleset.
-        
-        If the ruleset was opened for adding, this will write out the pickle files.
-        """
+        """Close the ruleset"""
         if self._open_for_add:
             path = os.path.dirname(self.location)
             #Make sure the directory exists
@@ -96,20 +91,26 @@ class XuleRuleSet(object):
         self._file_status = {}
     
     def getFileInfoByName(self, file_name):
-        """Get file catalog information by file name.
+        """Get file catalog information by file name
+        
+        :returns: File information
+        :rtype: dict
         """
         for file_info in self.catalog['files']:
             if file_info.get('name') == file_name:
                 return file_info
                 
-    def open(self, ruleSetLocation, open_packages=True, open_files=True):
-        """Open a rule set.
+    def open(self, rule_set_location, open_packages=True, open_files=True):
+        """Open a rule set
         
-        Arguments:
-            ruleSetLocation (string): The directory of the ruleset
+        :param rule_set_location: The url for the rule set file
+        :type rule_set_location: str
+        :param open_packages: An indicator that determines if the packages in the rule set should be activated.
+        :type open_packages: bool
+        :param open_files: An indicator that determines if the rule files should be loaded into memory
         """
-        #self.name = os.path.splitext(os.path.basename(ruleSetLocation))[0]
-        self.location = ruleSetLocation
+        #self.name = os.path.splitext(os.path.basename(rule_set_location))[0]
+        self.location = rule_set_location
         pickle_start = datetime.datetime.today()
         
         #Using arelle file source object. This will handle files from the web.
@@ -136,11 +137,6 @@ class XuleRuleSet(object):
             raise
         finally:
             file_object.close()
-
-#         #load up all the rules.
-#         if open_files:
-#             for file_info in self.catalog['files']:
-#                 self.getFile(file_info['file'])
     
         #Check for packages
         pickle_end = datetime.datetime.today()
@@ -163,6 +159,12 @@ class XuleRuleSet(object):
                     raise XuleRuleSetError(_("Cannot open package '{}' from rule set.".format(file_name.partition('packages/')[2])))
     
     def open_package_file(self, file_name):
+        """Open a taxonomy package in the rule set
+        
+        :param file_name: the name of the package file in the rule set
+        :type file_name: str
+        :return: The package information. This is the return from Arelle when activating the package
+        """
         package_info = PackageManager.addPackage(self._cntlr, file_name)
         if package_info:
 #                     print("Activation of package {0} successful.".format(package_info.get("name")))    
@@ -176,6 +178,11 @@ class XuleRuleSet(object):
         return package_info
 
     def get_packages_info(self):
+        """Get a list of taxonomy packages in the rule set
+        
+        :returns: List of package information. The package information is returned when activating the package in Arelle
+        :rtype: list
+        """
         results = []
         temp_dir = tempfile.TemporaryDirectory()
         #Using arelle file source object. This will handle files from the web.
@@ -193,6 +200,13 @@ class XuleRuleSet(object):
         return results
 
     def manage_packages(self, package_files, mode):
+        """Add or remove taxonomy packages in the rule set
+        
+        :param package_files: A list of files to add or remove
+        :type package_files: list
+        :param mode: Indicates if the files should be added or removed. Valid values are 'add', 'del'
+        :type mode: str
+        """
         #The zipfile module cannot remove files or replace files. So, The original zip file will be opened and the contents
         #copied to a new zip file without the packages. Then the packages will be added.
 
@@ -242,30 +256,25 @@ class XuleRuleSet(object):
             raise xr.XuleRuleSetError(_("Error in rule set. Cannot open catalog."))
                
     def getFile(self, file_num):
-        """Return the AST from a file in the ruleset.
+        """Gets the expressions tree (ast) for a rule file
+        
+        :param file_num: The file number of the desired file
+        :type file_num: int
+        
+        The catalog identifies rule files by a number (an iteger).
         """
-#         if file_num not in self._xule_file_expression_trees.keys():
-#             #get the file info from the catalog
-#             file_item = next((file_item for file_item in self.catalog['files'] if file_item['file'] == file_num), None)
-#             if not file_item:
-#                 raise XuleRuleSetError("File number %s not found" % str(file_num))
-#                 return
-#             
-#             try:
-#                 with zipfile.ZipFile(self.location, 'r') as zf:
-#                     with zf.open(file_item['pickle_name'], "r") as p:
-#                         self._xule_file_expression_trees[file_num] = pickle.load(p, encoding="utf8")
-#             except (FileNotFoundError, KeyError): #KeyError if the file is not in the archive
-#                 raise XuleRuleSetError("Pickle file %s not found." % file_item['pickle_name'])
-#                 return
-            
         return self._xule_file_expression_trees[file_num]
                 
     def getItem(self, *args):
-        """Get AST of a top level component.
+        """Get a top level component from the rule set
         
-        This method can take 1 or 2 arguments. If there is one argument, it is a catalog entry (which is a tuple). If there are two
-        arguments, the first is the file number and second is the index within the file for the top level component.
+        :param args: The item to get
+        :returns: Expression tree of the item
+        :rtype: xule expression as a dict
+        
+        This function can be called in 2 ways:
+            #. With one argument which is a catalog entry. The catalog entry is a dictionary which contains meta data about the item
+            #. With two arguments, the first is the file number and the second is the index location in the file for the item.
         """        
         if len(args) == 2:
             file_num = args[0]
@@ -282,11 +291,14 @@ class XuleRuleSet(object):
             return self.getItem(catalog_item['file'], catalog_item['index'])
 
     def getItemByName(self, name, cat_type):
-        """Get the AST of a top level component by name.
+        """Get a top level component from the rule set by name
         
-        Arguments:
-            name (string): Name of the component (i.e. rule name, function name, constanct name)
-            cat_type (stirng): Type of component (constant, function, rule, namespace)
+        :param name: The name of the item. (i.e. rule name, function name, constant name)
+        :type name: str
+        :param cat_type: The type of item to get (i.e. 'rule', 'function', 'constant')
+        :type cat_type: str
+        :returns: Expression tree of the item
+        :rtype: xule expression as a dict        
         """
         if cat_type not in ('rule','function','constant','macro'):
             raise XuleRuleSetError("%s is an invalid catalog type" % cat_type)
@@ -301,15 +313,43 @@ class XuleRuleSet(object):
         return (self.getItem(item['file'], item['index']), item)
     
     def getFunction(self, name):
+        """Get function expression from the rule set
+        
+        :param name: Function name
+        :type name: str
+        :returns: Expression tree of the item
+        :rtype: xule expression as a dict
+        """        
         return self.getItemByName(name, 'function')
     
     def getRule(self, name):
+        """Get rule expression from the rule set
+        
+        :param name: Rule name
+        :type name: str
+        :returns: Expression tree of the item
+        :rtype: xule expression as a dict
+        """         
         return self.getItemByName(name, 'rule')
     
     def getConstant(self, name):
+        """Get constant expression from the rule set
+        
+        :param name: Constant name
+        :type name: str
+        :returns: Expression tree of the item
+        :rtype: xule expression as a dict
+        """         
         return self.getItemByName(name, 'constant')
     
     def getNamespaceUri(self, prefix):
+        """Get namespace uri for a prefix from the rule set
+        
+        :param prefix: The prefix to look up
+        :type prefix: str
+        :return: The namespace uri
+        :rtype: str or None if not found
+        """
         #This case there is a file, but it didn't have any namespace declarations
         if prefix not in self.catalog['namespaces']:
             if prefix == '*':
@@ -319,14 +359,33 @@ class XuleRuleSet(object):
         
         return self.catalog['namespaces'][prefix]['uri']
         
-    def getNamespaceInfoByUri(self, namespaceUri):       
+    def getNamespaceInfoByUri(self, namespace_uri):   
+        """Get catalog information for a namespace
+        
+        :param namespace_uri: The namespace uri
+        :returns: The catalog entry for the namespace
+        :rtype: dict or None if not found
+        """    
         for namespace_info in self.catalog['namespaces'].values():
-            if namespace_info['uri'] == namespaceUri:
+            if namespace_info['uri'] == namespace_uri:
                 return namespace_info
         
         return    
     
     def get_constant_list(self, constant_name):
+        """Identify a constant's dependency
+        
+        :param constant_name: The name of the constant
+        :type constant_name: str
+        :returns: decpendency code
+        :rtype: str
+        
+        This method identifies what a constant depends upon. The dependency codes are:
+            * rfrc - instance, external taxonomy
+            * frc - instantce only
+            * rtc - external taxonomy only
+            * c - none
+        """
         #ctype = 'c'
         #with self.catalog['constants'][constant_name]['dependencies']: # as const:
         if self.catalog['constants'][constant_name]['dependencies']['instance'] and \
@@ -339,6 +398,20 @@ class XuleRuleSet(object):
         return 'c'
 
     def get_grouped_constants(self):
+        """Organize the constants by their dependencies.
+        
+        :returns: Dictionary keyed by dependence code. The value of the dictionary item is a list of constants
+        :rtype: dict
+        
+        This method groups the constants by their dependencies. This is used when preloading constants to 
+        determine which constants can be evaluate without certain data (instance data and external taxonomy data).
+        
+        The dependency codes are:
+            * rfrc - instance, external taxonomy
+            * frc - instantce only
+            * rtc - external taxonomy only
+            * c - none
+        """
         self.all_constants = { 'rfrc': [],
                                'rtc' : [],
                                'frc' : [],
@@ -363,6 +436,21 @@ class XuleRuleSet(object):
     
     
     def get_rule_list(self, rule_name):
+        """Identify a rules's dependency
+        
+        :param rule_name: The name of the rule
+        :type rule_name: str
+        :returns: decpendency code
+        :rtype: str
+        
+        This method identifies what a rule depends upon. The dependency codes are:
+            * alldepr - instance, external taxonomy, constants
+            * rtcr - external taxonomy, constants (not instance)
+            * fcr - instance and constants
+            * cr - constants
+            * crap - constants but not instance or external taxonomy
+            * r - none
+        """        
         #ctype = 'c'
         #with self.catalog['constants'][constant_name]['dependencies']: # as const:
         if self.catalog['rules'][rule_name]['dependencies']['instance'] and \
@@ -388,6 +476,21 @@ class XuleRuleSet(object):
         return 'r'
         
     def get_grouped_rules(self):
+        """Organize the rules by their dependencies.
+        
+        :returns: Dictionary keyed by dependence code. The value of the dictionary item is a list of rules
+        :rtype: dict
+        
+        This method groups the rules by their dependencies. 
+        
+        The dependency codes are:
+            * alldepr - instance, external taxonomy, constants
+            * rtcr - external taxonomy, constants (not instance)
+            * fcr - instance and constants
+            * cr - constants
+            * crap - constants but not instance or external taxonomy
+            * r - none
+        """        
         self.all_rules = { 'alldepr' : [],
                            'rtr' : [],
                            'rtfcr' : [],
@@ -417,6 +520,3 @@ class XuleRuleSet(object):
             del self.all_rules[rule_type]   
             
         return self.all_rules
-
-
-
