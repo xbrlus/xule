@@ -1,9 +1,8 @@
-"""XuleContext
+"""XuleRuleSet
 
 Xule is a rule processor for XBRL (X)brl r(ULE). 
 
-The XuleContext module defines classes for managing the processing context. The processing context manages the rule set and stores data
-for keeping track of the processing (including the iterations that are created when processing a rule).
+The XuleRuleSet module contains the XuleRuleSet class. This class is used to manage the rule set during rule processing.
 
 DOCSKIP
 Copyright 2017 XBRL US Inc.
@@ -24,16 +23,6 @@ $Change: 21691 $
 DOCSKIP
 """
 
-
-
-
-'''
-Xule is rule processor for XBRL (X)brl r(ULE). 
-
-Copyright (c) 2014 XBRL US Inc. All rights reserved
-
-
-'''
 import pickle
 import os
 import datetime
@@ -43,17 +32,25 @@ import logging
 from arelle import PackageManager
 
 class XuleRuleSetError(Exception):
+    """An exception class for handling errors managing the rule set"""
     def __init__(self, msg):
         print(msg)
 
 class XuleRuleSet(object):
     """The XuleRuleSet class.
     
-    The rule set contains the 'compiled' rules. This class manages the creation and querying of the ruleset. A ruleset is made of
-    a collection of Xule rule files. The files are parsed and added to the ruleset. The ruleset has a catalog with keeps track of top
-    level components (such as, rules, namespaces, user defined functions, constants). The catalog identifies which file these components
-    are in and their index in the file.
     
+    The rule set is a zip archive of compiled rules, a catalog, taxonomy packages. The archive is structured with the catalog and
+    compiled rules at the top directory level. The is a 'packages' directory which contains taxonomy packages. When the rule set
+    is loaded, the catalog and files are loaded and any packages are activated as taxonomy packages in Arelle.
+
+    The catalog identifies the top level components of the rule set. This includes:
+        * rules (assertions and output)
+        * functions
+        * constants
+        * namespace declarations
+        
+
     When all the files are added, a post parse operation which determines dependencies and between components (i.e. rule A uses constant C
     and function F. It also links variable references their declarations and identifies which expressions create iterations.
     
@@ -75,36 +72,6 @@ class XuleRuleSet(object):
     
     def __del__(self):
         self.close()
-    
-    def new(self, location):
-        """Create a new ruleset
-        
-        This will establish the directory of the ruleset.
-        
-        Arguments:
-            location (string): directory for the new ruleset
-        """
-        
-        #check if the ruleset is already opened.
-        if self._open_for_add:
-            raise XuleRuleSetError("Trying to create a new rule set in an open rule set.")
-        else:
-            self.name = os.path.basename(location)
-            self.location = location
-            self.path = os.path.dirname(location)
-
-            self.catalog = {
-                            "name": self.name,
-                            "files": [],
-                            "namespaces": {},
-                            "rules": {},
-                            "rules_by_file": {}, 
-                            "functions": {},
-                            "constants": {},
-                            "output_attributes": {},
-                            }
-            
-            self._open_for_add = True
     
     def close(self):
         """Close the ruleset.
