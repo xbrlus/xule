@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change:  $
+$Change$
 DOCSKIP
 """
 #from .XuleValue import XuleValue, iso_to_date, model_to_xule_unit, XuleUnit
