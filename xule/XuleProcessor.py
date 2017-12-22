@@ -1,16 +1,32 @@
-'''
-Xule is rule processor for XBRL (X)brl r(ULE). 
+"""XuleProcessor
 
-Copyright (c) 2014 XBRL US Inc. All rights reserved
+Xule is a rule processor for XBRL (X)brl r(ULE). 
+
+The XuleProcessor module is the main module for processing a rule set against an instance.
+
+DOCSKIP
+Copyright 2017 XBRL US Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 
 $Change: 21745 $
-'''
+DOCSKIP
+"""
 from .XuleContext import XuleGlobalContext, XuleRuleContext #XuleContext
 from .XuleRunTime import XuleProcessingError, XuleIterationStop, XuleException, XuleBuildTableError, XuleReEvaluate
 from .XuleValue import *
 from . import XuleConstants as xc
 from . import XuleUtility
-#from  .XuleFunctions import *
 from .XuleMultiProcessing import output_message_queue
 from pyparsing import ParseResults
 import itertools as it
@@ -28,21 +44,24 @@ import copy
 from lxml import etree as et
 from threading import Thread
 from . import XuleFunctions
-#from . import XuleProperties
 from . import XuleProperties
 import os
 
 def process_xule(rule_set, model_xbrl, cntlr, options):
-    """Run Xule rules against a filing.
+    """Run xule rules against a filing.
     
-    This is the main function to process a Xule ruleset against a filing. This function just sets a few things up. The most import item is the processor context. The context saves the state of the processor
-    throughout the processing of the rules.
+    :param rule_set: An opened rule set
+    :type rule_set: XuleRuleSet
+    :param model_xbrl: An Arelle model of the instance document
+    :type model_xbrl: ModelXbrl
+    :param cntlr: An Arelle controller
+    :type cntlr: Cntlr
+    :param options: The command line options
+    :type options: optparse
     
-    Arguments:
-        rule_set(XuleRuleSet): An opened rule set
-        model_xbrl (ModelXbrl): An XBRL instance as a ModelXbrl object from Arelle
-        cntlr (Cntrl): A controller object from Arelle
-        options (optparse.Values): Command line options
+    This is the main function to process a Xule ruleset against a filing. This function just sets a few things up. 
+    The most import item is the processor context. The context saves the state of the processor throughout the 
+    processing of the rules.
     """
 
     global_context = XuleGlobalContext(rule_set, model_xbrl, cntlr, options)   
@@ -87,7 +106,6 @@ def process_xule(rule_set, model_xbrl, cntlr, options):
     if getattr(global_context.options, "xule_precalc_constants", False):
         constant_start = datetime.datetime.today()
         process_precalc_constants(global_context)
-        #process_precalc_preconditions(global_context)
         constant_end = datetime.datetime.today()
         constant_time = constant_end - constant_start
         global_context.message_queue.print("Time to calculated non instance constants: %s" % (constant_time))
@@ -110,9 +128,15 @@ def process_xule(rule_set, model_xbrl, cntlr, options):
 def evaluate_rule_set(global_context, skip_rules):
     """Process the rule set.
     
-    Arguments:
-        global_context (XuleGlobalContext): Global running context
-        skip_rules (list): List of rules to skip
+    :param global_context: The global processing context
+    :type global_context: XuleGlobalContext
+    :param skip_rules: A list of rule names to skip
+    :type skip_rules: list
+    
+    This function loops through all the rules in the rule set and evaluates each rule.
+    
+    During evaluation of a rule, the evaluator can produce a XuleIterationStop exception. This exception indicates
+    that processing of the current iteration of the rule can stop and go to the next iteration.
     """
     if getattr(global_context.options, "xule_time", None) is not None:
         times = []
@@ -133,9 +157,7 @@ def evaluate_rule_set(global_context, skip_rules):
                 global_context.message_queue.print("Processing: %s - %s" % (rule_name, datetime.datetime.today().strftime("%H:%M:%S.%f")))
                 if global_context.model is not None:
                     global_context.message_queue.print(global_context.model.modelDocument.uri)
-            
-            # Preconditions - Currently not supported in Xule3    
-            # if check_precondition(rule.preconditionRef, global_context) if 'preconditionRef' in rule else True:                                        
+                                                  
             try:
                 if getattr(global_context.options, "xule_time", None) is not None or getattr(global_context.options, "xule_trace_count", False):
                     rule_start = datetime.datetime.today()
@@ -152,7 +174,6 @@ def evaluate_rule_set(global_context, skip_rules):
                  
             except (XuleProcessingError, XuleBuildTableError) as e:
                 if getattr(global_context.options, "xule_crash", False):
-                #if global_context.crash_on_error:
                     raise
                 else:
                     xule_context.global_context.message_queue.error("xule:error", str(e))
@@ -197,6 +218,17 @@ def evaluate_rule_set(global_context, skip_rules):
         #global_context.message_queue.print("Global expression cache size: %i" % len(global_context.expression_cache))
 
 def index_model(xule_context):
+    """Index the facts in the Arelle model
+    
+    :param xule_context: The rule context
+    :type xule_context: XuleRuleContext
+    :returns: A dictionary of the facts. The dictionary is keyed by index keys.
+    :rtype: dict
+    
+    This fucntion goes through all the facts in the Arelle model and organizes them by potential index keys. The index is used
+    for factset evaluation. The keys are the aspects of the facts. Additional keys are based on properties of the aspects 
+    (i.e. concept.is-monetary).
+    """
     fact_index = collections.defaultdict(lambda :collections.defaultdict(set))
 
     #fact_index[('builtin', 'concept')] = xule_context.model.factsByQname
@@ -210,14 +242,6 @@ def index_model(xule_context):
             period = model_to_xule_period(model_fact.context, xule_context)
             #fact_index[('builtin', 'period')][period].add(model_fact)
             all_aspects.append((('builtin', 'period'), period))
-    #         
-    #         if model_fact.isStartEndPeriod:
-    #             fact_index[('builtin','period-start')][period[0]].add(model_fact)
-    #             fact_index[('builtin','period-end')][period[1]].add(model_fact)
-    #         else:
-    #             fact_index[('builtin','period-start')][period].add(model_fact)
-    #             fact_index[('builtin','period-end')][period].add(model_fact)
-    #         #MIGHT NEED TO HANBDLE FOREVER PERIODS
             
             if model_fact.isNumeric:
                 unit = model_to_xule_unit(model_fact.unit, xule_context)
@@ -241,10 +265,9 @@ def index_model(xule_context):
             if getattr(xule_context.global_context.options, "xule_include_dups", False):
                 facts_to_index[all_aspects].append(model_fact)
             else:
-                ''' Need to eliminate duplicate facts.
-                    Duplicate facts are facts that have the same aspects and same value (taking accuracy into account for numeric facts). If there are duplicates
-                    with different values, then the duplicate is not eliminated.
-                '''
+#                 Need to eliminate duplicate facts.
+#                 Duplicate facts are facts that have the same aspects and same value (taking accuracy into account for numeric facts). If there are duplicates
+#                 with different values, then the duplicate is not eliminated.
                 if all_aspects in facts_to_index:
                     #there is a fact already
                     found_match = False
@@ -292,7 +315,13 @@ def index_properties(model_fact):
     return index_concept_properites(model_fact) + index_period_properties(model_fact) + index_entity_properties(model_fact)
 
 def index_concept_properites(model_fact):
-    """Gather the concept properties for the fact index"""
+    """Gather the concept properties for the fact index
+    
+    :param model_fact: An Arelle fact
+    :type model_fact: ModelFact
+    :returns: A list of indexes for the fact. These are then added to the fact index.
+    :rtype: list
+    """
     props = list()
     
     props.append((('property', 'concept', 'period-type'), model_fact.concept.periodType))
@@ -315,7 +344,13 @@ def index_concept_properites(model_fact):
     return props
 
 def index_period_properties(model_fact):
-    """Gather the period properties for the fact index"""
+    """Gather the period properties for the fact index
+    
+    :param model_fact: An Arelle fact
+    :type model_fact: ModelFact
+    :returns: A list of indexes for the fact. These are then added to the fact index.
+    :rtype: list    
+    """
     props = list()
     
     if model_fact.context.isStartEndPeriod:
@@ -331,7 +366,13 @@ def index_period_properties(model_fact):
     return props   
 
 def index_entity_properties(model_fact):
-    """Gather the entity properties for the fact index"""
+    """Gather the entity properties for the fact index
+    
+    :param model_fact: An Arelle fact
+    :type model_fact: ModelFact
+    :returns: A list of indexes for the fact. These are then added to the fact index.
+    :rtype: list    
+    """
     props = list()
     
     props.append((('property', 'entity', 'scheme'), model_fact.context.entityIdentifier[0])) # entityIdentifier[0] is the scheme
@@ -341,6 +382,13 @@ def index_entity_properties(model_fact):
 
 def get_decimalized_value(fact_a, fact_b, xule_context):
     """Adjust 2 fact values based on accuracy.
+    
+    :param fact_a: First fact
+    :type fact_a: ModelFact
+    :param fact_b: Second fact
+    :type fact_b: ModelFact
+    :returns: A tuple of the rounded fact values and the new decimals value for each
+    :rtype: tuple
     
     Round the fact values to the minimum accuracy defined by the decimals attribute of the facts. 
     
@@ -365,9 +413,10 @@ def get_decimalized_value(fact_a, fact_b, xule_context):
 def get_decimals(fact, xule_context):
     """Return the decimals of a fact as a number.
     
-    Arguments:
-            fact (ModelFact): A fact
-            xule_context (XuleRuleContext): Processing context
+    :param fact: The fact to get the accuracy from
+    :type fact: ModelFact
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
     """
     if fact.decimals is None:
         return float('inf')
@@ -383,16 +432,28 @@ def get_decimals(fact, xule_context):
 def evaluate(rule_part, xule_context, is_values=False, trace_dependent=False, override_table_id=None):
     """General evaluator for an expression.
     
-    This evaluator determines the type of expressions and calls the appropriate evaluator. It also manages the cache for iterable expressions.
+    :param rule_part: The expression being evaluated
+    :type rule_part: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :param is_values: Deprecated
+    :type is_values: bool
+    :param trace_dependent: Debugging indicator
+    :type trace_dependent: bool
+    :param override_table_id: A table id to use instead of the table id of the rule_part.
+    :type override_table_id: int
     
-    Arguments:
-        rule_part (dictionary): Expression from the rule AST
-        xule_context (XuleRuleContext): Processing context
-        is_values (boolean): Used if this is being called from a values expression
-        trace_dependent (boolean):
-        override_table_id (int): 
-    """
-    #print("evaluate: ", rule_part['exprName'], rule_part['node_id'])    
+    This is the main evaluator for evlatuating rule expressions. If the rule_part is an iterable expression it will be evaluated. The returned
+    values will be put on the iteration table and a single value will be selected as the value of the expression for the current iteration. If the
+    the rule_part is a singleton expression, then it will be evaluated and the value returned. 
+    
+    Each type of expression (i.e. assertion, if statement, for loop, literal interger, add operation) has its own evaluator. This evaluator will call
+    the appriate evaluator for the expression.
+    
+    This evaluator handles caching expression evaluations for performance.
+    
+    This evaluator also includes capturing information about the evaluation for debugging purposes.
+    """ 
     try:
         # Setup trace information.
         if getattr(xule_context.global_context.options, "xule_trace", False) or getattr(xule_context.global_context.options, "xule_trace_count", False):    
@@ -493,13 +554,7 @@ def evaluate(rule_part, xule_context, is_values=False, trace_dependent=False, ov
                         raise
                     except XuleReEvaluate:
                         trace_source = 'R'
-                        raise
-#                     except Exception as e:
-#                         import traceback
-#                         import sys
-#                         print("Exception 3", "iteration", ii, "rule id", rule_part['node_id'], rule_part_name, sys.exc_info()[0])
-#                         traceback.print_tb(sys.exc_info()[2], file=sys.stdout)
-#                         raise                                        
+                        raise                                   
                     else:
                         #add - add values to expression cache
                         xule_context.iteration_table.add_column(rule_part, override_table_id or rule_part['table_id'], processing_id, values, xule_context)
@@ -553,7 +608,6 @@ def evaluate(rule_part, xule_context, is_values=False, trace_dependent=False, ov
                         xule_context.local_cache[local_cache_key] = value.clone() if value is not None else value
     
         #If the look_for_alignment flag is set, check if there is now alignment after adding the column. This is used in 'where' clause processing.
-        #if xule_context.look_for_alignment and xule_context.iteration_table.any_alignment is not None:
         if (xule_context.look_for_alignment and 
             #rule_part.has_alignment and
             value.aligned_result_only and
@@ -574,14 +628,6 @@ def evaluate(rule_part, xule_context, is_values=False, trace_dependent=False, ov
             xule_context.trace_level -= 1
         try:
             value = post_evaluate_value(rule_part, value, xule_context)
-#         except XuleIterationStop:
-#             raise
-#         except Exception as e:
-#             import traceback
-#             import sys
-#             print("Exception 2", "iteation", ii, "rule id", rule_part['node_id'], rule_part_name, sys.exc_info()[0])
-#             traceback.print_tb(sys.exc_info()[2], file=sys.stdout)
-#             raise
         finally:
             if getattr(xule_context.global_context.options, "xule_trace_count", False):
             #if xule_context.show_trace_count:
@@ -591,8 +637,6 @@ def evaluate(rule_part, xule_context, is_values=False, trace_dependent=False, ov
                 trace_written = True
     finally:
         if getattr(xule_context.global_context.options, "xule_trace_count", False) and not trace_written:
-        #if xule_context.show_trace_count and not trace_written:
-#            print("trace not written", "iteration", ii, "rule id", rule_part['node_id'], trace_source)
             xule_context.expression_trace[rule_part['node_id']]['iterations-t'] += datetime.datetime.today() - expression_trace_start
             xule_context.expression_trace[rule_part['node_id']][trace_source + '-t'] += (datetime.datetime.today() - expression_trace_start)
             xule_context.expression_trace[rule_part['node_id']][trace_source] += 1  
@@ -600,7 +644,15 @@ def evaluate(rule_part, xule_context, is_values=False, trace_dependent=False, ov
     return value
 
 def post_evaluate_value(rule_part, value, xule_context):
-
+    """Track tags and facts for the evaluated value.
+    
+    :param rule_part: The expression being evaluated
+    :type rule_part: dict
+    :param value: The evaluated value
+    :type value: XuleValue
+    :param xule_context: The rule processing context
+    :type xule_context: XuleRuleContext
+    """
     if value is None:
         raise XuleIterationStop(XuleValue(xule_context, None, 'unbound'))
         #value = XuleValue(xule_context, None, 'unbound')
@@ -636,35 +688,15 @@ def post_evaluate_value(rule_part, value, xule_context):
 
 
     return value
-
-# def get_cache_key(rule_part, dependent_alignment, xule_context):
-#     
-#     if rule_part['exprName'] in ('constantAssign','forControl'):
-#         return None
-#     
-#     if rule_part['exprName'] == 'functionReference' and len(rule_part.functionArgs) > 0:
-#         return None
-#     
-#     cache_var_key = {}
-# 
-#     for dep_expr in rule_part.dependent_iterables:
-#         if dep_expr['node_id'] != rule_part['node_id']:
-#             cache_var_key[dep_expr['node_id']] = evaluate(dep_expr, xule_context)
-#     '''
-#     This is removed. The cache key is now based on the dependent_iterables instead of dependent vars
-# 
-#     for var_ref in rule_part.var_refs:
-#         #0 = var declaration id, 1 = var name, 2 = var_ref (only for constants)
-#         var_info = xule_context.find_var(var_ref[1], var_ref[0])
-#         var_value = calc_var(var_info, var_ref[2] if var_info['type'] == xule_context._VAR_TYPE_CONSTANT else None, xule_context) 
-#         cache_var_key[var_ref[0]] = var_value     
-#     '''
-#     return (rule_part['node_id'], dependent_alignment, frozenset(cache_var_key.items()))
         
 def get_local_cache_key(rule_part, xule_context):
-    #processing_id = xule_context.get_processing_id(rule_part['node_id'])
-    #value = xule_context.iteration_table.current_value(processing_id, xule_context)
+    """Get a cache key for storing a value in the cache
     
+    :param rule_part: xule expression
+    :type rule_part: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    """
     #Don't cache for function refs that are not cacheable
     if (rule_part['exprName'] in ('functionReference', 'macroRef') and rule_part.get('cacheable') != True) or rule_part['exprName'] == 'forBodyExpr':
         return None
@@ -693,6 +725,19 @@ def get_local_cache_key(rule_part, xule_context):
 
 def evaluate_assertion(assert_rule, xule_context):
     """Evaluator for an assertion rule.
+    
+    :param assert_rule: Rule expression for an assertion
+    :type assert_rule: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    
+    This evaluator evaluates an assertion rule. This evalutor will keep evaluting the assertion rule until the iteration table is empty. This 
+    is how it can produce multiple messages for a single rule. For example, a rule @Assets < 0 will produce a message for each individual
+    Asset value that is less than zero. If there are 3 values for Assets and 2 of them are less than zero, it will produce 2 messages. 
+    
+    An assertion will evaluate to a boolean value. If the assertion is marked as 'satisfied' and the
+    evaluated value is true, the assertion will produce a message. If the assertion is marked as unstatisfied and the evaluated value is false, 
+    the assertion will produce a message.
     """
 
     # Keep evaluating the rule while there are iterations. This is done in a While True loop so there is always at least one iteration. This is for rules that 
@@ -771,7 +816,17 @@ def evaluate_assertion(assert_rule, xule_context):
             xule_context.reset_iteration()
 
 def evaluate_output_rule(output_rule, xule_context):
-    """Evaluator for a output rule.
+    """Evaluator for an output rule.
+    
+    :param output_rule: Rule expression for an assertion
+    :type output_rule: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    
+    This evaluator evaluates an output rule. This evalutor will keep evaluting the output rule until the iteration table is empty. This 
+    is how it can produce multiple messages for a single rule. 
+    
+    An output rule will produce a value and then create a message based on the evaluated value.
     """
     # Keep evaluating the rule while there are iterations. This is done in a While True loop so there is always at least one iteration. This is for rules that 
     # do not have iterable expressions in them (i.e. 1 + 2).
@@ -840,6 +895,16 @@ def evaluate_output_rule(output_rule, xule_context):
             xule_context.reset_iteration()
 
 def evaluate_bool_literal(literal, xule_context):
+    """Evaluator for literal boolean expressions
+    
+    :param literal: Rule expression
+    :type literal: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :rtype: XuleValue
+    
+    A boolean literal is either 'true' or 'false'.
+    """
     if literal['value'] == "true":
         return XuleValue(xule_context, True, 'bool')
     elif literal['value'] == "false":
@@ -849,10 +914,29 @@ def evaluate_bool_literal(literal, xule_context):
 
 def evaluate_string_literal(literal, xule_context):
     """Evaluate a string literal
+
+    :param literal: Rule expression
+    :type literal: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :rtype: XuleValue
     
-    A string can consist of a string of characters, escaped characters or an expression to evaluate. This is handled as a list of 
-    string expressions (baseString, escape, and an expression)."""
+    A string can consist of a string of characters, escaped characters or an expression to evaluate. The literal will contain a list
+    of these components that make up the string. For example: 
     
+            "The value of the rule is {$rule-value}.\nThis is based on the fact value {$fact}.".
+    
+    I this example the literal would be a list of:
+        * string of characters: "The value of the rule is "
+        * an expression: $rule-value
+        * string of characters: "."
+        * escape character: "\n"
+        * string of characters: "This is based on the fact value "
+        * an expression: $fact
+        * string of characters: "."
+    
+    This evaluator will evaluate all the components of the string literal and concatenate them to a string.
+    """
     result_string = ''
     
     for string_item in literal['stringList']:
@@ -871,42 +955,103 @@ def evaluate_string_literal(literal, xule_context):
             result_string += expr_value.format_value()
         
     return XuleValue(xule_context, result_string, 'string')
-    
-#     string_literal = literal['value']
-#     
-#     string_literal = string_literal.replace('\\n', '\n')
-#     string_literal = string_literal.replace('\\t', '\t')
-#     string_literal = string_literal.replace('\\"', '"')
-#     string_literal = string_literal.replace("\\'", "'")
-#     string_literal = string_literal.replace('\\\\', '\\')
-# 
-#     return XuleValue(xule_context, string_literal, 'string')
 
 def evaluate_int_literal(literal, xule_context):
+    """Evaluator for literal integer expressions
+    
+    :param literal: Rule expression
+    :type literal: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :rtype: XuleValue
+    """    
     return XuleValue(xule_context, int(literal['value']), 'int')
 
 def evaluate_float_literal(literal, xule_context):
+    """Evaluator for literal float expressions
+    
+    :param literal: Rule expression
+    :type literal: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :rtype: XuleValue
+    """        
     return XuleValue(xule_context, float(literal['value']), 'float')
 
 def evaluate_void_literal(literal, xule_context):
-    ''' This could be 'none' or 'skip'.
-    '''
+    """Evaluator for literal void expressions
+    
+    :param literal: Rule expression
+    :type literal: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :rtype: XuleValue
+    
+    A void expression is either 'none' or 'skip'.
+    """    
     return XuleValue(xule_context, None, 'none' if literal['value'] == 'none' else 'unbound')
 
 def evaluate_qname_literal(literal, xule_context):
+    """Evaluator for literal qname expressions
+    
+    :param literal: Rule expression
+    :type literal: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :rtype: XuleValue
+    """    
     prefix = literal['prefix']
     return XuleValue(xule_context, QName(prefix if prefix != '*' else None, literal['namespace_uri'], literal['localName']), 'qname')
 
 def evaluate_severity(severity_expr, xule_context):
+    """Evaluator for literal severity expressions
+    
+    :param literal: Rule expression
+    :type literal: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :rtype: XuleValue
+    """        
     return XuleValue(xule_context, severity_expr['value'], 'severity')
 
 def evaluate_aspect_name(literal, xule_context):
+    """Evaluator for literal aspect name expressions
+    
+    :param literal: Rule expression
+    :type literal: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :rtype: XuleValue
+    
+    An aspect name is literal is one of the build in aspects for a factset and is one of 'concept', 'unit', 'entity' or 'period'.
+    """        
     return XuleValue(xule_context, literal['value'], 'aspect_name')
 
 def evaluate_string_keyword(expr, xule_context):
+    """Evaluator for literal string based keywords expressions
+    
+    :param expr: Rule expression
+    :type expr: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :rtype: XuleValue
+    
+    Some keywords are evaluated as strings. This is used for balance types ('credit', 'debit') and period type ('instant', 'duration').
+    """        
     return XuleValue(xule_context, expr['value'], 'string')
 
 def evaluate_tagged(tagged_expr, xule_context):
+    """Evaluator for tagged expressions
+    
+    :param tagged_expr: Rule expression
+    :type tagged_expr: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :rtype: XuleValue
+    
+    A tagged expression is an expression followed by a # sign and a tag name. The evaluated value of the tagged expression
+    is added to the rule processing context by its name. The tags can be used in creating messages.
+    """         
     try:
         tagged_value = evaluate(tagged_expr['expr'], xule_context)
     except XuleIterationStop as xis:
@@ -922,8 +1067,7 @@ def evaluate_tagged(tagged_expr, xule_context):
     return tagged_value
 
 def tag_default_for_factset(aspect_filters, xule_context):
-    """Get the value of the concept aspect for tagging the default None fact of a factset
-    """
+    """Get the value of the concept aspect for tagging the default None fact of a factset"""
 
     for aspect_info, aspect_value in aspect_filters.items():
         #aspect_inf is the aspect_info that is the key to the aspect_filters dictionary
@@ -949,51 +1093,17 @@ def tag_default_for_factset(aspect_filters, xule_context):
     #If we get here, then the default tag is unknown
     return 'unknown'
             
-#     for aspect_filter in expr.get('aspectFilters', list()):
-#         if aspect_filter.get('aspectName') == 'concept':
-#             if 'aspectOperator' in aspect_filter:
-#                 if aspect_filter['aspectOperator'] == '=':
-#                     if 'wildcard' in aspect_filter:
-#                         return 'unknown'
-#                     else:
-#                         aspect_member_value = evaluate(aspect_filter['aspectExpr'], xule_context)
-#                         return str(aspect_member_value)
-#                 elif aspect_filter['aspectOperator'] == 'in':
-#                     aspect_member_set = evaluate(aspect_filter['aspectExpr'], xule_context)
-#                     if len(aspect_member_set.value) > 0:
-#                         concepts = []
-#                         for aspect_member_value in aspect_member_set.value:
-#                             if aspect_member_value.type == 'qname':
-#                                 concepts.append(str(aspect_member_value.value))
-#                             elif aspect_member_value.type == 'concept':
-#                                 concepts.append(str(aspect_member_value.value.qname))
-#                         if len(concepts) == 1:
-#                             return str(concepts[0])
-#                         else:
-#                             return 'one of (' + ', '.join(concepts) + ')'
-#                     else:
-#                         return 'unknown'
-#                 else:
-#                     return 'unknown'
-#             else:
-#                 # There is no aspectoperator
-#                 return 'unknown'
-#             
-#         elif 'aspectDimensionName' in aspect_filter:
-#             #check if this is dimension concept. If not, then this is the default concept aspect
-#             aspect_dimension_qname = evaluate(aspect_filter['aspectDimensionName'], xule_context)
-#             aspect_filter_model_concept = xule_context.model.qnameConcepts.get(aspect_dimension_qname.value)
-#             if aspect_filter_model_concept is None:
-#                 raise XuleProcessingError(_("Error while processing factset aspect. Concept %s not found." % aspect_filter_qname.value.clarkNotation), xule_context)            
-#             if not aspect_filter_model_concept.isDimensionItem:
-#                 #This is the default concept aspect where the qname is the aspect member.
-#                 return str(aspect_dimension_qname.value)
-#         
-#     # Doesn't have a concept aspect at all 
-#     return 'unknown'
-
-
 def evaluate_block(block_expr, xule_context):
+    """Evaluator for block expressions
+    
+    :param block_expr: Rule expression
+    :type block_expr: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :rtype: XuleValue
+    
+    A block expression is a series of variable declarations followed by an expression.
+    """     
     for var_assignment in block_expr['varDeclarations']:
     #for var_assignment in var_assignments:
         var_info = xule_context.add_var(var_assignment['varName'],
@@ -1005,6 +1115,14 @@ def evaluate_block(block_expr, xule_context):
     return evaluate(block_expr['expr'], xule_context)
 
 def evaluate_var_ref(var_ref, xule_context):
+    """Evaluator for block expressions
+    
+    :param var_ref: Rule expression
+    :type var_ref: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :rtype: XuleValue
+    """       
     #print(var_ref['node_id'], var_ref.varName)
     var_info = xule_context.find_var(var_ref['varName'], var_ref['var_declaration'])
     #xule_context.used_vars.append(var_ref.var_declaration)
@@ -1018,6 +1136,18 @@ def evaluate_var_ref(var_ref, xule_context):
     return var_value 
 
 def calc_var(var_info, const_ref, xule_context):
+    """Calculate the value of a variable
+    
+    :param var_info: A dictionary of meta data about the variable
+    :type var_info: dict
+    :param const_ref: The constant declaration if the variable reference is for a constant
+    :type const_ref: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :rtype: XuleValue
+    
+    This function evaluates the expression for the variable reference.
+    """         
     if var_info['type'] == xule_context._VAR_TYPE_ARG:
         var_value = var_info['value']
     elif var_info['type'] == xule_context._VAR_TYPE_VAR:   
@@ -1057,6 +1187,18 @@ def calc_var(var_info, const_ref, xule_context):
     return var_value
 
 def calc_constant(const_info, const_context):
+    """Calculate the value of a constant
+    
+    :param const_info: Meta data about the constant
+    :type const_info: dict
+    :param const_context: Rule processing context
+    :type const_context: XuleRuleContext
+    :returns: The evaluated value or values
+    :rtype: XuleValue or XuleValueSet
+    
+    Constants are evaluated in a separate table. This isolates the evaluation from the rule which is using the constant. If the
+    constant produces a singleton value a single value is returned. If the constant produces multiple values, a value set is returned.
+    """
     const_context.iteration_table.add_table(const_info['expr']['node_id'], const_context.get_processing_id(const_info['expr']['node_id']))
     
     const_values = XuleValueSet()
@@ -1096,6 +1238,14 @@ def calc_constant(const_info, const_context):
     const_info['calculated'] = True
 
 def evaluate_constant_assign(const_assign, xule_context):
+    """Evaluator a constant declaration
+    
+    :param const_assign: Rule expression for the constant declaration
+    :type const_assign: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :rtype: XuleValue
+    """
     const_info = xule_context.find_var(const_assign['constantName'], const_assign['node_id'], constant_only=True)
     if const_info is None:
         raise XuleProcessingError(_("Constant '%s' not found" % const_assign['constantName']), xule_context)
@@ -1112,6 +1262,13 @@ def evaluate_constant_assign(const_assign, xule_context):
         return const_info['value'].values[None][0]
 
 def process_precalc_constants(global_context):
+    """Precalculate constants
+    
+    :param global_context: Global processing context
+    :type global_context: XuleGlobalContext
+    
+    This function will calculate constants that do not depend directly on the instance.
+    """
     global_context.message_queue.logging("Precalcing non-instance constants")
     for constant_name, cat_constant in global_context.rule_set.catalog['constants'].items():
         if ('unused' not in cat_constant and
@@ -1122,103 +1279,15 @@ def process_precalc_constants(global_context):
             if not const_info['calculated']:
                 calc_constant(const_info, const_context)
 
-# def process_precalc_preconditions(global_context):
-#     global_context.message_queue.logging("Precalcing non-instance preconditions")
-#     for precon_name, cat_precon in global_context.rule_set.catalog['preconditions'].items():
-#         if ('unused' not in cat_precon and
-#             not cat_precon['dependencies']['instance']
-#             and cat_precon['node_id'] not in global_context.preconditions):
-#             
-#             calc_precondition(precon_name, global_context)
-            
-# def check_precondition(preconditionRef, global_context):
-#     '''When checking multiple preconditions, all must be true.'''
-#     for precon_name in preconditionRef.preconditionNames:
-#         precon_node_id = global_context.catalog['preconditions'][precon_name]['node_id']
-#         if precon_node_id not in global_context.preconditions:
-#             calc_precondition(precon_name, global_context)
-#         
-#         if getattr(global_context.options, "xule_debug", False):
-#         #if global_context.show_debug:
-#             global_context.message_queue.print("Precondition {} {}".format(precon_name, global_context.preconditions[precon_node_id]))
-#             
-#         if not global_context.preconditions[precon_node_id]:
-#             return False
-#     
-#     #No false precondition was found
-#     return True
-
-def calc_precondition(precon_name, global_context):
-    '''A precondition is true if at least one evaluation returns true'''
-
-    cat_precon = global_context.catalog['preconditions'][precon_name]
-    precon_context = XuleRuleContext(global_context, precon_name, cat_precon['file'])
-    
-    precon_rule_part = precon_context.global_context.rule_set.getItem(cat_precon)
-    
-    precon_table = precon_context.iteration_table.add_table(precon_rule_part['node_id'], precon_context.get_processing_id(precon_rule_part['node_id']))
-    
-    while True:
-        precon_context.aligned_result_only = False
-        precon_context.used_expressions = set()
-        try:
-            precon_value = evaluate(precon_rule_part.expr, precon_context)
-        except XuleIterationStop:
-            continue
-        if precon_value.type != 'bool':
-            raise XuleProcessingError(_("Precondition {} did not evaluate to a boolean, got {} instead.".format(precon_rule_part.preconditionName, precon_value.type)), precon_context)
-        
-        if precon_value.value:
-            precon_context.global_context.preconditions[precon_rule_part['node_id']] = True
-            return
-
-        precon_table.next(precon_table.table_id)
-        if precon_table.is_empty:
-            break
-        
-    #if we get here, then there was not an evaluation that return true, the precondition is false
-    precon_context.global_context.preconditions[precon_rule_part['node_id']] = False
-               
-# def pre_calc_expressions(global_context):
-#     for node_id in global_context.rule_set.catalog['pre_calc_expressions']:
-#         if node_id not in global_context.expression_cache:
-#             expr = global_context.rule_set.getNodeById(node_id)
-#             global_context.expression_cache[node_id] = calc_expression(expr, global_context)
-# 
-# def calc_expression(expr, global_context):
-#     #print("calcing", expr['node_id'], expr['exprName'])
-#     expr_context = XuleRuleContext(global_context)
-#     expr_values = XuleValueSet()
-#     
-#     while True:
-#         expr_context.aligned_result_only = False
-#         try:
-#             expr_value = evaluate(expr, expr_context)
-#         except XuleIterationStop as xis:
-#             expr_value = xis.stop_value #XuleValue(const_context, None, 'unbound')
-#         
-#         expr_value.facts = expr_context.facts
-#         expr_value.tags = expr_context.tags
-#         expr_value.aligned_result_only = expr_context.aligned_result_only
-#         expr_value.alignment = expr_context.iteration_table.current_table.current_alignment
-#         expr_values.append(expr_value)
-# 
-#         expr_context.iteration_table.del_current()
-#         if expr_context.iteration_table.is_empty:
-#             break
-#         
-#     if expr.number == 'multi':
-#         return expr_values
-#     else:
-#         return expr_values.values[None][0]  
-  
-def evaluate_print(print_expr, xule_context):
-    print_value = evaluate(print_expr.printValue[0], xule_context)
-    xule_context.global_context.message_queue.log("INFO", "xule:print", "%s: %s" % (print_value.type, print_value.format_value()))
-    pass_through_value = evaluate(print_expr.passThroughExpr[0], xule_context)
-    return pass_through_value
-
 def evaluate_if(if_expr, xule_context):
+    """Evaluator for if expressions
+    
+    :param if_expr: Rule expression for the constant declaration
+    :type if_expr: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :rtype: XuleValue    
+    """
     if_thens = []
     if_thens.append((if_expr['condition'], if_expr['thenExpr']))
 
@@ -1239,6 +1308,14 @@ def evaluate_if(if_expr, xule_context):
     return evaluate(if_expr['elseExpr'], xule_context)
 
 def evaluate_for(for_expr, xule_context):
+    """Evaluator for for expressions
+    
+    :param for_expr: Rule expression for the constant declaration
+    :type for_expr: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :rtype: XuleValueSet    
+    """    
     for_values = XuleValueSet()
     
     saved_used_expressions = xule_context.used_expressions
@@ -1290,6 +1367,18 @@ def evaluate_for(for_expr, xule_context):
     return for_values
 
 def evaluate_for_body_detail(body_expr, table_id, for_loop_var, for_loop_tag, xule_context):
+    """Evaluates the for body
+    
+    :param body_expr: Rule expression for the for body
+    :type body_expr: dict
+    :param table_id: The table id for the sub table to evaluate the for body
+    :type table_id: int
+    :param for_loop_var: The xuel value of the for loop variable
+    :type for_loop_var: XuleValue
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :rtype: XuleValueSet        
+    """
     body_values = XuleValueSet()
   
     aligned_result_only = False      
@@ -1331,10 +1420,18 @@ def evaluate_for_body_detail(body_expr, table_id, for_loop_var, for_loop_tag, xu
         xule_context.used_expressions = save_used_expressions
         xule_context.iteration_table.del_table(for_body_table.table_id)
     return body_values
-
-
     
 def evaluate_unary(unary_expr, xule_context):
+    """Evaluator for unary expressions
+    
+    :param unary_expr: Rule expression for the constant declaration
+    :type unary_expr: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :rtype: XuleValue   
+    
+    A unary expression is a plus or minus that flips the sign of a number. 
+    """     
     initial_value = evaluate(unary_expr['expr'], xule_context)
     
     if initial_value.type in ('unbound', 'none'):
@@ -1349,6 +1446,16 @@ def evaluate_unary(unary_expr, xule_context):
         return initial_value
 
 def evaluate_mult(mult_expr, xule_context):
+    """Evaluator for multiplication expressions
+    
+    :param mult_expr: Rule expression for the constant declaration
+    :type mult_expr: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :rtype: XuleValue   
+    
+    This include multiplication and division
+    """         
     left = evaluate(mult_expr['leftExpr'], xule_context)
     
     for right_side in mult_expr['rights']:
@@ -1382,6 +1489,16 @@ def evaluate_mult(mult_expr, xule_context):
     return left
 
 def evaluate_intersect(inter_expr, xule_context):
+    """Evaluator for intersection expressions
+    
+    :param inter_expr: Rule expression for the constant declaration
+    :type inter_expr: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :rtype: XuleValue   
+    
+    This is intersection of 2 sets.
+    """             
     left = evaluate(inter_expr['leftExpr'], xule_context)
     for right_side in inter_expr['rights']:
         right = evaluate(right_side['rightExpr'], xule_context)
@@ -1397,6 +1514,16 @@ def evaluate_intersect(inter_expr, xule_context):
     return left
 
 def evaluate_symetric_difference(sym_diff_expr, xule_context):
+    """Evaluator for symetric difference expressions
+    
+    :param inter_expr: Rule expression for the constant declaration
+    :type inter_expr: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :rtype: XuleValue   
+    
+    This is the symetric difference of 2 sets.
+    """      
     left = evaluate(sym_diff_expr['leftExpr'], xule_context)
     for right_side in sym_diff_expr['rights']:
         right = evaluate(right_side['rightExpr'], xule_context)
@@ -1412,6 +1539,24 @@ def evaluate_symetric_difference(sym_diff_expr, xule_context):
     return left
 
 def evaluate_add(add_expr, xule_context):
+    """Evaluator for add expressions
+    
+    :param add_expr: Rule expression for the constant declaration
+    :type add_expr: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :rtype: XuleValue   
+    
+    This includes add and subtract. These operations can be perforom on numbers, strings, sets and list. For strings
+    adding wil concatenation. For lists and strings, adding will union. 
+    
+    In other binary operations, if an operand does not exist the operation is not performed. With add and subtract, if an
+    operand is missing, it will treated as if it were zero. For example:
+    
+        @Assets + @Liabilities
+        
+    If there isn't a matching liability for an asset, the operation will return the value of assets.
+    """          
     left_bar = add_expr['rights'][0]['op'][0] == '<' # the first operator
     if left_bar:
         left = evaluate(add_expr['leftExpr'], xule_context)
@@ -1495,6 +1640,16 @@ def evaluate_add(add_expr, xule_context):
     return left  
 
 def evaluate_comp(comp_expr, xule_context):
+    """Evaluator for comparison expressions
+    
+    :param comp_expr: Rule expression for the constant declaration
+    :type comp_expr: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :rtype: XuleValue   
+    
+    Comparison includes ==, !=, >, < >=, <=, in, not in
+    """      
     left = evaluate(comp_expr['leftExpr'], xule_context)
 
     for right in comp_expr['rights']:
@@ -1552,6 +1707,14 @@ def evaluate_comp(comp_expr, xule_context):
     return left
 
 def evaluate_not(not_expr, xule_context):
+    """Evaluator for not expressions
+    
+    :param not_expr: Rule expression for the constant declaration
+    :type not_expr: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :rtype: XuleValue   
+    """ 
     initial_value = evaluate(not_expr['expr'], xule_context)
     
     if initial_value.type in ('unbound', 'none'):
@@ -1563,6 +1726,14 @@ def evaluate_not(not_expr, xule_context):
     return XuleValue(xule_context, not initial_value.value, 'bool')
 
 def evaluate_and(and_expr, xule_context):
+    """Evaluator for boolean and expressions
+    
+    :param and_expr: Rule expression for the constant declaration
+    :type and_expr: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :rtype: XuleValue   
+    """ 
     value_found = False
     has_unbound = False
     left = XuleValue(xule_context, None, 'unbound')
@@ -1603,6 +1774,14 @@ def evaluate_and(and_expr, xule_context):
         return XuleValue(xule_context, None, 'unbound')
 
 def evaluate_or(or_expr, xule_context):
+    """Evaluator for boolean or expressions
+    
+    :param or_expr: Rule expression for the constant declaration
+    :type or_expr: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :rtype: XuleValue   
+    """ 
     value_found = False
     has_unbound = False
     left = XuleValue(xule_context, None, 'unbound')
@@ -1641,20 +1820,14 @@ def evaluate_or(or_expr, xule_context):
     else:
         return XuleValue(xule_context, None, 'unbound')
 
-import time
-
-class Timer:
-    def __enter__(self):
-            self.start = time.clock()
-            return self
-    def __exit__(self, *args):
-        self.end = time.clock()
-        self.interval = self.end - self.start
-        print("timing %s" % self.interval)
-
-
 def evaluate_factset(factset, xule_context):
     """Evaluator for a factset
+
+    :param factset: Rule expression for the constant declaration
+    :type factset: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :rtype: XuleValueSet  
     
     There are two flavors of factsets.
     1. Starndard factset - finds facts in the instance (i.e. @Assets)
@@ -1668,10 +1841,12 @@ def evaluate_factset(factset, xule_context):
 def evaluate_nesting_factset(factset, xule_context):
     """Evaluate a factset envolope
     
-    This is a factset with nested factsets inside. Instead of getting facts from the instance, this is an envolope with aspect filters that will apply 
-    to the inner factset. This allows the evaluation of the inner factset to have a different alignment than the results of this envelope.
+    :param factset: Rule expression for the constant declaration
+    :type factset: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :rtype: XuleValueSet   
     """
-    
     aspect_filters, _x, aspect_vars = process_factset_aspects(factset, xule_context)
      
     #verify that there are not already filters in place
@@ -1728,34 +1903,33 @@ def evaluate_nesting_factset(factset, xule_context):
     return nested_values
 
 def evaluate_factset_detail(factset, xule_context):
-    '''THIS CODE NEEDS A LITTLE REFACTORING. BREAK IT DOWN INTO FUNCTIONS. IMPROVE REUSE OF CODE FOR HANDLING 'IN' OPERATOR'''
-    '''Evaluator for a factset
+    """Evaluate a factset
     
-       The factset is divided into two parts. The first part contains aspects that will be used to filter the fact and will NOT
-       be used for alignment. For example: "Assets[]" or "[lineItem=Assets]". These factsets will find all the 'Assets' facts in the 
-       instance, but when these facts are compared to facts in other fact sets, the 'concept' aspect will not be used to check alignment.
-       
-       Actual aspects of the fact that are not specified in the first part of the factset will be used for alignment.
-       
-       Nested alignment:
-           This would be put in the context for nested factset expressions. It would cause downstream factset evaluations
-           to include the filter as part of getting facts. If the filter is 'closed', it would act like a closed factset and not allow
-           facts that have dimenions in fact's alignment that are not in the filter. 'open' filters wouldn't care.
-           
-           This provides an alternative mechanism for handling alignment. Instead of getting all results for each side of an operation (i.e. property) 
-           and then aligning them, it would allow the expression to iterate over one operand result set and evaluate for each result of the other operand. 
-           By pushing the filter, first, only the aligned results will come back. 
-    '''
+    :param factset: Rule expression for the constant declaration
+    :type factset: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :rtype: XuleValueSet   
+
+    The factset is divided into two parts. The first part contains aspects that will be used to filter the fact and will NOT
+    be used for alignment. For example: "Assets[]" or "[lineItem=Assets]". These factsets will find all the 'Assets' facts in the 
+    instance, but when these facts are compared to facts in other fact sets, the 'concept' aspect will not be used to check alignment.
     
+    Actual aspects of the fact that are not specified in the first part of the factset will be used for alignment.
+    
+    Nested alignment:
+        This would be put in the context for nested factset expressions. It would cause downstream factset evaluations
+        to include the filter as part of getting facts. If the filter is 'closed', it would act like a closed factset and not allow
+        facts that have dimenions in fact's alignment that are not in the filter. 'open' filters wouldn't care.
+        
+        This provides an alternative mechanism for handling alignment. Instead of getting all results for each side of an operation (i.e. property) 
+        and then aligning them, it would allow the expression to iterate over one operand result set and evaluate for each result of the other operand. 
+        By pushing the filter, first, only the aligned results will come back. 
+    """
     f_start = datetime.datetime.today()
     
 #     #The no alignment flag indicates that the results of the factset should all have none alignment. It is set by the 'values' expression.
-#     #current_no_alignment = xule_context.no_alignment
-#     current_no_alignment = True if factset.get('values_expression') == True else False
-#     
-    #reset to false. This will prevent any downstream factsets for not having alignment. For example: values [where $item::period==$a::period] 
-    #xule_context.no_alignment = False # this flag is not longer used, instead the parse result has a flag of 'values_expression'.
-    
+   
     saved_used_expressions = xule_context.used_expressions
     xule_context.used_expressions = set()
     try:
@@ -1876,28 +2050,18 @@ def evaluate_factset_detail(factset, xule_context):
         results.append(default_value)
 
     f_end = datetime.datetime.today()
-
-#     res_count = sum(len(v) for v in results.values.values())
-#     pre_count2 = len(pre_matched_facts)
-#     x = [a if v is None else v.format_value() for a, v in all_aspect_filters]   
-# 
-#     print("factset: {} res-count: {} pre-count1: {} pre-count2: {} total-time: {} pre-time: {} where-time: {} {} {} {}".format(factset['node_id'], res_count, pre_count1, pre_count2, 
-# 
-#                                                                                  (f_end - f_start).total_seconds(),
-#                                                                                  (f_pre_end - f_start).total_seconds(),
-#                                                                                  (f_end - f_pre_end).total_seconds(),
-#                                                                                  'RECALC' if recalc else '',
-#                                                                                  'None' if recalc_none else '',
-#                                                                                  "; ".join(x)))
         
     return results
 
 def factset_pre_match(factset, filters, non_aligned_filters, aligned_filters, xule_context, starting_facts=None):
-    '''Match facts based on the aspects in the first part of the factset and any additional filters.
+    """Match facts based on the factset  
+       
+    Match facts based on the aspects in the first part of the factset and any additional filters.
     
-       This is done by intersecting the sets of the fact_index. The fact index is a dictionary of dictionaries.
-       The outer dictionary is keyed by aspect and the inner by member. So fact_index[aspect][member] contains a 
-       set of facts that have that aspect and member.'''
+    This is done by intersecting the sets of the fact_index. The fact index is a dictionary of dictionaries.
+    The outer dictionary is keyed by aspect and the inner by member. So fact_index[aspect][member] contains a 
+    set of facts that have that aspect and member.
+    """
     if starting_facts is None:
         pre_matched_facts = None
         first = True
@@ -2044,6 +2208,7 @@ def calc_fact_alignment(factset, fact, non_aligned_filters, frozen, xule_context
         return fact_alignment if frozen else unfrozen_alignment
     
 def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non_align_aspects, nested_filters, aspect_vars, pre_matched_used_expressoins_ids, xule_context):
+    """Apply the where portion of the factset"""
     results = XuleValueSet()
     default_used_expressions = set()
     
@@ -2103,21 +2268,6 @@ def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non
             aspect_dimensions = {aspect_info[ASPECT] for aspect_info in non_align_aspects}
             if set(model_fact.context.qnameDims.keys()) - aspect_dimensions:
                 continue
-
-        '''Check alignment filter'''
-#         if alignment is not None:
-#             if not current_no_alignment and xule_context.iteration_table.is_dependent:
-#                 if xule_context.iteration_table.current_alignment is not None:
-#                     if frozenset(alignment.items()) != xule_context.iteration_table.current_alignment:
-#                         #If this is in a 'with' clause, the first factset to be added to the with/agg table may be empty, The current alignment will be
-#                         #from a higher table which will not inlucde the with filter aspects.
-#                         if len(nested_filters) > 0 and xule_context.iteration_table.current_table.current_alignment is None:
-#                             remove_aspects = [(nested_filter[0], nested_filter[1]) for nested_filter in nested_filters]
-#                             adjusted_alignment = remove_from_alignment(frozenset(alignment.items()), remove_aspects, xule_context)
-#                             if adjusted_alignment != xule_context.iteration_table.current_alignment:
-#                                 continue
-#                         else:
-#                             continue
 
         if alignment is not None:
             #if not current_no_alignment and xule_context.iteration_table.is_dependent:
@@ -2252,28 +2402,6 @@ def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non
 #                                 where_value = XuleValue(xule_context, None, 'unbound')
                         xule_context.aligned_result_only = save_aligned_result_only
 
-
-                    #check alignment again after evaluating the where clause. If the clause is dependent, only want results that align with the current row.
-                    #if factset.is_dependent:
-#                         if alignment is not None:
-#                             if not current_no_alignment and xule_context.iteration_table.is_dependent:
-#                                 if xule_context.iteration_table.current_alignment is not None:
-#                                     if frozenset(alignment.items()) != xule_context.iteration_table.current_alignment:
-#                                         #If this is in a 'with' clause, the first factset to be added to the with/agg table may be empty, The current alignment will be
-#                                         #from a higher table which will not inlucde the with filter aspects.
-#                                         if len(nested_filters) > 0 and xule_context.iteration_table.current_table.current_alignment is None:
-#                                             remove_aspects = [(nested_filter[0], nested_filter[1]) for nested_filter in nested_filters]
-#                                             adjusted_alignment = remove_from_alignment(frozenset(alignment.items()), remove_aspects, xule_context)
-#                                             if adjusted_alignment != xule_context.iteration_table.current_alignment:
-#                                                 where_matched = False
-#                                         else:
-#                                             where_matched = False
-
-#                         #check if the alignment went from None to aligned during the where evaluation
-#                         if factset.is_dependent and no_pre_where_alignment and xule_context.iteration_table.any_alignment is not None:
-#                             #If this happens, then re-filter the pre_matched facts with the alignment
-#                             raise XuleReEvaluate(xule_context.iteration_table.any_alignment)
-
                     if alignment is not None:
                         #if not current_no_alignment and xule_context.iteration_table.is_dependent:
                         if not current_no_alignment and factset['is_dependent']:
@@ -2288,8 +2416,6 @@ def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non
                                             where_matched = False
                                     else:
                                         where_matched = False
-
-
 
                     if where_matched:
                         default_used_expressions.update(set(xule_context.used_expressions))
@@ -3818,7 +3944,6 @@ EVALUATOR = {
     
     #atomic expressions
     "constantDeclaration": evaluate_constant_assign,
-    "printExpr": evaluate_print,
     "ifExpr": evaluate_if,
     "forExpr": evaluate_for,
     #"forControl": evaluate_for_control,
