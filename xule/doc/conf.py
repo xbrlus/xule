@@ -83,8 +83,8 @@ todo_include_todos = False
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-#html_theme = 'alabaster'
-html_theme = 'agogo'
+html_theme = 'alabaster'
+#html_theme = 'agogo'
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
@@ -164,6 +164,10 @@ texinfo_documents = [
      author, 'Xule', 'One line description of project.',
      'Miscellaneous'),
 ]
+
+
+#Document the constructors for classes. By default, sphinx will not include the docstring for the __init__ method (constructor) of a class
+autoclass_content = 'both'
 
 from sphinx.ext.autodoc import between
 
