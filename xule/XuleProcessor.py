@@ -4061,7 +4061,7 @@ def process_factset_aspects(factset, xule_context):
             #Get the model concept to determine if the aspect is a dimension
             aspect_filter_model_concept = xule_context.model.qnameConcepts.get(aspect_name.value)
             if aspect_filter_model_concept is None:
-                raise XuleProcessingError(_("Error while processing factset aspect. Concept %s not found." % aspect_filter_qname.value.clarkNotation), xule_context)
+                raise XuleProcessingError(_("Error while processing factset aspect. Concept %s not found." % aspect_name.value.clarkNotation), xule_context)
             if aspect_filter_model_concept.isDimensionItem:
                 # This is a dimension aspect
                 add_aspect_var(aspect_vars, 'explicit_dimension', aspect_name.value, aspect_var_name, aspect_filter['node_id'], xule_context)
