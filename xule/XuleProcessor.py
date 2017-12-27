@@ -311,73 +311,74 @@ def index_model(xule_context):
     return fact_index
 
 def index_properties(model_fact):
-    return index_concept_properites(model_fact) + index_period_properties(model_fact) + index_entity_properties(model_fact)
-
-def index_concept_properites(model_fact):
-    """Gather the concept properties for the fact index
+    """Calculate the properties for the fact.
     
-    :param model_fact: An Arelle fact
-    :type model_fact: ModelFact
-    :returns: A list of indexes for the fact. These are then added to the fact index.
+    :param model_fact: The fact
+    :type model_value: ModelFact
+    :returns: A list of properties to add to the fact index. The items of the list are 2 item tuples of property identifier and property value.
     :rtype: list
     """
-    props = list()
-    
-    props.append((('property', 'concept', 'period-type'), model_fact.concept.periodType))
-    if model_fact.concept.balance is not None:
-        props.append((('property', 'concept', 'balance'), model_fact.concept.balance))
-    props.append((('property', 'concept', 'data-type'), model_fact.concept.typeQname))
-    props.append((('property', 'concept', 'base-type'), model_fact.concept.baseXbrliTypeQname))
-    props.append((('property', 'concept', 'is-monetary'), model_fact.concept.isMonetary))
-    props.append((('property', 'concept', 'is-numeric'), model_fact.concept.isNumeric))
-    props.append((('property', 'concept', 'substitution'), model_fact.concept.substitutionGroupQname))
-    props.append((('property', 'concept', 'namespace-uri'), model_fact.concept.qname.namespaceURI))
-    props.append((('property', 'concept', 'local-part'), model_fact.concept.qname.localName))
-    props.append((('property', 'concept', 'is-abstract'), model_fact.concept.isAbstract))
+    prop_list = list()
+    for property_key, property_function in _FACT_INDEX_PROPERTIES.items():
+        property_value = property_function(model_fact)
+        if property_value is not None:
+            prop_list.append((property_key, property_value))
+            
     for attribute in model_fact.concept.elementAttributesTuple:
+        # Create an aspect property for the concept aspect for any additional xml attributes that are on the concept.
         # attribute[0] is the attribute name. For qnames this will be in clarknotation
         # attribute[1] is the attribute value
-        if attribute[0] not in ('name', 'substitutionGroup', 'type', '{http://www.xbrl.org/2003/instance}balance', '{http://www.xbrl.org/2003/instance}periodType'):
-            props.append((('property', 'concept', 'attribute', qname(attribute[0])), attribute[1]))
+        if attribute[0] not in ('id', 'name', 'substitutionGroup', 'type', '{http://www.xbrl.org/2003/instance}balance', '{http://www.xbrl.org/2003/instance}periodType'):
+            prop_list.append((('property', 'concept', 'attribute', qname(attribute[0])), attribute[1]))            
     
-    return props
+    return prop_list
 
-def index_period_properties(model_fact):
-    """Gather the period properties for the fact index
-    
-    :param model_fact: An Arelle fact
-    :type model_fact: ModelFact
-    :returns: A list of indexes for the fact. These are then added to the fact index.
-    :rtype: list    
-    """
-    props = list()
-    
+def index_property_start(model_fact):
     if model_fact.context.isStartEndPeriod:
-        props.append((('property', 'period', 'start'), model_fact.context.startDatetime))
-        props.append((('property', 'period', 'end'), model_fact.context.endDatetime - datetime.timedelta(days=1)))
-        props.append((('property', 'period', 'days'), (model_fact.context.endDatetime - model_fact.context.startDatetime).days))
-    elif model_fact.context.isInstantPeriod:
-        props.append((('property', 'period', 'start'), model_fact.context.endDatetime - datetime.timedelta(days=1)))
-        props.append((('property', 'period', 'end'), model_fact.context.endDatetime - datetime.timedelta(days=1)))
-        props.append((('property', 'period', 'days'), 0))
+        return model_fact.context.startDatetime
+    elif model_fact.context.isInstantPeriod: 
+        return model_fact.context.endDatetime - datetime.timedelta(days=1)
+
+def index_property_end(model_fact):
+    if model_fact.context.isStartEndPeriod:
+        return model_fact.context.endDatetime - datetime.timedelta(days=1)
+    elif model_fact.context.isInstantPeriod: 
+        return model_fact.context.endDatetime - datetime.timedelta(days=1)
         
-    '''NEED TO ADD INDEXES FOR FISCAL PERIODS'''
-    return props   
+def index_property_days(model_fact):
+    if model_fact.context.isStartEndPeriod:
+        return (model_fact.context.endDatetime - model_fact.context.startDatetime).days
+    elif model_fact.context.isInstantPeriod: 
+        return 0        
+def index_property_balance(model_fact):
+    if model_fact.concept.balance is not None:
+        return model_fact.concept.balance
 
-def index_entity_properties(model_fact):
-    """Gather the entity properties for the fact index
-    
-    :param model_fact: An Arelle fact
-    :type model_fact: ModelFact
-    :returns: A list of indexes for the fact. These are then added to the fact index.
-    :rtype: list    
-    """
-    props = list()
-    
-    props.append((('property', 'entity', 'scheme'), model_fact.context.entityIdentifier[0])) # entityIdentifier[0] is the scheme
-    props.append((('property', 'entity', 'id'), model_fact.context.entityIdentifier[1])) # entityIdentifer[1] is the id
-
-    return props
+# These are aspect properties that are used in a factset. I.e. @concept.is-monetary. The 'is-monetary' is an aspect property of the 
+# aspect 'concept'. This list identifies all the expected properties that will be in the fact index. This a dictionary with the key
+# being the property identifier and the value being the function to calculate the value of the property with a fact. The property identifier
+# is a 3 part tuple:
+#    1 - 'property' - This part is always 'property'.
+#    2 - the aspect name
+#    3 - the property name
+_FACT_INDEX_PROPERTIES = {
+                          ('property', 'concept', 'period-type'): lambda f: f.concept.periodType,
+                          ('property', 'concept', 'balance'): index_property_balance,
+                          ('property', 'concept', 'data-type'): lambda f: f.concept.typeQname,
+                          ('property', 'concept', 'base-type'): lambda f: f.concept.baseXbrliTypeQname,
+                          ('property', 'concept', 'is-monetary'): lambda f: f.concept.isMonetary,
+                          ('property', 'concept', 'is-numeric'): lambda f: f.concept.isNumeric, 
+                          ('property', 'concept', 'substitution'):lambda f: f.concept.substitutionGroupQname,
+                          ('property', 'concept', 'namespace-uri'): lambda f: f.concept.qname.namespaceURI,
+                          ('property', 'concept', 'local-part'): lambda f: f.concept.qname.localName,
+                          ('property', 'concept', 'is-abstract'): lambda f: f.concept.isAbstract,
+                          ('property', 'concept', 'id'): lambda f: f.id,
+                          ('property', 'period', 'start'): index_property_start,
+                          ('property', 'period', 'end'): index_property_end,
+                          ('property', 'period', 'days'): index_property_days,
+                          ('property', 'entity', 'scheme'): lambda f: f.context.entityIdentifier[0], # entityIdentifier[0] is the scheme
+                          ('property', 'entity', 'id'): lambda f: f.context.entityIdentifier[1] # entityIdentifer[1] is the id                          
+                          }
 
 def get_decimalized_value(fact_a, fact_b, xule_context):
     """Adjust 2 fact values based on accuracy.
@@ -2077,8 +2078,8 @@ def factset_pre_match(factset, filters, non_aligned_filters, aligned_filters, xu
             # aspect_info[ASPECT_PROPERTY][0] is the aspect property name
             # aspect_info[ASPECT_PROPERTY][1] is a tuple of the arguments
             index_key = ('property', aspect_info[ASPECT], aspect_info[ASPECT_PROPERTY][0]) + aspect_info[ASPECT_PROPERTY][1]
-            if index_key not in xule_context.fact_index:
-                raise XuleProcessingError(_("Factset aspect property '{}' is not a valid property.".format(index_key[2])), xule_context)
+            if index_key not in xule_context.fact_index and index_key not in _FACT_INDEX_PROPERTIES:
+                raise XuleProcessingError(_("Factset aspect property '{}' is not a valid property of aspect '{}'.".format(index_key[2], index_key[1])), xule_context)
             
         facts_by_aspect = set()
         
