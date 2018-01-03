@@ -21,7 +21,7 @@ $Change$
 DOCSKIP
 """
 from .XuleRunTime import XuleProcessingError
-from . import XuleProperties
+#from . import XuleProperties
 from . import XuleUtility
 from arelle.ModelValue import QName, dayTimeDuration, DateTime, gYear, gMonthDay, gYearMonth, InvalidValue, IsoDuration
 from arelle.ModelInstanceObject import ModelFact, ModelUnit
