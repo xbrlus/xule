@@ -39,7 +39,6 @@ import re
 from aniso8601 import parse_duration, parse_datetime, parse_date
 import collections
 import copy
-from lxml import etree as et
 from threading import Thread
 from . import XuleFunctions
 from . import XuleProperties
