@@ -20,14 +20,11 @@ limitations under the License.
 $Change$
 DOCSKIP
 """
-#from .XuleValue import XuleValue, iso_to_date, model_to_xule_unit, XuleUnit
 from . import XuleValue as xv
 from .XuleRunTime import XuleProcessingError
 from arelle.ModelValue import qname, QName
 import collections
-#from . import XuleRollForward as rf
 from aniso8601 import parse_duration
-import urllib.request
 import decimal
 
 
@@ -456,83 +453,7 @@ def func_taxonomy(xule_context, *args):
         return xv.XuleValue(xule_context, other_taxonomy , 'taxonomy')
     else:
         raise XuleProcessingError(_("The taxonomy() function takes at most 1 argument, found {}".format(len(args))))
-
-def func_data(xule_context, *args):
-    
-    file_type = args[0]
-    file_url = args[1]
-    print(file_url)
-    if len(args) < 2:
-        raise XuleProcessingError(_("The data() function requires at least 2 arguments (file type, file url), found {} arguments.".format(len(args))), xule_context)
-    if len(args) > 3:
-        raise XuleProcessingError(_("The data() function takes no more than 3 arguments (file type, file url, column types), found {} arguments.".format(len(args))), xule_context)
-    
-    if file_type.value == 'csv':
-        pass
-    else:
-        raise XuleProcessingError(_("The data() function currently only supports csv. Found '{}'.".format(file_type.value)), xule_value)
-    
-    if file_url.type not in ('string', 'uri'):
-        raise XuleProcessingError(_("The data file name must be a string or uri, Found '{}'.".format(file_url.value)), xule_value)
-    
-    if len(args) == 3:    
-        column_types = args[2]
-        if column_types.type != 'list':
-            raise XuleProcessingError(_("The thrid argument of the data() fucntion must be list, found '{}'.".format(column_types.type)), xule_context)
-        
-        ordered_cols = list()
-        for col in column_types.value:
-            if col.type != 'string':
-                raise XuleProcessingError(_("The thrid argument of the data() function must be a list of strings, found '{}'.".format(col.type)), xule_context)
-            ordered_cols.append(col.value)
-    else:
-        ordered_cols = None
-        
-    result = list()
-    result_shadow = list()
-
-    if file_url.value.startswith('http://') or file_url.value.startswith('https://'):
-        
-        if file_url.value.startswith('https://') and getattr(xule_context.global_context.options, 'noCertificateCheck', False):
-            try:
-                import ssl
-                context = ssl.create_default_context()
-                context.check_hostname = False
-                context.verify_mode = ssl.CERT_NONE
-            except ImportError:
-                context=None
-        else:
-            context = None
-        try:
-            data_source = urllib.request.urlopen(file_url.value, context=context).read().decode('utf-8').splitlines()
-        except urllib.error.HTTPError as he:
-            raise XuleProcessingError(_("Trying to open url '{}', got HTTP {} - {}, error".format(file_url.value, he.code, he.reason)), xule_context)
-    else:
-        try:
-            with open(file_url.value, 'r', newline='') as data_file:
-                data_source = data_file.readlines()
-        except FileNotFoundError:
-            raise XuleProcessingError(_("Trying to open file '{}', but file is not found.".format(file_url.value)), xule_context)
-        
-    import csv
-    reader = csv.reader(data_source)
-    for line in reader:
-        result_line = list()
-        result_line_shadow = list()
-        for col_num, item in enumerate(line):
-            if ordered_cols is not None and col_num >= len(ordered_cols):
-                raise XuleProcessingError(_("The nubmer of columns in the data source is greater than the number of column types provided in the third argument of the data() function"), xule_context)
-            
-            item_value = convert_file_data_item(item, ordered_cols[col_num] if ordered_cols is not None else None, xule_context)
-
-            result_line.append(item_value)
-            result_line_shadow.append(item_value.value)
-        result.append(xv.XuleValue(xule_context, tuple(result_line), 'list', shadow_collection=tuple(result_line_shadow)))
-          
-
-
-    return xv.XuleValue(xule_context, tuple(result), 'list', shadow_collection=tuple(result_shadow))
-                
+ 
 def func_csv_data(xule_context, *args):
     """Read a csv file/url.
     
@@ -720,8 +641,6 @@ FUNCTION_DEFAULT_TYPE = 4
 FUNCTION_ALLOW_UNBOUND_ARGS = 3
 FUNCTION_RESULT_NUMBER = 4
 
-   
-
 def built_in_functions():
     funcs = {
 #              'all': ('aggregate', agg_all, 1, True, 'bool'),
@@ -753,18 +672,7 @@ def built_in_functions():
              'number': ('regular', func_number, 1, False, 'single'),
              'mod': ('regular', func_mod, 2, False, 'single'),
              'extension_concepts': ('regular', func_extension_concept, 0, False, 'single'),             
-#              'sdic_create': ('regular', func_sdic_create, 1, False, 'single'),
-#              'sdic_from_paired_list': ('regular', func_sdic_from_paired_list, 3, True, 'single'),
-#              'sdic_append': ('regular', func_sdic_append, 3, True, 'single'),             
-#              'sdic_find_items': ('regular', func_sdic_find_items, 2, True, 'single'),
-#              'sdic_get_item': ('regular', func_sdic_get_item, 2, True, 'single'),
-#              'sdic_get_items': ('regular', func_sdic_get_items, 2, True, 'single'),
-#              'sdic_has_key': ('regular', func_sdic_has_key, 2, True, 'single'),
-#              'sdic_remove_item': ('regular', func_sdic_remove_item, 2, True, 'single'),
-#              'sdic_set_item': ('regular', func_sdic_set_item, 3, True, 'single'),
-             
              'taxonomy': ('regular', func_taxonomy, -1, False, 'single'),
-             'data': ('regular', func_data, -3, False, 'single'),
              'csv-data': ('regular', func_csv_data, -4, False, 'single')
 
              }    
