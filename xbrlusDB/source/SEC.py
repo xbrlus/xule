@@ -501,6 +501,8 @@ __sourceInfo__ = {
                      
                      (r'^http://xbrl.sec.gov/',r'^http://[^/]*/([^/]*)/'),
                      
+                     (r'^http://xbrl.ifrs.org/',r'^http://[^/]*/[^/]*/[^/]*/([^/]*)'),
+
                      ),                  
                   "overrideFunctions" : {
                       "excludeReport" : SECExcludeReport,
