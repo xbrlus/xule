@@ -6,7 +6,9 @@ The XuleContext module defines classes for managing the processing context. The 
 for keeping track of the processing (including the iterations that are created when processing a rule).
 
 DOCSKIP
-Copyright 2017 XBRL US Inc.
+See https://xbrl.us/dqc-license for license information.  
+See https://xbrl.us/dqc-patent for patent infringement notice.
+Copyright (c) 2017 - 2018 XBRL US, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
