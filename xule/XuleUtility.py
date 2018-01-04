@@ -105,6 +105,7 @@ def resolve_role(role_value, role_type, dts, xule_context):
     a non prefixed qname, than the local name of the qname is used to match an arcrole that ends in 'localName'. If more than one arcrole is found then
     and error is raise. This allows short form of an arcrole i.e parent-child.
     """
+    _imports()
     if role_value.value.prefix is not None:
         raise XuleProcessingError(_("Invalid {}. {} should be a string, uri or short role name. Found qname with value of {}".format(role_type, role_type.capitalize(), role_value.format_value())))
     else:
@@ -149,7 +150,8 @@ def base_dimension_sets(dts):
     
     This is like the baseSets dictionary of a model. The base dimension set is a dictionary keyed by the drs role and hypercube. The drs role is the role of the initial 'all' relationship or the target role of the initial
     'all' relationship if ther eis a target role. The value of the diction is a set of the 'all' relationships.
-    """ 
+    """
+    _imports() 
     if not hasattr(dts, 'xuleBaseDimensionSets'):
         dts.xuleBaseDimensionSets = collections.defaultdict(set)
         for base_set in dts.baseSets:
@@ -177,6 +179,7 @@ def dimension_sets(dts):
     
     A dimension set is identified by a drs role and hypercube. 
     """
+    _imports()
     if not hasattr(dts, 'xuleDimensionSets'):
         dts.xuleDimensionSets = dict()
     
@@ -191,6 +194,7 @@ def dimension_set(dts, dimension_set_info):
     return dimension_sets(dts)[dimension_set_info]                                                         
                                                                                         
 def relationship_set(dts, relationship_set_info):
+    _imports()
     return (dts.relationshipSets[relationship_set_info] 
                 if relationship_set_info in dts.relationshipSets 
                 else ModelRelationshipSet(dts, 
