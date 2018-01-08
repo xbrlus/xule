@@ -1,4 +1,4 @@
-"""XuleMultiProcessing
+"""XuleUtility
 
 Xule is a rule processor for XBRL (X)brl r(ULE). 
 
