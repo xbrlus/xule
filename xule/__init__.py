@@ -29,7 +29,9 @@ DOCSKIP
 from .XuleProcessor import process_xule, XuleProcessingError
 #from .XuleRuleSet import XuleRuleSet, XuleRuleSetError
 from . import XuleRuleSet as xr
+from . import XuleUtility as xu
 from .XuleContext import XuleGlobalContext, XuleRuleContext
+from .XuleConstants import RULE_SET_MAP
 from optparse import OptionParser, SUPPRESS_HELP
 from arelle import FileSource
 from arelle import ModelManager
@@ -199,8 +201,8 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
     if getattr(options, "xule_cpu", None) is not None and not getattr(options, 'xule_multi', None):
             parser.error(_("--xule-multi is required with --xule_cpu."))
 
-    if  getattr(options, "xule_run", None) is not None and not getattr(options, 'xule_rule_set', None):
-            parser.error(_("--xule-rule-set is required with --xule-run."))
+#     if  getattr(options, "xule_run", None) is not None and not getattr(options, 'xule_rule_set', None):
+#             parser.error(_("--xule-rule-set is required with --xule-run."))
     
     if getattr(options, "xule_server", None) is not None and not getattr(options, 'xule_rule_set', None):
             parser.error(_("--xule-rule-set is required with --xule_server."))
@@ -352,8 +354,17 @@ def xuleCmdXbrlLoaded(cntlr, options, modelXbrl, entryPoint=None):
                 getattr(cntlr, "rule_set", None) is not None:
                 rule_set =  getattr(cntlr, "rule_set")
             else:
+                if getattr(options, 'xule_rule_set', None) is not None:
+                    rule_set_location = options.xule_rule_set
+                else:
+                    # Determine the rule set from the model.
+                    rule_set_location = xu.determine_rule_set(modelXbrl, cntlr)
+                    if rule_set_location is None:
+                        # The rule set could not be determined.
+                        raise xr.XuleRuleSetError('The rule set to used could not be determined. Check that there is a rule set map at {} and verify that there is an appropiate mapping for the filing.'.format(RULE_SET_MAP))
+                    
                 rule_set = xr.XuleRuleSet(cntlr)              
-                rule_set.open(options.xule_rule_set, open_packages=not getattr(options, 'xule_bypass_packages', False))
+                rule_set.open(rule_set_location, open_packages=not getattr(options, 'xule_bypass_packages', False))
         except xr.XuleRuleSetError:
             raise
 

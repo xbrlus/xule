@@ -29,3 +29,6 @@ DIMENSION_PSEDDO_ARCROLES = {'hypercube-primary': ('all',{'http://xbrl.org/int/d
 
 DIMENSION_PSEUD0_SIDE = 0
 DIMENSION_PSEUD0_ARCROLE_PART = 1
+
+# Rule set mapping 
+RULE_SET_MAP = 'rulesetMap.json'

@@ -133,10 +133,11 @@ class XuleRuleSet(object):
             self.name = self.catalog['name']
             self._open_for_add = False                
         except KeyError:
-            print("Error in the rule set. Cannot open catalog.") #, file=sys.stderr)
-            raise
+            raise XuleRuleSetError(_("Error in the rule set. Cannot open catalog."))
         except FileNotFoundError:
             raise
+        except zipfile.BadZipFile:
+            raise XuleRuleSetError(_("Cannot open rule set file. Does not appear to be  zip file. File: {}".format(rule_set_location)))
         finally:
             file_object.close()
     
