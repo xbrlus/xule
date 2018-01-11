@@ -38,7 +38,10 @@ from arelle import ModelManager
 import optparse
 import os 
 
-__version__ = '2.0.' + '$Change$'[9:-2]
+__version__ = '3.0.' + '$Change$'[9:-2]
+
+_cntlr = None
+_options = None
 
 def xuleMenuOpen(cntlr, menu):
     pass
@@ -190,7 +193,13 @@ def xuleCmdOptions(parser):
                       dest="xule_version",
                       help=_("Display version number of the xule module."))
 
-def xuleCmdUtilityRun(cntlr, options, **kwargs):  
+def xuleCmdUtilityRun(cntlr, options, **kwargs): 
+    # Save the controller and options in the module global variable
+    global _cntlr
+    _cntlr = cntlr
+    global _options
+    _options = options 
+    
     #check option combinations
     parser = OptionParser()
     
@@ -347,8 +356,11 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
         except FileNotFoundError:
             print("Filing listing file '%s' is not found" % options.xule_filing_list)
 
-def xuleCmdXbrlLoaded(cntlr, options, modelXbrl, entryPoint=None):
+def xuleCmdXbrlLoaded(cntlr, options, modelXbrl, entryPoint=None):   
     if getattr(options, "xule_run", None):
+        runXule(cntlr, options, modelXbrl)
+        
+def runXule(cntlr, options, modelXbrl):
         try:
             if getattr(options, "xule_multi", True) and \
                 getattr(cntlr, "rule_set", None) is not None:
@@ -388,8 +400,14 @@ def xuleCmdXbrlLoaded(cntlr, options, modelXbrl, entryPoint=None):
                          cntlr, 
                          options,
                          )
+            
 def xuleValidate(val):
-    pass
+    global _cntlr
+    global _options
+    if _cntlr is not None and _options is not None:
+        if not getattr(_options, "xule_run", False):
+            # Only run on validate if the --xule-run option was not supplied. If --xule-run is supplied, it has already been run
+            runXule(_cntlr, _options, val.modelXbrl)
 
 def xuleTestStart(modelTestcaseVariation):        
     pass
