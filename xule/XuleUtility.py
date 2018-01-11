@@ -305,6 +305,10 @@ def update_rule_set_map(cntlr, new_map, overwrite=False):
     #update the rule set map
     with get_rule_set_map_file(cntlr, 'w') as rule_set_file: 
         json.dump(rule_set_map, rule_set_file)
+    if overwrite:
+        cntlr.addToLog(_("Rule set map file replaced"), "xule")
+    else:
+        cntlr.addToLog(_("Rule set map file updated"), "xule")
 
 def reset_rule_set_map(cntlr):
     rule_set_map_file_name = get_rule_set_map_file_name(cntlr)
@@ -319,4 +323,5 @@ def reset_rule_set_map(cntlr):
     with get_rule_set_map_file(cntlr):
         pass
     
+    cntlr.addToLog(_("Rule set map reset"), "xule")
     
