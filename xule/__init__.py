@@ -192,6 +192,22 @@ def xuleCmdOptions(parser):
                       action="store_true",
                       dest="xule_version",
                       help=_("Display version number of the xule module."))
+    
+    parserGroup.add_option("--xule-update-rule-set-map",
+                           action="store",
+                           dest="xule_update_rule_set_map",
+                           help=_("Update the rule set map currently used. The supplied file will be merged with the current rule set map."))
+
+    parserGroup.add_option("--xule-replace-rule-set-map",
+                           action="store",
+                           dest="xule_replace_rule_set_map",
+                           help=_("Replace the rule set map currently used."))
+    
+    parserGroup.add_option("--xule-reset-rule-set-map",
+                           action="store_true",
+                           dest=("xule_reset_rule_set_map"),
+                           help=("Reset the rule set map to the default."))
+    
 
 def xuleCmdUtilityRun(cntlr, options, **kwargs): 
     # Save the controller and options in the module global variable
@@ -230,11 +246,16 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
 
     from os import name
     if getattr(options, "xule_multi", False) and name == 'nt':
-            parser.error(_("--xule-multi can't be used in Windows"))    
+        parser.error(_("--xule-multi can't be used in Windows"))    
 
     if not getattr(options, "xule_multi", False) and getattr(options, "xule_cpu", None) is not None:
-            parser.error(_("--xule-cpu can only be used with --xule-multi enabled"))    
+        parser.error(_("--xule-cpu can only be used with --xule-multi enabled"))    
 
+    if len([x for x in (getattr(options, "xule_update_rule_set_map", False),
+                       getattr(options, "xule_replace_rule_set_map", False),
+                       getattr(options, "xule_reset_rule_set_map", False)) if x]) > 1:
+        parser.error(_("Cannot use --xule-update-rule-set-map or --xule-replace-rule-set-map or --xule-reset-rule-set-map the same time."))
+        
     #compile rules
     if getattr(options, "xule_compile", None):
         compile_destination = getattr(options, "xule_rule_set", "xuleRules") 
@@ -262,6 +283,18 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
         print("Packages in rule set:")
         for package_info in rule_set.get_packages_info():
             print('\t' + package_info.get('name') + ' (' + os.path.basename(package_info.get('URL')) + ')' )
+    
+    #update rule set map
+    if getattr(options, 'xule_update_rule_set_map', None):
+        xu.update_rule_set_map(cntlr, getattr(options, 'xule_update_rule_set_map'))
+    
+    #replace rule set map
+    if getattr(options, 'xule_replace_rule_set_map', None):
+        xu.update_rule_set_map(cntlr, getattr(options, 'xule_replace_rule_set_map'), overwrite=True)
+    
+    #reset rule set map
+    if getattr(options, 'xule_reset_rule_set_map', False):
+        xu.reset_rule_set_map(cntlr)
     
     if getattr(options, "xule_server", None):
         from .XuleMultiProcessing import run_constant_group, output_message_queue
