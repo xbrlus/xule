@@ -50,15 +50,44 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
         parser.error(_("--xule-cat requires --xule-rule-set"))
     
     cat_commands = options.xule_cat.split()
-
+    rule_set = xr.XuleRuleSet()
+    rule_set.open(options.xule_rule_set, open_packages=False)
+            
     if cat_commands[0] == 'dict':
-        rule_set = xr.XuleRuleSet()
-        rule_set.open(options.xule_rule_set, open_packages=False)
-    
-        for file_info in rule_set.catalog['files']:
-            parse_tree = rule_set.getFile(file_info['file'])
-            pprint.pprint(parse_tree) 
+        display_as_dictionary(cat_commands, rule_set)
+    elif cat_commands[0] == 'cat':
+        display_catalog(rule_set)
 
+def display_as_dictionary(cat_commands, rule_set):
+    files_in = cat_commands[1:]
+    file_numbers = list()
+    all_files = {x['name']: x['file'] for x in rule_set.catalog['files']}
+    for file_name in files_in:
+        try:
+            # see if the file name is an integer
+            if int(file_name) in all_files.values():
+                file_numbers.append(int(file_name))
+            else:
+                print("File number {} is not in the catalog.".format(file_name))
+        except ValueError:
+            # assuming the file_name is the file name
+            for file_info in rule_set.catalog['files']:
+                if file_info['name'] == file_name:
+                    file_numbers.append(file_info['file'])
+                    break
+            else:
+                # file name is not found
+                print("File {} is not in the rule set".format(file_name))
+    
+    for file_info in rule_set.catalog['files']:
+        if (len(files_in) == 0 or file_info['file'] in file_numbers) and len(files_in) == len(file_numbers):
+            parse_tree = rule_set.getFile(file_info['file'])
+            print("File: {} ({})".format(file_info['name'], file_info['file']))
+            pprint.pprint(parse_tree)
+
+def display_catalog(rule_set):
+    pprint.pprint(rule_set.catalog)
+         
 def xuleCmdXbrlLoaded(cntlr, options, modelXbrl, entryPoint=None):   
     pass
 
