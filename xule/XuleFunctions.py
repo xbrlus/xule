@@ -130,24 +130,6 @@ def func_num_to_string(xule_context, *args):
         return xv.XuleValue(xule_context, format(arg.value, ","), 'string')
     else:
         raise XuleProcessingError(_("function 'num_to_string' requires a numeric argument, found '%s'" % arg.type), xule_context)
-
-def func_number(xule_context, *args):
-    arg = args[0]
-    
-    if arg.type in ('int', 'float', 'decimal'):
-        return arg
-    elif arg.type == 'string':
-        try:
-            if '.' in arg.value:
-                return xv.XuleValue(xule_context, decimal.Decimal(arg.value), 'decimal')
-            elif arg.value.lower() in ('inf', '+inf', '-inf'):
-                return xv.XuleValue(xule_context, float(arg.value), 'float')
-            else:
-                return xv.XuleValue(xule_context, int(arg.value), 'int')
-        except Exception:
-            raise XuleProcessingError(_("Cannot convert '%s' to a number" % arg.value), xule_context)
-    else:
-        raise XuleProcessingError(_("Property 'number' requires a string or numeric argument, found '%s'" % arg.type), xule_context)
         
 def func_mod(xule_context, *args):
     numerator = args[0]
@@ -671,7 +653,6 @@ def built_in_functions():
              'time-span': ('regular', func_time_span, 1, False, 'single'),
              'schema-type': ('regular', func_schema_type, 1, False, 'single'),
              'num_to_string': ('regular', func_num_to_string, 1, False, 'single'),
-             'number': ('regular', func_number, 1, False, 'single'),
              'mod': ('regular', func_mod, 2, False, 'single'),
              'extension_concepts': ('regular', func_extension_concept, 0, False, 'single'),             
              'taxonomy': ('regular', func_taxonomy, -1, False, 'single'),

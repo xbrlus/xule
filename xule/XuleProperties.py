@@ -1206,6 +1206,23 @@ def property_stats(xule_context, object_value, stat_function, *args):
     stat_value.facts = object_value.facts
     return stat_value
 
+def property_number(xule_context, object_value, *args):
+
+    if object_value.type in ('int', 'float', 'decimal'):
+        return object_value
+    elif object_value.type == 'string':
+        try:
+            if '.' in object_value.value:
+                return xv.XuleValue(xule_context, decimal.Decimal(object_value.value), 'decimal')
+            elif object_value.value.lower() in ('inf', '+inf', '-inf'):
+                return xv.XuleValue(xule_context, float(object_value.value), 'float')
+            else:
+                return xv.XuleValue(xule_context, int(object_value.value), 'int')
+        except Exception:
+            raise XuleProcessingError(_("Cannot convert '%s' to a number" % object_value.value), xule_context)
+    else:
+        raise XuleProcessingError(_("Property 'number' requires a string or numeric argument, found '%s'" % object_value.type), xule_context)
+        
 def property_type(xule_context, object_value, *args):
     if object_value.is_fact:
         return xv.XuleValue(xule_context, 'fact', 'string')
@@ -1408,9 +1425,10 @@ PROPERTIES = {
               'log10': (property_log10, 0, ('int', 'float', 'decimal'), False),
               'abs': (property_abs, 0, ('int', 'float', 'decimal', 'fact'), False),
               'signum': (property_signum, 0, ('int', 'float', 'decimal', 'fact'), False),
-              'trunc': (property_trunc, -1, ('init', 'float', 'decimal', 'fact'), False),
-              'round': (property_round, 1, ('init', 'float', 'decimal', 'fact'), False),
-              'mod': (property_mod, 1 ,('init', 'float', 'decimal', 'fact'), False),
+              'trunc': (property_trunc, -1, ('int', 'float', 'decimal', 'fact'), False),
+              'round': (property_round, 1, ('int', 'float', 'decimal', 'fact'), False),
+              'mod': (property_mod, 1 ,('int', 'float', 'decimal', 'fact'), False),
+              'number': (property_number, 0, ('int', 'float', 'decimal', 'fact'), False),
               'substring': (property_substring, -2, ('string', 'uri'), False),
               'index-of': (property_index_of, 1, ('string', 'uri'), False),
               'last-index-of': (property_last_index_of, 1, ('string', 'uri'), False),
