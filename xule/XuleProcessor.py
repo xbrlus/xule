@@ -4359,6 +4359,7 @@ def format_trace_info(expr_name, sugar, common_aspects, xule_context):
 
 
 def result_message(rule_ast, result_ast, xule_value, xule_context):
+    validate_result_name(result_ast, xule_context)
     message_context = xule_context.create_message_copy(xule_context.get_processing_id(rule_ast['node_id']))
     message_context.tags['rule-value'] = xule_value
     try:
@@ -4384,118 +4385,11 @@ def result_message(rule_ast, result_ast, xule_value, xule_context):
         #message_string = process_message(message_string, xule_value, xule_context)
         
     return str(message_string)
-    
-# def get_message(rule, xule_value, alignment, xule_context):
-#     if 'message' in rule:
-#         message_value = evaluate(rule.message[0], xule_context)
-#         if message_value.type == 'unbound':
-#             message_string = ""
-#         else:
-#             message_string = message_value.value
-#     else:
-#         message_string = ""
-#     
-#     if message_string == "":
-#         #create a default message
-#         if rule['exprName'] == 'reportDeclaration':
-#                 message_string = "${value} ${context}"
-#         elif rule['exprName'] == 'raiseDeclaration':
-#             if len(xule_context.facts) > 0:
-#                 message_string = "${default_fact.value} ${default_fact.context}${context}"
-#                 xule_context.add_tag('default_fact', XuleValue(xule_context, next(iter(xule_context.facts)), 'fact'))
-#             else:
-#                 message_string = "${value}"
-#         elif rule['exprName'] == 'formulaDeclaration':
-#             message_string = "${left.value} != ${right.value} ${context}"
-#     
-#     return process_message(message_string, xule_value, alignment, xule_context)
 
-# def process_message(message_string, xule_value, xule_context):    
-# 
-#     alignment = xule_context.iteration_table.current_alignment
-# 
-#     common_facts = [tag_value.fact for tag_value in xule_context.tags.values() if tag_value.is_fact]
-#     if not common_facts: #common_facts is empty, no facts are tagged.
-#         common_facts = xule_context.facts
-# 
-#     common_aspects = get_common_aspects(common_facts, xule_context)
-#     
-#     #Check if there is a fact tag that uses the .context. If so and the lineItem is in the common aspects, the line item should be removed from the common aspects
-#     if ('builtin','concept') in common_aspects:
-#         for tag_name, tag_value in xule_context.tags.items():
-#             if tag_value.is_fact or tag_value.type == 'empty_fact':
-#                 tag_context_pattern = '\$\s*{\s*' + tag_name + '\s*\.\s*(?i)context\s*}'
-#                 if re.search(tag_context_pattern, message_string):
-#                     del common_aspects[('builtin','concept')]
-#                     break
-#      
-#     for tag_name, tag_value in xule_context.tags.items():        
-#         replacement_value = tag_value.format_value() or ''
-#         
-#         if tag_value.is_fact: 
-#             message_string = re.sub('\$\s*{\s*' + tag_name + '\s*\.\s*value\s*}', replacement_value, message_string)
-#             message_string = re.sub('\$\s*{\s*' + tag_name + '\s*}', replacement_value, message_string)
-#             
-#             for tag_sub_part in MESSAGE_TAG_SUB_PARTS:
-#                 tag_pattern = '\$\s*{\s*' + tag_name + '\s*\.\s*(?i)' + tag_sub_part[0] + '\s*}'
-#                 if re.search(tag_pattern, message_string) is not None:
-#                     if tag_sub_part[1] == format_alignment:
-#                         message_string = re.sub(tag_pattern, format_alignment(get_uncommon_aspects(tag_value.fact, common_aspects, xule_context), xule_context), message_string)
-#                     else:
-#                         new_value = tag_sub_part[1](xule_context, tag_value)
-#                         message_string = re.sub(tag_pattern, new_value or "", message_string)
-#                         
-#         elif tag_value.type == 'empty_fact':
-#             if alignment is not None and ('builtin', 'concept') in alignment:
-#                     tag_context = format_qname(alignment[('builtin', 'concept')], xule_context)
-#             else:
-#                 tag_context = str(tag_value.value)
-#                 
-#             message_string = re.sub('\$\s*{\s*' + tag_name + '\s*\.\s*value\s*}', 'missing', message_string)
-#             message_string = re.sub('\$\s*{\s*' + tag_name + '\s*}', 'missing', message_string)
-#             message_string = re.sub('\$\s*{\s*' + tag_name + '\s*\.\s*context\s*}', tag_context, message_string)
-#             
-#             for tag_sub_part in MESSAGE_TAG_SUB_PARTS:
-#                 tag_pattern = '\$\s*{\s*' + tag_name + '\s*\.\s*(?i)' + tag_sub_part[0] + '\s*}'
-#                 if re.search(tag_pattern, message_string) is not None:
-#                     message_string = re.sub(tag_pattern, 'missing', message_string)
-# 
-#         else:
-#             message_string = re.sub('\$\s*{\s*' + tag_name + '\s*\.\s*value\s*}', replacement_value, message_string)
-#             message_string = re.sub('\$\s*{\s*' + tag_name + '\s*}', replacement_value, message_string)
-# 
-#     message_string = re.sub('\$\s*{\s*context\s*}', format_alignment(common_aspects, xule_context), message_string)
-#     message_string = re.sub('\$\s*{\s*value\s*}', xule_value.format_value() or '', message_string)
-#     '''ADD TRACE'''
-# #     if xule_context.show_trace:
-# #         message_string = re.sub('\$\s*{\s*trace\s*}', format_trace(xule_context, result, common_aspects), message_string)
-#     message_string = message_string.replace('%', '%%')
-# 
-#     return message_string
-
-# def get_common_aspects(dict_model_facts, xule_context):
-#     
-#     model_facts = list(dict_model_facts)
-#     
-#     if len(model_facts) > 0:
-#         common_aspects = get_all_aspects(model_facts[0], xule_context)
-#     else:
-#         common_aspects = {}    
-#     
-#     for model_fact in model_facts[1:]:
-#         fact_aspects = get_all_aspects(model_fact, xule_context)
-#         for aspect_info, aspect_value in fact_aspects.items():
-#             if aspect_info in common_aspects:
-#                 if aspect_value != common_aspects[aspect_info]:
-#                     del common_aspects[aspect_info]
-#         for missing_aspect in common_aspects.keys() - fact_aspects.keys():
-#             del common_aspects[missing_aspect]
-#         
-#     #remove lineItem
-#     if ('builtin', 'concept') in common_aspects and len(model_facts) > 1:
-#         del common_aspects[('builtin', 'concept')]
-#     
-#     return common_aspects
+def validate_result_name(result, xule_context):
+    if result['resultName'] not in ('message', 'severity', 'rule-suffix'):
+        if not xule_context.rule_set.hasOutputAttribute(result['resultName']):
+            raise XuleProcessingError(_("Rule '{}' uses result name '{}' which does not have an output-attribute declaration.".format(xule_context.rule_name, result['resultName'])))
 
 def get_all_aspects(model_fact, xule_context):
     '''This function gets all the apsects of a fact'''
