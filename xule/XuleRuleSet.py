@@ -345,6 +345,15 @@ class XuleRuleSet(object):
         """         
         return self.getItemByName(name, 'constant')
     
+    def hasOutputAttribute(self, name):
+        """Check if the output attribute exists in the catalog
+        
+        :param name: Name of the output attribute
+        :type name: str
+        :rtype: boolean
+        """
+        return name in self.catalog['output_attributes']
+        
     def getNamespaceUri(self, prefix):
         """Get namespace uri for a prefix from the rule set
         
