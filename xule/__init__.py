@@ -35,6 +35,7 @@ from .XuleConstants import RULE_SET_MAP
 from optparse import OptionParser, SUPPRESS_HELP
 from arelle import FileSource
 from arelle import ModelManager
+from arelle.CntlrWebMain import Options
 import optparse
 import os 
 
@@ -51,9 +52,12 @@ def xuleMenuTools(cntlr, menu):
 
 def xuleCmdOptions(parser):
     # extend command line options to compile rules
-    parserGroup = optparse.OptionGroup(parser,
-                                       "Xule Business rule")
-    parser.add_option_group(parserGroup)
+    if isinstance(parser, Options):
+        parserGroup = parser
+    else:
+        parserGroup = optparse.OptionGroup(parser,
+                                           "Xule Business rule")
+        parser.add_option_group(parserGroup)
     
     parserGroup.add_option("--xule-compile", 
                       action="store", 
