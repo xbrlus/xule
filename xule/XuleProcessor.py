@@ -4359,7 +4359,7 @@ def format_trace_info(expr_name, sugar, common_aspects, xule_context):
 
 
 def result_message(rule_ast, result_ast, xule_value, xule_context):
-    validate_result_name(result_ast, xule_context)
+    #validate_result_name(result_ast, xule_context)
     message_context = xule_context.create_message_copy(xule_context.get_processing_id(rule_ast['node_id']))
     message_context.tags['rule-value'] = xule_value
     try:
