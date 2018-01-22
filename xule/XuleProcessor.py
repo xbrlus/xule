@@ -793,14 +793,23 @@ def evaluate_assertion(assert_rule, xule_context):
                     if 'rule-suffix' in messages:
                         full_rule_name += '.' + messages['rule-suffix']                    
                     
-                    source_location = get_element_identifier(xule_value, xule_context)
                     filing_url = xule_context.model.modelDocument.uri if xule_context.model is not None else ''
+                    # The source_location has been replaced by rule_focus. I think that sourceLocation on the arelle logger was a former way
+                    # of identifying the thing (i.e. fact) that was the focus of the message. This is now handled by rule_focus (modelObject on the logger
+                    # call).
+                    #source_location = get_element_identifier(xule_value, xule_context)
+                    
+                    # The rule_focus is the model object that is the focus fo the rule. This can be a modelFact, modelConcept or modelDocument.
+                    # It is used by the logger to provide additional location information about the thing (i.e. fact) that is the focus of the 
+                    # message fom the rule.
+                    rule_focus = next(iter(xule_context.facts.keys()), None)
              
                     xule_context.global_context.message_queue.log(severity.upper(),
                                                                   full_rule_name, 
                                                                   main_message,
-                                                                  sourceFileLine=source_location,
+                                                                  #sourceFileLine=source_location,
                                                                   filing_url=filing_url,
+                                                                  modelObject=rule_focus,
                                                                   **messages)        
                 else:
                     xule_context.iter_pass_count += 1
@@ -874,14 +883,23 @@ def evaluate_output_rule(output_rule, xule_context):
                 if 'rule-suffix' in messages:
                     full_rule_name += '.' + messages['rule-suffix']
                 
-                source_location = get_element_identifier(xule_value, xule_context)
                 filing_url = xule_context.model.modelDocument.uri if xule_context.model is not None else ''
+                # The source_location has been replaced by rule_focus. I think that sourceLocation on the arelle logger was a former way
+                # of identifying the thing (i.e. fact) that was the focus of the message. This is now handled by rule_focus (modelObject on the logger
+                # call).
+                #source_location = get_element_identifier(xule_value, xule_context)
+                
+                # The rule_focus is the model object that is the focus fo the rule. This can be a modelFact, modelConcept or modelDocument.
+                # It is used by the logger to provide additional location information about the thing (i.e. fact) that is the focus of the 
+                # message fom the rule.
+                rule_focus = next(iter(xule_context.facts.keys()), None)         
          
                 xule_context.global_context.message_queue.log(severity.upper(),
                                                               full_rule_name, 
                                                               main_message,
-                                                              sourceFileLine=source_location,
+                                                              #sourceFileLine=source_location,
                                                               filing_url=filing_url,
+                                                              modelObject=rule_focus,
                                                               **messages)        
             else:
                 xule_context.iter_misaligned_count += 1
