@@ -739,7 +739,7 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
 
                 # Check that the result name is valid. It can be one of 'message' or 'severity' or it must be defined
                 # with an output-attribute
-                if not parse_node['resultName'] in ('message', 'severity', 'rule-suffix'):
+                if not parse_node['resultName'] in ('message', 'severity', 'rule-suffix', 'rule-focus'):
                      if not self.hasOutputAttribute(parse_node['resultName']):
                          raise xr.XuleRuleSetError("In rule {}, the result name '{}' is not defined as an output-attribute.".format(item_name, parse_node['resultName']))
             

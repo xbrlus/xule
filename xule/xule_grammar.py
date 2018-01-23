@@ -640,7 +640,7 @@ def get_grammar():
                          )
     
     ruleResult = Group( ~declarationKeywords +
-                         (CaselessKeyword('message') | CaselessKeyword('severity') | CaselessKeyword('rule-suffix') | simpleName).setResultsName('resultName') + Empty().setParseAction(in_result) +
+                         (CaselessKeyword('message') | CaselessKeyword('severity') | CaselessKeyword('rule-suffix') | CaselessKeyword('rule-focus') | simpleName).setResultsName('resultName') + Empty().setParseAction(in_result) +
                          expr.setResultsName('resultExpr').setParseAction(out_result).setFailAction(out_result) + nodeName('result')
                     )
 

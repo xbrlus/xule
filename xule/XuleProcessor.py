@@ -34,6 +34,7 @@ from arelle.ModelValue import QName, dayTimeDuration, DateTime, gYear, gMonthDay
 from arelle.ModelInstanceObject import ModelFact
 from arelle.ModelRelationshipSet import ModelRelationshipSet
 from arelle.ModelDtsObject import ModelConcept
+from arelle.ModelObject import ModelObject
 import decimal
 import datetime
 import math
@@ -802,8 +803,11 @@ def evaluate_assertion(assert_rule, xule_context):
                     # The rule_focus is the model object that is the focus fo the rule. This can be a modelFact, modelConcept or modelDocument.
                     # It is used by the logger to provide additional location information about the thing (i.e. fact) that is the focus of the 
                     # message fom the rule.
-                    rule_focus = next(iter(xule_context.facts.keys()), None)
-             
+                    
+                    rule_focus = messages.pop('rule-focus', None)
+                    if rule_focus is None:
+                        rule_focus = next(iter(xule_context.facts.keys()), None)
+                    
                     xule_context.global_context.message_queue.log(severity.upper(),
                                                                   full_rule_name, 
                                                                   main_message,
@@ -892,8 +896,10 @@ def evaluate_output_rule(output_rule, xule_context):
                 # The rule_focus is the model object that is the focus fo the rule. This can be a modelFact, modelConcept or modelDocument.
                 # It is used by the logger to provide additional location information about the thing (i.e. fact) that is the focus of the 
                 # message fom the rule.
-                rule_focus = next(iter(xule_context.facts.keys()), None)         
-         
+                rule_focus = messages.pop('rule-focus', None)
+                if rule_focus is None:
+                    rule_focus = next(iter(xule_context.facts.keys()), None)
+                
                 xule_context.global_context.message_queue.log(severity.upper(),
                                                               full_rule_name, 
                                                               main_message,
@@ -4393,19 +4399,29 @@ def result_message(rule_ast, result_ast, xule_value, xule_context):
     finally:
         if hasattr(message_context.global_context.options, 'xule_no_cache'):
             xule_context.global_context.options.xule_no_cache = saved_no_cache   
-                 
-    if message_value.type == 'unbound':
-        message_string = ""
+
+    if result_ast['resultName'] == 'rule-focus':
+        # This is a special case. rule-focus requires some kind of a ModelObject. This will be passed to the logger as the modelObject argument.
+        # Xule will allow a ModelFact or a ModelConcept
+        if message_value.type == 'concept':
+            message = message_value.value
+        elif message_value.is_fact:
+            message = message_value.fact
+        else:
+            raise XuleProcessingError(_("The rule-focus of a rule must be a concept or a fact, found {}".format(message_value.type)), xule_context)
     else:
-        # The log formatter uses % as the format character. Need to escape any % in the message with a  double %
-        message_string = str(message_value.value).replace('%','%%')
-        
-        #message_string = process_message(message_string, xule_value, xule_context)
-        
-    return str(message_string)
+        if message_value.type == 'unbound':
+            message = ""
+        elif message_value.type in ('string', 'uri'):
+            # The log formatter uses % as the format character. Need to escape any % in the message with a  double %
+            message = str(message_value.value).replace('%','%%')
+        else:
+            message = message_value.value
+            
+    return message
 
 def validate_result_name(result, xule_context):
-    if result['resultName'] not in ('message', 'severity', 'rule-suffix'):
+    if result['resultName'] not in ('message', 'severity', 'rule-suffix', 'rule-focus'):
         if not xule_context.rule_set.hasOutputAttribute(result['resultName']):
             raise XuleProcessingError(_("Rule '{}' uses result name '{}' which does not have an output-attribute declaration.".format(xule_context.rule_name, result['resultName'])))
 
