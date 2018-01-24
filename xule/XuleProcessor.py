@@ -775,9 +775,7 @@ def evaluate_assertion(assert_rule, xule_context):
                     messages = dict()
                     # Process each of the results in the rule. The Results are the messages that are produced.
                     for rule_result in assert_rule.get('results', list()):
-                        #message_context = xule_context.create_message_copy(xule_context.get_processing_id(assert_rule['node_id']))
-                        #messages[rule_result['resultName']] = get_message(assert_rule, xule_value, xule_context.iteration_table.current_alignment, message_context)
-                        messages[rule_result['resultName']] = result_message(assert_rule, rule_result, xule_value, xule_context)
+                         messages[rule_result['resultName']] = result_message(assert_rule, rule_result, xule_value, xule_context)
                     
                     #get severity
                     if 'severity' not in messages:
@@ -786,7 +784,7 @@ def evaluate_assertion(assert_rule, xule_context):
                     severity = messages['severity']
                     
                     #message - this is the main message
-                    main_message = messages.get('message', 'No message supplied')
+                    main_message = messages['message'].value if 'message' in messages else XuleString('No message supplied')
                     messages.pop('message', None)
                     
                     full_rule_name = xule_context.rule_name
@@ -808,9 +806,20 @@ def evaluate_assertion(assert_rule, xule_context):
                     if rule_focus is None:
                         rule_focus = next(iter(xule_context.facts.keys()), None)
                     
+                    # Prep the main_message for the logger. The logger wants a %-style format string and the substitutions passed as named arguments.
+                    if isinstance(main_message, XuleString):
+                        format_string_message = main_message.format_string
+                        substitutions = main_message.substitutions
+                    else:
+                        format_string_message = main_message
+                        substitutions = dict()
+                    
+                    #combine the substitutions and the messages dictionary
+                    messages.update(substitutions)
+                    
                     xule_context.global_context.message_queue.log(severity.upper(),
                                                                   full_rule_name, 
-                                                                  main_message,
+                                                                  format_string_message,
                                                                   #sourceFileLine=source_location,
                                                                   filing_url=filing_url,
                                                                   modelObject=rule_focus,
@@ -877,9 +886,12 @@ def evaluate_output_rule(output_rule, xule_context):
                     messages['severity'] = 'info'
                 severity = messages['severity']            
                 #message - this is the main message
-                #main_message = messages.get('message', xule_value.format_value())
-                #main_message = messages.get('message', process_message("${value} ${context}", xule_value, xule_context))
-                main_message = messages.get('message', xule_value.format_value())
+                main_message = messages.get('message', xule_value)
+                if main_message.type == 'string':
+                    main_message = main_message.value
+                else:
+                    main_message = main_message.format_value()
+
                 messages.pop('message', None)
                 
                 full_rule_name = xule_context.rule_name
@@ -899,10 +911,21 @@ def evaluate_output_rule(output_rule, xule_context):
                 rule_focus = messages.pop('rule-focus', None)
                 if rule_focus is None:
                     rule_focus = next(iter(xule_context.facts.keys()), None)
+
+                # Prep the main_message for the logger. The logger wants a %-style format string and the substitutions passed as named arguments.
+                if isinstance(main_message, XuleString):
+                    format_string_message = main_message.format_string
+                    substitutions = main_message.substitutions
+                else:
+                    format_string_message = main_message
+                    substitutions = dict()
+                
+                #combine the substitutions and the messages dictionary
+                messages.update(substitutions)
                 
                 xule_context.global_context.message_queue.log(severity.upper(),
                                                               full_rule_name, 
-                                                              main_message,
+                                                              format_string_message,
                                                               #sourceFileLine=source_location,
                                                               filing_url=filing_url,
                                                               modelObject=rule_focus,
@@ -951,7 +974,7 @@ def evaluate_string_literal(literal, xule_context):
     
             "The value of the rule is {$rule-value}.\nThis is based on the fact value {$fact}.".
     
-    I this example the literal would be a list of:
+    In this example the literal would be a list of:
         * string of characters: "The value of the rule is "
         * an expression: $rule-value
         * string of characters: "."
@@ -962,24 +985,35 @@ def evaluate_string_literal(literal, xule_context):
     
     This evaluator will evaluate all the components of the string literal and concatenate them to a string.
     """
-    result_string = ''
+    #result_string = ''
+    # The underlying value for the XuleValue that is created from this evaluator is a XuleString. A XuleString is subclassed
+    # from a python str. A XuleString stores a format string along with the subsitutions. It will create the formatted string and set that
+    # as the value of the XuleSting. This way it will act and feel like a python string but will contain the original format string and
+    # subsitutiions. Having the format string and substitutions separate is usefuly when logging messages to arelle.
+    format_string = ''
+    substitutions = []
+    sub_num = 0
     
     for string_item in literal['stringList']:
         if string_item['exprName'] == 'baseString':
-            result_string += string_item['value']
+            format_string += string_item['value']
         elif string_item['exprName'] == 'escape':
             if string_item['value'] == 'n':
-               result_string += '\n'
+               format_string += '\n'
             elif string_item['value'] == 't':
-                result_string += '\t'
+                format_string += '\t'
             else:
-                result_string += string_item['value']
+                format_string += string_item['value']
         else:
             # This is an expression.
             expr_value = evaluate(string_item, xule_context)
-            result_string += expr_value.format_value()
-        
-    return XuleValue(xule_context, result_string, 'string')
+            # The result of the expression is not directly put in the format string. Instead a substitution is used
+            sub_name = 'sub{}'.format(sub_num)
+            sub_num += 1
+            # Substitutions is a list of a 3 part tuple 0=location in format string, 1=substitution name, 2=substitution value
+            substitutions.append((len(format_string), sub_name, expr_value.format_value()))
+
+    return XuleValue(xule_context, XuleString(format_string, substitutions), 'string')
 
 def evaluate_int_literal(literal, xule_context):
     """Evaluator for literal integer expressions
@@ -4409,12 +4443,14 @@ def result_message(rule_ast, result_ast, xule_value, xule_context):
             message = message_value.fact
         else:
             raise XuleProcessingError(_("The rule-focus of a rule must be a concept or a fact, found {}".format(message_value.type)), xule_context)
+    elif result_ast['resultName'] == 'message':
+        if message_value.type == 'unbound':
+            message = XuleValue(xule_context, '', 'string')
+        else:
+            message = message_value
     else:
         if message_value.type == 'unbound':
-            message = ""
-        elif message_value.type in ('string', 'uri'):
-            # The log formatter uses % as the format character. Need to escape any % in the message with a  double %
-            message = str(message_value.value).replace('%','%%')
+            message = ''
         else:
             message = message_value.value
             

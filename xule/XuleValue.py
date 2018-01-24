@@ -35,6 +35,7 @@ from aniso8601.__init__ import parse_duration, parse_datetime, parse_date
 import collections
 import copy
 import pprint
+import re
 
 class XuleValueSet:
     def __init__(self, values=None):
@@ -67,6 +68,10 @@ class XuleValueSet:
         
 class XuleValue:
     def __init__(self, xule_context, orig_value, orig_type, alignment=None, from_model=False, shadow_collection=None, tag=None):
+        #convert all python strings to XuleString.
+        if isinstance(orig_value, str):
+            orig_value = XuleString(orig_value)
+        
         xule_type, xule_value, fact = self._get_type_and_value(xule_context, orig_value, orig_type)
         
         #self.xule_context = xule_context
@@ -578,6 +583,60 @@ The latter categories do not reference documentation but are indicated in the li
                     'http://www.xbrl.org/2003/role/exampleRef':'Reference to documentation that illustrates by example the application of the Concept that assists in determining appropriate usage.',
                     'http://www.xbrl.org/2003/role/footnote':'Standard footnote role'
 }
+    
+class XuleString(str):
+    """Xule string
+    
+    A string literal in xule can contain a combination of 3 components: a string of character, and escape character or an expression.
+    A xule string will keep track of the expression components and create a format string, with the expression components as substitutions.
+    It will also provide a dictionary of the substitutions and their values.
+    """
+    def __new__(cls, format_string, substitutions=None):
+        """Constructor
+        
+        :param format_string: The format string
+        :type format_string: str
+        :param substitutions: List of 3 part tuples: 0=location in format string, 1=substitution name, 2=substitution value
+        :type substituions: list
+        :returns: Formatted string
+        :rtype: str
+        
+        The constructor will save the formatted string as the underlying string
+        """
+
+        # The format string is not a real python format string. It is a string without the substitutions in it.
+        # The substitutions is a list of 3 part tuples: 0=location in format string, 1=substitution name, 2=substitution value.
+        # The substitutions are applied to the format string to create a real python %-style format string.
+        
+        # Find all the '%' signs in the string. Thees wil need to be escaped.
+        percent_locations = [m.start() for m in re.finditer('%', format_string)]
+        sub_locations = {x[0]:(x[1], x[2]) for x in substitutions or []}
+        for i in sorted(percent_locations + list(sub_locations.keys()), reverse=True):
+            if i in percent_locations:
+                format_string = format_string[:i] + '%' + format_string[i:]
+            else:
+                # i must be in sub_locations
+                format_string = format_string[:i] + '%({})s'.format(sub_locations[i][0]) + format_string[i:]
+        
+        format_subs = {x[1]:x[2] for x in substitutions or []}
+        
+        string_inst = super().__new__(cls, format_string % format_subs)
+        
+        if len(format_subs) == 0 and len(percent_locations) == 0:
+            # In this case the format string is already stored as the base class string. There is no need to duplicate it in the
+            # _format_string.
+            string_inst._format_string = None
+        else:
+            string_inst._format_string = format_string
+        string_inst.substitutions = format_subs
+        
+        return string_inst
+    
+    
+    @property
+    def format_string(self):
+        return self._format_string or self
+    
 class XuleUnit:
     def __init__(self, *args):
         if len(args) == 1:
