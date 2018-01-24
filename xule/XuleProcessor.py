@@ -819,7 +819,7 @@ def evaluate_assertion(assert_rule, xule_context):
                     
                     xule_context.global_context.message_queue.log(severity.upper(),
                                                                   full_rule_name, 
-                                                                  format_string_message,
+                                                                  _(format_string_message),
                                                                   #sourceFileLine=source_location,
                                                                   filing_url=filing_url,
                                                                   modelObject=rule_focus,
@@ -925,7 +925,7 @@ def evaluate_output_rule(output_rule, xule_context):
                 
                 xule_context.global_context.message_queue.log(severity.upper(),
                                                               full_rule_name, 
-                                                              format_string_message,
+                                                              _(format_string_message),
                                                               #sourceFileLine=source_location,
                                                               filing_url=filing_url,
                                                               modelObject=rule_focus,
@@ -4452,7 +4452,7 @@ def result_message(rule_ast, result_ast, xule_value, xule_context):
         if message_value.type == 'unbound':
             message = ''
         else:
-            message = message_value.value
+            message = str(message_value.value)
             
     return message
 
