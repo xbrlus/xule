@@ -92,7 +92,8 @@ class XuleMessageQueue():
             # arelle logging. In order to send something on the queue, it must be pickleable. Arelle objects based on lxml
             # are not pickleable. So in this case, instead of sending a modelObject the sourceFileLine is sent.   
             if 'modelObject' in args:
-                args['sourceFileLine'] = xu.get_element_identifier(args['modelObject'])
+                if args['modelObject'] is not None:
+                    args['sourceFileLine'] = xu.get_element_identifier(args['modelObject'])
                 args.pop('modelObject', None)
             self._queue.put((level, codes, msg, args))
         else:
