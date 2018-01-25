@@ -27,6 +27,7 @@ DOCSKIP
 """
 from .XuleRunTime import XuleProcessingError
 from .XuleValue import XuleValue, XuleValueSet
+from . import XuleUtility as xu
 from arelle import FileSource
 from arelle import ModelManager
 from queue import Queue
@@ -86,6 +87,13 @@ class XuleMessageQueue():
     
     def log(self, level, codes, msg, **args):
         if self._multi and self._queue is not None:
+            # In multi processing mode, the log() call does not call the arelle logger but instead puts the arguments
+            # on a queue. The process listening on the other end of the queue pulls the arguments off and does the 
+            # arelle logging. In order to send something on the queue, it must be pickleable. Arelle objects based on lxml
+            # are not pickleable. So in this case, instead of sending a modelObject the sourceFileLine is sent.   
+            if 'modelObject' in args:
+                args['sourceFileLine'] = xu.get_element_identifier(args['modelObject'])
+                args.pop('modelObject', None)
             self._queue.put((level, codes, msg, args))
         else:
             self.output(level, codes, msg, **args)

@@ -793,11 +793,6 @@ def evaluate_assertion(assert_rule, xule_context):
                         full_rule_name += '.' + messages['rule-suffix']                    
                     
                     filing_url = xule_context.model.modelDocument.uri if xule_context.model is not None else ''
-                    # The source_location has been replaced by rule_focus. I think that sourceLocation on the arelle logger was a former way
-                    # of identifying the thing (i.e. fact) that was the focus of the message. This is now handled by rule_focus (modelObject on the logger
-                    # call).
-                    #source_location = get_element_identifier(xule_value, xule_context)
-                    
                     # The rule_focus is the model object that is the focus fo the rule. This can be a modelFact, modelConcept or modelDocument.
                     # It is used by the logger to provide additional location information about the thing (i.e. fact) that is the focus of the 
                     # message fom the rule.
@@ -817,21 +812,12 @@ def evaluate_assertion(assert_rule, xule_context):
                     #combine the substitutions and the messages dictionary
                     messages.update(substitutions)
 
-                    # In multi processing mode, the log() call does not call the arelle logger but instead puts the arguments
-                    # on a queue. The process listening on the other end of the queue pulls the arguments off and does the 
-                    # arelle logging. In order to send something on the queue, it must be pickleable. Arelle objects based on lxml
-                    # are not pickleable. So in this case, instead of sending a modelObject the sourceFileLine is sent.
-                    if getattr(global_context.options, "xule_multi", True):
-                        messages['sourceFileLine'] = get_element_identifier(xule_value, xule_context)
-                    else:
-                        messages['modelObject'] = rule_focus
-
                     xule_context.global_context.message_queue.log(severity.upper(),
                                                                   full_rule_name,
                                                                   _(format_string_message),
                                                                   #sourceFileLine=source_location,
                                                                   filing_url=filing_url,
-                                                                  #modelObject=rule_focus,
+                                                                  modelObject=rule_focus,
                                                                   **messages)
       
                 else:
@@ -910,11 +896,6 @@ def evaluate_output_rule(output_rule, xule_context):
                     full_rule_name += '.' + messages['rule-suffix']
                 
                 filing_url = xule_context.model.modelDocument.uri if xule_context.model is not None else ''
-                # The source_location has been replaced by rule_focus. I think that sourceLocation on the arelle logger was a former way
-                # of identifying the thing (i.e. fact) that was the focus of the message. This is now handled by rule_focus (modelObject on the logger
-                # call).
-                #source_location = get_element_identifier(xule_value, xule_context)
-                
                 # The rule_focus is the model object that is the focus fo the rule. This can be a modelFact, modelConcept or modelDocument.
                 # It is used by the logger to provide additional location information about the thing (i.e. fact) that is the focus of the 
                 # message fom the rule.
@@ -933,21 +914,12 @@ def evaluate_output_rule(output_rule, xule_context):
                 #combine the substitutions and the messages dictionary
                 messages.update(substitutions)
 
-                # In multi processing mode, the log() call does not call the arelle logger but instead puts the arguments
-                # on a queue. The process listening on the other end of the queue pulls the arguments off and does the 
-                # arelle logging. In order to send something on the queue, it must be pickleable. Arelle objects based on lxml
-                # are not pickleable. So in this case, instead of sending a modelObject the sourceFileLine is sent.
-                if getattr(global_context.options, "xule_multi", True):
-                    messages['sourceFileLine'] = get_element_identifier(xule_value, xule_context)
-                else:
-                    messages['modelObject'] = rule_focus
-            
                 xule_context.global_context.message_queue.log(severity.upper(),
                                                               full_rule_name, 
                                                               _(format_string_message),
                                                               #sourceFileLine=source_location,
                                                               filing_url=filing_url,
-                                                              #modelObject=rule_focus,
+                                                              modelObject=rule_focus,
                                                               **messages)        
             else:
                 xule_context.iter_misaligned_count += 1
@@ -4670,35 +4642,6 @@ MESSAGE_TAG_SUB_PARTS = (('context', format_alignment),
                               ('dimensions', format_fact_dimensions)
                               )
     
-def get_element_identifier(xule_value, xule_context):
-    if len(xule_context.facts) > 0:
-        model_fact = list(xule_context.facts)[0]
-        
-        if model_fact.id is not None:
-            return (model_fact.modelDocument.uri + "#" + model_fact.id, model_fact.sourceline)
-        else:
-            #need to build the element scheme
-            location = get_tree_location(model_fact)
-            return (model_fact.modelDocument.uri + "#element(" + location + ")", model_fact.sourceline)
-            
-def get_tree_location(model_fact):
-    
-    parent = model_fact.getparent()
-    if parent is None:
-        return "/1"
-    else:
-        prev_location = get_tree_location(parent)
-        return prev_location + "/" + str(parent.index(model_fact) + 1)
-    
-#     if hasattr(model_fact.parentElement, '_elementSequence'):
-#         prev_location = get_tree_location(model_fact.parentElement)
-#     else:
-#         prev_location = "/1"
-#     
-#     return "abc"
-#     return prev_location + "/" + str(model_fact._elementSequence)
-
-
 def write_trace_count_string(trace_count_file, rule_name, traces, rule_part, total_iterations, total_time):
     display_string = display_trace_count(traces, rule_part, total_iterations, total_time)
 
