@@ -816,14 +816,24 @@ def evaluate_assertion(assert_rule, xule_context):
                     
                     #combine the substitutions and the messages dictionary
                     messages.update(substitutions)
-                    
+
+                    # In multi processing mode, the log() call does not call the arelle logger but instead puts the arguments
+                    # on a queue. The process listening on the other end of the queue pulls the arguments off and does the 
+                    # arelle logging. In order to send something on the queue, it must be pickleable. Arelle objects based on lxml
+                    # are not pickleable. So in this case, instead of sending a modelObject the sourceFileLine is sent.
+                    if getattr(global_context.options, "xule_multi", True):
+                        messages['sourceFileLine'] = get_element_identifier(xule_value, xule_context)
+                    else:
+                        messages['modelObject'] = rule_focus
+
                     xule_context.global_context.message_queue.log(severity.upper(),
-                                                                  full_rule_name, 
+                                                                  full_rule_name,
                                                                   _(format_string_message),
                                                                   #sourceFileLine=source_location,
                                                                   filing_url=filing_url,
-                                                                  modelObject=rule_focus,
-                                                                  **messages)        
+                                                                  #modelObject=rule_focus,
+                                                                  **messages)
+      
                 else:
                     xule_context.iter_pass_count += 1
             else:
@@ -922,13 +932,22 @@ def evaluate_output_rule(output_rule, xule_context):
                 
                 #combine the substitutions and the messages dictionary
                 messages.update(substitutions)
-                
+
+                # In multi processing mode, the log() call does not call the arelle logger but instead puts the arguments
+                # on a queue. The process listening on the other end of the queue pulls the arguments off and does the 
+                # arelle logging. In order to send something on the queue, it must be pickleable. Arelle objects based on lxml
+                # are not pickleable. So in this case, instead of sending a modelObject the sourceFileLine is sent.
+                if getattr(global_context.options, "xule_multi", True):
+                    messages['sourceFileLine'] = get_element_identifier(xule_value, xule_context)
+                else:
+                    messages['modelObject'] = rule_focus
+            
                 xule_context.global_context.message_queue.log(severity.upper(),
                                                               full_rule_name, 
                                                               _(format_string_message),
                                                               #sourceFileLine=source_location,
                                                               filing_url=filing_url,
-                                                              modelObject=rule_focus,
+                                                              #modelObject=rule_focus,
                                                               **messages)        
             else:
                 xule_context.iter_misaligned_count += 1
