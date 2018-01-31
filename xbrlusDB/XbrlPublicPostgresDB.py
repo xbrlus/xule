@@ -2090,6 +2090,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                                              'period_end': c.endDatetime if c.isStartEndPeriod else None,
                                              'period_instant': c.instantDatetime if c.isInstantPeriod else None,
                                              'specifies_dimensions': bool(c.qnameDims),
+                                             'dimension_count': len(c.qnameDims),
                                              'entity_scheme': c.entityIdentifier[0],
                                              'entity_identifier': c.entityIdentifier[1],
                                              'fiscal_year': fiscalYear,
@@ -2120,7 +2121,8 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         table = self.getTable('context', 'context_id', 
                               ('accession_id', 'period_start', 'period_end', 'period_instant', 'specifies_dimensions', 'context_xml_id', 
                                'entity_scheme', 'entity_identifier','context_hash',
-                               'fiscal_year', 'fiscal_period', 'calendar_year', 'calendar_period', 'calendar_start_offset', 'calendar_end_offset', 'calendar_period_size_diff_percentage'), 
+                               'fiscal_year', 'fiscal_period', 'calendar_year', 'calendar_period', 'calendar_start_offset', 'calendar_end_offset',
+                               'calendar_period_size_diff_percentage', 'dimension_count'), 
                               ('accession_id', 'context_xml_id'), 
                               tuple((c_key[0],
                                      c_val['period_start'],
@@ -2138,49 +2140,18 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                                      c_val['calendar_start_offset'],
                                      c_val['calendar_end_offset'],
                                      c_val['calendar_period_size_diff_percentage'],
+                                     c_val['dimension_count'],
                                      )
                                     for c_key, c_val in self.cntxInfo.items()))
         self.cntxId = dict(((_accsId, xmlId), id)
                            for id, _accsId, xmlId in table)
         self.reportTime('context')
-        '''
-        self.cntxInfo = dict()
-        for c in self.modelXbrl.contexts.values():
-            calendarValues = self.calendarYearAndPeriod(c)
-            self.cntxInfo[(accsId, c.id)] = {'fiscal_year': self.fiscalYear(c),
-                                             'fiscal_period': self.fiscalPeriod(c),
-                                             'period_hash': self.hashPeriod(c),
-                                             'dim_hash': self.hashDimensions(c),
-                                             'calendar_period_hash': self.hashCalendarPeriod(c, calendarValues[0], calendarValues[1]),
-                                             'calendar_year': calendarValues[0],
-                                             'calendar_period': calendarValues[1],
-                                             'calendar_start_offset': calendarValues[2],
-                                             'calendar_end_offset': calendarValues[3],
-                                             'calendar_size_percentage': calendarValues[4]                                             
-                                             }
-        '''
-        '''
-        # context_aug
-        table = self.getTable('context_aug', 'context_id',
-                              ('context_id', 'fiscal_year', 'fiscal_period', #'context_hash', 'dimension_hash', 
-                               'calendar_year', 'calendar_period', 'calendar_start_offset', 'calendar_end_offset', 'calendar_period_size_diff_percentage'),
-                              ('context_id',),
-                              tuple((self.cntxId[c_key],
-                                     c_val['fiscal_year'],
-                                     c_val['fiscal_period'],
-                                     #c_val['period_hash'],
-                                     #c_val['dim_hash'],
-                                     c_val['calendar_year'],
-                                     c_val['calendar_period'],
-                                     c_val['calendar_start_offset'],
-                                     c_val['calendar_end_offset'],
-                                     c_val['calendar_period_size_diff_percentage'])
-                                    for c_key, c_val in self.cntxInfo.items()))
-        '''
+
         # context_dimension
         values = []
         explicitValues = []
         for cntx in self.modelXbrl.contexts.values():
+            # Explicitly included dimensions on the context
             for dim in cntx.qnameDims.values():
                 values.append((self.cntxId[(accsId,cntx.id)],
                                self.getQnameId(dim.dimensionQname),
@@ -2188,14 +2159,13 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                                self.getQnameId(dim.typedMember.qname) if dim.isTyped else None,
                                False, # not default
                                dim.contextElement == "segment",
-                               self.canonicalizeTypedDimensionMember(dim.typedMember) if dim.isTyped else None))
-#                 explicitValues.append((self.cntxId[(accsId,cntx.id)],
-#                                self.getQnameId(dim.dimensionQname),
-#                                self.getQnameId(dim.memberQname), # may be None
-#                                self.getQnameId(dim.typedMember.qname) if dim.isTyped else None,
-#                                False, # not default
-#                                dim.contextElement == "segment",
-#                                dim.typedMember.stringValue if dim.isTyped else None))
+                               self.canonicalizeTypedDimensionMember(dim.typedMember) if dim.isTyped else None,
+                               dim.dimensionQname.namespaceURI,
+                               dim.dimensionQname.localName,
+                               dim.memberQname.namespaceURI if dim.memberQname is not None else None,
+                               dim.memberQname.localName if dim.memberQname is not None else None
+                               ))
+            # Defaulted dimension values
             for dimQname, memQname in self.modelXbrl.qnameDimensionDefaults.items():
                 if dimQname not in cntx.qnameDims:
                     values.append((self.cntxId[(accsId,cntx.id)],
@@ -2204,11 +2174,16 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                                    None,
                                    True, # is default
                                    None, # ambiguous and irrelevant for the XDT model
-                                   None))
+                                   None,
+                                   dimQname.namespaceURI,
+                                   dimQname.localName,
+                                   memQname.namespaceURI,
+                                   memQname.localName))
         
         if values:
             table = self.getTable('context_dimension', 'context_dimension_id', 
-                                  ('context_id', 'dimension_qname_id', 'member_qname_id', 'typed_qname_id', 'is_default', 'is_segment', 'typed_text_content'), 
+                                  ('context_id', 'dimension_qname_id', 'member_qname_id', 'typed_qname_id', 'is_default', 'is_segment', 'typed_text_content',
+                                   'dimension_namespace', 'dimension_local_name', 'member_namespace', 'member_local_name'), 
                                   ('context_id', 'dimension_qname_id', 'member_qname_id'), # shouldn't typed_qname_id be here?  not good idea because it's not indexed in XBRL-US DDL
                                   values)
             
@@ -2216,10 +2191,12 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         for i, val in enumerate(values):
             if not val[4]:
                 explicitValues.append((table[i][0],) + val)
-                
+        
+        # Copy the explicitly included dimensions only.
         if explicitValues:
             table = self.getTable('context_dimension_explicit', 'context_dimension_id', 
-                                  ('context_dimension_id', 'context_id', 'dimension_qname_id', 'member_qname_id', 'typed_qname_id', 'is_default', 'is_segment', 'typed_text_content'), 
+                                  ('context_dimension_id', 'context_id', 'dimension_qname_id', 'member_qname_id', 'typed_qname_id', 'is_default', 'is_segment', 'typed_text_content',
+                                   'dimension_namespace', 'dimension_local_name', 'member_namespace', 'member_local_name'), 
                                   ('context_id', 'dimension_qname_id', 'member_qname_id'), # shouldn't typed_qname_id be here?  not good idea because it's not indexed in XBRL-US DDL
                                   explicitValues)
         self.reportTime('context dimension explicit')
@@ -2419,60 +2396,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         
 #         self.reportTime()
         self.execute(hashQuery, fetch=False)
-#         self.reportTime('biq query run')
-        
-#         
-#         
-#         t = datetime.timedelta()
-#         pt = datetime.timedelta()
-#         c = 0
-#         for hashString, factIds in factsByHash.items():
-#             c += 1
-#             #get facts to update
-#             hashQuery = '''
-#                 SELECT f.fact_id, {indexName} as hash_index
-#                 FROM report r
-#                 JOIN fact f
-#                   ON r.report_id = f.accession_id
-#                 {contextAugJoin}
-#                 WHERE f.{hashName} = decode('{hash}', 'hex')
-#                 ORDER BY {orderBy};
-#                 '''.format(indexName=indexName, contextAugJoin=contextAugJoin, hashName=hashName, hash=hashlib.sha224(hashString.encode()).hexdigest(), orderBy=orderBy)
-#             
-#             s = datetime.datetime.now()
-#             results = self.execute(hashQuery)
-#             e = datetime.datetime.now()
-#             t += e - s
-#             if (c % 100) == 0:
-#                 phours, premainder = divmod((t - pt).total_seconds(), 3600)
-#                 pminutes, pseconds = divmod(premainder, 60)
-#                 thours, tremainder = divmod(t.total_seconds(), 3600)
-#                 tminutes, tseconds = divmod(tremainder, 60)
-#                 self.modelXbrl.info("info",_("count: %(c)s - 100: %(pt)s - total: %(t)s"),
-#                                               c=str(c),
-#                                               pt='%02.0f:%02.0f:%02.4f' % (phours, pminutes, pseconds),
-#                                               t='%02.0f:%02.0f:%02.4f' % (thours, tminutes, tseconds))  
-#                 pt = t
-#             new_ultimus = 1
-#             for row in results:
-#                 if row[1] != new_ultimus:
-#                     updateFacts.append((row[0], new_ultimus))
-# #                     #update the values for fact_aug
-# #                     if row[0] in self.factsForFactAug:
-# #                         self.factsForFactAug[row[0]][indexName] = new_ultimus
-#                 new_ultimus += 1
-#                 
-#                 
-#         thours, tremainder = divmod(t.total_seconds(), 3600)
-#         tminutes, tseconds = divmod(tremainder, 60)
-#         self.modelXbrl.info("info",_("final count: %(c)s - total: %(t)s"),
-#                                       c=str(c),
-#                                       t='%02.0f:%02.0f:%02.4f' % (thours, tminutes, tseconds)) 
-#                 
-#         self.reportTime('calc ultimus')
-#         self.updateTable('fact',('fact_id', indexName), updateFacts)
-#         #self.updateTable('fact_aug',('fact_id', indexName), updateFacts)
-#         self.reportTime('update ultimus')
+
         
     def isExtendedFact(self, fact):
         '''
@@ -2484,14 +2408,6 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         if fact.isTuple:
             dimension_extended = False
         else:
-#             dimension_extended = (any(not self.namespaceId.get(fact.context.qnameDims[dim].dimensionQname.namespaceURI).get("isBase") or                                  
-#                                       not (
-#                                            self.namespaceId.get(fact.context.qnameDims[dim].memberQname.namespaceURI).get("isBase") if fact.context.qnameDims[dim].isExplicit 
-#                                            else 
-#                                            self.namespaceId.get(fact.context.qnameDims[dim].typedMember.qname.namespaceURI).get("isBase")
-#                                            )
-#                                       for dim in fact.context.qnameDims.keys()
-#                                   ))
             dimension_extended = (any(not self.isBaseNamespace(fact.context.qnameDims[dim].dimensionQname.namespaceURI) or                                  
                                       not (
                                            self.isBaseNamespace(fact.context.qnameDims[dim].memberQname.namespaceURI) if fact.context.qnameDims[dim].isExplicit 
@@ -2578,7 +2494,11 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                  'calendar_hash': calendarHash,
                  'calendar_hash_string': calendarHashString,
                  'is_extended': self.isExtendedFact(fact),
-                 'is_tuple': fact.isTuple
+                 'is_tuple': fact.isTuple,
+                 'entity_id': self.entityId,
+                 'element_namespace': fact.concept.qname.namespaceURI,
+                 'element_local_name': fact.concept.qname.localName,
+                 'dimension_count': self.cntxInfo.get((self.accessionId,fact.contextID))['dimension_count']
                  }
 
         table = self.getTable('fact', 'fact_id', 
@@ -2587,14 +2507,14 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                                'is_precision_infinity', 'is_decimals_infinity','uom', 
                                'fiscal_year', 'fiscal_period', 'fiscal_hash', 'fact_hash',
                                'calendar_year', 'calendar_period', 'calendar_hash', 
-                               'is_extended'), 
+                               'is_extended', 'entity_id', 'element_namespace', 'element_local_name', 'dimension_count'), 
                               ('accession_id', 'xml_id', 'uom', 'is_extended'),
                               tuple((f['accession_id'], f['tuple_fact_id'], f['context_id'], f['unit_id'], f['unit_base_id'], f['element_id'], f['effective_value'], f['fact_value'], 
                                f['xml_id'], f['precision_value'], f['decimals_value'], 
                                f['is_precision_infinity'], f['is_decimals_infinity'], f['uom'], 
                                f['fiscal_year'], f['fiscal_period'], f['fiscal_hash'], f['fact_hash'],
                                f['calendar_year'], f['calendar_period'], f['calendar_hash'], 
-                               f['is_extended'])
+                               f['is_extended'], f['entity_id'], f['element_namespace'], f['element_local_name'], f['dimension_count'])
                               for f in insertForFact.values()))
         
         for id, _accsId, xmlId, uom, isExtended in table:
