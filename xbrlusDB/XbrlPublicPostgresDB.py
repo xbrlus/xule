@@ -2182,11 +2182,10 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         
         if values:
             table = self.getTable('context_dimension', 'context_dimension_id', 
-                                  ('context_id', 'dimension_qname_id', 'member_qname_id', 'typed_qname_id', 'is_default', 'is_segment', 'typed_text_content',
-                                   'dimension_namespace', 'dimension_local_name', 'member_namespace', 'member_local_name'), 
+                                  ('context_id', 'dimension_qname_id', 'member_qname_id', 'typed_qname_id', 'is_default', 'is_segment', 'typed_text_content'), 
                                   ('context_id', 'dimension_qname_id', 'member_qname_id'), # shouldn't typed_qname_id be here?  not good idea because it's not indexed in XBRL-US DDL
-                                  values)
-            
+                                  (x[:7] for x in values)) # Only take the first seven items in each row of values. This will exclude the dimension/member namespace and local_name
+
         self.reportTime('context dimension')
         for i, val in enumerate(values):
             if not val[4]:
