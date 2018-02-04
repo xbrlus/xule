@@ -33,6 +33,7 @@ from arelle.ModelDocument import Type
 import decimal
 import math
 import collections
+import json
 
 def property_union(xule_context, object_value, *args):
     other_set = args[0]
@@ -70,7 +71,7 @@ def property_length(xule_context, object_value, *args):
         return xv.XuleValue(xule_context, len(object_value.value), 'int')
 
 def property_to_list(xule_context, object_value, *args):
-    # The input set is sorted so that two sets that ocntain the same items will produce identical lists. Because python sets are un ordered, there
+    # The input set is sorted so that two sets that contain the same items will produce identical lists. Because python sets are un ordered, there
     # is no guarentee that the two sets will iterate in the same order.
     def set_sort(item):
         return item.value
@@ -88,6 +89,16 @@ def property_to_set(xule_context, object_value, *args):
         return xv.XuleValue(xule_context, frozenset(result), 'set', shadow_collection=frozenset(shadow))
     else: #list or set
         return XuleFunctions.agg_set(xule_context, object_value.value)
+
+def property_to_json(xule_context, object_value, *args):
+    if object_value.type == 'dictionary':
+        unfrozen = dict(object_value.shadow_collection)
+    elif object_value.type == 'set':
+        unfrozen = tuple(object_value.shadow_collection)
+    else:
+        unfrozen = object_value.shadow_collection
+    
+    return xv.XuleValue(xule_context, json.dumps(unfrozen), 'string')
 
 def property_join(xule_context, object_value, *args):
     if object_value.type in ('list', 'set'):
@@ -1353,7 +1364,8 @@ PROPERTIES = {
               'contains': (property_contains, 1, ('set', 'list', 'string', 'uri'), False),
               'length': (property_length, 0, ('string', 'uri', 'set', 'list', 'dictionary'), False),
               'to-list': (property_to_list, 0, ('list', 'set'), False),
-              'to-set': (property_to_set, 0, ('list', 'set', 'dictionary'), False),              
+              'to-set': (property_to_set, 0, ('list', 'set', 'dictionary'), False),   
+              'to-json': (property_to_json, 0, ('list', 'set', 'dictionary'), False),           
               'join': (property_join, -2, ('list', 'set', 'dictionary'), False),
               'sort': (property_sort, 0, ('list', 'set'), False),
               'keys': (property_keys, -1, ('dictionary',), False),
