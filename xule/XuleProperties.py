@@ -523,17 +523,17 @@ def property_balance(xule_context, object_value, *args):
 
 def property_base_type(xule_context, object_value, *args):
     if object_value.is_fact:
-        return xv.XuleValue(xule_context, object_value.fact.concept.baseXbrliTypeQname, 'type')
+        return xv.XuleValue(xule_context, object_value.fact.concept.baseXbrliTypeQname, 'qname')
     elif object_value.type == 'concept':
-        return xv.XuleValue(xule_context, object_value.value.baseXbrliTypeQname, 'type')
+        return xv.XuleValue(xule_context, object_value.value.baseXbrliTypeQname, 'qname')
     else: #none value
         return object_value
  
 def property_data_type(xule_context, object_value, *args):
     if object_value.is_fact:
-        return xv.XuleValue(xule_context, object_value.fact.concept.typeQname, 'type')
+        return xv.XuleValue(xule_context, object_value.fact.concept.typeQname, 'qname')
     elif object_value.type == 'concept':
-        return xv.XuleValue(xule_context, object_value.value.typeQname, 'type')
+        return xv.XuleValue(xule_context, object_value.value.typeQname, 'qname')
     else: #none value
         return object_value
     
