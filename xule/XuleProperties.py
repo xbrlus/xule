@@ -966,7 +966,7 @@ def property_index_of(xule_context, object_value, *args):
     else:
         raise XuleProcessingError(_("The argument for property 'index-of' must be castable to a 'string', found '%s'" % arg_result.type), xule_context)
      
-    return xv.XuleValue(xule_context, xv.cast_value.find(index_string) + 1, 'int')
+    return xv.XuleValue(xule_context, cast_value.find(index_string) + 1, 'int')
  
 def property_last_index_of(xule_context, object_value, *args):
     cast_value = xv.xule_cast(object_value, 'string', xule_context)
