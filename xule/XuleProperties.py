@@ -538,14 +538,23 @@ def property_data_type(xule_context, object_value, *args):
         return object_value
 
 def property_enumerations(xule_context, object_value, *args):
-    if object_value.type == 'type':
-        if 'enumeration' in object_value.value.facets:
-            enumerations = {xv.XuleValue(xule_context, x.value, xv.model_to_xule_type(xule_context, x.value)) for x in object_value.value.facets['enumeration'].values()}
+    if object_value.is_fact:
+        model_type = object_value.fact.concept.type
+    elif object_value.type == 'type':
+        model_type = object_value.value
+    elif object_value.type == 'concept':    
+        model_type = object_value.value.type
+    else: # None
+        return object_vlaue
+    
+    if model_type.facets is None:
+        return xv.XuleValue(xule_context, frozenset(), 'set')
+    else:
+        if 'enumeration' in model_type.facets:
+            enumerations = {xv.XuleValue(xule_context, x.value, xv.model_to_xule_type(xule_context, x.value)) for x in model_type.facets['enumeration'].values()}
             return xv.XuleValue(xule_context, frozenset(enumerations), 'set')
         else:
             return xv.XuleValue(xule_context, frozenset(), 'set')
-    else: # None
-        return object_value
     
 def property_is_type(xule_context, object_value, *args):
     type_name = args[0]
@@ -1406,7 +1415,7 @@ PROPERTIES = {
               'balance': (property_balance, 0, ('concept',), False),              
               'base-type': (property_base_type, 0, ('concept', 'fact'), True),
               'data-type': (property_data_type, 0, ('concept', 'fact'), True),    
-              'enumerations': (property_enumerations, 0, ('type',), True), 
+              'enumerations': (property_enumerations, 0, ('type', 'concept', 'fact'), True), 
               'is-type': (property_is_type, 1, ('concept', 'fact'), True),          
               'is-numeric': (property_is_numeric, 0, ('concept', 'fact'), True),
               'is-monetary': (property_is_monetary, 0, ('concept', 'fact'), True),
