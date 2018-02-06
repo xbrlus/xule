@@ -99,9 +99,6 @@ def process_xule(rule_set, model_xbrl, cntlr, options):
         fact_index_end = datetime.datetime.today()
         global_context.message_queue.print("Index build time %s." % (fact_index_end - fact_index_start))
 
-    # Create a list of rules to skip. These are determined by the --xule-skip option on the command line.
-    skip_rules = getattr(global_context.options, "xule_skip", None).split(",") if getattr(global_context.options, "xule_skip", None) is not None else None
-
     # Determine is constants should be precalced. This is determined by the --xule-precalc-constants optoin on the command line. This is useful to simulate how the processor works in the server
     # environment.
     if getattr(global_context.options, "xule_precalc_constants", False):
@@ -112,7 +109,7 @@ def process_xule(rule_set, model_xbrl, cntlr, options):
         global_context.message_queue.print("Time to calculated non instance constants: %s" % (constant_time))
 
     global_context.message_queue.logging("Processing Filing...")
-    evaluate_rule_set(global_context, skip_rules)
+    evaluate_rule_set(global_context)
     
     if getattr(global_context.options, "xule_time", None) is not None:
         total_end = datetime.datetime.today()
@@ -126,7 +123,7 @@ def process_xule(rule_set, model_xbrl, cntlr, options):
         t.join()  
     
         
-def evaluate_rule_set(global_context, skip_rules):
+def evaluate_rule_set(global_context):
     """Process the rule set.
     
     :param global_context: The global processing context
@@ -142,6 +139,12 @@ def evaluate_rule_set(global_context, skip_rules):
     if getattr(global_context.options, "xule_time", None) is not None:
         times = []
 
+    # Create a list of rules to skip. These are determined by the --xule-skip option on the command line.
+    skip_rules = getattr(global_context.options, "xule_skip", None).split(",") if getattr(global_context.options, "xule_skip", None) is not None else None
+
+    # Create a list of run only rules. This is the opposite of skip_rules. If run_only is not NOne than only those rules will be processed.
+    run_only_rules = getattr(global_context.options, "xule_run_only", None).split(",") if getattr(global_context.options, "xule_run_only", None) is not None else None
+
     #use the term "cat" for catalog information. Read through the list of rules in the catalog.
     for file_num, cat_rules in global_context.catalog['rules_by_file'].items():
         for rule_name in sorted(cat_rules.keys()):
@@ -149,6 +152,9 @@ def evaluate_rule_set(global_context, skip_rules):
         
             if skip_rules is not None and rule_name in skip_rules:
                 global_context.message_queue.print("Skipping rule: %s" % rule_name)
+                continue
+            
+            if not (run_only_rules is None or rule_name in run_only_rules):
                 continue
             
             #get the AST for the rule from the ruleset
