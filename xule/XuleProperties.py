@@ -523,18 +523,28 @@ def property_balance(xule_context, object_value, *args):
 
 def property_base_type(xule_context, object_value, *args):
     if object_value.is_fact:
-        return xv.XuleValue(xule_context, object_value.fact.concept.baseXbrliTypeQname, 'qname')
+        return xv.XuleValue(xule_context, object_value.fact.concept.baseXbrliType, 'type')
     elif object_value.type == 'concept':
-        return xv.XuleValue(xule_context, object_value.value.baseXbrliTypeQname, 'qname')
+        return xv.XuleValue(xule_context, object_value.value.baseXbrliType, 'type')
     else: #none value
         return object_value
  
 def property_data_type(xule_context, object_value, *args):
     if object_value.is_fact:
-        return xv.XuleValue(xule_context, object_value.fact.concept.typeQname, 'qname')
+        return xv.XuleValue(xule_context, object_value.fact.concept.type, 'type')
     elif object_value.type == 'concept':
-        return xv.XuleValue(xule_context, object_value.value.typeQname, 'qname')
+        return xv.XuleValue(xule_context, object_value.value.type, 'type')
     else: #none value
+        return object_value
+
+def property_enumerations(xule_context, object_value, *args):
+    if object_value.type == 'type':
+        if 'enumeration' in object_value.value.facets:
+            enumerations = {xv.XuleValue(xule_context, x.value, xv.model_to_xule_type(xule_context, x.value)) for x in object_value.value.facets['enumeration'].values()}
+            return xv.XuleValue(xule_context, frozenset(enumerations), 'set')
+        else:
+            return xv.XuleValue(xule_context, frozenset(), 'set')
+    else: # None
         return object_value
     
 def property_is_type(xule_context, object_value, *args):
@@ -654,7 +664,7 @@ def property_lang(xule_context, object_value, *args):
 def property_name(xule_context, object_value, *args):
     if object_value.is_fact:
         return xv.XuleValue(xule_context, object_value.fact.concept.qname, 'qname')
-    elif object_value.type in ('concept', 'reference-part'):
+    elif object_value.type in ('concept', 'reference-part', 'type'):
         return xv.XuleValue(xule_context, object_value.value.qname, 'qname')
     else: #none value
         return object_value
@@ -1395,7 +1405,8 @@ PROPERTIES = {
               'attribute': (property_attribute, 1, ('concept',), False),
               'balance': (property_balance, 0, ('concept',), False),              
               'base-type': (property_base_type, 0, ('concept', 'fact'), True),
-              'data-type': (property_data_type, 0, ('concept', 'fact'), True),     
+              'data-type': (property_data_type, 0, ('concept', 'fact'), True),    
+              'enumerations': (property_enumerations, 0, ('type',), True), 
               'is-type': (property_is_type, 1, ('concept', 'fact'), True),          
               'is-numeric': (property_is_numeric, 0, ('concept', 'fact'), True),
               'is-monetary': (property_is_monetary, 0, ('concept', 'fact'), True),
@@ -1406,7 +1417,7 @@ PROPERTIES = {
               'label': (property_label, -2, ('concept', 'fact'), True),
               'text': (property_text, 0, ('label',), False),
               'lang': (property_lang, 0, ('label',), False),              
-              'name': (property_name, 0, ('fact', 'concept', 'reference-part'), True),
+              'name': (property_name, 0, ('fact', 'concept', 'reference-part', 'type'), True),
               'local-name': (property_local_name, 0, ('qname', 'concept', 'fact', 'reference-part'), True),
               'namespace-uri': (property_namespace_uri, 0, ('qname', 'concept', 'fact', 'reference-part'), True),              
               'period-type': (property_period_type, 0, ('concept',), False),
