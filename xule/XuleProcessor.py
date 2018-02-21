@@ -85,15 +85,18 @@ def process_xule(rule_set, model_xbrl, cntlr, options):
         t = Thread(target=output_message_queue, args=(global_context,))
         t.name = "Message Queue"
         t.start()
-  
-    # Create the processing context
-    xule_context = XuleRuleContext(global_context)
+
 
     if getattr(global_context.options, "xule_time", None) is not None:
         fact_index_start = datetime.datetime.today()
     
+    
+    # Create the processing context to build the index
+    xule_context = XuleRuleContext(global_context)    
     # Build an index on the facts in the model.
     global_context.fact_index = index_model(xule_context)
+    # Clean up
+    del xule_context
     
     if getattr(global_context.options, "xule_time", None) is not None:
         fact_index_end = datetime.datetime.today()
@@ -122,7 +125,9 @@ def process_xule(rule_set, model_xbrl, cntlr, options):
         global_context.message_queue.clear()
         t.join()  
     
-        
+    #clean up
+    del global_context
+    
 def evaluate_rule_set(global_context):
     """Process the rule set.
     
@@ -211,6 +216,9 @@ def evaluate_rule_set(global_context):
                       "Exception:", xule_context.iter_except_count)
                 write_trace_count_csv(global_context.options.xule_trace_count, rule_name, global_context.expression_trace, rule, xule_context.iter_count, total_time)
                 write_trace_count_string(global_context.options.xule_trace_count, rule_name, global_context.expression_trace, rule, xule_context.iter_count, total_time)
+
+            #clean up
+            del xule_context
 
     # Display timing information
     if getattr(global_context.options, "xule_time", None) is not None:
@@ -1309,7 +1317,8 @@ def evaluate_constant_assign(const_assign, xule_context):
     if not const_info['calculated']:
         const_context = XuleRuleContext(xule_context.global_context, xule_context.rule_name + ":" + const_info['name'], xule_context.cat_file_num)
         calc_constant(const_info, const_context)        
-    
+        # Clean up
+        del const_context
     if 'is_iterable' in const_assign:
         #return the entire value set
         return const_info['value']
@@ -1334,6 +1343,8 @@ def process_precalc_constants(global_context):
             const_info = const_context.find_var(constant_name, cat_constant['node_id'])
             if not const_info['calculated']:
                 calc_constant(const_info, const_context)
+            # Clean up
+            del const_context
 
 def evaluate_if(if_expr, xule_context):
     """Evaluator for if expressions

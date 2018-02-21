@@ -229,7 +229,8 @@ def determine_rule_set(model_xbrl, cntlr):
         used_namespaces = set(x.namespaceURI for x in model_xbrl.factsByQname.keys())
         # Go through the list of namespaces in the rule set map
         for mapped_namespace, rule_set_location in rule_set_map.items():
-            if mapped_namespace in used_namespaces:
+            if mapped_namespace in model_xbrl.namespaceDocs:
+            #if mapped_namespace in used_namespaces:
                 model_xbrl.log('INFO', 'xule', 'Using ruleset {}'.format(rule_set_location))
                 return rule_set_location
     
