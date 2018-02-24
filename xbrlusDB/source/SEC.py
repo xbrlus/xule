@@ -291,14 +291,19 @@ def SECFilingAndEntityInfo(dbLoader):
             
             info['htmlFilingInfoFile'] = xmlFind(rssItem, 'link')
             info['alternativeDoc'] = None
+            info['additionalDocs'] = list()
             for fileNode in rssItem.findall('edgar:xbrlFiling/edgar:xbrlFiles/edgar:xbrlFile', rssNS):
 #                 if fileNode.get('{http://www.sec.gov/Archives/edgar}type') == 'EX-101.INS':
 #                     info['entryUrl'] = fileNode.get('{http://www.sec.gov/Archives/edgar}url')
 #                     break
-                if fileNode.get('{http://www.sec.gov/Archives/edgar}type') == info['documentType']:
+                docType= fileNode.get('{http://www.sec.gov/Archives/edgar}type')
+                if docType == info['documentType']:
                     if os.path.splitext(fileNode.get('{http://www.sec.gov/Archives/edgar}url'))[1] != '.pdf':
                         info['alternativeDoc'] = fileNode.get('{http://www.sec.gov/Archives/edgar}url')
-                        break
+                #Load certain schedules
+                for additional_doc_type in _ADDITIONAL_SCHEDULES:
+                    if docType.lower().startswith('ex-' + additional_doc_type + '.'):
+                        info['additionalDocs'].append((fileNode.get('{http://www.sec.gov/Archives/edgar}url'), docType))
                         
             if info['alternativeDoc'] is None:
                 raise XPDBException("xpgDB:cannotFindTextFiling",
@@ -398,6 +403,7 @@ def extractFilingDetailsFromIndex(dbLoader, indexFileName, info):
 
     #get HTML version of the filing
     identInfoDict['alternativeDoc'] = None
+    identInfoDict['additionalDocs'] = list()
     docType = identInfoDict.get('documentType')
     if docType is not None:
         for fileTable in htmlTree.xpath("//table[@class='tableFile']"):
@@ -410,6 +416,16 @@ def extractFilingDetailsFromIndex(dbLoader, indexFileName, info):
                         identInfoDict['alternativeDoc'] = urllib.parse.urljoin(indexFileName, tr[2][0].text)
                     else:
                         identInfoDict['alternativeDoc'] = os.path.join(os.path.dirname(indexFileName), tr[2][0].text)
+
+                # get additional documents
+                if tr[3].tag.lower() == 'td':
+                    for additional_doc_type in _ADDITIONAL_SCHEDULES:
+                        if tr[3].text.lower().startswith('ex-' + additional_doc_type + '.'):
+                            href = tr[2][0].get('href')
+                            if dbLoader.isUrl(os.path.dirname(indexFileName)):
+                                identInfoDict['additionalDocs'].append((urllib.parse.urljoin(indexFileName, tr[2][0].text), tr[3].text))
+                            else:
+                                identInfoDict['additionalDocs'].append((os.path.join(os.path.dirname(indexFileName), tr[2][0].text), tr[3].text))                            
 
     if identInfoDict['alternativeDoc'] is None:
         raise XPDBException("xpgDB:cannotFindTextFiling",
@@ -479,6 +495,8 @@ def reverseMapDocumentUri(dbLoader, documentUri):
                 return cacheFile
     #Could not map to the cache
     return documentUri
+
+_ADDITIONAL_SCHEDULES = ['13','21','23']
         
 __sourceInfo__ = {
                   "name": "SEC US GAAP Corporate Issue Filings",

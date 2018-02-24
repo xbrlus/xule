@@ -676,9 +676,14 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
             entrytype = 'UNKNOWN'
         
         #the alternative doc is usually an html version of a report
+        docs = list()
         alternativeDoc = self.mapDocumentUri(self.alternativeDoc) if hasattr(self,'alternativeDoc') else None
+        if hasattr(self,'alternativeDoc'):
+            docs.append(self.mapDocumentUri(self.alternativeDoc))
+        for docUri, docType in self.sourceData.get('additionalDocs', list()):
+            docs.append((self.mapDocumentUri(docUri), docType))
         #add the alternative doc to the database
-        self.insertDocuments((alternativeDoc,))
+        self.insertDocuments(docs)
 
         reportProperties = self.reportProperties()
 
@@ -974,13 +979,21 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                       checkIfExisting=True)
                       
     def insertDocuments(self, docUris):
+        docsByUri = dict()
+        for docUri in docUris:
+            if isinstance(docUri, str):
+                docsByUri[docUri] =  self.determineDocumentType(docUri)
+            else:
+                docsByUri[docUri[0]] = docUri[1]
+        
+        
         #Determine if the document is in the database
         query = '''
             SELECT d.document_id, a.document_uri, d.document_loaded, d.document_id IS NOT NULL AS existing
             FROM (VALUES %s) a(document_uri)
             LEFT JOIN document d
               ON a.document_uri = d.document_uri;
-        ''' % ','.join(tuple("('" + x + "')" for x in docUris))
+        ''' % ','.join(tuple("('" + x + "')" for x in docsByUri.keys()))
         docResults = self.execute(query)
         existingDocumentIds = dict()
         documentIds = dict()
@@ -1022,7 +1035,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
             table = self.getTable('document', 'document_id', 
                           ('document_uri','content', 'document_loaded', 'target_namespace', 'document_type'), 
                           ('document_uri',), 
-                          tuple((uri, content, True, targetNamespace, self.determineDocumentType(uri)) for uri, (targetNamespace, content) in docsToLoad.items()),
+                          tuple((uri, content, True, targetNamespace, docsByUri[uri]) for uri, (targetNamespace, content) in docsToLoad.items()),
                           checkIfExisting=True,
                           returnExistenceStatus=True)
             for docId, docUri, docExisting in table:
