@@ -297,13 +297,13 @@ def SECFilingAndEntityInfo(dbLoader):
 #                 if fileNode.get('{http://www.sec.gov/Archives/edgar}type') == 'EX-101.INS':
 #                     info['entryUrl'] = fileNode.get('{http://www.sec.gov/Archives/edgar}url')
 #                     break
-                docType= fileNode.get('{http://www.sec.gov/Archives/edgar}type')
-                if docType == info['documentType']:
-                    if os.path.splitext(fileNode.get('{http://www.sec.gov/Archives/edgar}url'))[1] != '.pdf':
+                if os.path.splitext(fileNode.get('{http://www.sec.gov/Archives/edgar}url'))[1] != '.pdf':
+                    docType= fileNode.get('{http://www.sec.gov/Archives/edgar}type')
+                    if docType == info['documentType']:
                         info['alternativeDoc'] = fileNode.get('{http://www.sec.gov/Archives/edgar}url')
-                #Load certain schedules
-                if re.match(r'ex-({})($|[^\d])'.format('|'.join(_ADDITIONAL_SCHEDULES)),docType.strip(),re.I) is not None:
-                    info['additionalDocs'].append((fileNode.get('{http://www.sec.gov/Archives/edgar}url'), docType))
+                    #Load certain schedules
+                    if re.match(r'ex-({})($|[^\d])'.format('|'.join(_ADDITIONAL_SCHEDULES)),docType.strip(),re.I) is not None:
+                        info['additionalDocs'].append((fileNode.get('{http://www.sec.gov/Archives/edgar}url'), docType))
                         
             if info['alternativeDoc'] is None:
                 raise XPDBException("xpgDB:cannotFindTextFiling",
@@ -408,17 +408,17 @@ def extractFilingDetailsFromIndex(dbLoader, indexFileName, info):
     if docType is not None:
         for fileTable in htmlTree.xpath("//table[@class='tableFile']"):
             for tr in fileTable:
-                if tr[3].tag.lower() == 'td' and tr[3].text == docType:
-                    href = tr[2][0].get('href')
-                    #if os.path.splitext(href)[1] == '.htm': #this could be a text file. Removing this constraint
-                    #found the file
-                    if dbLoader.isUrl(os.path.dirname(indexFileName)):
-                        identInfoDict['alternativeDoc'] = urllib.parse.urljoin(indexFileName, tr[2][0].text)
-                    else:
-                        identInfoDict['alternativeDoc'] = os.path.join(os.path.dirname(indexFileName), tr[2][0].text)
-
-                # get additional documents
-                if tr[3].tag.lower() == 'td':
+                if tr[3].tag.lower() == 'td' and os.path.splitext(tr[2][0].text)[1] != '.pdf':
+                    if tr[3].text == docType:
+                        href = tr[2][0].get('href')
+                        #if os.path.splitext(href)[1] == '.htm': #this could be a text file. Removing this constraint
+                        #found the file
+                        if dbLoader.isUrl(os.path.dirname(indexFileName)):
+                            identInfoDict['alternativeDoc'] = urllib.parse.urljoin(indexFileName, tr[2][0].text)
+                        else:
+                            identInfoDict['alternativeDoc'] = os.path.join(os.path.dirname(indexFileName), tr[2][0].text)
+    
+                    # get additional documents
                     if re.match(r'ex-({})($|[^\d])'.format('|'.join(_ADDITIONAL_SCHEDULES)),tr[3].text.strip(),re.I) is not None:
                         href = tr[2][0].get('href')
                         if dbLoader.isUrl(os.path.dirname(indexFileName)):
