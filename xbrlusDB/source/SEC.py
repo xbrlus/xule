@@ -7,6 +7,7 @@ import json
 import os
 from lxml import etree
 import urllib.parse
+import re
 
 def SECExcludeReport(dbLoader):
     # don't want to process certain form types (if it is an sec filing).
@@ -301,9 +302,8 @@ def SECFilingAndEntityInfo(dbLoader):
                     if os.path.splitext(fileNode.get('{http://www.sec.gov/Archives/edgar}url'))[1] != '.pdf':
                         info['alternativeDoc'] = fileNode.get('{http://www.sec.gov/Archives/edgar}url')
                 #Load certain schedules
-                for additional_doc_type in _ADDITIONAL_SCHEDULES:
-                    if docType.lower().startswith('ex-' + additional_doc_type + '.'):
-                        info['additionalDocs'].append((fileNode.get('{http://www.sec.gov/Archives/edgar}url'), docType))
+                if re.match(r'ex-({})($|[^\d])'.format('|'.join(_ADDITIONAL_SCHEDULES)),docType.strip(),re.I) is not None:
+                    info['additionalDocs'].append((fileNode.get('{http://www.sec.gov/Archives/edgar}url'), docType))
                         
             if info['alternativeDoc'] is None:
                 raise XPDBException("xpgDB:cannotFindTextFiling",
@@ -419,13 +419,12 @@ def extractFilingDetailsFromIndex(dbLoader, indexFileName, info):
 
                 # get additional documents
                 if tr[3].tag.lower() == 'td':
-                    for additional_doc_type in _ADDITIONAL_SCHEDULES:
-                        if tr[3].text.lower().startswith('ex-' + additional_doc_type + '.'):
-                            href = tr[2][0].get('href')
-                            if dbLoader.isUrl(os.path.dirname(indexFileName)):
-                                identInfoDict['additionalDocs'].append((urllib.parse.urljoin(indexFileName, tr[2][0].text), tr[3].text))
-                            else:
-                                identInfoDict['additionalDocs'].append((os.path.join(os.path.dirname(indexFileName), tr[2][0].text), tr[3].text))                            
+                    if re.match(r'ex-({})($|[^\d])'.format('|'.join(_ADDITIONAL_SCHEDULES)),tr[3].text.strip(),re.I) is not None:
+                        href = tr[2][0].get('href')
+                        if dbLoader.isUrl(os.path.dirname(indexFileName)):
+                            identInfoDict['additionalDocs'].append((urllib.parse.urljoin(indexFileName, tr[2][0].text), tr[3].text))
+                        else:
+                            identInfoDict['additionalDocs'].append((os.path.join(os.path.dirname(indexFileName), tr[2][0].text), tr[3].text))                            
 
     if identInfoDict['alternativeDoc'] is None:
         raise XPDBException("xpgDB:cannotFindTextFiling",
