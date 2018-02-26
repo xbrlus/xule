@@ -531,15 +531,15 @@ __sourceInfo__ = {
                       "identifyEntityAndFilingingInfo" : SECFilingAndEntityInfo,
                       "identifyFiscalYearEnd" : SECFiscalYearEnd
                   },
-                  "databaseInstall": 
-'''
-CREATE OR REPLACE FUNCTION delete_report_post_sec(in_report_id bigint, in_entity_id bigint) RETURNS void AS
-$$
-BEGIN
-    DELETE FROM accession WHERE accession_id = in_report_id;
-END
-$$ LANGUAGE plpgsql;
-'''
+#                   "databaseInstall": 
+# '''
+# CREATE OR REPLACE FUNCTION delete_report_post_sec(in_report_id bigint, in_entity_id bigint) RETURNS void AS
+# $$
+# BEGIN
+#     DELETE FROM accession WHERE accession_id = in_report_id;
+# END
+# $$ LANGUAGE plpgsql;
+# '''
 }
 
 '''
