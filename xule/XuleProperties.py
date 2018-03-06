@@ -507,7 +507,7 @@ def property_denominator(xule_context, object_value, *args):
 def property_attribute(xule_context, object_value, *args):
     attribute_name_value = args[0]
     if attribute_name_value.type != 'qname':
-        raise XuleProcessingError(_("The argument for the 'attribute' property must be a qname, found '{}'".format(arttribute_name_value.type)), xule_context)
+        raise XuleProcessingError(_("The argument for the 'attribute' property must be a qname, found '{}'".format(attribute_name_value.type)), xule_context)
     
     attribute_value = object_value.value.get(attribute_name_value.value.clarkNotation)
     if attribute_value is None:
