@@ -3971,7 +3971,7 @@ def evaluate_index(index_expr, xule_context):
             else:
                 key_value = index_value.value
             
-            return left_value.key_search_dictionary.get(key_value, XuleValue(xule_context, None, 'none'))
+            left_value = left_value.key_search_dictionary.get(key_value, XuleValue(xule_context, None, 'none'))
         
         else:
             raise XuleProcessingError(_("Index epxressions can only operate on a list, found '%s'" % left_value.type), 
