@@ -191,6 +191,17 @@ class XuleValue:
     @property
     def is_fact(self):
         return self.fact is not None
+
+    @property
+    def system_value(self):
+        if self.type == 'set':
+            return {x.system_value for x in self.value}
+        elif self.type == 'list':
+            return [x.system_value for x in self.value]
+        elif self.type == 'dictionary':
+            return {n.system_value: v.system_value for n, v in self.value}
+        else:
+            return self.value
     
     def format_value(self):
             
@@ -248,10 +259,8 @@ class XuleValue:
             set_value = "set(" + ", ".join([sub_value.format_value() for sub_value in self.value]) + ")" 
             return set_value
         
-        elif self.type == 'dictionary':
-            new_dict_value = {k_value.format_value(): v_value.format_value() for k_value, v_value in self.value}
-            
-            return pprint.pformat(new_dict_value)
+        elif self.type == 'dictionary': 
+            return pprint.pformat(self.system_value)
         
         elif self.type == 'concept':
             return str(self.value.qname)
@@ -1223,4 +1232,52 @@ def combine_period_values(left, right, xule_context):
                 return (left.value,
                         (right.value[0], right.value[1] + datetime.timedelta(days=1)))
 
+def system_collection_to_xule(col, xule_context):
+    """Convert a python dictionary or list to xule value
+    
+    :param col: native collection
+    :type col: collectin (dict or list)
+    :param xule_context: The rule context
+    :type xule_context: XuleRuleContext
+    :returns: A XuleValue of the the collection
+    :rtype: XuleValue
         
+    """
+    if isinstance(col, dict):
+        return system_dict_to_xule(col, xule_context)
+    elif isinstance(col, list):
+        return system_list_to_xule(col, xule_context)
+    else:
+        raise XuleProcessingError(_("Cannot convert native type {} into a XuleValue collection.".format(type(col))), xule_context )
+
+def system_dict_to_xule(col, xule_context):
+    result = dict()
+    shadow = dict()
+    for n, v in col.items():
+        xule_name = XuleValue(xule_context, n, 'string')
+        if isinstance(v, dict) or isinstance(v, list) or isinstance(v, set):
+            xule_value = system_collection_to_xule(v, xule_context)
+        else:
+            xule_type, compute_value = model_to_xule_type(xule_context, v)
+            xule_value = XuleValue(xule_context, compute_value, xule_type)
+        result[xule_name] = xule_value
+        shadow[n] = xule_value.shadow_collection if xule_value.type in ('set', 'list', 'dictionary') else xule_value.value
+
+    return XuleValue(xule_context, frozenset(result.items()), 'dictionary', shadow_collection=frozenset(shadow.items()))
+
+def system_list_to_xule(col, xule_context):
+    result = list()
+    shadow = list()
+    for v in col:
+        if isinstance(v, dict) or isinstance(v, list) or isinstance(v, set):
+            xule_value = system_collection_to_xule(v, xule_context)
+        else:
+            xule_type, compute_value = model_to_xule_type(xule_context, v)
+            xule_value = XuleValue(xule_context, compute_value, xule_type)
+        result.append(xule_value)
+        shadow.append(xule_value.shadow_collection if xule_value.type in ('set', 'list', 'dictionary') else xule_value.value)
+    
+    return XuleValue(xule_context, tuple(result), 'list', shadow_collection=tuple(shadow))
+
+
+    

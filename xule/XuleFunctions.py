@@ -28,6 +28,8 @@ from arelle.ModelValue import qname, QName
 import collections
 from aniso8601 import parse_duration
 import decimal
+import json
+from json.decoder import JSONDecodeError
 
 
 def func_exists(xule_context, *args):   
@@ -614,6 +616,39 @@ def convert_file_data_item(item, type, xule_context):
     else:
         raise XuleProcessingError(_("While processing a data file, {} is not implemented.".format(type)), xule_context)
 
+def func_json_data(xule_context, *args):
+    """Read a json file/url.
+    
+    Arguments:
+        file_url (string or url)
+
+    Returns a dictionary/list of the json data.
+    """
+    
+    file_url = args[0]
+
+    if file_url.type not in ('string', 'uri'):
+        raise XuleProcessingError(_("The file url argument of the json-dta() function must be a string or uri, found '{}'.".format(file_url.value)), xule_contet)
+
+    from arelle import PackageManager
+    mapped_file_url = PackageManager.mappedUrl(file_url.value)
+
+    # Using the FileSource object in arelle. This will open the file and handle taxonomy package mappings.
+    from arelle import FileSource
+    file_source = FileSource.openFileSource(file_url.value, xule_context.global_context.cntlr)
+    file = file_source.file(file_url.value, binary=True)
+    # file is  tuple of one item as a BytesIO stream. Since this is in bytes, it needs to be converted to text via a decoder.
+    # Assuming the file is in utf-8. 
+    data_source = [x.decode('utf-8') for x in file[0].readlines()]
+    try:
+        json_source = json.loads(''.join(data_source))
+    except JSONDecodeError:
+        raise XuleProcessingError(_("The file '{}' is not a valid JSON file.".format(file_url.value)), xule_context)
+    
+    x = xv.system_collection_to_xule(json_source, xule_context)
+    return xv.system_collection_to_xule(json_source, xule_context)
+
+
 #the position of the function information
 FUNCTION_TYPE = 0
 FUNCTION_EVALUATOR = 1
@@ -656,8 +691,8 @@ def built_in_functions():
              'mod': ('regular', func_mod, 2, False, 'single'),
              'extension_concepts': ('regular', func_extension_concept, 0, False, 'single'),             
              'taxonomy': ('regular', func_taxonomy, -1, False, 'single'),
-             'csv-data': ('regular', func_csv_data, -4, False, 'single')
-
+             'csv-data': ('regular', func_csv_data, -4, False, 'single'),
+             'json-data': ('regular', func_json_data, 1, False, 'single'),
              }    
     
     
