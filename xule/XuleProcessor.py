@@ -2814,7 +2814,7 @@ def nav_traverse(nav_expr, xule_context, direction, network, parent, end_concept
         
         # Decide if the child will be in the results. If the child is not in the results, the navigation does not stop.
         if (
-            nav_traverse_where(nav_expr, rel, xule_context) and
+            nav_traverse_where(nav_expr, 'whereExpr', rel, xule_context) and
             (
                 dimension_arcroles is None or 
                 'dimensional' not in nav_expr or
@@ -2844,19 +2844,22 @@ def nav_traverse(nav_expr, xule_context, direction, network, parent, end_concept
                 else:
                     inner_children += [keep_rel,]
             else:
-                next_children = nav_traverse(nav_expr, 
-                                             xule_context, 
-                                             direction, 
-                                             network, 
-                                             child, 
-                                             end_concepts, 
-                                             remaining_depth - 1, 
-                                             return_names, 
-                                             dimension_arcroles, 
-                                             previous_concepts, 
-                                             nav_depth + 1, 
-                                             result_order, 
-                                             arc_attribute_names)
+                if nav_traverse_where(nav_expr, 'stopExpr', rel, xule_context):
+                    next_children = list()
+                else:
+                    next_children = nav_traverse(nav_expr, 
+                                                 xule_context, 
+                                                 direction, 
+                                                 network, 
+                                                 child, 
+                                                 end_concepts, 
+                                                 remaining_depth - 1, 
+                                                 return_names, 
+                                                 dimension_arcroles, 
+                                                 previous_concepts, 
+                                                 nav_depth + 1, 
+                                                 result_order, 
+                                                 arc_attribute_names)
                                 
                 if len(next_children) == 0 and len(end_concepts) > 0: # The to concept was never found
                     # Reset the inner_child list. This will throw away all reseults that lead to this moment.
@@ -2890,58 +2893,33 @@ def nav_traverse(nav_expr, xule_context, direction, network, parent, end_concept
             first_time = False 
     return children
 
-def nav_traverse_where(nav_expr, relationship, xule_context):
-    if 'whereExpr' not in nav_expr:
-        return True
+def nav_traverse_where(nav_expr, clause_name, relationship, xule_context):
+    if clause_name not in nav_expr:
+        if clause_name == 'whereExpr':
+            return True
+        else: # 'stopExpr'
+            return False
     else:
         xule_context.add_arg('relationship',
-                             nav_expr['whereExpr']['node_id'],
+                             nav_expr[clause_name]['node_id'],
                              True,
                              XuleValue(xule_context, relationship, 'relationship'),
                              'single')
         
         try:
-            nav_where_results = evaluate(nav_expr['whereExpr'], xule_context)
+            nav_where_results = evaluate(nav_expr[clause_name], xule_context)
         finally:    
             #remove the args
             xule_context.del_arg('relationship',
-                                 nav_expr['whereExpr']['node_id'])
+                                 nav_expr[clause_name]['node_id'])
 
         if nav_where_results.type == 'bool':
             return nav_where_results.value
         elif nav_where_results.type in ('unbound', 'none'):
             return False
         elif filter_where_result.type not in ('unbound', 'none'):
-            raise XuleProcessingError(_("The where clause on a navigation expression must evaluate to a boolean, found '{}'.".format(nav_where_results.type)), xule_context)
+            raise XuleProcessingError(_("The {} clause on a navigation expression must evaluate to a boolean, found '{}'.".format(clause_name[:clause_name.find('Expr')], nav_where_results.type)), xule_context)
 
-        
-#         if 'is_iterable' in nav_expr['whereExpr']:
-#             raise XuleProcessingError(_("Where expression in a navigation cannot return multiple values"))
-#         
-#         xule_context.add_arg('relationship',
-#                              nav_expr['whereExpr']['node_id'],
-#                              True,
-#                              XuleValue(xule_context, relationship, 'relationship'),
-#                              'single')                          
-#         def cleanup_function():
-#             #remove the args
-#             xule_context.del_arg('relationship',
-#                                  nav_expr['whereExpr']['node_id'])
-# 
-#         nav_where_results = isolated_evaluation(xule_context,
-#                                                      nav_expr['whereExpr']['node_id'], 
-#                                                      nav_expr['whereExpr'], 
-#                                                      cleanup_function=cleanup_function
-#                                                      
-#                                                      )
-# 
-#         if None in nav_where_results.values:
-#             if nav_where_results.values[None][0].type == 'bool':
-#                 return nav_where_results.values[None][0].value
-#             elif nav_where_results.values[None][0].type == 'unbound':
-#                 return False
-#         else:
-#             return False
 
 def nav_get_role(nav_expr, role_type, dts, xule_context):
     """Get the full role from the navigation expression.

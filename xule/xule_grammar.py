@@ -394,6 +394,7 @@ def get_grammar():
                        Optional(Suppress(CaselessKeyword('linkbase')) + blockExpr.setResultsName('linkbase')) +
                        Optional(Suppress(CaselessKeyword('table')) + blockExpr.setResultsName('table')) +
                        Optional(Suppress(CaselessKeyword('taxonomy')) + blockExpr.setResultsName('taxonomy')) +
+                       Optional(Suppress(Group(CaselessKeyword('stop') + CaselessKeyword('when'))) + blockExpr.setResultsName('stopExpr')) +
                        Optional(whereClause) +
                        Optional(Group(
                                       Suppress(CaselessKeyword('returns')) +
