@@ -389,12 +389,12 @@ def get_grammar():
                        Optional(Group(CaselessKeyword('include') + CaselessKeyword('start')).setParseAction(lambda: True).setResultsName('includeStart')) +
                        Optional(Suppress(CaselessKeyword('from')) + blockExpr.setResultsName('from')) +
                        Optional(Suppress(CaselessKeyword('to')) + blockExpr.setResultsName('to')) +
+                       Optional(Suppress(Group(CaselessKeyword('stop') + CaselessKeyword('when'))) + blockExpr.setResultsName('stopExpr')) +
                        Optional(Suppress(CaselessKeyword('role')) + blockExpr.setResultsName('role')) +
                        Optional(Suppress(CaselessKeyword('drs-role')) + blockExpr.setResultsName('drsRole')) +
                        Optional(Suppress(CaselessKeyword('linkbase')) + blockExpr.setResultsName('linkbase')) +
                        Optional(Suppress(CaselessKeyword('table')) + blockExpr.setResultsName('table')) +
                        Optional(Suppress(CaselessKeyword('taxonomy')) + blockExpr.setResultsName('taxonomy')) +
-                       Optional(Suppress(Group(CaselessKeyword('stop') + CaselessKeyword('when'))) + blockExpr.setResultsName('stopExpr')) +
                        Optional(whereClause) +
                        Optional(Group(
                                       Suppress(CaselessKeyword('returns')) +
