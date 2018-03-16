@@ -478,7 +478,8 @@ class XuleRuleContext(object):
                     "other_values": {}}
 
         self.vars[node_id].append(var_info)
-        self.tags[name] = value
+        if tag is not None:
+            self.tags[tag] = value
     
     def del_arg(self, name, node_id):
         """Removes an argument from the variable stack"""

@@ -1172,7 +1172,7 @@ def evaluate_block(block_expr, xule_context):
     #for var_assignment in var_assignments:
         var_info = xule_context.add_var(var_assignment['varName'],
                              var_assignment['node_id'],
-                             True, #tagged - all variables are tagged
+                             var_assignment['varName'], #tagged - all variables are tagged
                              var_assignment['body'])
         calc_var(var_info, None, xule_context)
     
@@ -1246,7 +1246,8 @@ def calc_var(var_info, const_ref, xule_context):
     
     var_value = var_value.clone()
     #if var_info['tagged']:
-    xule_context.tags[var_info['name']] = var_value
+    if var_info['tagged'] is not None:
+        xule_context.tags[var_info['tagged']] = var_value
 
     return var_value
 
@@ -1403,7 +1404,7 @@ def evaluate_for(for_expr, xule_context):
             for_loop_var.used_expressions.update(used_expressions)
         xule_context.add_arg(for_expr['forVar'],
                               for_expr['forLoopExpr']['node_id'],
-                              True, #tagged - all variables are automatically tagged
+                              for_loop_var, #tagged - all variables are automatically tagged
                               for_loop_var,
                               'single')
 
@@ -2586,7 +2587,7 @@ def evaluate_filter(filter_expr, xule_context):
     for item_value in collection_value.value:
         xule_context.add_arg('item',
                              filter_expr['expr']['node_id'],
-                             True,
+                             None,
                              item_value,
                              'single')
         
@@ -2902,7 +2903,7 @@ def nav_traverse_where(nav_expr, clause_name, relationship, xule_context):
     else:
         xule_context.add_arg('relationship',
                              nav_expr[clause_name]['node_id'],
-                             True,
+                             None,
                              XuleValue(xule_context, relationship, 'relationship'),
                              'single')
         
