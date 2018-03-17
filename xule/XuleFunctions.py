@@ -29,7 +29,7 @@ import collections
 from aniso8601 import parse_duration
 import decimal
 import json
-from json.decoder import JSONDecodeError
+#from json.decoder import JSONDecodeError
 
 
 def func_exists(xule_context, *args):   
@@ -642,7 +642,8 @@ def func_json_data(xule_context, *args):
     data_source = [x.decode('utf-8') for x in file[0].readlines()]
     try:
         json_source = json.loads(''.join(data_source))
-    except JSONDecodeError:
+    #except JSONDecodeError:
+    except ValueError:
         raise XuleProcessingError(_("The file '{}' is not a valid JSON file.".format(file_url.value)), xule_context)
     
     x = xv.system_collection_to_xule(json_source, xule_context)
