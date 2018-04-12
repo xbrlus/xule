@@ -57,6 +57,8 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
         display_as_dictionary(cat_commands, rule_set)
     elif cat_commands[0] == 'cat':
         display_catalog(rule_set)
+    elif cat_commands[0] == 'expr-list':
+        display_expr(cat_commands, rule_set)
 
 def display_as_dictionary(cat_commands, rule_set):
     files_in = cat_commands[1:]
@@ -87,7 +89,53 @@ def display_as_dictionary(cat_commands, rule_set):
 
 def display_catalog(rule_set):
     pprint.pprint(rule_set.catalog)
-         
+    
+def display_expr(cat_commands, rule_set):
+    files_in = cat_commands[1:]
+    file_numbers = list()
+    all_files = {x['name']: x['file'] for x in rule_set.catalog['files']}
+    for file_name in files_in:
+        try:
+            # see if the file name is an integer
+            if int(file_name) in all_files.values():
+                file_numbers.append(int(file_name))
+            else:
+                print("File number {} is not in the catalog.".format(file_name))
+        except ValueError:
+            # assuming the file_name is the file name
+            for file_info in rule_set.catalog['files']:
+                if file_info['name'] == file_name:
+                    file_numbers.append(file_info['file'])
+                    break
+            else:
+                # file name is not found
+                print("File {} is not in the rule set".format(file_name))
+    
+    expr_names = set()
+    for file_info in rule_set.catalog['files']:
+        if (len(files_in) == 0 or file_info['file'] in file_numbers) and len(files_in) == len(file_numbers):
+            parse_tree = rule_set.getFile(file_info['file'])
+            
+            expr_names |= traverse(parse_tree)
+            
+    print("\n".join(sorted(expr_names)))
+            
+def traverse(parent):
+    expr_names = set()
+    
+    if isinstance(parent, dict):
+        for k, v in parent.items():
+            if k == 'exprName':
+                expr_names.add(v)
+            else:
+                expr_names |= traverse(v)
+    elif isinstance(parent, list):
+        for x in parent:
+            expr_names |= traverse(x)
+    
+    return expr_names
+    
+                     
 def xuleCmdXbrlLoaded(cntlr, options, modelXbrl, entryPoint=None):   
     pass
 
@@ -100,6 +148,7 @@ __pluginInfo__ = {
     'license': 'Apache-2',
     'author': 'XBRL US Inc.',
     'copyright': '(c) 2017',
+    'import': 'xule',
     # classes of mount points (required)
     'ModelObjectFactory.ElementSubstitutionClasses': None, 
     'CntlrCmdLine.Options': xuleCmdOptions,
