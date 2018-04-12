@@ -2267,13 +2267,13 @@ def factset_pre_match(factset, filters, non_aligned_filters, aligned_filters, xu
     return pre_matched_facts
 
 def calc_fact_alignment(factset, fact, non_aligned_filters, frozen, xule_context):
-    if fact in xule_context.fact_alignments[factset['node_id']]:
-        return xule_context.fact_alignments[factset['node_id']][fact][0 if frozen else 1]
-    else:
-        unfrozen_alignment = get_alignment(fact, non_aligned_filters, xule_context)
+    if fact not in xule_context.fact_alignments[factset['node_id']]:
+        unfrozen_alignment = get_alignment(fact, non_aligned_filters, xule_context, not factset.get('coveredDims', False))
         fact_alignment = frozenset(unfrozen_alignment.items())
         xule_context.fact_alignments[factset['node_id']][fact] = (fact_alignment, unfrozen_alignment)    
         return fact_alignment if frozen else unfrozen_alignment
+    
+    return xule_context.fact_alignments[factset['node_id']][fact][0 if frozen else 1]
     
 def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non_align_aspects, nested_filters, aspect_vars, pre_matched_used_expressoins_ids, xule_context):
     """Apply the where portion of the factset"""
@@ -4452,7 +4452,7 @@ def get_all_aspects(model_fact, xule_context):
     '''This function gets all the apsects of a fact'''
     return get_alignment(model_fact, {}, xule_context)
 
-def get_alignment(model_fact, non_align_aspects, xule_context):
+def get_alignment(model_fact, non_align_aspects, xule_context, include_dimensions=True):
     '''The alingment contains the aspect/member pairs that are in the fact but not in the non_align_aspects.
        The alignment is done in two steps. First check each of the builtin aspects. Then check the dimesnions.'''
     
@@ -4486,11 +4486,11 @@ def get_alignment(model_fact, non_align_aspects, xule_context):
         alignment[('builtin', 'entity')] = model_to_xule_entity(model_fact.context, xule_context)
           
     #dimensional apsects
-    non_align_dimensions = {aspect_info[ASPECT] for aspect_info in non_align_aspects if aspect_info[TYPE] == 'explicit_dimension'}
-    for fact_dimension_qname, dimension_value in model_fact.context.qnameDims.items():
-        if fact_dimension_qname not in non_align_dimensions:
-            
-            alignment[('explicit_dimension', fact_dimension_qname)] = dimension_value.memberQname if dimension_value.isExplicit else dimension_value.typedMember.xValue
+    if include_dimensions:
+        non_align_dimensions = {aspect_info[ASPECT] for aspect_info in non_align_aspects if aspect_info[TYPE] == 'explicit_dimension'}
+        for fact_dimension_qname, dimension_value in model_fact.context.qnameDims.items():
+            if fact_dimension_qname not in non_align_dimensions:
+                alignment[('explicit_dimension', fact_dimension_qname)] = dimension_value.memberQname if dimension_value.isExplicit else dimension_value.typedMember.xValue
         
     return alignment          
 

@@ -274,6 +274,7 @@ def get_grammar():
     tagName = simpleName.setResultsName('tagName')
 
     covered = CaselessKeyword('covered').setParseAction(lambda: True).setResultsName('covered')
+    coveredDims = CaselessKeyword('covered-dims').setParseAction(lambda: True).setResultsName('coveredDims')
     includeNils = CaselessKeyword('nils').setParseAction(lambda: True).setResultsName('includeNils')
     excludeNils = CaselessKeyword('nonils').setParseAction(lambda: True).setResultsName('excludeNils')
     where = CaselessKeyword('where')
@@ -341,6 +342,7 @@ def get_grammar():
                     + nodeName('aspectFilter'))
     
     factsetInner =  ((Optional(excludeNils | includeNils) &
+                    Optional(coveredDims) +
                     Optional(covered)) + 
                     (ZeroOrMore(Group(aspectFilter)).setResultsName('aspectFilters') ) +
 #                     Optional((whereClause) | blockExpr.setResultsName('innerExpr')
