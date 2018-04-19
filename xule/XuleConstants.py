@@ -32,3 +32,4 @@ DIMENSION_PSEUD0_ARCROLE_PART = 1
 
 # Rule set mapping 
 RULE_SET_MAP = 'rulesetMap.json'
+NAMESPACE_MAP = 'namespaceMap.json'
