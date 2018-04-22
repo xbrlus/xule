@@ -619,13 +619,21 @@ class XuleString(str):
         
         # Find all the '%' signs in the string. Thees wil need to be escaped.
         percent_locations = [m.start() for m in re.finditer('%', format_string)]
-        sub_locations = {x[0]:(x[1], x[2]) for x in substitutions or []}
+        #sub_locations = {x[0]:(x[1], x[2]) for x in substitutions or []}
+        sub_locations = collections.defaultdict(list)
+        for location, sub_name, sub_value in substitutions or []:
+            sub_locations[location].append((sub_name, sub_value))
+        
         for i in sorted(percent_locations + list(sub_locations.keys()), reverse=True):
             if i in percent_locations:
                 format_string = format_string[:i] + '%' + format_string[i:]
             else:
                 # i must be in sub_locations
-                format_string = format_string[:i] + '%({})s'.format(sub_locations[i][0]) + format_string[i:]
+                sub_value = ''
+                for sub in sub_locations[i]:
+                    sub_value += '%({})s'.format(sub[0])
+                format_string = format_string[:i] + sub_value + format_string[i:]
+                #format_string = format_string[:i] + '%({})s'.format(sub_locations[i][0]) + format_string[i:]
         
         format_subs = {x[1]:x[2] for x in substitutions or []}
         
