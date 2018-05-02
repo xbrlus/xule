@@ -45,15 +45,38 @@ __version__ = '3.0.' + '$Change$'[9:-2]
 
 _cntlr = None
 _options = None
+_saved_taxonomies = dict()
 _test_start = None
 _test_variation_name = None
 
 def xuleMenuOpen(cntlr, menu):
     pass
 
-def xuleMenuTools(cntlr, menu):
-    pass
+def xuleValidateMenuTools(cntlr, validateMenu, *args, **kwargs):
+    global _cntlr
+    _cntlr = cntlr
+    global _options
+    _options = None     
+    
 
+    # Extend menu with an item for the save infoset plugin
+    cntlr.modelManager.validateDQC = cntlr.config.setdefault("validateDQC",False)
+    from tkinter import BooleanVar
+    validateDQC = BooleanVar(value=cntlr.modelManager.validateDQC)
+    def setValidateDQCOption(*args):
+        cntlr.config["validateDQC"] = cntlr.modelManager.validateDQC = validateDQC.get()
+    validateDQC.trace("w", setValidateDQCOption)
+    validateMenu.add_checkbutton(label=_("DQC Rules"), 
+                                 underline=0, 
+                                 variable=validateDQC, onvalue=True, offvalue=False)    
+
+
+'''
+    menu.add_command(label="Xule rules", 
+                     underline=0, 
+                     command=lambda: whatever(cntlr) )
+    menu.add_checkbutton(label=_("DQC Rules"), underline=0, variable=cntlr.validateDQC, onvalue=True, offvalue=False)
+'''
 def xuleCmdOptions(parser):
     # extend command line options to compile rules
     if isinstance(parser, Options):
@@ -231,7 +254,6 @@ def xuleCmdOptions(parser):
                            dest="xule_validate",
                            help=_("Validate ruleset"))
     
-
 def xuleCmdUtilityRun(cntlr, options, **kwargs): 
     # Save the controller and options in the module global variable
     global _cntlr
@@ -438,7 +460,8 @@ def runXule(cntlr, options, modelXbrl):
                     rule_set_location = xu.determine_rule_set(modelXbrl, cntlr)
                     if rule_set_location is None:
                         # The rule set could not be determined.
-                        raise xr.XuleRuleSetError('The rule set to used could not be determined. Check that there is a rule set map at {} and verify that there is an appropiate mapping for the filing.'.format(xc.RULE_SET_MAP))
+                        modelXbrl.log('ERROR', 'xule', "Cannot determine which rule set to use for the filing. Check the rule set map at '{}'.".format(xu.get_rule_set_map_file_name(cntlr, xc.RULE_SET_MAP)))
+                        raise xr.XuleRuleSetError('The rule set to used could not be determined. Check that there is a rule set map at {} and verify that there is an appropiate mapping for the filing.'.format(xu.get_rule_set_map_file_name(cntlr, xc.RULE_SET_MAP)))
                     
                 rule_set = xr.XuleRuleSet(cntlr)              
                 rule_set.open(rule_set_location, open_packages=not getattr(options, 'xule_bypass_packages', False))
@@ -459,20 +482,38 @@ def runXule(cntlr, options, modelXbrl):
                     if rule['dependencies']['instance'] == True and rule['dependencies']['rules-taxonomy'] != False:
                         raise xr.XuleRuleSetError('Need instance to process rules')
                     
-                    
-            process_xule(rule_set,
-                         modelXbrl,
-                         cntlr,
-                         options,
-                         )
+            global _saved_taxonomies        
+            used_taxonomies = process_xule(rule_set,
+                                           modelXbrl,
+                                           cntlr,
+                                           options,
+                                           _saved_taxonomies
+                                           )
+            # Save one loaded taxonomy
+            new_taxonomy_keys = used_taxonomies.keys() - _saved_taxonomies.keys()
+            if len(new_taxonomy_keys) > 0:
+                for tax_key in list(new_taxonomy_keys)[:2]: # This take at most 2 taxonomies.
+                    tax_key = next(iter(new_taxonomy_keys)) # randomly get one key
+                    _saved_taxonomies[tax_key] = used_taxonomies[tax_key]
             
 def xuleValidate(val):
     global _cntlr
     global _options
+    
+    #This will only run from command line
     if _cntlr is not None and _options is not None:
         if not getattr(_options, "xule_run", False):
             # Only run on validate if the --xule-run option was not supplied. If --xule-run is supplied, it has already been run
             runXule(_cntlr, _options, val.modelXbrl)
+
+    # This will only run from gui
+    if getattr(val.modelXbrl.modelManager, 'validateDQC', False):
+        val.modelXbrl.modelManager.showStatus(_("Starting DQC validation"))
+        val.modelXbrl.info("DQC",_("Starting DQC validation"))
+        runXule(_cntlr, _options, val.modelXbrl)
+        val.modelXbrl.info("DQC",_("Finished DQC validation"))
+        val.modelXbrl.modelManager.showStatus(_("Finished DQC validation"))
+
 
 def xuleTestXbrlLoaded(modelTestcase, modelXbrl, testVariation):
     global _options
@@ -504,7 +545,8 @@ __pluginInfo__ = {
     # classes of mount points (required)
     'ModelObjectFactory.ElementSubstitutionClasses': None,
     'CntlrWinMain.Menu.File.Open': xuleMenuOpen,
-    'CntlrWinMain.Menu.Tools': xuleMenuTools,
+    #'CntlrWinMain.Menu.Tools': xuleMenuTools,
+    'CntlrWinMain.Menu.Validation':xuleValidateMenuTools,
     'CntlrCmdLine.Options': xuleCmdOptions,
     'CntlrCmdLine.Utility.Run': xuleCmdUtilityRun,
     'CntlrCmdLine.Xbrl.Loaded': xuleCmdXbrlLoaded,

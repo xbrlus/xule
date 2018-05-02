@@ -234,9 +234,10 @@ def determine_rule_set(model_xbrl, cntlr):
                 model_xbrl.log('INFO', 'xule', 'Using ruleset {}'.format(rule_set_location))
                 return rule_set_location
     
-    # This is only reached if a rule set location was not found in the map.
-    rule_set_map_file_name = get_rule_set_map_file_name(cntlr, xc.RULE_SET_MAP)
-    raise XuleProcessingError(_("Cannot determine which rule set to use for the filing. Check the rule set map at '{}'.".format(rule_set_map_file_name)))
+#     # This is only reached if a rule set location was not found in the map.
+#     rule_set_map_file_name = get_rule_set_map_file_name(cntlr, xc.RULE_SET_MAP)
+#     model_xbrl.log('ERROR', 'xule', "Cannot determine which rule set to use for the filing. Check the rule set map at '{}'.".format(rule_set_map_file_name))
+#     #raise XuleProcessingError(_("Cannot determine which rule set to use for the filing. Check the rule set map at '{}'.".format(rule_set_map_file_name)))
 
 def get_rule_set_map(cntlr, map_name):
     try:

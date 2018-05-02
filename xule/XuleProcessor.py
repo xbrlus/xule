@@ -47,7 +47,7 @@ from . import XuleFunctions
 from . import XuleProperties
 import os
 
-def process_xule(rule_set, model_xbrl, cntlr, options):
+def process_xule(rule_set, model_xbrl, cntlr, options, saved_taxonomies=None):
     """Run xule rules against a filing.
     
     :param rule_set: An opened rule set
@@ -64,7 +64,9 @@ def process_xule(rule_set, model_xbrl, cntlr, options):
     processing of the rules.
     """
 
-    global_context = XuleGlobalContext(rule_set, model_xbrl, cntlr, options)   
+    global_context = XuleGlobalContext(rule_set, model_xbrl, cntlr, options)
+    if saved_taxonomies is not None and len(saved_taxonomies) > 0:
+        global_context.other_taxonomies = saved_taxonomies   
     
     # Set up trace files
     if getattr(global_context.options, "xule_trace_count", False):
@@ -124,9 +126,12 @@ def process_xule(rule_set, model_xbrl, cntlr, options):
         global_context.message_queue.stop()
         global_context.message_queue.clear()
         t.join()  
-    
+    # Save any taxonomies that were opened
+    saved_taxonomies = global_context.other_taxonomies
     #clean up
     del global_context
+    
+    return saved_taxonomies
     
 def evaluate_rule_set(global_context):
     """Process the rule set.
@@ -182,6 +187,7 @@ def evaluate_rule_set(global_context):
                 xule_context.iteration_table.add_table(rule['node_id'], xule_context.get_processing_id(rule['node_id']))
                 
                 # Evaluate the rule. 
+                global_context.model.modelManager.showStatus("Processing rule {}".format(rule_name))
                 evaluate(rule, xule_context)
                  
             except (XuleProcessingError, XuleBuildTableError) as e:
@@ -4411,8 +4417,9 @@ def result_message(rule_ast, result_ast, xule_value, xule_context):
         # Caching does not work for expressions with tagRefs. The The results portion of a rule will have a tagRef for each varRef. This conversion is
         # done during the post parse step. So it is neccessary to turn local caching off when evaluating the result expression. There is a command line option
         # for doing this. This code will turn this command line option on.
-        saved_no_cache = getattr(message_context.global_context.options, 'xule_no_cache')
-        xule_context.global_context.options.xule_no_cache = True
+        saved_no_cache = getattr(message_context.global_context.options, 'xule_no_cache', False)
+        if hasattr(message_context.global_context.options, 'xule_no_cache'):
+            xule_context.global_context.options.xule_no_cache = True
         
         message_value = evaluate(result_ast['resultExpr'], message_context)
     except XuleIterationStop as xis:
