@@ -55,7 +55,8 @@ import optparse
 import os 
 import datetime
 
-__version__ = '3.0.' + '$Change$'[9:-2]
+
+__version__ = '3.0.' + (xu.version() or '')
 
 _cntlr = None
 _options = None
@@ -63,14 +64,27 @@ _saved_taxonomies = dict()
 _test_start = None
 _test_variation_name = None
 
-def xuleMenuOpen(cntlr, menu):
+def xuleMenuOpen(cntrl, menu):
+    pass
+
+def xuleMenuTools(cntlr, menu):
+    import tkinter
+    def showVersion():
+        tkinter.messagebox.showinfo("DQC Version", __version__)
+        
+    xuleMenu = tkinter.Menu(menu, tearoff=0)
+    xuleMenu.add_command(label=_("Version..."), underline=0, command=showVersion)
+
+    menu.add_cascade(label=_("DQC"), menu=xuleMenu, underline=0)
+
+class EmptyOptions:
     pass
 
 def xuleValidateMenuTools(cntlr, validateMenu, *args, **kwargs):
     global _cntlr
     _cntlr = cntlr
     global _options
-    _options = None     
+    _options = EmptyOptions()     
     
 
     # Extend menu with an item for the save infoset plugin
@@ -84,13 +98,6 @@ def xuleValidateMenuTools(cntlr, validateMenu, *args, **kwargs):
                                  underline=0, 
                                  variable=validateDQC, onvalue=True, offvalue=False)    
 
-
-'''
-    menu.add_command(label="Xule rules", 
-                     underline=0, 
-                     command=lambda: whatever(cntlr) )
-    menu.add_checkbutton(label=_("DQC Rules"), underline=0, variable=cntlr.validateDQC, onvalue=True, offvalue=False)
-'''
 def xuleCmdOptions(parser):
     # extend command line options to compile rules
     if isinstance(parser, Options):
@@ -492,7 +499,7 @@ def xuleValidate(val):
     global _options
     
     #This will only run from command line
-    if _cntlr is not None and _options is not None:
+    if _cntlr is not None and not isinstance(_options, EmptyOptions):
         if not getattr(_options, "xule_run", False):
             # Only run on validate if the --xule-run option was not supplied. If --xule-run is supplied, it has already been run
             runXule(_cntlr, _options, val.modelXbrl)
@@ -528,7 +535,7 @@ def xuleTestValidated(modelTestcase, modelXbrl):
 
 __pluginInfo__ = {
     'name': 'DQC XBRL rule processor (xule)',
-    'version': '1.0',
+    'version': 'Check version using Tools->DQC->Version on the GUI or --xule-version on the command line',
     'description': 'This plug-in provides a DQC 1.- processor.',
     'license': 'Apache-2',
     'author': 'XBRL US Inc.',
@@ -536,7 +543,7 @@ __pluginInfo__ = {
     # classes of mount points (required)
     'ModelObjectFactory.ElementSubstitutionClasses': None,
     'CntlrWinMain.Menu.File.Open': xuleMenuOpen,
-    #'CntlrWinMain.Menu.Tools': xuleMenuTools,
+    'CntlrWinMain.Menu.Tools': xuleMenuTools,
     'CntlrWinMain.Menu.Validation':xuleValidateMenuTools,
     'CntlrCmdLine.Options': xuleCmdOptions,
     'CntlrCmdLine.Utility.Run': xuleCmdUtilityRun,

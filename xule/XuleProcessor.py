@@ -4418,15 +4418,17 @@ def result_message(rule_ast, result_ast, xule_value, xule_context):
         # done during the post parse step. So it is neccessary to turn local caching off when evaluating the result expression. There is a command line option
         # for doing this. This code will turn this command line option on.
         saved_no_cache = getattr(message_context.global_context.options, 'xule_no_cache', False)
-        if hasattr(message_context.global_context.options, 'xule_no_cache'):
-            xule_context.global_context.options.xule_no_cache = True
+#         if hasattr(message_context.global_context.options, 'xule_no_cache'):
+#             xule_context.global_context.options.xule_no_cache = True
+        xule_context.global_context.options.xule_no_cache = True
         
         message_value = evaluate(result_ast['resultExpr'], message_context)
     except XuleIterationStop as xis:
         raise XuleProcessingError(_("Cannot produce message. An expression in the message has a skip value."), xule_context)
     finally:
-        if hasattr(message_context.global_context.options, 'xule_no_cache'):
-            xule_context.global_context.options.xule_no_cache = saved_no_cache   
+#         if hasattr(message_context.global_context.options, 'xule_no_cache'):
+#             
+        xule_context.global_context.options.xule_no_cache = saved_no_cache   
 
     if result_ast['resultName'] == 'rule-focus':
         # This is a special case. rule-focus requires some kind of a ModelObject. This will be passed to the logger as the modelObject argument.
