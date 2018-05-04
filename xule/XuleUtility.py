@@ -44,7 +44,7 @@ def version():
     for mod_file_name in glob.glob(xule_mod_pattern):
         with open(mod_file_name, 'r') as mod_file:
             file_text = mod_file.read()
-            match = re.search(r'\$Change$', file_text)
+            match = re.search(r'\$' + r'Change:\s*(\d+)\s*\$', file_text)
             if match is not None:
                 change_numbers.add(int(match.group(1)))
     
