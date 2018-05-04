@@ -27,6 +27,8 @@ import collections
 import json 
 import os
 import inspect
+import glob
+import re
 import shutil
 from contextlib import contextmanager
 from . import XuleConstants as xc
@@ -34,6 +36,23 @@ from .XuleRunTime import XuleProcessingError
 # XuleValue is a module. It is imported in the _imports() function to avoid a circular relative import error.
 XuleValue = None
 XuleProperties = None
+
+
+def version():
+    change_numbers = set()
+    xule_mod_pattern = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__), '*.py'))
+    for mod_file_name in glob.glob(xule_mod_pattern):
+        with open(mod_file_name, 'r') as mod_file:
+            file_text = mod_file.read()
+            match = re.search(r'\$Change$', file_text)
+            if match is not None:
+                change_numbers.add(int(match.group(1)))
+    
+    if len(change_numbers) == 0:
+        return None
+    else:
+        return str(max(change_numbers))
+            
 
 def _imports():
     """Imports
