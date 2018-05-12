@@ -393,8 +393,8 @@ class XuleRuleContext(object):
         new_context = copy.copy(self)
         new_context.iteration_table = XuleIterationTable(self)
         new_context.iteration_table.add_table(-1, processing_id)
-        new_context.facts = self.facts
-        new_context.tags = self.tags
+        new_context.facts = self.facts.copy()
+        new_context.tags = self.tags.copy()
         return new_context
 
     def add_tag(self, tag, value):
@@ -472,10 +472,7 @@ class XuleRuleContext(object):
                     "type": self._VAR_TYPE_ARG,
                     "calculated": True,
                     "value": value,
-                    '''THESE FOLLOWING ITEMS CAN PROBABLY BE REMOVED. THE number ARGUMENT CAN BE REMOVED'''
-                    "number": number,
-                    "contains_facts": False,
-                    "other_values": {}}
+                    }
 
         self.vars[node_id].append(var_info)
         if tag is not None:
@@ -524,7 +521,7 @@ class XuleRuleContext(object):
                         ast_const = self.global_context.rule_set.getItem(cat_const)
                         var_value = self._BUILTIN_CONSTANTS[var_name](self)
                         var_info = {"name": var_name,
-                                    "tagged": True,
+                                    "tagged": var_name,
                                     "type": self._VAR_TYPE_CONSTANT,
                                     "expr": ast_const,
                                     "calculated": True,
@@ -544,7 +541,7 @@ class XuleRuleContext(object):
                     else:
                         ast_const = self.global_context.rule_set.getItem(cat_const)
                         var_info = {"name": var_name,
-                                    "tagged": True,
+                                    "tagged": var_name,
                                     "type": self._VAR_TYPE_CONSTANT,
                                     "expr": ast_const,
                                     "calculated": False,

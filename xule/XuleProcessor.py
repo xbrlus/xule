@@ -187,7 +187,8 @@ def evaluate_rule_set(global_context):
                 xule_context.iteration_table.add_table(rule['node_id'], xule_context.get_processing_id(rule['node_id']))
                 
                 # Evaluate the rule. 
-                global_context.model.modelManager.showStatus("Processing rule {}".format(rule_name))
+                if global_context.model is not None: 
+                    global_context.model.modelManager.showStatus("Processing rule {}".format(rule_name))
                 evaluate(rule, xule_context)
                  
             except (XuleProcessingError, XuleBuildTableError) as e:
@@ -1410,7 +1411,7 @@ def evaluate_for(for_expr, xule_context):
             for_loop_var.used_expressions.update(used_expressions)
         xule_context.add_arg(for_expr['forVar'],
                               for_expr['forLoopExpr']['node_id'],
-                              for_loop_var, #tagged - all variables are automatically tagged
+                              for_expr['forVar'], #tagged - all variables are automatically tagged
                               for_loop_var,
                               'single')
 
@@ -3968,7 +3969,21 @@ def evaluate_tag_ref(tag_ref, xule_context):
     if tag_ref['varName'] in xule_context.tags:
         return xule_context.tags[tag_ref['varName']]
     else:
-        return XuleValue(xule_context, None, 'none')
+        # The reference may be to a constant
+        cat_const =  xule_context.global_context.catalog['constants'].get(tag_ref['varName'])
+        if cat_const is not None:            
+            ast_const = xule_context.global_context.rule_set.getItem(cat_const)
+            # If the constant is iterable and it was never used in the rule body, it cannot be calculated for the message. 
+            # There would be no way to determing which value to use.
+            if ast_const['number'] == 'single':
+                const_info = xule_context.find_var(tag_ref['varName'], ast_const['node_id'])
+                if const_info['type'] == xule_context._VAR_TYPE_CONSTANT:
+                    if not const_info.get('calculated'):
+                        var_value = evaluate(ast_const, xule_context)
+                        
+                    return const_info['value'].values[None][0]
+    # If here the tag could not be found
+    return XuleValue(xule_context, None, 'none')
                  
 #aspect info indexes
 TYPE = 0
@@ -4413,6 +4428,7 @@ def result_message(rule_ast, result_ast, xule_value, xule_context):
     #validate_result_name(result_ast, xule_context)
     message_context = xule_context.create_message_copy(xule_context.get_processing_id(rule_ast['node_id']))
     message_context.tags['rule-value'] = xule_value
+
     try:
         # Caching does not work for expressions with tagRefs. The The results portion of a rule will have a tagRef for each varRef. This conversion is
         # done during the post parse step. So it is neccessary to turn local caching off when evaluating the result expression. There is a command line option
