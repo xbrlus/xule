@@ -433,9 +433,9 @@ def property_dimensions_explicit(xule_context, object_value, *args):
         dim_value = xv.XuleValue(xule_context, get_concept(xule_context.model, dim_qname), 'concept')
         if member_model.isExplicit:
             member_value = xv.XuleValue(xule_context, member_model.member, 'concept')
-
-        result_dict[dim_value] = member_value
-        result_shadow[dim_value.value] = member_value.value
+    
+            result_dict[dim_value] = member_value
+            result_shadow[dim_value.value] = member_value.value
     
     return xv.XuleValue(xule_context, frozenset(result_dict.items()), 'dictionary', shadow_collection=frozenset(result_shadow.items()))
 
@@ -451,8 +451,8 @@ def property_dimensions_typed(xule_context, object_value, *args):
         if not member_model.isExplicit:
             member_value = xv.XuleValue(xule_context, member_model.typedMember.xValue, xv.model_to_xule_type(xule_context, member_model.typedMember.xValue))
             
-        result_dict[dim_value] = member_value
-        result_shadow[dim_value.value] = member_value.value
+            result_dict[dim_value] = member_value
+            result_shadow[dim_value.value] = member_value.value
     
     return xv.XuleValue(xule_context, frozenset(result_dict.items()), 'dictionary', shadow_collection=frozenset(result_shadow.items()))
 
