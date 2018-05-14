@@ -422,6 +422,40 @@ def property_dimensions(xule_context, object_value, *args):
     
     return xv.XuleValue(xule_context, frozenset(result_dict.items()), 'dictionary', shadow_collection=frozenset(result_shadow.items()))
 
+def property_dimensions_explicit(xule_context, object_value, *args):
+    if not object_value.is_fact:
+        return object_value
+    
+    result_dict = dict()
+    result_shadow = dict()
+    
+    for dim_qname, member_model in object_value.fact.context.qnameDims.items():
+        dim_value = xv.XuleValue(xule_context, get_concept(xule_context.model, dim_qname), 'concept')
+        if member_model.isExplicit:
+            member_value = xv.XuleValue(xule_context, member_model.member, 'concept')
+
+        result_dict[dim_value] = member_value
+        result_shadow[dim_value.value] = member_value.value
+    
+    return xv.XuleValue(xule_context, frozenset(result_dict.items()), 'dictionary', shadow_collection=frozenset(result_shadow.items()))
+
+def property_dimensions_typed(xule_context, object_value, *args):
+    if not object_value.is_fact:
+        return object_value
+    
+    result_dict = dict()
+    result_shadow = dict()
+    
+    for dim_qname, member_model in object_value.fact.context.qnameDims.items():
+        dim_value = xv.XuleValue(xule_context, get_concept(xule_context.model, dim_qname), 'concept')
+        if not member_model.isExplicit:
+            member_value = xv.XuleValue(xule_context, member_model.typedMember.xValue, xv.model_to_xule_type(xule_context, member_model.typedMember.xValue))
+            
+        result_dict[dim_value] = member_value
+        result_shadow[dim_value.value] = member_value.value
+    
+    return xv.XuleValue(xule_context, frozenset(result_dict.items()), 'dictionary', shadow_collection=frozenset(result_shadow.items()))
+
 def property_aspects(xule_context, object_value, *args):
     if not object_value.is_fact:
         return object_value
@@ -1420,6 +1454,8 @@ PROPERTIES = {
               'scheme': (property_scheme, 0, ('entity',), False),
               'dimension': (property_dimension, 1, ('fact',), True),
               'dimensions': (property_dimensions, 0, ('fact',), True),
+              'dimensions-explicit': (property_dimensions_explicit, 0, ('fact',), True),
+              'dimensions-typed': (property_dimensions_typed, 0, ('fact',), True),                            
               'aspects': (property_aspects, 0, ('fact',), True),
               'start': (property_start, 0, ('instant', 'duration'), False),
               'end': (property_end, 0, ('instant', 'duration'), False),
