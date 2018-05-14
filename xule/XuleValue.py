@@ -25,7 +25,7 @@ DOCSKIP
 from .XuleRunTime import XuleProcessingError
 #from . import XuleProperties
 from . import XuleUtility
-from arelle.ModelValue import QName, dayTimeDuration, DateTime, gYear, gMonthDay, gYearMonth, InvalidValue, IsoDuration
+from arelle.ModelValue import AnyURI, QName, dayTimeDuration, DateTime, gYear, gMonthDay, gYearMonth, InvalidValue, IsoDuration
 from arelle.ModelInstanceObject import ModelFact, ModelUnit
 from arelle.ModelRelationshipSet import ModelRelationshipSet
 from arelle.ModelDtsObject import ModelRelationship
@@ -1097,7 +1097,8 @@ TYPE_SYSTEM_TO_XULE = {int: 'int',
                        IsoDuration: 'iso_duration',
                        gYear: 'model_g_year',
                        gMonthDay: 'model_g_month_day',
-                       gYearMonth: 'model_g_year_month'}
+                       gYearMonth: 'model_g_year_month',
+                       AnyURI: 'uri'}
 
 TYPE_STANDARD_CONVERSION = {'model_date_time': (model_to_xule_model_datetime, 'instant'),
                             'model_g_year': (model_to_xule_model_g_year, 'int'),
