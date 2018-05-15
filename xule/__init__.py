@@ -69,11 +69,56 @@ def xuleMenuOpen(cntrl, menu):
 
 def xuleMenuTools(cntlr, menu):
     import tkinter
+    import tkinter.ttk as ttk
+    import tkinter.font as tkFont
+    
     def showVersion():
         tkinter.messagebox.showinfo("DQC Version", __version__)
+
+    def showRuleSetMap():
+        map = xu.get_rule_set_map(cntlr, xc.RULE_SET_MAP)
+        headers = ['Namespace', 'Rule Set']
         
+        # Get the top level container
+        root = tkinter.Toplevel()
+        # Create a tree view. This will be a multi column list box
+        tree_box = ttk.Treeview(root, columns=headers, show="headings")
+        # Set the headers and the initial column widths based on the length of the each headers
+        for col in headers:
+            tree_box.heading(col, text=col.title())
+            tree_box.column(col, width=tkFont.Font().measure(col.title()))
+        # Add the values to the tree box
+        for item in (map.items()):
+            tree_box.insert('', 'end', values=item)
+        # Reset the column widths based on the values in the columns
+        for col_index, vals in enumerate((map.keys(), map.values())):
+            col_id = headers[col_index]
+            col_w = tree_box.column(col_id, width=None)
+            for x in vals:
+                new_w = tkFont.Font().measure(x)
+                if new_w > col_w:
+                    col_w = new_w
+                tree_box.column(col_id, width=col_w)        
+        # Place the tree box
+        tree_box.grid(column=0, row=0, sticky='nsew')
+        # Create the scroll bars
+        vsb = ttk.Scrollbar(root, orient='vertical', command=tree_box.yview)
+        hsb = ttk.Scrollbar(root, orient='horizontal', command=tree_box.xview)
+        # Set the feedback from the tree box to the scroll bars
+        tree_box.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
+        # Place the scroll bars
+        vsb.grid(column=1, row=0, sticky='ns')
+        hsb.grid(column=0, row=1, sticky='ew')
+        # Set the feedback from the scroll bars to the text_box
+        vsb.config(command=tree_box.yview)
+        hsb.config(command=tree_box.xview)
+        # This makes the tree box stretchy
+        root.grid_columnconfigure(0, weight=1)
+        root.grid_rowconfigure(0, weight=1)
+    
     xuleMenu = tkinter.Menu(menu, tearoff=0)
     xuleMenu.add_command(label=_("Version..."), underline=0, command=showVersion)
+    xuleMenu.add_command(label=_("Dispaly rule set map..."), underline=0, command=showRuleSetMap)
 
     menu.add_cascade(label=_("DQC"), menu=xuleMenu, underline=0)
 
