@@ -393,7 +393,7 @@ _FACT_INDEX_PROPERTIES = {
                           ('property', 'concept', 'is-numeric'): lambda f: f.concept.isNumeric, 
                           ('property', 'concept', 'substitution'):lambda f: f.concept.substitutionGroupQname,
                           ('property', 'concept', 'namespace-uri'): lambda f: f.concept.qname.namespaceURI,
-                          ('property', 'concept', 'local-part'): lambda f: f.concept.qname.localName,
+                          ('property', 'concept', 'local-name'): lambda f: f.concept.qname.localName,
                           ('property', 'concept', 'is-abstract'): lambda f: f.concept.isAbstract,
                           ('property', 'concept', 'id'): lambda f: f.id,
                           ('property', 'period', 'start'): index_property_start,
