@@ -578,7 +578,7 @@ def xuleTestValidated(modelTestcase, modelXbrl):
 __pluginInfo__ = {
     'name': 'DQC XBRL rule processor (xule)',
     'version': 'Check version using Tools->DQC->Version on the GUI or --xule-version on the command line',
-    'description': 'This plug-in provides a DQC 1.- processor.',
+    'description': 'This plug-in provides a DQC processor.',
     'license': 'Apache-2',
     'author': 'XBRL US Inc.',
     'copyright': '(c) 2017-2018',
