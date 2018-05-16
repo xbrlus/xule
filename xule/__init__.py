@@ -581,7 +581,7 @@ __pluginInfo__ = {
     'description': 'This plug-in provides a DQC 1.- processor.',
     'license': 'Apache-2',
     'author': 'XBRL US Inc.',
-    'copyright': '(c) 2017',
+    'copyright': '(c) 2017-2018',
     # classes of mount points (required)
     'ModelObjectFactory.ElementSubstitutionClasses': None,
     'CntlrWinMain.Menu.File.Open': xuleMenuOpen,
