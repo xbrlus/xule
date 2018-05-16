@@ -340,9 +340,6 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
     if getattr(options, "xule_cpu", None) is not None and not getattr(options, 'xule_multi', None):
             parser.error(_("--xule-multi is required with --xule_cpu."))
 
-    if getattr(options, "xule_multi", False) and getattr(options, "xule_server", None) is None:
-        parser.error(_("--xule-multi can only be used with --xule-server enabled")) 
-    
     if getattr(options, "xule_server", None) is not None and not getattr(options, 'xule_rule_set', None):
             parser.error(_("--xule-rule-set is required with --xule_server."))
 
