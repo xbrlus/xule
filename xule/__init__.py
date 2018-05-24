@@ -30,6 +30,7 @@ from . import XuleRuleSet as xr
 from . import XuleUtility as xu
 from . import XuleConstants as xc
 from .XuleContext import XuleGlobalContext, XuleRuleContext
+from pip._vendor.retrying import MAX_WAIT
 
 try:
     from . import XuleValidate as xv
@@ -63,6 +64,7 @@ _options = None
 _saved_taxonomies = dict()
 _test_start = None
 _test_variation_name = None
+_latest_map_name = 'https://raw.githubusercontent.com/DataQualityCommittee/dqc_us_rules/master/xule/rulesetMap.json?raw=true'
 
 def xuleMenuOpen(cntrl, menu):
     pass
@@ -78,27 +80,71 @@ def xuleMenuTools(cntlr, menu):
     def showRuleSetMap():
         map = xu.get_rule_set_map(cntlr, xc.RULE_SET_MAP)
         headers = ['Namespace', 'Rule Set']
+        # Set the value of the map dictionary to be a list.
+        displayRuleSetMap(map.items(), headers)
+    
+    def checkRuleSetMap():
+        # Get the current rule set map
+        current_map = xu.get_rule_set_map(cntlr, xc.RULE_SET_MAP)
+        # Get the latest map
+        # Open the new map
+        latest_map = xu.open_json_file(cntlr, _latest_map_name)
         
+        match = True
+        for namespace, rule_set in latest_map.items():
+            if current_map.get(namespace) != rule_set:
+                match = False
+        
+        if match:
+            tkinter.messagebox.showinfo("DQC Rule Set Check", _("You have the latest rule set map."))
+        else:
+            compare_map = []
+            for cur_key in current_map:
+                cur_row = [cur_key, current_map[cur_key]]
+                latest_value = latest_map.get(cur_key)
+                cur_row.append(latest_value or '')
+                cur_row.append('Yes' if current_map[cur_key] == latest_value else 'No' if cur_key in latest_map else 'Current Map Only')
+                compare_map.append(cur_row)
+            for latest_key in latest_map.keys() - current_map.keys():
+                # These keys are not in the current map
+                compare_map.append([latest_key,'',latest_map[latest_key], 'Latest Map Only'])
+            headers = ('Namespace', 'Current Rule Set', 'Latest Rule Set', 'Match')
+            displayRuleSetMap(compare_map, headers, 'Current rule set map does not match latest DQC rule set map')
+
+            #tkinter.messagebox.showinfo("DQC Rule Set Check", _("The rule set map you have does match the latest DQC rule set map."))
+            
+    def displayRuleSetMap(map, headers, title='Rule Set Map'):
         # Get the top level container
         root = tkinter.Toplevel()
         # Create a tree view. This will be a multi column list box
         tree_box = ttk.Treeview(root, columns=headers, show="headings")
+        tree_box.winfo_toplevel().title(title)
         # Set the headers and the initial column widths based on the length of the each headers
         for col in headers:
             tree_box.heading(col, text=col.title())
             tree_box.column(col, width=tkFont.Font().measure(col.title()))
         # Add the values to the tree box
-        for item in (map.items()):
-            tree_box.insert('', 'end', values=item)
+        for current_value in map:
+            item = tree_box.insert('', 'end', values=current_value, tag=current_value[3].replace(' ','') if len(current_value) >= 4 else 'Yes')
+        # Set rows tht don't match to red
+        tree_box.tag_configure('No', foreground='red')
+        tree_box.tag_configure('LatestMapOnly', foreground='red')
+        tree_box.tag_configure('CurrentMapOnly', foreground='blue')
+        
         # Reset the column widths based on the values in the columns
-        for col_index, vals in enumerate((map.keys(), map.values())):
+        max_w = tkFont.Font().measure('X'*30)
+        for col_index in range(len(headers)):
             col_id = headers[col_index]
             col_w = tree_box.column(col_id, width=None)
-            for x in vals:
+            for row in map:
+                x = list(row)[col_index]
                 new_w = tkFont.Font().measure(x)
+                if new_w > max_w:
+                    col_w = max_w
+                    break
                 if new_w > col_w:
                     col_w = new_w
-                tree_box.column(col_id, width=col_w)        
+            tree_box.column(col_id, width=col_w)
         # Place the tree box
         tree_box.grid(column=0, row=0, sticky='nsew')
         # Create the scroll bars
@@ -115,10 +161,88 @@ def xuleMenuTools(cntlr, menu):
         # This makes the tree box stretchy
         root.grid_columnconfigure(0, weight=1)
         root.grid_rowconfigure(0, weight=1)
-    
+        
+        
+    def getLatestRuleSetMap():
+        
+        def updateRuleSetMap(main_window, file_name, replace):
+            try:
+                xu.update_rule_set_map(cntlr, file_name, xc.RULE_SET_MAP, overwrite=bool(replace))
+                main_window.destroy()
+            except OSError:
+                tkinter.messagebox.showinfo("File does not exists", "File '{}' does not exist".format(file_name))
+            except XuleProcessingError:
+                tkinter.messagebox.showinfo("Invalid Rule Set Map File", "{} is not a valid rule set map file".format(file_name))            
+        
+        def selectRuleSetMap(main_window, replace):
+            filename = cntlr.uiFileDialog("open",
+                                title=_("DQC - Select Rule Set Map File"),
+                                initialdir=cntlr.config.setdefault("fileOpenDir","."),
+                                filetypes=[(_("Map files"), "*.*")],
+                                defaultextension=".json")
+
+            if os.sep == "\\":
+                filename = filename.replace("/", "\\")
+            
+            if filename != '':
+                updateRuleSetMap(main_window, filename, replace)
+            else:
+                main_window.destroy()
+        
+        def useLatestRuleSetMap(main_window, replace):
+            updateRuleSetMap(main_window, _latest_map_name, replace)
+            
+        def useEnteredValue(main_window, entry_value, replace):
+            updateRuleSetMap(main_window, entry_value.get(), replace)
+        
+        root = tkinter.Toplevel()
+        # Frame for text at the top
+        window_text =_("To update update the DQC rule set map using the latest DQC map, click on " +
+                       "\"Use latest DQC rule set map\"\n" +
+                       "You can also select a rule set map by pasting/typing the file name or URL and pressing the Enter key or\n" +
+                       "using the file selector.\n\n" +
+                       "Check the \"Overwrite rule set map\" if you want to completely overwrite the existing rule set map. \n" +
+                       "Otherwise the new rule set map will be merged with your current rule set map. When merging, where namespaces are \n" +
+                       "the same, the rule set from the new rule set map will be used. Namespaces in the current namespace map that are not \n" + 
+                       "in the new namespace map will be left in the rule set map.")
+        frame1 = tkinter.Frame(root, borderwidth=2)
+        frame1.pack()
+        frame1_label = tkinter.Label(frame1, text=window_text, justify=tkinter.LEFT)
+        frame1_label.pack()
+        
+        frame1.winfo_toplevel().title("Update Rule Set Map")
+        
+        # Main frame
+        frame = tkinter.Frame(root, borderwidth=2)
+        frame.pack(anchor="w")
+        
+        # Replace check box
+        frame2 = tkinter.Frame(root, borderwidth=2)
+        frame2.pack(anchor="w")
+        replace_var = tkinter.IntVar()
+        replace_var.set(1)
+        replace_check = tkinter.Checkbutton(frame2, text="Overwrite rule set map", variable=replace_var)
+        replace_check.pack(side=tkinter.LEFT)
+        
+        latest_button = tkinter.Button(frame, command=lambda: useLatestRuleSetMap(root, replace_var), text="Use latest DQC rule set map")
+        latest_button.pack(side=tkinter.LEFT)
+        or_label = tkinter.Label(frame, text="  or  ")
+        or_label.pack(side=tkinter.LEFT)
+        entry_value = tkinter.StringVar()
+        entry = tkinter.Entry(frame, width=60, textvariable=entry_value)
+        entry.bind('<Return>', lambda e: useEnteredValue(root, entry_value, replace_var))        
+        entry.pack(side=tkinter.LEFT)
+        frame.image = tkinter.PhotoImage(file=os.path.join(cntlr.imagesDir, "toolbarOpenFile.gif"))
+
+        select_button = tkinter.Button(frame, command=lambda: selectRuleSetMap(root, replace_var))
+        select_button.config(image=frame.image)
+        select_button.pack(side=tkinter.LEFT)
+
     xuleMenu = tkinter.Menu(menu, tearoff=0)
     xuleMenu.add_command(label=_("Version..."), underline=0, command=showVersion)
-    xuleMenu.add_command(label=_("Dispaly rule set map..."), underline=0, command=showRuleSetMap)
+    xuleMenu.add_command(label=_("Display rule set map..."), underline=0, command=showRuleSetMap)
+    xuleMenu.add_command(label=_("Check rule set map"), underline=0, command=checkRuleSetMap)
+    xuleMenu.add_command(label=_("Update rule set map..."), underline=0, command=getLatestRuleSetMap)
 
     menu.add_cascade(label=_("DQC"), menu=xuleMenu, underline=0)
 

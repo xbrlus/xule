@@ -308,21 +308,15 @@ def get_rule_set_map_file_name(cntlr, map_name):
         raise XuleProcessingError(_("Arelle does not have a user application data directory. Cannot locate map file"))            
     return os.path.join(cntlr.userAppDir, 'plugin', 'xule', map_name)
 
-def update_rule_set_map(cntlr, new_map, map_name, overwrite=False):
-    # Open the new map
-    from arelle import FileSource
-    file_source = FileSource.openFileSource(new_map, cntlr)
-    file_object = file_source.file(new_map)[0]    
-    try:
-        new_map = json.load(file_object, object_pairs_hook=collections.OrderedDict)
-    except ValueError:
-        raise XuleProcessingError(_("New map file does not appear to be a valid JSON file. File: {}".format(new_map)))
+def update_rule_set_map(cntlr, new_map_name, map_name, overwrite=False):
+    
+    new_map = open_json_file(cntlr, new_map_name)
     
     if overwrite:
         rule_set_map = new_map
     else:
         # update
-        rule_set_map = get_rule_set_map(cntlr)
+        rule_set_map = get_rule_set_map(cntlr, map_name)
         rule_set_map.update(new_map)
 
     #update the rule set map
@@ -332,6 +326,20 @@ def update_rule_set_map(cntlr, new_map, map_name, overwrite=False):
         cntlr.addToLog(_("Map file replaced"), "xule")
     else:
         cntlr.addToLog(_("Map file updated"), "xule")
+
+def open_json_file(cntlr, file_name):
+    # Open the new map
+    from arelle import FileSource
+    file_source = FileSource.openFileSource(file_name, cntlr)
+    # FileSource does not handle reading JSPON files. If the file is not binary, FileSource assumes it is XML
+    # Read the file as binary and then decode.
+    file_object = file_source.file(file_name, binary=True)[0] 
+    
+    file_content = file_object.read().decode()
+    try:
+        return json.loads(file_content, object_pairs_hook=collections.OrderedDict)
+    except ValueError:
+        raise XuleProcessingError(_("New map file does not appear to be a valid JSON file. File: {}".format(file_name)))
 
 def reset_rule_set_map(cntlr, map_name):
     rule_set_map_file_name = get_rule_set_map_file_name(cntlr, map_name)
