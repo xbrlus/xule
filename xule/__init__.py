@@ -30,7 +30,6 @@ from . import XuleRuleSet as xr
 from . import XuleUtility as xu
 from . import XuleConstants as xc
 from .XuleContext import XuleGlobalContext, XuleRuleContext
-from pip._vendor.retrying import MAX_WAIT
 
 try:
     from . import XuleValidate as xv
