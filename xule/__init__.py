@@ -196,7 +196,7 @@ def xuleMenuTools(cntlr, menu):
         
         root = tkinter.Toplevel()
         # Frame for text at the top
-        window_text =_("To update update the DQC rule set map using the latest DQC map, click on " +
+        window_text =_("To update the DQC rule set map using the latest DQC map, click on " +
                        "\"Use latest DQC rule set map\"\n" +
                        "You can also select a rule set map by pasting/typing the file name or URL and pressing the Enter key or\n" +
                        "using the file selector.\n\n" +
@@ -707,7 +707,7 @@ __pluginInfo__ = {
     'copyright': '(c) 2017-2018',
     # classes of mount points (required)
     'ModelObjectFactory.ElementSubstitutionClasses': None,
-    'CntlrWinMain.Menu.File.Open': xuleMenuOpen,
+    #'CntlrWinMain.Menu.File.Open': xuleMenuOpen,
     'CntlrWinMain.Menu.Tools': xuleMenuTools,
     'CntlrWinMain.Menu.Validation':xuleValidateMenuTools,
     'CntlrCmdLine.Options': xuleCmdOptions,
