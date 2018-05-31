@@ -114,14 +114,14 @@ def xbrlDBcommandLineOptionChecker(cntlr, options, **kwargs):
             parser.error(_("--xbrlusDB-info value must be in the form of NAME=VALUE"))
 
     if getattr(options, 'xbrlusDBUpdateSource', None) is not None and getattr(options, "storeIntoXbrlDb", False):  
-        host, port, user,password, db, timeout = parseConnectionString(options)      
+        host, port, user,password, db, timeout = parseConnectionString(options,cntlr)      
         updateSource(cntlr, host=host, port=port, user=user, password=password, database=db, timeout=timeout, options=options)
         
         
 def xbrlDBCommandLineXbrlRun(cntlr, options, modelXbrl, entryPoint):
 
     if getattr(options, "storeIntoXbrlDb", False):
-        host, port, user,password, db, timeout = parseConnectionString(options)
+        host, port, user,password, db, timeout = parseConnectionString(options, cntlr)
         startedAt = time.time()
         result = insertIntoDB(cntlr, modelXbrl, host=host, port=port, user=user, password=password, database=db, timeout=timeout, options=options)
         if getattr(options, "logStoredMsg", False): #kwargs.get("logStoredMsg", result): # if false/None result and no logStoredMsg parameter then skip the message
@@ -130,7 +130,7 @@ def xbrlDBCommandLineXbrlRun(cntlr, options, modelXbrl, entryPoint):
                                   time.time() - startedAt), messageCode="info", file=modelXbrl.uri)
         return result
 
-def parseConnectionString(options):
+def parseConnectionString(options, cntlr):
     if getattr(options, "storeIntoXbrlDb", False):
         dbConnection = options.storeIntoXbrlDb.split(",")
         host = port = user = password = db = timeout = None

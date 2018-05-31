@@ -159,7 +159,7 @@ class SqlDbConnection():
             self.conn = pgConnect(user=user, password=password, host=host, 
                                   port=int(port or 5432), 
                                   database=database, 
-                                  socket_timeout=timeout or 60)
+                                  timeout=timeout)
             self.product = product
         elif product == "mysql":
             if not hasMySql:

@@ -750,13 +750,28 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                         #self.attributeQNames.append((self.getQnameId(concept.qname),self.getQNameId(attribQName),attribValue))
                         attributeQNames.add(attribQName)        
             
-        qnames = (_DICT_SET(self.modelXbrl.qnameTypes.keys()) |
+        qnames = (# Data types
+                  _DICT_SET(self.modelXbrl.qnameTypes.keys()) |
+                  # Measures from units
                   set(measure
                       for unit in self.modelXbrl.units.values()
                       for measures in unit.measures
                       for measure in measures) |
+                  # Concepts
                   set(concept.qname for concept in self.newDocumentConcepts | self.newNonReportingConcepts) |
-                  attributeQNames 
+                  # Attributes
+                  attributeQNames |
+                  # Used ons in arcrole type definitions
+                  set(x
+                      for arcroles in self.modelXbrl.arcroleTypes.values()
+                      for arcrole in arcroles
+                      for x in arcrole.usedOns
+                      ) |
+                  # used ons in role type definitions
+                  set (x
+                       for roles in self.modelXbrl.roleTypes.values()
+                       for role in roles
+                       for x in role.usedOns)
                   )
         
         self.showStatus("insert qnames")
@@ -2264,11 +2279,9 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                               tuple((self.accessionId, unitValue['unitBaseId'], unit.id)
                                     for unitValue in unitBase.values()
                                     for unit in unitValue['modelUnits']))
-        
+
         self.unitsbyXmlId = dict((xmlId, {'unitReportId':id, 'unitBaseId': unitBaseId, 'unitString':self.UOMString(self.modelXbrl.units[xmlId]), 'unitHash':self.UOMHash(self.modelXbrl.units[xmlId])})
                           for id, _x, unitBaseId, xmlId in table)        
-
-
     
     def canonicalizeTypedDimensionMember(self, typedMember):
         typedElement = self.modelXbrl.qnameConcepts[typedMember.qname]
