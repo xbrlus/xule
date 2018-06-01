@@ -1301,6 +1301,9 @@ def property_number(xule_context, object_value, *args):
             raise XuleProcessingError(_("Cannot convert '%s' to a number" % object_value.value), xule_context)
     else:
         raise XuleProcessingError(_("Property 'number' requires a string or numeric argument, found '%s'" % object_value.type), xule_context)
+
+def property_is_fact(xule_context, object_value, *args):
+    return xv.XuleValue(xule_context, object_value.is_fact, 'bool')
         
 def property_type(xule_context, object_value, *args):
     if object_value.is_fact:
@@ -1473,6 +1476,7 @@ PROPERTIES = {
               'is-monetary': (property_is_monetary, 0, ('concept', 'fact'), True),
               'is-abstract': (property_is_abstract, 0, ('concept', 'fact'), True),
               'is-nil': (property_is_nil, 0, ('fact'), True),
+              'is-fact': (property_is_fact, 0, (), True),
               'scale': (property_scale, 0, ('fact',), True),
               'format': (property_format, 0, ('fact',), True),
               'label': (property_label, -2, ('concept', 'fact'), True),
