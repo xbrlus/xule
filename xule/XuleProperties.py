@@ -1113,10 +1113,11 @@ def get_concept(dts, concept_qname):
             return None
  
 def property_decimals(xule_context, object_value, *args):
-    if object_value.fact.decimals is not None:
+    if object_value.is_fact and object_value.fact.decimals is not None:
         return xv.XuleValue(xule_context, float(object_value.fact.decimals), 'float')
     else:
         return xv.XuleValue(xule_context, None, 'none')
+    
 
 def get_networks(xule_context, dts_value, arcrole=None, role=None, link=None, arc=None):
     #final_result_set = XuleResultSet()
@@ -1441,7 +1442,7 @@ PROPERTIES = {
               'sort': (property_sort, 0, ('list', 'set'), False),
               'keys': (property_keys, -1, ('dictionary',), False),
               'values': (property_values, 0, ('dictionary', ), False),
-              'decimals': (property_decimals, 0, ('fact',), True),
+              'decimals': (property_decimals, 0, (), True),
               'networks':(property_networks, -2, ('taxonomy',), False),
               'role': (property_role, 0, ('network', 'label', 'reference', 'relationship'), False),
               'role-uri': (property_role_uri, 0, ('network', 'label', 'reference', 'relationship'), False),
