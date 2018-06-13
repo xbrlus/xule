@@ -247,7 +247,7 @@ def SECFilingAndEntityInfo(dbLoader):
     rssItem = None    
     if dbLoader.supportFiles is not None:
         for fileName in dbLoader.supportFiles:
-            if os.path.splitext(fileName)[1] == '.htm':
+            if os.path.splitext(fileName)[1] in ('.htm', '.html'):
                     indexFile = fileName
             else:
                 #open the file and see if it is an rss item
@@ -259,7 +259,8 @@ def SECFilingAndEntityInfo(dbLoader):
                                 _("Expecting support file to be an rss item file, but the root tag is not 'item'. File '%s'." % fileName))
                 except etree.XMLSyntaxError:
                     pass
-                except:
+                except Exception as e:
+                    print(e)
                     raise XPDBException("xpgDB:badSupportFile",
                                 _("Problem opening supporting file '%s'." % fileName))
                 
@@ -514,6 +515,7 @@ __sourceInfo__ = {
                      (r'^http://ici.org/',None),
                      
                      (r'^http://fasb.org/',r'^http://[^/]*/([^/]*)/'),
+                     (r'^http://fasb.org/srt/',"'us-gaap'"), # srt concepts where originally us-gaap
                      (r'^http://fasb.org/((dis)|(stm))/',r'^http://[^/]*/([^/]*)/([^/]*)/'),
                      
                      (r'^http://xbrl.sec.gov/',r'^http://[^/]*/([^/]*)/'),

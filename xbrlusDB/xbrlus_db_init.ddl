@@ -2868,10 +2868,9 @@ $$;
 --
 -- Name: hash_fact_string(integer); Type: FUNCTION; Schema: public; Owner: -
 --
-
-CREATE FUNCTION hash_fact_string(fact_id_arg integer) RETURNS character varying
-    LANGUAGE sql
-    AS $$
+CREATE OR REPLACE FUNCTION hash_fact_string(fact_id_arg integer)
+  RETURNS character varying AS
+$BODY$
 SELECT concat_ws('|'
         --Fact concept
         ,CASE WHEN n.is_base THEN 'b' || n.prefix || ':' || q.local_name
@@ -2913,21 +2912,24 @@ SELECT concat_ws('|'
                 )
             ))
         END
-
         --Dimensions
         ,string_agg(
-            CASE WHEN dn.is_base THEN 'b' || dn.prefix || ':' || dq.local_name
-                  ELSE 'e' || en.authority_scheme || '|' || en.entity_code || ':' || dq.local_name END || '=' ||
-                  
-            CASE WHEN mn.is_base THEN 'b' || mn.prefix || ':' || mq.local_name
-                  ELSE 'e' || en.authority_scheme || '|' || en.entity_code || ':' || mq.local_name END
-            ,'|'
+	    CASE WHEN dn.is_base THEN 'b' || dn.prefix || ':' || dq.local_name
+	    ELSE 'e' || en.authority_scheme || '|' || en.entity_code || ':' || dq.local_name 
+	    END || '=' ||
+
+	    CASE WHEN mn.is_base IS NULL THEN cd.typed_text_content
+	    ELSE
+		    CASE WHEN mn.is_base THEN 'b' || mn.prefix || ':' || mq.local_name
+		    ELSE 'e' || en.authority_scheme || '|' || en.entity_code || ':' || mq.local_name 
+		    END
+            END
+	    ,'|'
             ORDER BY
                 CASE WHEN dn.is_base THEN 'b' || dn.prefix || ':' || dq.local_name
-                    ELSE 'e' || en.authority_scheme || '|' || en.entity_code || ':' || dq.local_name END || '=' ||
-                  
-                CASE WHEN mn.is_base THEN 'b' || mn.prefix || ':' || mq.local_name
-                    ELSE 'e' || en.authority_scheme || '|' || en.entity_code || ':' || mq.local_name END) 
+                    ELSE 'e' || en.authority_scheme || '|' || en.entity_code || ':' || dq.local_name END
+                    )
+                   
         
     ) as fact_hash_string
     FROM fact f
@@ -2948,16 +2950,213 @@ SELECT concat_ws('|'
           ON cd.dimension_qname_id = dq.qname_id
         JOIN namespace dn
           ON dq.namespace = dn.uri
-        JOIN qname mq
+          
+        LEFT JOIN qname mq
           ON cd.member_qname_id = mq.qname_id
-        JOIN namespace mn
-          ON mq.namespace = mn.uri) 
+        LEFT JOIN namespace mn
+          ON mq.namespace = mn.uri
+          ) 
       ON c.context_id = cd.context_id
      AND cd.is_default = false
      AND c.specifies_dimensions = true
     WHERE f.fact_id = fact_id_arg
     GROUP BY f.fact_id , n.is_base, n.prefix, q.local_name, en.authority_scheme, en.entity_code, c.period_start, c.period_end, c.period_instant, f.uom
-$$;
+$BODY$
+  LANGUAGE sql;
+  
+--
+-- Name: hash_fact_calendar_string(integer); Type: FUNCTION; Schema: public; Owner: -
+--  
+CREATE OR REPLACE FUNCTION hash_fact_calendar_string(fact_id_arg integer)
+  RETURNS character varying AS
+$BODY$
+SELECT CASE WHEN c.calendar_period like '%-%' THEN NULL
+       ELSE
+		concat_ws('|'
+		--Fact concept
+		,CASE WHEN n.is_base THEN 'b' || n.prefix || ':' || q.local_name
+		      ELSE 'e' || en.authority_scheme || '|' || en.entity_code || ':' || q.local_name END
+		--Entity
+		,en.authority_scheme || '|' || en.entity_code
+		--Period
+		,c.calendar_period || c.calendar_year::text
+		--Unit
+		,CASE WHEN f.unit_id IS NULL THEN '' ELSE 
+		    (SELECT COALESCE(
+			(
+			select string_agg( q1.local_name, ' * '::varchar) as uom
+			from unit_measure um1
+			join qname q1
+			  on um1.qname_id = q1.qname_id
+			where um1.location_id = 1
+			and um1.unit_id = f.unit_id
+			),
+			(select concat_ws('/',
+			(select string_agg(q2.local_name, ' * '::varchar)
+			 from unit_measure um2
+			 join qname q2
+			   on um2.qname_id = q2.qname_id
+			 where um2.unit_id = f.unit_id
+			   and um2.location_id = 2)
+			,
+			(select string_agg(q3.local_name, ' * '::varchar)
+			 from unit_measure um3
+			 join qname q3
+			   on um3.qname_id = q3.qname_id
+			where um3.unit_id = f.unit_id
+			  and um3.location_id = 3))
+			)
+		    ))
+		END
+		--Dimensions
+		,string_agg(
+
+		    CASE WHEN dn.is_base THEN 'b' || dn.prefix || ':' || dq.local_name
+		    ELSE 'e' || en.authority_scheme || '|' || en.entity_code || ':' || dq.local_name 
+		    END || '=' ||
+
+		    CASE WHEN mn.is_base IS NULL THEN cd.typed_text_content
+		    ELSE
+			    CASE WHEN mn.is_base THEN 'b' || mn.prefix || ':' || mq.local_name
+			    ELSE 'e' || en.authority_scheme || '|' || en.entity_code || ':' || mq.local_name 
+			    END
+		    END		    
+		    ,'|'
+		    ORDER BY
+			CASE WHEN dn.is_base THEN 'b' || dn.prefix || ':' || dq.local_name
+			    ELSE 'e' || en.authority_scheme || '|' || en.entity_code || ':' || dq.local_name END
+			    )
+	    ) 
+    END as fact_hash_string
+    FROM fact f
+    JOIN context c
+      ON f.context_id = c.context_id
+    JOIN accession a
+      ON f.accession_id = a.accession_id
+    JOIN element e
+      ON f.element_id = e.element_id
+    JOIN qname q
+      ON e.qname_id = q.qname_id
+    JOIN entity en
+      ON a.entity_id = en.entity_id
+    LEFT JOIN namespace n
+      ON q.namespace = n.uri
+    LEFT JOIN (context_dimension cd
+        JOIN qname dq
+          ON cd.dimension_qname_id = dq.qname_id
+        JOIN namespace dn
+          ON dq.namespace = dn.uri
+          
+        LEFT JOIN qname mq
+          ON cd.member_qname_id = mq.qname_id
+        LEFT JOIN namespace mn
+          ON mq.namespace = mn.uri
+          ) 
+      ON c.context_id = cd.context_id
+     AND cd.is_default = false
+     AND c.specifies_dimensions = true
+    WHERE f.fact_id = fact_id_arg
+    GROUP BY c.calendar_period, c.calendar_year, f.fact_id , n.is_base, n.prefix, q.local_name, en.authority_scheme, en.entity_code, c.period_start, c.period_end, c.period_instant, f.uom
+$BODY$
+  LANGUAGE sql;
+ 
+--
+-- Name: hash_fact_fiscal_string(integer); Type: FUNCTION; Schema: public; Owner: -
+--
+CREATE OR REPLACE FUNCTION hash_fact_fiscal_string(fact_id_arg integer)
+  RETURNS character varying AS
+$BODY$
+SELECT CASE WHEN c.fiscal_period like '%-%' THEN NULL
+       ELSE
+		concat_ws('|'
+		--Fact concept
+		,CASE WHEN n.is_base THEN 'b' || n.prefix || ':' || q.local_name
+		      ELSE 'e' || en.authority_scheme || '|' || en.entity_code || ':' || q.local_name END
+		--Entity
+		,en.authority_scheme || '|' || en.entity_code
+		--Period
+		,c.fiscal_period || c.fiscal_year::text
+		--Unit
+		,CASE WHEN f.unit_id IS NULL THEN '' ELSE 
+		    (SELECT COALESCE(
+			(
+			select string_agg( q1.local_name, ' * '::varchar) as uom
+			from unit_measure um1
+			join qname q1
+			  on um1.qname_id = q1.qname_id
+			where um1.location_id = 1
+			and um1.unit_id = f.unit_id
+			),
+			(select concat_ws('/',
+			(select string_agg(q2.local_name, ' * '::varchar)
+			 from unit_measure um2
+			 join qname q2
+			   on um2.qname_id = q2.qname_id
+			 where um2.unit_id = f.unit_id
+			   and um2.location_id = 2)
+			,
+			(select string_agg(q3.local_name, ' * '::varchar)
+			 from unit_measure um3
+			 join qname q3
+			   on um3.qname_id = q3.qname_id
+			where um3.unit_id = f.unit_id
+			  and um3.location_id = 3))
+			)
+		    ))
+		END
+		--Dimensions
+		,string_agg(
+
+		    CASE WHEN dn.is_base THEN 'b' || dn.prefix || ':' || dq.local_name
+		    ELSE 'e' || en.authority_scheme || '|' || en.entity_code || ':' || dq.local_name 
+		    END || '=' ||
+
+		    CASE WHEN mn.is_base IS NULL THEN cd.typed_text_content
+		    ELSE
+			    CASE WHEN mn.is_base THEN 'b' || mn.prefix || ':' || mq.local_name
+			    ELSE 'e' || en.authority_scheme || '|' || en.entity_code || ':' || mq.local_name 
+			    END
+		    END
+		    ,'|'
+		    ORDER BY
+			CASE WHEN dn.is_base THEN 'b' || dn.prefix || ':' || dq.local_name
+			    ELSE 'e' || en.authority_scheme || '|' || en.entity_code || ':' || dq.local_name END
+			    )		
+	    ) 
+    END as fact_hash_string
+    FROM fact f
+    JOIN context c
+      ON f.context_id = c.context_id
+    JOIN accession a
+      ON f.accession_id = a.accession_id
+    JOIN element e
+      ON f.element_id = e.element_id
+    JOIN qname q
+      ON e.qname_id = q.qname_id
+    JOIN entity en
+      ON a.entity_id = en.entity_id
+    LEFT JOIN namespace n
+      ON q.namespace = n.uri
+    LEFT JOIN (context_dimension cd
+        JOIN qname dq
+          ON cd.dimension_qname_id = dq.qname_id
+        JOIN namespace dn
+          ON dq.namespace = dn.uri
+          
+        LEFT JOIN qname mq
+          ON cd.member_qname_id = mq.qname_id
+        LEFT JOIN namespace mn
+          ON mq.namespace = mn.uri
+          ) 
+      ON c.context_id = cd.context_id
+     AND cd.is_default = false
+     AND c.specifies_dimensions = true
+    WHERE f.fact_id = fact_id_arg
+    GROUP BY c.fiscal_period, c.fiscal_year, f.fact_id , n.is_base, n.prefix, q.local_name, en.authority_scheme, en.entity_code, c.period_start, c.period_end, c.period_instant, f.uom
+$BODY$
+  LANGUAGE sql;
+ALTER FUNCTION hash_fact_fiscal_string(integer)
+  OWNER TO postgres;
 
 
 --

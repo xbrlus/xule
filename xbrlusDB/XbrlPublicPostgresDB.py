@@ -349,10 +349,16 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                 for preface in namespace_prefaces:
                     if re.search(preface['preface'], uri) is not None:
                         matchFound = True
-                        prefix = self.getPrefix(uri, preface['regex'])
-                        self.baseNamespaces[uri] = prefix if prefix is not None else self.cleanNCName(uri)
+                        if preface['regex'] is None:
+                            prefix = None
+                        elif ((preface['regex'].startswith("'") or preface['regex'].startswith('"')) and
+                              preface['regex'][0] == preface['regex'][-1]):
+                            prefix = preface['regex'][1:-1]
+                        else:
+                            prefix = self.getPrefix(uri, preface['regex'])
+        
+                        self.baseNamespaces[uri] = prefix
                         self.modelXbrl.info("warning",_("New base namespace found. Check if the namespace should be associated with a taxonomy_version. Namespace is '%s', canonical prefix is '%s'" % (uri, prefix)))
-                        #found the match, move on to the next namespace
                         break
 
                 if not self.getSourceSetting("hasExtensions") and not matchFound:
@@ -406,37 +412,6 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         else:
             yield item
     
-    def differentiateBaseNamespaces(self):        
-        # the source differentiates base and extension namespaces.       
-        def getPrefix(namespace, expression):
-            prefix = re.findall(expression, namespace)
-            return prefix[0] if prefix else None
-        
-        # use all namespace URIs
-        namespaceUris = self.modelXbrl.namespaceDocs.keys() 
-        
-        # get list of namespace prefaces that indicate the namespace is base
-        results = self.execute("SELECT preface,  prefix_expression FROM base_namespace WHERE source_id = %s;" %self.sourceId)
-        namespace_prefaces = [{'preface' :row[0], 'regex': row[1]} for row in results]
-        #sort the prefaces so the longest ones are first. This will allow preface like /a/b/c/d to match to /a/b/c before /a/b.
-        namespace_prefaces.sort(key=lambda x: x['preface'], reverse=True)
-        
-        #Find namespace prefixes based on the regular expression in the base_namespace table.
-        for uri in namespaceUris:
-            #check if the namespace is already in the database
-            results = self.execute("SELECT prefix FROM namespace WHERE uri = %s AND is_base", params=(uri,))
-            if len(results) > 0:
-                self.baseNamespaces[uri] = results[0][0]
-            else:
-                prefix = None
-                for preface in namespace_prefaces:
-                    #if uri.startswith(preface['preface']):
-                    if re.search(preface['preface'], uri) is not None:
-                        self.baseNamespaces[uri] = getPrefix(uri, preface['regex']) if preface['regex'] else None
-                        self.modelXbrl.info("warning",_("New base namespace found. Check if the namespace should be associated with a taxonomy_version. Namespace is '%s'" % uri))
-                        #found the match, move on to the next namespace
-                        break
-
     def insertTaxonomyAndVersion(self):
         taxonomyName = getattr(self.options, 'xbrlusDBTaxonomyName', None)
         taxonomyVersion = getattr(self.options, 'xbrlusDBTaxonomyVersion', None)
@@ -2023,7 +1998,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                 hash_list.append(self.cntxInfo.get((self.accessionId,fact.contextID))['dim_hash'])
             
             hash = '|'.join(hash_list)
-
+            
         return hash    
     
     def hashFactCalendar(self, fact):
