@@ -393,7 +393,7 @@ def property_dimension(xule_context, object_value, *args):
     else:
         raise XuleProcessingError(_("The argument for property 'dimension' must be a qname, found '%s'." % dim_name.type),xule_context)
      
-    member_model = model_fact.context.qnameDims.get(dim_name.value)
+    member_model = model_fact.context.qnameDims.get(dim_qname)
     if member_model is None:
         return xv.XuleValue(xule_context, None, 'none')
     else:
