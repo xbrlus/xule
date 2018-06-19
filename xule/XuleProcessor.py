@@ -113,7 +113,7 @@ def process_xule(rule_set, model_xbrl, cntlr, options, saved_taxonomies=None):
         constant_time = constant_end - constant_start
         global_context.message_queue.print("Time to calculated non instance constants: %s" % (constant_time))
 
-    global_context.message_queue.logging("Processing Filing...")
+    #global_context.message_queue.logging("Processing Filing...")
     evaluate_rule_set(global_context)
     
     if getattr(global_context.options, "xule_time", None) is not None:

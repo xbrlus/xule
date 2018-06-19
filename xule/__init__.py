@@ -24,8 +24,8 @@ limitations under the License.
 $Change$
 DOCSKIP
 """
-
-from .XuleProcessor import process_xule, XuleProcessingError
+from .XuleProcessor import process_xule
+from . import XuleRunTime as xrt
 from . import XuleRuleSet as xr
 from . import XuleUtility as xu
 from . import XuleConstants as xc
@@ -50,44 +50,116 @@ except ImportError:
 from optparse import OptionParser, SUPPRESS_HELP
 from arelle import FileSource
 from arelle import ModelManager
+from arelle import PluginManager
 from arelle.CntlrWebMain import Options
 import optparse
 import os 
 import datetime
-
+import json
 
 __version__ = '3.0.' + (xu.version() or '')
 
 _cntlr = None
 _options = None
+_is_xule_direct = None
 _saved_taxonomies = dict()
 _test_start = None
 _test_variation_name = None
-_latest_map_name = 'https://raw.githubusercontent.com/DataQualityCommittee/dqc_us_rules/master/xule/rulesetMap.json?raw=true'
+_latest_map_name = None
+_xule_validators = []
+_xule_rule_set_map_name = 'xuleRulesetMap.json'
 
-def xuleMenuOpen(cntrl, menu):
+class EmptyOptions:
     pass
 
+class XuleVars:
+    
+    class XuleVarContainer:
+        pass
+
+    @classmethod
+    def set(cls, cntlr, name, value):
+        if not hasattr(cntlr, 'xule_vars'):
+            cntlr.xule_vars = dict()
+        
+        cntlr.xule_vars[name] = value
+    
+    @classmethod
+    def get(cls, cntlr, name):
+        if hasattr(cntlr, 'xule_vars'):
+            return cntlr.xule_vars.get(name)
+        else:
+            return None
+
 def xuleMenuTools(cntlr, menu):
+    import tkinter
+    
+    global _cntlr
+    _cntlr = cntlr
+    
+    attr_name = 'xule_is_on'
+    setattr(cntlr.modelManager, attr_name, cntlr.config.setdefault(attr_name,False))
+
+    if getattr(cntlr.modelManager, attr_name):
+        addMenuTools(cntlr, menu, 'Xule', __version__, _xule_rule_set_map_name, _latest_map_name)
+    else:
+        activate_xule_label = "Activate"
+        def turnOnXule():
+            # The validation menu hook is hit before the tools menu hook. the XuleVars for 'validate_menu' is set in the validation menu hook.
+            validate_menu = XuleVars.get(cntlr, 'validate_menu')
+            addValidateMenuTools(cntlr, validate_menu, 'Xule', _xule_rule_set_map_name)
+            menu.delete('Xule')
+            xule_menu = addMenuTools(cntlr, menu, 'Xule', __version__, _xule_rule_set_map_name, _latest_map_name)
+            
+            def turnOffXule():
+                validate_menu.delete('Xule Rules')
+                menu.delete('Xule')
+                new_xule_menu = tkinter.Menu(menu, tearoff=0)
+                new_xule_menu.add_command(label=activate_xule_label, underline=0, command=XuleVars.get(cntlr, 'activate_xule_function'))
+                menu.add_cascade(label=_("Xule"), menu=new_xule_menu, underline=0)
+                cntlr.config['xule_activated'] = False
+                
+            xule_menu.add_command(label='Deactivate Xule', underline=0, command=turnOffXule)
+            cntlr.config['xule_activated'] = True
+        
+        xule_menu = tkinter.Menu(menu, tearoff=0)
+        xule_menu.add_command(label=activate_xule_label, underline=0, command=turnOnXule)
+        XuleVars.set(cntlr, 'activate_xule_function', turnOnXule)
+    
+        menu.add_cascade(label=_("Xule"), menu=xule_menu, underline=0)
+        
+        if cntlr.config.get('xule_activated', False):
+            turnOnXule()
+
+def addMenuTools(cntlr, menu, name, version, map_name, cloud_map_location):
     import tkinter
     import tkinter.ttk as ttk
     import tkinter.font as tkFont
     
     def showVersion():
-        tkinter.messagebox.showinfo("DQC Version", __version__)
+        if name == 'Xule':
+            version_text = version
+        else:
+            version_text = '{}: {}\n\nXule: {}'.format(name, version, __version__)
+        tkinter.messagebox.showinfo("{} Version".format(name), version_text)
 
     def showRuleSetMap():
-        map = xu.get_rule_set_map(cntlr, xc.RULE_SET_MAP)
-        headers = ['Namespace', 'Rule Set']
-        # Set the value of the map dictionary to be a list.
-        displayRuleSetMap(map.items(), headers)
+        try:
+            map = xu.get_rule_set_map(cntlr, map_name)
+            map_file_name = xu.get_rule_set_map_file_name(cntlr, map_name)
+        except xrt.XuleMissingRuleSetMap:
+            tkinter.messagebox.showinfo(_("Cannot find rule set map"), _("Rule set map for '{}' does not exist. Rule set map file name is '{}'".format(name, xu.get_rule_set_map_file_name(cntlr, map_name))))
+        else:
+            headers = ['Namespace', 'Rule Set']
+            # Set the value of the map dictionary to be a list.
+            displayRuleSetMap(map.items(), headers, '{} Rule Set Map - {}'.format(name, map_file_name))
     
     def checkRuleSetMap():
         # Get the current rule set map
-        current_map = xu.get_rule_set_map(cntlr, xc.RULE_SET_MAP)
+        current_map = xu.get_rule_set_map(cntlr, map_name)
         # Get the latest map
         # Open the new map
-        latest_map = xu.open_json_file(cntlr, _latest_map_name)
+        latest_map = xu.open_json_file(cntlr, cloud_map_location)
         
         match = True
         for namespace, rule_set in latest_map.items():
@@ -95,7 +167,7 @@ def xuleMenuTools(cntlr, menu):
                 match = False
         
         if match:
-            tkinter.messagebox.showinfo("DQC Rule Set Check", _("You have the latest rule set map."))
+            tkinter.messagebox.showinfo("{} Rule Set Check".format(name), _("You have the latest rule set map."))
         else:
             compare_map = []
             for cur_key in current_map:
@@ -112,7 +184,7 @@ def xuleMenuTools(cntlr, menu):
 
             #tkinter.messagebox.showinfo("DQC Rule Set Check", _("The rule set map you have does match the latest DQC rule set map."))
             
-    def displayRuleSetMap(map, headers, title='Rule Set Map'):
+    def displayRuleSetMap(map, headers, title=''):
         # Get the top level container
         root = tkinter.Toplevel()
         # Create a tree view. This will be a multi column list box
@@ -166,16 +238,16 @@ def xuleMenuTools(cntlr, menu):
         
         def updateRuleSetMap(main_window, file_name, replace):
             try:
-                xu.update_rule_set_map(cntlr, file_name, xc.RULE_SET_MAP, overwrite=bool(replace))
+                xu.update_rule_set_map(cntlr, file_name, map_name, overwrite=bool(replace))
                 main_window.destroy()
             except OSError:
                 tkinter.messagebox.showinfo("File does not exists", "File '{}' does not exist".format(file_name))
-            except XuleProcessingError:
+            except xrt.XuleProcessingError:
                 tkinter.messagebox.showinfo("Invalid Rule Set Map File", "{} is not a valid rule set map file".format(file_name))            
         
         def selectRuleSetMap(main_window, replace):
             filename = cntlr.uiFileDialog("open",
-                                title=_("DQC - Select Rule Set Map File"),
+                                title=_("{} - Select Rule Set Map File".format(name)),
                                 initialdir=cntlr.config.setdefault("fileOpenDir","."),
                                 filetypes=[(_("Map files"), "*.*")],
                                 defaultextension=".json")
@@ -196,8 +268,8 @@ def xuleMenuTools(cntlr, menu):
         
         root = tkinter.Toplevel()
         # Frame for text at the top
-        window_text =_("To update the DQC rule set map using the latest DQC map, click on " +
-                       "\"Use latest DQC rule set map\"\n" +
+        window_text =_("To update the {name} rule set map using the latest {name} map, click on ".format(name=name) +
+                       "\"Use latest {name} rule set map\"\n".format(name=name) +
                        "You can also select a rule set map by pasting/typing the file name or URL and pressing the Enter key or\n" +
                        "using the file selector.\n\n" +
                        "Check the \"Overwrite rule set map\" if you want to completely overwrite the existing rule set map. \n" +
@@ -209,7 +281,7 @@ def xuleMenuTools(cntlr, menu):
         frame1_label = tkinter.Label(frame1, text=window_text, justify=tkinter.LEFT)
         frame1_label.pack()
         
-        frame1.winfo_toplevel().title("Update Rule Set Map")
+        frame1.winfo_toplevel().title("Update {} Rule Set Map".format(name))
         
         # Main frame
         frame = tkinter.Frame(root, borderwidth=2)
@@ -220,10 +292,10 @@ def xuleMenuTools(cntlr, menu):
         frame2.pack(anchor="w")
         replace_var = tkinter.IntVar()
         replace_var.set(1)
-        replace_check = tkinter.Checkbutton(frame2, text="Overwrite rule set map", variable=replace_var)
+        replace_check = tkinter.Checkbutton(frame2, text="Overwrite {} rule set map".format(name), variable=replace_var)
         replace_check.pack(side=tkinter.LEFT)
         
-        latest_button = tkinter.Button(frame, command=lambda: useLatestRuleSetMap(root, replace_var), text="Use latest DQC rule set map")
+        latest_button = tkinter.Button(frame, command=lambda: useLatestRuleSetMap(root, replace_var), text="Use latest {} rule set map".format(name))
         latest_button.pack(side=tkinter.LEFT)
         or_label = tkinter.Label(frame, text="  or  ")
         or_label.pack(side=tkinter.LEFT)
@@ -239,32 +311,60 @@ def xuleMenuTools(cntlr, menu):
 
     xuleMenu = tkinter.Menu(menu, tearoff=0)
     xuleMenu.add_command(label=_("Version..."), underline=0, command=showVersion)
-    xuleMenu.add_command(label=_("Display rule set map..."), underline=0, command=showRuleSetMap)
-    xuleMenu.add_command(label=_("Check rule set map"), underline=0, command=checkRuleSetMap)
-    xuleMenu.add_command(label=_("Update rule set map..."), underline=0, command=getLatestRuleSetMap)
+    xuleMenu.add_command(label=_("Display {} rule set map...".format(name)), underline=0, command=showRuleSetMap)
+    if cloud_map_location is not None:
+        xuleMenu.add_command(label=_("Check {} rule set map".format(name)), underline=0, command=checkRuleSetMap)
+        xuleMenu.add_command(label=_("Update {} rule set map...".format(name)), underline=0, command=getLatestRuleSetMap)
 
-    menu.add_cascade(label=_("DQC"), menu=xuleMenu, underline=0)
-
-class EmptyOptions:
-    pass
+    menu.add_cascade(label=_("{}".format(name)), menu=xuleMenu, underline=0)
+    return xuleMenu
 
 def xuleValidateMenuTools(cntlr, validateMenu, *args, **kwargs):
-    global _cntlr
-    _cntlr = cntlr
-    global _options
-    _options = EmptyOptions()     
+    # Save the validationMenu object. 
+    XuleVars.set(cntlr, 'validate_menu', validateMenu)
     
-
+def addValidateMenuTools(cntlr, validateMenu, name, map_name):
     # Extend menu with an item for the save infoset plugin
-    cntlr.modelManager.validateDQC = cntlr.config.setdefault("validateDQC",False)
+    attr_name = 'validate{}'.format(name.strip())
+    attr_value = cntlr.config.setdefault(attr_name, False)
+    setattr(cntlr.modelManager, attr_name, attr_value)
+    #cntlr.modelManager.validateDQC = cntlr.config.setdefault("validateDQC",False)
     from tkinter import BooleanVar
-    validateDQC = BooleanVar(value=cntlr.modelManager.validateDQC)
-    def setValidateDQCOption(*args):
-        cntlr.config["validateDQC"] = cntlr.modelManager.validateDQC = validateDQC.get()
-    validateDQC.trace("w", setValidateDQCOption)
-    validateMenu.add_checkbutton(label=_("DQC Rules"), 
+    validate_var = BooleanVar(value=getattr(cntlr.modelManager, attr_name))
+    
+    def setValidateXuleOption(*args):
+        setattr(cntlr.modelManager, attr_name, validate_var.get())
+        cntlr.config[attr_name] = getattr(cntlr.modelManager, attr_name)
+        
+    validate_var.trace("w", setValidateXuleOption)
+    validateMenu.add_checkbutton(label=_("{} Rules".format(name)), 
                                  underline=0, 
-                                 variable=validateDQC, onvalue=True, offvalue=False)    
+                                 variable=validate_var, onvalue=True, offvalue=False)
+
+
+    xuleRegisterValidators(name, map_name, validate_var)
+
+def isXuleDirect():
+    """Determines if xule was loaded as a direct plugin"""
+    
+    global _is_xule_direct
+    if _is_xule_direct is None:
+        global _options
+        _is_xule_direct = False
+        for plugin_command in getattr(_options, 'plugins', '').split('|'):
+            if plugin_command.lower().endswith('xule'):
+                _is_xule_direct = True
+
+    return _is_xule_direct
+
+def xuleRegisterValidators(name, map_name, validate_var=None):
+
+    # Registers the validator
+    global _xule_validators
+    if validate_var is None:
+        _xule_validators.append({'name':name, 'map_name': map_name})
+    else:
+        _xule_validators.append({'name':name, 'validate_flag': validate_var, 'map_name': map_name})
 
 def xuleCmdOptions(parser):
     # extend command line options to compile rules
@@ -272,7 +372,7 @@ def xuleCmdOptions(parser):
         parserGroup = parser
     else:
         parserGroup = optparse.OptionGroup(parser,
-                                           "Xule Business rule")
+                                           "Xule Business Rule")
         parser.add_option_group(parserGroup)
     
     if xp is not None: # The XuleParser is imported
@@ -425,6 +525,11 @@ def xuleCmdOptions(parser):
                           dest="xule_version",
                           help=_("Display version number of the xule module."))
         
+        parserGroup.add_option("--xule-display-rule-set-map",
+                               action="store_true",
+                               dest="xule_display_rule_set_map",
+                               help=_("Display the rule set map currently used."))
+
         parserGroup.add_option("--xule-update-rule-set-map",
                                action="store",
                                dest="xule_update_rule_set_map",
@@ -457,7 +562,7 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
     parser = OptionParser()
     
     if getattr(options, "xule_version", False):
-        cntlr.addToLog("Xule version: %s" % __version__)
+        cntlr.addToLog("Xule version: %s" % __version__, 'xule')
         cntlr.close()
 
     if getattr(options, "xule_cpu", None) is not None and not getattr(options, 'xule_multi', None):
@@ -517,18 +622,22 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
         print("Packages in rule set:")
         for package_info in rule_set.get_packages_info():
             print('\t' + package_info.get('name') + ' (' + os.path.basename(package_info.get('URL')) + ')')
-    
+        
     # update rule set map
     if getattr(options, 'xule_update_rule_set_map', None):
-        xu.update_rule_set_map(cntlr, getattr(options, 'xule_update_rule_set_map'), xc.RULE_SET_MAP)
+        xu.update_rule_set_map(cntlr, getattr(options, 'xule_update_rule_set_map'), _xule_rule_set_map_name)
     
     # replace rule set map
     if getattr(options, 'xule_replace_rule_set_map', None):
-        xu.update_rule_set_map(cntlr, getattr(options, 'xule_replace_rule_set_map'), xc.RULE_SET_MAP, overwrite=True)
+        xu.update_rule_set_map(cntlr, getattr(options, 'xule_replace_rule_set_map'), _xule_rule_set_map_name, overwrite=True)
     
     # reset rule set map
     if getattr(options, 'xule_reset_rule_set_map', False):
-        xu.reset_rule_set_map(cntlr, xc.RULE_SET_MAP)
+        xu.reset_rule_set_map(cntlr, _xule_rule_set_map_name)
+
+    # display the rule set map
+    if getattr(options, 'xule_display_rule_set_map', False):
+        displayValidatorRulesetMap(cntlr, 'Xule', _xule_rule_set_map_name)
         
     # validate ruleset
     if getattr(options, 'xule_validate', False):
@@ -605,13 +714,17 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
                     modelXbrl.close()
 
         except FileNotFoundError:
-            print("Filing listing file '%s' is not found" % options.xule_filing_list)
-
+            cntlr.addToLog(_("Filing listing file '%s' is not found" % options.xule_filing_list), 'xule')
+    
+    # Only register xule as a validator if the xule plugin was directly added in the --plugin optins.
+    if isXuleDirect():
+        xuleRegisterValidators('Xule', _xule_rule_set_map_name)
+    
 def xuleCmdXbrlLoaded(cntlr, options, modelXbrl, entryPoint=None):   
     if getattr(options, "xule_run", None):
         runXule(cntlr, options, modelXbrl)
         
-def runXule(cntlr, options, modelXbrl):
+def runXule(cntlr, options, modelXbrl, rule_set_map=_xule_rule_set_map_name):
         try:
             if getattr(options, "xule_multi", True) and \
                 getattr(cntlr, "rule_set", None) is not None:
@@ -621,11 +734,12 @@ def runXule(cntlr, options, modelXbrl):
                     rule_set_location = options.xule_rule_set
                 else:
                     # Determine the rule set from the model.
-                    rule_set_location = xu.determine_rule_set(modelXbrl, cntlr)
+                    rule_set_location = xu.determine_rule_set(modelXbrl, cntlr, rule_set_map)
+                    modelXbrl.log('INFO', 'info', 'Using ruleset {}'.format(rule_set_location))
                     if rule_set_location is None:
                         # The rule set could not be determined.
-                        modelXbrl.log('ERROR', 'xule', "Cannot determine which rule set to use for the filing. Check the rule set map at '{}'.".format(xu.get_rule_set_map_file_name(cntlr, xc.RULE_SET_MAP)))
-                        raise xr.XuleRuleSetError('The rule set to used could not be determined. Check that there is a rule set map at {} and verify that there is an appropiate mapping for the filing.'.format(xu.get_rule_set_map_file_name(cntlr, xc.RULE_SET_MAP)))
+                        modelXbrl.log('ERROR', 'xule', "Cannot determine which rule set to use for the filing. Check the rule set map at '{}'.".format(xu.get_rule_set_map_file_name(cntlr, rule_set_map)))
+                        raise xr.XuleRuleSetError('The rule set to used could not be determined. Check that there is a rule set map at {} and verify that there is an appropiate mapping for the filing.'.format(xu.get_rule_set_map_file_name(cntlr, rule_set_map)))
                     
                 rule_set = xr.XuleRuleSet(cntlr)              
                 rule_set.open(rule_set_location, open_packages=not getattr(options, 'xule_bypass_packages', False))
@@ -662,21 +776,46 @@ def runXule(cntlr, options, modelXbrl):
 def xuleValidate(val):
     global _cntlr
     global _options
+    global _xule_validators
     
-    #This will only run from command line
-    if _cntlr is not None and not isinstance(_options, EmptyOptions):
-        if not getattr(_options, "xule_run", False):
+#     #This will only run from command line
+#     # _options will not be EmptyOptions when run from command line.
+#     if _cntlr is not None and not isinstance(_options, EmptyOptions):
+#         if not getattr(_options, "xule_run", False):
+#             # Only run on validate if the --xule-run option was not supplied. If --xule-run is supplied, it has already been run
+#             for xule_validator in _xule_validators:
+#                 runXule(_cntlr, _options, val.modelXbrl, xule_validator['map_name'])
+# 
+#     # This will only run from gui
+#     for xule_validator in _xule_validators:
+#         # The 'validate_flag' is only registered when run from the GUI
+#         if 'validate_flag' in xule_validator and xule_validator['validate_flag'].get():
+#             val.modelXbrl.modelManager.showStatus(_("Starting {} validation".format(xule_validator['name'])))
+#             val.modelXbrl.info("DQC",_("Starting {} validation".format(xule_validator['name'])))
+#             runXule(_cntlr, _options, val.modelXbrl, xule_validator['map_name'])
+#             val.modelXbrl.info(xule_validator['name'],_("Finished {} validation".format(xule_validator['name'])))
+#             val.modelXbrl.modelManager.showStatus(_("Finished {} validation".format(xule_validator['name'])))
+
+    for xule_validator in _xule_validators:
+        if 'validate_flag' in xule_validator:
+            # This is run in the GUI. The 'validate_flag' is only in the xule_validator when invoked from the GUI
+            if xule_validator['validate_flag'].get():
+                # Only run if the validate_flag variable is ture (checked off in the validate menu)
+                val.modelXbrl.modelManager.showStatus(_("Starting {} validation".format(xule_validator['name'])))
+                val.modelXbrl.info("DQC",_("Starting {} validation".format(xule_validator['name'])))
+                runXule(_cntlr, _options, val.modelXbrl, xule_validator['map_name'])
+                val.modelXbrl.info(xule_validator['name'],_("Finished {} validation".format(xule_validator['name'])))
+                val.modelXbrl.modelManager.showStatus(_("Finished {} validation".format(xule_validator['name']))) 
+        else:
+            # This is run on the command line or web server
             # Only run on validate if the --xule-run option was not supplied. If --xule-run is supplied, it has already been run
-            runXule(_cntlr, _options, val.modelXbrl)
+            if not getattr(_options, "xule_run", False):
+                runXule(_cntlr, _options, val.modelXbrl, xule_validator['map_name'])            
 
-    # This will only run from gui
-    if getattr(val.modelXbrl.modelManager, 'validateDQC', False):
-        val.modelXbrl.modelManager.showStatus(_("Starting DQC validation"))
-        val.modelXbrl.info("DQC",_("Starting DQC validation"))
-        runXule(_cntlr, _options, val.modelXbrl)
-        val.modelXbrl.info("DQC",_("Finished DQC validation"))
-        val.modelXbrl.modelManager.showStatus(_("Finished DQC validation"))
-
+    if _cntlr.hasWebServer:
+        # When arelle is running as a webserver, it will register the xule_validators on each request to the web server. 
+        # The _xule_validators is emptied. On the next request, the xule_validators for that request will be re-register.
+        _xule_validators = []
 
 def xuleTestXbrlLoaded(modelTestcase, modelXbrl, testVariation):
     global _options
@@ -698,8 +837,20 @@ def xuleTestValidated(modelTestcase, modelXbrl):
             test_end = datetime.datetime.today()
             print("{}: Test variation {} finished. in {} ".format(test_end.isoformat(sep=' '), _test_variation_name, (test_end - _test_start)))
 
+def updateValidatorRulesetMap(cntlr, new_map, map_name):
+    xu.update_rule_set_map(cntlr, new_map, map_name)
+    
+def replaceValidatorRulesetMap(cntlr, new_map, map_name):
+    xu.update_rule_set_map(cntlr, new_map, map_name, overwrite=True)    
+
+def displayValidatorRulesetMap(cntlr, validator_name, map_name):
+    map = xu.get_rule_set_map(cntlr, map_name)
+    map_file_name = xu.get_rule_set_map_file_name(cntlr, map_name)
+    display_map = json.dumps(map, indent=4)
+    cntlr.addToLog("{} Rule Set map {} - {}\n{}".format(validator_name,  map_name, map_file_name, display_map ), validator_name)    
+    
 __pluginInfo__ = {
-    'name': 'DQC XBRL rule processor (xule)',
+    'name': 'XBRL rule processor (xule)',
     'version': 'Check version using Tools->DQC->Version on the GUI or --xule-version on the command line',
     'description': 'This plug-in provides a DQC processor.',
     'license': 'Apache-2',
@@ -707,21 +858,19 @@ __pluginInfo__ = {
     'copyright': '(c) 2017-2018',
     # classes of mount points (required)
     'ModelObjectFactory.ElementSubstitutionClasses': None,
-    #'CntlrWinMain.Menu.File.Open': xuleMenuOpen,
     'CntlrWinMain.Menu.Tools': xuleMenuTools,
     'CntlrWinMain.Menu.Validation':xuleValidateMenuTools,
     'CntlrCmdLine.Options': xuleCmdOptions,
     'CntlrCmdLine.Utility.Run': xuleCmdUtilityRun,
     'CntlrCmdLine.Xbrl.Loaded': xuleCmdXbrlLoaded,
     'Validate.Finally': xuleValidate,
-#     'Testcases.Start': xuleTestStart,
-     'TestcaseVariation.Xbrl.Loaded': xuleTestXbrlLoaded,
-     'TestcaseVariation.Xbrl.Validated': xuleTestValidated,
-#     'ModelTestcaseVariation.ReadMeFirstUris': xuleModelTestVariationReadMe,
-#     'ModelTestcaseVariation.ExpectedResult': xuleModelTestVariationExpectedResult,
-#     'ModelTestcaseVariation.ExpectedSeverity': xuleModelTestVariationExpectedSeverity,
-#     'DialogRssWatch.FileChoices': xuleDialogRssWatchFileChoices,
-#     'DialogRssWatch.ValidateChoices': xuleRssWatchHasWatchAction,
-#     'RssWatch.HasWatchAction': xuleRssWatchHasWatchAction,
-#     'RssWatch.DoWatchAction': xuleRssDoWatchAction
+    'TestcaseVariation.Xbrl.Loaded': xuleTestXbrlLoaded,
+    'TestcaseVariation.Xbrl.Validated': xuleTestValidated,
+    'Xule.AddMenuTools': addMenuTools,
+    'Xule.AddValidationMenuTools': addValidateMenuTools,
+    'Xule.ValidatorVersion': xu.version,
+    'Xule.RegisterValidator': xuleRegisterValidators,
+    'Xule.RulesetMap.Update': updateValidatorRulesetMap,
+    'Xule.RulesetMap.Replace': replaceValidatorRulesetMap,
+    'Xule.RulesetMap.Display': displayValidatorRulesetMap    
     }

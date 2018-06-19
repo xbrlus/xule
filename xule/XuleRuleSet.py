@@ -143,7 +143,7 @@ class XuleRuleSet(object):
     
         #Check for packages
         pickle_end = datetime.datetime.today()
-        print("Rule Set Loaded", pickle_end - pickle_start)
+        #print("Rule Set Loaded", pickle_end - pickle_start)
 
     def _get_rule_set_file_object(self):
         from arelle import FileSource
