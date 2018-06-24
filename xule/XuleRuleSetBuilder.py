@@ -611,6 +611,10 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
                 #set table ids
                 self.assign_table_id(parse_node, var_defs, skip=parse_node['forLoopExpr'])
 
+#                 # Make the for expression dependent if the for loop expression is iterable
+#                 if parse_node['forLoopExpr']['is_iterable']:
+#                     parse_node['downstream_iterables'].append(parse_node['forLoopExpr'])
+
 #             elif current_part == 'forBodyExpr':
 #                 parse_node['number'] = 'multi'
 #                 parse_node['is_iterable'] = True
@@ -757,7 +761,7 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
                         if 'table_id' not in var_ref[2]:
                             var_ref[2]['table_id'] = parse_node['node_id']
 
-            #Update the dependant iteratables
+            #Update the dependent iteratables
             if 'is_iterable' in parse_node:
                 #set dependent variables
                 dependent_vars = self.get_dependent_vars(parse_node, var_defs)
@@ -779,6 +783,9 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
                     for dependent_node in parse_node['functionArgs']:
                         #parse_node['dependent_iterables'] += [x['downstream_iterables'] for x in parse_node['functionArgs']]
                         parse_node['dependent_iterables'].extend(dependent_node['downstream_iterables'])
+                #This is needed for "for loop" when the loop control variable is iterable
+                if current_part == 'forExpr' and parse_node['forLoopExpr'].get('is_iterable', False):
+                    parse_node['dependent_iterables'].append(parse_node['forLoopExpr'])
                 parse_node['is_dependent'] = len(parse_node['dependent_iterables']) > 1 #The dependent_iterables list will always include itself, so the miniumn count is 1     
         
         return pre_calc

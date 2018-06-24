@@ -755,7 +755,7 @@ class XuleUnit:
             return "%s" % " * ".join([x.clarkNotation for x in self._numerator])
         else:
             return "%s/%s" % (" * ".join([x.clarkNotation for x in self._numerator]), 
-                                                  " * ".join([x.clarkNotation for x in sefl._denominator]))
+                                                  " * ".join([x.clarkNotation for x in self._denominator]))
     
     def __str__(self):
         if len(self._denominator) == 0:

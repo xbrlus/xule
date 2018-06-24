@@ -2517,7 +2517,7 @@ def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non
 
             finally:
                 #remove $item
-                xule_context.del_arg('item', #(factset['node_id'], 0),
+                xule_context.del_arg('fact', #(factset['node_id'], 0),
                                  factset['whereExpr']['node_id'],)
                 #remove aspect variables
                 for var_name, aspect_var_tuple in aspect_vars.items():
