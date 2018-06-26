@@ -382,6 +382,12 @@ def xuleCmdOptions(parser):
                           help=_("Xule files to be compiled.  "
                                  "This may be a file or directory.  When a directory is provided, all files in the directory will be processed.  "
                                  "Multiple file and directory names are separated by a '|' character. "))
+        
+        parserGroup.add_option("--xule-compile-type",
+                              action="store",
+                              dest="xule_compile_type",
+                              default="pickle",
+                              help=_("Determines how the compiled rules are stored. Options are 'pickle', 'json'."))
     
     parserGroup.add_option("--xule-rule-set",
                       action="store",
@@ -599,7 +605,7 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
     # compile rules
     if getattr(options, "xule_compile", None):
         compile_destination = getattr(options, "xule_rule_set", "xuleRules") 
-        xp.parseRules(options.xule_compile.split("|"), compile_destination)
+        xp.parseRules(options.xule_compile.split("|"), compile_destination, getattr(options, "xule_compile_type"))
     
     # add packages
     if getattr(options, "xule_add_packages", None):

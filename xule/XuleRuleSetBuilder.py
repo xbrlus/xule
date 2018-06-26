@@ -28,13 +28,24 @@ import os
 import shutil
 import collections
 import datetime
+import json
 import zipfile
 import tempfile
 from . import XuleFunctions as xf
 
+class JSONEncoderForSet(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, set):
+            return list(obj)
+        else:
+            return json.JSONEncoder.encode(self, obj)
+
 class XuleRuleSetBuilder(xr.XuleRuleSet):
     
-    def __init__(self, cntlr=None):
+    def __init__(self, compile_type, cntlr=None):
+        self._compile_type = compile_type
+        self._file_status = {}
+        self._open_for_add = False
         super().__init__(cntlr)
     
     def markFileKeep(self, file_name):
@@ -107,6 +118,33 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
         self.catalog['functions'] = {}
         self.catalog['constants'] = {}
         self.catalog['output_attributes'] = {}        
+    
+    def close(self):
+        """Close the ruleset"""
+        if self._open_for_add:
+            path = os.path.dirname(self.location)
+            #Make sure the directory exists
+            if len(path) > 0 and not os.path.exists(path):
+                os.makedirs(path)
+            
+            #Create the zip file
+            with zipfile.ZipFile(self.location, 'w', zipfile.ZIP_DEFLATED) as zf:
+                #write the pickled rule files
+                for file_num, parse_tree in self._xule_file_expression_trees.items():
+                    self._saveFilePickle(zf, file_num, parse_tree)
+
+                #write the catalog
+                if self._compile_type == 'pickle':
+                    zf.writestr('catalog', pickle.dumps(self.catalog, protocol=2))
+                elif self._compile_type == 'json': 
+                    zf.writestr('catalog', json.dumps(self.catalog, cls=JSONEncoderForSet, indent=4))
+                else:
+                    raise xr.XuleRuleSetError("Unknown compile type: {}.".format(self._compile_type))
+                
+        self._open_for_add = False
+        self._file_status = {}
+        
+        super().close()
     
     def _top_level_analysis(self, parse_tree, file_num):
         # update the catalog
@@ -1040,5 +1078,11 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
         
         pickle_name = "rule_file%i" %(file_num,)
         #save the pickle
-        rule_set_file.writestr(pickle_name, pickle.dumps(parseRes, protocol=2))    
+        if self._compile_type.lower() == 'pickle':
+            rule_set_file.writestr(pickle_name, pickle.dumps(parseRes, protocol=2))
+        elif self._compile_type.lower() == 'json':
+            rule_set_file.writestr(pickle_name, json.dumps(parseRes, indent=4))
+        else:
+            raise xr.XuleRuleSetError("Unknown compile type: {}.".format(self._compile_type))       
+         
         return pickle_name

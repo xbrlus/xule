@@ -87,7 +87,7 @@ def parseFile(dir, fileName, xuleGrammar, ruleSet):
     
     return parse_errors
 
-def parseRules(files, dest):
+def parseRules(files, dest, compile_type):
 
     parse_start = datetime.datetime.today()
     parse_errors = []
@@ -99,7 +99,7 @@ def parseRules(files, dest):
         sys.setrecursionlimit(new_depth)
     
     xuleGrammar = get_grammar()
-    ruleSet = xrsb.XuleRuleSetBuilder()
+    ruleSet = xrsb.XuleRuleSetBuilder(compile_type)
     ruleSet.append(dest)
     
     for ruleFile in files:

@@ -25,13 +25,16 @@ $Change$
 DOCSKIP
 """
 
-import pickle
-import os
 import datetime
-import zipfile
-import tempfile
+import io
+import json
 import logging
+import os
+import pickle
+import tempfile
+import zipfile
 from arelle import PackageManager
+from pickle import UnpicklingError
 
 class XuleRuleSetError(Exception):
     """An exception class for handling errors managing the rule set"""
@@ -61,13 +64,11 @@ class XuleRuleSet(object):
         :param cntlr: The Arelle controller
         :type cntlr: Arelle.Cntlr
         """
-        self._open_for_add = False
         self.catalog = None
         self.name = None
         self._xule_file_expression_trees = {}
         self.next_id = -1
         self._var_exprs = {}
-        self._file_status = {}
         self._cntlr = cntlr
     
     def __del__(self):
@@ -75,22 +76,7 @@ class XuleRuleSet(object):
     
     def close(self):
         """Close the ruleset"""
-        if self._open_for_add:
-            path = os.path.dirname(self.location)
-            #Make sure the directory exists
-            if len(path) > 0 and not os.path.exists(path):
-                os.makedirs(path)
-            
-            #Create the zip file
-            with zipfile.ZipFile(self.location, 'w', zipfile.ZIP_DEFLATED) as zf:
-                #write the pickled rule files
-                for file_num, parse_tree in self._xule_file_expression_trees.items():
-                    self._saveFilePickle(zf, file_num, parse_tree)
-
-                #write the catalog
-                zf.writestr('catalog', pickle.dumps(self.catalog, protocol=2))        
-        self._open_for_add = False
-        self._file_status = {}
+        pass
     
     def getFileInfoByName(self, file_name):
         """Get file catalog information by file name
@@ -119,7 +105,13 @@ class XuleRuleSet(object):
         file_object = self._get_rule_set_file_object()
         try:
             with zipfile.ZipFile(file_object, 'r') as zf:
-                self.catalog = pickle.loads(zf.open('catalog','r').read())
+                try: # pickle file first
+                    with zf.open('catalog', 'r') as catalog_file:
+                        self.catalog = pickle.loads(zf.open('catalog','r').read())
+                except UnpicklingError: # json file
+                    with zf.open('catalog', 'r') as catalog_file:
+                        self.catalog = json.load(io.TextIOWrapper(catalog_file))
+
                 #open packages in the ruleset
                 if open_packages:
                     self._open_packages(zf)
@@ -127,11 +119,15 @@ class XuleRuleSet(object):
                 #load the files
                 if open_files:
                     for file_info in self.catalog['files']:
-                        with zf.open(file_info['pickle_name'], "r") as p:
-                            self._xule_file_expression_trees[file_info['file']] = pickle.load(p, encoding="utf8")
+                        try: # pickle file first
+                            with zf.open(file_info['pickle_name'], "r") as p:
+                                self._xule_file_expression_trees[file_info['file']] = pickle.load(p, encoding="utf8")                            
+                        except UnpicklingError: # json file                         
+                            with zf.open(file_info['pickle_name'], "r") as p:
+                                self._xule_file_expression_trees[file_info['file']] = json.load(io.TextIOWrapper(p))
+
                             
-            self.name = self.catalog['name']
-            self._open_for_add = False                
+            self.name = self.catalog['name']               
         except KeyError:
             raise XuleRuleSetError(_("Error in the rule set. Cannot open catalog."))
         except FileNotFoundError:
@@ -532,3 +528,5 @@ class XuleRuleSet(object):
             del self.all_rules[rule_type]   
             
         return self.all_rules
+
+
