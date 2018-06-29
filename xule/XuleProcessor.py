@@ -2687,7 +2687,7 @@ def evaluate_navigate(nav_expr, xule_context):
             if nav_expr.get('dimensional'):
                 drs_role = nav_get_role(nav_expr, 'drsRole', dts, xule_context)
                 table_concepts = nav_get_element(nav_expr, 'table', dts, xule_context)
-                if arcrole is not  None:
+                if arcrole is not None:
                     dimension_arcroles = xc.DIMENSION_PSEDDO_ARCROLES.get(arcrole, ('all', {arcrole,}))
                 relationship_sets = [XuleUtility.dimension_set(dts, x) for x in XuleUtility.base_dimension_sets(dts) if ((drs_role is None or x[XuleUtility.DIMENSION_SET_ROLE] == drs_role) and
                                                                                                                          (table_concepts is None or x[XuleUtility.DIMENSION_SET_HYPERCUBE] in table_concepts))]
@@ -2844,8 +2844,7 @@ def nav_traverse(nav_expr, xule_context, direction, network, parent, end_concept
         
         
         if child not in previous_concepts:
-            previous_concepts.add(child)
-            
+
             if child in end_concepts:
                 # This is the end of the traversal because the child is a 'to' concept.
                 if paths:
@@ -2865,7 +2864,7 @@ def nav_traverse(nav_expr, xule_context, direction, network, parent, end_concept
                                                  remaining_depth - 1, 
                                                  return_names, 
                                                  dimension_arcroles, 
-                                                 previous_concepts, 
+                                                 previous_concepts | {child,}, 
                                                  nav_depth + 1, 
                                                  result_order, 
                                                  arc_attribute_names)
