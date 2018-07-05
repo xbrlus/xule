@@ -192,20 +192,20 @@ def evaluate_rule_set(global_context):
                 evaluate(rule, xule_context)
                  
             except (XuleProcessingError, XuleBuildTableError) as e:
-                if getattr(global_context.options, "xule_crash", False):
-                    raise
-                else:
-                    xule_context.global_context.message_queue.error("xule:error", str(e))
+                 if getattr(global_context.options, "xule_crash", False):
+                     raise
+                 else:
+                     xule_context.global_context.message_queue.error("xule:error", str(e))
  
             except XuleIterationStop:
                 pass
              
             except Exception as e:
-                if getattr(global_context.options, "xule_crash", False):
-                #if global_context.crash_on_error:
-                    raise
-                else:
-                    xule_context.global_context.message_queue.error("xule:error","rule %s: %s" % (rule_name, str(e)))
+                 if getattr(global_context.options, "xule_crash", False):
+                 #if global_context.crash_on_error:
+                     raise
+                 else:
+                     xule_context.global_context.message_queue.error("xule:error","rule %s: %s" % (rule_name, str(e)))
             
             
             if getattr(global_context.options, "xule_time", None) is not None:
