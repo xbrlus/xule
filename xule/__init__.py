@@ -802,6 +802,9 @@ def xuleValidate(val):
 #             val.modelXbrl.info(xule_validator['name'],_("Finished {} validation".format(xule_validator['name'])))
 #             val.modelXbrl.modelManager.showStatus(_("Finished {} validation".format(xule_validator['name'])))
 
+    if _options is None:
+        _options = EmptyOptions()
+
     for xule_validator in _xule_validators:
         if 'validate_flag' in xule_validator:
             # This is run in the GUI. The 'validate_flag' is only in the xule_validator when invoked from the GUI
@@ -818,7 +821,7 @@ def xuleValidate(val):
             if not getattr(_options, "xule_run", False):
                 runXule(_cntlr, _options, val.modelXbrl, xule_validator['map_name'])            
 
-    if _cntlr.hasWebServer:
+    if getattr(_cntlr, 'hasWebServer', False):
         # When arelle is running as a webserver, it will register the xule_validators on each request to the web server. 
         # The _xule_validators is emptied. On the next request, the xule_validators for that request will be re-register.
         _xule_validators = []
