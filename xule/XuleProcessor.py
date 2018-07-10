@@ -293,9 +293,9 @@ def index_model(xule_context):
             if getattr(xule_context.global_context.options, "xule_include_dups", False):
                 facts_to_index[all_aspects].append(model_fact)
             else:
-                #                 Need to eliminate duplicate facts.
-                #                 Duplicate facts are facts that have the same aspects and same value (taking accuracy into account for numeric facts). If there are duplicates
-                #                 with different values, then the duplicate is not eliminated.
+                # Need to eliminate duplicate facts.
+                # Duplicate facts are facts that have the same aspects and same value (taking accuracy into account for numeric facts). If there are duplicates
+                # with different values, then the duplicate is not eliminated.
                 if all_aspects in facts_to_index:
                     # there is a fact already
                     found_match = False
@@ -333,9 +333,11 @@ def index_model(xule_context):
 
         # get all the facts
         all_facts = {fact for facts in facts_to_index.values() for fact in facts}
+
         # for each aspect add a set of facts that don't have that aspect with a key value of None
         for aspect_key in fact_index:
             fact_index[aspect_key][None] = all_facts - set(it.chain.from_iterable(fact_index[aspect_key].values()))
+
         # save the list of all facts.
         fact_index['all'] = all_facts
 
@@ -344,6 +346,11 @@ def index_model(xule_context):
 
         # Create table index properties
         index_table_properties(xule_context)
+
+        # Add the None facts for the table properites. These are the facts that don't have the property.
+        for aspect_key in fact_index:
+            if aspect_key != 'all' and None not in fact_index[aspect_key]:
+                fact_index[aspect_key][None] = all_facts - set(it.chain.from_iterable(fact_index[aspect_key].values()))
 
 def index_properties(model_fact):
     """Calculate the properties for the fact.
