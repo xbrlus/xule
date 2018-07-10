@@ -438,7 +438,8 @@ def index_table_properties(xule_context):
     # Go through each table.
     for cube_base in XuleDimensionCube.base_dimension_sets(xule_context.model):
         cube = XuleDimensionCube(xule_context.model, *cube_base, include_facts=True)
-        xule_context.global_context.fact_index[('builtin', 'table')][cube.hypercube.qname] |= cube.facts
+        xule_context.global_context.fact_index[('builtin', 'table')][cube] |= cube.facts
+        xule_context.global_context.fact_index[('property', 'table', 'name')][cube.hypercube.qname] |= cube.facts
         xule_context.global_context.fact_index[('property', 'table', 'drs-role')][cube.drs_role] |= cube.facts
 
 def get_decimalized_value(fact_a, fact_b, xule_context):
@@ -2335,7 +2336,7 @@ def factset_pre_match(factset, filters, non_aligned_filters, xule_context, start
                 index_key[ASPECT], filter_member.type)), xule_context)
 
             # fix for aspects that take qname members (concept and explicit dimensions. The member can be a concept or a qname. The index is by qname.
-            if index_key in (('builtin', 'concept'), ('builtin', 'table')):
+            if index_key in (('builtin', 'concept'), ('property', 'table', 'name')):
                 if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
                     member_values = {convert_value_to_qname(filter_member, xule_context), }
                 else:
