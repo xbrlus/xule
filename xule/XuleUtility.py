@@ -68,7 +68,7 @@ def version(plugin_init_file=__file__):
 def _imports():
     """Imports
     
-    This function handles the imports. These imports are here to prevent circular relative import errors which happens in version priof to 3.5.
+    This function handles the imports. These imports are here to prevent circular relative import errors which happens in version prior to 3.5.
     """
     global XuleValue
     if XuleValue is None:
@@ -182,53 +182,53 @@ def resolve_role(role_value, role_type, dts, xule_context):
         
         return short_role_dict[short_name]
 
-def base_dimension_sets(dts):
-    """Get the Xule base dimension sets.
-    
-    This is like the baseSets dictionary of a model. The base dimension set is a dictionary keyed by the drs role and hypercube. The drs role is the role of the initial 'all' relationship or the target role of the initial
-    'all' relationship if ther eis a target role. The value of the diction is a set of the 'all' relationships.
-    """
-    _imports() 
-    if not hasattr(dts, 'xuleBaseDimensionSets'):
-        dts.xuleBaseDimensionSets = collections.defaultdict(set)
-        for base_set in dts.baseSets:
-            if (base_set[XuleProperties.NETWORK_ARCROLE] == 'http://xbrl.org/int/dim/arcrole/all' and 
-                base_set[XuleProperties.NETWORK_ROLE] is not None and 
-                base_set[XuleProperties.NETWORK_LINK] is not None and 
-                base_set[XuleProperties.NETWORK_ARC] is not None):
-                # This is an 'all' dimension base set find the hypercubes
-                relationship_set =dts.relationshipSets.get(base_set,
-                                                            ModelRelationshipSet(dts, 
-                                                                               base_set[XuleProperties.NETWORK_ARCROLE],
-                                                                               base_set[XuleProperties.NETWORK_ROLE],
-                                                                               base_set[XuleProperties.NETWORK_LINK],
-                                                                               base_set[XuleProperties.NETWORK_ARC]))
-                
-                for rel in relationship_set.modelRelationships:
-                    drs_role = rel.targetRole or base_set[XuleProperties.NETWORK_ROLE]
-                    hypercube = rel.toModelObject
-                    dts.xuleBaseDimensionSets[(drs_role, hypercube)].add(rel)
-
-    return dts.xuleBaseDimensionSets
-
-def dimension_sets(dts):
-    """The dimension sets in a dts.
-    
-    A dimension set is identified by a drs role and hypercube. 
-    """
-    _imports()
-    if not hasattr(dts, 'xuleDimensionSets'):
-        dts.xuleDimensionSets = dict()
-    
-    return dts.xuleDimensionSets
-
-def dimension_set(dts, dimension_set_info):
-    _imports()
-    if dimension_set_info not in dimension_sets(dts):
-        import datetime
-        dimension_sets(dts)[dimension_set_info] = XuleValue.XuleDimensionRelationshipSet(dts, *dimension_set_info)
-
-    return dimension_sets(dts)[dimension_set_info]                                                         
+# def base_dimension_sets(dts):
+#     """Get the Xule base dimension sets.
+#     
+#     This is like the baseSets dictionary of a model. The base dimension set is a dictionary keyed by the drs role and hypercube. The drs role is the role of the initial 'all' relationship or the target role of the initial
+#     'all' relationship if there is a target role. The value of the dictionary is a set of the 'all' relationships.
+#     """
+#     _imports() 
+#     if not hasattr(dts, 'xuleBaseDimensionSets'):
+#         dts.xuleBaseDimensionSets = collections.defaultdict(set)
+#         for base_set in dts.baseSets:
+#             if (base_set[XuleProperties.NETWORK_ARCROLE] in('http://xbrl.org/int/dim/arcrole/all', 
+#                                                             'http://xbrl.org/int/dim/arcrole/notAll') and 
+#                 base_set[XuleProperties.NETWORK_ROLE] is not None and 
+#                 base_set[XuleProperties.NETWORK_LINK] is not None and 
+#                 base_set[XuleProperties.NETWORK_ARC] is not None):
+#                 # This is an 'all' dimension base set find the hypercubes
+#                 relationship_set =dts.relationshipSets.get(base_set,
+#                                                             ModelRelationshipSet(dts, 
+#                                                                                base_set[XuleProperties.NETWORK_ARCROLE],
+#                                                                                base_set[XuleProperties.NETWORK_ROLE],
+#                                                                                base_set[XuleProperties.NETWORK_LINK],
+#                                                                                base_set[XuleProperties.NETWORK_ARC]))
+#                 
+#                 for rel in relationship_set.modelRelationships:
+#                     drs_role = rel.targetRole or base_set[XuleProperties.NETWORK_ROLE]
+#                     hypercube = rel.toModelObject
+#                     dts.xuleBaseDimensionSets[(drs_role, hypercube)].add(rel)
+# 
+#     return dts.xuleBaseDimensionSets
+#
+# def dimension_sets(dts):
+#     """The dimension sets in a dts.
+#     
+#     A dimension set is identified by a drs role and hypercube. 
+#     """
+#     _imports()
+#     if not hasattr(dts, 'xuleDimensionSets'):
+#         dts.xuleDimensionSets = dict()
+#     
+#     return dts.xuleDimensionSets
+# 
+# def dimension_set(dts, dimension_set_info):
+#     _imports()
+#     if dimension_set_info not in dimension_sets(dts):
+#         dimension_sets(dts)[dimension_set_info] = XuleValue.XuleDimensionCube(dts, *dimension_set_info)
+# 
+#     return dimension_sets(dts)[dimension_set_info]                                                         
                                                                                         
 def relationship_set(dts, relationship_set_info):
     _imports()
@@ -239,9 +239,6 @@ def relationship_set(dts, relationship_set_info):
                                           relationship_set_info[XuleProperties.NETWORK_ROLE],
                                           relationship_set_info[XuleProperties.NETWORK_LINK],
                                           relationship_set_info[XuleProperties.NETWORK_ARC]))
-    
-DIMENSION_SET_ROLE = 0
-DIMENSION_SET_HYPERCUBE = 1
 
 def determine_rule_set(model_xbrl, cntlr, rule_set_map_name):
     """Determine which rule set to use based on the instance.

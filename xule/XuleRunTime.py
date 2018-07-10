@@ -56,3 +56,6 @@ class XuleBuildTableError(XuleException):
 class XuleReEvaluate(XuleException):
     def __init__(self, alignment=None):
         self.alignment = alignment
+
+class XuleMissingRuleSetMap(XuleException):
+    pass        

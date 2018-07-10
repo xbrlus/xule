@@ -291,6 +291,14 @@ class XuleGlobalContext(object):
     def constant_store(self, value):
         self._constants = value
 
+    @property
+    def fact_index(self):
+        return getattr(self.model, 'xuleFactIndex', dict())
+
+    @fact_index.setter
+    def fact_index(self, value):
+        self.model.xuleFactIndex = value
+
 class XuleRuleContext(object):
     """Rule Context
     
