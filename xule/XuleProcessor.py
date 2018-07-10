@@ -438,9 +438,9 @@ def index_table_properties(xule_context):
     # Go through each table.
     for cube_base in XuleDimensionCube.base_dimension_sets(xule_context.model):
         cube = XuleDimensionCube(xule_context.model, *cube_base, include_facts=True)
-        xule_context.global_context.fact_index[('builtin', 'table')][cube] |= cube.facts
-        xule_context.global_context.fact_index[('property', 'table', 'name')][cube.hypercube.qname] |= cube.facts
-        xule_context.global_context.fact_index[('property', 'table', 'drs-role')][cube.drs_role] |= cube.facts
+        xule_context.global_context.fact_index[('builtin', 'cube')][cube] |= cube.facts
+        xule_context.global_context.fact_index[('property', 'cube', 'name')][cube.hypercube.qname] |= cube.facts
+        xule_context.global_context.fact_index[('property', 'cube', 'drs-role')][cube.drs_role] |= cube.facts
 
 def get_decimalized_value(fact_a, fact_b, xule_context):
     """Adjust 2 fact values based on accuracy.
@@ -2336,7 +2336,7 @@ def factset_pre_match(factset, filters, non_aligned_filters, xule_context, start
                 index_key[ASPECT], filter_member.type)), xule_context)
 
             # fix for aspects that take qname members (concept and explicit dimensions. The member can be a concept or a qname. The index is by qname.
-            if index_key in (('builtin', 'concept'), ('property', 'table', 'name')):
+            if index_key in (('builtin', 'concept'), ('property', 'cube', 'name')):
                 if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
                     member_values = {convert_value_to_qname(filter_member, xule_context), }
                 else:
@@ -2364,7 +2364,7 @@ def factset_pre_match(factset, filters, non_aligned_filters, xule_context, start
                 else:
                     member_values = {conversion_function(x) for x in filter_member.value}
             # Allow @table.drs-role to take a short role name
-            elif index_key == ('property', 'table', 'drs-role'):
+            elif index_key == ('property', 'cube', 'drs-role'):
                 if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
                     member_values = {convert_value_to_role(filter_member, xule_context), }
                 else:
@@ -2877,7 +2877,7 @@ def evaluate_navigate(nav_expr, xule_context):
             # get the relationships
             if nav_expr.get('dimensional'):
                 drs_role = nav_get_role(nav_expr, 'drsRole', dts, xule_context)
-                table_concepts = nav_get_element(nav_expr, 'table', dts, xule_context)
+                table_concepts = nav_get_element(nav_expr, 'cube', dts, xule_context)
                 if arcrole is not None:
                     dimension_arcroles = xc.DIMENSION_PSEDDO_ARCROLES.get(arcrole, ('all', {arcrole, }))
                 #                 relationship_sets = [XuleUtility.dimension_set(dts, x) for x in XuleUtility.base_dimension_sets(dts) if ((drs_role is None or x[XuleUtility.DIMENSION_SET_ROLE] == drs_role) and
@@ -4403,7 +4403,7 @@ def process_factset_aspects(factset, xule_context):
     
     The aspect filters dictionaries (the first 2 dictionaries) are keyed by a tuple of 4 items:    
     1. aspect type - This is either 'builtin' or 'explicit_dimension'
-    2. aspect name - For built in aspects it is one of 'concept', 'entity', 'period', 'unit' or 'table'
+    2. aspect name - For built in aspects it is one of 'concept', 'entity', 'period', 'unit' or 'cube'
                      For dimensional aspects it is the qname of the dimension
     3. special value - If the aspect uses a wildcard, this will contain the wildcard character '*'. Otherwise it is None.
     4. aspect operator - This is the operator used for the filter. It is one of '=', '!=', 'in' or 'not in'. If there is not aspect operator
@@ -4414,7 +4414,7 @@ def process_factset_aspects(factset, xule_context):
     
     The dictionary of aspect variables is key by a the alias name. The value is a tuple of 3 items:
     1. aspect type - This is either 'builtin' or 'explicit_dimension'
-    2. aspect name - For built in aspects it is one of 'concept', 'entity', 'period', 'unit' or 'table'
+    2. aspect name - For built in aspects it is one of 'concept', 'entity', 'period', 'unit' or 'cube'
                      For dimensional aspects it is the qname of the dimension
     3. aspect index - This is the node_id of the aspect filter.
 
@@ -4519,7 +4519,7 @@ def aspect_in_filters(aspect_type, aspect_name, filters):
     
     Arguments:
     aspect_type (string): Either 'builtin' or 'dimension'
-    aspect_name (string or qname): if 'builtin' this will be a string with values of 'concept', 'unit', 'period', 'entity' or 'table', otherwise it is a qname
+    aspect_name (string or qname): if 'builtin' this will be a string with values of 'concept', 'unit', 'period', 'entity' or 'cube', otherwise it is a qname
                                    of the dimensional aspect name.
     filters (dictionary): Dictionary of aspect filters.
     """

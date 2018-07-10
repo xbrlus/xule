@@ -309,7 +309,7 @@ def get_grammar():
                                CaselessKeyword('unit').setResultsName('value') | 
                                CaselessKeyword('entity').setResultsName('value') | 
                                CaselessKeyword('period').setResultsName('value') | 
-                               CaselessKeyword('table').setResultsName('value')) + nodeName('aspectName')
+                               CaselessKeyword('cube').setResultsName('value')) + nodeName('aspectName')
                               )
     
     aspectName = ((aspectNameLiteral.setResultsName('aspectName') +
@@ -395,7 +395,7 @@ def get_grammar():
                        Optional(Suppress(CaselessKeyword('role')) + blockExpr.setResultsName('role')) +
                        Optional(Suppress(CaselessKeyword('drs-role')) + blockExpr.setResultsName('drsRole')) +
                        Optional(Suppress(CaselessKeyword('linkbase')) + blockExpr.setResultsName('linkbase')) +
-                       Optional(Suppress(CaselessKeyword('table')) + blockExpr.setResultsName('table')) +
+                       Optional(Suppress(CaselessKeyword('cube')) + blockExpr.setResultsName('cube')) +
                        Optional(Suppress(CaselessKeyword('taxonomy')) + blockExpr.setResultsName('taxonomy')) +
                        Optional(whereClause) +
                        Optional(Group(
