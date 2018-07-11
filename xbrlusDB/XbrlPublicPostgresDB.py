@@ -1360,7 +1360,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                               ('document_id', 'uri_id'), 
                               tuple((roleTypeIDs[0], # doc Id
                                      roleTypeIDs[1], # uri Id
-                                     roleType.definition.strip()) 
+                                     None if roleType.definition is None else roleType.definition.strip())
                                     for roleTypeIDs, roleType in roleTypesByIds.items()))
         table = self.getTable('custom_role_used_on', 'custom_role_used_on_id', 
                               ('custom_role_type_id', 'qname_id'), 
