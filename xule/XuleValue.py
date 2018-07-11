@@ -885,82 +885,86 @@ class XuleDimensionCube:
                         dts.xuleBaseDimensionSets[(drs_role, hypercube)].add(rel)
 
     def __new__(cls, dts, drs_role, hypercube, include_facts=False):
+        # if (drs_role, hypercube) not in cls.base_dimension_sets(dts):
+        #     raise XuleProcessingError(_(
+        #         "Dimension base set for drs role '{}' and hypercube '{}' does not exists.".format(drs_role, str(
+        #             hypercube.qname))))
         if (drs_role, hypercube) not in cls.base_dimension_sets(dts):
-            raise XuleProcessingError(_(
-                "Dimension base set for drs role '{}' and hypercube '{}' does not exists.".format(drs_role, str(
-                    hypercube.qname))))
+            return None
         # See if the cube is already created.
         new_cube = cls.dimension_sets(dts).get((drs_role, hypercube))
         # If not, create an empty cube
         if new_cube is None:
             new_cube = super().__new__(cls)
+            cls.dimension_sets(dts)[(drs_role, hypercube)] = new_cube
         # This will cause the init to be called.
         return new_cube
 
     def __init__(self, dts, drs_role, hypercube, include_facts=False):
 
-        # Check if the cube is already created. If it is, do nothing, the created cube will be returned.
-        if not hasattr(self, '_hypercube'):
-            # Create the cube
-            self.has_facts = False
-            self._dts = dts
-            self._drs_role = drs_role
-            self._hypercube = hypercube
-            self._from_relationships = collections.defaultdict(list)
-            self._to_relationships = collections.defaultdict(list)
-            #self._from_concepts = collections.defaultdict(set)
-            #self._to_concepts = collections.defaultdict(set)
-            self._relationships = set()
-            #self._primaries = set()
-            self._primaries_all = set() # primary concepts that are attached with an 'all' has-hypercube relationship
-            self._primaries_not_all = set() # primary concepts that are attached with a 'notAll' has-hypercube3 relationship
-            #self._root_primaries = set()
-            self._root_primaries_all = set()
-            self._root_primaries_not_all = set()
-            self._dimensions = set()
-            self._dimension_members = collections.defaultdict(set)
-            self._dimension_domains = collections.defaultdict(set)
-            self._dimension_default = dict()
-            self._concept_types = collections.defaultdict(lambda: [None, None, None, None]) # This is a dictionary keyed by concept with a value of a list of 2 items, the dimension type and the dimension sub type
+        if self is not None:
+            # Check if the cube is already created. If it is, do nothing, the created cube will be returned.
+            if not hasattr(self, '_hypercube'):
+                # Create the cube
+                self.has_facts = False
+                self._dts = dts
+                self._drs_role = drs_role
+                self._hypercube = hypercube
+                self._from_relationships = collections.defaultdict(list)
+                self._to_relationships = collections.defaultdict(list)
+                #self._from_concepts = collections.defaultdict(set)
+                #self._to_concepts = collections.defaultdict(set)
+                self._relationships = set()
+                #self._primaries = set()
+                self._primaries_all = set() # primary concepts that are attached with an 'all' has-hypercube relationship
+                self._primaries_not_all = set() # primary concepts that are attached with a 'notAll' has-hypercube3 relationship
+                #self._root_primaries = set()
+                self._root_primaries_all = set()
+                self._root_primaries_not_all = set()
+                self._dimensions = set()
+                self._dimension_members = collections.defaultdict(set)
+                self._dimension_domains = collections.defaultdict(set)
+                self._dimension_default = dict()
+                self._concept_types = collections.defaultdict(lambda: [None, None, None, None]) # This is a dictionary keyed by concept with a value of a list of 2 items, the dimension type and the dimension sub type
 
-            for model_has_rel in self.base_dimension_sets(dts).get((drs_role, hypercube),set()):
-                has_rel = DimensionRelationship(model_has_rel, self)
-                # Determine if this primary is an all or notAll relationship.
-                primary_all = True if model_has_rel.arcrole == 'http://xbrl.org/int/dim/arcrole/all' else False
-                if primary_all:
-                    self._root_primaries_all.add(has_rel.toModelObject)
-                    self._primaries_all.add(has_rel.toModelObject)
-                else:
-                    self._root_primaries_not_all.add(has_rel.toModelObject)
-                    self._primaries_not_all.add(has_rel.toModelObject)
-                #self._root_primaries.add(has_rel.toModelObject)
-                #self._primaries.add(has_rel.toModelObject)
-                self._relationships.add(has_rel)
-                # The xbrl direction of the 'all' relationship is from primary to hypercube, but in the xule model, the hypercube is the top, so the direction is the opposite. This is
-                # handled by the DimensionRelationship() object.
-                self._from_relationships[has_rel.fromModelObject].append(has_rel)
-                self._to_relationships[has_rel.toModelObject].append(has_rel)
+                for model_has_rel in self.base_dimension_sets(dts).get((drs_role, hypercube),set()):
+                    has_rel = DimensionRelationship(model_has_rel, self)
+                    # Determine if this primary is an all or notAll relationship.
+                    primary_all = True if model_has_rel.arcrole == 'http://xbrl.org/int/dim/arcrole/all' else False
+                    if primary_all:
+                        self._root_primaries_all.add(has_rel.toModelObject)
+                        self._primaries_all.add(has_rel.toModelObject)
+                    else:
+                        self._root_primaries_not_all.add(has_rel.toModelObject)
+                        self._primaries_not_all.add(has_rel.toModelObject)
+                    #self._root_primaries.add(has_rel.toModelObject)
+                    #self._primaries.add(has_rel.toModelObject)
+                    self._relationships.add(has_rel)
+                    # The xbrl direction of the 'all' relationship is from primary to hypercube, but in the xule model, the hypercube is the top, so the direction is the opposite. This is
+                    # handled by the DimensionRelationship() object.
+                    self._from_relationships[has_rel.fromModelObject].append(has_rel)
+                    self._to_relationships[has_rel.toModelObject].append(has_rel)
 
-                #identify concepts
-                self._concept_types[has_rel.fromModelObject][DIMENSION_TYPE] = 'hypdercube'
-                self._concept_types[has_rel.toModelObject][DIMENSION_TYPE] = 'primary-member'
-                self._concept_types[has_rel.toModelObject][DIMENSION_SUB_TYPE] = 'primary'
-                self._concept_types[has_rel.toModelObject][HYPERCUBE_CLOSED] = (self._concept_types[has_rel.toModelObject][HYPERCUBE_CLOSED] or True) and bool(has_rel.arcElement.get('{http://xbrl.org/2005/xbrldt}closed', False))
-                #traverse the primary domain-member
-                self._traverse_dimension_relationships(dts,
-                                                       'primary',
-                                                       has_rel.toModelObject,
-                                                       'http://xbrl.org/int/dim/arcrole/domain-member',
-                                                       has_rel.linkrole,
-                                                       has_rel.linkQname,
-                                                       has_rel.qname,
-                                                       primary_all=primary_all,
-                                                       closed=has_rel.arcElement.get('{http://xbrl.org/2005/xbrldt}closed', False))
-                #traverse the dimensions
-                self._traverse_dimension_relationships(dts, 'dimension', has_rel.fromModelObject, 'http://xbrl.org/int/dim/arcrole/hypercube-dimension', has_rel.targetRole or has_rel.linkrole, has_rel.linkQname, has_rel.qname)
+                    #identify concepts
+                    self._concept_types[has_rel.fromModelObject][DIMENSION_TYPE] = 'hypdercube'
+                    self._concept_types[has_rel.toModelObject][DIMENSION_TYPE] = 'primary-member'
+                    self._concept_types[has_rel.toModelObject][DIMENSION_SUB_TYPE] = 'primary'
+                    self._concept_types[has_rel.toModelObject][HYPERCUBE_CLOSED] = (self._concept_types[has_rel.toModelObject][HYPERCUBE_CLOSED] or True) and bool(has_rel.arcElement.get('{http://xbrl.org/2005/xbrldt}closed', False))
+                    #traverse the primary domain-member
+                    self._traverse_dimension_relationships(dts,
+                                                           'primary',
+                                                           has_rel.toModelObject,
+                                                           'http://xbrl.org/int/dim/arcrole/domain-member',
+                                                           has_rel.linkrole,
+                                                           has_rel.linkQname,
+                                                           has_rel.qname,
+                                                           primary_all=primary_all,
+                                                           closed=has_rel.arcElement.get('{http://xbrl.org/2005/xbrldt}closed', False))
+                    #traverse the dimensions
+                    self._traverse_dimension_relationships(dts, 'dimension', has_rel.fromModelObject, 'http://xbrl.org/int/dim/arcrole/hypercube-dimension', has_rel.targetRole or has_rel.linkrole, has_rel.linkQname, has_rel.qname)
 
-        if include_facts:
-            self.add_facts()
+            if include_facts:
+                self.add_facts()
 
     def _traverse_dimension_relationships(self, dts, side, parent, arcrole, role, link_name, arc_name, previous=None,
                                           dimension_concept=None, primary_all=None, closed=None):
@@ -1127,7 +1131,32 @@ class XuleDimensionCube:
     @property
     def drs_role(self):
         return self._drs_role
-    
+
+    @property
+    def hypercube(self):
+        return self._hypercube
+
+    @property
+    def dimensions(self):
+        return self._dimensions
+
+    @property
+    def primaries(self):
+        return self._primaries_all | self._primaries_not_all
+
+    @property
+    def facts(self):
+        if not hasattr(self, '_facts'):
+            facts = getattr(self, '_facts_all', set())
+            if len(facts) > 0: # This only needs to be done if there are facts to eliminate
+                # Need to eliminate facts in negative cubes within the same drs
+                for base_dimension in self.base_dimension_sets(self._dts):
+                    if base_dimension[0] == self.drs_role: # This cube is in the same drs
+                        facts -= getattr(XuleDimensionCube(self._dts, *base_dimension, include_facts=True), '_facts_not_all', set())
+            self._facts = facts
+
+        return self._facts
+
     def fromModelObject(self, concept):
         return self._from_relationships.get(concept, [])
     
@@ -1154,22 +1183,6 @@ class XuleDimensionCube:
 
     def isUsable(self, concept):
         return self._concept_types[concept][DIMENSION_USABLE]
-    @property
-    def hypercube(self):
-        return self._hypercube
-
-    @property
-    def facts(self):
-        if not hasattr(self, '_facts'):
-            facts = getattr(self, '_facts_all', set())
-            if len(facts) > 0: # This only needs to be done if there are facts to eliminate
-                # Need to eliminate facts in negative cubes within the same drs
-                for base_dimension in self.base_dimension_sets(self._dts):
-                    if base_dimension[0] == self.drs_role: # This cube is in the same drs
-                        facts -= getattr(XuleDimensionCube(self._dts, *base_dimension, include_facts=True), '_facts_not_all', set())
-            self._facts = facts
-
-        return self._facts
 
 def model_to_xule_unit(model_unit, xule_context):
     return XuleUnit(model_unit)

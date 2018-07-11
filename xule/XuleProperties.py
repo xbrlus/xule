@@ -404,23 +404,29 @@ def property_dimension(xule_context, object_value, *args):
             return xv.XuleValue(xule_context, member_model.typedMember.xValue, xv.model_to_xule_type(xule_context, member_model.typedMember.xValue))
 
 def property_dimensions(xule_context, object_value, *args):
-    if not object_value.is_fact:
-        return object_value
-    
-    result_dict = dict()
-    result_shadow = dict()
-    
-    for dim_qname, member_model in object_value.fact.context.qnameDims.items():
-        dim_value = xv.XuleValue(xule_context, get_concept(xule_context.model, dim_qname), 'concept')
-        if member_model.isExplicit:
-            member_value = xv.XuleValue(xule_context, member_model.member, 'concept')
-        else: # Typed dimension
-            member_value = xv.XuleValue(xule_context, member_model.typedMember.xValue, xv.model_to_xule_type(xule_context, member_model.typedMember.xValue))
-            
-        result_dict[dim_value] = member_value
-        result_shadow[dim_value.value] = member_value.value
-    
-    return xv.XuleValue(xule_context, frozenset(result_dict.items()), 'dictionary', shadow_collection=frozenset(result_shadow.items()))
+    if object_value.type == 'cube':
+        dims_shadow = object_value.value.dimensions
+        dims = {xv.XuleValue(xule_context, x, 'concept') for x in dims_shadow}
+
+        return xv.XuleValue(xule_context, frozenset(dims), 'set', shadow_collection=frozenset(dims_shadow))
+    else:
+        if not object_value.is_fact:
+            return object_value
+
+        result_dict = dict()
+        result_shadow = dict()
+
+        for dim_qname, member_model in object_value.fact.context.qnameDims.items():
+            dim_value = xv.XuleValue(xule_context, get_concept(xule_context.model, dim_qname), 'concept')
+            if member_model.isExplicit:
+                member_value = xv.XuleValue(xule_context, member_model.member, 'concept')
+            else: # Typed dimension
+                member_value = xv.XuleValue(xule_context, member_model.typedMember.xValue, xv.model_to_xule_type(xule_context, member_model.typedMember.xValue))
+
+            result_dict[dim_value] = member_value
+            result_shadow[dim_value.value] = member_value.value
+
+        return xv.XuleValue(xule_context, frozenset(result_dict.items()), 'dictionary', shadow_collection=frozenset(result_shadow.items()))
 
 def property_dimensions_explicit(xule_context, object_value, *args):
     if not object_value.is_fact:
@@ -854,6 +860,65 @@ def property_concept_names(xule_context, object_value, *args):
         raise XuleProcessingError(_("'concept-names' is not a property of '%s'" % object_value.type), xule_context)
  
     return xv.XuleValue(xule_context, frozenset(concepts), 'set')
+
+def property_cube(xule_context, object_value, *args):
+    """This returns the tables in a taxonomy
+
+    It will have 2 arguments:
+        args[0] - The concept or qname of the hypercube
+        args[1] - The drs-role
+    """
+    if args[0].type == 'qname':
+        cube_concept = get_concept(object_value.value, args[0].value)
+    elif args[0].type == 'concept':
+        cube_concept = args[0].value
+    else:
+        raise XuleProcessingError(_("The first argument of property 'cube' must be a qname or a concept, found '{}'.".format(args[0].type)), xule_context)
+
+    if args[1].type in ('string', 'uri'):
+        drs_role = args[1].value
+    elif args[1].type == 'qname':
+        drs_role = XuleUtility.resolve_role(args[1], 'role', xule_context.model, xule_context)
+    else:
+        raise XuleProcessingError(_("The second argument of property 'cube' must be a role uri or a short role, found '{}'.".format(args[1].type)), xule_context)
+
+    cube = xv.XuleDimensionCube(object_value.value, drs_role, cube_concept)
+
+    if cube is None:
+        return xv.XuleValue(xule_context, None, 'none')
+    else:
+        return xv.XuleValue(xule_context, cube, 'cube')
+
+def property_cubes(xule_context, object_value, *args):
+    """This returns all the cubes in a taxonomy.
+    """
+    cubes = set()
+    cubes_shadow = set()
+    for cube_base in xv.XuleDimensionCube.base_dimension_sets(xule_context.model):
+        cube = xv.XuleDimensionCube(xule_context.model, *cube_base)
+        cubes.add(xv.XuleValue(xule_context, cube, 'cube'))
+        cubes_shadow.add(cube)
+
+    return xv.XuleValue(xule_context, frozenset(cubes), 'set', shadow_collection=frozenset(cubes_shadow))
+
+def property_drs_role(xule_context, object_value, *args):
+    role_uri = object_value.value.drs_role
+    return xv.XuleValue(xule_context, xule_context.model.roleTypes[role_uri][0], 'role')
+
+def property_cube_concept(xule_context, object_value, *args):
+    return xv.XuleValue(xule_context, object_value.value.hypercube, 'concept')
+
+def property_primary_concepts(xule_context, object_value, *args):
+    prim_shadow = object_value.value.primaries
+    prim = {xv.XuleValue(xule_context, x, 'concept') for x in prim_shadow}
+
+    return xv.XuleValue(xule_context, frozenset(prim), 'set', shadow_collection=frozenset(prim_shadow))
+
+def property_facts(xule_context, object_value, *args):
+    facts_shadow = object_value.value.facts
+    facts = {xv.XuleValue(xule_context, x, 'fact', alignment=None) for x in facts_shadow}
+
+    return xv.XuleValue(xule_context, frozenset(facts), 'set', shadow_collection=frozenset(facts_shadow))
 
 def property_relationships(xule_context, object_value, *args):        
     relationships = set()
@@ -1319,7 +1384,7 @@ def property_string(xule_context, object_value, *args):
     '''SHOULD THE META DATA BE INCLUDED???? THIS SHOULD BE HANDLED BY THE PROPERTY EVALUATOR.'''
     return xv.XuleValue(xule_context, object_value.format_value(), 'string')
  
-def property_facts(xule_context, object_value, *args):
+def property_context_facts(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, "\n".join([str(f.qname) + " " + str(f.xValue) for f in xule_context.facts]), 'string')
  
 def property_from_model(xule_context, object_value, *args):
@@ -1517,7 +1582,7 @@ PROPERTIES = {
               'id': (property_id, 0, ('entity','unit','fact'), True),
               'scheme': (property_scheme, 0, ('entity',), False),
               'dimension': (property_dimension, 1, ('fact',), True),
-              'dimensions': (property_dimensions, 0, ('fact',), True),
+              'dimensions': (property_dimensions, 0, ('fact', 'cube'), True),
               'dimensions-explicit': (property_dimensions_explicit, 0, ('fact',), True),
               'dimensions-typed': (property_dimensions_typed, 0, ('fact',), True),                            
               'aspects': (property_aspects, 0, ('fact',), True),
@@ -1603,12 +1668,19 @@ PROPERTIES = {
               'stdev': (property_stats, 0, ('set', 'list'), False, numpy.std),
               'avg': (property_stats, 0, ('set', 'list'), False, numpy.mean),
               'prod': (property_stats, 0, ('set', 'list'), False, numpy.prod),
+              'cube': (property_cube, 2, ('taxonomy',), False),
+              'cubes': (property_cubes, 0, ('taxonomy',), False),
+              'drs-role': (property_drs_role, 0, ('cube',), False),
+              'cube-concept': (property_cube_concept, 0, ('cube',), False),
+              'primary-concepts': (property_primary_concepts, 0, ('cube',), False),
+              'facts': (property_facts, 0, ('cube',), False),
+
               
               # Debugging properties
               '_type': (property_type, 0, (), False),
               '_alignment': (property_alignment, 0, (), False),
               '_compute-type': (property_compute_type, 0, (), False),
-              '_facts': (property_facts, 0, (), False),
+              '_facts': (property_context_facts, 0, (), False),
               '_from-model': (property_from_model, 0, (), False),
               '_hash': (property_hash, 0, (), True),
               
