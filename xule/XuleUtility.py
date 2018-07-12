@@ -182,6 +182,20 @@ def resolve_role(role_value, role_type, dts, xule_context):
         
         return short_role_dict[short_name]
 
+def role_uri_to_model_role(model_xbrl, role_uri):
+    _imports()
+    if role_uri in model_xbrl.roleTypes:
+        return model_xbrl.roleTypes[role_uri][0]
+    else:
+        return XuleValue.XuleRole(role_uri)
+
+def arcrole_uri_to_model_role(model_xbrl, arcrole_uri):
+    _imports()
+    if arcrole_uri in model_xbrl.arcroleTypes:
+        return model_xbrl.arcroleTypes[arcrole_uri][0]
+    else:
+        return XuleValue.XuleArcrole(arcrole_uri)
+
 # def base_dimension_sets(dts):
 #     """Get the Xule base dimension sets.
 #     

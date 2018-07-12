@@ -220,11 +220,9 @@ def property_role(xule_context, object_value, *args):
     else: # label or reference
         role_uri = object_value.value.role
         #return xv.XuleValue(xule_context, object_value.value.role, 'uri')
-     
-    if role_uri in xule_context.model.roleTypes:
-        return xv.XuleValue(xule_context, xule_context.model.roleTypes[role_uri][0], 'role')
-    else:
-        return xv.XuleValue(xule_context, xv.XuleRole(role_uri), 'role')
+
+    model_role = XuleUtility.role_uri_to_model_role(xule_context.model_xbrl, role_uri)
+    return xv.XuleValue(xule_context, model_role, 'role')
 
 def property_role_uri(xule_context, object_value, *args):
     if object_value.type == 'network':
@@ -248,11 +246,8 @@ def property_role_description(xule_context, object_value, *args):
         role_uri = object_value.value.role
         #return xv.XuleValue(xule_context, object_value.value.role, 'uri')
 
-    if role_uri in xule_context.model.roleTypes:
-        model_role = xule_context.model.roleTypes[role_uri][0]
-    else:
-        model_role = xv.XuleRole(role_uri)
-    
+    model_role = XuleUtility.role_uri_to_model_role(xule_context.model_xbrl, role_uri)
+
     return xv.XuleValue(xule_context, model_role.definition, 'string')
     
 def property_arcrole(xule_context, object_value, *args):
@@ -260,11 +255,9 @@ def property_arcrole(xule_context, object_value, *args):
         arcrole_uri = object_value.value[NETWORK_INFO][NETWORK_ARCROLE]
     else: # relationship
         arcrole_uri = object_value.value.arcrole
-    
-    if arcrole_uri in xule_context.model.arcroleTypes:
-        return xv.XuleValue(xule_context, xule_context.model.arcroleTypes[arcrole_uri][0], 'role')
-    else:
-        return xv.XuleValue(xule_context, XuleArcrole(arcrole_uri), 'role')
+
+    model_arcrole = XuleUtility.arcrole_uri_to_model_role(xule_context.model_xbrl, arcrole_uri)
+    return xv.XuleValue(xule_context, model_arcrole, 'role')
 
 def property_arcrole_uri(xule_context, object_value, *args):
     if object_value.type == 'network':
@@ -278,12 +271,8 @@ def property_arcrole_description(xule_context, object_value, *args):
         arcrole_uri = object_value.value[NETWORK_INFO][NETWORK_ARCROLE]
     else: # relationship
         arcrole_uri = object_value.value.arcrole
-            
-    if arcrole_uri in xule_context.model.arcroleTypes:
-        model_arcrole = xule_context.model.arcroleTypes[arcrole_uri][0]
-    else:
-        model_arcrole = XuleArcrole(arcrole_uri)
-    
+
+    model_arcrole = XuleUtility.arcrole_uri_to_model_role(xule_context.model_xbrl, arcrole_uri)
     return xv.XuleValue(xule_context, model_arcrole.definition, 'string')
 
 def property_concept(xule_context, object_value, *args):
@@ -314,6 +303,10 @@ def property_concept(xule_context, object_value, *args):
             return xv.XuleValue(xule_context, concept_value, 'concept')
         else:
             return xv.XuleValue(xule_context, None, 'none')
+    elif object_value.type == 'dimension':
+        if len(args) > 0:
+            raise XuleProcessingError(_("Property 'concept' on a dimension cannot have any arguments, found {}.".format(str(len(args)))), xule_context)
+        return xv.XuleValue(xule_context, object_value.value.dimension_concept, 'concept')
     else: # None value
         return object_value
 
@@ -406,7 +399,7 @@ def property_dimension(xule_context, object_value, *args):
 def property_dimensions(xule_context, object_value, *args):
     if object_value.type == 'cube':
         dims_shadow = object_value.value.dimensions
-        dims = {xv.XuleValue(xule_context, x, 'concept') for x in dims_shadow}
+        dims = {xv.XuleValue(xule_context, x, 'dimension') for x in dims_shadow}
 
         return xv.XuleValue(xule_context, frozenset(dims), 'set', shadow_collection=frozenset(dims_shadow))
     else:
@@ -902,8 +895,7 @@ def property_cubes(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, frozenset(cubes), 'set', shadow_collection=frozenset(cubes_shadow))
 
 def property_drs_role(xule_context, object_value, *args):
-    role_uri = object_value.value.drs_role
-    return xv.XuleValue(xule_context, xule_context.model.roleTypes[role_uri][0], 'role')
+    return xv.XuleValue(xule_context,  object_value.value.drs_role, 'role')
 
 def property_cube_concept(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, object_value.value.hypercube, 'concept')
@@ -919,6 +911,13 @@ def property_facts(xule_context, object_value, *args):
     facts = {xv.XuleValue(xule_context, x, 'fact', alignment=None) for x in facts_shadow}
 
     return xv.XuleValue(xule_context, frozenset(facts), 'set', shadow_collection=frozenset(facts_shadow))
+
+def property_default(xule_context, object_value, *args):
+    default = object_value.value.default
+    if default is None:
+        return xv.XuleValue(xule_context, None, 'none')
+    else:
+        return xv.XuleValue(xule_context, default, 'concept')
 
 def property_relationships(xule_context, object_value, *args):        
     relationships = set()
@@ -1575,7 +1574,7 @@ PROPERTIES = {
               'arcrole':(property_arcrole, 0, ('network', 'relationship'), False),
               'arcrole-uri':(property_arcrole_uri, 0, ('network', 'relationship'), False),
               'arcrole-description':(property_arcrole_description, 0, ('network', 'relationship'), False),
-              'concept': (property_concept, -1, ('fact', 'taxonomy'), True),
+              'concept': (property_concept, -1, ('fact', 'taxonomy', 'dimension'), True),
               'period': (property_period, 0, ('fact',), True),
               'unit': (property_unit, 0, ('fact',), True),
               'entity': (property_entity, 0, ('fact',), True),
@@ -1674,8 +1673,8 @@ PROPERTIES = {
               'cube-concept': (property_cube_concept, 0, ('cube',), False),
               'primary-concepts': (property_primary_concepts, 0, ('cube',), False),
               'facts': (property_facts, 0, ('cube',), False),
+              'default': (property_default, 0, ('dimension',), False),
 
-              
               # Debugging properties
               '_type': (property_type, 0, (), False),
               '_alignment': (property_alignment, 0, (), False),

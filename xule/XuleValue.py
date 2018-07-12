@@ -29,6 +29,8 @@ from arelle.ModelValue import AnyURI, QName, dayTimeDuration, DateTime, gYear, g
 from arelle.ModelInstanceObject import ModelFact, ModelUnit
 from arelle.ModelRelationshipSet import ModelRelationshipSet
 from arelle.ModelDtsObject import ModelRelationship
+from arelle.ValidateXbrlDimensions import loadDimensionDefaults
+from arelle.Validate import validate
 import datetime
 import decimal
 from aniso8601.__init__ import parse_duration, parse_datetime, parse_date
@@ -880,35 +882,61 @@ class XuleDimensionCube:
                                                                                          XuleProperties.NETWORK_ARC]))
 
                     for rel in relationship_set.modelRelationships:
-                        drs_role = rel.targetRole or base_set[XuleProperties.NETWORK_ROLE]
+                        drs_role = base_set[XuleProperties.NETWORK_ROLE] #rel.targetRole or base_set[XuleProperties.NETWORK_ROLE]
                         hypercube = rel.toModelObject
                         dts.xuleBaseDimensionSets[(drs_role, hypercube)].add(rel)
 
-    def __new__(cls, dts, drs_role, hypercube, include_facts=False):
-        # if (drs_role, hypercube) not in cls.base_dimension_sets(dts):
+    @classmethod
+    def _establish_dimension_defaults(cls, dts):
+        if not hasattr(dts, 'xuleDimensionDefaults'):
+            dts.xuleDimensionDefaults = dict()
+
+            for base_set in dts.baseSets:
+                if (base_set[XuleProperties.NETWORK_ARCROLE] == 'http://xbrl.org/int/dim/arcrole/dimension-default' and
+                        base_set[XuleProperties.NETWORK_ROLE] is not None and
+                        base_set[XuleProperties.NETWORK_LINK] is not None and
+                        base_set[XuleProperties.NETWORK_ARC] is not None):
+                    relationship_set = dts.relationshipSets.get(base_set,
+                                                                ModelRelationshipSet(dts,
+                                                                                     base_set[
+                                                                                         XuleProperties.NETWORK_ARCROLE],
+                                                                                     base_set[
+                                                                                         XuleProperties.NETWORK_ROLE],
+                                                                                     base_set[
+                                                                                         XuleProperties.NETWORK_LINK],
+                                                                                     base_set[
+                                                                                         XuleProperties.NETWORK_ARC]))
+
+                    for rel in relationship_set.modelRelationships:
+                        dts.xuleDimensionDefaults[rel.fromModelObject] = rel.toModelObject
+
+
+    def __new__(cls, dts, drs_role_uri, hypercube, include_facts=False):
+        # if (drs_role_uri, hypercube) not in cls.base_dimension_sets(dts):
         #     raise XuleProcessingError(_(
         #         "Dimension base set for drs role '{}' and hypercube '{}' does not exists.".format(drs_role, str(
         #             hypercube.qname))))
-        if (drs_role, hypercube) not in cls.base_dimension_sets(dts):
+        if (drs_role_uri, hypercube) not in cls.base_dimension_sets(dts):
             return None
         # See if the cube is already created.
-        new_cube = cls.dimension_sets(dts).get((drs_role, hypercube))
+        new_cube = cls.dimension_sets(dts).get((drs_role_uri, hypercube))
         # If not, create an empty cube
         if new_cube is None:
             new_cube = super().__new__(cls)
-            cls.dimension_sets(dts)[(drs_role, hypercube)] = new_cube
+            cls.dimension_sets(dts)[(drs_role_uri, hypercube)] = new_cube
         # This will cause the init to be called.
         return new_cube
 
-    def __init__(self, dts, drs_role, hypercube, include_facts=False):
+    def __init__(self, dts, drs_role_uri, hypercube, include_facts=False):
 
         if self is not None:
             # Check if the cube is already created. If it is, do nothing, the created cube will be returned.
             if not hasattr(self, '_hypercube'):
+                self._establish_dimension_defaults(dts) # Get list of dimension-defaults across all DRSs
                 # Create the cube
                 self.has_facts = False
                 self._dts = dts
-                self._drs_role = drs_role
+                self._drs_role_uri = drs_role_uri
                 self._hypercube = hypercube
                 self._from_relationships = collections.defaultdict(list)
                 self._to_relationships = collections.defaultdict(list)
@@ -927,7 +955,7 @@ class XuleDimensionCube:
                 self._dimension_default = dict()
                 self._concept_types = collections.defaultdict(lambda: [None, None, None, None]) # This is a dictionary keyed by concept with a value of a list of 2 items, the dimension type and the dimension sub type
 
-                for model_has_rel in self.base_dimension_sets(dts).get((drs_role, hypercube),set()):
+                for model_has_rel in self.base_dimension_sets(dts).get((drs_role_uri, hypercube), set()):
                     has_rel = DimensionRelationship(model_has_rel, self)
                     # Determine if this primary is an all or notAll relationship.
                     primary_all = True if model_has_rel.arcrole == 'http://xbrl.org/int/dim/arcrole/all' else False
@@ -989,19 +1017,20 @@ class XuleDimensionCube:
                     dimension_concept = child_concept
                     self._dimensions.add(dimension_concept)
                     # Check for dimension default.
-                    default_relationship_set = XuleUtility.relationship_set(dts, (
-                    'http://xbrl.org/int/dim/arcrole/dimension-default', child_rel.targetRole or role, link_name,
-                    arc_name, False))
-                    default_concept = set(
-                        rel.toModelObject for rel in default_relationship_set.fromModelObject(dimension_concept))
-                    if len(default_concept) == 0:
-                        self._dimension_default[dimension_concept] = None
-                    elif len(default_concept) == 1:
-                        self._dimension_default[dimension_concept] = next(iter(default_concept))
-                    else:
-                        raise XuleProcessingError(_(
-                            "Dimension {} has multiple defaults ({}).".format(dimension_concept.qname, ', '.join(
-                                [x.qname for x in default_concept]))), None)
+                    self._dimension_default[dimension_concept] = dts.xuleDimensionDefaults.get(dimension_concept)
+                    # default_relationship_set = XuleUtility.relationship_set(dts, (
+                    # 'http://xbrl.org/int/dim/arcrole/dimension-default', child_rel.targetRole or role, link_name,
+                    # arc_name, False))
+                    # default_concept = set(
+                    #     rel.toModelObject for rel in default_relationship_set.fromModelObject(dimension_concept))
+                    # if len(default_concept) == 0:
+                    #     self._dimension_default[dimension_concept] = None
+                    # elif len(default_concept) == 1:
+                    #     self._dimension_default[dimension_concept] = next(iter(default_concept))
+                    # else:
+                    #     raise XuleProcessingError(_(
+                    #         "Dimension {} has multiple defaults ({}).".format(dimension_concept.qname, ', '.join(
+                    #             [x.qname for x in default_concept]))), None)
                 elif child_rel.arcrole.endswith('member'):
                     self._dimension_members[dimension_concept].add(child_concept)
                 elif child_rel.arcrole.endswith('domain'):
@@ -1088,9 +1117,10 @@ class XuleDimensionCube:
         return facts
 
     def __str__(self):
-        output = str(self._hypercube.qname) + ' - ' + self.drs_role + '\n'
+        output = str(self._hypercube.qname) + ' - ' + self.drs_role.roleURI + ' - ' + (XuleUtility.role_uri_to_model_role(self._dts, self._drs_role_uri).definition or "") + '\n'
         # Stats
         output += '\tNumber of dimenions: ' + str(len(self._dimensions)) + '\n'
+        output += '\tNumber of primaries: ' + str(len(self._primaries_all | self._primaries_not_all)) + '\n'
         if self.has_facts:
             output += '\tNumber of facts: ' + str(len(getattr(self, 'facts', tuple()))) + '\n'
         else:
@@ -1120,17 +1150,18 @@ class XuleDimensionCube:
                 if mem is self._dimension_default[dim]:
                     output += ' (DEFAULT)'
                 output += '\n'
+        """
         # Facts
         if self.has_facts:
             output += '\tFacts:\n'
             for fact in self.facts:
                 output += '\t\t' + str(fact) + '\n'
-
+        """
         return output
 
     @property
     def drs_role(self):
-        return self._drs_role
+        return XuleUtility.role_uri_to_model_role(self._dts, self._drs_role_uri)
 
     @property
     def hypercube(self):
@@ -1138,11 +1169,23 @@ class XuleDimensionCube:
 
     @property
     def dimensions(self):
-        return self._dimensions
+        return {XuleDimensionDimension(self, x) for x in self._dimensions}
 
     @property
     def primaries(self):
         return self._primaries_all | self._primaries_not_all
+
+    def dimension_default(self, dim_concept):
+        self._establish_dimension_defaults(self._dts)
+        return self._dts.xuleDimensionDefaults.get(dim_concept)
+
+    @property
+    def dimension_members(self, dim_concept):
+        return self._dimension_members.get(dim_concept, set())
+
+    @property
+    def dimension_domains(self, dim_concept):
+        return self._dimension_domains.get(dim_concept, set())
 
     @property
     def facts(self):
@@ -1151,7 +1194,7 @@ class XuleDimensionCube:
             if len(facts) > 0: # This only needs to be done if there are facts to eliminate
                 # Need to eliminate facts in negative cubes within the same drs
                 for base_dimension in self.base_dimension_sets(self._dts):
-                    if base_dimension[0] == self.drs_role: # This cube is in the same drs
+                    if base_dimension[0] == self.drs_role.roleURI: # This cube is in the same drs
                         facts -= getattr(XuleDimensionCube(self._dts, *base_dimension, include_facts=True), '_facts_not_all', set())
             self._facts = facts
 
@@ -1183,6 +1226,27 @@ class XuleDimensionCube:
 
     def isUsable(self, concept):
         return self._concept_types[concept][DIMENSION_USABLE]
+
+class XuleDimensionDimension:
+    def __init__(self, cube, dimension_concept):
+        self.cube = cube
+        self.dimension_concept = dimension_concept
+
+    @property
+    def default(self):
+        return self.cube.dimension_default(self.dimension_concept)
+
+    @property
+    def members(self):
+        return self.cube.dimension_members(self.dimension_concept)
+
+    @property
+    def domains(self):
+        return self.cube.dimension_domains(self.dimension_concept)
+
+    @property
+    def dimension_type(self):
+        return self.cube.dimensionType(self.dimension_concept)
 
 def model_to_xule_unit(model_unit, xule_context):
     return XuleUnit(model_unit)
