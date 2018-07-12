@@ -3159,6 +3159,10 @@ def nav_get_role(nav_expr, role_type, dts, xule_context):
             return role_value.value
         elif role_value.type == 'qname':
             return XuleUtility.resolve_role(role_value, role_type, dts, xule_context)
+        elif role_value.type == 'role':
+            return role_value.value.roleURI
+        else:
+            raise XuleProcessingError(_("Navigation is expecting a role (role, string, uri, or short role name), found '{}'.".format(role_value.type)), xule_context)
     else:
         return None  # There is no arcrole on the navigation expression
 
