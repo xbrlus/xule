@@ -1090,7 +1090,7 @@ class XuleDimensionCube:
             if len(facts) > 0: # If there are no facts, then the facts for the dimension does not need to be checked.
                 if dimension_concept.isTypedDimension:
                     # For typed dimensions all the facts will match
-                    dimension_facts = self._dts.xuleFactIndex[('explicit_dimension', dimension_concept.qname)]
+                    dimension_facts = self._dts.xuleFactIndex[('explicit_dimension', dimension_concept.qname)].get('all', set())
                 else:
                     dimension_facts = set()
                     for dimension_member in self._dimension_members[dimension_concept]:
