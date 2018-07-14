@@ -601,7 +601,10 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
     
     if getattr(options, 'xule_validate', None) is not None and getattr(options, 'xule_rule_set', None) is None:
         parser.error(_("--xule-validate requires a Xule ruleset. Use option --xule-rule-set."))
-    
+
+    if getattr(options, 'xule_filing_list', None) is not None and getattr(options, 'entrypointFile', None) is not None:
+        parser.error(_("--xule-filing-list cannot be used with -f"))
+
     # compile rules
     if getattr(options, "xule_compile", None):
         compile_destination = getattr(options, "xule_rule_set", "xuleRules") 
@@ -702,27 +705,28 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
         if getattr(options, "xule_multi", False):
             t.join()
     else:
-        if options.entrypointFile is None:
-            # try running the xule processor
-            xuleCmdXbrlLoaded(cntlr, options, None)
-    # process filing list
-    if getattr(options, "xule_filing_list", None):
-        try:
-            with open(options.xule_filing_list, "r") as filing_list:
-                for line in filing_list:
+        if getattr(options, 'xule_filing_list', None) is not None:
+            # process filing list
+            if getattr(options, "xule_filing_list", None):
+                try:
+                    with open(options.xule_filing_list, "r") as filing_list:
+                        for line in filing_list:
+                            filing = line.strip()
+                            print("Processing filing", filing)
+                            filing_filesource = FileSource.openFileSource(filing, cntlr)
+                            modelManager = ModelManager.initialize(cntlr)
+                            modelXbrl = modelManager.load(filing_filesource)
+                            xuleCmdXbrlLoaded(cntlr, options, modelXbrl)
+                            modelXbrl.close()
 
-                    filing = line.strip()
-                    print("Processing filing", filing)
-                    filing_filesource = FileSource.openFileSource(filing, cntlr)            
-                    modelManager = ModelManager.initialize(cntlr)
-                    modelXbrl = modelManager.load(filing_filesource) 
-                    xuleCmdXbrlLoaded(cntlr, options, modelXbrl)
-                    modelXbrl.close()
+                except FileNotFoundError:
+                    cntlr.addToLog(_("Filing listing file '%s' is not found" % options.xule_filing_list), 'xule')
+        else:
+            if options.entrypointFile is None:
+                # try running the xule processor - This is when rules are run without an instance document
+                xuleCmdXbrlLoaded(cntlr, options, None)
 
-        except FileNotFoundError:
-            cntlr.addToLog(_("Filing listing file '%s' is not found" % options.xule_filing_list), 'xule')
-    
-    # Only register xule as a validator if the xule plugin was directly added in the --plugin optins.
+    # Only register xule as a validator if the xule plugin was directly added in the --plugin options.
     if isXuleDirect():
         xuleRegisterValidators('Xule', _xule_rule_set_map_name)
     
