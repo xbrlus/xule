@@ -190,7 +190,7 @@ class XuleGlobalContext(object):
         self.model = model_xbrl
         self.rules_model = None
         self.rule_set = rule_set
-        self.fact_index = None
+        #self.fact_index = None
         self.include_nils = getattr(self.options, "xule_include_nils", False)
         self._constants = {}
         self.preconditions = {}
@@ -293,11 +293,15 @@ class XuleGlobalContext(object):
 
     @property
     def fact_index(self):
-        return getattr(self.model, 'xuleFactIndex', dict())
+        if self.model is None:
+            None
+        else:
+            return getattr(self.model, 'xuleFactIndex', dict())
 
     @fact_index.setter
     def fact_index(self, value):
-        self.model.xuleFactIndex = value
+        if self.model is not None:
+            self.model.xuleFactIndex = value
 
 class XuleRuleContext(object):
     """Rule Context
