@@ -30,6 +30,8 @@ from . import XuleRuleSet as xr
 from . import XuleUtility as xu
 from . import XuleConstants as xc
 from .XuleContext import XuleGlobalContext, XuleRuleContext
+import collections
+import copy
 
 try:
     from . import XuleValidate as xv
@@ -709,18 +711,41 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
             # process filing list
             if getattr(options, "xule_filing_list", None):
                 try:
-                    with open(options.xule_filing_list, "r") as filing_list:
-                        for line in filing_list:
-                            filing = line.strip()
-                            print("Processing filing", filing)
-                            filing_filesource = FileSource.openFileSource(filing, cntlr)
-                            modelManager = ModelManager.initialize(cntlr)
-                            modelXbrl = modelManager.load(filing_filesource)
-                            xuleCmdXbrlLoaded(cntlr, options, modelXbrl)
-                            modelXbrl.close()
-
+                    with open(options.xule_filing_list, 'r') as filing_list_file:
+                        # Try json
+                        try:
+                            filing_list = json.load(filing_list_file, object_pairs_hook=collections.OrderedDict)
+                        except:
+                            # Try a flat list of file names
+                            try:
+                                # reset the file pointer
+                                filing_list_file.seek(0)
+                                filing_list = [{"file": file_name} for file_name in filing_list_file]
+                            except:
+                                cntlr.addToLog(_("Unable to open Filing listing file '%s'." % options.xule_filing_list), 'xule')
+                                raise
                 except FileNotFoundError:
                     cntlr.addToLog(_("Filing listing file '%s' is not found" % options.xule_filing_list), 'xule')
+                    raise
+
+                if isinstance(filing_list, list):
+                    for file_info in filing_list:
+                        if isinstance(file_info, dict):
+                            input_file_name = file_info.get('file')
+                            if input_file_name is not None:
+                                input_file_name = input_file_name.strip()
+                                print("Processing filing", input_file_name)
+                                filing_filesource = FileSource.openFileSource(input_file_name, cntlr)
+                                modelManager = ModelManager.initialize(cntlr)
+                                modelXbrl = modelManager.load(filing_filesource)
+                                # Update options
+                                new_options = copy.copy(options)
+                                for k, v in file_info.items():
+                                    if k != 'file' and k.startswith('xule'): # Only change xule options
+                                        setattr(new_options, k, v)
+
+                                xuleCmdXbrlLoaded(cntlr, new_options, modelXbrl)
+                                modelXbrl.close()
         else:
             if options.entrypointFile is None:
                 # try running the xule processor - This is when rules are run without an instance document
