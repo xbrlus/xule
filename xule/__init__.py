@@ -470,7 +470,11 @@ def xuleCmdOptions(parser):
     parserGroup.add_option("--xule-filing-list",
                       action="store",
                       dest="xule_filing_list",
-                      help=_("File name of file that contains a list of filings to process"))
+                      help=_("File name of file that contains a list of filings to process. The filing list can be a text file or a JSON file. "
+                             "If it is a text file, the file names are on separate lines. If the file is a JSON file, the JSON must be an "
+                             "array. Each item in the array is a JSON object. The file name is specified with 'file' key. Additional keys can "
+                             "be used to specific --xule options to use. These options will override options specified on the command line. "
+                             "Example: [{'file' : 'example_1.xml}, {'file' : 'example_2.xml', 'xule_rule_set' "))
     
     if xm is not None:
         parserGroup.add_option("--xule-server",
@@ -741,8 +745,8 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
                                 # Update options
                                 new_options = copy.copy(options)
                                 for k, v in file_info.items():
-                                    if k != 'file' and k.startswith('xule'): # Only change xule options
-                                        setattr(new_options, k, v)
+                                    if k != 'file' and k.strip().lower().startswith('xule'): # Only change xule options
+                                        setattr(new_options, k.strip().lower(), v)
 
                                 xuleCmdXbrlLoaded(cntlr, new_options, modelXbrl)
                                 modelXbrl.close()
