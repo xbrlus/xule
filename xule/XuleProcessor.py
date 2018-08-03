@@ -3454,7 +3454,7 @@ def nav_decorate_component_role_description(rel, direction, component_name, xule
 
 def nav_decorate_component_arcrole(rel, direction, component_name, xule_context):
     arcrole = get_arcrole(rel['relationship'], xule_context)
-    return (arcrole, 'arcrole', component_name)
+    return (arcrole, 'role', component_name)
 
 
 def get_arcrole(relationship, xule_context):
