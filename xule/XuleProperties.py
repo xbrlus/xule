@@ -1128,7 +1128,8 @@ def property_year(xule_context, object_value, *args):
 
 def property_uri(xule_context, object_value, *args):
     if object_value.type == 'role':
-        return xv.XuleValue(xule_context, object_value.value.roleURI or object_value.value.arcroleURI, 'uri')
+        uri_value = getattr(object_value.value, 'roleURI', None) or getattr(object_value.value, 'arcroleURI', None)
+        return xv.XuleValue(xule_context, uri_value, 'uri')
     if object_value.type == 'taxonomy':
         return xv.XuleValue(xule_context, object_value.value.fileSource.url, 'uri')
  
