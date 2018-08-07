@@ -744,11 +744,15 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
                                 modelXbrl = modelManager.load(filing_filesource)
                                 # Update options
                                 new_options = copy.copy(options)
+                                delattr(new_options, 'xule_filing_list')
                                 for k, v in file_info.items():
                                     if k != 'file' and k.strip().lower().startswith('xule'): # Only change xule options
                                         setattr(new_options, k.strip().lower(), v)
-
-                                xuleCmdXbrlLoaded(cntlr, new_options, modelXbrl)
+                                if getattr(new_options, 'xule_run'):
+                                    xuleCmdXbrlLoaded(cntlr, new_options, modelXbrl)
+                                elif getattr(new_options, 'validate'):
+                                    for xule_validator in _xule_validators:
+                                        runXule(_cntlr, new_options, modelXbrl, xule_validator['map_name'])
                                 modelXbrl.close()
         else:
             if options.entrypointFile is None:
@@ -854,7 +858,7 @@ def xuleValidate(val):
             if not getattr(_options, "xule_run", False):
                 runXule(_cntlr, _options, val.modelXbrl, xule_validator['map_name'])            
 
-    if getattr(_cntlr, 'hasWebServer', False):
+    if getattr(_cntlr, 'hasWebServer', False) and not getattr(_cntlr, 'hasGui', False):
         # When arelle is running as a webserver, it will register the xule_validators on each request to the web server. 
         # The _xule_validators is emptied. On the next request, the xule_validators for that request will be re-register.
         _xule_validators = []
