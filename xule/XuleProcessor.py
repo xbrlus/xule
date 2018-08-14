@@ -3415,6 +3415,7 @@ def nav_decorate_component_preferred_label_role(rel, direction, component_name, 
 def nav_decorate_component_preferred_label(rel, direction, component_name, xule_context):
     if rel['relationship'].preferredLabel is not None:
         label = get_label(xule_context, rel['relationship'].toModelObject, rel['relationship'].preferredLabel, None)
+        #label = xp.property_label(xule_context, rel['relationship'].toModelObject, rel['relationship'].preferredLabel, None)
         if label is None:
             return (None, 'none', component_name)
         else:
