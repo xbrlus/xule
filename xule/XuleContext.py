@@ -88,13 +88,16 @@ class XuleMessageQueue():
     def log(self, level, codes, msg, **args):
         if self._multi and self._queue is not None:
             # In multi processing mode, the log() call does not call the arelle logger but instead puts the arguments
-            # on a queue. The process listening on the other end of the queue pulls the arguments off and does the 
+            # on a queue. The process listening on the other end of the queue pulls the arguments off and does the
             # arelle logging. In order to send something on the queue, it must be pickleable. Arelle objects based on lxml
-            # are not pickleable. So in this case, instead of sending a modelObject the sourceFileLine is sent.   
+            # are not pickleable. The modelObject in the args is not picklable. So instead, we send the the objectIndex.
+            # This is used on the other side of the queue (see def output) to translate the objectIndex back to a
+            # modelObject. The objectIndex is the position in the modelXbrl.modelObjects list.
             if 'modelObject' in args:
-                if args['modelObject'] is not None:
-                    args['sourceFileLine'] = xu.get_element_identifier(args['modelObject'])
-                args.pop('modelObject', None)
+                if hasattr(args['modelObject'], 'objectIndex'):
+                    args['xuleObjectIndex'] = args['modelObject'].objectIndex
+                del args['modelObject']
+
             self._queue.put((level, codes, msg, args))
         else:
             self.output(level, codes, msg, **args)
@@ -144,7 +147,13 @@ class XuleMessageQueue():
         #    for name in args["extra"]:
         #        args[name] = args["extra"][name]
         args["cid"] = self._cid
-        
+
+        # restore the modelObject (lxml object) to args for access
+        #   to detailed information for logging
+        if 'xuleObjectIndex' in args:
+            args['modelObject'] = self._model.modelObjects[args['xuleObjectIndex']]
+            del args['xuleObjectIndex']
+
         if self._model is None:
             print("[%s] [%s] %s" % (level, codes, msg))
         elif level == "ERROR":
