@@ -2080,21 +2080,25 @@ def evaluate_nesting_factset(factset, xule_context):
             try:
                 nested_value = evaluate(factset['innerExpr'], xule_context)
             except XuleIterationStop:
-                '''THIS COULD BE CREATE AN UNBOUND AND ADD IT TO THE WITH_VALUE. SIMILAR TO THE WAY THIS IS HANDLED IN FOR_BODY_DETAIL'''
-                pass
+                #'''THIS COULD BE CREATE AN UNBOUND AND ADD IT TO THE WITH_VALUE. SIMILAR TO THE WAY THIS IS HANDLED IN FOR_BODY_DETAIL'''
+                #pass
+                nested_value = XuleValue(xule_context, None, 'unbound', tag=XuleValue(xule_context, None, 'none'))
+
+            # if not(xule_context.iteration_table.current_table.current_alignment is None and xule_context.aligned_result_only):
+            # remove the with portion of the alignment
+            #if xule_context.iteration_table.current_table.current_alignment is not None:  # this should be the alignment on the with table
+            remove_aspects = [(with_filter[0], with_filter[1]) for with_filter in aspect_filters]
+            if xule_context.iteration_table.current_alignment is None:
+                new_alignment = None
             else:
-                # if not(xule_context.iteration_table.current_table.current_alignment is None and xule_context.aligned_result_only):
-                # remove the with portion of the alignment
-                if xule_context.iteration_table.current_table.current_alignment is not None:  # this should be the alignment on the with table
-                    remove_aspects = [(with_filter[0], with_filter[1]) for with_filter in aspect_filters]
-                    new_alignment = remove_from_alignment(xule_context.iteration_table.current_alignment,
-                                                          remove_aspects, xule_context)
-                    nested_value.alignment = new_alignment
+                new_alignment = remove_from_alignment(xule_context.iteration_table.current_alignment,
+                                                  remove_aspects, xule_context)
+            nested_value.alignment = new_alignment
 
-                nested_value.facts = xule_context.facts
-                nested_value.tags = xule_context.tags
+            nested_value.facts = xule_context.facts
+            nested_value.tags = xule_context.tags
 
-                nested_values.append(nested_value)
+            nested_values.append(nested_value)
 
             # xule_context.iteration_table.del_current()
             xule_context.iteration_table.next(nested_table.table_id)
@@ -4445,7 +4449,7 @@ def process_factset_aspects(factset, xule_context):
             if aspect_name.value == 'concept' and alternate_notation:
                 raise XuleProcessingError(_(
                     "The factset specifies the concept aspect as both @{0} and @concept={0}. Only one method should be used".format(
-                        aspect_filter_qname.value)), xule_context)
+                        aspect_name.value)), xule_context)
             aspect_info, aspect_value = process_aspect_expr(aspect_filter, 'builtin', aspect_name.value, xule_context)
             if aspect_info is not None:
                 aspect_dictionary[aspect_info] = aspect_value
