@@ -1441,12 +1441,11 @@ def property_effective_weight(xule_context, object_value, *args):
         # The top or bottom is not in the taxonomy
         return xv.XuleValue(xule_context, None, 'none')
     
-    paths = []
+    weights = set()
     for network in get_networks(xule_context, object_value, CORE_ARCROLES['summation-item']):
         if len(network.value[1].fromModelObject(top)) > 0 and len(network.value[1].toModelObject(bottom)) > 0:
-            paths += [x for x in traverse_for_weight(network.value[1], top, bottom)]
-    
-    weights = {numpy.prod(x) for x in paths}
+            weights.add( numpy.sum([numpy.prod(x) for x in traverse_for_weight(network.value[1], top, bottom)]))
+
     if len(weights) == 1:
         return xv.XuleValue(xule_context, next(iter(weights)), 'float')
     else:
@@ -1505,15 +1504,19 @@ def property_effective_weight_network(xule_context, object_value, *args):
 
     for network in networks:
         if len(network.value[1].fromModelObject(top)) > 0 and len(network.value[1].toModelObject(bottom)) > 0:
-            path =  [x for x in traverse_for_weight(network.value[1], top, bottom)]
-            effective_weight_value = xv.XuleValue(xule_context, numpy.prod(path), 'float')
-            
+            # For each path, multiple the weights. Then add the products together to get the effective weight.
+            effective_weight = numpy.sum([numpy.prod(x) for x in traverse_for_weight(network.value[1], top, bottom)])
+            effective_weight_value = xv.XuleValue(xule_context, effective_weight, 'float')
+
             return_set.add(xv.XuleValue(xule_context, (effective_weight_value, network), 'list'))
             
     return xv.XuleValue(xule_context, frozenset(return_set), 'set')
 
 def traverse_for_weight(network, parent, stop_concept, previous_concepts=None, previous_weights=None):
     """Find all the weights between two concepts in a network.
+
+    Returns a list of lists. Each inner list represents a path within the network. The items of the list are the weights
+    for the path.
     """
     if parent is stop_concept:
         # should only get here is if the initial call the parent is the stop concept. In this case, the effective weight is 1
