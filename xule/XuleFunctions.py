@@ -649,6 +649,16 @@ def func_json_data(xule_context, *args):
     x = xv.system_collection_to_xule(json_source, xule_context)
     return xv.system_collection_to_xule(json_source, xule_context)
 
+def func_first_value(xule_context, *args):
+    """Return the first non None value.
+
+    This function can take any number of arguments. It will return the first argument that is not None
+    """
+    for arg in args:
+        if arg.value is not None:
+            return arg.clone()
+    # If here, either there were no arguments, or they were all none
+    return xv.XuleValue(xule_context, None, 'none')
 
 #the position of the function information
 FUNCTION_TYPE = 0
@@ -688,12 +698,13 @@ def built_in_functions():
              'uri': ('regular', func_uri, 1, False, 'single'),
              'time-span': ('regular', func_time_span, 1, False, 'single'),
              'schema-type': ('regular', func_schema_type, 1, False, 'single'),
-             'num_to_string': ('regular', func_num_to_string, 1, False, 'single'),
+             'num-to-string': ('regular', func_num_to_string, 1, False, 'single'),
              'mod': ('regular', func_mod, 2, False, 'single'),
-             'extension_concepts': ('regular', func_extension_concept, 0, False, 'single'),             
+             'extension-concepts': ('regular', func_extension_concept, 0, False, 'single'),
              'taxonomy': ('regular', func_taxonomy, -1, False, 'single'),
              'csv-data': ('regular', func_csv_data, -4, False, 'single'),
              'json-data': ('regular', func_json_data, 1, False, 'single'),
+             'first-value': ('regular', func_first_value, None, True, 'single')
              }    
     
     

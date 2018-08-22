@@ -3878,25 +3878,27 @@ def property_as_function(xule_context, function_ref):
 
 
 def regular_function(xule_context, function_ref, function_info):
-    if function_info[FUNCTION_ARG_NUM] >= 0:
-        if function_info[FUNCTION_TYPE] == 'regular' and len(function_ref['functionArgs']) != function_info[
-            FUNCTION_ARG_NUM]:
-            raise XuleProcessingError(
-                _("The '%s' function must have only %i argument, found %i." % (function_ref['functionName'],
-                                                                               function_info[FUNCTION_ARG_NUM],
-                                                                               len(function_ref['functionArgs']))),
-                xule_context)
-    else:
-        # The fucntion may have a variable number of arguments.
-        if function_info[FUNCTION_TYPE] == 'regular' and len(function_ref['functionArgs']) > (
-                function_info[FUNCTION_ARG_NUM] * -1):
-            raise XuleProcessingError(
-                _("The '%s' function must have no more than %i arguments, found %i." % (function_ref['functionName'],
-                                                                                        function_info[
-                                                                                            FUNCTION_ARG_NUM] * -1,
-                                                                                        len(function_ref[
-                                                                                                'functionArgs']))),
-                xule_context)
+    if function_info[FUNCTION_ARG_NUM] is not None:
+        # if the number of argument is none, then the function can have any number of arguments
+        if function_info[FUNCTION_ARG_NUM] >= 0:
+            if function_info[FUNCTION_TYPE] == 'regular' and len(function_ref['functionArgs']) != function_info[
+                FUNCTION_ARG_NUM]:
+                raise XuleProcessingError(
+                    _("The '%s' function must have only %i argument, found %i." % (function_ref['functionName'],
+                                                                                   function_info[FUNCTION_ARG_NUM],
+                                                                                   len(function_ref['functionArgs']))),
+                    xule_context)
+        else:
+            # The function can have no more than the specified number of arguments.
+            if function_info[FUNCTION_TYPE] == 'regular' and len(function_ref['functionArgs']) > (
+                    function_info[FUNCTION_ARG_NUM] * -1):
+                raise XuleProcessingError(
+                    _("The '%s' function must have no more than %i arguments, found %i." % (function_ref['functionName'],
+                                                                                            function_info[
+                                                                                                FUNCTION_ARG_NUM] * -1,
+                                                                                            len(function_ref[
+                                                                                                    'functionArgs']))),
+                    xule_context)
 
     function_args = []
     for function_arg in function_ref['functionArgs']:
