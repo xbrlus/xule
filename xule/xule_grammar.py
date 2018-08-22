@@ -277,6 +277,7 @@ def get_grammar():
     coveredDims = CaselessKeyword('covered-dims').setParseAction(lambda: True).setResultsName('coveredDims')
     includeNils = CaselessKeyword('nils').setParseAction(lambda: True).setResultsName('includeNils')
     excludeNils = CaselessKeyword('nonils').setParseAction(lambda: True).setResultsName('excludeNils')
+    nilDefault = CaselessKeyword('nildefault').setParseAction(lambda: True).setResultsName('nilDefault')
     where = CaselessKeyword('where')
     returns = CaselessKeyword('returns')
 
@@ -344,7 +345,8 @@ def get_grammar():
     factsetInner =  ((Optional(excludeNils | includeNils) &
                     Optional(coveredDims) +
                     Optional(covered)) + 
-                    (ZeroOrMore(Group(aspectFilter)).setResultsName('aspectFilters') ) +
+#                   (ZeroOrMore(Group(aspectFilter)).setResultsName('aspectFilters') ) +
+                    Optional((Suppress(Literal('@')) ^ OneOrMore(Group(aspectFilter)).setResultsName('aspectFilters'))) +
 #                     Optional((whereClause) | blockExpr.setResultsName('innerExpr')
                     Optional(~ where + blockExpr.setResultsName('innerExpr') ) +
                     Optional(whereClause)
@@ -366,6 +368,7 @@ def get_grammar():
                       Empty().setParseAction(lambda s, l, t: 'closed').setResultsName('factsetType')
                       ) |
                       (Optional(excludeNils | includeNils) +
+                      Optional(nilDefault) +
                       Optional(covered) +
                       (Suppress(Literal('@')) ^ OneOrMore(Group(aspectFilter)).setResultsName('aspectFilters')) + #This is a factset without enclosing brackets
                       Empty().setParseAction(lambda s, l, t: 'open').setResultsName('factsetType') +

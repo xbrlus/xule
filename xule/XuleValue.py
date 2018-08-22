@@ -69,7 +69,7 @@ class XuleValueSet:
         return new_value_set
         
 class XuleValue:
-    def __init__(self, xule_context, orig_value, orig_type, alignment=None, from_model=False, shadow_collection=None, tag=None):
+    def __init__(self, xule_context, orig_value, orig_type, alignment=None, from_model=False, shadow_collection=None, tag=None, orig_fact=None):
         #convert all python strings to XuleString.
         if isinstance(orig_value, str):
             orig_value = XuleString(orig_value)
@@ -79,7 +79,7 @@ class XuleValue:
         #self.xule_context = xule_context
         self.value = xule_value
         self.type = xule_type
-        self.fact = fact
+        self.fact = orig_fact or fact
         self.from_model = from_model
         self.alignment = alignment
         self.facts = None
@@ -1584,5 +1584,12 @@ def system_list_to_xule(col, xule_context):
     
     return XuleValue(xule_context, tuple(result), 'list', shadow_collection=tuple(shadow))
 
+DEFAULT_VALUES_BY_TYPE = {'int': 0,
+                          'float': 0.0,
+                          'decimal': decimal.Decimal(0),
+                          'list': tuple(),
+                          'set': frozenset(set()),
+                          'string': ''}
 
-    
+def default_value_by_type(system_type):
+    return DEFAULT_VALUES_BY_TYPE.get(system_type, None)

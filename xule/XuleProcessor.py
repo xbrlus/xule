@@ -2530,7 +2530,60 @@ def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non
                         else:
                             continue  # try the next fact from the pre match
 
-        fact_value = XuleValue(xule_context, model_fact, 'fact',
+        if factset.get('nilDefault', False) and model_fact.isNil:
+            # Handle nil value where the value should be defaulted.
+            if (model_fact.concept.baseXbrliTypeQname == qname('http://www.xbrl.org/2003/instance',
+                                                               'monetaryItemType') or
+                model_fact.concept.baseXbrliTypeQname == qname('http://www.xbrl.org/2003/instance',
+                                                               'decimalItemType') or
+                model_fact.concept.baseXbrliTypeQname == qname('http://www.xbrl.org/2003/instance',
+                                                               'sharesItemType') or
+                model_fact.concept.baseXbrliTypeQname == qname('http://www.xbrl.org/2003/instance',
+                                                               'pureItemType')):
+                xule_type = 'decimal'
+                system_value = decimal.Decimal(0)
+            elif (model_fact.concept.baseXbrliTypeQname == qname('http://www.xbrl.org/2003/instance',
+                                                                 'floatItemType') or
+                  model_fact.concept.baseXbrliTypeQname == qname('http://www.xbrl.org/2003/instance',
+                                                                 'doubleItemType')):
+                xule_type = 'float'
+                system_value = 0.0
+            elif (model_fact.concept.baseXbrliTypeQname == qname('http://www.xbrl.org/2003/instance',
+                                                                 'integerItemType') or
+                  model_fact.concept.baseXbrliTypeQname == qname('http://www.xbrl.org/2003/instance',
+                                                                 'nonPositiveIntegerItemType') or
+                  model_fact.concept.baseXbrliTypeQname == qname('http://www.xbrl.org/2003/instance',
+                                                                 'longItemType') or
+                  model_fact.concept.baseXbrliTypeQname == qname('http://www.xbrl.org/2003/instance',
+                                                                 'intItemType') or
+                  model_fact.concept.baseXbrliTypeQname == qname('http://www.xbrl.org/2003/instance',
+                                                                 'shortItemType') or
+                  model_fact.concept.baseXbrliTypeQname == qname('http://www.xbrl.org/2003/instance',
+                                                                 'nonNegativeIntegerItemType') or
+                  model_fact.concept.baseXbrliTypeQname == qname('http://www.xbrl.org/2003/instance',
+                                                                 'unsignedLongItemType') or
+
+                  model_fact.concept.baseXbrliTypeQname == qname('http://www.xbrl.org/2003/instance',
+                                                                 'unsignedIntItemType') or
+                  model_fact.concept.baseXbrliTypeQname == qname('http://www.xbrl.org/2003/instance',
+                                                                 'unsignedShortItemType')):
+                xule_type = 'int'
+                system_value = 0
+            elif (model_fact.concept.baseXbrliTypeQname == qname('http://www.xbrl.org/2003/instance',
+                                                               'stringItemType') or
+                model_fact.concept.baseXbrliTypeQname == qname('http://www.xbrl.org/2003/instance',
+                                                               'normalizedStringItemType')):
+                xule_type = 'string'
+                system_value = ''
+            else:
+                # There is no default value for the type of the fact
+                system_value = model_fact
+                xule_type = 'fact'
+        else:
+            system_value = model_fact
+            xule_type = 'fact'
+
+        fact_value = XuleValue(xule_context, system_value, xule_type,
                                alignment=None if alignment is None else frozenset(alignment.items()))
         if not current_no_alignment:
             fact_value.aligned_result_only = True
