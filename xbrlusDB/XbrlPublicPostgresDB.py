@@ -212,7 +212,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                 #the excludeReport() method will produce the message
                 return      
              
-        self.timeCall(self.identifyBaseNamespaces)
+        self.timeCall(self.identifyBaseNamespaces, self.modelXbrl.namespaceDocs.keys())
         self.timeCall(self.IdentifyAndInsertDTSAndDocuments)
         if self.loadType == 'dts':
             self.timeCall(self.insertTaxonomyAndVersion)
@@ -240,6 +240,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                 self.timeCall(self.insertReportElements)       
                 self.timeCall(self.insertFacts)
                 self.timeCall(self.updateReportStats)
+                self.timeCall(self.updateNamespace)
                 self.timeCall(self.postLoad)
         
             self.timeCall(self.insertNetworks)
@@ -307,10 +308,11 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         except self._SourceFunctionError:
             return False
 
-    def identifyBaseNamespaces(self):
-        self.baseNamespaces = dict()
+    def identifyBaseNamespaces(self, namespaceUris):
+        if not hasattr(self, 'baseNamespaces'):
+            self.baseNamespaces = dict()
         # use all namespace URIs
-        namespaceUris = self.modelXbrl.namespaceDocs.keys() 
+        #namespaceUris = self.modelXbrl.namespaceDocs.keys()
 
         #check namespace source table
         inListForQuery = '(' +  ','.join("'" + uri + "'" for uri in namespaceUris) + ')'
@@ -503,7 +505,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
             self.entryUrl = self.cleanDocumentUri(self.modelXbrl.modelDocument)
                 
         # default the entity name
-        if not self.entityName:
+        if getattr(self, 'entityName', None) is None:
             self.entityName = 'UNKNOWN'
         
         if getattr(self, "accessionNumber", None) is None:
@@ -748,6 +750,9 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                        for role in roles
                        for x in role.usedOns)
                   )
+        if self.modelXbrl.modelDocument.type == Type.INLINEXBRL:
+            # inline formats are qnames
+            qnames |= set (x.format for x in self.modelXbrl.facts if x.format is not None)
         
         self.showStatus("insert qnames")
         table = self.getTable('qname', 'qname_id', 
@@ -759,6 +764,8 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
 
         self.qnameId = dict((qname(ns or '', ln), id)
                             for id, ns, ln in table)
+        # udpate base namespaces with the namespaces from the qnames
+        self.identifyBaseNamespaces({x.namespaceURI for x in self.qnameId.keys() if x.namespaceURI != '' and x.namespaceURI is not None})
 
         # get qnames for existing used concepts
         existingUsedQnames = self.conceptsUsed - qnames
@@ -778,18 +785,27 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
     def insertNamespaces(self):
         self.showStatus("insert namespaces")
         namespaceUris = {x.namespaceURI for x in self.qnameId.keys() if x.namespaceURI is not None} | self.modelXbrl.namespaceDocs.keys()
-        #namespaceUris = self.modelXbrl.namespaceDocs.keys()               
+        namespace_to_update = {uri: (uri in self.baseNamespaces.keys() if self.loadType == 'instance' else True, #this is an assumption that if this is a dts load than the namespaces are base
+                                     None,
+                                     self.baseNamespaces[uri] if uri in self.baseNamespaces.keys() else None)
+                                    for uri in namespaceUris}
 
         table = self.getTable('namespace', 'namespace_id', 
                               ('uri', 'is_base', 'taxonomy_version_id', 'prefix'), 
                               ('uri',), # indexed matchcol
-                              tuple((uri, 
-                                     uri in self.baseNamespaces.keys() if self.loadType == 'instance' else True, #this is an assumption that if this is a dts load than the namespaces are base
-                                     None, 
-                                     self.baseNamespaces[uri] if uri in self.baseNamespaces.keys() else None) 
-                                    for uri in namespaceUris),
-                              checkIfExisting=True)
-        namespaceId = {uri : id for id, uri in table}
+                              tuple((k, *v) for k, v in namespace_to_update.items()),
+                              # tuple((uri,
+                              #        uri in self.baseNamespaces.keys() if self.loadType == 'instance' else True, #this is an assumption that if this is a dts load than the namespaces are base
+                              #        None,
+                              #        self.baseNamespaces[uri] if uri in self.baseNamespaces.keys() else None)
+                              #       for uri in namespaceUris),
+                              checkIfExisting=True,
+                              returnExistenceStatus=True)
+        namespaceId = {uri : id for id, uri, _status in table}
+
+        # update the taxonomy_version_id
+        # Need to have the report saved before the update can run.
+        self.namespace_ids_to_update = {str(id) for id, uri, status in table if not namespace_to_update[uri][0] and not status} # not is_base and not exists already
 
         self.getTable('namespace_source', 'namespace_source_id',
                       ('namespace_id', 'source_id', 'is_base'),
@@ -2498,7 +2514,12 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                  'entity_id': self.entityId,
                  'element_namespace': fact.concept.qname.namespaceURI,
                  'element_local_name': fact.concept.qname.localName,
-                 'dimension_count': self.cntxInfo.get((self.accessionId,fact.contextID))['dimension_count']
+                 'dimension_count': self.cntxInfo.get((self.accessionId,fact.contextID))['dimension_count'],
+                 'inline_display_value': fact.text if self.modelXbrl.modelDocument.type == Type.INLINEXBRL else None,
+                 'inline_scale': fact.scaleInt if self.modelXbrl.modelDocument.type == Type.INLINEXBRL else None,
+                 'inline_negated': fact.sign == '-' if self.modelXbrl.modelDocument.type == Type.INLINEXBRL else None,
+                 'inline_is_hidden': qname('http://www.xbrl.org/2013/inlineXBRL', 'hidden') in fact.ancestorQnames if self.modelXbrl.modelDocument.type == Type.INLINEXBRL else None,
+                 'inline_format_id': self.getQnameId(fact.format) if self.modelXbrl.modelDocument.type == Type.INLINEXBRL else None
                  }
 
         table = self.getTable('fact', 'fact_id', 
@@ -2507,14 +2528,16 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                                'is_precision_infinity', 'is_decimals_infinity','uom', 
                                'fiscal_year', 'fiscal_period', 'fiscal_hash', 'fact_hash',
                                'calendar_year', 'calendar_period', 'calendar_hash', 
-                               'is_extended', 'entity_id', 'element_namespace', 'element_local_name', 'dimension_count'), 
+                               'is_extended', 'entity_id', 'element_namespace', 'element_local_name', 'dimension_count',
+                               'inline_display_value', 'inline_scale', 'inline_negated', 'inline_is_hidden', 'inline_format_qname_id'),
                               ('accession_id', 'xml_id', 'uom', 'is_extended'),
                               tuple((f['accession_id'], f['tuple_fact_id'], f['context_id'], f['unit_id'], f['unit_base_id'], f['element_id'], f['effective_value'], f['fact_value'], 
                                f['xml_id'], f['precision_value'], f['decimals_value'], 
                                f['is_precision_infinity'], f['is_decimals_infinity'], f['uom'], 
                                f['fiscal_year'], f['fiscal_period'], f['fiscal_hash'], f['fact_hash'],
                                f['calendar_year'], f['calendar_period'], f['calendar_hash'], 
-                               f['is_extended'], f['entity_id'], f['element_namespace'], f['element_local_name'], f['dimension_count'])
+                               f['is_extended'], f['entity_id'], f['element_namespace'], f['element_local_name'], f['dimension_count'],
+                               f['inline_display_value'], f['inline_scale'], f['inline_negated'], f['inline_is_hidden'], f['inline_format_id'])
                               for f in insertForFact.values()))
         
         for id, _accsId, xmlId, uom, isExtended in table:
@@ -2527,7 +2550,18 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
             table += tupleResults
 
         return insertForFact, table
-    
+
+    def updateNamespace(self):
+        if len(self.namespace_ids_to_update) > 0:
+            update_query = """
+                UPDATE namespace
+                SET taxonomy_version_id = base_taxonomy_version({})
+                WHERE namespace_id in ({})
+                  AND not is_base
+                """.format(self.accessionId, ','.join(self.namespace_ids_to_update))
+
+            self.execute(update_query, fetch=False)
+
     def postLoad(self):
         try:
             self.sourceCall()
@@ -2576,7 +2610,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         self.execute(query, fetch=False)
 
     def getSourceSetting(self, name):
-        if self.sourceMod is not None:
+        if getattr(self, 'sourceMod', None) is not None:
             if hasattr(self.sourceMod, '__sourceInfo__'):
                 if name in self.sourceMod.__sourceInfo__:
                     return self.sourceMod.__sourceInfo__[name]
@@ -2586,13 +2620,13 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         callFunctionName = inspect.stack()[1][3]
         callFunction = None
         #check if there is a source module being used
-        if self.sourceMod is not None and hasattr(self.sourceMod, '__sourceInfo__') and "overrideFunctions" in self.sourceMod.__sourceInfo__:
+        if getattr(self, 'sourceMod', None) is not None and hasattr(self.sourceMod, '__sourceInfo__') and "overrideFunctions" in self.sourceMod.__sourceInfo__:
             #check if the function is in the source module
             callFunction = self.sourceMod.__sourceInfo__['overrideFunctions'].get(callFunctionName)
-        
+
         if callFunction is None:
             raise self._SourceFunctionError
-        else:           
+        else:
             return callFunction(self, *args, **kwargs)
 
          

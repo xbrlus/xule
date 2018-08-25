@@ -545,43 +545,26 @@ $$;
 -- Name: base_taxonomy_version(integer); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION base_taxonomy_version(accession_id_arg integer) RETURNS integer
-    LANGUAGE plpgsql
-    AS $$
-DECLARE
-               return_taxonomy_version integer;
-BEGIN
-/* This is the original code that looked for the DocumentType fact in the filing.
-               SELECT n.taxonomy_version_id
-               INTO return_taxonomy_version
-               FROM   fact f
-                 JOIN accession a
-                   ON f.accession_id = a.accession_id
-                 JOIN element e
-                   ON f.element_id = e.element_id
-                 JOIN qname qe
-                   ON e.qname_id = qe.qname_id
-                 JOIN namespace n
-                   on qe.namespace = n.uri
-               WHERE qe.local_name = 'DocumentType'
-               AND   n.prefix = 'dei'
-               AND   a.accession_id = accession_id_arg;
- 
-               RETURN return_taxonomy_version;
-*/
-             SELECT tv.taxonomy_version_id
-             INTO return_taxonomy_version
-             FROM taxonomy_version tv
-             JOIN accession_document_association ada
-               ON tv.identifier_document_id = ada.document_id
-             WHERE ada.accession_id = accession_id_arg;
- 
-             RETURN return_taxonomy_version; 
- 
- 
-END
-$$;
+CREATE OR REPLACE FUNCTION base_taxonomy_version(report_id_arg integer)
+  RETURNS integer 
+  LANGUAGE sql
+    AS
+$BODY$
 
+	SELECT tv.taxonomy_version_id
+	FROM taxonomy t
+	JOIN taxonomy_version tv
+	  ON t.taxonomy_id = tv.taxonomy_id
+	JOIN dts_document dd
+	  ON tv.identifier_document_id = dd.document_id
+	JOIN report r
+	  ON dd.dts_id = r.dts_id
+	WHERE r.report_id = report_id_arg
+	ORDER BY t.rank
+	LIMIT 1
+ 
+
+$BODY$;
 
 --
 -- Name: calendar_end_offset(date); Type: FUNCTION; Schema: public; Owner: -
@@ -5711,36 +5694,41 @@ CREATE SEQUENCE seq_fact
 --
 
 CREATE TABLE fact (
-    fact_id integer DEFAULT nextval('seq_fact'::regclass) NOT NULL,
-    accession_id integer NOT NULL,
-    context_id integer,
-    unit_id integer,
-    unit_base_id integer,
-    element_id integer NOT NULL,
-    effective_value numeric,
-    fact_value text,
-    xml_id character varying,
-    precision_value integer,
-    decimals_value integer,
-    is_precision_infinity boolean DEFAULT false NOT NULL,
-    is_decimals_infinity boolean DEFAULT false NOT NULL,
-    ultimus_index integer,
-    calendar_ultimus_index integer,
-    fiscal_ultimus_index integer,
-    uom character varying,
-    is_extended boolean,
-    fiscal_year integer,
-    fiscal_period character varying,
-    calendar_year integer,
-    calendar_period character varying,
-    tuple_fact_id integer,
-    fact_hash bytea,
-    calendar_hash bytea,
-    fiscal_hash bytea,
-	entity_id integer,
-	element_namespace text,
-	element_local_name text,
-	dimension_count integer
+  fact_id integer NOT NULL DEFAULT nextval('seq_fact'::regclass),
+  accession_id integer NOT NULL,
+  context_id integer,
+  unit_id integer,
+  unit_base_id integer,
+  element_id integer NOT NULL,
+  effective_value numeric,
+  fact_value text,
+  xml_id character varying,
+  precision_value integer,
+  decimals_value integer,
+  is_precision_infinity boolean NOT NULL DEFAULT false,
+  is_decimals_infinity boolean NOT NULL DEFAULT false,
+  ultimus_index integer,
+  calendar_ultimus_index integer,
+  fiscal_ultimus_index integer,
+  uom character varying,
+  is_extended boolean,
+  fiscal_year integer,
+  fiscal_period character varying,
+  calendar_year integer,
+  calendar_period character varying,
+  tuple_fact_id integer,
+  fact_hash bytea,
+  calendar_hash bytea,
+  fiscal_hash bytea,
+  entity_id integer,
+  element_namespace character varying,
+  element_local_name character varying,
+  dimension_count integer,
+  inline_display_value character varying,
+  inline_scale integer,
+  inline_negated boolean,
+  inline_is_hidden boolean,
+  inline_format_qname_id integer
 );
 
 
@@ -6635,7 +6623,8 @@ CREATE SEQUENCE taxonomy_taxonomy_id_seq
 
 CREATE TABLE taxonomy (
     taxonomy_id integer DEFAULT nextval('taxonomy_taxonomy_id_seq'::regclass) NOT NULL,
-    name character varying NOT NULL
+    name character varying NOT NULL,
+    rank integer
 );
 
 
@@ -7767,6 +7756,12 @@ CREATE INDEX fact_ts_index03 ON fact USING gin (to_tsvector('english'::regconfig
 
 
 --
+-- Name: fact_index22; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX fact_index22 ON fact(inline_format_qname_id);
+
+--
 -- Name: idx_context_xml_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -8369,6 +8364,13 @@ ALTER TABLE ONLY fact
 ALTER TABLE ONLY fact
     ADD CONSTRAINT fk_fact_unit_unit_report FOREIGN KEY (unit_id) REFERENCES unit_report(unit_report_id);
 
+--
+-- Name: fk_fact_inline_format_qname_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY fact
+  ADD CONSTRAINT fk_fact_inline_format_qname_id FOREIGN KEY (inline_format_qname_id) REFERENCES qname (qname_id)
+   ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 --
 -- Name: fk_reference_part_qname; Type: FK CONSTRAINT; Schema: public; Owner: -
@@ -8593,17 +8595,25 @@ ALTER TABLE ONLY taxonomy_version
 --
 COPY document (document_id, document_uri, document_loaded) FROM stdin;
 1	http://xbrl.us/us-gaap/1.0/non-gaap/dei-2008-03-31.xsd	f
-2	http://taxonomies.xbrl.us/us-gaap/2009/non-gaap/dei-2009-01-31.xsd	f
-3	http://xbrl.sec.gov/dei/2011/dei-2011-01-31.xsd	f
-4	http://xbrl.sec.gov/dei/2012/dei-2012-01-31.xsd	f
-5	http://xbrl.sec.gov/dei/2013/dei-2013-01-31.xsd	f
-6	http://xbrl.fasb.org/us-gaap/2014/elts/us-gaap-2014-01-31.xsd	f
-7	http://xbrl.fasb.org/us-gaap/2015/elts/us-gaap-2015-01-31.xsd	f
-8	http://xbrl.fasb.org/us-gaap/2016/elts/us-gaap-2016-01-31.xsd	f
+2	http://taxonomies.xbrl.us/us-gaap/2009/elts/us-gaap-2009-01-31.xsd	f
+3	http://xbrl.fasb.org/us-gaap/2011/elts/us-gaap-2011-01-31.xsd	f
+4	http://xbrl.sec.gov/rr/2010/rr-2010-02-28.xsd	f
+5	http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd	f
+6	http://xbrl.fasb.org/us-gaap/2013/elts/us-gaap-2013-01-31.xsd	f
+7	http://xbrl.fasb.org/us-gaap/2014/elts/us-gaap-2014-01-31.xsd	f
+8	http://xbrl.fasb.org/us-gaap/2015/elts/us-gaap-2015-01-31.xsd	f
+9	http://xbrl.fasb.org/us-gaap/2016/elts/us-gaap-2016-01-31.xsd	f
+10	http://xbrl.fasb.org/us-gaap/2017/elts/us-gaap-2017-01-31.xsd	f
+11	http://xbrl.sec.gov/rr/2012/rr-2012-01-31.xsd	f
+12	http://xbrl.sec.gov/rocr/2015/ratings-2015-03-31.xsd	f
+13	http://xbrl.fasb.org/us-gaap/2018/elts/us-gaap-2018-01-31.xsd	f
+14	http://xbrl.ifrs.org/taxonomy/2016-03-31/full_ifrs/full_ifrs-cor_2016-03-31.xsd	f
+15	http://xbrl.ifrs.org/taxonomy/2017-03-09/full_ifrs/full_ifrs-cor_2017-03-09.xsd	f
+16	http://xbrl.ifrs.org/taxonomy/2018-03-16/full_ifrs/full_ifrs-cor_2018-03-16.xsd	f
 \.
 
 
-SELECT pg_catalog.setval('seq_document', 8, true);
+SELECT pg_catalog.setval('seq_document', 16, true);
 
 --
 -- Data for Name: enumeration_arcrole_cycles_allowed; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -22824,12 +22834,23 @@ SELECT pg_catalog.setval('seq_sic_code', 444, true);
 -- Data for Name: taxonomy; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY taxonomy (taxonomy_id, name) FROM stdin;
-1	US GAAP
-2	Credit Ratings
-3	Us Mutual Fund / Risk Return
-4	XBRL
+COPY taxonomy (taxonomy_id, name, rank) FROM stdin;
+1	US GAAP	20
+2	Credit Ratings	30
+3	Risk Return	40
+4	XBRL	50
+6	DEI	70
+7	Country	80
+8	Currency	90
+9	Exchange	100
+10	Invest	110
+11	NAICS	120
+12	SIC	130
+13	STPR	140
+16	IFRS	10
 \.
+
+
 
 --
 -- Name: taxonomy_taxonomy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
@@ -22846,22 +22867,64 @@ COPY taxonomy_version (taxonomy_version_id, taxonomy_id, version, identifier_doc
 1	1	2008	1
 2	1	2009	2
 3	1	2011	3
-8	1	2012	4
 4	2	2009	\N
-5	3	2010	\N
+5	3	2010	4
 6	3	2006	\N
 7	4	2.1	\N
-9	1	2013	5
-11	1	2015	7
-10	1	2014	6
-12	1	2016	8
+8	1	2012	5
+9	1	2013	6
+10	1	2014	7
+11	1	2015	8
+12	1	2016	9
+13	1	2017	10
+14	6	2009	\N
+15	6	2011	\N
+16	6	2012	\N
+17	6	2013	\N
+18	6	2014	\N
+19	7	2009	\N
+20	7	2011	\N
+21	7	2012	\N
+22	7	2013	\N
+23	7	2016	\N
+24	8	2009	\N
+25	8	2011	\N
+26	8	2012	\N
+27	8	2014	\N
+28	8	2016	\N
+29	8	2017	\N
+30	9	2009	\N
+31	9	2011	\N
+32	9	2012	\N
+33	9	2013	\N
+34	9	2014	\N
+35	9	2015	\N
+36	9	2016	\N
+37	9	2017	\N
+38	10	2009	\N
+39	10	2011	\N
+40	10	2012	\N
+41	10	2013	\N
+42	11	2009	\N
+43	11	2011	\N
+44	11	2017	\N
+45	12	2009	\N
+46	12	2011	\N
+47	13	2009	\N
+48	13	2011	\N
+52	3	2012	11
+56	2	2015	12
+57	1	2018	13
+58	16	2016	14
+59	16	2017	15
+60	16	2018	16
 \.
 
 --
 -- Name: taxonomy_version_taxonomy_version_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('taxonomy_version_taxonomy_version_id_seq', 12, true);
+SELECT pg_catalog.setval('taxonomy_version_taxonomy_version_id_seq', 60, true);
 	
 
 --
