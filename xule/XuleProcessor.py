@@ -2362,7 +2362,7 @@ def factset_pre_match(factset, filters, non_aligned_filters, xule_context, start
                     member_values = {convert_value_to_model_period(x, xule_context) for x in filter_member.value}
             # Allow units to be a qname or a xule 'unit'
             elif index_key == ('builtin', 'unit'):
-                conversion_function = lambda x: XuleUnit(x.value) if x.type == 'qname' else x.value
+                conversion_function = lambda x: XuleUnit(x) if x.type == 'qname' else x.value
                 if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
                     member_values = {conversion_function(filter_member), }
                 else:
