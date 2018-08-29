@@ -143,11 +143,7 @@ def property_is_subset(xule_context, object_value, *args):
     if super_values.type != 'set':
         raise XuleProcessingError(_("The subset value must be a 'set',, found '{}'".format(super_values.type)), xule_context)
 
-    found = True
-    for search_value in object_value.shadow_collection:
-        found = found and (search_value in super_values.shadow_collection)
-
-    return xv.XuleValue(xule_context, found, 'bool')
+    return xv.XuleValue(xule_context, object_value.shadow_collection <= super_values.shadow_collection, 'bool')
 
 def property_is_superset(xule_context, object_value, *args):
     sub_values = args[0]
@@ -155,11 +151,7 @@ def property_is_superset(xule_context, object_value, *args):
     if sub_values.type != 'set':
         raise XuleProcessingError(_("The subset value must be a 'set', found '{}'".format(sub_values.type)), xule_context)
 
-    found = True
-    for search_value in sub_values.shadow_collection:
-        found = found and (search_value in object_value.shadow_collection)
-
-    return xv.XuleValue(xule_context, found, 'bool')
+    return xv.XuleValue(xule_context, object_value.shadow_collection >= sub_values.shadow_collection, 'bool')
 
 def property_to_json(xule_context, object_value, *args):
     if object_value.type == 'dictionary':
