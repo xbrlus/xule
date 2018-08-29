@@ -138,7 +138,28 @@ def property_index(xule_context, object_value, *args):
     return return_value
 
 def property_is_subset(xule_context, object_value, *args):
-    pass
+    super_values = args[0]
+
+    if super_values.type != 'set':
+        raise XuleProcessingError(_("The subset value must be a 'set',, found '{}'".format(super_values.type)), xule_context)
+
+    found = True
+    for search_value in object_value.shadow_collection:
+        found = found and (search_value in super_values.shadow_collection)
+
+    return xv.XuleValue(xule_context, found, 'bool')
+
+def property_is_superset(xule_context, object_value, *args):
+    sub_values = args[0]
+
+    if sub_values.type != 'set':
+        raise XuleProcessingError(_("The subset value must be a 'set', found '{}'".format(sub_values.type)), xule_context)
+
+    found = True
+    for search_value in sub_values.shadow_collection:
+        found = found and (search_value in object_value.shadow_collection)
+
+    return xv.XuleValue(xule_context, found, 'bool')
 
 def property_to_json(xule_context, object_value, *args):
     if object_value.type == 'dictionary':
@@ -1618,7 +1639,8 @@ PROPERTIES = {
               'to-set': (property_to_set, 0, ('list', 'set', 'dictionary'), False),
               'to-dict': (property_to_dict, 0, ('list', 'set'), False),
               'index': (property_index, 1, ('list', 'dictionary'), False),
-              'is-subset': (property_is_subset, 1, ('list', 'set'), False),
+              'is-subset': (property_is_subset, 1, ('set',), False),
+              'is-superset': (property_is_superset, 1, ('set',), False),
               'to-json': (property_to_json, 0, ('list', 'set', 'dictionary'), False),           
               'join': (property_join, -2, ('list', 'set', 'dictionary'), False),
               'sort': (property_sort, 0, ('list', 'set'), False),
