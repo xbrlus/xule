@@ -560,6 +560,7 @@ def get_grammar():
      
     expr << buildPrecedenceExpressions(propertyExpr,
                           [(unaryOp, 1, opAssoc.RIGHT, None, 'unaryExpr'),
+                           (inOp, 2, opAssoc.LEFT, None, 'inExpr'),
                            (multiOp, 2, opAssoc.LEFT, None, 'multExpr'),
                            (addOp, 2, opAssoc.LEFT, None, 'addExpr'),
                            (intersectOp, 2, opAssoc.LEFT, None, 'intersectExpr'),

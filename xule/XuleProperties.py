@@ -58,7 +58,7 @@ def property_contains(xule_context, object_value, *args):
         if search_item.type in ('string', 'uri'):
             return xv.XuleValue(xule_context, search_item.value in object_value.value, 'bool')
     else:
-        raise XuleProcessingError(_("Property 'contains' cannot operator on a '%s' and '%s'" % (object_value.type, search_item.type)), xule_context)
+        raise XuleProcessingError(_("Property 'contains' or 'in' expression cannot operator on a '%s' and '%s'" % (object_value.type, search_item.type)), xule_context)
 
 def property_length(xule_context, object_value, *args):
     if object_value.type in ('string', 'uri'):
@@ -136,6 +136,9 @@ def property_index(xule_context, object_value, *args):
                                   xule_context)
 
     return return_value
+
+def property_is_subset(xule_context, object_value, *args):
+    pass
 
 def property_to_json(xule_context, object_value, *args):
     if object_value.type == 'dictionary':
@@ -1615,6 +1618,7 @@ PROPERTIES = {
               'to-set': (property_to_set, 0, ('list', 'set', 'dictionary'), False),
               'to-dict': (property_to_dict, 0, ('list', 'set'), False),
               'index': (property_index, 1, ('list', 'dictionary'), False),
+              'is-subset': (property_is_subset, 1, ('list', 'set'), False),
               'to-json': (property_to_json, 0, ('list', 'set', 'dictionary'), False),           
               'join': (property_join, -2, ('list', 'set', 'dictionary'), False),
               'sort': (property_sort, 0, ('list', 'set'), False),

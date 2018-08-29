@@ -1617,6 +1617,24 @@ def evaluate_unary(unary_expr, xule_context):
     else:
         return initial_value
 
+def evaluate_in(in_expr, xule_context):
+    """Evaluator for in expressions
+
+    :param in_expr: Rule expression for the in expression
+    :type in_expr: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :rtype: XuleValue
+    """
+    left = evaluate(in_expr['leftExpr'], xule_context)
+    for right_side in in_expr['rights']:
+        right = evaluate(right_side['rightExpr'], xule_context)
+        if right.type in ('unbound', 'none'):
+            left = XuleValue(xule_context, None, 'unbound')
+        else:
+            left = XuleProperties.property_contains(xule_context, right, left)
+
+    return left
 
 def evaluate_mult(mult_expr, xule_context):
     """Evaluator for multiplication expressions
@@ -4380,6 +4398,7 @@ EVALUATOR = {
 
     # expressions with order of operations
     "unaryExpr": evaluate_unary,
+    "inExpr": evaluate_in,
     "multExpr": evaluate_mult,
     "addExpr": evaluate_add,
     "intersectExpr": evaluate_intersect,
