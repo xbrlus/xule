@@ -93,6 +93,50 @@ def property_to_set(xule_context, object_value, *args):
 def property_to_dict(xule_context, object_value, *args):
     return XuleFunctions.agg_dict(xule_context, object_value.value)
 
+def property_index(xule_context, object_value, *args):
+    index_value = args[0]
+    if object_value.type == 'list':
+        if index_value.type == 'int':
+            index_number = index_value.value
+        elif index_value.type == 'float':
+            if index_value.value.is_integer():
+                index_number = int(index_value.value)
+            else:
+                raise XuleProcessingError(
+                    _("Index of a list must be a whole number, found %s" % str(index_value.value)),
+                    xule_context)
+        elif index_value.type == 'decimal':
+            if index_value.value == int(index_value.value):
+                index_number = int(index_value.value)
+            else:
+                raise XuleProcessingError(
+                    _("Index of a list must be a whole number, found %s" % str(index_value.value)),
+                    xule_context)
+        else:
+            raise XuleProcessingError(_("Index of a list must be a number, found %s" % index_value.type),
+                                      xule_context)
+
+        # Check if the index number is the value range for the list
+        if index_number < 1 or index_number > len(object_value.value):
+            raise XuleProcessingError(_("Index value of %i is out of range for the list with length of %i" % (
+                index_number, len(object_value.value))),
+                                      xule_context)
+        return_value = object_value.value[index_number - 1]
+
+    elif object_value.type == 'dictionary':
+        if index_value.type in ('set', 'list'):
+            key_value = index_value.shadow_collection
+        else:
+            key_value = index_value.value
+
+        return_value = object_value.key_search_dictionary.get(key_value, xv.XuleValue(xule_context, None, 'none'))
+
+    else:
+        raise XuleProcessingError(_("The 'index' property or index expression '[]' can only operate on a list or dictionary, found '%s'" % object_value.type),
+                                  xule_context)
+
+    return return_value
+
 def property_to_json(xule_context, object_value, *args):
     if object_value.type == 'dictionary':
         unfrozen = dict(object_value.shadow_collection)
@@ -1570,6 +1614,7 @@ PROPERTIES = {
               'to-list': (property_to_list, 0, ('list', 'set'), False),
               'to-set': (property_to_set, 0, ('list', 'set', 'dictionary'), False),
               'to-dict': (property_to_dict, 0, ('list', 'set'), False),
+              'index': (property_index, 1, ('list', 'dictionary'), False),
               'to-json': (property_to_json, 0, ('list', 'set', 'dictionary'), False),           
               'join': (property_join, -2, ('list', 'set', 'dictionary'), False),
               'sort': (property_sort, 0, ('list', 'set'), False),
