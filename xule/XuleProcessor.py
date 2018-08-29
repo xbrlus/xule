@@ -4308,44 +4308,6 @@ def evaluate_index(index_expr, xule_context):
         index_value = evaluate(index, xule_context)
         # An index expression is used for lists and dictionaries.
         left_value = XuleProperties.property_index(xule_context, left_value, index_value)
-        # if left_value.type == 'list':
-        #     if index_value.type == 'int':
-        #         index_number = index_value.value
-        #     elif index_value.type == 'float':
-        #         if index_value.value.is_integer():
-        #             index_number = int(index_value.value)
-        #         else:
-        #             raise XuleProcessingError(
-        #                 _("Index of a list must be a whole number, found %s" % str(index_value.value)),
-        #                 xule_context)
-        #     elif index_value.type == 'decimal':
-        #         if index_value.value == int(index_value.value):
-        #             index_number = int(index_value.value)
-        #         else:
-        #             raise XuleProcessingError(
-        #                 _("Index of a list must be a whole number, found %s" % str(index_value.value)),
-        #                 xule_context)
-        #     else:
-        #         raise XuleProcessingError(_("Index of a list must be a number, found %s" % index_value.type),
-        #                                   xule_context)
-        #
-        #     # Check if the index number is the value range for the list
-        #     if index_number < 1 or index_number > len(left_value.value):
-        #         raise XuleProcessingError(_("Index value of %i is out of range for the list with length of %i" % (
-        #         index_number, len(left_value.value))),
-        #                                   xule_context)
-        #     left_value = left_value.value[index_number - 1]
-        # elif left_value.type == 'dictionary':
-        #     if index_value.type in ('set', 'list'):
-        #         key_value = index_value.shadow_collection
-        #     else:
-        #         key_value = index_value.value
-        #
-        #     left_value = left_value.key_search_dictionary.get(key_value, XuleValue(xule_context, None, 'none'))
-        #
-        # else:
-        #     raise XuleProcessingError(_("Index epxressions can only operate on a list, found '%s'" % left_value.type),
-        #                               xule_context)
 
     return left_value
 
