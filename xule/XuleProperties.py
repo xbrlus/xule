@@ -90,6 +90,9 @@ def property_to_set(xule_context, object_value, *args):
     else: #list or set
         return XuleFunctions.agg_set(xule_context, object_value.value)
 
+def property_to_dict(xule_context, object_value, *args):
+    return XuleFunctions.agg_dict(xule_context, object_value.value)
+
 def property_to_json(xule_context, object_value, *args):
     if object_value.type == 'dictionary':
         unfrozen = dict(object_value.shadow_collection)
@@ -1549,16 +1552,7 @@ def traverse_for_weight(network, parent, stop_concept, previous_concepts=None, p
                 for x in next_result:
                     results.append(x)
     
-    return results 
-        
-            
-        
-    
-            
-
-
-
-
+    return results
 
 #Property tuple
 PROP_FUNCTION = 0
@@ -1574,7 +1568,8 @@ PROPERTIES = {
               'contains': (property_contains, 1, ('set', 'list', 'string', 'uri'), False),
               'length': (property_length, 0, ('string', 'uri', 'set', 'list', 'dictionary'), False),
               'to-list': (property_to_list, 0, ('list', 'set'), False),
-              'to-set': (property_to_set, 0, ('list', 'set', 'dictionary'), False),   
+              'to-set': (property_to_set, 0, ('list', 'set', 'dictionary'), False),
+              'to-dict': (property_to_dict, 0, ('list', 'set'), False),
               'to-json': (property_to_json, 0, ('list', 'set', 'dictionary'), False),           
               'join': (property_join, -2, ('list', 'set', 'dictionary'), False),
               'sort': (property_sort, 0, ('list', 'set'), False),
