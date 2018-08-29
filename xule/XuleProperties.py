@@ -242,6 +242,10 @@ def property_values(xule_context, object_value, *args):
 #     vals_shadow = list(v for k, v in object_value.shadow_collection)
     return xv.XuleValue(xule_context, tuple(vals), 'list', shadow_collection=tuple(vals_shadow))
 
+def property_has_key(xule_context, object_value, *args):
+    key = args[0].value
+    return xv.XuleValue(xule_context, key in dict(object_value.shadow_collection), 'bool')
+
 def property_networks(xule_context, object_value, *args):
     
     if len(args) > 0:
@@ -1638,6 +1642,7 @@ PROPERTIES = {
               'sort': (property_sort, 0, ('list', 'set'), False),
               'keys': (property_keys, -1, ('dictionary',), False),
               'values': (property_values, 0, ('dictionary', ), False),
+              'has-key': (property_has_key, 1, ('dictionary',), False),
               'decimals': (property_decimals, 0, (), True),
               'networks':(property_networks, -2, ('taxonomy',), False),
               'role': (property_role, 0, ('network', 'label', 'reference', 'relationship'), False),
