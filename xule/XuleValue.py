@@ -38,6 +38,7 @@ import collections
 import copy
 import pprint
 import re
+import textwrap
 
 class XuleValueSet:
     def __init__(self, values=None):
@@ -1142,14 +1143,10 @@ class XuleDimensionCube:
             output += '\n'
         # Dimensions
         for dim in self._dimensions:
-            output += '\t' + str(dim.qname) + ' (DIMENSION) \n'
-            for mem in self._dimension_members[dim]:
-                output += '\t\t' + str(mem.qname)
-                if mem in self._dimension_domains[dim]:
-                    output += ' (DOMAIN)'
-                if mem is self._dimension_default[dim]:
-                    output += ' (DEFAULT)'
-                output += '\n'
+            # Add a tab to each of the lines
+            output += textwrap.indent(XuleDimensionDimension(self, dim).dimension_str, '\t')
+
+
         """
         # Facts
         if self.has_facts:
@@ -1179,11 +1176,9 @@ class XuleDimensionCube:
         self._establish_dimension_defaults(self._dts)
         return self._dts.xuleDimensionDefaults.get(dim_concept)
 
-    @property
     def dimension_members(self, dim_concept):
         return self._dimension_members.get(dim_concept, set())
 
-    @property
     def dimension_domains(self, dim_concept):
         return self._dimension_domains.get(dim_concept, set())
 
@@ -1204,7 +1199,7 @@ class XuleDimensionCube:
         return self._from_relationships.get(concept, [])
     
     @property
-    def fromModelObjects(sef):
+    def fromModelObjects(self):
         return set(x for x in self._from_relationships.values())
     
     def toModelObject(self, concept):
@@ -1247,6 +1242,35 @@ class XuleDimensionDimension:
     @property
     def dimension_type(self):
         return self.cube.dimensionType(self.dimension_concept)
+
+    @property
+    def dimension_str(self):
+        """converts dimensions into a string"""
+        output = str(self.dimension_concept.qname) + ' (DIMENSION) \n'
+        output += self.member_str
+        return output
+
+    @property
+    def member_str(self):
+        output = ''
+        for mem in self.members:
+            output += str(mem.qname)
+            if mem in self.domains:
+                output += ' (DOMAIN)'
+            if mem is self.default:
+                output += ' (DEFAULT)'
+            output += '\n'
+        return output
+
+    def __str__(self):
+        dim_string = 'Dimension: {dim_name}\n' \
+                     'Cube: {cube_name}\n' \
+                     'DRS Role: {drs_role}'.format(dim_name=self.dimension_concept.qname,
+                                                   cube_name=self.cube.hypercube.qname,
+                                                   drs_role=self.cube.drs_role.roleURI)
+        dim_string += '\nMembers:\n'
+        dim_string += textwrap.indent(self.member_str, '\t')
+        return dim_string
 
 def model_to_xule_unit(model_unit, xule_context):
     return XuleUnit(model_unit)

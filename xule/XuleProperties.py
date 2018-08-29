@@ -397,12 +397,22 @@ def property_dimension(xule_context, object_value, *args):
             return xv.XuleValue(xule_context, member_model.typedMember.xValue, xv.model_to_xule_type(xule_context, member_model.typedMember.xValue))
 
 def property_dimensions(xule_context, object_value, *args):
+    if object_value.type == 'taxonomy':
+        # Get the cubes of the taxonomy
+        cubes = [xv.XuleDimensionCube(object_value.value, *cube_base)
+                 for cube_base in xv.XuleDimensionCube.base_dimension_sets(object_value.value)]
+        # For each cube get the dimensions
+        dims_shadow = set()
+        for cube in cubes:
+            dims_shadow |=  cube.dimensions
+        dims = [xv.XuleValue(xule_context, x, 'dimension') for x in dims_shadow]
+        return xv.XuleValue(xule_context, frozenset(dims), 'set', shadow_collection=frozenset(dims_shadow))
     if object_value.type == 'cube':
         dims_shadow = object_value.value.dimensions
         dims = {xv.XuleValue(xule_context, x, 'dimension') for x in dims_shadow}
 
         return xv.XuleValue(xule_context, frozenset(dims), 'set', shadow_collection=frozenset(dims_shadow))
-    else:
+    else: #fact
         if not object_value.is_fact:
             return object_value
 
@@ -887,8 +897,8 @@ def property_cubes(xule_context, object_value, *args):
     """
     cubes = set()
     cubes_shadow = set()
-    for cube_base in xv.XuleDimensionCube.base_dimension_sets(xule_context.model):
-        cube = xv.XuleDimensionCube(xule_context.model, *cube_base)
+    for cube_base in xv.XuleDimensionCube.base_dimension_sets(object_value.value):
+        cube = xv.XuleDimensionCube(object_value.value, *cube_base)
         cubes.add(xv.XuleValue(xule_context, cube, 'cube'))
         cubes_shadow.add(cube)
 
@@ -1585,7 +1595,7 @@ PROPERTIES = {
               'id': (property_id, 0, ('entity','unit','fact'), True),
               'scheme': (property_scheme, 0, ('entity',), False),
               'dimension': (property_dimension, 1, ('fact',), True),
-              'dimensions': (property_dimensions, 0, ('fact', 'cube'), True),
+              'dimensions': (property_dimensions, 0, ('fact', 'cube', 'taxonomy'), True),
               'dimensions-explicit': (property_dimensions_explicit, 0, ('fact',), True),
               'dimensions-typed': (property_dimensions_typed, 0, ('fact',), True),                            
               'aspects': (property_aspects, 0, ('fact',), True),
