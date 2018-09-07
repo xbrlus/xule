@@ -3482,7 +3482,9 @@ def nav_decorate_component_weight(rel, direction, component_name, xule_context):
 
 def nav_decorate_component_preferred_label_role(rel, direction, component_name, xule_context):
     if rel['relationship'].preferredLabel is not None:
-        return (rel['relationship'].preferredLabel, 'uri', component_name)
+        #return (rel['relationship'].preferredLabel, 'uri', component_name)
+
+        return (XuleUtility.role_uri_to_model_role(rel['relationship'].modelXbrl, rel['relationship'].preferredLabel), 'role', component_name)
     else:
         return (None, 'none', component_name)
 
@@ -3599,7 +3601,7 @@ def nav_decorate_component_result_order(rel, direction, component_name, is_start
 def nav_decorate_component_drs_role(rel, direction, component_name, is_start, xule_context):
     # if hasattr(rel['relationship'], 'dimension_set'):
     if isinstance(rel['relationship'], DimensionRelationship):
-        return (rel['relationship'].dimension_set.drs_role, 'uri', component_name)
+        return (rel['relationship'].dimension_set.drs_role, 'role', component_name)
     else:
         return (None, 'none', component_name)
 

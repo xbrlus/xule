@@ -315,6 +315,10 @@ class XuleValue:
             for part in self.value:
                 reference_string += '\t' + str(part.qname) + ': ' + part.textValue + '\n'
             return reference_string
+        elif self.type == 'role':
+            role_string = getattr(self.value, 'roleURI', None) or getattr(self.value, 'arcroleURI', None)
+            role_string += ' - ' + self.value.definition
+            return role_string
         else:
             return str(self.value)
 
@@ -425,31 +429,49 @@ class XulePeriodComp:
         else:
             return self.__eq__(other) or self.__gt__(other)
 
-class XuleArcrole:
+class XuleRoleBase:
+    def __init__(self, uri, role_type):
+        self._uri = uri
+        self._role_type = role_type
+
+    def __eq__(self, other):
+        if other is None:
+            return False
+        else:
+            return self.isArcrole == other.isArcrole and self._uri == other.arcroleURI if other.isArcrole else other.roleURI
+
+    def __hash__(self):
+        return hash(self._uri)
+
+    @property
+    def isArcrole(self):
+        return self._role_type == 'arcrole'
+
+class XuleArcrole(XuleRoleBase):
     def __init__(self, arcrole_uri):
-        self._arcrole_uri = arcrole_uri
+        super().__init__(arcrole_uri, 'arcrole')
         
     def __str__(self):
-        return self._arcrole_uri
+        return self._uri
     
     @property
     def arcroleURI(self):
-        return self._arcrole_uri
+        return self._uri
     
     @property
     def definition(self):
-        return self._STANDARD_ARCROLE_DEFINITIONS.get(self._arcrole_uri)
+        return self._STANDARD_ARCROLE_DEFINITIONS.get(self._uri)
     
     @property
     def usedOns(self):
-        if self._arcrole_uri in self._STANDARD_ARCROLE_USEDONS:
-            return {self._STANDARD_ARCROLE_USEDONS[self._arcrole_ur],}
+        if self._uri in self._STANDARD_ARCROLE_USEDONS:
+            return {self._STANDARD_ARCROLE_USEDONS[self._uri],}
         else:
             return set()
     
     @property
     def cyclesAllowed(self):
-        return self._STANDARD_ARCROLE_CYCLES_ALLOWED.get(self._arcrole_uri)
+        return self._STANDARD_ARCROLE_CYCLES_ALLOWED.get(self._uri)
     
     _STANDARD_ARCROLE_DEFINITIONS = {
             'http://www.xbrl.org/2003/arcrole/fact-footnote': 'Footnote relationship',
@@ -484,29 +506,29 @@ class XuleArcrole:
             'http://www.xbrl.org/2003/arcrole/similar-tuples': 'any',
             'http://www.xbrl.org/2003/arcrole/requires-element': 'any'}
 
-class XuleRole:
+class XuleRole(XuleRoleBase):
     def __init__(self, role_uri):
-        self._role_uri = role_uri
+        super().__init__(role_uri, 'role')
     
     def __str__(self):
-        return self._role_uri
+        return self._uri
     
     @property
     def roleURI(self):
-        return self._role_uri
+        return self._uri
     
     @property
     def arcroleURI(self):
-        return self._role_uri
+        return self._uri
     
     @property
     def definition(self):
-        return self._STANDARD_ROLE_DEFINITIONS.get(self._role_uri)
+        return self._STANDARD_ROLE_DEFINITIONS.get(self._uri)
     
     @property
     def usedOns(self):
-        if self._role_uri in self._STANDARD_ROLE_USEDON:
-            return {self._STANDARD_ROLE_USEDON[self._role_uri],}
+        if self._uri in self._STANDARD_ROLE_USEDON:
+            return {self._STANDARD_ROLE_USEDON[self._uri],}
         else:
             return set()
 
