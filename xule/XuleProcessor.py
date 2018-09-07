@@ -3007,7 +3007,7 @@ def evaluate_navigate(nav_expr, xule_context):
                                                         parent_rel['relationship'].fromModelObject, nav_to_concepts, 1,
                                                         return_names, dimension_arcroles):
                             if include_start or sibling_rel['relationship'] is not parent_rel['relationship']:
-                                result_items += nav_decorate(sibling_rel, 'up', return_names, False, paths,
+                                result_items += nav_decorate(sibling_rel, 'down', return_names, False, paths,
                                                              xule_context)
                 if direction == 'previous-siblings':
                     for parent_rel in nav_traverse(nav_expr, xule_context, 'up', relationship_set, from_concept, None,
@@ -3016,7 +3016,7 @@ def evaluate_navigate(nav_expr, xule_context):
                                                         parent_rel['relationship'].fromModelObject, nav_to_concepts, 1,
                                                         return_names, dimension_arcroles):
                             if include_start or sibling_rel['relationship'] is not parent_rel['relationship']:
-                                result_items += nav_decorate(sibling_rel, 'up', return_names, False, paths,
+                                result_items += nav_decorate(sibling_rel, 'down', return_names, False, paths,
                                                              xule_context)
                             if sibling_rel['relationship'] is parent_rel['relationship']:
                                 break  # We are done.
@@ -3031,7 +3031,7 @@ def evaluate_navigate(nav_expr, xule_context):
                                 start_rel_found = True
                             if start_rel_found:
                                 if include_start or sibling_rel['relationship'] is not parent_rel['relationship']:
-                                    result_items += nav_decorate(sibling_rel, 'up', return_names, False, paths,
+                                    result_items += nav_decorate(sibling_rel, 'down', return_names, False, paths,
                                                                  xule_context)
 
             if return_by_networks:
