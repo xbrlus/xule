@@ -2902,10 +2902,6 @@ def evaluate_filter(filter_expr, xule_context):
 
 
 def evaluate_navigate(nav_expr, xule_context):
-    '''WILL NEED TO HANDLE CASE WHEN THERE IS NOT AN ARCROLE. THIS WILL NEED TO GATHER ALL THE BASESETS ACROSS ALL ARCROLLS'''
-    if 'arcrole' not in nav_expr and 'dimensional' not in nav_expr:
-        raise XuleProcessingError(_("Not including an arcrole for navigation is currently not supported."))
-
     # Get the taxonomy
     if 'taxonomy' in nav_expr:
         dts_value = evaluate(nav_expr['taxonomy'], xule_context)
@@ -2963,7 +2959,6 @@ def evaluate_navigate(nav_expr, xule_context):
                                           XuleDimensionCube.DIMENSION_SET_HYPERCUBE] in table_concepts))]
             else:
                 relationship_set_infos = XuleProperties.get_base_set_info(dts, arcrole, role, link_qname, arc_qname)
-                # The relationship_set_info includes the includeProhibits at the end of the tuple
                 relationship_sets = [XuleUtility.relationship_set(dts, x) for x in relationship_set_infos]
 
         direction = nav_expr['direction']
