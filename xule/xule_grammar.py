@@ -527,7 +527,7 @@ def get_grammar():
             noneLiteral |
             skipLiteral |
             
-            aspectNameLiteral |
+            #aspectNameLiteral |
             
             dictExpr |
             listExpr |
