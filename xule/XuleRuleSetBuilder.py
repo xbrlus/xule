@@ -720,7 +720,7 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
                         elif xf.BUILTIN_FUNCTIONS[parse_node['functionName']][xf.FUNCTION_RESULT_NUMBER] == 'multi':
                             parse_node['function_type'] = 'builtin'
                             parse_node['number'] = 'multi'
-                            parse_nodeparse_node['is_iterable'] = True     
+                            parse_node['is_iterable'] = True
                         else:
                             #regular builtin function
                             if parse_node['number'] == 'single':
