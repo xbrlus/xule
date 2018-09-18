@@ -22,14 +22,16 @@ limitations under the License.
 $Change$
 DOCSKIP
 """
-from . import XuleValue as xv
-from .XuleRunTime import XuleProcessingError
+
+from aniso8601 import parse_duration
 from arelle.ModelValue import qname, QName
 import collections
-from aniso8601 import parse_duration
 import decimal
 import json
-#from json.decoder import JSONDecodeError
+
+from .XuleRunTime import XuleProcessingError
+from . import XuleValue as xv
+from . import XuleRollForward as xrf
 
 
 def func_exists(xule_context, *args):   
@@ -709,7 +711,7 @@ def built_in_functions():
     
     
     try:
-        funcs.update(rf.BUILTIN_FUNCTIONS)
+        funcs.update(xrf.BUILTIN_FUNCTIONS)
     except NameError:
         pass
     
