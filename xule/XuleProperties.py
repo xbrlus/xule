@@ -75,8 +75,11 @@ def property_to_list(xule_context, object_value, *args):
     # is no guarentee that the two sets will iterate in the same order.
     def set_sort(item):
         return item.value
-     
-    return xv.XuleValue(xule_context, tuple(sorted(object_value.value, key=set_sort)), 'list')
+
+    try:
+        return xv.XuleValue(xule_context, tuple(sorted(object_value.value, key=set_sort)), 'list')
+    except TypeError:
+        return xv.XuleValue(xule_context, tuple(object_value.value), 'list')
  
 def property_to_set(xule_context, object_value, *args):
     if object_value.type == 'dictionary':
@@ -1617,6 +1620,8 @@ def traverse_for_weight(network, parent, stop_concept, previous_concepts=None, p
                     results.append(x)
     
     return results
+
+
 
 #Property tuple
 PROP_FUNCTION = 0
