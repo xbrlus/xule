@@ -4928,7 +4928,7 @@ CREATE TABLE entity (
     entity_id integer DEFAULT nextval('seq_entity'::regclass) NOT NULL,
     entity_code character varying NOT NULL,
     authority_scheme character varying NOT NULL,
-    entity_name character varying NOT NULL
+    entity_name character varying
 );
 
 

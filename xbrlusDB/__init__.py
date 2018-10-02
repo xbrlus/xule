@@ -30,7 +30,7 @@ def xbrlDBcommandLineOptionExtender(parser):
     
     
     parserGroup.add_option("--xbrlusDB", 
-                      action="store", 
+                      action="store",
                       dest="storeIntoXbrlDb", 
                       help=_("Store into XBRL DB.  "
                              "Provides connection string: host,port,user,password,database[,timeout]."
@@ -52,7 +52,7 @@ def xbrlDBcommandLineOptionExtender(parser):
                       help=_("Additional supporting files. Use of this option is determined by the source. For multiple files, use a separate --xbrlusDB-file argument for each file."))
     
     parserGroup.add_option("--xbrlusDB-document-cache",
-                      action="store",
+                      action="append",
                       dest="xbrlusDBDocumentCache",
                       help=_("Map file location to official location. The map consists of two parts, the path of the file location and the path of the official " \
                              "location. The map is used to translate the file location to the path that is used to store the document uri in the database. " \
