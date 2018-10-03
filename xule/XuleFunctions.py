@@ -144,7 +144,7 @@ def func_mod(xule_context, *args):
     if denominator.type not in ('int', 'float', 'decimal'):
         raise XuleProcessingError(_("The denominator for the 'mod' function must be numeric, found '%s'" % denominator.type), xule_context)
     
-    combined_type, numerator_compute_value, denominator_compute_value = combine_xule_types(numerator, denominator, xule_context)
+    combined_type, numerator_compute_value, denominator_compute_value = xv.combine_xule_types(numerator, denominator, xule_context)
     return xv.XuleValue(xule_context, numerator_compute_value % denominator_compute_value, combined_type)
 
 def func_extension_concept(xule_context, *args):   
@@ -169,7 +169,7 @@ def agg_sum_concurrent(xule_context, current_agg_value, current_value, value_ali
     if current_agg_value is None:
         return current_value.clone()
     else:
-        combined_types = combine_xule_types(current_agg_value, current_value, xule_context)
+        combined_types = xv.combine_xule_types(current_agg_value, current_value, xule_context)
         if combined_types[0] == 'set':
             current_agg_value.value = current_agg_value.value | current_value.value 
         else:
@@ -210,7 +210,7 @@ def agg_sum(xule_context, values):
     facts = collections.OrderedDict() if agg_value.facts is None else agg_value.facts
     
     for current_value in values[1:]:
-        combined_types = combine_xule_types(agg_value, current_value, xule_context)
+        combined_types = xv.combine_xule_types(agg_value, current_value, xule_context)
         if combined_types[0] == 'set':
             agg_value = xv.XuleValue(xule_context, combined_types[1] | combined_types[2], combined_types[0], alignment=agg_value.alignment)
         else:
