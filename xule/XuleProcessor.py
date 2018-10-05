@@ -1041,6 +1041,23 @@ def evaluate_bool_literal(literal, xule_context):
     else:
         raise XuleProcessingError(_("Invalid boolean literal found: %s" % literal.value), xule_context)
 
+def evaluate_period_literal(literal, xule_context):
+    """Evaluate a period literal
+
+    :param literal: Rule expression
+    :type literal: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :rtype: XuleValue
+
+    Currently, the only type of period literal is 'forever'. Other periods (instance, duration) are created using
+    the period() function.
+    """
+
+    if literal.get('forever', False):
+        return XuleValue(xule_context, (datetime.datetime.min, datetime.datetime.max), 'duration')
+    else:
+        return XuleValue(xule_context, None, 'none')
 
 def evaluate_string_literal(literal, xule_context):
     """Evaluate a string literal
@@ -4364,6 +4381,7 @@ EVALUATOR = {
     "integer": evaluate_int_literal,
     "float": evaluate_float_literal,
     "string": evaluate_string_literal,
+    "period": evaluate_period_literal,
     "qname": evaluate_qname_literal,
     # "skip": evaluate_void_literal,
     "none": evaluate_void_literal,

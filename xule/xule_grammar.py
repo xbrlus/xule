@@ -230,8 +230,11 @@ def get_grammar():
     #balance literals
     balanceLiteral = Group((CaselessKeyword('debit') | CaselessKeyword('credit')).setResultsName('value') + nodeName('balance'))
     periodTypeLiteral = Group((CaselessKeyword('instant') | CaselessKeyword('duration')).setResultsName('value') + nodeName('periodType'))
-    
-    
+
+
+    #forever literal
+    foreverLiteral = Group(Suppress(CaselessKeyword('forever')) + Empty().setParseAction(lambda s, l, t: True).setResultsName('forever') + nodeName('period'))
+
     #direction keywords
     directionLiteral = ((CaselessKeyword('ancestors').setResultsName('direction') + Optional(digits, -1).setResultsName('depth')) |  
                         (CaselessKeyword('descendants').setResultsName('direction')  + Optional(digits, -1).setResultsName('depth')) | 
@@ -526,6 +529,7 @@ def get_grammar():
             periodTypeLiteral |
             noneLiteral |
             skipLiteral |
+            foreverLiteral |
             
             #aspectNameLiteral |
             
