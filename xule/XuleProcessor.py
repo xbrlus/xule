@@ -494,15 +494,13 @@ def get_decimals(fact, xule_context):
                                       xule_context)
 
 
-def evaluate(rule_part, xule_context, is_values=False, trace_dependent=False, override_table_id=None):
+def evaluate(rule_part, xule_context, trace_dependent=False, override_table_id=None):
     """General evaluator for an expression.
     
     :param rule_part: The expression being evaluated
     :type rule_part: dict
     :param xule_context: Rule processing context
     :type xule_context: XuleRuleContext
-    :param is_values: Deprecated
-    :type is_values: bool
     :param trace_dependent: Debugging indicator
     :type trace_dependent: bool
     :param override_table_id: A table id to use instead of the table id of the rule_part.
@@ -795,8 +793,7 @@ def get_local_cache_key(rule_part, xule_context):
             if xule_context.get_processing_id(var_info['expr']['node_id']) in xule_context.used_expressions:
                 const_value = evaluate(var_info['expr'],
                                        xule_context,
-                                       override_table_id=var_ref[2].table_id,
-                                       is_values='values_expression' in var_ref[2])
+                                       override_table_id=var_ref[2]['table_id'])
                 dep_var_index.add((var_info['name'], const_value))
         else:
             if var_ref[0] in xule_context.vars:
@@ -1347,8 +1344,7 @@ def calc_var(var_info, const_ref, xule_context):
     elif var_info['type'] == xule_context._VAR_TYPE_CONSTANT:
         # We should only end up here the first time the constant is referenced for the iteration.
         # The var_info is really the constant info from the global context
-        var_value = evaluate(var_info['expr'], xule_context, override_table_id=const_ref['table_id'],
-                             is_values='values_expression' in const_ref)
+        var_value = evaluate(var_info['expr'], xule_context, override_table_id=const_ref['table_id'])
     else:
         raise XuleProcessingError(_("Internal error: unkown variable type '%s'" % var_info['type']), xule_context)
 
@@ -3957,11 +3953,11 @@ def user_defined_function(xule_context, function_ref):
     if function_info is None:
         raise XuleProcessingError("Function '%s' not found" % function_ref['functionName'], xule_context)
     else:
-        # Get the list of variables and their values. This will put the current single value for the variable as an argument
-        for var_ref in sorted(function_ref['var_refs'], key=lambda x: x[1]):
-            '''NOT SURE THIS IS NEEDED. THE ARGUMENTS WILL BE EXVALUTED WHEN THE for arg in matched_args IS PROCESSED'''
-            # 0 = var declaration id, 1 = var name, 2 = var_ref, 3 = var type (1 = var/arg, 2 = constant)
-            var_value = evaluate(var_ref[2], xule_context)
+#        # Get the list of variables and their values. This will put the current single value for the variable as an argument
+#        for var_ref in sorted(function_ref['var_refs'], key=lambda x: x[1]):
+#            '''NOT SURE THIS IS NEEDED. THE ARGUMENTS WILL BE EXVALUTED WHEN THE for arg in matched_args IS PROCESSED'''
+#            # 0 = var declaration id, 1 = var name, 2 = var_ref, 3 = var type (1 = var/arg, 2 = constant)
+#            var_value = evaluate(var_ref[2], xule_context)
 
         matched_args = match_function_arguments(function_ref, function_info['function_declaration'], xule_context)
         for arg in matched_args:
