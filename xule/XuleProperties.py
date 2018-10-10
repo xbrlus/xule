@@ -1189,7 +1189,7 @@ def property_last_index_of(xule_context, object_value, *args):
     else:
         raise XuleProcessingError(_("The argument for property 'last-index-of' must be castable to a 'string', found '%s'" % arg_result.type), xule_context)
      
-    return xv.XuleValue(xule_context, xv.cast_value.rfind(index_string) + 1, 'int')
+    return xv.XuleValue(xule_context, cast_value.rfind(index_string) + 1, 'int')
  
 def property_lower_case(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, xv.xule_cast(object_value, 'string', xule_context).lower(), 'string')
@@ -1620,8 +1620,6 @@ def traverse_for_weight(network, parent, stop_concept, previous_concepts=None, p
                     results.append(x)
     
     return results
-
-
 
 #Property tuple
 PROP_FUNCTION = 0
