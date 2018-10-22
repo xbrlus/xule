@@ -539,7 +539,17 @@ def func_roll_forward_recalc(xule_context, *args):
                     result[xv.XuleValue(xule_context, "DISPLAY", 'string')] = xv.XuleValue(xule_context, display, 'string')
                     result[xv.XuleValue(xule_context, "NETWORK_ROLE", 'string')] = xv.XuleValue(xule_context, role_description + '" - ' + role_uri, 'string')
 
-                    all_results.append(xv.XuleValue(xule_context, frozenset(result.items()), 'dictionary'))
+                    #add facts
+                    all_facts = dict()
+                    all_facts[start_fact] = None
+                    all_facts[end_fact] = None
+                    for ordered_fact in ordered_facts:
+                        all_facts[ordered_fact] = None
+
+                    result_value = xv.XuleValue(xule_context, frozenset(result.items()), 'dictionary')
+                    result_value.facts = all_facts
+
+                    all_results.append(result_value)
 
     return all_results
 
