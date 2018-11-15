@@ -1,6 +1,7 @@
 """
 Source definitions for SEC US GAAP filings.
 """
+from arelle import FileSource
 from ..SqlDb import XPDBException
 import datetime  
 import json
@@ -336,11 +337,22 @@ def SECFilingAndEntityInfo(dbLoader):
     return info
     
 def extractFilingDetailsFromIndex(dbLoader, indexFileName, info):
-    
+    '''
     with dbLoader.getFile(indexFileName) as indexFileHandler:
         #indexFileHandler = dbLoader.getFile(indexFileName)
         htmlParser = etree.HTMLParser()
         htmlTree = etree.parse(indexFileHandler, htmlParser)
+    '''
+    filesourceFileObject = FileSource.openFileStream(dbLoader.cntlr, indexFileName)
+    htmlParser = etree.HTMLParser()
+    htmlTree = etree.parse(filesourceFileObject, htmlParser)
+
+
+
+    #docContent = filesourceFileObject.read()
+    #filesourceFileObject.close()
+
+
     identInfoNodes = htmlTree.xpath("//div[@class='companyInfo']")
     #There may be multiple nodes. Find the one that has the matching cik.
     for identInfoNode in identInfoNodes:

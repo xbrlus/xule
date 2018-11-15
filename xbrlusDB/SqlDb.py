@@ -151,7 +151,7 @@ class XPDBException(Exception):
 class SqlDbConnection():
     def __init__(self, modelXbrl, user, password, host, port, database, timeout, product):
         self.modelXbrl = modelXbrl
-        self.disclosureSystem = modelXbrl.modelManager.disclosureSystem
+        #self.disclosureSystem = modelXbrl.modelManager.disclosureSystem
         if product == "postgres":
             if not hasPostgres:
                 raise XPDBException("xpgDB:MissingPostgresInterface",
@@ -223,7 +223,8 @@ class SqlDbConnection():
         return not bool(self.__dict__)  # closed when dict is empty
     
     def showStatus(self, msg, clearAfter=None):
-        self.modelXbrl.modelManager.showStatus(msg, clearAfter)
+        if self.modelXbrl is not None:
+            self.modelXbrl.modelManager.showStatus(msg, clearAfter)
         
     def pyBoolFromDbBool(self, str):
         return str in ("TRUE", "t", True)  # may be DB string or Python boolean (preconverted)
@@ -379,7 +380,8 @@ class SqlDbConnection():
         for sequence in self.sequencesInDB():
             result = self.execute('DROP SEQUENCE %s' % sequence,
                                   close=False, commit=False, fetch=False, action="dropping sequence")
-        self.modelXbrl.profileStat(_("XbrlPublicDB: drop prior tables"), time.time() - startedAt)
+        if self.modelXbrl is not None:
+            self.modelXbrl.profileStat(_("XbrlPublicDB: drop prior tables"), time.time() - startedAt)
                     
         startedAt = time.time()
         with io.open(os.path.dirname(__file__) + os.sep + ddlFile, 
@@ -441,7 +443,8 @@ class SqlDbConnection():
                 """
         self.showStatus("")
         self.conn.commit()
-        self.modelXbrl.profileStat(_("XbrlPublicDB: create tables"), time.time() - startedAt)
+        if self.modelXbrl is not None:
+            self.modelXbrl.profileStat(_("XbrlPublicDB: create tables"), time.time() - startedAt)
         self.closeCursor()
         
     def databasesInDB(self):

@@ -15,7 +15,7 @@ and does not apply to the XBRL US Database schema and description.
 
 import time, os, io, sys, logging
 from arelle.Locale import format_string
-from .XbrlPublicPostgresDB import insertIntoDB
+from .XbrlPublicPostgresDB import insertIntoDB, XbrlPostgresDatabaseConnection
 from lxml import etree
 from arelle import ModelManager
 import optparse
@@ -113,15 +113,35 @@ def xbrlDBcommandLineOptionChecker(cntlr, options, **kwargs):
         if len(name.strip()) == 0:
             parser.error(_("--xbrlusDB-info value must be in the form of NAME=VALUE"))
 
-    if getattr(options, 'xbrlusDBUpdateSource', None) is not None and getattr(options, "storeIntoXbrlDb", False):  
-        host, port, user,password, db, timeout = parseConnectionString(options,cntlr)      
-        updateSource(cntlr, host=host, port=port, user=user, password=password, database=db, timeout=timeout, options=options)
-        
-        
+#    if getattr(options, 'xbrlusDBUpdateSource', None) is not None and getattr(options, "storeIntoXbrlDb", False):
+#        host, port, user,password, db, timeout = parseConnectionString(options,cntlr)
+#        updateSource(cntlr, host=host, port=port, user=user, password=password, database=db, timeout=timeout, options=options)
+
+def xbrlDBCommandLineFilingStart(cntlr, options, filesource, entrypointFiles, sourceZipStream=None, responseZipStream=None):
+    '''Identify the entry points that are already in the database before they are loaded as modelXbrl objects by Arelle.
+
+    This will remove entrypoints that are already in the database'''
+    host, port, user, password, db, timeout = parseConnectionString(options, cntlr)
+    conn = XbrlPostgresDatabaseConnection(cntlr, None, user, password, host, port, db, timeout, 'postgres', options)
+    # Load the source module
+    conn.loadSource()
+
+    if conn.sourceFunction('checkLoaded') is not None:
+    # This will set the source module call to 'checkLoaded'
+        def checkLoaded(entryPoint):
+            return conn.sourceCall(entryPoint)
+
+        for entryPoint in tuple(entrypointFiles):
+            if checkLoaded(entryPoint.get('file')):
+                cntlr.addToLog("Skipping {}, already loaded.".format(entryPoint))
+                entrypointFiles.remove(entryPoint)
+
+    conn.close()
+
 def xbrlDBCommandLineXbrlRun(cntlr, options, modelXbrl, entryPoint):
 
     if getattr(options, "storeIntoXbrlDb", False):
-        host, port, user,password, db, timeout = parseConnectionString(options, cntlr)
+        host, port, user, password, db, timeout = parseConnectionString(options, cntlr)
         startedAt = time.time()
         result = insertIntoDB(cntlr, modelXbrl, host=host, port=port, user=user, password=password, database=db, timeout=timeout, options=options)
         if getattr(options, "logStoredMsg", False): #kwargs.get("logStoredMsg", result): # if false/None result and no logStoredMsg parameter then skip the message
@@ -195,6 +215,7 @@ __pluginInfo__ = {
     'CntlrCmdLine.Options': xbrlDBcommandLineOptionExtender,
     'CntlrCmdLine.Utility.Run': xbrlDBcommandLineOptionChecker,
     #'CntlrCmdLine.Xbrl.Loaded': xbrlDBCommandLineXbrlLoaded,
+    #'CntlrCmdLine.Filing.Start': xbrlDBCommandLineFilingStart,  # This is called before the entry points are loaded as modelXbrl objects
     'CntlrCmdLine.Xbrl.Run': xbrlDBCommandLineXbrlRun,
     #'DialogRssWatch.FileChoices': xbrlDBdialogRssWatchDBconnection,
     #'DialogRssWatch.ValidateChoices': xbrlDBdialogRssWatchValidateChoices,

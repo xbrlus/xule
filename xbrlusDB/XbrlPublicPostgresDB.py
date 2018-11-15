@@ -42,13 +42,14 @@ windows
 import time
 import datetime
 import decimal
-from arelle.ModelDocument import Type
+from arelle.ModelDocument import Type, ModelDocument
 from arelle.ModelDtsObject import ModelConcept, ModelResource
 from arelle.ModelInstanceObject import ModelFact
+from arelle.ModelObject import ModelObject
 from arelle.ModelValue import qname
 from arelle.ValidateXbrlCalcs import roundValue
 from arelle.XmlUtil import elementFragmentIdentifier
-from arelle import XbrlConst
+from arelle import XbrlConst, FileSource
 from .SqlDb import XPDBException, isSqlConnection, SqlDbConnection
 from contextlib import contextmanager
 import re
@@ -66,7 +67,6 @@ import json
 def insertIntoDB(cntlr, modelXbrl, 
                  user=None, password=None, host=None, port=None, database=None, timeout=None,
                  options=None):
-    
     xpgdb = None
 
     try:
@@ -135,22 +135,19 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         for nameValue in getattr(options, 'xbrlusDBInfo', None) or tuple():
             name, value = nameValue.split('=',1) #the format was validated in the parser argument checking
             options.xbrlusDBInfos[name.strip()] = value   
-        
-        self.modelXbrl.info("info",_("Connected to database. Host: {}, Port: {}, Database: {}, User: {}".format(host, port, database,user)))
+
+        self.cntlr.addToLog(_("Connected to database. Host: {}, Port: {}, Database: {}, User: {}".format(host, port, database,user)), "info")
     
     def loadSource(self):
         #import source module
         sourceName = getattr(self.options, "xbrlusDBSource", None)
-        sourceDir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'source')
         
         if sourceName is None:
             #This should not happen
             raise XPDBException("xpgDB:NoSourceSpedified",
                                 _("A source must be specified using --xbrlusDB-source. If the defaults are desired explicitly state this with '--xbrlusDBSource default'"))
         elif sourceName != 'default':
-            self.modelXbrl.info("info", _("%(now)s - Using source %(source)s"),
-                        source=sourceName,
-                        now=str(datetime.datetime.today()))
+            self.cntlr.addToLog(_("{} - Using source {}".format(str(datetime.datetime.today()), sourceName)), "info")
             currentPackageName = __name__.split('.')[0]
             self.sourceMod = None
             try:
@@ -160,13 +157,13 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                 sourceNameFull = 'arelle.plugin.' + currentPackageName + '.source.' + sourceName
                 spec = importlib.util.spec_from_file_location(sourceNameFull, sourceModFileName)
                 self.sourceMod = importlib.util.module_from_spec(spec)
-
+                spec.loader.exec_module(self.sourceMod)
                 #self.sourceMod = importlib.import_module('arelle.plugin.' + currentPackageName + '.source.' + sourceName)
             except ImportError:
                 raise XPDBException("xpgDB:InvalidSource",
                                 _("Source '%s' cannot be found" % sourceName))            
-        self.sourceName = sourceName.strip()    
-    
+        self.sourceName = sourceName.strip()
+
     def verifyTables(self):
         missingTables = XBRLDBTABLES - self.tablesInDB()
 
@@ -309,6 +306,23 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                                               timeTook='%02.0f:%02.0f:%02.4f' % (hours, minutes, seconds))   
             
             self.timerStart = datetime.datetime.now()
+
+    def quickHashReport(self):
+        """Create a hash to uniquely identify the report.
+
+        The quick hash is based on hashing the facts in the model and digesting the string with the sha256
+        algorithm.
+        """
+
+        fact_string_hashes = [self.quickStringHashFact(x) for x in self.modelXbrl.facts]
+        hash = hashlib.sha256()
+        for fact_string in fact_string_hashes:
+            hash.update(fact_string.encode())
+
+        return hash
+
+    def quickStringHashFact(self, modelFact):
+        return 'a'
 
     def excludeReport(self):      
         try:
@@ -508,13 +522,22 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
     def defaultEntityAndFilingInfo(self):
         #Certain information is necessary to process a filing.
 
-        if getattr(self, 'accessionNumber', None) is None:
-            max_id_query = '''SELECT max(CASE WHEN trim(source_report_identifier) ~ '^[0-9]+$' THEN trim(source_report_identifier)::int ELSE Null END) FROM report'''
-            result = self.execute(max_id_query)
-            if len(result) == 0 or result[0][0] is None:
-                self.accessionNumber = '1'
-            else:
-                self.accessionNumber = str(result[0][0] + 1)
+        self.accessionNumber = getattr(self, 'accessionNumber', None) or self.options.xbrlusDBInfos.get('report-id', None)
+        if self.accessionNumber is None:
+            # Check if the source requires a report id
+            if self.getSourceSetting('requiresSourceReportIdentifier') == True:
+                raise XPDBException("xpgDB:reportIdentiferRequired",
+                                    _("Loading a report for source {} requires a report identifier. Cannot extract a report identifier from the report or supporting files. "
+                                       "A report identifier can be provided by using the option --xbrlusDB-info report-id={{report identifier}}".format(self.sourceName)))
+
+            self.accessionNumber = self.quickHashReport()
+
+#            max_id_query = '''SELECT max(CASE WHEN trim(source_report_identifier) ~ '^[0-9]+$' THEN trim(source_report_identifier)::int ELSE Null END) FROM report'''
+#            result = self.execute(max_id_query)
+#            if len(result) == 0 or result[0][0] is None:
+#                self.accessionNumber = '1'
+#            else:
+#                self.accessionNumber = str(result[0][0] + 1)
             self.modelXbrl.info("Info", _("Report identifier is not provided, assigned value of '{}'.".format(self.accessionNumber)))
 
         #default to the file passed an an argument
@@ -543,16 +566,6 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
 
         if not hasattr(self, "period"):
             self.period = None
-
-    @contextmanager
-    def getFile(self, fileName):
-        try:
-            fileHandle = open(fileName, 'rb')
-        except (OSError, IOError):
-            #try open from web address
-            fileHandle = urllib.request.urlopen(fileName)
-        yield fileHandle
-        fileHandle.close()
     
     def isUrl(self, url):
         if re.match('https?:', url):
@@ -568,7 +581,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         table = self.getTable('entity', 'entity_id', 
                       ('entity_name','entity_code', 'authority_scheme'), 
                       ('entity_code',), 
-                      ((self.entityName,
+                      ((self.entityName or '',
                         self.entityIdentifier,
                         self.entityScheme
                         ),),
@@ -641,7 +654,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
     def getSimpleModelFactByQname(self, partialNS, localName):
         simpleFacts = [item for item in self.modelXbrl.facts
                                     if item.qname.localName == localName
-                                    and re.search(partialNS, item.qname.namespaceURI) is not None
+                                    and (partialNS is None or re.search(partialNS, item.qname.namespaceURI) is not None)
                                     #and partialNS in item.qname.namespaceURI
                                     and len(item.context.qnameDims) == 0]
         if len(simpleFacts) > 0:
@@ -1044,11 +1057,21 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                         filePath = modelDocument.filepath
 
                     targetNamespace = modelDocument.targetNamespace
-                    
+
                 if filePath is not None:
-                    with self.getFile(filePath) as inlineFile:
-                        docContent = inlineFile.read().decode()
-                    #docContent = etree.tostring(doc.xmlDocument, encoding=doc.documentEncoding)
+                    # Check if the file is in an entry zip stream. An entry zip stream is a zip file that is not
+                    # in the file system (usually read from a http request).
+                    if (hasattr(self.cntlr, 'xbrlusDB_entry_zipfile') and
+                        filePath.startswith(FileSource.POST_UPLOADED_ZIP) and
+                        filePath[len(FileSource.POST_UPLOADED_ZIP) + 1:].replace('\\','/') in self.cntlr.xbrlusDB_entry_zipfile.namelist()):
+                            # The file is in the entry zip stream
+                            filePathInZip = filePath[len(FileSource.POST_UPLOADED_ZIP) + 1:].replace('\\','/')
+                            docContent = self.cntlr.xbrlusDB_entry_zipfile.open(filePathInZip).read().decode()
+                    else:
+                        # Use the Arelle FileSource to open the file.
+                        filesourceFileObject = FileSource.openFileStream(self.cntlr, filePath)
+                        docContent = filesourceFileObject.read()
+                        filesourceFileObject.close()
                 else:                    
                     docContent = None
                 if docExisting: #its in the database but not loaded.
@@ -1317,8 +1340,8 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                                                       if not isinstance(concept.baseXbrliTypeQname, list)
                                                       else concept.baseXbrliTypeQname[0]
                                                       ), # may be None or may be a list for a union
-                                     {'debit':1, 'credit':2, None:None}[concept.balance],
-                                     {'instant':1, 'duration':2, 'forever':3, None:None}[concept.periodType],
+                                     {'debit':1, 'credit':2, None:None}.get(concept.balance),
+                                     {'instant':1, 'duration':2, 'forever':3, None:None}.get(concept.periodType.strip() if concept.periodType is not None else None),
                                      self.getQnameId(concept.substitutionGroupQname), # may be None
                                      concept.isAbstract, 
                                      concept.isNillable,
@@ -2505,18 +2528,25 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
     def updateReportStats(self):
          
         #recalculate the restatement index for all reports for the entity.
-        query = '''
+        if self.period is not None:
+            query = '''
+                UPDATE report r
+                SET restatement_index = rn
+                FROM (
+                    SELECT row_number() over(w) AS rn, report_id
+                    FROM report
+                    WHERE entity_id = %s
+                    WINDOW w AS (partition BY entity_id, reporting_period_end_date ORDER BY accepted_timestamp DESC)) x
+                WHERE r.report_id = x.report_id 
+                  AND x.rn <> coalesce(r.restatement_index,0)''' % (self.entityId)
+            self.execute(query, fetch=False)
+        else:
+            query = '''
             UPDATE report r
-            SET restatement_index = rn
-            FROM (
-                SELECT row_number() over(w) AS rn, report_id
-                FROM report
-                WHERE entity_id = %s
-                WINDOW w AS (partition BY entity_id, reporting_period_end_date ORDER BY accepted_timestamp DESC)) x
-            WHERE r.report_id = x.report_id 
-              AND x.rn <> coalesce(r.restatement_index,0)''' % (self.entityId)
-        self.execute(query, fetch=False)
-        
+            SET restatement_index = 1
+            WHERE report_id = %s''' % (self.accessionId)
+            self.execute(query, fetch=False)
+
         #recalculate the period index for all reports for the entity
         query = '''
             UPDATE report r
@@ -2529,7 +2559,9 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
             WHERE r.report_id = x.report_id
               AND x.rn <> coalesce(r.period_index, 0)''' % (self.entityId)
         self.execute(query, fetch=False)
-        
+
+
+
         #update is most current
         query = '''
             UPDATE report r
@@ -2552,15 +2584,16 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
 
     def sourceCall(self, *args, **kwargs):
         callFunctionName = inspect.stack()[1][3]
-        callFunction = None
-        #check if there is a source module being used
-        if getattr(self, 'sourceMod', None) is not None and hasattr(self.sourceMod, '__sourceInfo__') and "overrideFunctions" in self.sourceMod.__sourceInfo__:
-            #check if the function is in the source module
-            callFunction = self.sourceMod.__sourceInfo__['overrideFunctions'].get(callFunctionName)
+        callFunction = self.sourceFunction(callFunctionName)
 
         if callFunction is None:
             raise self._SourceFunctionError
         else:
             return callFunction(self, *args, **kwargs)
 
+    def sourceFunction(self, callFunctionName):
+        #check if there is a source module being used
+        if getattr(self, 'sourceMod', None) is not None and hasattr(self.sourceMod, '__sourceInfo__') and "overrideFunctions" in self.sourceMod.__sourceInfo__:
+            #check if the function is in the source module
+            return self.sourceMod.__sourceInfo__['overrideFunctions'].get(callFunctionName)
          
