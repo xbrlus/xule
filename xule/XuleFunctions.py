@@ -630,7 +630,7 @@ def func_json_data(xule_context, *args):
     file_url = args[0]
 
     if file_url.type not in ('string', 'uri'):
-        raise XuleProcessingError(_("The file url argument of the json-dta() function must be a string or uri, found '{}'.".format(file_url.value)), xule_contet)
+        raise XuleProcessingError(_("The file url argument of the json-dta() function must be a string or uri, found '{}'.".format(file_url.value)), xule_context)
 
     from arelle import PackageManager
     mapped_file_url = PackageManager.mappedUrl(file_url.value)
