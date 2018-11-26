@@ -926,7 +926,7 @@ def property_concepts(xule_context, object_value, *args):
 def property_concept_names(xule_context, object_value, *args):
      
     if object_value.type == 'taxonomy':
-        concepts = set(xv.XuleValue(xule_context, x.qname, 'qanme') for x in object_value.value.qnameConcepts.values() if x.isItem or x.isTuple)
+        concepts = set(xv.XuleValue(xule_context, x.qname, 'qname') for x in object_value.value.qnameConcepts.values() if x.isItem or x.isTuple)
     elif object_value.type == 'network':
         concepts = set(xv.XuleValue(xule_context, x.qname, 'qname') for x in (object_value.value[1].fromModelObjects().keys()) | frozenset(object_value.value[1].toModelObjects().keys()))
     else:
