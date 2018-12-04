@@ -584,7 +584,7 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
             parse_node['dependent_vars'] = descendant_dependent_vars
             parse_node['dependent_iterables'] = descendant_dependent_iterables
             parse_node['downstream_iterables'] = descendant_downstream_iterables
-            
+
             if current_part == 'factset':
                 parse_node['is_iterable'] = True
                 parse_node['number'] = 'multi'
@@ -617,7 +617,11 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
 #                 self.assign_table_id(parseRes.expr[0], var_defs, override_node_id=parseRes.node_id)
 #
                 if 'innerExpr' in parse_node:
-                    self.assign_table_id(parse_node['innerExpr'], var_defs, override_node_id=parse_node['node_id'])           
+                    self.assign_table_id(parse_node['innerExpr'], var_defs, override_node_id=parse_node['node_id'])
+
+                if 'whereExpr' in parse_node:
+                    self.assign_table_id(parse_node['whereExpr'], var_defs)
+
             
             elif current_part == 'navigation':
                 if 'whereExpr' in parse_node:
@@ -628,12 +632,6 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
             elif current_part == 'filter':
                 if 'whereExpr' in parse_node or 'returnsExpr' in parse_node:
                     parse_node['var_refs'] = [x for x in parse_node['var_refs'] if x[0] != parse_node['expr']['node_id']]
-                    
-            elif current_part == 'whereExpr':
-                '''whereExpr IS NOW IN NAVIGATION AND FILTERS. DOES THE whereExpr NEED TO HAVE A TABLE ID FOR THESE EXPRESSION?'''
-                #set the table id
-                if parse_node['location'] == 'factset':
-                    self.assign_table_id(parse_node, var_defs)
         
             elif current_part == 'forExpr':
                 parse_node['number'] = 'multi'
