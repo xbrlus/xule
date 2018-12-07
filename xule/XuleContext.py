@@ -416,6 +416,16 @@ class XuleRuleContext(object):
         new_context.iteration_table.add_table(-1, processing_id)
         new_context.facts = self.facts.copy()
         new_context.tags = self.tags.copy()
+
+        # Convert tagged 'unbound' values to 'none' values. This can happen if there is a factset that does not bind
+        # but still a message is produced. i.e. output x @a#a + @b#b message '{$a} + {$b}'. In this case if @b does not
+        # bind the value of $b will be 'unbound'. When this is processed in the message, it will cause a stop iteration.
+        for tag_name, tag_value in new_context.tags.items():
+            if tag_value.type == 'unbound':
+                new_tag_value = tag_value.clone()
+                # Change the unbound to a none
+                new_tag_value.type = 'none'
+                new_context.tags[tag_name] = new_tag_value
         return new_context
 
     def add_tag(self, tag, value):
