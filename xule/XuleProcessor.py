@@ -4318,7 +4318,7 @@ def process_property(current_property_expr, object_value, property_info, xule_co
         object_value = property_info[XuleProperties.PROP_FUNCTION](xule_context, object_value, *arg_values)
 
     if 'tagName' in current_property_expr:
-        xule_context.tags[current_property_expr.tagName] = object_value
+        xule_context.tags[current_property_expr['tagName']] = object_value
 
     return object_value
 
