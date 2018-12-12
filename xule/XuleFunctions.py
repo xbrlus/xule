@@ -429,8 +429,12 @@ def agg_dict(xule_context, values):
 
 def func_taxonomy(xule_context, *args):
     if len(args) == 0:
-        setattr(xule_context.model, 'taxonomy_name', 'instance')
-        return xv.XuleValue(xule_context, xule_context.model, 'taxonomy')
+        if xule_context.model is None:
+            # There is no instance doucment
+            return xv.XuleValue(xule_context, None, 'none')
+        else:
+            setattr(xule_context.model, 'taxonomy_name', 'instance')
+            return xv.XuleValue(xule_context, xule_context.model, 'taxonomy')
     elif len(args) == 1:
         taxonomy_url = args[0]
         if taxonomy_url.type not in ('string', 'uri'):
