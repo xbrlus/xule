@@ -491,17 +491,17 @@ def get_grammar():
                        Empty().setParseAction(lambda s, l, t: "list").setResultsName("functionName")
                        )
     
-    dictExpr = Group(Suppress(CaselessKeyword('dict')) + 
-                     Group(delimitedList(Group(blockExpr.setResultsName('key') + Literal('=') + blockExpr.setResultsName('value') + nodeName('item')))).setResultsName('items') +
-                     nodeName('dictExpr'))
-    
-    listExpr = Group(Suppress(CaselessKeyword('list')) +
-                     Group(delimitedList(blockExpr)).setResultsName('items') +
-                     nodeName('listExpr'))
-    
-    setExpr = Group(Suppress(CaselessKeyword('set')) + 
-                    Group(delimitedList(blockExpr)).setResultsName('items') +
-                    nodeName('setExpr'))
+    #dictExpr = Group(Suppress(CaselessKeyword('dict')) +
+    #                 Group(delimitedList(Group(blockExpr.setResultsName('key') + Literal('=') + blockExpr.setResultsName('value') + nodeName('item')))).setResultsName('items') +
+    #                 nodeName('dictExpr'))
+    #
+    #listExpr = Group(Suppress(CaselessKeyword('list')) +
+    #                 Group(delimitedList(blockExpr)).setResultsName('items') +
+    #                 nodeName('listExpr'))
+    #
+    #setExpr = Group(Suppress(CaselessKeyword('set')) +
+    #                Group(delimitedList(blockExpr)).setResultsName('items') +
+    #                nodeName('setExpr'))
     
     atom = (
             #listLiteral |
@@ -533,9 +533,9 @@ def get_grammar():
             
             #aspectNameLiteral |
             
-            dictExpr |
-            listExpr |
-            setExpr |
+            #dictExpr |
+            #listExpr |
+            #setExpr |
             
             qName #|
             
