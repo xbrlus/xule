@@ -440,7 +440,7 @@ def index_table_properties(xule_context):
         cube = XuleDimensionCube(xule_context.model, *cube_base, include_facts=True)
         xule_context.global_context.fact_index[('builtin', 'cube')][cube] |= cube.facts
         xule_context.global_context.fact_index[('property', 'cube', 'name')][cube.hypercube.qname] |= cube.facts
-        xule_context.global_context.fact_index[('property', 'cube', 'drs-role')][cube.drs_role] |= cube.facts
+        xule_context.global_context.fact_index[('property', 'cube', 'drs-role')][cube.drs_role.roleURI] |= cube.facts
 
 def get_decimalized_value(fact_a, fact_b, xule_context):
     """Adjust 2 fact values based on accuracy.
@@ -4650,6 +4650,8 @@ def convert_value_to_role(value, xule_context):
         return value.value
     elif value.type == 'qname':
         return XuleUtility.resolve_role(value, 'role', xule_context.model, xule_context)
+    elif value.type == 'role':
+        return value.value.roleURI
     elif value.type in ('unbound', 'none'):
         return None
     else:
