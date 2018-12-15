@@ -763,7 +763,7 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
     if isXuleDirect():
         xuleRegisterValidators('Xule', _xule_rule_set_map_name)
     
-def xuleCmdXbrlLoaded(cntlr, options, modelXbrl, entryPoint=None):   
+def xuleCmdXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
     if getattr(options, "xule_run", None):
         runXule(cntlr, options, modelXbrl)
         
