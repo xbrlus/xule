@@ -997,7 +997,7 @@ class XuleDimensionCube:
                     self._to_relationships[has_rel.toModelObject].append(has_rel)
 
                     #identify concepts
-                    self._concept_types[has_rel.fromModelObject][DIMENSION_TYPE] = 'hypdercube'
+                    self._concept_types[has_rel.fromModelObject][DIMENSION_TYPE] = 'hypercube'
                     self._concept_types[has_rel.toModelObject][DIMENSION_TYPE] = 'primary-member'
                     self._concept_types[has_rel.toModelObject][DIMENSION_SUB_TYPE] = 'primary'
                     self._concept_types[has_rel.toModelObject][HYPERCUBE_CLOSED] = (self._concept_types[has_rel.toModelObject][HYPERCUBE_CLOSED] or True) and bool(has_rel.arcElement.get('{http://xbrl.org/2005/xbrldt}closed', False))
