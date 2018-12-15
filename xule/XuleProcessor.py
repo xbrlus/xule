@@ -3577,9 +3577,8 @@ def get_network_info(network, xule_context):
     return (network_info, network)
 
 
-def nav_decorate_component_cycle(rel, direction, component_name, xule_context):
-    return (rel.get('cycle', False), 'bool', component_name)
-
+def nav_decorate_component_cycle(rel, direction, component_name, is_start, xule_context):
+    return (False if is_start else rel.get('cycle', False), 'bool', component_name)
 
 def nav_decorate_component_navigation_order(rel, direction, component_name, is_start, xule_context):
     if is_start:
@@ -3678,7 +3677,7 @@ NAVIGATE_RETURN_COMPONENTS = {'source': (nav_decorate_component_source, False),
                               'link-name': (nav_decorate_component_link_name, False),
                               'arc-name': (nav_decorate_component_arc_name, False),
                               'network': (nav_decorate_component_network, False),
-                              'cycle': (nav_decorate_component_cycle, False),
+                              'cycle': (nav_decorate_component_cycle, True),
                               'navigation-order': (nav_decorate_component_navigation_order, True),
                               'navigation-depth': (nav_decorate_component_navigation_depth, True),
                               'result-order': (nav_decorate_component_result_order, True),
