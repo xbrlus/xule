@@ -1814,30 +1814,26 @@ def evaluate_add(add_expr, xule_context):
         if left.type == 'time-period' and right.type != 'time-period':
             raise XuleProcessingError(_("Incompatabile operands {} {} {}.".format(left.type, operator, right.type)),
                                       xule_context)
-
         do_calc = True
 
-        if left_bar and right_bar:  # <+>
-            if left.type in ('unbound', 'none') or right.type in ('unbound', 'none'):
-                raise XuleIterationStop(XuleValue(xule_context, None, 'unbound'))
-        elif left_bar and not right_bar:  # <+
-            if left.type in ('unbound', 'none'):
-                raise XuleIterationStop(XuleValue(xule_context, None, 'unbound'))
-            if right.type in ('unbound', 'none'):
-                # the left value is the interim value
-                do_calc = False
-        elif not left_bar and right_bar:  # +>
-            if right.type in ('unbound', 'none'):
-                raise XuleIterationStop(XuleValue(xule_context, None, 'unbound'))
-            if left.type in ('unbound', 'none'):
-                left = right
-                do_calc = False
-        else:  # no bars
-            if left.type in ('unbound', 'none'):
-                left = right
-                do_calc = False
-            elif right.type in ('unbound', 'none'):
-                do_calc = False  # the value is already in the left
+        if left_bar and left.type in ('unbound', 'none'):
+            raise XuleIterationStop(XuleValue(xule_context, None, 'unbound'))
+        if right_bar and right.type in ('unbound', 'none'):
+            raise XuleIterationStop(XuleValue(xule_context, None, 'unbound'))
+
+        if left.type in ('unbound', 'none'):
+            # This is a special case for numbers. The left is none/unbound and the right is number. The new value will
+            # be the negative of the right.
+            if right.type in ('int', 'float', 'decimal') and '-' in operator:
+                right = XuleValue(xule_context, right.value * -1, right.type)
+            left = right
+            do_calc = False
+        if right.type in ('unbound', 'none'):
+            do_calc = False
+
+        # this ensures that if there is no value in the entire expression, the final value will be skipped.
+        if left.type == 'none':
+            left.type = 'unbound'
 
         if do_calc:
             combined_type, left_compute_value, right_compute_value = combine_xule_types(left, right, xule_context)
@@ -1862,7 +1858,6 @@ def evaluate_add(add_expr, xule_context):
                     _("Unknown operator '%s' found in addition/subtraction operation." % operator), xule_context)
 
     return left
-
 
 def evaluate_comp(comp_expr, xule_context):
     """Evaluator for comparison expressions
