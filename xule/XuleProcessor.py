@@ -4481,7 +4481,7 @@ def process_factset_aspects(factset, xule_context):
 
         if aspect_name.type == 'aspect_name':
             # This is a built in aspect - one of concept, period, entity, unit or table
-            add_aspect_var(aspect_vars, 'builtin', aspect_filter['aspectName'], aspect_var_name,
+            add_aspect_var(aspect_vars, 'builtin', aspect_name.value, aspect_var_name,
                            aspect_filter['node_id'], xule_context)
             if aspect_name.value == 'concept' and alternate_notation:
                 raise XuleProcessingError(_(
