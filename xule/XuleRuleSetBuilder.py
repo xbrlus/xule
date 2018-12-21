@@ -188,7 +188,7 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
                     rule_name_prefix = cur_node['prefix']
                 
             elif cur_name == 'ruleNameSeparator':
-                print("SEPARATOR", cur_node['separator'], cur_node['separator'].lower() == 'none')
+                #print("SEPARATOR", cur_node['separator'], cur_node['separator'].lower() == 'none')
                 if cur_node['separator'].lower() == 'none':
                     rule_name_separator = ''
                 else:
