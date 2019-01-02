@@ -1609,8 +1609,8 @@ def traverse_for_weight(network, parent, stop_concept, previous_concepts=None, p
     
     for child_rel in network.fromModelObject(parent):
         if child_rel.toModelObject in previous_concepts:
-            # In a cyle - skip this child.
-            Continue
+            # In a cycle - skip this child.
+            continue
         if child_rel.toModelObject is stop_concept:
             results.append(previous_weights + [child_rel.weight,])
         else:
