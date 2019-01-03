@@ -657,8 +657,8 @@ def property_enumerations(xule_context, object_value, *args):
         model_type = object_value.value
     elif object_value.type == 'concept':    
         model_type = object_value.value.type
-    else: # None
-        return object_vlaue
+    else: # None - this should not happen as the property only allows fact, type or concept.
+        return object_value
     
     if model_type.facets is None:
         return xv.XuleValue(xule_context, frozenset(), 'set')
