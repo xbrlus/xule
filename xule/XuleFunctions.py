@@ -456,17 +456,16 @@ def func_csv_data(xule_context, *args):
                            treated as stirngs.
         as_dictionary (boolean) - return the row as a dictionary instead of a list. This is optional.
     """
-    
-    file_url = args[0]
-    has_headers = args[1]
-
     if len(args) < 2:
         raise XuleProcessingError(_("The csv-data() function requires at least 2 arguments (file url, has headers), found {} arguments.".format(len(args))), xule_context)
     if len(args) > 4:
         raise XuleProcessingError(_("The csv-data() function takes no more than 3 arguments (file url, has headers, column types, as dictionary), found {} arguments.".format(len(args))), xule_context)
 
+    file_url = args[0]
+    has_headers = args[1]
+
     if file_url.type not in ('string', 'uri'):
-        raise XuleProcessingError(_("The file url argument (1st argument) of the csv-dta() function must be a string or uri, found '{}'.".format(file_url.value)), xule_contet)
+        raise XuleProcessingError(_("The file url argument (1st argument) of the csv-dta() function must be a string or uri, found '{}'.".format(file_url.value)), xule_context)
     
     if has_headers.type != 'bool':
         raise XuleProcessingError(_("The has headers argument (2nd argument) of the csv-data() function muset be a boolean, found '{}'.".format(has_headers.type)), xule_context)
