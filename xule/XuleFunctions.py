@@ -123,7 +123,10 @@ def func_schema_type(xule_context, *args):
     arg = args[0]
     
     if arg.type == 'qname':
-        return xv.XuleValue(xule_context, arg.value, 'type')
+        if arg.value in xule_context.model.qnameTypes:
+            return xv.XuleValue(xule_context, xule_context.model.qnameTypes[arg.value], 'type')
+        else:
+            return xv.XuleValue(xule_context, None, 'none')
     else:
         raise XuleProcessingError(_("Function 'schema' expects a qname argument, found '%s'" % arg.type), xule_context)
 
