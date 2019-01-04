@@ -26,6 +26,7 @@ DOCSKIP
 from aniso8601 import parse_duration
 from arelle.ModelValue import qname, QName
 import collections
+import datetime
 import decimal
 import json
 
