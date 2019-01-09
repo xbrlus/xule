@@ -1680,7 +1680,7 @@ PROPERTIES = {
               'is-numeric': (property_is_numeric, 0, ('concept', 'fact'), True),
               'is-monetary': (property_is_monetary, 0, ('concept', 'fact'), True),
               'is-abstract': (property_is_abstract, 0, ('concept', 'fact'), True),
-              'is-nil': (property_is_nil, 0, ('fact'), True),
+              'is-nil': (property_is_nil, 0, ('fact',), True),
               'is-fact': (property_is_fact, 0, (), True),
               'scale': (property_scale, 0, ('fact',), True),
               'format': (property_format, 0, ('fact',), True),
