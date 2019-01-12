@@ -1091,7 +1091,6 @@ class XuleDimensionCube:
         if self.has_facts:
             return # The facts are already here
 
-        self.has_facts = True
         if not hasattr(self._dts, 'xuleFactIndex'):
             # This dts has not been indexed. For now will treat as if there are no facts. But probably should
             # consider building the fact index for the DTS
@@ -1100,6 +1099,8 @@ class XuleDimensionCube:
         # get all facts for the concepts in the cube
         self._facts_all = self._find_facts(self._primaries_all)
         self._facts_not_all = self._find_facts(self._primaries_not_all)
+
+        self.has_facts = True
 
     def _find_facts(self, primaries):
 
@@ -1206,24 +1207,32 @@ class XuleDimensionCube:
 
     @property
     def facts(self):
-        if not hasattr(self, '_facts'):
-            facts = getattr(self, '_facts_all', set())
-            if len(facts) > 0: # This only needs to be done if there are facts to eliminate
-                # Need to eliminate facts in negative cubes within the same drs
-                for base_dimension in self.base_dimension_sets(self._dts):
-                    if base_dimension[0] == self.drs_role.roleURI: # This cube is in the same drs
-                        facts -= getattr(XuleDimensionCube(self._dts, *base_dimension, include_facts=True), '_facts_not_all', set())
-            self._facts = facts
+        if getattr(self, 'has_facts', False): # This prevents differences when debugging. See note below
+            if not hasattr(self, '_facts'):
+                facts = getattr(self, '_facts_all', set())
+                if len(facts) > 0: # This only needs to be done if there are facts to eliminate
+                    # Need to eliminate facts in negative cubes within the same drs
+                    for base_dimension in self.base_dimension_sets(self._dts):
+                        if base_dimension[0] == self.drs_role.roleURI: # This cube is in the same drs
+                            facts -= getattr(XuleDimensionCube(self._dts, *base_dimension, include_facts=True), '_facts_not_all', set())
+                self._facts = facts
 
-        return self._facts
+            return self._facts
+        else:
+            # The check on self having has_facts strickly speaking is not needed. However, when debugging and
+            # breaking at a point before the facts are gather and assigned to self._facts, the debugger
+            # runs this property. When this happens, this will return None and not try to gather the facts from
+            # self._facts_all and self._facts_not_all which may not have been populated yet. This prevents differences
+            # when running in the debugger and breaking vs just running.
+            return None
 
     def fromModelObject(self, concept):
         return self._from_relationships.get(concept, [])
-    
+
     @property
     def fromModelObjects(self):
         return set(x for x in self._from_relationships.values())
-    
+
     def toModelObject(self, concept):
         return self._to_relationships.get(concept, [])
     
