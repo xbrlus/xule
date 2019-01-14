@@ -361,7 +361,8 @@ class XuleRuleSet(object):
         #This case there is a file, but it didn't have any namespace declarations
         if prefix not in self.catalog['namespaces']:
             if prefix == '*':
-                raise XuleRuleSetError("There is no default namespace declaration.")
+                return None
+                #raise XuleRuleSetError("There is no default namespace declaration.")
             else:
                 raise XuleRuleSetError("Prefix %s does not have a namespace declaration." % prefix)
         
