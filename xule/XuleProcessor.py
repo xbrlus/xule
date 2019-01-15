@@ -4051,73 +4051,62 @@ def isolated_evaluation(xule_context, node_id, expr, setup_function=None, cleanu
 
     return return_values
 
-
 def evaluate_aggregate_function(function_ref, function_info, xule_context):
+    '''Aggregation functions
+
+    Aggregation functions perform 2 types of aggregation. The first is to colapse iterations generated from evaluating
+    the arguments of the aggregation fucntion. This is essentially the opposite of a for loop. The second is to combine
+    the values generated from each argument.
+    '''
+
     #     if function_ref.functionName.lower() in ('count', 'sum', 'all'):
     #         return evaluate_aggregate_function_concurrent(function_ref, function_info, xule_context)
 
-    values_by_alignment = collections.defaultdict(list)
-    facts_by_alignment = collections.defaultdict(collections.OrderedDict)
-    aligned_result_only = False
-    save_aligned_result_only = xule_context.aligned_result_only
-    used_expressions = set()
-    save_used_expressions = xule_context.used_expressions
+    # Evaluate each argument
+    values_by_argument = list()
     for function_arg in function_ref['functionArgs']:
-        # pre_aggregation_table_list_size = len(xule_context.iteration_table)
-        aggregation_table = xule_context.iteration_table.add_table(function_ref['node_id'],
-                                                                   xule_context.get_processing_id(
-                                                                       function_ref['node_id']), is_aggregation=True)
-        try:
-            while True:
-                xule_context.aligned_result_only = False
-                xule_context.used_expressions = set()
-                arg = XuleValue(xule_context, None, 'unbound')
-                try:
-                    arg = evaluate(function_arg, xule_context)
-                except XuleIterationStop:
-                    pass
+        values_by_argument.append(isolated_evaluation(xule_context, function_ref['node_id'], function_arg))
 
-                if arg.tags is None:
-                    arg.tags = xule_context.iteration_table.tags
-                else:
-                    arg.tags.update(xule_context.iteration_table.tags)
-                if arg.facts is None:
-                    arg.facts = xule_context.iteration_table.facts
-                else:
-                    arg.facts.update(xule_context.iteration_table.facts)
+    # Combine the value sets created from each argument
+    # Get all alignments
+    all_alignments = set()
+    for arg_value_set in values_by_argument:
+        for alignment in arg_value_set:
+            all_alignments.add(alignment)
 
-                if arg.type == 'unbound':
-                    values_by_alignment[None].append(arg)
-                else:
-                    values_by_alignment[xule_context.iteration_table.current_table.current_alignment].append(arg)
+    # Go through each alignment and pull the values from each of the arguments
+    values_by_alignment = collections.defaultdict(list)
+    # The aligned_result_only and used_expressions need to be aggregated
+    aligned_result_only_by_alignment = collections.defaultdict(lambda: False)
+    used_expressions_by_alignment = collections.defaultdict(set)
 
-                aligned_result_only = aligned_result_only or xule_context.aligned_result_only
-                used_expressions.update(set(xule_context.used_expressions))
+    for alignment in all_alignments:
+        values_by_alignment[alignment] = list()
+        for arg_value_set in values_by_argument:
+            if alignment in arg_value_set:
+                arg_alignment = alignment
+            else:
+                # This will match none aligned values to aligned values (i.e. 1 and @Assets)
+                arg_alignment = None
 
-                xule_context.iteration_table.next(function_ref['node_id'])
-                if aggregation_table.is_empty:
-                    break
+            for arg_value in arg_value_set.values[arg_alignment]:
+                if arg_value.type != 'unbound':
+                    values_by_alignment[alignment].append(arg_value)
+                aligned_result_only_by_alignment[alignment] = aligned_result_only_by_alignment[alignment] or arg_value.aligned_result_only
+                used_expressions_by_alignment[alignment].update((arg_value.used_expressions))
 
-        finally:
-            xule_context.aligned_result_only = save_aligned_result_only
-            xule_context.used_expressions = save_used_expressions
-
-            # ensure the aggregation table is removed in the event of an exception.
-            xule_context.iteration_table.del_table(aggregation_table.table_id)
-
+    # Go through each alignment and apply the aggregation function
     agg_values = XuleValueSet()
-
     # add default value if there are no None aligned results and the aggregation has a default value.
     if None not in values_by_alignment and function_info[FUNCTION_DEFAULT_VALUE] is not None:
         agg_values.append(
             XuleValue(xule_context, function_info[FUNCTION_DEFAULT_VALUE], function_info[FUNCTION_DEFAULT_TYPE]))
 
     for alignment in values_by_alignment:
-        values = [x for x in values_by_alignment[alignment] if x.type != 'unbound']
-
-        if len(values) > 0:
-            agg_value = function_info[FUNCTION_EVALUATOR](xule_context, values)
+        if len(values_by_alignment[alignment]) > 0:
+            agg_value = function_info[FUNCTION_EVALUATOR](xule_context, values_by_alignment[alignment])
         else:
+            # Add the default value if there is one
             if function_info[FUNCTION_DEFAULT_VALUE] is not None:
                 agg_value = XuleValue(xule_context, function_info[FUNCTION_DEFAULT_VALUE],
                                       function_info[FUNCTION_DEFAULT_TYPE])
@@ -4126,13 +4115,12 @@ def evaluate_aggregate_function(function_ref, function_info, xule_context):
 
         if agg_value is not None:
             agg_value.alignment = alignment
-            agg_value.aligned_result_only = aligned_result_only
+            agg_value.aligned_result_only = aligned_result_only_by_alignment[alignment]
             # print("agg", function_ref['exprName'], function_ref['node_id'], len(xule_context.used_expressions), len(used_expressions))
-            agg_value.used_expressions = used_expressions
+            agg_value.used_expressions = used_expressions_by_alignment[alignment]
             agg_values.append(agg_value)
 
     return agg_values
-
 
 def evaluate_aggregate_function_concurrent(function_ref, function_info, xule_context):
     values_by_alignment = collections.defaultdict(list)
