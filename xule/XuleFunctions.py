@@ -162,35 +162,6 @@ def func_extension_concept(xule_context, *args):
     
     return xv.XuleValue(xule_context, frozenset(concepts), 'set')
 
-def agg_count_concurrent(xule_context, current_agg_value, current_value, value_alignment):
-    if current_agg_value is None:
-        return xv.XuleValue(xule_context, 1, 'int', alignment=value_alignment)
-    else:
-        current_agg_value.value += 1
-        return current_agg_value
-
-def agg_sum_concurrent(xule_context, current_agg_value, current_value, value_alignment):
-    if current_agg_value is None:
-        return current_value.clone()
-    else:
-        combined_types = xv.combine_xule_types(current_agg_value, current_value, xule_context)
-        if combined_types[0] == 'set':
-            current_agg_value.value = current_agg_value.value | current_value.value 
-        else:
-            current_agg_value.value = combined_types[1] + combined_types[2]
-            current_agg_value.type  = combined_types[0]
-        return current_agg_value    
-
-def agg_all_concurrent(xule_context, current_agg_value, current_value, value_alignment):
-    if current_value.type != 'bool':
-        raise XuleProcessingError(_("Function all can only operator on booleans, but found '%s'." % current_value.type), xule_context)    
-    
-    if current_agg_value is None:
-        return current_value.clone()
-    else:
-        current_agg_value.value = current_agg_value.value and current_value.value   
-        return current_agg_value
-
 def agg_count(xule_context, values):
     alignment = values[0].alignment if len(values) > 0 else None
     return_value = xv.XuleValue(xule_context, len(values), 'int', alignment=alignment)
