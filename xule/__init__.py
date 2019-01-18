@@ -568,8 +568,10 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
     global _cntlr
     _cntlr = cntlr
     global _options
-    _options = options 
-    
+    _options = options
+
+    cntlr.addToLog("Xule version: %s" % __version__, 'info')
+
     # check option combinations
     parser = OptionParser()
     
