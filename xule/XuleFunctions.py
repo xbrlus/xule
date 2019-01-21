@@ -640,6 +640,48 @@ def func_first_value(xule_context, *args):
     # If here, either there were no arguments, or they were all none
     return xv.XuleValue(xule_context, None, 'none')
 
+def func_range(xule_context, *args):
+    """Return a list of numbers.
+
+    If there is one argument it is the stop value of the range with the start value of 1.
+    If there are 2 arguments, the first is the start and the second is the stop.
+    If there are 3 argument, the first is the start, the second the stop and the third is the step.
+    All the arguments must be convertible to an integer
+
+    """
+    # Check all arguments are numbers.
+    for position, arg in enumerate(args, 1):
+        if arg.type not in ('int', 'float', 'decimal'):
+            ordinal = "%d%s" % (position,"tsnrhtdd"[(position/10%10!=1)*(position%10<4)*position%10::4])
+            raise XuleProcessingError(
+                _("The {} argument of the 'range' function must be a number, found '{}'".format(ordinal, arg.type)), xule_context)
+        if not xv.xule_castable(arg, 'int', xule_context):
+            ordinal = "%d%s" % (position, "tsnrhtdd"[(position / 10 % 10 != 1) * (position % 10 < 4) * position % 10::4])
+            raise XuleProcessingError(
+                _("The {} argument of the 'range' function must be an integer, found '{}'".format(ordinal, arg.value)),
+                xule_context)
+
+
+    if len(args) == 0:
+        raise XuleProcessingError(_("The 'range' function requires at least one argument."), xule_context)
+    elif len(args) == 1:
+        start_num = 1
+        stop_num = int(args[0].value) + 1
+        step = 1
+    elif len(args) == 2:
+        start_num = int(args[0].value)
+        stop_num = int(args[1].value) + 1
+        step = 1
+    else:
+        start_num = int(args[0].value)
+        stop_num = int(args[1].value) + 1
+        step = int(args[2].value)
+
+    # Check that the
+    number_list = list(range(start_num, stop_num, step))
+    number_list_values = tuple(xv.XuleValue(xule_context, x, 'int') for x in number_list)
+    return xv.XuleValue(xule_context, number_list_values, 'list', shadow_collection=number_list)
+
 #the position of the function information
 FUNCTION_TYPE = 0
 FUNCTION_EVALUATOR = 1
@@ -684,7 +726,8 @@ def built_in_functions():
              'taxonomy': ('regular', func_taxonomy, -1, False, 'single'),
              'csv-data': ('regular', func_csv_data, -4, False, 'single'),
              'json-data': ('regular', func_json_data, 1, False, 'single'),
-             'first-value': ('regular', func_first_value, None, True, 'single')
+             'first-value': ('regular', func_first_value, None, True, 'single'),
+             'range': ('regular', func_range, -3, False, 'single'),
              }    
     
     
