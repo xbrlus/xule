@@ -58,7 +58,7 @@ def property_contains(xule_context, object_value, *args):
         if search_item.type in ('string', 'uri'):
             return xv.XuleValue(xule_context, search_item.value in object_value.value, 'bool')
     else:
-        raise XuleProcessingError(_("Property 'contains' or 'in' expression cannot operator on a '%s' and '%s'" % (object_value.type, search_item.type)), xule_context)
+        raise XuleProcessingError(_("Property 'contains' or 'in' expression cannot operate on a '%s' and '%s'" % (object_value.type, search_item.type)), xule_context)
 
 def property_length(xule_context, object_value, *args):
     if object_value.type in ('string', 'uri'):
