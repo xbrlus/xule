@@ -4864,7 +4864,7 @@ def get_alignment(model_fact, non_align_aspects, align_aspects, xule_context, in
                 alignment[('explicit_dimension',
                            fact_dimension_qname)] = dimension_value.memberQname if dimension_value.isExplicit else dimension_value.typedMember.xValue
 
-        return alignment
+    return alignment
 
 def get_uncommon_aspects(model_fact, common_aspects, xule_context):
     uncommon_aspects = {}
