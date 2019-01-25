@@ -2468,9 +2468,9 @@ def calc_fact_alignment(factset, fact, non_aligned_filters, align_aspects_filter
                                            not factset.get('coveredDims', False),
                                            factset.get('covered', False))
 
-        if len(unfrozen_alignment) == 0:
+        if len(unfrozen_alignment) == 0 and factset.get('covered', False):
             unfrozen_alignment = None
-            frozen_alignment = None
+            fact_alignment = None
         else:
             fact_alignment = frozenset(unfrozen_alignment.items())
         xule_context.fact_alignments[factset['node_id']][fact] = (fact_alignment, unfrozen_alignment)
@@ -2543,7 +2543,8 @@ def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non
 
         if alignment is not None:
             # if not current_no_alignment and xule_context.iteration_table.is_dependent:
-            if not current_no_alignment and factset['is_dependent']:
+            # if not current_no_alignment and factset['is_dependent']:
+            if factset['is_dependent']:
                 if xule_context.dependent_alignment is not None:
                     if frozenset(alignment.items()) != xule_context.dependent_alignment:
                         # If this is in a 'with' clause, the first factset to be added to the with/agg table may be empty, The current alignment will be
@@ -2737,7 +2738,8 @@ def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non
 
                     if alignment is not None:
                         # if not current_no_alignment and xule_context.iteration_table.is_dependent:
-                        if not current_no_alignment and factset['is_dependent']:
+                        # if not current_no_alignment and factset['is_dependent']:
+                        if factset['is_dependent']:
                             if xule_context.dependent_alignment is not None:
                                 if frozenset(alignment.items()) != xule_context.dependent_alignment:
                                     # If this is in a 'with' clause, the first factset to be added to the with/agg table may be empty, The current alignment will be
@@ -4842,7 +4844,7 @@ def get_alignment(model_fact, non_align_aspects, align_aspects, xule_context, in
             alignment[('builtin', 'period')] = model_to_xule_period(model_fact.context, xule_context)
 
         # entity
-        if (not covered and 'entity' not in non_align_aspects) or 'entity' in align_builtins:
+        if (not covered and 'entity' not in non_align_builtins) or 'entity' in align_builtins:
             alignment[('builtin', 'entity')] = model_to_xule_entity(model_fact.context, xule_context)
 
     # dimensional apsects
