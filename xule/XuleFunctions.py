@@ -33,6 +33,7 @@ import json
 from .XuleRunTime import XuleProcessingError
 from . import XuleValue as xv
 from . import XuleRollForward as xrf
+from . import XuleUtility as xu
 
 
 def func_exists(xule_context, *args):   
@@ -302,22 +303,6 @@ def agg_list(xule_context, values):
     return return_value #xv.XuleValue(xule_context, tuple(list_values), 'list')
 
 def agg_set(xule_context, values):
-#Commented out for the elimination of the shadow_collection
-#     set_values = []
-#     shadow = []
-#     
-#     for current_value in values:
-#         if current_value.type in ('set', 'list'):
-#             if current_value.shadow_collection not in shadow:
-#                 set_values.append(current_value)
-#                 shadow.append(current_value.shadow_collection)
-#         else:
-#             if current_value.value not in shadow:
-#                 set_values.append(current_value)
-#                 shadow.append(current_value.value)
-#     
-#     return xv.XuleValue(xule_context, frozenset(set_values), 'set', shadow_collection=frozenset(shadow)) 
-
     set_values = []
     shadow = []
     tags = {}
@@ -346,18 +331,7 @@ def agg_set(xule_context, values):
         return_value.tags = tags
     if len(facts) > 0:
         return_value.facts = facts
-    return return_value #xv.XuleValue(xule_context, frozenset(set_values), 'set') 
-        
-'''        
-        if current_value.is_fact:
-            set_values[current_value.fact] = current_value
-        else:
-            set_values[current_value.value] = current_value
-        
-        shadow.append(current_value.shadow_collection if current_value.type in ('list','set') else current_value.value)
-
-    return xv.XuleValue(xule_context, frozenset(set_values.values()), 'set', shadow_collection=frozenset(shadow))
-''' 
+    return return_value #xv.XuleValue(xule_context, frozenset(set_values), 'set')
 
 def agg_dict(xule_context, values):
     set_values = []
@@ -394,7 +368,6 @@ def agg_dict(xule_context, values):
   
         shadow[key.shadow_collection if key.type in ('list', 'set') else key.value] = value.shadow_collection if value.type in ('list', 'set', 'dictionary') else value.value
 
-    
     return_value = xv.XuleValue(xule_context, frozenset(dict_values.items()), 'dictionary', shadow_collection=frozenset(shadow.items()))
     if len(tags) > 0:
         return_value.tags = tags
@@ -486,29 +459,6 @@ def func_csv_data(xule_context, *args):
     # file is  tuple of one item as a BytesIO stream. Since this is in bytes, it needs to be converted to text via a decoder.
     # Assuming the file is in utf-8. 
     data_source = [x.decode('utf-8') for x in file[0].readlines()]
-
-#     if mapped_file_url.startswith('http://') or mapped_file_url.startswith('https://'):
-#         
-#         if mapped_file_url.startswith('https://') and getattr(xule_context.global_context.options, 'noCertificateCheck', False):
-#             try:
-#                 import ssl
-#                 context = ssl.create_default_context()
-#                 context.check_hostname = False
-#                 context.verify_mode = ssl.CERT_NONE
-#             except ImportError:
-#                 context=None
-#         else:
-#             context = None
-#         try:
-#             data_source = urllib.request.urlopen(mapped_file_url, context=context).read().decode('utf-8').splitlines()
-#         except urllib.error.HTTPError as he:
-#             raise XuleProcessingError(_("Trying to open url '{}', got HTTP {} - {}, error".format(mapped_file_url, he.code, he.reason)), xule_context)
-#     else:
-#         try:
-#             with open(mapped_file_url, 'r', newline='') as data_file:
-#                 data_source = data_file.readlines()
-#         except FileNotFoundError:
-#             raise XuleProcessingError(_("Trying to open file '{}', but file is not found.".format(mapped_file_url)), xule_context)
  
     import csv
     reader = csv.reader(data_source)
@@ -682,6 +632,34 @@ def func_range(xule_context, *args):
     number_list_values = tuple(xv.XuleValue(xule_context, x, 'int') for x in number_list)
     return xv.XuleValue(xule_context, number_list_values, 'list', shadow_collection=number_list)
 
+def func_difference(xule_context, *args):
+    '''Difference between 2 sets'''
+
+    if args[0].type != 'set':
+        raise XuleProcessingError(
+            _("The first argument to the difference() fucntion must be a set, found '{}'".format(args[0].type)),
+            xule_context)
+    if args[1].type != 'set':
+        raise XuleProcessingError(
+            _("The second argument to the difference() fucntion must be a set, found '{}'".format(args[1].type)),
+            xule_context)
+
+    return xu.subtract_sets(xule_context, args[0], args[1])
+
+def func_symmetric_difference(xule_context, *args):
+    '''Symmetric difference between 2 sets'''
+
+    if args[0].type != 'set':
+        raise XuleProcessingError(
+            _("The first argument to the symmetric_difference() fucntion must be a set, found '{}'".format(args[0].type)),
+            xule_context)
+    if args[1].type != 'set':
+        raise XuleProcessingError(
+            _("The second argument to the symmetric_difference() fucntion must be a set, found '{}'".format(args[1].type)),
+            xule_context)
+
+    return xu.symetric_difference(xule_context, args[0], args[1])
+
 #the position of the function information
 FUNCTION_TYPE = 0
 FUNCTION_EVALUATOR = 1
@@ -728,6 +706,8 @@ def built_in_functions():
              'json-data': ('regular', func_json_data, 1, False, 'single'),
              'first-value': ('regular', func_first_value, None, True, 'single'),
              'range': ('regular', func_range, -3, False, 'single'),
+             'difference': ('regular', func_difference, 2, False, 'single'),
+             'symmetric_difference': ('regular', func_symmetric_difference, 2, False, 'single')
              }    
     
     
