@@ -81,7 +81,21 @@ def cmdOptions(parser):
                            action="store",
                            dest="{}_replace_rule_set_map".format(_short_name),
                            help=_("Replace the rule set map currently used."))
-    
+
+    # Update validator rule set map with latest
+    parserGroup.add_option("--{}-update-rule-set-map-latest".format(_short_name).lower(),
+                           action="store_true",
+                           dest="{}_update_rule_set_map_latest".format(_short_name),
+                           help=_(
+                               "Update the rule set map currently used with the latest version."))
+
+    # Replace validator rule set map
+    parserGroup.add_option("--{}-replace-rule-set-map-latest".format(_short_name).lower(),
+                           action="store_true",
+                           dest="{}_replace_rule_set_map_latest".format(_short_name),
+                           help=_("Replace the rule set map currently used with the latest version."))
+
+
 def cntrlrCmdLineUtilityRun(cntlr, options, **kwargs):
     """Validator run utility.
     
@@ -90,9 +104,19 @@ def cntrlrCmdLineUtilityRun(cntlr, options, **kwargs):
     parser = optparse.OptionParser()
     
     # Check that both update an replace rule set map are not used together.
-    if len([x for x in (getattr(options, "{}_update_rule_set_map".format(_short_name), False),
-                       getattr(options, "{}_replace_rule_set_map".format(_short_name), False)) if x]) > 1:
-        parser.error(_("Cannot use --{short_name}-update-rule-set-map and --{short_name}-replace-rule-set-map the same time.".format(short_name=_short_name)))
+    replace_update_rule_set_map_options = [x.lower().replace('_','-') for x in ('{}_update_rule_set_map'.format(_short_name),
+                                                       '{}_replace_rule_set_map'.format(_short_name),
+                                                       '{}_update_rule_set_map_latest'.format(_short_name),
+                                                       '{}_replace_rule_set_map_latest'.format(_short_name)
+                                                       )
+                                             if getattr(options, x, False)]
+    if len(replace_update_rule_set_map_options) > 1:
+        parser.error(_("Cannot use the following options at the same time: --{}".format(', '.join(replace_update_rule_set_map_options))))
+
+
+    #if len([x for x in (getattr(options, "{}_update_rule_set_map".format(_short_name), False),
+    #                   getattr(options, "{}_replace_rule_set_map".format(_short_name), False)) if x]) > 1:
+    #    parser.error(_("Cannot use --{short_name}-update-rule-set-map and --{short_name}-replace-rule-set-map the same time.".format(short_name=_short_name)))
     
     # Show validator version
     if getattr(options, '{}_version'.format(_short_name), False):
@@ -114,9 +138,18 @@ def cntrlrCmdLineUtilityRun(cntlr, options, **kwargs):
     if getattr(options, "{}_display_rule_set_map".format(_short_name), False):
         update_method = getXuleMethod(cntlr, 'Xule.RulesetMap.Display')
         update_method(cntlr, _short_name, _rule_set_map_name)
-    
-    # Register the validator in Xule. When Arelle runs validation, the Xule plugin is called. The xule validators that are registered
-    # are run.
+
+    # Update the rule set map with the latest
+    if getattr(options, "{}_update_rule_set_map_latest".format(_short_name), False):
+        update_method = getXuleMethod(cntlr, 'Xule.RulesetMap.Update')
+        update_method(cntlr, _latest_map_name, _rule_set_map_name)
+
+    # Replace the rule set map with the latest
+    if getattr(options, "{}_replace_rule_set_map_latest".format(_short_name), False):
+        update_method = getXuleMethod(cntlr, 'Xule.RulesetMap.Replace')
+        update_method(cntlr, _latest_map_name, _rule_set_map_name)
+
+    # Register the xule validator
     registerMethod = getXuleMethod(cntlr, 'Xule.RegisterValidator')
     registerMethod(_short_name, _rule_set_map_name)
     

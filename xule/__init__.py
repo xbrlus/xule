@@ -59,17 +59,22 @@ import os
 import datetime
 import json
 
-__version__ = '3.0.' + (xu.version() or '')
-
-_cntlr = None
-_options = None
-_is_xule_direct = None
-_saved_taxonomies = dict()
-_test_start = None
-_test_variation_name = None
-_latest_map_name = None
-_xule_validators = []
-_xule_rule_set_map_name = 'xuleRulesetMap.json'
+# Global variables are set for the Xule package. However, Arelle may import the package multiple times, which causes
+# these variables to reset each time. This try block checks if the package global variables are already defined, if
+# not then they are defined/initialized. The __version__ variable is used as a proxy for all the other variables.
+try:
+    __version__
+except NameError:
+    __version__ = '3.0.' + (xu.version() or '')
+    _cntlr = None
+    _options = None
+    _is_xule_direct = None
+    _saved_taxonomies = dict()
+    _test_start = None
+    _test_variation_name = None
+    _latest_map_name = None
+    _xule_validators = []
+    _xule_rule_set_map_name = 'xuleRulesetMap.json'
 
 class EmptyOptions:
     pass
@@ -263,7 +268,7 @@ def addMenuTools(cntlr, menu, name, version, map_name, cloud_map_location):
                 main_window.destroy()
         
         def useLatestRuleSetMap(main_window, replace):
-            updateRuleSetMap(main_window, _latest_map_name, replace)
+            updateRuleSetMap(main_window, cloud_map_location, replace)
             
         def useEnteredValue(main_window, entry_value, replace):
             updateRuleSetMap(main_window, entry_value.get(), replace)
@@ -271,7 +276,7 @@ def addMenuTools(cntlr, menu, name, version, map_name, cloud_map_location):
         root = tkinter.Toplevel()
         # Frame for text at the top
         window_text =_("To update the {name} rule set map using the latest {name} map, click on ".format(name=name) +
-                       "\"Use latest {name} rule set map\"\n".format(name=name) +
+                       "\"Use latest approved {name} rule set map\"\n".format(name=name) +
                        "You can also select a rule set map by pasting/typing the file name or URL and pressing the Enter key or\n" +
                        "using the file selector.\n\n" +
                        "Check the \"Overwrite rule set map\" if you want to completely overwrite the existing rule set map. \n" +
@@ -297,7 +302,7 @@ def addMenuTools(cntlr, menu, name, version, map_name, cloud_map_location):
         replace_check = tkinter.Checkbutton(frame2, text="Overwrite {} rule set map".format(name), variable=replace_var)
         replace_check.pack(side=tkinter.LEFT)
         
-        latest_button = tkinter.Button(frame, command=lambda: useLatestRuleSetMap(root, replace_var), text="Use latest {} rule set map".format(name))
+        latest_button = tkinter.Button(frame, command=lambda: useLatestRuleSetMap(root, replace_var), text="Use latest approved {} rule set map".format(name))
         latest_button.pack(side=tkinter.LEFT)
         or_label = tkinter.Label(frame, text="  or  ")
         or_label.pack(side=tkinter.LEFT)
