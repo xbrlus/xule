@@ -117,7 +117,8 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
         self.catalog['rules_by_file'] = {}
         self.catalog['functions'] = {}
         self.catalog['constants'] = {}
-        self.catalog['output_attributes'] = {}        
+        self.catalog['output_attributes'] = {}
+        self.catalog['version'] = None
     
     def close(self):
         """Close the ruleset"""
@@ -223,9 +224,14 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
             elif cur_name == "functionDeclaration":
                 functions[cur_node['functionName']] = {"file": file_num, "index": i}
 
+            elif cur_name == "versionDeclaration":
+                if self.catalog.get('version') is None:
+                    self.catalog['version'] = cur_node['version']
+                elif self.catalog['version'] != cur_node['version']:
+                        raise xr.XuleRuleSetError("Duplicate version declarations {} and {}".format(self.catalog['version'], cur_node['version']))
             else:
-                print("Unknown top level parse result: %s" % cur_name)
-                error_in_file = True      
+                error_in_file = True
+                raise xr.XuleRuleSetError("Unknown top level parse result: %s" % cur_name)
 
 #         with open(file_name + '_post_parse.json', 'w') as o:
 #             import json

@@ -660,6 +660,14 @@ def func_symmetric_difference(xule_context, *args):
 
     return xu.symetric_difference(xule_context, args[0], args[1])
 
+def func_version(xule_context, *args):
+    '''Get the version number of the rule set'''
+    version = xule_context.global_context.catalog.get('version', None)
+    if version is None:
+        return xv.XuleValue(xule_context, None, 'none')
+    else:
+        return xv.XuleValue(xule_context, version, 'string')
+
 #the position of the function information
 FUNCTION_TYPE = 0
 FUNCTION_EVALUATOR = 1
@@ -707,7 +715,8 @@ def built_in_functions():
              'first-value': ('regular', func_first_value, None, True, 'single'),
              'range': ('regular', func_range, -3, False, 'single'),
              'difference': ('regular', func_difference, 2, False, 'single'),
-             'symmetric_difference': ('regular', func_symmetric_difference, 2, False, 'single')
+             'symmetric_difference': ('regular', func_symmetric_difference, 2, False, 'single'),
+             'version': ('regular', func_version, 0, False, 'single')
              }    
     
     

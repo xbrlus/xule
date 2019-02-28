@@ -150,8 +150,9 @@ def get_grammar():
     namespaceKeyword = CaselessKeyword('namespace')
     constantKeyword = CaselessKeyword('constant')
     functionKeyword = CaselessKeyword('function')
-    
-    declarationKeywords = (assertKeyword | outputKeyword | outputAttributeKeyword | namespaceKeyword | constantKeyword | functionKeyword | ruleNamePrefixKeyword | ruleNameSeparatorKeyword)
+    versionKeyword = CaselessKeyword('version')
+
+    declarationKeywords = (assertKeyword | outputKeyword | outputAttributeKeyword | namespaceKeyword | constantKeyword | functionKeyword | versionKeyword | ruleNamePrefixKeyword | ruleNameSeparatorKeyword)
 
     lParen = Literal('(')
     rParen = Literal(')')
@@ -696,7 +697,11 @@ def get_grammar():
         blockExpr.setResultsName("body") +
         nodeName('functionDeclaration')
         )
-                     
+
+    versionDeclaration = (
+            Suppress(versionKeyword) + Word(printables).setResultsName('version') + nodeName('versionDeclaration')
+    )
+
     xuleFile = (stringStart +
                 ZeroOrMore(Group(ruleNameSeparator |
                                  ruleNamePrefix |
@@ -704,6 +709,7 @@ def get_grammar():
                                  outputAttributeDeclaration |
                                  functionDeclaration |
                                  constantDeclaration |
+                                 versionDeclaration |
                                  assertDeclaration |
                                  outputDeclaration)) +
                 stringEnd).setResultsName('xuleDoc').ignore(comment)
