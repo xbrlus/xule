@@ -4773,6 +4773,18 @@ def result_message(rule_ast, result_ast, xule_value, xule_context):
             message = message_value.value
         elif message_value.is_fact:
             message = message_value.fact
+        elif message_value.type in ('list','set'):
+            # The rule focus is a list/set of concepts or facts. The list/set cannot be nested
+            message = []
+            for rule_focus_item in message_value.value:
+                if rule_focus_item.type == 'concept':
+                    message.append(rule_focus_item.value)
+                elif rule_focus_item.is_fact:
+                    message.append(rule_focus_item.fact)
+                else:
+                    raise XuleProcessingError(
+                        _("The rule-focus of a rule must be a concept or a fact, found {}".format(rule_focus_item.type)),
+                        xule_context)
         else:
             raise XuleProcessingError(
                 _("The rule-focus of a rule must be a concept or a fact, found {}".format(message_value.type)),
