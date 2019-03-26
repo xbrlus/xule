@@ -1197,6 +1197,18 @@ def property_lower_case(xule_context, object_value, *args):
 def property_upper_case(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, xv.xule_cast(object_value, 'string', xule_context).upper(), 'string')
 
+def property_split(xule_context, object_value, *args):
+    if args[0].type != 'string':
+        raise XuleProcessingError(_("The separator argument for property 'string' must be a 'string', found '%s'" % args[0].type), xule_context)
+
+    if args[0].value == '':
+        # just return the entire string in a list. This is different from python which will raise an error
+        return xv.XuleValue(xule_context,(xv.XuleValue(xule_context, object_value.value, 'string'), ), 'list', shadow_collection=(object_value.value, ))
+
+    shadow = tuple(object_value.value.split(args[0].value))
+
+    return xv.XuleValue(xule_context, tuple(xv.XuleValue(xule_context, x, 'string') for x in shadow), 'list', shadow_collection=shadow)
+
 def property_day(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, object_value.value.day, 'int')
 
@@ -1726,7 +1738,8 @@ PROPERTIES = {
               'index-of': (property_index_of, 1, ('string', 'uri'), False),
               'last-index-of': (property_last_index_of, 1, ('string', 'uri'), False),
               'lower-case': (property_lower_case, 0, ('string', 'uri'), False),
-              'upper-case': (property_upper_case, 0, ('string', 'uri'), False),              
+              'upper-case': (property_upper_case, 0, ('string', 'uri'), False),
+              'split': (property_split, 1, ('string', 'uri'), False),
               'day': (property_day, 0, ('instant',), False),
               'month': (property_month, 0, ('instant',), False),
               'year': (property_year, 0, ('instant',), False),
