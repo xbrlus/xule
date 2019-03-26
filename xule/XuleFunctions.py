@@ -668,6 +668,13 @@ def func_version(xule_context, *args):
     else:
         return xv.XuleValue(xule_context, version, 'string')
 
+def func_rule_name(xule_context, *args):
+    '''Get the name of the current executing rule'''
+    if xule_context.rule_name is None:
+        return xv.XuleValue(xule_context, None, 'none')
+    else:
+        return xv.XuleValue(xule_context, xule_context.rule_name, 'string')
+
 #the position of the function information
 FUNCTION_TYPE = 0
 FUNCTION_EVALUATOR = 1
@@ -716,7 +723,8 @@ def built_in_functions():
              'range': ('regular', func_range, -3, False, 'single'),
              'difference': ('regular', func_difference, 2, False, 'single'),
              'symmetric_difference': ('regular', func_symmetric_difference, 2, False, 'single'),
-             'version': ('regular', func_version, 0, False, 'single')
+             'version': ('regular', func_version, 0, False, 'single'),
+             'rule-name': ('regular', func_rule_name, 0, False, 'single')
              }    
     
     
