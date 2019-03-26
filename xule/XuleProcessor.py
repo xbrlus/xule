@@ -1423,7 +1423,9 @@ def evaluate_constant_assign(const_assign, xule_context):
         raise XuleProcessingError(_("Constant '%s' not found" % const_assign['constantName']), xule_context)
 
     if not const_info['calculated']:
-        const_context = XuleRuleContext(xule_context.global_context, xule_context.rule_name + ":" + const_info['name'],
+        #const_context = XuleRuleContext(xule_context.global_context, xule_context.rule_name + ":" + const_info['name'],
+        #                                xule_context.cat_file_num)
+        const_context = XuleRuleContext(xule_context.global_context, None,
                                         xule_context.cat_file_num)
         calc_constant(const_info, const_context)
         # Clean up
