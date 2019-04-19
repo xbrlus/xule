@@ -24,8 +24,6 @@ $Change$
 DOCSKIP
 """
 import optparse
-
-from arelle.CntlrWebMain import Options
 from arelle import PluginManager
 
 """ Xule validator specific variables."""
@@ -48,15 +46,15 @@ def cmdOptions(parser):
     
     This is called by the Arelle controller.
     """
-    # Options is a psuedo optparser object. It is created when Arelle running in server mode.
-    if isinstance(parser, Options):
-        parserGroup = parser
-    else:
-        # This is reached when Arelle is called on the command line. An OptionGroup is used to separate the validator options from the rest
-        # of the Arelle options. It makes is nicer when displaying the options with --help.
+    if isinstance(parser, optparse.OptionParser):
+        # This is the normal optparse.OptionsParser object.
         parserGroup = optparse.OptionGroup(parser,
                                            "{} validation plugin (Also see --xule options)".format(_short_name))
         parser.add_option_group(parserGroup)
+    else:
+        # This is a fake parser object (which does not support option groups). This is sent when arelle is in GUI
+        # mode or running as a webserver
+        parserGroup = parser
 
     # Show version of validator
     parserGroup.add_option("--{}-version".format(_short_name).lower(),
@@ -101,6 +99,10 @@ def cntrlrCmdLineUtilityRun(cntlr, options, **kwargs):
     
     This is invoked by the Arelle controler after Arelle is fully up but before a filing is loaded.
     """
+    # Save options in xule
+    save_options_method = getXuleMethod(cntlr, 'Xule.CntrlCmdLine.Utility.Run.Init')
+    save_options_method(cntlr, options, **kwargs)
+
     parser = optparse.OptionParser()
     
     # Check that both update an replace rule set map are not used together.
@@ -121,8 +123,10 @@ def cntrlrCmdLineUtilityRun(cntlr, options, **kwargs):
     # Show validator version
     if getattr(options, '{}_version'.format(_short_name), False):
         version_method = getXuleMethod(cntlr, 'Xule.ValidatorVersion')
-        cntlr.addToLog("{} validator version: {}".format(_short_name,  _version_prefix + version_method(__file__)), _short_name)
-        cntlr.close()
+        version_method(cntlr, _short_name, _rule_set_map_name, _version_prefix, __file__)
+
+        #cntlr.addToLog("{} validator version: {}".format(_short_name,  _version_prefix + version_method(__file__)), _short_name)
+        #cntlr.close()
     
     # Update the rule set map
     if getattr(options, "{}_update_rule_set_map".format(_short_name), False):
@@ -183,7 +187,7 @@ def menuTools(cntlr, menu):
     """
     menu_method = getXuleMethod(cntlr, 'Xule.AddMenuTools')
     version_method = getXuleMethod(cntlr, 'Xule.ValidatorVersion')
-    menu_method(cntlr, menu, _short_name, _version_prefix + version_method(__file__), _rule_set_map_name, _latest_map_name)
+    menu_method(cntlr, menu, _short_name, _version_prefix, __file__, _rule_set_map_name, _latest_map_name)
 
 def validateMenuTools(cntlr, validateMenu, *args, **kwargs):
     """Add validator checkbutton to the Arelle Validate menu (under Tools).
