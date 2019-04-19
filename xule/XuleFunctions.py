@@ -86,19 +86,28 @@ def func_entity(xule_context, *args):
     return xv.XuleValue(xule_context, (scheme.value, identifier.value), 'entity')
 
 def func_qname(xule_context, *args):
-    namespace_uri = args[0]
-    local_name = args[1]
+    namespace_uri_arg = args[0]
+    local_name_arg = args[1]
     
-    if namespace_uri.type not in ('string', 'uri', 'unbound', 'none'):
-        raise XuleProcessingError(_("Function 'qname' requires the namespace_uri argument to be a string, uri or none, found '%s'" % namespace_uri.type), xule_context)
-    if local_name.type != 'string':
-        raise XuleProcessingError(_("Function 'qname' requires the local_part argument to be a string, found '%s'" % local_name.type), xule_context)
-    
-    if namespace_uri.type == 'unbound':
-        return xv.XuleValue(xule_context, qname(local_name.value, noPrefixIsNoNamespace=True), 'qname')
+    if namespace_uri_arg.type not in ('string', 'uri', 'unbound', 'none'):
+        raise XuleProcessingError(_("Function 'qname' requires the namespace_uri argument to be a string, uri or none, found '%s'" % namespace_uri_arg.type), xule_context)
+    if local_name_arg.type != 'string':
+        raise XuleProcessingError(_("Function 'qname' requires the local_part argument to be a string, found '%s'" % local_name_arg.type), xule_context)
+
+    if ':' in local_name_arg.value:
+        if local_name_arg.value.count(':') > 1:
+            raise XuleProcessingError(_("The local part of the 'qname' function can contain only 1 ':' to designate the namespace prefix."
+                                        "Found {} colons in {}".format(local_name_arg.value.count(':'), local_name_arg.value)))
+        # The prefix is in the local name
+        prefix, local_name = local_name_arg.value.split(':')
+
+
+
+    if namespace_uri_arg.type == 'unbound':
+        return xv.XuleValue(xule_context, qname(local_name_arg.value, noPrefixIsNoNamespace=True), 'qname')
     else:
         '''INSTEAD OF PASSING None FOR THE PREFIX, THIS SHOULD FIND THE PREFIX FOR THE NAMESPACE URI FROM THE RULE FILE. IF IT CANNOT FIND ONE, IT SHOULD CREATE ONE.'''
-        return xv.XuleValue(xule_context, QName(None, namespace_uri.value, local_name.value), 'qname')
+        return xv.XuleValue(xule_context, QName(None, namespace_uri_arg.value, local_name_arg.value), 'qname')
  
 def func_uri(xule_context, *args):
     arg = args[0]
@@ -503,7 +512,7 @@ def func_csv_data(xule_context, *args):
                 
         if return_row_type == 'list':
             result.append(xv.XuleValue(xule_context, tuple(result_line), 'list', shadow_collection=tuple(result_line_shadow)))
-            result_shadow.append(result_line_shadow)
+            result_shadow.append(tuple(result_line_shadow))
         else: #dictionary
             result.append(xv.XuleValue(xule_context, frozenset(result_line.items()), 'dictionary', shadow_collection=frozenset(result_line_shadow.items())))
             result_shadow.append(frozenset(result_line_shadow.items()))
