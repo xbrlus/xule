@@ -258,9 +258,9 @@ def get_grammar():
     simpleName = Regex("([A-Za-z\xC0-\xD6\xD8-\xF6\xF8-\xFF\u0100-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD_]"
                   "[A-Za-z0-9\xC0-\xD6\xD8-\xF6\xF8-\xFF\u0100-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\u0300-\u036F\u203F-\u2040\xB7_-]*)"
                   )
-    # A qName normally allows a dot character as long it is not the first character. In Xule, the doc is used to indicate a property. For qName literals
-    # a dot character will have to be escaped  by a backslash. Assets\.Current is the 
-    # A qNameLocalName does not allow a dot unless it is escaped with a backslash.  Assets.local-part is a qname with a property of local-part. Assets\.local-part is a qname of "Assets.local-part".
+    # A qNameLocalName normally allows a dot character as long it is not the first character. In Xule, the dot is used
+    # to indicate a property. For qNameLocalName literals a dot character will have to be escaped by a backslash. Assets.
+    # local-part is a qname with a property of local-part. Assets\.local-part is a qname of "Assets.local-part".
     qNameLocalName = Regex("([A-Za-z\xC0-\xD6\xD8-\xF6\xF8-\xFF\u0100-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF"
                            "\uF900-\uFDCF\uFDF0-\uFFFD_]"
                            "([A-Za-z0-9\xC0-\xD6\xD8-\xF6\xF8-\xFF\u0100-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF"
@@ -597,23 +597,24 @@ def get_grammar():
                   "\u00A0-\uFDCF"
                   "\uE000-\uFDCF"
                   "\uFDF0-\uFFFD"
-                  "\u10000-\u1FFFD"
-                  "\u20000-\u2FFFD"
-                  "\u30000-\u3FFFD"
-                  "\u40000-\u4FFFD"
-                  "\u50000-\u5FFFD"
-                  "\u60000-\u6FFFD"
-                  "\u70000-\u7FFFD"
-                  "\u80000-\u8FFFD"
-                  "\u90000-\u9FFFD"
-                  "\uA0000-\uAFFFD"
-                  "\uB0000-\uBFFFD"
-                  "\uC0000-\uCFFFD"
-                  "\uD0000-\uDFFFD"
-                  "\uE0000-\uEFFFD"
-                  "\uF0000-\uFFFFD"
-                  "\u100000-\u10FFFD"
-                  "]*")   
+                  
+                  "\U00010000-\U0001FFFD"
+                  "\U00020000-\U0002FFFD"
+                  "\U00030000-\U0003FFFD"
+                  "\U00040000-\U0004FFFD"
+                  "\U00050000-\U0005FFFD"
+                  "\U00060000-\U0006FFFD"
+                  "\U00070000-\U0007FFFD"
+                  "\U00080000-\U0008FFFD"
+                  "\U00090000-\U0009FFFD"
+                  "\U000A0000-\U000AFFFD"
+                  "\U000B0000-\U000BFFFD"
+                  "\U000C0000-\U000CFFFD"
+                  "\U000D0000-\U000DFFFD"
+                  "\U000E0000-\U000EFFFD"
+                  "\U000F0000-\U000FFFFD"
+                  "\U00100000-\U0010FFFD"
+                  "]*")
 
     namespaceDeclaration = (
                                  Suppress(namespaceKeyword) +
