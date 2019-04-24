@@ -94,21 +94,44 @@ def func_qname(xule_context, *args):
     if local_name_arg.type != 'string':
         raise XuleProcessingError(_("Function 'qname' requires the local_part argument to be a string, found '%s'" % local_name_arg.type), xule_context)
 
-    if ':' in local_name_arg.value:
-        if local_name_arg.value.count(':') > 1:
-            raise XuleProcessingError(_("The local part of the 'qname' function can contain only 1 ':' to designate the namespace prefix."
-                                        "Found {} colons in {}".format(local_name_arg.value.count(':'), local_name_arg.value)))
-        # The prefix is in the local name
-        prefix, local_name = local_name_arg.value.split(':')
-
-
-
     if namespace_uri_arg.type == 'unbound':
         return xv.XuleValue(xule_context, qname(local_name_arg.value, noPrefixIsNoNamespace=True), 'qname')
     else:
-        '''INSTEAD OF PASSING None FOR THE PREFIX, THIS SHOULD FIND THE PREFIX FOR THE NAMESPACE URI FROM THE RULE FILE. IF IT CANNOT FIND ONE, IT SHOULD CREATE ONE.'''
-        return xv.XuleValue(xule_context, QName(None, namespace_uri_arg.value, local_name_arg.value), 'qname')
- 
+        # get the prefix from the rule file
+        prefix = get_prefix(xule_context, namespace_uri_arg.value)
+        return xv.XuleValue(xule_context, QName(prefix, namespace_uri_arg.value, local_name_arg.value), 'qname')
+
+def get_prefix(xule_context, uri):
+    for k, v in xule_context.global_context.catalog['namespaces'].items():
+        if v['uri'] == uri:
+            if k == '*':
+                return None
+            else:
+                return k
+    return None
+
+def func_prefixed_qname(xule_context, *args):
+    '''Create a qname from a single string with an optional namespace prefix'''
+    name_arg = args[0]
+
+    if name_arg.value.count(':') > 1:
+        raise XuleProcessingError(
+            _("The local part of the 'prefixed-qname' function can contain only 1 ':' to designate the namespace prefix."
+              "Found {} colons in {}".format(name_arg.value.count(':'), name_arg.value)), xule_context)
+    elif ':' in name_arg.value:
+        # the name contains a colon
+        prefix, local_name = name_arg.value.split(':')
+    else:
+        prefix = None
+        local_name = name_arg.value
+
+    namespace_uri = xule_context.global_context.catalog['namespaces'].get(prefix if prefix is not None else '*', dict()).get('uri')
+    if namespace_uri is None:
+        raise XuleProcessingError(_("In the 'prefixed-qname' function, could not resolve the namespace prefix '{}' "
+                                    "to a namespace uri".format(prefix)), xule_context)
+
+    return xv.XuleValue(xule_context, QName(prefix, namespace_uri, local_name), 'qname')
+
 def func_uri(xule_context, *args):
     arg = args[0]
 
@@ -719,6 +742,7 @@ def built_in_functions():
              'unit': ('regular', func_unit, -2, False, 'single'),
              'entity': ('regular', func_entity, 2, False, 'single'),
              'qname': ('regular', func_qname, 2, True, 'single'),
+             'prefixed-qname': ('regular', func_prefixed_qname, 1, False, 'single'),
              'uri': ('regular', func_uri, 1, False, 'single'),
              'time-span': ('regular', func_time_span, 1, False, 'single'),
              'schema-type': ('regular', func_schema_type, 1, False, 'single'),
@@ -735,8 +759,7 @@ def built_in_functions():
              'version': ('regular', func_version, 0, False, 'single'),
              'rule-name': ('regular', func_rule_name, 0, False, 'single')
              }    
-    
-    
+
     try:
         funcs.update(xrf.BUILTIN_FUNCTIONS)
     except NameError:
