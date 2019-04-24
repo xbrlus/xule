@@ -42,17 +42,22 @@ try:
     from . import XuleParser as xp
 except ImportError:
     xp = None
-
+    
 try:
     from . import XuleMultiProcessing as xm
 except ImportError:
     xm = None
 
+try:
+    import tabulate as tab
+except ImportError:
+    tab = None
+
 from arelle import FileSource
 from arelle import ModelManager
 from arelle import PluginManager
 import optparse
-import os
+import os 
 import datetime
 import json
 
@@ -77,7 +82,7 @@ class EmptyOptions:
     pass
 
 class XuleVars:
-
+    
     class XuleVarContainer:
         pass
 
@@ -85,9 +90,9 @@ class XuleVars:
     def set(cls, cntlr, name, value):
         if not hasattr(cntlr, 'xule_vars'):
             cntlr.xule_vars = dict()
-
+        
         cntlr.xule_vars[name] = value
-
+    
     @classmethod
     def get(cls, cntlr, name):
         if hasattr(cntlr, 'xule_vars'):
@@ -97,15 +102,15 @@ class XuleVars:
 
 def xuleMenuTools(cntlr, menu):
     import tkinter
-
+    
     global _cntlr
     _cntlr = cntlr
-
+    
     attr_name = 'xule_is_on'
     setattr(cntlr.modelManager, attr_name, cntlr.config.setdefault(attr_name,False))
 
     if getattr(cntlr.modelManager, attr_name):
-        addMenuTools(cntlr, menu, 'Xule', __version__, _xule_rule_set_map_name, _latest_map_name)
+        addMenuTools(cntlr, menu, 'Xule', '', __file__, _xule_rule_set_map_name, _latest_map_name)
     else:
         activate_xule_label = "Activate"
         def turnOnXule():
@@ -113,8 +118,8 @@ def xuleMenuTools(cntlr, menu):
             validate_menu = XuleVars.get(cntlr, 'validate_menu')
             addValidateMenuTools(cntlr, validate_menu, 'Xule', _xule_rule_set_map_name)
             menu.delete('Xule')
-            xule_menu = addMenuTools(cntlr, menu, 'Xule', __version__, _xule_rule_set_map_name, _latest_map_name)
-
+            xule_menu = addMenuTools(cntlr, menu, 'Xule', '', __file__, _xule_rule_set_map_name, _latest_map_name)
+            
             def turnOffXule():
                 validate_menu.delete('Xule Rules')
                 menu.delete('Xule')
@@ -122,41 +127,43 @@ def xuleMenuTools(cntlr, menu):
                 new_xule_menu.add_command(label=activate_xule_label, underline=0, command=XuleVars.get(cntlr, 'activate_xule_function'))
                 menu.add_cascade(label=_("Xule"), menu=new_xule_menu, underline=0)
                 cntlr.config['xule_activated'] = False
-
+                
             xule_menu.add_command(label='Deactivate Xule', underline=0, command=turnOffXule)
             cntlr.config['xule_activated'] = True
-
+        
         xule_menu = tkinter.Menu(menu, tearoff=0)
         xule_menu.add_command(label=activate_xule_label, underline=0, command=turnOnXule)
         XuleVars.set(cntlr, 'activate_xule_function', turnOnXule)
-
+    
         menu.add_cascade(label=_("Xule"), menu=xule_menu, underline=0)
-
+        
         if cntlr.config.get('xule_activated', False):
             turnOnXule()
 
-def addMenuTools(cntlr, menu, name, version, map_name, cloud_map_location):
+def addMenuTools(cntlr, menu, name, version_prefix, version_file, map_name, cloud_map_location):
     import tkinter
     import tkinter.ttk as ttk
     import tkinter.font as tkFont
-
+    
     def showVersion():
-        if name == 'Xule':
-            version_text = version
-        else:
-            version_text = '{}: {}\n\nXule: {}'.format(name, version, __version__)
+        version_text = versionText(cntlr, name, map_name, version_prefix, version_file)
+
         tkinter.messagebox.showinfo("{} Version".format(name), version_text)
 
     def showRuleSetMap():
-        try:
-            map = xu.get_rule_set_map(cntlr, map_name)
+        #try:
+        #    map = xu.get_rule_set_map(cntlr, map_name)
             map_file_name = xu.get_rule_set_map_file_name(cntlr, map_name)
-        except xrt.XuleMissingRuleSetMap:
-            tkinter.messagebox.showinfo(_("Cannot find rule set map"), _("Rule set map for '{}' does not exist. Rule set map file name is '{}'".format(name, xu.get_rule_set_map_file_name(cntlr, map_name))))
-        else:
-            headers = ['Namespace', 'Rule Set']
+        #except xrt.XuleMissingRuleSetMap:
+        #    tkinter.messagebox.showinfo(_("Cannot find rule set map"), _("Rule set map for '{}' does not exist. Rule set map file name is '{}'".format(name, xu.get_rule_set_map_file_name(cntlr, map_name))))
+        #else:
+
+            cntlr.showStatus(_("Loading rule set map data..."))
+            headers = ['Namespace', 'Rule Set', 'Version']
             # Set the value of the map dictionary to be a list.
-            displayRuleSetMap(map.items(), headers, '{} Rule Set Map - {}'.format(name, map_file_name))
+            displayRuleSetMap(rulesetMapData(cntlr, map_name), headers, '{} Rule Set Map - {}'.format(name, map_file_name))
+            # Reset the status message at the bottom of the main window
+            cntlr.showStatus(_("Ready..."))
 
     def checkRuleSetMap():
         # Get the current rule set map
@@ -164,12 +171,12 @@ def addMenuTools(cntlr, menu, name, version, map_name, cloud_map_location):
         # Get the latest map
         # Open the new map
         latest_map = xu.open_json_file(cntlr, cloud_map_location)
-
+        
         match = True
         for namespace, rule_set in latest_map.items():
             if current_map.get(namespace) != rule_set:
                 match = False
-
+        
         if match:
             tkinter.messagebox.showinfo("{} Rule Set Check".format(name), _("You have the latest rule set map."))
         else:
@@ -187,7 +194,7 @@ def addMenuTools(cntlr, menu, name, version, map_name, cloud_map_location):
             displayRuleSetMap(compare_map, headers, 'Current rule set map does not match latest DQC rule set map')
 
             #tkinter.messagebox.showinfo("DQC Rule Set Check", _("The rule set map you have does match the latest DQC rule set map."))
-
+            
     def displayRuleSetMap(map, headers, title=''):
         # Get the top level container
         root = tkinter.Toplevel()
@@ -205,7 +212,7 @@ def addMenuTools(cntlr, menu, name, version, map_name, cloud_map_location):
         tree_box.tag_configure('No', foreground='red')
         tree_box.tag_configure('LatestMapOnly', foreground='red')
         tree_box.tag_configure('CurrentMapOnly', foreground='blue')
-
+        
         # Reset the column widths based on the values in the columns
         max_w = tkFont.Font().measure('X'*30)
         for col_index in range(len(headers)):
@@ -237,9 +244,8 @@ def addMenuTools(cntlr, menu, name, version, map_name, cloud_map_location):
         root.grid_columnconfigure(0, weight=1)
         root.grid_rowconfigure(0, weight=1)
 
-
     def getLatestRuleSetMap():
-
+        
         def updateRuleSetMap(main_window, file_name, replace):
             try:
                 xu.update_rule_set_map(cntlr, file_name, map_name, overwrite=bool(replace))
@@ -247,8 +253,8 @@ def addMenuTools(cntlr, menu, name, version, map_name, cloud_map_location):
             except OSError:
                 tkinter.messagebox.showinfo("File does not exists", "File '{}' does not exist".format(file_name))
             except xrt.XuleProcessingError:
-                tkinter.messagebox.showinfo("Invalid Rule Set Map File", "{} is not a valid rule set map file".format(file_name))
-
+                tkinter.messagebox.showinfo("Invalid Rule Set Map File", "{} is not a valid rule set map file".format(file_name))            
+        
         def selectRuleSetMap(main_window, replace):
             filename = cntlr.uiFileDialog("open",
                                 title=_("{} - Select Rule Set Map File".format(name)),
@@ -258,18 +264,18 @@ def addMenuTools(cntlr, menu, name, version, map_name, cloud_map_location):
 
             if os.sep == "\\":
                 filename = filename.replace("/", "\\")
-
+            
             if filename != '':
                 updateRuleSetMap(main_window, filename, replace)
             else:
                 main_window.destroy()
-
+        
         def useLatestRuleSetMap(main_window, replace):
             updateRuleSetMap(main_window, cloud_map_location, replace)
-
+            
         def useEnteredValue(main_window, entry_value, replace):
             updateRuleSetMap(main_window, entry_value.get(), replace)
-
+        
         root = tkinter.Toplevel()
         # Frame for text at the top
         window_text =_("To update the {name} rule set map using the latest {name} map, click on ".format(name=name) +
@@ -278,19 +284,19 @@ def addMenuTools(cntlr, menu, name, version, map_name, cloud_map_location):
                        "using the file selector.\n\n" +
                        "Check the \"Overwrite rule set map\" if you want to completely overwrite the existing rule set map. \n" +
                        "Otherwise the new rule set map will be merged with your current rule set map. When merging, where namespaces are \n" +
-                       "the same, the rule set from the new rule set map will be used. Namespaces in the current namespace map that are not \n" +
+                       "the same, the rule set from the new rule set map will be used. Namespaces in the current namespace map that are not \n" + 
                        "in the new namespace map will be left in the rule set map.")
         frame1 = tkinter.Frame(root, borderwidth=2)
         frame1.pack()
         frame1_label = tkinter.Label(frame1, text=window_text, justify=tkinter.LEFT)
         frame1_label.pack()
-
+        
         frame1.winfo_toplevel().title("Update {} Rule Set Map".format(name))
-
+        
         # Main frame
         frame = tkinter.Frame(root, borderwidth=2)
         frame.pack(anchor="w")
-
+        
         # Replace check box
         frame2 = tkinter.Frame(root, borderwidth=2)
         frame2.pack(anchor="w")
@@ -298,14 +304,14 @@ def addMenuTools(cntlr, menu, name, version, map_name, cloud_map_location):
         replace_var.set(1)
         replace_check = tkinter.Checkbutton(frame2, text="Overwrite {} rule set map".format(name), variable=replace_var)
         replace_check.pack(side=tkinter.LEFT)
-
+        
         latest_button = tkinter.Button(frame, command=lambda: useLatestRuleSetMap(root, replace_var), text="Use latest approved {} rule set map".format(name))
         latest_button.pack(side=tkinter.LEFT)
         or_label = tkinter.Label(frame, text="  or  ")
         or_label.pack(side=tkinter.LEFT)
         entry_value = tkinter.StringVar()
         entry = tkinter.Entry(frame, width=60, textvariable=entry_value)
-        entry.bind('<Return>', lambda e: useEnteredValue(root, entry_value, replace_var))
+        entry.bind('<Return>', lambda e: useEnteredValue(root, entry_value, replace_var))        
         entry.pack(side=tkinter.LEFT)
         frame.image = tkinter.PhotoImage(file=os.path.join(cntlr.imagesDir, "toolbarOpenFile.gif"))
 
@@ -324,9 +330,9 @@ def addMenuTools(cntlr, menu, name, version, map_name, cloud_map_location):
     return xuleMenu
 
 def xuleValidateMenuTools(cntlr, validateMenu, *args, **kwargs):
-    # Save the validationMenu object.
+    # Save the validationMenu object. 
     XuleVars.set(cntlr, 'validate_menu', validateMenu)
-
+    
 def addValidateMenuTools(cntlr, validateMenu, name, map_name):
     # Extend menu with an item for the save infoset plugin
     attr_name = 'validate{}'.format(name.strip())
@@ -335,14 +341,14 @@ def addValidateMenuTools(cntlr, validateMenu, name, map_name):
     #cntlr.modelManager.validateDQC = cntlr.config.setdefault("validateDQC",False)
     from tkinter import BooleanVar
     validate_var = BooleanVar(value=getattr(cntlr.modelManager, attr_name))
-
+    
     def setValidateXuleOption(*args):
         setattr(cntlr.modelManager, attr_name, validate_var.get())
         cntlr.config[attr_name] = getattr(cntlr.modelManager, attr_name)
-
+        
     validate_var.trace("w", setValidateXuleOption)
-    validateMenu.add_checkbutton(label=_("{} Rules".format(name)),
-                                 underline=0,
+    validateMenu.add_checkbutton(label=_("{} Rules".format(name)), 
+                                 underline=0, 
                                  variable=validate_var, onvalue=True, offvalue=False)
 
 
@@ -350,7 +356,7 @@ def addValidateMenuTools(cntlr, validateMenu, name, map_name):
 
 def isXuleDirect():
     """Determines if xule was loaded as a direct plugin"""
-
+    
     global _is_xule_direct
     if _is_xule_direct is None:
         global _options
@@ -370,6 +376,36 @@ def xuleRegisterValidators(name, map_name, validate_var=None):
     else:
         _xule_validators.append({'name':name, 'validate_flag': validate_var, 'map_name': map_name})
 
+def validatorVersion(cntlr, validator_name, map_name, version_prefix, validator_file):
+    '''Log the version text'''
+    version_text = versionText(cntlr, validator_name, map_name, version_prefix, validator_file)
+
+    cntlr.addToLog(version_text, 'info')
+    cntlr.close()
+
+def versionText(cntlr, validator_name, map_name, version_prefix, validator_file):
+    '''Get the version information and format it as text'''
+    version = version_prefix + xu.version(validator_file)
+    if validator_name == 'Xule':
+        version_text = 'Xule processor version : {}'.format(__version__)
+    else:
+        version_text = '{} validator version: {}\n\nXule processor version: {}'.format(validator_name, version, __version__)
+
+    if map_name is not None:
+        try:
+            map_data = rulesetMapData(cntlr, map_name)[1:]
+        except:
+            pass #ignor problems reading the rule set map
+        else:
+            map_by_version = collections.defaultdict(list)
+            for map_line in map_data:
+                map_by_version[map_line[2]].append(map_line)
+            version_text += '\n\n'
+            for rule_set_version in map_by_version:
+                version_text += 'Rule set version {}:\n'.format(rule_set_version)
+                version_text += '\n'.join('  {}'.format(x[0]) for x in map_by_version[rule_set_version])
+
+    return version_text
 def xuleCmdOptions(parser):
     # extend command line options to compile rules
     if isinstance(parser, optparse.OptionParser):
@@ -381,7 +417,7 @@ def xuleCmdOptions(parser):
         # This is a fake parser object (which does not support option groups). This is sent when arelle is in GUI
         # mode or running as a webserver
         parserGroup = parser
-
+    
     if xp is not None: # The XuleParser is imported
         parserGroup.add_option("--xule-compile",
                           action="store",
@@ -389,23 +425,23 @@ def xuleCmdOptions(parser):
                           help=_("Xule files to be compiled.  "
                                  "This may be a file or directory.  When a directory is provided, all files in the directory will be processed.  "
                                  "Multiple file and directory names are separated by a '|' character. "))
-
+        
         parserGroup.add_option("--xule-compile-type",
                               action="store",
                               dest="xule_compile_type",
                               default="pickle",
                               help=_("Determines how the compiled rules are stored. Options are 'pickle', 'json'."))
-
+    
     parserGroup.add_option("--xule-rule-set",
                       action="store",
                       dest="xule_rule_set",
                       help=_("RULESET to use (this is the directory where compile rules are stored."))
-
+    
     parserGroup.add_option("--xule-run",
                       action="store_true",
                       dest="xule_run",
                       help=_("Indicates that the rules should be processed."))
-
+    
     parserGroup.add_option("--xule-add-packages",
                            action="store",
                            dest="xule_add_packages",
@@ -415,63 +451,63 @@ def xuleCmdOptions(parser):
                            action="store",
                            dest="xule_remove_packages",
                            help=_("Remove packages from a xule rule set. Multiple package files are separated with a |."))
-
+    
     parserGroup.add_option("--xule-show-packages",
                      action="store_true",
                      dest="xule_show_packages",
-                     help=_("Show list of packages in the rule set."))
+                     help=_("Show list of packages in the rule set."))    
 
     parserGroup.add_option("--xule-bypass-packages",
                      action="store_true",
                      dest="xule_bypass_packages",
-                     help=_("Indicates that the packages in the rule set will not be activated."))
-
+                     help=_("Indicates that the packages in the rule set will not be activated."))  
+    
     parserGroup.add_option("--xule-time",
                      action="store",
                      type="float",
                      dest="xule_time",
                      help=_("Output timing information. Supply the minimum threshold in seconds for displaying timing information for a rule."))
-
+    
     parserGroup.add_option("--xule-trace",
                      action="store_true",
                      dest="xule_trace",
                      help=_("Output trace information."))
-
+    
     parserGroup.add_option("--xule-trace-count",
                       action="store",
                       dest="xule_trace_count",
                       help=_("Name of the file to write a trace count."))
-
+    
     parserGroup.add_option("--xule-debug",
                      action="store_true",
                      dest="xule_debug",
-                     help=_("Output trace information."))
+                     help=_("Output trace information."))    
 
     parserGroup.add_option("--xule-debug-table",
                      action="store_true",
                      dest="xule_debug_table",
-                     help=_("Output trace information."))
-
+                     help=_("Output trace information."))  
+    
     parserGroup.add_option("--xule-debug-table-style",
                        action="store",
                        dest="xule_debug_table_style",
-                       help=_("The table format. The valid values are tabulate table formats: plain, simple, grid, fancy_gri, pipe, orgtbl, jira, psql, rst, mediawiki, moinmoin, html, latex, latex_booktabs, textile."))
+                       help=_("The table format. The valid values are tabulate table formats: plain, simple, grid, fancy_gri, pipe, orgtbl, jira, psql, rst, mediawiki, moinmoin, html, latex, latex_booktabs, textile."))  
 
     parserGroup.add_option("--xule-test-debug",
                      action="store_true",
                      dest="xule_test_debug",
-                     help=_("Output testcase information."))
-
+                     help=_("Output testcase information."))   
+    
     parserGroup.add_option("--xule-crash",
                      action="store_true",
                      dest="xule_crash",
                      help=_("Output trace information."))
-
+    
     parserGroup.add_option("--xule-pre-calc",
                       action="store_true",
                       dest="xule_pre_calc",
                       help=_("Pre-calc expressions"))
-
+    
     parserGroup.add_option("--xule-filing-list",
                       action="store",
                       dest="xule_filing_list",
@@ -480,68 +516,68 @@ def xuleCmdOptions(parser):
                              "array. Each item in the array is a JSON object. The file name is specified with 'file' key. Additional keys can "
                              "be used to specific --xule options to use. These options will override options specified on the command line. "
                              "Example: [{'file' : 'example_1.xml}, {'file' : 'example_2.xml', 'xule_rule_set' "))
-
+    
     if xm is not None:
         parserGroup.add_option("--xule-server",
                          action="store",
                          dest="xule_server",
                          help=_("Launch the webserver."))
-
+    
         parserGroup.add_option("--xule-multi",
                          action="store_true",
                          dest="xule_multi",
                          help=_("Turns on multithreading"))
-
+        
         parserGroup.add_option("--xule-cpu",
                          action="store",
                          dest="xule_cpu",
                          help=_("overrides number of cpus per processing to use"))
-
+        
         parserGroup.add_option("--xule-async",
                          action="store_true",
                          dest="xule_async",
                          help=_("Outputs onscreen output as the filing is being processed"))
-
+    
         parserGroup.add_option("--xule-numthreads",
                          action="store",
                          dest="xule_numthreads",
                          help=_("Indicates number of concurrents threads will run while the Xule Server is active"))
-
+        
         parserGroup.add_option("--xule-skip",
                           action="store",
                           dest="xule_skip",
                           help=_("List of rules to skip"))
-
+        
         parserGroup.add_option("--xule-run-only",
                           action="store",
                           dest="xule_run_only",
-                          help=_("List of rules to run"))
-
+                          help=_("List of rules to run"))    
+        
         parserGroup.add_option("--xule-no-cache",
                           action="store_true",
                           dest="xule_no_cache",
                           help=_("Turns off local caching for a rule."))
-
+        
         parserGroup.add_option("--xule-precalc-constants",
                           action="store_true",
                           dest="xule_precalc_constants",
                           help=_("Pre-calculate constants that do not depend on the instance."))
-
+    
         parserGroup.add_option("--xule-exclude-nils",
                           action="store_true",
                           dest="xule_exclude_nils",
                           help=_("Indicates that the processor should exclude nil facts. By default, nils are included."))
-
+        
         parserGroup.add_option("--xule-include-dups",
                           action="store_true",
                           dest="xule_include_dups",
-                          help=_("Indicates that the processor should include duplicate facts. By default, duplicate facts are ignored."))
-
+                          help=_("Indicates that the processor should include duplicate facts. By default, duplicate facts are ignored."))    
+        
         parserGroup.add_option("--xule-version",
                           action="store_true",
                           dest="xule_version",
                           help=_("Display version number of the xule module."))
-
+        
         parserGroup.add_option("--xule-display-rule-set-map",
                                action="store_true",
                                dest="xule_display_rule_set_map",
@@ -551,35 +587,41 @@ def xuleCmdOptions(parser):
                                action="store",
                                dest="xule_update_rule_set_map",
                                help=_("Update the rule set map currently used. The supplied file will be merged with the current rule set map."))
-
+    
         parserGroup.add_option("--xule-replace-rule-set-map",
                                action="store",
                                dest="xule_replace_rule_set_map",
                                help=_("Replace the rule set map currently used."))
-
+        
         parserGroup.add_option("--xule-reset-rule-set-map",
                                action="store_true",
                                dest=("xule_reset_rule_set_map"),
                                help=_("Reset the rule set map to the default."))
-
+    
     if xv is not None: # The XuleValidate module is imported
         parserGroup.add_option("--xule-validate",
                                action="store_true",
                                dest="xule_validate",
                                help=_("Validate ruleset"))
 
-def xuleCmdUtilityRun(cntlr, options, **kwargs):
+def saveOptions(cntlr, options, **kwargs):
+    global _options
+    if _options is not None:
+        _options = options
+
+
+def xuleCmdUtilityRun(cntlr, options, **kwargs): 
     # Save the controller and options in the module global variable
     global _cntlr
     _cntlr = cntlr
+    saveOptions(cntlr, options, **kwargs)
     global _options
-    _options = options
 
     cntlr.addToLog("Xule version: %s" % __version__, 'info')
 
     # check option combinations
     parser = optparse.OptionParser()
-
+    
     if getattr(options, "xule_version", False):
         cntlr.addToLog("Xule version: %s" % __version__, 'xule')
         cntlr.close()
@@ -592,26 +634,26 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
 
     from os import name
     if getattr(options, "xule_multi", False) and name == 'nt':
-        parser.error(_("--xule-multi can't be used in Windows"))
+        parser.error(_("--xule-multi can't be used in Windows"))    
 
-
+            
     if getattr(options, "xule-numthreads", None) == None:
-        setattr(options, "xule-numthreads", 1)
-
+        setattr(options, "xule-numthreads", 1)   
+    
     if getattr(options, 'xule_add_packages', None) is not None and not getattr(options, 'xule_rule_set', None):
-        parser.error(_("--xule-rule-set is required with --xule-add-packages."))
+        parser.error(_("--xule-rule-set is required with --xule-add-packages.")) 
 
     if getattr(options, 'xule_remove_packages', None) is not None and not getattr(options, 'xule_rule_set', None):
-        parser.error(_("--xule-rule-set is required with --xule-remove-packages."))
+        parser.error(_("--xule-rule-set is required with --xule-remove-packages.")) 
 
     if getattr(options, 'xule_show_packages', None) is not None and not getattr(options, 'xule_rule_set', None):
-        parser.error(_("--xule-rule-set is required with --xule-show-packages."))
+        parser.error(_("--xule-rule-set is required with --xule-show-packages."))    
 
     if len([x for x in (getattr(options, "xule_update_rule_set_map", False),
                        getattr(options, "xule_replace_rule_set_map", False),
                        getattr(options, "xule_reset_rule_set_map", False)) if x]) > 1:
         parser.error(_("Cannot use --xule-update-rule-set-map or --xule-replace-rule-set-map or --xule-reset-rule-set-map the same time."))
-
+    
     if getattr(options, 'xule_validate', None) is not None and getattr(options, 'xule_rule_set', None) is None:
         parser.error(_("--xule-validate requires a Xule ruleset. Use option --xule-rule-set."))
 
@@ -620,9 +662,9 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
 
     # compile rules
     if getattr(options, "xule_compile", None):
-        compile_destination = getattr(options, "xule_rule_set", "xuleRules")
+        compile_destination = getattr(options, "xule_rule_set", "xuleRules") 
         xp.parseRules(options.xule_compile.split("|"), compile_destination, getattr(options, "xule_compile_type"))
-
+    
     # add packages
     if getattr(options, "xule_add_packages", None):
         rule_set = xr.XuleRuleSet(cntlr)
@@ -636,7 +678,7 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
         rule_set.open(getattr(options, "xule_rule_set"), open_packages=False, open_files=False)
         packages = options.xule_remove_packages.split('|')
         rule_set.manage_packages(packages, 'del')
-
+    
     # show packages
     if getattr(options, "xule_show_packages", False):
         rule_set = xr.XuleRuleSet(cntlr)
@@ -644,15 +686,15 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
         print("Packages in rule set:")
         for package_info in rule_set.get_packages_info():
             print('\t' + package_info.get('name') + ' (' + os.path.basename(package_info.get('URL')) + ')')
-
+        
     # update rule set map
     if getattr(options, 'xule_update_rule_set_map', None):
         xu.update_rule_set_map(cntlr, getattr(options, 'xule_update_rule_set_map'), _xule_rule_set_map_name)
-
+    
     # replace rule set map
     if getattr(options, 'xule_replace_rule_set_map', None):
         xu.update_rule_set_map(cntlr, getattr(options, 'xule_replace_rule_set_map'), _xule_rule_set_map_name, overwrite=True)
-
+    
     # reset rule set map
     if getattr(options, 'xule_reset_rule_set_map', False):
         xu.reset_rule_set_map(cntlr, _xule_rule_set_map_name)
@@ -660,16 +702,16 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
     # display the rule set map
     if getattr(options, 'xule_display_rule_set_map', False):
         displayValidatorRulesetMap(cntlr, 'Xule', _xule_rule_set_map_name)
-
+        
     # validate ruleset
     if getattr(options, 'xule_validate', False):
         rule_set = xr.XuleRuleSet(cntlr)
         rule_set.open(options.xule_rule_set, open_packages=not getattr(options, 'xule_bypass_packages', False))
         xv.XuleValidate(cntlr, rule_set, options.xule_rule_set)
-
+    
     if getattr(options, "xule_server", None):
         from threading import Thread
-
+        
         try:
             rule_set = xr.XuleRuleSet()
             rule_set.open(options.xule_rule_set, False)
@@ -679,18 +721,18 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
         # Create global Context
         global_context = XuleGlobalContext(rule_set, cntlr=cntlr, options=options)
 
-        global_context.message_queue.print("Using %d processors" % (global_context.num_processors))
+        global_context.message_queue.print("Using %d processors" % (global_context.num_processors)) 
 
         # Start Output message queue
         if getattr(options, "xule_multi", False):
             t = Thread(target=xm.output_message_queue, args=(global_context,))
             t.start()
-
+        
         global_context.message_queue.logging("Building Constant and Rule Groups")
         global_context.all_constants = rule_set.get_grouped_constants()
-        global_context.all_rules = rule_set.get_grouped_rules()
+        global_context.all_rules = rule_set.get_grouped_rules()        
 
-
+        
         for g in global_context.all_constants:
             global_context.message_queue.logging("Constants: %s - %d" % (g, len(global_context.all_constants[g])))
 
@@ -701,20 +743,20 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
         global_context.message_queue.logging("Calculating and Storing Constants")
         xm.run_constant_group(global_context, 'c', 'rtc')
 
-
+                                   
         # Add precalculated information to the cntlr to pass to XuleServer
         setattr(cntlr, "xule_options", options)
-        setattr(cntlr, "rule_set", global_context.rule_set)
+        setattr(cntlr, "rule_set", global_context.rule_set)        
         setattr(cntlr, "constant_list", global_context._constants)
         setattr(cntlr, "all_constants", global_context.all_constants)
-        setattr(cntlr, "all_rules", global_context.all_rules)
+        setattr(cntlr, "all_rules", global_context.all_rules)        
 
 
         global_context.message_queue.logging("Finished Server Initialization")
-
+        
         # stop message_queue
         global_context.message_queue.stop()
-
+        
         if getattr(options, "xule_multi", False):
             t.join()
     else:
@@ -769,11 +811,11 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
     # Only register xule as a validator if the xule plugin was directly added in the --plugin options.
     if isXuleDirect():
         xuleRegisterValidators('Xule', _xule_rule_set_map_name)
-
+    
 def xuleCmdXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
     if getattr(options, "xule_run", None):
         runXule(cntlr, options, modelXbrl)
-
+        
 def runXule(cntlr, options, modelXbrl, rule_set_map=_xule_rule_set_map_name):
         try:
             if getattr(options, "xule_multi", True) and \
@@ -788,9 +830,9 @@ def runXule(cntlr, options, modelXbrl, rule_set_map=_xule_rule_set_map_name):
                     modelXbrl.log('INFO', 'info', 'Using ruleset {}'.format(rule_set_location))
                     if rule_set_location is None:
                         # The rule set could not be determined.
-                        modelXbrl.log('ERROR', 'xule', "Cannot determine which rule set to use for the filing. Check the rule set map at '{}'.".format(xu.get_rule_set_map_file_name(cntlr, rule_set_map)))
-
-                rule_set = xr.XuleRuleSet(cntlr)
+                        modelXbrl.log('ERROR', 'xule', "Cannot determine which rule set to use for the filing. Check the rule set map at '{}'.".format(xu.get_rule_set_map_file_name(cntlr, rule_set_map))) 
+                    
+                rule_set = xr.XuleRuleSet(cntlr)              
                 rule_set.open(rule_set_location, open_packages=not getattr(options, 'xule_bypass_packages', False))
         except xr.XuleRuleSetError:
             raise
@@ -807,8 +849,8 @@ def runXule(cntlr, options, modelXbrl, rule_set_map=_xule_rule_set_map_name):
                 for rule in rule_set.catalog['rules'].values():
                     if rule['dependencies']['instance'] == True and rule['dependencies']['rules-taxonomy'] != False:
                         raise xr.XuleRuleSetError('Need instance to process rules')
-
-            global _saved_taxonomies
+                    
+            global _saved_taxonomies        
             used_taxonomies = process_xule(rule_set,
                                            modelXbrl,
                                            cntlr,
@@ -821,12 +863,12 @@ def runXule(cntlr, options, modelXbrl, rule_set_map=_xule_rule_set_map_name):
                 for tax_key in list(new_taxonomy_keys)[:2]: # This take at most 2 taxonomies.
                     tax_key = next(iter(new_taxonomy_keys)) # randomly get one key
                     _saved_taxonomies[tax_key] = used_taxonomies[tax_key]
-
+            
 def xuleValidate(val):
     global _cntlr
     global _options
     global _xule_validators
-
+    
 #     #This will only run from command line
 #     # _options will not be EmptyOptions when run from command line.
 #     if _cntlr is not None and not isinstance(_options, EmptyOptions):
@@ -834,7 +876,7 @@ def xuleValidate(val):
 #             # Only run on validate if the --xule-run option was not supplied. If --xule-run is supplied, it has already been run
 #             for xule_validator in _xule_validators:
 #                 runXule(_cntlr, _options, val.modelXbrl, xule_validator['map_name'])
-#
+# 
 #     # This will only run from gui
 #     for xule_validator in _xule_validators:
 #         # The 'validate_flag' is only registered when run from the GUI
@@ -857,15 +899,15 @@ def xuleValidate(val):
                 val.modelXbrl.info("DQC",_("Starting {} validation".format(xule_validator['name'])))
                 runXule(_cntlr, _options, val.modelXbrl, xule_validator['map_name'])
                 val.modelXbrl.info(xule_validator['name'],_("Finished {} validation".format(xule_validator['name'])))
-                val.modelXbrl.modelManager.showStatus(_("Finished {} validation".format(xule_validator['name'])))
+                val.modelXbrl.modelManager.showStatus(_("Finished {} validation".format(xule_validator['name']))) 
         else:
             # This is run on the command line or web server
             # Only run on validate if the --xule-run option was not supplied. If --xule-run is supplied, it has already been run
             if not getattr(_options, "xule_run", False):
-                runXule(_cntlr, _options, val.modelXbrl, xule_validator['map_name'])
+                runXule(_cntlr, _options, val.modelXbrl, xule_validator['map_name'])            
 
     if getattr(_cntlr, 'hasWebServer', False) and not getattr(_cntlr, 'hasGui', False):
-        # When arelle is running as a webserver, it will register the xule_validators on each request to the web server.
+        # When arelle is running as a webserver, it will register the xule_validators on each request to the web server. 
         # The _xule_validators is emptied. On the next request, the xule_validators for that request will be re-register.
         _xule_validators = []
 
@@ -873,7 +915,7 @@ def xuleTestXbrlLoaded(modelTestcase, modelXbrl, testVariation):
     global _options
     global _test_start
     global _test_variation_name
-
+    
     if getattr(_options, 'xule_test_debug', False):
         _test_start = datetime.datetime.today()
         _test_variation_name = testVariation.id
@@ -883,24 +925,49 @@ def xuleTestValidated(modelTestcase, modelXbrl):
     global _options
     global _test_start
     global _test_variation_name
-
+    
     if getattr(_options, 'xule_test_debug', False):
-        if _test_start is not None:
+        if _test_start is not None:            
             test_end = datetime.datetime.today()
             print("{}: Test variation {} finished. in {} ".format(test_end.isoformat(sep=' '), _test_variation_name, (test_end - _test_start)))
 
 def updateValidatorRulesetMap(cntlr, new_map, map_name):
     xu.update_rule_set_map(cntlr, new_map, map_name)
-
+    
 def replaceValidatorRulesetMap(cntlr, new_map, map_name):
-    xu.update_rule_set_map(cntlr, new_map, map_name, overwrite=True)
+    xu.update_rule_set_map(cntlr, new_map, map_name, overwrite=True)    
+
+def rulesetMapData(cntlr, map_name):
+    '''Get the rule set map data.
+
+    Gets the namespace and rule set file name from the map and then opens each ruleset to get the rule set version number.'''
+
+    map_data = [('Namespace', 'Rule Set File', 'Version')]
+    if map_name is not None:
+        map = xu.get_rule_set_map(cntlr, map_name)
+        for k, v in map.items():
+            rule_set = xr.XuleRuleSet(cntlr)
+            try:
+                rule_set.open(v, open_packages=False, open_files=False)
+                version = rule_set.catalog.get('version', 'NOT VERSIONED')
+            except FileNotFoundError:
+                version = 'Rule set not found'
+            map_data.append((k, v, version))
+    return map_data
 
 def displayValidatorRulesetMap(cntlr, validator_name, map_name):
-    map = xu.get_rule_set_map(cntlr, map_name)
-    map_file_name = xu.get_rule_set_map_file_name(cntlr, map_name)
-    display_map = json.dumps(map, indent=4)
-    cntlr.addToLog("{} Rule Set map {} - {}\n{}".format(validator_name,  map_name, map_file_name, display_map ), validator_name)
 
+    if map_name is not None:
+        map_file_name = xu.get_rule_set_map_file_name(cntlr, map_name)
+        map_data = rulesetMapData(cntlr, map_name)
+
+        if tab is None:
+            display_map = '\n'.join(['{}\t{}\t{}'.format(*x) for x in map_data])
+        else:
+            display_map = tab.tabulate(map_data, headers='firstrow')
+
+        cntlr.addToLog("{} Rule Set map {} - {}\n{}".format(validator_name,  map_name, map_file_name, display_map ), validator_name)
+    
 __pluginInfo__ = {
     'name': 'XBRL rule processor (xule)',
     'version': 'Check version using Tools->DQC->Version on the GUI or --xule-version on the command line',
@@ -920,9 +987,10 @@ __pluginInfo__ = {
     'TestcaseVariation.Xbrl.Validated': xuleTestValidated,
     'Xule.AddMenuTools': addMenuTools,
     'Xule.AddValidationMenuTools': addValidateMenuTools,
-    'Xule.ValidatorVersion': xu.version,
+    'Xule.ValidatorVersion': validatorVersion,
     'Xule.RegisterValidator': xuleRegisterValidators,
     'Xule.RulesetMap.Update': updateValidatorRulesetMap,
     'Xule.RulesetMap.Replace': replaceValidatorRulesetMap,
-    'Xule.RulesetMap.Display': displayValidatorRulesetMap
+    'Xule.RulesetMap.Display': displayValidatorRulesetMap,
+    'Xule.CntrlCmdLine.Utility.Run.Init': saveOptions
     }
