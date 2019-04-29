@@ -23,16 +23,18 @@ $Change$
 DOCSKIP
 """
 
-from .XuleRunTime import XuleProcessingError, XuleIterationStop, XuleException, XuleBuildTableError, XuleReEvaluate
+from .XuleRunTime import XuleProcessingError
 from . import XuleValue as xv
 from . import XuleUtility 
 from . import XuleFunctions
-from arelle.ModelRelationshipSet import ModelRelationshipSet
-import numpy
 from arelle.ModelDocument import Type
+from arelle.ModelRelationshipSet import ModelRelationshipSet
+from arelle.ModelValue import QName
+import collections
 import decimal
 import math
-import collections
+import numpy
+
 import json
 
 def property_union(xule_context, object_value, *args):
@@ -1209,6 +1211,29 @@ def property_split(xule_context, object_value, *args):
 
     return xv.XuleValue(xule_context, tuple(xv.XuleValue(xule_context, x, 'string') for x in shadow), 'list', shadow_collection=shadow)
 
+def property_to_qname(xule_context, object_value, *args):
+    '''Create a qname from a single string with an optional namespace prefix.
+
+    QNames created with this property use the prefix defined in the rule set.'''
+    if object_value.value.count(':') > 1:
+        raise XuleProcessingError(
+            _("The local part of the 'to-qname' property can contain only 1 ':' to designate the namespace prefix. "
+              "Found {} colons in {}".format(object_value.value.count(':'), object_value.value)), xule_context)
+    elif ':' in object_value.value:
+        # the name contains a colon
+        prefix, local_name = object_value.value.split(':')
+    else:
+        prefix = None
+        local_name = object_value.value
+
+    namespace_uri = xule_context.global_context.catalog['namespaces'].get(prefix if prefix is not None else '*', dict()).get('uri')
+    if namespace_uri is None:
+        raise XuleProcessingError(_("In the 'to-qname' property, could not resolve the namespace prefix '{}' "
+                                    "to a namespace uri in '{}'".format(prefix, object_value.value)), xule_context)
+
+    return xv.XuleValue(xule_context, QName(prefix, namespace_uri, local_name), 'qname')
+
+
 def property_day(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, object_value.value.day, 'int')
 
@@ -1740,6 +1765,7 @@ PROPERTIES = {
               'lower-case': (property_lower_case, 0, ('string', 'uri'), False),
               'upper-case': (property_upper_case, 0, ('string', 'uri'), False),
               'split': (property_split, 1, ('string', 'uri'), False),
+              'to-qname': (property_to_qname, 0, ('string'), False),
               'day': (property_day, 0, ('instant',), False),
               'month': (property_month, 0, ('instant',), False),
               'year': (property_year, 0, ('instant',), False),

@@ -110,28 +110,6 @@ def get_prefix(xule_context, uri):
                 return k
     return None
 
-def func_prefixed_qname(xule_context, *args):
-    '''Create a qname from a single string with an optional namespace prefix'''
-    name_arg = args[0]
-
-    if name_arg.value.count(':') > 1:
-        raise XuleProcessingError(
-            _("The local part of the 'prefixed-qname' function can contain only 1 ':' to designate the namespace prefix."
-              "Found {} colons in {}".format(name_arg.value.count(':'), name_arg.value)), xule_context)
-    elif ':' in name_arg.value:
-        # the name contains a colon
-        prefix, local_name = name_arg.value.split(':')
-    else:
-        prefix = None
-        local_name = name_arg.value
-
-    namespace_uri = xule_context.global_context.catalog['namespaces'].get(prefix if prefix is not None else '*', dict()).get('uri')
-    if namespace_uri is None:
-        raise XuleProcessingError(_("In the 'prefixed-qname' function, could not resolve the namespace prefix '{}' "
-                                    "to a namespace uri".format(prefix)), xule_context)
-
-    return xv.XuleValue(xule_context, QName(prefix, namespace_uri, local_name), 'qname')
-
 def func_uri(xule_context, *args):
     arg = args[0]
 
@@ -742,7 +720,6 @@ def built_in_functions():
              'unit': ('regular', func_unit, -2, False, 'single'),
              'entity': ('regular', func_entity, 2, False, 'single'),
              'qname': ('regular', func_qname, 2, True, 'single'),
-             'prefixed-qname': ('regular', func_prefixed_qname, 1, False, 'single'),
              'uri': ('regular', func_uri, 1, False, 'single'),
              'time-span': ('regular', func_time_span, 1, False, 'single'),
              'schema-type': ('regular', func_schema_type, 1, False, 'single'),
