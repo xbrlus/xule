@@ -598,7 +598,7 @@ def func_first_value(xule_context, *args):
         if arg.value is not None:
             return arg.clone()
     # If here, either there were no arguments, or they were all none
-    return xv.XuleValue(xule_context, None, 'none')
+    return xv.XuleValue(xule_context, None, 'unbound')
 
 def func_range(xule_context, *args):
     """Return a list of numbers.
