@@ -1112,18 +1112,27 @@ class XuleDimensionCube:
         # Dimensions
         for dimension_concept in self._dimensions:
             if len(facts) > 0: # If there are no facts, then the facts for the dimension does not need to be checked.
+                dimension_index_key = ('explicit_dimension', dimension_concept.qname)
                 if dimension_concept.isTypedDimension:
                     # For typed dimensions all the facts will match
-                    dimension_facts = self._dts.xuleFactIndex[('explicit_dimension', dimension_concept.qname)].get('all', set())
+                    dimension_facts = self._dts.xuleFactIndex.get(dimension_index_key, dict()).get('all', set())
                 else:
                     dimension_facts = set()
                     for dimension_member in self._dimension_members[dimension_concept]:
                         if self.isUsable(dimension_member):
-                            dimension_facts |= self._dts.xuleFactIndex[('explicit_dimension', dimension_concept.qname)].get(dimension_member.qname, set())
+                            dimension_facts |= self._dts.xuleFactIndex.get(dimension_index_key, dict()).get(dimension_member.qname, set())
                     # default member
                     default_member = self._dimension_default.get(dimension_concept)
                     if default_member in self._dimension_members[dimension_concept] and self.isUsable(default_member):
-                        dimension_facts |= self._dts.xuleFactIndex[('explicit_dimension', dimension_concept.qname)].get(None, set())
+                        # Note the defaults on the get(). The first one for dimension_index_key returns an empty
+                        # dictionary. This happens when the dimension is not in the fact index which happens when
+                        # there are no facts that use this dimension. In this case, all  the facts match the default
+                        # for the dimension. This is in the second get() for the None value of the dimension. The None
+                        # value of the dimension represents all facts that do not have the dimension explicitly. The
+                        # 'all' on the fact index is used in this case. The 'all' is every fact in the instance. If the
+                        # dimension is not used in the instance at all, then the first get() returns an empty dict. The
+                        # second get() will not find a key of None (since the dict is empty) and will return all facts.
+                        dimension_facts |= self._dts.xuleFactIndex.get(dimension_index_key, dict()).get(None, self._dts.xuleFactIndex.get('all', set()))
 
                 facts &= dimension_facts
 
