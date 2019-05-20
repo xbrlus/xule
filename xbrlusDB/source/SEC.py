@@ -333,7 +333,13 @@ def SECFilingAndEntityInfo(dbLoader):
             #values found in the html index file override any defaults already set up.
             for attrName, attrValue in filingAttributes.items():
                 info[attrName] = attrValue
+    
+    if info['entityIdentifier'] is not None:
+        info['entityIdentifier'] = info['entityIdentifier'].strip();
         
+    if info['entityName'] is not None:
+        info['entityName'] = info['entityName'].strip();
+
     return info
     
 def extractFilingDetailsFromIndex(dbLoader, indexFileName, info):
