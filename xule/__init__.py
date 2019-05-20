@@ -624,10 +624,6 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
 
     # check option combinations
     parser = optparse.OptionParser()
-    
-    #if getattr(options, "xule_version", False):
-    #    cntlr.addToLog("Xule version: %s" % __version__, 'xule')
-    #    cntlr.close()
 
     if getattr(options, "xule_cpu", None) is not None and not getattr(options, 'xule_multi', None):
             parser.error(_("--xule-multi is required with --xule_cpu."))
