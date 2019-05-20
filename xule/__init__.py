@@ -69,7 +69,7 @@ try:
 except NameError:
     __version__ = '3.0.' + (xu.version() or '')
     _cntlr = None
-    _options = None
+    #_options = None
     _is_xule_direct = None
     _saved_taxonomies = dict()
     _test_start = None
@@ -141,12 +141,17 @@ def xuleMenuTools(cntlr, menu):
             turnOnXule()
 
 def addMenuTools(cntlr, menu, name, version_prefix, version_file, map_name, cloud_map_location):
+                #cntlr, menu, 'Xule', '', __file__, _xule_rule_set_map_name, _latest_map_name
     import tkinter
     import tkinter.ttk as ttk
     import tkinter.font as tkFont
     
     def showVersion():
-        version_text = versionText(cntlr, name, map_name, version_prefix, version_file)
+        if name == 'Xule':
+            version_text = "{}".format(versionText(cntlr, name, map_name, version_prefix, version_file))
+        else:
+            version_text = "{}\n{}".format(versionText(cntlr, name, map_name, version_prefix, version_file),
+                                           versionText(cntlr, 'Xule', _xule_rule_set_map_name, '', __file__))
 
         tkinter.messagebox.showinfo("{} Version".format(name), version_text)
 
@@ -354,14 +359,13 @@ def addValidateMenuTools(cntlr, validateMenu, name, map_name):
 
     xuleRegisterValidators(name, map_name, validate_var)
 
-def isXuleDirect():
+def isXuleDirect(cntlr):
     """Determines if xule was loaded as a direct plugin"""
     
     global _is_xule_direct
     if _is_xule_direct is None:
-        global _options
         _is_xule_direct = False
-        for plugin_command in getattr(_options, 'plugins', '').split('|'):
+        for plugin_command in getattr(XuleVars.get(cntlr, 'options'), 'plugins', '').split('|'):
             if plugin_command.lower().endswith('xule'):
                 _is_xule_direct = True
 
@@ -381,7 +385,6 @@ def validatorVersion(cntlr, validator_name, map_name, version_prefix, validator_
     version_text = versionText(cntlr, validator_name, map_name, version_prefix, validator_file)
 
     cntlr.addToLog(version_text, 'info')
-    cntlr.close()
 
 def versionText(cntlr, validator_name, map_name, version_prefix, validator_file):
     '''Get the version information and format it as text'''
@@ -389,13 +392,17 @@ def versionText(cntlr, validator_name, map_name, version_prefix, validator_file)
     if validator_name == 'Xule':
         version_text = 'Xule processor version : {}'.format(__version__)
     else:
-        version_text = '{} validator version: {}\n\nXule processor version: {}'.format(validator_name, version, __version__)
+        version_text = '{} validator version: {}'.format(validator_name, version)
 
+    return version_text
+
+    # The following code is not currently being used. It will read each of the rule sets and report the version.
+    # However, this does not perform well be cause each ruleset has to be downloaded and read.
     if map_name is not None:
         try:
             map_data = rulesetMapData(cntlr, map_name)[1:]
         except:
-            pass #ignor problems reading the rule set map
+            pass #ignore problems reading the rule set map
         else:
             map_by_version = collections.defaultdict(list)
             for map_line in map_data:
@@ -605,26 +612,22 @@ def xuleCmdOptions(parser):
                                help=_("Validate ruleset"))
 
 def saveOptions(cntlr, options, **kwargs):
-    global _options
-    if _options is not None:
-        _options = options
-
+    XuleVars.set(cntlr, 'options', options)
 
 def xuleCmdUtilityRun(cntlr, options, **kwargs): 
     # Save the controller and options in the module global variable
     global _cntlr
     _cntlr = cntlr
     saveOptions(cntlr, options, **kwargs)
-    global _options
 
     cntlr.addToLog("Xule version: %s" % __version__, 'info')
 
     # check option combinations
     parser = optparse.OptionParser()
     
-    if getattr(options, "xule_version", False):
-        cntlr.addToLog("Xule version: %s" % __version__, 'xule')
-        cntlr.close()
+    #if getattr(options, "xule_version", False):
+    #    cntlr.addToLog("Xule version: %s" % __version__, 'xule')
+    #    cntlr.close()
 
     if getattr(options, "xule_cpu", None) is not None and not getattr(options, 'xule_multi', None):
             parser.error(_("--xule-multi is required with --xule_cpu."))
@@ -809,7 +812,7 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
                 xuleCmdXbrlLoaded(cntlr, options, None)
 
     # Only register xule as a validator if the xule plugin was directly added in the --plugin options.
-    if isXuleDirect():
+    if isXuleDirect(cntlr):
         xuleRegisterValidators('Xule', _xule_rule_set_map_name)
     
 def xuleCmdXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
@@ -866,29 +869,11 @@ def runXule(cntlr, options, modelXbrl, rule_set_map=_xule_rule_set_map_name):
             
 def xuleValidate(val):
     global _cntlr
-    global _options
     global _xule_validators
-    
-#     #This will only run from command line
-#     # _options will not be EmptyOptions when run from command line.
-#     if _cntlr is not None and not isinstance(_options, EmptyOptions):
-#         if not getattr(_options, "xule_run", False):
-#             # Only run on validate if the --xule-run option was not supplied. If --xule-run is supplied, it has already been run
-#             for xule_validator in _xule_validators:
-#                 runXule(_cntlr, _options, val.modelXbrl, xule_validator['map_name'])
-# 
-#     # This will only run from gui
-#     for xule_validator in _xule_validators:
-#         # The 'validate_flag' is only registered when run from the GUI
-#         if 'validate_flag' in xule_validator and xule_validator['validate_flag'].get():
-#             val.modelXbrl.modelManager.showStatus(_("Starting {} validation".format(xule_validator['name'])))
-#             val.modelXbrl.info("DQC",_("Starting {} validation".format(xule_validator['name'])))
-#             runXule(_cntlr, _options, val.modelXbrl, xule_validator['map_name'])
-#             val.modelXbrl.info(xule_validator['name'],_("Finished {} validation".format(xule_validator['name'])))
-#             val.modelXbrl.modelManager.showStatus(_("Finished {} validation".format(xule_validator['name'])))
 
-    if _options is None:
-        _options = EmptyOptions()
+    options = XuleVars.get(_cntlr, 'options')
+    if options is None:
+        options = EmptyOptions()
 
     for xule_validator in _xule_validators:
         if 'validate_flag' in xule_validator:
@@ -897,14 +882,14 @@ def xuleValidate(val):
                 # Only run if the validate_flag variable is ture (checked off in the validate menu)
                 val.modelXbrl.modelManager.showStatus(_("Starting {} validation".format(xule_validator['name'])))
                 val.modelXbrl.info("DQC",_("Starting {} validation".format(xule_validator['name'])))
-                runXule(_cntlr, _options, val.modelXbrl, xule_validator['map_name'])
+                runXule(_cntlr, options, val.modelXbrl, xule_validator['map_name'])
                 val.modelXbrl.info(xule_validator['name'],_("Finished {} validation".format(xule_validator['name'])))
                 val.modelXbrl.modelManager.showStatus(_("Finished {} validation".format(xule_validator['name']))) 
         else:
             # This is run on the command line or web server
             # Only run on validate if the --xule-run option was not supplied. If --xule-run is supplied, it has already been run
-            if not getattr(_options, "xule_run", False):
-                runXule(_cntlr, _options, val.modelXbrl, xule_validator['map_name'])            
+            if not getattr(options, "xule_run", False):
+                runXule(_cntlr, options, val.modelXbrl, xule_validator['map_name'])
 
     if getattr(_cntlr, 'hasWebServer', False) and not getattr(_cntlr, 'hasGui', False):
         # When arelle is running as a webserver, it will register the xule_validators on each request to the web server. 
@@ -912,21 +897,21 @@ def xuleValidate(val):
         _xule_validators = []
 
 def xuleTestXbrlLoaded(modelTestcase, modelXbrl, testVariation):
-    global _options
+    global _cntlr
     global _test_start
     global _test_variation_name
     
-    if getattr(_options, 'xule_test_debug', False):
+    if getattr(XuleVars.get(_cntlr,'options'), 'xule_test_debug', False):
         _test_start = datetime.datetime.today()
         _test_variation_name = testVariation.id
         print('{}: Testcase variation {} started'.format(_test_start.isoformat(sep=' '), testVariation.id))
 
 def xuleTestValidated(modelTestcase, modelXbrl):
-    global _options
+    global _cntlr
     global _test_start
     global _test_variation_name
     
-    if getattr(_options, 'xule_test_debug', False):
+    if getattr(XuleVars.get(_cntlr, 'options'), 'xule_test_debug', False):
         if _test_start is not None:            
             test_end = datetime.datetime.today()
             print("{}: Test variation {} finished. in {} ".format(test_end.isoformat(sep=' '), _test_variation_name, (test_end - _test_start)))
@@ -943,6 +928,7 @@ def rulesetMapData(cntlr, map_name):
     Gets the namespace and rule set file name from the map and then opens each ruleset to get the rule set version number.'''
 
     map_data = [('Namespace', 'Rule Set File', 'Version')]
+
     if map_name is not None:
         map = xu.get_rule_set_map(cntlr, map_name)
         for k, v in map.items():
@@ -970,7 +956,7 @@ def displayValidatorRulesetMap(cntlr, validator_name, map_name):
     
 __pluginInfo__ = {
     'name': 'XBRL rule processor (xule)',
-    'version': 'Check version using Tools->DQC->Version on the GUI or --xule-version on the command line',
+    'version': 'Check version using Tools->Xule->Version on the GUI or --xule-version on the command line',
     'description': 'This plug-in provides a DQC processor.',
     'license': 'Apache-2',
     'author': 'XBRL US Inc.',
