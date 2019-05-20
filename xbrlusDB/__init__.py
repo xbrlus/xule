@@ -19,6 +19,7 @@ from .XbrlPublicPostgresDB import insertIntoDB, XbrlPostgresDatabaseConnection
 from lxml import etree
 from arelle import ModelManager
 import optparse
+import zipfile
 
 def xbrlDBcommandLineOptionExtender(parser):
     # extend command line options to store to database
@@ -118,6 +119,16 @@ def xbrlDBcommandLineOptionChecker(cntlr, options, **kwargs):
 #        updateSource(cntlr, host=host, port=port, user=user, password=password, database=db, timeout=timeout, options=options)
 
 def xbrlDBCommandLineFilingStart(cntlr, options, filesource, entrypointFiles, sourceZipStream=None, responseZipStream=None):
+    '''Check if Arelle is called with an archive (zip file).
+
+    If Arelle is called with a zip file, this may be needed when loading an entry point. However, when Arelle calls
+    the plugin to load an entrypoint, it does not pass the original archive that the entry point is.
+    '''
+    if sourceZipStream is not None:
+        cntlr.xbrlusDB_entry_zipfile = zipfile.ZipFile(sourceZipStream)
+    elif filesource.isArchive:
+        cntlr.xbrlusDB_entry_zipfile = filesource.fs
+
     '''Identify the entry points that are already in the database before they are loaded as modelXbrl objects by Arelle.
 
     This will remove entrypoints that are already in the database'''
@@ -215,7 +226,7 @@ __pluginInfo__ = {
     'CntlrCmdLine.Options': xbrlDBcommandLineOptionExtender,
     'CntlrCmdLine.Utility.Run': xbrlDBcommandLineOptionChecker,
     #'CntlrCmdLine.Xbrl.Loaded': xbrlDBCommandLineXbrlLoaded,
-    #'CntlrCmdLine.Filing.Start': xbrlDBCommandLineFilingStart,  # This is called before the entry points are loaded as modelXbrl objects
+    'CntlrCmdLine.Filing.Start': xbrlDBCommandLineFilingStart,  # This is called before the entry points are loaded as modelXbrl objects
     'CntlrCmdLine.Xbrl.Run': xbrlDBCommandLineXbrlRun,
     #'DialogRssWatch.FileChoices': xbrlDBdialogRssWatchDBconnection,
     #'DialogRssWatch.ValidateChoices': xbrlDBdialogRssWatchValidateChoices,
