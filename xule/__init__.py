@@ -830,7 +830,7 @@ def runXule(cntlr, options, modelXbrl, rule_set_map=_xule_rule_set_map_name):
                     if rule_set_location is None:
                         # The rule set could not be determined.
                         modelXbrl.log('ERROR', 'xule', "Cannot determine which rule set to use for the filing. Check the rule set map at '{}'.".format(xu.get_rule_set_map_file_name(cntlr, rule_set_map))) 
-                    
+                
                 rule_set = xr.XuleRuleSet(cntlr)              
                 rule_set.open(rule_set_location, open_packages=not getattr(options, 'xule_bypass_packages', False))
         except xr.XuleRuleSetError:
@@ -876,15 +876,19 @@ def xuleValidate(val):
             # This is run in the GUI. The 'validate_flag' is only in the xule_validator when invoked from the GUI
             if xule_validator['validate_flag'].get():
                 # Only run if the validate_flag variable is ture (checked off in the validate menu)
-                val.modelXbrl.modelManager.showStatus(_("Starting {} validation".format(xule_validator['name'])))
-                val.modelXbrl.info("DQC",_("Starting {} validation".format(xule_validator['name'])))
-                runXule(_cntlr, options, val.modelXbrl, xule_validator['map_name'])
-                val.modelXbrl.info(xule_validator['name'],_("Finished {} validation".format(xule_validator['name'])))
-                val.modelXbrl.modelManager.showStatus(_("Finished {} validation".format(xule_validator['name']))) 
+                if  len(val.modelXbrl.facts) > 0 and len(val.modelXbrl.qnameConcpets) > 0:
+                    # Only run if there is something in the model. Sometimes arelle creates an empty model and runs the validation.
+                    # This happens in the case of the transforms/tester plugin. Arelle creates an empty model to run a formula
+                    # valiation. In this case, there really wasn't a model to validate.
+                    val.modelXbrl.modelManager.showStatus(_("Starting {} validation".format(xule_validator['name'])))
+                    val.modelXbrl.info("DQC",_("Starting {} validation".format(xule_validator['name'])))
+                    runXule(_cntlr, options, val.modelXbrl, xule_validator['map_name'])
+                    val.modelXbrl.info(xule_validator['name'],_("Finished {} validation".format(xule_validator['name'])))
+                    val.modelXbrl.modelManager.showStatus(_("Finished {} validation".format(xule_validator['name']))) 
         else:
             # This is run on the command line or web server
             # Only run on validate if the --xule-run option was not supplied. If --xule-run is supplied, it has already been run
-            if not getattr(options, "xule_run", False):
+            if not getattr(options, "xule_run", False) and len(val.modelXbrl.facts) > 0 and len(val.modelXbrl.qnameConcpets) > 0:
                 runXule(_cntlr, options, val.modelXbrl, xule_validator['map_name'])
 
     if getattr(_cntlr, 'hasWebServer', False) and not getattr(_cntlr, 'hasGui', False):
