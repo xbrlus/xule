@@ -149,7 +149,7 @@ def xbrlDBCommandLineFilingStart(cntlr, options, filesource, entrypointFiles, so
 
     conn.close()
 
-def xbrlDBCommandLineXbrlRun(cntlr, options, modelXbrl, entryPoint):
+def xbrlDBCommandLineXbrlRun(cntlr, options, modelXbrl, entryPoint, **kwargs):
 
     if getattr(options, "storeIntoXbrlDb", False):
         host, port, user, password, db, timeout = parseConnectionString(options, cntlr)

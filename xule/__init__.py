@@ -712,7 +712,7 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
         from threading import Thread
         
         try:
-            rule_set = xr.XuleRuleSet()
+            rule_set = xr.XuleRuleSet(cntlr)
             rule_set.open(options.xule_rule_set, False)
         except xr.XuleRuleSetError:
             raise

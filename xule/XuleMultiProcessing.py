@@ -524,11 +524,17 @@ def load_rules_queue(context, *args, number=None):
     ''' number controls the amount that's loaded during this call'''
     num = 0
     #print("begin load: %s - %s" % (str(number), str(args)))
+    run_only_rules = getattr(context.options, "xule_run_only", None).split(",") if getattr(
+        context.options, "xule_run_only", None) is not None else None
+    
     for rules_type in args:
         if rules_type in context.all_rules:
             #print("working on: %s: %d" % (rules_type, len(context.all_rules[rules_type])))
             if number is None:
-                for rule in context.all_rules[rules_type]:
+                for rule in context.all_rules[rules_type]: 
+                    context.message_queue.logging(rule)
+                    if not (run_only_rules is None or rule in run_only_rules):
+                        continue
                     num +=1
                     context.rules_queue.put(rule)
                 del context.all_rules[rules_type]
@@ -538,6 +544,8 @@ def load_rules_queue(context, *args, number=None):
                 for num in range(number):
                     num += 1
                     rule = context.all_rules[rules_type].pop()
+                    if not (run_only_rules is None or rule in run_only_rules):
+                        continue
                     context.rules_queue.put(rule)
             
             
