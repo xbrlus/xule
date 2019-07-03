@@ -36,9 +36,11 @@ import decimal
 from aniso8601.__init__ import parse_duration, parse_datetime, parse_date
 import collections
 import copy
+from fractions import Fraction
 import pprint
 import re
 import textwrap
+
 
 class XuleValueSet:
     def __init__(self, values=None):
@@ -1458,7 +1460,8 @@ TYPE_SYSTEM_TO_XULE = {int: 'int',
                        gYear: 'model_g_year',
                        gMonthDay: 'model_g_month_day',
                        gYearMonth: 'model_g_year_month',
-                       AnyURI: 'uri'}
+                       AnyURI: 'uri',
+                       Fraction: 'fraction'}
 
 TYPE_STANDARD_CONVERSION = {'model_date_time': (model_to_xule_model_datetime, 'instant'),
                             'model_g_year': (model_to_xule_model_g_year, 'int'),
