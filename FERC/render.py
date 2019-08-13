@@ -279,30 +279,30 @@ def substituteTemplate(substitutions, rule_results, template, modelXbrl):
 
     return template
 
-def fercMenuTools(cntlr, menu):
-    import tkinter
+# def fercMenuTools(cntlr, menu):
+#     import tkinter
   
-    def fercRender():
-        global _INSTANCE_MODEL
-        if _INSTANCE_MODEL is None:
-            tkinter.messagebox.showinfo("FERC Renderer", "Need to load an instance document in order to render")
-        elif _INSTANCE_MODEL.modelDocument.type not in (Type.INSTANCE, Type.INLINEXBRL):
-            tkinter.messagebox.showinfo("FERC Renderer", "Loaded document is not an instance")
-        else:
-            # Extract the formLocation references from the Arelle model
-            refs = get_references(_INSTANCE_MODEL, _CONCEPT_REFERENCE)
+#     def fercRender():
+#         global _INSTANCE_MODEL
+#         if _INSTANCE_MODEL is None:
+#             tkinter.messagebox.showinfo("FERC Renderer", "Need to load an instance document in order to render")
+#         elif _INSTANCE_MODEL.modelDocument.type not in (Type.INSTANCE, Type.INLINEXBRL):
+#             tkinter.messagebox.showinfo("FERC Renderer", "Loaded document is not an instance")
+#         else:
+#             # Extract the formLocation references from the Arelle model
+#             refs = get_references(_INSTANCE_MODEL, _CONCEPT_REFERENCE)
             
-            if _INSTANCE_MODEL.modelManager.cntlr.userAppDir is None:
-                raise Exception(_("Arelle does not have a user application data directory. Cannot save rendered file"))            
-            render_file_name = os.path.join(cntlr.userAppDir, 'plugin', 'ferc',  os.path.splitext(_INSTANCE_MODEL.modelDocument.basename)[0] + '.html')            
+#             if _INSTANCE_MODEL.modelManager.cntlr.userAppDir is None:
+#                 raise Exception(_("Arelle does not have a user application data directory. Cannot save rendered file"))            
+#             render_file_name = os.path.join(cntlr.userAppDir, 'plugin', 'ferc',  os.path.splitext(_INSTANCE_MODEL.modelDocument.basename)[0] + '.html')            
             
-            render(render_file_name, _INSTANCE_MODEL, refs)        
-            webbrowser.open(render_file_name)
+#             render(render_file_name, _INSTANCE_MODEL, refs)        
+#             webbrowser.open(render_file_name)
 
-    fercMenu = tkinter.Menu(menu, tearoff=0)
-    fercMenu.add_command(label=_("Render"), underline=0, command=fercRender)
+#     fercMenu = tkinter.Menu(menu, tearoff=0)
+#     fercMenu.add_command(label=_("Render"), underline=0, command=fercRender)
 
-    menu.add_cascade(label=_("FERC"), menu=fercMenu, underline=0)
+#     menu.add_cascade(label=_("FERC"), menu=fercMenu, underline=0)
 
 def cmdLineOptionExtender(parser, *args, **kwargs):
     
@@ -317,7 +317,12 @@ def cmdLineOptionExtender(parser, *args, **kwargs):
     parserGroup.add_option("--ferc-render-template", 
                       action="store", 
                       dest="ferc_render_template", 
-                      help=_("The HTML template file"))   
+                      help=_("The HTML template file"))
+
+    parserGroup.add_option("--ferc-render-inline", 
+                      action="store", 
+                      dest="ferc_render_inline", 
+                      help=_("The generated Inline XBRL file"))                 
 
 def fercCmdUtilityRun(cntlr, options, **kwargs): 
     #check option combinations
@@ -358,11 +363,18 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
         
         # Substitute template
         rendered_template = substituteTemplate(substitutions, log_capture_handler.captured, template, modelXbrl)
+        
 
         # Write rendered template
-        rendered_template.write('{} - rendered.html'.format(title.text), pretty_print=True, method="xml", encoding='utf8', xml_declaration=True)
+        if options.ferc_render_inline is None:
+            inline_name = '{} - rendered.html'.format(title.text)
+        else:
+            inline_name = options.ferc_render_inline
 
+        rendered_template.write(inline_name, pretty_print=True, method="xml", encoding='utf8', xml_declaration=True)
 
+        cntlr.addToLog(_("Rendered template '{}' as '{}'".format(options.ferc_render_template, inline_name)))
+        
 class _logCaptureHandler(logging.Handler):
     def __init__(self):
         super().__init__()
@@ -410,6 +422,6 @@ __pluginInfo__ = {
     'CntlrCmdLine.Options': cmdLineOptionExtender,
     'CntlrCmdLine.Utility.Run': fercCmdUtilityRun,
     'CntlrCmdLine.Xbrl.Loaded': cmdLineXbrlLoaded,
-    'CntlrWinMain.Menu.Tools': fercMenuTools,
+    #'CntlrWinMain.Menu.Tools': fercMenuTools,
     'CntlrWinMain.Xbrl.Loaded': cmdLineXbrlLoaded,    
 }
