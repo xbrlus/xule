@@ -784,8 +784,8 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
                     parse_node['is_iterable'] = True
                     
             elif current_part == 'result':
-                if parse_node['number'] == 'multi' or len(parse_node['downstream_iterables']) > 0:
-                    raise xr.XuleRuleSetError("In rule {} the message of a rule cannot contain expressions that create multiple values (i.e factsets or for loops).".format(item_name))
+                #if parse_node['number'] == 'multi' or len(parse_node['downstream_iterables']) > 0:
+                #    raise xr.XuleRuleSetError("In rule {} the message of a rule cannot contain expressions that create multiple values (i.e factsets or for loops).".format(item_name))
 
                 # Check that the result name is valid. It can be one of 'message' or 'severity' or it must be defined
                 # with an output-attribute

@@ -959,7 +959,6 @@ def evaluate_output_rule(output_rule, xule_context):
                 messages = dict()
                 # Process each of the results in the rule. The Results are the messages that are produced.
                 for rule_result in output_rule.get('results', list()):
-                    # message_context = xule_context.create_message_copy(xule_context.get_processing_id(output_rule['node_id']))
                     messages[rule_result['resultName']] = result_message(output_rule, rule_result, xule_value,
                                                                          xule_context)
 
@@ -1382,8 +1381,8 @@ def calc_constant(const_info, const_context):
         except XuleIterationStop as xis:
             const_value = xis.stop_value  # XuleValue(const_context, None, 'unbound')
 
-        const_value.facts = const_context.facts
-        const_value.tags = const_context.tags
+        const_value.facts = const_context.facts.copy()
+        const_value.tags = const_context.tags.copy()
         const_value.aligned_result_only = const_context.aligned_result_only
         # const_value.used_expressions = const_context.used_expressions
         try:
@@ -1591,8 +1590,8 @@ def evaluate_for_body_detail(body_expr, table_id, for_loop_var, for_loop_tag, xu
             aligned_result_only = aligned_result_only or xule_context.aligned_result_only
             body_value.alignment = for_body_table.current_alignment  # xule_context.iteration_table.dependent_alignment or xule_context.iteration_table.current_table.current_alignment
             body_value.aligned_result_only = aligned_result_only
-            body_value.facts = xule_context.iteration_table.facts
-            body_value.tags = xule_context.iteration_table.tags
+            body_value.facts = xule_context.iteration_table.facts.copy()
+            body_value.tags = xule_context.iteration_table.tags.copy()
             # print("for", body_expr['exprName'], body_expr['node_id'], len(xule_context.used_expressions), len(body_value.used_expressions))
             body_value.used_expressions = xule_context.used_expressions
             body_values.append(body_value)
@@ -2124,8 +2123,8 @@ def evaluate_nesting_factset(factset, xule_context):
                                                   remove_aspects, xule_context)
             nested_value.alignment = new_alignment
 
-            nested_value.facts = xule_context.facts
-            nested_value.tags = xule_context.tags
+            nested_value.facts = xule_context.facts.copy()
+            nested_value.tags = xule_context.tags.copy()
 
             nested_values.append(nested_value)
 
@@ -2329,20 +2328,32 @@ def factset_pre_match(factset, filters, non_aligned_filters, align_aspects, xule
     # first = pre_matched_facts is None
 
     for aspect_info, filter_member in filters:
-        if filter_member is not None:
-            if aspect_info[ASPECT_PROPERTY] is None:
-                index_key = (aspect_info[TYPE], aspect_info[ASPECT])
-            else:
-                # aspect_info[ASPECT_PROPERTY][0] is the aspect property name
-                # aspect_info[ASPECT_PROPERTY][1] is a tuple of the arguments
-                index_key = ('property', aspect_info[ASPECT], aspect_info[ASPECT_PROPERTY][0]) + \
-                            aspect_info[ASPECT_PROPERTY][1]
-                if index_key not in xule_context.fact_index and index_key not in _FACT_INDEX_PROPERTIES:
-                    raise XuleProcessingError(_(
-                        "Factset aspect property '{}' is not a valid property of aspect '{}'.".format(index_key[2],
-                                                                                                      index_key[1])),
-                                              xule_context)
+        # Handle case where the filter only contains boolean values. Treat the filter_member as true.
+        # For example: @concept.is-numeric This should be treated as @concept.is-numeric=true
+        if (filter_member is None and
+            aspect_info[ASPECT_OPERATOR] is None and
+            aspect_info[SPECIAL_VALUE] is None and
+            aspect_info[ASPECT_PROPERTY] is not None):
 
+            aspect_info = list(aspect_info)
+            aspect_info[ASPECT_OPERATOR] = '='
+            filter_member = XuleValue(xule_context, True, 'bool')
+
+        if filter_member is not None:
+            # if aspect_info[ASPECT_PROPERTY] is None:
+            #     index_key = (aspect_info[TYPE], aspect_info[ASPECT])
+            # else:
+            #     # aspect_info[ASPECT_PROPERTY][0] is the aspect property name
+            #     # aspect_info[ASPECT_PROPERTY][1] is a tuple of the arguments
+            #     index_key = ('property', aspect_info[ASPECT], aspect_info[ASPECT_PROPERTY][0]) + \
+            #                 aspect_info[ASPECT_PROPERTY][1]
+            #     if index_key not in xule_context.fact_index and index_key not in _FACT_INDEX_PROPERTIES:
+            #         raise XuleProcessingError(_(
+            #             "Factset aspect property '{}' is not a valid property of aspect '{}'.".format(index_key[2],
+            #                                                                                           index_key[1])),
+            #                                   xule_context)
+
+            index_key = fact_index_key(aspect_info, xule_context)
             facts_by_aspect = set()
 
             '''THIS MIGHT BE MORE EFFICIENTLY HANDLED BY IGNORING THE ASPECT IF THE MEMBER IS None OR ELIMINATING ALL FACTS'''
@@ -2353,7 +2364,7 @@ def factset_pre_match(factset, filters, non_aligned_filters, align_aspects, xule
             if aspect_info[SPECIAL_VALUE] is not None:
                 if aspect_info[SPECIAL_VALUE] == '*':
                     if aspect_info[ASPECT_OPERATOR] == '=':
-                        if aspect_info[TYPE] == 'builtin' and aspect_info[ASPECT] in ('concept', 'period', 'entity'):
+                        if aspect_info[TYPE] == 'builtin' and aspect_info[ASPECT] in ('concept', 'period', 'entity') and aspect_info[ASPECT_PROPERTY] is None:
                             # this is all facts
                             continue
                         else:
@@ -2460,6 +2471,20 @@ def factset_pre_match(factset, filters, non_aligned_filters, align_aspects, xule
         '''
     return pre_matched_facts
 
+def fact_index_key(aspect_info, xule_context):
+    if aspect_info[ASPECT_PROPERTY] is None:
+        index_key = (aspect_info[TYPE], aspect_info[ASPECT])
+    else:
+        # aspect_info[ASPECT_PROPERTY][0] is the aspect property name
+        # aspect_info[ASPECT_PROPERTY][1] is a tuple of the arguments
+        index_key = ('property', aspect_info[ASPECT], aspect_info[ASPECT_PROPERTY][0]) + \
+                    aspect_info[ASPECT_PROPERTY][1]
+        if index_key not in xule_context.fact_index and index_key not in _FACT_INDEX_PROPERTIES and aspect_info[ASPECT_PROPERTY][0] != 'attribute':
+            raise XuleProcessingError(_(
+                "Factset aspect property '{}' is not a valid property of aspect '{}'.".format(index_key[2],
+                                                                                                index_key[1])),
+                                        xule_context)    
+    return index_key                                            
 
 def calc_fact_alignment(factset, fact, non_aligned_filters, align_aspects_filters, frozen, xule_context):
     if fact not in xule_context.fact_alignments[factset['node_id']]:
@@ -2764,8 +2789,8 @@ def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non
                         elif where_value.type == 'bool':
                             if where_value.value:
                                 new_fact_value = copy.copy(fact_value)
-                                new_fact_value.facts = xule_context.iteration_table.facts
-                                new_fact_value.tags = xule_context.iteration_table.tags
+                                new_fact_value.facts = xule_context.iteration_table.facts.copy()
+                                new_fact_value.tags = xule_context.iteration_table.tags.copy()
                                 # new_fact_value.used_vars = get_used_vars(xule_context, pre_matched_used_var_ids + xule_context.used_vars)
                                 new_fact_value.used_expressions = pre_matched_used_expressoins_ids | xule_context.used_expressions
                                 results.append(new_fact_value)
@@ -4031,8 +4056,8 @@ def isolated_evaluation(xule_context, node_id, expr, setup_function=None, cleanu
             except XuleIterationStop as xis:
                 return_value = xis.stop_value  # XuleValue(xule_context, None, 'unbound')
 
-            return_value.facts = xule_context.facts
-            return_value.tags = xule_context.tags
+            return_value.facts = xule_context.facts.copy()
+            return_value.tags = xule_context.tags.copy()
             return_value.aligned_result_only = xule_context.aligned_result_only
             return_value.used_expressions = xule_context.used_expressions
             return_value.alignment = xule_context.iteration_table.current_table.current_alignment
@@ -4747,7 +4772,7 @@ def format_trace_info(expr_name, sugar, common_aspects, xule_context):
 
 def result_message(rule_ast, result_ast, xule_value, xule_context):
     # validate_result_name(result_ast, xule_context)
-    message_context = xule_context.create_message_copy(xule_context.get_processing_id(rule_ast['node_id']))
+    message_context = xule_context.create_message_copy(rule_ast['node_id'], xule_context.get_processing_id(rule_ast['node_id']))
     message_context.tags['rule-value'] = xule_value
 
     try:
@@ -4783,10 +4808,14 @@ def result_message(rule_ast, result_ast, xule_value, xule_context):
                     message.append(rule_focus_item.value)
                 elif rule_focus_item.is_fact:
                     message.append(rule_focus_item.fact)
+                elif rule_focus_item.type in ('unbound', 'none'):
+                    message.append(None)
                 else:
                     raise XuleProcessingError(
                         _("The rule-focus of a rule must be a concept or a fact, found {}".format(rule_focus_item.type)),
                         xule_context)
+        elif message_value.type in ('unbound', 'none'):
+            message = None
         else:
             raise XuleProcessingError(
                 _("The rule-focus of a rule must be a concept or a fact, found {}".format(message_value.type)),

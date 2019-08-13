@@ -410,10 +410,10 @@ class XuleRuleContext(object):
     def dependent_alignment(self):
         return self.iteration_table.dependent_alignment
     
-    def create_message_copy(self, processing_id):
+    def create_message_copy(self, table_id, processing_id):
         new_context = copy.copy(self)
         new_context.iteration_table = XuleIterationTable(self)
-        new_context.iteration_table.add_table(-1, processing_id)
+        new_context.iteration_table.add_table(table_id, processing_id)
         new_context.facts = self.facts.copy()
         new_context.tags = self.tags.copy()
 
@@ -969,6 +969,8 @@ class XuleIterationTable:
             parent_table = self.current_table      
 
         child_table = XuleIterationSubTable(table_id, self, processing_id, is_aggregation=is_aggregation)
+        # copy the tags down to the sub table
+        child_table.tags = self.tags
         table_processing_id = self.xule_context.get_processing_id(table_id)
         self._ordered_tables[table_processing_id] = child_table
 

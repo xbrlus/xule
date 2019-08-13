@@ -42,6 +42,7 @@ try:
     from . import XuleParser as xp
 except ImportError:
     xp = None
+    raise
     
 try:
     from . import XuleMultiProcessing as xm
@@ -662,7 +663,8 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
     # compile rules
     if getattr(options, "xule_compile", None):
         compile_destination = getattr(options, "xule_rule_set", "xuleRules") 
-        xp.parseRules(options.xule_compile.split("|"), compile_destination, getattr(options, "xule_compile_type"))
+        xuleCompile(options.xule_compile, compile_destination, getattr(options, "xule_compile_type"))
+        #xp.parseRules(options.xule_compile.split("|"), compile_destination, getattr(options, "xule_compile_type"))
     
     # add packages
     if getattr(options, "xule_add_packages", None):
@@ -814,7 +816,10 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
 def xuleCmdXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
     if getattr(options, "xule_run", None):
         runXule(cntlr, options, modelXbrl)
-        
+
+def xuleCompile(xule_file_names, ruleset_file_name, compile_type):
+    xp.parseRules(xule_file_names.split("|"), ruleset_file_name, compile_type)
+
 def runXule(cntlr, options, modelXbrl, rule_set_map=_xule_rule_set_map_name):
         try:
             if getattr(options, "xule_multi", True) and \
@@ -862,7 +867,29 @@ def runXule(cntlr, options, modelXbrl, rule_set_map=_xule_rule_set_map_name):
                 for tax_key in list(new_taxonomy_keys)[:2]: # This take at most 2 taxonomies.
                     tax_key = next(iter(new_taxonomy_keys)) # randomly get one key
                     _saved_taxonomies[tax_key] = used_taxonomies[tax_key]
-            
+
+def callXuleProcessor(cntlr, modelXbrl, rule_set_location, options):
+    '''Call xule from other plugins
+
+    This is an entry point for other plugins to call xule.
+    '''
+    rule_set = xr.XuleRuleSet(cntlr)              
+    rule_set.open(rule_set_location)
+
+    global _saved_taxonomies        
+    used_taxonomies = process_xule(rule_set,
+                                    modelXbrl,
+                                    cntlr,
+                                    options,
+                                    _saved_taxonomies
+                                    )
+    # Save one loaded taxonomy
+    new_taxonomy_keys = used_taxonomies.keys() - _saved_taxonomies.keys()
+    if len(new_taxonomy_keys) > 0:
+        for tax_key in list(new_taxonomy_keys)[:2]: # This take at most 2 taxonomies.
+            tax_key = next(iter(new_taxonomy_keys)) # randomly get one key
+            _saved_taxonomies[tax_key] = used_taxonomies[tax_key]
+
 def xuleValidate(val):
     global _cntlr
     global _xule_validators
@@ -978,5 +1005,7 @@ __pluginInfo__ = {
     'Xule.RulesetMap.Update': updateValidatorRulesetMap,
     'Xule.RulesetMap.Replace': replaceValidatorRulesetMap,
     'Xule.RulesetMap.Display': displayValidatorRulesetMap,
-    'Xule.CntrlCmdLine.Utility.Run.Init': saveOptions
+    'Xule.CntrlCmdLine.Utility.Run.Init': saveOptions,
+    'Xule.compile': xuleCompile,
+    'Xule.callXuleProcessor': callXuleProcessor
     }
