@@ -122,7 +122,7 @@ def build_xule_rules(template_tree, template_file_name):
                 replacement_node = xule_expression
             rule_name = _RULE_NAME_PREFIX + str(next_rule_number)
             next_rule_number += 1
-            comment_text = '    //{} - line {}'.format(template_file_name, xule_expression.sourceline)
+            comment_text = '    // {} - line {}'.format(template_file_name, xule_expression.sourceline)
             if xule_expression.get('type') == 'fact':
                 substitutions[rule_name].append({'part': None, 'replacement-node': replacement_node, 'result-focus-index': 0})
                 rule_text = 'output {}\n{}\nlist((({})#rv-0).string).to-json\nrule-focus list($rv-0)'.format(rule_name, comment_text, xule_expression.text.strip())
@@ -153,7 +153,7 @@ def build_xule_rules(template_tree, template_file_name):
             if replacement_node.tag != '{{{}}}{}'.format(_XULE_NAMESPACE_MAP['xule'], 'replace'):
                 replacement_node = expression
 
-            comments.append('    //{} - {}'.format(template_file_name, expression.sourceline))
+            comments.append('    // {} - {}'.format(template_file_name, expression.sourceline))
             if part is None:
                 preliminary_rule_text = expression.text.strip()
             else:
@@ -322,7 +322,22 @@ def cmdLineOptionExtender(parser, *args, **kwargs):
     parserGroup.add_option("--ferc-render-inline", 
                       action="store", 
                       dest="ferc_render_inline", 
-                      help=_("The generated Inline XBRL file"))                 
+                      help=_("The generated Inline XBRL file"))        
+                      
+    parserGroup.add_option("--ferc-render-xule-file", 
+                      action="store", 
+                      dest="ferc_render_xule_file", 
+                      help=_("The generated xule rule file")) 
+
+    parserGroup.add_option("--ferc-render-xule-rule-set", 
+                      action="store", 
+                      dest="ferc_render_xule_rule_set", 
+                      help=_("The generated xule rule set file")) 
+
+    parserGroup.add_option("--ferc-render-xule-only", 
+                      action="store_true", 
+                      dest="ferc_render_xule_only", 
+                      help=_("Only generate the xule rule file. This option will not parse the file or create the rendered template"))  
 
 def fercCmdUtilityRun(cntlr, options, **kwargs): 
     #check option combinations
@@ -342,12 +357,21 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
         if title is None:
             cntlr.addToLog("Template does not have a title", "error")
             raise FERCRenderException
-        xule_rule_file_name = '{}.xule'.format(title.text)
+
+        # xule file name
+        xule_rule_file_name = options.ferc_render_xule_file or '{}.xule'.format(title.text)
         with open(xule_rule_file_name, 'w') as xule_file:
             xule_file.write(xule_rule_text)
-        xule_rule_set_name = '{}.zip'.format(title.text)
+
+        if options.ferc_render_xule_only:
+            cntlr.addToLog(_("Generated xule rule file '{}'".format(xule_rule_file_name)))
+            # Stop the processing
+            return
+
+        # xule rule set name
+        xule_rule_set_name = options.ferc_render_xule_rule_set or '{}.zip'.format(title.text)
         compile_method = getXuleMethod(cntlr, 'Xule.compile')
-        compile_method(xule_rule_file_name, xule_rule_set_name, 'pickle')
+        compile_method(xule_rule_file_name, xule_rule_set_name, 'json')
         
         # Run Xule rules
         # Create a log handler that will capture the messages when the rules are run.
