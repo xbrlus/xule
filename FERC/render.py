@@ -434,7 +434,7 @@ def format_fact(xule_expression_node, model_fact):
         return format_function(model_fact), format_clark
 
 _formats = {'{http://www.xbrl.org/inlineXBRL/transformation/2010-04-20}numcommadot': lambda mf: '{:,}'.format(mf.xValue),
-            '{http://www.xbrl.org/inlineXBRL/transformation/2010-04-20}dateslashus': lambda mf: mf.xValue.strftime('{%m/%d/%Y}')}
+            '{http://www.xbrl.org/inlineXBRL/transformation/2010-04-20}dateslashus': lambda mf: mf.xValue.strftime('%m/%d/%Y')}
 
 __pluginInfo__ = {
     'name': 'FERC Tools',
