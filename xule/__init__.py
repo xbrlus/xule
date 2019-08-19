@@ -903,7 +903,7 @@ def xuleValidate(val):
             # This is run in the GUI. The 'validate_flag' is only in the xule_validator when invoked from the GUI
             if xule_validator['validate_flag'].get():
                 # Only run if the validate_flag variable is ture (checked off in the validate menu)
-                if  len(val.modelXbrl.facts) > 0 and len(val.modelXbrl.qnameConcpets) > 0:
+                if  len(val.modelXbrl.facts) > 0 and len(val.modelXbrl.qnameConcepts) > 0:
                     # Only run if there is something in the model. Sometimes arelle creates an empty model and runs the validation.
                     # This happens in the case of the transforms/tester plugin. Arelle creates an empty model to run a formula
                     # valiation. In this case, there really wasn't a model to validate.
@@ -915,7 +915,7 @@ def xuleValidate(val):
         else:
             # This is run on the command line or web server
             # Only run on validate if the --xule-run option was not supplied. If --xule-run is supplied, it has already been run
-            if not getattr(options, "xule_run", False) and len(val.modelXbrl.facts) > 0 and len(val.modelXbrl.qnameConcpets) > 0:
+            if not getattr(options, "xule_run", False) and len(val.modelXbrl.facts) > 0 and len(val.modelXbrl.qnameConcepts) > 0:
                 runXule(_cntlr, options, val.modelXbrl, xule_validator['map_name'])
 
     if getattr(_cntlr, 'hasWebServer', False) and not getattr(_cntlr, 'hasGui', False):
