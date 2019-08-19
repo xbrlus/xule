@@ -245,7 +245,7 @@ def substituteTemplate(substitutions, rule_results, template, modelXbrl):
                         json_result = json.loads(rule_result.msg)
                         text_content = json_result[sub['result-text-index']]
 
-                    if xule_expression.get('html').lower() != 'true':
+                    if xule_expression.get('html','false').lower() != 'true':
                         # If this is not an html value, then it needs to be escaped.
                         text_context = html.escape(text_content)
 
