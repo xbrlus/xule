@@ -5,6 +5,7 @@ from lxml import etree
 
 import datetime
 import collections
+import html
 import json
 import logging
 import optparse
@@ -243,6 +244,10 @@ def substituteTemplate(substitutions, rule_results, template, modelXbrl):
                     else: # Result is not a fact - use message
                         json_result = json.loads(rule_result.msg)
                         text_content = json_result[sub['result-text-index']]
+
+                    if xule_expression.get('html').lower() != 'true':
+                        # If this is not an html value, then it needs to be escaped.
+                        text_context = html.escape(text_content)
 
                     text_version = '<span class="sub-value sub-replacement">{}</span>'.format(text_content)
                     
