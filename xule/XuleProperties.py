@@ -166,7 +166,23 @@ def property_to_json(xule_context, object_value, *args):
     else:
         unfrozen = object_value.shadow_collection
     
+    unfrozen = unfreeze_shadow(object_value, True)
+
     return xv.XuleValue(xule_context, json.dumps(unfrozen), 'string')
+
+def unfreeze_shadow(cur_val, for_json=False):
+    if cur_val.type == 'list':
+        return [unfreeze_shadow(x) for x in cur_val.value]
+    elif cur_val.type == 'set':
+        if for_json:
+            # convert the set to a list. JSON does not handle sets
+            return [unfreeze_shadow(x) for x in cur_val.value]
+        else:
+            return {unfreeze_shadow(x) for x in cur_val.value}
+    elif cur_val.type == 'dictionary':
+        return {unfreeze_shadow(k): unfreeze_shadow(v) for k, v in cur_val.value}
+    else:
+        return cur_val.value
 
 def property_join(xule_context, object_value, *args):
     if object_value.type in ('list', 'set'):
