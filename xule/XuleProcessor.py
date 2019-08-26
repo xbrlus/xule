@@ -2108,15 +2108,16 @@ def evaluate_nesting_factset(factset, xule_context):
             try:
                 nested_value = evaluate(factset['innerExpr'], xule_context)
             except XuleIterationStop:
-                #'''THIS COULD BE CREATE AN UNBOUND AND ADD IT TO THE WITH_VALUE. SIMILAR TO THE WAY THIS IS HANDLED IN FOR_BODY_DETAIL'''
-                #pass
                 nested_value = XuleValue(xule_context, None, 'unbound', tag=XuleValue(xule_context, None, 'none'))
 
             # if not(xule_context.iteration_table.current_table.current_alignment is None and xule_context.aligned_result_only):
             # remove the with portion of the alignment
             #if xule_context.iteration_table.current_table.current_alignment is not None:  # this should be the alignment on the with table
             remove_aspects = [(with_filter[0], with_filter[1]) for with_filter in aspect_filters]
-            if xule_context.iteration_table.current_alignment is None:
+            if  factset.get('covered', False):
+                new_alignment = None
+                remove_alignments(nested_value)
+            elif xule_context.iteration_table.current_alignment is None:
                 new_alignment = None
             else:
                 new_alignment = remove_from_alignment(xule_context.iteration_table.current_alignment,
@@ -2141,6 +2142,17 @@ def evaluate_nesting_factset(factset, xule_context):
 
     return nested_values
 
+def remove_alignments(val):
+    val.alignment = None
+    val.aligned_result_only = False
+
+    if val.type in ('list', 'set'):
+        for child_val in val.value:
+            remove_alignments(child_val)
+    if val.type == 'dictionary':
+        for key, child_val in val.value:
+            remove_alignments(key)
+            remove_alignments(chidl_val)
 
 def evaluate_factset_detail(factset, xule_context):
     """Evaluate a factset
@@ -4142,6 +4154,9 @@ def evaluate_aggregate_function(function_ref, function_info, xule_context):
                 agg_value = None
 
         if agg_value is not None:
+            if aligned_result_only_by_alignment[alignment] and alignment is None:
+                agg_value = XuleValue(xule_context, None, 'unbound')
+            
             agg_value.alignment = alignment
             agg_value.aligned_result_only = aligned_result_only_by_alignment[alignment]
             # print("agg", function_ref['exprName'], function_ref['node_id'], len(xule_context.used_expressions), len(used_expressions))
