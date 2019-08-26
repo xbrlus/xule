@@ -299,7 +299,7 @@ def agg_list(xule_context, values):
     
     for current_value in values:
         list_values.append(current_value)
-        shadow.append(current_value.shadow_collection if current_value.type in ('list','set') else current_value.value)
+        shadow.append(current_value.shadow_collection if current_value.type in ('list','set', 'dictionary') else current_value.value)
         if current_value.tags is not None:
             tags.update(current_value.tags)
         if current_value.facts is not None:
