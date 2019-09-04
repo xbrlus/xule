@@ -29,7 +29,7 @@ from . import XuleUtility
 from . import XuleFunctions
 from arelle.ModelDocument import Type
 from arelle.ModelRelationshipSet import ModelRelationshipSet
-from arelle.ModelValue import QName
+from arelle.ModelValue import QName, qname
 import collections
 import decimal
 import math
@@ -455,7 +455,34 @@ def property_format(xule_context, object_value, *args):
             return xv.XuleValue(xule_context, None, 'none')
     else: #none value
         return object_value
-    
+
+def property_display_value(xule_context, object_value, *args):
+    if object_value.is_fact:
+        if hasattr(object_value.fact, 'text'):
+            return xv.XuleValue(xule_context, object_value.fact.text, 'string')
+        else:
+            return xv.XuleValue(xule_context, None, 'none')
+    else: #none value
+        return object_value    
+
+def property_negated(xule_context, object_value, *args):
+    if object_value.is_fact:
+        if hasattr(object_value.fact, 'sign'):
+            return xv.XuleValue(xule_context, object_value.fact.sign == '-', 'bool')
+        else:
+            return xv.XuleValue(xule_context, None, 'none')
+    else: #none value
+        return object_value  
+
+def property_hidden(xule_context, object_value, *args):
+    if object_value.is_fact:
+        if object_value.fact.modelXbrl.modelDocument.type in (Type.INLINEXBRL, Type.INLINEXBRLDOCUMENTSET):
+            return xv.XuleValue(xule_context, qname('http://www.xbrl.org/2013/inlineXBRL', 'hidden') in object_value.fact.ancestorQnames, 'bool')
+        else:
+            return xv.XuleValue(xule_contet, None, 'none')
+    else:
+        return object_value
+
 def property_scheme(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, object_value.value[0], 'string')
 
@@ -1746,6 +1773,9 @@ PROPERTIES = {
               'is-fact': (property_is_fact, 0, (), True),
               'inline-scale': (property_scale, 0, ('fact',), True),
               'inline-format': (property_format, 0, ('fact',), True),
+              'inline-display-value': (property_display_value, 0, ('fact',), True),
+              'inline-negated': (property_negated, 0, ('fact',), True),
+              'inline-hidden': (property_hidden, 0, ('fact',), True),
               'label': (property_label, -2, ('concept', 'fact'), True),
               'text': (property_text, 0, ('label',), False),
               'lang': (property_lang, 0, ('label',), False),              
