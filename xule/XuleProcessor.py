@@ -630,6 +630,12 @@ def evaluate(rule_part, xule_context, trace_dependent=False, override_table_id=N
                         xule_context.iteration_table.add_column(rule_part, override_table_id or rule_part['table_id'],
                                                                 processing_id, values, xule_context)
                         value = xule_context.iteration_table.current_value(processing_id, xule_context)
+                        # The tags on the value may not apply to this iteration.  For exmaple, if the expression is not dependent, then it will
+                        # be evaluated once and stored in the local cache with the tags from the first evaluation.
+                        if value is not None and value.tags is not None:
+                            new_tags = value.tags.copy()
+                            new_tags.update(xule_context.tags)
+                            value.tags = new_tags
                 else:
                     trace_source = "T"
             else:
