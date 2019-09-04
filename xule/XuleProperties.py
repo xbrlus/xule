@@ -668,6 +668,14 @@ def property_data_type(xule_context, object_value, *args):
     else: #none value
         return object_value
 
+def property_substitution(xule_context, object_value, *args):
+    if object_value.is_fact:
+        return xv.XuleValue(xule_context, object_value.fact.concept.substitutionGroupQname, 'qname')
+    elif object_value.type == 'concept':
+        return xv.XuleValue(xule_context, object_value.value.substitutionGroupQname, 'qname')
+    else: #none value
+        return object_value
+
 def property_enumerations(xule_context, object_value, *args):
     if object_value.is_fact:
         model_type = object_value.fact.concept.type
@@ -1726,7 +1734,8 @@ PROPERTIES = {
               'attribute': (property_attribute, 1, ('concept',), False),
               'balance': (property_balance, 0, ('concept',), False),              
               'base-type': (property_base_type, 0, ('concept', 'fact'), True),
-              'data-type': (property_data_type, 0, ('concept', 'fact'), True),    
+              'data-type': (property_data_type, 0, ('concept', 'fact'), True), 
+              'substitution': (property_substitution, 0, ('concept', 'fact'), True),   
               'enumerations': (property_enumerations, 0, ('type', 'concept', 'fact'), True), 
               'has-enumerations': (property_has_enumerations, 0, ('type', 'concept', 'fact'), True),
               'is-type': (property_is_type, 1, ('concept', 'fact'), True),          
