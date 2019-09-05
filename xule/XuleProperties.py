@@ -233,8 +233,20 @@ def property_join(xule_context, object_value, *args):
 def property_sort(xule_context, object_value, *args):
     #sorted_list = sorted(object_value.value, key=lambda x: x.shadow_collection if x.type in ('set', 'list', 'dictionary') else x.value)
 
+    reverse = False
+    if len(args) == 1:
+        if args[0].type == 'string':
+            if args[0].value.lower() == 'asc':
+                pass
+            elif args[0].value.lower() == 'desc':
+                reverse = True
+            else:
+                raise XuleProcessingError(_("The argument of the sort property must be either 'asc' or 'desc'. Found: '{}'.".format(args[0].value)), xule_context)
+        else:
+            raise XuleProcessingError(_("The argument of the sort property must be a string with either 'asc' or 'desc'. Found type: '{}'.".format(args[0].type)), xule_context)
+
     try:
-        sorted_list = sorted(object_value.value, key=lambda x: x.sort_value)
+        sorted_list = sorted(object_value.value, key=lambda x: x.sort_value, reverse=reverse)
         return xv.XuleValue(xule_context, tuple(sorted_list), 'list')
     except TypeError:
         # items are not sortable
@@ -1740,7 +1752,7 @@ PROPERTIES = {
               'is-superset': (property_is_superset, 1, ('set',), False),
               'to-json': (property_to_json, 0, ('list', 'set', 'dictionary'), False),           
               'join': (property_join, -2, ('list', 'set', 'dictionary'), False),
-              'sort': (property_sort, 0, ('list', 'set'), False),
+              'sort': (property_sort, -1, ('list', 'set'), False),
               'keys': (property_keys, -1, ('dictionary',), False),
               'values': (property_values, 0, ('dictionary', ), False),
               'has-key': (property_has_key, 1, ('dictionary',), False),
