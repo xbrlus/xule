@@ -1117,7 +1117,11 @@ class XuleDimensionCube:
                 dimension_index_key = ('explicit_dimension', dimension_concept.qname)
                 if dimension_concept.isTypedDimension:
                     # For typed dimensions all the facts will match
-                    dimension_facts = self._dts.xuleFactIndex.get(dimension_index_key, dict()).get('all', set())
+                    dimension_facts = set()
+                    for type_member in self._dts.xuleFactIndex.get(dimension_index_key, dict()).keys():
+                        if type_member is not None:
+                            dimension_facts |= self._dts.xuleFactIndex.get(dimension_index_key, dict()).get(type_member, set())
+                    #dimension_facts = self._dts.xuleFactIndex.get(dimension_index_key, dict()).get('all', set())
                 else:
                     dimension_facts = set()
                     for dimension_member in self._dimension_members[dimension_concept]:
