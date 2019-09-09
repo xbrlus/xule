@@ -414,6 +414,7 @@ class XuleRuleContext(object):
         new_context = copy.copy(self)
         new_context.iteration_table = XuleIterationTable(self)
         new_context.iteration_table.add_table(table_id, processing_id)
+        new_context.iteration_table.current_table.current_alignment= self.iteration_table.current_table.current_alignment
         new_context.facts = self.facts.copy()
         new_context.tags = self.tags.copy()
 
