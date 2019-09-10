@@ -971,7 +971,7 @@ class XuleIterationTable:
 
         child_table = XuleIterationSubTable(table_id, self, processing_id, is_aggregation=is_aggregation)
         # copy the tags down to the sub table
-        child_table.tags = self.tags
+        child_table.tags = self.tags.copy()
         table_processing_id = self.xule_context.get_processing_id(table_id)
         self._ordered_tables[table_processing_id] = child_table
 
