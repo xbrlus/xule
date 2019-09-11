@@ -29,7 +29,7 @@ def getXulePlugin(cntlr):
     """
     global _xule_plugin_info
     if _xule_plugin_info is None:
-        for plugin_name, plugin_info in PluginManager.modulePluginInfos.items():
+        for _plugin_name, plugin_info in PluginManager.modulePluginInfos.items():
             if plugin_info.get('moduleURL') == 'xule':
                 _xule_plugin_info = plugin_info
                 break
@@ -129,17 +129,16 @@ def build_unamed_rules(substitutions, xule_rules, next_rule_number, named_rules,
             replacement_node = xule_expression.getparent()
             if replacement_node.tag != '{{{}}}{}'.format(_XULE_NAMESPACE_MAP['xule'], 'replace'):
                 replacement_node = xule_expression
-                classes = None
+                class_expressions = tuple()
             else: # this is a xule:replace
                 # process xule:class nodes
-                classes, xule_rules, next_rule_number = build_class_rules(replacement_node, xule_rules, next_rule_number)
+                class_expressions = format_class_expressions(replacement_node)
 
             comment_text = '    // {} - line {}'.format(template_file_name, xule_expression.sourceline)
             if xule_expression.get('fact','').lower() == 'true':
                 sub_content ={'part': None, 
                               'replacement-node': replacement_node, 
-                              'result-focus-index': 0, 
-                              'classes': classes}
+                              'result-focus-index': 0}
                 #rule_text = 'output {}\n{}\nlist((({})#rv-0).string).to-json\nrule-focus list($rv-0)'.format(rule_name, comment_text, xule_expression.text.strip())
 
                 rule_text = 'output {rule_name}\n{comment}\n{result_text}\nrule-focus list($rv-0)'\
@@ -147,20 +146,21 @@ def build_unamed_rules(substitutions, xule_rules, next_rule_number, named_rules,
                               comment=comment_text,
                               result_text='({}).to-json'.format(format_rule_result_text_part(xule_expression.text.strip(),
                                                                                              None,
-                                                                                             'f'))
+                                                                                             'f',
+                                                                                             class_expressions))
                              )
             else: # not a fact
                 sub_content = {'part': None, 
                                'replacement-node': replacement_node, 
-                               'result-text-index': 0, 
-                               'classes': classes}
+                               'result-text-index': 0}
                 #rule_text = 'output {}\n{}\nlist(({}).string).to-json'.format(rule_name, comment_text, xule_expression.text.strip())
                 rule_text = 'output {rule_name}\n{comment}\n{result_text}'\
                     ''.format(rule_name=rule_name,
                               comment=comment_text,
                               result_text='({}).to-json'.format(format_rule_result_text_part(xule_expression.text.strip(),
                                                                                              None,
-                                                                                             's'))
+                                                                                             's',
+                                                                                             class_expressions))
                              )
             xule_rules.append(rule_text)
 
@@ -174,21 +174,24 @@ def build_unamed_rules(substitutions, xule_rules, next_rule_number, named_rules,
 
     return substitutions, xule_rules, next_rule_number, named_rules
 
-def format_rule_result_text_part(expression_text, part, type):
+def format_rule_result_text_part(expression_text, part, type, class_expressions):
     output_is_fact = 'if exists({exp}) (({exp}).is-fact).string else \'false\''.format(exp=expression_text)
+    output_class_expressions = ", list('classes', list({}))".format(', '.join(class_expressions)) if len(class_expressions) > 0 else ''
     if part is None:
         output_expression = '(if exists({exp}) (({exp})#rv-0).string else (none)#rv-0).string'.format(exp=expression_text)
-        return "dict(list('type', '{type}'), list('is-fact', {is_fact}), list('value', {val}))".format(
-            type=type, 
-            is_fact=output_is_fact, 
-            val=output_expression)
-    else:
-        output_expression = '(if exists({exp}) (({exp})#rv-{part}).string else (none)#rv-{part}).string'.format(exp=expression_text, part=part)
-        return "dict(list('type', '{type}'), list('is-fact', {is_fact}), list('value', {val}), list('part', {part}))".format(
+        return "dict(list('type', '{type}'), list('is-fact', {is_fact}), list('value', {val}){classes})".format(
             type=type, 
             is_fact=output_is_fact, 
             val=output_expression,
-            part=part)
+            classes=output_class_expressions)
+    else:
+        output_expression = '(if exists({exp}) (({exp})#rv-{part}).string else (none)#rv-{part}).string'.format(exp=expression_text, part=part)
+        return "dict(list('type', '{type}'), list('is-fact', {is_fact}), list('value', {val}), list('part', {part}){classes})".format(
+            type=type, 
+            is_fact=output_is_fact, 
+            val=output_expression,
+            part=part,
+            classes=output_class_expressions)
 
 def build_named_rules(substitutions, xule_rules, next_rule_number, named_rules, template_tree, template_file_name):
     # Handle named rules
@@ -208,9 +211,9 @@ def build_named_rules(substitutions, xule_rules, next_rule_number, named_rules, 
             replacement_node = expression.getparent()
             if replacement_node.tag != '{{{}}}{}'.format(_XULE_NAMESPACE_MAP['xule'], 'replace'):
                 replacement_node = expression
-                class_expressions = None
-            #else: # this is a xule:replace
-            #    class_expressions = format_class_expressions(replacement_node, next_text_number)
+                class_expressions = tuple()
+            else: # this is a xule:replace
+                class_expressions = format_class_expressions(replacement_node)
 
             comments.append('    // {} - {}'.format(template_file_name, expression.sourceline))
             if part is None:
@@ -221,7 +224,8 @@ def build_named_rules(substitutions, xule_rules, next_rule_number, named_rules, 
                     #result_parts.append('list((({exp})#rv-{part}).string, exists({exp}))'.format(exp=expression.text.strip(), part=part))
                     result_parts.append('{result_text}'.format(result_text=format_rule_result_text_part(expression.text.strip(),
                                                                                                 next_text_number,
-                                                                                                'f')
+                                                                                                'f',
+                                                                                                class_expressions)
                                                         )
                     )
                     
@@ -240,7 +244,8 @@ def build_named_rules(substitutions, xule_rules, next_rule_number, named_rules, 
                     #result_parts.append('({}).string'.format(expression.text.strip()))
                     result_parts.append('{result_text}'.format(result_text=format_rule_result_text_part(expression.text.strip(),
                                                                                                 next_text_number,
-                                                                                                's')
+                                                                                                's',
+                                                                                                class_expressions)
                                                         )
                     )
                     sub_content = {'name': named_rule, 
@@ -268,22 +273,10 @@ def build_named_rules(substitutions, xule_rules, next_rule_number, named_rules, 
         xule_rules.append(rule_text)
     return substitutions, xule_rules, next_rule_number, named_rules
 
-def build_class_rules(replacement_node, xule_rules, next_rule_number):
-    classes = []
-    for class_node in replacement_node.findall('{{{}}}class'.format(etree.QName(replacement_node).namespace)): # This is just a easy way to get the ns of the replacement_node
-        class_rule_name = _CLASS_RULE_NAME_PREFIX + str(next_rule_number)
-        next_rule_number += 1
-        
-        class_rule_text = 'output {}\n({}).string'.format(class_rule_name, class_node.text.strip())
-        xule_rules.append(class_rule_text)
-        classes.append(class_rule_name)
-
-    return classes, xule_rules, next_rule_number
-
-def get_class_expressions(replacement_node):
+def format_class_expressions(replacement_node):
     class_expressions= []
     for class_node in replacement_node.findall('{{{}}}class'.format(etree.QName(replacement_node).namespace)): # This is just a easy way to get the ns of the replacement_node
-        class_expressions.append(class_node.text.strip)  
+        class_expressions.append('({})'.format(class_node.text.strip())) 
 
     return class_expressions      
 
@@ -348,7 +341,7 @@ def substituteTemplate(substitutions, rule_results, template, modelXbrl):
                 else:
                     raise FERCRenderException('internal error: expected a list of results from the rule but only got one')
                 
-                classes = get_classes(sub, rule_results)
+                classes = get_classes(json_result)
 
                 # if the json_result is none, there is nothing to substitute
                 if json_result is not None:
@@ -362,7 +355,7 @@ def substituteTemplate(substitutions, rule_results, template, modelXbrl):
                             fact_object_index = rule_result.refs[rule_focus_index]['objectId']
                             model_fact = modelXbrl.modelObject(fact_object_index)
                             text_content, inline_format_clark = format_fact(sub['expression-node'], model_fact)
-                    else: # Result is not a fact
+                    elif json_result['type'] == 's': # result is a string
                         text_content = json_result['value']
 
                     if text_content is None:
@@ -437,14 +430,14 @@ def adjust_result_focus_index(json_results, part):
 
     return rule_focus_index if rule_focus_index >= 0 else None
 
-def get_classes(sub, rule_results):
-    classes = []
-    if sub.get('classes') is not None:
-        for class_rule_name in sub.get('classes'):
-            for class_result in rule_results.get(class_rule_name, tuple()):
-                classes.append(class_result.msg)
+def get_classes(json_result):
+    '''Get the classes from the evaluation of the xule:class expressions
 
-    return classes
+    This is returned as a list of strings.
+    '''
+
+    # The join/split will normalize whitespaces in the result
+    return [' '.join(x.split()) for x in json_result.get('classes', tuple())]
 
 # def fercMenuTools(cntlr, menu):
 #     import tkinter
@@ -564,7 +557,7 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
 
         rendered_template.write(inline_name, pretty_print=True, method="xml", encoding='utf8', xml_declaration=True)
 
-        cntlr.addToLog(_("Rendered template '{}' as '{}'".format(options.ferc_render_template, inline_name)))
+        cntlr.addToLog(_("Rendered template '{}' as '{}'".format(options.ferc_render_template, inline_name)), 'info')
         
 class _logCaptureHandler(logging.Handler):
     def __init__(self):
