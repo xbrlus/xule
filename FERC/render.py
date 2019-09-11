@@ -209,8 +209,8 @@ def build_named_rules(substitutions, xule_rules, next_rule_number, named_rules, 
             if replacement_node.tag != '{{{}}}{}'.format(_XULE_NAMESPACE_MAP['xule'], 'replace'):
                 replacement_node = expression
                 class_expressions = None
-            else: # this is a xule:replace
-                class_expressions = format_class_expressions(replacement_node, next_text_number)
+            #else: # this is a xule:replace
+            #    class_expressions = format_class_expressions(replacement_node, next_text_number)
 
             comments.append('    // {} - {}'.format(template_file_name, expression.sourceline))
             if part is None:
