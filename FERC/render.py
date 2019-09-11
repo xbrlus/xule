@@ -439,9 +439,10 @@ def adjust_result_focus_index(json_results, part):
 
 def get_classes(sub, rule_results):
     classes = []
-    for class_rule_name in sub.get('classes'):
-        for class_result in rule_results.get(class_rule_name, tuple()):
-            classes.append(class_result.msg)
+    if sub.get('classes') is not None:
+        for class_rule_name in sub.get('classes'):
+            for class_result in rule_results.get(class_rule_name, tuple()):
+                classes.append(class_result.msg)
 
     return classes
 
