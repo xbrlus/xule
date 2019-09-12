@@ -72,7 +72,9 @@ def process_template(cntlr, template_file_name):
     # create the rules for xule and retrieve the update template with the substitutions identified.
     xule_rules, substitutions = build_xule_rules(template_tree, template_file_name)
 
-    return '{}\n{}\n{}'.format(xule_namespaces, xule_constants, xule_rules), substitutions, template_tree
+    line_number_subs = build_line_number_subs(template_tree)
+
+    return '{}\n{}\n{}'.format(xule_namespaces, xule_constants, xule_rules), substitutions,  line_number_subs, template_tree
 
 def build_xule_namespaces(template_tree):
     '''build the namespace declarations for xule
@@ -280,7 +282,16 @@ def format_class_expressions(replacement_node):
 
     return class_expressions      
 
-def substituteTemplate(substitutions, rule_results, template, modelXbrl):
+def build_line_number_subs(template_tree):
+    line_number_subs = collections.defaultdict(list)
+    for line_number_node in template_tree.findall('//xule:lineNumber', _XULE_NAMESPACE_MAP):
+        name = line_number_node.get('name')
+        if name is not None:
+            line_number_subs[name].append(line_number_node)
+
+    return line_number_subs
+
+def substituteTemplate(substitutions, line_number_subs, rule_results, template, modelXbrl):
     '''Subsititute the xule expressions in the template with the generated values.'''
 
     repeat_attribute_name = '{{{}}}{}'.format(_XULE_NAMESPACE_MAP['xule'], 'repeat')
@@ -314,7 +325,7 @@ def substituteTemplate(substitutions, rule_results, template, modelXbrl):
             # This is a repeating rule
             repeating_model_node = repeating_nodes[subs[0].get('name')]
             model_tree = etree.ElementTree(repeating_model_node)
-            
+            repeat_count = 0            
         else:
             repeating_model_node = None
 
@@ -322,10 +333,15 @@ def substituteTemplate(substitutions, rule_results, template, modelXbrl):
             json_rule_result = json.loads(rule_result.msg)
 
             if repeating_model_node is not None:
+                # Copy the model of the repeating node. This will be used to do the actual substitutions
+                repeat_count += 1
                 new_node = deepcopy(repeating_model_node)
                 new_nodes.append(new_node)
                 new_tree = etree.ElementTree(new_node)
-
+                
+                # Replace lineNumber nodes
+                substitute_line_numbers(repeat_count, line_number_subs, subs[0]['name'], model_tree, new_tree, modelXbrl)
+                
             for sub_index, sub in enumerate(subs):
                 # The value for the replacement is either text from running the rule or a fact
                 # The sub is a dictionary. If it has a result-text-index key, then the text is taken
@@ -370,16 +386,24 @@ def substituteTemplate(substitutions, rule_results, template, modelXbrl):
                     
                     span = etree.fromstring(span_content)
                     span.set('class', ' '.join(classes))
+
                     # Get the node in the template to replace
                     if repeating_model_node is None:
                         sub_node = sub['replacement-node']
                     else:
                         # Find the node in the repeating model node
-                        model_path = model_tree.getelementpath(sub['replacement-node'])
-                        sub_node = new_tree.find(model_path)
-
-                    sub_parent = sub_node.getparent()
-                    sub_parent.replace(sub_node, span) 
+                        try:
+                            model_path = model_tree.getelementpath(sub['replacement-node'])
+                        except ValueError:
+                            # The node to be replaced is not a descendant of the repeating note.
+                            modelXbrl.warning("RenderError", "A 'replace' replacement for '{}' is not a descendant of the repeating HTML element.".format(sub['name']))
+                            sub_node = None
+                        else:                        
+                            sub_node = new_tree.find(model_path)
+                            
+                    if sub_node is not None:
+                        sub_parent = sub_node.getparent()
+                        sub_parent.replace(sub_node, span)
             
         # Add the new repeating nodes
         for new_node in reversed(new_nodes):
@@ -429,6 +453,26 @@ def adjust_result_focus_index(json_results, part):
             rule_focus = 0
 
     return rule_focus_index if rule_focus_index >= 0 else None
+
+def substitute_line_numbers(line_number, line_number_subs, name, model_tree, new_tree, modelXbrl):
+
+    # Substitute xule:lineNumber nodes in the repeating model
+    for line_number_node in line_number_subs.get(name, tuple()):
+        # Find the xule:lineNumber node in the repeating model node
+        try:
+            model_path = model_tree.getelementpath(line_number_node)
+        except ValueError:
+            # The node to be replaced is not a descendant of the repeating note.
+            modelXbrl.warning("RenderError", "A 'lineNumber' replacement for '{}' is not a descendant of the repeating HTML element.".format(name))
+        else:
+            sub_node = new_tree.find(model_path)
+            # Create new span with the line number
+            new_line_number_span = etree.Element('{{{}}}span'.format(_XHTM_NAMESPACE))
+            new_line_number_span.set('class', 'sub-line-number')
+            new_line_number_span.text = str(line_number)
+            # Substitute
+            sub_parent = sub_node.getparent()
+            sub_parent.replace(sub_node, new_line_number_span)     
 
 def get_classes(json_result):
     '''Get the classes from the evaluation of the xule:class expressions
@@ -510,7 +554,7 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
 
     if options.ferc_render_template is not None:
         # Process the HTML template.
-        xule_rule_text, substitutions, template = process_template(cntlr, options.ferc_render_template)
+        xule_rule_text, substitutions, line_number_subs, template = process_template(cntlr, options.ferc_render_template)
         
         # Compile Xule rules
         title = template.find('//xhtml:title', _XULE_NAMESPACE_MAP)
@@ -546,7 +590,7 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
         cntlr.logger.removeHandler(log_capture_handler)
         
         # Substitute template
-        rendered_template = substituteTemplate(substitutions, log_capture_handler.captured, template, modelXbrl)
+        rendered_template = substituteTemplate(substitutions, line_number_subs, log_capture_handler.captured, template, modelXbrl)
         
 
         # Write rendered template
