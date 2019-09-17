@@ -85,20 +85,22 @@ def build_xule_namespaces(template_tree):
     namespaces = ['namespace {}={}'.format(k, v) if k is not None else 'namespace {}'.format(v) for k, v in template_tree.getroot().nsmap.items()]
     return '\n'.join(namespaces)
 
-def build_constants():
-    '''Create constants used by the expressions.
 
-    $currentInstant
-    $currentDuration
-    $priorInstant
-    $priorDuration
-    '''
-    constants = '''
-        constant $currentDuration = {@ferc:ReportYear}.periood
-        constant $currentInstant = $currentDuration.end
-        constant $priorDuration = $currentDuration
-        constant $priorInstant = $currentInstant
-    '''
+def build_constants():
+    '''Create constants used by the expressions. '''
+    constants = \
+'''
+// These constants need to be overwritten when processing.
+constant $current-start = None
+constant $current-end = None
+constant $prior-start = None
+constant $prior-end = None
+
+constant $currentInstant = date($current-end)
+constant $currentduration = duration(date($current-start), date($current-end))
+constant $priorInstant = date($prior-end)
+constant $priorduration = duration(date($prior-start), date($prior-end))
+'''
 
     return constants
 
@@ -483,6 +485,38 @@ def get_classes(json_result):
     # The join/split will normalize whitespaces in the result
     return [' '.join(x.split()) for x in json_result.get('classes', tuple())]
 
+def get_dates(modelXbrl):
+    '''This returns a dictionary of dates for the filing'''
+
+    report_year_fact = get_fact_by_local_name(modelXbrl, 'ReportYear')
+    report_period_fact = get_fact_by_local_name(modelXbrl, 'ReportPeriod')
+
+    if report_year_fact is None or report_period_fact is None:
+        modelXbrl.error(_("Cannot obtain the report year or report period from the XBRL document"))
+        raise FERCRenderException
+
+    month_day = {'Q4': ('01-01', '12-31'),
+                 'Q3': ('07-01', '12-31'),
+                 'Q2': ('04-01', '06-30'),
+                 'Q1': ('01-01', '03-31')}
+    
+    current_start = '{}-{}'.format(report_year_fact.value, month_day[report_period_fact.value][0])
+    current_end ='{}-{}'.format(report_year_fact.value, month_day[report_period_fact.value][1])
+    prior_start = '{}-{}'.format(int(report_year_fact.value) - 1, month_day[report_period_fact.value][0])
+    prior_end = '{}-{}'.format(int(report_year_fact.value) - 1, month_day[report_period_fact.value][1])
+    
+    return (('current-start={}'.format(current_start)),
+            ('current-end={}'.format(current_end)),
+            ('prior-start={}'.format(prior_start)),
+            ('prior-end={}'.format(prior_end)))
+
+def get_fact_by_local_name(modelXbrl, fact_name):
+    for fact in modelXbrl.factsInInstance:
+        if fact.concept.qname.localName == fact_name:
+            return fact
+    
+    return None
+
 # def fercMenuTools(cntlr, menu):
 #     import tkinter
   
@@ -577,6 +611,9 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
         compile_method = getXuleMethod(cntlr, 'Xule.compile')
         compile_method(xule_rule_file_name, xule_rule_set_name, 'json')
         
+        # Get the date values from the instance
+        xule_date_args = get_dates(modelXbrl)
+
         # Run Xule rules
         # Create a log handler that will capture the messages when the rules are run.
         log_capture_handler = _logCaptureHandler()
@@ -584,7 +621,12 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
 
         # Call the xule processor to run the rules
         call_xule_method = getXuleMethod(cntlr, 'Xule.callXuleProcessor')
-        call_xule_method(cntlr, modelXbrl, xule_rule_set_name, options)
+        run_options = deepcopy(options)
+        xule_args = getattr(run_options, 'xule_arg', []) or []
+        xule_args += list(xule_date_args)
+        setattr(run_options, 'xule_arg', xule_args)
+
+        call_xule_method(cntlr, modelXbrl, xule_rule_set_name, run_options)
         
         # Remove the handler from the logger. This will stop the capture of messages
         cntlr.logger.removeHandler(log_capture_handler)
