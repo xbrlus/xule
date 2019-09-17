@@ -450,6 +450,11 @@ def xuleCmdOptions(parser):
                       dest="xule_run",
                       help=_("Indicates that the rules should be processed."))
     
+    parserGroup.add_option("--xule-arg",
+                          action="append",
+                          dest="xule_arg",
+                          help=_("Creates a constant. In the form of 'name=value'"))
+
     parserGroup.add_option("--xule-add-packages",
                            action="store",
                            dest="xule_add_packages",

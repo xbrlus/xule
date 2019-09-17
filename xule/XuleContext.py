@@ -368,6 +368,7 @@ class XuleRuleContext(object):
         self.look_for_alignment = False
         self.where_table_ids = None
         self.where_dependent_iterables = None
+        self._constant_overrides = None
         
         self.iter_count = 0
         self.iter_pass_count = 0
@@ -410,6 +411,23 @@ class XuleRuleContext(object):
     def dependent_alignment(self):
         return self.iteration_table.dependent_alignment
     
+    @property
+    def constant_overrides(self):
+        if self._constant_overrides is None:
+            overrides = dict()
+            for arg in getattr(self.global_context.options,'xule_arg', tuple()):
+                arg_parts = arg.split('=')
+                name = arg_parts[0]
+                if len(name) > 0:
+                    if len(arg_parts) > 1:
+                        val = XuleValue(self, ''.join(arg_parts[1:]), 'string')
+                    else:
+                        val = XuleVValue(self, None, 'none')
+                    overrides[name] = val
+            self._constant_overridess = overrides
+
+        return self._constant_overridess
+
     def create_message_copy(self, table_id, processing_id):
         new_context = copy.copy(self)
         new_context.iteration_table = XuleIterationTable(self)

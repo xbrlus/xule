@@ -1413,6 +1413,11 @@ def calc_constant(const_info, const_context):
     const_info['value'] = const_values
     const_info['calculated'] = True
 
+def override_constant_calc(const_info, xule_context):
+
+    const_values = XuleValueSet(xule_context.constant_overrides[const_info['name']])
+    const_info['value'] = const_values
+    const_info['calculated'] = True
 
 def evaluate_constant_assign(const_assign, xule_context):
     """Evaluator a constant declaration
@@ -1428,13 +1433,15 @@ def evaluate_constant_assign(const_assign, xule_context):
         raise XuleProcessingError(_("Constant '%s' not found" % const_assign['constantName']), xule_context)
 
     if not const_info['calculated']:
-        #const_context = XuleRuleContext(xule_context.global_context, xule_context.rule_name + ":" + const_info['name'],
-        #                                xule_context.cat_file_num)
-        const_context = XuleRuleContext(xule_context.global_context, None,
-                                        xule_context.cat_file_num)
-        calc_constant(const_info, const_context)
-        # Clean up
-        del const_context
+        # Check if there is a xule-arg that overrides the constant
+        if const_assign['constantName'] in xule_context.constant_overrides:
+            override_constant_calc(const_info, xule_context)
+        else: # calc the constant
+            const_context = XuleRuleContext(xule_context.global_context, None,
+                                            xule_context.cat_file_num)
+            calc_constant(const_info, const_context)
+            # Clean up
+            del const_context
     if 'is_iterable' in const_assign:
         # return the entire value set
         return const_info['value']
