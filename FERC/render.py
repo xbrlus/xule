@@ -142,6 +142,7 @@ def build_unamed_rules(substitutions, xule_rules, next_rule_number, named_rules,
             if xule_expression.get('fact','').lower() == 'true':
                 sub_content ={'part': None, 
                               'replacement-node': replacement_node, 
+                              'expression-node': xule_expression,
                               'result-focus-index': 0}
                 #rule_text = 'output {}\n{}\nlist((({})#rv-0).string).to-json\nrule-focus list($rv-0)'.format(rule_name, comment_text, xule_expression.text.strip())
 
@@ -223,7 +224,7 @@ def build_named_rules(substitutions, xule_rules, next_rule_number, named_rules, 
             if part is None:
                 preliminary_rule_text = expression.text.strip()
             else:
-                if expression.get("type") == 'fact':
+                if expression.get("fact", "").lower() == 'true':
                     # If the this part of the rule is a fact, then add a tag that will be used in the rule focus
                     #result_parts.append('list((({exp})#rv-{part}).string, exists({exp}))'.format(exp=expression.text.strip(), part=part))
                     result_parts.append('{result_text}'.format(result_text=format_rule_result_text_part(expression.text.strip(),
@@ -280,7 +281,7 @@ def build_named_rules(substitutions, xule_rules, next_rule_number, named_rules, 
 def format_class_expressions(replacement_node):
     class_expressions= []
     for class_node in replacement_node.findall('{{{}}}class'.format(etree.QName(replacement_node).namespace)): # This is just a easy way to get the ns of the replacement_node
-        class_expressions.append('({})'.format(class_node.text.strip())) 
+        class_expressions.append('list("{}",{})'.format(class_node.attrib.get('location', 'self'), class_node.text.strip())) 
 
     return class_expressions      
 
@@ -359,8 +360,9 @@ def substituteTemplate(substitutions, line_number_subs, rule_results, template, 
                 else:
                     raise FERCRenderException('internal error: expected a list of results from the rule but only got one')
                 
-                classes = get_classes(json_result)
-
+                classes_from_result = get_classes(json_result)
+                # Add classes that go on the span that will replace the xule:relace node
+                span_classes = classes_from_result.get('self',[])
                 # if the json_result is none, there is nothing to substitute
                 if json_result is not None:
                     # Check if the result is a fact
@@ -378,16 +380,16 @@ def substituteTemplate(substitutions, line_number_subs, rule_results, template, 
 
                     if text_content is None:
                         span_content = '<span/>'
-                        classes += ['sub-value', 'sub-no-replacement']
+                        span_classes += ['sub-value', 'sub-no-replacement']
                     else:
                         if not sub.get('html', False):
                             # This is not html content, so the text needs to be escaped
                             text_content = html.escape(text_content)
                         span_content = '<span>{}</span>'.format(text_content)  
-                        classes += ['sub-value', 'sub-replacement']
+                        span_classes += ['sub-value', 'sub-replacement']
                     
                     span = etree.fromstring(span_content)
-                    span.set('class', ' '.join(classes))
+                    span.set('class', ' '.join(span_classes))
 
                     # Get the node in the template to replace
                     if repeating_model_node is None:
@@ -406,6 +408,8 @@ def substituteTemplate(substitutions, line_number_subs, rule_results, template, 
                     if sub_node is not None:
                         sub_parent = sub_node.getparent()
                         sub_parent.replace(sub_node, span)
+                        if len(classes_from_result['parent']) > 0:
+                            sub_parent.set('class', ' '.join(sub_parent.get('class','').split() + classes_from_result['parent']))
             
         # Add the new repeating nodes
         for new_node in reversed(new_nodes):
@@ -451,8 +455,8 @@ def adjust_result_focus_index(json_results, part):
                 rule_focus_index +=1
     else:
         # The results is really just a single dictionary of one results. Just check if the fact is there
-        if json_results['is-fact']:
-            rule_focus = 0
+        if json_results['is-fact'].lower() == 'true':
+            rule_focus_index = 0
 
     return rule_focus_index if rule_focus_index >= 0 else None
 
@@ -483,13 +487,24 @@ def get_classes(json_result):
     '''
 
     # The join/split will normalize whitespaces in the result
-    return [' '.join(x.split()) for x in json_result.get('classes', tuple())]
+    # Get a list of classes for each class location. The class location will be at index 0 and the class value will be at intext 1
+    classes = collections.defaultdict(list)
+    for item in json_result.get('classes', tuple()):
+        # The split will normalize whitespaces in the result
+        classes[item[0]].extend(item[1].split())
+
+    return classes
+    
+
+    #return [' '.join(x.split()) for x in json_result.get('classes', tuple())]
 
 def get_dates(modelXbrl):
     '''This returns a dictionary of dates for the filing'''
 
     report_year_fact = get_fact_by_local_name(modelXbrl, 'ReportYear')
     report_period_fact = get_fact_by_local_name(modelXbrl, 'ReportPeriod')
+    if report_period_fact is None:
+        report_period_fact = get_fact_by_local_name(modelXbrl, 'ReportYearPeriod')
 
     if report_year_fact is None or report_period_fact is None:
         modelXbrl.error(_("Cannot obtain the report year or report period from the XBRL document"))
