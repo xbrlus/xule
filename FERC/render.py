@@ -97,9 +97,9 @@ constant $prior-start = None
 constant $prior-end = None
 
 constant $currentInstant = date($current-end)
-constant $currentDuration = duration(date($current-start), date($current-end))
+constant $currentduration = duration(date($current-start), date($current-end))
 constant $priorInstant = date($prior-end)
-constant $priorDuration = duration(date($prior-start), date($prior-end))
+constant $priorduration = duration(date($prior-start), date($prior-end))
 '''
 
     return constants
@@ -114,8 +114,7 @@ def build_xule_rules(template_tree, template_file_name):
     substitutions = collections.defaultdict(list)
     xule_rules = []
     next_rule_number = 1
-    # Using an ordered dict so that the named rules are build in the order of the rule in the template.
-    named_rules = collections.OrderedDict()
+    named_rules = collections.defaultdict(list)
 
     substitutions, xule_rules, next_rule_number, named_rules = build_unamed_rules(substitutions, xule_rules, next_rule_number, named_rules, template_tree, template_file_name)
     substitutions, xule_rules, next_rule_number, named_rules = build_named_rules(substitutions, xule_rules, next_rule_number, named_rules, template_tree, template_file_name)
@@ -142,8 +141,8 @@ def build_unamed_rules(substitutions, xule_rules, next_rule_number, named_rules,
             comment_text = '    // {} - line {}'.format(template_file_name, xule_expression.sourceline)
             if xule_expression.get('fact','').lower() == 'true':
                 sub_content ={'part': None, 
-                              'replacement-node': template_tree.getelementpath(replacement_node), 
-                              'expression-node': template_tree.getelementpath(xule_expression),
+                              'replacement-node': replacement_node, 
+                              'expression-node': xule_expression,
                               'result-focus-index': 0}
                 #rule_text = 'output {}\n{}\nlist((({})#rv-0).string).to-json\nrule-focus list($rv-0)'.format(rule_name, comment_text, xule_expression.text.strip())
 
@@ -157,7 +156,7 @@ def build_unamed_rules(substitutions, xule_rules, next_rule_number, named_rules,
                              )
             else: # not a fact
                 sub_content = {'part': None, 
-                               'replacement-node': template_tree.getelementpath(replacement_node), 
+                               'replacement-node': replacement_node, 
                                'result-text-index': 0}
                 #rule_text = 'output {}\n{}\nlist(({}).string).to-json'.format(rule_name, comment_text, xule_expression.text.strip())
                 rule_text = 'output {rule_name}\n{comment}\n{result_text}'\
@@ -176,8 +175,6 @@ def build_unamed_rules(substitutions, xule_rules, next_rule_number, named_rules,
         else: # This is a named rule
             # Saved the named rule part for later
             part = xule_expression.get('part', None)
-            if named_rule not in named_rules:
-                named_rules[named_rule] = []
             named_rules[named_rule].append((part, xule_expression))
 
     return substitutions, xule_rules, next_rule_number, named_rules
@@ -240,8 +237,8 @@ def build_named_rules(substitutions, xule_rules, next_rule_number, named_rules, 
                     rule_focus.append('$rv-{}'.format(next_text_number))
                     sub_content = {'name': named_rule, 
                                    'part': part, 
-                                   'replacement-node': template_tree.getelementpath(replacement_node), 
-                                   'expression-node': template_tree.getelementpath(expression),
+                                   'replacement-node': replacement_node, 
+                                   'expression-node': expression,
                                    'result-focus-index': next_focus_number,
                                    'result-text-index': next_text_number}
                     if expression.get('html', 'false').lower() == 'true':
@@ -258,7 +255,7 @@ def build_named_rules(substitutions, xule_rules, next_rule_number, named_rules, 
                     )
                     sub_content = {'name': named_rule, 
                                    'part': part, 
-                                   'replacement-node': template_tree.getelementpath(replacement_node), 
+                                   'replacement-node': replacement_node, 
                                    'result-text-index': next_text_number}
                     if expression.get('html', 'false').lower == 'true':
                         sub_content['html'] = True                                   
@@ -320,7 +317,7 @@ def substituteTemplate(substitutions, line_number_subs, rule_results, template, 
         subs = key[1]
         if len(subs) == 0:
             return 0
-        return len([x for x in get_template_node(template, subs[0]['replacement-node']).iterancestors()])
+        return len([x for x in subs[0]['replacement-node'].iterancestors()])
 
     repeating.sort(key=sort_by_ancestors, reverse=True)
 
@@ -377,7 +374,7 @@ def substituteTemplate(substitutions, line_number_subs, rule_results, template, 
                         else:
                             fact_object_index = rule_result.refs[rule_focus_index]['objectId']
                             model_fact = modelXbrl.modelObject(fact_object_index)
-                            text_content, inline_format_clark = format_fact(get_template_node(template, sub['expression-node']), model_fact)
+                            text_content, inline_format_clark = format_fact(sub['expression-node'], model_fact)
                     elif json_result['type'] == 's': # result is a string
                         text_content = json_result['value']
 
@@ -396,11 +393,11 @@ def substituteTemplate(substitutions, line_number_subs, rule_results, template, 
 
                     # Get the node in the template to replace
                     if repeating_model_node is None:
-                        sub_node = get_template_node(template, sub['replacement-node'])
+                        sub_node = sub['replacement-node']
                     else:
                         # Find the node in the repeating model node
                         try:
-                            model_path = model_tree.getelementpath(get_template_node(template, sub['replacement-node']))
+                            model_path = model_tree.getelementpath(sub['replacement-node'])
                         except ValueError:
                             # The node to be replaced is not a descendant of the repeating note.
                             modelXbrl.warning("RenderError", "A 'replace' replacement for '{}' is not a descendant of the repeating HTML element.".format(sub['name']))
@@ -436,9 +433,6 @@ def substituteTemplate(substitutions, line_number_subs, rule_results, template, 
         parent.remove(xule_node)
 
     return template
-
-def get_template_node(template, location):
-    return template.find(location)
 
 def adjust_result_focus_index(json_results, part):
     '''Adjust the index for the rule focus fact
@@ -679,10 +673,7 @@ class _logCaptureHandler(logging.Handler):
         return self._captured
 
 def format_fact(xule_expression_node, model_fact):
-    if xule_expression_node is None:
-        format = None
-    else:
-        format = xule_expression_node.get('format')
+    format = xule_expression_node.get('format')
     if format is None:
         return str(model_fact.xValue), None
     else:
