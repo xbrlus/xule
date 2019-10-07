@@ -97,9 +97,9 @@ constant $prior-start = None
 constant $prior-end = None
 
 constant $currentInstant = date($current-end)
-constant $currentduration = duration(date($current-start), date($current-end))
+constant $currentDuration = duration(date($current-start), date($current-end))
 constant $priorInstant = date($prior-end)
-constant $priorduration = duration(date($prior-start), date($prior-end))
+constant $priorDuration = duration(date($prior-start), date($prior-end))
 '''
 
     return constants
@@ -446,6 +446,11 @@ def adjust_result_focus_index(json_results, part):
 
     if isinstance(json_results, list):
         results_by_part = {x['part']: x for x in json_results}
+
+        # If the part did not return a fact than there is nothing in the rule focus to find.
+        if results_by_part[part]['is-fact'].lower() == 'false':
+            return None
+
         # This is a list of results
         for i in range(part + 1):
             if (i in results_by_part and 
