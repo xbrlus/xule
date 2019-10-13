@@ -344,7 +344,6 @@ def agg_set(xule_context, values):
     return return_value #xv.XuleValue(xule_context, frozenset(set_values), 'set')
 
 def agg_dict(xule_context, values):
-    set_values = []
     shadow = []
     tags = {}
     facts = collections.OrderedDict()
@@ -364,6 +363,15 @@ def agg_dict(xule_context, values):
             raise XuleProcessingError(_("Key to a dictionary cannot be a dictionary."), xule_context)
         
         value = current_value.value[1]
+        
+        # A dictionary can only have one value for a key. If the key is already in the dicitionary then the current set of values can be skipped.
+        # This is determined by the shadow (the underlying value of the XuleValue) as it is done for agg_set.
+        if key.type in ('set', 'list'):
+            if key.shadow_collection in shadow:
+                continue
+        else:
+            if key.value in shadow:
+                continue
         
         if key.tags is not None:
             tags.update(key.tags)
