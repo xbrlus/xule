@@ -6,9 +6,13 @@ from lxml import etree
 import datetime
 import collections
 import html
+import io
 import json
 import logging
 import optparse
+import os.path
+import tempfile
+import zipfile
 
 # This will hold the xule plugin module
 _xule_plugin_info = None
@@ -50,13 +54,15 @@ def process_template(cntlr, template_file_name):
     '''Prepare the template to substitute values
 
     1. build the xule rules from the template
-    2. identify where in the template to substitution caluldated values
+    2. identify stylesheets
+    3. identify where in the template to substitute calculated values
+    4. create a template set
     '''
 
     # Open the template
     try:
-        with open(template_file_name) as fp:
-            template_tree = etree.parse(fp)
+        with open(template_file_name, 'rb') as fp:
+            template_tree = etree.fromstring(fp.read().decode('utf-8')).getroottree()
     except FileNotFoundError:
         cntlr.addToLog("Template file '{}' is not found.".format(template_file_name), 'error', level=logging.ERROR)
         raise FERCRenderException
@@ -69,10 +75,12 @@ def process_template(cntlr, template_file_name):
     xule_namespaces = build_xule_namespaces(template_tree)
     # build constants
     xule_constants = build_constants()
+    # Create list of Xule nodes in the template
+    xule_node_locations = {template_tree.getelementpath(xule_node): node_number for  node_number, xule_node in enumerate(template_tree.xpath('//xule:*', namespaces=_XULE_NAMESPACE_MAP))}
     # create the rules for xule and retrieve the update template with the substitutions identified.
-    xule_rules, substitutions = build_xule_rules(template_tree, template_file_name)
+    xule_rules, substitutions, line_number_subs = build_xule_rules(template_tree, template_file_name, xule_node_locations)
 
-    line_number_subs = build_line_number_subs(template_tree)
+
 
     return '{}\n{}\n{}'.format(xule_namespaces, xule_constants, xule_rules), substitutions,  line_number_subs, template_tree
 
@@ -104,7 +112,7 @@ constant $priorDuration = duration(date($prior-start), date($prior-end))
 
     return constants
 
-def build_xule_rules(template_tree, template_file_name):
+def build_xule_rules(template_tree, template_file_name, xule_node_locations):
     '''Extract the rules and identify the subsititions in the template
 
     1. Create the xule rules
@@ -116,7 +124,6 @@ def build_xule_rules(template_tree, template_file_name):
     next_rule_number = 1
     # Using an ordered dict so that the named rules are build in the order of the rule in the template.
     named_rules = collections.OrderedDict()
-    xule_node_locations = {template_tree.getelementpath(xule_node): node_number for  node_number, xule_node in enumerate(template_tree.xpath('//xule:*', namespaces=_XULE_NAMESPACE_MAP))}
 
     substitutions, xule_rules, next_rule_number, named_rules = build_unamed_rules(substitutions, 
                                                                                   xule_rules, 
@@ -131,7 +138,10 @@ def build_xule_rules(template_tree, template_file_name):
                                                                                  template_tree, 
                                                                                  template_file_name,
                                                                                  xule_node_locations)
-    return '\n\n'.join(xule_rules), substitutions
+    # Create rules for starting line numbers.                                                                                 
+    line_number_subs, xule_rules, next_rule_number = build_line_number_rules(xule_rules, next_rule_number, template_tree, xule_node_locations)   
+
+    return '\n\n'.join(xule_rules), substitutions, line_number_subs
 
 def build_unamed_rules(substitutions, xule_rules, next_rule_number, named_rules, template_tree, template_file_name, xule_node_locations):
 
@@ -271,7 +281,7 @@ def build_named_rules(substitutions, xule_rules, next_rule_number, named_rules, 
                     rule_focus.append('$rv-{}'.format(next_text_number))
                     sub_content = {'name': named_rule, 
                                    'part': part, 
-                                   'replacement-node': xule_node_locations[tempalte_tree.getelementpath(replacement_node)],
+                                   'replacement-node': xule_node_locations[template_tree.getelementpath(replacement_node)],
                                    'expression-node': xule_node_locations[template_tree.getelementpath(expression)],
                                    'result-focus-index': next_focus_number,
                                    'result-text-index': next_text_number}
@@ -318,19 +328,41 @@ def format_class_expressions(replacement_node):
 
     return class_expressions      
 
-def build_line_number_subs(template_tree):
+def build_line_number_rules(xule_rules, next_rule_number, template_tree, xule_node_locations):
     line_number_subs = collections.defaultdict(list)
     for line_number_node in template_tree.findall('//xule:lineNumber', _XULE_NAMESPACE_MAP):
         name = line_number_node.get('name')
         if name is not None:
-            line_number_subs[name].append(line_number_node)
+            # Check if there is a staring number
+            start_expression_node = line_number_node.find('xule:startNumber', _XULE_NAMESPACE_MAP)
+            if start_expression_node is None:
+                start_value = 1
+                is_simple = True
+            else:
+                try:
+                    # if this is a simple integer, there is no need to create a rule for it. 
+                    start_value = int(start_expression_node.text.strip())
+                    is_simple = True
+                except ValueError:
+                    # The expression is not a simple integer. Need to create a rule for it
+                    is_simple = False
+                    rule_name = _RULE_NAME_PREFIX + str(next_rule_number)
+                    next_rule_number += 1
+                    rule_text = 'output {rule_name}\n{rule_text}'.format(rule_name=rule_name, rule_text=start_expression_node.text.strip())
+                    xule_rules.append(rule_text)
+            if is_simple:
+                line_number_subs[name].append({'line-number-node': xule_node_locations[template_tree.getelementpath(line_number_node)], 'start-number': start_value})
+            else:
+                line_number_subs[name].append({'line-number-node': xule_node_locations[template_tree.getelementpath(line_number_node)], 'start-rule': rule_name})
 
-    return line_number_subs
+    return line_number_subs, xule_rules, next_rule_number
 
 def substituteTemplate(substitutions, line_number_subs, rule_results, template, modelXbrl):
     '''Subsititute the xule expressions in the template with the generated values.'''
     xule_node_locations = {node_number: xule_node for  node_number, xule_node in enumerate(template.xpath('//xule:*', namespaces=_XULE_NAMESPACE_MAP))}
     
+    set_line_number_starts(line_number_subs, rule_results)
+
     repeat_attribute_name = '{{{}}}{}'.format(_XULE_NAMESPACE_MAP['xule'], 'repeat')
     repeating_nodes = {x.get(repeat_attribute_name): x for x in template.findall('//*[@xule:repeat]', _XULE_NAMESPACE_MAP)}
 
@@ -377,7 +409,7 @@ def substituteTemplate(substitutions, line_number_subs, rule_results, template, 
                 new_tree = etree.ElementTree(new_node)
                 
                 # Replace lineNumber nodes
-                substitute_line_numbers(repeat_count, line_number_subs, subs[0]['name'], model_tree, new_tree, modelXbrl)
+                substitute_line_numbers(repeat_count, line_number_subs, subs[0]['name'], model_tree, new_tree, modelXbrl, xule_node_locations)
                 
             for sub_index, sub in enumerate(subs):
                 # The value for the replacement is either text from running the rule or a fact
@@ -499,10 +531,27 @@ def adjust_result_focus_index(json_results, part):
 
     return rule_focus_index if rule_focus_index >= 0 else None
 
-def substitute_line_numbers(line_number, line_number_subs, name, model_tree, new_tree, modelXbrl):
+def set_line_number_starts(line_number_subs, rule_results):
+    for line_numbers in line_number_subs.values():
+        for line_number_info in line_numbers:
+            if 'start-rule' in line_number_info:
+                start_result = rule_results.get(line_number_info['start-rule'], None)
+                if start_result is None:
+                    # didn't get a result, just assume 1
+                    start_value = 1
+                else:
+                    try:
+                        start_value = int(start_result[0].msg.strip())
+                    except ValueError:
+                        # didn't an integer back, default to 1
+                        start_value = 1
+                line_number_info['start-number'] = start_value
+
+def substitute_line_numbers(line_number, line_number_subs, name, model_tree, new_tree, modelXbrl, xule_node_locations):
 
     # Substitute xule:lineNumber nodes in the repeating model
-    for line_number_node in line_number_subs.get(name, tuple()):
+    for line_number_info in line_number_subs.get(name, tuple()):
+        line_number_node = xule_node_locations[line_number_info['line-number-node']]
         # Find the xule:lineNumber node in the repeating model node
         try:
             model_path = model_tree.getelementpath(line_number_node)
@@ -510,11 +559,13 @@ def substitute_line_numbers(line_number, line_number_subs, name, model_tree, new
             # The node to be replaced is not a descendant of the repeating note.
             modelXbrl.warning("RenderError", "A 'lineNumber' replacement for '{}' is not a descendant of the repeating HTML element.".format(name))
         else:
+            start_value = line_number_info.get('start-number', 1) - 1
+
             sub_node = new_tree.find(model_path)
             # Create new span with the line number
             new_line_number_span = etree.Element('{{{}}}span'.format(_XHTM_NAMESPACE))
             new_line_number_span.set('class', 'sub-line-number')
-            new_line_number_span.text = str(line_number)
+            new_line_number_span.text = str(line_number + start_value)
             # Substitute
             sub_parent = sub_node.getparent()
             sub_parent.replace(sub_node, new_line_number_span)     
@@ -609,25 +660,35 @@ def cmdLineOptionExtender(parser, *args, **kwargs):
                                            "FERC Renderer")
         parser.add_option_group(parserGroup)
     
+    parserGroup.add_option("--ferc-render-compile", 
+                      action="store_true", 
+                      dest="ferc_render_compile", 
+                      help=_("Indicator to compile a template set. Reuires --ferc-render-template and --ferc-render-template_set options"))
+
+    parserGroup.add_option("--ferc-render-render", 
+                      action="store_true", 
+                      dest="ferc_render_render", 
+                      help=_("Indicator to render an instance with a template set. Reuires --ferc-render-template_set options and XBRL instnace (-f)"))
+
     parserGroup.add_option("--ferc-render-template", 
-                      action="store", 
+                      action="append", 
                       dest="ferc_render_template", 
                       help=_("The HTML template file"))
+
+    parserGroup.add_option("--ferc-render-template-set", 
+                      action="store", 
+                      dest="ferc_render_template_set", 
+                      help=_("Compiled template set file"))
+
+    parserGroup.add_option("--ferc-render-css-file", 
+                      action="store", 
+                      dest="ferc_render_css_file", 
+                      help=_("CSS file to include in the generated rendering"))
 
     parserGroup.add_option("--ferc-render-inline", 
                       action="store", 
                       dest="ferc_render_inline", 
                       help=_("The generated Inline XBRL file"))        
-                      
-    parserGroup.add_option("--ferc-render-xule-file", 
-                      action="store", 
-                      dest="ferc_render_xule_file", 
-                      help=_("The generated xule rule file")) 
-
-    parserGroup.add_option("--ferc-render-xule-rule-set", 
-                      action="store", 
-                      dest="ferc_render_xule_rule_set", 
-                      help=_("The generated xule rule set file")) 
 
     parserGroup.add_option("--ferc-render-xule-only", 
                       action="store_true", 
@@ -638,14 +699,48 @@ def fercCmdUtilityRun(cntlr, options, **kwargs):
     #check option combinations
     parser = optparse.OptionParser()
     
-    if options.ferc_render_template is None:
-        parser.error(_("--ferc-render-template is required."))
+    if options.ferc_render_compile is None and options.ferc_render_render is None:
+        parser.error(_("The render plugin requires either --ferc-render-compile and/or --ferc-render-render"))
 
-def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
+    if options.ferc_render_compile:
+        if options.ferc_render_template is None and options.ferc_render_template_set is None:
+            parser.error(_("Compiling a template set requires --ferc-render-template and --ferc-render-template-set."))
+    
+    if options.ferc_render_render:
+        if options.ferc_render_template_set is None:
+            parser.error(_("Rendering requires --ferc-render-template-set"))
 
-    if options.ferc_render_template is not None:
+    if options.ferc_render_compile:
+        compile_templates(cntlr, options)
+
+def compile_templates(cntlr, options):
+
+    template_catalog = {'templates': []}
+    template_set_file_name = os.path.split(options.ferc_render_template_set)[1]
+
+    with zipfile.ZipFile(template_set_file_name, 'w') as template_set_file:    
+        for template_full_file_name in getattr(options, 'ferc_render_template', tuple()):
+            process_single_template(cntlr, options, template_catalog['templates'], template_set_file, template_full_file_name)
+
+        # Add CSS file
+        if options.ferc_render_css_file is not None:
+            if os.path.exists(options.ferc_render_css_file):
+                template_catalog['css'] = os.path.split(options.ferc_render_css_file)[1]
+                template_set_file.write(options.ferc_render_css_file, 'css/{}'.format(os.path.split(options.ferc_render_css_file)[1]))
+            else:
+                cntlr.addToLog(_("CSS file does not exist: {}".format(options.ferc_render_css_file)), "error")
+
+        # Write catalog
+        template_set_file.writestr('catalog.json', json.dumps(template_catalog, indent=4))
+
+
+    cntlr.addToLog(_("Writing template set file: {}".format(template_set_file_name)), 'info')
+
+def process_single_template(cntlr, options, template_catalog, template_set_file, template_full_file_name):
+    # Create a temporary working directory
+    with tempfile.TemporaryDirectory() as temp_dir:
         # Process the HTML template.
-        xule_rule_text, substitutions, line_number_subs, template = process_template(cntlr, options.ferc_render_template)
+        xule_rule_text, substitutions, line_number_subs, template = process_template(cntlr, template_full_file_name)
         
         # Compile Xule rules
         title = template.find('//xhtml:title', _XULE_NAMESPACE_MAP)
@@ -653,54 +748,136 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
             cntlr.addToLog("Template does not have a title", "error")
             raise FERCRenderException
 
+        # Get some names set up
+        template_file_name = os.path.split(template_full_file_name)[1]
+        template_file_name_base = os.path.splitext(template_file_name)[0]
+
+        template_file_name = "templates/{}/{}.html".format(template_file_name_base, template_file_name_base)
+        xule_text_file_name = "templates/{}/{}.xule".format(template_file_name_base, template_file_name_base)
+        xule_rule_set_file_name = "templates/{}/{}-ruleset.zip".format(template_file_name_base, template_file_name_base)
+        substitution_file_name = "templates/{}/{}-substitutions.json".format(template_file_name_base, template_file_name_base)
+        line_number_file_name = "templates/{}/{}-linenumbers.json".format(template_file_name_base, template_file_name_base)
+
         # xule file name
-        xule_rule_file_name = options.ferc_render_xule_file or '{}.xule'.format(title.text)
+        xule_rule_file_name = os.path.join(temp_dir, '{}.xule'.format(template_file_name_base))   #'{}.xule'.format(title.text)
         with open(xule_rule_file_name, 'w') as xule_file:
             xule_file.write(xule_rule_text)
 
-        cntlr.addToLog(_("Writing xule rule file: {}".format(xule_rule_file_name)), 'info')
-
-        if options.ferc_render_xule_only:
-            cntlr.addToLog(_("Generated xule rule file '{}'".format(xule_rule_file_name)))
-            # Stop the processing
-            return
-
         # xule rule set name
-        xule_rule_set_name = options.ferc_render_xule_rule_set or '{}.zip'.format(title.text)
+        xule_rule_set_name = os.path.join(temp_dir, '{}-ruleset.zip'.format(template_file_name_base))
         compile_method = getXuleMethod(cntlr, 'Xule.compile')
         compile_method(xule_rule_file_name, xule_rule_set_name, 'json')
-        
-        # Get the date values from the instance
-        xule_date_args = get_dates(modelXbrl)
 
-        # Run Xule rules
-        # Create a log handler that will capture the messages when the rules are run.
-        log_capture_handler = _logCaptureHandler()
-        cntlr.logger.addHandler(log_capture_handler)
+        template_catalog.append({'name': template_file_name_base,
+                            'template': template_file_name,
+                            'xule-text': xule_text_file_name,
+                            'xule-rule-set': xule_rule_set_file_name,
+                            'substitutions': substitution_file_name,
+                            'line-numbers': line_number_file_name})
 
-        # Call the xule processor to run the rules
-        call_xule_method = getXuleMethod(cntlr, 'Xule.callXuleProcessor')
-        run_options = deepcopy(options)
-        xule_args = getattr(run_options, 'xule_arg', []) or []
-        xule_args += list(xule_date_args)
-        setattr(run_options, 'xule_arg', xule_args)
+        template_set_file.write(template_full_file_name, template_file_name) # template
+        template_set_file.writestr(xule_text_file_name, xule_rule_text) # xule text file
+        template_set_file.write(xule_rule_set_name, xule_rule_set_file_name) # xule rule set
+        template_set_file.writestr(substitution_file_name, json.dumps(substitutions, indent=4)) # substitutions file
+        template_set_file.writestr(line_number_file_name, json.dumps(line_number_subs, indent=4)) # line number substitutions file
 
-        call_xule_method(cntlr, modelXbrl, xule_rule_set_name, run_options)
-        
-        # Remove the handler from the logger. This will stop the capture of messages
-        cntlr.logger.removeHandler(log_capture_handler)
-        
-        # Substitute template
-        rendered_template = substituteTemplate(substitutions, line_number_subs, log_capture_handler.captured, template, modelXbrl)
-        
+def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
+    '''Render a filing'''
+    
+    if options.ferc_render_render and options.ferc_render_template_set is not None:
 
-        # Write rendered template
-        if options.ferc_render_inline is None:
-            inline_name = '{} - rendered.html'.format(title.text)
-        else:
-            inline_name = options.ferc_render_inline
+        # Create the new HTML rendered document
+        initial_html_content = \
+            '<?xml version="1.0"?>' \
+            '<html xmlns="http://www.w3.org/1999/xhtml">' \
+            '<head>' \
+            '<meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>' \
+            '</head>' \
+            '<body/>' \
+            '</html>'
 
-        rendered_template.write(inline_name, pretty_print=True, method="xml", encoding='utf8', xml_declaration=True)
+        main_html = etree.fromstring(initial_html_content)
+
+        schedule_spans = []
+        with zipfile.ZipFile(options.ferc_render_template_set, 'r') as ts:
+            with ts.open('catalog.json', 'r') as catalog_file:
+                template_catalog = json.load(io.TextIOWrapper(catalog_file))
+
+            # Get name of rendered html file
+            if options.ferc_render_inline is None:
+                inline_name = '{}.html'.format(os.path.splitext(os.path.split(options.ferc_render_template_set)[1])[0])
+            else:
+                inline_name = options.ferc_render_inline
+
+            # Add css link
+            if 'css' in template_catalog:
+                head = main_html.find('xhtml:head', _XULE_NAMESPACE_MAP)
+                link = etree.SubElement(head, "link")
+                link.set('rel', 'stylesheet')
+                link.set('type', 'text/css')
+                link.set('href', template_catalog['css'])
+            # Write the css file
+            #ts.extract('css/{}'.format(template_catalog['css']), os.path.dirname(inline_name))
+            css_content = ts.read('css/{}'.format(template_catalog['css'])).decode()
+            with open(os.path.join(os.path.dirname(inline_name), template_catalog['css']), 'w') as css_file:
+                css_file.write(css_content)
+
+            # Iterate through each of the templates in the catalog
+            for catalog_item in template_catalog['templates']: # A catalog item is a set of files for a single template
+                # Get the html template
+                with ts.open(catalog_item['template']) as template_file:
+                    try:
+                        template = etree.parse(template_file)
+                    except etree.XMLSchemaValidateError:
+                        cntlr.addToLog("Template file '{}' is not a valid XHTML file.".format(catalog_item['template']), 'error', level=logging.ERROR)
+                        raise FERCRenderException  
+                # Get the substitutions
+                with ts.open(catalog_item['substitutions']) as sub_file:
+                    substitutions = json.load(io.TextIOWrapper(sub_file))
+                # Get line number substitutions
+                with ts.open(catalog_item['line-numbers']) as line_number_file:
+                    line_number_subs = json.load(io.TextIOWrapper(line_number_file))
+
+                # Get the date values from the instance
+                xule_date_args = get_dates(modelXbrl)
+
+                # Run Xule rules
+                # Create a log handler that will capture the messages when the rules are run.
+                log_capture_handler = _logCaptureHandler()
+                cntlr.logger.addHandler(log_capture_handler)
+
+                # Call the xule processor to run the rules
+                call_xule_method = getXuleMethod(cntlr, 'Xule.callXuleProcessor')
+                run_options = deepcopy(options)
+                xule_args = getattr(run_options, 'xule_arg', []) or []
+                xule_args += list(xule_date_args)
+                setattr(run_options, 'xule_arg', xule_args)
+                 # Get xule rule set
+                with ts.open(catalog_item['xule-rule-set']) as rule_set_file:
+                    call_xule_method(cntlr, modelXbrl, io.BytesIO(rule_set_file.read()), run_options)
+                
+                # Remove the handler from the logger. This will stop the capture of messages
+                cntlr.logger.removeHandler(log_capture_handler)
+                
+                # Substitute template
+                rendered_template = substituteTemplate(substitutions, line_number_subs, log_capture_handler.captured, template, modelXbrl)
+
+                # Save the body as a span
+                body = rendered_template.find('xhtml:body', namespaces=_XULE_NAMESPACE_MAP)
+                if body is None:
+                    cntlr.addToLog(_("Cannot find body of the template: {}".format(os.path.split(catalog_item['template'])[1])), 'error')
+                    raise FERCRenderException    
+                body.tag = 'span'
+                schedule_spans.append(body)
+
+        main_body = main_html.find('xhtml:body', namespaces=_XULE_NAMESPACE_MAP)
+        for span in schedule_spans:
+            main_body.append(span)
+            if span is not schedule_spans[-1]: # If it is not the last span put a separator in
+                main_body.append(etree.fromstring('<hr xmlns="{}"/>'.format(_XHTM_NAMESPACE)))
+
+        # Write generated html
+        main_html.getroottree().write(inline_name, pretty_print=True, method="xml", encoding='utf8', xml_declaration=True)
 
         cntlr.addToLog(_("Rendered template '{}' as '{}'".format(options.ferc_render_template, inline_name)), 'info')
         
