@@ -97,12 +97,14 @@ class XuleRuleSet(object):
         :type open_packages: bool
         :param open_files: An indicator that determines if the rule files should be loaded into memory
         """
-        #self.name = os.path.splitext(os.path.basename(rule_set_location))[0]
-        self.location = rule_set_location
-        pickle_start = datetime.datetime.today()
-        
-        #Using arelle file source object. This will handle files from the web.
-        file_object = self._get_rule_set_file_object()
+
+        if isinstance(rule_set_location, io.IOBase):
+            file_object = rule_set_location
+        else:
+            # Only set the location if the the rule set file is a filename (not a file-like object)
+            self.location = rule_set_location
+            #Using arelle file source object. This will handle files from the web.
+            file_object = self._get_rule_set_file_object()
         try:
             with zipfile.ZipFile(file_object, 'r') as zf:
                 try: # pickle file first
@@ -136,10 +138,6 @@ class XuleRuleSet(object):
             raise XuleRuleSetError(_("Cannot open rule set file. Does not appear to be  zip file. File: {}".format(rule_set_location)))
         finally:
             file_object.close()
-    
-        #Check for packages
-        pickle_end = datetime.datetime.today()
-        #print("Rule Set Loaded", pickle_end - pickle_start)
 
     def _get_rule_set_file_object(self):
         from arelle import FileSource
