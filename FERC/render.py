@@ -18,7 +18,9 @@ import zipfile
 _xule_plugin_info = None
 
 # xule namespace used in the template
-_XULE_NAMESPACE_MAP = {'xule': 'http://xbrl.us/xule/2.0/template', 'xhtml': 'http://www.w3.org/1999/xhtml'}
+_XULE_NAMESPACE_MAP = {'xule': 'http://xbrl.us/xule/2.0/template', 
+                       'xhtml': 'http://www.w3.org/1999/xhtml',
+                       'ix': 'http://www.xbrl.org/2013/inlineXBRL'}
 _XHTM_NAMESPACE = 'http://www.w3.org/1999/xhtml'
 _RULE_NAME_PREFIX = 'rule-'
 _CLASS_RULE_NAME_PREFIX = 'class-'
@@ -363,6 +365,9 @@ def substituteTemplate(substitutions, line_number_subs, rule_results, template, 
     
     set_line_number_starts(line_number_subs, rule_results)
 
+    context_ids = {}
+    unit_ids = {}
+
     repeat_attribute_name = '{{{}}}{}'.format(_XULE_NAMESPACE_MAP['xule'], 'repeat')
     repeating_nodes = {x.get(repeat_attribute_name): x for x in template.findall('//*[@xule:repeat]', _XULE_NAMESPACE_MAP)}
 
@@ -441,6 +446,10 @@ def substituteTemplate(substitutions, line_number_subs, rule_results, template, 
                             fact_object_index = rule_result.refs[rule_focus_index]['objectId']
                             model_fact = modelXbrl.modelObject(fact_object_index)
                             text_content, inline_format_clark = format_fact(xule_node_locations[sub['expression-node']], model_fact)
+                            # Save the context and unit ids
+                            context_ids.add(model_fact.context_id)
+                            if model_fact.unit_id is not None:
+                                unit_ids.add(model_fact.unit_id)
                     elif json_result['type'] == 's': # result is a string
                         text_content = json_result['value']
 
@@ -498,7 +507,7 @@ def substituteTemplate(substitutions, line_number_subs, rule_results, template, 
         parent = xule_node.getparent()
         parent.remove(xule_node)
 
-    return template
+    return template, context_ids, unit_ids
 
 def adjust_result_focus_index(json_results, part):
     '''Adjust the index for the rule focus fact
@@ -624,6 +633,104 @@ def get_fact_by_local_name(modelXbrl, fact_name):
             return fact
     
     return None
+
+def setup_inline_html(modelXbrl):
+    # Create the new HTML rendered document
+    # Add namespace prefixes
+    namespaces = {None: "http://www.w3.org/1999/xhtml",
+        'xtr2': "http://www.xbrl.org/inlineXBRL/transformation/2010-04-20",
+        'xbrli': "http://www.xbrl.org/2003/instance",
+        'ix': "http://www.xbrl.org/2013/inlineXBRL",
+        'xbrldi': "http://xbrl.org/2006/xbrldi",
+        'xsi': "http://www.w3.org/2001/XMLSchema-instance",
+        'link': "http://www.xbrl.org/2003/linkbase",
+        'xlink': "http://www.w3.org/1999/xlink"}
+    # Find namespaces in the instance document and add them
+    for prefix, uri in modelXbrl.modelDocument.xmlRootElement.nsmap.items():
+        if uri not in namespaces.values():
+            if prefix not in namespaces:
+                namespaces[prefix] = uri
+            else:
+                # Handle case when the prefix is already there, but for a different namespace uri
+                i = 0
+                while 'ns{}'.format(i) in namespaces:
+                    i += 1
+                namespaces['ns{}'.format(i)] = uri
+    namespace_string = ' '.join(('{}="{}"'.format('xmlns' if k is None else 'xmlns:{}'.format(k), v) for k, v in namespaces.items()))
+
+    initial_html_content = \
+        '<?xml version="1.0"?>' \
+        '<html {}>' \
+        '<head>' \
+        '<meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>' \
+        '</head>' \
+        '<body><div style="display:none"><ix:header><ix:references/><ix:resources/></ix:header></div></body>' \
+        '</html>'.format(namespace_string)
+
+    html = etree.fromstring(initial_html_content)
+
+
+    # Add schema and linbase references
+    irefs = html.find('.//ix:references', namespaces=_XULE_NAMESPACE_MAP)
+    for doc_ref in modelXbrl.modelDocument.referencesDocument.values():
+        if doc_ref.referringModelObject.elementNamespaceURI == 'http://www.xbrl.org/2003/linkbase':
+            if doc_ref.referringModelObject.localName == 'schemaRef' and doc_ref.referenceType == 'href':
+                link = etree.SubElement(irefs, '{http://brl.org/2003/linkbase}schemaRef')
+                link.set('{http://www.w3.org/1999/xlink}type', 'simple')
+                link.set('{http://www.w3.org/1999/xlink}href', doc_ref.referringModelObject.attrib['{http://www.w3.org/1999/xlink}href'])
+            elif doc_ref.referringModelObject.localName == 'linbaseRef' and doc_ref.referenceType == 'href':
+                link = etree.SubElement(irefs, '{http://brl.org/2003/linkbase}linkbaseRef')
+                link.set('{http://www.w3.org/1999/xlink}type', 'simple')
+                link.set('{http://www.w3.org/1999/xlink}href', doc_ref.referringModelObject.attrib['{http://www.w3.org/1999/xlink}href'])
+                if '{http://www.w3.org/1999/xlink}arcrole' in doc_ref.referringModelObject.attrib:
+                    link.set('{http://www.w3.org/1999/xlink}arcrole', doc_ref.referringModelObject.attrib['{http://www.w3.org/1999/xlink}arcrole'])
+                if '{http://www.w3.org/1999/xlink}role' in doc_ref.referringModelObject.attrib:
+                    link.set('{http://www.w3.org/1999/xlink}role', doc_ref.referringModelObject.attrib['{http://www.w3.org/1999/xlink}role'])
+
+    return html
+
+def add_contexts_to_inline(main_html, modelXbrl, context_ids):
+    '''Add context to the inline document'''
+
+    # Contexts are added to the ix:resources element in the inline
+    resources = main_html.find('.//ix:resources', namespaces=_XULE_NAMESPACE_MAP)
+    for context_id in context_ids:
+        model_context = modelXblr.contexts[context_id]
+        inline_context = etree.SubElement(resources, '{http://www.xbrl.org/2003/instance}context')
+        inline_context.set('id', context_id)
+        # Entity
+        inline_entity = etree.SubElement(inline_context, '{http://www.xbrl.org/2003/instance}entity')
+        inline_identifier = etree.SubElement(inline_entity, '{http://www.xbrl.org/2003/instance}identifier')
+        inline_identifier.set('scheme', model_context.entityIdentifier[0])
+        inline_identifier.text = model_context.entityIdentifier[1]
+        # Period
+        inline_period = etree.SubElement(inline_context, '{http://www.xbrl.org/2003/instance}period')
+        if model_context.isInstantPeriod:
+            inline_instant = etree.SubElement(inline_period, '{http://www.xbrl.org/2003/instance}instant')
+            inline_instant.text = model_context.period[0].svalue
+        elif model_context.isStartEndPeriod:
+            inline_instant = etree.SubElement(inline_period, '{http://www.xbrl.org/2003/instance}startDate')
+            if model_context.period[0].localName == 'startDate':
+                inline_instant.text = model_context.period[0].svalue
+            else:
+                inline_instant.text = model_context.period[1].svalue
+            inline_instant = etree.SubElement(inline_period, '{http://www.xbrl.org/2003/instance}endDate')
+            if model_context.period[1].localName == 'endDate':
+                inline_instant.text = model_context.period[1].svalue
+            else:
+                inline_instant.text = model_context.period[0].svalue   
+        else: # Forever
+            etree.SubElement(inline_period, '{http://www.xbrl.org/2003/instance}forever')
+        # Dimensions
+        for dim_qname, model_dim_value in model_context.qnameDims.items():
+            inline_segment = etree.SubElement(inline_entity, '{http://www.xbrl.org/2003/instance}segment')
+            if model_dim_value.isExplicit:
+                inline_explicit = etree.SubElement(inline_segment, '{http://xbrl.org/2006/xbrldi}explicitMember')
+                inline_explicit.set('dimension', dim_qname.clarkNotation)
+                if getattr(dim_qname, 'prefix', None) is None:
+                    inline_explicit.text = dim_qname
+def add_units_to_inline(main_html, modelXbrl, context_ids):
+    pass
 
 # def fercMenuTools(cntlr, menu):
 #     import tkinter
@@ -785,18 +892,10 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
     '''Render a filing'''
     
     if options.ferc_render_render and options.ferc_render_template_set is not None:
+        used_context_ids = {}
+        used_unit_ids = {}
 
-        # Create the new HTML rendered document
-        initial_html_content = \
-            '<?xml version="1.0"?>' \
-            '<html xmlns="http://www.w3.org/1999/xhtml">' \
-            '<head>' \
-            '<meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>' \
-            '</head>' \
-            '<body/>' \
-            '</html>'
-
-        main_html = etree.fromstring(initial_html_content)
+        main_html = setup_inline_html(modelXbrl)
 
         schedule_spans = []
         with zipfile.ZipFile(options.ferc_render_template_set, 'r') as ts:
@@ -860,8 +959,9 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
                 cntlr.logger.removeHandler(log_capture_handler)
                 
                 # Substitute template
-                rendered_template = substituteTemplate(substitutions, line_number_subs, log_capture_handler.captured, template, modelXbrl)
-
+                rendered_template, template_context_ids, template_unit_ids = substituteTemplate(substitutions, line_number_subs, log_capture_handler.captured, template, modelXbrl)
+                used_context_ids |= template_context_ids
+                used_unit_ids |= template_unit_ids
                 # Save the body as a span
                 body = rendered_template.find('xhtml:body', namespaces=_XULE_NAMESPACE_MAP)
                 if body is None:
@@ -876,11 +976,13 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
             if span is not schedule_spans[-1]: # If it is not the last span put a separator in
                 main_body.append(etree.fromstring('<hr xmlns="{}"/>'.format(_XHTM_NAMESPACE)))
 
+        add_contexts_to_inline(main_html, modelXbrl, used_context_ids)
+        add_units_to_inline(main_html, modelXbrl, used_unit_ids)
         # Write generated html
         main_html.getroottree().write(inline_name, pretty_print=True, method="xml", encoding='utf8', xml_declaration=True)
 
         cntlr.addToLog(_("Rendered template '{}' as '{}'".format(options.ferc_render_template, inline_name)), 'info')
-        
+
 class _logCaptureHandler(logging.Handler):
     def __init__(self):
         super().__init__()
