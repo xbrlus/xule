@@ -365,8 +365,8 @@ def substituteTemplate(substitutions, line_number_subs, rule_results, template, 
     
     set_line_number_starts(line_number_subs, rule_results)
 
-    context_ids = {}
-    unit_ids = {}
+    context_ids = set()
+    unit_ids = set()
 
     repeat_attribute_name = '{{{}}}{}'.format(_XULE_NAMESPACE_MAP['xule'], 'repeat')
     repeating_nodes = {x.get(repeat_attribute_name): x for x in template.findall('//*[@xule:repeat]', _XULE_NAMESPACE_MAP)}
@@ -447,9 +447,9 @@ def substituteTemplate(substitutions, line_number_subs, rule_results, template, 
                             model_fact = modelXbrl.modelObject(fact_object_index)
                             text_content, inline_format_clark = format_fact(xule_node_locations[sub['expression-node']], model_fact)
                             # Save the context and unit ids
-                            context_ids.add(model_fact.context_id)
-                            if model_fact.unit_id is not None:
-                                unit_ids.add(model_fact.unit_id)
+                            context_ids.add(model_fact.contextID)
+                            if model_fact.unitID is not None:
+                                unit_ids.add(model_fact.unitID)
                     elif json_result['type'] == 's': # result is a string
                         text_content = json_result['value']
 
@@ -506,6 +506,12 @@ def substituteTemplate(substitutions, line_number_subs, rule_results, template, 
     for xule_node in template.findall('//xule:*', _XULE_NAMESPACE_MAP):
         parent = xule_node.getparent()
         parent.remove(xule_node)
+    
+    # Remove any left over xule attributes
+    for xule_node in template.xpath('//*[@xule:*]', namespaces=_XULE_NAMESPACE_MAP):
+        for att_name in xule_node.keys():
+            if att_name.startswith('{{{}}}'.format(_XULE_NAMESPACE_MAP['xule'])):
+                del xule_node.attrib[att_name]
 
     return template, context_ids, unit_ids
 
@@ -695,42 +701,52 @@ def add_contexts_to_inline(main_html, modelXbrl, context_ids):
     # Contexts are added to the ix:resources element in the inline
     resources = main_html.find('.//ix:resources', namespaces=_XULE_NAMESPACE_MAP)
     for context_id in context_ids:
-        model_context = modelXblr.contexts[context_id]
-        inline_context = etree.SubElement(resources, '{http://www.xbrl.org/2003/instance}context')
-        inline_context.set('id', context_id)
-        # Entity
-        inline_entity = etree.SubElement(inline_context, '{http://www.xbrl.org/2003/instance}entity')
-        inline_identifier = etree.SubElement(inline_entity, '{http://www.xbrl.org/2003/instance}identifier')
-        inline_identifier.set('scheme', model_context.entityIdentifier[0])
-        inline_identifier.text = model_context.entityIdentifier[1]
-        # Period
-        inline_period = etree.SubElement(inline_context, '{http://www.xbrl.org/2003/instance}period')
-        if model_context.isInstantPeriod:
-            inline_instant = etree.SubElement(inline_period, '{http://www.xbrl.org/2003/instance}instant')
-            inline_instant.text = model_context.period[0].svalue
-        elif model_context.isStartEndPeriod:
-            inline_instant = etree.SubElement(inline_period, '{http://www.xbrl.org/2003/instance}startDate')
-            if model_context.period[0].localName == 'startDate':
-                inline_instant.text = model_context.period[0].svalue
-            else:
-                inline_instant.text = model_context.period[1].svalue
-            inline_instant = etree.SubElement(inline_period, '{http://www.xbrl.org/2003/instance}endDate')
-            if model_context.period[1].localName == 'endDate':
-                inline_instant.text = model_context.period[1].svalue
-            else:
-                inline_instant.text = model_context.period[0].svalue   
-        else: # Forever
-            etree.SubElement(inline_period, '{http://www.xbrl.org/2003/instance}forever')
-        # Dimensions
-        for dim_qname, model_dim_value in model_context.qnameDims.items():
-            inline_segment = etree.SubElement(inline_entity, '{http://www.xbrl.org/2003/instance}segment')
-            if model_dim_value.isExplicit:
-                inline_explicit = etree.SubElement(inline_segment, '{http://xbrl.org/2006/xbrldi}explicitMember')
-                inline_explicit.set('dimension', dim_qname.clarkNotation)
-                if getattr(dim_qname, 'prefix', None) is None:
-                    inline_explicit.text = dim_qname
-def add_units_to_inline(main_html, modelXbrl, context_ids):
-    pass
+        model_context = modelXbrl.contexts[context_id]
+        # The model_context is a modelObject, but it is based on etree.Element so it can be added to 
+        # the inline tree 
+        resources.append(model_context)
+
+        # inline_context = etree.SubElement(resources, '{http://www.xbrl.org/2003/instance}context')
+        # inline_context.set('id', context_id)
+        # # Entity
+        # inline_entity = etree.SubElement(inline_context, '{http://www.xbrl.org/2003/instance}entity')
+        # inline_identifier = etree.SubElement(inline_entity, '{http://www.xbrl.org/2003/instance}identifier')
+        # inline_identifier.set('scheme', model_context.entityIdentifier[0])
+        # inline_identifier.text = model_context.entityIdentifier[1]
+        # # Period
+        # inline_period = etree.SubElement(inline_context, '{http://www.xbrl.org/2003/instance}period')
+        # if model_context.isInstantPeriod:
+        #     inline_instant = etree.SubElement(inline_period, '{http://www.xbrl.org/2003/instance}instant')
+        #     inline_instant.text = model_context.period[0].svalue
+        # elif model_context.isStartEndPeriod:
+        #     inline_instant = etree.SubElement(inline_period, '{http://www.xbrl.org/2003/instance}startDate')
+        #     if model_context.period[0].localName == 'startDate':
+        #         inline_instant.text = model_context.period[0].textValue
+        #     else:
+        #         inline_instant.text = model_context.period[1].textValue
+        #     inline_instant = etree.SubElement(inline_period, '{http://www.xbrl.org/2003/instance}endDate')
+        #     if model_context.period[1].localName == 'endDate':
+        #         inline_instant.text = model_context.period[1].textValue
+        #     else:
+        #         inline_instant.text = model_context.period[0].textValue   
+        # else: # Forever
+        #     etree.SubElement(inline_period, '{http://www.xbrl.org/2003/instance}forever')
+        # # Dimensions
+        # for dim_qname, model_dim_value in model_context.qnameDims.items():
+        #     inline_segment = etree.SubElement(inline_entity, '{http://www.xbrl.org/2003/instance}segment')
+        #     if model_dim_value.isExplicit:
+        #         inline_explicit = etree.SubElement(inline_segment, '{http://xbrl.org/2006/xbrldi}explicitMember')
+        #         inline_explicit.set('dimension', dim_qname.clarkNotation)
+        #         if getattr(dim_qname, 'prefix', None) is None:
+        #             inline_explicit.text = dim_qname
+
+def add_units_to_inline(main_html, modelXbrl, unit_ids):
+
+    resources = main_html.find('.//ix:resources', namespaces=_XULE_NAMESPACE_MAP)
+    for unit_id in unit_ids:
+        model_unit = modelXbrl.units[unit_id]
+        resources.append(model_unit)
+
 
 # def fercMenuTools(cntlr, menu):
 #     import tkinter
@@ -892,8 +908,8 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
     '''Render a filing'''
     
     if options.ferc_render_render and options.ferc_render_template_set is not None:
-        used_context_ids = {}
-        used_unit_ids = {}
+        used_context_ids = set()
+        used_unit_ids = set()
 
         main_html = setup_inline_html(modelXbrl)
 
