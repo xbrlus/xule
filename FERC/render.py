@@ -825,7 +825,7 @@ def compile_templates(cntlr, options):
     template_catalog = {'templates': []}
     template_set_file_name = os.path.split(options.ferc_render_template_set)[1]
 
-    with zipfile.ZipFile(template_set_file_name, 'w') as template_set_file:    
+    with zipfile.ZipFile(options.ferc_render_template_set, 'w') as template_set_file:    
         for template_full_file_name in getattr(options, 'ferc_render_template', tuple()):
             process_single_template(cntlr, options, template_catalog['templates'], template_set_file, template_full_file_name)
 
