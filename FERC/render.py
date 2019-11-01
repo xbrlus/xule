@@ -4,6 +4,7 @@ from copy import deepcopy
 from lxml import etree
 
 import datetime
+import decimal
 import collections
 import html
 import io
@@ -359,7 +360,7 @@ def build_line_number_rules(xule_rules, next_rule_number, template_tree, xule_no
 
     return line_number_subs, xule_rules, next_rule_number
 
-def substituteTemplate(substitutions, line_number_subs, rule_results, template, modelXbrl):
+def substituteTemplate(substitutions, line_number_subs, rule_results, template, modelXbrl, main_html):
     '''Subsititute the xule expressions in the template with the generated values.'''
     xule_node_locations = {node_number: xule_node for  node_number, xule_node in enumerate(template.xpath('//xule:*', namespaces=_XULE_NAMESPACE_MAP))}
     
@@ -441,30 +442,32 @@ def substituteTemplate(substitutions, line_number_subs, rule_results, template, 
                         rule_focus_index = adjust_result_focus_index(json_rule_result, json_result.get('part', None))
                         if rule_focus_index is None:
                             # No fact was found in the instance
-                            text_content = None
+                            content = None
                         else:
                             fact_object_index = rule_result.refs[rule_focus_index]['objectId']
                             model_fact = modelXbrl.modelObject(fact_object_index)
-                            text_content, inline_format_clark = format_fact(xule_node_locations[sub['expression-node']], model_fact)
+                            content = format_fact(xule_node_locations[sub['expression-node']], model_fact, main_html, sub.get('html', False))
                             # Save the context and unit ids
                             context_ids.add(model_fact.contextID)
                             if model_fact.unitID is not None:
                                 unit_ids.add(model_fact.unitID)
                     elif json_result['type'] == 's': # result is a string
-                        text_content = json_result['value']
+                        if sub.get('html', False):
+                            content = etree.fromstring('<div style="display: inline-block">{}</div>'.format(json_result['value']))
+                        else:
+                            content = html.escape(json_result['value'])
 
-                    if text_content is None:
-                        span_content = '<span/>'
+                    if content is None:
                         span_classes += ['sub-value', 'sub-no-replacement']
                     else:
-                        if not sub.get('html', False):
-                            # This is not html content, so the text needs to be escaped
-                            text_content = html.escape(text_content)
-                        span_content = '<span>{}</span>'.format(text_content)  
                         span_classes += ['sub-value', 'sub-replacement']
-                    
-                    span = etree.fromstring(span_content)
+                        
+                    span = etree.Element('div', nsmap=_XULE_NAMESPACE_MAP)
                     span.set('class', ' '.join(span_classes))
+                    if isinstance(content, str):
+                        span.text = content
+                    elif content is not None:
+                        span.append(content)
 
                     # Get the node in the template to replace
                     if repeating_model_node is None:
@@ -498,8 +501,8 @@ def substituteTemplate(substitutions, line_number_subs, rule_results, template, 
     # Remove any left over xule:replace nodes
     for xule_node in template.findall('//xule:replace', _XULE_NAMESPACE_MAP):
         parent = xule_node.getparent()
-        span = etree.Element('span')
-        span.set('class', '"sub-value sub-no-replacement')
+        span = etree.Element('div')
+        span.set('class', 'sub-value sub-no-replacement')
         parent.replace(xule_node, span)
 
     # Remove any left over xule template nodes
@@ -668,24 +671,25 @@ def setup_inline_html(modelXbrl):
         '<?xml version="1.0"?>' \
         '<html {}>' \
         '<head>' \
+        '<title>FERC Form</title>' \
         '<meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>' \
+        '<style>div.sub-value {{display: inline-block;}}</style>' \
         '</head>' \
         '<body><div style="display:none"><ix:header><ix:references/><ix:resources/></ix:header></div></body>' \
         '</html>'.format(namespace_string)
 
     html = etree.fromstring(initial_html_content)
 
-
     # Add schema and linbase references
     irefs = html.find('.//ix:references', namespaces=_XULE_NAMESPACE_MAP)
     for doc_ref in modelXbrl.modelDocument.referencesDocument.values():
         if doc_ref.referringModelObject.elementNamespaceURI == 'http://www.xbrl.org/2003/linkbase':
             if doc_ref.referringModelObject.localName == 'schemaRef' and doc_ref.referenceType == 'href':
-                link = etree.SubElement(irefs, '{http://brl.org/2003/linkbase}schemaRef')
+                link = etree.SubElement(irefs, '{http://www.xbrl.org/2003/linkbase}schemaRef')
                 link.set('{http://www.w3.org/1999/xlink}type', 'simple')
                 link.set('{http://www.w3.org/1999/xlink}href', doc_ref.referringModelObject.attrib['{http://www.w3.org/1999/xlink}href'])
             elif doc_ref.referringModelObject.localName == 'linbaseRef' and doc_ref.referenceType == 'href':
-                link = etree.SubElement(irefs, '{http://brl.org/2003/linkbase}linkbaseRef')
+                link = etree.SubElement(irefs, '{http://www.xbrl.org/2003/linkbase}linkbaseRef')
                 link.set('{http://www.w3.org/1999/xlink}type', 'simple')
                 link.set('{http://www.w3.org/1999/xlink}href', doc_ref.referringModelObject.attrib['{http://www.w3.org/1999/xlink}href'])
                 if '{http://www.w3.org/1999/xlink}arcrole' in doc_ref.referringModelObject.attrib:
@@ -813,10 +817,10 @@ def cmdLineOptionExtender(parser, *args, **kwargs):
                       dest="ferc_render_inline", 
                       help=_("The generated Inline XBRL file"))        
 
-    parserGroup.add_option("--ferc-render-xule-only", 
-                      action="store_true", 
-                      dest="ferc_render_xule_only", 
-                      help=_("Only generate the xule rule file. This option will not parse the file or create the rendered template"))  
+    parserGroup.add_option("--ferc-render-save-xule", 
+                      action="store", 
+                      dest="ferc_render_save_xule", 
+                      help=_("Name of the generated xule file to save before complining the rule set."))  
 
 def fercCmdUtilityRun(cntlr, options, **kwargs): 
     #check option combinations
@@ -865,6 +869,11 @@ def process_single_template(cntlr, options, template_catalog, template_set_file,
         # Process the HTML template.
         xule_rule_text, substitutions, line_number_subs, template = process_template(cntlr, template_full_file_name)
         
+        # Save the xule rule file if indicated
+        if options.ferc_render_save_xule is not None:
+            with open(options.ferc_render_save_xule, 'w') as xule_file:
+                xule_file.write(xule_rule_text)
+
         # Compile Xule rules
         title = template.find('//xhtml:title', _XULE_NAMESPACE_MAP)
         if title is None:
@@ -931,11 +940,13 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
                 link.set('rel', 'stylesheet')
                 link.set('type', 'text/css')
                 link.set('href', template_catalog['css'])
-            # Write the css file
-            #ts.extract('css/{}'.format(template_catalog['css']), os.path.dirname(inline_name))
-            css_content = ts.read('css/{}'.format(template_catalog['css'])).decode()
-            with open(os.path.join(os.path.dirname(inline_name), template_catalog['css']), 'w') as css_file:
-                css_file.write(css_content)
+                # Write the css file
+                #ts.extract('css/{}'.format(template_catalog['css']), os.path.dirname(inline_name))
+                css_content = ts.read('css/{}'.format(template_catalog['css'])).decode()
+                with open(os.path.join(os.path.dirname(inline_name), template_catalog['css']), 'w') as css_file:
+                    css_file.write(css_content)
+            else:
+                cntlr.addToLog(_("There is not css file in the template set. The rendered file being created without a reference to a css file."))
 
             # Iterate through each of the templates in the catalog
             for catalog_item in template_catalog['templates']: # A catalog item is a set of files for a single template
@@ -975,15 +986,15 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
                 cntlr.logger.removeHandler(log_capture_handler)
                 
                 # Substitute template
-                rendered_template, template_context_ids, template_unit_ids = substituteTemplate(substitutions, line_number_subs, log_capture_handler.captured, template, modelXbrl)
+                rendered_template, template_context_ids, template_unit_ids = substituteTemplate(substitutions, line_number_subs, log_capture_handler.captured, template, modelXbrl, main_html)
                 used_context_ids |= template_context_ids
                 used_unit_ids |= template_unit_ids
-                # Save the body as a span
+                # Save the body as a div
                 body = rendered_template.find('xhtml:body', namespaces=_XULE_NAMESPACE_MAP)
                 if body is None:
                     cntlr.addToLog(_("Cannot find body of the template: {}".format(os.path.split(catalog_item['template'])[1])), 'error')
                     raise FERCRenderException    
-                body.tag = 'span'
+                body.tag = 'div'
                 schedule_spans.append(body)
 
         main_body = main_html.find('xhtml:body', namespaces=_XULE_NAMESPACE_MAP)
@@ -1011,13 +1022,16 @@ class _logCaptureHandler(logging.Handler):
     def captured(self):
         return self._captured
 
-def format_fact(xule_expression_node, model_fact):
+def format_fact(xule_expression_node, model_fact, inline_html, is_html):
+    '''Format the fact to a string value'''
+
+    preamble = None
     if xule_expression_node is None:
         format = None
     else:
         format = xule_expression_node.get('format')
     if format is None:
-        return str(model_fact.xValue), None
+        display_value = str(model_fact.xValue)
     else:
         # convert format to clark notation 
         if ':' in format:
@@ -1034,10 +1048,114 @@ def format_fact(xule_expression_node, model_fact):
         if format_function is None:
             raise FERCRenderException('Format {} is not a valid format'.format(format))
 
-        return format_function(model_fact), format_clark
+        display_value,  *preamble = format_function(model_fact, 
+                                        -1 if xule_expression_node.get('sign', '+') == '-' else 1, # sign
+                                        xule_expression_node.get('scale'))
 
-_formats = {'{http://www.xbrl.org/inlineXBRL/transformation/2010-04-20}numcommadot': lambda mf: '{:,}'.format(mf.xValue),
-            '{http://www.xbrl.org/inlineXBRL/transformation/2010-04-20}dateslashus': lambda mf: mf.xValue.strftime('%m/%d/%Y')}
+    if model_fact.isNumeric:
+        ix_node =  etree.Element('{{{}}}nonFraction'.format(_XULE_NAMESPACE_MAP['ix']), nsmap=_XULE_NAMESPACE_MAP)
+        ix_node.set('unitRef', model_fact.unitID)
+        ix_node.set('decimals', xule_expression_node.get('decimals', 'INF'))
+    else:
+        ix_node = etree.Element('{{{}}}nonNumeric'.format(_XULE_NAMESPACE_MAP['ix']), nsmap=_XULE_NAMESPACE_MAP)
+
+    ix_node.set('contextRef', model_fact.contextID)
+    ix_node.set('name', str(model_fact.qname))
+    if model_fact.id is not None:
+        ix_node.set('id', model_fact.id)
+    if xule_expression_node.get('format') is not None:
+        # need to handle the namespace of the format value
+       
+        format = xule_expression_node.get('format')
+        if ':' in format:
+            prefix, local_name = format.split(':')
+        else:
+            prefix = None
+            local_name = format
+        format_namespace_uri_source = xule_expression_node.nsmap.get(prefix)
+        if format_namespace_uri_source is None:
+            model_fact.modelXbrl.error("RENDERERROR", _("Cannot resolve namespace of format. Format is '{}'".format(format)))
+            raise FERCRenderException
+        
+        rev_nsmap = {v: k for k, v in inline_html.nsmap.items()}
+
+        if format_namespace_uri_source in rev_nsmap:
+            format_prefix_inline = rev_nsmap.get(format_namespace_uri_source)
+        else:
+            model_fact.modelXbrl.error("RENDERERROR",_("Do not have the namespace in the generated inline document for namespace '{}'".format(format_namespace_uri_source)))
+            raise FERCRenderException
+        
+        if format_prefix_inline is None:
+            format_inline = local_name
+        else:
+            format_inline = '{}:{}'.format(format_prefix_inline, local_name)
+    
+        ix_node.set('format', format_inline)
+    if xule_expression_node.get('sign', '') == '-':
+        ix_node.set('sign', '-')
+    if xule_expression_node.get('scale') is not None:
+        ix_node.set('scale', xule_expression_node.get('scale'))
+
+    if is_html:
+        content_node = etree.fromstring('<div style="display: inline-block">{}</div>'.format(display_value))
+        ix_node.append(content_node)
+    else:
+        ix_node.text = display_value
+
+    # check the preamble. If there is one, this will go before the ix_node
+    if preamble is not None and len(preamble) > 0 and preamble[0] is not None and len(preamble[0]) > 0:
+        div_node = etree.Element('div', style="display: inline-block", nsmap=_XULE_NAMESPACE_MAP)
+        div_node.text = preamble[0]
+        div_node.append(ix_node)
+        return div_node
+    else:
+        return ix_node
+
+def format_numcommadot(model_fact, sign, scale, *args, **kwargs):
+    if not model_fact.isNumeric:
+        model_fact.modelXbrl.error(_("Cannot format non numeric fact using numcommadoc. Concept: {}, Value: {}".format(model_fact.concept.qname.clarkNotation, model_fact.xValue)))
+        raise FERCRenderException
+
+    val = model_fact.xValue * sign
+    if scale is not None:
+        # Convert scale from string to number
+        try:
+            scale_num = int(scale)
+        except ValueError:
+            scale_num = float(scale)
+        except:
+            model_fact.modelXblr.error("RENDERERROR", _("Unable to convert scale from the template to number. Scale value is: '{}'".format(scale)))
+            raise FERCRenderException
+        
+        try:
+            scaled_val = val * 10**-scale_num
+        except TypeError:
+            # the val may be a decimal and the 10**-scale_num a float which causes a type error
+            if isinstance(val, decimal.Decimal):
+                scaled_val = val * decimal.Decimal(10)**-decimal.Decimal(scale_num)
+            else:
+                model_fact.modelXbrl.error("RENDERERROR", _("Cannot calculate the value for a fact using the scale. Fact value of {} and scale of {}".format(model_fact.xValue, scale)))
+                raise FERCRenderException
+        except:
+            model_fact.modelXbrl.error("RENDERERROR", _("Cannot calculate the value for a fact using the scale. Fact value of {} and scale of {}".format(model_fact.xValue, scale)))
+            raise FERCRenderException
+
+        if (val % 1) == 0 and not isinstance(scaled_val, int): 
+            # need to convert to int
+            scaled_val = int(scaled_val)
+        else:
+            if (scaled_val % 1) == 0: # this is a float or a decimal, but a whole number
+                scaled_val = int(scaled_val)
+        val = scaled_val
+
+    if val < 0:
+        val = val * -1
+        return '{:,}'.format(val), '-'
+    else:
+        return '{:,}'.format(val)
+
+_formats = {'{http://www.xbrl.org/inlineXBRL/transformation/2010-04-20}numcommadot': format_numcommadot,
+            '{http://www.xbrl.org/inlineXBRL/transformation/2010-04-20}dateslashus': lambda mf, *args, **kwargs: mf.xValue.strftime('%m/%d/%Y')}
 
 __pluginInfo__ = {
     'name': 'FERC Tools',
