@@ -83,9 +83,10 @@ def process_template(cntlr, template_file_name):
     # create the rules for xule and retrieve the update template with the substitutions identified.
     xule_rules, substitutions, line_number_subs = build_xule_rules(template_tree, template_file_name, xule_node_locations)
 
+    # Get the css file name from the template
+    css_file_names = tuple(x for x in template_tree.xpath('/xhtml:html/xhtml:head/xhtml:link[@rel="stylesheet" and @type="text/css"]/@href', namespaces=_XULE_NAMESPACE_MAP))
 
-
-    return '{}\n{}\n{}'.format(xule_namespaces, xule_constants, xule_rules), substitutions,  line_number_subs, template_tree
+    return '{}\n{}\n{}'.format(xule_namespaces, xule_constants, xule_rules), substitutions,  line_number_subs, template_tree, css_file_names
 
 def build_xule_namespaces(template_tree):
     '''build the namespace declarations for xule
@@ -845,17 +846,19 @@ def compile_templates(cntlr, options):
     template_catalog = {'templates': []}
     template_set_file_name = os.path.split(options.ferc_render_template_set)[1]
 
+    css_file_names = set()
     with zipfile.ZipFile(options.ferc_render_template_set, 'w') as template_set_file:    
         for template_full_file_name in getattr(options, 'ferc_render_template', tuple()):
-            process_single_template(cntlr, options, template_catalog['templates'], template_set_file, template_full_file_name)
+            css_file_names.update(process_single_template(cntlr, options, template_catalog['templates'], template_set_file, template_full_file_name))
 
-        # Add CSS file
-        if options.ferc_render_css_file is not None:
-            if os.path.exists(options.ferc_render_css_file):
-                template_catalog['css'] = os.path.split(options.ferc_render_css_file)[1]
-                template_set_file.write(options.ferc_render_css_file, 'css/{}'.format(os.path.split(options.ferc_render_css_file)[1]))
-            else:
-                cntlr.addToLog(_("CSS file does not exist: {}".format(options.ferc_render_css_file)), "error")
+        template_catalog['css'] = list(css_file_names)
+        # # Add CSS file
+        # if options.ferc_render_css_file is not None:
+        #     if os.path.exists(options.ferc_render_css_file):
+        #         template_catalog['css'] = os.path.split(options.ferc_render_css_file)[1]
+        #         template_set_file.write(options.ferc_render_css_file, 'css/{}'.format(os.path.split(options.ferc_render_css_file)[1]))
+        #     else:
+        #         cntlr.addToLog(_("CSS file does not exist: {}".format(options.ferc_render_css_file)), "error")
 
         # Write catalog
         template_set_file.writestr('catalog.json', json.dumps(template_catalog, indent=4))
@@ -867,7 +870,7 @@ def process_single_template(cntlr, options, template_catalog, template_set_file,
     # Create a temporary working directory
     with tempfile.TemporaryDirectory() as temp_dir:
         # Process the HTML template.
-        xule_rule_text, substitutions, line_number_subs, template = process_template(cntlr, template_full_file_name)
+        xule_rule_text, substitutions, line_number_subs, template, css_file_names = process_template(cntlr, template_full_file_name)
         
         # Save the xule rule file if indicated
         if options.ferc_render_save_xule is not None:
@@ -913,6 +916,8 @@ def process_single_template(cntlr, options, template_catalog, template_set_file,
         template_set_file.writestr(substitution_file_name, json.dumps(substitutions, indent=4)) # substitutions file
         template_set_file.writestr(line_number_file_name, json.dumps(line_number_subs, indent=4)) # line number substitutions file
 
+    return css_file_names
+
 def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
     '''Render a filing'''
     
@@ -934,19 +939,26 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
                 inline_name = options.ferc_render_inline
 
             # Add css link
-            if 'css' in template_catalog:
-                head = main_html.find('xhtml:head', _XULE_NAMESPACE_MAP)
+            head = main_html.find('xhtml:head', _XULE_NAMESPACE_MAP)
+            for css_file_name in template_catalog.get('css',tuple()):
                 link = etree.SubElement(head, "link")
                 link.set('rel', 'stylesheet')
                 link.set('type', 'text/css')
-                link.set('href', template_catalog['css'])
-                # Write the css file
-                #ts.extract('css/{}'.format(template_catalog['css']), os.path.dirname(inline_name))
-                css_content = ts.read('css/{}'.format(template_catalog['css'])).decode()
-                with open(os.path.join(os.path.dirname(inline_name), template_catalog['css']), 'w') as css_file:
-                    css_file.write(css_content)
-            else:
-                cntlr.addToLog(_("There is not css file in the template set. The rendered file being created without a reference to a css file."))
+                link.set('href', css_file_name)
+
+            # if 'css' in template_catalog:
+            #     head = main_html.find('xhtml:head', _XULE_NAMESPACE_MAP)
+            #     link = etree.SubElement(head, "link")
+            #     link.set('rel', 'stylesheet')
+            #     link.set('type', 'text/css')
+            #     link.set('href', template_catalog['css'])
+            #     # Write the css file
+            #     #ts.extract('css/{}'.format(template_catalog['css']), os.path.dirname(inline_name))
+            #     css_content = ts.read('css/{}'.format(template_catalog['css'])).decode()
+            #     with open(os.path.join(os.path.dirname(inline_name), template_catalog['css']), 'w') as css_file:
+            #         css_file.write(css_content)
+            # else:
+            #     cntlr.addToLog(_("There is not css file in the template set. The rendered file being created without a reference to a css file."))
 
             # Iterate through each of the templates in the catalog
             for catalog_item in template_catalog['templates']: # A catalog item is a set of files for a single template
@@ -1140,7 +1152,7 @@ def format_numcommadot(model_fact, sign, scale, *args, **kwargs):
             model_fact.modelXbrl.error("RENDERERROR", _("Cannot calculate the value for a fact using the scale. Fact value of {} and scale of {}".format(model_fact.xValue, scale)))
             raise FERCRenderException
 
-        if (val % 1) == 0 and not isinstance(scaled_val, int): 
+        if (scaled_val % 1) == 0 and not isinstance(scaled_val, int): 
             # need to convert to int
             scaled_val = int(scaled_val)
         else:
