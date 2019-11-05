@@ -454,7 +454,7 @@ def substituteTemplate(substitutions, line_number_subs, rule_results, template, 
                                 unit_ids.add(model_fact.unitID)
                     elif json_result['type'] == 's': # result is a string
                         if sub.get('html', False):
-                            content = etree.fromstring('<div style="display: inline-block">{}</div>'.format(json_result['value']))
+                            content = etree.fromstring('<div class="sub-html">{}</div>'.format(json_result['value']))
                         else:
                             content = html.escape(json_result['value'])
 
@@ -1109,14 +1109,15 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html):
         ix_node.set('scale', xule_expression_node.get('scale'))
 
     if is_html:
-        content_node = etree.fromstring('<div style="display: inline-block">{}</div>'.format(display_value))
+        content_node = etree.fromstring('<div class="sub-html">{}</div>'.format(display_value))
         ix_node.append(content_node)
     else:
         ix_node.text = display_value
 
     # check the preamble. If there is one, this will go before the ix_node
     if preamble is not None and len(preamble) > 0 and preamble[0] is not None and len(preamble[0]) > 0:
-        div_node = etree.Element('div', style="display: inline-block", nsmap=_XULE_NAMESPACE_MAP)
+        div_node = etree.Element('div', nsmap=_XULE_NAMESPACE_MAP)
+        div_node.set('class', 'sub-preamble')
         div_node.text = preamble[0]
         div_node.append(ix_node)
         return div_node
