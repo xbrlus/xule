@@ -212,6 +212,8 @@ def format_rule_result_text_part(expression_text, part, type, class_expressions)
 
     output_dictionary = dict()
     output_dictionary['type'] = "'{}'".format(type)
+    
+
     if type == 'f':
         output_dictionary['is-fact'] = 'if exists({exp}) (({exp}).is-fact).string else \'false\''.format(exp=expression_text)
     if part is None:
@@ -219,6 +221,10 @@ def format_rule_result_text_part(expression_text, part, type, class_expressions)
     else:
         output_dictionary['value'] = '(if exists({exp}) (({exp})#rv-{part}).string else (none)#rv-{part}).string'.format(exp=expression_text, part=part)
         output_dictionary['part'] = part
+    # Class expressions
+    output_class_expressions = "list({})".format(', '.join(class_expressions)) if len(class_expressions) > 0 else None
+    if output_class_expressions is not None:
+        output_dictionary['classes'] = output_class_expressions
     
     output_items = ("list('{key}', {val})".format(key=k, val=v) for k, v in output_dictionary.items())
     output_string = "dict({})".format(', '.join(output_items))
@@ -602,8 +608,12 @@ def get_classes(json_result):
         return classes
 
     for item in json_result.get('classes', tuple()):
+        # item[0] is the location for the class (self or parent)
+        # item[1] is the generated value for the class, if it exists
         # The split will normalize whitespaces in the result
-        classes[item[0]].extend(item[1].split())
+        if len(item) == 2:
+            # If the item only has one item in it, then the class expression did not create a value and it can be skipped.
+            classes[item[0]].extend(item[1].split())
 
     return classes
     
