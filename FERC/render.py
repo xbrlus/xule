@@ -160,10 +160,10 @@ def build_unamed_rules(substitutions, xule_rules, next_rule_number, named_rules,
             replacement_node = xule_expression.getparent()
             if replacement_node.tag != '{{{}}}{}'.format(_XULE_NAMESPACE_MAP['xule'], 'replace'):
                 replacement_node = xule_expression
-                class_expressions = tuple()
+                extra_expressions = tuple()
             else: # this is a xule:replace
                 # process xule:class nodes
-                class_expressions = format_class_expressions(replacement_node)
+                extra_expressions = format_extra_expressions(replacement_node)
 
             comment_text = '    // {} - line {}'.format(template_file_name, xule_expression.sourceline)
             if xule_expression.get('fact','').lower() == 'true':
@@ -179,7 +179,7 @@ def build_unamed_rules(substitutions, xule_rules, next_rule_number, named_rules,
                               result_text='({}).to-json'.format(format_rule_result_text_part(xule_expression.text.strip(),
                                                                                              None,
                                                                                              'f',
-                                                                                             class_expressions))
+                                                                                             extra_expressions))
                              )
             else: # not a fact
                 sub_content = {'part': None, 
@@ -192,7 +192,7 @@ def build_unamed_rules(substitutions, xule_rules, next_rule_number, named_rules,
                               result_text='({}).to-json'.format(format_rule_result_text_part(xule_expression.text.strip(),
                                                                                              None,
                                                                                              's',
-                                                                                             class_expressions))
+                                                                                             extra_expressions))
                              )
             xule_rules.append(rule_text)
 
@@ -208,7 +208,7 @@ def build_unamed_rules(substitutions, xule_rules, next_rule_number, named_rules,
 
     return substitutions, xule_rules, next_rule_number, named_rules
 
-def format_rule_result_text_part(expression_text, part, type, class_expressions):
+def format_rule_result_text_part(expression_text, part, type, extra_expressions):
 
     output_dictionary = dict()
     output_dictionary['type'] = "'{}'".format(type)
@@ -221,10 +221,11 @@ def format_rule_result_text_part(expression_text, part, type, class_expressions)
     else:
         output_dictionary['value'] = '(if exists({exp}) (({exp})#rv-{part}).string else (none)#rv-{part}).string'.format(exp=expression_text, part=part)
         output_dictionary['part'] = part
-    # Class expressions
-    output_class_expressions = "list({})".format(', '.join(class_expressions)) if len(class_expressions) > 0 else None
-    if output_class_expressions is not None:
-        output_dictionary['classes'] = output_class_expressions
+    # Extra expressions (i.e. class, format, scale)
+    for extra_name, extra_expression in extra_expressions.items():
+        output_extra_expressions = "list({})".format(', '.join(extra_expression)) if len(extra_expression) > 0 else None
+        if output_extra_expressions is not None:
+            output_dictionary[extra_name] = output_extra_expressions
     
     output_items = ("list('{key}', {val})".format(key=k, val=v) for k, v in output_dictionary.items())
     output_string = "dict({})".format(', '.join(output_items))
@@ -270,9 +271,9 @@ def build_named_rules(substitutions, xule_rules, next_rule_number, named_rules, 
             replacement_node = expression.getparent()
             if replacement_node.tag != '{{{}}}{}'.format(_XULE_NAMESPACE_MAP['xule'], 'replace'):
                 replacement_node = expression
-                class_expressions = tuple()
+                extra_expressions = tuple()
             else: # this is a xule:replace
-                class_expressions = format_class_expressions(replacement_node)
+                extra_expressions = format_extra_expressions(replacement_node)
 
             comments.append('    // {} - {}'.format(template_file_name, expression.sourceline))
             if part is None:
@@ -284,7 +285,7 @@ def build_named_rules(substitutions, xule_rules, next_rule_number, named_rules, 
                     result_parts.append('{result_text}'.format(result_text=format_rule_result_text_part(expression.text.strip(),
                                                                                                 next_text_number,
                                                                                                 'f',
-                                                                                                class_expressions)
+                                                                                                extra_expressions)
                                                         )
                     )
                     
@@ -304,7 +305,7 @@ def build_named_rules(substitutions, xule_rules, next_rule_number, named_rules, 
                     result_parts.append('{result_text}'.format(result_text=format_rule_result_text_part(expression.text.strip(),
                                                                                                 next_text_number,
                                                                                                 's',
-                                                                                                class_expressions)
+                                                                                                extra_expressions)
                                                         )
                     )
                     sub_content = {'name': named_rule, 
@@ -331,12 +332,24 @@ def build_named_rules(substitutions, xule_rules, next_rule_number, named_rules, 
         xule_rules.append(rule_text)
     return substitutions, xule_rules, next_rule_number, named_rules
 
-def format_class_expressions(replacement_node):
-    class_expressions= []
-    for class_node in replacement_node.findall('{{{}}}class'.format(etree.QName(replacement_node).namespace)): # This is just a easy way to get the ns of the replacement_node
-        class_expressions.append('list("{}",{})'.format(class_node.attrib.get('location', 'self'), class_node.text.strip())) 
+def format_extra_expressions(replacement_node):
+    extra_expressions= collections.defaultdict(list)
+    for extra_node in replacement_node.findall('{{{}}}*'.format(etree.QName(replacement_node).namespace)):
+        extra_name = etree.QName(extra_node.tag).localname
+        if extra_name == 'class':
+            location = extra_node.attrib.get('location', 'self')
+        elif extra_name in ('format', 'scale', 'sign', 'decimals'): # this are inline attributes
+            location = 'inline'
+        else:
+            # This is some other element in the xule:replace, just skip it.
+            continue
+        
+        extra_expressions[extra_name].append('list("{}",{})'.format(location, extra_node.text.strip())) 
 
-    return class_expressions      
+    #for class_node in replacement_node.findall('{{{}}}class'.format(etree.QName(replacement_node).namespace)): # This is just a easy way to get the ns of the replacement_node
+    #    extra_expressions.append('list("{}",{})'.format(class_node.attrib.get('location', 'self'), class_node.text.strip())) 
+
+    return extra_expressions      
 
 def build_line_number_rules(xule_rules, next_rule_number, template_tree, xule_node_locations):
     line_number_subs = collections.defaultdict(list)
@@ -607,7 +620,7 @@ def get_classes(json_result):
     if json_result is None:
         return classes
 
-    for item in json_result.get('classes', tuple()):
+    for item in json_result.get('class', tuple()):
         # item[0] is the location for the class (self or parent)
         # item[1] is the generated value for the class, if it exists
         # The split will normalize whitespaces in the result
