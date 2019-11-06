@@ -1188,10 +1188,14 @@ def format_numcommadot(model_fact, sign, scale, *args, **kwargs):
         val = val * -1
         return '{:,}'.format(val), '-'
     else:
-        return '{:,}'.format(val)
+        return '{:,}'.format(val), # The comma at the end is important, it prevents the first value from being split up into the preamble
+
+def format_dateslahus(model_fact, *args, **kwargs):
+    return model_fact.xValue.strftime('%m/%d/%Y'), # The comma at the end is important, it prevents the first value from being split up into the preamble
 
 _formats = {'{http://www.xbrl.org/inlineXBRL/transformation/2010-04-20}numcommadot': format_numcommadot,
-            '{http://www.xbrl.org/inlineXBRL/transformation/2010-04-20}dateslashus': lambda mf, *args, **kwargs: mf.xValue.strftime('%m/%d/%Y')}
+            '{http://www.xbrl.org/inlineXBRL/transformation/2010-04-20}dateslashus': format_dateslahus
+            }
 
 __pluginInfo__ = {
     'name': 'FERC Tools',
