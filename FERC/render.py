@@ -474,8 +474,10 @@ def substituteTemplate(substitutions, line_number_subs, rule_results, template, 
                     elif json_result['type'] == 's': # result is a string
                         if sub.get('html', False):
                             content = etree.fromstring('<div class="sub-html">{}</div>'.format(json_result['value']))
-                        else:
+                        elif json_result['value'] is not None:
                             content = html.escape(json_result['value'])
+                        else:
+                            content = None
 
                     if content is None:
                         span_classes += ['sub-value', 'sub-no-replacement']
