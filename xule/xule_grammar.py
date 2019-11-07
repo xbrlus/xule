@@ -508,30 +508,28 @@ def get_grammar():
             #listLiteral |
             # parenthesized expression - This needs to be up front for performance. 
             (Suppress(lParen) + blockExpr + Suppress(rParen)) |            
-            
+
+            funcRef | 
+            varRef|
             ifExpr |
             forExpr |
+            navigation |
+            filter |
+
+            factset |
 
             #literals
             floatLiteral |
             integerLiteral |
             stringLiteral |
             booleanLiteral |
-            
-            factset |
-            navigation |
-            filter |
-            
-            funcRef | 
-            varRef|
-            
             severityLiteral |
             balanceLiteral |
             periodTypeLiteral |
             noneLiteral |
             skipLiteral |
             foreverLiteral |
-            
+
             #aspectNameLiteral |
             
             #dictExpr |
