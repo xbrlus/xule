@@ -387,7 +387,7 @@ def build_line_number_rules(xule_rules, next_rule_number, template_tree, xule_no
                                                'start-rule': rule_name,
                                                'template-line-number': line_number_node.sourceline}
             # Check if theres is a sub number
-            if line_number_node.get('sub-number', '').lower() == 'true':
+            if line_number_node.get('subNumber', '').lower() == 'true':
                 line_number_content['sub-number'] = True
 
             line_number_subs[name].append(line_number_content)
@@ -613,15 +613,14 @@ def substitute_line_numbers(line_number, line_number_subs, name, model_tree, new
             # The node to be replaced is not a descendant of the repeating note.
             modelXbrl.warning("RenderError", "A 'lineNumber' replacement for '{}' is not a descendant of the repeating HTML element.".format(name))
         else:
-            start_value = line_number_info.get('start-number', 1) - 1
-
             sub_node = new_tree.find(model_path)
             # Create new span with the line number
             new_line_number_span = etree.Element('{{{}}}span'.format(_XHTM_NAMESPACE))
             new_line_number_span.set('class', 'sub-line-number')
             if line_number_info.get('sub-number', False):
-                new_line_number_span.text = "{}.{}".format(start_value, str(line_number))
+                new_line_number_span.text = "{}.{}".format(line_number_info.get('start-number', 1), line_number)
             else:
+                start_value = line_number_info.get('start-number', 1) - 1
                 new_line_number_span.text = str(line_number + start_value)
             # Substitute
             sub_parent = sub_node.getparent()
