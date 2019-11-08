@@ -377,14 +377,20 @@ def build_line_number_rules(xule_rules, next_rule_number, template_tree, xule_no
                     next_rule_number += 1
                     rule_text = 'output {rule_name}\n{rule_text}'.format(rule_name=rule_name, rule_text=start_expression_node.text.strip())
                     xule_rules.append(rule_text)
+
             if is_simple:
-                line_number_subs[name].append({'line-number-node': xule_node_locations[template_tree.getelementpath(line_number_node)], 
+                line_number_content = {'line-number-node': xule_node_locations[template_tree.getelementpath(line_number_node)],
                                                'start-number': start_value,
-                                               'template-line-number': line_number_node.sourceline})
+                                               'template-line-number': line_number_node.sourceline}
             else:
-                line_number_subs[name].append({'line-number-node': xule_node_locations[template_tree.getelementpath(line_number_node)], 
+                line_number_content = {'line-number-node': xule_node_locations[template_tree.getelementpath(line_number_node)],
                                                'start-rule': rule_name,
-                                               'template-line-number': line_number_node.sourceline})
+                                               'template-line-number': line_number_node.sourceline}
+            # Check if theres is a sub number
+            if line_number_node.get('sub-number', '').lower() == 'true':
+                line_number_content['sub-number'] = True
+
+            line_number_subs[name].append(line_number_content)
 
     return line_number_subs, xule_rules, next_rule_number
 
@@ -613,7 +619,10 @@ def substitute_line_numbers(line_number, line_number_subs, name, model_tree, new
             # Create new span with the line number
             new_line_number_span = etree.Element('{{{}}}span'.format(_XHTM_NAMESPACE))
             new_line_number_span.set('class', 'sub-line-number')
-            new_line_number_span.text = str(line_number + start_value)
+            if line_number_info.get('sub-number', False):
+                new_line_number_span.text = "{}.{}".format(start_value, str(line_number))
+            else:
+                new_line_number_span.text = str(line_number + start_value)
             # Substitute
             sub_parent = sub_node.getparent()
             sub_parent.replace(sub_node, new_line_number_span)     
@@ -854,7 +863,12 @@ def cmdLineOptionExtender(parser, *args, **kwargs):
     parserGroup.add_option("--ferc-render-save-xule", 
                       action="store", 
                       dest="ferc_render_save_xule", 
-                      help=_("Name of the generated xule file to save before complining the rule set."))  
+                      help=_("Name of the generated xule file to save before complining the rule set."))
+
+    parserGroup.add_option("--ferc-render-show-xule-log",
+                      action="store_true",
+                      dest="ferc_render_show_xule_log",
+                      help=_("Show the log messages when running the xule rules. By default these messages are not displayed."))
 
 def fercCmdUtilityRun(cntlr, options, **kwargs): 
     #check option combinations
@@ -1015,6 +1029,8 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
                 # Run Xule rules
                 # Create a log handler that will capture the messages when the rules are run.
                 log_capture_handler = _logCaptureHandler()
+                if not options.ferc_render_show_xule_log:
+                    cntlr.logger.removeHandler(cntlr.logHandler)
                 cntlr.logger.addHandler(log_capture_handler)
 
                 # Call the xule processor to run the rules
@@ -1029,6 +1045,8 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
                 
                 # Remove the handler from the logger. This will stop the capture of messages
                 cntlr.logger.removeHandler(log_capture_handler)
+                if not options.ferc_render_show_xule_log:
+                    cntlr.logger.addHandler(cntlr.logHandler)
                 
                 # Substitute template
                 rendered_template, template_context_ids, template_unit_ids = substituteTemplate(substitutions, line_number_subs, log_capture_handler.captured, template, modelXbrl, main_html)
@@ -1203,8 +1221,13 @@ def format_numcommadot(model_fact, sign, scale, *args, **kwargs):
 def format_dateslahus(model_fact, *args, **kwargs):
     return model_fact.xValue.strftime('%m/%d/%Y'), # The comma at the end is important, it prevents the first value from being split up into the preamble
 
+def format_durwordsen(model_fact, *args, **kwargs):
+    return 'this transform is not yet implemented'
+
+
 _formats = {'{http://www.xbrl.org/inlineXBRL/transformation/2010-04-20}numcommadot': format_numcommadot,
-            '{http://www.xbrl.org/inlineXBRL/transformation/2010-04-20}dateslashus': format_dateslahus
+            '{http://www.xbrl.org/inlineXBRL/transformation/2010-04-20}dateslashus': format_dateslahus,
+            '{http://www.sec.gov/inlineXBRL/transformation/2015-08-31}durwordsen' : format_durwordsen
             }
 
 __pluginInfo__ = {
