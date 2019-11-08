@@ -170,7 +170,8 @@ def build_unamed_rules(substitutions, xule_rules, next_rule_number, named_rules,
                 sub_content ={'part': None, 
                               'replacement-node': xule_node_locations[template_tree.getelementpath(replacement_node)],
                               'expression-node': xule_node_locations[template_tree.getelementpath(xule_expression)],
-                              'result-focus-index': 0}
+                              'result-focus-index': 0,
+                              'template-line-number': xule_expression.sourceline}
                 #rule_text = 'output {}\n{}\nlist((({})#rv-0).string).to-json\nrule-focus list($rv-0)'.format(rule_name, comment_text, xule_expression.text.strip())
 
                 rule_text = 'output {rule_name}\n{comment}\n{result_text}\nrule-focus list($rv-0)'\
@@ -184,7 +185,8 @@ def build_unamed_rules(substitutions, xule_rules, next_rule_number, named_rules,
             else: # not a fact
                 sub_content = {'part': None, 
                                'replacement-node': xule_node_locations[template_tree.getelementpath(replacement_node)], 
-                               'result-text-index': 0}
+                               'result-text-index': 0,
+                               'template-line-number': xule_expression.sourceline}
                 #rule_text = 'output {}\n{}\nlist(({}).string).to-json'.format(rule_name, comment_text, xule_expression.text.strip())
                 rule_text = 'output {rule_name}\n{comment}\n{result_text}'\
                     ''.format(rule_name=rule_name,
@@ -295,7 +297,8 @@ def build_named_rules(substitutions, xule_rules, next_rule_number, named_rules, 
                                    'replacement-node': xule_node_locations[template_tree.getelementpath(replacement_node)],
                                    'expression-node': xule_node_locations[template_tree.getelementpath(expression)],
                                    'result-focus-index': next_focus_number,
-                                   'result-text-index': next_text_number}
+                                   'result-text-index': next_text_number,
+                                   'template-line-number': expression.sourceline}
                     if expression.get('html', 'false').lower() == 'true':
                         sub_content['html'] = True
                     substitutions[rule_name].append(sub_content)
@@ -311,7 +314,8 @@ def build_named_rules(substitutions, xule_rules, next_rule_number, named_rules, 
                     sub_content = {'name': named_rule, 
                                    'part': part, 
                                    'replacement-node': xule_node_locations[template_tree.getelementpath(replacement_node)], 
-                                   'result-text-index': next_text_number}
+                                   'result-text-index': next_text_number,
+                                   'template-line-number': expression.sourceline}
                     if expression.get('html', 'false').lower == 'true':
                         sub_content['html'] = True                                   
                     substitutions[rule_name].append(sub_content)
@@ -374,9 +378,13 @@ def build_line_number_rules(xule_rules, next_rule_number, template_tree, xule_no
                     rule_text = 'output {rule_name}\n{rule_text}'.format(rule_name=rule_name, rule_text=start_expression_node.text.strip())
                     xule_rules.append(rule_text)
             if is_simple:
-                line_number_subs[name].append({'line-number-node': xule_node_locations[template_tree.getelementpath(line_number_node)], 'start-number': start_value})
+                line_number_subs[name].append({'line-number-node': xule_node_locations[template_tree.getelementpath(line_number_node)], 
+                                               'start-number': start_value,
+                                               'template-line-number': line_number_node.sourceline})
             else:
-                line_number_subs[name].append({'line-number-node': xule_node_locations[template_tree.getelementpath(line_number_node)], 'start-rule': rule_name})
+                line_number_subs[name].append({'line-number-node': xule_node_locations[template_tree.getelementpath(line_number_node)], 
+                                               'start-rule': rule_name,
+                                               'template-line-number': line_number_node.sourceline})
 
     return line_number_subs, xule_rules, next_rule_number
 
