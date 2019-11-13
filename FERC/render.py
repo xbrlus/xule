@@ -6,7 +6,6 @@ from lxml import etree
 import datetime
 import decimal
 import collections
-import html
 import io
 import json
 import logging
@@ -112,6 +111,8 @@ constant $currentInstant = date($current-end)
 constant $currentDuration = duration(date($current-start), date($current-end))
 constant $priorInstant = date($prior-end)
 constant $priorDuration = duration(date($prior-start), date($prior-end))
+
+
 '''
 
     return constants
@@ -489,7 +490,7 @@ def substituteTemplate(substitutions, line_number_subs, rule_results, template, 
                         if sub.get('html', False):
                             content = etree.fromstring('<div class="sub-html">{}</div>'.format(json_result['value']))
                         elif json_result['value'] is not None:
-                            content = html.escape(json_result['value'])
+                            content = json_result['value']
                         else:
                             content = None
 
