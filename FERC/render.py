@@ -12,6 +12,7 @@ import json
 import logging
 import optparse
 import os.path
+import re
 import tempfile
 import zipfile
 
@@ -692,7 +693,8 @@ def setup_inline_html(modelXbrl):
         'xbrldi': "http://xbrl.org/2006/xbrldi",
         'xsi': "http://www.w3.org/2001/XMLSchema-instance",
         'link': "http://www.xbrl.org/2003/linkbase",
-        'xlink': "http://www.w3.org/1999/xlink"}
+        'xlink': "http://www.w3.org/1999/xlink",
+        'ixtsec': "http://www.sec.gov/inlineXBRL/transformation/2015-08-31"}
     # Find namespaces in the instance document and add them
     for prefix, uri in modelXbrl.modelDocument.xmlRootElement.nsmap.items():
         if uri not in namespaces.values():
@@ -1214,8 +1216,17 @@ def format_dateslahus(model_fact, *args, **kwargs):
     return model_fact.xValue.strftime('%m/%d/%Y'), # The comma at the end is important, it prevents the first value from being split up into the preamble
 
 def format_durwordsen(model_fact, *args, **kwargs):
-    return 'this transform is not yet implemented'
-
+    pattern = r'P((?P<year>\d+)Y)?((?P<month>\d+)M)?((?P<week>\d+)W)?((?P<day>\d+)D)?(T((?P<hour>\d+)H)?((?P<minute>\d+)M)?((?P<second>\d+(\.\d+)?)S)?)?'
+    duration_res = re.match(pattern, model_fact.xValue)
+    if duration_res is None:
+        raise FERCRenderException("Invalid duration '{}'".format(model_fact.xValue))
+    duration_parts = duration_res.groupdict()
+    duration_string_parts = []
+    for part_name in ('year', 'month', 'week', 'day', 'hour', 'minute', 'second'):
+        if duration_parts.get(part_name) is not None:
+            plural = 's' if duration_parts[part_name] != '1' else ''
+            duration_string_parts.append('{} {}{}'. format(duration_parts[part_name], part_name, plural))
+    return ', '.join(duration_string_parts), 
 
 _formats = {'{http://www.xbrl.org/inlineXBRL/transformation/2010-04-20}numcommadot': format_numcommadot,
             '{http://www.xbrl.org/inlineXBRL/transformation/2010-04-20}dateslashus': format_dateslahus,
