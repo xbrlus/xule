@@ -1,0 +1,72 @@
+constant $current-start = None
+constant $current-end = None
+constant $prior-start = None
+constant $prior-end = None
+constant $prior2-start = None
+constant $prior2-end = None
+constant $month-ends = None
+
+constant $currentInstant = date($current-end)
+constant $currentDuration = duration(date($current-start), date($current-end))
+constant $priorInstant = date($prior-end)
+constant $priorDuration = duration(date($prior-start), date($prior-end))
+constant $prior2Instant = date($prior2-end)
+constant $prior2Duration = duration(date($prior2-start), date($prior2-end))
+
+constant $currentYear = substring($current-end, 1 , 4)
+constant $priorYear = substring($prior-end, 1, 4)
+constant $monthEndList = $month-ends.split(',')
+
+
+constant $current3M = duration(
+							   date($currentYear+'-'+pad((month($currentInstant)-3).string, 2, '0')+'-01'),
+					           $currentInstant
+					  )
+constant $prior3M = duration(
+							   date($priorYear+'-'+pad((month($priorInstant)-3).string, 2, '0')+'-01'),
+					           $priorInstant
+					  )
+
+constant $currentQ1Instant = date($currentYear+'-03-31')
+constant $currentQ1Duration = duration(date($currentYear+'-01-01'), date($currentYear+'-03-31'))
+constant $currentQ2Instant = date($currentYear+'-06-30')
+constant $currentQ2Duration = duration(date($currentYear+'-04-01'), date($currentYear+'-06-30'))
+constant $currentQ3Instant = date($currentYear+'-09-30')
+constant $currentQ3Duration = duration(date($currentYear+'-07-01'), date($currentYear+'-09-30'))
+constant $currentQ4Instant = date($currentYear+'-12-31')
+constant $currentQ4Duration = duration(date($currentYear+'-10-01'), date($currentYear+'-12-31'))
+
+constant $priorQ1Instant = date($priorYear+'-03-31')
+constant $priorQ1Duration = duration(date($priorYear+'-01-01'), date($priorYear+'-03-31'))
+constant $priorQ2Instant = date($priorYear+'-06-30')
+constant $priorQ2Duration = duration(date($priorYear+'-04-01'), date($priorYear+'-06-30'))
+constant $priorQ3Instant = date($priorYear+'-09-30')
+constant $priorQ3Duration = duration(date($priorYear+'-07-01'), date($priorYear+'-09-30'))
+constant $priorQ4Instant = date($priorYear+'-12-31')
+constant $priorQ4Duration = duration(date($priorYear+'-10-01'), date($priorYear+'-12-31'))
+
+constant $month1 = duration(date($currentYear + '-01-01'), date($currentYear + '-01-' + $monthEndList[1]))
+constant $month2 = duration(date($currentYear + '-02-01'), date($currentYear + '-02-' + $monthEndList[2]))
+constant $month3 = duration(date($currentYear + '-03-01'), date($currentYear + '-03-' + $monthEndList[3]))
+constant $month4 = duration(date($currentYear + '-04-01'), date($currentYear + '-04-' + $monthEndList[4]))
+constant $month5 = duration(date($currentYear + '-05-01'), date($currentYear + '-05-' + $monthEndList[5]))
+constant $month6 = duration(date($currentYear + '-06-01'), date($currentYear + '-06-' + $monthEndList[6]))
+constant $month7 = duration(date($currentYear + '-07-01'), date($currentYear + '-07-' + $monthEndList[7]))
+constant $month8 = duration(date($currentYear + '-08-01'), date($currentYear + '-08-' + $monthEndList[8]))
+constant $month9 = duration(date($currentYear + '-09-01'), date($currentYear + '-09-' + $monthEndList[9]))
+constant $month10 = duration(date($currentYear + '-10-01'), date($currentYear + '-10-' + $monthEndList[10]))
+constant $month11 = duration(date($currentYear + '-11-01'), date($currentYear + '-11-' + $monthEndList[11]))
+constant $month12 = duration(date($currentYear + '-12-01'), date($currentYear + '-12-' + $monthEndList[12]))
+
+function pad($padee, $len, $pad_char)
+	if length($padee) >= $len
+		// There is nothing to pad
+		$padee
+	else
+		$pad_char_1 = if $pad_char == none ' '
+				      else if (length($pad_char.string) >= 1) substring($pad_char.string,1,1) 
+				      else ' ';
+		$padding = sum(list(for $x in range($len) $pad_char_1));
+		$padded_num = $padding + $padee;
+
+		substring($padded_num, length($padded_num)-$len+1)
