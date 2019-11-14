@@ -659,11 +659,11 @@ def get_dates(modelXbrl):
                  'Q2': ('04-01', '06-30'),
                  'Q1': ('01-01', '03-31')}
     
-    current_start = '{}-{}'.format(report_year_fact.value, month_day[report_period_fact.value][0])
+    current_start = '{}-{}'.format(report_year_fact.value, '01-01')
     current_end ='{}-{}'.format(report_year_fact.value, month_day[report_period_fact.value][1])
-    prior_start = '{}-{}'.format(int(report_year_fact.value) - 1, month_day[report_period_fact.value][0])
+    prior_start = '{}-{}'.format(int(report_year_fact.value) - 1, '01-01')
     prior_end = '{}-{}'.format(int(report_year_fact.value) - 1, month_day[report_period_fact.value][1])
-    prior2_start = '{}-{}'.format(int(report_year_fact.value) - 2, month_day[report_period_fact.value][0])
+    prior2_start = '{}-{}'.format(int(report_year_fact.value) - 2, '01-01')
     prior2_end = '{}-{}'.format(int(report_year_fact.value) - 2, month_day[report_period_fact.value][1])
     month_ends = ','.join(tuple(str(calendar.monthrange(int(report_year_fact.xValue), x)[1]) for x in range(1,13)))
 
