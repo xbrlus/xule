@@ -415,14 +415,14 @@ class XuleRuleContext(object):
     def constant_overrides(self):
         if self._constant_overrides is None:
             overrides = dict()
-            for arg in getattr(self.global_context.options,'xule_arg', tuple()):
+            for arg in getattr(self.global_context.options,'xule_arg') or tuple():
                 arg_parts = arg.split('=')
                 name = arg_parts[0]
                 if len(name) > 0:
                     if len(arg_parts) > 1:
                         val = XuleValue(self, ''.join(arg_parts[1:]), 'string')
                     else:
-                        val = XuleVValue(self, None, 'none')
+                        val = XuleValue(self, None, 'none')
                     overrides[name] = val
             self._constant_overridess = overrides
 
