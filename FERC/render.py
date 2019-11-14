@@ -5,6 +5,7 @@ from lxml import etree
 
 import datetime
 import decimal
+import calendar
 import collections
 import io
 import json
@@ -52,7 +53,7 @@ def getXuleMethod(cntlr, method_name):
     return getXulePlugin(cntlr).get(method_name)
 
 
-def process_template(cntlr, template_file_name):
+def process_template(cntlr, template_file_name, options):
     '''Prepare the template to substitute values
 
     1. build the xule rules from the template
@@ -66,17 +67,15 @@ def process_template(cntlr, template_file_name):
         with open(template_file_name, 'rb') as fp:
             template_tree = etree.fromstring(fp.read().decode('utf-8')).getroottree()
     except FileNotFoundError:
-        cntlr.addToLog("Template file '{}' is not found.".format(template_file_name), 'error', level=logging.ERROR)
-        raise FERCRenderException
+        raise FERCRenderException("Template file '{}' is not found.".format(template_file_name))
 
     except etree.XMLSchemaValidateError:
-        cntlr.addToLog("Template file '{}' is not a valid XHTML file.".format(template_file_name), 'error', level=logging.ERROR)
-        raise FERCRenderException  
+        raise FERCRenderException("Template file '{}' is not a valid XHTML file.".format(template_file_name))
 
     # build the namespace declaration for xule
     xule_namespaces = build_xule_namespaces(template_tree)
     # build constants
-    xule_constants = build_constants()
+    xule_constants = build_constants(options)
     # Create list of Xule nodes in the template
     xule_node_locations = {template_tree.getelementpath(xule_node): node_number for  node_number, xule_node in enumerate(template_tree.xpath('//xule:*', namespaces=_XULE_NAMESPACE_MAP))}
     # create the rules for xule and retrieve the update template with the substitutions identified.
@@ -96,24 +95,15 @@ def build_xule_namespaces(template_tree):
     namespaces = ['namespace {}={}'.format(k, v) if k is not None else 'namespace {}'.format(v) for k, v in template_tree.getroot().nsmap.items()]
     return '\n'.join(namespaces)
 
-
-def build_constants():
+def build_constants(options):
     '''Create constants used by the expressions. '''
-    constants = \
-'''
-// These constants need to be overwritten when processing.
-constant $current-start = None
-constant $current-end = None
-constant $prior-start = None
-constant $prior-end = None
 
-constant $currentInstant = date($current-end)
-constant $currentDuration = duration(date($current-start), date($current-end))
-constant $priorInstant = date($prior-end)
-constant $priorDuration = duration(date($prior-start), date($prior-end))
-
-
-'''
+    constant_file_name = getattr(options, 'ferc_render_constants') or os.path.join(os.path.dirname(os.path.realpath(__file__)), 'render-constants.xule')
+    try:
+        with open(constant_file_name, 'r') as constant_file:
+            constants = constant_file.read()
+    except FileNotFoundError:
+        raise FERCRenderException("Constant file {} is not found.".format(constant_file_name))
 
     return constants
 
@@ -661,8 +651,7 @@ def get_dates(modelXbrl):
         report_period_fact = get_fact_by_local_name(modelXbrl, 'ReportYearPeriod')
 
     if report_year_fact is None or report_period_fact is None:
-        modelXbrl.error(_("Cannot obtain the report year or report period from the XBRL document"))
-        raise FERCRenderException
+        raise FERCRenderException("Cannot obtain the report year or report period from the XBRL document")
 
     month_day = {'Q4': ('01-01', '12-31'),
                  'Q3': ('07-01', '12-31'),
@@ -673,11 +662,18 @@ def get_dates(modelXbrl):
     current_end ='{}-{}'.format(report_year_fact.value, month_day[report_period_fact.value][1])
     prior_start = '{}-{}'.format(int(report_year_fact.value) - 1, month_day[report_period_fact.value][0])
     prior_end = '{}-{}'.format(int(report_year_fact.value) - 1, month_day[report_period_fact.value][1])
-    
+    prior2_start = '{}-{}'.format(int(report_year_fact.value) - 2, month_day[report_period_fact.value][0])
+    prior2_end = '{}-{}'.format(int(report_year_fact.value) - 2, month_day[report_period_fact.value][1])
+    month_ends = ','.join(tuple(str(calendar.monthrange(int(report_year_fact.xValue), x)[1]) for x in range(1,13)))
+
     return (('current-start={}'.format(current_start)),
             ('current-end={}'.format(current_end)),
             ('prior-start={}'.format(prior_start)),
-            ('prior-end={}'.format(prior_end)))
+            ('prior-end={}'.format(prior_end)),
+            ('prior2-start={}'.format(prior2_start)),
+            ('prior2-end={}'.format(prior2_end)),
+            ('month-ends={}'.format(month_ends))
+           )
 
 def get_fact_by_local_name(modelXbrl, fact_name):
     for fact in modelXbrl.factsInInstance:
@@ -870,6 +866,11 @@ def cmdLineOptionExtender(parser, *args, **kwargs):
                       dest="ferc_render_show_xule_log",
                       help=_("Show the log messages when running the xule rules. By default these messages are not displayed."))
 
+    parserGroup.add_option("--ferc-render-constants", 
+                      action="store", 
+                      dest="ferc_render_constants", 
+                      help=_("Name  of the constants file. This will default to render-constants.xule."))                      
+
 def fercCmdUtilityRun(cntlr, options, **kwargs): 
     #check option combinations
     parser = optparse.OptionParser()
@@ -917,7 +918,7 @@ def process_single_template(cntlr, options, template_catalog, template_set_file,
     # Create a temporary working directory
     with tempfile.TemporaryDirectory() as temp_dir:
         # Process the HTML template.
-        xule_rule_text, substitutions, line_number_subs, template, css_file_names = process_template(cntlr, template_full_file_name)
+        xule_rule_text, substitutions, line_number_subs, template, css_file_names = process_template(cntlr, template_full_file_name, options)
         
         # Save the xule rule file if indicated
         if options.ferc_render_save_xule is not None:
@@ -927,8 +928,7 @@ def process_single_template(cntlr, options, template_catalog, template_set_file,
         # Compile Xule rules
         title = template.find('//xhtml:title', _XULE_NAMESPACE_MAP)
         if title is None:
-            cntlr.addToLog("Template does not have a title", "error")
-            raise FERCRenderException
+            raise FERCRenderException("Template does not have a title")
 
         # Get some names set up
         template_file_name = os.path.split(template_full_file_name)[1]
@@ -1014,8 +1014,7 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
                     try:
                         template = etree.parse(template_file)
                     except etree.XMLSchemaValidateError:
-                        cntlr.addToLog("Template file '{}' is not a valid XHTML file.".format(catalog_item['template']), 'error', level=logging.ERROR)
-                        raise FERCRenderException  
+                        raise FERCRenderException("Template file '{}' is not a valid XHTML file.".format(catalog_item['template']))
                 # Get the substitutions
                 with ts.open(catalog_item['substitutions']) as sub_file:
                     substitutions = json.load(io.TextIOWrapper(sub_file))
@@ -1055,8 +1054,7 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
                 # Save the body as a div
                 body = rendered_template.find('xhtml:body', namespaces=_XULE_NAMESPACE_MAP)
                 if body is None:
-                    cntlr.addToLog(_("Cannot find body of the template: {}".format(os.path.split(catalog_item['template'])[1])), 'error')
-                    raise FERCRenderException    
+                    raise FERCRenderException("Cannot find body of the template: {}".format(os.path.split(catalog_item['template'])[1]))   
                 body.tag = 'div'
                 schedule_spans.append(body)
 
@@ -1137,16 +1135,14 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html):
             local_name = format
         format_namespace_uri_source = xule_expression_node.nsmap.get(prefix)
         if format_namespace_uri_source is None:
-            model_fact.modelXbrl.error("RENDERERROR", _("Cannot resolve namespace of format. Format is '{}'".format(format)))
-            raise FERCRenderException
+            raise FERCRenderException("Cannot resolve namespace of format. Format is '{}'".format(format))
         
         rev_nsmap = {v: k for k, v in inline_html.nsmap.items()}
 
         if format_namespace_uri_source in rev_nsmap:
             format_prefix_inline = rev_nsmap.get(format_namespace_uri_source)
         else:
-            model_fact.modelXbrl.error("RENDERERROR",_("Do not have the namespace in the generated inline document for namespace '{}'".format(format_namespace_uri_source)))
-            raise FERCRenderException
+            raise FERCRenderException("Do not have the namespace in the generated inline document for namespace '{}'".format(format_namespace_uri_source))
         
         if format_prefix_inline is None:
             format_inline = local_name
@@ -1177,8 +1173,7 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html):
 
 def format_numcommadot(model_fact, sign, scale, *args, **kwargs):
     if not model_fact.isNumeric:
-        model_fact.modelXbrl.error(_("Cannot format non numeric fact using numcommadoc. Concept: {}, Value: {}".format(model_fact.concept.qname.clarkNotation, model_fact.xValue)))
-        raise FERCRenderException
+        raise FERCRenderException("Cannot format non numeric fact using numcommadoc. Concept: {}, Value: {}".format(model_fact.concept.qname.clarkNotation, model_fact.xValue))
 
     val = model_fact.xValue * sign
     if scale is not None:
@@ -1188,8 +1183,7 @@ def format_numcommadot(model_fact, sign, scale, *args, **kwargs):
         except ValueError:
             scale_num = float(scale)
         except:
-            model_fact.modelXblr.error("RENDERERROR", _("Unable to convert scale from the template to number. Scale value is: '{}'".format(scale)))
-            raise FERCRenderException
+            raise FERCRenderException("Unable to convert scale from the template to number. Scale value is: '{}'".format(scale))
         
         try:
             scaled_val = val * 10**-scale_num
@@ -1198,11 +1192,9 @@ def format_numcommadot(model_fact, sign, scale, *args, **kwargs):
             if isinstance(val, decimal.Decimal):
                 scaled_val = val * decimal.Decimal(10)**-decimal.Decimal(scale_num)
             else:
-                model_fact.modelXbrl.error("RENDERERROR", _("Cannot calculate the value for a fact using the scale. Fact value of {} and scale of {}".format(model_fact.xValue, scale)))
-                raise FERCRenderException
+                raise FERCRenderException("Cannot calculate the value for a fact using the scale. Fact value of {} and scale of {}".format(model_fact.xValue, scale))
         except:
-            model_fact.modelXbrl.error("RENDERERROR", _("Cannot calculate the value for a fact using the scale. Fact value of {} and scale of {}".format(model_fact.xValue, scale)))
-            raise FERCRenderException
+            raise FERCRenderException("Cannot calculate the value for a fact using the scale. Fact value of {} and scale of {}".format(model_fact.xValue, scale))
 
         if (scaled_val % 1) == 0 and not isinstance(scaled_val, int): 
             # need to convert to int
