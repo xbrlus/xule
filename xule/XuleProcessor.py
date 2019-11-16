@@ -4167,11 +4167,15 @@ def evaluate_aggregate_function(function_ref, function_info, xule_context):
                 agg_value = None
 
         if agg_value is not None:
-            if (aligned_result_only_by_alignment[alignment] and 
-                alignment is None and
-                xule_context.iteration_table.current_table.current_alignment is None):
-                agg_value = XuleValue(xule_context, None, 'unbound')
-            
+            #if (aligned_result_only_by_alignment[alignment] and 
+            #    alignment is None and
+            #    xule_context.iteration_table.current_table.current_alignment is None):
+            #    agg_value = XuleValue(xule_context, None, 'unbound')
+
+            #if (aligned_result_only_by_alignment[alignment] and 
+            #    alignment is None ):
+            #    agg_value = XuleValue(xule_context, None, 'unbound')
+
             agg_value.alignment = alignment
             agg_value.aligned_result_only = aligned_result_only_by_alignment[alignment]
             # print("agg", function_ref['exprName'], function_ref['node_id'], len(xule_context.used_expressions), len(used_expressions))
