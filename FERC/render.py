@@ -26,6 +26,7 @@ _XULE_NAMESPACE_MAP = {'xule': 'http://xbrl.us/xule/2.0/template',
 _XHTM_NAMESPACE = 'http://www.w3.org/1999/xhtml'
 _RULE_NAME_PREFIX = 'rule-'
 _CLASS_RULE_NAME_PREFIX = 'class-'
+_EXTRA_ATTRIBUTES = ('format', 'scale', 'sign', 'decimals')
 
 class FERCRenderException(Exception):
     pass
@@ -152,18 +153,21 @@ def build_unamed_rules(substitutions, xule_rules, next_rule_number, named_rules,
             replacement_node = xule_expression.getparent()
             if replacement_node.tag != '{{{}}}{}'.format(_XULE_NAMESPACE_MAP['xule'], 'replace'):
                 replacement_node = xule_expression
-                extra_expressions = tuple()
+                extra_expressions = dict()
             else: # this is a xule:replace
                 # process xule:class nodes
                 extra_expressions = format_extra_expressions(replacement_node)
+            
+            extra_attributes = get_extra_attributes(xule_expression)
 
             comment_text = '    // {} - line {}'.format(template_file_name, xule_expression.sourceline)
             if xule_expression.get('fact','').lower() == 'true':
-                sub_content ={'part': None, 
+                sub_content = {'part': None, 
                               'replacement-node': xule_node_locations[template_tree.getelementpath(replacement_node)],
                               'expression-node': xule_node_locations[template_tree.getelementpath(xule_expression)],
                               'result-focus-index': 0,
-                              'template-line-number': xule_expression.sourceline}
+                              'template-line-number': xule_expression.sourceline,
+                              'extras': extra_attributes}
                 #rule_text = 'output {}\n{}\nlist((({})#rv-0).string).to-json\nrule-focus list($rv-0)'.format(rule_name, comment_text, xule_expression.text.strip())
 
                 rule_text = 'output {rule_name}\n{comment}\n{result_text}\nrule-focus list($rv-0)'\
@@ -178,7 +182,8 @@ def build_unamed_rules(substitutions, xule_rules, next_rule_number, named_rules,
                 sub_content = {'part': None, 
                                'replacement-node': xule_node_locations[template_tree.getelementpath(replacement_node)], 
                                'result-text-index': 0,
-                               'template-line-number': xule_expression.sourceline}
+                               'template-line-number': xule_expression.sourceline,
+                               'extras': extra_attributes}
                 #rule_text = 'output {}\n{}\nlist(({}).string).to-json'.format(rule_name, comment_text, xule_expression.text.strip())
                 rule_text = 'output {rule_name}\n{comment}\n{result_text}'\
                     ''.format(rule_name=rule_name,
@@ -217,7 +222,10 @@ def format_rule_result_text_part(expression_text, part, type, extra_expressions)
         output_dictionary['part'] = part
     # Extra expressions (i.e. class, format, scale)
     for extra_name, extra_expression in extra_expressions.items():
-        output_extra_expressions = "list({})".format(', '.join(extra_expression)) if len(extra_expression) > 0 else None
+        if isinstance(extra_expression, list):
+            output_extra_expressions = "list({})".format(','.join(extra_expression)) if len(extra_expression) > 0 else None
+        else:
+            output_extra_expressions = extra_expression
         if output_extra_expressions is not None:
             output_dictionary[extra_name] = output_extra_expressions
     
@@ -225,28 +233,7 @@ def format_rule_result_text_part(expression_text, part, type, extra_expressions)
     output_string = "dict({})".format(', '.join(output_items))
 
     return output_string
-    '''
-    # If the output is not fact then we don't need the is-fact in the result.
-    output_is_fact = None
-    if type == 'f':
-        output_is_fact = 'if exists({exp}) (({exp}).is-fact).string else \'false\''.format(exp=expression_text)
-    output_class_expressions = ", list('classes', list({}))".format(', '.join(class_expressions)) if len(class_expressions) > 0 else ''
-    if part is None:
-        output_expression = '(if exists({exp}) (({exp})#rv-0).string else (none)#rv-0).string'.format(exp=expression_text)
-        return "dict(list('type', '{type}'), list('is-fact', {is_fact}), list('value', {val}){classes})".format(
-            type=type, 
-            is_fact=output_is_fact, 
-            val=output_expression,
-            classes=output_class_expressions)
-    else:
-        output_expression = '(if exists({exp}) (({exp})#rv-{part}).string else (none)#rv-{part}).string'.format(exp=expression_text, part=part)
-        return "dict(list('type', '{type}'), list('is-fact', {is_fact}), list('value', {val}), list('part', {part}){classes})".format(
-            type=type, 
-            is_fact=output_is_fact, 
-            val=output_expression,
-            part=part,
-            classes=output_class_expressions)
-    '''
+
 def build_named_rules(substitutions, xule_rules, next_rule_number, named_rules, template_tree, template_file_name, xule_node_locations):
     # Handle named rules
     for named_rule, part_list in named_rules.items():
@@ -265,9 +252,11 @@ def build_named_rules(substitutions, xule_rules, next_rule_number, named_rules, 
             replacement_node = expression.getparent()
             if replacement_node.tag != '{{{}}}{}'.format(_XULE_NAMESPACE_MAP['xule'], 'replace'):
                 replacement_node = expression
-                extra_expressions = tuple()
+                extra_expressions = dict()
             else: # this is a xule:replace
                 extra_expressions = format_extra_expressions(replacement_node)
+
+            extra_attributes = get_extra_attributes(expression)
 
             comments.append('    // {} - {}'.format(template_file_name, expression.sourceline))
             if part is None:
@@ -290,7 +279,8 @@ def build_named_rules(substitutions, xule_rules, next_rule_number, named_rules, 
                                    'expression-node': xule_node_locations[template_tree.getelementpath(expression)],
                                    'result-focus-index': next_focus_number,
                                    'result-text-index': next_text_number,
-                                   'template-line-number': expression.sourceline}
+                                   'template-line-number': expression.sourceline,
+                                   'extras': extra_attributes}
                     if expression.get('html', 'false').lower() == 'true':
                         sub_content['html'] = True
                     substitutions[rule_name].append(sub_content)
@@ -307,7 +297,8 @@ def build_named_rules(substitutions, xule_rules, next_rule_number, named_rules, 
                                    'part': part, 
                                    'replacement-node': xule_node_locations[template_tree.getelementpath(replacement_node)], 
                                    'result-text-index': next_text_number,
-                                   'template-line-number': expression.sourceline}
+                                   'template-line-number': expression.sourceline,
+                                   'extras': extra_attributes}
                     if expression.get('html', 'false').lower == 'true':
                         sub_content['html'] = True                                   
                     substitutions[rule_name].append(sub_content)
@@ -329,23 +320,33 @@ def build_named_rules(substitutions, xule_rules, next_rule_number, named_rules, 
     return substitutions, xule_rules, next_rule_number, named_rules
 
 def format_extra_expressions(replacement_node):
-    extra_expressions= collections.defaultdict(list)
+    extra_expressions = dict()
     for extra_node in replacement_node.findall('{{{}}}*'.format(etree.QName(replacement_node).namespace)):
         extra_name = etree.QName(extra_node.tag).localname
         if extra_name == 'class':
+            if 'class' not in extra_expressions: extra_expressions['class'] = list()
             location = extra_node.attrib.get('location', 'self')
-        elif extra_name in ('format', 'scale', 'sign', 'decimals'): # this are inline attributes
-            location = 'inline'
+            extra_expressions[extra_name].append('list("{}",{})'.format(location, extra_node.text.strip())) 
+        elif extra_name in _EXTRA_ATTRIBUTES: # this are inline attributes
+            extra_expressions[extra_name] = extra_node.text.strip()
         else:
             # This is some other element in the xule:replace, just skip it.
             continue
         
-        extra_expressions[extra_name].append('list("{}",{})'.format(location, extra_node.text.strip())) 
+        #extra_expressions[extra_name].append('list("{}",{})'.format(location, extra_node.text.strip())) 
 
     #for class_node in replacement_node.findall('{{{}}}class'.format(etree.QName(replacement_node).namespace)): # This is just a easy way to get the ns of the replacement_node
     #    extra_expressions.append('list("{}",{})'.format(class_node.attrib.get('location', 'self'), class_node.text.strip())) 
 
     return extra_expressions      
+
+def get_extra_attributes(expression_node):
+    extra_attributes = dict()
+    for name, val in expression_node.items():
+        if name in _EXTRA_ATTRIBUTES:
+            extra_attributes[name] = val
+    return extra_attributes
+
 
 def build_line_number_rules(xule_rules, next_rule_number, template_tree, xule_node_locations):
     line_number_subs = collections.defaultdict(list)
@@ -472,7 +473,7 @@ def substituteTemplate(substitutions, line_number_subs, rule_results, template, 
                         else:
                             fact_object_index = rule_result.refs[rule_focus_index]['objectId']
                             model_fact = modelXbrl.modelObject(fact_object_index)
-                            content = format_fact(xule_node_locations[sub['expression-node']], model_fact, main_html, sub.get('html', False))
+                            content = format_fact(xule_node_locations[sub['expression-node']], model_fact, main_html, sub.get('html', False), json_result)
                             # Save the context and unit ids
                             context_ids.add(model_fact.contextID)
                             if model_fact.unitID is not None:
@@ -655,8 +656,8 @@ def get_dates(modelXbrl):
         raise FERCRenderException("Cannot obtain the report year or report period from the XBRL document")
 
     month_day = {'Q4': ('01-01', '12-31'),
-                 'Q3': ('07-01', '12-31'),
-                 'Q2': ('04-01', '06-30'),
+                 'Q3': ('01-01', '09-30'),
+                 'Q2': ('01-01', '06-30'),
                  'Q1': ('01-01', '03-31')}
     
     current_start = '{}-{}'.format(report_year_fact.value, '01-01')
@@ -1085,14 +1086,16 @@ class _logCaptureHandler(logging.Handler):
     def captured(self):
         return self._captured
 
-def format_fact(xule_expression_node, model_fact, inline_html, is_html):
+def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_result):
     '''Format the fact to a string value'''
 
     preamble = None
     if xule_expression_node is None:
         format = None
     else:
-        format = xule_expression_node.get('format')
+        # Try getting the format from the xule:format expression first, if not see if there is a format attribute
+        format = json_result.get('format', xule_expression_node.get('format'))
+    
     if format is None:
         display_value = str(model_fact.xValue)
     else:
@@ -1102,18 +1105,21 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html):
         else:
             prefix = ''
             local_name = format
-        ns = xule_expression_node.nsmap.get(prefix)
-        if ns is None:
+        format_ns = xule_expression_node.nsmap.get(prefix)
+        if format_ns is None:
             raise FERCRenderException('Format {} is not a valid format'.format(format))
 
-        format_clark = '{{{}}}{}'.format(ns, local_name)
+        format_clark = '{{{}}}{}'.format(format_ns, local_name)
         format_function = _formats.get(format_clark)
         if format_function is None:
             raise FERCRenderException('Format {} is not a valid format'.format(format))
 
+        sign = json_result.get('sign', xule_expression_node.get('sign'))
+        scale = json_result.get('scale', xule_expression_node.get('scale'))
+
         display_value,  *preamble = format_function(model_fact, 
-                                        -1 if xule_expression_node.get('sign', '+') == '-' else 1, # sign
-                                        xule_expression_node.get('scale'))
+                                        sign,
+                                        scale)
 
     if model_fact.isNumeric:
         ix_node =  etree.Element('{{{}}}nonFraction'.format(_XULE_NAMESPACE_MAP['ix']), nsmap=_XULE_NAMESPACE_MAP)
@@ -1126,23 +1132,12 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html):
     ix_node.set('name', str(model_fact.qname))
     if model_fact.id is not None:
         ix_node.set('id', model_fact.id)
-    if xule_expression_node.get('format') is not None:
-        # need to handle the namespace of the format value
-       
-        format = xule_expression_node.get('format')
-        if ':' in format:
-            prefix, local_name = format.split(':')
-        else:
-            prefix = None
-            local_name = format
-        format_namespace_uri_source = xule_expression_node.nsmap.get(prefix)
-        if format_namespace_uri_source is None:
-            raise FERCRenderException("Cannot resolve namespace of format. Format is '{}'".format(format))
-        
+    if format is not None:
+
         rev_nsmap = {v: k for k, v in inline_html.nsmap.items()}
 
-        if format_namespace_uri_source in rev_nsmap:
-            format_prefix_inline = rev_nsmap.get(format_namespace_uri_source)
+        if format_ns in rev_nsmap:
+            format_prefix_inline = rev_nsmap.get(format_ns)
         else:
             raise FERCRenderException("Do not have the namespace in the generated inline document for namespace '{}'".format(format_namespace_uri_source))
         
@@ -1177,7 +1172,8 @@ def format_numcommadot(model_fact, sign, scale, *args, **kwargs):
     if not model_fact.isNumeric:
         raise FERCRenderException("Cannot format non numeric fact using numcommadoc. Concept: {}, Value: {}".format(model_fact.concept.qname.clarkNotation, model_fact.xValue))
 
-    val = model_fact.xValue * sign
+    sign_mult = -1 if sign == '-' else 1
+    val = model_fact.xValue * sign_mult
     if scale is not None:
         # Convert scale from string to number
         try:
