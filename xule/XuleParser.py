@@ -87,13 +87,13 @@ def parseFile(dir, fileName, xuleGrammar, ruleSet):
     
     return parse_errors
 
-def parseRules(files, dest, compile_type):
+def parseRules(files, dest, compile_type, max_recurse_depth=None):
 
     parse_start = datetime.datetime.today()
     parse_errors = []
     
     #Need to check the recursion limit. 1000 is too small for some rules.
-    new_depth = 2500
+    new_depth = max_recurse_depth or 5500
     orig_recursionlimit = sys.getrecursionlimit()
     if orig_recursionlimit < new_depth:
         sys.setrecursionlimit(new_depth)

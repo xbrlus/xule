@@ -529,6 +529,13 @@ def xuleCmdOptions(parser):
                              "array. Each item in the array is a JSON object. The file name is specified with 'file' key. Additional keys can "
                              "be used to specific --xule options to use. These options will override options specified on the command line. "
                              "Example: [{'file' : 'example_1.xml}, {'file' : 'example_2.xml', 'xule_rule_set' "))
+
+    parserGroup.add_option("--xule-max-recurse-depth",
+                            action="store",
+                            type="int",
+                            dest="xule_max_resurse_depth",
+                            help=_("The recurse depth for python. The default is 2500. If there is a 'RecursionError: maximum recursion depth exceeded' "
+                                   "error this argument can be used to increase the max recursion depth."))
     
     if xm is not None:
         parserGroup.add_option("--xule-server",
@@ -668,7 +675,7 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
     # compile rules
     if getattr(options, "xule_compile", None):
         compile_destination = getattr(options, "xule_rule_set", "xuleRules") 
-        xuleCompile(options.xule_compile, compile_destination, getattr(options, "xule_compile_type"))
+        xuleCompile(options.xule_compile, compile_destination, getattr(options, "xule_compile_type"), getattr(options, "xule_max_resurse_depth"))
         #xp.parseRules(options.xule_compile.split("|"), compile_destination, getattr(options, "xule_compile_type"))
     
     # add packages
@@ -822,8 +829,8 @@ def xuleCmdXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
     if getattr(options, "xule_run", None):
         runXule(cntlr, options, modelXbrl)
 
-def xuleCompile(xule_file_names, ruleset_file_name, compile_type):
-    xp.parseRules(xule_file_names.split("|"), ruleset_file_name, compile_type)
+def xuleCompile(xule_file_names, ruleset_file_name, compile_type, max_recurse_depth=None):
+    xp.parseRules(xule_file_names.split("|"), ruleset_file_name, compile_type, max_recurse_depth)
 
 def runXule(cntlr, options, modelXbrl, rule_set_map=_xule_rule_set_map_name):
         try:
