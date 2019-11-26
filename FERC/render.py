@@ -172,7 +172,6 @@ def build_unamed_rules(xule_rules, next_rule_number, named_rules, template_tree,
                 sub_content = {'part': None, 
                               'replacement-node': xule_node_locations[template_tree.getelementpath(replacement_node)],
                               'expression-node': xule_node_locations[template_tree.getelementpath(xule_expression)],
-                              'result-focus-index': 0,
                               'template-line-number': xule_expression.sourceline,
                               'extras': extra_attributes,
                               'node-pos': node_pos[replacement_node]}
@@ -183,13 +182,13 @@ def build_unamed_rules(xule_rules, next_rule_number, named_rules, template_tree,
                               comment=comment_text,
                               result_text='({}).to-json'.format(format_rule_result_text_part(xule_expression.text.strip(),
                                                                                              None,
+                                                                                             None,
                                                                                              'f',
                                                                                              extra_expressions))
                              )
             else: # not a fact
                 sub_content = {'part': None, 
                                'replacement-node': xule_node_locations[template_tree.getelementpath(replacement_node)], 
-                               'result-text-index': 0,
                                'template-line-number': xule_expression.sourceline,
                                'extras': extra_attributes,
                                'node-pos': node_pos[replacement_node]}
@@ -198,6 +197,7 @@ def build_unamed_rules(xule_rules, next_rule_number, named_rules, template_tree,
                     ''.format(rule_name=rule_name,
                               comment=comment_text,
                               result_text='({}).to-json'.format(format_rule_result_text_part(xule_expression.text.strip(),
+                                                                                             None,
                                                                                              None,
                                                                                              's',
                                                                                              extra_expressions))
@@ -216,22 +216,22 @@ def build_unamed_rules(xule_rules, next_rule_number, named_rules, template_tree,
 
     return substitutions, xule_rules, next_rule_number, named_rules
 
-def format_rule_result_text_part(expression_text, part, type, extra_expressions, inside=False):
+def format_rule_result_text_part(expression_text, part, value_number, type, extra_expressions, inside=False):
 
-    output_dictionary = dict()
+    output_dictionary = collections.OrderedDict()
     output_dictionary['type'] = "'{}'".format(type)
     
 
-    if type == 'f':
-        output_dictionary['is-fact'] = 'if exists({exp}) (({exp}).is-fact).string else \'false\''.format(exp=expression_text)
-        if inside:
-            # Inside expressions have an extra component to capture the fact. This is used to build the rule focus.
-            output_dictionary['fact'] = expression_text
     if part is None:
         output_dictionary['value'] = '(if exists({exp}) (({exp})#rv-0).string else (none)#rv-0).string'.format(exp=expression_text)
     else:
         output_dictionary['part'] = part
-        output_dictionary['value'] = '(if exists({exp}) (({exp})#rv-{part}).string else (none)#rv-{part}).string'.format(exp=expression_text, part=part)
+        output_dictionary['value'] = '(if exists({exp}) (({exp})#rv-{part}).string else (none)#rv-{part}).string'.format(exp=expression_text, part=value_number)
+    if type == 'f':
+        output_dictionary['is-fact'] = 'if exists({exp}) (({exp}).is-fact).string else \'false\''.format(exp=expression_text)
+        if inside:
+            # Inside expressions have an extra component to capture the fact. This is used to build the rule focus.
+            output_dictionary['fact'] = expression_text        
     # Extra expressions (i.e. class, format, scale)
     for extra_name, extra_expression in extra_expressions.items():
         if isinstance(extra_expression, list):
@@ -246,7 +246,8 @@ def format_rule_result_text_part(expression_text, part, type, extra_expressions,
 
     return output_string
 
-def build_named_rule_info(named_rule, part_list, next_rule_number, next_focus_number, template_tree, template_file_name, xule_node_locations, node_pos, inside=False):
+def build_named_rule_info(named_rule, part_list, next_rule_number, template_tree, template_file_name, 
+                          xule_node_locations, node_pos, next_text_number=0, inside=False):
     '''Build the body of the rule
 
     Builds the rule text and sets up the subsitution information.
@@ -258,10 +259,10 @@ def build_named_rule_info(named_rule, part_list, next_rule_number, next_focus_nu
     comments = []
     preliminary_rule_text = ''
     substitutions = []
+    sequence_number = 0
 
     rule_name = _RULE_NAME_PREFIX + str(next_rule_number)
     next_rule_number += 1
-    next_text_number = 0
     for part, expression in part_list:
         replacement_node = expression.getparent()
         if replacement_node.tag != '{{{}}}{}'.format(_XULE_NAMESPACE_MAP['xule'], 'replace'):
@@ -280,6 +281,7 @@ def build_named_rule_info(named_rule, part_list, next_rule_number, next_focus_nu
                 # If the this part of the rule is a fact, then add a tag that will be used in the rule focus
                 #result_parts.append('list((({exp})#rv-{part}).string, exists({exp}))'.format(exp=expression.text.strip(), part=part))
                 result_parts.append('{result_text}'.format(result_text=format_rule_result_text_part(expression.text.strip(),
+                                                                                            sequence_number,
                                                                                             next_text_number,
                                                                                             'f',
                                                                                             extra_expressions,
@@ -292,18 +294,16 @@ def build_named_rule_info(named_rule, part_list, next_rule_number, next_focus_nu
                                 'part': part, 
                                 'replacement-node': xule_node_locations[template_tree.getelementpath(replacement_node)],
                                 'expression-node': xule_node_locations[template_tree.getelementpath(expression)],
-                                'result-focus-index': next_focus_number,
-                                'result-text-index': next_text_number,
                                 'template-line-number': expression.sourceline,
                                 'extras': extra_attributes,
                                 'node-pos': node_pos[replacement_node]}
                 if expression.get('html', 'false').lower() == 'true':
                     sub_content['html'] = True
                 substitutions.append(sub_content)
-                next_focus_number += 1
             else: # not a fact, just a string result
                 #result_parts.append('({}).string'.format(expression.text.strip()))
                 result_parts.append('{result_text}'.format(result_text=format_rule_result_text_part(expression.text.strip(),
+                                                                                            sequence_number,
                                                                                             next_text_number,
                                                                                             's',
                                                                                             extra_expressions,
@@ -313,7 +313,6 @@ def build_named_rule_info(named_rule, part_list, next_rule_number, next_focus_nu
                 sub_content = {'name': named_rule, 
                                 'part': part, 
                                 'replacement-node': xule_node_locations[template_tree.getelementpath(replacement_node)], 
-                                'result-text-index': next_text_number,
                                 'template-line-number': expression.sourceline,
                                 'extras': extra_attributes,
                                 'node-pos': node_pos[replacement_node]}
@@ -322,6 +321,7 @@ def build_named_rule_info(named_rule, part_list, next_rule_number, next_focus_nu
                 substitutions.append(sub_content)
 
             next_text_number += 1
+            sequence_number += 1
     
     rule_info = {'rule_name': rule_name,
                  'comments': comments,
@@ -329,7 +329,7 @@ def build_named_rule_info(named_rule, part_list, next_rule_number, next_focus_nu
                  'result_parts': result_parts,
                  'rule_focus': rule_focus}
     
-    return rule_info, substitutions, next_rule_number, next_focus_number
+    return rule_info, substitutions, next_rule_number, next_text_number
 
 def build_named_rules(xule_rules, next_rule_number, named_rules, template_tree, template_file_name, xule_node_locations, node_pos):
     # Handle named rules
@@ -345,25 +345,26 @@ def build_named_rules(xule_rules, next_rule_number, named_rules, template_tree, 
 
     #for named_rule, part_list in named_rules.items():
 
-        rule_info, rule_substitutions, next_rule_number, next_focus_number = build_named_rule_info(named_rule, 
-                                                                                                 part_list,  
-                                                                                                 next_rule_number, 
-                                                                                                 0,
-                                                                                                 template_tree, 
-                                                                                                 template_file_name, 
-                                                                                                 xule_node_locations,
-                                                                                                 node_pos)
+        rule_info, rule_substitutions, next_rule_number, next_text_number = \
+            build_named_rule_info(named_rule, 
+                                  part_list,  
+                                  next_rule_number, 
+                                  template_tree, 
+                                  template_file_name, 
+                                  xule_node_locations,
+                                  node_pos)
         
         # Find the child rules and add them to the main rule.substitute_rule(rule_name, subs, line_number_subs, rule_results, template, modelXbrl, main_html, repeating_nodes)
-        child_substitutions, child_parts, child_focus, _x = add_child_rules(named_rule,
-                                                                             repeating_name_hierarchy.get(named_rule, tuple()),
-                                                                             len(rule_info['result_parts']),
-                                                                             next_focus_number,
-                                                                             named_rules,
-                                                                             template_tree,
-                                                                             template_file_name,
-                                                                             xule_node_locations,
-                                                                             node_pos)
+        child_substitutions, child_parts, child_focus, next_text_number = \
+            add_child_rules(named_rule,
+                            repeating_name_hierarchy.get(named_rule, tuple()),
+                            len(rule_info['result_parts']),
+                            next_text_number,
+                            named_rules,
+                            template_tree,
+                            template_file_name,
+                            xule_node_locations,
+                            node_pos)
 
         substitutions[rule_info['rule_name']] = {'name': named_rule, 'subs': rule_substitutions + child_substitutions}
         rule_info['result_parts'] += child_parts
@@ -387,7 +388,8 @@ def build_named_rules(xule_rules, next_rule_number, named_rules, template_tree, 
 
     return substitutions, xule_rules, next_rule_number, named_rules
 
-def add_child_rules(parent_name, hierarchy, next_part_number, next_focus_number, named_rules, template_tree, template_file_name, xule_node_locations, node_pos):
+def add_child_rules(parent_name, hierarchy, next_part_number, next_text_number,named_rules, 
+                    template_tree, template_file_name, xule_node_locations, node_pos):
     substitutions = []
     parts = list()
     focus = list()
@@ -400,24 +402,26 @@ def add_child_rules(parent_name, hierarchy, next_part_number, next_focus_number,
             if child_name not in named_rules:
                 raise FERCRenderException("The repeating name '{}' has no xule:expression".format(child_name))
 
-            child_rule_info, child_substitutions, _y, next_focus_number = build_named_rule_info(child_name,
-                                                                                               named_rules[child_name],
-                                                                                               0,
-                                                                                               next_focus_number,
-                                                                                               template_tree,
-                                                                                               template_file_name,
-                                                                                               xule_node_locations,
-                                                                                               node_pos,
-                                                                                               inside=True)
-            next_substitutions, next_parts, next_focus, next_focus_number = add_child_rules(child_name,
-                                                                                           next_level,
-                                                                                           len(child_rule_info['result_parts']),
-                                                                                           next_focus_number,
-                                                                                           named_rules,
-                                                                                           template_tree,
-                                                                                           template_file_name,
-                                                                                           xule_node_locations,
-                                                                                           node_pos)
+            child_rule_info, child_substitutions, _y, next_text_number = \
+                build_named_rule_info(child_name,
+                                      named_rules[child_name],
+                                      0,
+                                      template_tree,
+                                      template_file_name,
+                                      xule_node_locations,
+                                      node_pos,
+                                      next_text_number=next_text_number,
+                                      inside=True)
+            next_substitutions, next_parts, next_focus, next_text_number = \
+                add_child_rules(child_name,
+                                next_level,
+                                len(child_rule_info['result_parts']),
+                                next_text_number,
+                                named_rules,
+                                template_tree,
+                                template_file_name,
+                                xule_node_locations,
+                                node_pos)
 
             inside_list_text = ', '.join(["{}".format(expression) for expression in child_rule_info['result_parts'] + next_parts])
             inside_variable_text = '${inside_name}-val = list({prelim_text}\nlist({value_text}));'.format(
@@ -456,18 +460,18 @@ list(
 )
 '''.format(inside_name=child_name, variable_text=inside_variable_text)
 
-            list_part_text = "dict(list('type', 'l'), list('is-fact', 'false'), list('part', {}), " \
+            list_part_text = "dict(list('type', 'l'),  list('part', {}), list('is-fact', 'false'), " \
                              "list('value', {}))".format(next_part_number,
                                                          inside_value_text)
 
             parts.append(list_part_text)
-            focus = ['${}-rf'.format(child_name)] + next_focus
+            focus.extend(['${}-rf'.format(child_name)] + next_focus)
 
             substitutions.append({'name': child_name, 
                                   'subs': child_substitutions + next_substitutions})
             next_part_number += 1
 
-    return substitutions, parts, focus, next_focus_number
+    return substitutions, parts, focus, next_text_number
 
 def get_name_chain(template_tree):
     '''Get nested repeating names.
@@ -643,10 +647,12 @@ def substituteTemplate(substitutions, line_number_subs, rule_results, template, 
 
 def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, template,
                     modelXbrl, main_html, repeating_nodes, xule_node_locations, context_ids, unit_ids, 
-                    all_result_part=None, refs=None):
+                    all_result_part=None, refs=None, template_nsmap=None):
     # Determine if this is a repeating rule.
     new_nodes = []
 
+    if template_nsmap is None:
+        template_nsmap = template.getroot().nsmap
     #determing this rule is repeating
     repeating_model_node = None
     if 'name' in sub_info:
@@ -679,7 +685,33 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
             
             # Replace lineNumber nodes
             substitute_line_numbers(repeat_count, line_number_subs, sub_info['name'], model_tree, new_tree, modelXbrl, xule_node_locations)
-            
+        
+        # need to get all the nodes that will be substitued from the new tree before doing the substitutions. Once the first substitution
+        # is done, the structure of the new tree changes and and the path of the node to substitute in the model will be different than
+        # in the new tree.
+        sub_nodes = dict()
+        for sub in subs:
+            if 'replacement-node' in sub:
+                # Get the node in the template to replace
+                if repeating_model_node is None:
+                    #sub_node = xule_node_locations[sub['replacement-node']]
+                    sub_node = get_node_by_pos(template, sub['replacement-node'])
+                else:
+                    # Find the node in the repeating model node
+                    try:
+                        #model_path = model_tree.getelementpath(xule_node_locations[sub['replacement-node']])
+                        model_sub_node = get_node_by_pos(model_tree, sub['replacement-node']) 
+                        model_path = model_tree.getelementpath(model_sub_node)
+                    except ValueError:
+                        # The node to be replaced is not a descendant of the repeating note.
+                        modelXbrl.warning("RenderError", "A 'replace' replacement for '{}' is not a descendant of the repeating HTML element.".format(sub['name']))
+                        sub_node = None
+                    else:                        
+                        sub_node = new_tree.find(model_path)
+
+                if sub_node is not None:
+                    sub_nodes[sub['replacement-node']] = sub_node
+
         for sub_index, sub in enumerate(subs):
             # The value for the replacement is either text from running the rule or a fact
             # The sub is a dictionary. If it has a result-text-index key, then the text is taken
@@ -700,7 +732,7 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                 substitute_rule(rule_name, sub, line_number_subs, json_result['value'], new_tree,
                     modelXbrl, main_html, repeating_nodes, xule_node_locations, context_ids, unit_ids, 
                     all_result_part or json_rule_result,
-                    refs or rule_result.refs)
+                    refs or rule_result.refs, template_nsmap=template_nsmap)
                 continue
 
             classes_from_result = get_classes(json_result)
@@ -718,9 +750,8 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                         use_refs = refs or rule_result.refs
                         fact_object_index = use_refs[rule_focus_index]['objectId']
                         model_fact = modelXbrl.modelObject(fact_object_index)
-                        #content = format_fact(xule_node_locations[sub['expression-node']], model_fact, main_html, sub.get('html', False), json_result)
                         expression_node = get_node_by_pos(template, sub['expression-node'])
-                        content = format_fact(expression_node, model_fact, main_html, sub.get('html', False), json_result)
+                        content = format_fact(expression_node, model_fact, main_html, sub.get('html', False), json_result, template_nsmap)
                         # Save the context and unit ids
                         context_ids.add(model_fact.contextID)
                         if model_fact.unitID is not None:
@@ -746,24 +777,9 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                     span.append(content)
                 elif content is not None:
                     span.text = str(content)
+                
+                sub_node = sub_nodes.get(sub['replacement-node'])
 
-                # Get the node in the template to replace
-                if repeating_model_node is None:
-                    #sub_node = xule_node_locations[sub['replacement-node']]
-                    sub_node = get_node_by_pos(template, sub['replacement-node'])
-                else:
-                    # Find the node in the repeating model node
-                    try:
-                        #model_path = model_tree.getelementpath(xule_node_locations[sub['replacement-node']])
-                        model_sub_node = get_node_by_pos(model_tree, sub['replacement-node']) 
-                        model_path = model_tree.getelementpath(model_sub_node)
-                    except ValueError:
-                        # The node to be replaced is not a descendant of the repeating note.
-                        modelXbrl.warning("RenderError", "A 'replace' replacement for '{}' is not a descendant of the repeating HTML element.".format(sub['name']))
-                        sub_node = None
-                    else:                        
-                        sub_node = new_tree.find(model_path)
-                        
                 if sub_node is not None:
                     sub_parent = sub_node.getparent()
                     sub_parent.replace(sub_node, span)
@@ -1390,7 +1406,7 @@ class _logCaptureHandler(logging.Handler):
     def captured(self):
         return self._captured
 
-def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_result):
+def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_result, nsmap):
     '''Format the fact to a string value'''
 
     preamble = None
@@ -1409,7 +1425,7 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
         else:
             prefix = ''
             local_name = format
-        format_ns = xule_expression_node.nsmap.get(prefix)
+        format_ns = nsmap.get(prefix)
         if format_ns is None:
             raise FERCRenderException('Format {} is not a valid format'.format(format))
 
