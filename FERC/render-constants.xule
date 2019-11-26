@@ -16,6 +16,7 @@ constant $prior2Duration = duration(date($prior2-start), date($prior2-end))
 constant $currentYear = substring($current-end, 1 , 4)
 constant $priorYear = substring($prior-end, 1, 4)
 constant $monthEndList = $month-ends.split(',')
+constant $currentMonth = substring($current-end, 6, 7)
 
 
 constant $current3M = duration(
@@ -57,6 +58,15 @@ constant $month9 = duration(date($currentYear + '-09-01'), date($currentYear + '
 constant $month10 = duration(date($currentYear + '-10-01'), date($currentYear + '-10-' + $monthEndList[10]))
 constant $month11 = duration(date($currentYear + '-11-01'), date($currentYear + '-11-' + $monthEndList[11]))
 constant $month12 = duration(date($currentYear + '-12-01'), date($currentYear + '-12-' + $monthEndList[12]))
+
+constant $currentQM1 = duration(date($currentYear + '-' + pad(($currentMonth.number - 2).string, 2, '0') + '-01'),
+							    date($currentYear + '-' + pad(($currentMonth.number - 2).string, 2, '0') + '-' + $monthEndList[$currentMonth.number - 2]))
+
+constant $currentQM2 = duration(date($currentYear + '-' + pad(($currentMonth.number - 1).string, 2, '0') + '-01'),
+							    date($currentYear + '-' + pad(($currentMonth.number - 1).string, 2, '0') + '-' + $monthEndList[$currentMonth.number - 1]))
+
+constant $currentQM3 = duration(date($currentYear + '-' + $currentMonth + '-01'),
+							    date($current-end))
 
 function pad($padee, $len, $pad_char)
 	if length($padee) >= $len
