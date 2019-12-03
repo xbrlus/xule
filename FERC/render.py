@@ -1,7 +1,9 @@
 from arelle import PluginManager
 from arelle.CntlrWebMain import Options
+from arelle.ModelRelationshipSet import ModelRelationshipSet
 from copy import deepcopy
 from lxml import etree
+from lxml.builder import E
 
 import datetime
 import decimal
@@ -577,7 +579,7 @@ def build_line_number_rules(xule_rules, next_rule_number, template_tree, xule_no
 
     return line_number_subs, xule_rules, next_rule_number
 
-def substituteTemplate(substitutions, line_number_subs, rule_results, template, modelXbrl, main_html):
+def substituteTemplate(substitutions, line_number_subs, rule_results, template, modelXbrl, main_html, template_number):
     '''Subsititute the xule expressions in the template with the generated values.'''
     xule_node_locations = {node_number: xule_node for node_number, xule_node in enumerate(template.xpath('//xule:*', namespaces=_XULE_NAMESPACE_MAP))}
     
@@ -620,10 +622,18 @@ def substituteTemplate(substitutions, line_number_subs, rule_results, template, 
         #return len([x for x in xule_node_locations[subs[0]['replacement-node']].iterancestors()])
 
     repeating.sort(key=sort_by_ancestors, reverse=True)
-
+    footnotes = collections.defaultdict(list)
     for rule_name, sub_info in non_repeating + repeating:
         substitute_rule(rule_name, sub_info, line_number_subs, rule_results[rule_name], template, modelXbrl, main_html, repeating_nodes, xule_node_locations,
-                        context_ids, unit_ids)
+                        context_ids, unit_ids, footnotes, template_number)
+
+    footnote_page = build_footnote_page(template, template_number, footnotes)
+    if footnote_page is not None:
+        template_body = template.find('xhtml:body', namespaces=_XULE_NAMESPACE_MAP)
+        if template_body is None:
+            raise FERCRenderException("Cannot find body of the template")  
+        template_body.append(etree.Element('hr', _class="xbrl footnote-separator"))
+        template_body.append(footnote_page)
 
     # Remove any left over xule:replace nodes
     for xule_node in template.findall('//xule:replace', _XULE_NAMESPACE_MAP):
@@ -647,12 +657,13 @@ def substituteTemplate(substitutions, line_number_subs, rule_results, template, 
 
 def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, template,
                     modelXbrl, main_html, repeating_nodes, xule_node_locations, context_ids, unit_ids, 
-                    all_result_part=None, refs=None, template_nsmap=None):
+                    footnotes, template_number, all_result_part=None, refs=None, template_nsmap=None):
     # Determine if this is a repeating rule.
     new_nodes = []
 
     if template_nsmap is None:
         template_nsmap = template.getroot().nsmap
+
     #determing this rule is repeating
     repeating_model_node = None
     if 'name' in sub_info:
@@ -685,7 +696,7 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
             
             # Replace lineNumber nodes
             substitute_line_numbers(repeat_count, line_number_subs, sub_info['name'], model_tree, new_tree, modelXbrl, xule_node_locations)
-        
+
         # need to get all the nodes that will be substitued from the new tree before doing the substitutions. Once the first substitution
         # is done, the structure of the new tree changes and and the path of the node to substitute in the model will be different than
         # in the new tree.
@@ -731,7 +742,7 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                 # This is a repeating within a repeating
                 substitute_rule(rule_name, sub, line_number_subs, json_result['value'], new_tree,
                     modelXbrl, main_html, repeating_nodes, xule_node_locations, context_ids, unit_ids, 
-                    all_result_part or json_rule_result,
+                    footnotes, template_number, all_result_part or json_rule_result,
                     refs or rule_result.refs, template_nsmap=template_nsmap)
                 continue
 
@@ -741,12 +752,11 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
             # if the json_result is none, there is nothing to substitute
             if json_result is not None:
                 # Check if the result is a fact
+                content = None
+                current_footnote_ids = []
                 if json_result['type'] == 'f':
                     rule_focus_index = get_rule_focus_index(all_result_part or json_rule_result, json_result)
-                    if rule_focus_index is None:
-                        # No fact was found in the instance
-                        content = None
-                    else:
+                    if rule_focus_index is not None:
                         use_refs = refs or rule_result.refs
                         fact_object_index = use_refs[rule_focus_index]['objectId']
                         model_fact = modelXbrl.modelObject(fact_object_index)
@@ -756,13 +766,13 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                         context_ids.add(model_fact.contextID)
                         if model_fact.unitID is not None:
                             unit_ids.add(model_fact.unitID)
+                        # Check if there are footnotes
+                        current_footnote_ids = get_footnotes(footnotes, model_fact, sub)
                 elif json_result['type'] == 's': # result is a string
                     if sub.get('html', False):
                         content = etree.fromstring('<div class="sub-html">{}</div>'.format(json_result['value']))
                     elif json_result['value'] is not None:
                         content = json_result['value']
-                    else:
-                        content = None
 
                 if content is None:
                     span_classes += ['sub-value', 'sub-no-replacement']
@@ -771,6 +781,9 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                     
                 span = etree.Element('div', nsmap=_XULE_NAMESPACE_MAP)
                 span.set('class', ' '.join(span_classes))
+                for footnote_id in current_footnote_ids:
+                    footnote_ref = etree.Element('span', _class="xbrl footnote-ref", id="fr-{}-{}".format(template_number, footnote_id), nsmap=_XULE_NAMESPACE_MAP)
+                    span.append(footnote_ref)
                 if isinstance(content, str):
                     span.text = content
                 elif etree.iselement(content): 
@@ -796,36 +809,36 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
         model_parent.remove(repeating_model_node)
 
 
-def adjust_result_focus_index(json_results, part):
-    '''Adjust the index for the rule focus fact
+# def adjust_result_focus_index(json_results, part):
+#     '''Adjust the index for the rule focus fact
 
-    The original index is the the index of the rule focus list where the fact is. However, if there is no fact,
-    the rule focus list will just skip that place in the list. For example, if a result has three facts, the rule focus list should be
-    list(fact1, fact2, fact3). However, if fact 2 is missing, then the rule focus list will only be list(fact1, fact2). The index for
-    fact3 is 1 instead of the expected 2.
-    '''
-    rule_focus_index = -1
+#     The original index is the the index of the rule focus list where the fact is. However, if there is no fact,
+#     the rule focus list will just skip that place in the list. For example, if a result has three facts, the rule focus list should be
+#     list(fact1, fact2, fact3). However, if fact 2 is missing, then the rule focus list will only be list(fact1, fact2). The index for
+#     fact3 is 1 instead of the expected 2.
+#     '''
+#     rule_focus_index = -1
 
-    if isinstance(json_results, list):
-        results_by_part = {x['part']: x for x in json_results}
+#     if isinstance(json_results, list):
+#         results_by_part = {x['part']: x for x in json_results}
 
-        # If the part did not return a fact than there is nothing in the rule focus to find.
-        if results_by_part[part]['is-fact'].lower() == 'false':
-            return None
+#         # If the part did not return a fact than there is nothing in the rule focus to find.
+#         if results_by_part[part]['is-fact'].lower() == 'false':
+#             return None
 
-        # This is a list of results
-        for i in range(part + 1):
-            if (i in results_by_part and 
-                results_by_part[i]['type'] == 'f' and 
-                results_by_part[i]['value'] is not None and 
-                results_by_part[i]['is-fact'].lower() == 'true'):
-                rule_focus_index +=1
-    else:
-        # The results is really just a single dictionary of one results. Just check if the fact is there
-        if json_results['is-fact'].lower() == 'true':
-            rule_focus_index = 0
+#         # This is a list of results
+#         for i in range(part + 1):
+#             if (i in results_by_part and 
+#                 results_by_part[i]['type'] == 'f' and 
+#                 results_by_part[i]['value'] is not None and 
+#                 results_by_part[i]['is-fact'].lower() == 'true'):
+#                 rule_focus_index +=1
+#     else:
+#         # The results is really just a single dictionary of one results. Just check if the fact is there
+#         if json_results['is-fact'].lower() == 'true':
+#             rule_focus_index = 0
 
-    return rule_focus_index if rule_focus_index >= 0 else None
+#     return rule_focus_index if rule_focus_index >= 0 else None
 
 def get_rule_focus_index(json_all_results, current_result):
     
@@ -865,29 +878,29 @@ def traverse_for_facts(json_results, current_result, focus_index=-1):
         
         
 
-def adjust_result_focus_index2(json_results, cur_result):
-    if cur_result['is-fact'].lower() == 'false':
-        return None
-    # Flatten the results
-    flat_results = flatten_results(json_results)
-    rule_focus_index = -1
-    for result in flat_results:
-        if (result['type'] == 'f' and
-            result['value'] is not None and
-            result['is-fact'].lower() == 'true'):
-            rule_focus_index += 1
-        if result is cur_result:
-            break
-    return rule_focus_index if rule_focus_index >= 0 else None
+# def adjust_result_focus_index2(json_results, cur_result):
+#     if cur_result['is-fact'].lower() == 'false':
+#         return None
+#     # Flatten the results
+#     flat_results = flatten_results(json_results)
+#     rule_focus_index = -1
+#     for result in flat_results:
+#         if (result['type'] == 'f' and
+#             result['value'] is not None and
+#             result['is-fact'].lower() == 'true'):
+#             rule_focus_index += 1
+#         if result is cur_result:
+#             break
+#     return rule_focus_index if rule_focus_index >= 0 else None
 
-def flatten_results(result):
-    if isinstance(result, list):
-        flat = []
-        for x in result:
-            flat += flatten_results(x)
-        return flat
-    else:
-        return [result]
+# def flatten_results(result):
+#     if isinstance(result, list):
+#         flat = []
+#         for x in result:
+#             flat += flatten_results(x)
+#         return flat
+#     else:
+#         return [result]
 
 def get_node_by_pos(template, pos):
     '''Find HTML node by the posiition in the tree'''
@@ -915,8 +928,9 @@ def set_line_number_starts(line_number_subs, rule_results):
 
 def substitute_line_numbers(line_number, line_number_subs, name, model_tree, new_tree, modelXbrl, xule_node_locations):
 
+    current_line_number = None
     # Substitute xule:lineNumber nodes in the repeating model
-    for line_number_info in line_number_subs.get(name, tuple()):
+    for line_number_info in sorted(line_number_subs.get(name, tuple()), key=lambda k: k['line-number-node']):
         #line_number_node = xule_node_locations[line_number_info['line-number-node']]
         line_number_node = get_node_by_pos(model_tree, line_number_info['line-number-node'])
         # Find the xule:lineNumber node in the repeating model node
@@ -932,12 +946,17 @@ def substitute_line_numbers(line_number, line_number_subs, name, model_tree, new
             new_line_number_span.set('class', 'sub-line-number')
             if line_number_info.get('sub-number', False):
                 new_line_number_span.text = "{}.{}".format(line_number_info.get('start-number', 1), line_number)
+                current_line_number = current_line_number or "{}.{}".format(line_number_info.get('start-number', 1), line_number) 
             else:
                 start_value = line_number_info.get('start-number', 1) - 1
                 new_line_number_span.text = str(line_number + start_value)
+                current_line_number = current_line_number or str(line_number + start_value)
             # Substitute
             sub_parent = sub_node.getparent()
-            sub_parent.replace(sub_node, new_line_number_span)     
+            sub_parent.replace(sub_node, new_line_number_span)   
+
+        # Current line number will have the first value for the line number
+        return current_line_number  
 
 def get_classes(json_result):
     '''Get the classes from the evaluation of the xule:class expressions
@@ -963,6 +982,111 @@ def get_classes(json_result):
     
 
     #return [' '.join(x.split()) for x in json_result.get('classes', tuple())]
+
+def get_footnotes(footnotes, model_fact, sub):
+    ''' Find if there is a footnote for this fact
+
+    This will find the the footnote and if there is one will add it to the footnotes dictionary.
+    Also, the ids of the currently found footnotes are returned as a list
+    '''
+    network =  get_relationshipset(model_fact.modelXbrl,'http://www.xbrl.org/2003/arcrole/fact-footnote')
+    rels = network.fromModelObject(model_fact)
+    current_footnotes = []
+    if len(rels) > 0:
+        current_count = count_footnotes(footnotes) - 1
+        for rel in rels:
+            current_count += 1
+            footnote_info = {'text': rel.toModelObject.xValue,
+                            'model_fact': rel.fromModelObject,
+                            'id': current_count}                        
+            footnotes[sub['node-pos']].append(footnote_info)
+            current_footnotes.append(current_count)
+    
+    return current_footnotes
+
+def count_footnotes(footnotes):
+    i = 0
+    for k, v in footnotes.items():
+        i += len(v)
+    return i
+
+def get_relationshipset(model_xbrl, arcrole, linkrole=None, linkqname=None, arcqname=None, includeProhibits=False):
+    # This checks if the relationship set is already built. If not it will build it. The ModelRelationshipSet class
+    # stores the relationship set in the model at .relationshipSets.
+    relationship_key = (arcrole, linkrole, linkqname, arcqname, includeProhibits)
+    return model_xbrl.relationshipSets[relationship_key] if relationship_key in model_xbrl.relationshipSets else ModelRelationshipSet(model_xbrl, *relationship_key)
+
+def build_footnote_page(template, template_number, footnotes):
+    '''Create the footnote page for the schedule'''
+
+    footnote_counter = 0
+    footnote_table = etree.Element('table', _class="xbrl footnote-table")
+    for footnote_key in sorted(footnotes):
+        for footnote in footnotes[footnote_key]:
+            footnote_ref_letter = convert_number_to_letter(footnote_counter)
+            concept_name = footnote['model_fact'].concept.qname.localName
+            footnote_header_row = etree.Element('tr', _class="xbrl footnote-header-row")
+            footnote_table.append(footnote_header_row)
+            footnote_header_cell = etree.Element('td', _class="xbrl footnote-header-cell")
+            footnote_header_row.append(footnote_header_cell)
+            header_text = "({}) Concept: {}".format(footnote_ref_letter, concept_name)
+            footnote_header_cell.text = header_text
+            footnote_data_row = etree.Element('tr', _class="xbrl footnote-data-row")
+            footnote_table.append(footnote_data_row)
+            footnote_data_cell = etree.Element('td', _class="xbrl footnote-data-cell")
+            footnote_data_row.append(footnote_data_cell)
+            footnote_data_cell.text = footnote['text']
+
+            # Update the footnote reference in the template
+            footnote_ref_node = template.find("//*[@id='fr-{}-{}']".format(template_number, footnote['id']))
+            if footnote_ref_node is not None:
+                footnote_ref_node.text = '({})'.format(footnote_ref_letter)
+
+            footnote_counter += 1
+    if len(footnote_table) == 0:
+        return # there are no footnotes
+
+    page = etree.Element('div', _class='xbrl footnote-page')
+    # Add page header
+    for node in nodes_for_class(template, 'schedule-header'):
+        page.append(deepcopy(node))
+        break
+
+    page.append(
+        E.table(
+            E.tr(
+                E.td("FOOTNOTE DATA", {"class": "xbrl footnote-page-title"})
+            )
+        , {"class": "xbrl footnote-page-title"})
+    )
+
+    # Add footnote table
+    page.append(etree.Element('br'))
+    page.append(footnote_table)
+
+    # Add page footer
+    for node in nodes_for_class(template, 'schedule-footer'):
+        page.append(deepcopy(node))
+        break
+
+    return page
+
+def convert_number_to_letter(num):
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    result = ''
+    while True:
+        quotient, remainder = divmod(num, len(alphabet))
+        result += alphabet[remainder]
+        if quotient == 0:
+            break
+        else:
+            num = quotient - 1
+    return result[::-1] # reverse the string
+
+def nodes_for_class(root, node_class):
+    class_xpath = "descendant-or-self::*[@class and contains(concat(' ', normalize-space(@class), ' '), ' {} ')]".format(node_class)
+    for node in root.xpath(class_xpath):
+        yield node
 
 def get_dates(modelXbrl):
     '''This returns a dictionary of dates for the filing'''
@@ -1001,8 +1125,8 @@ def get_fact_by_local_name(modelXbrl, fact_name):
     for fact in modelXbrl.factsInInstance:
         if fact.concept.qname.localName == fact_name:
             return fact
-    
     return None
+
 
 def setup_inline_html(modelXbrl):
     # Create the new HTML rendered document
@@ -1295,6 +1419,7 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
         used_context_ids = set()
         used_unit_ids = set()
 
+        template_number = 0
         main_html = setup_inline_html(modelXbrl)
 
         schedule_spans = []
@@ -1371,7 +1496,11 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
                     cntlr.logger.addHandler(cntlr.logHandler)
                 
                 # Substitute template
-                rendered_template, template_context_ids, template_unit_ids = substituteTemplate(substitutions, line_number_subs, log_capture_handler.captured, template, modelXbrl, main_html)
+                template_number += 1
+                rendered_template, template_context_ids, template_unit_ids = \
+                    substituteTemplate(substitutions, line_number_subs, 
+                                       log_capture_handler.captured, template, modelXbrl, main_html,
+                                       template_number)
                 used_context_ids |= template_context_ids
                 used_unit_ids |= template_unit_ids
                 # Save the body as a div
