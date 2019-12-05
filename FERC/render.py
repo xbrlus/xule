@@ -1285,6 +1285,13 @@ def cmdLineOptionExtender(parser, *args, **kwargs):
                       dest="ferc_render_render", 
                       help=_("Indicator to render an instance with a template set. Reuires --ferc-render-template_set options and XBRL instnace (-f)"))
 
+    parserGroup.add_option("--ferc-render-combine", 
+                      action="store", 
+                      dest="ferc_render_combine", 
+                      help=_("Combine indicated template sets into a single template set. This argument can take a '|' separated list of "
+                             "template sets or folders. Template will be added in the order this list. If a folder is indicated, then all "
+                             " the template sets in the filder and its decendants will be added."))
+
     parserGroup.add_option("--ferc-render-template", 
                       action="append", 
                       dest="ferc_render_template", 
@@ -1318,14 +1325,19 @@ def cmdLineOptionExtender(parser, *args, **kwargs):
     parserGroup.add_option("--ferc-render-constants", 
                       action="store", 
                       dest="ferc_render_constants", 
-                      help=_("Name  of the constants file. This will default to render-constants.xule."))                      
+                      help=_("Name  of the constants file. This will default to render-constants.xule."))  
+
+    parserGroup.add_option("--ferc-render-debug",
+                      action="store_true",
+                      dest="ferc_render_debug",
+                      help=_("Run the rendered in debug mode."))
 
 def fercCmdUtilityRun(cntlr, options, **kwargs): 
     #check option combinations
     parser = optparse.OptionParser()
     
-    if options.ferc_render_compile is None and options.ferc_render_render is None:
-        parser.error(_("The render plugin requires either --ferc-render-compile and/or --ferc-render-render"))
+    if options.ferc_render_compile is None and options.ferc_render_render is None and options.ferc_render_combine is None:
+        parser.error(_("The render plugin requires either --ferc-render-compile, --ferc-render-render and/or --ferc-render-combine"))
 
     if options.ferc_render_compile:
         if options.ferc_render_template is None and options.ferc_render_template_set is None:
@@ -1334,6 +1346,13 @@ def fercCmdUtilityRun(cntlr, options, **kwargs):
     if options.ferc_render_render:
         if options.ferc_render_template_set is None:
             parser.error(_("Rendering requires --ferc-render-template-set"))
+
+    if options.ferc_render_combine is not None:
+        if options.ferc_render_template_set is None:
+            parser.error(_("Combining template sets requires --ferc-render-template-set"))
+
+    if options.ferc_render_combine is not None:
+        combine_template_sets(cntlr, options)
 
     if options.ferc_render_compile:
         compile_templates(cntlr, options)
@@ -1349,17 +1368,7 @@ def compile_templates(cntlr, options):
             css_file_names.update(process_single_template(cntlr, options, template_catalog['templates'], template_set_file, template_full_file_name))
 
         template_catalog['css'] = list(css_file_names)
-        # # Add CSS file
-        # if options.ferc_render_css_file is not None:
-        #     if os.path.exists(options.ferc_render_css_file):
-        #         template_catalog['css'] = os.path.split(options.ferc_render_css_file)[1]
-        #         template_set_file.write(options.ferc_render_css_file, 'css/{}'.format(os.path.split(options.ferc_render_css_file)[1]))
-        #     else:
-        #         cntlr.addToLog(_("CSS file does not exist: {}".format(options.ferc_render_css_file)), "error")
-
-        # Write catalog
         template_set_file.writestr('catalog.json', json.dumps(template_catalog, indent=4))
-
 
     cntlr.addToLog(_("Writing template set file: {}".format(template_set_file_name)), 'info')
 
@@ -1414,10 +1423,69 @@ def process_single_template(cntlr, options, template_catalog, template_set_file,
 
     return css_file_names
 
+def combine_template_sets(cntlr, options):
+    template_sets = get_list_of_template_sets(options.ferc_render_combine)
+    new_catalog = {'templates': [], 'css': []}
+    loaded_template_names = set()
+    # Create the new combined template set file
+    with zipfile.ZipFile(options.ferc_render_template_set, 'w') as combined_file:
+        for template_set in template_sets:
+            # check that it is a zip file
+            try:
+                with zipfile.ZipFile(template_set, 'r') as ts_file:
+                    try:
+                        catalog_file_info = ts_file.getinfo('catalog.json')
+                    except KeyError:
+                        # This zip file does not contain a catalog so it is not a template set
+                        continue
+                    with ts_file.open(catalog_file_info, 'r') as catalog_file:
+                        catalog = json.load(io.TextIOWrapper(catalog_file))
+                    
+                    # Update the css list
+                    new_catalog['css'] = list(set(catalog['css'] + new_catalog['css']))
+
+                    for template_info in catalog['templates']:
+                        # Check if there is already a template loaded
+                        if template_info['name'] in loaded_template_names:
+                            cntlr.addToLog(_("Template '{}' is already loaded. Skipping.".format(template_info['name'])), "warning")
+                            continue
+                        # Copy the catalog
+                        new_catalog['templates'].append(template_info)
+                        # Copy the files
+                        for key in ('line-numbers', 'substitutions', 'template', 'xule-rule-set', 'xule-text'):
+                            file_name = template_info.get(key)
+                            if file_name is not None:
+                                file_data = ts_file.read(file_name)
+                                combined_file.writestr(file_name, file_data)
+            except (FileNotFoundError, zipfile.BadZipFile, OSError):
+                # ignore the file if it is not a zip file
+                pass
+        
+        # Write the catalog
+        combined_file.writestr('catalog.json', json.dumps(new_catalog, indent=4))
+
+def get_list_of_template_sets(ts_value):
+    # iterate through the list of files and folders and find all the files.
+    file_list = []
+    for file_or_folder in ts_value.split("|"):
+        if not os.path.exists(file_or_folder):  
+            raise FERCRenderException("Template set or folder not found: {}".format(file_or_folder))
+        if os.path.isfile(file_or_folder):
+            file_list.append(file_or_folder)
+        elif os.path.isdir(file_or_folder):
+            for dirpath, dirnames, filenames in os.walk(file_or_folder):
+                for filename in filenames:
+                    file_list.append(os.path.join(dirpath, filename))
+    
+    return file_list
+
 def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
     '''Render a filing'''
     
     if options.ferc_render_render and options.ferc_render_template_set is not None:
+        if options.ferc_render_debug:
+            start_time = datetime.datetime.now()
+
         used_context_ids = set()
         used_unit_ids = set()
 
@@ -1444,22 +1512,10 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
                 link.set('type', 'text/css')
                 link.set('href', css_file_name)
 
-            # if 'css' in template_catalog:
-            #     head = main_html.find('xhtml:head', _XULE_NAMESPACE_MAP)
-            #     link = etree.SubElement(head, "link")
-            #     link.set('rel', 'stylesheet')
-            #     link.set('type', 'text/css')
-            #     link.set('href', template_catalog['css'])
-            #     # Write the css file
-            #     #ts.extract('css/{}'.format(template_catalog['css']), os.path.dirname(inline_name))
-            #     css_content = ts.read('css/{}'.format(template_catalog['css'])).decode()
-            #     with open(os.path.join(os.path.dirname(inline_name), template_catalog['css']), 'w') as css_file:
-            #         css_file.write(css_content)
-            # else:
-            #     cntlr.addToLog(_("There is not css file in the template set. The rendered file being created without a reference to a css file."))
-
             # Iterate through each of the templates in the catalog
             for catalog_item in template_catalog['templates']: # A catalog item is a set of files for a single template
+                if options.ferc_render_debug:
+                    cntlr.addToLog("{} Processing template '{}'".format(str(datetime.datetime.now()), catalog_item.get('name', 'UNKNOWN')),"info")
                 # Get the html template
                 with ts.open(catalog_item['template']) as template_file:
                     try:
@@ -1525,6 +1581,10 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
         main_html.getroottree().write(inline_name, pretty_print=True, method="xml", encoding='utf8', xml_declaration=True)
 
         cntlr.addToLog(_("Rendered template '{}' as '{}'".format(options.ferc_render_template, inline_name)), 'info')
+
+        if options.ferc_render_debug:
+            end_time = datetime.datetime.now()
+            cntlr.addToLog(_("Processing time: {}".format(str(end_time - start_time))), "info")
 
 class _logCaptureHandler(logging.Handler):
     def __init__(self):
@@ -1627,7 +1687,7 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
 
 def format_numcommadot(model_fact, sign, scale, *args, **kwargs):
     if not model_fact.isNumeric:
-        raise FERCRenderException("Cannot format non numeric fact using numcommadoc. Concept: {}, Value: {}".format(model_fact.concept.qname.clarkNotation, model_fact.xValue))
+        raise FERCRenderException("Cannot format non numeric fact using numcommadot. Concept: {}, Value: {}".format(model_fact.concept.qname.clarkNotation, model_fact.xValue))
 
     sign_mult = -1 if sign == '-' else 1
     val = model_fact.xValue * sign_mult
