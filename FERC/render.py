@@ -16,6 +16,7 @@ import optparse
 import os.path
 import re
 import tempfile
+import uuid
 import zipfile
 
 # This will hold the xule plugin module
@@ -515,20 +516,19 @@ def format_extra_expressions(replacement_node):
     extra_expressions = dict()
     for extra_node in replacement_node.findall('{{{}}}*'.format(etree.QName(replacement_node).namespace)):
         extra_name = etree.QName(extra_node.tag).localname
-        if extra_name == 'class':
-            if 'class' not in extra_expressions: extra_expressions['class'] = list()
-            location = extra_node.attrib.get('location', 'self')
-            extra_expressions[extra_name].append('list("{}",{})'.format(location, extra_node.text.strip())) 
-        elif extra_name in _EXTRA_ATTRIBUTES: # this are inline attributes
-            extra_expressions[extra_name] = extra_node.text.strip()
-        else:
-            # This is some other element in the xule:replace, just skip it.
-            continue
-        
-        #extra_expressions[extra_name].append('list("{}",{})'.format(location, extra_node.text.strip())) 
-
-    #for class_node in replacement_node.findall('{{{}}}class'.format(etree.QName(replacement_node).namespace)): # This is just a easy way to get the ns of the replacement_node
-    #    extra_expressions.append('list("{}",{})'.format(class_node.attrib.get('location', 'self'), class_node.text.strip())) 
+        if extra_name in _EXTRA_ATTRIBUTES + ('class',):
+            if extra_node.text is not None:
+                exists_extra_expression = '$test-expr = {expr}; if exists($test-expr) $test-expr else none'.format(expr=extra_node.text.strip())
+                if extra_name == 'class':
+                    if 'class' not in extra_expressions: 
+                        extra_expressions['class'] = list()
+                    location = extra_node.attrib.get('location', 'self')
+                    extra_expressions[extra_name].append('list("{}",{})'.format(location, exists_extra_expression)) 
+                elif extra_name in _EXTRA_ATTRIBUTES: # these are inline attributes
+                    extra_expressions[extra_name] = exists_extra_expression
+                else:
+                    # This is some other element in the xule:replace, just skip it.
+                    continue
 
     return extra_expressions      
 
@@ -579,7 +579,7 @@ def build_line_number_rules(xule_rules, next_rule_number, template_tree, xule_no
 
     return line_number_subs, xule_rules, next_rule_number
 
-def substituteTemplate(substitutions, line_number_subs, rule_results, template, modelXbrl, main_html, template_number, fact_number):
+def substituteTemplate(substitutions, line_number_subs, rule_results, template, modelXbrl, main_html, template_number, fact_number, processed_facts, processed_footnotes):
     '''Subsititute the xule expressions in the template with the generated values.'''
     xule_node_locations = {node_number: xule_node for node_number, xule_node in enumerate(template.xpath('//xule:*', namespaces=_XULE_NAMESPACE_MAP))}
     
@@ -625,9 +625,9 @@ def substituteTemplate(substitutions, line_number_subs, rule_results, template, 
     footnotes = collections.defaultdict(list)
     for rule_name, sub_info in non_repeating + repeating:
         substitute_rule(rule_name, sub_info, line_number_subs, rule_results[rule_name], template, modelXbrl, main_html, repeating_nodes, xule_node_locations,
-                        context_ids, unit_ids, footnotes, template_number, fact_number)
+                        context_ids, unit_ids, footnotes, template_number, fact_number, processed_facts)
 
-    footnote_page = build_footnote_page(template, template_number, footnotes)
+    footnote_page = build_footnote_page(template, template_number, footnotes, processed_footnotes)
     if footnote_page is not None:
         template_body = template.find('xhtml:body', namespaces=_XULE_NAMESPACE_MAP)
         if template_body is None:
@@ -657,7 +657,8 @@ def substituteTemplate(substitutions, line_number_subs, rule_results, template, 
 
 def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, template,
                     modelXbrl, main_html, repeating_nodes, xule_node_locations, context_ids, unit_ids, 
-                    footnotes, template_number, fact_number, all_result_part=None, refs=None, template_nsmap=None):
+                    footnotes, template_number, fact_number, processed_facts, 
+                    all_result_part=None, refs=None, template_nsmap=None):
     # Determine if this is a repeating rule.
     new_nodes = []
 
@@ -712,7 +713,6 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                 else:
                     # Find the node in the repeating model node
                     try:
-                        #model_path = model_tree.getelementpath(xule_node_locations[sub['replacement-node']])
                         model_sub_node = get_node_by_pos(model_tree, sub['replacement-node']) 
                         model_path = model_tree.getelementpath(model_sub_node)
                     except ValueError:
@@ -745,8 +745,8 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                     # This is a repeating within a repeating
                     substitute_rule(rule_name, sub, line_number_subs, json_result['value'], new_tree,
                         modelXbrl, main_html, repeating_nodes, xule_node_locations, context_ids, unit_ids, 
-                        footnotes, template_number, fact_number, all_result_part or json_rule_result,
-                        refs or rule_result.refs, template_nsmap=template_nsmap)
+                        footnotes, template_number, fact_number, processed_facts,
+                        all_result_part or json_rule_result, refs or rule_result.refs, template_nsmap=template_nsmap)
                     continue
 
                 classes_from_result = get_classes(json_result)
@@ -763,8 +763,9 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                             use_refs = refs or rule_result.refs
                             fact_object_index = use_refs[rule_focus_index]['objectId']
                             model_fact = modelXbrl.modelObject(fact_object_index)
+                            processed_facts.add(model_fact)
                             expression_node = get_node_by_pos(template, sub['expression-node'])
-                            content = format_fact(expression_node, model_fact, main_html, sub.get('html', False), json_result, template_nsmap, fact_number)
+                            content, new_fact_id = format_fact(expression_node, model_fact, main_html, sub.get('html', False), json_result, template_nsmap, fact_number)
                             # Save the context and unit ids
                             context_ids.add(model_fact.contextID)
                             if model_fact.unitID is not None:
@@ -785,7 +786,7 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                     span = etree.Element('div', nsmap=_XULE_NAMESPACE_MAP)
                     span.set('class', ' '.join(span_classes))
                     for footnote_id in current_footnote_ids:
-                        footnote_ref = etree.Element('span', attrib={"class": "xbrl footnote-ref", "id":"fr-{}-{}".format(template_number, footnote_id)}, nsmap=_XULE_NAMESPACE_MAP)
+                        footnote_ref = etree.Element('a', attrib={"class": "xbrl footnote-ref", "id":"fr-{}-{}".format(template_number, footnote_id)}, nsmap=_XULE_NAMESPACE_MAP)
                         span.append(footnote_ref)
                     if isinstance(content, str):
                         span.text = content
@@ -979,7 +980,8 @@ def get_classes(json_result):
         # The split will normalize whitespaces in the result
         if len(item) == 2:
             # If the item only has one item in it, then the class expression did not create a value and it can be skipped.
-            classes[item[0]].extend(item[1].split())
+            if item[1] is not None:
+                classes[item[0]].extend(item[1].split())
 
     return classes
     
@@ -999,7 +1001,7 @@ def get_footnotes(footnotes, model_fact, sub):
         current_count = count_footnotes(footnotes) - 1
         for rel in rels:
             current_count += 1
-            footnote_info = {'text': rel.toModelObject.xValue,
+            footnote_info = {'node': rel.toModelObject,
                             'model_fact': rel.fromModelObject,
                             'id': current_count}                        
             footnotes[sub['node-pos']].append(footnote_info)
@@ -1019,7 +1021,7 @@ def get_relationshipset(model_xbrl, arcrole, linkrole=None, linkqname=None, arcq
     relationship_key = (arcrole, linkrole, linkqname, arcqname, includeProhibits)
     return model_xbrl.relationshipSets[relationship_key] if relationship_key in model_xbrl.relationshipSets else ModelRelationshipSet(model_xbrl, *relationship_key)
 
-def build_footnote_page(template, template_number, footnotes):
+def build_footnote_page(template, template_number, footnotes, processed_footnotes):
     '''Create the footnote page for the schedule'''
 
     footnote_counter = 0
@@ -1027,6 +1029,7 @@ def build_footnote_page(template, template_number, footnotes):
     for footnote_key in sorted(footnotes):
         for footnote in footnotes[footnote_key]:
             footnote_ref_letter = convert_number_to_letter(footnote_counter)
+            footnote_letter_id = 'fn-{}'.format(uuid.uuid4().hex)
             concept_name = footnote['model_fact'].concept.qname.localName
             footnote_header_row = etree.Element('tr', attrib={"class":"xbrl footnote-header-row"})
             footnote_table.append(footnote_header_row)
@@ -1034,16 +1037,30 @@ def build_footnote_page(template, template_number, footnotes):
             footnote_header_row.append(footnote_header_cell)
             header_text = "({}) Concept: {}".format(footnote_ref_letter, concept_name)
             footnote_header_cell.text = header_text
+            footnote_header_cell.set('id', footnote_letter_id)
             footnote_data_row = etree.Element('tr', attrib={"class": "xbrl footnote-data-row"})
             footnote_table.append(footnote_data_row)
-            footnote_data_cell = etree.Element('td', attrib={"class": "xbrl footnote-data-cell"})
+            
+            if footnote['node'] in processed_footnotes:
+                # The footnote is expressed as an ix:footnote already, so just output the footnote text in the data cell
+                if is_valid_xml(footnote['node'].xValue):
+                    footnote_data_cell = etree.fromstring('<td class="xbrl footnote-data-cell">{}</td>'.format(footnote['node'].xValue))
+                else:
+                    footnote_data_cell = etree.Element('td', attrib={"class": "xbrl footnote-data-cell"})
+                    footnote_data_cell.text = footnote['node'].xValue     
+            else: # First time footnote - need to create the ix:footnote tag in the td
+                footnote_data_cell = etree.Element('td', attrib={"class": "xbrl footnote-data-cell"})
+                inline_footnote = create_inline_footnote_node(footnote['node'])
+                footnote_data_cell.append(inline_footnote)
+                processed_footnotes[footnote['node']]['footnote_id'] = footnote['node'].id
+                processed_footnotes[footnote['node']]['fact_ids'].append(footnote['model_fact'].id)
             footnote_data_row.append(footnote_data_cell)
-            footnote_data_cell.text = footnote['text']
-
+            
             # Update the footnote reference in the template
             footnote_ref_node = template.find("//*[@id='fr-{}-{}']".format(template_number, footnote['id']))
             if footnote_ref_node is not None:
                 footnote_ref_node.text = '({})'.format(footnote_ref_letter)
+                footnote_ref_node.set('href', '#{}'.format(footnote_letter_id))
 
             footnote_counter += 1
     if len(footnote_table) == 0:
@@ -1073,6 +1090,25 @@ def build_footnote_page(template, template_number, footnotes):
         break
 
     return page
+
+def is_valid_xml(potential_text):
+    '''Check if the passed string is valid XML'''
+    try:
+        # Wrap the text in a tag and see if it is valid xml. If it is not valid it etree will raise a syntax exception
+        etree.fromstring('<test>{}</test>'.format(potential_text))
+        return True
+    except etree.XMLSyntaxError:
+        return False
+
+def create_inline_footnote_node(footnote_node):
+    if is_valid_xml(footnote_node.xValue):
+        inline_footnote = etree.fromstring('<ix:footnote xmlns:ix="{}">{}</ix:footnote>'.format(_XULE_NAMESPACE_MAP['ix'], footnote_node.xValue))
+    else:
+        inline_footnote = etree.Element('{{{}}}footnote'.format(_XULE_NAMESPACE_MAP['ix']))
+        inline_footnote.text = footnote_node.xValue
+
+    inline_footnote.set('id', footnote_node.id)
+    return inline_footnote
 
 def convert_number_to_letter(num):
     alphabet = 'abcdefghijklmnopqrstuvwxyz'
@@ -1187,6 +1223,52 @@ def setup_inline_html(modelXbrl):
 
     return html
 
+def add_unused_facts_and_footnotes(main_html, modelXbrl, processed_facts, fact_number):
+    '''Add any facts that were not picked up in the templates.
+
+    These are added to the hidden section of the inline document.
+    '''
+    context_ids = set()
+    unit_ids = set()
+    footnote_rels = set()
+    # Find the ix:hiddent element
+    hidden = get_hidden(main_html)
+    # Get network of footnote arcs
+    network =  get_relationshipset(modelXbrl,'http://www.xbrl.org/2003/arcrole/fact-footnote')
+    # Process the unused facts
+    for model_fact in set(modelXbrl.facts) - processed_facts:
+        content, new_fact_id = format_fact(None, model_fact, main_html, False, None, None, fact_number)
+        hidden.append(content)
+
+        # Save the context and unit ids
+        context_ids.add(model_fact.contextID)
+        if model_fact.unitID is not None:
+            unit_ids.add(model_fact.unitID)
+
+        # Get any footnotes for unused concepts
+        rels = network.fromModelObject(model_fact)
+        for rel in rels:
+            footnote_rels.add(rel.fromModelObject, rel.toModelObject)
+    '''
+    # Dictionary of footnotes keyed by the footnote
+    footnotes = {fn: enum for enum, fn in enumerate(set(x[1] for x in footnote_rels))}
+    for footnote, num in footnotes.items():
+        footnote_node = etree.Element('{{{}}}footnote'.format(_XULE_NAMESPACE_MAP['ix']))
+        footnote_node.text = footnote.value
+
+    for rel in footnote_rels:
+        pass
+    '''
+    return context_ids, unit_ids
+
+def get_hidden(html):
+    hidden = html.find('.//ix:hidden', namespaces=_XULE_NAMESPACE_MAP)
+    if hidden is None:
+        header = html.find('.//ix:header', namespaces=_XULE_NAMESPACE_MAP)
+        hidden = etree.Element('{{{}}}hidden'.format(_XULE_NAMESPACE_MAP['ix']))
+        header.append(hidden)    
+    return hidden
+
 def add_contexts_to_inline(main_html, modelXbrl, context_ids):
     '''Add context to the inline document'''
 
@@ -1198,40 +1280,6 @@ def add_contexts_to_inline(main_html, modelXbrl, context_ids):
         # the inline tree 
         resources.append(model_context)
 
-        # inline_context = etree.SubElement(resources, '{http://www.xbrl.org/2003/instance}context')
-        # inline_context.set('id', context_id)
-        # # Entity
-        # inline_entity = etree.SubElement(inline_context, '{http://www.xbrl.org/2003/instance}entity')
-        # inline_identifier = etree.SubElement(inline_entity, '{http://www.xbrl.org/2003/instance}identifier')
-        # inline_identifier.set('scheme', model_context.entityIdentifier[0])
-        # inline_identifier.text = model_context.entityIdentifier[1]
-        # # Period
-        # inline_period = etree.SubElement(inline_context, '{http://www.xbrl.org/2003/instance}period')
-        # if model_context.isInstantPeriod:
-        #     inline_instant = etree.SubElement(inline_period, '{http://www.xbrl.org/2003/instance}instant')
-        #     inline_instant.text = model_context.period[0].svalue
-        # elif model_context.isStartEndPeriod:
-        #     inline_instant = etree.SubElement(inline_period, '{http://www.xbrl.org/2003/instance}startDate')
-        #     if model_context.period[0].localName == 'startDate':
-        #         inline_instant.text = model_context.period[0].textValue
-        #     else:
-        #         inline_instant.text = model_context.period[1].textValue
-        #     inline_instant = etree.SubElement(inline_period, '{http://www.xbrl.org/2003/instance}endDate')
-        #     if model_context.period[1].localName == 'endDate':
-        #         inline_instant.text = model_context.period[1].textValue
-        #     else:
-        #         inline_instant.text = model_context.period[0].textValue   
-        # else: # Forever
-        #     etree.SubElement(inline_period, '{http://www.xbrl.org/2003/instance}forever')
-        # # Dimensions
-        # for dim_qname, model_dim_value in model_context.qnameDims.items():
-        #     inline_segment = etree.SubElement(inline_entity, '{http://www.xbrl.org/2003/instance}segment')
-        #     if model_dim_value.isExplicit:
-        #         inline_explicit = etree.SubElement(inline_segment, '{http://xbrl.org/2006/xbrldi}explicitMember')
-        #         inline_explicit.set('dimension', dim_qname.clarkNotation)
-        #         if getattr(dim_qname, 'prefix', None) is None:
-        #             inline_explicit.text = dim_qname
-
 def add_units_to_inline(main_html, modelXbrl, unit_ids):
 
     resources = main_html.find('.//ix:resources', namespaces=_XULE_NAMESPACE_MAP)
@@ -1239,6 +1287,17 @@ def add_units_to_inline(main_html, modelXbrl, unit_ids):
         model_unit = modelXbrl.units[unit_id]
         resources.append(model_unit)
 
+def add_footnote_relationships(main_html, processed_footnotes):
+
+    resources = main_html.find('.//ix:resources', namespaces=_XULE_NAMESPACE_MAP)
+    for footnote_info in processed_footnotes.values():
+        rel = etree.Element('{{{}}}relationship'.format(_XULE_NAMESPACE_MAP['ix']))
+        rel.set('arcrole', 'http://www.xbrl.org/2003/arcrole/fact-footnote')
+        rel.set('linkRole', 'http://www.xbrl.org/2003/role/link')
+        rel.set('fromRefs', ' '.join(footnote_info['fact_ids']))
+        rel.set('toRefs', footnote_info['footnote_id'])
+        resources.append(rel)
+    
 
 # def fercMenuTools(cntlr, menu):
 #     import tkinter
@@ -1302,11 +1361,6 @@ def cmdLineOptionExtender(parser, *args, **kwargs):
                       dest="ferc_render_template_set", 
                       help=_("Compiled template set file"))
 
-    parserGroup.add_option("--ferc-render-css-file", 
-                      action="store", 
-                      dest="ferc_render_css_file", 
-                      help=_("CSS file to include in the generated rendering"))
-
     parserGroup.add_option("--ferc-render-inline", 
                       action="store", 
                       dest="ferc_render_inline", 
@@ -1325,12 +1379,24 @@ def cmdLineOptionExtender(parser, *args, **kwargs):
     parserGroup.add_option("--ferc-render-constants", 
                       action="store", 
                       dest="ferc_render_constants", 
-                      help=_("Name  of the constants file. This will default to render-constants.xule."))  
+                      help=_("Name of the constants file. This will default to render-constants.xule."))  
+
+    parserGroup.add_option("--ferc-render-partial",
+                      action="store_true",
+                      dest="ferc_render_partial",
+                      help=_("Indicates that this is a partial rendering such as a single schedule. This will prevent outputing unused facts in the "
+                             "hidden section of the inline document."))
 
     parserGroup.add_option("--ferc-render-debug",
                       action="store_true",
                       dest="ferc_render_debug",
                       help=_("Run the rendered in debug mode."))
+
+    parserGroup.add_option("--ferc-render-only",
+                      action="store",
+                      dest="ferc_render_only",
+                      help=_("List of template names to render. All others will be skipped. Template names are separated by '|' character."))
+
 
 def fercCmdUtilityRun(cntlr, options, **kwargs): 
     #check option combinations
@@ -1363,16 +1429,18 @@ def compile_templates(cntlr, options):
     template_set_file_name = os.path.split(options.ferc_render_template_set)[1]
 
     css_file_names = set()
-    with zipfile.ZipFile(options.ferc_render_template_set, 'w') as template_set_file:    
+    with zipfile.ZipFile(options.ferc_render_template_set, 'w') as template_set_file: 
+        template_number = 0   
         for template_full_file_name in getattr(options, 'ferc_render_template', tuple()):
-            css_file_names.update(process_single_template(cntlr, options, template_catalog['templates'], template_set_file, template_full_file_name))
+            css_file_names.update(process_single_template(cntlr, options, template_catalog['templates'], template_set_file, template_full_file_name, template_number))
+            template_number += 1
 
         template_catalog['css'] = list(css_file_names)
         template_set_file.writestr('catalog.json', json.dumps(template_catalog, indent=4))
 
     cntlr.addToLog(_("Writing template set file: {}".format(template_set_file_name)), 'info')
 
-def process_single_template(cntlr, options, template_catalog, template_set_file, template_full_file_name):
+def process_single_template(cntlr, options, template_catalog, template_set_file, template_full_file_name, template_number):
     # Create a temporary working directory
     with tempfile.TemporaryDirectory() as temp_dir:
         # Process the HTML template.
@@ -1390,25 +1458,33 @@ def process_single_template(cntlr, options, template_catalog, template_set_file,
 
         # Get some names set up
         template_file_name = os.path.split(template_full_file_name)[1]
-        template_file_name_base = os.path.splitext(template_file_name)[0]
+        template_name = os.path.splitext(template_file_name)[0]
 
-        template_file_name = "templates/{}/{}.html".format(template_file_name_base, template_file_name_base)
-        xule_text_file_name = "templates/{}/{}.xule".format(template_file_name_base, template_file_name_base)
-        xule_rule_set_file_name = "templates/{}/{}-ruleset.zip".format(template_file_name_base, template_file_name_base)
-        substitution_file_name = "templates/{}/{}-substitutions.json".format(template_file_name_base, template_file_name_base)
-        line_number_file_name = "templates/{}/{}-linenumbers.json".format(template_file_name_base, template_file_name_base)
+        #template_file_name = os.path.split(template_full_file_name)[1]
+        #template_file_name_base = os.path.splitext(template_file_name)[0]
+        #template_file_name = "templates/t{}/{}.html".format(template_file_name_base, template_file_name_base)
+        #xule_text_file_name = "templates/{}/{}.xule".format(template_file_name_base, template_file_name_base)
+        #xule_rule_set_file_name = "templates/{}/{}-ruleset.zip".format(template_file_name_base, template_file_name_base)
+        #substitution_file_name = "templates/{}/{}-substitutions.json".format(template_file_name_base, template_file_name_base)
+        #line_number_file_name = "templates/{}/{}-linenumbers.json".format(template_file_name_base, template_file_name_base)
+
+        template_file_name = "templates/t{tn}/t{tn}.html".format(tn=str(template_number))
+        xule_text_file_name = "templates/t{tn}/t{tn}.xule".format(tn=str(template_number))
+        xule_rule_set_file_name = "templates/t{tn}/t{tn}-ruleset.zip".format(tn=str(template_number))
+        substitution_file_name = "templates/t{tn}/t{tn}-substitutions.json".format(tn=str(template_number))
+        line_number_file_name = "templates/t{tn}/t{tn}-linenumbers.json".format(tn=str(template_number))
 
         # xule file name
-        xule_rule_file_name = os.path.join(temp_dir, '{}.xule'.format(template_file_name_base))   #'{}.xule'.format(title.text)
+        xule_rule_file_name = os.path.join(temp_dir, 'temp_rule_file.xule')   #'{}.xule'.format(title.text)
         with open(xule_rule_file_name, 'w') as xule_file:
             xule_file.write(xule_rule_text)
 
         # xule rule set name
-        xule_rule_set_name = os.path.join(temp_dir, '{}-ruleset.zip'.format(template_file_name_base))
+        xule_rule_set_name = os.path.join(temp_dir, 'temp-ruleset.zip')
         compile_method = getXuleMethod(cntlr, 'Xule.compile')
         compile_method(xule_rule_file_name, xule_rule_set_name, 'json', getattr(options, "xule_max_resurse_depth"))
 
-        template_catalog.append({'name': template_file_name_base,
+        template_catalog.append({'name': template_name,
                             'template': template_file_name,
                             'xule-text': xule_text_file_name,
                             'xule-rule-set': xule_rule_set_file_name,
@@ -1491,9 +1567,11 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
 
         template_number = 0
         fact_number = collections.defaultdict(int)
+        processed_facts = set() # track which facts have been outputed
+        processed_footnotes = collections.defaultdict(lambda: {'footnote_id': None, 'fact_ids': list()}) # track when a footnote is outputted.
         main_html = setup_inline_html(modelXbrl)
 
-        schedule_spans = []
+        schedule_divs = []
         with zipfile.ZipFile(options.ferc_render_template_set, 'r') as ts:
             with ts.open('catalog.json', 'r') as catalog_file:
                 template_catalog = json.load(io.TextIOWrapper(catalog_file))
@@ -1514,6 +1592,11 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
 
             # Iterate through each of the templates in the catalog
             for catalog_item in template_catalog['templates']: # A catalog item is a set of files for a single template
+
+                if options.ferc_render_only is not None:
+                    if catalog_item['name'] not in options.ferc_render_only.split('|'):
+                        continue
+
                 if options.ferc_render_debug:
                     cntlr.addToLog("{} Processing template '{}'".format(str(datetime.datetime.now()), catalog_item.get('name', 'UNKNOWN')),"info")
                 # Get the html template
@@ -1559,7 +1642,7 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
                 rendered_template, template_context_ids, template_unit_ids = \
                     substituteTemplate(substitutions, line_number_subs, 
                                        log_capture_handler.captured, template, modelXbrl, main_html,
-                                       template_number, fact_number)
+                                       template_number, fact_number, processed_facts, processed_footnotes)
                 used_context_ids |= template_context_ids
                 used_unit_ids |= template_unit_ids
                 # Save the body as a div
@@ -1567,16 +1650,23 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
                 if body is None:
                     raise FERCRenderException("Cannot find body of the template: {}".format(os.path.split(catalog_item['template'])[1]))   
                 body.tag = 'div'
-                schedule_spans.append(body)
+                schedule_divs.append(body)
 
         main_body = main_html.find('xhtml:body', namespaces=_XULE_NAMESPACE_MAP)
-        for span in schedule_spans:
-            main_body.append(span)
-            if span is not schedule_spans[-1]: # If it is not the last span put a separator in
+        for div in schedule_divs:
+            main_body.append(div)
+            if div is not schedule_divs[-1]: # If it is not the last span put a separator in
                 main_body.append(etree.fromstring('<hr xmlns="{}"/>'.format(_XHTM_NAMESPACE)))
+        
+        if not options.ferc_render_partial:
+            additional_context_ids, additional_unit_ids = add_unused_facts_and_footnotes(main_html, modelXbrl, processed_facts, fact_number)
+            used_context_ids |= additional_context_ids
+            used_unit_ids |= additional_unit_ids
 
         add_contexts_to_inline(main_html, modelXbrl, used_context_ids)
         add_units_to_inline(main_html, modelXbrl, used_unit_ids)
+        add_footnote_relationships(main_html, processed_footnotes)
+        
         # Write generated html
         main_html.getroottree().write(inline_name, pretty_print=True, method="xml", encoding='utf8', xml_declaration=True)
 
@@ -1602,13 +1692,16 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
     '''Format the fact to a string value'''
 
     preamble = None
+    new_fact_id = None
     if xule_expression_node is None:
         format = None
     else:
         # Try getting the format from the xule:format expression first, if not see if there is a format attribute
         format = json_result.get('format', xule_expression_node.get('format'))
     
-    if format is None:
+    if model_fact.xValue is None:
+        display_value = ''
+    elif format is None:
         display_value = str(model_fact.xValue)
     else:
         # convert format to clark notation 
@@ -1636,7 +1729,7 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
     if model_fact.isNumeric:
         ix_node =  etree.Element('{{{}}}nonFraction'.format(_XULE_NAMESPACE_MAP['ix']), nsmap=_XULE_NAMESPACE_MAP)
         ix_node.set('unitRef', model_fact.unitID)
-        ix_node.set('decimals', xule_expression_node.get('decimals', 'INF'))
+        ix_node.set('decimals', xule_expression_node.get('decimals', model_fact.decimals) if xule_expression_node is not None else model_fact.decimals)
     else:
         ix_node = etree.Element('{{{}}}nonNumeric'.format(_XULE_NAMESPACE_MAP['ix']), nsmap=_XULE_NAMESPACE_MAP)
 
@@ -1644,19 +1737,19 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
     ix_node.set('name', str(model_fact.qname))
     if model_fact.id is not None:
         if model_fact.id in fact_number:
-            ix_node.set('id', "{}-dup-{}".format(model_fact.id, fact_number[model_fact.id]))
+            new_fact_id =  "{}-dup-{}".format(model_fact.id, fact_number[model_fact.id])
         else:
-            ix_node.set('id', "{}".format(model_fact.id))
+            new_fact_id = "{}".format(model_fact.id)
+        ix_node.set('id', new_fact_id)
         fact_number[model_fact.id] += 1
 
-    if format is not None:
-
+    if format is not None and model_fact.xValue is not None:
         rev_nsmap = {v: k for k, v in inline_html.nsmap.items()}
 
         if format_ns in rev_nsmap:
             format_prefix_inline = rev_nsmap.get(format_ns)
         else:
-            raise FERCRenderException("Do not have the namespace in the generated inline document for namespace '{}'".format(format_namespace_uri_source))
+            raise FERCRenderException("Do not have the namespace in the generated inline document for namespace '{}'".format(format_ns))
         
         if format_prefix_inline is None:
             format_inline = local_name
@@ -1664,9 +1757,10 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
             format_inline = '{}:{}'.format(format_prefix_inline, local_name)
     
         ix_node.set('format', format_inline)
-    if xule_expression_node.get('sign', '') == '-':
+    
+    if xule_expression_node is not None and xule_expression_node.get('sign', '') == '-':
         ix_node.set('sign', '-')
-    if xule_expression_node.get('scale') is not None:
+    if xule_expression_node is not None and xule_expression_node.get('scale') is not None:
         ix_node.set('scale', xule_expression_node.get('scale'))
 
     if is_html:
@@ -1681,9 +1775,9 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
         div_node.set('class', 'sub-preamble')
         div_node.text = preamble[0]
         div_node.append(ix_node)
-        return div_node
+        return div_node, new_fact_id
     else:
-        return ix_node
+        return ix_node, new_fact_id
 
 def format_numcommadot(model_fact, sign, scale, *args, **kwargs):
     if not model_fact.isNumeric:
@@ -1691,6 +1785,7 @@ def format_numcommadot(model_fact, sign, scale, *args, **kwargs):
 
     sign_mult = -1 if sign == '-' else 1
     val = model_fact.xValue * sign_mult
+
     if scale is not None:
         # Convert scale from string to number
         try:
