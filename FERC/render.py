@@ -1503,6 +1503,7 @@ def combine_template_sets(cntlr, options):
     template_sets = get_list_of_template_sets(options.ferc_render_combine)
     new_catalog = {'templates': [], 'css': []}
     loaded_template_names = set()
+    template_number = 0
     # Create the new combined template set file
     with zipfile.ZipFile(options.ferc_render_template_set, 'w') as combined_file:
         for template_set in template_sets:
@@ -1525,14 +1526,22 @@ def combine_template_sets(cntlr, options):
                         if template_info['name'] in loaded_template_names:
                             cntlr.addToLog(_("Template '{}' is already loaded. Skipping.".format(template_info['name'])), "warning")
                             continue
-                        # Copy the catalog
-                        new_catalog['templates'].append(template_info)
+                        
+                        new_info = {'name': template_info['name']}
                         # Copy the files
                         for key in ('line-numbers', 'substitutions', 'template', 'xule-rule-set', 'xule-text'):
-                            file_name = template_info.get(key)
-                            if file_name is not None:
-                                file_data = ts_file.read(file_name)
-                                combined_file.writestr(file_name, file_data)
+                            orig_file_name = template_info.get(key)
+                            if orig_file_name is not None:
+                                orig_file_ext = os.path.splitext(orig_file_name)[1]
+                                new_file_name = 'templates/t{tn}/t{tn}-{key}{ext}'.format(tn=template_number, key=key, ext=orig_file_ext)
+                                file_data = ts_file.read(orig_file_name)
+                                combined_file.writestr(new_file_name, file_data)
+                                new_info[key] = new_file_name
+                    
+                        # Copy the catalog
+                        new_catalog['templates'].append(new_info)
+
+                        template_number += 1
             except (FileNotFoundError, zipfile.BadZipFile, OSError):
                 # ignore the file if it is not a zip file
                 pass
