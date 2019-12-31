@@ -28,7 +28,6 @@ _XULE_NAMESPACE_MAP = {'xule': 'http://xbrl.us/xule/2.0/template',
                        'ix': 'http://www.xbrl.org/2013/inlineXBRL'}
 _XHTM_NAMESPACE = 'http://www.w3.org/1999/xhtml'
 _RULE_NAME_PREFIX = 'rule-'
-_CLASS_RULE_NAME_PREFIX = 'class-'
 _EXTRA_ATTRIBUTES = ('format', 'scale', 'sign', 'decimals')
 
 class FERCRenderException(Exception):
@@ -516,7 +515,7 @@ def format_extra_expressions(replacement_node):
     extra_expressions = dict()
     for extra_node in replacement_node.findall('{{{}}}*'.format(etree.QName(replacement_node).namespace)):
         extra_name = etree.QName(extra_node.tag).localname
-        if extra_name in _EXTRA_ATTRIBUTES + ('class',):
+        if extra_name in _EXTRA_ATTRIBUTES + ('class', 'colspan'):
             if extra_node.text is not None:
                 exists_extra_expression = '$test-expr = {expr}; if exists($test-expr) $test-expr else none'.format(expr=extra_node.text.strip())
                 if extra_name == 'class':
@@ -524,7 +523,7 @@ def format_extra_expressions(replacement_node):
                         extra_expressions['class'] = list()
                     location = extra_node.attrib.get('location', 'self')
                     extra_expressions[extra_name].append('list("{}",{})'.format(location, exists_extra_expression)) 
-                elif extra_name in _EXTRA_ATTRIBUTES: # these are inline attributes
+                elif extra_name in _EXTRA_ATTRIBUTES + ('colspan',): # these are inline attributes
                     extra_expressions[extra_name] = exists_extra_expression
                 else:
                     # This is some other element in the xule:replace, just skip it.
@@ -800,8 +799,13 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                     if sub_node is not None:
                         sub_parent = sub_node.getparent()
                         sub_parent.replace(sub_node, span)
+                        # Add classes to the parent
                         if len(classes_from_result['parent']) > 0:
                             sub_parent.set('class', ' '.join(sub_parent.get('class','').split() + classes_from_result['parent']))
+                        # Add colspans to the parent
+                        if json_result.get('colspan') is not None:
+                            sub_parent.set('colspan', str(json_result['colspan']).strip())
+                        
         
     # Add the new repeating nodes
     for new_node in reversed(new_nodes):
