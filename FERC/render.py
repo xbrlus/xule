@@ -1351,6 +1351,11 @@ def cmdLineOptionExtender(parser, *args, **kwargs):
                              "template sets or folders. Template will be added in the order this list. If a folder is indicated, then all "
                              " the template sets in the filder and its decendants will be added."))
 
+    parserGroup.add_option("--ferc-render-list", 
+                      action="store_true", 
+                      dest="ferc_render_list", 
+                      help=_("List the templates in a template set."))
+
     parserGroup.add_option("--ferc-render-template", 
                       action="append", 
                       dest="ferc_render_template", 
@@ -1402,8 +1407,8 @@ def fercCmdUtilityRun(cntlr, options, **kwargs):
     #check option combinations
     parser = optparse.OptionParser()
     
-    if options.ferc_render_compile is None and options.ferc_render_render is None and options.ferc_render_combine is None:
-        parser.error(_("The render plugin requires either --ferc-render-compile, --ferc-render-render and/or --ferc-render-combine"))
+    if options.ferc_render_compile is None and options.ferc_render_render is None and options.ferc_render_combine is None and options.ferc_render_list is None:
+        parser.error(_("The render plugin requires either --ferc-render-compile, --ferc-render-render, --ferc-render-combine and/or --ferc-render-list"))
 
     if options.ferc_render_compile:
         if options.ferc_render_template is None and options.ferc_render_template_set is None:
@@ -1420,8 +1425,14 @@ def fercCmdUtilityRun(cntlr, options, **kwargs):
     if options.ferc_render_combine is not None:
         combine_template_sets(cntlr, options)
 
+    if options.ferc_render_list and options.ferc_render_template_set is None:
+        parser.error(_("Listing the templates in a template set requires a --ferec-render-template-set."))
+
     if options.ferc_render_compile:
         compile_templates(cntlr, options)
+
+    if options.ferc_render_list:
+        list_templates(cntlr, options)        
 
 def compile_templates(cntlr, options):
 
@@ -1499,6 +1510,18 @@ def process_single_template(cntlr, options, template_catalog, template_set_file,
 
     return css_file_names
 
+def list_templates(cntlr, options):
+    with zipfile.ZipFile(options.ferc_render_template_set, 'r') as ts_file:
+        try:
+            catalog_file_info = ts_file.getinfo('catalog.json')
+        except KeyError:
+            # This zip file does not contain a catalog so it is not a template set
+            raise FERCRenderException("The file '{}' is not a template set.".format(options.ferc_render_template_set))
+        with ts_file.open(catalog_file_info, 'r') as catalog_file:
+            catalog = json.load(io.TextIOWrapper(catalog_file))
+        for template_info in catalog['templates']:
+            cntlr.addToLog(template_info['name'],'info')
+
 def combine_template_sets(cntlr, options):
     template_sets = get_list_of_template_sets(options.ferc_render_combine)
     new_catalog = {'templates': [], 'css': []}
@@ -1559,7 +1582,7 @@ def get_list_of_template_sets(ts_value):
             file_list.append(file_or_folder)
         elif os.path.isdir(file_or_folder):
             for dirpath, dirnames, filenames in os.walk(file_or_folder):
-                for filename in filenames:
+                for filename in sorted(filenames):
                     file_list.append(os.path.join(dirpath, filename))
     
     return file_list
@@ -1667,10 +1690,10 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
             if div is not schedule_divs[-1]: # If it is not the last span put a separator in
                 main_body.append(etree.fromstring('<hr xmlns="{}"/>'.format(_XHTM_NAMESPACE)))
         
-        if not options.ferc_render_partial:
-            additional_context_ids, additional_unit_ids = add_unused_facts_and_footnotes(main_html, modelXbrl, processed_facts, fact_number)
-            used_context_ids |= additional_context_ids
-            used_unit_ids |= additional_unit_ids
+        #if not options.ferc_render_partial:
+        #    additional_context_ids, additional_unit_ids = add_unused_facts_and_footnotes(main_html, modelXbrl, processed_facts, fact_number)
+        #    used_context_ids |= additional_context_ids
+        #    used_unit_ids |= additional_unit_ids
 
         add_contexts_to_inline(main_html, modelXbrl, used_context_ids)
         add_units_to_inline(main_html, modelXbrl, used_unit_ids)
