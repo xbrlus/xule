@@ -631,7 +631,8 @@ def substituteTemplate(substitutions, line_number_subs, rule_results, template, 
         template_body = template.find('xhtml:body', namespaces=_XULE_NAMESPACE_MAP)
         if template_body is None:
             raise FERCRenderException("Cannot find body of the template")  
-        template_body.append(etree.Element('hr', attrib={"class": "xbrl footnote-separator"}))
+        template_body.append(etree.Element('{{{}}}hr'.format(_XHTM_NAMESPACE), attrib={"class": "xbrl footnote-separator screen-page-separator"}))
+        template_body.append(etree.Element('{{{}}}div'.format(_XHTM_NAMESPACE), attrib={'class': 'print-page-separator footnote-separator'}))
         template_body.append(footnote_page)
 
     # Remove any left over xule:replace nodes
@@ -1692,7 +1693,9 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
         for div in schedule_divs:
             main_body.append(div)
             if div is not schedule_divs[-1]: # If it is not the last span put a separator in
-                main_body.append(etree.fromstring('<hr xmlns="{}"/>'.format(_XHTM_NAMESPACE)))
+                #main_body.append(etree.fromstring('<hr xmlns="{}"/>'.format(_XHTM_NAMESPACE)))
+                main_body.append(etree.Element('{{{}}}hr'.format(_XHTM_NAMESPACE), attrib={'class': 'screen-page-separator schedule-separator'}))
+                main_body.append(etree.Element('{{{}}}div'.format(_XHTM_NAMESPACE), attrib={'class': 'print-page-separator sechedule-separator'}))
         
         #if not options.ferc_render_partial:
         #    additional_context_ids, additional_unit_ids = add_unused_facts_and_footnotes(main_html, modelXbrl, processed_facts, fact_number)
@@ -1704,7 +1707,8 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
         add_footnote_relationships(main_html, processed_footnotes)
         
         # Write generated html
-        main_html.getroottree().write(inline_name, pretty_print=True, method="xml", encoding='utf8', xml_declaration=True)
+        #main_html.getroottree().write(inline_name, pretty_print=True, method="xml", encoding='utf8', xml_declaration=True)
+        main_html.getroottree().write(inline_name, pretty_print=True, method="c14n")
 
         cntlr.addToLog(_("Rendered template '{}' as '{}'".format(options.ferc_render_template, inline_name)), 'info')
 
