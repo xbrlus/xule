@@ -1040,8 +1040,12 @@ def build_footnote_page(template, template_number, footnotes, processed_footnote
             footnote_table.append(footnote_header_row)
             footnote_header_cell = etree.Element('td', attrib={"class":"xbrl footnote-header-cell"})
             footnote_header_row.append(footnote_header_cell)
-            header_text = "({}) Concept: {}".format(footnote_ref_letter, concept_name)
-            footnote_header_cell.text = header_text
+            fact_ref = etree.Element('a', attrib={'class': 'xbrl footnote-to-fact-ref'})
+            fact_ref.text = "({})".format(footnote_ref_letter)
+            fact_ref.set('href', '#fr-{}-{}'.format(template_number, footnote['id']))
+            header_text = " Concept: {}".format(concept_name)
+            footnote_header_cell.append(fact_ref)
+            fact_ref.tail = header_text
             footnote_header_cell.set('id', footnote_letter_id)
             footnote_data_row = etree.Element('tr', attrib={"class": "xbrl footnote-data-row"})
             footnote_table.append(footnote_data_row)
@@ -1708,6 +1712,9 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
         
         # Write generated html
         #main_html.getroottree().write(inline_name, pretty_print=True, method="xml", encoding='utf8', xml_declaration=True)
+        # Using c14n becaue it will force empty elements to have a start and end tag. This is necessary becasue a <div/> element is
+        # interpreted by a browser as not having an end tag. When you have <div/><div>content</div> the browser interprets it as
+        # <div><div>content</div></div>
         main_html.getroottree().write(inline_name, pretty_print=True, method="c14n")
 
         cntlr.addToLog(_("Rendered template '{}' as '{}'".format(options.ferc_render_template, inline_name)), 'info')
