@@ -622,9 +622,12 @@ def substituteTemplate(substitutions, line_number_subs, rule_results, template, 
 
     repeating.sort(key=sort_by_ancestors, reverse=True)
     footnotes = collections.defaultdict(list)
+    has_confidential = False
     for rule_name, sub_info in non_repeating + repeating:
-        substitute_rule(rule_name, sub_info, line_number_subs, rule_results[rule_name], template, modelXbrl, main_html, repeating_nodes, xule_node_locations,
-                        context_ids, unit_ids, footnotes, template_number, fact_number, processed_facts)
+        rule_has_confidential = substitute_rule(rule_name, sub_info, line_number_subs, rule_results[rule_name], template, 
+                                                modelXbrl, main_html, repeating_nodes, xule_node_locations,
+                                                context_ids, unit_ids, footnotes, template_number, fact_number, processed_facts)
+        if rule_has_confidential: has_confidential = True
 
     footnote_page = build_footnote_page(template, template_number, footnotes, processed_footnotes)
     if footnote_page is not None:
@@ -653,7 +656,7 @@ def substituteTemplate(substitutions, line_number_subs, rule_results, template, 
             if att_name.startswith('{{{}}}'.format(_XULE_NAMESPACE_MAP['xule'])):
                 del xule_node.attrib[att_name]
 
-    return template, context_ids, unit_ids
+    return template, context_ids, unit_ids, has_confidential
 
 def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, template,
                     modelXbrl, main_html, repeating_nodes, xule_node_locations, context_ids, unit_ids, 
@@ -661,6 +664,8 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                     all_result_part=None, refs=None, template_nsmap=None):
     # Determine if this is a repeating rule.
     new_nodes = []
+
+    has_confidential = False
 
     if template_nsmap is None:
         template_nsmap = template.getroot().nsmap
@@ -757,6 +762,8 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                     # Check if the result is a fact
                     content = None
                     current_footnote_ids = []
+                    is_redacted = False
+                    is_confidential = False
                     if json_result['type'] == 'f':
                         rule_focus_index = get_rule_focus_index(all_result_part or json_rule_result, json_result)
                         if rule_focus_index is not None:
@@ -772,6 +779,10 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                                 unit_ids.add(model_fact.unitID)
                             # Check if there are footnotes
                             current_footnote_ids = get_footnotes(footnotes, model_fact, sub, new_fact_id)
+                            # Check if the fact is redacted
+                            is_redacted = fact_is_marked(model_fact, 'http://www.ferc.gov/arcrole/Redacted')
+                            # Check if the fact is confidential
+                            is_confidential = fact_is_marked(model_fact, 'http://www.ferc.gov/arcrole/Confidential')
                     elif json_result['type'] == 's': # result is a string
                         if sub.get('html', False):
                             content = etree.fromstring('<div class="sub-html">{}</div>'.format(json_result['value']))
@@ -782,7 +793,12 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                         span_classes += ['sub-value', 'sub-no-replacement']
                     else:
                         span_classes += ['sub-value', 'sub-replacement']
-                        
+                    
+                    if is_redacted: span_classes.append('redacted')
+                    if is_confidential: 
+                        has_confidential = True
+                        span_classes.append('confidential')
+
                     span = etree.Element('div', nsmap=_XULE_NAMESPACE_MAP)
                     span.set('class', ' '.join(span_classes))
                     for footnote_id in current_footnote_ids:
@@ -817,6 +833,7 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
         model_parent = repeating_model_node.getparent()
         model_parent.remove(repeating_model_node)
 
+    return has_confidential
 
 # def adjust_result_focus_index(json_results, part):
 #     '''Adjust the index for the rule focus fact
@@ -1020,6 +1037,15 @@ def count_footnotes(footnotes):
     for k, v in footnotes.items():
         i += len(v)
     return i
+
+def fact_is_marked(model_fact, arcrole):
+    '''Check if the fact is marked as redacted or confdential based on the special footnote relationships'''
+    network = get_relationshipset(model_fact.modelXbrl, arcrole)
+    rels = network.fromModelObject(model_fact)
+    if len(rels) > 0:
+        return True
+    else:
+        return False
 
 def get_relationshipset(model_xbrl, arcrole, linkrole=None, linkqname=None, arcqname=None, includeProhibits=False):
     # This checks if the relationship set is already built. If not it will build it. The ModelRelationshipSet class
@@ -1637,6 +1663,9 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
 
         # Footnotes were originally only outputted once as an ix
         processed_footnotes = collections.defaultdict(lambda: {'footnote_id': None, 'fact_ids': list(), 'refs': list()}) # track when a footnote is outputted.
+
+        has_confidential = False
+
         main_html = setup_inline_html(modelXbrl)
 
         schedule_divs = []
@@ -1707,12 +1736,13 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
                 
                 # Substitute template
                 template_number += 1
-                rendered_template, template_context_ids, template_unit_ids = \
+                rendered_template, template_context_ids, template_unit_ids, template_has_confidential = \
                     substituteTemplate(substitutions, line_number_subs, 
                                        log_capture_handler.captured, template, modelXbrl, main_html,
                                        template_number, fact_number, processed_facts, processed_footnotes)
                 used_context_ids |= template_context_ids
                 used_unit_ids |= template_unit_ids
+                if template_has_confidential: has_confidential = True
                 # Save the body as a div
                 body = rendered_template.find('xhtml:body', namespaces=_XULE_NAMESPACE_MAP)
                 if body is None:
@@ -1721,6 +1751,16 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
                 schedule_divs.append(body)
 
         main_body = main_html.find('xhtml:body', namespaces=_XULE_NAMESPACE_MAP)
+
+        # Add donfidential indicator
+        if has_confidential: 
+            watermark_div = etree.Element('{{{}}}div'.format(_XHTM_NAMESPACE))
+            watermark_div.set('id', 'watermark')
+            watermark_p = etree.Element('{{{}}}p'.format(_XHTM_NAMESPACE))
+            watermark_p.set('id', 'watermark')
+            watermark_p.text = "Contains confidention information"
+            watermark_div.append(watermark_p)
+            main_body.append(watermark_div)
         for div in schedule_divs:
             main_body.append(div)
             if div is not schedule_divs[-1]: # If it is not the last span put a separator in
@@ -1744,7 +1784,7 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
         # <div><div>content</div></div>
         main_html.getroottree().write(inline_name, pretty_print=True, method="c14n")
 
-        cntlr.addToLog(_("Rendered template '{}' as '{}'".format(options.ferc_render_template, inline_name)), 'info')
+        cntlr.addToLog(_("Rendered template as '{}'".format(inline_name)), 'info')
 
         if options.ferc_render_debug:
             end_time = datetime.datetime.now()
