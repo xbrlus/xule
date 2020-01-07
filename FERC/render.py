@@ -777,12 +777,13 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                             context_ids.add(model_fact.contextID)
                             if model_fact.unitID is not None:
                                 unit_ids.add(model_fact.unitID)
-                            # Check if there are footnotes
-                            current_footnote_ids = get_footnotes(footnotes, model_fact, sub, new_fact_id)
                             # Check if the fact is redacted
                             is_redacted = fact_is_marked(model_fact, 'http://www.ferc.gov/arcrole/Redacted')
                             # Check if the fact is confidential
-                            is_confidential = fact_is_marked(model_fact, 'http://www.ferc.gov/arcrole/Confidential')
+                            is_confidential = fact_is_marked(model_fact, 'http://www.ferc.gov/arcrole/Confidential')                                
+                            # Check if there are footnotes
+                            current_footnote_ids = get_footnotes(footnotes, model_fact, sub, new_fact_id, is_confidential, is_redacted)
+
                     elif json_result['type'] == 's': # result is a string
                         if sub.get('html', False):
                             content = etree.fromstring('<div class="sub-html">{}</div>'.format(json_result['value']))
@@ -1010,7 +1011,7 @@ def get_classes(json_result):
 
     #return [' '.join(x.split()) for x in json_result.get('classes', tuple())]
 
-def get_footnotes(footnotes, model_fact, sub, fact_id):
+def get_footnotes(footnotes, model_fact, sub, fact_id, is_confidential, is_redacted):
     ''' Find if there is a footnote for this fact
 
     This will find the the footnote and if there is one will add it to the footnotes dictionary.
@@ -1026,7 +1027,9 @@ def get_footnotes(footnotes, model_fact, sub, fact_id):
             footnote_info = {'node': rel.toModelObject,
                             'model_fact': rel.fromModelObject,
                             'id': current_count,
-                            'fact_id': fact_id}                        
+                            'fact_id': fact_id,
+                            'is_confidential': is_confidential,
+                            'is_redacted': is_redacted}                        
             footnotes[sub['node-pos']].append(footnote_info)
             current_footnotes.append(current_count)
     
@@ -1098,7 +1101,13 @@ def build_footnote_page(template, template_number, footnotes, processed_footnote
             #     processed_footnotes[footnote['node']]['footnote_id'] = footnote['node'].id
             #     processed_footnotes[footnote['node']]['fact_ids'].append(footnote['model_fact'].id)
 
-            footnote_data_cell = etree.Element('td', attrib={"class": "xbrl footnote-data-cell"})
+            footnote_data_cell = etree.Element('td')
+            footnote_data_cell_classes = ['xbr', 'footnote-data-cell']
+            if footnote.get('is_confidential', False): 
+                footnote_data_cell_classes.append('confidential')
+            if footnote.get('is_redacted', False):
+                footnote_data_cell_classes.append('redacted')
+            footnote_data_cell.set('class', ' '.join(footnote_data_cell_classes))
             inline_footnote = create_inline_footnote_node(footnote['node'])
             inline_footnote.set('id', footnote_id)
             footnote_data_cell.append(inline_footnote)
