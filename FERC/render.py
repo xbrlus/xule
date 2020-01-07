@@ -771,7 +771,7 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                             if model_fact.unitID is not None:
                                 unit_ids.add(model_fact.unitID)
                             # Check if there are footnotes
-                            current_footnote_ids = get_footnotes(footnotes, model_fact, sub)
+                            current_footnote_ids = get_footnotes(footnotes, model_fact, sub, new_fact_id)
                     elif json_result['type'] == 's': # result is a string
                         if sub.get('html', False):
                             content = etree.fromstring('<div class="sub-html">{}</div>'.format(json_result['value']))
@@ -993,7 +993,7 @@ def get_classes(json_result):
 
     #return [' '.join(x.split()) for x in json_result.get('classes', tuple())]
 
-def get_footnotes(footnotes, model_fact, sub):
+def get_footnotes(footnotes, model_fact, sub, fact_id):
     ''' Find if there is a footnote for this fact
 
     This will find the the footnote and if there is one will add it to the footnotes dictionary.
@@ -1008,7 +1008,8 @@ def get_footnotes(footnotes, model_fact, sub):
             current_count += 1
             footnote_info = {'node': rel.toModelObject,
                             'model_fact': rel.fromModelObject,
-                            'id': current_count}                        
+                            'id': current_count,
+                            'fact_id': fact_id}                        
             footnotes[sub['node-pos']].append(footnote_info)
             current_footnotes.append(current_count)
     
@@ -1033,8 +1034,12 @@ def build_footnote_page(template, template_number, footnotes, processed_footnote
     footnote_table = etree.Element('table', attrib={"class": "xbrl footnote-table"})
     for footnote_key in sorted(footnotes):
         for footnote in footnotes[footnote_key]:
+            footnote_reference_id = 'fr-{}-{}'.format(template_number, footnote['id']) # This is the <a> around the footnote letter before the fact value
+            #footnote_id = 'fn-{}-{}'.format(template_number, footnote['id'])
+            footnote_id = 'fn-{}'.format(footnote['fact_id'])
             footnote_ref_letter = convert_number_to_letter(footnote_counter)
-            footnote_letter_id = 'fn-{}'.format(uuid.uuid4().hex)
+            footnote_header_id = 'fh-{}-{}'.format(template_number, footnote['id'])
+            #footnote_header_id = 'fn-{}'.format(uuid.uuid4().hex)
             concept_name = footnote['model_fact'].concept.qname.localName
             footnote_header_row = etree.Element('tr', attrib={"class":"xbrl footnote-header-row"})
             footnote_table.append(footnote_header_row)
@@ -1042,34 +1047,45 @@ def build_footnote_page(template, template_number, footnotes, processed_footnote
             footnote_header_row.append(footnote_header_cell)
             fact_ref = etree.Element('a', attrib={'class': 'xbrl footnote-to-fact-ref'})
             fact_ref.text = "({})".format(footnote_ref_letter)
-            fact_ref.set('href', '#fr-{}-{}'.format(template_number, footnote['id']))
+            fact_ref.set('href', '#{}'.format(footnote_reference_id))
             header_text = " Concept: {}".format(concept_name)
             footnote_header_cell.append(fact_ref)
             fact_ref.tail = header_text
-            footnote_header_cell.set('id', footnote_letter_id)
+            footnote_header_cell.set('id', footnote_header_id)
             footnote_data_row = etree.Element('tr', attrib={"class": "xbrl footnote-data-row"})
             footnote_table.append(footnote_data_row)
             
-            if footnote['node'] in processed_footnotes:
-                # The footnote is expressed as an ix:footnote already, so just output the footnote text in the data cell
-                if is_valid_xml(footnote['node'].xValue):
-                    footnote_data_cell = etree.fromstring('<td class="xbrl footnote-data-cell">{}</td>'.format(footnote['node'].xValue))
-                else:
-                    footnote_data_cell = etree.Element('td', attrib={"class": "xbrl footnote-data-cell"})
-                    footnote_data_cell.text = footnote['node'].xValue     
-            else: # First time footnote - need to create the ix:footnote tag in the td
-                footnote_data_cell = etree.Element('td', attrib={"class": "xbrl footnote-data-cell"})
-                inline_footnote = create_inline_footnote_node(footnote['node'])
-                footnote_data_cell.append(inline_footnote)
-                processed_footnotes[footnote['node']]['footnote_id'] = footnote['node'].id
-                processed_footnotes[footnote['node']]['fact_ids'].append(footnote['model_fact'].id)
+            # # This section would only produce a single ix:footnote note no matter howmany times the footnote is outputted in the 
+            # # rendering. This would prvent duplicate footnote nodes in the inline document. Change to create an ix:footnote
+            # # node each time the footnote is outputted. Preserving this code incase it is decided to change back.
+            # if footnote['node'] in processed_footnotes:
+            #     # The footnote is expressed as an ix:footnote already, so just output the footnote text in the data cell
+            #     if is_valid_xml(footnote['node'].xValue):
+            #         footnote_data_cell = etree.fromstring('<td class="xbrl footnote-data-cell">{}</td>'.format(footnote['node'].xValue))
+            #     else:
+            #         footnote_data_cell = etree.Element('td', attrib={"class": "xbrl footnote-data-cell"})
+            #         footnote_data_cell.text = footnote['node'].xValue     
+            # else: # First time footnote - need to create the ix:footnote tag in the td
+            #     footnote_data_cell = etree.Element('td', attrib={"class": "xbrl footnote-data-cell"})
+            #     inline_footnote = create_inline_footnote_node(footnote['node'])
+            #     footnote_data_cell.append(inline_footnote)
+            #     processed_footnotes[footnote['node']]['footnote_id'] = footnote['node'].id
+            #     processed_footnotes[footnote['node']]['fact_ids'].append(footnote['model_fact'].id)
+
+            footnote_data_cell = etree.Element('td', attrib={"class": "xbrl footnote-data-cell"})
+            inline_footnote = create_inline_footnote_node(footnote['node'])
+            inline_footnote.set('id', footnote_id)
+            footnote_data_cell.append(inline_footnote)
+            processed_footnotes[footnote['node']]['refs'].append((footnote['fact_id'], footnote_id))
+
+
             footnote_data_row.append(footnote_data_cell)
             
             # Update the footnote reference in the template
-            footnote_ref_node = template.find("//*[@id='fr-{}-{}']".format(template_number, footnote['id']))
+            footnote_ref_node = template.find("//*[@id='{}']".format(footnote_reference_id))
             if footnote_ref_node is not None:
                 footnote_ref_node.text = '({})'.format(footnote_ref_letter)
-                footnote_ref_node.set('href', '#{}'.format(footnote_letter_id))
+                footnote_ref_node.set('href', '#{}'.format(footnote_header_id))
 
             footnote_counter += 1
     if len(footnote_table) == 0:
@@ -1300,12 +1316,21 @@ def add_footnote_relationships(main_html, processed_footnotes):
 
     resources = main_html.find('.//ix:resources', namespaces=_XULE_NAMESPACE_MAP)
     for footnote_info in processed_footnotes.values():
-        rel = etree.Element('{{{}}}relationship'.format(_XULE_NAMESPACE_MAP['ix']))
-        rel.set('arcrole', 'http://www.xbrl.org/2003/arcrole/fact-footnote')
-        rel.set('linkRole', 'http://www.xbrl.org/2003/role/link')
-        rel.set('fromRefs', ' '.join(footnote_info['fact_ids']))
-        rel.set('toRefs', footnote_info['footnote_id'])
-        resources.append(rel)
+        # # This code was used when the footnote was only created once in the inline document
+        #rel = etree.Element('{{{}}}relationship'.format(_XULE_NAMESPACE_MAP['ix']))
+        #rel.set('arcrole', 'http://www.xbrl.org/2003/arcrole/fact-footnote')
+        #rel.set('linkRole', 'http://www.xbrl.org/2003/role/link')        
+        #rel.set('fromRefs', ' '.join(footnote_info['fact_ids']))
+        #rel.set('toRefs', footnote_info['footnote_id'])
+
+        for fact_id, footnote_id in footnote_info['refs']:
+            rel = etree.Element('{{{}}}relationship'.format(_XULE_NAMESPACE_MAP['ix']))
+            rel.set('arcrole', 'http://www.xbrl.org/2003/arcrole/fact-footnote')
+            rel.set('linkRole', 'http://www.xbrl.org/2003/role/link')        
+            rel.set('fromRefs', fact_id)
+            rel.set('toRefs', footnote_id)
+
+            resources.append(rel)
     
 
 # def fercMenuTools(cntlr, menu):
@@ -1609,7 +1634,9 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
         template_number = 0
         fact_number = collections.defaultdict(int)
         processed_facts = set() # track which facts have been outputed
-        processed_footnotes = collections.defaultdict(lambda: {'footnote_id': None, 'fact_ids': list()}) # track when a footnote is outputted.
+
+        # Footnotes were originally only outputted once as an ix
+        processed_footnotes = collections.defaultdict(lambda: {'footnote_id': None, 'fact_ids': list(), 'refs': list()}) # track when a footnote is outputted.
         main_html = setup_inline_html(modelXbrl)
 
         schedule_divs = []
