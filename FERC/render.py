@@ -1152,7 +1152,9 @@ def is_valid_xml(potential_text):
         return False
 
 def create_inline_footnote_node(footnote_node):
-    if is_valid_xml(footnote_node.xValue):
+    if footnote_node.xValue is None:
+        inline_footnote = etree.Element('{{{}}}footnote'.format(_XULE_NAMESPACE_MAP['ix']))
+    elif is_valid_xml(footnote_node.xValue):
         inline_footnote = etree.fromstring('<ix:footnote xmlns:ix="{}">{}</ix:footnote>'.format(_XULE_NAMESPACE_MAP['ix'], footnote_node.xValue))
     else:
         inline_footnote = etree.Element('{{{}}}footnote'.format(_XULE_NAMESPACE_MAP['ix']))
