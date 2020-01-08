@@ -1169,7 +1169,7 @@ def create_inline_footnote_node(footnote_node):
         inline_footnote = etree.Element('{{{}}}footnote'.format(_XULE_NAMESPACE_MAP['ix']))
         inline_footnote.text = footnote_node.xValue
 
-    inline_footnote.set('id', footnote_node.id)
+    #inline_footnote.set('id', footnote_node.id)
     return inline_footnote
 
 def convert_number_to_letter(num):
