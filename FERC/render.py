@@ -1815,94 +1815,103 @@ class _logCaptureHandler(logging.Handler):
 
 def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_result, nsmap, fact_number):
     '''Format the fact to a string value'''
-
     preamble = None
     new_fact_id = None
-    if xule_expression_node is None:
-        format = None
-    else:
-        # Try getting the format from the xule:format expression first, if not see if there is a format attribute
-        format = json_result.get('format', xule_expression_node.get('format'))
-    
-    if model_fact.xValue is None:
-        display_value = ''
-    elif format is None:
-        display_value = str(model_fact.xValue)
-    else:
-        # convert format to clark notation 
-        if ':' in format:
-            prefix, local_name = format.split(':', 1)
+    try:
+        if xule_expression_node is None:
+            format = None
         else:
-            prefix = ''
-            local_name = format
-        format_ns = nsmap.get(prefix)
-        if format_ns is None:
-            raise FERCRenderException('Format {} is not a valid format'.format(format))
+            # Try getting the format from the xule:format expression first, if not see if there is a format attribute
+            format = json_result.get('format', xule_expression_node.get('format'))
 
-        format_clark = '{{{}}}{}'.format(format_ns, local_name)
-        format_function = _formats.get(format_clark)
-        if format_function is None:
-            raise FERCRenderException('Format {} is not a valid format'.format(format))
-
-        sign = json_result.get('sign', xule_expression_node.get('sign'))
-        scale = json_result.get('scale', xule_expression_node.get('scale'))
-
-        display_value,  *preamble = format_function(model_fact, 
-                                        sign,
-                                        scale)
-
-    if model_fact.isNumeric:
-        ix_node =  etree.Element('{{{}}}nonFraction'.format(_XULE_NAMESPACE_MAP['ix']), nsmap=_XULE_NAMESPACE_MAP)
-        ix_node.set('unitRef', model_fact.unitID)
-        ix_node.set('decimals', xule_expression_node.get('decimals', model_fact.decimals) if xule_expression_node is not None else model_fact.decimals)
-    else:
-        ix_node = etree.Element('{{{}}}nonNumeric'.format(_XULE_NAMESPACE_MAP['ix']), nsmap=_XULE_NAMESPACE_MAP)
-
-    ix_node.set('contextRef', model_fact.contextID)
-    ix_node.set('name', str(model_fact.qname))
-    if model_fact.id is not None:
-        if model_fact.id in fact_number:
-            new_fact_id =  "{}-dup-{}".format(model_fact.id, fact_number[model_fact.id])
+        if model_fact.isNumeric:
+            ix_node =  etree.Element('{{{}}}nonFraction'.format(_XULE_NAMESPACE_MAP['ix']), nsmap=_XULE_NAMESPACE_MAP)
+            ix_node.set('unitRef', model_fact.unitID)
+            ix_node.set('decimals', xule_expression_node.get('decimals', model_fact.decimals) if xule_expression_node is not None else model_fact.decimals)
         else:
-            new_fact_id = "{}".format(model_fact.id)
-        ix_node.set('id', new_fact_id)
-        fact_number[model_fact.id] += 1
+            ix_node = etree.Element('{{{}}}nonNumeric'.format(_XULE_NAMESPACE_MAP['ix']), nsmap=_XULE_NAMESPACE_MAP)
 
-    if format is not None and model_fact.xValue is not None:
-        rev_nsmap = {v: k for k, v in inline_html.nsmap.items()}
+        ix_node.set('contextRef', model_fact.contextID)
+        ix_node.set('name', str(model_fact.qname))
+        if model_fact.id is not None:
+            if model_fact.id in fact_number:
+                new_fact_id =  "{}-dup-{}".format(model_fact.id, fact_number[model_fact.id])
+            else:
+                new_fact_id = "{}".format(model_fact.id)
+            ix_node.set('id', new_fact_id)
+            fact_number[model_fact.id] += 1
 
-        if format_ns in rev_nsmap:
-            format_prefix_inline = rev_nsmap.get(format_ns)
+        if model_fact.xValue is None:
+            display_value = ''
+        elif format is None:
+            display_value = str(model_fact.xValue)
         else:
-            raise FERCRenderException("Do not have the namespace in the generated inline document for namespace '{}'".format(format_ns))
+            # convert format to clark notation 
+            if ':' in format:
+                prefix, local_name = format.split(':', 1)
+            else:
+                prefix = ''
+                local_name = format
+            format_ns = nsmap.get(prefix)
+            if format_ns is None:
+                raise FERCRenderException('Format {} is not a valid format'.format(format))
+
+            format_clark = '{{{}}}{}'.format(format_ns, local_name)
+            format_function = _formats.get(format_clark)
+            if format_function is None:
+                raise FERCRenderException('Format {} is not a valid format'.format(format))
+
+            sign = json_result.get('sign', xule_expression_node.get('sign'))
+            scale = json_result.get('scale', xule_expression_node.get('scale'))
+
+            display_value,  *preamble = format_function(model_fact, 
+                                            sign,
+                                            scale)
+
+        if format is not None and model_fact.xValue is not None:
+            rev_nsmap = {v: k for k, v in inline_html.nsmap.items()}
+
+            if format_ns in rev_nsmap:
+                format_prefix_inline = rev_nsmap.get(format_ns)
+            else:
+                raise FERCRenderException("Do not have the namespace in the generated inline document for namespace '{}'".format(format_ns))
+            
+            if format_prefix_inline is None:
+                format_inline = local_name
+            else:
+                format_inline = '{}:{}'.format(format_prefix_inline, local_name)
         
-        if format_prefix_inline is None:
-            format_inline = local_name
+            ix_node.set('format', format_inline)
+        
+        if xule_expression_node is not None and xule_expression_node.get('sign', '') == '-':
+            ix_node.set('sign', '-')
+        if xule_expression_node is not None and xule_expression_node.get('scale') is not None:
+            ix_node.set('scale', xule_expression_node.get('scale'))
+
+        if is_html:
+            content_node = etree.fromstring('<div class="sub-html">{}</div>'.format(display_value))
+            ix_node.append(content_node)
         else:
-            format_inline = '{}:{}'.format(format_prefix_inline, local_name)
-    
-        ix_node.set('format', format_inline)
-    
-    if xule_expression_node is not None and xule_expression_node.get('sign', '') == '-':
-        ix_node.set('sign', '-')
-    if xule_expression_node is not None and xule_expression_node.get('scale') is not None:
-        ix_node.set('scale', xule_expression_node.get('scale'))
+            ix_node.text = display_value
 
-    if is_html:
-        content_node = etree.fromstring('<div class="sub-html">{}</div>'.format(display_value))
-        ix_node.append(content_node)
-    else:
-        ix_node.text = display_value
+        # check the preamble. If there is one, this will go before the ix_node
+        if preamble is not None and len(preamble) > 0 and preamble[0] is not None and len(preamble[0]) > 0:
+            div_node = etree.Element('div', nsmap=_XULE_NAMESPACE_MAP)
+            div_node.set('class', 'sub-preamble')
+            div_node.text = preamble[0]
+            div_node.append(ix_node)
+            return div_node, new_fact_id
+        else:
+            return ix_node, new_fact_id
 
-    # check the preamble. If there is one, this will go before the ix_node
-    if preamble is not None and len(preamble) > 0 and preamble[0] is not None and len(preamble[0]) > 0:
+    except FERCRenderException as e:
+        model_fact.modelXbrl.error('RenderFormattingError', '{} - {}'.format(' - '.join(e.args), str(model_fact)))
         div_node = etree.Element('div', nsmap=_XULE_NAMESPACE_MAP)
-        div_node.set('class', 'sub-preamble')
-        div_node.text = preamble[0]
-        div_node.append(ix_node)
+        div_node.set('class', 'format-error')
+        div_node.text = str(model_fact.xValue)
         return div_node, new_fact_id
-    else:
-        return ix_node, new_fact_id
+        
+
 
 def format_numcommadot(model_fact, sign, scale, *args, **kwargs):
     if not model_fact.isNumeric:
