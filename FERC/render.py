@@ -1793,7 +1793,16 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
         # Using c14n becaue it will force empty elements to have a start and end tag. This is necessary becasue a <div/> element is
         # interpreted by a browser as not having an end tag. When you have <div/><div>content</div> the browser interprets it as
         # <div><div>content</div></div>
-        main_html.getroottree().write(inline_name, pretty_print=True, method="c14n")
+        
+        #main_html.getroottree().write(inline_name, pretty_print=True, method="c14n")
+        output_string = etree.tostring(main_html.getroottree(), pretty_print=True, method="c14n")
+        # Fix the <br></br> tags. When using the c14n method all empty elements will be written out with start and end tags. 
+        # This causes issues with browsers that will interpret <br></br> as 2 <br> tags.
+        output_string = output_string.decode().replace('<br></br>', '<br/>')
+
+        # Write the file
+        with open(inline_name, 'w') as output_file:
+            output_file.write(output_string)
 
         cntlr.addToLog(_("Rendered template as '{}'".format(inline_name)), 'info')
 
