@@ -12,8 +12,8 @@ import socket
 import string
 import random
 
-TRACESQLFILE = None
-#TRACESQLFILE = r"sql.log"
+#TRACESQLFILE = None
+TRACESQLFILE = r"sql.log"
 #TRACESQLFILE = r"z:\temp\sqltraceWin.log"  # uncomment to trace SQL on connection (very big file!!!)
 #TRACESQLFILE = "/Users/hermf/temp/sqltraceUnx.log"  # uncomment to trace SQL on connection (very big file!!!)
 
@@ -139,7 +139,7 @@ def isSqlConnection(host, port, timeout=10, product=None):
             t = t + 2  # relax - try again with longer timeout
     return False
     
-class XPDBException(Exception):
+class XDBException(Exception):
     def __init__(self, code, message, **kwargs ):
         self.code = code
         self.message = message
@@ -154,16 +154,17 @@ class SqlDbConnection():
         #self.disclosureSystem = modelXbrl.modelManager.disclosureSystem
         if product == "postgres":
             if not hasPostgres:
-                raise XPDBException("xpgDB:MissingPostgresInterface",
+                raise XDBException("xpgDB:MissingPostgresInterface",
                                     _("Postgres interface is not installed")) 
             self.conn = pgConnect(user=user, password=password, host=host, 
                                   port=int(port or 5432), 
                                   database=database, 
                                   timeout=timeout)
             self.product = product
+            self.conn.cursor().execute("SET application_name TO 'xbrlusDB loader';", fetch=False)
         elif product == "mysql":
             if not hasMySql:
-                raise XPDBException("xpgDB:MissingMySQLInterface",
+                raise XDBException("xpgDB:MissingMySQLInterface",
                                     _("MySQL interface is not installed")) 
             self.conn = mysqlConnect(user=user, passwd=password, host=host, 
                                      port=int(port or 5432), 
@@ -173,7 +174,7 @@ class SqlDbConnection():
             self.product = product
         elif product == "orcl":
             if not hasOracle:
-                raise XPDBException("xpgDB:MissingOracleInterface",
+                raise XDBException("xpgDB:MissingOracleInterface",
                                     _("Oracle interface is not installed")) 
             self.conn = oracleConnect('{}/{}@{}{}'
                                             .format(user, password, host, 
@@ -182,9 +183,9 @@ class SqlDbConnection():
             self.product = product
         elif product == "mssql":
             if not hasMSSql:
-                raise XPDBException("xpgDB:MissingMSSQLInterface",
+                raise XDBException("xpgDB:MissingMSSQLInterface",
                                     _("MSSQL server interface is not installed")) 
-            self.conn = mssqlConnect('DRIVER={{SQL Server Native Client 11.0}};SERVER={2};DATABASE={3};UID={0};PWD={1};CHARSET=UTF8'
+            self.conn = mssqlConnect('DRIVER={{SQL Server}};SERVER={2};DATABASE={3};UID={0};PWD={1};CHARSET=UTF8;app=XBRL US DB Loader;'
                                       .format(user,
                                               password, 
                                               host, # e.g., localhost\\SQLEXPRESS
@@ -192,7 +193,7 @@ class SqlDbConnection():
             self.product = product
         elif product == "sqlite":
             if not hasSQLite:
-                raise XPDBException("xpgDB:MissingSQLiteInterface",
+                raise XDBException("xpgDB:MissingSQLiteInterface",
                                     _("SQLite interface is not installed")) 
             self.conn = sqliteConnect(database, (timeout or 60), detect_types=sqliteParseDecltypes)
             self.product = product
@@ -251,7 +252,7 @@ class SqlDbConnection():
             while dollarString in cleanString:
                 i += 1
                 if i > 100:
-                    raise XPDBException("xpgDB:StringHandlingError",
+                    raise XDBException("xpgDB:StringHandlingError",
                                 _("Trying to generate random dollar quoted string tag, but cannot find one that is not in the string. Tried 100 times."),
                                 table=table) 
                 dollarString = '$' + ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(8)) + '$'
@@ -510,7 +511,7 @@ class SqlDbConnection():
                 colTypes = []
                 for name, fulltype, characterMaxLength in colTypesResult:
                     name = name.lower()
-                    if fulltype in ("char", "varchar", "nvarchar"):
+                    if fulltype in ("char", "varchar", "nvarchar", "varbinary"):
                         if characterMaxLength == -1: 
                             characterMaxLength = "max"
                         colDecl = "{}({})".format(fulltype, characterMaxLength)
@@ -585,7 +586,7 @@ class SqlDbConnection():
             if returnExistenceStatus:
                 colTypeFunction.append(self.pyBoolFromDbBool) # existence is a boolean
         except KeyError as err:
-            raise XPDBException("xpgDB:MissingColumnDefinition",
+            raise XDBException("xpgDB:MissingColumnDefinition",
                                 _("Table %(table)s column definition missing: %(missingColumnName)s"),
                                 table=table, missingColumnName=str(err)) 
         rowValues = []
@@ -641,6 +642,8 @@ class SqlDbConnection():
 
                     colValues.append(r"E'\\x" + "".join(hexvals) + "'")
                     #colValues.append(r"E'\\x" + col.decode() + "'" )
+                elif isinstance(col, bytes) and isMSSql:
+                    colValues.append('0x{}'.format(col.hex()))
                 else:
                     colValues.append(self.dbStr(col))
             if not rowValues and isPostgres:  # first row
@@ -938,7 +941,7 @@ WITH row_values (%(newCols)s) AS (
         try:
             colTypeCast = tuple(colTypeFunctions[colName][0] for colName in cols)
         except KeyError as err:
-            raise XPDBException("xpgDB:MissingColumnDefinition",
+            raise XDBException("xpgDB:MissingColumnDefinition",
                                 _("Table %(table)s column definition missing: %(missingColumnName)s"),
                                 table=table, missingColumnName=str(err)) 
         rowValues = []

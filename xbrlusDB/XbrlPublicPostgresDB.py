@@ -50,7 +50,7 @@ from arelle.ModelValue import qname
 from arelle.ValidateXbrlCalcs import roundValue
 from arelle.XmlUtil import elementFragmentIdentifier
 from arelle import XbrlConst, FileSource
-from .SqlDb import XPDBException, isSqlConnection, SqlDbConnection
+from .SqlDb import XDBException, isSqlConnection, SqlDbConnection
 from contextlib import contextmanager
 import re
 import hashlib
@@ -70,8 +70,7 @@ def insertIntoDB(cntlr, modelXbrl,
     xpgdb = None
 
     try:
-        xpgdb = XbrlPostgresDatabaseConnection(cntlr, modelXbrl, user, password, host, port, database, timeout, 'postgres', options)
-        xpgdb.execute("SET application_name TO 'xbrlusDB loader';", fetch=False)
+        xpgdb = DBConnection(cntlr, modelXbrl, user, password, host, port, database, timeout, options)
         xpgdb.verifyTables()
         xpgdb.insertXbrl(supportFiles=getattr(options,"xbrlusDBFile",tuple()), documentCacheLocation=getattr(options,"xbrlusDBDocumentCache",None))
         xpgdb.close()
@@ -111,12 +110,12 @@ XBRLDBTABLES = {
                 "enumeration_element_balance",
                 "enumeration_element_period_type",
                 "enumeration_unit_measure_location",
-                "industry", "industry_level", "industry_structure",
-                "sic_code", 
+                #"industry", "industry_level", "industry_structure",
+                #"sic_code", 
                 }
 
 
-class XbrlPostgresDatabaseConnection(SqlDbConnection):
+class DBConnection(SqlDbConnection):
     
     class _QNameException(Exception):
         pass
@@ -124,7 +123,10 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
     class _SourceFunctionError(Exception):
         pass
     
-    def __init__(self, cntlr, modelXbrl, user, password, host, port, database, timeout, db_type, options):
+    def __init__(self, cntlr, modelXbrl, user, password, host, port, database, timeout, options):
+        
+        db_type = getattr(options, 'xbrlusDBType')
+
         super().__init__(modelXbrl, user, password, host, port, database, timeout, db_type)
         self.options = options
         self.cntlr = cntlr
@@ -144,7 +146,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         
         if sourceName is None:
             #This should not happen
-            raise XPDBException("xpgDB:NoSourceSpedified",
+            raise XDBException("xDB:NoSourceSpedified",
                                 _("A source must be specified using --xbrlusDB-source. If the defaults are desired explicitly state this with '--xbrlusDBSource default'"))
         elif sourceName != 'default':
             self.cntlr.addToLog(_("{} - Using source {}".format(str(datetime.datetime.today()), sourceName)), "info")
@@ -160,7 +162,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                 spec.loader.exec_module(self.sourceMod)
                 #self.sourceMod = importlib.import_module('arelle.plugin.' + currentPackageName + '.source.' + sourceName)
             except ImportError:
-                raise XPDBException("xpgDB:InvalidSource",
+                raise XDBException("xDB:InvalidSource",
                                 _("Source '%s' cannot be found" % sourceName))            
         self.sourceName = sourceName.strip()
 
@@ -168,7 +170,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         missingTables = XBRLDBTABLES - self.tablesInDB()
 
         if missingTables:
-            raise XPDBException("xpgDB:MissingTables",
+            raise XDBException("xDB:MissingTables",
                                 _("The following tables are missing, suggest reinitializing database schema: %(missingTableNames)s"),
                                 missingTableNames=', '.join(t for t in sorted(missingTables))) 
             
@@ -185,18 +187,24 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         if self.modelXbrl.modelDocument.type in (Type.INSTANCE, Type.INLINEXBRL, Type.INLINEXBRLDOCUMENTSET):
             self.loadType = 'instance'
             if getattr(self.options, 'xbrlusDBDTSName', None) is not None:
-                raise XPDBException("xpgDB:DTSNameError",
+                raise XDBException("xDB:DTSNameError",
                                     _("Entry file is an instance/inline, '--xbrlusDB-dts-name' should only be used when the entry file is a taxonomy or linkbase."))
         elif self.modelXbrl.modelDocument.type in (Type.SCHEMA, Type.LINKBASE):
             self.loadType = 'dts'
         else:
             print("document type", self.modelXbrl.modelDocument.type)
-            raise XPDBException("xpgDB:unknownEntryType", 
+            raise XDBException("xDB:unknownEntryType", 
                                 _("The entry file does not appear to be an instance, inline, schema or linkbase file.")) 
         
         #lock to prevent another process from updating at the same time.
-        self.execute('''LOCK ONLY config 
-                     IN ACCESS EXCLUSIVE MODE;''', fetch=False)
+        if self.product == 'postgres':
+            self.execute('''LOCK ONLY config 
+                        IN ACCESS EXCLUSIVE MODE;''', fetch=False)
+        elif self.product == 'mssql':
+            self.execute('SELECT COUNT(*) FROM config WITH (TABLOCKX)')     
+        else:
+            raise XDBException("xDB:unknownDatabaseType", 
+                                _("This database load does not support '{}' database".format(self.product)))                    
 
         self.loadSource()
         self.timeCall(self.insertSource)
@@ -462,7 +470,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
             else:
                 taxonomyVersionDocumentId = self.documentIds.get(self.mapDocumentUri(taxonomyVersionDocument))
                 if taxonomyVersionDocumentId is None:
-                    raise XPDBException("xpgDB:taxonomyVersionDcoumentError", 
+                    raise XDBException("xDB:taxonomyVersionDcoumentError", 
                                     _("The taxonomy version identifying document provided is not in the DTS"))
 
             #add the taxonomy_version row
@@ -479,10 +487,10 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                     #check if the the taxonomy version document is the same
                     result = self.execute("SELECT identifier_document_id FROM taxonomy_version WHERE taxonomy_id = {} AND version = '{}';".format(self.taxonomyId, taxonomyVersion))
                     if len(result) != 1:
-                        raise XPDBException("xpgDB:taxonomyVersionDcoumentError", 
+                        raise XDBException("xDB:taxonomyVersionDcoumentError", 
                                     _("Querying taxonomy_version. Only expected one result but got {} for taxonomy id {} and version '{}'.".format(len(result), self.taxonomyId, taxonomyVersion)))
                     if result[0][0] != taxonomyVersionDocumentId:
-                        raise XPDBException("xpgDB:taxonomyVersionDcoumentError", 
+                        raise XDBException("xDB:taxonomyVersionDcoumentError", 
                                     _("A taxonomy version identifying document already exists for the dts but is different."))
                 self.modelXbrl.info("info", _("Taxonomy version %s exists" % taxonomyVersion))
             else:
@@ -526,18 +534,21 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         if self.accessionNumber is None:
             # Check if the source requires a report id
             if self.getSourceSetting('requiresSourceReportIdentifier') == True:
-                raise XPDBException("xpgDB:reportIdentiferRequired",
+                raise XDBException("xDB:reportIdentiferRequired",
                                     _("Loading a report for source {} requires a report identifier. Cannot extract a report identifier from the report or supporting files. "
                                        "A report identifier can be provided by using the option --xbrlusDB-info report-id={{report identifier}}".format(self.sourceName)))
 
-            self.accessionNumber = self.quickHashReport()
-
-#            max_id_query = '''SELECT max(CASE WHEN trim(source_report_identifier) ~ '^[0-9]+$' THEN trim(source_report_identifier)::int ELSE Null END) FROM report'''
-#            result = self.execute(max_id_query)
-#            if len(result) == 0 or result[0][0] is None:
-#                self.accessionNumber = '1'
-#            else:
-#                self.accessionNumber = str(result[0][0] + 1)
+            if self.product == 'postgres':
+                max_id_query = '''SELECT max(CASE WHEN trim(source_report_identifier) ~ '^[0-9]+$' THEN trim(source_report_identifier)::int ELSE Null END) FROM report'''
+            elif self.product == 'mssql':
+                max_id_query = '''SELECT max(try_cast(trim(source_report_identifier) as int)) FROM report'''
+            else:
+                max_id_query ='SELECT NULL'
+            result = self.execute(max_id_query)
+            if len(result) == 0 or result[0][0] is None:
+                self.accessionNumber = '1'
+            else:
+                self.accessionNumber = str(result[0][0] + 1)
             self.modelXbrl.info("Info", _("Report identifier is not provided, assigned value of '{}'.".format(self.accessionNumber)))
 
         #default to the file passed an an argument
@@ -558,7 +569,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                 if getattr(self, "entityScheme", None) is None:
                     self.entityScheme = context.entityIdentifier[0]
             else:
-                raise XPDBException("xpgDB:missingEntityInformation",
+                raise XDBException("xDB:missingEntityInformation",
                                     _("Cannot determine the entity scheme and/or identifier."))
       
         if getattr(self, "acceptanceDate", None) is None:
@@ -857,7 +868,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                               returnExistenceStatus=True)
         
         if len(table) != 1:
-            raise XPDBException("xpgDB:sourceTableError",
+            raise XDBException("xDB:sourceTableError",
                     _("Problem checking or adding source '%s'" % self.sourceName)) 
 
         self.sourceId = table[0][0]
@@ -921,7 +932,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                 self.entryDtsId, instanceDTSExists = self.addDTSRows(instDocuments)
                 #need to create a dts for these base sets. The dts will be based on the instance.
                 if instanceDTSExists:
-                    raise XPDBException("xpgDB:instanceDTSExists",
+                    raise XDBException("xDB:instanceDTSExists",
                             _("Instance DTS is already in the database."))
                 else:
                     self.addDTSDocuments(self.entryDtsId, instDocuments)   
@@ -931,7 +942,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         #check that no uris were missed.
         missingUris = self.docCleanUriMap.keys() - self.documentIds.keys() 
         if len(missingUris) > 0:
-#             raise XPDBException("xpgDB:missingDocuments",
+#             raise XPDBException("xDB:missingDocuments",
 #                                 _("Did not process the following documents: %s" % "\n".join(missingUris)))
             self.modelXbrl.info("info",_("Did not process the following documents: %s" % "\n".join(missingUris)))
             
@@ -1025,12 +1036,22 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                 docsByUri[docUri[0]] = docUri[1]
 
         #Determine if the document is in the database
-        query = '''
-            SELECT d.document_id, a.document_uri, d.document_loaded, d.document_id IS NOT NULL AS existing
-            FROM (VALUES %s) a(document_uri)
-            LEFT JOIN document d
-              ON a.document_uri = d.document_uri;
-        ''' % ','.join(tuple("('" + x + "')" for x in docsByUri.keys()))
+        if self.product == 'postgres':
+            query = '''
+                SELECT d.document_id, a.document_uri, d.document_loaded, d.document_id IS NOT NULL AS existing
+                FROM (VALUES %s) a(document_uri)
+                LEFT JOIN document d
+                ON a.document_uri = d.document_uri;
+            ''' % ','.join(tuple("('" + x + "')" for x in docsByUri.keys()))
+        elif self.product == 'mssql':
+            query = '''
+                SELECT d.document_id, a.document_uri, d.document_loaded, CAST(CASE WHEN d.document_id IS NOT NULL THEN 1 ELSE 0 END AS bit) AS existing
+                FROM (VALUES %s) a(document_uri)
+                LEFT JOIN document d
+                ON a.document_uri = d.document_uri;
+            ''' % ','.join(tuple("('" + x + "')" for x in docsByUri.keys()))            
+
+
         docResults = self.execute(query)
         existingDocumentIds = dict()
         documentIds = dict()
@@ -1090,7 +1111,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                           returnExistenceStatus=True)
             for docId, docUri, docExisting in table:
                 if docExisting:
-                    raise XPDBException("xpgDB:existingDocument",
+                    raise XDBException("xDB:existingDocument",
                         _("Trying to add document that is already in the database. %s" % docUri))
                 documentIds[docUri] = docId
         #update documents where there is a record in the database but it was not loaded. This can happen if a DBA adds document records for new taxonomies, but no
@@ -1249,7 +1270,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
             try:
                 localLocation, officialLocation = documentMap.split('|')
             except ValueError:
-                raise XPDBException("xpgDB:badDocumentCache","--xule-document-cache argument does not have a separator. The document" \
+                raise XDBException("xDB:badDocumentCache","--xule-document-cache argument does not have a separator. The document" \
                                     " cache must be a map from a local location to an official location. The 2" \
                                     " components are separated by a '|' character.")
 
@@ -1427,7 +1448,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
                 return result[0][0]
             else:
                 return None
-#                 raise XPDBException("xpgDB:MissingQname",
+#                 raise XPDBException("xDB:MissingQname",
 #                                     _("Could not retrieve the qname id for {%(namespace)s}%(localName)s"),
 #                                     namespace=qname.namespaceURI, localName=qname.localName)
     
@@ -1900,7 +1921,7 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
         elif modelDimension.isTyped:
             return self.canonicalizeTypedDimensionMember(modelDimension.typedMember)
         else:
-            raise XPDBException("xpgDB:UnknownMemberType",
+            raise XDBException("xDB:UnknownMemberType",
                                 _("Dimension member is not explicit or typed"))
             
     def hashContext(self, context):
@@ -2222,10 +2243,10 @@ class XbrlPostgresDatabaseConnection(SqlDbConnection):
             try:
                 typedMemberQname = qname(typedMember.xValue, castException=self._QNameException, prefixException=self._QNameException)
             except self._QNameException:
-                raise XPDBException("xpgDB:TypedMemberQnameError",
+                raise XDBException("xDB:TypedMemberQnameError",
                                     _("Cannot resolve qname in typed member for dimension %s and member %s" % (typedMember.qname, typedMember.xValue)))
             if typedMemberQname.namespaceURI is None and None not in typedMember.nsmap:
-                raise XPDBException("xpgDB:TypedMemberQnameError",
+                raise XDBException("xDB:TypedMemberQnameError",
                                     _("Typed member is a qname without a prefix and there is no default namespace for the element. Dimension is %s and member is %s." % ( typedMember.qname, typedMember.xValue)))
             return typedMemberQname.clarkNotation
         else:
