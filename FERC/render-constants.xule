@@ -80,6 +80,8 @@ function pad($padee, $len, $pad_char)
 		$padded_num = $padding + $padee;
 
 		substring($padded_num, length($padded_num)-$len+1)
+output a
+	transpose(list(list(1,2,3,4),list('a','b','c','d'), list(10,20,30,40)))
 
 function transpose($x)
 	list(
