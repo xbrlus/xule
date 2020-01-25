@@ -507,29 +507,43 @@ def property_scheme(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, object_value.value[0], 'string')
 
 def property_dimension(xule_context, object_value, *args):
-    
-    if not object_value.is_fact:
-        return object_value
-    
+
     dim_name = args[0]
-    model_fact = object_value.fact
-    
     if dim_name.type == 'qname':
-        dim_qname = dim_name.value
+            dim_qname = dim_name.value
     elif dim_name.type == 'concept':
         dim_qname = dim_name.value.qname
     else:
         raise XuleProcessingError(_("The argument for property 'dimension' must be a qname, found '%s'." % dim_name.type),xule_context)
-     
-    member_model = model_fact.context.qnameDims.get(dim_qname)
-    if member_model is None:
-        return xv.XuleValue(xule_context, None, 'none')
-    else:
-        if member_model.isExplicit:
-            return xv.XuleValue(xule_context, member_model.member, 'concept')
+
+    if object_value.type == 'fact':
+        if not object_value.is_fact:
+            return object_value
+        
+        model_fact = object_value.fact
+        member_model = model_fact.context.qnameDims.get(dim_qname)
+        if member_model is None:
+            return xv.XuleValue(xule_context, None, 'none')
         else:
-            #this is a typed dimension
-            return xv.XuleValue(xule_context, member_model.typedMember.xValue, xv.model_to_xule_type(xule_context, member_model.typedMember.xValue))
+            if member_model.isExplicit:
+                return xv.XuleValue(xule_context, member_model.member, 'concept')
+            else:
+                #this is a typed dimension
+                return xv.XuleValue(xule_context, member_model.typedMember.xValue, xv.model_to_xule_type(xule_context, member_model.typedMember.xValue))
+
+    else: # taxonomy
+        # Get the cubes of the taxonomy
+        cubes = [xv.XuleDimensionCube(object_value.value, *cube_base)
+                 for cube_base in xv.XuleDimensionCube.base_dimension_sets(object_value.value)]
+        dims = dict()
+        for cube in cubes:
+            for dim in cube.dimensions:
+                dims[dim.dimension_concept.qname] = dim
+
+        if dim_qname in dims:
+            return xv.XuleValue(xule_context, dims[dim_qname], 'dimension')
+        else:
+            return xv.XuleValue(xule_context, None, 'none')
 
 def property_dimensions(xule_context, object_value, *args):
     if object_value.type == 'taxonomy':
@@ -1776,7 +1790,7 @@ PROPERTIES = {
               'entity': (property_entity, 0, ('fact',), True),
               'id': (property_id, 0, ('entity','unit','fact'), True),
               'scheme': (property_scheme, 0, ('entity',), False),
-              'dimension': (property_dimension, 1, ('fact',), True),
+              'dimension': (property_dimension, 1, ('fact', 'taxonomy'), True),
               'dimensions': (property_dimensions, 0, ('fact', 'cube', 'taxonomy'), True),
               'dimensions-explicit': (property_dimensions_explicit, 0, ('fact',), True),
               'dimensions-typed': (property_dimensions_typed, 0, ('fact',), True),                            
