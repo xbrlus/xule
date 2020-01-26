@@ -877,6 +877,16 @@ class XuleDimensionCube:
         return dts.xuleDimensionSets
 
     @classmethod
+    def dimension_defaults(cls, dts):
+        cls._establish_dimension_defaults(dts)
+        return dts.xuleDimensionDefaults
+
+    @classmethod
+    def dimension_defaults_by_name(cls, dts):
+        cls._establish_dimension_defaults(dts)
+        return {k.qname: v.qname for k, v in dts.xuleDimensionDefaults.items()}
+
+    @classmethod
     def _establish_cubes(cls, dts):
         cls._establish_dimension_base_sets(dts)
         # Establish the dimension sets dictionary for the dts

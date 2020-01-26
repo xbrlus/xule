@@ -352,6 +352,7 @@ def index_model(xule_context):
             if aspect_key != 'all' and None not in fact_index[aspect_key]:
                 fact_index[aspect_key][None] = all_facts - set(it.chain.from_iterable(fact_index[aspect_key].values()))
 
+
 def index_properties(model_fact):
     """Calculate the properties for the fact.
     
@@ -4584,10 +4585,41 @@ def process_aspect_expr(aspect_filter, aspect_type, aspect_name, xule_context):
         aspect_info = (aspect_type, aspect_name, None, aspect_filter.get('aspectOperator'), prop)
         if 'aspectExpr' in aspect_filter:
             aspect_value = evaluate(aspect_filter['aspectExpr'], xule_context)
+            if aspect_type == 'explicit_dimension':
+                aspect_value = fix_for_default_member(aspect_name, aspect_value, xule_context)
         else:
             aspect_value = None # There is nothing to filter, but the aspect info will be used for handling alignment
 
     return (aspect_info, aspect_value)
+
+def fix_for_default_member(dim, aspect_value, xule_context):
+    ''' If the member for an explicit dimension is the default member, change the value to none'''
+    default_name = XuleDimensionCube.dimension_defaults_by_name(xule_context.model).get(dim)
+    if default_name is None:
+        return aspect_value
+    new_values = list()
+    for mem in aspect_value.value if aspect_value.type in ('list', 'set') else (aspect_value,):
+        if mem.type == 'concept':
+            mem_qname = mem.value.qname
+        elif mem.type == 'qname':
+            mem_qname = mem.value
+        else:
+            new_values.append(mem)
+            continue
+
+        if mem_qname == default_name:
+            new_values.append(XuleValue(xule_context, None, 'none'))
+        else:
+            new_values.append(mem)
+
+    if aspect_value.type == 'set':
+        return XuleValue(xule_context, frozenset(new_values), 'set')
+    elif aspect_value.type == 'list':
+        return XuleValue(xule_context, tuple(new_values), 'list')
+    else:
+        return new_values[0]
+
+
 
 
 def add_aspect_var(aspect_vars, aspect_type, aspect_name, var_name, aspect_index, xule_context):
