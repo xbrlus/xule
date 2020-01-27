@@ -786,7 +786,7 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
 
                     elif json_result['type'] == 's': # result is a string
                         if sub.get('html', False):
-                            content = etree.fromstring('<div class="sub-html">{}</div>'.format(json_result['value']))
+                            content = etree.fromstring('<div class="sub-html">{}</div>'.format(clean_entities(json_result['value'])))
                         elif json_result['value'] is not None:
                             content = json_result['value']
 
@@ -836,36 +836,15 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
 
     return has_confidential
 
-# def adjust_result_focus_index(json_results, part):
-#     '''Adjust the index for the rule focus fact
+def clean_entities(text):
 
-#     The original index is the the index of the rule focus list where the fact is. However, if there is no fact,
-#     the rule focus list will just skip that place in the list. For example, if a result has three facts, the rule focus list should be
-#     list(fact1, fact2, fact3). However, if fact 2 is missing, then the rule focus list will only be list(fact1, fact2). The index for
-#     fact3 is 1 instead of the expected 2.
-#     '''
-#     rule_focus_index = -1
-
-#     if isinstance(json_results, list):
-#         results_by_part = {x['part']: x for x in json_results}
-
-#         # If the part did not return a fact than there is nothing in the rule focus to find.
-#         if results_by_part[part]['is-fact'].lower() == 'false':
-#             return None
-
-#         # This is a list of results
-#         for i in range(part + 1):
-#             if (i in results_by_part and 
-#                 results_by_part[i]['type'] == 'f' and 
-#                 results_by_part[i]['value'] is not None and 
-#                 results_by_part[i]['is-fact'].lower() == 'true'):
-#                 rule_focus_index +=1
-#     else:
-#         # The results is really just a single dictionary of one results. Just check if the fact is there
-#         if json_results['is-fact'].lower() == 'true':
-#             rule_focus_index = 0
-
-#     return rule_focus_index if rule_focus_index >= 0 else None
+    text = text.replace('&ldquo;', '&#x201c;')
+    text = text.replace('&rdquo;', '&#x201d;')
+    text = text.replace('&lsquo;', '&#x2018;')
+    text = text.replace('&rsquo;', '&#x2019;')
+    text = text.replace('&mdash;', '&#x2014;')
+    text = text.replace('&ndash;', '&#x2013;')
+    return text
 
 def get_rule_focus_index(json_all_results, current_result):
     
@@ -1795,7 +1774,10 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
         # <div><div>content</div></div>
         
         #main_html.getroottree().write(inline_name, pretty_print=True, method="c14n")
-        output_string = etree.tostring(main_html.getroottree(), pretty_print=True, method="c14n")
+        for elem in main_html.iter():
+            if elem.text == None:
+                elem.text = ''
+        output_string = etree.tostring(main_html.getroottree(), pretty_print=True, method="xml")
         # Fix the <br></br> tags. When using the c14n method all empty elements will be written out with start and end tags. 
         # This causes issues with browsers that will interpret <br></br> as 2 <br> tags.
         output_string = output_string.decode().replace('<br></br>', '<br/>')
