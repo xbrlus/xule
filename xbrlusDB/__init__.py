@@ -34,7 +34,7 @@ def xbrlDBcommandLineOptionExtender(parser):
                       action="store",
                       dest="storeIntoXbrlDb", 
                       help=_("Store into XBRL DB.  "
-                             "Provides connection string: host,port,user,password,database,database type[,timeout]."))
+                             "Provides connection string: host,port,user,password,database[,timeout]."))
 
     parserGroup.add_option("--xbrlusDB-source",
                       action="store",
