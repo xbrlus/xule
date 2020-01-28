@@ -624,24 +624,30 @@ class DBConnection(SqlDbConnection):
                            AND accepted_timestamp >= %s)''', params=(self.entityId, self.acceptedTimestamp),
                      fetch=False)
         #get the current entity name
-        result = self.execute('''SELECT enh.entity_name
+        query = '''SELECT {0}enh.entity_name
                         FROM entity_name_history enh
                         JOIN report r
                           ON enh.accession_id = r.report_id
-                        WHERE r.entity_id = {0}
+                        WHERE r.entity_id = {2}
                         ORDER BY r.accepted_timestamp DESC
-                        LIMIT 1'''.format(self.entityId))
+                        {1}'''
+        if self.product == 'mssql':
+            query = query.format('TOP 1 ','', self.entityId)
+        else:
+            query = query.format('', ' LIMIT 1', self.entityId)
+        result = self.execute(query)
         if len(result) == 1:
             currentEntityName = result[0][0]
         else:
             currentEntityName = None
           
         #get all the accessions after and including the processing accession.
-        result = self.execute('''SELECT report_id, trim(both entity_name) 
+        trim_string = 'trim(entity_name)' if self.product == 'mssql' else 'trim(both entity_name)'
+        result = self.execute('''SELECT report_id, {} 
                         FROM report
                         WHERE entity_id = %s
                           AND accepted_timestamp >= %s
-                        ORDER BY accepted_timestamp''', params=(self.entityId, self.acceptedTimestamp))
+                        ORDER BY accepted_timestamp'''.format(trim_string), params=(self.entityId, self.acceptedTimestamp))
 
         if len(result) > 0:
             rowsToAdd = []
@@ -1564,7 +1570,7 @@ class DBConnection(SqlDbConnection):
 
         self.getTable('reference_part', 'reference_part_id',
                       ('resource_id', 'value', 'qname_id', 'ref_order'),
-                      ('resource_id', 'qname_id'),
+                      ('resource_id', 'qname_id', 'ref_order'),
                       tuple((rp[0], rp[2], self.getQnameId(rp[1]), rp[3])
                             for rp in referenceParts),
                       checkIfExisting=True)
@@ -2159,10 +2165,11 @@ class DBConnection(SqlDbConnection):
                                    memQname.localName))
         
         if values:
+            data = tuple(x[:7] for x in values) # Only take the first seven items in each row of values. This will exclude the dimension/member namespace and local_name
             table = self.getTable('context_dimension', 'context_dimension_id', 
                                   ('context_id', 'dimension_qname_id', 'member_qname_id', 'typed_qname_id', 'is_default', 'is_segment', 'typed_text_content'), 
                                   ('context_id', 'dimension_qname_id', 'member_qname_id'), # shouldn't typed_qname_id be here?  not good idea because it's not indexed in XBRL-US DDL
-                                  (x[:7] for x in values)) # Only take the first seven items in each row of values. This will exclude the dimension/member namespace and local_name
+                                  data) 
 
         self.reportTime('context dimension')
         for i, val in enumerate(values):
@@ -2351,24 +2358,43 @@ class DBConnection(SqlDbConnection):
         updateFacts = []
         self.reportTime()
         
-        hashQuery = '''
-            WITH ultimus_calc AS (
-                SELECT f.fact_id
-                      ,{indexName} as old_index
-                      ,row_number() OVER (PARTITION BY {hashName} ORDER BY {orderBy}) AS new_index
-                FROM report r
-                JOIN fact f
-                  ON r.report_id = f.accession_id
-                {contextJoin}
-                WHERE f.{hashName} in (SELECT {hashName} FROM fact WHERE accession_id = {reportId})
-            )
-            UPDATE fact f
-            SET {indexName} = ultimus_calc.new_index
-            FROM ultimus_calc
-            WHERE f.fact_id = ultimus_calc.fact_id
-              AND COALESCE(ultimus_calc.old_index, 0) <> ultimus_calc.new_index
-            '''.format(indexName=indexName, hashName=hashName, orderBy=orderBy, reportId=self.accessionId, contextJoin=contextJoin)
-        
+        if self.product == 'mssql':
+            hashQuery = '''
+                WITH ultimus_calc AS (
+                    SELECT f.fact_id
+                        ,f.{indexName} as old_index
+                        ,row_number() OVER (PARTITION BY {hashName} ORDER BY {orderBy}) AS new_index
+                    FROM report r
+                    JOIN fact f
+                    ON r.report_id = f.accession_id
+                    {contextJoin}
+                    WHERE f.{hashName} in (SELECT {hashName} FROM fact WHERE accession_id = {reportId})
+                )
+                UPDATE ultimus_calc
+                SET old_index = new_index
+                WHERE COALESCE(old_index, 0) <> new_index
+                '''.format(indexName=indexName, hashName=hashName, orderBy=orderBy, reportId=self.accessionId, contextJoin=contextJoin)
+        else:
+            hashQuery = '''
+                WITH ultimus_calc AS (
+                    SELECT f.fact_id
+                        ,{indexName} as old_index
+                        ,row_number() OVER (PARTITION BY {hashName} ORDER BY {orderBy}) AS new_index
+                    FROM report r
+                    JOIN fact f
+                    ON r.report_id = f.accession_id
+                    {contextJoin}
+                    WHERE f.{hashName} in (SELECT {hashName} FROM fact WHERE accession_id = {reportId})
+                )
+                UPDATE fact f
+                SET {indexName} = ultimus_calc.new_index
+                FROM ultimus_calc
+                WHERE f.fact_id = ultimus_calc.fact_id
+                AND COALESCE(ultimus_calc.old_index, 0) <> ultimus_calc.new_index
+                '''.format(indexName=indexName, hashName=hashName, orderBy=orderBy, reportId=self.accessionId, contextJoin=contextJoin)
+
+
+
 #         self.reportTime()
         self.execute(hashQuery, fetch=False)
 
@@ -2563,37 +2589,62 @@ class DBConnection(SqlDbConnection):
             self.execute(query, fetch=False)
         else:
             query = '''
-            UPDATE report r
+            UPDATE report 
             SET restatement_index = 1
             WHERE report_id = %s''' % (self.accessionId)
             self.execute(query, fetch=False)
 
         #recalculate the period index for all reports for the entity
-        query = '''
-            UPDATE report r
-            SET period_index = rn
-            FROM (
-                SELECT row_number() over(w) AS rn, report_id
-                FROM report
-                WHERE entity_id = %s
-                WINDOW w AS (partition BY entity_id ORDER BY reporting_period_end_date DESC, restatement_index ASC)) x
-            WHERE r.report_id = x.report_id
-              AND x.rn <> coalesce(r.period_index, 0)''' % (self.entityId)
+        if self.product == 'mssql':
+            query = '''
+                WITH x as (
+                    SELECT row_number() over(partition BY entity_id ORDER BY reporting_period_end_date DESC, restatement_index ASC) AS rn
+                        ,report_id
+                        ,period_index
+                    FROM report
+                    WHERE entity_id = %s
+                )
+                UPDATE x
+                SET period_index = rn
+                WHERE rn <> coalesce(period_index, 0)''' % (self.entityId)
+        else:
+            query = '''
+                UPDATE report r
+                SET period_index = rn
+                FROM (
+                    SELECT row_number() over(w) AS rn, report_id
+                    FROM report
+                    WHERE entity_id = %s
+                    WINDOW w AS (partition BY entity_id ORDER BY reporting_period_end_date DESC, restatement_index ASC)) x
+                WHERE r.report_id = x.report_id
+                AND x.rn <> coalesce(r.period_index, 0)''' % (self.entityId)
         self.execute(query, fetch=False)
 
-
-
         #update is most current
-        query = '''
-            UPDATE report r
-            SET is_most_current = x.is_most_current
-            FROM (
-                SELECT row_number() over (w) = 1 AS is_most_current, report_id
-                FROM report
-                WHERE entity_id = %s
-                WINDOW w AS (ORDER BY accepted_timestamp DESC, source_report_identifier)) x
-            WHERE r.report_id = x.report_id
-              AND r.is_most_current != x.is_most_current''' % (self.entityId)
+        if self.product == 'mssql':
+            query = '''
+                WITH x as (
+                    SELECT CASE WHEN row_number() over (ORDER BY accepted_timestamp DESC, source_report_identifier) = 1
+                                THEN 1 ELSE 0 END AS new_is_most_current
+                          ,report_id
+                          ,is_most_current
+                    FROM report
+                    WHERE entity_id = %s
+                )
+                UPDATE x
+                SET is_most_current = new_is_most_current
+                WHERE is_most_current <> new_is_most_current''' % (self.entityId)
+        else:
+            query = '''
+                UPDATE report r
+                SET is_most_current = x.is_most_current
+                FROM (
+                    SELECT row_number() over (w) = 1 AS is_most_current, report_id
+                    FROM report
+                    WHERE entity_id = %s
+                    WINDOW w AS (ORDER BY accepted_timestamp DESC, source_report_identifier)) x
+                WHERE r.report_id = x.report_id
+                AND r.is_most_current != x.is_most_current''' % (self.entityId)
         self.execute(query, fetch=False)
 
     def getSourceSetting(self, name):

@@ -15,7 +15,7 @@ and does not apply to the XBRL US Database schema and description.
 
 import time, os, io, sys, logging
 from arelle.Locale import format_string
-from .XbrlPublicPostgresDB import insertIntoDB, XbrlPostgresDatabaseConnection
+from .XbrlPublicPostgresDB import insertIntoDB, DBConnection
 from lxml import etree
 from arelle import ModelManager
 import optparse
@@ -34,8 +34,7 @@ def xbrlDBcommandLineOptionExtender(parser):
                       action="store",
                       dest="storeIntoXbrlDb", 
                       help=_("Store into XBRL DB.  "
-                             "Provides connection string: host,port,user,password,database[,timeout]."
-                             "Autodetects database type unless 7th parameter is provided.  "))
+                             "Provides connection string: host,port,user,password,database,database type[,timeout]."))
 
     parserGroup.add_option("--xbrlusDB-source",
                       action="store",
@@ -96,6 +95,11 @@ def xbrlDBcommandLineOptionExtender(parser):
                             dest="xbrlusDBTaxonomyVersionDocument",
                             help=_("Uri of the file that determines the version of the taxonomy."))
     
+    parserGroup.add_option("--xbrlusDB-type",
+                            action="store",
+                            dest="xbrlusDBType",
+                            help=_("Type of database (i.e postgres, mssql)"))
+    
     
     parser.add_option_group(parserGroup)
     
@@ -105,6 +109,9 @@ def xbrlDBcommandLineOptionChecker(cntlr, options, **kwargs):
     parser = optparse.OptionParser()
     if getattr(options, 'xbrlusDBSource', None) is None:
         parser.error(_("--xbrlusDB-source is required. If defaults are desired for the source overrides, then explicitly state '--xbrlDB-source default'"))
+
+    if getattr(options, 'xbrlusDBType', None) is None:
+        parser.error(_("--xbrlusDB-type is required.'"))
 
     for nameValue in getattr(options, 'xbrlusDBInfo', None) or tuple():
         try:
@@ -133,7 +140,7 @@ def xbrlDBCommandLineFilingStart(cntlr, options, filesource, entrypointFiles, so
 
     This will remove entrypoints that are already in the database'''
     host, port, user, password, db, timeout = parseConnectionString(options, cntlr)
-    conn = XbrlPostgresDatabaseConnection(cntlr, None, user, password, host, port, db, timeout, 'postgres', options)
+    conn = DBConnection(cntlr, None, user, password, host, port, db, timeout, options)
     # Load the source module
     conn.loadSource()
 
@@ -164,7 +171,7 @@ def xbrlDBCommandLineXbrlRun(cntlr, options, modelXbrl, entryPoint, **kwargs):
 def parseConnectionString(options, cntlr):
     if getattr(options, "storeIntoXbrlDb", False):
         dbConnection = options.storeIntoXbrlDb.split(",")
-        host = port = user = password = db = timeout = None
+        host = port = user = password = db = db_type =timeout = None
         
         if len(dbConnection) < 5 or len(dbConnection) > 6:
             cntlr.addToLog(_("Invalid database connection string."))

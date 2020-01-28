@@ -12,8 +12,8 @@ import socket
 import string
 import random
 
-#TRACESQLFILE = None
-TRACESQLFILE = r"sql.log"
+TRACESQLFILE = None
+#TRACESQLFILE = r"sql.log"
 #TRACESQLFILE = r"z:\temp\sqltraceWin.log"  # uncomment to trace SQL on connection (very big file!!!)
 #TRACESQLFILE = "/Users/hermf/temp/sqltraceUnx.log"  # uncomment to trace SQL on connection (very big file!!!)
 
@@ -185,11 +185,12 @@ class SqlDbConnection():
             if not hasMSSql:
                 raise XDBException("xpgDB:MissingMSSQLInterface",
                                     _("MSSQL server interface is not installed")) 
-            self.conn = mssqlConnect('DRIVER={{SQL Server}};SERVER={2};DATABASE={3};UID={0};PWD={1};CHARSET=UTF8;app=XBRL US DB Loader;'
+            connection_string = ('DRIVER={{SQL Server}};SERVER={2};DATABASE={3};UID={0};PWD={1};CHARSET=UTF8;app=XBRL US DB Loader;'
                                       .format(user,
                                               password, 
                                               host, # e.g., localhost\\SQLEXPRESS
                                               database))
+            self.conn = mssqlConnect(connection_string)
             self.product = product
         elif product == "sqlite":
             if not hasSQLite:
@@ -337,6 +338,9 @@ class SqlDbConnection():
         
     def execute(self, sql, commit=False, close=True, fetch=True, params=None, action="execute"):
         cursor = self.cursor
+        if self.product == 'mssql':
+            # change the parameter marker
+            sql = sql.replace('%s', '?')
         try:
             if isinstance(params, dict):
                 cursor.execute(sql, **params)
@@ -547,7 +551,7 @@ class SqlDbConnection():
                                               int if typename in ("integer", "smallint", "int", "bigint", "number") else
                                               float if typename in ("double precision", "real", "numeric") else
                                               self.pyBoolFromDbBool if typename in ("bit", "boolean") else
-                                              dateTime if typename in ("date","timestamp") else  # ModelValue.datetime !!! not python class
+                                              dateTime if typename in ("date","timestamp","datetime") else  # ModelValue.datetime !!! not python class
                                               str))
                                              for name, fulltype, colDecl in colTypes
                                              for typename in (fulltype.partition(' ')[0],))
@@ -623,7 +627,8 @@ class SqlDbConnection():
                     colValues.append("'{:04}-{:02}-{:02}'".format(col.year, col.month, col.day))
                 elif col is None:
                     colValues.append('NULL')
-                elif isinstance(col, _STR_BASE) and len(col) >= 4000 and (isOracle or isMSSql):
+                #elif isinstance(col, _STR_BASE) and len(col) >= 4000 and (isOracle or isMSSql):
+                elif isinstance(col, _STR_BASE) and len(col) >= 4000 and isOracle:
                     if isOracle:
                         colName = "col{}".format(len(colValues))
                         longColValues[colName] = col
@@ -739,53 +744,42 @@ WITH row_values (%(newCols)s) AS (
                                                             for col in returningCols)}, None, True) )
             sql.append( ("DROP TEMPORARY TABLE %(inputTable)s;" %
                          {"inputTable": _inputTableName}, None, False) )
-        elif self.product == "mssql":
-            sql = [("CREATE TABLE #%(inputTable)s ( %(inputCols)s );" %
-                        {"inputTable": _inputTableName,
-                         "inputCols": ', '.join('{0} {1}'.format(newCol, colDeclarations[newCol])
-                                                for newCol in newCols)}, None, False)]
-            # break values insertion into 1000's each
-            def insertMSSqlRows(i, j, params):
-                sql.append(("INSERT INTO #%(inputTable)s ( %(newCols)s ) VALUES %(values)s;" %     
-                        {"inputTable": _inputTableName,
-                         "newCols": ', '.join(newCols),
-                         "values": ", ".join(rowValues[i:j])}, params, False))
-            iMax = len(rowValues)
+
+        elif self.product == 'mssql':
+            sql = []
             i = 0
-            while (i < iMax):
-                for j in range(i, min(i+1000, iMax)):
-                    if rowLongValues[j] is not None:
-                        if j > i:
-                            insertMSSqlRows(i, j, None)
-                        insertMSSqlRows(j, j+1, rowLongValues[j])
-                        i = j + 1
-                        break
-                if i < j+1 and i < iMax:
-                    insertMSSqlRows(i, j+1, None)
-                    i = j+1
-            if insertIfNotMatched:
-                sql.append(("MERGE INTO %(table)s USING #%(inputTable)s ON (%(match)s) "
-                            "WHEN NOT MATCHED THEN INSERT (%(newCols)s) VALUES (%(values)s);" %
-                            {"inputTable": _inputTableName,
-                             "table": _table,
-                             "newCols": ', '.join(newCols),
-                             "match": ' AND '.join('{0}.{2} = #{1}.{2}'.format(_table,_inputTableName,col) 
-                                        for col in matchCols),
-                             "values": ', '.join("#{0}.{1}".format(_inputTableName,newCol)
-                                                 for newCol in newCols)}, None, False))
-            if returnMatches or returnExistenceStatus:
-                sql.append(# don't know how to get status if existing
-                       ("SELECT %(returningCols)s %(statusIfExisting)s from #%(inputTable)s JOIN %(table)s ON ( %(match)s );" %
-                            {"inputTable": _inputTableName,
-                             "table": _table,
-                             "newCols": ', '.join(newCols),
-                             "match": ' AND '.join('{0}.{2} = #{1}.{2}'.format(_table,_inputTableName,col) 
-                                        for col in matchCols),
-                             "statusIfExisting": ", 0" if returnExistenceStatus else "",
-                             "returningCols": ', '.join('{0}.{1}'.format(_table,col)
-                                                        for col in returningCols)}, None, True))
-            sql.append(("DROP TABLE #%(inputTable)s;" %
-                         {"inputTable": _inputTableName}, None, False))
+            while i < len(rowValues):
+                start = i
+                end = i + 1000
+                
+                query = '''
+                MERGE INTO {table_name}
+                USING (VALUES {data}) AS x({cols})
+                ON {match}
+                WHEN NOT MATCHED THEN
+                INSERT ({cols}) VALUES ({new_values})
+                WHEN MATCHED THEN
+                    UPDATE SET {first_col} = x.{first_col}
+                OUTPUT {return_cols}'''.format(
+                    table_name=_table,
+                    data=', \n'.join(rowValues[start:end]),
+                    cols=', '.join(newCols),
+                    match= ' AND '.join('(({0}.{2} = {1}.{2}) or coalesce({0}.{2}, {1}.{2}) is null)'.format(_table,'x',col) 
+                                            for col in matchCols),
+                    new_values= ', '.join("{0}.{1}".format('x',newCol)
+                                                    for newCol in newCols),
+                    first_col=newCols[0],
+                    return_cols='{cols} {existence};'.format(
+                        cols=', '.join('{0}.{1}'.format('INSERTED',col)
+                                                            for col in returningCols),
+                        existence=", CASE WHEN $action = 'UPDATE' THEN 1 ELSE 0 END" if returnExistenceStatus else ''
+                    )
+                )
+
+                sql.append((query, None, returnMatches or returnExistenceStatus))
+
+                i += 1000
+
         elif self.product == "orcl":
             sql = [("CREATE GLOBAL TEMPORARY TABLE %(inputTable)s ( %(inputCols)s )" %
                         {"inputTable": _inputTableName,
@@ -890,25 +884,39 @@ WITH row_values (%(newCols)s) AS (
                              "where name != '%(table)s';" % 
                               {"table": _table}, None, False) )
         
-        if TRACESQLFILE:
-            with io.open(TRACESQLFILE, "a", encoding='utf-8') as fh:
-                fh.write("\n\n>>> accession {0} table {1} sql length {2} row count {3}\n"
-                         .format(self.accessionId, table, len(sql), len(data)))
-                for sqlStmt, params, fetch in sql:
-                    fh.write("\n    " + sqlStmt + "\n     {}".format(params if params else ""))
-        tableRows = []
         
+        tableRows = []
         for sqlStmt, params, fetch in sql:
+            if TRACESQLFILE:
+                with io.open(TRACESQLFILE, "a", encoding='utf-8') as fh:
+                    fh.write("\n\n>>> accession {0} table {1} sql length {2} row count {3}\n"
+                            .format(self.accessionId, table, len(sql), len(data)))
+                    #for sqlStmt, params, fetch in sql:
+                    #    fh.write("\n    " + sqlStmt + "\n     {}".format(params if params else ""))
+
             if params and isOracle:
                 self.cursor.setinputsizes(**dict((name,oracleNCLOB) for name in params))
             
             #startTime = datetime.datetime.today()
+            
             result = self.execute(sqlStmt,commit=commit, close=False, fetch=fetch, params=params)
             #endTime = datetime.datetime.today()
             
-            if fetch and result:
+            # if fetch == 'new ids' and idCol and returnExistenceStatus:
+            #     # This indicates that a merge is return new ids
+            #     new_ids = tuple(x[0] for x in result)
+            # elif fetch == True and result:
+            #     if idCol and new_ids is not None and returnExistenceStatus:
+            #         # need to add the correct existence status
+            #         for i in range(len(result)):
+            #             if result[i][0] not in new_ids: # the first item is the id
+            #                 result[i] = result[i][:-1] + (True,) # copy all but the last item (which is the existance flag) and set the flag to true
+            #     # Return the results
+            #     tableRows.extend(result)
+
+            if fetch:
                 tableRows.extend(result)
-                
+
             #hours, remainder = divmod((endTime - startTime).total_seconds(), 3600)
             #minutes, seconds = divmod(remainder, 60)
             #self.modelXbrl.info("info",_("%(now)s - Table %(tableName)s loaded in %(timeTook)s"),
@@ -916,11 +924,10 @@ WITH row_values (%(newCols)s) AS (
             #                             tableName=table,
             #                             timeTook='%02.0f:%02.0f:%02.4f' % (hours, minutes, seconds))          
 
-
-        if TRACESQLFILE:
-            with io.open(TRACESQLFILE, "a", encoding='utf-8') as fh:
-                fh.write("\n\n>>> accession {0} table {1} result row count {2}\n{3}\n"
-                         .format(self.accessionId, table, len(tableRows), '\n'.join(str(r) for r in tableRows)))
+            if TRACESQLFILE:
+                with io.open(TRACESQLFILE, "a", encoding='utf-8') as fh:
+                    fh.write("\n\n>>> accession {0} table {1} result row count {2}\n{3}\n"
+                            .format(self.accessionId, table, len(tableRows), len(result))) # '\n'.join(str(r) for r in tableRows)))
         return tuple(tuple(None if colValue == "NULL" or colValue is None else
                            colTypeFunction[i](colValue)  # convert to int, datetime, etc
                            for i, colValue in enumerate(row))
