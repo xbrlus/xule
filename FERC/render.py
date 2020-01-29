@@ -837,14 +837,22 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
     return has_confidential
 
 def clean_entities(text):
+    '''Clean up HTML entities 
+    
+    lxml does not recognize HTML entities like &mdash;. As a work around this is converting these entities to 
+    their HTML hex equivalent.
+    '''
 
-    text = text.replace('&ldquo;', '&#x201c;')
-    text = text.replace('&rdquo;', '&#x201d;')
-    text = text.replace('&lsquo;', '&#x2018;')
-    text = text.replace('&rsquo;', '&#x2019;')
-    text = text.replace('&mdash;', '&#x2014;')
-    text = text.replace('&ndash;', '&#x2013;')
-    return text
+    if text is None:
+        return text
+    else:
+        text = text.replace('&ldquo;', '&#x201c;')
+        text = text.replace('&rdquo;', '&#x201d;')
+        text = text.replace('&lsquo;', '&#x2018;')
+        text = text.replace('&rsquo;', '&#x2019;')
+        text = text.replace('&mdash;', '&#x2014;')
+        text = text.replace('&ndash;', '&#x2013;')
+        return text
 
 def get_rule_focus_index(json_all_results, current_result):
     
