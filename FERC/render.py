@@ -89,7 +89,7 @@ def process_template(cntlr, template_file_name, options):
     # Get the css file name from the template
     css_file_names = tuple(x for x in template_tree.xpath('/xhtml:html/xhtml:head/xhtml:link[@rel="stylesheet" and @type="text/css"]/@href', namespaces=_XULE_NAMESPACE_MAP))
 
-    return '{}\n{}\n{}'.format(xule_namespaces, xule_constants, xule_rules), substitutions,  line_number_subs, template_tree, css_file_names
+    return '{}\n{}\n{}'.format(xule_namespaces, xule_constants, xule_rules), substitutions,  line_number_subs, template_tree, template_string, css_file_names
 
 def build_xule_namespaces(template_tree):
     '''build the namespace declarations for xule
@@ -1514,7 +1514,7 @@ def process_single_template(cntlr, options, template_catalog, template_set_file,
     # Create a temporary working directory
     with tempfile.TemporaryDirectory() as temp_dir:
         # Process the HTML template.
-        xule_rule_text, substitutions, line_number_subs, template, css_file_names = process_template(cntlr, template_full_file_name, options)
+        xule_rule_text, substitutions, line_number_subs, template, template_string, css_file_names = process_template(cntlr, template_full_file_name, options)
         
         # Save the xule rule file if indicated
         if options.ferc_render_save_xule is not None:
@@ -1529,14 +1529,6 @@ def process_single_template(cntlr, options, template_catalog, template_set_file,
         # Get some names set up
         template_file_name = os.path.split(template_full_file_name)[1]
         template_name = os.path.splitext(template_file_name)[0]
-
-        #template_file_name = os.path.split(template_full_file_name)[1]
-        #template_file_name_base = os.path.splitext(template_file_name)[0]
-        #template_file_name = "templates/t{}/{}.html".format(template_file_name_base, template_file_name_base)
-        #xule_text_file_name = "templates/{}/{}.xule".format(template_file_name_base, template_file_name_base)
-        #xule_rule_set_file_name = "templates/{}/{}-ruleset.zip".format(template_file_name_base, template_file_name_base)
-        #substitution_file_name = "templates/{}/{}-substitutions.json".format(template_file_name_base, template_file_name_base)
-        #line_number_file_name = "templates/{}/{}-linenumbers.json".format(template_file_name_base, template_file_name_base)
 
         template_file_name = "templates/t{tn}/t{tn}.html".format(tn=str(template_number))
         xule_text_file_name = "templates/t{tn}/t{tn}.xule".format(tn=str(template_number))
@@ -1561,7 +1553,7 @@ def process_single_template(cntlr, options, template_catalog, template_set_file,
                             'substitutions': substitution_file_name,
                             'line-numbers': line_number_file_name})
 
-        template_set_file.write(template_full_file_name, template_file_name) # template
+        template_set_file.writestr(template_file_name, template_string) # template
         template_set_file.writestr(xule_text_file_name, xule_rule_text) # xule text file
         template_set_file.write(xule_rule_set_name, xule_rule_set_file_name) # xule rule set
         template_set_file.writestr(substitution_file_name, json.dumps(substitutions, indent=4)) # substitutions file
