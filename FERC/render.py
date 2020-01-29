@@ -69,7 +69,8 @@ def process_template(cntlr, template_file_name, options):
     # Open the template
     try:
         with open(template_file_name, 'rb') as fp:
-            template_tree = etree.fromstring(fp.read().decode('utf-8')).getroottree()
+            template_string = clean_entities(fp.read().decode('utf-8'))
+            template_tree = etree.fromstring(template_string).getroottree()
     except FileNotFoundError:
         raise FERCRenderException("Template file '{}' is not found.".format(template_file_name))
 
