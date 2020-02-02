@@ -1833,10 +1833,13 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
             ix_node.set('id', new_fact_id)
             fact_number[model_fact.id] += 1
 
+        result_sign = None # this will indicate the sign for numeric results
         if model_fact.xValue is None:
             display_value = ''
         elif format is None:
             display_value = str(model_fact.xValue)
+            if model_fact.isNumeric:
+                result_sign = '-' if model_fact.xValue < 0 else '+' if model_fact.xValue > 0 else '0'
         else:
             # convert format to clark notation 
             if ':' in format:
@@ -1856,9 +1859,12 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
             sign = json_result.get('sign', xule_expression_node.get('sign'))
             scale = json_result.get('scale', xule_expression_node.get('scale'))
 
-            display_value,  *preamble = format_function(model_fact, 
+            display_value = format_function(model_fact, 
                                             sign,
                                             scale)
+            if isinstance(display_value, tuple):
+                result_sign = display_value[1]
+                display_value = display_value[0]
 
         if format is not None and model_fact.xValue is not None:
             rev_nsmap = {v: k for k, v in inline_html.nsmap.items()}
@@ -1886,15 +1892,26 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
         else:
             ix_node.text = display_value
 
-        # check the preamble. If there is one, this will go before the ix_node
-        if preamble is not None and len(preamble) > 0 and preamble[0] is not None and len(preamble[0]) > 0:
+        # handle sign
+        if result_sign is not None:
             div_node = etree.Element('div', nsmap=_XULE_NAMESPACE_MAP)
-            div_node.set('class', 'sub-preamble')
-            div_node.text = preamble[0]
+            if result_sign == '-':
+                div_node.set('class', 'xbrl sign sign-negative')
+            elif result_sign == '+':
+                div_node.set('class', 'xbrl sign sign-positive')
+            else:
+                div_node.set('class', 'xbrl sign sign-zero')
             div_node.append(ix_node)
-            return div_node, new_fact_id
-        else:
-            return ix_node, new_fact_id
+            ix_node = div_node
+
+        # handle units for numeric facts
+        if model_fact.isNumeric:
+            div_node = etree.Element('div', nsmap=_XULE_NAMESPACE_MAP)
+            div_node.set('class', 'xbrl unit unit-{}'.format(unit_string(model_fact.unit)))
+            div_node.append(ix_node)
+            ix_node = div_node
+
+        return ix_node, new_fact_id
 
     except FERCRenderException as e:
         model_fact.modelXbrl.error('RenderFormattingError', '{} - {}'.format(' - '.join(e.args), str(model_fact)))
@@ -1903,7 +1920,15 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
         div_node.text = str(model_fact.xValue)
         return div_node, new_fact_id
         
-
+def unit_string(model_unit):
+    numerator = '--'.join(x.localName for x in model_unit.measures[0])
+    denominator = '--'.join(x.localName for x in model_unit.measures[1])
+    
+    if numerator != '':
+        if denominator != '':
+            return '-'.join((numerator, denominator))
+        else:
+            return numerator
 
 def format_numcommadot(model_fact, sign, scale, *args, **kwargs):
     if not model_fact.isNumeric:
@@ -1943,11 +1968,13 @@ def format_numcommadot(model_fact, sign, scale, *args, **kwargs):
     if val < 0:
         val = val * -1
         return '{:,}'.format(val), '-'
+    elif val > 0:
+        return '{:,}'.format(val), '+' 
     else:
-        return '{:,}'.format(val), # The comma at the end is important, it prevents the first value from being split up into the preamble
+        return '{:,}'.format(val), '0' 
 
 def format_dateslahus(model_fact, *args, **kwargs):
-    return model_fact.xValue.strftime('%m/%d/%Y'), # The comma at the end is important, it prevents the first value from being split up into the preamble
+    return model_fact.xValue.strftime('%m/%d/%Y')
 
 def format_durwordsen(model_fact, *args, **kwargs):
     pattern = r'P((?P<year>\d+)Y)?((?P<month>\d+)M)?((?P<week>\d+)W)?((?P<day>\d+)D)?(T((?P<hour>\d+)H)?((?P<minute>\d+)M)?((?P<second>\d+(\.\d+)?)S)?)?'
@@ -1960,7 +1987,7 @@ def format_durwordsen(model_fact, *args, **kwargs):
         if duration_parts.get(part_name) is not None:
             plural = 's' if duration_parts[part_name] != '1' else ''
             duration_string_parts.append('{} {}{}'. format(duration_parts[part_name], part_name, plural))
-    return ', '.join(duration_string_parts), 
+    return ', '.join(duration_string_parts)
 
 _formats = {'{http://www.xbrl.org/inlineXBRL/transformation/2010-04-20}numcommadot': format_numcommadot,
             '{http://www.xbrl.org/inlineXBRL/transformation/2010-04-20}dateslashus': format_dateslahus,
