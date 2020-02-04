@@ -20,11 +20,11 @@ constant $currentMonth = substring($current-end, 6, 7)
 
 
 constant $current3M = duration(
-							   date($currentYear+'-'+pad((month($currentInstant)-3).string, 2, '0')+'-01'),
+							   date($currentYear+'-'+pad((month($currentInstant)-2).string, 2, '0')+'-01'),
 					           $currentInstant
 					  )
 constant $prior3M = duration(
-							   date($priorYear+'-'+pad((month($priorInstant)-3).string, 2, '0')+'-01'),
+							   date($priorYear+'-'+pad((month($priorInstant)-2).string, 2, '0')+'-01'),
 					           $priorInstant
 					  )
 
