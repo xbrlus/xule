@@ -66,7 +66,7 @@ def parseFile(dir, fileName, xuleGrammar, ruleSet):
             ruleSet.markFileKeep(fileName)
         else:
             start_time = datetime.datetime.today()
-            print("%s: ast start" % datetime.datetime.isoformat(start_time))
+            print("%s: parse start" % datetime.datetime.isoformat(start_time))
             parseRes = xuleGrammar.parseFile(full_file_name).asDict()
             end_time = datetime.datetime.today()
             print("%s: parse end. Took %s" % (datetime.datetime.isoformat(end_time), end_time - start_time))
