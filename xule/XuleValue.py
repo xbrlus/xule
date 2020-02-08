@@ -640,39 +640,44 @@ class XuleString(str):
         The constructor will save the formatted string as the underlying string
         """
 
-        # The format string is not a real python format string. It is a string without the substitutions in it.
-        # The substitutions is a list of 3 part tuples: 0=location in format string, 1=substitution name, 2=substitution value.
-        # The substitutions are applied to the format string to create a real python %-style format string.
-        
-        # Find all the '%' signs in the string. Thees wil need to be escaped.
-        percent_locations = [m.start() for m in re.finditer('%', format_string)]
-        #sub_locations = {x[0]:(x[1], x[2]) for x in substitutions or []}
-        sub_locations = collections.defaultdict(list)
-        for location, sub_name, sub_value in substitutions or []:
-            sub_locations[location].append((sub_name, sub_value))
-        
-        for i in sorted(percent_locations + list(sub_locations.keys()), reverse=True):
-            if i in percent_locations:
-                format_string = format_string[:i] + '%' + format_string[i:]
-            else:
-                # i must be in sub_locations
-                sub_value = ''
-                for sub in sub_locations[i]:
-                    sub_value += '%({})s'.format(sub[0])
-                format_string = format_string[:i] + sub_value + format_string[i:]
-                #format_string = format_string[:i] + '%({})s'.format(sub_locations[i][0]) + format_string[i:]
-        
-        format_subs = {x[1]:x[2] for x in substitutions or []}
-        
-        string_inst = super().__new__(cls, format_string % format_subs)
-        
-        if len(format_subs) == 0 and len(percent_locations) == 0:
-            # In this case the format string is already stored as the base class string. There is no need to duplicate it in the
-            # _format_string.
+        if substitutions is None or len(substitutions) == 0:
+            string_inst = super().__new__(cls, format_string)
             string_inst._format_string = None
+            string_inst.substitutions = dict()
         else:
-            string_inst._format_string = format_string
-        string_inst.substitutions = format_subs
+            # The format string is not a real python format string. It is a string without the substitutions in it.
+            # The substitutions is a list of 3 part tuples: 0=location in format string, 1=substitution name, 2=substitution value.
+            # The substitutions are applied to the format string to create a real python %-style format string.
+            
+            # Find all the '%' signs in the string. Thees wil need to be escaped.
+            percent_locations = [m.start() for m in re.finditer('%', format_string)]
+            #sub_locations = {x[0]:(x[1], x[2]) for x in substitutions or []}
+            sub_locations = collections.defaultdict(list)
+            for location, sub_name, sub_value in substitutions or []:
+                sub_locations[location].append((sub_name, sub_value))
+            
+            for i in sorted(percent_locations + list(sub_locations.keys()), reverse=True):
+                if i in percent_locations:
+                    format_string = format_string[:i] + '%' + format_string[i:]
+                else:
+                    # i must be in sub_locations
+                    sub_value = ''
+                    for sub in sub_locations[i]:
+                        sub_value += '%({})s'.format(sub[0])
+                    format_string = format_string[:i] + sub_value + format_string[i:]
+                    #format_string = format_string[:i] + '%({})s'.format(sub_locations[i][0]) + format_string[i:]
+            
+            format_subs = {x[1]:x[2] for x in substitutions or []}
+            
+            string_inst = super().__new__(cls, format_string % format_subs)
+            
+            if len(format_subs) == 0 and len(percent_locations) == 0:
+                # In this case the format string is already stored as the base class string. There is no need to duplicate it in the
+                # _format_string.
+                string_inst._format_string = None
+            else:
+                string_inst._format_string = format_string
+            string_inst.substitutions = format_subs
         
         return string_inst
     
