@@ -1744,14 +1744,14 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
         main_body = main_html.find('xhtml:body', namespaces=_XULE_NAMESPACE_MAP)
 
         # Add donfidential indicator
-        if has_confidential: 
-            watermark_div = etree.Element('{{{}}}div'.format(_XHTM_NAMESPACE))
-            watermark_div.set('id', 'watermark')
-            watermark_p = etree.Element('{{{}}}p'.format(_XHTM_NAMESPACE))
-            watermark_p.set('id', 'watermark')
-            watermark_p.text = "Contains confidention information"
-            watermark_div.append(watermark_p)
-            main_body.append(watermark_div)
+        # if has_confidential: 
+        #     watermark_div = etree.Element('{{{}}}div'.format(_XHTM_NAMESPACE))
+        #     watermark_div.set('id', 'watermark')
+        #     watermark_p = etree.Element('{{{}}}p'.format(_XHTM_NAMESPACE))
+        #     watermark_p.set('id', 'watermark')
+        #     watermark_p.text = "Contains confidential information"
+        #     watermark_div.append(watermark_p)
+        #     main_body.append(watermark_div)
         for div in schedule_divs:
             main_body.append(div)
             if div is not schedule_divs[-1]: # If it is not the last span put a separator in
