@@ -641,6 +641,7 @@ class XuleString(str):
         """
 
         if substitutions is None or len(substitutions) == 0:
+            # In this case there are no substitutions so the the XuleString is just a plain string
             string_inst = super().__new__(cls, format_string)
             string_inst._format_string = None
             string_inst.substitutions = dict()
