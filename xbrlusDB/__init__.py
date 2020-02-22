@@ -100,6 +100,10 @@ def xbrlDBcommandLineOptionExtender(parser):
                             dest="xbrlusDBType",
                             help=_("Type of database (i.e postgres, mssql)"))
     
+    parserGroup.add_option("--xbrlusDB-driver-type",
+                            action="store",
+                            dest="xbrlusDBDriverType",
+                            help=_("Module to use to connect to the database. Each database type has its own default database connect module that is defaulted. This option allows overrriding of the module to use. Currently, the only option is ADO for for MS SQL Server."))    
     
     parser.add_option_group(parserGroup)
     

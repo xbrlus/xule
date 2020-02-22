@@ -91,6 +91,14 @@ except ImportError:
     mssqlConnect = noop
     mssqlOperationalError = mssqlProgrammingError = mssqlInterfaceError = mssqlInternalError = \
         mssqlDataError = mssqlIntegrityError = NoopException
+try:
+    import adodbapi
+    hasMSSql = True
+    hasADO = True
+    mssqlADOConnect = adodbapi.connect
+    mssqlADOError =  adodbapi.Error
+except ImportError:
+    hasADO = False
 
 try: 
     import sqlite3
@@ -128,12 +136,14 @@ def isSqlConnection(host, port, timeout=10, product=None):
                                                     ":{}".format(port) if port else ""))
             elif product == "mssql" and hasMSSql:
                 mssqlConnect(user='', host=host, socket_timeout=t)
+            elif product == "mssql-ADO" and hasADO:
+                mssqlADOConnect("PROVIDER=MSOLEDBSQL;Data Source={};Trusted_Connection=yes;".format(host))
             elif product == "sqlite" and hasSQLite:
                 sqliteConnect("", t) # needs a database specified for this test
         except (pgProgrammingError, mysqlProgrammingError, oracleDatabaseError, sqliteProgrammingError):
             return True # success, this is really a postgres socket, wants user name
         except (pgInterfaceError, mysqlInterfaceError, oracleInterfaceError, 
-                mssqlOperationalError, mssqlInterfaceError, sqliteOperationalError, sqliteInterfaceError):
+                mssqlOperationalError, mssqlInterfaceError, sqliteOperationalError, sqliteInterfaceError, mssqlADOError):
             return False # something is there but not postgres
         except socket.timeout:
             t = t + 2  # relax - try again with longer timeout
@@ -192,6 +202,18 @@ class SqlDbConnection():
                                               database))
             self.conn = mssqlConnect(connection_string)
             self.product = product
+        elif product == "mssql-ADO":
+            if not hasMSSql or not hasADO:
+                raise XDBException("xpgDB:MissingMSSQLInterface",
+                                    _("MSSQL server for ADO interface is not installed")) 
+            # adodbapi.connect("PROVIDER=MSOLEDBSQL;Data Source={0};Database={1};Trusted_Connection=yes;".format('Octophant1\SQLExpress', 'XBRL8'))                                    
+            connection_string = ('PROVIDER=MSOLEDBSQL;Data Source={2};DATABASE={3};UID={0};PWD={1};Trusted_Connection=yes;'
+                                      .format(user,
+                                              password, 
+                                              host, # e.g., localhost\\SQLEXPRESS
+                                              database))
+            self.conn = mssqlADOConnect(connection_string)
+            self.product = product            
         elif product == "sqlite":
             if not hasSQLite:
                 raise XDBException("xpgDB:MissingSQLiteInterface",
@@ -305,7 +327,7 @@ class SqlDbConnection():
                 END;
                 """.format(self.tempInputTableName), 
                 close=True, commit=False, fetch=False, action="dropping temporary table")
-        elif self.product == "mssql":
+        elif self.product.startswith("mssql"):
             self.execute("""
                 DROP TEMPORARY TABLE IF EXISTS {};
                 """.format(self.tempInputTableName), 
@@ -338,7 +360,7 @@ class SqlDbConnection():
         
     def execute(self, sql, commit=False, close=True, fetch=True, params=None, action="execute"):
         cursor = self.cursor
-        if self.product == 'mssql':
+        if self.product.startswith('mssql'):
             # change the parameter marker
             sql = sql.replace('%s', '?')
         try:
@@ -464,7 +486,7 @@ class SqlDbConnection():
         if self.product == "postgres":
             self.execute("drop schema public cascade")
             self.execute("create schema public;", commit=True, action="recreating schema")
-        elif self.product in ("mysql", "mssql", "orcl"):
+        elif self.product in ("mysql", "mssql", "mssql-ADO", "orcl"):
             for tableName in self.tablesInDB():
                 self.execute("DROP TABLE {}".format( self.dbTableName(tableName) ),
                              action="dropping tables")
@@ -475,6 +497,7 @@ class SqlDbConnection():
                    self.execute({"postgres":"SELECT tablename FROM pg_tables WHERE schemaname = 'public';",
                                  "mysql": "SHOW tables;",
                                  "mssql": "SELECT * FROM sys.TABLES;",
+                                 "mssql-ADO": "SELECT * FROM sys.TABLES;",
                                  "orcl": "SELECT table_name FROM user_tables",
                                  "sqlite": "SELECT name FROM sqlite_master WHERE type='table';"
                                  }[self.product]))
@@ -485,6 +508,7 @@ class SqlDbConnection():
                    self.execute({"postgres":"SELECT c.relname FROM pg_class c WHERE c.relkind = 'S';",
                                  "mysql": "SHOW triggers;",
                                  "mssql": "SELECT name FROM sys.triggers;",
+                                 "mssql-ADO": "SELECT name FROM sys.triggers;",
                                  "orcl": "SHOW trigger_name FROM user_triggers"
                                  }[self.product]))
         
@@ -507,7 +531,7 @@ class SqlDbConnection():
                         colDecl = fulltype
                     colTypes.append( (name, fulltype, colDecl) )
                 # print ("col types for {} = {} ".format(table, colTypes))
-            elif self.product == "mssql":
+            elif self.product.startswith("mssql"):
                 colTypesResult = self.execute("SELECT column_name, data_type, character_maximum_length "
                                               "FROM information_schema.columns "
                                               "WHERE table_name = '{0}'"
@@ -555,7 +579,7 @@ class SqlDbConnection():
                                               str))
                                              for name, fulltype, colDecl in colTypes
                                              for typename in (fulltype.partition(' ')[0],))
-            if self.product in ('mysql', 'mssql', 'orcl', 'sqlite'):
+            if self.product in ('mysql', 'mssql', 'mssql-ADO', 'orcl', 'sqlite'):
                 self.tableColDeclaration[table] = dict((name, colDecl)
                                                        for name, fulltype, colDecl in colTypes)
                                                        
@@ -571,7 +595,7 @@ class SqlDbConnection():
             # nothing can be done, just return
             return () # place breakpoint here to debug
         isOracle = self.product == "orcl"
-        isMSSql = self.product == "mssql"
+        isMSSql = self.product.startswith("mssql")
         isPostgres = self.product == "postgres"
         isSQLite = self.product == "sqlite"
         newCols = [newCol.lower() for newCol in newCols]
@@ -745,7 +769,7 @@ WITH row_values (%(newCols)s) AS (
             sql.append( ("DROP TEMPORARY TABLE %(inputTable)s;" %
                          {"inputTable": _inputTableName}, None, False) )
 
-        elif self.product == 'mssql':
+        elif self.product.startswith('mssql'):
             sql = []
             i = 0
             while i < len(rowValues):
@@ -1014,7 +1038,7 @@ WITH input (%(valCols)s) AS ( VALUES %(values)s )
                                                for i, col in enumerate(cols)
                                                if i > 0)},
                    "DROP TEMPORARY TABLE %(inputTable)s;" % {"inputTable": _inputTableName}]
-        elif self.product == "mssql":
+        elif self.product.startswith("mssql"):
             sql = ["CREATE TABLE #%(inputTable)s ( %(valCols)s );" %
                         {"inputTable": _inputTableName,
                          "valCols": ', '.join('{0} {1}'.format(col, colDeclarations[col])

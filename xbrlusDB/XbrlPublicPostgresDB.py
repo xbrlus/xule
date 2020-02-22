@@ -38,10 +38,6 @@ windows
    arelleCmdLine -f http://sec.org/somewhere/some.rss -v --store-to-XBRL-DB "myserver.com,portnumber,pguser,pgpasswd,database,timeoutseconds"
 
 '''
-
-import time
-import datetime
-import decimal
 from arelle.ModelDocument import Type, ModelDocument
 from arelle.ModelDtsObject import ModelConcept, ModelResource
 from arelle.ModelInstanceObject import ModelFact
@@ -51,6 +47,9 @@ from arelle.ValidateXbrlCalcs import roundValue
 from arelle.XmlUtil import elementFragmentIdentifier
 from arelle import XbrlConst, FileSource
 from .SqlDb import XDBException, isSqlConnection, SqlDbConnection
+import aniso8601
+import datetime
+import decimal
 from contextlib import contextmanager
 import re
 import hashlib
@@ -63,12 +62,13 @@ import collections
 import importlib
 import inspect
 import json
+import time
 
 def insertIntoDB(cntlr, modelXbrl, 
                  user=None, password=None, host=None, port=None, database=None, timeout=None,
                  options=None):
     xpgdb = None
-
+# conn = adodbapi.connect("PROVIDER=MSOLEDBSQL;Data Source={0};Database={1};Trusted_Connection=yes;".format('Octophant1\SQLExpress', 'XBRL8'))
     try:
         xpgdb = DBConnection(cntlr, modelXbrl, user, password, host, port, database, timeout, options)
         xpgdb.verifyTables()
@@ -126,6 +126,9 @@ class DBConnection(SqlDbConnection):
     def __init__(self, cntlr, modelXbrl, user, password, host, port, database, timeout, options):
         
         db_type = getattr(options, 'xbrlusDBType')
+        connection_module = getattr(options, 'xbrlusDBDriverType')
+        if connection_module is not None:
+            db_type += '-{}'.format(connection_module)
 
         super().__init__(modelXbrl, user, password, host, port, database, timeout, db_type)
         self.options = options
@@ -200,7 +203,7 @@ class DBConnection(SqlDbConnection):
         if self.product == 'postgres':
             self.execute('''LOCK ONLY config 
                         IN ACCESS EXCLUSIVE MODE;''', fetch=False)
-        elif self.product == 'mssql':
+        elif self.product.startswith('mssql'):
             self.execute('SELECT COUNT(*) FROM config WITH (TABLOCKX)')     
         else:
             raise XDBException("xDB:unknownDatabaseType", 
@@ -540,7 +543,7 @@ class DBConnection(SqlDbConnection):
 
             if self.product == 'postgres':
                 max_id_query = '''SELECT max(CASE WHEN trim(source_report_identifier) ~ '^[0-9]+$' THEN trim(source_report_identifier)::int ELSE Null END) FROM report'''
-            elif self.product == 'mssql':
+            elif self.product.startswith('mssql'):
                 max_id_query = '''SELECT max(try_cast(trim(source_report_identifier) as int)) FROM report'''
             else:
                 max_id_query ='SELECT NULL'
@@ -573,7 +576,13 @@ class DBConnection(SqlDbConnection):
                                     _("Cannot determine the entity scheme and/or identifier."))
       
         if getattr(self, "acceptanceDate", None) is None:
-            self.acceptanceDate = getattr(self, "acceptanceDate", datetime.datetime.now())
+            try:
+                self.acceptanceDate = aniso8601.parse_datetime(self.options.xbrlusDBInfos.get('acceptance-timestamp'))
+            except (AttributeError, ValueError, aniso8601.exceptions.ISOFormatError):
+                try:
+                    self.acceptanceDate = aniso8601.parse_date(self.options.xbrlusDBInfos.get('acceptance-timestamp'))
+                except (AttributeError, ValueError, aniso8601.exceptions.ISOFormatError):
+                    self.acceptanceDate = getattr(self, "acceptanceDate", datetime.datetime.now())
 
         if not hasattr(self, "period"):
             self.period = None
@@ -631,7 +640,7 @@ class DBConnection(SqlDbConnection):
                         WHERE r.entity_id = {2}
                         ORDER BY r.accepted_timestamp DESC
                         {1}'''
-        if self.product == 'mssql':
+        if self.product.startswith('mssql'):
             query = query.format('TOP 1 ','', self.entityId)
         else:
             query = query.format('', ' LIMIT 1', self.entityId)
@@ -642,7 +651,7 @@ class DBConnection(SqlDbConnection):
             currentEntityName = None
           
         #get all the accessions after and including the processing accession.
-        trim_string = 'trim(entity_name)' if self.product == 'mssql' else 'trim(both entity_name)'
+        trim_string = 'trim(entity_name)' if self.product.startswith('mssql') else 'trim(both entity_name)'
         result = self.execute('''SELECT report_id, {} 
                         FROM report
                         WHERE entity_id = %s
@@ -974,7 +983,7 @@ class DBConnection(SqlDbConnection):
 #             for c in (relationshipElements | documentElements):
 #                 print(c.qname)
 #                 print(self.elementId[self.getQnameId(c.qname)])
-            
+
             self.getTable('dts_element', 'dts_element_id',
                           ('dts_id', 'element_id', 'is_base', 'in_relationship'),
                           ('dts_id', 'element_id'),
@@ -1049,7 +1058,7 @@ class DBConnection(SqlDbConnection):
                 LEFT JOIN document d
                 ON a.document_uri = d.document_uri;
             ''' % ','.join(tuple("('" + x + "')" for x in docsByUri.keys()))
-        elif self.product == 'mssql':
+        elif self.product.startswith('mssql'):
             query = '''
                 SELECT d.document_id, a.document_uri, d.document_loaded, CAST(CASE WHEN d.document_id IS NOT NULL THEN 1 ELSE 0 END AS bit) AS existing
                 FROM (VALUES %s) a(document_uri)
@@ -1507,13 +1516,17 @@ class DBConnection(SqlDbConnection):
 #         '''NEED TO DELETE EXISTING resource, label_resource, footnote_resource, reference_part'''   
         # deduplicate resources (may be on multiple arcs)
         # note that lxml has no column numbers, use elementFragmentIdentifier as unique identifier for the doucment (as pseudo-column number)
-        uniqueResources = dict(((docId, xmlLoc), {'resource': resource, 'arcrole': rel.arcrole, 'document_id': docId, 'xml_location': xmlLoc})
+        uniqueResources = dict(((docId, xmlLoc), {'resource': resource, 
+                                                  'arcrole': rel.arcrole, 
+                                                  'document_id': docId, 
+                                                  'xml_location': xmlLoc,
+                                                  'access_level': getattr(self, 'factAccessLevels', dict()).get(rel.toModelObject)
+                                                  })
                                 for arcrole, ELR, linkqname, arcqname in baseSets
                                     for rel in self.modelXbrl.relationshipSet(arcrole, ELR, linkqname, arcqname).modelRelationships
                                         if rel.fromModelObject is not None and rel.toModelObject is not None
                                             for resource in (rel.fromModelObject, rel.toModelObject)
-                                                if isinstance(resource, ModelResource)
-                                                    for xmlLoc in (elementFragmentIdentifier(resource),)
+                                                if isinstance(resource, ModelResource)                                                    for xmlLoc in (elementFragmentIdentifier(resource),)
                                                         for docId in (self.documentIds[self.cleanDocumentUri(resource.modelDocument)],))
         self.reportTime('dedupping resources')
         resourceData = tuple((self.uriId[resource_info['resource'].role.strip()] if resource_info['resource'].role is not None else None,
@@ -1548,11 +1561,12 @@ class DBConnection(SqlDbConnection):
         self.reportTime('add label resource')
         #add footnotes
         self.getTable('footnote_resource', 'resource_id', 
-                      ('resource_id', 'footnote', 'xml_lang'), 
+                      ('resource_id', 'footnote', 'xml_lang', 'access_level'), 
                       ('resource_id',), 
                       tuple((resource_info['resource'].dbResourceId,
                              resource_info['resource'].textValue,
-                             resource_info['resource'].xmlLang)
+                             resource_info['resource'].xmlLang,
+                             resource_info['access_level'])
                             for resource_info in uniqueResources.values()
                                 if resource_info['arcrole'] == XbrlConst.factFootnote),
                       checkIfExisting=True)        
@@ -2358,7 +2372,7 @@ class DBConnection(SqlDbConnection):
         updateFacts = []
         self.reportTime()
         
-        if self.product == 'mssql':
+        if self.product.startswith('mssql'):
             hashQuery = '''
                 WITH ultimus_calc AS (
                     SELECT f.fact_id
@@ -2511,7 +2525,8 @@ class DBConnection(SqlDbConnection):
                  'inline_scale': fact.scaleInt if self.modelXbrl.modelDocument.type in (Type.INLINEXBRL, Type.INLINEXBRLDOCUMENTSET) else None,
                  'inline_negated': fact.sign == '-' if self.modelXbrl.modelDocument.type in (Type.INLINEXBRL, Type.INLINEXBRLDOCUMENTSET) else None,
                  'inline_is_hidden': qname('http://www.xbrl.org/2013/inlineXBRL', 'hidden') in fact.ancestorQnames if self.modelXbrl.modelDocument.type in (Type.INLINEXBRL, Type.INLINEXBRLDOCUMENTSET) else None,
-                 'inline_format_id': self.getQnameId(fact.format) if self.modelXbrl.modelDocument.type in (Type.INLINEXBRL, Type.INLINEXBRLDOCUMENTSET) else None
+                 'inline_format_id': self.getQnameId(fact.format) if self.modelXbrl.modelDocument.type in (Type.INLINEXBRL, Type.INLINEXBRLDOCUMENTSET) else None,
+                 'access_level': self.getAccessLevelForFact(fact)
                  }
             #insertForFact[factXMLId] = fact_dict
             insertForFact.append(fact_dict)
@@ -2523,7 +2538,8 @@ class DBConnection(SqlDbConnection):
                                'fiscal_year', 'fiscal_period', 'fiscal_hash', 'fact_hash',
                                'calendar_year', 'calendar_period', 'calendar_hash', 
                                'is_extended', 'entity_id', 'element_namespace', 'element_local_name', 'dimension_count',
-                               'inline_display_value', 'inline_scale', 'inline_negated', 'inline_is_hidden', 'inline_format_qname_id'),
+                               'inline_display_value', 'inline_scale', 'inline_negated', 'inline_is_hidden', 'inline_format_qname_id',
+                               'access_level'),
                               ('accession_id', 'xml_id', 'uom', 'is_extended'),
                               tuple((f['accession_id'], f['tuple_fact_id'], f['context_id'], f['unit_id'],
                                      f['unit_base_id'], f['element_id'], f['effective_value'], f['fact_value'],
@@ -2534,7 +2550,8 @@ class DBConnection(SqlDbConnection):
                                      f['is_extended'], f['entity_id'], f['element_namespace'], f['element_local_name'],
                                      f['dimension_count'],
                                      f['inline_display_value'], f['inline_scale'], f['inline_negated'],
-                                     f['inline_is_hidden'], f['inline_format_id'])
+                                     f['inline_is_hidden'], f['inline_format_id'],
+                                     f['access_level'])
                                     for f in insertForFact))
         
         # for id, _accsId, xmlId, uom, isExtended in table:
@@ -2553,7 +2570,20 @@ class DBConnection(SqlDbConnection):
             #insertForFact.update(tupleInserts)
             table += tupleResults
 
+        # Need to save the access levels for each fact
+        if not hasattr(self, 'factAccessLevels'):
+            self.factAccessLevels = dict()
+        for fact_info in insertForFact:
+            if fact_info['access_level'] is not None:
+                self.factAccessLevels[fact_info['model_fact']] = fact_info['access_level']
+
         return insertForFact, table
+
+    def getAccessLevelForFact(self, fact):
+        try:
+            return self.sourceCall(fact)
+        except self._SourceFunctionError:
+            return None
 
     def updateNamespace(self):
         if len(self.namespace_ids_to_update) > 0:
@@ -2595,7 +2625,7 @@ class DBConnection(SqlDbConnection):
             self.execute(query, fetch=False)
 
         #recalculate the period index for all reports for the entity
-        if self.product == 'mssql':
+        if self.product.startswith('mssql'):
             query = '''
                 WITH x as (
                     SELECT row_number() over(partition BY entity_id ORDER BY reporting_period_end_date DESC, restatement_index ASC) AS rn
@@ -2621,7 +2651,7 @@ class DBConnection(SqlDbConnection):
         self.execute(query, fetch=False)
 
         #update is most current
-        if self.product == 'mssql':
+        if self.product.startswith('mssql'):
             query = '''
                 WITH x as (
                     SELECT CASE WHEN row_number() over (ORDER BY accepted_timestamp DESC, source_report_identifier) = 1
