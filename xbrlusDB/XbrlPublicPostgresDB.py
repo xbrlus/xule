@@ -544,7 +544,7 @@ class DBConnection(SqlDbConnection):
             if self.product == 'postgres':
                 max_id_query = '''SELECT max(CASE WHEN trim(source_report_identifier) ~ '^[0-9]+$' THEN trim(source_report_identifier)::int ELSE Null END) FROM report'''
             elif self.product.startswith('mssql'):
-                max_id_query = '''SELECT max(try_cast(trim(source_report_identifier) as int)) FROM report'''
+                max_id_query = '''SELECT max(try_cast(rtrim(ltrim(source_report_identifier)) as int)) FROM report'''
             else:
                 max_id_query ='SELECT NULL'
             result = self.execute(max_id_query)
@@ -651,7 +651,7 @@ class DBConnection(SqlDbConnection):
             currentEntityName = None
           
         #get all the accessions after and including the processing accession.
-        trim_string = 'trim(entity_name)' if self.product.startswith('mssql') else 'trim(both entity_name)'
+        trim_string = 'rtrim(ltrim(entity_name))' if self.product.startswith('mssql') else 'trim(both entity_name)'
         result = self.execute('''SELECT report_id, {} 
                         FROM report
                         WHERE entity_id = %s
@@ -1526,7 +1526,8 @@ class DBConnection(SqlDbConnection):
                                     for rel in self.modelXbrl.relationshipSet(arcrole, ELR, linkqname, arcqname).modelRelationships
                                         if rel.fromModelObject is not None and rel.toModelObject is not None
                                             for resource in (rel.fromModelObject, rel.toModelObject)
-                                                if isinstance(resource, ModelResource)                                                    for xmlLoc in (elementFragmentIdentifier(resource),)
+                                                if isinstance(resource, ModelResource)
+                                                    for xmlLoc in (elementFragmentIdentifier(resource),)
                                                         for docId in (self.documentIds[self.cleanDocumentUri(resource.modelDocument)],))
         self.reportTime('dedupping resources')
         resourceData = tuple((self.uriId[resource_info['resource'].role.strip()] if resource_info['resource'].role is not None else None,
