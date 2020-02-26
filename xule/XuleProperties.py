@@ -516,7 +516,7 @@ def property_dimension(xule_context, object_value, *args):
     else:
         raise XuleProcessingError(_("The argument for property 'dimension' must be a qname, found '%s'." % dim_name.type),xule_context)
 
-    if object_value.type == 'fact':
+    if object_value.is_fact:
         if not object_value.is_fact:
             return object_value
         
