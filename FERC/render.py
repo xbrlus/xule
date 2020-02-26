@@ -1430,6 +1430,16 @@ def cmdLineOptionExtender(parser, *args, **kwargs):
                       dest="ferc_render_inline", 
                       help=_("The generated Inline XBRL file"))        
 
+    parserGroup.add_option("--ferc-render-css-file", 
+                      action="store", 
+                      dest="ferc_render_css_file", 
+                      help=_("Identify the CSS file that sould be used. This will overwrite the name of the CSS file that is included in the template set."))   
+
+    parserGroup.add_option("--ferc-render-inline-css", 
+                      action="store_true", 
+                      dest="ferc_render_inline_css", 
+                      help=_("Indicates that the CSS should be inlined in the generated HTML file. This option must be used with --frec-render-css-file."))   
+
     parserGroup.add_option("--ferc-render-save-xule", 
                       action="store", 
                       dest="ferc_render_save_xule", 
@@ -1487,11 +1497,20 @@ def fercCmdUtilityRun(cntlr, options, **kwargs):
     if options.ferc_render_list and options.ferc_render_template_set is None:
         parser.error(_("Listing the templates in a template set requires a --ferec-render-template-set."))
 
+    if options.ferc_render_inline_css and not options.ferc_render_css_file:
+        parser.error(_("--ferc-render-inline-css requires the --ferc-render-css-file option to identify the css file."))
+
+    if options.ferc_render_inline_css and options.ferc_render_css_file:
+        # make sure the css file exists
+        if not os.path.exists(options.ferc_render_css_file):
+            parser.error(_("CSS file '{}' does not exists.".format(options.ferc_render_css_file)))
+
     if options.ferc_render_compile:
         compile_templates(cntlr, options)
 
     if options.ferc_render_list:
-        list_templates(cntlr, options)        
+        list_templates(cntlr, options)     
+   
 
 def compile_templates(cntlr, options):
 
@@ -1671,12 +1690,7 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
                 inline_name = options.ferc_render_inline
 
             # Add css link
-            head = main_html.find('xhtml:head', _XULE_NAMESPACE_MAP)
-            for css_file_name in template_catalog.get('css',tuple()):
-                link = etree.SubElement(head, "link")
-                link.set('rel', 'stylesheet')
-                link.set('type', 'text/css')
-                link.set('href', css_file_name)
+            add_css(main_html, template_catalog, options)
 
             # Iterate through each of the templates in the catalog
             for catalog_item in template_catalog['templates']: # A catalog item is a set of files for a single template
@@ -1792,6 +1806,36 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
         if options.ferc_render_debug:
             end_time = datetime.datetime.now()
             cntlr.addToLog(_("Processing time: {}".format(str(end_time - start_time))), "info")
+
+def add_css(main_html, template_catalog, options):
+    """This will add the css style info to the html file.
+
+    If the --ferc-render-inline-css option is used, the css file will be copied."""
+    
+    head = main_html.find('xhtml:head', _XULE_NAMESPACE_MAP)
+    if options.ferc_render_css_file:
+        # Then the file name is identified by this option.
+        if options.ferc_render_inline_css:
+            # the contents of the file should be copied
+            try:
+                with open(options.ferc_render_css_file, 'r') as css_file:
+                    css_contents = css_file.read()
+            except:
+                raise FERCRenderException("Unable to open CSS file '{}'".format(options.ferc_render_css_file))
+            style = etree.SubElement(head, 'style')
+            style.text = css_contents
+        else: # just add a link to the file
+            link = etree.SubElement(head, "link")
+            link.set('rel', 'stylesheet')
+            link.set('type', 'text/css')
+            link.set('href', options.ferc_render_css_file)
+
+    else: # the file name is in the catalog
+        for css_file_name in template_catalog.get('css',tuple()):
+            link = etree.SubElement(head, "link")
+            link.set('rel', 'stylesheet')
+            link.set('type', 'text/css')
+            link.set('href', css_file_name)
 
 class _logCaptureHandler(logging.Handler):
     def __init__(self):
