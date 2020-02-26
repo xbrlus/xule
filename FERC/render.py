@@ -874,7 +874,7 @@ def traverse_for_facts(json_results, current_result, focus_index=-1):
     found = False
     for child_result in json_results:
         if (child_result['type'] == 'f' and
-            child_result['value'] is not None and
+            #child_result['value'] is not None and
             child_result['is-fact'].lower() == 'true'):
             focus_index += 1
         elif child_result['type'] == 'l':
