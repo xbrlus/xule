@@ -1935,7 +1935,7 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
                 content_node = etree.fromstring('<div class="sub-html">{}</div>'.format(display_value))
                 ix_node.append(content_node)
             except etree.XMLSyntaxError:
-                model_fact.modelXbrl.warning("Invalid XHMTL Error", "Attempting to substitute invalid XHTML into the template. Inserted as plain text.\n{}".format(display_value))
+                model_fact.modelXbrl.warning("Warning", "Attempting to substitute invalid XHTML into the template. Inserted as plain text.\n{}".format(display_value))
                 ix_node.text = display_value
         else:
             ix_node.text = display_value
