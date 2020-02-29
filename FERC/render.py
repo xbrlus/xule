@@ -765,6 +765,7 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                     current_footnote_ids = []
                     is_redacted = False
                     is_confidential = False
+                    parent_classes = []
                     if json_result['type'] == 'f':
                         rule_focus_index = get_rule_focus_index(all_result_part or json_rule_result, json_result)
                         if rule_focus_index is not None:
@@ -796,10 +797,13 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                     else:
                         span_classes += ['sub-value', 'sub-replacement']
                     
-                    if is_redacted: span_classes.append('redacted')
+                    if is_redacted: 
+                        span_classes.append('redacted')
+                        parent_classes.append('parent-redacted')
                     if is_confidential: 
                         has_confidential = True
                         span_classes.append('confidential')
+                        parent_classes.append('parent-confidential')
 
                     span = etree.Element('div', nsmap=_XULE_NAMESPACE_MAP)
                     span.set('class', ' '.join(span_classes))
@@ -819,8 +823,8 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                         sub_parent = sub_node.getparent()
                         sub_parent.replace(sub_node, span)
                         # Add classes to the parent
-                        if len(classes_from_result['parent']) > 0:
-                            sub_parent.set('class', ' '.join(sub_parent.get('class','').split() + classes_from_result['parent']))
+                        if len(classes_from_result['parent']) + len(parent_classes) > 0:
+                            sub_parent.set('class', ' '.join(sub_parent.get('class','').split() + classes_from_result['parent'] + parent_classes))
                         # Add colspans to the parent
                         if json_result.get('colspan') is not None:
                             sub_parent.set('colspan', str(json_result['colspan']).strip())
