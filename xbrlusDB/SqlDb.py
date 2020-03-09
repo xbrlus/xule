@@ -776,15 +776,31 @@ WITH row_values (%(newCols)s) AS (
                 start = i
                 end = i + 1000
                 
+                exist_query = '''
+                SELECT {return_cols} {existence}
+                FROM {table_name}
+                JOIN (VALUES {data}) AS x({cols})
+                  ON {match};
+                '''.format(
+                    return_cols=', '.join('{0}.{1}'.format(_table,col)
+                                                            for col in returningCols),
+                    existence=', 1' if returnExistenceStatus else '',
+                    table_name=_table,
+                    data=', \n'.join(rowValues[start:end]),
+                    cols=', '.join(newCols),
+                    match=' AND '.join('(({0}.{2} = {1}.{2}) or coalesce({0}.{2}, {1}.{2}) is null)'.format(_table,'x',col) 
+                                            for col in matchCols)
+                )
+
                 query = '''
                 MERGE INTO {table_name}
                 USING (VALUES {data}) AS x({cols})
                 ON {match}
                 WHEN NOT MATCHED THEN
                 INSERT ({cols}) VALUES ({new_values})
-                WHEN MATCHED THEN
-                    UPDATE SET {first_col} = x.{first_col}
-                OUTPUT {return_cols}'''.format(
+                --WHEN MATCHED THEN
+                --    UPDATE SET {first_col} = x.{first_col}
+                OUTPUT {return_cols} {existence};'''.format(
                     table_name=_table,
                     data=', \n'.join(rowValues[start:end]),
                     cols=', '.join(newCols),
@@ -793,13 +809,12 @@ WITH row_values (%(newCols)s) AS (
                     new_values= ', '.join("{0}.{1}".format('x',newCol)
                                                     for newCol in newCols),
                     first_col=newCols[0],
-                    return_cols='{cols} {existence};'.format(
-                        cols=', '.join('{0}.{1}'.format('INSERTED',col)
+                    return_cols=', '.join('{0}.{1}'.format('INSERTED',col)
                                                             for col in returningCols),
-                        existence=", CASE WHEN $action = 'UPDATE' THEN 1 ELSE 0 END" if returnExistenceStatus else ''
-                    )
+                    existence=', 0' if returnExistenceStatus else ''
                 )
-
+                
+                sql.append((exist_query, None, returnMatches or returnExistenceStatus))
                 sql.append((query, None, returnMatches or returnExistenceStatus))
 
                 i += 1000
