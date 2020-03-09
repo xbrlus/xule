@@ -921,6 +921,11 @@ class DBConnection(SqlDbConnection):
         #if this is an instance load, the dts are the documetns the instance points to, otherwise, the dts is the main document of the model.
         dtsDocuments = self.walkDocumentTree(self.modelXbrl.modelDocument.referencesDocument.keys() if self.loadType == 'instance' else (self.modelXbrl.modelDocument,))
         self.dtsId, self.dtsExists = self.addDTSRows(dtsDocuments)
+        
+        # Check if the source allosw the creation of unnamed DTSs
+        if self.getSourceSetting("doNotAllowUnnamedDTS") and not self.dtsExists and self.loadType == 'instance':
+            raise XDBException("xDB:instanceDTSDoesNotExists",
+                            _("The DTS does not exist and the source '{}' does not allow addition of a DTS when loading an instance".format(self.sourceName.upper())))
         self.dtsDocuments = {self.docCleanUriMap[x[0]] for x in dtsDocuments}
         if self.dtsExists:
             self.documentIds = self.getDTSDocumentIds()
@@ -1010,8 +1015,11 @@ class DBConnection(SqlDbConnection):
 
     def addDTSRows(self, dtsDocuments):
         #only include docuemnts directly referenced from the  
-        topDocs = tuple(docUri for docUri, isTop, _x in dtsDocuments if isTop)
+        #topDocs = tuple(docUri for docUri, isTop, _x in dtsDocuments if isTop)
+        # Changed to use all the documents in the dts to calculate the dts hash
+        topDocs = set(docUri for docUri, _isTop, _x in dtsDocuments)
         refDocsString = '|'.join(sorted(topDocs))
+        print('\n'.join(refDocsString.split('|')))
         dtshash = hashlib.sha224(refDocsString.encode()).digest()
         dtsName = getattr(self.options,'xbrlusDBDTSName',None) if self.loadType == 'dts' else None
                 
