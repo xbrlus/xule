@@ -920,12 +920,19 @@ class DBConnection(SqlDbConnection):
         #walk documents for dts
         #if this is an instance load, the dts are the documetns the instance points to, otherwise, the dts is the main document of the model.
         dtsDocuments = self.walkDocumentTree(self.modelXbrl.modelDocument.referencesDocument.keys() if self.loadType == 'instance' else (self.modelXbrl.modelDocument,))
+        
         self.dtsId, self.dtsExists = self.addDTSRows(dtsDocuments)
         
-        # Check if the source allosw the creation of unnamed DTSs
-        if self.getSourceSetting("doNotAllowUnnamedDTS") and not self.dtsExists and self.loadType == 'instance':
-            raise XDBException("xDB:instanceDTSDoesNotExists",
-                            _("The DTS does not exist and the source '{}' does not allow addition of a DTS when loading an instance".format(self.sourceName.upper())))
+        # Check if the source allows the creation of unnamed DTSs
+        if self.getSourceSetting("doNotAllowUnnamedDTS") and self.loadType == 'instance':
+            if self.dtsExists:
+                # Get name of the DTS
+                dtsNameResult = self.execute('SELECT dts_name FROM dts WHERE dts_id = {}'.format(self.dtsId))
+                dtsName = dtsNameResult[0][0] if dtsNameResult.numberOfRows > 0 else None
+                self.cntlr.addToLog(_("Using DTS '{}'".format(dtsName)), "info")
+            else:
+                raise XDBException("xDB:instanceDTSDoesNotExists",
+                                _("The DTS does not exist and the source '{}' does not allow addition of a DTS when loading an instance".format(self.sourceName.upper())))
         self.dtsDocuments = {self.docCleanUriMap[x[0]] for x in dtsDocuments}
         if self.dtsExists:
             self.documentIds = self.getDTSDocumentIds()
@@ -945,7 +952,7 @@ class DBConnection(SqlDbConnection):
             self.insertDocuments({cleanInstDocumentUri,})
             instDocuments = ((cleanInstDocumentUri, 
                              True, 
-                             tuple(self.cleanDocumentUri(x) for x in self.modelXbrl.modelDocument.referencesDocument.keys())),)
+                             tuple(self.cleanDocumentUri(x) for x in self.modelXbrl.modelDocument.referencesDocument.keys() if x.inDTS)),)
             self.insertDocumentRelationships(instDocuments)          
             #add dts record for footnotes in the instance        
             if len(self.instanceBaseSets) > 0:
@@ -1005,11 +1012,12 @@ class DBConnection(SqlDbConnection):
         if processed is None:
             processed = set()
         for parent in parents:
-            cleanParentUri = self.cleanDocumentUri(parent)
-            if cleanParentUri not in processed:
-                processed.add(cleanParentUri)
-                resultDocs.add((cleanParentUri, top, tuple(self.cleanDocumentUri(x) for x in parent.referencesDocument.keys())))
-                resultDocs = self.walkDocumentTree(parent.referencesDocument.keys(), resultDocs, processed, False)
+            if parent.inDTS and parent.type != Type.INSTANCE:
+                cleanParentUri = self.cleanDocumentUri(parent)
+                if cleanParentUri not in processed:
+                    processed.add(cleanParentUri)
+                    resultDocs.add((cleanParentUri, top, tuple(self.cleanDocumentUri(x) for x in parent.referencesDocument.keys() if x.inDTS)))
+                    resultDocs = self.walkDocumentTree(parent.referencesDocument.keys(), resultDocs, processed, False)
                     
         return resultDocs
 
@@ -1019,12 +1027,12 @@ class DBConnection(SqlDbConnection):
         # Changed to use all the documents in the dts to calculate the dts hash
         topDocs = set(docUri for docUri, _isTop, _x in dtsDocuments)
         refDocsString = '|'.join(sorted(topDocs))
-        print('\n'.join(refDocsString.split('|')))
+        
         dtshash = hashlib.sha224(refDocsString.encode()).digest()
         dtsName = getattr(self.options,'xbrlusDBDTSName',None) if self.loadType == 'dts' else None
                 
         table = self.getTable('dts', 'dts_id',
-                              ('dts_hash','dts_name'),
+                              ('dts_hash', 'dts_name'),
                               ('dts_hash',),
                               ((dtshash,
                                 dtsName),),
@@ -1032,7 +1040,7 @@ class DBConnection(SqlDbConnection):
                               returnExistenceStatus=True)
         dtsId = table[0][0]
                         
-        return dtsId, table[0][2] #existence
+        return dtsId,  table[0][2] #table[0][3] = existence
 
     def addDTSDocuments(self, dtsId, dtsDocuments):
         refDocIds = tuple((dtsId, self.documentIds[x[0]], x[1]) for x in dtsDocuments)
