@@ -46,7 +46,7 @@ from arelle.ModelValue import qname
 from arelle.ValidateXbrlCalcs import roundValue
 from arelle.XmlUtil import elementFragmentIdentifier
 from arelle import XbrlConst, FileSource
-from .SqlDb import XDBException, isSqlConnection, SqlDbConnection
+from .SqlDb import XDBException, isSqlConnection, SqlDbConnection, setTraceFile
 import aniso8601
 import datetime
 import decimal
@@ -63,12 +63,20 @@ import importlib
 import inspect
 import json
 import time
+import pathlib
+import sys
 
 def insertIntoDB(cntlr, modelXbrl, 
                  user=None, password=None, host=None, port=None, database=None, timeout=None,
                  options=None):
     xpgdb = None
-# conn = adodbapi.connect("PROVIDER=MSOLEDBSQL;Data Source={0};Database={1};Trusted_Connection=yes;".format('Octophant1\SQLExpress', 'XBRL8'))
+    if getattr(options, 'xbrlusDBTrace', None) is not None:
+        # Create a clean tracefile
+        trace_file = os.path.realpath(options.xbrlusDBTrace)
+        trace_path = os.path.dirname(trace_file)
+        pathlib.Path(trace_path).mkdir(parents=True, exist_ok=True)
+        with open(trace_file, 'w') as fh: pass
+        setTraceFile(trace_file)
     try:
         xpgdb = DBConnection(cntlr, modelXbrl, user, password, host, port, database, timeout, options)
         xpgdb.verifyTables()

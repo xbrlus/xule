@@ -17,6 +17,10 @@ TRACESQLFILE = None
 #TRACESQLFILE = r"z:\temp\sqltraceWin.log"  # uncomment to trace SQL on connection (very big file!!!)
 #TRACESQLFILE = "/Users/hermf/temp/sqltraceUnx.log"  # uncomment to trace SQL on connection (very big file!!!)
 
+def setTraceFile(file_name):
+    global TRACESQLFILE
+    TRACESQLFILE = file_name
+
 def noop(*args, **kwargs): return 
 class NoopException(Exception):
     pass
@@ -496,8 +500,8 @@ class SqlDbConnection():
                    for tableRow in 
                    self.execute({"postgres":"SELECT tablename FROM pg_tables WHERE schemaname = 'public';",
                                  "mysql": "SHOW tables;",
-                                 "mssql": "SELECT * FROM sys.TABLES;",
-                                 "mssql-ADO": "SELECT * FROM sys.TABLES;",
+                                 "mssql": "SELECT * FROM sys.tables;",
+                                 "mssql-ADO": "SELECT * FROM sys.tables;",
                                  "orcl": "SELECT table_name FROM user_tables",
                                  "sqlite": "SELECT name FROM sqlite_master WHERE type='table';"
                                  }[self.product]))
@@ -533,7 +537,7 @@ class SqlDbConnection():
                 # print ("col types for {} = {} ".format(table, colTypes))
             elif self.product.startswith("mssql"):
                 colTypesResult = self.execute("SELECT column_name, data_type, character_maximum_length "
-                                              "FROM information_schema.columns "
+                                              "FROM INFORMATION_SCHEMA.COLUMNS "
                                               "WHERE table_name = '{0}'"
                                               .format( table )) # table name is not " " quoted here
                 colTypes = []
@@ -775,49 +779,85 @@ WITH row_values (%(newCols)s) AS (
             while i < len(rowValues):
                 start = i
                 end = i + 1000
-                
-                exist_query = '''
-                SELECT {return_cols} {existence}
-                FROM {table_name}
-                JOIN (VALUES {data}) AS x({cols})
-                  ON {match};
-                '''.format(
-                    return_cols=', '.join('{0}.{1}'.format(_table,col)
-                                                            for col in returningCols),
-                    existence=', 1' if returnExistenceStatus else '',
-                    table_name=_table,
-                    data=', \n'.join(rowValues[start:end]),
-                    cols=', '.join(newCols),
-                    match=' AND '.join('(({0}.{2} = {1}.{2}) or coalesce({0}.{2}, {1}.{2}) is null)'.format(_table,'x',col) 
-                                            for col in matchCols)
-                )
+                exist_query = None
+                insert_query = None
 
-                query = '''
-                MERGE INTO {table_name}
-                USING (VALUES {data}) AS x({cols})
-                ON {match}
-                WHEN NOT MATCHED THEN
-                INSERT ({cols}) VALUES ({new_values})
-                --WHEN MATCHED THEN
-                --    UPDATE SET {first_col} = x.{first_col}
-                OUTPUT {return_cols} {existence};'''.format(
-                    table_name=_table,
-                    data=', \n'.join(rowValues[start:end]),
-                    cols=', '.join(newCols),
-                    match= ' AND '.join('(({0}.{2} = {1}.{2}) or coalesce({0}.{2}, {1}.{2}) is null)'.format(_table,'x',col) 
-                                            for col in matchCols),
-                    new_values= ', '.join("{0}.{1}".format('x',newCol)
-                                                    for newCol in newCols),
-                    first_col=newCols[0],
-                    return_cols=', '.join('{0}.{1}'.format('INSERTED',col)
-                                                            for col in returningCols),
-                    existence=', 0' if returnExistenceStatus else ''
-                )
-                
-                sql.append((exist_query, None, returnMatches or returnExistenceStatus))
-                sql.append((query, None, returnMatches or returnExistenceStatus))
+                # This gets existing rows. This is only needed if there is something to return and if check existence.
+                if (returnMatches or returnExistenceStatus) and checkIfExisting:
+                    exist_query = '''
+                    SELECT {return_cols} {existence}
+                    FROM {table_name}
+                    JOIN (VALUES {data}) AS x({cols})
+                    ON {match};
+                    '''.format(
+                        return_cols=', '.join('{0}.{1}'.format(_table,col)
+                                                                for col in returningCols),
+                        existence=', 1' if returnExistenceStatus else '',
+                        table_name=_table,
+                        data=', \n'.join(rowValues[start:end]),
+                        cols=', '.join(newCols),
+                        #match=' AND '.join('(({0}.{2} = {1}.{2}) or coalesce({0}.{2}, {1}.{2}) is null)'.format(_table,'x',col) 
+                        #                        for col in matchCols),
+                        match=' AND '.join('(({0}.{2} = {1}.{2}) or ({0}.{2} IS NULL AND {1}.{2} is NULL))'.format(_table,'x',col) 
+                                                for col in matchCols)
+                    )
+
+                if insertIfNotMatched:
+                    if checkIfExisting:             
+                        insert_query = '''
+                        INSERT INTO {table_name} ({cols})
+                        {output} {return_cols} {existence}
+                        SELECT {select_cols}
+                        FROM (VALUES {data}) AS x({cols})
+                        LEFT JOIN {table_name}
+                        ON {match}
+                        WHERE {null_predicate};
+                        '''.format(
+                            table_name=_table,
+                            data=', \n'.join(rowValues[start:end]),
+                            cols=', '.join(newCols),
+                            select_cols=', '.join(('x.{}'.format( x) for x in newCols)),
+                            #match= ' AND '.join('(({0}.{2} = {1}.{2}) or coalesce({0}.{2}, {1}.{2}) is null)'.format(_table,'x',col) 
+                            #                        for col in matchCols),
+                            match=' AND '.join('(({0}.{2} = {1}.{2}) or ({0}.{2} IS NULL AND {1}.{2} is NULL))'.format(_table,'x',col) 
+                                                for col in matchCols),
+                            null_predicate=' AND '.join(('{tn}.{cn} IS NULL'.format(tn=_table, cn=x) for x in matchCols)) if matchCols is not None else '1=1',
+                            output='OUTPUT' if returnMatches or returnExistenceStatus else '',
+                            return_cols=', '.join('{0}.{1}'.format('INSERTED',col)
+                                                                    for col in returningCols),
+                            existence=', 0' if returnExistenceStatus else ''
+                        )
+                    else: # insert even if existing
+                        insert_query = '''
+                        INSERT INTO {table_name} ({cols})
+                        {output} {return_cols} {existence}
+                        SELECT {cols}
+                        FROM (VALUES {data}) AS x({cols});
+                        '''.format(
+                            table_name=_table,
+                            data=', \n'.join(rowValues[start:end]),
+                            cols=', '.join(newCols),
+
+                            output='OUTPUT' if returnMatches or returnExistenceStatus else '',
+                            return_cols=', '.join('{0}.{1}'.format('INSERTED',col)
+                                                                    for col in returningCols),
+                            existence=', 0' if returnExistenceStatus else ''
+                        )                        
+                if exist_query is not None:
+                    sql.append((exist_query, None, returnMatches or returnExistenceStatus))
+                if insert_query is not None:
+                    sql.append((insert_query, None, returnMatches or returnExistenceStatus))
 
                 i += 1000
+
+                # check if tracing is on - This will only output the first 1000 from any query
+                if TRACESQLFILE and start == 0:
+                    with io.open(TRACESQLFILE, "a", encoding='utf-8') as fh:
+                        fh.write('Check existing for table {}'.format(_table))
+                        fh.write(exist_query if exist_query else 'NO EXIST QUERY')
+                        fh.write('\nInsert new for table {}'.format(_table))
+                        fh.write(insert_query if insert_query else 'NO INSERT QUERY')
+                        fh.write('\n')
 
         elif self.product == "orcl":
             sql = [("CREATE GLOBAL TEMPORARY TABLE %(inputTable)s ( %(inputCols)s )" %

@@ -105,6 +105,11 @@ def xbrlDBcommandLineOptionExtender(parser):
                             dest="xbrlusDBDriverType",
                             help=_("Module to use to connect to the database. Each database type has its own default database connect module that is defaulted. This option allows overrriding of the module to use. Currently, the only option is ADO for for MS SQL Server."))    
     
+    parserGroup.add_option("--xbrlusDB-trace",
+                            action="store",
+                            dest="xbrlusDBTrace",
+                            help=_("Name of file for tracing generating sql statement. Used for debugging"))    
+
     parser.add_option_group(parserGroup)
     
     logging.getLogger("arelle").addHandler(LogToDbHandler())    
