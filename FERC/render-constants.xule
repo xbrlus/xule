@@ -6,12 +6,14 @@ constant $prior2-start = None
 constant $prior2-end = None
 constant $month-ends = None
 
-constant $currentInstant = date($current-end)
-constant $currentDuration = duration(date($current-start), date($current-end))
-constant $priorInstant = date($prior-end)
-constant $priorDuration = duration(date($prior-start), date($prior-end))
-constant $prior2Instant = date($prior2-end)
-constant $prior2Duration = duration(date($prior2-start), date($prior2-end))
+constant $currentInstant = date($current-end)  /** REFERENCE Current. **/
+constant $currentDuration = duration(date($current-start), date($current-end)) /** REFERENCE Current. **/
+constant $priorInstant = date($current-start) - time-span("P1D") /** REFERENCE = Prior. ie. 12/31**/
+constant $prior12MonthsInstant = date($prior-end) /** REFERENCE =prior12MonthsInstant. **/
+constant $priorDuration = duration(date($prior-start), date($prior-end)) /** REFERENCE = Prior. **/
+constant $prior2Instant = date($prior-start) - time-span("P1D") /** REFERENCE = Prior2. ie. 12/31**/
+constant $prior24MonthsInstant = date($prior2-end) /** REFERENCE prior24MonthsInstant. ie. 12/31**/
+constant $prior2Duration = duration(date($prior2-start), date($prior2-end)) /** REFERENCE prior2. ie. 12/31**/
 
 constant $currentYear = substring($current-end, 1 , 4)
 constant $priorYear = substring($prior-end, 1, 4)
@@ -23,10 +25,12 @@ constant $current3M = duration(
 							   date($currentYear+'-'+pad((month($currentInstant)-2).string, 2, '0')+'-01'),
 					           $currentInstant
 					  )
+
 constant $prior3M = duration(
-							   date($priorYear+'-'+pad((month($priorInstant)-2).string, 2, '0')+'-01'),
-					           $priorInstant
+							   date($priorYear+'-'+pad((month($prior12MonthsInstant)-2).string, 2, '0')+'-01'),
+					           $prior12MonthsInstant
 					  )
+
 
 constant $currentQ1Instant = date($currentYear+'-03-31')
 constant $currentQ1Duration = duration(date($currentYear+'-01-01'), date($currentYear+'-03-31'))
@@ -80,6 +84,8 @@ function pad($padee, $len, $pad_char)
 		$padded_num = $padding + $padee;
 
 		substring($padded_num, length($padded_num)-$len+1)
+output a
+	transpose(list(list(1,2,3,4),list('a','b','c','d'), list(10,20,30,40)))
 
 function transpose($x)
 	list(
@@ -89,3 +95,9 @@ function transpose($x)
 					$inner[$i]
 				)
 	)
+	
+function member-default($dim, $mem)
+if taxonomy().dimension($dim).default().name == $mem
+		none
+else
+		$mem
