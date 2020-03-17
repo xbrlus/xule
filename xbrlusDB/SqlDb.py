@@ -589,6 +589,17 @@ class SqlDbConnection():
                                                        
         return self.tableColTypes[table]
     
+    def columnLengths(self, newCols, colDeclarations):
+        colLengths = []
+        for colName in newCols:
+            colDecl = colDeclarations[colName]
+            match = re.search(r'''n?varchar\(([0-9]+)\)''', colDecl)
+            if match:
+                colLengths.append(int(match.group(1)))
+            else:
+                colLengths.append(None)
+        return colLengths
+
     def getTable(self, table, idCol, newCols=None, matchCols=None, data=None, commit=False, 
                  comparisonOperator='=', checkIfExisting=False, insertIfNotMatched=True, 
                  returnMatches=True, returnExistenceStatus=False):
@@ -612,6 +623,8 @@ class SqlDbConnection():
                 returningCols.append(matchCol)
         colTypeFunctions = self.columnTypeFunctions(table)
         colDeclarations = self.tableColDeclaration.get(table)
+        if isMSSql:
+            colLengths = self.columnLengths(newCols, colDeclarations)
         try:
             colTypeCast = tuple(colTypeFunctions[colName][0] for colName in newCols)
             colTypeFunction = [colTypeFunctions[colName][1] for colName in returningCols]
@@ -629,7 +642,7 @@ class SqlDbConnection():
             longColValues = []
         for row in data:
             colValues = []
-            for col in row:
+            for colPos, col in enumerate(row):
                 if isinstance(col, bool):
                     if isOracle or isMSSql or isSQLite:
                         colValues.append('1' if col else '0')
@@ -664,6 +677,14 @@ class SqlDbConnection():
                     else:
                         longColValues.append(col)
                         colValues.append("?")
+                elif isinstance(col, _STR_BASE) and isMSSql:
+                    if colLengths[colPos] is not None and len(col) > colLengths[colPos]:
+                        colValues.append(self.dbStr(col[:colLengths[colPos]]))
+                        self.modelXbrl.info("warning", "Table: {table}, Field: {field} - Value of length {colLength} is too "
+                                            "long for the database field with max length of {dbLength}"
+                                            "".format(table=table, field=newCols[colPos], colLength=len(col), dbLength=colLengths[colPos]))
+                    else:
+                        colValues.append(self.dbStr(col))
                 elif isinstance(col, bytes) and isPostgres:
                     hexvals = "".join([hex(x)[2:] for x in col])
                     #get the hex values
