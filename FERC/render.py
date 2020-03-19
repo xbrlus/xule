@@ -28,7 +28,7 @@ _XULE_NAMESPACE_MAP = {'xule': 'http://xbrl.us/xule/2.0/template',
                        'ix': 'http://www.xbrl.org/2013/inlineXBRL'}
 _XHTM_NAMESPACE = 'http://www.w3.org/1999/xhtml'
 _RULE_NAME_PREFIX = 'rule-'
-_EXTRA_ATTRIBUTES = ('format', 'scale', 'sign', 'decimals')
+_EXTRA_ATTRIBUTES = ('format', 'scale', 'sign', 'decimals', 'fact')
 
 class FERCRenderException(Exception):
     pass
@@ -78,7 +78,7 @@ def process_template(cntlr, template_file_name, options):
         raise FERCRenderException("Template file '{}' is not a valid XHTML file.".format(template_file_name))
 
     # build the namespace declaration for xule
-    xule_namespaces = build_xule_namespaces(template_tree)
+    xule_namespaces = build_xule_namespaces(template_tree, options)
     # build constants
     xule_constants = build_constants(options)
     # Create list of Xule nodes in the template
@@ -91,13 +91,20 @@ def process_template(cntlr, template_file_name, options):
 
     return '{}\n{}\n{}'.format(xule_namespaces, xule_constants, xule_rules), substitutions,  line_number_subs, template_tree, template_string, css_file_names
 
-def build_xule_namespaces(template_tree):
+def build_xule_namespaces(template_tree, options):
     '''build the namespace declarations for xule
 
     Convert the namespaces on the template to namespace declarations for xule. This will only use the 
     namespaces that are declared on the root element of the template.
+
+    Namespaces provided on the command line using --ferc-render-namespace take precidence
     '''
-    namespaces = ['namespace {}={}'.format(k, v) if k is not None else 'namespace {}'.format(v) for k, v in template_tree.getroot().nsmap.items()]
+    namespace_dict = template_tree.getroot().nsmap.copy()
+    # Overwrite with namespaces from the command line
+    namespace_dict.update(options.namespace_map)
+
+    namespaces = ['namespace {}={}'.format(k, v) if k is not None else 'namespace {}'.format(v) for k, v in namespace_dict.items()]
+
     return '\n'.join(namespaces)
 
 def build_constants(options):
@@ -516,7 +523,7 @@ def format_extra_expressions(replacement_node):
     extra_expressions = dict()
     for extra_node in replacement_node.findall('{{{}}}*'.format(etree.QName(replacement_node).namespace)):
         extra_name = etree.QName(extra_node.tag).localname
-        if extra_name in _EXTRA_ATTRIBUTES + ('class', 'colspan'):
+        if extra_name in _EXTRA_ATTRIBUTES + ('class', 'colspan', 'attribute'):
             if extra_node.text is not None:
                 exists_extra_expression = '$test-expr = {expr}; if exists($test-expr) $test-expr else none'.format(expr=extra_node.text.strip())
                 if extra_name == 'class':
@@ -526,6 +533,17 @@ def format_extra_expressions(replacement_node):
                     extra_expressions[extra_name].append('list("{}",{})'.format(location, exists_extra_expression)) 
                 elif extra_name in _EXTRA_ATTRIBUTES + ('colspan',): # these are inline attributes
                     extra_expressions[extra_name] = exists_extra_expression
+                elif extra_name == 'attribute':
+                    att_name = extra_node.get('name')
+                    if att_name is None:
+                        raise FERCRenderException("The <xule:attribute> element does not have a name attribute. Found on line {} of the template".format(extra_node.sourceline))  
+                    att_loc = extra_node.get('location', 'self')
+                    if extra_name not in extra_expressions:
+                        extra_expressions[extra_name] = list()
+                    extra_expressions[extra_name].append('list("{name}", "{loc}", {exp})'.format(
+                        name=att_name, 
+                        loc=att_loc,
+                        exp=exists_extra_expression))
                 else:
                     # This is some other element in the xule:replace, just skip it.
                     continue
@@ -756,6 +774,7 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                     continue
 
                 classes_from_result = get_classes(json_result)
+                attributes_from_result = get_attributes(json_result)
                 # Add classes that go on the span that will replace the xule:relace node
                 span_classes = classes_from_result.get('self',[])
                 # if the json_result is none, there is nothing to substitute
@@ -828,6 +847,22 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                         # Add colspans to the parent
                         if json_result.get('colspan') is not None:
                             sub_parent.set('colspan', str(json_result['colspan']).strip())
+
+                        # Add attributes
+                        for att_loc, att in attributes_from_result.items():
+                            if att_loc == 'self':
+                                node_for_att = span
+                            elif att_loc == 'parent':
+                                node_for_att = sub_parent
+                            elif att_loca == 'grand':
+                                node_for_att = sub_parent.getParent()
+                            else:
+                                node_for_att = None
+
+                            if node_for_att is not None:
+                                for att_name, att_value in att.items():
+                                    pass
+                                                                
                         
         
     # Add the new repeating nodes
@@ -1002,6 +1037,27 @@ def get_classes(json_result):
     
 
     #return [' '.join(x.split()) for x in json_result.get('classes', tuple())]
+
+def get_attributes(json_result):
+    '''Get the attributes fromthe evaluation of the xule:attribute expressions'''
+
+    attributes = collections.defaultdict(dict)
+    if json_result is None:
+        return attributes
+
+    working_attributes = collections.defaultdict(list)
+    for item in json_result.get('attribute', tuple()):
+        # item[0] is the attribute name
+        # item[1] is the location: self, parent, grand
+        # item[2] is the calculated value
+        if len(item) == 3:
+            # If the result doesn't have 3 items in it then there was no calculated value for the expression.
+            working_attributes[(item[0], item[1])].append(str(item[2]))
+    for att_name_and_loc, values in working_attributes.items():
+        # att_name_and_loc: 0 = attribute name, 1 = attribute location
+        attributes[att_name_and_loc[1]][att_name_and_loc[0]] = ' '.join(values)
+    
+    return attributes
 
 def get_footnotes(footnotes, model_fact, sub, fact_id, is_confidential, is_redacted):
     ''' Find if there is a footnote for this fact
@@ -1419,6 +1475,12 @@ def cmdLineOptionExtender(parser, *args, **kwargs):
                       dest="ferc_render_list", 
                       help=_("List the templates in a template set."))
 
+    parserGroup.add_option("--ferc-render-namespace",
+                      action="append",
+                      dest="ferc_render_namespaces",
+                      help=_("Create namespace mapping for prefix used in the template in the form of prefix=namespace. To map multiple "
+                             "namespaces use separate --ferc-render-space for each one."))
+
     parserGroup.add_option("--ferc-render-template", 
                       action="append", 
                       dest="ferc_render_template", 
@@ -1509,12 +1571,38 @@ def fercCmdUtilityRun(cntlr, options, **kwargs):
         if not os.path.exists(options.ferc_render_css_file):
             parser.error(_("CSS file '{}' does not exists.".format(options.ferc_render_css_file)))
 
+    validate_namespace_map(options, parser)
+
     if options.ferc_render_compile:
         compile_templates(cntlr, options)
 
     if options.ferc_render_list:
         list_templates(cntlr, options)     
-   
+
+def validate_namespace_map(options, parser):
+    options.namespace_map = dict()
+    default_namespace = None
+    for map in getattr(options, "ferc_render_namespaces") or tuple():
+        map_list = map.split('=', 1)
+        if len(map_list) == 1:
+            if map_list[0].strip == '':
+                parser.error(_("--ferc-render-namespace namespace without a prefix (default) must have a non space value."))
+            elif None in options.namespace_map:
+                parser.error(_("--ferc-render-namespace there can only be one default namespace"))
+            else:
+                options.namespace_map[None] = map_list[0].strip()
+        elif len(map_list) == 2:
+            prefix = map_list[0].strip()
+            ns = map_list[1].strip()
+            if prefix == '':
+                parser.error(_("--ferc-render-namespace prefix must have a non space value"))
+            if ns == '':
+                parser.error(_("--ferc-render-namespace namespace must have non space value"))
+            if prefix in options.namespace_map:
+                parser.error(_("--ferc-render-namespace prefix '{}' is mapped more than once".format(prefix)))
+            options.namespace_map[prefix] = ns
+        else:
+            parser.error(_("--ferc-render-namespace invalid content: {}".format(map)))
 
 def compile_templates(cntlr, options):
 
