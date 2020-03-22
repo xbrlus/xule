@@ -683,6 +683,7 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                     all_result_part=None, refs=None, template_nsmap=None):
     # Determine if this is a repeating rule.
     new_nodes = []
+    attribute_nodes = []
 
     has_confidential = False
 
@@ -850,21 +851,9 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
 
                         # Add attributes
                         for att_loc, att in attributes_from_result.items():
-                            if att_loc == 'self':
-                                node_for_att = span
-                            elif att_loc == 'parent':
-                                node_for_att = sub_parent
-                            elif att_loca == 'grand':
-                                node_for_att = sub_parent.getParent()
-                            else:
-                                node_for_att = None
-
-                            if node_for_att is not None:
-                                for att_name, att_value in att.items():
-                                    pass
-                                                                
-                        
-        
+                            for att_name, att_value in att.items():
+                                attribute_nodes.append((att_loc, att_name, att_value, span))
+    
     # Add the new repeating nodes
     for new_node in reversed(new_nodes):
         repeating_model_node.addnext(new_node)
@@ -874,6 +863,16 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
         model_parent = repeating_model_node.getparent()
         model_parent.remove(repeating_model_node)
 
+    # Add calculated attributes
+    for att_loc, att_name, att_value, node in attribute_nodes:
+        if att_loc == 'self':
+            att_node = node
+        elif att_loc == 'parent':
+            att_node = node.getparent()
+        elif att_loc == 'grand':
+            att_node = node.getparent().getparent()
+        if att_node is not None:
+            att_node.set(att_name, att_value)
     return has_confidential
 
 def clean_entities(text):
