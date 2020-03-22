@@ -166,6 +166,13 @@ def property_is_superset(xule_context, object_value, *args):
 
     return xv.XuleValue(xule_context, object_value.shadow_collection >= sub_values.shadow_collection, 'bool')
 
+class xule_json_encoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, decimal.Decimal):
+            return str(o)
+        # Let the base class default method raise the TypeError
+        return super.default(self, o)
+
 def property_to_json(xule_context, object_value, *args):
     if object_value.type == 'dictionary':
         unfrozen = dict(object_value.shadow_collection)
@@ -176,7 +183,7 @@ def property_to_json(xule_context, object_value, *args):
     
     unfrozen = unfreeze_shadow(object_value, True)
 
-    return xv.XuleValue(xule_context, json.dumps(unfrozen), 'string')
+    return xv.XuleValue(xule_context, json.dumps(unfrozen, cls=xule_json_encoder), 'string')
 
 def unfreeze_shadow(cur_val, for_json=False):
     if cur_val.type == 'list':
