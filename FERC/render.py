@@ -1,6 +1,7 @@
 from arelle import PluginManager
 from arelle.CntlrWebMain import Options
 from arelle.ModelRelationshipSet import ModelRelationshipSet
+from arelle.ModelDocument import Type
 from copy import deepcopy
 from lxml import etree
 from lxml.builder import E
@@ -1238,6 +1239,17 @@ def nodes_for_class(root, node_class):
 
 def get_dates(modelXbrl):
     '''This returns a dictionary of dates for the filing'''
+
+    if modelXbrl.modelDocument.type == Type.SCHEMA:
+        # This will be a blank rendering
+        return ('current-start',
+            'current-end',
+            'prior-start',
+            'prior-end',
+            'prior2-start',
+            'prior2-end',
+            'month-ends'
+            )        
 
     report_year_fact = get_fact_by_local_name(modelXbrl, 'ReportYear')
     report_period_fact = get_fact_by_local_name(modelXbrl, 'ReportPeriod')
