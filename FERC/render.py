@@ -2102,7 +2102,10 @@ def format_numcommadot(model_fact, sign, scale, *args, **kwargs):
         else:
             if (scaled_val % 1) == 0: # this is a float or a decimal, but a whole number
                 scaled_val = int(scaled_val)
-        val = scaled_val
+        if isinstance(scaled_val, decimal.Decimal):
+            val = scaled_val.normalize()
+        else:
+            val = scaled_val
 
     if val < 0:
         val = val * -1
