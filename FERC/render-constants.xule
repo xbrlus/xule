@@ -6,71 +6,96 @@ constant $prior2-start = None
 constant $prior2-end = None
 constant $month-ends = None
 
-constant $currentInstant = date($current-end)  /** REFERENCE Current. **/
-constant $currentDuration = duration(date($current-start), date($current-end)) /** REFERENCE Current. **/
-constant $priorInstant = date($current-start) - time-span("P1D") /** REFERENCE = Prior. ie. 12/31**/
-constant $prior12MonthsInstant = date($prior-end) /** REFERENCE =prior12MonthsInstant. **/
-constant $priorDuration = duration(date($prior-start), date($prior-end)) /** REFERENCE = Prior. **/
-constant $prior2Instant = date($prior-start) - time-span("P1D") /** REFERENCE = Prior2. ie. 12/31**/
-constant $prior24MonthsInstant = date($prior2-end) /** REFERENCE prior24MonthsInstant. ie. 12/31**/
-constant $prior2Duration = duration(date($prior2-start), date($prior2-end)) /** REFERENCE prior2. ie. 12/31**/
+constant $currentInstant = if ($current-end == none) none 
+					       else date($current-end)  /** REFERENCE Current. **/
+constant $currentDuration = if ($current-start == none or $current-end == none) none 
+						    else duration(date($current-start), date($current-end)) /** REFERENCE Current. **/
+constant $priorInstant = if ($current-start == none) none 
+						    else date($current-start) - time-span("P1D") /** REFERENCE = Prior. ie. 12/31**/
+constant $prior12MonthsInstant = if ($prior-end == none) none 
+								 else date($prior-end) /** REFERENCE =prior12MonthsInstant. **/
+constant $priorDuration = if ($prior-start == none or $prior-end == none) none 
+						  else duration(date($prior-start), date($prior-end)) /** REFERENCE = Prior. **/
+constant $prior2Instant = if ($prior-start == none) none 
+						  else date($prior-start) - time-span("P1D") /** REFERENCE = Prior2. ie. 12/31**/
+constant $prior24MonthsInstant = if ($prior2-end == none) none 	
+							     else date($prior2-end) /** REFERENCE prior24MonthsInstant. ie. 12/31**/
+constant $prior2Duration = if ($prior2-start == none or $prior-end == none) none 
+						   else duration(date($prior2-start), date($prior2-end)) /** REFERENCE prior2. ie. 12/31**/
 
-constant $currentYear = substring($current-end, 1 , 4)
-constant $priorYear = substring($prior-end, 1, 4)
-constant $monthEndList = $month-ends.split(',')
-constant $currentMonth = substring($current-end, 6, 7)
+constant $currentYear = if ($current-end == none) none else substring($current-end, 1 , 4)
+constant $priorYear = if ($prior-end == none) none else substring($prior-end, 1, 4)
+constant $monthEndList = if ($month-ends == none) none else $month-ends.split(',')
+constant $currentMonth = if ($current-end == none) none else substring($current-end, 6, 7)
 
 
-constant $current3M = duration(
+constant $current3M = if ($currentYear == none or $currentInstant == none) none
+					  else duration(
 							   date($currentYear+'-'+pad((month($currentInstant)-2).string, 2, '0')+'-01'),
 					           $currentInstant
 					  )
 
-constant $prior3M = duration(
+constant $prior3M = if ($priorYear == none or $prior12MonthsInstant == none) none
+					else duration(
 							   date($priorYear+'-'+pad((month($prior12MonthsInstant)-2).string, 2, '0')+'-01'),
 					           $prior12MonthsInstant
 					  )
 
 
-constant $currentQ1Instant = date($currentYear+'-03-31')
-constant $currentQ1Duration = duration(date($currentYear+'-01-01'), date($currentYear+'-03-31'))
-constant $currentQ2Instant = date($currentYear+'-06-30')
-constant $currentQ2Duration = duration(date($currentYear+'-04-01'), date($currentYear+'-06-30'))
-constant $currentQ3Instant = date($currentYear+'-09-30')
-constant $currentQ3Duration = duration(date($currentYear+'-07-01'), date($currentYear+'-09-30'))
-constant $currentQ4Instant = date($currentYear+'-12-31')
-constant $currentQ4Duration = duration(date($currentYear+'-10-01'), date($currentYear+'-12-31'))
+constant $currentQ1Instant = if ($currentYear == none) none else date($currentYear+'-03-31')
+constant $currentQ1Duration = if ($currentYear == none) none else duration(date($currentYear+'-01-01'), date($currentYear+'-03-31'))
+constant $currentQ2Instant = if ($currentYear == none) none else date($currentYear+'-06-30')
+constant $currentQ2Duration = if ($currentYear == none) none else duration(date($currentYear+'-04-01'), date($currentYear+'-06-30'))
+constant $currentQ3Instant = if ($currentYear == none) none else date($currentYear+'-09-30')
+constant $currentQ3Duration = if ($currentYear == none) none else duration(date($currentYear+'-07-01'), date($currentYear+'-09-30'))
+constant $currentQ4Instant = if ($currentYear == none) none else date($currentYear+'-12-31')
+constant $currentQ4Duration = if ($currentYear == none) none else duration(date($currentYear+'-10-01'), date($currentYear+'-12-31'))
 
-constant $priorQ1Instant = date($priorYear+'-03-31')
-constant $priorQ1Duration = duration(date($priorYear+'-01-01'), date($priorYear+'-03-31'))
-constant $priorQ2Instant = date($priorYear+'-06-30')
-constant $priorQ2Duration = duration(date($priorYear+'-04-01'), date($priorYear+'-06-30'))
-constant $priorQ3Instant = date($priorYear+'-09-30')
-constant $priorQ3Duration = duration(date($priorYear+'-07-01'), date($priorYear+'-09-30'))
-constant $priorQ4Instant = date($priorYear+'-12-31')
-constant $priorQ4Duration = duration(date($priorYear+'-10-01'), date($priorYear+'-12-31'))
+constant $priorQ1Instant = if ($priorYear == none) none else date($priorYear+'-03-31')
+constant $priorQ1Duration = if ($priorYear == none) none else duration(date($priorYear+'-01-01'), date($priorYear+'-03-31'))
+constant $priorQ2Instant = if ($priorYear == none) none else date($priorYear+'-06-30')
+constant $priorQ2Duration = if ($priorYear == none) none else duration(date($priorYear+'-04-01'), date($priorYear+'-06-30'))
+constant $priorQ3Instant = if ($priorYear == none) none else date($priorYear+'-09-30')
+constant $priorQ3Duration = if ($priorYear == none) none else duration(date($priorYear+'-07-01'), date($priorYear+'-09-30'))
+constant $priorQ4Instant = if ($priorYear == none) none else date($priorYear+'-12-31')
+constant $priorQ4Duration = if ($priorYear == none) none else duration(date($priorYear+'-10-01'), date($priorYear+'-12-31'))
 
-constant $month1 = duration(date($currentYear + '-01-01'), date($currentYear + '-01-' + $monthEndList[1]))
-constant $month2 = duration(date($currentYear + '-02-01'), date($currentYear + '-02-' + $monthEndList[2]))
-constant $month3 = duration(date($currentYear + '-03-01'), date($currentYear + '-03-' + $monthEndList[3]))
-constant $month4 = duration(date($currentYear + '-04-01'), date($currentYear + '-04-' + $monthEndList[4]))
-constant $month5 = duration(date($currentYear + '-05-01'), date($currentYear + '-05-' + $monthEndList[5]))
-constant $month6 = duration(date($currentYear + '-06-01'), date($currentYear + '-06-' + $monthEndList[6]))
-constant $month7 = duration(date($currentYear + '-07-01'), date($currentYear + '-07-' + $monthEndList[7]))
-constant $month8 = duration(date($currentYear + '-08-01'), date($currentYear + '-08-' + $monthEndList[8]))
-constant $month9 = duration(date($currentYear + '-09-01'), date($currentYear + '-09-' + $monthEndList[9]))
-constant $month10 = duration(date($currentYear + '-10-01'), date($currentYear + '-10-' + $monthEndList[10]))
-constant $month11 = duration(date($currentYear + '-11-01'), date($currentYear + '-11-' + $monthEndList[11]))
-constant $month12 = duration(date($currentYear + '-12-01'), date($currentYear + '-12-' + $monthEndList[12]))
+constant $month1 = if ($currentYear == none or $monthEndList == none) none 
+				   else duration(date($currentYear + '-01-01'), date($currentYear + '-01-' + $monthEndList[1]))
+constant $month2 = if ($currentYear == none or $monthEndList == none) none 
+				   else duration(date($currentYear + '-02-01'), date($currentYear + '-02-' + $monthEndList[2]))
+constant $month3 = if ($currentYear == none or $monthEndList == none) none 
+				   else duration(date($currentYear + '-03-01'), date($currentYear + '-03-' + $monthEndList[3]))
+constant $month4 = if ($currentYear == none or $monthEndList == none) none 
+				   else duration(date($currentYear + '-04-01'), date($currentYear + '-04-' + $monthEndList[4]))
+constant $month5 = if ($currentYear == none or $monthEndList == none) none 
+				   else duration(date($currentYear + '-05-01'), date($currentYear + '-05-' + $monthEndList[5]))
+constant $month6 = if ($currentYear == none or $monthEndList == none) none 
+				   else duration(date($currentYear + '-06-01'), date($currentYear + '-06-' + $monthEndList[6]))
+constant $month7 = if ($currentYear == none or $monthEndList == none) none 
+				   else duration(date($currentYear + '-07-01'), date($currentYear + '-07-' + $monthEndList[7]))
+constant $month8 = if ($currentYear == none or $monthEndList == none) none 
+				   else duration(date($currentYear + '-08-01'), date($currentYear + '-08-' + $monthEndList[8]))
+constant $month9 = if ($currentYear == none or $monthEndList == none) none 
+				   else duration(date($currentYear + '-09-01'), date($currentYear + '-09-' + $monthEndList[9]))
+constant $month10 = if ($currentYear == none or $monthEndList == none) none 
+				    else duration(date($currentYear + '-10-01'), date($currentYear + '-10-' + $monthEndList[10]))
+constant $month11 = if ($currentYear == none or $monthEndList == none) none 
+				    else duration(date($currentYear + '-11-01'), date($currentYear + '-11-' + $monthEndList[11]))
+constant $month12 = if ($currentYear == none or $monthEndList == none) none 
+				    else duration(date($currentYear + '-12-01'), date($currentYear + '-12-' + $monthEndList[12]))
 
-constant $currentQM1 = duration(date($currentYear + '-' + pad(($currentMonth.number - 2).string, 2, '0') + '-01'),
-							    date($currentYear + '-' + pad(($currentMonth.number - 2).string, 2, '0') + '-' + $monthEndList[$currentMonth.number - 2]))
+constant $currentQM1 = if ($currentYear == none or $currentMonth == none) none 
+					   else duration(date($currentYear + '-' + pad(($currentMonth.number - 2).string, 2, '0') + '-01'),
+							         date($currentYear + '-' + pad(($currentMonth.number - 2).string, 2, '0') + '-' + $monthEndList[$currentMonth.number - 2]))
 
-constant $currentQM2 = duration(date($currentYear + '-' + pad(($currentMonth.number - 1).string, 2, '0') + '-01'),
-							    date($currentYear + '-' + pad(($currentMonth.number - 1).string, 2, '0') + '-' + $monthEndList[$currentMonth.number - 1]))
+constant $currentQM2 = if ($currentYear == none or $currentMonth == none) none 
+					   else duration(date($currentYear + '-' + pad(($currentMonth.number - 1).string, 2, '0') + '-01'),
+							         date($currentYear + '-' + pad(($currentMonth.number - 1).string, 2, '0') + '-' + $monthEndList[$currentMonth.number - 1]))
 
-constant $currentQM3 = duration(date($currentYear + '-' + $currentMonth + '-01'),
-							    date($current-end))
+constant $currentQM3 = if ($currentYear == none or $currentMonth == none) none 
+					   else duration(date($currentYear + '-' + $currentMonth + '-01'),
+							         date($current-end))
 
 function pad($padee, $len, $pad_char)
 	if length($padee) >= $len
@@ -84,8 +109,6 @@ function pad($padee, $len, $pad_char)
 		$padded_num = $padding + $padee;
 
 		substring($padded_num, length($padded_num)-$len+1)
-output a
-	transpose(list(list(1,2,3,4),list('a','b','c','d'), list(10,20,30,40)))
 
 function transpose($x)
 	list(
@@ -97,7 +120,7 @@ function transpose($x)
 	)
 	
 function member-default($dim, $mem)
-if taxonomy().dimension($dim).default().name == $mem
-		none
-else
-		$mem
+	if taxonomy().dimension($dim).default().name == $mem
+			none
+	else
+			$mem
