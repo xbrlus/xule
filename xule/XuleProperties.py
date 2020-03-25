@@ -1309,6 +1309,24 @@ def property_split(xule_context, object_value, *args):
 
     return xv.XuleValue(xule_context, tuple(xv.XuleValue(xule_context, x, 'string') for x in shadow), 'list', shadow_collection=shadow)
 
+def property_trim(xule_context, object_value, *args):
+    if len(args) == 0:
+        side = 'both'
+    else:
+        if args[0].value.lower() in ('left', 'right', 'both'):
+            side = args[0].value.lower()
+        else:
+            raise XuleProcessingError(_("The argument for property 'trim' must be one of 'left', 'right' or 'both', found '%s'" % args[0]), xule_context)
+
+    if side == 'both':
+        new_value = object_value.value.strip()
+    elif side == 'left':
+        new_value = object_value.value.lstrip()
+    else:
+        new_value = object_value.value.rstrip()
+    
+    return xv.XuleValue(xule_context, new_value, 'string')
+
 def property_to_qname(xule_context, object_value, *args):
     '''Create a qname from a single string with an optional namespace prefix.
 
@@ -1874,6 +1892,7 @@ PROPERTIES = {
               'month': (property_month, 0, ('instant',), False),
               'year': (property_year, 0, ('instant',), False),
               'string': (property_string, 0, (), False),
+              'trim': (property_trim, -1, ('string', 'uri'), False),
               'dts-document-locations': (property_dts_document_locations, 0, ('taxonomy',), False),
               'entry-point': (property_entry_point, 0, ('taxonomy',), False),
               'entry-point-namespace': (property_entry_point_namespace, 0, ('taxonomy',), False),
