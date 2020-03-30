@@ -1,0 +1,46 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "XULE",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#double-quoted-strings"
+		},
+		{
+			"include": "#single-quoted-strings"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control.xule",
+				"match": "\\b(if|while|for|return)\\b"
+			}]
+		},
+		"double-quoted-strings": {
+			"name": "string.quoted.double.xule",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.xule",
+					"match": "\\\\."
+				}
+			]
+		},
+		"single-quoted-strings": {
+			"name": "string.quoted.single.xule",
+			"begin": "'",
+			"end": "'",
+			"patterns": [
+				{
+					"name": "constant.character.escape.xule",
+					"match": "\\\\."
+				}
+			]
+		}
+	},
+	"scopeName": "source.xule"
+}

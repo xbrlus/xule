@@ -1,0 +1,18 @@
+/** Define the base taxonomy as a constant**/
+constant$us-gaap = taxonomy('http://xbrl.fasb.org/us-gaap/2016/elts/us-gaap-2016-01-31.xsd')
+
+/** Determine the members on the axis in the taxonomy using the definition tree **/
+constant$member_USGAAP_fair_value =  navigatedimensions dimension-memberdescendants from FairValueByFairValueHierarchyLevelAxis taxonomy$us-gaap returns set (target-name))
+
+/** Define a function to identify a concept as an extension**/
+constant$extension_ns = first(filter taxonomy().concepts whereis_extension($item)).name.namespace-uri
+
+functionis_extension($test_extension)
+    $test_extension not in$us-gaap.concepts
+
+assertdqc.us.0001.51 satisfied
+/** Define allowable extensions with the qname function**/
+$allowable_extensions =
+set(qname($extension_ns,'FairValueInputsLevel1AndLevel2Member'),
+qname($extension_ns,'FairValueInputsLevel2AndLevel3Member'),
+qname($extension_ns,'InvestmentsNetAssetValueMember') ;

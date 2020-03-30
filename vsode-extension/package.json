@@ -1,0 +1,25 @@
+{
+    "name": "xule",
+    "displayName": "XULE",
+    "description": "XULE Language Pack",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.43.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "xule",
+            "aliases": ["XULE", "xule"],
+            "extensions": [".xule"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "xule",
+            "scopeName": "source.xule",
+            "path": "./syntaxes/xule.tmLanguage.json"
+        }]
+    }
+}
