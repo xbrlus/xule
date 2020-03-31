@@ -97,6 +97,28 @@ constant $currentQM3 = if ($currentYear == none or $currentMonth == none) none
 					   else duration(date($currentYear + '-' + $currentMonth + '-01'),
 							         date($current-end))
 
+constant $current3MYDuration = if ($prior3MYInstant == none or $current-end == none) none 
+							   else (duration(date($prior3MYInstant) + time-span("P1D"), date($current-end)))
+
+constant $report-period = max(list([covered @ferc:ReportPeriod]))
+
+constant $prior3MYInstant = if exists($report-period) 
+								if $report-period == 'Q4'
+										$priorInstant
+								else 
+									if $report-period == 'Q3'
+										$currentQ2Instant
+									else 
+										if $report-period == 'Q2'
+											$currentQ1Instant
+										else
+											if $report-period == 'Q1'
+												$priorInstant
+											else
+												$priorInstant
+							else 
+								none
+
 function pad($padee, $len, $pad_char)
 	if length($padee) >= $len
 		// There is nothing to pad
