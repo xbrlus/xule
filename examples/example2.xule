@@ -1,0 +1,45 @@
+namespace us-gaap = http://fasb.org/us-gaap/2019-01-31
+
+output a-assets
+    [@us-gaap:Assets]
+message 
+    "Assets: {$rule-value} ({$rule-value.period})
+    "
+
+output b-liabilities
+    [@us-gaap:Liabilities]    
+message 
+    "Liabilities: {$rule-value} ({$rule-value.period})
+    "
+
+output c-equity
+    [@us-gaap:StockholdersEquity]
+message 
+    "Equities: {$rule-value} ({$rule-value.period})
+    "
+
+assert d-balanced satisfied
+    [@us-gaap:Assets]#a == ([@us-gaap:Liabilities]#l + [@us-gaap:StockholdersEquity]#e)#el 
+message 
+    "For {$a.period}
+Assets EQUALS Equities + Liabilities
+
+Assets: {$a}
+Equtiy and Liabilities: {$el}
+    Equities: {$e}
+    Liabilities: {$l}
+
+"
+
+assert d-unbalanced unsatisfied
+    [@us-gaap:Assets]#a == ([@us-gaap:Liabilities]#l + [@us-gaap:StockholdersEquity]#e)#el 
+message 
+    "For {$a.period}
+Assets DOES NOT EQUAL Equities + Liabilities
+Assets: {$a}
+Equtiy and Liabilities: {$el}
+    Equities: {$e}
+    Liabilities: {$l}
+
+"
+

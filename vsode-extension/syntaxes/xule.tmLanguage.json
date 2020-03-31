@@ -2,21 +2,39 @@
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
 	"name": "XULE",
 	"patterns": [
-		{
-			"include": "#keywords"
-		},
-		{
-			"include": "#double-quoted-strings"
-		},
-		{
-			"include": "#single-quoted-strings"
-		}
+		{ "include": "#keywords" },
+		{ "include": "#built-in-functions" },
+		{ "include": "#variables" },
+		{ "include": "#double-quoted-strings" },
+		{ "include": "#single-quoted-strings" },
+		{ "include": "#comments" }
 	],
 	"repository": {
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.xule",
-				"match": "\\b(if|while|for|return)\\b"
+				"match": "\\b(assert|constant|filter|function|message|navigate|satisfied)\\b"
+			},
+			{
+				"name": "keyword.operator.xule",
+				"match": "@"
+			}]
+		},
+		"built-in-functions": {
+			"patterns": [{
+				"name": "support.function.xule",
+				"match": "(^|[^\\B\\-])(as|descendants|dimensions|duration|exists|first|from|in|index-of|json-data|name|namespace-uri)\\b"
+			},
+			{
+				"name": "support.function.xule",
+				"match": "(^|[^\\B\\-])(not|qname|returns|set|substring|taxonomy|where)\\b"
+			}]
+		},
+		"variables": {
+			"patterns": [{
+				"name": "other",
+				"captures": { "1": { "name": "variable.xule" } },
+				"match": "(\\$.+?)[\\s=,;.'\"()\\[\\]{}]"
 			}]
 		},
 		"double-quoted-strings": {
@@ -40,6 +58,11 @@
 					"match": "\\\\."
 				}
 			]
+		},
+		"comments": {
+			"name": "comment.block.xule",
+			"begin": "/\\*",
+			"end": "\\*/"
 		}
 	},
 	"scopeName": "source.xule"
