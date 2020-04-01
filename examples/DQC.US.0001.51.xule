@@ -21,3 +21,33 @@ qname($extension_ns,'InvestmentsNetAssetValueMember') ;
 
 /** Union the sets**/
 $allowed_members = $allowable_extensions + $member_USGAAP_fair_value;
+
+/** Evaluate if facts exists with the unallowable members **/
+exists({@FairValueByFairValueHierarchyLevelAxis = * as $FV where
+($allowed_members not in $FV#member)}#fact)
+message
+"The concept {$fact.concept.name.local-name} with a value of {$fact} is dimensionally qualified with the
+FairValueByFairValueHierarchyLevelAxis and the unallowable member {$member.local-name}. The filer
+should use members from the US GAAP taxonomy that are
+children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of :
+{$allowable_extensions.join(', ')}.
+The properties of the fact for {$fact.concept.name.local-name} are:
+Period: {$fact.period}
+Dimensions: {$fact.dimensions.join(', ','=')}
+Unit: {$fact.unit}"
+
+severity
+error
+
+Tolerance_For_Decimals($Assets, $LiabilitiesAndStockholdersEquity, 2)
+message
+"{$Assets.concept.label.text} with a value of {$Assets} is not equal to the total of
+{$LiabilitiesAndStockholdersEquity.concept.label.text} with a value of
+{$LiabilitiesAndStockholdersEquity}. These values should be equal.
+The properties of this {$Assets.concept} fact are:
+Period :{$Assets.period}
+Dimensions : {$Assets.dimensions.join(‘= ’,’’}
+Unit :{$Assets.unit}Rule Version : {$ruleVersion}";
+
+severity
+error

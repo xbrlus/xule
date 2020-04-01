@@ -1,0 +1,48 @@
+assert dqc.us.0044.6834 satisfied
+
+$Accrual_items_in_cashflows =
+    navigate summation-item descendants from
+    list(NetCashProvidedByUsedInFinancingActivities,
+    NetCashProvidedByUsedInFinancingActivitiesContinuingOperations) where
+    $relationship.target.name in $Accrual_Items;
+
+$Accrual_fact = {@concept in $Accrual_items_in_cashflows};
+
+$Accrual_fact != 0
+
+message
+"The concept {$accrual_fact.concept} with a value of {$accrual_fact} is an accrual-based item in the US
+GAAP taxonomy that is included in the sum of cash provided by (used in) financing activities in the cash
+flows of the extension taxonomy.
+
+The properties of this {$accrual_fact.concept} fact are:
+Period :{$accrual_fact.period}
+Dimensions : {$accrual_fact.dimensions.join(‘= ’,’’}
+Unit : {$accrual_fact.unit}
+Rule Version : {$ruleVersion}"
+
+severity
+error
+
+/** This rule uses a constant to represent the accrual items in the taxonomy. These are determined as
+follows **/
+constant $Accrual_Items =
+    (navigate summation-item descendants from
+    list(ComprehensiveIncomeNetOfTax, NetIncomeLoss,
+    NetIncomeLossAvailableToCommonStockholdersBasic,
+    NetIncomeLossAvailableToCommonStockholdersDiluted,
+    IncomeLossIncludingPortionAttributableToNoncontrollingInterest,
+    IncomeLossAttributableToParent,
+    NetIncomeLossAllocatedToGeneralPartners,
+    NetIncomeLossAllocatedToLimitedPartners,
+    StockholdersEquityPeriodIncreaseDecrease,
+    PartnersCapitalAccountPeriodIncreaseDecrease)  taxonomy $us-gaap where
+    $relationship.target.is-monetary == true returns set (target-name))
+    +
+    (navigate parent-child descendants from list((IncomeStatementAbstract,
+    StatementOfIncomeAndComprehensiveIncomeAbstract,
+    StatementOfStockholdersEquityAbstract,
+    StatementOfPartnersCapitalAbstract) taxonomy $us-gaap where
+    $relationship.target.is-monetary == true returns set (target-name))
+    
+constant $us-gaap = taxonomy('http://xbrl.fasb.org/us-gaap/2016/elts/us-gaap-2016-01-31.xsd')

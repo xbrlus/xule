@@ -13,28 +13,39 @@
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.xule",
-				"match": "\\b(assert|constant|filter|function|message|navigate|satisfied)\\b"
+				"match": "\\b(assert|constant|else|false|filter|for|function|if|message|navigate|satisfied|severity|true)\\b"
 			},
 			{
 				"name": "keyword.operator.xule",
-				"match": "@"
+				"match": "@|#|\\b==\\b|\\b!=\\b"
 			}]
 		},
 		"built-in-functions": {
 			"patterns": [{
-				"name": "support.function.xule",
-				"match": "(^|[^\\B\\-])(as|descendants|dimensions|duration|exists|first|from|in|index-of|json-data|name|namespace-uri)\\b"
+				"name": "other",
+				"captures": { "3": { "name": "support.function.xule" } },
+				"match": "(^|(?<=\\*/|[\\s=,;'\"()\\[\\]{}]))((?<![a-zA-Z]])-)?(abs|and|as|date|descendants|dimensions|duration|exists|first)\\b"
+			},
+			{
+				"name": "other",
+				"captures": { "3": { "name": "support.function.xule" } },
+				"match": "(^|(?<=\\*/|[\\s=,;'\"()\\[\\]{}]))((?<![a-zA-Z]])-)?(from|in|index-of|json-data|list|name|namespace-uri)\\b"
+			},
+			{
+				"name": "other",
+				"captures": { "3": { "name": "support.function.xule" } },
+				"match": "(^|(?<=\\*/|[\\s=,;'\"()\\[\\]{}]))((?<![a-zA-Z]])-)?(none|not|qname|returns|round|set|substring|taxonomy|where)\\b"
 			},
 			{
 				"name": "support.function.xule",
-				"match": "(^|[^\\B\\-])(not|qname|returns|set|substring|taxonomy|where)\\b"
+				"match": "(?<=.)number\\b"
 			}]
 		},
 		"variables": {
 			"patterns": [{
 				"name": "other",
 				"captures": { "1": { "name": "variable.xule" } },
-				"match": "(\\$.+?)[\\s=,;.'\"()\\[\\]{}]"
+				"match": "(\\$.+?)(?=[\\s=,;.'\"()\\[\\]{}])"
 			}]
 		},
 		"double-quoted-strings": {
