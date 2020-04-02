@@ -2,3 +2,15 @@
 .vscode-test/**
 .gitignore
 vsc-extension-quickstart.md
+**/*.ts
+**/*.map
+**/tsconfig.json
+**/tsconfig.base.json
+contributing.md
+.travis.yml
+language-server/client/node_modules/**
+!language-server/client/node_modules/vscode-jsonrpc/**
+!language-server/client/node_modules/vscode-languageclient/**
+!language-server/client/node_modules/vscode-languageserver-protocol/**
+!language-server/client/node_modules/vscode-languageserver-types/**
+!language-server/client/node_modules/semver/**

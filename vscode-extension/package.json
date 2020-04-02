@@ -9,17 +9,68 @@
     "categories": [
         "Programming Languages"
     ],
+    "activationEvents": [
+        "onLanguage:xule"
+    ],
+    "main": "./language-server/client/out/extension",
     "contributes": {
-        "languages": [{
-            "id": "xule",
-            "aliases": ["XULE", "xule"],
-            "extensions": [".xule"],
-            "configuration": "./language-configuration.json"
-        }],
-        "grammars": [{
-            "language": "xule",
-            "scopeName": "source.xule",
-            "path": "./syntaxes/xule.tmLanguage.json"
-        }]
+        "languages": [
+            {
+                "id": "xule",
+                "aliases": [
+                    "XULE",
+                    "xule"
+                ],
+                "extensions": [
+                    ".xule"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "xule",
+                "scopeName": "source.xule",
+                "path": "./syntaxes/xule.tmLanguage.json"
+            }
+        ],
+        "configuration": {
+            "type": "object",
+            "title": "Example configuration",
+            "properties": {
+                "languageServerExample.maxNumberOfProblems": {
+                    "scope": "resource",
+                    "type": "number",
+                    "default": 100,
+                    "description": "Controls the maximum number of problems produced by the server."
+                },
+                "languageServerExample.trace.server": {
+                    "scope": "window",
+                    "type": "string",
+                    "enum": [
+                        "off",
+                        "messages",
+                        "verbose"
+                    ],
+                    "default": "off",
+                    "description": "Traces the communication between VS Code and the language server."
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "cd language-server/client && npm run update-vscode && cd .. && npm run compile",
+        "compile": "tsc -b",
+        "watch": "tsc -b -w",
+        "postinstall": "cd language-server/client && npm install && cd ../server && npm install && cd ..",
+        "test": "sh ./scripts/e2e.sh"
+    },
+    "devDependencies": {
+        "@types/mocha": "^5.2.7",
+        "mocha": "^6.2.2",
+        "@types/node": "^12.11.7",
+        "eslint": "^6.4.0",
+        "@typescript-eslint/parser": "^2.3.0",
+        "typescript": "^3.8.3"
     }
 }
