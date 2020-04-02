@@ -148,11 +148,11 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 	// In this simple example we get the settings for every validate run.
 	let settings = await getDocumentSettings(textDocument.uri);
 
-	// The validator creates diagnostics for all uppercase words length 2 and more
+	let diagnostics: Diagnostic[] = [];
 	let text = textDocument.getText();
 	let input = new InputStream(textDocument.getText());
 	let lexer = new XULELexer(input);
-
+	
 	function ReportingErrorListener(): void {
 		ErrorListener.call(this);
 		return this;
@@ -161,37 +161,42 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 	ReportingErrorListener.prototype = Object.create(ErrorListener.prototype);
 	ReportingErrorListener.prototype.constructor = ReportingErrorListener;
 	
-	ReportingErrorListener.prototype.syntaxError = function(recognizer: Recognizer, offendingSymbol: Token, line: number, column: number, msg: string, e: any) {
-		console.error("XULE line " + line + ":" + column + " " + msg);
+	ReportingErrorListener.prototype.syntaxError = function(recognizer: Recognizer, offendingSymbol: any, line: number, column: number, msg: string, e: any) {
+		let start, stop;
+		if(e.offendingToken) {
+			start = e.offendingToken.start;
+			stop = e.offendingToken.stop + 1;
+		} else {
+			start = e.startIndex;
+			stop = e.startIndex;
+		}
+		let diagnostic: Diagnostic = {
+			severity: DiagnosticSeverity.Error,
+			range: {
+				start: textDocument.positionAt(start),
+				end: textDocument.positionAt(stop)
+			},
+			message: msg,
+			source: 'ex'
+		};
+		diagnostics.push(diagnostic);
 	};
 	lexer._listeners = [ new ReportingErrorListener() ];
 
 	let parser = new XULEParser(new CommonTokenStream(lexer));
 	parser._errHandler.reportInputMismatch = function(recognizer: any, e: any) {
-		var msg = "Mismatched XULE input " + this.getTokenErrorDisplay(e.offendingToken) +
+		var msg = "Mismatched input " + this.getTokenErrorDisplay(e.offendingToken) +
 			  " expecting " + e.getExpectedTokens().toString(recognizer.literalNames, recognizer.symbolicNames);
-		recognizer.notifyErrorListeners(msg, e.offendingToken, e);
-	};
-	let parsed = parser.factset(); //TODO
-	console.log("errors", parser._syntaxErrors);
-	
-	let pattern = /\b[A-Z]{2,}\b/g;
-	let m: RegExpExecArray | null;
-
-	let problems = 0;
-	let diagnostics: Diagnostic[] = [];
-	while ((m = pattern.exec(text)) && problems < settings.maxNumberOfProblems) {
-		problems++;
 		let diagnostic: Diagnostic = {
-			severity: DiagnosticSeverity.Warning,
+			severity: DiagnosticSeverity.Error,
 			range: {
-				start: textDocument.positionAt(m.index),
-				end: textDocument.positionAt(m.index + m[0].length)
+				start: textDocument.positionAt(e.offendingToken.start),
+				end: textDocument.positionAt(e.offendingToken.stop + 1)
 			},
-			message: `${m[0]} is all uppercase.`,
+			message: msg,
 			source: 'ex'
 		};
-		if (hasDiagnosticRelatedInformationCapability) {
+		/*if (hasDiagnosticRelatedInformationCapability) {
 			diagnostic.relatedInformation = [
 				{
 					location: {
@@ -208,11 +213,11 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 					message: 'Particularly for names'
 				}
 			];
-		}
+		}*/
 		diagnostics.push(diagnostic);
-	}
-
-	// Send the computed diagnostics to VSCode.
+		recognizer.notifyErrorListeners(msg, e.offendingToken, e);
+	};
+	let parsed = parser.factset(); //TODO
 	connection.sendDiagnostics({ uri: textDocument.uri, diagnostics });
 }
 
