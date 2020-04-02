@@ -2001,11 +2001,11 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
             if format_function is None:
                 raise FERCRenderException('Format {} is not a valid format'.format(format))
 
-            sign = json_result.get('sign', xule_expression_node.get('sign'))
+            display_sign = json_result.get('sign', xule_expression_node.get('sign'))
             scale = json_result.get('scale', xule_expression_node.get('scale'))
 
             display_value = format_function(model_fact, 
-                                            sign,
+                                            display_sign,
                                             scale)
             if isinstance(display_value, tuple):
                 result_sign = display_value[1]
@@ -2025,9 +2025,7 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
                 format_inline = '{}:{}'.format(format_prefix_inline, local_name)
         
             ix_node.set('format', format_inline)
-        
-        if xule_expression_node is not None and xule_expression_node.get('sign', '') == '-':
-            ix_node.set('sign', '-')
+
         if xule_expression_node is not None and xule_expression_node.get('scale') is not None:
             ix_node.set('scale', xule_expression_node.get('scale'))
 
@@ -2042,6 +2040,10 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
             ix_node.text = display_value
 
         # handle sign
+        value_sign = None
+        if model_fact.isNumeric and model_fact.xValue < 0:
+            ix_node.set('sign', '-')
+        
         if result_sign is not None:
             div_node = etree.Element('div', nsmap=_XULE_NAMESPACE_MAP)
             if result_sign == '-':
