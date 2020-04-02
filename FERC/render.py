@@ -3,7 +3,7 @@ from arelle.CntlrWebMain import Options
 from arelle.ModelRelationshipSet import ModelRelationshipSet
 from arelle.ModelDocument import Type
 from copy import deepcopy
-from lxml import etree
+from lxml import etree, html
 from lxml.builder import E
 
 import datetime
@@ -2031,10 +2031,14 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
 
         if is_html:
             try:
+                # Fact content that is intended as html must first be unescaped becasue XBRL does not allow fact content to contain xml/html element
+                # nodes. So xhtml content is always escaped.
+                # Test that the content is valid xml
                 content_node = etree.fromstring('<div class="sub-html">{}</div>'.format(display_value))
                 ix_node.append(content_node)
-            except etree.XMLSyntaxError:
-                model_fact.modelXbrl.warning("Warning", "Attempting to substitute invalid XHTML into the template. Inserted as plain text.\n{}".format(display_value))
+            except etree.XMLSyntaxError as e:
+                model_fact.modelXbrl.warning("Warning", "For fact:\n{}\nAttempting to substitute invalid XHTML into the template. "
+                                                        "Inserted as plain text.".format(display_fact_info(model_fact)))
                 ix_node.text = display_value
         else:
             ix_node.text = display_value
@@ -2070,7 +2074,26 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
         div_node.set('class', 'format-error')
         div_node.text = str(model_fact.xValue)
         return div_node, new_fact_id
-        
+
+def display_fact_info(model_fact):
+    if model_fact is None:
+        return ('No Fact')
+
+    display_value = str(model_fact.xValue)
+    display = ['fact id: {fact_id} context id: {context_id} unit_id: {unit_id}'.format(fact_id=model_fact.id,
+                                                                                       context_id=model_fact.contextID,
+                                                                                       unit_id=model_fact.unitID),
+                'concept: {}'.format(model_fact.concept.qname.clarkNotation)]
+    if model_fact.concept.isNumeric:
+        display.append('unit: {}'.format(model_fact.unit.stringValue))
+    display.append('value: {}'.format(display_value[:50], '...' if len(display_value) > 50 else ''))      
+    display.append('period: {}'.format(model_fact.context.period.stringValue))   
+    if len(model_fact.context.qnameDims) > 0:
+        dims = '\n'.join(sorted(['\t{d}={m}'.format(d=k.clarkNotation, m=v.memberQname.clarkNotation if v.isExplicit else v.stringValue) for k, v in model_fact.context.qnameDims.items()]))
+        display.append('dimensions:\n{}'.format(dims))
+
+    return '\n'.join(display)
+
 def unit_string(model_unit):
     numerator = '--'.join(x.localName for x in model_unit.measures[0])
     denominator = '--'.join(x.localName for x in model_unit.measures[1])
