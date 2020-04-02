@@ -21,7 +21,8 @@ import {
 import {
 	TextDocument
 } from 'vscode-languageserver-textdocument';
-import { InputStream, CommonTokenStream } from 'antlr4';
+import { InputStream, CommonTokenStream, Recognizer, Token } from 'antlr4/index';
+import { ErrorListener } from 'antlr4/error/ErrorListener';
 
 const xuleLexerModule = require('../../parser/XULELexer.js');
 const { XULELexer } = xuleLexerModule;
@@ -151,7 +152,26 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 	let text = textDocument.getText();
 	let input = new InputStream(textDocument.getText());
 	let lexer = new XULELexer(input);
+
+	function ReportingErrorListener(): void {
+		ErrorListener.call(this);
+		return this;
+	}
+	
+	ReportingErrorListener.prototype = Object.create(ErrorListener.prototype);
+	ReportingErrorListener.prototype.constructor = ReportingErrorListener;
+	
+	ReportingErrorListener.prototype.syntaxError = function(recognizer: Recognizer, offendingSymbol: Token, line: number, column: number, msg: string, e: any) {
+		console.error("XULE line " + line + ":" + column + " " + msg);
+	};
+	lexer._listeners = [ new ReportingErrorListener() ];
+
 	let parser = new XULEParser(new CommonTokenStream(lexer));
+	parser._errHandler.reportInputMismatch = function(recognizer: any, e: any) {
+		var msg = "Mismatched XULE input " + this.getTokenErrorDisplay(e.offendingToken) +
+			  " expecting " + e.getExpectedTokens().toString(recognizer.literalNames, recognizer.symbolicNames);
+		recognizer.notifyErrorListeners(msg, e.offendingToken, e);
+	};
 	let parsed = parser.factset(); //TODO
 	console.log("errors", parser._syntaxErrors);
 	
