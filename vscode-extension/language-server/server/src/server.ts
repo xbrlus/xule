@@ -21,6 +21,13 @@ import {
 import {
 	TextDocument
 } from 'vscode-languageserver-textdocument';
+import { InputStream, CommonTokenStream } from 'antlr4';
+
+const xuleLexerModule = require('../../parser/XULELexer.js');
+const { XULELexer } = xuleLexerModule;
+const xuleParserModule = require('../../parser/XULEParser.js');
+const { XULEParser } = xuleParserModule;
+
 
 // Create a connection for the server. The connection uses Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
@@ -142,6 +149,12 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 
 	// The validator creates diagnostics for all uppercase words length 2 and more
 	let text = textDocument.getText();
+	let input = new InputStream(textDocument.getText());
+	let lexer = new XULELexer(input);
+	let parser = new XULEParser(new CommonTokenStream(lexer));
+	let parsed = parser.factset(); //TODO
+	console.log("errors", parser._syntaxErrors);
+	
 	let pattern = /\b[A-Z]{2,}\b/g;
 	let m: RegExpExecArray | null;
 
