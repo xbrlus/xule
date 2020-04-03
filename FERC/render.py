@@ -197,7 +197,7 @@ def build_unamed_rules(xule_rules, next_rule_number, named_rules, template_tree,
                                                                                              None,
                                                                                              'f',
                                                                                              extra_expressions)),
-                              rule_focus='\nrule-focus list(if $rv-0.is-fact then $rv-0 else none)' 
+                              rule_focus='\nrule-focus list(if $rv-0.is-fact $rv-0 else none)' 
                              )
             else: # not a fact
                 sub_content = {'part': None, 
