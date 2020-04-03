@@ -29,7 +29,7 @@ _XULE_NAMESPACE_MAP = {'xule': 'http://xbrl.us/xule/2.0/template',
                        'ix': 'http://www.xbrl.org/2013/inlineXBRL'}
 _XHTM_NAMESPACE = 'http://www.w3.org/1999/xhtml'
 _RULE_NAME_PREFIX = 'rule-'
-_EXTRA_ATTRIBUTES = ('format', 'scale', 'sign', 'decimals', 'fact')
+_EXTRA_ATTRIBUTES = ('format', 'scale', 'sign', 'decimals')
 
 class FERCRenderException(Exception):
     pass
@@ -177,9 +177,8 @@ def build_unamed_rules(xule_rules, next_rule_number, named_rules, template_tree,
                 extra_expressions = format_extra_expressions(replacement_node)
             
             extra_attributes = get_extra_attributes(xule_expression)
-
-            comment_text = '    // {} - line {}'.format(template_file_name, xule_expression.sourceline)
-            if xule_expression.get('fact','').lower() == 'true':
+            comment_text = '    // {} - line {}'.format(template_file_name, xule_expression.sourceline)            
+            if xule_expression.get('fact','').lower() == 'true' or 'fact' in extra_expressions:
                 sub_content = {'part': None, 
                               'replacement-node': xule_node_locations[template_tree.getelementpath(replacement_node)],
                               'expression-node': xule_node_locations[template_tree.getelementpath(xule_expression)],
@@ -188,14 +187,17 @@ def build_unamed_rules(xule_rules, next_rule_number, named_rules, template_tree,
                               'node-pos': node_pos[replacement_node]}
                 #rule_text = 'output {}\n{}\nlist((({})#rv-0).string).to-json\nrule-focus list($rv-0)'.format(rule_name, comment_text, xule_expression.text.strip())
 
-                rule_text = 'output {rule_name}\n{comment}\n{result_text}\nrule-focus list($rv-0)'\
+   
+
+                rule_text = 'output {rule_name}\n{comment}\n{result_text}{rule_focus}'\
                     ''.format(rule_name=rule_name,
                               comment=comment_text,
                               result_text='({}).to-json'.format(format_rule_result_text_part(xule_expression.text.strip(),
                                                                                              None,
                                                                                              None,
                                                                                              'f',
-                                                                                             extra_expressions))
+                                                                                             extra_expressions)),
+                              rule_focus='\nrule-focus list(if $rv-0.is-fact then $rv-0 else none)' 
                              )
             else: # not a fact
                 sub_content = {'part': None, 
@@ -245,6 +247,9 @@ def format_rule_result_text_part(expression_text, part, value_number, type, extr
             output_dictionary['fact'] = expression_text        
     # Extra expressions (i.e. class, format, scale)
     for extra_name, extra_expression in extra_expressions.items():
+        if extra_name == 'fact':
+            # rename this so it doesn't conflict with the name 'fact' for inside expression. Sell code a few lines up.
+            extra_name = 'dynamic-fact'
         if isinstance(extra_expression, list):
             output_extra_expressions = "list({})".format(','.join(extra_expression)) if len(extra_expression) > 0 else None
         else:
@@ -288,7 +293,7 @@ def build_named_rule_info(named_rule, part_list, next_rule_number, template_tree
         if part is None:
             preliminary_rule_text = expression.text.strip()
         else:
-            if expression.get("fact", "").lower() == 'true':
+            if expression.get("fact", "").lower() == 'true' or 'fact' in extra_expressions:
                 # If the this part of the rule is a fact, then add a tag that will be used in the rule focus
                 #result_parts.append('list((({exp})#rv-{part}).string, exists({exp}))'.format(exp=expression.text.strip(), part=part))
                 result_parts.append('{result_text}'.format(result_text=format_rule_result_text_part(expression.text.strip(),
@@ -300,7 +305,7 @@ def build_named_rule_info(named_rule, part_list, next_rule_number, template_tree
                                                     )
                 )
                 
-                rule_focus.append('$rv-{}'.format(next_text_number))
+                rule_focus.append('if $rv-{ntn}.is-fact $rv-{ntn} else none'.format(ntn=next_text_number))
                 sub_content = {'name': named_rule, 
                                 'part': part, 
                                 'replacement-node': xule_node_locations[template_tree.getelementpath(replacement_node)],
@@ -524,7 +529,7 @@ def format_extra_expressions(replacement_node):
     extra_expressions = dict()
     for extra_node in replacement_node.findall('{{{}}}*'.format(etree.QName(replacement_node).namespace)):
         extra_name = etree.QName(extra_node.tag).localname
-        if extra_name in _EXTRA_ATTRIBUTES + ('class', 'colspan', 'attribute'):
+        if extra_name in _EXTRA_ATTRIBUTES + ('class', 'colspan', 'attribute', 'fact'):
             if extra_node.text is not None:
                 exists_extra_expression = '$test-expr = {expr}; if exists($test-expr) $test-expr else none'.format(expr=extra_node.text.strip())
                 if extra_name == 'class':
@@ -532,7 +537,7 @@ def format_extra_expressions(replacement_node):
                         extra_expressions['class'] = list()
                     location = extra_node.attrib.get('location', 'self')
                     extra_expressions[extra_name].append('list("{}",{})'.format(location, exists_extra_expression)) 
-                elif extra_name in _EXTRA_ATTRIBUTES + ('colspan',): # these are inline attributes
+                elif extra_name in _EXTRA_ATTRIBUTES + ('colspan', 'fact'): # these are inline attributes
                     extra_expressions[extra_name] = exists_extra_expression
                 elif extra_name == 'attribute':
                     att_name = extra_node.get('name')
@@ -787,7 +792,7 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                     is_redacted = False
                     is_confidential = False
                     parent_classes = []
-                    if json_result['type'] == 'f':
+                    if is_actual_fact(json_result, modelXbrl):
                         rule_focus_index = get_rule_focus_index(all_result_part or json_rule_result, json_result)
                         if rule_focus_index is not None:
                             use_refs = refs or rule_result.refs
@@ -807,7 +812,7 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                             # Check if there are footnotes
                             current_footnote_ids = get_footnotes(footnotes, model_fact, sub, new_fact_id, is_confidential, is_redacted)
 
-                    elif json_result['type'] == 's': # result is a string
+                    else: # json_result['type'] == 's': # result is a string
                         if sub.get('html', False):
                             content = etree.fromstring('<div class="sub-html">{}</div>'.format(clean_entities(json_result['value'])))
                         elif json_result['value'] is not None:
@@ -876,6 +881,21 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
             att_node.set(att_name, att_value)
     return has_confidential
 
+def is_actual_fact(json_result, model_xbrl):
+    if json_result['type'] == 'f':
+        dynamic_fact = json_result.get('dynamic-fact')
+        if dynamic_fact is not None and not isinstance(dynamic_fact, bool) :
+            model_xbrl.warning("RenderError", "Result of <xule:fact> in template is not boolean. Found '{}'".format(str(cynamic_fact)))
+            # Set to none.
+            dynamic_fact = None
+
+        if dynamic_fact is None:
+            return True
+        else:
+            return dynamic_fact
+    else:
+        return False
+
 def clean_entities(text):
     '''Clean up HTML entities 
     
@@ -929,32 +949,6 @@ def traverse_for_facts(json_results, current_result, focus_index=-1):
             break
     
     return focus_index, found
-        
-        
-
-# def adjust_result_focus_index2(json_results, cur_result):
-#     if cur_result['is-fact'].lower() == 'false':
-#         return None
-#     # Flatten the results
-#     flat_results = flatten_results(json_results)
-#     rule_focus_index = -1
-#     for result in flat_results:
-#         if (result['type'] == 'f' and
-#             result['value'] is not None and
-#             result['is-fact'].lower() == 'true'):
-#             rule_focus_index += 1
-#         if result is cur_result:
-#             break
-#     return rule_focus_index if rule_focus_index >= 0 else None
-
-# def flatten_results(result):
-#     if isinstance(result, list):
-#         flat = []
-#         for x in result:
-#             flat += flatten_results(x)
-#         return flat
-#     else:
-#         return [result]
 
 def get_node_by_pos(template, pos):
     '''Find HTML node by the posiition in the tree'''
@@ -2032,11 +2026,10 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
         if is_html:
             try:
                 # Fact content that is intended as html must first be unescaped becasue XBRL does not allow fact content to contain xml/html element
-                # nodes. So xhtml content is always escaped.
-                # Test that the content is valid xml
                 content_node = etree.fromstring('<div class="sub-html">{}</div>'.format(display_value))
                 ix_node.append(content_node)
             except etree.XMLSyntaxError as e:
+                # The content was not valid xml/xhtml - put out a warning and 
                 model_fact.modelXbrl.warning("Warning", "For fact:\n{}\nAttempting to substitute invalid XHTML into the template. "
                                                         "Inserted as plain text.".format(display_fact_info(model_fact)))
                 ix_node.text = display_value
