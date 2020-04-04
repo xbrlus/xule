@@ -183,7 +183,6 @@ def build_unamed_rules(xule_rules, next_rule_number, named_rules, template_tree,
                               'replacement-node': xule_node_locations[template_tree.getelementpath(replacement_node)],
                               'expression-node': xule_node_locations[template_tree.getelementpath(xule_expression)],
                               'template-line-number': xule_expression.sourceline,
-                              'extras': extra_attributes,
                               'node-pos': node_pos[replacement_node]}
                 #rule_text = 'output {}\n{}\nlist((({})#rv-0).string).to-json\nrule-focus list($rv-0)'.format(rule_name, comment_text, xule_expression.text.strip())
 
@@ -203,7 +202,6 @@ def build_unamed_rules(xule_rules, next_rule_number, named_rules, template_tree,
                 sub_content = {'part': None, 
                                'replacement-node': xule_node_locations[template_tree.getelementpath(replacement_node)], 
                                'template-line-number': xule_expression.sourceline,
-                               'extras': extra_attributes,
                                'node-pos': node_pos[replacement_node]}
                 #rule_text = 'output {}\n{}\nlist(({}).string).to-json'.format(rule_name, comment_text, xule_expression.text.strip())
                 rule_text = 'output {rule_name}\n{comment}\n{result_text}'\
@@ -311,7 +309,6 @@ def build_named_rule_info(named_rule, part_list, next_rule_number, template_tree
                                 'replacement-node': xule_node_locations[template_tree.getelementpath(replacement_node)],
                                 'expression-node': xule_node_locations[template_tree.getelementpath(expression)],
                                 'template-line-number': expression.sourceline,
-                                'extras': extra_attributes,
                                 'node-pos': node_pos[replacement_node]}
                 if expression.get('html', 'false').lower() == 'true':
                     sub_content['html'] = True
@@ -1336,7 +1333,7 @@ def setup_inline_html(modelXbrl):
 
     return html
 
-def add_unused_facts_and_footnotes(main_html, modelXbrl, processed_facts, fact_number):
+def add_unused_facts_and_footnotes(main_html, modelXbrl, processed_facts, fact_number,footnotes, options):
     '''Add any facts that were not picked up in the templates.
 
     These are added to the hidden section of the inline document.
@@ -1347,9 +1344,19 @@ def add_unused_facts_and_footnotes(main_html, modelXbrl, processed_facts, fact_n
     # Find the ix:hiddent element
     hidden = get_hidden(main_html)
     # Get network of footnote arcs
-    network =  get_relationshipset(modelXbrl,'http://www.xbrl.org/2003/arcrole/fact-footnote')
+    footnote_network =  get_relationshipset(modelXbrl,'http://www.xbrl.org/2003/arcrole/fact-footnote')
+    # Get list of concept local names that should be excluded from displaying (these will still be in the inline document)
+    show_exceptions = set(x.strip().lower() for x in options.ferc_render_show_hidden_except)
+    hidden_count = 0
+    displayed_hidden_count = 0
     # Process the unused facts
-    for model_fact in set(modelXbrl.facts) - processed_facts:
+    unused_facts = set(modelXbrl.facts) - processed_facts
+    for model_fact in unused_facts:
+        hidden_count += 1
+        if options.ferc_render_show_hidden and model_fact.concept.qname.localName.lower() not in show_exceptions:
+            modelXbrl.info("HiddenFact",'\n{}'.format(display_fact_info(model_fact)))
+            displayed_hidden_count += 1
+
         content, new_fact_id = format_fact(None, model_fact, main_html, False, None, None, fact_number)
         hidden.append(content)
 
@@ -1358,20 +1365,19 @@ def add_unused_facts_and_footnotes(main_html, modelXbrl, processed_facts, fact_n
         if model_fact.unitID is not None:
             unit_ids.add(model_fact.unitID)
 
-        # Get any footnotes for unused concepts
-        rels = network.fromModelObject(model_fact)
-        for rel in rels:
-            footnote_rels.add(rel.fromModelObject, rel.toModelObject)
-    '''
-    # Dictionary of footnotes keyed by the footnote
-    footnotes = {fn: enum for enum, fn in enumerate(set(x[1] for x in footnote_rels))}
-    for footnote, num in footnotes.items():
-        footnote_node = etree.Element('{{{}}}footnote'.format(_XULE_NAMESPACE_MAP['ix']))
-        footnote_node.text = footnote.value
 
-    for rel in footnote_rels:
-        pass
-    '''
+        # Get any footnotes for unused concepts
+        rels = footnote_network.fromModelObject(model_fact)
+        for rel in rels:
+            footnote_id = 'fn-{}'.format(new_fact_id)
+            ix_footnote = create_inline_footnote_node(rel.toModelObject)
+            ix_footnote.set('id', footnote_id)
+            hidden.append(ix_footnote)
+            footnotes[rel.toModelObject]['refs'].append((new_fact_id, footnote_id))
+
+    if options.ferc_render_show_hidden:
+        modelXbrl.info("HiddenFactCount", "{} hidden facts, {} excluded from being displayed".format(hidden_count, hidden_count - displayed_hidden_count))
+
     return context_ids, unit_ids
 
 def get_hidden(html):
@@ -1529,6 +1535,16 @@ def cmdLineOptionExtender(parser, *args, **kwargs):
                       dest="ferc_render_partial",
                       help=_("Indicates that this is a partial rendering such as a single schedule. This will prevent outputing unused facts in the "
                              "hidden section of the inline document."))
+
+    parserGroup.add_option("--ferc-render-show-hidden",
+                      action="store_true",
+                      dest="ferc_render_show_hidden",
+                      help=_("Display facts that are are written to the hidden section of the inline XBRL document."))   
+
+    parserGroup.add_option("--ferc-render-show-hidden-except",
+                      action="append",
+                      dest="ferc_render_show_hidden_except",
+                      help=_("Concept local name for facts that should not be displayed when showing hidden facts. To list multiples, use this option for each name."))                                                  
 
     parserGroup.add_option("--ferc-render-debug",
                       action="store_true",
@@ -1868,10 +1884,15 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
                 main_body.append(etree.Element('{{{}}}hr'.format(_XHTM_NAMESPACE), attrib={'class': 'screen-page-separator schedule-separator'}))
                 main_body.append(etree.Element('{{{}}}div'.format(_XHTM_NAMESPACE), attrib={'class': 'print-page-separator sechedule-separator'}))
         
-        #if not options.ferc_render_partial:
-        #    additional_context_ids, additional_unit_ids = add_unused_facts_and_footnotes(main_html, modelXbrl, processed_facts, fact_number)
-        #    used_context_ids |= additional_context_ids
-        #    used_unit_ids |= additional_unit_ids
+        if not options.ferc_render_partial:
+            additional_context_ids, additional_unit_ids = add_unused_facts_and_footnotes(main_html, 
+                                                                                         modelXbrl, 
+                                                                                         processed_facts, 
+                                                                                         fact_number, 
+                                                                                         processed_footnotes,
+                                                                                         options)
+            used_context_ids |= additional_context_ids
+            used_unit_ids |= additional_unit_ids
 
         add_contexts_to_inline(main_html, modelXbrl, used_context_ids)
         add_units_to_inline(main_html, modelXbrl, used_unit_ids)
@@ -2040,25 +2061,36 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
         value_sign = None
         if model_fact.isNumeric and model_fact.xValue < 0:
             ix_node.set('sign', '-')
-        
+
+        wrapped = False
         if result_sign is not None:
-            div_node = etree.Element('div', nsmap=_XULE_NAMESPACE_MAP)
+            sign_wrapper = etree.Element('div', nsmap=_XULE_NAMESPACE_MAP)
             if result_sign == '-':
-                div_node.set('class', 'xbrl sign sign-negative')
+                sign_wrapper.set('class', 'sign sign-negative')
             elif result_sign == '+':
-                div_node.set('class', 'xbrl sign sign-positive')
+                sign_wrapper.set('class', 'sign sign-postive')
             else:
-                div_node.set('class', 'xbrl sign sign-zero')
-            div_node.append(ix_node)
-            ix_node = div_node
+                sign_wrapper.set('class', 'sign sign-zero')
+            sign_wrapper.append(ix_node)
+            ix_node = sign_wrapper
+            wrapped = True
 
         # handle units for numeric facts
         if model_fact.isNumeric:
-            div_node = etree.Element('div', nsmap=_XULE_NAMESPACE_MAP)
-            div_node.set('class', 'xbrl unit unit-{}'.format(unit_string(model_fact.unit)))
-            div_node.append(ix_node)
-            ix_node = div_node
-
+            unit_wrapper = etree.Element('div', nsmap=_XULE_NAMESPACE_MAP)
+            unit_wrapper.set('class', 'unit unit-{}'.format(unit_string(model_fact.unit)))
+            unit_wrapper.append(ix_node)
+            ix_node = unit_wrapper
+            wrapped = True
+        
+        if wrapped:
+            append_classes(ix_node, ['xbrl', 'fact'])
+        else:
+            wrapper = etree.Element('div', nsmap=_XULE_NAMESPACE_MAP)
+            wrapper.set('class', 'xbrl fact')
+            wrapper.append(ix_node)
+            ix_node = wrapper
+        
         return ix_node, new_fact_id
 
     except FERCRenderException as e:
@@ -2067,6 +2099,12 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
         div_node.set('class', 'format-error')
         div_node.text = str(model_fact.xValue)
         return div_node, new_fact_id
+
+def append_classes(node, classes):
+    # Added classes to an existing node
+    existing_classes = node.get('class','').split()
+    if len(existing_classes + classes) > 0:
+        node.set('class', ' '.join(existing_classes + classes))
 
 def display_fact_info(model_fact):
     if model_fact is None:
