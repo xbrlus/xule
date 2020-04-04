@@ -1355,7 +1355,7 @@ def add_unused_facts_and_footnotes(main_html, modelXbrl, processed_facts, fact_n
     # Get network of footnote arcs
     footnote_network =  get_relationshipset(modelXbrl,'http://www.xbrl.org/2003/arcrole/fact-footnote')
     # Get list of concept local names that should be excluded from displaying (these will still be in the inline document)
-    show_exceptions = set(x.strip().lower() for x in getattr('options','ferc_render_show_hidden_except', []))
+    show_exceptions = set(x.strip().lower() for x in getattr(options, 'ferc_render_show_hidden_except', []))
     hidden_count = 0
     displayed_hidden_count = 0
     # Process the unused facts
@@ -1877,7 +1877,7 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
 
         main_body = main_html.find('xhtml:body', namespaces=_XULE_NAMESPACE_MAP)
 
-        # Add donfidential indicator
+        # Add confidential indicator
         # if has_confidential: 
         #     watermark_div = etree.Element('{{{}}}div'.format(_XHTM_NAMESPACE))
         #     watermark_div.set('id', 'watermark')
@@ -1915,8 +1915,16 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
         
         #main_html.getroottree().write(inline_name, pretty_print=True, method="c14n")
         for elem in main_html.iter():
+            # Clean up empty tags
             if elem.text == None:
                 elem.text = ''
+            # Fix XHTML tags. Sometimes template authors use upper case in the tag names i.e. <Span> instead of <span>.
+            # Most browsers will ignore the case so it appears valid, but it is not valid to the XHTM schema.
+            tag = elem.tag
+            if isinstance(tag, str):
+                tag_qname = etree.QName(tag)
+                if tag_qname.namespace == _XHTM_NAMESPACE:
+                    elem.tag = tag.lower()
         output_string = etree.tostring(main_html.getroottree(), pretty_print=True, method="xml")
         # Fix the <br></br> tags. When using the c14n method all empty elements will be written out with start and end tags. 
         # This causes issues with browsers that will interpret <br></br> as 2 <br> tags.
