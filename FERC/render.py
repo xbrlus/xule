@@ -1185,7 +1185,15 @@ def build_footnote_page(template, template_number, footnotes, processed_footnote
 
     # Add page footer
     for node in nodes_for_class(template, 'schedule-footer'):
-        page.append(deepcopy(node))
+        footer = deepcopy(node)
+        # If there are facts in the footer, they will be duplicated. Need to update the fact ids to make
+        # them unique.
+        dup_counter = 0
+        for ix_node in footer.xpath('.//ix:*', namespaces=_XULE_NAMESPACE_MAP):
+            if 'id' in ix_node.keys():
+                ix_node.set('id', '{}-{}'.format(ix_node.get('id'), dup_counter))
+                dup_counter +=1
+        page.append(footer)
         break
 
     return page
@@ -1201,6 +1209,7 @@ def is_valid_xml(potential_text):
 
 def create_inline_footnote_node(footnote_node):
     inline_footnote = etree.Element('{{{}}}footnote'.format(_XULE_NAMESPACE_MAP['ix']))
+    inline_footnote.set('{http://www.w3.org/XML/1998/namespace}lang', footnote_node.get('{http://www.w3.org/XML/1998/namespace}lang'))
     if footnote_node.xValue is not None:
         inline_footnote.text = footnote_node.text
         for child in footnote_node.getchildren():
@@ -1346,7 +1355,7 @@ def add_unused_facts_and_footnotes(main_html, modelXbrl, processed_facts, fact_n
     # Get network of footnote arcs
     footnote_network =  get_relationshipset(modelXbrl,'http://www.xbrl.org/2003/arcrole/fact-footnote')
     # Get list of concept local names that should be excluded from displaying (these will still be in the inline document)
-    show_exceptions = set(x.strip().lower() for x in options.ferc_render_show_hidden_except)
+    show_exceptions = set(x.strip().lower() for x in getattr('options','ferc_render_show_hidden_except', []))
     hidden_count = 0
     displayed_hidden_count = 0
     # Process the unused facts
@@ -1358,13 +1367,13 @@ def add_unused_facts_and_footnotes(main_html, modelXbrl, processed_facts, fact_n
             displayed_hidden_count += 1
 
         content, new_fact_id = format_fact(None, model_fact, main_html, False, None, None, fact_number)
-        hidden.append(content)
+        inline_content = content.xpath("descendant-or-self::*[namespace-uri()='{}']".format(_XULE_NAMESPACE_MAP['ix']))        
+        hidden.append(inline_content[0]) 
 
         # Save the context and unit ids
         context_ids.add(model_fact.contextID)
         if model_fact.unitID is not None:
             unit_ids.add(model_fact.unitID)
-
 
         # Get any footnotes for unused concepts
         rels = footnote_network.fromModelObject(model_fact)
@@ -1385,7 +1394,7 @@ def get_hidden(html):
     if hidden is None:
         header = html.find('.//ix:header', namespaces=_XULE_NAMESPACE_MAP)
         hidden = etree.Element('{{{}}}hidden'.format(_XULE_NAMESPACE_MAP['ix']))
-        header.append(hidden)    
+        header.insert(0, hidden) # insert as the first element
     return hidden
 
 def add_contexts_to_inline(main_html, modelXbrl, context_ids):
@@ -1985,6 +1994,7 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
 
         ix_node.set('contextRef', model_fact.contextID)
         ix_node.set('name', str(model_fact.qname))
+        # Assign fact id
         if model_fact.id is not None:
             if model_fact.id in fact_number:
                 new_fact_id =  "{}-dup-{}".format(model_fact.id, fact_number[model_fact.id])
@@ -1993,7 +2003,11 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
             ix_node.set('id', new_fact_id)
             fact_number[model_fact.id] += 1
 
+        # Get the formated value
         result_sign = None # this will indicate the sign for numeric results
+        if model_fact.isNil:
+            display_value = ''
+            ix_node.set(r'{http://www.w3.org/2001/XMLSchema-instance}nil', 'true')
         if model_fact.xValue is None:
             display_value = ''
         elif format is None:
