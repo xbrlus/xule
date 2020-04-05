@@ -828,7 +828,18 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                         span_classes.append('confidential')
                         parent_classes.append('parent-confidential')
 
-                    span = etree.Element('div', nsmap=_XULE_NAMESPACE_MAP)
+                    # This is the node that will be replaced
+                    sub_node = sub_nodes.get(sub['replacement-node'])
+
+                    # If the node is going into an <a> or <span> then it needs to be a <span> otherwise it can be a <div>
+                    xhtml_ancestry = {etree.QName(x.tag).localname.lower() for x in sub_node.xpath('ancestor-or-self::*') if etree.QName(x).namespace == _XHTM_NAMESPACE}
+
+                    # Create the replacement node
+                    if len({'a','span'} & xhtml_ancestry) > 0: #intersect the two sets
+                        span = etree.Element('span', nsmap=_XULE_NAMESPACE_MAP)
+                    else:
+                        span = etree.Element('div', nsmap=_XULE_NAMESPACE_MAP)
+
                     span.set('class', ' '.join(span_classes))
                     for footnote_id in current_footnote_ids:
                         footnote_ref = etree.Element('a', attrib={"class": "xbrl footnote-ref", "id":"fr-{}-{}".format(template_number, footnote_id)}, nsmap=_XULE_NAMESPACE_MAP)
@@ -840,8 +851,6 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                     elif content is not None:
                         span.text = str(content)
                     
-                    sub_node = sub_nodes.get(sub['replacement-node'])
-
                     if sub_node is not None:
                         sub_parent = sub_node.getparent()
                         sub_parent.replace(sub_node, span)
@@ -882,7 +891,7 @@ def is_actual_fact(json_result, model_xbrl):
     if json_result['type'] == 'f':
         dynamic_fact = json_result.get('dynamic-fact')
         if dynamic_fact is not None and not isinstance(dynamic_fact, bool) :
-            model_xbrl.warning("RenderError", "Result of <xule:fact> in template is not boolean. Found '{}'".format(str(cynamic_fact)))
+            model_xbrl.warning("RenderError", "Result of <xule:fact> in template is not boolean. Found '{}'".format(str(dynamic_fact)))
             # Set to none.
             dynamic_fact = None
 
