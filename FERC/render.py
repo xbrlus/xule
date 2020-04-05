@@ -890,6 +890,11 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
 def is_actual_fact(json_result, model_xbrl):
     if json_result['type'] == 'f':
         dynamic_fact = json_result.get('dynamic-fact')
+        if isinstance(dynamic_fact, str):
+            if dynamic_fact.lower().strip() == 'false':
+                dynamic_fact = False
+            elif dynamic_fact.lower().strip() == 'true':
+                dynamic_fact = True
         if dynamic_fact is not None and not isinstance(dynamic_fact, bool) :
             model_xbrl.warning("RenderError", "Result of <xule:fact> in template is not boolean. Found '{}'".format(str(dynamic_fact)))
             # Set to none.
@@ -1364,7 +1369,7 @@ def add_unused_facts_and_footnotes(main_html, modelXbrl, processed_facts, fact_n
     # Get network of footnote arcs
     footnote_network =  get_relationshipset(modelXbrl,'http://www.xbrl.org/2003/arcrole/fact-footnote')
     # Get list of concept local names that should be excluded from displaying (these will still be in the inline document)
-    show_exceptions = set(x.strip().lower() for x in getattr(options, 'ferc_render_show_hidden_except', []))
+    show_exceptions = set(x.strip().lower() for x in (getattr(options, 'ferc_render_show_hidden_except', []) or []))
     hidden_count = 0
     displayed_hidden_count = 0
     # Process the unused facts
