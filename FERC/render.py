@@ -2095,7 +2095,7 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
 
         # handle sign
         value_sign = None
-        if model_fact.isNumeric and model_fact.xValue < 0:
+        if model_fact.isNumeric and not model_fact.isNil and model_fact.xValue < 0:
             ix_node.set('sign', '-')
 
         wrapped = False
