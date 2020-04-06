@@ -20,6 +20,15 @@ XULEParserListener.prototype.exitXuleFile = function(ctx) {
 };
 
 
+// Enter a parse tree produced by XULEParser#declaration.
+XULEParserListener.prototype.enterDeclaration = function(ctx) {
+};
+
+// Exit a parse tree produced by XULEParser#declaration.
+XULEParserListener.prototype.exitDeclaration = function(ctx) {
+};
+
+
 // Enter a parse tree produced by XULEParser#namespaceDeclaration.
 XULEParserListener.prototype.enterNamespaceDeclaration = function(ctx) {
 };
@@ -56,6 +65,15 @@ XULEParserListener.prototype.exitConstantDeclaration = function(ctx) {
 };
 
 
+// Enter a parse tree produced by XULEParser#functionDeclaration.
+XULEParserListener.prototype.enterFunctionDeclaration = function(ctx) {
+};
+
+// Exit a parse tree produced by XULEParser#functionDeclaration.
+XULEParserListener.prototype.exitFunctionDeclaration = function(ctx) {
+};
+
+
 // Enter a parse tree produced by XULEParser#assignment.
 XULEParserListener.prototype.enterAssignment = function(ctx) {
 };
@@ -74,6 +92,15 @@ XULEParserListener.prototype.exitExpression = function(ctx) {
 };
 
 
+// Enter a parse tree produced by XULEParser#parametersList.
+XULEParserListener.prototype.enterParametersList = function(ctx) {
+};
+
+// Exit a parse tree produced by XULEParser#parametersList.
+XULEParserListener.prototype.exitParametersList = function(ctx) {
+};
+
+
 // Enter a parse tree produced by XULEParser#factset.
 XULEParserListener.prototype.enterFactset = function(ctx) {
 };
@@ -83,21 +110,21 @@ XULEParserListener.prototype.exitFactset = function(ctx) {
 };
 
 
+// Enter a parse tree produced by XULEParser#factsetBody.
+XULEParserListener.prototype.enterFactsetBody = function(ctx) {
+};
+
+// Exit a parse tree produced by XULEParser#factsetBody.
+XULEParserListener.prototype.exitFactsetBody = function(ctx) {
+};
+
+
 // Enter a parse tree produced by XULEParser#aspectFilter.
 XULEParserListener.prototype.enterAspectFilter = function(ctx) {
 };
 
 // Exit a parse tree produced by XULEParser#aspectFilter.
 XULEParserListener.prototype.exitAspectFilter = function(ctx) {
-};
-
-
-// Enter a parse tree produced by XULEParser#conceptFilter.
-XULEParserListener.prototype.enterConceptFilter = function(ctx) {
-};
-
-// Exit a parse tree produced by XULEParser#conceptFilter.
-XULEParserListener.prototype.exitConceptFilter = function(ctx) {
 };
 
 
@@ -119,12 +146,12 @@ XULEParserListener.prototype.exitIdentifier = function(ctx) {
 };
 
 
-// Enter a parse tree produced by XULEParser#accessor.
-XULEParserListener.prototype.enterAccessor = function(ctx) {
+// Enter a parse tree produced by XULEParser#access.
+XULEParserListener.prototype.enterAccess = function(ctx) {
 };
 
-// Exit a parse tree produced by XULEParser#accessor.
-XULEParserListener.prototype.exitAccessor = function(ctx) {
+// Exit a parse tree produced by XULEParser#access.
+XULEParserListener.prototype.exitAccess = function(ctx) {
 };
 
 
