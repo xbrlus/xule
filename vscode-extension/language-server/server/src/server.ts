@@ -217,7 +217,54 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 		diagnostics.push(diagnostic);
 		recognizer.notifyErrorListeners(msg, e.offendingToken, e);
 	};
-	let parsed = parser.factset(); //TODO
+
+	parser._errHandler.reportUnwantedToken = function(recognizer) {
+		if (this.inErrorRecoveryMode(recognizer)) {
+			return;
+		}
+		this.beginErrorCondition(recognizer);
+		var t = recognizer.getCurrentToken();
+		var tokenName = this.getTokenErrorDisplay(t);
+		var expecting = this.getExpectedTokens(recognizer);
+		var msg = "extraneous input " + tokenName + " expecting " +
+			expecting.toString(recognizer.literalNames, recognizer.symbolicNames);
+
+		let diagnostic: Diagnostic = {
+			severity: DiagnosticSeverity.Error,
+			range: {
+				start: textDocument.positionAt(t.start),
+				end: textDocument.positionAt(t.stop + 1)
+			},
+			message: msg,
+			source: 'ex'
+		};
+		diagnostics.push(diagnostic);
+		recognizer.notifyErrorListeners(msg, t, null);
+	};
+
+	parser._errHandler.reportMissingToken = function(recognizer) {
+		if ( this.inErrorRecoveryMode(recognizer)) {
+			return;
+		}
+		this.beginErrorCondition(recognizer);
+		var t = recognizer.getCurrentToken();
+		var expecting = this.getExpectedTokens(recognizer);
+		var msg = "missing " + expecting.toString(recognizer.literalNames, recognizer.symbolicNames) +
+			  " at " + this.getTokenErrorDisplay(t);
+		let diagnostic: Diagnostic = {
+			severity: DiagnosticSeverity.Error,
+			range: {
+				start: textDocument.positionAt(t.start),
+				end: textDocument.positionAt(t.stop + 1)
+			},
+			message: msg,
+			source: 'ex'
+		};
+		diagnostics.push(diagnostic);
+		recognizer.notifyErrorListeners(msg, t, null);
+	};
+
+	let parsed = parser.xuleFile();
 	connection.sendDiagnostics({ uri: textDocument.uri, diagnostics });
 }
 
