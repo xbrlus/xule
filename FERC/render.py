@@ -1227,7 +1227,7 @@ def create_inline_footnote_node(footnote_node):
     if footnote_node.xValue is not None:
         inline_footnote.text = footnote_node.text
         for child in footnote_node.getchildren():
-            inline_footnote.append(child)
+            inline_footnote.append(deepcopy(child))
 
     #inline_footnote.set('id', footnote_node.id)
     return inline_footnote
