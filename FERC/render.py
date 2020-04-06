@@ -1,3 +1,7 @@
+'''
+Reivision number: $Change$
+'''
+
 from arelle import PluginManager
 from arelle.CntlrWebMain import Options
 from arelle.ModelRelationshipSet import ModelRelationshipSet
