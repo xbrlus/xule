@@ -1585,15 +1585,31 @@ class DBConnection(SqlDbConnection):
                       checkIfExisting=True)
         self.reportTime('add label resource')
         #add footnotes
+
+        # Prep footnote data
+        footnote_data = []
+        for resource_info in uniqueResources.values():
+            if resource_info['arcrole'] == XbrlConst.factFootnote:
+                footnote_text = resource_info['resource'].text or ''
+                for child in resource_info['resource'].getchildren():
+                    footnote_text += etree.tostring(child).decode()
+                footnote_data.append((resource_info['resource'].dbResourceId,
+                                      footnote_text,
+                                      resource_info['resource'].xmlLang,
+                                      resource_info['access_level']))
+
         self.getTable('footnote_resource', 'resource_id', 
                       ('resource_id', 'footnote', 'xml_lang', 'access_level'), 
                       ('resource_id',), 
-                      tuple((resource_info['resource'].dbResourceId,
-                             resource_info['resource'].textValue,
-                             resource_info['resource'].xmlLang,
-                             resource_info['access_level'])
-                            for resource_info in uniqueResources.values()
-                                if resource_info['arcrole'] == XbrlConst.factFootnote),
+
+                    #   tuple((resource_info['resource'].dbResourceId,
+                    #          ''.join((([resource_info['resource'].text] or '') + [etree.tostring(child) for child in resource_info['resource'].getchildren()])),
+                    #          resource_info['resource'].xmlLang,
+                    #          resource_info['access_level'])
+                    #         for resource_info in uniqueResources.values()
+                    #             if resource_info['arcrole'] == XbrlConst.factFootnote),
+
+                       footnote_data,
                       checkIfExisting=True)        
         self.reportTime('add footnote resources')
         
