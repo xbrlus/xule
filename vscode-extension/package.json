@@ -67,7 +67,7 @@
         "compile": "tsc -b",
         "watch": "tsc -b -w",
         "postinstall": "cd language-server/client && npm install && cd ../server && npm install && cd ..",
-        "test": "sh ./scripts/e2e.sh"
+        "test": "sh ./language-server/scripts/e2e.sh"
     },
     "devDependencies": {
         "@types/mocha": "^5.2.7",

@@ -137,6 +137,33 @@ XULEParserListener.prototype.exitFilter = function(ctx) {
 };
 
 
+// Enter a parse tree produced by XULEParser#navigation.
+XULEParserListener.prototype.enterNavigation = function(ctx) {
+};
+
+// Exit a parse tree produced by XULEParser#navigation.
+XULEParserListener.prototype.exitNavigation = function(ctx) {
+};
+
+
+// Enter a parse tree produced by XULEParser#returnExpression.
+XULEParserListener.prototype.enterReturnExpression = function(ctx) {
+};
+
+// Exit a parse tree produced by XULEParser#returnExpression.
+XULEParserListener.prototype.exitReturnExpression = function(ctx) {
+};
+
+
+// Enter a parse tree produced by XULEParser#role.
+XULEParserListener.prototype.enterRole = function(ctx) {
+};
+
+// Exit a parse tree produced by XULEParser#role.
+XULEParserListener.prototype.exitRole = function(ctx) {
+};
+
+
 // Enter a parse tree produced by XULEParser#identifier.
 XULEParserListener.prototype.enterIdentifier = function(ctx) {
 };
