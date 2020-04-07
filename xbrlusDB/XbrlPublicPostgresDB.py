@@ -1544,7 +1544,7 @@ class DBConnection(SqlDbConnection):
                                                   'arcrole': rel.arcrole, 
                                                   'document_id': docId, 
                                                   'xml_location': xmlLoc,
-                                                  'access_level': getattr(self, 'factAccessLevels', dict()).get(rel.toModelObject)
+                                                  'access_level': getattr(self, 'factAccessLevels', dict()).get(rel.fromModelObject)
                                                   })
                                 for arcrole, ELR, linkqname, arcqname in baseSets
                                     for rel in self.modelXbrl.relationshipSet(arcrole, ELR, linkqname, arcqname).modelRelationships
