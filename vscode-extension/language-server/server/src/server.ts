@@ -21,8 +21,10 @@ import {
 import {
 	TextDocument
 } from 'vscode-languageserver-textdocument';
-import { InputStream, CommonTokenStream, Recognizer, Token } from 'antlr4/index';
+import { InputStream, CommonTokenStream, Recognizer, Token, ParserRuleContext } from 'antlr4/index';
 import { ErrorListener } from 'antlr4/error/ErrorListener';
+import { CodeCompletionCore } from 'antlr4-c3';
+import { TerminalNode, ParseTree } from 'antlr4/tree/Tree';
 
 const xuleLexerModule = require('../../parser/XULELexer.js');
 const { XULELexer } = xuleLexerModule;
@@ -152,7 +154,7 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 	let text = textDocument.getText();
 	let input = new InputStream(textDocument.getText());
 	let lexer = new XULELexer(input);
-	
+
 	function ReportingErrorListener(): void {
 		ErrorListener.call(this);
 		return this;
@@ -264,7 +266,9 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 		recognizer.notifyErrorListeners(msg, t, null);
 	};
 
-	let parsed = parser.xuleFile();
+	let parseTree = parser.xuleFile();
+	textDocument['parseTree'] = parseTree;
+	textDocument['parser'] = parser;
 	connection.sendDiagnostics({ uri: textDocument.uri, diagnostics });
 }
 
@@ -273,24 +277,91 @@ connection.onDidChangeWatchedFiles(_change => {
 	connection.console.log('We received an file change event');
 });
 
+/**
+ * Returns the narrowest parse tree which covers the given position.
+ * Returns undefined if none is found.
+ * Note that currently this doesn't handle multiline tokens.
+ */
+function parseTreeFromPosition(tree: ParseTree, line: number, column: number): ParseTree | undefined {
+    // Does the root node actually contain the position? If not we don't need to look further.
+    if (tree instanceof TerminalNode) {
+        let terminal = (tree as TerminalNode);
+        let token = terminal.symbol;
+        if (token.line != line) {
+			return undefined; //TODO what if the token spans multiple lines?
+		}
+
+        let tokenStop = token.column + (token.stop - token.start + 1);
+        if (token.column <= column && tokenStop >= column) {
+            return terminal;
+        }
+        return undefined;
+    } else {
+        let context = (tree as ParserRuleContext);
+        if (!context.start || !context.stop) { // Invalid tree?
+            return undefined;
+        }
+
+        if (context.start.line > line || (context.start.line == line && column < context.start.column)) {
+            return undefined;
+        }
+
+        let tokenStop = context.stop.column + (context.stop.stop - context.stop.start + 1);
+        if (context.stop.line < line || (context.stop.line == line && tokenStop < column)) {
+            return undefined;
+        }
+
+		if (context.getChildCount() > 0) {
+            for (let i = 0; i < context.getChildCount(); i++) {
+                let result = parseTreeFromPosition(context.getChild(i), line, column);
+                if (result) {
+                    return result;
+                }
+            }
+        }
+        return context;
+
+    }
+}
+
 // This handler provides the initial list of the completion items.
 connection.onCompletion(
 	(_textDocumentPosition: TextDocumentPositionParams): CompletionItem[] => {
 		// The pass parameter contains the position of the text document in
 		// which code complete got requested. For the example we ignore this
 		// info and always provide the same completion items.
-		return [
-			{
-				label: 'TypeScript',
-				kind: CompletionItemKind.Text,
-				data: 1
-			},
-			{
-				label: 'JavaScript',
-				kind: CompletionItemKind.Text,
-				data: 2
+		let document = documents.get(_textDocumentPosition.textDocument.uri);
+		if(document) {
+			let parser = document['parser'];
+			if(parser) {
+				const pos = _textDocumentPosition.position;
+				const context = parseTreeFromPosition(document['parseTree'] as ParseTree, pos.line, pos.character);
+				let tokenIndex: number = -1;
+				if(context instanceof TerminalNode) {
+					tokenIndex = context.getSymbol().tokenIndex;
+				} else if(context instanceof ParserRuleContext) {
+					tokenIndex = context.start.tokenIndex;
+				}
+				//Note: CodeCompletionCore expects an "inputStream" property of the parser,
+				//so we monkey-patch it in as the API has changed.
+				parser['inputStream'] = parser._input;
+				let core = new CodeCompletionCore(parser);
+				//TODO not working let candidates = core.collectCandidates(tokenIndex);
+				return [
+					{
+						label: 'TypeScript',
+						kind: CompletionItemKind.Text,
+						data: 1
+					},
+					{
+						label: 'JavaScript',
+						kind: CompletionItemKind.Text,
+						data: 2
+					}
+					];
 			}
-		];
+		}
+		return [];
 	}
 );
 
