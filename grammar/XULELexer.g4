@@ -13,7 +13,6 @@ NOT_EQUALS: '!=';
 EQUALS: '==';
 ASSIGN: '=';
 DOT: '.';
-COLON: ':';
 SEMI: ';';
 GREATER_THAN: '>';
 LESS_THAN: '<';
@@ -65,6 +64,7 @@ IF: I F;
 
 FUNCTION: F U N C T I O N;
 FROM: F R O M;
+FOR: F O R;
 FILTER: F I L T E R;
 FALSE: F A L S E;
 
@@ -92,7 +92,7 @@ INTEGER: [0-9]+;
 ACCESSOR: IDENTIFIER ('.' NAME)+;
 IDENTIFIER: (NAME ':')? NAME;
 NAME : [$a-zA-Z] [a-zA-Z_\-0-9]*;
-WS: (' ' | '\t' | '\n' | '\r') -> skip;
+WS: (' ' | '\t' | '\n' | '\r' | '\u00A0') -> skip;
 
 UNRECOGNIZED_TOKEN: .;
 

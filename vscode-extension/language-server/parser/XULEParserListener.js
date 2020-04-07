@@ -92,6 +92,33 @@ XULEParserListener.prototype.exitExpression = function(ctx) {
 };
 
 
+// Enter a parse tree produced by XULEParser#ifExpression.
+XULEParserListener.prototype.enterIfExpression = function(ctx) {
+};
+
+// Exit a parse tree produced by XULEParser#ifExpression.
+XULEParserListener.prototype.exitIfExpression = function(ctx) {
+};
+
+
+// Enter a parse tree produced by XULEParser#forExpression.
+XULEParserListener.prototype.enterForExpression = function(ctx) {
+};
+
+// Exit a parse tree produced by XULEParser#forExpression.
+XULEParserListener.prototype.exitForExpression = function(ctx) {
+};
+
+
+// Enter a parse tree produced by XULEParser#forHead.
+XULEParserListener.prototype.enterForHead = function(ctx) {
+};
+
+// Exit a parse tree produced by XULEParser#forHead.
+XULEParserListener.prototype.exitForHead = function(ctx) {
+};
+
+
 // Enter a parse tree produced by XULEParser#parametersList.
 XULEParserListener.prototype.enterParametersList = function(ctx) {
 };
@@ -188,15 +215,6 @@ XULEParserListener.prototype.enterLiteral = function(ctx) {
 
 // Exit a parse tree produced by XULEParser#literal.
 XULEParserListener.prototype.exitLiteral = function(ctx) {
-};
-
-
-// Enter a parse tree produced by XULEParser#dataType.
-XULEParserListener.prototype.enterDataType = function(ctx) {
-};
-
-// Exit a parse tree produced by XULEParser#dataType.
-XULEParserListener.prototype.exitDataType = function(ctx) {
 };
 
 
