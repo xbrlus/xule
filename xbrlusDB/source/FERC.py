@@ -26,14 +26,18 @@ def conceptHash(dbLoader, elementQname):
 
 def FERCProperties(dbLoader):
 
-    return json.dumps({
+    return json.dumps({'cid': dbLoader.getSimpleFactByQname(None, 'CompanyIdentifier'),
+                       'submission_type': dbLoader.getSimpleFactByQname(None, 'SubmissionType'),
+                       'form_type': dbLoader.getSimpleFactByQname(None, 'FormType'),
+                       'report_year': dbLoader.getSimpleFactByQname(None, 'ReportYear'),
+                       'report_period': dbLoader.getSimpleFactByQname(None, 'ReportPeriod'),
             })
 
-def SECFilingAndEntityInfo(dbLoader):
+def FERCFilingAndEntityInfo(dbLoader):
     
     info = dict()      
                
-    info['entityName'] = dbLoader.getSimpleFactByQname('/dei/','EntityRegistrantName')
+    info['entityName'] = dbLoader.getSimpleFactByQname(None, 'RespondentLegalName')
     return info
 
 def FiscalYearEnd(dbLoader):
@@ -96,9 +100,9 @@ __sourceInfo__ = {
                       "UOMString" : UOMString,
                       "UOMHash" : UOMString, #note the hash and the string form of the unit of measure are the same
                       "conceptQnameHash": conceptHash,
-                      #"reportProperties" : FERCProperties,
+                      "reportProperties" : FERCProperties,
                       #"postLoad" : SECCreateAccessionRecord,
-                      #"identifyEntityAndFilingingInfo" : SECFilingAndEntityInfo,
+                      "identifyEntityAndFilingingInfo" : FERCFilingAndEntityInfo,
                       "identifyFiscalYearEnd" : FiscalYearEnd,
                       "getAccessLevelForFact" : factAccessLevel,
                   },
