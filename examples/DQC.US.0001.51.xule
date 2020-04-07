@@ -4,7 +4,7 @@ constant $us-gaap = taxonomy('http://xbrl.fasb.org/us-gaap/2016/elts/us-gaap-201
 /** Determine the members on the axis in the taxonomy using the definition tree **/
 constant $member_USGAAP_fair_value = navigate dimensions dimension-member
 descendants from FairValueByFairValueHierarchyLevelAxis taxonomy $us-gaap
-returns set (target-name))
+returns set (target-name)
 
 /** Define a function to identify a concept as an extension**/
 constant $extension_ns = first(filter taxonomy().concepts where is_extension($item)).name.namespace-uri

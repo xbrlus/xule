@@ -39,7 +39,7 @@ constant $Accrual_Items =
     PartnersCapitalAccountPeriodIncreaseDecrease)  taxonomy $us-gaap where
     $relationship.target.is-monetary == true returns set (target-name))
     +
-    (navigate parent-child descendants from list((IncomeStatementAbstract,
+    (navigate parent-child descendants from list(IncomeStatementAbstract,
     StatementOfIncomeAndComprehensiveIncomeAbstract,
     StatementOfStockholdersEquityAbstract,
     StatementOfPartnersCapitalAbstract) taxonomy $us-gaap where

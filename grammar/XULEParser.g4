@@ -2,22 +2,19 @@ parser grammar XULEParser;
 
 options { tokenVocab=XULELexer; }
 
-xuleFile: (declaration | assertion | output)* EOF;
+xuleFile: (topLevelDeclaration | assertion | output)* EOF;
 
-declaration: namespaceDeclaration | constantDeclaration | functionDeclaration;
+topLevelDeclaration: namespaceDeclaration | constantDeclaration | functionDeclaration;
 
 namespaceDeclaration: NAMESPACE identifier ASSIGN URL;
 
 output: OUTPUT access (OPEN_BRACKET AT identifier CLOSE_BRACKET)?
     (constantDeclaration | assignment)*
     expression
-    (MESSAGE expression)?;
+    (MESSAGE expression SEMI?)?;
 
 assertion: ASSERT ASSERT_RULE_NAME (ASSERT_SATISFIED | ASSERT_UNSATISFIED)
-    (constantDeclaration | assignment)*
-    expression
-    (MESSAGE expression)?
-    (SEVERITY expression)?;
+    (constantDeclaration | assignment | expression (MESSAGE expression SEMI?)? (SEVERITY expression)?)+;
 
 constantDeclaration: CONSTANT identifier ASSIGN expression;
 functionDeclaration: FUNCTION identifier OPEN_PAREN identifier (COMMA identifier)* CLOSE_PAREN
@@ -25,32 +22,34 @@ functionDeclaration: FUNCTION identifier OPEN_PAREN identifier (COMMA identifier
 assignment: identifier ASSIGN expression SEMI;
 
 expression:
-    access parametersList? | literal | navigation | factset | filter |
-    expression SHARP identifier |
     OPEN_PAREN expression CLOSE_PAREN |
+    expression SHARP identifier |
     IF expression expression ELSE expression |
     expression AND expression |
     expression OR expression |
     expression (EQUALS | NOT_EQUALS | GREATER_THAN | LESS_THAN) expression |
-    expression (NOT) IN expression |
+    expression NOT? IN expression |
     expression (PLUS | MINUS) expression |
     expression (TIMES | DIV) expression |
     expression EXP expression |
-    expression DOT access parametersList |
-    expression OPEN_BRACKET stringLiteral CLOSE_BRACKET;
+    (PLUS|MINUS|NOT) expression |
+    expression DOT access parametersList? |
+    access parametersList? |
+    expression OPEN_BRACKET stringLiteral CLOSE_BRACKET |
+    literal | factset | filter | navigation;
 
 parametersList: OPEN_PAREN (expression (COMMA expression)*)? CLOSE_PAREN;
 
-factset: factsetBody | OPEN_CURLY factsetBody CLOSE_CURLY | OPEN_BRACKET factsetBody CLOSE_BRACKET;
+factset: AT | OPEN_CURLY factsetBody CLOSE_CURLY | OPEN_BRACKET factsetBody CLOSE_BRACKET;
 factsetBody: AT | aspectFilter*;
-aspectFilter: AT AT? ((CONCEPT ASSIGN)? | access ASSIGN) (expression | TIMES) (AS identifier)?;
+aspectFilter: AT AT? ((CONCEPT ASSIGN)? | access ASSIGN) (expression | TIMES) (AS identifier)? (WHERE expression)?;
 
 filter: FILTER expression
     (WHERE assignment* expression)?
     (RETURNS expression)?;
 
 navigation: NAVIGATE DIMENSIONS? arcrole=role? direction=identifier levels=INTEGER? (INCLUDE START)? (ROLE role)?
-    (FROM identifier)? (TAXONOMY expression)? (CUBE identifier)? (TO identifier)?
+    (FROM expression)? (TAXONOMY expression)? (CUBE identifier)? (TO expression)?
     (STOP WHEN expression)?
     (WHERE expression)?
     (RETURNS ((BY NETWORK returnExpression?) | returnExpression)

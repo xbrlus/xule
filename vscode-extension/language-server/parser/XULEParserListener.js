@@ -20,12 +20,12 @@ XULEParserListener.prototype.exitXuleFile = function(ctx) {
 };
 
 
-// Enter a parse tree produced by XULEParser#declaration.
-XULEParserListener.prototype.enterDeclaration = function(ctx) {
+// Enter a parse tree produced by XULEParser#topLevelDeclaration.
+XULEParserListener.prototype.enterTopLevelDeclaration = function(ctx) {
 };
 
-// Exit a parse tree produced by XULEParser#declaration.
-XULEParserListener.prototype.exitDeclaration = function(ctx) {
+// Exit a parse tree produced by XULEParser#topLevelDeclaration.
+XULEParserListener.prototype.exitTopLevelDeclaration = function(ctx) {
 };
 
 
