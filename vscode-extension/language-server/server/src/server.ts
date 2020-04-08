@@ -274,7 +274,8 @@ connection.onCompletion(
 			let parser = document['parser'] as XULEParser;
 			if(parser) {
 				const pos = _textDocumentPosition.position;
-				const context = parseTreeFromPosition(document['parseTree'] as ParseTree, pos.line, pos.character);
+				const parseTree = document['parseTree'] as ParseTree;
+				const context = parseTreeFromPosition(parseTree, pos.line + 1, pos.character);
 				let tokenIndex: number = -1;
 				if(context instanceof TerminalNode) {
 					tokenIndex = context.symbol.startIndex;
@@ -282,12 +283,39 @@ connection.onCompletion(
 					tokenIndex = context.start.tokenIndex;
 				}
 				let core = new CodeCompletionCore(parser);
+				core.ignoredTokens = new Set([
+					XULEParser.ASSIGN,
+					XULEParser.CLOSE_BRACKET, XULEParser.CLOSE_CURLY, XULEParser.CLOSE_PAREN, 
+					XULEParser.COMMA, XULEParser.DIV,
+					XULEParser.DOT, XULEParser.DOUBLE_QUOTED_STRING, XULEParser.EOF, XULEParser.EQUALS,
+					XULEParser.EXP,
+					XULEParser.GREATER_THAN, XULEParser.LESS_THAN, XULEParser.MINUS,
+					XULEParser.NOT_EQUALS,
+					XULEParser.OPEN_BRACKET, XULEParser.OPEN_CURLY, XULEParser.OPEN_PAREN, 
+					XULEParser.PLUS,
+					XULEParser.SEMI, XULEParser.SHARP, XULEParser.SINGLE_QUOTED_STRING,
+					XULEParser.TIMES
+				]);
+				core.preferredRules = new Set([
+					XULEParser.RULE_booleanLiteral,
+					XULEParser.RULE_variableRef, XULEParser.RULE_functionRef, XULEParser.RULE_constantRef
+				]);
 				let candidates = core.collectCandidates(tokenIndex);
 				let completions = [];
+				if(candidates.rules.has(XULEParser.RULE_booleanLiteral)) {
+					completions.push({
+						label: "true",
+						kind: CompletionItemKind.Constant
+					});
+					completions.push({
+						label: "false",
+						kind: CompletionItemKind.Constant
+					});
+				}
 				candidates.tokens.forEach((value, key, map) => {
 					completions.push({
-						label: parser.vocabulary.getDisplayName(key),
-						kind: CompletionItemKind.Text
+						label: parser.vocabulary.getDisplayName(key).toLowerCase(),
+						kind: CompletionItemKind.Keyword
 					});
 				});
 				return completions;

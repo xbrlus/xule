@@ -8,7 +8,7 @@ topLevelDeclaration: namespaceDeclaration | constantDeclaration | functionDeclar
 
 namespaceDeclaration: NAMESPACE identifier ASSIGN URL;
 
-output: OUTPUT access (OPEN_BRACKET AT identifier CLOSE_BRACKET)?
+output: OUTPUT identifier (OPEN_BRACKET AT identifier CLOSE_BRACKET)?
     (constantDeclaration | assignment)*
     expression
     (MESSAGE expression SEMI?)?;
@@ -34,9 +34,12 @@ expression:
     expression (TIMES | DIV) expression |
     expression EXP expression |
     (PLUS|MINUS|NOT) expression |
-    expression DOT access parametersList? |
-    access parametersList? |
+    expression (DOT propertyRef)+ |
+    expression (DOT propertyRef)* parametersList |
     expression OPEN_BRACKET stringLiteral CLOSE_BRACKET |
+    //Various kinds of idenfiers
+    functionRef | constantRef | variableRef |
+    //"Simple" expressions
     literal | factset | filter | navigation;
 
 ifExpression: IF expression expression ELSE expression;
@@ -48,7 +51,7 @@ parametersList: OPEN_PAREN (expression (COMMA expression)*)? CLOSE_PAREN;
 
 factset: AT | OPEN_CURLY factsetBody CLOSE_CURLY | OPEN_BRACKET factsetBody CLOSE_BRACKET;
 factsetBody: AT | aspectFilter*;
-aspectFilter: AT AT? ((CONCEPT ASSIGN)? | access ASSIGN) (expression | TIMES) (AS identifier)? (WHERE expression)?;
+aspectFilter: AT AT? ((CONCEPT | constantRef | variableRef) (DOT propertyRef)* ASSIGN)? (expression | TIMES) (AS identifier)? (WHERE expression)?;
 
 filter: FILTER expression
     (WHERE assignment* expression)?
@@ -66,9 +69,13 @@ role: identifier | stringLiteral;
 
 //End expressions
 
+//These exist so that when suggesting names we can restrict only to certain name spaces.
+constantRef: identifier;
+variableRef: identifier;
+functionRef: { (!this._input.LT(-1) || this._input.LT(-1).text != '.') && this._input.LT(2).text == '(' }? identifier;
+propertyRef: identifier;
 /** With this rule we cover IDENTIFIER tokens, as well as other tokens (keywords) that we accept as identifiers as well. */
-identifier: IDENTIFIER | CONCEPT | PERIOD | TAXONOMY;
-access: identifier | ACCESSOR | CONCEPT DOT access;
+identifier: IDENTIFIER | CONCEPT | PERIOD | TAXONOMY | START | STOP;
 literal: stringLiteral | NUMBER | booleanLiteral;
 booleanLiteral: TRUE | FALSE;
 stringLiteral: DOUBLE_QUOTED_STRING | SINGLE_QUOTED_STRING;

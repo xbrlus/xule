@@ -89,10 +89,9 @@ AND: A N D;
 NUMBER: INTEGER;
 INTEGER: [0-9]+;
 
-ACCESSOR: IDENTIFIER ('.' NAME)+;
-IDENTIFIER: (NAME ':')? NAME;
-NAME : [$a-zA-Z] [a-zA-Z_\-0-9]*;
-WS: (' ' | '\t' | '\n' | '\r' | '\u00A0') -> skip;
+IDENTIFIER: (IDENTIFIER_COMPONENT ':')? IDENTIFIER_COMPONENT;
+IDENTIFIER_COMPONENT : [$a-zA-Z] [a-zA-Z_\-0-9]*;
+WS: (' ' | '\t' | '\n' | '\r' | '\u00A0') -> channel(HIDDEN);
 
 UNRECOGNIZED_TOKEN: .;
 
@@ -100,8 +99,7 @@ mode assertMode;
 ASSERT_UNSATISFIED: (U N S A T I S F I E D) -> popMode;
 ASSERT_SATISFIED: (S A T I S F I E D) -> popMode;
 ASSERT_RULE_NAME: [a-zA-Z_\-]+ ('.' [a-zA-Z0-9_\-]+)*;
-ASSERT_WS: WS -> skip;
-
+ASSERT_WS: WS -> channel(HIDDEN);
 
 fragment A : [aA];
 fragment B : [bB];

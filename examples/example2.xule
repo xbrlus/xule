@@ -7,7 +7,7 @@ message
     "
 
 output b-liabilities
-    [@us-gaap:Liabilities]    
+    [@us-gaap:Liabilities] 
 message 
     "Liabilities: {$rule-value} ({$rule-value.period})
     "

@@ -7,6 +7,7 @@
 		{ "include": "#variables" },
 		{ "include": "#double-quoted-strings" },
 		{ "include": "#single-quoted-strings" },
+		{ "include": "#urls" },
 		{ "include": "#comments" }
 	],
 	"repository": {
@@ -52,23 +53,25 @@
 			"name": "string.quoted.double.xule",
 			"begin": "\"",
 			"end": "\"",
-			"patterns": [
-				{
-					"name": "constant.character.escape.xule",
-					"match": "\\\\."
-				}
-			]
+			"patterns": [{
+				"name": "constant.character.escape.xule",
+				"match": "\\\\."
+			}]
 		},
 		"single-quoted-strings": {
 			"name": "string.quoted.single.xule",
 			"begin": "'",
 			"end": "'",
-			"patterns": [
-				{
-					"name": "constant.character.escape.xule",
-					"match": "\\\\."
-				}
-			]
+			"patterns": [{
+				"name": "constant.character.escape.xule",
+				"match": "\\\\."
+			}]
+		},
+		"url": {
+			"patterns": [{
+				"name": "string.xule",
+				"match": "http[s]?://\\S+"
+			}]
 		},
 		"comments": {
 			"name": "comment.block.xule",
