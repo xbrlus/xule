@@ -21,16 +21,12 @@ import {
 import {
 	TextDocument
 } from 'vscode-languageserver-textdocument';
-import { InputStream, CommonTokenStream, Recognizer, Token, ParserRuleContext } from 'antlr4/index';
-import { ErrorListener } from 'antlr4/error/ErrorListener';
 import { CodeCompletionCore } from 'antlr4-c3';
-import { TerminalNode, ParseTree } from 'antlr4/tree/Tree';
-
-const xuleLexerModule = require('../../parser/XULELexer.js');
-const { XULELexer } = xuleLexerModule;
-const xuleParserModule = require('../../parser/XULEParser.js');
-const { XULEParser } = xuleParserModule;
-
+import { XULELexer } from './parser/XULELexer';
+import { CharStreams, ANTLRErrorListener, RecognitionException, Recognizer, CommonTokenStream, Token, ParserRuleContext } from 'antlr4ts';
+import { XULEParser } from './parser/XULEParser';
+import { ParseTree } from 'antlr4ts/tree/ParseTree';
+import { TerminalNode } from 'antlr4ts/tree/TerminalNode';
 
 // Create a connection for the server. The connection uses Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
@@ -152,119 +148,62 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 
 	let diagnostics: Diagnostic[] = [];
 	let text = textDocument.getText();
-	let input = new InputStream(textDocument.getText());
+	let input = CharStreams.fromString(textDocument.getText());
 	let lexer = new XULELexer(input);
 
-	function ReportingErrorListener(): void {
-		ErrorListener.call(this);
-		return this;
-	}
-	
-	ReportingErrorListener.prototype = Object.create(ErrorListener.prototype);
-	ReportingErrorListener.prototype.constructor = ReportingErrorListener;
-	
-	ReportingErrorListener.prototype.syntaxError = function(recognizer: Recognizer, offendingSymbol: any, line: number, column: number, msg: string, e: any) {
-		let start, stop;
-		if(e.offendingToken) {
-			start = e.offendingToken.start;
-			stop = e.offendingToken.stop + 1;
-		} else {
-			start = e.startIndex;
-			stop = e.startIndex;
-		}
-		let diagnostic: Diagnostic = {
-			severity: DiagnosticSeverity.Error,
-			range: {
-				start: textDocument.positionAt(start),
-				end: textDocument.positionAt(stop)
-			},
-			message: msg,
-			source: 'ex'
-		};
-		diagnostics.push(diagnostic);
-	};
-	lexer._listeners = [ new ReportingErrorListener() ];
-
-	let parser = new XULEParser(new CommonTokenStream(lexer));
-	parser._errHandler.reportInputMismatch = function(recognizer: any, e: any) {
-		var msg = "Mismatched input " + this.getTokenErrorDisplay(e.offendingToken) +
-			  " expecting " + e.getExpectedTokens().toString(recognizer.literalNames, recognizer.symbolicNames);
-		let diagnostic: Diagnostic = {
-			severity: DiagnosticSeverity.Error,
-			range: {
-				start: textDocument.positionAt(e.offendingToken.start),
-				end: textDocument.positionAt(e.offendingToken.stop + 1)
-			},
-			message: msg,
-			source: 'ex'
-		};
-		/*if (hasDiagnosticRelatedInformationCapability) {
-			diagnostic.relatedInformation = [
-				{
-					location: {
-						uri: textDocument.uri,
-						range: Object.assign({}, diagnostic.range)
-					},
-					message: 'Spelling matters'
-				},
-				{
-					location: {
-						uri: textDocument.uri,
-						range: Object.assign({}, diagnostic.range)
-					},
-					message: 'Particularly for names'
+	class ReportingLexerErrorListener implements ANTLRErrorListener<number> {
+		syntaxError? = <T extends number>(recognizer: Recognizer<T, any>, offendingSymbol: T | undefined, line: number, charPositionInLine: number, msg: string, e: RecognitionException | undefined) => {
+			let range = null;
+			if(e) {
+				let token = e.getOffendingToken();
+				if(token) {
+					range = {
+						start: textDocument.positionAt(token.startIndex),
+						end: textDocument.positionAt(token.stopIndex + 1)
+					}
 				}
-			];
-		}*/
-		diagnostics.push(diagnostic);
-		recognizer.notifyErrorListeners(msg, e.offendingToken, e);
-	};
-
-	parser._errHandler.reportUnwantedToken = function(recognizer) {
-		if (this.inErrorRecoveryMode(recognizer)) {
-			return;
-		}
-		this.beginErrorCondition(recognizer);
-		var t = recognizer.getCurrentToken();
-		var tokenName = this.getTokenErrorDisplay(t);
-		var expecting = this.getExpectedTokens(recognizer);
-		var msg = "extraneous input " + tokenName + " expecting " +
-			expecting.toString(recognizer.literalNames, recognizer.symbolicNames);
-
-		let diagnostic: Diagnostic = {
-			severity: DiagnosticSeverity.Error,
-			range: {
-				start: textDocument.positionAt(t.start),
-				end: textDocument.positionAt(t.stop + 1)
-			},
-			message: msg,
-			source: 'ex'
+			}
+			let diagnostic: Diagnostic = {
+				severity: DiagnosticSeverity.Error,
+				range: range,
+				message: msg,
+				source: 'ex'
+			};
+			diagnostics.push(diagnostic);
 		};
-		diagnostics.push(diagnostic);
-		recognizer.notifyErrorListeners(msg, t, null);
-	};
+	}
+	let reportingErrorListener = new ReportingLexerErrorListener();
+	lexer.addErrorListener(new ReportingLexerErrorListener());
 
-	parser._errHandler.reportMissingToken = function(recognizer) {
-		if ( this.inErrorRecoveryMode(recognizer)) {
-			return;
-		}
-		this.beginErrorCondition(recognizer);
-		var t = recognizer.getCurrentToken();
-		var expecting = this.getExpectedTokens(recognizer);
-		var msg = "missing " + expecting.toString(recognizer.literalNames, recognizer.symbolicNames) +
-			  " at " + this.getTokenErrorDisplay(t);
-		let diagnostic: Diagnostic = {
-			severity: DiagnosticSeverity.Error,
-			range: {
-				start: textDocument.positionAt(t.start),
-				end: textDocument.positionAt(t.stop + 1)
-			},
-			message: msg,
-			source: 'ex'
+	class ReportingParserErrorListener implements ANTLRErrorListener<Token> {
+		syntaxError? = <T extends Token>(recognizer: Recognizer<T, any>, offendingSymbol: T | undefined, line: number, charPositionInLine: number, msg: string, e: RecognitionException | undefined) => {
+			let range = null;
+			if(e) {
+				let token = e.getOffendingToken();
+				if(token) {
+					range = {
+						start: textDocument.positionAt(token.startIndex),
+						end: textDocument.positionAt(token.stopIndex + 1)
+					}
+				}
+			} else if(offendingSymbol) {
+				range = {
+					start: textDocument.positionAt(offendingSymbol.startIndex),
+					end: textDocument.positionAt(offendingSymbol.stopIndex + 1)
+				}
+			}
+			let diagnostic: Diagnostic = {
+				severity: DiagnosticSeverity.Error,
+				range: range,
+				message: msg,
+				source: 'ex'
+			};
+			diagnostics.push(diagnostic);
 		};
-		diagnostics.push(diagnostic);
-		recognizer.notifyErrorListeners(msg, t, null);
-	};
+	}
+	let parser = new XULEParser(new CommonTokenStream(lexer));
+	parser.addErrorListener(new ReportingParserErrorListener());
+	
 
 	let parseTree = parser.xuleFile();
 	textDocument['parseTree'] = parseTree;
@@ -291,8 +230,8 @@ function parseTreeFromPosition(tree: ParseTree, line: number, column: number): P
 			return undefined; //TODO what if the token spans multiple lines?
 		}
 
-        let tokenStop = token.column + (token.stop - token.start + 1);
-        if (token.column <= column && tokenStop >= column) {
+        let tokenStop = token.charPositionInLine + (token.stopIndex - token.startIndex + 1);
+        if (token.charPositionInLine <= column && tokenStop >= column) {
             return terminal;
         }
         return undefined;
@@ -302,17 +241,17 @@ function parseTreeFromPosition(tree: ParseTree, line: number, column: number): P
             return undefined;
         }
 
-        if (context.start.line > line || (context.start.line == line && column < context.start.column)) {
+        if (context.start.line > line || (context.start.line == line && column < context.start.charPositionInLine)) {
             return undefined;
         }
 
-        let tokenStop = context.stop.column + (context.stop.stop - context.stop.start + 1);
+        let tokenStop = context.stop.charPositionInLine + (context.stop.stopIndex - context.stop.startIndex + 1);
         if (context.stop.line < line || (context.stop.line == line && tokenStop < column)) {
             return undefined;
         }
 
-		if (context.getChildCount() > 0) {
-            for (let i = 0; i < context.getChildCount(); i++) {
+		if (context.childCount > 0) {
+            for (let i = 0; i < context.childCount; i++) {
                 let result = parseTreeFromPosition(context.getChild(i), line, column);
                 if (result) {
                     return result;
@@ -332,33 +271,26 @@ connection.onCompletion(
 		// info and always provide the same completion items.
 		let document = documents.get(_textDocumentPosition.textDocument.uri);
 		if(document) {
-			let parser = document['parser'];
+			let parser = document['parser'] as XULEParser;
 			if(parser) {
 				const pos = _textDocumentPosition.position;
 				const context = parseTreeFromPosition(document['parseTree'] as ParseTree, pos.line, pos.character);
 				let tokenIndex: number = -1;
 				if(context instanceof TerminalNode) {
-					tokenIndex = context.getSymbol().tokenIndex;
+					tokenIndex = context.symbol.startIndex;
 				} else if(context instanceof ParserRuleContext) {
 					tokenIndex = context.start.tokenIndex;
 				}
-				//Note: CodeCompletionCore expects an "inputStream" property of the parser,
-				//so we monkey-patch it in as the API has changed.
-				parser['inputStream'] = parser._input;
 				let core = new CodeCompletionCore(parser);
-				//TODO not working let candidates = core.collectCandidates(tokenIndex);
-				return [
-					{
-						label: 'TypeScript',
-						kind: CompletionItemKind.Text,
-						data: 1
-					},
-					{
-						label: 'JavaScript',
-						kind: CompletionItemKind.Text,
-						data: 2
-					}
-					];
+				let candidates = core.collectCandidates(tokenIndex);
+				let completions = [];
+				candidates.tokens.forEach((value, key, map) => {
+					completions.push({
+						label: parser.vocabulary.getDisplayName(key),
+						kind: CompletionItemKind.Text
+					});
+				});
+				return completions;
 			}
 		}
 		return [];

@@ -1,19 +1,26 @@
 {
-	"name": "lsp-sample-server",
-	"description": "Example implementation of a language server in node.",
+	"name": "xule-language-server",
+	"description": "Language Server component for the XULE language.",
 	"version": "1.0.0",
-	"author": "Microsoft Corporation",
-	"license": "MIT",
+	"author": "Alessio Stalla (Strumenta)",
+	"license": "UNLICENSED",
+	"repository": {
+		"url": "https://github.com/Strumenta/xule-editor"
+	},
 	"engines": {
 		"node": "*"
 	},
 	"dependencies": {
-		"@types/antlr4": "^4.7.0",
 		"@types/node": "^13.9.8",
-		"antlr4": "^4.7.0",
 		"antlr4-c3": "^1.1.12",
 		"vscode-languageserver": "^6.1.1",
-		"vscode-languageserver-textdocument": "^1.0.1"
+		"vscode-languageserver-textdocument": "^1.0.1",
+		"antlr4ts": "^0.5.0-alpha.3"
 	},
-	"scripts": {}
+	"devDependencies": {
+		"antlr4ts-cli": "^0.5.0-alpha.3"
+	},
+	"scripts": {
+		"antlr4ts": "antlr4ts -o src/parser -Xexact-output-dir -visitor ../../../grammar/XULEParser.g4 ../../../grammar/XULELexer.g4"
+	}
 }
