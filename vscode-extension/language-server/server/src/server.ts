@@ -311,6 +311,9 @@ connection.onCompletion(
 					XULEParser.RULE_booleanLiteral,
 					XULEParser.RULE_variableRef, XULEParser.RULE_functionRef, XULEParser.RULE_constantRef
 				]);
+				/*core.showDebugOutput = true;
+				core.showResult = true;
+				core.showRuleStack = true;*/
 				let candidates = core.collectCandidates(tokenIndex);
 				let completions = [];
 				if(candidates.rules.has(XULEParser.RULE_booleanLiteral)) {
@@ -330,8 +333,11 @@ connection.onCompletion(
 					} else if(key == XULEParser.ASSERT_UNSATISFIED) {
 						keyword = 'unsatisfied'
 					}
-					if(tokenInfo && tokenInfo.node.text && tokenInfo.offset < tokenInfo.node.text.length - 1) {
-						//The caret is inside the token. Let's match the existing string.
+					if(tokenInfo && tokenInfo.node.symbol.type == XULEParser.IDENTIFIER) {
+						//TODO match partial identifiers
+					} else if(tokenInfo && tokenInfo.node.text &&
+						tokenInfo.offset < tokenInfo.node.text.length - 1) {
+						//The caret is inside a keyword. Let's match the existing string.
 						let text = tokenInfo.node.text.toLowerCase()
 						text = text.substring(0, tokenInfo.offset);
 						if(text != keyword) {
