@@ -148,7 +148,7 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 
 	let diagnostics: Diagnostic[] = [];
 	let text = textDocument.getText();
-	let input = CharStreams.fromString(textDocument.getText());
+	let input = CharStreams.fromString(text);
 	let lexer = new XULELexer(input);
 
 	class ReportingLexerErrorListener implements ANTLRErrorListener<number> {
@@ -217,49 +217,65 @@ connection.onDidChangeWatchedFiles(_change => {
 });
 
 /**
- * Returns the narrowest parse tree which covers the given position.
+ * Returns the token at the given position in the stream.
  * Returns undefined if none is found.
- * Note that currently this doesn't handle multiline tokens.
  */
-function parseTreeFromPosition(tree: ParseTree, line: number, column: number): ParseTree | undefined {
+function tokenAtPosition(tree: ParseTree, line: number, column: number):
+    { node: TerminalNode, offset: number } | undefined {
     // Does the root node actually contain the position? If not we don't need to look further.
     if (tree instanceof TerminalNode) {
         let terminal = (tree as TerminalNode);
-        let token = terminal.symbol;
-        if (token.line != line) {
-			return undefined; //TODO what if the token spans multiple lines?
+		let token = terminal.symbol;
+		let startLine = token.line;
+		const lines = token.text.match(/[^\n\r]+[\n\r]*/g);
+		let endLine = startLine + lines.length - 1;
+        if(startLine > line || endLine < line) {
+			return undefined;
 		}
 
-        let tokenStop = token.charPositionInLine + (token.stopIndex - token.startIndex + 1);
-        if (token.charPositionInLine <= column && tokenStop >= column) {
-            return terminal;
+		if(startLine != endLine && line < endLine) {
+			let offset = column;
+			for(let i = 0; i < line - startLine; i++) {
+				offset += lines[i].length;
+			}
+			return { node: terminal, offset: offset };
+		}
+
+		let tokenStartInLine = line == startLine ? token.charPositionInLine : 0;
+		let tokenStopInLine = 0;
+		if(line == startLine) {
+			if(startLine != endLine) {
+				tokenStopInLine = column;
+			} else {
+				tokenStopInLine = token.charPositionInLine + (token.stopIndex - token.startIndex + 1);
+			}
+		} else if(line == endLine) {
+			//Note: if the execution flow arrives here, then startLine != endLine
+			tokenStopInLine =
+				token.stopIndex - token.startIndex -
+				Math.max(token.text.lastIndexOf('\n'), token.text.lastIndexOf('\r'));
+		} else {
+			tokenStopInLine = column;
+		}
+        if (tokenStartInLine <= column && tokenStopInLine >= column) {
+            let offset = column;
+			for(let i = 0; i < line - startLine; i++) {
+				offset += lines[i].length;
+			}
+			return { node: terminal, offset: offset };
         }
         return undefined;
     } else {
         let context = (tree as ParserRuleContext);
-        if (!context.start || !context.stop) { // Invalid tree?
-            return undefined;
-        }
-
-        if (context.start.line > line || (context.start.line == line && column < context.start.charPositionInLine)) {
-            return undefined;
-        }
-
-        let tokenStop = context.stop.charPositionInLine + (context.stop.stopIndex - context.stop.startIndex + 1);
-        if (context.stop.line < line || (context.stop.line == line && tokenStop < column)) {
-            return undefined;
-        }
-
 		if (context.childCount > 0) {
             for (let i = 0; i < context.childCount; i++) {
-                let result = parseTreeFromPosition(context.getChild(i), line, column);
+                let result = tokenAtPosition(context.getChild(i), line, column);
                 if (result) {
                     return result;
                 }
             }
         }
-        return context;
-
+        return undefined;
     }
 }
 
@@ -275,16 +291,11 @@ connection.onCompletion(
 			if(parser) {
 				const pos = _textDocumentPosition.position;
 				const parseTree = document['parseTree'] as ParseTree;
-				const context = parseTreeFromPosition(parseTree, pos.line + 1, pos.character);
-				let tokenIndex: number = -1;
-				if(context instanceof TerminalNode) {
-					tokenIndex = context.symbol.startIndex;
-				} else if(context instanceof ParserRuleContext) {
-					tokenIndex = context.start.tokenIndex;
-				}
+				const tokenInfo = tokenAtPosition(parseTree, pos.line + 1, pos.character);
+				let tokenIndex = tokenInfo ? tokenInfo.node.symbol.tokenIndex : 0;
 				let core = new CodeCompletionCore(parser);
 				core.ignoredTokens = new Set([
-					XULEParser.ASSIGN,
+					XULEParser.ASSIGN, XULEParser.ASSERT_RULE_NAME,
 					XULEParser.CLOSE_BRACKET, XULEParser.CLOSE_CURLY, XULEParser.CLOSE_PAREN, 
 					XULEParser.COMMA, XULEParser.DIV,
 					XULEParser.DOT, XULEParser.DOUBLE_QUOTED_STRING, XULEParser.EOF, XULEParser.EQUALS,
@@ -313,10 +324,30 @@ connection.onCompletion(
 					});
 				}
 				candidates.tokens.forEach((value, key, map) => {
-					completions.push({
-						label: parser.vocabulary.getDisplayName(key).toLowerCase(),
-						kind: CompletionItemKind.Keyword
-					});
+					let keyword = parser.vocabulary.getDisplayName(key).toLowerCase();
+					if(key == XULEParser.ASSERT_SATISFIED) {
+						keyword = 'satisfied'
+					} else if(key == XULEParser.ASSERT_UNSATISFIED) {
+						keyword = 'unsatisfied'
+					}
+					if(tokenInfo && tokenInfo.node.text && tokenInfo.offset < tokenInfo.node.text.length - 1) {
+						//The caret is inside the token. Let's match the existing string.
+						let text = tokenInfo.node.text.toLowerCase()
+						text = text.substring(0, tokenInfo.offset);
+						if(text != keyword) {
+							if(keyword.startsWith(text)) {
+								completions.push({
+									label: keyword,
+									kind: CompletionItemKind.Keyword
+								});
+							}
+						}
+					} else if(key != XULEParser.IDENTIFIER) {
+						completions.push({
+							label: keyword,
+							kind: CompletionItemKind.Keyword
+						});
+					}
 				});
 				return completions;
 			}

@@ -18,7 +18,7 @@ $element_name = $instance_element.name.local-name;
 $old_value = filter $prior_filing['facts'] where
     $concept_name = $item['aspects']['xbrl:concept'];
     $num_dims = length($item['aspects']);
-    $concept_local-name =$concept_name.substring($concept_name.index-of(':')+1);
+    $concept_local-name = $concept_name.substring($concept_name.index-of(':')+1);
 $concept_local-name == $element_name
     and date($item['aspects']['xbrl:periodEnd']) == $eop
     and date($item['aspects']['xbrl:periodStart']) == $sop
