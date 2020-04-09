@@ -89,12 +89,12 @@ def process_template(cntlr, template_file_name, options):
     # Create list of Xule nodes in the template
     xule_node_locations = {template_tree.getelementpath(xule_node): node_number for  node_number, xule_node in enumerate(template_tree.xpath('//xule:*', namespaces=_XULE_NAMESPACE_MAP))}
     # create the rules for xule and retrieve the update template with the substitutions identified.
-    xule_rules, substitutions, line_number_subs = build_xule_rules(template_tree, template_file_name, xule_node_locations)
+    xule_rules, rule_meta_data = build_xule_rules(template_tree, template_file_name, xule_node_locations)
 
     # Get the css file name from the template
     css_file_names = tuple(x for x in template_tree.xpath('/xhtml:html/xhtml:head/xhtml:link[@rel="stylesheet" and @type="text/css"]/@href', namespaces=_XULE_NAMESPACE_MAP))
 
-    return '{}\n{}\n{}'.format(xule_namespaces, xule_constants, xule_rules), substitutions,  line_number_subs, template_tree, template_string, css_file_names
+    return '{}\n{}\n{}'.format(xule_namespaces, xule_constants, xule_rules), rule_meta_data, template_tree, template_string, css_file_names
 
 def build_xule_namespaces(template_tree, options):
     '''build the namespace declarations for xule
@@ -142,13 +142,23 @@ def build_xule_rules(template_tree, template_file_name, xule_node_locations):
         pos += 1
         node_pos[node] = pos
 
-    substitutions, xule_rules, next_rule_number, named_rules = build_unamed_rules(xule_rules, 
+    substitutions = collections.defaultdict(list)
+    # Build showif condition for the template
+    showifs, showif_rules, next_rule_number = build_template_show_if(xule_rules,
+                                                                         next_rule_number,
+                                                                         template_tree,
+                                                                         template_file_name,
+                                                                         node_pos)
+
+    unamed_substitutions, xule_rules, next_rule_number, named_rules = build_unamed_rules(xule_rules, 
                                                                                   next_rule_number, 
                                                                                   named_rules, 
                                                                                   template_tree, 
                                                                                   template_file_name, 
                                                                                   xule_node_locations,
                                                                                   node_pos)
+    substitutions.update(unamed_substitutions)
+
     named_substitutions, xule_rules, next_rule_number, named_rules = build_named_rules(xule_rules, 
                                                                                  next_rule_number, 
                                                                                  named_rules, 
@@ -160,7 +170,36 @@ def build_xule_rules(template_tree, template_file_name, xule_node_locations):
     # Create rules for starting line numbers.                                                                                 
     line_number_subs, xule_rules, next_rule_number = build_line_number_rules(xule_rules, next_rule_number, template_tree, xule_node_locations)   
 
-    return '\n\n'.join(xule_rules), substitutions, line_number_subs
+    rule_meta_data = {'substitutions': substitutions,
+                      'line-numbers': line_number_subs,
+                      'showifs': showifs}
+
+    return '\n\n'.join(showif_rules + xule_rules), rule_meta_data
+
+def build_template_show_if(xule_rules, next_rule_number, template_tree, template_file_name, node_pos):
+    '''Conditional Template Rules
+
+    This funciton finds the xule:showif rule, if there is one, and creates the xule rule for it.
+    '''
+    meta_data = collections.defaultdict(list)
+    xule_rules = list()
+    # The <sule:showif> must be a node under the html body node.
+    for showif_node in template_tree.findall('xhtml:body/xule:showif', _XULE_NAMESPACE_MAP):
+        rule_name = _RULE_NAME_PREFIX + str(next_rule_number)
+        next_rule_number += 1 
+        
+        comment_text = '    //xule:showif rule\n    // {} - line {}'.format(template_file_name, showif_node.sourceline)
+        rule_body = showif_node.text.strip()
+        xule_rules.append('output {rule_name}\n{comment}\n{rule_body}'\
+                          ''.format(rule_name=rule_name,
+                                   comment=comment_text,
+                                   rule_body=rule_body)
+        )
+
+        meta_data[rule_name] = {'type': 'showif',
+                                'template-line-number': showif_node.sourceline}
+
+        return meta_data, xule_rules, next_rule_number
 
 def build_unamed_rules(xule_rules, next_rule_number, named_rules, template_tree, template_file_name, xule_node_locations, node_pos):
     substitutions = collections.defaultdict(list)
@@ -604,14 +643,27 @@ def build_line_number_rules(xule_rules, next_rule_number, template_tree, xule_no
 
     return line_number_subs, xule_rules, next_rule_number
 
-def substituteTemplate(substitutions, line_number_subs, rule_results, template, modelXbrl, main_html, template_number, fact_number, processed_facts, processed_footnotes):
+def substituteTemplate(rule_meta_data, rule_results, template, modelXbrl, main_html, template_number, fact_number, processed_facts, processed_footnotes):
     '''Subsititute the xule expressions in the template with the generated values.'''
+
+    # Determine if the template should be rendered
+    if len(rule_meta_data.get('showifs', dict())) > 0:
+        show_template = False
+        for showif_rule_name in rule_meta_data.get('showifs', dict()).keys():
+            for showif_result in rule_results.get(showif_rule_name, tuple()):
+                if showif_result.msg.lower().strip() != 'false':
+                    show_template = True
+
+        if not show_template:
+            return 
+
     xule_node_locations = {node_number: xule_node for node_number, xule_node in enumerate(template.xpath('//xule:*', namespaces=_XULE_NAMESPACE_MAP))}
     
     # add the node locations to the nodes as attributes. This makes finding the node easier
     for node_number, xule_node in enumerate(template.xpath('//xule:*', namespaces=_XULE_NAMESPACE_MAP)):
         xule_node.set('{{{}}}xule-pos'.format(_XULE_NAMESPACE_MAP['xule']), str(node_number))
 
+    line_number_subs = rule_meta_data['line-numbers']
     set_line_number_starts(line_number_subs, rule_results)
 
     context_ids = set()
@@ -625,7 +677,7 @@ def substituteTemplate(substitutions, line_number_subs, rule_results, template, 
     # is copied.
     non_repeating = []
     repeating = []
-    for rule_name, sub_info in substitutions.items():
+    for rule_name, sub_info in rule_meta_data['substitutions'].items():
         if 'name' in sub_info and sub_info['name'] in repeating_nodes:
         #if len(subs) > 0 and subs[0].get('name') in repeating_nodes:
             repeating.append((rule_name, sub_info))
@@ -1671,7 +1723,7 @@ def process_single_template(cntlr, options, template_catalog, template_set_file,
     # Create a temporary working directory
     with tempfile.TemporaryDirectory() as temp_dir:
         # Process the HTML template.
-        xule_rule_text, substitutions, line_number_subs, template, template_string, css_file_names = process_template(cntlr, template_full_file_name, options)
+        xule_rule_text, rule_meta_data, template, template_string, css_file_names = process_template(cntlr, template_full_file_name, options)
         
         # Save the xule rule file if indicated
         if options.ferc_render_save_xule is not None:
@@ -1690,8 +1742,7 @@ def process_single_template(cntlr, options, template_catalog, template_set_file,
         template_file_name = "templates/t{tn}/t{tn}.html".format(tn=str(template_number))
         xule_text_file_name = "templates/t{tn}/t{tn}.xule".format(tn=str(template_number))
         xule_rule_set_file_name = "templates/t{tn}/t{tn}-ruleset.zip".format(tn=str(template_number))
-        substitution_file_name = "templates/t{tn}/t{tn}-substitutions.json".format(tn=str(template_number))
-        line_number_file_name = "templates/t{tn}/t{tn}-linenumbers.json".format(tn=str(template_number))
+        rule_meta_data_file_name = "templates/t{tn}/t{tn}-rule-meta.json".format(tn=str(template_number))
 
         # xule file name
         xule_rule_file_name = os.path.join(temp_dir, 'temp_rule_file.xule')   #'{}.xule'.format(title.text)
@@ -1707,14 +1758,12 @@ def process_single_template(cntlr, options, template_catalog, template_set_file,
                             'template': template_file_name,
                             'xule-text': xule_text_file_name,
                             'xule-rule-set': xule_rule_set_file_name,
-                            'substitutions': substitution_file_name,
-                            'line-numbers': line_number_file_name})
+                            'rule-meta-data': rule_meta_data_file_name})
 
         template_set_file.writestr(template_file_name, template_string) # template
         template_set_file.writestr(xule_text_file_name, xule_rule_text) # xule text file
         template_set_file.write(xule_rule_set_name, xule_rule_set_file_name) # xule rule set
-        template_set_file.writestr(substitution_file_name, json.dumps(substitutions, indent=4)) # substitutions file
-        template_set_file.writestr(line_number_file_name, json.dumps(line_number_subs, indent=4)) # line number substitutions file
+        template_set_file.writestr(rule_meta_data_file_name, json.dumps(rule_meta_data, indent=4)) # substitutions filef
 
     return css_file_names
 
@@ -1760,7 +1809,8 @@ def combine_template_sets(cntlr, options):
                         
                         new_info = {'name': template_info['name']}
                         # Copy the files
-                        for key in ('line-numbers', 'substitutions', 'template', 'xule-rule-set', 'xule-text'):
+                        # 'line-numbers' and 'substitutions' is being replace with 'rule-meta-data', but left here for backward compatibility
+                        for key in ('line-numbers', 'substitutions', 'template', 'xule-rule-set', 'xule-text', 'rule-meta-data'):
                             orig_file_name = template_info.get(key)
                             if orig_file_name is not None:
                                 orig_file_ext = os.path.splitext(orig_file_name)[1]
@@ -1845,12 +1895,22 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
                         template = etree.parse(template_file)
                     except etree.XMLSchemaValidateError:
                         raise FERCRenderException("Template file '{}' is not a valid XHTML file.".format(catalog_item['template']))
-                # Get the substitutions
-                with ts.open(catalog_item['substitutions']) as sub_file:
-                    substitutions = json.load(io.TextIOWrapper(sub_file))
-                # Get line number substitutions
-                with ts.open(catalog_item['line-numbers']) as line_number_file:
-                    line_number_subs = json.load(io.TextIOWrapper(line_number_file))
+
+                if 'rule-meta-data' in catalog_item:
+                    with ts.open(catalog_item['rule-meta-data']) as meta_file:
+                        rule_meta_data = json.load(io.TextIOWrapper(meta_file))
+                else:
+                    # This is for backward compatibility. The new templates put the substitutions and line_number_subs in the rule meta data.
+                    # The old format had separate entries in the catalog for the substitutions and line_number_subs.
+                    # Get the substitutions
+                    with ts.open(catalog_item['substitutions']) as sub_file:
+                        meta_substitutions = json.load(io.TextIOWrapper(sub_file))
+                    # Get line number substitutions
+                    with ts.open(catalog_item['line-numbers']) as line_number_file:
+                        meta_line_number_subs = json.load(io.TextIOWrapper(line_number_file))
+
+                    rule_meta_data = {'substitutions': meta_substitutions,
+                                      'line-numbers': meta_line_number_subs}
 
                 # Get the date values from the instance
                 xule_date_args = get_dates(modelXbrl)
@@ -1879,19 +1939,20 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
                 
                 # Substitute template
                 template_number += 1
-                rendered_template, template_context_ids, template_unit_ids, template_has_confidential = \
-                    substituteTemplate(substitutions, line_number_subs, 
-                                       log_capture_handler.captured, template, modelXbrl, main_html,
-                                       template_number, fact_number, processed_facts, processed_footnotes)
-                used_context_ids |= template_context_ids
-                used_unit_ids |= template_unit_ids
-                if template_has_confidential: has_confidential = True
-                # Save the body as a div
-                body = rendered_template.find('xhtml:body', namespaces=_XULE_NAMESPACE_MAP)
-                if body is None:
-                    raise FERCRenderException("Cannot find body of the template: {}".format(os.path.split(catalog_item['template'])[1]))   
-                body.tag = 'div'
-                schedule_divs.append(body)
+                template_result = substituteTemplate(rule_meta_data, 
+                                                     log_capture_handler.captured, template, modelXbrl, main_html,
+                                                     template_number, fact_number, processed_facts, processed_footnotes)
+                if template_result is not None: # the template_result is none when a xule:showif returns false
+                    rendered_template, template_context_ids, template_unit_ids, template_has_confidential = template_result
+                    used_context_ids |= template_context_ids
+                    used_unit_ids |= template_unit_ids
+                    if template_has_confidential: has_confidential = True
+                    # Save the body as a div
+                    body = rendered_template.find('xhtml:body', namespaces=_XULE_NAMESPACE_MAP)
+                    if body is None:
+                        raise FERCRenderException("Cannot find body of the template: {}".format(os.path.split(catalog_item['template'])[1]))   
+                    body.tag = 'div'
+                    schedule_divs.append(body)
 
         main_body = main_html.find('xhtml:body', namespaces=_XULE_NAMESPACE_MAP)
 
