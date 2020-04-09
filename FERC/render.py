@@ -199,7 +199,7 @@ def build_template_show_if(xule_rules, next_rule_number, template_tree, template
         meta_data[rule_name] = {'type': 'showif',
                                 'template-line-number': showif_node.sourceline}
 
-        return meta_data, xule_rules, next_rule_number
+    return meta_data, xule_rules, next_rule_number
 
 def build_unamed_rules(xule_rules, next_rule_number, named_rules, template_tree, template_file_name, xule_node_locations, node_pos):
     substitutions = collections.defaultdict(list)
@@ -648,13 +648,13 @@ def substituteTemplate(rule_meta_data, rule_results, template, modelXbrl, main_h
 
     # Determine if the template should be rendered
     if len(rule_meta_data.get('showifs', dict())) > 0:
-        show_template = False
+        show_template_results = set()
         for showif_rule_name in rule_meta_data.get('showifs', dict()).keys():
             for showif_result in rule_results.get(showif_rule_name, tuple()):
-                if showif_result.msg.lower().strip() != 'false':
-                    show_template = True
+                show_template_results.add(showif_result.msg.lower().strip() != 'false')
 
-        if not show_template:
+        # there is an evaluation that is False and no evaluation was True
+        if False in show_template_results and not True in show_template_results:
             return 
 
     xule_node_locations = {node_number: xule_node for node_number, xule_node in enumerate(template.xpath('//xule:*', namespaces=_XULE_NAMESPACE_MAP))}
