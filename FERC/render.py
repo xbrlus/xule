@@ -954,10 +954,10 @@ def is_actual_fact(json_result, model_xbrl):
         if dynamic_fact is not None and not isinstance(dynamic_fact, bool) :
             model_xbrl.warning("RenderError", "Result of <xule:fact> in template is not boolean. Found '{}'".format(str(dynamic_fact)))
             # Set to none.
-            dynamic_fact = None
+            dynamic_fact = False
 
         if dynamic_fact is None:
-            return True
+            return False
         else:
             return dynamic_fact
     else:
