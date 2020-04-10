@@ -536,10 +536,15 @@ class SqlDbConnection():
                     colTypes.append( (name, fulltype, colDecl) )
                 # print ("col types for {} = {} ".format(table, colTypes))
             elif self.product.startswith("mssql"):
-                colTypesResult = self.execute("SELECT column_name, data_type, character_maximum_length "
+                #colTypesResult = self.execute("SELECT column_name, data_type, character_maximum_length "
+                #                              "FROM INFORMATION_SCHEMA.COLUMNS "
+                #                              "WHERE table_name = '{0}'"
+                #                              .format( table )) # table name is not " " quoted here
+
+                query = ("SELECT column_name, data_type, character_maximum_length "
                                               "FROM INFORMATION_SCHEMA.COLUMNS "
-                                              "WHERE table_name = '{0}'"
-                                              .format( table )) # table name is not " " quoted here
+                                              "WHERE table_name = ?")
+                colTypesResult = self.execute(query, params=(table,))                                              
                 colTypes = []
                 for name, fulltype, characterMaxLength in colTypesResult:
                     name = name.lower()
