@@ -1780,7 +1780,7 @@ def list_templates(cntlr, options):
             cntlr.addToLog(template_info['name'],'info')
 
 def combine_template_sets(cntlr, options):
-    template_sets = get_list_of_template_sets(options.ferc_render_combine)
+    template_sets = get_list_of_template_sets(options.ferc_render_combine, cntlr)
     new_catalog = {'templates': [], 'css': []}
     loaded_template_names = set()
     template_number = 0
@@ -1830,18 +1830,32 @@ def combine_template_sets(cntlr, options):
         # Write the catalog
         combined_file.writestr('catalog.json', json.dumps(new_catalog, indent=4))
 
-def get_list_of_template_sets(ts_value):
+def get_list_of_template_sets(ts_value, cntlr):
     # iterate through the list of files and folders and find all the files.
     file_list = []
+    found_files = []
+    manifest_list = None
     for file_or_folder in ts_value.split("|"):
         if not os.path.exists(file_or_folder):  
             raise FERCRenderException("Template set or folder not found: {}".format(file_or_folder))
         if os.path.isfile(file_or_folder):
             file_list.append(file_or_folder)
         elif os.path.isdir(file_or_folder):
-            for dirpath, dirnames, filenames in os.walk(file_or_folder):
-                for filename in sorted(filenames):
-                    file_list.append(os.path.join(dirpath, filename))
+            if os.path.exists(os.path.join(file_or_folder, 'template-manifest.txt')):
+                # use the manifest file to determine the order of files.
+                cntlr.addToLog(_("Using template-manifest.txt file."), "info")
+                with open(os.path.join(file_or_folder, 'template-manifest.txt'), 'r') as manifest:
+                    manifest_list = [os.path.realpath(os.path.join(file_or_folder, x.strip())) for x in manifest.readlines()]
+                for template_file in manifest_list:
+                    if os.path.exists(template_file):
+                        file_list.append(template_file)
+                    else:
+                        cntlr.addToLog(_("File in template-manifest.txt but not found: {}.".format(template_file)), "warning")
+            else:
+                for dirpath, dirnames, filenames in os.walk(file_or_folder):
+                    for filename in sorted(filenames):
+                        template_file = os.path.realpath(os.path.join(dirpath, filename))
+                        file_list.append(template_file)
     
     return file_list
 
