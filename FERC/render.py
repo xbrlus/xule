@@ -1833,7 +1833,6 @@ def combine_template_sets(cntlr, options):
 def get_list_of_template_sets(ts_value, cntlr):
     # iterate through the list of files and folders and find all the files.
     file_list = []
-    found_files = []
     manifest_list = None
     for file_or_folder in ts_value.split("|"):
         if not os.path.exists(file_or_folder):  
