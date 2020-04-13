@@ -945,21 +945,25 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
 
 def is_actual_fact(json_result, model_xbrl):
     if json_result['type'] == 'f':
-        dynamic_fact = json_result.get('dynamic-fact')
-        if isinstance(dynamic_fact, str):
-            if dynamic_fact.lower().strip() == 'false':
+        if 'dynamic-fact' in json_result:
+            dynamic_fact = json_result.get('dynamic-fact')
+            # Allow the strings 'true' and 'false' to be treated like booleans
+            if isinstance(dynamic_fact, str):
+                if dynamic_fact.lower().strip() == 'false':
+                    dynamic_fact = False
+                elif dynamic_fact.lower().strip() == 'true':
+                    dynamic_fact = True
+            if dynamic_fact is not None and not isinstance(dynamic_fact, bool) :
+                model_xbrl.warning("RenderError", "Result of <xule:fact> in template is not boolean. Found '{}'".format(str(dynamic_fact)))
+                # Set to none.
                 dynamic_fact = False
-            elif dynamic_fact.lower().strip() == 'true':
-                dynamic_fact = True
-        if dynamic_fact is not None and not isinstance(dynamic_fact, bool) :
-            model_xbrl.warning("RenderError", "Result of <xule:fact> in template is not boolean. Found '{}'".format(str(dynamic_fact)))
-            # Set to none.
-            dynamic_fact = False
 
-        if dynamic_fact is None:
-            return False
+            if dynamic_fact is None:
+                return False
+            else:
+                return dynamic_fact
         else:
-            return dynamic_fact
+            return True
     else:
         return False
 
