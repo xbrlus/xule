@@ -17,7 +17,7 @@
     "activationEvents": [
         "onLanguage:xule"
     ],
-    "main": "./language-server/client/out/extension",
+    "main": "./dist/extension",
     "contributes": {
         "languages": [
             {
@@ -64,18 +64,24 @@
         }
     },
     "scripts": {
-        "vscode:prepublish": "cd language-server/client && npm run update-vscode && cd .. && npm run compile",
+        "vscode:prepublish": "cd language-server/client && npm run update-vscode && cd .. && npm run compile && cd .. && webpack --mode production",
         "compile": "tsc -b",
         "watch": "tsc -b -w",
         "postinstall": "cd language-server/client && npm install && cd ../server && npm install && npm run antlr4ts && cd ..",
-        "test": "sh ./language-server/scripts/e2e.sh"
+        "test": "sh ./language-server/scripts/e2e.sh",
+        "test-compile": "tsc -p ./",
+        "webpack": "webpack --mode development",
+        "webpack-dev": "webpack --mode development --watch"
     },
     "devDependencies": {
         "@types/mocha": "^5.2.7",
-        "mocha": "^6.2.2",
         "@types/node": "^12.11.7",
-        "eslint": "^6.4.0",
         "@typescript-eslint/parser": "^2.3.0",
-        "typescript": "^3.8.3"
+        "eslint": "^6.4.0",
+        "mocha": "^6.2.2",
+        "ts-loader": "^6.2.2",
+        "typescript": "^3.8.3",
+        "webpack": "^4.42.1",
+        "webpack-cli": "^3.3.11"
     }
 }
