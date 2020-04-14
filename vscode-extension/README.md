@@ -21,7 +21,7 @@ None so far.
 
 ## Release Notes
 
-This is not yet released.
+See the [Changelog](CHANGELOG.md).
 
 ## Building
 
