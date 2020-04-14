@@ -2,14 +2,15 @@
     "name": "xule",
     "displayName": "XULE",
     "description": "XULE Language Pack",
+    "publisher": "XBRL",
     "version": "0.0.1",
     "engines": {
         "vscode": "^1.43.0"
     },
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/Strumenta/xule-editor"
-	},
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Strumenta/xule-editor"
+    },
     "categories": [
         "Programming Languages"
     ],
