@@ -27,6 +27,8 @@ import { CharStreams, ANTLRErrorListener, RecognitionException, Recognizer, Comm
 import { XULEParser } from './parser/XULEParser';
 import { ParseTree } from 'antlr4ts/tree/ParseTree';
 import { TerminalNode } from 'antlr4ts/tree/TerminalNode';
+import { SymbolTableVisitor, SymbolTable, DeclarationType } from './symbols';
+import { ErrorNode } from 'antlr4ts/tree';
 
 // Create a connection for the server. The connection uses Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
@@ -203,11 +205,11 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 	}
 	let parser = new XULEParser(new CommonTokenStream(lexer));
 	parser.addErrorListener(new ReportingParserErrorListener());
-	
 
 	let parseTree = parser.xuleFile();
 	textDocument['parseTree'] = parseTree;
 	textDocument['parser'] = parser;
+	textDocument['symbolTable'] = new SymbolTableVisitor().visit(parseTree);
 	connection.sendDiagnostics({ uri: textDocument.uri, diagnostics });
 }
 
@@ -279,6 +281,49 @@ function tokenAtPosition(tree: ParseTree, line: number, column: number):
     }
 }
 
+function setupCompletionCore(parser: XULEParser) {
+	let core = new CodeCompletionCore(parser);
+	core.ignoredTokens = new Set([
+		XULEParser.ASSIGN, XULEParser.ASSERT_RULE_NAME,
+		XULEParser.CLOSE_BRACKET, XULEParser.CLOSE_CURLY, XULEParser.CLOSE_PAREN,
+		XULEParser.COMMA, XULEParser.DIV,
+		XULEParser.DOT, XULEParser.DOUBLE_QUOTED_STRING, XULEParser.EOF, XULEParser.EQUALS,
+		XULEParser.EXP,
+		XULEParser.GREATER_THAN, XULEParser.LESS_THAN, XULEParser.MINUS,
+		XULEParser.NOT_EQUALS,
+		XULEParser.OPEN_BRACKET, XULEParser.OPEN_CURLY, XULEParser.OPEN_PAREN,
+		XULEParser.PLUS,
+		XULEParser.SEMI, XULEParser.SHARP, XULEParser.SINGLE_QUOTED_STRING,
+		XULEParser.TIMES
+	]);
+	core.preferredRules = new Set([
+		XULEParser.RULE_booleanLiteral,
+		XULEParser.RULE_variableRef, XULEParser.RULE_propertyRef
+	]);
+	//core.showDebugOutput = true;
+    //core.showResult = true;
+    //core.showRuleStack = true;
+	return core;
+}
+
+function suggestIdentifier(
+	node: ParseTree, declarationType: DeclarationType, completionKind: CompletionItemKind,
+	symbolTable: SymbolTable, completions: any[]) {
+	function filter(b) {
+		return b.name.toLowerCase().startsWith(node.text.toLowerCase()) && b.meaning.find(m => m == declarationType) !== undefined;
+	}
+
+	let known = symbolTable.lookupAll(node.text, node, filter);
+	known.forEach(c => {
+		if (!completions.find(co => co.label == c.name)) {
+			completions.push({
+				label: c.name,
+				kind: completionKind
+			});
+		}
+	});
+}
+
 // This handler provides the initial list of the completion items.
 connection.onCompletion(
 	(_textDocumentPosition: TextDocumentPositionParams): CompletionItem[] => {
@@ -292,40 +337,28 @@ connection.onCompletion(
 				const pos = _textDocumentPosition.position;
 				const parseTree = document['parseTree'] as ParseTree;
 				const tokenInfo = tokenAtPosition(parseTree, pos.line + 1, pos.character);
+				if(tokenInfo.node instanceof ErrorNode) {
+					console.log(tokenInfo.node.text);
+				}
 				let tokenIndex = tokenInfo ? tokenInfo.node.symbol.tokenIndex : 0;
-				let core = new CodeCompletionCore(parser);
-				core.ignoredTokens = new Set([
-					XULEParser.ASSIGN, XULEParser.ASSERT_RULE_NAME,
-					XULEParser.CLOSE_BRACKET, XULEParser.CLOSE_CURLY, XULEParser.CLOSE_PAREN, 
-					XULEParser.COMMA, XULEParser.DIV,
-					XULEParser.DOT, XULEParser.DOUBLE_QUOTED_STRING, XULEParser.EOF, XULEParser.EQUALS,
-					XULEParser.EXP,
-					XULEParser.GREATER_THAN, XULEParser.LESS_THAN, XULEParser.MINUS,
-					XULEParser.NOT_EQUALS,
-					XULEParser.OPEN_BRACKET, XULEParser.OPEN_CURLY, XULEParser.OPEN_PAREN, 
-					XULEParser.PLUS,
-					XULEParser.SEMI, XULEParser.SHARP, XULEParser.SINGLE_QUOTED_STRING,
-					XULEParser.TIMES
-				]);
-				core.preferredRules = new Set([
-					XULEParser.RULE_booleanLiteral,
-					XULEParser.RULE_variableRef, XULEParser.RULE_functionRef, XULEParser.RULE_constantRef
-				]);
-				/*core.showDebugOutput = true;
-				core.showResult = true;
-				core.showRuleStack = true;*/
+				let core = setupCompletionCore(parser);
 				let candidates = core.collectCandidates(tokenIndex);
 				let completions = [];
 				if(candidates.rules.has(XULEParser.RULE_booleanLiteral)) {
-					completions.push({
-						label: "true",
-						kind: CompletionItemKind.Constant
-					});
-					completions.push({
-						label: "false",
-						kind: CompletionItemKind.Constant
-					});
+					if("true".startsWith(tokenInfo.node.text.toLowerCase())) {
+						completions.push({
+							label: "true",
+							kind: CompletionItemKind.Constant
+						});
+					}
+					if("false".startsWith(tokenInfo.node.text.toLowerCase())) {
+						completions.push({
+							label: "false",
+							kind: CompletionItemKind.Constant
+						});
+					}
 				}
+				const symbolTable = document['symbolTable'] as SymbolTable;
 				candidates.tokens.forEach((value, key, map) => {
 					let keyword = parser.vocabulary.getDisplayName(key).toLowerCase();
 					if(key == XULEParser.ASSERT_SATISFIED) {
@@ -333,12 +366,16 @@ connection.onCompletion(
 					} else if(key == XULEParser.ASSERT_UNSATISFIED) {
 						keyword = 'unsatisfied'
 					}
-					if(tokenInfo && tokenInfo.node.symbol.type == XULEParser.IDENTIFIER) {
-						//TODO match partial identifiers
+					if(tokenInfo && key == XULEParser.IDENTIFIER) {
+						if(candidates.rules.has(XULEParser.RULE_variableRef)) {
+							suggestIdentifier(tokenInfo.node, DeclarationType.CONSTANT, CompletionItemKind.Constant, symbolTable, completions);
+							suggestIdentifier(tokenInfo.node, DeclarationType.FUNCTION, CompletionItemKind.Function, symbolTable, completions);
+							suggestIdentifier(tokenInfo.node, DeclarationType.VARIABLE, CompletionItemKind.Variable, symbolTable, completions);
+						}
 					} else if(tokenInfo && tokenInfo.node.text &&
 						tokenInfo.offset < tokenInfo.node.text.length - 1) {
 						//The caret is inside a keyword. Let's match the existing string.
-						let text = tokenInfo.node.text.toLowerCase()
+						let text = tokenInfo.node.text.toLowerCase();
 						text = text.substring(0, tokenInfo.offset);
 						if(text != keyword) {
 							if(keyword.startsWith(text)) {
@@ -348,7 +385,7 @@ connection.onCompletion(
 								});
 							}
 						}
-					} else if(key != XULEParser.IDENTIFIER) {
+					} else if(key != XULEParser.IDENTIFIER && keyword.startsWith(tokenInfo.node.text.toLowerCase())) {
 						completions.push({
 							label: keyword,
 							kind: CompletionItemKind.Keyword

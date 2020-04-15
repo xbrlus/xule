@@ -17,8 +17,9 @@ assertion: ASSERT ASSERT_RULE_NAME (ASSERT_SATISFIED | ASSERT_UNSATISFIED)
     (constantDeclaration | functionDeclaration | assignment | expression (MESSAGE expression SEMI?)? (SEVERITY expression)?)+;
 
 constantDeclaration: CONSTANT identifier ASSIGN expression;
-functionDeclaration: FUNCTION identifier OPEN_PAREN identifier (COMMA identifier)* CLOSE_PAREN
+functionDeclaration: FUNCTION identifier OPEN_PAREN (functionArgument (COMMA functionArgument)*)? CLOSE_PAREN
     assignment* expression;
+functionArgument: identifier;
 assignment: identifier ASSIGN expression SEMI;
 
 /** Expressions */
@@ -37,10 +38,8 @@ expression:
     expression (DOT propertyRef)+ |
     expression (DOT propertyRef)* parametersList |
     expression OPEN_BRACKET stringLiteral CLOSE_BRACKET |
-    //Various kinds of idenfiers
-    functionRef | constantRef | variableRef |
     //"Simple" expressions
-    literal | factset | filter | navigation;
+    variableRef | literal | factset | filter | navigation;
 
 ifExpression: IF expression expression ELSE expression;
 
@@ -51,7 +50,7 @@ parametersList: OPEN_PAREN (expression (COMMA expression)*)? CLOSE_PAREN;
 
 factset: AT | OPEN_CURLY factsetBody CLOSE_CURLY | OPEN_BRACKET factsetBody CLOSE_BRACKET;
 factsetBody: AT | aspectFilter*;
-aspectFilter: AT AT? ((CONCEPT | constantRef | variableRef) (DOT propertyRef)* ASSIGN)? (expression | TIMES) (AS identifier)? (WHERE expression)?;
+aspectFilter: AT AT? ((CONCEPT | variableRef) (DOT propertyRef)* ASSIGN)? (expression | TIMES) (AS identifier)? (WHERE expression)?;
 
 filter: FILTER expression
     (WHERE assignment* expression)?
@@ -70,9 +69,7 @@ role: identifier | stringLiteral;
 //End expressions
 
 //These exist so that when suggesting names we can restrict only to certain name spaces.
-constantRef: identifier;
 variableRef: identifier;
-functionRef: { (!this._input.LT(-1) || this._input.LT(-1).text != '.') && this._input.LT(2).text == '(' }? identifier;
 propertyRef: identifier;
 /** With this rule we cover IDENTIFIER tokens, as well as other tokens (keywords) that we accept as identifiers as well. */
 identifier: IDENTIFIER | CONCEPT | PERIOD | TAXONOMY | START | STOP;
