@@ -35,8 +35,8 @@ expression:
     expression (TIMES | DIV) expression |
     expression EXP expression |
     (PLUS|MINUS|NOT) expression |
-    expression (DOT propertyRef)+ |
-    expression (DOT propertyRef)* parametersList |
+    expression propertyAccess+ |
+    expression propertyAccess* parametersList |
     expression OPEN_BRACKET stringLiteral CLOSE_BRACKET |
     //"Simple" expressions
     variableRef | literal | factset | filter | navigation;
@@ -50,7 +50,7 @@ parametersList: OPEN_PAREN (expression (COMMA expression)*)? CLOSE_PAREN;
 
 factset: AT | OPEN_CURLY factsetBody CLOSE_CURLY | OPEN_BRACKET factsetBody CLOSE_BRACKET;
 factsetBody: AT | aspectFilter*;
-aspectFilter: AT AT? ((CONCEPT | variableRef) (DOT propertyRef)* ASSIGN)? (expression | TIMES) (AS identifier)? (WHERE expression)?;
+aspectFilter: AT AT? ((CONCEPT | variableRef) propertyAccess* ASSIGN)? (expression | TIMES) (AS identifier)? (WHERE expression)?;
 
 filter: FILTER expression
     (WHERE assignment* expression)?
@@ -70,7 +70,7 @@ role: identifier | stringLiteral;
 
 //These exist so that when suggesting names we can restrict only to certain name spaces.
 variableRef: identifier;
-propertyRef: identifier;
+propertyAccess: DOT identifier;
 /** With this rule we cover IDENTIFIER tokens, as well as other tokens (keywords) that we accept as identifiers as well. */
 identifier: IDENTIFIER | CONCEPT | PERIOD | TAXONOMY | START | STOP;
 literal: stringLiteral | NUMBER | booleanLiteral;

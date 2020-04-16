@@ -24,7 +24,7 @@ import {
 import { CodeCompletionCore } from 'antlr4-c3';
 import { XULELexer } from './parser/XULELexer';
 import { CharStreams, ANTLRErrorListener, RecognitionException, Recognizer, CommonTokenStream, Token, ParserRuleContext } from 'antlr4ts';
-import { XULEParser } from './parser/XULEParser';
+import {XULEParser, PropertyAccessContext, IdentifierContext} from './parser/XULEParser';
 import { ParseTree } from 'antlr4ts/tree/ParseTree';
 import { TerminalNode } from 'antlr4ts/tree/TerminalNode';
 import { SymbolTableVisitor, SymbolTable, DeclarationType } from './symbols';
@@ -298,7 +298,7 @@ function setupCompletionCore(parser: XULEParser) {
 	]);
 	core.preferredRules = new Set([
 		XULEParser.RULE_booleanLiteral,
-		XULEParser.RULE_variableRef, XULEParser.RULE_propertyRef
+		XULEParser.RULE_variableRef, XULEParser.RULE_propertyAccess
 	]);
 	//core.showDebugOutput = true;
     //core.showResult = true;
@@ -309,19 +309,55 @@ function setupCompletionCore(parser: XULEParser) {
 function suggestIdentifier(
 	node: ParseTree, declarationType: DeclarationType, completionKind: CompletionItemKind,
 	symbolTable: SymbolTable, completions: any[]) {
-	function filter(b) {
-		return b.name.toLowerCase().startsWith(node.text.toLowerCase()) && b.meaning.find(m => m == declarationType) !== undefined;
+	function filter(b, n) {
+		return b.name.toLowerCase().startsWith(n) && b.meaning.find(m => m == declarationType) !== undefined;
 	}
 
-	let known = symbolTable.lookupAll(node.text, node, filter);
+	let known = symbolTable.lookupAll(node.text.toLowerCase(), node, filter);
 	known.forEach(c => {
 		if (!completions.find(co => co.label == c.name)) {
-			completions.push({
-				label: c.name,
-				kind: completionKind
-			});
+			completions.push({ label: c.name, kind: completionKind });
 		}
 	});
+}
+
+function suggestProperty(
+	node: ParseTree, completionKind: CompletionItemKind, symbolTable: SymbolTable, completions: any[]) {
+	function indexOfNode(parent: ParseTree, node: ParseTree) {
+		for(let i = 0; i < parent.childCount; i++) {
+			if(parent.getChild(i) == node) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	let textToMatch = node instanceof IdentifierContext ? node.text : "";
+
+	while(!(node instanceof PropertyAccessContext)) {
+		if(node.parent) {
+			node = node.parent;
+		} else {
+			return;
+		}
+	}
+
+	const index = indexOfNode(node.parent, node);
+	if(index > 1) {
+		const previous = node.parent.getChild(index - 1);
+		if(previous instanceof TerminalNode && previous.symbol.type == XULEParser.CONCEPT) {
+			maybeSuggest("period-type", textToMatch, completionKind, completions);
+		}
+	}
+}
+
+function maybeSuggest(candidate: string, text: string, kind: CompletionItemKind, completions: any[]) {
+	if (candidate.startsWith(text)) {
+		completions.push({
+			label: candidate,
+			kind: kind
+		});
+	}
 }
 
 // This handler provides the initial list of the completion items.
@@ -345,52 +381,39 @@ connection.onCompletion(
 				let candidates = core.collectCandidates(tokenIndex);
 				let completions = [];
 				if(candidates.rules.has(XULEParser.RULE_booleanLiteral)) {
-					if("true".startsWith(tokenInfo.node.text.toLowerCase())) {
-						completions.push({
-							label: "true",
-							kind: CompletionItemKind.Constant
-						});
-					}
-					if("false".startsWith(tokenInfo.node.text.toLowerCase())) {
-						completions.push({
-							label: "false",
-							kind: CompletionItemKind.Constant
-						});
-					}
+					const text = tokenInfo.node.text.toLowerCase();
+					maybeSuggest("true", text, CompletionItemKind.Constant, completions);
+					maybeSuggest("false", text, CompletionItemKind.Constant, completions);
 				}
 				const symbolTable = document['symbolTable'] as SymbolTable;
+				if(tokenInfo) {
+					if(candidates.rules.has(XULEParser.RULE_variableRef)) {
+						suggestIdentifier(tokenInfo.node, DeclarationType.CONSTANT, CompletionItemKind.Constant, symbolTable, completions);
+						suggestIdentifier(tokenInfo.node, DeclarationType.FUNCTION, CompletionItemKind.Function, symbolTable, completions);
+						suggestIdentifier(tokenInfo.node, DeclarationType.VARIABLE, CompletionItemKind.Variable, symbolTable, completions);
+					}
+					if(candidates.rules.has(XULEParser.RULE_propertyAccess)) {
+						suggestProperty(tokenInfo.node, CompletionItemKind.Property, symbolTable, completions);
+					}
+				}
+
 				candidates.tokens.forEach((value, key, map) => {
+					if(key == XULEParser.IDENTIFIER) {
+						return; //It's handled above
+					}
 					let keyword = parser.vocabulary.getDisplayName(key).toLowerCase();
 					if(key == XULEParser.ASSERT_SATISFIED) {
 						keyword = 'satisfied'
 					} else if(key == XULEParser.ASSERT_UNSATISFIED) {
 						keyword = 'unsatisfied'
 					}
-					if(tokenInfo && key == XULEParser.IDENTIFIER) {
-						if(candidates.rules.has(XULEParser.RULE_variableRef)) {
-							suggestIdentifier(tokenInfo.node, DeclarationType.CONSTANT, CompletionItemKind.Constant, symbolTable, completions);
-							suggestIdentifier(tokenInfo.node, DeclarationType.FUNCTION, CompletionItemKind.Function, symbolTable, completions);
-							suggestIdentifier(tokenInfo.node, DeclarationType.VARIABLE, CompletionItemKind.Variable, symbolTable, completions);
-						}
-					} else if(tokenInfo && tokenInfo.node.text &&
+					let text = tokenInfo.node.text.toLowerCase();
+					if(tokenInfo && tokenInfo.node.text &&
 						tokenInfo.offset < tokenInfo.node.text.length - 1) {
 						//The caret is inside a keyword. Let's match the existing string.
-						let text = tokenInfo.node.text.toLowerCase();
 						text = text.substring(0, tokenInfo.offset);
-						if(text != keyword) {
-							if(keyword.startsWith(text)) {
-								completions.push({
-									label: keyword,
-									kind: CompletionItemKind.Keyword
-								});
-							}
-						}
-					} else if(key != XULEParser.IDENTIFIER && keyword.startsWith(tokenInfo.node.text.toLowerCase())) {
-						completions.push({
-							label: keyword,
-							kind: CompletionItemKind.Keyword
-						});
 					}
+					maybeSuggest(keyword, text, CompletionItemKind.Keyword, completions);
 				});
 				return completions;
 			}

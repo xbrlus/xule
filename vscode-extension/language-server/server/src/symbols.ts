@@ -1,6 +1,6 @@
 import { ParseTree, AbstractParseTreeVisitor } from 'antlr4ts/tree';
 import { XULEParserVisitor } from './parser/XULEParserVisitor';
-import { ConstantDeclarationContext, AssignmentContext, FunctionDeclarationContext, FunctionArgumentContext } from './parser/XULEParser';
+import { ConstantDeclarationContext, AssignmentContext, FunctionDeclarationContext, FunctionArgumentContext, ExpressionContext, PropertyAccessContext } from './parser/XULEParser';
 
 export type Binding = { name: any, meaning: any };
 
@@ -20,8 +20,8 @@ export class Environment {
 		}
 	}
 
-	findAll(what, test: (obj: any) => boolean = (obj) => obj.name == what): Binding[] {
-		const bindings = this.bindings.filter(mapping => test(mapping));
+	findAll(what, test: (obj, name) => boolean = (obj, name) => obj.name == name): Binding[] {
+		const bindings = this.bindings.filter(mapping => test(mapping, what));
 		if(this.parent) {
 			return bindings.concat(this.parent.findAll(what, test));
 		} else {
@@ -41,17 +41,17 @@ function ensureArray(obj): any[] {
 
 export class SymbolTable {
 
-	public symbols: { context: ParseTree, environment: Environment }[] = [];
+	public symbols: { scope: ParseTree, environment: Environment }[] = [];
 
-	lookup(name, context: ParseTree) {
-		const env = this.lookupEnvironment(context);
+	lookup(name, scope: ParseTree) {
+		const env = this.lookupEnvironment(scope);
 		if(env) {
 			return env.find(name);
 		}
 	}
 
-	lookupAll(name, context: ParseTree, test: (binding: Binding) => boolean = b => b.name == name) {
-		const env = this.lookupEnvironment(context);
+	lookupAll(name, scope: ParseTree, test: (binding: Binding, name) => boolean = (b, n) => b.name == n) {
+		const env = this.lookupEnvironment(scope);
 		if(env) {
 			return env.findAll(name, test);
 		} else {
@@ -59,31 +59,31 @@ export class SymbolTable {
 		}
 	}
 
-	record(name, meaning, context: ParseTree, combinator: (binding: Binding, meaning: any) => any = (binding, meaning) => {
+	record(name, meaning, scope: ParseTree, combinator: (binding: Binding, meaning: any) => any = (binding, meaning) => {
 		return ensureArray(binding.meaning).concat(ensureArray(meaning));
 	}) {
-		const info = this.symbols.find(s => s.context == context);
+		const info = this.symbols.find(s => s.scope == scope);
 		if(info) {
 			info.environment.bindings.push({ name: name, meaning: meaning });
 		} else {
 			const env = new Environment();
-			env.parent = this.lookupEnvironment(context);
+			env.parent = this.lookupEnvironment(scope);
 			const existing = env.bindings.find(b => b.name == name);
 			if(existing) {
 				existing.meaning = combinator(existing, meaning);
 			} else {
 				env.bindings.push({ name: name, meaning: meaning });
 			}
-			this.symbols.push({ context: context, environment: env });
+			this.symbols.push({ scope: scope, environment: env });
 		}
 	}
 
-	lookupEnvironment(context: ParseTree): Environment {
-		const info = this.symbols.find(s => s.context == context);
+	lookupEnvironment(scope: ParseTree): Environment {
+		const info = this.symbols.find(s => s.scope == scope);
 		if(info) {
 			return info.environment;
-		} else if(context.parent) {
-			return this.lookupEnvironment(context.parent);
+		} else if(scope.parent) {
+			return this.lookupEnvironment(scope.parent);
 		} else {
 			return undefined;
 		}
@@ -135,5 +135,16 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 		this.symbolTable.record(ctx.identifier().text, [DeclarationType.VARIABLE], this.context);
 		return this.visitChildren(ctx);
 	};
+
+	/*visitPropertyAccess = (ctx: PropertyAccessContext) => {
+		let context = this.context;
+		this.context = ctx;
+		this.symbolTable.record(ctx.identifier().text, [DeclarationType.VARIABLE], this.context);
+		try {
+			return this.visitChildren(ctx);
+		} finally {
+			this.context = context;
+		}
+	};*/
 	
 }
