@@ -56,23 +56,27 @@ filter: FILTER expression
     (WHERE assignment* expression)?
     (RETURNS expression)?;
 
-navigation: NAVIGATE DIMENSIONS? arcrole=role? direction=identifier levels=INTEGER? (INCLUDE START)? (ROLE role)?
-    (FROM expression)? (TAXONOMY expression)? (CUBE identifier)? (TO expression)?
-    (STOP WHEN expression)?
+navigation: NAVIGATE DIMENSIONS? arcrole? direction levels=INTEGER? (INCLUDE START)? (FROM expression)? (TO expression)?
+    (STOP WHEN expression)? (ROLE role)?
+    (CUBE identifier)? (TAXONOMY expression)?
     (WHERE expression)?
     (RETURNS ((BY NETWORK returnExpression?) | returnExpression)
         (AS DICTIONARY)?)?;
 
-returnExpression : (expression | OPEN_PAREN expression (COMMA expression)* CLOSE_PAREN) ;
+returnExpression : (expression | OPEN_PAREN expression (COMMA expression)* CLOSE_PAREN);
+/** This exists so that when suggesting code we can restrict to well-known keywords. */
+arcrole: role;
 role: identifier | stringLiteral;
+/** This exists so that when suggesting code we can restrict to well-known keywords. */
+direction: identifier;
 
 //End expressions
 
-//These exist so that when suggesting names we can restrict only to certain name spaces.
+/** This exists so that when suggesting names we can restrict only to certain name spaces. */
 variableRef: identifier;
 propertyAccess: DOT identifier;
 /** With this rule we cover IDENTIFIER tokens, as well as other tokens (keywords) that we accept as identifiers as well. */
-identifier: IDENTIFIER | CONCEPT | PERIOD | TAXONOMY | START | STOP;
+identifier: IDENTIFIER | CONCEPT | DIMENSIONS | PERIOD | START | STOP | TAXONOMY;
 literal: stringLiteral | NUMBER | booleanLiteral;
 booleanLiteral: TRUE | FALSE;
 stringLiteral: DOUBLE_QUOTED_STRING | SINGLE_QUOTED_STRING;

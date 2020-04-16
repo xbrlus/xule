@@ -23,7 +23,7 @@ import {
 } from 'vscode-languageserver-textdocument';
 import { CodeCompletionCore } from 'antlr4-c3';
 import { XULELexer } from './parser/XULELexer';
-import { CharStreams, ANTLRErrorListener, RecognitionException, Recognizer, CommonTokenStream, Token, ParserRuleContext } from 'antlr4ts';
+import { CharStreams, ANTLRErrorListener, RecognitionException, Recognizer, CommonTokenStream, Token, ParserRuleContext, CommonToken } from 'antlr4ts';
 import {XULEParser, PropertyAccessContext, IdentifierContext} from './parser/XULEParser';
 import { ParseTree } from 'antlr4ts/tree/ParseTree';
 import { TerminalNode } from 'antlr4ts/tree/TerminalNode';
@@ -218,19 +218,20 @@ connection.onDidChangeWatchedFiles(_change => {
 	connection.console.log('We received an file change event');
 });
 
+type NodeInfo = { node: ParseTree, offset: number, tokenIndex: number };
+
 /**
  * Returns the token at the given position in the stream.
  * Returns undefined if none is found.
  */
-function tokenAtPosition(tree: ParseTree, line: number, column: number):
-    { node: TerminalNode, offset: number } | undefined {
-    // Does the root node actually contain the position? If not we don't need to look further.
+function parseTreeAtPosition(tree: ParseTree, line: number, column: number): NodeInfo {
     if (tree instanceof TerminalNode) {
         let terminal = (tree as TerminalNode);
 		let token = terminal.symbol;
 		let startLine = token.line;
 		const lines = token.text.match(/[^\n\r]+[\n\r]*/g);
 		let endLine = startLine + lines.length - 1;
+		// Does the terminal node actually contain the position? If not we don't need to look further.
         if(startLine > line || endLine < line) {
 			return undefined;
 		}
@@ -240,7 +241,7 @@ function tokenAtPosition(tree: ParseTree, line: number, column: number):
 			for(let i = 0; i < line - startLine; i++) {
 				offset += lines[i].length;
 			}
-			return { node: terminal, offset: offset };
+			return { node: terminal, offset: offset, tokenIndex: terminal.symbol.tokenIndex };
 		}
 
 		let tokenStartInLine = line == startLine ? token.charPositionInLine : 0;
@@ -260,25 +261,81 @@ function tokenAtPosition(tree: ParseTree, line: number, column: number):
 			tokenStopInLine = column;
 		}
         if (tokenStartInLine <= column && tokenStopInLine >= column) {
-            let offset = column;
+            let offset = column - tokenStartInLine;
 			for(let i = 0; i < line - startLine; i++) {
 				offset += lines[i].length;
 			}
-			return { node: terminal, offset: offset };
+			return { node: terminal, offset: offset, tokenIndex: terminal.symbol.tokenIndex };
         }
         return undefined;
     } else {
-        let context = (tree as ParserRuleContext);
+		let context = (tree as ParserRuleContext);
+		//Parse tree is entirely before or after the given line
+		if(context.start.line > line || context.stop.line < line) {
+			return undefined;
+		}
+		//Parse tree starts after the given line and column
+		if(line == context.start.line && column < context.start.charPositionInLine) {
+			return undefined;
+		}
+		if(line == context.stop.line) {
+			const lines = context.stop.text.match(/[^\n\r]+[\n\r]*/g);
+			let endColumn = lines[lines.length - 1].length;
+			if(line == context.start.line) {
+				endColumn += context.start.charPositionInLine;
+			}
+			//Parse tree stops before the given line and column
+			if(column > endColumn) {
+				return undefined;
+			}
+		}
 		if (context.childCount > 0) {
             for (let i = 0; i < context.childCount; i++) {
-                let result = tokenAtPosition(context.getChild(i), line, column);
+                let result = parseTreeAtPosition(context.getChild(i), line, column);
                 if (result) {
                     return result;
                 }
-            }
+			}
+			const closest = closestSubtree(context, line, column);
+			return { node: new TerminalNode(new CommonToken(0, "")), offset: 0, tokenIndex: closest.tokenIndex + 1 };
         }
         return undefined;
     }
+}
+
+function closestSubtree(context: ParseTree, line, column) {
+	function closestTerminal(tree: ParseTree): TerminalNode {
+		if(tree instanceof TerminalNode) {
+			return tree;
+		} else {
+			return closestSubtree(tree, line, column).node;
+		}
+	}
+	//Since we invoke this only after not having found a token at the exact position, and we search depth-first,
+	//we can be sure that all child nodes are terminals
+	let result = closestTerminal(context.getChild(0));
+	for (let i = 1; i < context.childCount; i++) {
+		const candidate = closestTerminal(context.getChild(i));
+		let startLine = candidate.symbol.line;
+		const lines = candidate.text.match(/[^\n\r]+[\n\r]*/g);
+		let endLine = startLine + lines.length - 1;
+		if(endLine <= line && candidate.symbol.stopIndex > result.symbol.stopIndex) {
+			if(endLine < line) {
+				result = candidate;
+			} else {
+				let pos;
+				if(startLine == endLine) {
+					pos = candidate.symbol.charPositionInLine + candidate.text.length;
+				} else {
+					pos = lines[lines.length - 1].length;
+				}
+				if(pos < column) {
+					result = candidate;
+				}
+			}
+		}
+	}
+	return { node: result, offset: result.text.length, tokenIndex: result.symbol.tokenIndex };
 }
 
 function setupCompletionCore(parser: XULEParser) {
@@ -298,7 +355,7 @@ function setupCompletionCore(parser: XULEParser) {
 	]);
 	core.preferredRules = new Set([
 		XULEParser.RULE_booleanLiteral,
-		XULEParser.RULE_variableRef, XULEParser.RULE_propertyAccess
+		XULEParser.RULE_variableRef, XULEParser.RULE_propertyAccess, XULEParser.RULE_direction
 	]);
 	//core.showDebugOutput = true;
     //core.showResult = true;
@@ -372,28 +429,29 @@ connection.onCompletion(
 			if(parser) {
 				const pos = _textDocumentPosition.position;
 				const parseTree = document['parseTree'] as ParseTree;
-				const tokenInfo = tokenAtPosition(parseTree, pos.line + 1, pos.character);
-				if(tokenInfo.node instanceof ErrorNode) {
-					console.log(tokenInfo.node.text);
-				}
-				let tokenIndex = tokenInfo ? tokenInfo.node.symbol.tokenIndex : 0;
+				const nodeInfo = parseTreeAtPosition(parseTree, pos.line + 1, pos.character);
+				let tokenIndex = nodeInfo ? nodeInfo.tokenIndex : 0;
 				let core = setupCompletionCore(parser);
 				let candidates = core.collectCandidates(tokenIndex);
 				let completions = [];
 				if(candidates.rules.has(XULEParser.RULE_booleanLiteral)) {
-					const text = tokenInfo.node.text.toLowerCase();
+					const text = nodeInfo.node.text.toLowerCase();
 					maybeSuggest("true", text, CompletionItemKind.Constant, completions);
 					maybeSuggest("false", text, CompletionItemKind.Constant, completions);
 				}
 				const symbolTable = document['symbolTable'] as SymbolTable;
-				if(tokenInfo) {
+				if(nodeInfo) {
+					const text = nodeInfo.node.text.toLowerCase();
 					if(candidates.rules.has(XULEParser.RULE_variableRef)) {
-						suggestIdentifier(tokenInfo.node, DeclarationType.CONSTANT, CompletionItemKind.Constant, symbolTable, completions);
-						suggestIdentifier(tokenInfo.node, DeclarationType.FUNCTION, CompletionItemKind.Function, symbolTable, completions);
-						suggestIdentifier(tokenInfo.node, DeclarationType.VARIABLE, CompletionItemKind.Variable, symbolTable, completions);
+						suggestIdentifier(nodeInfo.node, DeclarationType.CONSTANT, CompletionItemKind.Constant, symbolTable, completions);
+						suggestIdentifier(nodeInfo.node, DeclarationType.FUNCTION, CompletionItemKind.Function, symbolTable, completions);
+						suggestIdentifier(nodeInfo.node, DeclarationType.VARIABLE, CompletionItemKind.Variable, symbolTable, completions);
 					}
 					if(candidates.rules.has(XULEParser.RULE_propertyAccess)) {
-						suggestProperty(tokenInfo.node, CompletionItemKind.Property, symbolTable, completions);
+						suggestProperty(nodeInfo.node, CompletionItemKind.Property, symbolTable, completions);
+					}
+					if(candidates.rules.has(XULEParser.RULE_direction)) {
+						maybeSuggest("descendants", text, CompletionItemKind.Keyword, completions);
 					}
 				}
 
@@ -407,11 +465,11 @@ connection.onCompletion(
 					} else if(key == XULEParser.ASSERT_UNSATISFIED) {
 						keyword = 'unsatisfied'
 					}
-					let text = tokenInfo.node.text.toLowerCase();
-					if(tokenInfo && tokenInfo.node.text &&
-						tokenInfo.offset < tokenInfo.node.text.length - 1) {
+					let text = nodeInfo.node.text.toLowerCase();
+					if(nodeInfo && nodeInfo.node.text &&
+						nodeInfo.offset < nodeInfo.node.text.length - 1) {
 						//The caret is inside a keyword. Let's match the existing string.
-						text = text.substring(0, tokenInfo.offset);
+						text = text.substring(0, nodeInfo.offset);
 					}
 					maybeSuggest(keyword, text, CompletionItemKind.Keyword, completions);
 				});
