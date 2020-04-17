@@ -60,6 +60,14 @@ constant $priorQ3Duration = if ($priorYear == none) none else duration(date($pri
 constant $priorQ4Instant = if ($priorYear == none) none else date($priorYear+'-12-31')
 constant $priorQ4Duration = if ($priorYear == none) none else duration(date($priorYear+'-10-01'), date($priorYear+'-12-31'))
 
+constant $currentCumQ2 = if ($currentYear == none) none else duration(date($currentYear+'-01-01'), date($currentYear+'-06-30'))
+constant $currentCumQ3 = if ($currentYear == none) none else duration(date($currentYear+'-01-01'), date($currentYear+'-09-30'))
+constant $currentCumQ4 = if ($currentYear == none) none else duration(date($currentYear+'-01-01'), date($currentYear+'-12-31'))
+
+constant $priorCumQ2 = if ($priorYear == none) none else duration(date($priorYear+'-01-01'), date($priorYear+'-06-30'))
+constant $priorCumQ3 = if ($priorYear == none) none else duration(date($priorYear+'-01-01'), date($priorYear+'-09-30'))
+constant $priorCumQ4 = if ($priorYear == none) none else duration(date($priorYear+'-01-01'), date($priorYear+'-12-31'))
+
 constant $month1 = if ($currentYear == none or $monthEndList == none) none 
 				   else duration(date($currentYear + '-01-01'), date($currentYear + '-01-' + $monthEndList[1]))
 constant $month2 = if ($currentYear == none or $monthEndList == none) none 
