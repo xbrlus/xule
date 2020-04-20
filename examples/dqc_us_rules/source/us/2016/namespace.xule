@@ -1,0 +1,14 @@
+namespace iso4217 = http://www.xbrl.org/2003/iso4217
+namespace xbrli = http://www.xbrl.org/2003/instance
+namespace http://fasb.org/us-gaap/2016-01-31
+namespace dei = http://xbrl.sec.gov/dei/2014-01-31
+namespace country = http://xbrl.sec.gov/country/2016-01-31
+namespace nonnum = http://www.xbrl.org/dtr/type/non-numeric
+namespace exch = http://xbrl.sec.gov/exch/2017-01-31 
+namespace invest = http://xbrl.sec.gov/invest/2013-01-31
+namespace stpr = http://xbrl.sec.gov/stpr/2011-01-31
+namespace sic = http://xbrl.sec.gov/sic/2011-01-31
+namespace num = http://www.xbrl.org/dtr/type/numeric
+namespace us-types = http://fasb.org/us-types/2016-01-31
+namespace currency = http://xbrl.sec.gov/currency/2014-01-31
+namespace naics =  http://xbrl.sec.gov/naics/2011-01-31

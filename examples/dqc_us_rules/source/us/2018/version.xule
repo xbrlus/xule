@@ -1,0 +1,23 @@
+/**
+
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+
+**/
+
+/** Define the rule version **/
+
+constant $ruleVersion = '11.0.4'
+
+/** Define Additional Attribute types that can be associated with a rule **/
+
+output-attribute status
+
+output-attribute effectiveDate
+
+
+/** Define attribute values **/
+
+constant $status = 'APPROVED'

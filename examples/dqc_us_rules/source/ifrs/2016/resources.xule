@@ -1,0 +1,31 @@
+/**
+
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: US GAAP 2016
+Release Version 8
+**/
+
+
+/** Effective Dates **/
+constant $effective_dates = dict(
+		for $pair in csv-data('https://raw.githubusercontent.com/DataQualityCommittee/dqc_us_rules/v11/dqc_us_rules/resources/Effective_Dates/ifrs_effective_dates.csv', false, list('string','string'))
+		list($pair[1], $pair[2])
+		)
+
+/** DQC.IFRS.0080 **/
+
+/** The following constant builds up a list of non-negative items that should be checked against the US - GAAP taxonomy 1. US-GAAP items, dei items and SRT items**/
+constant $non_neg_ifrs_items = dict(
+		for $pair in (csv-data('https://raw.githubusercontent.com/DataQualityCommittee/dqc_us_rules/v11/dqc_us_rules/resources/DQC_IFRS_0080/dqc_0080_ifrs_2018_concepts.csv', false, list('string', 'qname')) + 			csv-data('https://raw.githubusercontent.com/DataQualityCommittee/dqc_us_rules/v11/dqc_us_rules/resources/DQC_US_0015/dqc_15_dei_concepts.csv', false, list('string', 'qname')))
+				list($pair[2], $pair[1])
+)
+
+/** DQC.US.0079 **/
+
+constant $extension_items = dict(
+		for $pair in csv-data('https://raw.githubusercontent.com/DataQualityCommittee/dqc_us_rules/v11/dqc_us_rules/resources/DQC_US_0079/dqc_0079.csv', true, list('string', 'qname'))
+		list($pair[1], $pair[2])
+		)

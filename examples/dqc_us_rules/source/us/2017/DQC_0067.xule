@@ -1,0 +1,78 @@
+/**
+
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: US GAAP 2017
+
+**/
+
+rule-name-prefix DQC
+
+assert US.0067.7644 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+/** Defines list of Revenue elements that are used for 440 revenue recognition, but not the new revenue recognition standard with exceptions. **/
+
+$RevenueElements = navigate summation-item DESCENDANTS include start from SalesRevenueNet taxonomy $us-gaap where not($relationship.target.name.local-name == 'OperatingLeasesIncomeStatementLeaseRevenue' or $relationship.target.name.local-name == 'OperatingLeasesIncomeStatementMinimumLeaseRevenue' 
+or $relationship.target.name.local-name == 'OperatingLeasesIncomeStatementContingentRevenue'
+or $relationship.target.name.local-name == 'PercentageRent'
+or $relationship.target.name.local-name == 'OperatingLeasesIncomeStatementSubleaseRevenue'
+or $relationship.target.name.local-name == 'RevenueFromRelatedParties'
+)
+returns set (target-name); 
+
+/** Identifies all elements that relate to deferred Revenue that can no longer be used, but excludes certain elements that can. **/
+
+$network440000 = navigate parent-child DESCENDANTS role 'http://fasb.org/us-gaap/role/disclosure/DeferredRevenue' taxonomy $us-gaap where $relationship.target.is-abstract == false  and  not($relationship.target.name.local-name == 'DirectCostsOfLeasedAndRentedPropertyOrEquipment' 
+or $relationship.target.name.local-name == 'DeferredRevenue' 
+or $relationship.target.name.local-name == 'DeferredRevenueCurrent' 
+or $relationship.target.name.local-name == 'DeferredRevenueNoncurrent'
+or $relationship.target.name.local-name == 'DeferredRevenueAdditions'
+or $relationship.target.name.local-name == 'DeferredRevenueRevenueRecognized1'
+or $relationship.target.name.local-name == 'DeferredRevenueRefundPayments1'
+or $relationship.target.name.local-name == 'DeferredRevenuePeriodIncreaseDecrease'
+or $relationship.target.name.local-name == 'DeferredRevenueByArrangementDisclosureTextBlock') returns set (target-name);
+
+/** Complete list of elements that can no longer be used if the company has adopted 606 **/
+
+$PriorStandard = $RevenueElements + $network440000; 
+
+/** Defines a list of 606 elements. Use of any of these elements implies that the company has adopted the 606 Revenue Recognition Standard **/
+
+
+$network606000 = navigate parent-child DESCENDANTS role 'http://fasb.org/us-gaap/role/disclosure/RevenuefromContractswithCustomers' taxonomy $us-gaap where $relationship.target.is-abstract == false  and  not($relationship.target.name.local-name == 'ExciseAndSalesTaxes')
+returns set (target-name);
+
+/** Identifies a list of all the facts used that apply to 606. The existence of these facts determines if they have adopted the 606 revenue standard **/
+
+$facts_in_606_standard_dups = list({covered @concept in ($network606000) @StatementScenarioAxis != *});
+$facts_in_606_standard = (filter $facts_in_606_standard_dups returns $item.name.local-name).to-set;
+
+/** Identifies if 606 elements have been used and 440 elements have also been used in the same filing. The two standards should be mutually exclusive. **/
+
+any(list(exists({covered @concept in ($network606000) @@StatementScenarioAxis != * @period=* @unit}))) and exists({covered nonils @concept in ($PriorStandard) @@StatementScenarioAxis != * @period=*}#revRec)
+
+
+message
+"The filing has reported a value of \"{$revRec.string.substring(1,300)}\" for the element {$revRec.name}. This is a revenue recognition element that is not a component of FASB 606 and does not appear in disclosure group 606000. However the following elements have also been tagged in the filing that indicate that the FASB 606  revenue recognition standard has been adopted:
+{$facts_in_606_standard.sort.join(',\n')}
+
+
+Either the new revenue recognition elements must be used or the old revenue recognition elements should be used but they should not be combined in the same filing.  
+
+The properties of this {$revRec.concept} fact are:
+Period :{$revRec.period}
+Dimensions : {$revRec.dimensions.join(', ','=')}
+Unit : {$revRec.unit}
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}"
+
+
+SEVERITY error
+
+rule-focus $revRec
+effectiveDate $effective_dates[$rule_id]
+

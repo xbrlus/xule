@@ -1,0 +1,71 @@
+/**
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: US GAAP 2016
+**/
+
+
+rule-name-prefix DQC
+
+assert US.0006.14 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+if exists({covered @concept.local-name ='DocumentFiscalPeriodFocus'})
+
+	$period_focus = first(set({covered @concept.local-name ='DocumentFiscalPeriodFocus'}));
+	$period_range = filter $focus_range_lookup where $item[1] == $period_focus;
+	if $period_range.length == 1
+		$min_range = $period_range[1][2];
+		$max_range = $period_range[1][3];
+
+		exists({@ where ($fact.is-type(nonnum:textBlockItemType) or $fact.concept.name in $dei_DQC0006_items) and ($fact.period.days > $max_range or $fact.period.days < $min_range)}#fact1)
+		and not(list({covered @concept.local-name ='DocumentType'}).length > 1)
+		and not(exists({covered @concept.local-name ='DocumentType' where $fact.contains('T')}))
+		and not(exists({covered @concept.local-name ='DocumentType' where $fact in $report_type_exclusions}))
+		and not(exists({covered @concept = qname($extension_ns,'TransitionReport')}))
+	else
+		false
+else
+	false
+
+message
+"The number of days, {$fact1.period.days} in the date range reported for {$fact1.concept.label.text}, {$fact1.period} is not consistent with the Document Fiscal Period Focus with a value of {$period_focus}. This period focus expects text block items and dei elements to have at least a period duration between {$min_range} days and {$max_range} days.
+
+If this filing is for a Foreign Private Issuer and is a transitional report then create a boolean extension element called TransitionReport with a value of true. (This extension element is needed as the dei taxonomy does not include an element that indicates if the report is for a transitional period).
+
+The properties of this {$fact1.concept.name} fact are:
+Period :{$fact1.period}
+Dimensions : {$fact1.dimensions.join(', ','=')}
+Unit : {$fact1.unit}
+Rule version: {$ruleVersion}"
+
+rule-focus $fact1
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+constant $dei_DQC0006_items = list(dei:AmendmentDescription, 
+	dei:AmendmentFlag, 
+	dei:CurrentFiscalYearEndDate,
+	dei:DocumentPeriodEndDate, 
+	dei:DocumentFiscalYearFocus,
+	dei:DocumentFiscalPeriodFocus,
+	dei:DocumentType,
+	dei:EntityRegistrantName,
+	dei:EntityCentralIndexKey,
+	dei:EntityFilerCategory)
+
+
+constant $focus_range_lookup = list(
+	list('FY',340,390),
+	list('Q1',65,115),
+	list('Q3',245,295),
+	list('Q2',155,205),
+	list('Q4',340,390),
+	list('H1',155,205),
+	list('H2',340,390)
+)

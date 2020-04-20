@@ -1,0 +1,58 @@
+/**
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: US GAAP 2019
+**/
+
+rule-name-prefix DQC
+
+assert US.0057.7494 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+/* Identify the cashflow statement by StatementOfCashFlowsAbstract */
+
+for ($networkPres in 
+	filter taxonomy().networks(parent-child) where ($item.concept-names.contains(StatementOfCashFlowsAbstract) and $item.role.uri.lower-case.contains('cashflow')) and  $item.role.description.contains('- Statement ') and not $item.role.uri.lower-case.contains('parenthetical'))
+
+
+	  
+	$nrole = $networkPres.role.uri;
+
+	$must_be_present_elements = set('CashAndCashEquivalentsAtCarryingValue',
+	  						'CashAndCashEquivalentsAtCarryingValueIncludingDiscontinuedOperations',
+							'CashCashEquivalentsAndFederalFundsSold', 
+							'CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents',
+							'CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsIncludingDisposalGroupAndDiscontinuedOperations',
+							'Cash',
+							'CashEquivalentsAtCarryingValue',
+							'CashAndDueFromBanks'
+						);
+
+	$elementNames = $must_be_present_elements.join(', ');
+
+	$balances = set(for ($concept_item in $networkPres.concepts)
+					if ($concept_item.period-type == instant)		
+						$concept_item.name.local-name	       	
+					else 
+						skip);
+					
+	$balanceElements = $balances.join(', ');	
+					
+	not any(
+			set(
+				for ($y in $must_be_present_elements)
+					$balances.contains($y)
+				)
+			)
+message
+"One of the following elements {$elementNames} should appear as the opening and closing balance in the cash flow statement using the group {$nrole}.
+ Instead the following balance items have been used in this statement {$balanceElements}. Depending if ASU-2016-18 has been adopted at least one of the opening and closing balance items listed must be used in the cash flow statement. 
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]

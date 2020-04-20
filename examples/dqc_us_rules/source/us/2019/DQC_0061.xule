@@ -1,0 +1,85 @@
+/**
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: US GAAP 2019
+**/
+
+rule-name-prefix DQC
+
+assert US.0061.7498 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+$descendants_of_investingCash = navigate summation-item descendants from NetCashProvidedByUsedInInvestingActivities returns by network set (target-name);
+
+for ($network in $descendants_of_investingCash.keys)
+	if not ($descendants_of_investingCash[$network].contains(CashProvidedByUsedInInvestingActivitiesDiscontinuedOperations))
+		$parent = navigate summation-item ancestors from NetCashProvidedByUsedInInvestingActivities role $network.role.uri returns set (target-name);
+		$parent2 = navigate summation-item ancestors from CashProvidedByUsedInInvestingActivitiesDiscontinuedOperations role $network.role.uri returns set (target-name);
+		$common_ancestor = ($parent intersect $parent2);
+		$common_ancestor_string = $common_ancestor.join(', ');
+		$common_ancestor.length >0
+	else
+		skip
+		
+message
+"The taxonomy extension includes NetCashProvidedByUsedInInvestingActivities and CashProvidedByUsedInInvestingActivitiesDiscontinuedOperations in the calculation of {$common_ancestor_string}. But CashProvidedByUsedInInvestingActivitiesDiscontinuedOperations is not a direct child of NetCashProvidedByUsedInInvestingActivities. NetCashProvidedByUsedInInvestingActivities is intended to represent the total of cash provided by or used in continuing and discontinued operations. Cash flows from both Discontinued operations and Investing activities cannot add into the total of {$common_ancestor_string} as this implies that discontinued operations is being double counted, once in investing activities and once as discontinued operations.\n\n{CashProvidedByUsedInInvestingActivitiesDiscontinuedOperations}
+	
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+assert US.0061.7499 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+$descendants_of_operating_Cash = navigate summation-item descendants from NetCashProvidedByUsedInOperatingActivities returns by network set (target-name);
+
+for ($network in $descendants_of_operating_Cash.keys)
+	if not ($descendants_of_operating_Cash[$network].contains(CashProvidedByUsedInOperatingActivitiesDiscontinuedOperations))
+		$parent = navigate summation-item ancestors from NetCashProvidedByUsedInOperatingActivities role $network.role.uri returns set (target-name);
+		$parent2 = navigate summation-item ancestors from CashProvidedByUsedInOperatingActivitiesDiscontinuedOperations role $network.role.uri returns set (target-name);
+		$common_ancestor = ($parent intersect $parent2);
+		$common_ancestor_string = $common_ancestor.join(', ');
+		$common_ancestor.length >0
+	else
+		skip
+		
+message
+"The taxonomy extension includes NetCashProvidedByUsedInOperatingActivities and CashProvidedByUsedInOperatingActivitiesDiscontinuedOperations in the calculation of {$common_ancestor_string}. But CashProvidedByUsedInOperatingActivitiesDiscontinuedOperations is not a direct child of NetCashProvidedByUsedInOperatingActivities. NetCashProvidedByUsedInOperatingActivities is intended to represent the total of cash provided by or used in continuing and discontinued operations. Cash flows from both Discontinued operations and Operating activities cannot add into the total of {$common_ancestor_string} as this implies that discontinued operations is being double counted, once in operating activities and once as discontinued operations.\n\n{CashProvidedByUsedInOperatingActivitiesDiscontinuedOperations}
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+
+assert US.0061.7500 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+$descendants_of_financing_Cash = navigate summation-item descendants from NetCashProvidedByUsedInFinancingActivities returns by network set (target-name);
+
+for ($network in $descendants_of_financing_Cash.keys)
+	if not ($descendants_of_financing_Cash[$network].contains(CashProvidedByUsedInFinancingActivitiesDiscontinuedOperations))
+		$parent = navigate summation-item ancestors from NetCashProvidedByUsedInFinancingActivities role $network.role.uri returns set (target-name);
+		$parent2 = navigate summation-item ancestors from CashProvidedByUsedInFinancingActivitiesDiscontinuedOperations role $network.role.uri returns set (target-name);
+		$common_ancestor = ($parent intersect $parent2);
+		$common_ancestor_string = $common_ancestor.join(', ');
+		$common_ancestor.length >0
+	else
+		skip
+		
+message
+"The taxonomy extension includes NetCashProvidedByUsedInFinancingActivities and CashProvidedByUsedInFinancingActivitiesDiscontinuedOperations in the calculation of {$common_ancestor_string}. But CashProvidedByUsedInFinancingActivitiesDiscontinuedOperations is not a direct child of NetCashProvidedByUsedInFinancingActivities. NetCashProvidedByUsedInFinancingActivities is intended to represent the total of cash provided by or used in continuing and discontinued operations. Cash flows from both Discontinued operations and financing activities cannot add into the total of {$common_ancestor_string} as this implies that discontinued operations is being double counted, once in financing activities and once as discontinued operations.\n\n{CashProvidedByUsedInFinancingActivitiesDiscontinuedOperations}
+
+Rule Element Id: {$rule_id}
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]

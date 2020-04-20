@@ -1,0 +1,109 @@
+/**
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: US GAAP 2020
+**/
+
+/*  
+	Gets the end of period date (dei:DocumentPeriodEndDate).  Returns the fact
+	value or the context end date on the fact, whichever is later.
+*/
+
+constant $document_period_end_value =  set(date({covered @concept.local-name ='DocumentPeriodEndDate'}))
+
+constant $document_period_end_context = set({covered @concept.local-name ='DocumentPeriodEndDate'}.period.end)
+
+constant $maximum_period_end_date = max($document_period_end_value + $document_period_end_context)
+
+
+rule-name-prefix DQC
+
+assert US.0005.17 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+/*  
+    Check that the form is not in the excluded form list.
+*/
+
+if (any(set(exists({covered @concept.local-name ='DocumentType' where $fact in $report_type_exclusions}))))
+	skip
+else
+	$fact1 = {covered @concept.local-name ='EntityCommonStockSharesOutstanding'};
+	$shares_at_date = $fact1.period.end;
+	$shares_at_date < $maximum_period_end_date
+
+	
+message
+"The element Entity Common Stock Shares Outstanding with a value of {$fact1} is used to report the Entity Common Stock Shares Outstanding as stated on the cover sheet of the entity's filing. However, the value reported is not as of the latest practicable date, as required. In this case, {$fact1.name} with a value of {$fact1} is reported as of {$shares_at_date}. This is earlier than the actual reporting date of the filing.
+
+Update the date context on this fact, so that the date is at least later than {$maximum_period_end_date}, which is the reporting [end] date of the filing based on the defined dates of the Document Type element.
+
+The properties of this {$fact1.name} fact are:
+Period: {$fact1.period}
+Dimensions: {$fact1.dimensions.join(', ','=')}
+Unit: {$fact1.unit}
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+
+
+assert US.0005.48 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+
+if (any(set(exists({covered @concept.local-name ='DocumentType' where $fact in $report_type_exclusions}))))
+	skip
+else
+	$fact1 = {@SubsequentEventTypeAxis = * as $ssa};
+	$sub_event_at_date = $fact1.period.end;
+	$sub_event_at_date <= $maximum_period_end_date
+	
+message
+"The date of {$sub_event_at_date} used for {$fact1.concept.label.text} and the Subsequent Event Type [Axis] with a value of {$fact1} is earlier than or the same as the reporting period end date of {$maximum_period_end_date}. Either remove the subsequent event axis from this value, change the reporting period end date for the value or update the Document and Entity Information document period end date.
+The properties of this {$fact1.name} fact are:
+Period: {$fact1.period}
+Dimensions: {$fact1.dimensions.join(', ','=')}
+Unit: {$fact1.unit}
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+
+assert US.0005.49 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+
+if (any(set(exists({covered @concept.local-name ='DocumentType' where $fact in $report_type_exclusions}))))
+	skip
+else
+	$fact1 = {@srt:StatementScenarioAxis = srt:ScenarioForecastMember};
+	$sub_event_at_date = $fact1.period.end;
+	$sub_event_at_date <= $maximum_period_end_date
+
+message
+"The date of {$sub_event_at_date} used for {$fact1.concept.label.text} and the Scenario [Axis] and srt:ScenarioForecastMember with a value of {$fact1} is earlier than or the same as the reporting period end date of {$maximum_period_end_date}. Either remove the statement scenario axis and forecast member from this value, change the end date for the value or update the Document and Entity Information document period end date.
+
+The properties of this {$fact1.name} fact are:
+Period: {$fact1.period}
+Dimensions: {$fact1.dimensions.join(', ','=')}
+Unit: {$fact1.unit}
+Rule version: {$ruleVersion}"
+
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+
+
+

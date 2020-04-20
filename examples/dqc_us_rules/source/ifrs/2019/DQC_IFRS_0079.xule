@@ -1,0 +1,47 @@
+/**
+
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: IFRS 2019
+
+**/
+
+
+rule-name-prefix DQC
+
+assert IFRS.0079.7657 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+$acceptable_dimensions = set(SegmentsAxis);
+
+ for ($duplicate_concept in $extension_qname)
+  if ($extension_items.keys.contains($duplicate_concept.local-name.lower-case))
+     $dims = get_member_dims($duplicate_concept);
+	 $dim_names_set = set(for $dim in $dims
+	    if $acceptable_dimensions.contains($dim['dimension'])
+	  		skip
+	    else 
+			$dim['dimension'].local-name);
+	if $dim_names_set.length > 0
+	   $replacement = $extension_items[$duplicate_concept.local-name.lower-case];
+	   true
+	else
+	    false	  
+  else
+     false
+	 
+message
+"{$duplicate_concept} is an extension member on the axis {$dim_names_set.join(', ')} that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing {$duplicate_concept} with the existing taxonomy concept {$replacement.local-name} with the taxonomy namespace {$replacement.namespace-uri}.
+
+Rule Element Id:7657
+Rule version: {$ruleVersion}
+"
+
+SEVERITY error
+
+effectiveDate $effective_dates[$rule_id]
+
+

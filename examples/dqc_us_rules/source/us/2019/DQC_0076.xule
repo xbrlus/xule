@@ -1,0 +1,41 @@
+/**
+
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: US GAAP 2019
+
+**/
+
+
+rule-name-prefix DQC
+
+assert US.0076.7653 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+exists({covered-dims @concept in list(RevenueRemainingPerformanceObligationPercentage, RevenueRemainingPerformanceObligation) @@RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis = * @unit = * @period = *}#obligation)
+ 
+and 
+(
+	  not exists({covered-dims @concept = RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1 @@RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis = * @period = *}#period_id)
+)
+
+
+message
+"The filer has reported a value for {$obligation.concept} with a value of {$obligation} using the dimension member {$obligation.dimension(RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis)} The filer has not reported a duration value for the corresponding elements of either RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod (2017 taxonomy) or RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1 (2018 and later).
+
+The properties of this {$obligation.concept} fact are:
+Period :{$obligation.period}
+Dimensions : {$obligation.dimensions.join(', ','=')}
+Unit : {$obligation.unit}
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}"
+
+
+SEVERITY error
+
+rule-focus $obligation
+
+effectiveDate $effective_dates[$rule_id]

@@ -1,0 +1,247 @@
+/**
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: US GAAP 2019
+**/
+
+
+rule-name-prefix DQC
+
+assert US.0085.9361 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+/** Identify all presentation networks in the company extension **/
+
+$all_networks = taxonomy().networks(parent-child);
+
+if $all_networks == none
+	false
+else
+
+	/** Get those networks that are the financial Statements **/
+	$FS_Networks = filter $all_networks where $item.role.description.contains('- Statement ');
+	
+	if $FS_Networks == none
+		false
+	else
+
+		/** Get all concepts in FS Networks **/
+		$FS_Concepts_concept = sum(set(for ($network in $FS_Networks)
+								$network.concepts));
+							
+		$FS_Concepts_qname = filter $FS_Concepts_concept returns $item.name;
+
+		/** For each of these concepts identify if either of the elements  DeferredTaxAssetsLiabilitiesNet, DeferredTaxAssetsNet or DeferredTaxLiabilities
+		has been used.  Do this by comparing the set of target elements from the statement to the set of set(DeferredTaxAssetsLiabilitiesNet, DeferredTaxAssetsNet, DeferredTaxLiabilities)**/
+
+		$incorrect_concepts = $FS_Concepts_qname intersect set(DeferredTaxAssetsLiabilitiesNet, DeferredTaxAssetsNet, DeferredTaxLiabilities);
+
+		/** Output an error for every item in the intersection of the two sets **/
+
+		for $incorrect_concept in $incorrect_concepts
+			true
+	
+message
+"The element {$incorrect_concept} appears in the face financial statements of the filing.  This element is a footnote concept that should only be used in a footnote disclosure.  To report the value of deferred taxes on the balance sheet either the element DeferredIncomeTaxAssetsNet or DeferredIncomeTaxLiabilitiesNet should be used depending if it is a liability or an asset. If the value of {$incorrect_concept} is the same as the value for DeferredIncomeTaxAssetsNet or DeferredIncomeTaxLiabilitiesNet, then one of these balance sheet elements should be used on the balance sheet and not the footnote element {$incorrect_concept}.
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}"
+
+SEVERITY error
+
+effectiveDate $effective_dates[$rule_id]
+
+
+assert US.0085.9362 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+
+/** Identify if the element DeferredIncomeTaxAssetsNet is used in the filing **/
+
+$BS_Tax_Asset = [@concept = DeferredIncomeTaxAssetsNet]
+
+if exists($BS_Tax_Asset) /** and missing({covered @concept = DeferredTaxAssetsNet}) **/
+	
+	$all_parents = navigate summation-item parents from DeferredIncomeTaxAssetsNet returns (target-name);
+
+	/** Determine if DeferredIncomeTaxAssetsNet has any parent calculations **/
+
+	if ($all_parents.length > 0)
+		false
+	else
+		true
+	
+else
+	skip
+	
+message
+"The element {$BS_Tax_Asset.concept.name} with a value {$BS_Tax_Asset} does not appear in a calculation defined in the filing.  This concept is a balance sheet item and should appear on the balance sheet or as a component of a balance sheet item in the footnotes.  If this value is the amount with jurisdictional netting and it is reported in the footnotes then the value of DeferredTaxAssetsNet (the amount without jurisdictional netting) should also be reported. To resolve the error the element DeferredIncomeTaxAssetsNet needs to either be included with the Balance Sheet Location Axis or be included in a calculation with Assets as an ancestor.
+
+Period :{$BS_Tax_Asset.period}
+Dimensions : {$BS_Tax_Asset.dimensions.join(', ','=')}
+Unit : {$BS_Tax_Asset.unit}
+Decimals: {$BS_Tax_Asset.decimals}
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}"
+
+SEVERITY error
+
+effectiveDate $effective_dates[$rule_id]
+
+
+
+assert US.0085.9363 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+/** Identify if the element DeferredIncomeTaxLiabilitiesNet is used in the filing **/
+
+$BS_Tax_Liability = [@concept = DeferredIncomeTaxLiabilitiesNet]
+
+if exists($BS_Tax_Liability) /** and missing({covered @concept = DeferredTaxAssetsLiabilitiesNet}) **/
+	
+	$all_parents = navigate summation-item parents from DeferredIncomeTaxLiabilitiesNet returns (target-name);
+
+	/** Determine if DeferredIncomeTaxLiabilitiesNet has any parent calculations **/
+
+	if ($all_parents.length > 0)
+		false
+	else
+		true
+else
+	skip
+	
+message
+"The element {$BS_Tax_Liability.concept.name} with a value {$BS_Tax_Liability} does not appear in a calculation defined in the filing.  This concept is a balance sheet item and should appear on the balance sheet or as a component of a balance sheet item in the footnotes.  If this value is the amount with jurisdictional netting and it is reported in the footnotes then the value of DeferredTaxAssetsNet (the amount without jurisdictional netting) should also be reported. To resolve the error the element DeferredIncomeTaxLiabilitiesNet needs to either be included with the Balance Sheet Location Axis or be included in a calculation with Liabilities as an ancestor.
+
+Period :{$BS_Tax_Liability.period}
+Dimensions : {$BS_Tax_Liability.dimensions.join(', ','=')}
+Unit : {$BS_Tax_Liability.unit}
+Decimals: {$BS_Tax_Liability.decimals}
+
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}"
+
+SEVERITY error
+
+effectiveDate $effective_dates[$rule_id]
+
+assert US.0085.9364 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+/** Identify if the element DeferredTaxAssetsNet is used in the filing **/
+
+$fact1 = {@concept = DeferredTaxAssetsNet}
+
+if exists($fact1) 
+	
+	$all_ancestors = navigate summation-item ancestors from DeferredTaxAssetsNet returns (target-name);
+
+	/** Determine if Assets appears in the list of ancestors of DeferredTaxAssetsNet  **/
+
+	if (Assets in $all_ancestors)
+		true
+	else
+		false
+else
+	skip
+	
+message
+
+"The element DeferredTaxAssetsNet has been reported with a value of {$fact1}, this element is also included as a calculation descendant of Assets in the financial statements. This element is a footnote element and should not appear in the face financial statements.
+
+Period :{$fact1.period}
+Dimensions : {$fact1.dimensions.join(', ','=')}
+Unit : {$fact1.unit}
+Decimals: {$fact1.decimals}
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}"
+
+
+SEVERITY error
+
+effectiveDate $effective_dates[$rule_id]
+
+assert US.0085.9365 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+/** Identify if the element DeferredTaxAssetsLiabilitiesNet is used in the filing **/
+
+$fact1 = {@concept = DeferredTaxAssetsLiabilitiesNet}
+
+if exists($fact1) 
+	
+	$all_ancestors = navigate summation-item ancestors from DeferredTaxAssetsLiabilitiesNet returns (target-name);
+
+	/** Determine if Assets appears in the list of ancestors of DeferredTaxAssetsLiabilitiesNet  **/
+
+	if (set(Assets) intersect $all_ancestors.to-set).length > 0
+		true
+	else
+		false
+else
+	skip
+	
+message
+
+"The element DeferredTaxAssetsLiabilitiesNet has been reported with a value of {$fact1}, this element is also included as a calculation descendant of Assets in the financial statements. This element is a footnote element and should not appear in the face financial statements.
+
+Period :{$fact1.period}
+Dimensions : {$fact1.dimensions.join(', ','=')}
+Unit : {$fact1.unit}
+Decimals: {$fact1.decimals}
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}
+"
+
+SEVERITY error
+
+effectiveDate $effective_dates[$rule_id]
+
+assert US.0085.9367 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+/** Identify if the element DeferredTaxLiabilities is used in the filing **/
+
+$fact1 = {@concept = DeferredTaxLiabilities}
+
+if exists($fact1) 
+	
+	$all_ancestors = navigate summation-item ancestors from DeferredTaxLiabilities returns (target-name);
+
+	/** Determine if Liabilities or LiabilitiesAndStockholdersEquity appears in the list of ancestors of DeferredTaxLiabilities  **/
+
+	if (set(Liabilities,LiabilitiesAndStockholdersEquity) intersect $all_ancestors.to-set).length > 0
+		true
+	else
+		false
+else
+	skip
+	
+message
+
+"The element DeferredTaxLiabilities has been reported with a value of {$fact1}, this element is also included as a calculation descendant of Liabilities or  LiabilitiesAndStockholdersEquity  in the financial statements. This element is a footnote element and should not appear in the face financial statements.
+
+Period :{$fact1.period}
+Dimensions : {$fact1.dimensions.join(', ','=')}
+Unit : {$fact1.unit}
+Decimals: {$fact1.decimals}
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}"
+
+
+SEVERITY error
+
+effectiveDate $effective_dates[$rule_id]

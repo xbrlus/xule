@@ -1,0 +1,63 @@
+/**
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: US GAAP 2018
+**/
+
+rule-name-prefix DQC
+
+assert US.0011 satisfied
+
+for ($x in $dim_items)
+	$rule_suffix_id = $x[1];
+	$line_item = [@concept = $x[2]];
+	$network_location_Line_item = filter taxonomy().networks(parent-child) where $item.concepts.contains($line_item.concept) returns $item.role.uri;
+	$dim_line_item = $x[3];
+	$axis =  $x[4];
+	$member =  $x[5];
+	$weight = $x[6];
+	$dim_equivalent = [@concept = $dim_line_item @$axis = $member];
+	$network_location_dim_equivalent = filter taxonomy().networks(parent-child) 
+					where $item.concepts.contains($dim_equivalent.concept) and 
+					$item.concepts.contains(taxonomy().concept($x[4])) and 
+					$item.concepts.contains(taxonomy().concept($member))  
+					returns $item.role.uri
+	tolerance_for_decimals_sign_flip($line_item, $dim_equivalent, 0, $weight)
+
+message
+"It is expected that {$line_item.name.local-name} with a value of {$line_item} reported in the network role {$network_location_Line_item.join(', ')} should be equal to the dimensionally qualified concept, {$dim_equivalent.name.local-name} with the dimension {$dim_equivalent.dimensions.join(', ',' = ')} and a reported value of {$dim_equivalent} multiplied by {$weight}. This value appears in the network role {$network_location_dim_equivalent.join(', ')}. This error occurs when the dimensionally qualified fact is not equal to the value input for the non dimensional item.
+
+The properties of this {$line_item.name} fact are:
+
+Period : {$line_item.period}
+Dimensions : {$line_item.dimensions.join(', ',' = ')}
+Unit : {$line_item.unit}
+Decimals of {$line_item.name.local-name} : {$line_item.decimals}
+Decimals of {$dim_equivalent.name.local-name} : {$dim_equivalent.decimals}
+Rule version: {$ruleVersion}
+"
+
+severity error
+
+rule-suffix
+$rule_suffix_id
+
+effectiveDate $effective_dates[$rule_suffix_id]
+
+
+
+
+
+function tolerance_for_decimals_sign_flip($left, $right, $decimal_tolerance_factor, $weight)
+$tolerance1 = if ($left.decimals < $right.decimals) 
+					$left.decimals
+				else 	
+					$right.decimals;
+$tolerance2 = (10.power(-1 * $tolerance1)) * $decimal_tolerance_factor;
+
+if (abs(round($left,$tolerance1) - round($right,$tolerance1)*$weight) > $tolerance2) 
+	true
+else 
+	false 

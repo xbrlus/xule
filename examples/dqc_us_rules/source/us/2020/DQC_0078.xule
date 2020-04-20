@@ -1,0 +1,44 @@
+/**
+
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: US GAAP 2020
+
+**/
+
+/**  **/
+
+
+rule-name-prefix DQC
+
+assert US.0078.7655 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+$ComponentAmount = {@concept in list(LimitedLiabilityCompanyLLCOrLimitedPartnershipLPManagingMemberOrGeneralPartnerOwnershipInterest, MinorityInterestOwnershipPercentageByParent, SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest, LimitedLiabilityCompanyLLCOrLimitedPartnershipLPMembersOrLimitedPartnersOwnershipInterest, MinorityInterestOwnershipPercentageByNoncontrollingOwners)};
+
+
+$Member = $ComponentAmount.dimension(srt:OwnershipAxis);
+
+$Member == none
+
+
+message
+"The filer has reported a value for the element {$ComponentAmount.concept.name} with a value of {$ComponentAmount} without using the axis OwnershipAxis. This axis must be used when reporting a value for {$ComponentAmount.concept.name}. Please refer to the FASB implementation guide on Dimensional Modeling for Disclosures of Consolidated and Nonconsolidated Entities on the FASB website.
+
+The properties of this {$ComponentAmount.concept.name} fact are:
+Period :{$ComponentAmount.period}
+Dimensions : {$ComponentAmount.dimensions.join(', ','=')}
+Unit : {$ComponentAmount.unit}
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}"
+
+
+SEVERITY error
+
+rule-focus $ComponentAmount
+
+effectiveDate $effective_dates[$rule_id]
+

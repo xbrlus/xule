@@ -1,0 +1,117 @@
+/**
+
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: US GAAP 2016
+
+**/
+
+rule-name-prefix DQC
+
+assert US.0046.6839 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+EffectOfExchangeRateOnCashAndCashEquivalents 
+in 
+navigate summation-item descendants 
+from NetCashProvidedByUsedInContinuingOperations returns set (target-name)
+
+message
+"The element NetCashProvidedByUsedInContinuingOperations (Net Cash Provided by (Used in) Continuing Operations) does not include EffectOfExchangeRateOnCashAndCashEquivalents (Effect of Exchange Rate on Cash and Cash Equivalents) as defined in the US GAAP Taxonomy.
+
+However, in the companies extension taxonomy NetCashProvidedByUsedInContinuingOperations includes EffectOfExchangeRateOnCashAndCashEquivalents as a summation-child. Consider using either CashAndCashEquivalentsPeriodIncreaseDecrease or CashPeriodIncreaseDecrease,  instead of NetCashProvidedByUsedInContinuingOperations.
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}"
+
+severity error
+effectiveDate $effective_dates[$rule_id]
+
+
+
+assert US.0046.6840 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+EffectOfExchangeRateOnCashAndCashEquivalentsContinuingOperations 
+in 
+navigate summation-item descendants 
+from NetCashProvidedByUsedInContinuingOperations returns set (target-name)
+
+message
+"The element NetCashProvidedByUsedInContinuingOperations (Net Cash Provided by (Used in) Continuing Operations) does not include EffectOfExchangeRateOnCashAndCashEquivalentsContinuingOperations (Effect of Exchange Rate on Cash and Cash Equivalents, Continuing Operations) as defined in the US GAAP Taxonomy.
+
+However, in the companies extension taxonomy NetCashProvidedByUsedInContinuingOperations includes EffectOfExchangeRateOnCashAndCashEquivalentsContinuingOperations as a summation-child. Consider using either CashAndCashEquivalentsPeriodIncreaseDecrease or CashPeriodIncreaseDecrease,  instead of NetCashProvidedByUsedInContinuingOperations.
+
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}"
+
+severity error
+effectiveDate $effective_dates[$rule_id]
+
+assert US.0046.6841 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+EffectOfExchangeRateOnCashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents 
+in 
+navigate summation-item descendants 
+from NetCashProvidedByUsedInContinuingOperations returns set (target-name)
+
+message
+"The element NetCashProvidedByUsedInContinuingOperations (Net Cash Provided by (Used in) Continuing Operations) does not include EffectOfExchangeRateOnCashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents (Effect of Exchange Rate on Cash and Cash Equivalents, Restricted Cash and Restricted Cash Equivalents) as defined in the US GAAP Taxonomy.
+
+However, in the companies extension taxonomy NetCashProvidedByUsedInContinuingOperations includes EffectOfExchangeRateOnCashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents as a summation-child. Consider using either CashAndCashEquivalentsPeriodIncreaseDecrease or CashPeriodIncreaseDecrease,  instead of NetCashProvidedByUsedInContinuingOperations.
+
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}"
+
+severity error
+effectiveDate $effective_dates[$rule_id]
+
+
+assert US.0046.6842 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+EffectOfExchangeRateOnCashAndCashEquivalents 
+in 
+navigate summation-item descendants 
+from CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect returns set (target-name)
+
+message
+"The element CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect (Cash and Cash Equivalents, Period Increase (Decrease), Excluding Exchange Rate Effect) does not include EffectOfExchangeRateOnCashAndCashEquivalents (Effect of Exchange Rate on Cash and Cash Equivalents) as defined in the US GAAP Taxonomy.
+
+However, in the companies extension taxonomy CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect includes EffectOfExchangeRateOnCashAndCashEquivalents as a summation-child. Consider using either CashAndCashEquivalentsPeriodIncreaseDecrease or CashPeriodIncreaseDecrease,  instead of CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect.
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}"
+
+severity error
+effectiveDate $effective_dates[$rule_id]
+
+assert US.0046.7480 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+EffectOfExchangeRateOnCashAndCashEquivalentsDiscontinuedOperations 
+in 
+navigate summation-item descendants 
+from NetCashProvidedByUsedInDiscontinuedOperations returns set (target-name)
+
+message
+"The element NetCashProvidedByUsedInDiscontinuedOperations (Net Cash Provided by (Used in) Discontinued Operations) does not include EffectOfExchangeRateOnCashAndCashEquivalentsDiscontinuedOperations (Effect of Exchange Rate on Cash and Cash Equivalents, Discontinued Operations) as defined in the US GAAP Taxonomy.
+
+However, in the companies extension taxonomy NetCashProvidedByUsedInDiscontinuedOperations includes EffectOfExchangeRateOnCashAndCashEquivalentsDiscontinuedOperations as a summation-child. Consider using either CashAndCashEquivalentsPeriodIncreaseDecrease or CashPeriodIncreaseDecrease,  instead of NetCashProvidedByUsedInDiscontinuedOperations.
+
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}"
+
+severity error
+effectiveDate $effective_dates[$rule_id]

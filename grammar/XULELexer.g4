@@ -1,6 +1,6 @@
 lexer grammar XULELexer;
 
-BLOCK_COMMENT: ('/*' .*? '*/') -> skip;
+BLOCK_COMMENT: ('/*' .*? '*/') -> channel(HIDDEN);
 
 OPEN_BRACKET: '[';
 CLOSE_BRACKET: ']';
@@ -30,7 +30,7 @@ SINGLE_QUOTED_STRING: '\'' .*? '\'';
 WHERE: W H E R E;
 WHEN: W H E N;
 
-URL: 'http' ('s')? '://' (.*? '/')* .*? ('\n' | '\r');
+URL: 'http' ('s')? '://' (.*? '/')*? .*? ('\n' | '\r');
 UNIT: U N I T;
 
 TRUE: T R U E;
@@ -41,22 +41,22 @@ STOP: S T O P;
 START: S T A R T;
 SEVERITY: S E V E R I T Y;
 
+RULE_NAME_PREFIX: R U L E MINUS N A M E MINUS P R E F I X;
 ROLE: R O L E;
 RETURNS: R E T U R N S;
 
-PERIOD: P E R I O D;
-
+OUTPUT_ATTRIBUTE: O U T P U T MINUS A T T R I B U T E;
 OUTPUT: O U T P U T;
 OR: O R;
 
 NOT: N O T;
-NONE: N O N E;
 NETWORK: N E T W O R K;
 NAVIGATE: N A V I G A T E;
 NAMESPACE: N A M E S P A C E;
 
 MESSAGE: M E S S A G E;
 
+INTERSECT: I N T E R S E C T;
 INSTANT: I N S T A N T;
 INCLUDE: I N C L U D E;
 IN: I N;
@@ -77,6 +77,8 @@ DEBIT: D E B I T;
 
 CUBE: C U B E;
 CREDIT: C R E D I T;
+COVERED_DIMS: C O V E R E D MINUS D I M S;
+COVERED: C O V E R E D;
 CONSTANT: C O N S T A N T;
 CONCEPT: C O N C E P T;
 

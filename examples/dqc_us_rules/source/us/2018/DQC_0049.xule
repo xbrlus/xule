@@ -1,0 +1,51 @@
+/**
+
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: US GAAP 2018
+Release Version 6.0
+**/
+
+rule-name-prefix DQC
+
+assert US.0049.7483 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+$must_be_present_concepts = set('CashAndCashEquivalentsPeriodIncreaseDecrease','CashPeriodIncreaseDecrease','CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect','CashCashEquivalentsRestrictedCashandRestrictedCashEquivalentsPeriodIncreaseDecreaseIncludingExchangeRateEffect','CashCashEquivalentsRestrictedCashandRestrictedCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect')
+
+$nonallowed_root_elements = filter (navigate summation-item descendants from CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect taxonomy $us-gaap returns set (target-name)) returns $item.local-name
+
+$networkPresRole = filter taxonomy().networks(parent-child) where ($item.concept-names.contains(StatementOfCashFlowsAbstract) and $item.role.uri.lower-case.contains('cashflow')) and  $item.role.description.contains('- Statement ') and not $item.role.uri.lower-case.contains('parenthetical') returns $item.role;
+
+		
+/* This uses  navigation. It finds the root relationships and returns the networks. Since it  returns a set, the dups will be eliminated. */
+
+for ($calcNetwork in 
+	filter taxonomy().networks(summation-item) where $item.role in $networkPresRole)
+	$roots = set(
+		for $root in $calcNetwork.roots 
+			if ($root.name.namespace-uri != $extension_ns and $root.name != NoncashOrPartNoncashAcquisitionNetNonmonetaryAssetsAcquiredLiabilitiesAssumed1)
+				$root.name.local-name
+			else
+				none)
+				
+	$root_string	= $roots.join(', ');
+
+	($roots intersect $must_be_present_concepts).length > 0 and
+	($roots intersect $nonallowed_root_elements).length > 0 
+
+
+		
+message
+"The following elements {$root_string} are parent (root) elements defined in the calculation relationship for the cash flow statement using the group {$calcNetwork.role.uri}. The cash flow statement should only have one calculation parent for durational concepts representing the increase or decrease in cash during the period. If the company has adopted ASU-2016-18 then the root element used to represent the aggregate change in cash should be the element CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseIncludingExchangeRateEffect.  If the company specifically excludes the exchange rate effect from the total then the element CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect should be used.
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}"
+
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+

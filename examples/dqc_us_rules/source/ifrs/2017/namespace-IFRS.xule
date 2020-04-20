@@ -1,0 +1,42 @@
+/** 
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: IFRS 2017
+Original Release: Version 6
+**/
+
+
+namespace iso4217 = http://www.xbrl.org/2003/iso4217
+namespace dei= https://xbrl.sec.gov/dei/2018-01-31
+namespace http://xbrl.ifrs.org/taxonomy/2017-03-09/ifrs-full
+namespace ifrs-full = http://xbrl.ifrs.org/taxonomy/2017-03-09/ifrs-full
+namespace nonnum = http://www.xbrl.org/dtr/type/non-numeric
+namespace xbrli = http://www.xbrl.org/2003/instance
+namespace num = http://www.xbrl.org/dtr/type/numeric
+
+namespace country = http://xbrl.sec.gov/country/2017-01-31
+namespace exch = http://xbrl.sec.gov/exch/2018-01-31
+namespace currency = http://xbrl.sec.gov/currency/2017-01-31
+namespace invest = http://xbrl.sec.gov/invest/2013-01-31
+namespace naics = http://xbrl.sec.gov/naics/2017-01-31
+namespace sic = http://xbrl.sec.gov/sic/2011-01-31
+namespace stpr = http://xbrl.sec.gov/stpr/2018-01-31
+namespace us-gaap = http://fasb.org/us-gaap/2017-01-31
+
+/** Just in case someone uses the srt taxonomy **/
+namespace srt = http://fasb.org/srt/2018-01-31
+
+
+/**Prior**/
+namespace country_2016 = http://xbrl.sec.gov/country/2017-01-31
+namespace exch_2017 = http://xbrl.sec.gov/exch/2017-01-31 
+namespace exch_2016 = http://xbrl.sec.gov/exch/2016-01-31 
+namespace currency_2016 = http://xbrl.sec.gov/currency/2016-01-31
+namespace stpr_2011 = http://xbrl.sec.gov/stpr/2011-01-31
+namespace naics_2011 = http://xbrl.sec.gov/naics/2011-01-31
+namespace dei_2014 = http://xbrl.sec.gov/dei/2014-01-31
+
+
+

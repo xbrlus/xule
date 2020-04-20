@@ -1,0 +1,79 @@
+/**
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: US GAAP 2018
+**/
+
+
+rule-name-prefix DQC
+
+assert US.0013 satisfied
+
+$IncomeBeforeTax = {@unit=* {if (exists({@IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest }))
+							{@IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest }
+					else
+						if (exists({@IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments}))
+						{{@IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments} + 
+						{@IncomeLossFromEquityMethodInvestments}}
+						else
+							if (exists({@IncomeLossFromContinuingOperationsBeforeIncomeTaxesDomestic}) or 
+	  							exists({@IncomeLossFromContinuingOperationsBeforeIncomeTaxesForeign}))
+								{{@IncomeLossFromContinuingOperationsBeforeIncomeTaxesDomestic} +
+								{@IncomeLossFromContinuingOperationsBeforeIncomeTaxesForeign}  +
+								{@IncomeLossFromEquityMethodInvestments}}
+							else
+								skip}};
+
+for ($x in $effective_tax_rates)
+	$rule_suffix_id = $x[1];
+	
+	$IncomeBeforeTax > 0
+	and
+	exists({@concept = $x[2] @unit=* where $fact < 0 
+		and not match_set_substring($fact, $exclude_non_neg_string_members) 
+		and (to-set($fact.dimensions-explicit.values.name) intersect $exclude_non_neg_members).length == 0 
+		and ($fact.dimensions.keys.name intersect $exclude_non_neg_axis).length == 0
+		and not_elim_adjust($fact, $exclude_non_neg_axis_members)
+		}#fact1)
+
+message
+"It is expected that {$fact1.name} with a value of {$fact1} will be reported with a value equal to or greater than zero if net income before tax is positive. In this case net income before tax is {$IncomeBeforeTax}. The value reported for the tax rate reconciliation item is less than zero. The preparer should consider if the value is input correctly for this assertion and, after considering the appropriateness of the input, if incorrect, input the amount as a positive (i.e., absolute) value and provide a negated label, if desired, for rendering purposes. 
+
+The properties of this {$fact1.concept} fact are:
+Period :{$fact1.period}
+Dimensions : {$fact1.dimensions.join(', ','=')}
+Unit : {$fact1.unit}
+Rule version: {$ruleVersion}"
+
+rule-suffix
+$rule_suffix_id
+
+severity error
+
+effectiveDate $effective_dates[$rule_suffix_id]
+
+constant $effective_tax_rates = list(
+			list('2774',EffectiveIncomeTaxRateReconciliationTaxCredits),
+			list('2776',EffectiveIncomeTaxRateReconciliationDeductionsQualifiedProductionActivities),
+			/** list('2777',EffectiveIncomeTaxRateReconciliationNondeductibleExpense), Removed **/ 
+			list('2778',EffectiveIncomeTaxRateReconciliationTaxCreditsResearch),
+			list('2779',EffectiveIncomeTaxRateReconciliationDeductionsOther),
+			list('2780',EffectiveIncomeTaxRateReconciliationNondeductibleExpenseLifeInsurance),
+			list('2781',EffectiveIncomeTaxRateReconciliationTaxCreditsOther),
+			list('2782',EffectiveIncomeTaxRateReconciliationTaxCreditsInvestment),
+			list('2783',EffectiveIncomeTaxRateReconciliationTaxCreditsForeign),
+			list('2784',EffectiveIncomeTaxRateReconciliationDeductionsDividends),
+			list('2785',EffectiveIncomeTaxRateReconciliationRepatriationOfForeignEarnings),
+			list('2871',EffectiveIncomeTaxRateReconciliationTaxHolidays),
+			list('2872',EffectiveIncomeTaxRateReconciliationNondeductibleExpenseResearchAndDevelopment),
+			list('2873',EffectiveIncomeTaxRateReconciliationDeductions),
+			list('2874',EffectiveIncomeTaxRateReconciliationNondeductibleExpenseImpairmentLosses),
+			list('3001',EffectiveIncomeTaxRateReconciliationDeductionsEmployeeStockOwnershipPlanDividends),
+			list('3002',EffectiveIncomeTaxRateReconciliationNondeductibleExpenseMealsAndEntertainment),
+			list('3439',EffectiveIncomeTaxRateReconciliationDeductionsExtraterritorialIncomeExclusion),
+			list('3440',EffectiveIncomeTaxRateReconciliationNondeductibleExpenseCharitableContributions),
+			list('3441',EffectiveIncomeTaxRateReconciliationRepatriationForeignEarningsJobsCreationActOf2004)
+			)
+

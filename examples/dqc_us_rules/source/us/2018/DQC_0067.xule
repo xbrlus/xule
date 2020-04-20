@@ -1,0 +1,64 @@
+/**
+
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: US GAAP 2018
+
+**/
+
+RULE-NAME-PREFIX DQC
+
+assert US.0067.7644 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+$RevenueElements = navigate summation-item DESCENDANTS include start from SalesRevenueNet taxonomy $us-gaap returns set (target-name); 
+
+$network440000 = navigate parent-child DESCENDANTS role 'http://fasb.org/us-gaap/role/disclosure/DeferredRevenue' taxonomy $us-gaap where $relationship.target.is-abstract == false and  not($relationship.target.name.local-name == 'GrossTransactionVolume' 
+or $relationship.target.name.local-name == 'DirectCostsOfLeasedAndRentedPropertyOrEquipment' 
+or $relationship.target.name.local-name == 'DeferredRevenue' 
+or $relationship.target.name.local-name == 'DeferredRevenueCurrent' 
+or $relationship.target.name.local-name == 'DeferredRevenueNoncurrent' 
+or $relationship.target.name.local-name == 'IncreaseDecreaseInDeferredRevenue' 
+or $relationship.target.name.local-name == 'RevenueRecognitionPolicyTextBlock' 
+or $relationship.target.name.local-name == 'CostOfSalesPolicyTextBlock'
+or $relationship.target.name.local-name == 'DeferredRevenueAdditions'
+or $relationship.target.name.local-name == 'DeferredRevenueRevenueRecognized1'
+or $relationship.target.name.local-name == 'DeferredRevenueRefundPayments1'
+or $relationship.target.name.local-name == 'DeferredRevenuePeriodIncreaseDecrease'
+or $relationship.target.name.local-name == 'DeferredRevenueByArrangementDisclosureTextBlock') returns set (target-name);
+
+$PriorStandard = $RevenueElements + $network440000; 
+
+
+$network606000 = navigate parent-child DESCENDANTS role 'http://fasb.org/us-gaap/role/disclosure/RevenuefromContractswithCustomers' taxonomy $us-gaap where $relationship.target.is-abstract == false  and  not($relationship.target.name.local-name == 'ExciseAndSalesTaxes')
+returns set (target-name);
+
+/**$facts_in_prior_standard = list({@concept in ($PriorStandard) @StatementScenarioAxis != * @period=*});**/
+$facts_in_606_standard_dups = list({covered @concept in ($network606000) @StatementScenarioAxis != *});
+$facts_in_606_standard = (filter $facts_in_606_standard_dups returns $item.name.local-name).to-set;
+
+any(list(exists({covered @concept in ($network606000) @@StatementScenarioAxis != *  @period=* @unit}))) and exists({covered nonils @concept in ($PriorStandard) @@StatementScenarioAxis != * @period=*}#revRec)
+
+
+message
+"The filing has reported a value of \"{$revRec.string.substring(1,300)}\" for the element {$revRec.name}. This is a revenue recognition element that is not a component of FASB 606 and does not appear in disclosure group 606000. However the following elements have also been tagged in the filing that indicate that the FASB 606  revenue recognition standard has been adopted:
+{$facts_in_606_standard.sort.join(',\n')}
+
+Either the new revenue recognition elements must be used or the old revenue recognition elements should be used but they should not be combined in the same filing.  
+
+The properties of this {$revRec.concept} fact are:
+Period :{$revRec.period}
+Dimensions : {$revRec.dimensions.join(', ','=')}
+Unit : {$revRec.unit}
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}"
+
+
+SEVERITY error
+
+rule-focus $revRec
+
+effectiveDate $effective_dates[$rule_id]

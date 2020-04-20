@@ -1,0 +1,56 @@
+/**
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: IFRS 2017
+Original Release: Version 6
+**/
+
+
+rule-name-prefix DQC
+
+assert IFRS.0041.73 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+/** Get the dimension defaults used in  the filing **/
+
+$filing_defaults = navigate dimension-default descendants returns  set (source-name, target-name) ;
+
+/** Get the dimesnios defaults from the IFRS Taxonomy **/
+
+$taxonomy_defaults = navigate dimension-default descendants taxonomy $ifrs-gaap returns  set (source-name, target-name);
+
+/** Get relationships in filing not in taxonomy **/
+
+$default_in_filing_not_in_taxonomy = $filing_defaults - $taxonomy_defaults;
+
+$filing_details_defaults = navigate dimension-default descendants include start returns  (source-name, target-name, source, role) as dictionary;
+
+for ($x in $default_in_filing_not_in_taxonomy)
+	$default_details_list = filter $filing_details_defaults where $item['source-name'] == $x[1];
+	$default_details = $default_details_list[1]
+	if (not is_extension($default_details['source'],$all_ifrs_base_taxonomies))
+		$dim_name = $default_details['source-name'];
+		$dim_concept = $default_details['source'].name.local-name;
+		$dim_role = $default_details['role'].description;
+		$dim_base_names = navigate dimension-default descendants from $default_details['source-name'] taxonomy $ifrs-gaap returns (target-name);
+		/** In the 2017 and 2016 IFRS Taxonomies a filer should use the ContinuingOperationsMember as the default on the  ContinuingAndDiscontinuedOperationsAxis rather than the one defined in the taxonomy. **/
+		if ($dim_base_names.length == 0 or $dim_concept == 'ContinuingAndDiscontinuedOperationsAxis')
+			false
+		else 
+			$dim_base_name = $dim_base_names[1];
+			$mem_name = $default_details['target-name'];
+			true
+	else
+		false
+
+message
+"The dimension default defined for the axis in the base Taxonomy should not be changed in a company extension taxonomy. The default for the {$dim_name} in the base taxonomy is {$dim_base_name}, but the default has been replaced with {$mem_name} in the extension taxonomy role {$dim_role}.  This issue is addressed in Question E.16 (Updated 02/05/2013) (formerly Question 38) of the SEC Staff Interpretations and FAQs Related to Interactive Data Disclosure.
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+

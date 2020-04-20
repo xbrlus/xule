@@ -1,0 +1,188 @@
+/** 
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+ Shared Function Library IFRS & US
+**/
+
+
+/** 
+ * compare_baseCalc_to_extensionCalc
+ * 
+ * This function compares the calc in the base taxonomy to the calc in the extension taxonomy to identify any common elements.
+ * 
+ * @param concept - $baseConcept - Passes base taxonomy concept .
+ * @param taxonomy - $baseTaxonommy - Passes the base taxonomy to use .  i.e. $us-gaap
+ * @param concept - $extensionConcept - Passes extension taxonomy concept.
+ * @param list - $exceptions - Passes a list of exception items to exclude. i.e. cashflow_exceptions
+ * @return set - Returns a set of target qnames.
+ **/
+
+function compare_baseCalc_to_extensionCalc($base_concept, $base_taxonomy, $extension_concept, $exceptions)
+	$extensionNames = navigate summation-item descendants from $extension_concept returns set (target-name) 
+	navigate summation-item descendants from $base_concept taxonomy $base_taxonomy  where $relationship.target.name in $extensionNames and not ($relationship.target.name in $exceptions) returns set (target-name) 
+
+
+/** 
+ * is_extension
+ * 
+ * This function Checks if the concept is an extension taxonomy element  .
+ * 
+ * @param concept - $test_extension - Passes concept to check if it is an extension concept.
+ * @param set - $base_taxonomies - Set of taxonomies that comprise the base taxonomies.
+ * @return boolean - Returns true if the concept is an extension concept.
+ **/
+
+function is_extension($test_extension, $base_taxonomies)
+		all(filter $base_taxonomies returns $item.concept($test_extension.name) == none)
+	
+/** 
+ * is_base
+ * 
+ * This function Checks if the concept is a base taxonomy element  .
+ * 
+ * @param concept - $test_base - Passes concept to check if it is a base concept.   
+  * @param concept - $base_taxonomies - Set of taxonomies that comprise the base taxonomies. -> $all_base_taxonomies
+ * @return boolean - Returns true if the concept is a base concept.
+**/
+
+function is_base($test_base, $base_taxonomies)
+	any(filter $base_taxonomies returns $item.concept($test_base.name) != none)
+
+/** 
+ * effective_weight_is_positive
+ * 
+ * This function checks if effective weight between two concepts is positive.
+ * 
+ * @param concept - $topConcept - Passes a parent concept to determine the effective weight relative to a calculation decendant.
+ * @param concept - $bottomConcept - Passes a descendant concept to compare against an ancestor defined in the first parameter
+ * @return boolean - Returns true if the effective weight is positive else returns false
+**/
+
+function effective_weight_is_positive($topConcept,$bottomConcept)
+	$effectiveWeight = taxonomy().effective-weight-network($topConcept, $bottomConcept);
+	for ($network in $effectiveWeight)
+		$network[1] > 0
+
+/** 
+ * effective_weight_is_negative
+ * 
+ * This function checks if effective weight between two concepts is negative
+ * 
+ * @param concept - $topConcept - Passes a parent concept to determine the effective weight relative to a calculation decendant.
+ * @param concept - $bottomConcept - Passes a descendant concept to compare against an ancestor defined in the first parameter
+ * @return boolean - Returns true if the effective weight is negative else returns false
+**/
+
+function effective_weight_is_negative($topConcept,$bottomConcept)
+	$effectiveWeight = taxonomy().effective-weight-network($topConcept, $bottomConcept);
+	for ($network in $effectiveWeight)
+		$network[1] < 0
+		
+		
+/**
+ * get_member_dims
+ *
+ * This function returns a dictionary of all the dimensions and roles  associated with a given member.
+ *
+ * @param concept - $member - Passes a member to the function to determine the role and dimension.
+ * @return dictionary - Returns a dictionary of the dimension, member and the role
+**/
+		
+function get_member_dims($member)		
+$domain_member_role = filter taxonomy().networks(domain-member) returns $item.role;
+$list_dict = list(for ($network in $domain_member_role)
+        $dim_items = navigate dimensions dimension-member ancestors from  $member role $network returns target;
+        $dimension_list = filter $dim_items where $item in taxonomy().dimensions.concept returns $item.name;
+        if $dimension_list.length == 0
+	 	skip
+	    else
+			for $x in range($dimension_list.length)
+				dict(list('dimension', $dimension_list[$x]),list('member',$member),list('role',$network.uri)));
+$list_dict
+
+/** 
+ * tolerance_for_decimals
+ * 
+ * This function works out the tolerance between 2 values with different decimals with a tolerance factor.
+ * 
+ * @param factset - $left - Passes a factset value to compare to a second parameter called $right
+ * @param factset - $right - Passes a factset value to compare to the first parameter called $left
+ * @param integer - $decimal_tolerance_factor - Integer value that defines how different the values can be
+ * @return boolean - Returns true if the two values provided are outside of the tolerance range.
+**/
+
+function tolerance_for_decimals($left, $right, $decimal_tolerance_factor)
+
+$left_decimal = if $left.decimals == none
+					inf else $left.decimals;
+					
+$right_decimal = if $right.decimals == none
+					inf else $right.decimals;
+					
+$tolerance1 = if ($left_decimal < $right_decimal) 
+					$left_decimal
+				else 	
+					$right_decimal;
+$tolerance2 = if ($tolerance1 == inf) 
+					0
+				else 	
+					(10.power(-1 * $tolerance1)) * $decimal_tolerance_factor;
+					
+$left = if $left == none
+			0
+		else
+			$left;
+
+$right = if $right == none
+			0
+		else
+			$right;
+
+if (abs(round($left,$tolerance1) - round($right,$tolerance1)) > $tolerance2) 
+	true
+else 
+	false 
+
+/** 
+ * match_set_substring
+ * 
+ * This function determines if the name of the dimension member of a fact includes the sub-string passed in the second parameter.
+ *
+**/
+	
+function match_set_substring($fact, $match_member_string_component)
+any(set(for $x in $fact.dimensions-explicit.values.name.local-name.lower-case
+	for $y in $match_member_string_component
+	$y in $x))
+	
+
+/**
+ * not_elim_adjust
+ *
+ * This function returns a boolean indicating if the fact has a dimension that can be negative. If true this means the fact does not have a valid reason to be negative.
+ *
+ * @param factset - $fact - Passes a fact to the function to determine if the fact has a dimension and member that allows it to be negative.
+   @param list - $list - Passes a list of lists with axis member combinations that allow negatie values -> i.e. $exclude_non_neg_axis_members
+ * @return boolean - Returns a boolean of false if the value can be negative.
+**/
+
+function not_elim_adjust($fact, $non_neg_axis_members)
+
+/* never touch this */
+all(set(
+		for ($x in $non_neg_axis_members)
+		/* get the axis name which is the first thing in the list */
+			$axis_name = $x[1];
+
+		/* get the set of elimination and adjustment members, which is the second thing on the list */
+			$elim_adjust_members = $x[2];
+			
+			if ($fact.dimension($axis_name)!= none) 
+				not $elim_adjust_members.contains($fact.dimension($axis_name).name)
+			else
+				true
+		)
+)
+

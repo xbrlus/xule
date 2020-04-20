@@ -1,0 +1,48 @@
+/**
+
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: US GAAP 2017
+
+**/
+
+/** https://www.sec.gov/Archives/edgar/data/1105533/000117184318003973/args-20180331.xml --2018**/
+/** https://www.sec.gov/Archives/edgar/data/8063/000000806318000010/atro-20180331.xml --2017 **/
+
+rule-name-prefix DQC
+
+assert US.0076.7653 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+exists({covered-dims @concept in list(RevenueRemainingPerformanceObligationPercentage, RevenueRemainingPerformanceObligation) @@RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis = * @unit = * @period = * }#obligation)
+ 
+and not
+(
+	/** This is for the 2018 taxonomy and companies who have extended for it in the 2017 taxonomy **/
+	 exists({covered-dims @concept.local-name = "RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1" @@RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis = * @period = * }) 
+	or 
+	/** This is for those who have used the 2017 taxonomy element The period is out of alignment as this was a duration element in the 2017 taxonomy.**/
+	 exists({covered-dims @RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod @@RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis = * @period = *})
+)
+
+
+message
+"The filer has reported a value for {$obligation.concept} with a value of {$obligation} using the dimension member {$obligation.dimension(RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis)} The filer has not reported a duration value for the corresponding elements of either RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod (2017 taxonomy) or RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1 (2018 and later).
+
+The properties of this {$obligation.concept} fact are:
+Period :{$obligation.period}
+Dimensions : {$obligation.dimensions.join(', ','=')}
+Unit : {$obligation.unit}
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}"
+
+
+SEVERITY error
+
+rule-focus $obligation
+
+effectiveDate $effective_dates[$rule_id]
+
