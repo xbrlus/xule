@@ -7,7 +7,7 @@ xuleFile: (topLevelDeclaration | assertion | output)* EOF;
 topLevelDeclaration:
     namespaceDeclaration | constantDeclaration | functionDeclaration | outputAttributeDeclaration | ruleNamePrefixDeclaration;
 
-namespaceDeclaration: NAMESPACE identifier ASSIGN URL;
+namespaceDeclaration: NAMESPACE (identifier ASSIGN)? URL;
 outputAttributeDeclaration: OUTPUT_ATTRIBUTE identifier;
 ruleNamePrefixDeclaration: RULE_NAME_PREFIX identifier;
 
@@ -21,50 +21,55 @@ assertion: ASSERT ASSERT_RULE_NAME (ASSERT_SATISFIED | ASSERT_UNSATISFIED)
     (constantDeclaration | functionDeclaration | assignment | expression (MESSAGE expression SEMI?)? (SEVERITY expression)?)+;
 
 constantDeclaration: CONSTANT identifier ASSIGN expression;
-functionDeclaration: FUNCTION identifier OPEN_PAREN (functionArgument (COMMA functionArgument)*)? CLOSE_PAREN body;
+functionDeclaration: FUNCTION identifier OPEN_PAREN (functionArgument (COMMA functionArgument)*)? CLOSE_PAREN block;
 functionArgument: identifier;
 
 /** Expressions */
 expression:
-    OPEN_PAREN expression CLOSE_PAREN |
-    expression SHARP identifier |
     ifExpression | forExpression |
-    expression AND expression |
     expression OR expression |
-    expression (EQUALS | NOT_EQUALS | GREATER_THAN | LESS_THAN) expression |
-    expression NOT? IN expression |
-    expression (PLUS | MINUS) expression |
+    expression AND expression |
+    NOT expression |
+    expression (EQUALS | NOT_EQUALS | GT | LT | GTE | LTE | NOT? IN) expression |
+    expression SIMM_DIFF expression |
+    expression (AND_OP | INTERSECT) expression |
+    expression (PLUS | MINUS | ADD_LR | ADD_L | ADD_R | SUB_LR | SUB_L | SUB_R) expression |
     expression (TIMES | DIV) expression |
-    expression EXP expression |
-    expression INTERSECT expression |
-    (PLUS|MINUS|NOT) expression |
+    (PLUS | MINUS) expression |
+    expression parametersList |
     expression propertyAccess+ |
-    expression propertyAccess* parametersList |
     expression OPEN_BRACKET expression CLOSE_BRACKET |
+    expression SHARP identifier |
+    OPEN_PAREN expression CLOSE_PAREN |
     //"Simple" expressions
     variableRef | literal | factset | filter | navigation;
 
-body: assignment* expression;
+block: assignment* expression;
 
-assignment: identifier ASSIGN expression SEMI?;
-ifExpression: IF expression body ELSE body;
+assignment: identifier ASSIGN block SEMI?;
+ifExpression: IF expression block ELSE block;
 
-forExpression: FOR (OPEN_PAREN forHead CLOSE_PAREN | forHead) body;
+forExpression: FOR (OPEN_PAREN forHead CLOSE_PAREN | forHead) block;
 forHead: identifier IN expression;
 
-parametersList: OPEN_PAREN (expression (COMMA expression)*)? CLOSE_PAREN;
+parametersList: OPEN_PAREN (expression (COMMA expression)* COMMA?)? CLOSE_PAREN;
 
 factset: AT | OPEN_CURLY factsetBody CLOSE_CURLY | OPEN_BRACKET factsetBody CLOSE_BRACKET;
-factsetBody: AT | aspectFilter*;
+factsetBody: AT | (aspectFilter | factset)* | expression;
 aspectFilter:
-    (COVERED | COVERED_DIMS)? AT AT? ((CONCEPT | variableRef) propertyAccess* (ASSIGN | IN))? (expression | TIMES)
-    (AT UNIT ASSIGN (expression | TIMES))?
+    (aspectFilterOptions | aspectFilterOptions? aspectFilterFilter)
     (AS identifier)? (WHERE expression)?;
 
-filter: FILTER expression (WHERE body)? (RETURNS expression)?;
+aspectFilterOptions: (COVERED | COVERED_DIMS) NONILS? | NONILS (COVERED | COVERED_DIMS)?;
+aspectFilterFilter:
+    AT AT? ((CONCEPT | variableRef) propertyAccess* (ASSIGN | IN))? (expression | TIMES) atUnit? | atUnit;
+
+atUnit: AT UNIT ASSIGN (expression | TIMES);
+
+filter: FILTER expression (WHERE block)? (RETURNS expression)?;
 
 navigation: NAVIGATE DIMENSIONS? arcrole? direction levels=INTEGER? (INCLUDE START)? (FROM expression)? (TO expression)?
-    (STOP WHEN expression)? (ROLE role)?
+    (STOP WHEN expression)? (ROLE role)? (DRS_ROLE role)?
     (CUBE identifier)? (TAXONOMY expression)?
     (WHERE expression)?
     (RETURNS ((BY NETWORK returnExpression?) | returnExpression)
@@ -73,7 +78,7 @@ navigation: NAVIGATE DIMENSIONS? arcrole? direction levels=INTEGER? (INCLUDE STA
 returnExpression : (expression | OPEN_PAREN expression (COMMA expression)* CLOSE_PAREN);
 /** This exists so that when suggesting code we can restrict to well-known keywords. */
 arcrole: role;
-role: identifier | stringLiteral;
+role: identifier propertyAccess* | stringLiteral;
 /** This exists so that when suggesting code we can restrict to well-known keywords. */
 direction: identifier;
 
@@ -84,8 +89,8 @@ variableRef: identifier;
 propertyAccess: DOT identifier;
 /** With this rule we cover IDENTIFIER tokens, as well as other tokens (keywords) that we accept as identifiers as well. */
 identifier: IDENTIFIER |
-    AS | BY | CONCEPT | COVERED | CUBE | DICTIONARY | DIMENSIONS | FALSE | NETWORK | ROLE | START | STOP | TAXONOMY |
-    TRUE | WHEN | WHERE;
+    AS | BY | CONCEPT | COVERED | CUBE | DICTIONARY | DIMENSIONS | DRS_ROLE | FALSE | INTERSECT |
+    NETWORK | ROLE | START | STOP | TAXONOMY | TRUE | WHEN | WHERE;
 literal: stringLiteral | NUMBER | booleanLiteral;
 booleanLiteral: TRUE | FALSE;
 stringLiteral: DOUBLE_QUOTED_STRING | SINGLE_QUOTED_STRING;

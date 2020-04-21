@@ -8,7 +8,8 @@
 		{ "include": "#double-quoted-strings" },
 		{ "include": "#single-quoted-strings" },
 		{ "include": "#urls" },
-		{ "include": "#comments" }
+		{ "include": "#block-comments" },
+		{ "include": "#line-comments" }
 	],
 	"repository": {
 		"keywords": {
@@ -35,7 +36,7 @@
 			{
 				"name": "other",
 				"captures": { "3": { "name": "support.function.xule" } },
-				"match": "(^|(?<=\\*/|[\\s=,;'\"()\\[\\]{}]))((?<![a-zA-Z]])-)?(none|not|qname|returns|round|set|skip|substring|taxonomy|where)\\b"
+				"match": "(^|(?<=\\*/|[\\s=,;'\"()\\[\\]{}]))((?<![a-zA-Z]])-)?(none|not|qname|returns|role|round|set|skip|substring|taxonomy|where)\\b"
 			},
 			{
 				"name": "support.function.xule",
@@ -67,16 +68,22 @@
 				"match": "\\\\."
 			}]
 		},
-		"url": {
+		"urls": {
 			"patterns": [{
 				"name": "string.xule",
 				"match": "http[s]?://\\S+"
 			}]
 		},
-		"comments": {
+		"block-comments": {
 			"name": "comment.block.xule",
 			"begin": "/\\*",
 			"end": "\\*/"
+		},
+		"line-comments": {
+			"patterns": [{
+				"name": "comment.line.xule",
+				"match": "//[^\n\r]*"
+			}]
 		}
 	},
 	"scopeName": "source.xule"

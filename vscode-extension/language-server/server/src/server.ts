@@ -169,7 +169,7 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 				severity: DiagnosticSeverity.Error,
 				range: range,
 				message: msg,
-				source: 'ex'
+				source: 'XULE syntax checker'
 			};
 			diagnostics.push(diagnostic);
 		};
@@ -198,7 +198,7 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 				severity: DiagnosticSeverity.Error,
 				range: range,
 				message: msg,
-				source: 'ex'
+				source: 'XULE syntax checker'
 			};
 			diagnostics.push(diagnostic);
 		};
@@ -341,16 +341,17 @@ function closestSubtree(context: ParseTree, line, column) {
 function setupCompletionCore(parser: XULEParser) {
 	let core = new CodeCompletionCore(parser);
 	core.ignoredTokens = new Set([
-		XULEParser.ASSIGN, XULEParser.ASSERT_RULE_NAME,
+		XULEParser.ADD_L, XULEParser.ADD_LR, XULEParser.ADD_R,
+		XULEParser.ASSIGN, XULEParser.ASSERT_RULE_NAME, XULEParser.AT,
 		XULEParser.CLOSE_BRACKET, XULEParser.CLOSE_CURLY, XULEParser.CLOSE_PAREN,
 		XULEParser.COMMA, XULEParser.DIV,
 		XULEParser.DOT, XULEParser.DOUBLE_QUOTED_STRING, XULEParser.EOF, XULEParser.EQUALS,
-		XULEParser.EXP,
-		XULEParser.GREATER_THAN, XULEParser.LESS_THAN, XULEParser.MINUS,
+		XULEParser.GT, XULEParser.GTE, XULEParser.LT, XULEParser.LTE, XULEParser.MINUS,
 		XULEParser.NOT_EQUALS,
 		XULEParser.OPEN_BRACKET, XULEParser.OPEN_CURLY, XULEParser.OPEN_PAREN,
 		XULEParser.PLUS,
-		XULEParser.SEMI, XULEParser.SHARP, XULEParser.SINGLE_QUOTED_STRING,
+		XULEParser.SEMI, XULEParser.SHARP, XULEParser.SIMM_DIFF, XULEParser.SINGLE_QUOTED_STRING,
+		XULEParser.SUB_L, XULEParser.SUB_LR, XULEParser.SUB_R,
 		XULEParser.TIMES
 	]);
 	core.preferredRules = new Set([

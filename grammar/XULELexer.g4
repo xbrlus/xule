@@ -1,6 +1,8 @@
 lexer grammar XULELexer;
 
+LINE_COMMENT: ('//' [^\n\r]*) -> channel(HIDDEN);
 BLOCK_COMMENT: ('/*' .*? '*/') -> channel(HIDDEN);
+WS: (' ' | '\t' | '\n' | '\r' | '\u00A0') -> channel(HIDDEN);
 
 OPEN_BRACKET: '[';
 CLOSE_BRACKET: ']';
@@ -8,15 +10,24 @@ OPEN_PAREN: '(';
 CLOSE_PAREN: ')';
 OPEN_CURLY: '{';
 CLOSE_CURLY: '}';
+AND_OP: '&';
 AT: '@';
 NOT_EQUALS: '!=';
 EQUALS: '==';
 ASSIGN: '=';
 DOT: '.';
 SEMI: ';';
-GREATER_THAN: '>';
-LESS_THAN: '<';
-EXP: '^';
+ADD_LR: '<+>';
+ADD_L: '<+';
+ADD_R: '+>';
+SUB_LR: '<->';
+SUB_L: '<-';
+SUB_R: '->';
+GTE: '>=';
+GT: '>';
+LTE: '<=';
+LT: '<';
+SIMM_DIFF: '^';
 PLUS: '+';
 MINUS: '-';
 TIMES: '*';
@@ -30,7 +41,7 @@ SINGLE_QUOTED_STRING: '\'' .*? '\'';
 WHERE: W H E R E;
 WHEN: W H E N;
 
-URL: 'http' ('s')? '://' (.*? '/')*? .*? ('\n' | '\r');
+URL: 'http' ('s')? '://' ~('\n' | '\r' | ' ' | '\t')+;
 UNIT: U N I T;
 
 TRUE: T R U E;
@@ -50,6 +61,7 @@ OUTPUT: O U T P U T;
 OR: O R;
 
 NOT: N O T;
+NONILS: N O N I L S;
 NETWORK: N E T W O R K;
 NAVIGATE: N A V I G A T E;
 NAMESPACE: N A M E S P A C E;
@@ -57,7 +69,6 @@ NAMESPACE: N A M E S P A C E;
 MESSAGE: M E S S A G E;
 
 INTERSECT: I N T E R S E C T;
-INSTANT: I N S T A N T;
 INCLUDE: I N C L U D E;
 IN: I N;
 IF: I F;
@@ -71,12 +82,11 @@ FALSE: F A L S E;
 ENTITY: E N T I T Y;
 ELSE: E L S E;
 
+DRS_ROLE: D R S MINUS R O L E;
 DIMENSIONS: D I M E N S I O N S;
 DICTIONARY: D I C T I O N A R Y;
-DEBIT: D E B I T;
 
 CUBE: C U B E;
-CREDIT: C R E D I T;
 COVERED_DIMS: C O V E R E D MINUS D I M S;
 COVERED: C O V E R E D;
 CONSTANT: C O N S T A N T;
@@ -93,7 +103,6 @@ INTEGER: [0-9]+;
 
 IDENTIFIER: (IDENTIFIER_COMPONENT ':')? IDENTIFIER_COMPONENT;
 IDENTIFIER_COMPONENT : [$a-zA-Z] [a-zA-Z_\-0-9]*;
-WS: (' ' | '\t' | '\n' | '\r' | '\u00A0') -> channel(HIDDEN);
 
 UNRECOGNIZED_TOKEN: .;
 
