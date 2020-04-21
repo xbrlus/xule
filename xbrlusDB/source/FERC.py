@@ -75,16 +75,16 @@ __sourceInfo__ = {
                   "hasExtensions" : False,
                   "basePrefixSeparator" : "-",
                   "basePrefixPatterns" :
-                    ((r'^http://xbrl.us/',None),
+                    ((r'^http://xbrl.us/',r'[^\/]+$'),
                      (r'^http://xbrl.us/[^/]+/\d\d\d\d-\d\d-\d\d$',r'^http://xbrl.us/([^/]+)/\d\d\d\d-\d\d-\d\d$'),
                      (r'^http://xbrl.us/((dis)|(stm))/',r'^http://[^/]*/([^/]*)/([^/]*)/'),
                      
-                     (r'^http://www.xbrl.org/',None),
+                     (r'^http://www.xbrl.org/',r'.*(xbrl).*/([^\/]+$)'),
                      (r'^http://www.xbrl.org/dtr/',r'^http://[^/]*/[^/]*/[^/]*/([^/]*)'),
                      (r'^http://www.xbrl.org/2009/role/negated',r'^http://[^/]*/[^/]*/[^/]*/([^/]*)'),
                      
-                     (r'^http://xbrl.org/',None),
-                     (r'^http://www.w3.org/',None),
+                     (r'^http://xbrl.org/',r'.*(xbrl).*/([^\/]+$)'),
+                     (r'^http://www.w3.org/',r'[^\/]+$'),
                      (r'^http://ici.org/',None),
                      
                      (r'^http://fasb.org/',r'^http://[^/]*/([^/]*)/'),
@@ -94,6 +94,9 @@ __sourceInfo__ = {
                      (r'^http://xbrl.sec.gov/',r'^http://[^/]*/([^/]*)/'),
                      
                      (r'^http://xbrl.ifrs.org/',r'^http://[^/]*/[^/]*/[^/]*/([^/]*)'),
+                     
+                     (r'^https?://[^/]*ferc.gov/.*/roles/',r'.*(ferc).*/(roles)/([^\\/]+)'),
+                     (r'^https?://[^/]*ferc.gov/',r'.*(ferc).*/([^\/]+$)'), # Takes the text after the last slash
 
                      ),                  
                   "overrideFunctions" : {
