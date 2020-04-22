@@ -89,8 +89,11 @@ variableRef: identifier;
 propertyAccess: DOT identifier;
 /** With this rule we cover IDENTIFIER tokens, as well as other tokens (keywords) that we accept as identifiers as well. */
 identifier: IDENTIFIER |
-    AS | BY | CONCEPT | COVERED | CUBE | DICTIONARY | DIMENSIONS | DRS_ROLE | FALSE | INTERSECT |
-    NETWORK | ROLE | START | STOP | TAXONOMY | TRUE | WHEN | WHERE;
+    AS | ASSERT | BY | CONCEPT | CONSTANT | COVERED | CUBE | DICTIONARY | DIMENSIONS | DRS_ROLE | FALSE | INTERSECT |
+    NETWORK | ROLE | START | STOP | TAXONOMY | TRUE | UNIT | WHEN | WHERE;
 literal: stringLiteral | NUMBER | booleanLiteral;
 booleanLiteral: TRUE | FALSE;
-stringLiteral: DOUBLE_QUOTED_STRING | SINGLE_QUOTED_STRING;
+
+stringLiteral:
+    DOUBLE_QUOTE (STRING_CONTENTS | OPEN_CURLY expression CLOSE_CURLY)* DOUBLE_QUOTE |
+    SINGLE_QUOTE (STRING_CONTENTS | OPEN_CURLY expression CLOSE_CURLY)* SINGLE_QUOTE;

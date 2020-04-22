@@ -42,6 +42,8 @@ let hasConfigurationCapability: boolean = false;
 let hasWorkspaceFolderCapability: boolean = false;
 let hasDiagnosticRelatedInformationCapability: boolean = false;
 
+const LINES_REGEXP = /[^\n\r]*(\r\n|\n|\r)|[^\n\r]+$/g;
+
 connection.onInitialize((params: InitializeParams) => {
 	let capabilities = params.capabilities;
 
@@ -233,7 +235,7 @@ function parseTreeAtPosition(tree: ParseTree, line: number, column: number): Nod
         let terminal = (tree as TerminalNode);
 		let token = terminal.symbol;
 		let startLine = token.line;
-		const lines = token.text.match(/[^\n\r]+[\n\r]*/g);
+		const lines = token.text.match(LINES_REGEXP);
 		let endLine = startLine + lines.length - 1;
 		// Does the terminal node actually contain the position? If not we don't need to look further.
         if(startLine > line || endLine < line) {
@@ -283,7 +285,7 @@ function parseTreeAtPosition(tree: ParseTree, line: number, column: number): Nod
 			return undefined;
 		}
 		if(line == context.stop.line) {
-			const lines = reconstructText(context).match(/[^\n\r]+[\n\r]*/g);
+			const lines = reconstructText(context).match(LINES_REGEXP);
 			let endColumn = lines[lines.length - 1].length;
 			if(line == context.start.line) {
 				endColumn += context.start.charPositionInLine;
@@ -321,7 +323,7 @@ function closestSubtree(context: ParseTree, line, column) {
 	for (let i = 1; i < context.childCount; i++) {
 		const candidate = closestTerminal(context.getChild(i));
 		let startLine = candidate.symbol.line;
-		const lines = candidate.text.match(/[^\n\r]+[\n\r]*/g);
+		const lines = candidate.text.match(LINES_REGEXP);
 		let endLine = startLine + lines.length - 1;
 		if(endLine <= line && candidate.symbol.stopIndex > result.symbol.stopIndex) {
 			if(endLine < line) {
@@ -349,12 +351,12 @@ function setupCompletionCore(parser: XULEParser, settings: XULELanguageSettings)
 		XULEParser.ASSIGN, XULEParser.ASSERT_RULE_NAME, XULEParser.AT,
 		XULEParser.CLOSE_BRACKET, XULEParser.CLOSE_CURLY, XULEParser.CLOSE_PAREN,
 		XULEParser.COMMA, XULEParser.DIV,
-		XULEParser.DOT, XULEParser.DOUBLE_QUOTED_STRING, XULEParser.EOF, XULEParser.EQUALS,
+		XULEParser.DOT, XULEParser.DOUBLE_QUOTE, XULEParser.EOF, XULEParser.EQUALS,
 		XULEParser.GT, XULEParser.GTE, XULEParser.LT, XULEParser.LTE, XULEParser.MINUS,
 		XULEParser.NOT_EQUALS,
 		XULEParser.OPEN_BRACKET, XULEParser.OPEN_CURLY, XULEParser.OPEN_PAREN,
 		XULEParser.PLUS,
-		XULEParser.SEMI, XULEParser.SHARP, XULEParser.SIMM_DIFF, XULEParser.SINGLE_QUOTED_STRING,
+		XULEParser.SEMI, XULEParser.SHARP, XULEParser.SIMM_DIFF, XULEParser.SINGLE_QUOTE, XULEParser.STRING_CONTENTS,
 		XULEParser.SUB_L, XULEParser.SUB_LR, XULEParser.SUB_R,
 		XULEParser.TIMES
 	]);

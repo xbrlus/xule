@@ -1,5 +1,9 @@
 lexer grammar XULELexer;
 
+tokens {
+    STRING_CONTENTS
+}
+
 LINE_COMMENT: ('//' [^\n\r]*) -> channel(HIDDEN);
 BLOCK_COMMENT: ('/*' .*? '*/') -> channel(HIDDEN);
 WS: (' ' | '\t' | '\n' | '\r' | '\u00A0') -> channel(HIDDEN);
@@ -8,8 +12,10 @@ OPEN_BRACKET: '[';
 CLOSE_BRACKET: ']';
 OPEN_PAREN: '(';
 CLOSE_PAREN: ')';
-OPEN_CURLY: '{';
-CLOSE_CURLY: '}';
+//Close curly pops the mode in order to return to the interpolated string, if any. So we push the default mode for it
+//to have something to pop.
+OPEN_CURLY: '{' -> pushMode(DEFAULT_MODE);
+CLOSE_CURLY: '}' -> popMode;
 AND_OP: '&';
 AT: '@';
 NOT_EQUALS: '!=';
@@ -35,8 +41,8 @@ DIV: '/';
 SHARP: '#';
 COMMA: ',';
 
-DOUBLE_QUOTED_STRING: '"' .*? '"';
-SINGLE_QUOTED_STRING: '\'' .*? '\'';
+DOUBLE_QUOTE: '"' -> pushMode(doubleQuotedString);
+SINGLE_QUOTE: '\'' -> pushMode(singleQuotedString);
 
 WHERE: W H E R E;
 WHEN: W H E N;
@@ -111,6 +117,19 @@ ASSERT_UNSATISFIED: (U N S A T I S F I E D) -> popMode;
 ASSERT_SATISFIED: (S A T I S F I E D) -> popMode;
 ASSERT_RULE_NAME: [a-zA-Z_\-]+ ('.' [a-zA-Z0-9_\-]+)*;
 ASSERT_WS: WS -> channel(HIDDEN);
+
+mode doubleQuotedString;
+DQS_END_QUOTE: '"' -> type(DOUBLE_QUOTE), popMode;
+DQS_ESCAPE: '\\' -> pushMode(escape);
+DQS_CURLY: '{' -> type(OPEN_CURLY), pushMode(DEFAULT_MODE);
+DQS_STRING_CHAR: ~[\\{"]+ -> type(STRING_CONTENTS);
+mode singleQuotedString;
+SQS_END_QUOTE: '\'' -> type(SINGLE_QUOTE), popMode;
+SQS_ESCAPE: '\\' -> pushMode(escape);
+SQS_CURLY: '{' -> type(OPEN_CURLY), pushMode(DEFAULT_MODE);
+SQS_STRING_CHAR: ~[\\{']+ -> type(STRING_CONTENTS);
+mode escape;
+ESCAPED_CHAR: . -> popMode, type(STRING_CONTENTS);
 
 fragment A : [aA];
 fragment B : [bB];

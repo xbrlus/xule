@@ -15,7 +15,11 @@
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.xule",
-				"match": "(?i)\\b(assert|constant|else|false|filter|for|function|if|message|namespace|navigate|output-attribute|output|rule-name-prefix|satisfied|severity|true)\\b"
+				"match": "(?i)(^|(?<=\\*/|[\\s=,;'\"()\\[\\]{}]))((?<![a-zA-Z]])-)?(assert|constant|else|false|filter|for|function|if|message|namespace|navigate|output-attribute|output)(?!-)\\b"
+			},
+			{
+				"name": "keyword.control.xule",
+				"match": "(?i)(^|(?<=\\*/|[\\s=,;'\"()\\[\\]{}]))((?<![a-zA-Z]])-)?(returns|rule-name-prefix|satisfied|severity|true|where)(?!-)\\b"
 			},
 			{
 				"name": "keyword.operator.xule",
@@ -26,21 +30,21 @@
 			"patterns": [{
 				"name": "other",
 				"captures": { "3": { "name": "support.function.xule" } },
-				"match": "(?i)(^|(?<=\\*/|[\\s=,;'\"()\\[\\]{}]))((?<![a-zA-Z]])-)?(abs|and|as|date|descendants|dict|dimensions|duration|exists|first)\\b"
+				"match": "(?i)(^|(?<=\\*/|[\\s=,;'\"()\\[\\]{}]))((?<![a-zA-Z]])-)?(abs|and|as|date|descendants|dict|dimensions|duration|exists|first)(?!-)\\b"
 			},
 			{
 				"name": "other",
 				"captures": { "3": { "name": "support.function.xule" } },
-				"match": "(?i)(^|(?<=\\*/|[\\s=,;'\"()\\[\\]{}]))((?<![a-zA-Z]])-)?(from|in|index-of|json-data|list|name|namespace-uri)\\b"
+				"match": "(?i)(^|(?<=\\*/|[\\s=,;'\"()\\[\\]{}]))((?<![a-zA-Z]])-)?(from|in|index-of|json-data|length|list|name|namespace-uri)(?!-)\\b"
 			},
 			{
 				"name": "other",
 				"captures": { "3": { "name": "support.function.xule" } },
-				"match": "(?i)(^|(?<=\\*/|[\\s=,;'\"()\\[\\]{}]))((?<![a-zA-Z]])-)?(none|not|qname|returns|role|round|rule-name|set|skip|substring|taxonomy|where)\\b"
+				"match": "(?i)(^|(?<=\\*/|[\\s=,;'\"()\\[\\]{}]))((?<![a-zA-Z]])-)?(none|not|qname|role|round|rule-name|set|skip|substring|taxonomy)(?!-)\\b"
 			},
 			{
 				"name": "support.function.xule",
-				"match": "(?i)(?<=.)(index-of|length|number|split|substring)\\b"
+				"match": "(?i)(?<=.)(dimensions|index-of|join|length|number|period(-type)?|split|substring|unit)(?!-)\\b"
 			}]
 		},
 		"variables": {
@@ -58,18 +62,7 @@
 				"name": "constant.character.escape.xule",
 				"match": "\\\\."
 			}, {
-				"name": "meta.embedded.line.xule",
-				"begin": "(\\{)",
-				"end": "(\\})",
-				"beginCaptures": {
-					"1": { "name": "constant.character.format.placeholder.other.xule" }
-				},
-				"endCaptures": {
-					"1": { "name": "constant.character.format.placeholder.other.xule" }
-				},
-				"patterns": [{
-					"include": "source.xule"
-				}]
+				"include": "#string-interpolation"
 			}]
 		},
 		"single-quoted-strings": {
@@ -79,6 +72,22 @@
 			"patterns": [{
 				"name": "constant.character.escape.xule",
 				"match": "\\\\."
+			}, {
+				"include": "#string-interpolation"
+			}]
+		},
+		"string-interpolation": {
+			"name": "meta.embedded.line.xule",
+			"begin": "(\\{)",
+			"end": "(\\})",
+			"beginCaptures": {
+				"1": { "name": "constant.character.format.placeholder.other.xule" }
+			},
+			"endCaptures": {
+				"1": { "name": "constant.character.format.placeholder.other.xule" }
+			},
+			"patterns": [{
+				"include": "source.xule"
 			}]
 		},
 		"urls": {
