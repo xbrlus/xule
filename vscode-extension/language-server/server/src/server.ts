@@ -28,7 +28,7 @@ import {XULEParser, PropertyAccessContext, IdentifierContext} from './parser/XUL
 import { ParseTree } from 'antlr4ts/tree/ParseTree';
 import { TerminalNode } from 'antlr4ts/tree/TerminalNode';
 import { SymbolTableVisitor, SymbolTable, DeclarationType } from './symbols';
-import { ErrorNode } from 'antlr4ts/tree';
+import { Interval } from 'antlr4ts/misc/Interval';
 
 // Create a connection for the server. The connection uses Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
@@ -90,35 +90,34 @@ connection.onInitialized(() => {
 	}
 });
 
-// The example settings
-interface ExampleSettings {
-	maxNumberOfProblems: number;
+enum DebugLevel { 'off', 'verbose' };
+interface XULELanguageSettings {
+	
+	server: { debug: DebugLevel; };
 }
 
 // The global settings, used when the `workspace/configuration` request is not supported by the client.
 // Please note that this is not the case when using this server with the client provided in this example
 // but could happen with other clients.
-const defaultSettings: ExampleSettings = { maxNumberOfProblems: 1000 };
-let globalSettings: ExampleSettings = defaultSettings;
+const defaultSettings: XULELanguageSettings = { server: { debug: DebugLevel.off } };
+let globalSettings: XULELanguageSettings = defaultSettings;
 
 // Cache the settings of all open documents
-let documentSettings: Map<string, Thenable<ExampleSettings>> = new Map();
+let documentSettings: Map<string, Thenable<XULELanguageSettings>> = new Map();
 
 connection.onDidChangeConfiguration(change => {
 	if (hasConfigurationCapability) {
 		// Reset all cached document settings
 		documentSettings.clear();
 	} else {
-		globalSettings = <ExampleSettings>(
-			(change.settings.languageServerExample || defaultSettings)
-		);
+		globalSettings = <XULELanguageSettings>((change.settings.xuleLanguage || defaultSettings));
 	}
 
 	// Revalidate all open text documents
 	documents.all().forEach(validateTextDocument);
 });
 
-function getDocumentSettings(resource: string): Thenable<ExampleSettings> {
+function getDocumentSettings(resource: string): Thenable<XULELanguageSettings> {
 	if (!hasConfigurationCapability) {
 		return Promise.resolve(globalSettings);
 	}
@@ -126,7 +125,7 @@ function getDocumentSettings(resource: string): Thenable<ExampleSettings> {
 	if (!result) {
 		result = connection.workspace.getConfiguration({
 			scopeUri: resource,
-			section: 'languageServerExample'
+			section: 'xuleLanguage'
 		});
 		documentSettings.set(resource, result);
 	}
@@ -145,9 +144,6 @@ documents.onDidChangeContent(change => {
 });
 
 async function validateTextDocument(textDocument: TextDocument): Promise<void> {
-	// In this simple example we get the settings for every validate run.
-	let settings = await getDocumentSettings(textDocument.uri);
-
 	let diagnostics: Diagnostic[] = [];
 	let text = textDocument.getText();
 	let input = CharStreams.fromString(text);
@@ -220,6 +216,14 @@ connection.onDidChangeWatchedFiles(_change => {
 
 type NodeInfo = { node: ParseTree, offset: number, tokenIndex: number };
 
+function reconstructText(parserRule: ParserRuleContext): string {
+	return parserRule.start.inputStream.getText(textInterval(parserRule))
+}
+
+function textInterval(parserRule: ParserRuleContext) {
+	return new Interval(parserRule.start.startIndex, parserRule.stop.stopIndex);
+}
+
 /**
  * Returns the token at the given position in the stream.
  * Returns undefined if none is found.
@@ -279,7 +283,7 @@ function parseTreeAtPosition(tree: ParseTree, line: number, column: number): Nod
 			return undefined;
 		}
 		if(line == context.stop.line) {
-			const lines = context.stop.text.match(/[^\n\r]+[\n\r]*/g);
+			const lines = reconstructText(context).match(/[^\n\r]+[\n\r]*/g);
 			let endColumn = lines[lines.length - 1].length;
 			if(line == context.start.line) {
 				endColumn += context.start.charPositionInLine;
@@ -338,7 +342,7 @@ function closestSubtree(context: ParseTree, line, column) {
 	return { node: result, offset: result.text.length, tokenIndex: result.symbol.tokenIndex };
 }
 
-function setupCompletionCore(parser: XULEParser) {
+function setupCompletionCore(parser: XULEParser, settings: XULELanguageSettings) {
 	let core = new CodeCompletionCore(parser);
 	core.ignoredTokens = new Set([
 		XULEParser.ADD_L, XULEParser.ADD_LR, XULEParser.ADD_R,
@@ -358,9 +362,11 @@ function setupCompletionCore(parser: XULEParser) {
 		XULEParser.RULE_booleanLiteral,
 		XULEParser.RULE_variableRef, XULEParser.RULE_propertyAccess, XULEParser.RULE_direction
 	]);
-	//core.showDebugOutput = true;
-    //core.showResult = true;
-    //core.showRuleStack = true;
+	if(settings.server.debug == DebugLevel.verbose) {
+		core.showDebugOutput = true;
+    	core.showResult = true;
+    	core.showRuleStack = true;
+	}
 	return core;
 }
 
@@ -420,78 +426,77 @@ function maybeSuggest(candidate: string, text: string, kind: CompletionItemKind,
 
 // This handler provides the initial list of the completion items.
 connection.onCompletion(
-	(_textDocumentPosition: TextDocumentPositionParams): CompletionItem[] => {
-		// The pass parameter contains the position of the text document in
-		// which code complete got requested. For the example we ignore this
-		// info and always provide the same completion items.
-		let document = documents.get(_textDocumentPosition.textDocument.uri);
-		if(document) {
-			let parser = document['parser'] as XULEParser;
-			if(parser) {
-				const pos = _textDocumentPosition.position;
-				const parseTree = document['parseTree'] as ParseTree;
-				const nodeInfo = parseTreeAtPosition(parseTree, pos.line + 1, pos.character);
-				let tokenIndex = nodeInfo ? nodeInfo.tokenIndex : 0;
-				let core = setupCompletionCore(parser);
-				let candidates = core.collectCandidates(tokenIndex);
-				let completions = [];
-				if(candidates.rules.has(XULEParser.RULE_booleanLiteral)) {
-					const text = nodeInfo.node.text.toLowerCase();
-					maybeSuggest("true", text, CompletionItemKind.Constant, completions);
-					maybeSuggest("false", text, CompletionItemKind.Constant, completions);
-				}
-				const symbolTable = document['symbolTable'] as SymbolTable;
-				if(nodeInfo) {
-					const text = nodeInfo.node.text.toLowerCase();
-					if(candidates.rules.has(XULEParser.RULE_variableRef)) {
-						suggestIdentifier(nodeInfo.node, DeclarationType.CONSTANT, CompletionItemKind.Constant, symbolTable, completions);
-						suggestIdentifier(nodeInfo.node, DeclarationType.FUNCTION, CompletionItemKind.Function, symbolTable, completions);
-						suggestIdentifier(nodeInfo.node, DeclarationType.VARIABLE, CompletionItemKind.Variable, symbolTable, completions);
-					}
-					if(candidates.rules.has(XULEParser.RULE_propertyAccess)) {
-						suggestProperty(nodeInfo.node, CompletionItemKind.Property, symbolTable, completions);
-					}
-					if(candidates.rules.has(XULEParser.RULE_direction)) {
-						maybeSuggest("descendants", text, CompletionItemKind.Keyword, completions);
-					}
-				}
+	(_textDocumentPosition: TextDocumentPositionParams): Promise<CompletionItem[]> => {
+		let result = [];
+		return computeCodeSuggestions(_textDocumentPosition);
+	}
+);
 
-				candidates.tokens.forEach((value, key, map) => {
-					if(key == XULEParser.IDENTIFIER) {
-						return; //It's handled above
-					}
-					let keyword = parser.vocabulary.getDisplayName(key).toLowerCase();
-					if(key == XULEParser.ASSERT_SATISFIED) {
-						keyword = 'satisfied'
-					} else if(key == XULEParser.ASSERT_UNSATISFIED) {
-						keyword = 'unsatisfied'
-					}
-					let text = nodeInfo.node.text.toLowerCase();
-					if(nodeInfo && nodeInfo.node.text &&
-						nodeInfo.offset < nodeInfo.node.text.length - 1) {
+async function computeCodeSuggestions(_textDocumentPosition: TextDocumentPositionParams): Promise<CompletionItem[]> {
+	const documentURI = _textDocumentPosition.textDocument.uri;
+	let document = documents.get(documentURI);
+	if(document) {
+		let settings = await getDocumentSettings(documentURI);
+		let parser = document['parser'] as XULEParser;
+		if(parser) {
+			const pos = _textDocumentPosition.position;
+			const parseTree = document['parseTree'] as ParseTree;
+			const nodeInfo = parseTreeAtPosition(parseTree, pos.line + 1, pos.character);
+			let tokenIndex = nodeInfo ? nodeInfo.tokenIndex : 0;
+			let core = setupCompletionCore(parser, settings);
+			let candidates = core.collectCandidates(tokenIndex);
+			let completions = [];
+			if(candidates.rules.has(XULEParser.RULE_booleanLiteral)) {
+				const text = nodeInfo.node.text.toLowerCase();
+				maybeSuggest("true", text, CompletionItemKind.Constant, completions);
+				maybeSuggest("false", text, CompletionItemKind.Constant, completions);
+			}
+			const symbolTable = document['symbolTable'] as SymbolTable;
+			if(nodeInfo) {
+				const text = nodeInfo.node.text.toLowerCase();
+				if(candidates.rules.has(XULEParser.RULE_variableRef)) {
+					suggestIdentifier(nodeInfo.node, DeclarationType.CONSTANT, CompletionItemKind.Constant, symbolTable, completions);
+					suggestIdentifier(nodeInfo.node, DeclarationType.FUNCTION, CompletionItemKind.Function, symbolTable, completions);
+					suggestIdentifier(nodeInfo.node, DeclarationType.VARIABLE, CompletionItemKind.Variable, symbolTable, completions);
+				}
+				if(candidates.rules.has(XULEParser.RULE_propertyAccess)) {
+					suggestProperty(nodeInfo.node, CompletionItemKind.Property, symbolTable, completions);
+				}
+				if(candidates.rules.has(XULEParser.RULE_direction)) {
+					maybeSuggest("descendants", text, CompletionItemKind.Keyword, completions);
+				}
+			}
+
+			candidates.tokens.forEach((value, key, map) => {
+				if(key == XULEParser.IDENTIFIER) {
+					return; //It's handled above
+				}
+				let keyword = parser.vocabulary.getDisplayName(key).toLowerCase();
+				if(key == XULEParser.ASSERT_SATISFIED) {
+					keyword = 'satisfied'
+				} else if(key == XULEParser.ASSERT_UNSATISFIED) {
+					keyword = 'unsatisfied'
+				}
+				let text = "";
+				if(nodeInfo && nodeInfo.node.text) {
+					text = nodeInfo.node.text.toLowerCase();
+					if(nodeInfo.offset < nodeInfo.node.text.length - 1) {
 						//The caret is inside a keyword. Let's match the existing string.
 						text = text.substring(0, nodeInfo.offset);
 					}
-					maybeSuggest(keyword, text, CompletionItemKind.Keyword, completions);
-				});
-				return completions;
-			}
+				}
+				maybeSuggest(keyword, text, CompletionItemKind.Keyword, completions);
+			});
+			return completions;
 		}
-		return [];
 	}
-);
+	return [];
+}
 
 // This handler resolves additional information for the item selected in
 // the completion list.
 connection.onCompletionResolve(
 	(item: CompletionItem): CompletionItem => {
-		if (item.data === 1) {
-			item.detail = 'TypeScript details';
-			item.documentation = 'TypeScript documentation';
-		} else if (item.data === 2) {
-			item.detail = 'JavaScript details';
-			item.documentation = 'JavaScript documentation';
-		}
 		return item;
 	}
 );

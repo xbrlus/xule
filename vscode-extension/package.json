@@ -44,16 +44,12 @@
             "type": "object",
             "title": "XULE Language Server Configuration",
             "properties": {
-                "xuleLanguageServer.trace.server": {
+                "xuleLanguage.server.debug": {
                     "scope": "window",
                     "type": "string",
-                    "enum": [
-                        "off",
-                        "messages",
-                        "verbose"
-                    ],
+                    "enum": [ "off", "verbose" ],
                     "default": "off",
-                    "description": "Traces the communication between VS Code and the language server."
+                    "description": "Traces the work of the language server and its communication with VS Code. Note: enabling this may dramatically slow down the extension."
                 }
             }
         }

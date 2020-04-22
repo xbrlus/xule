@@ -1,6 +1,6 @@
-import { ParseTree, AbstractParseTreeVisitor } from 'antlr4ts/tree';
+import {ParseTree, AbstractParseTreeVisitor, RuleNode} from 'antlr4ts/tree';
 import { XULEParserVisitor } from './parser/XULEParserVisitor';
-import { ConstantDeclarationContext, AssignmentContext, FunctionDeclarationContext, FunctionArgumentContext, ExpressionContext, PropertyAccessContext } from './parser/XULEParser';
+import { ConstantDeclarationContext, AssignmentContext, FunctionDeclarationContext, FunctionArgumentContext, ExpressionContext, PropertyAccessContext, XuleFileContext } from './parser/XULEParser';
 
 export type Binding = { name: any, meaning: any };
 
@@ -104,11 +104,10 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 		return this.symbolTable;
 	}
 
-	visit(tree: ParseTree): SymbolTable {
+	visitXuleFile = (ctx: XuleFileContext) => {
 		this.symbolTable = new SymbolTable();
-		this.context = tree;
-		return super.visit(tree);
-	}
+		return this.visitChildrenInNewContext(ctx);
+	};
 
 	visitConstantDeclaration = (ctx: ConstantDeclarationContext) => {
 		this.symbolTable.record(ctx.identifier().text, [DeclarationType.CONSTANT], this.context);
@@ -117,19 +116,23 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 
 	visitAssignment = (ctx: AssignmentContext) => {
 		this.symbolTable.record(ctx.identifier().text, [DeclarationType.VARIABLE], this.context);
-		return this.visitChildren(ctx);
+		return this.visitChildrenInNewContext(ctx);
 	};
 
 	visitFunctionDeclaration = (ctx: FunctionDeclarationContext) => {
+		this.symbolTable.record(ctx.identifier().text, [DeclarationType.FUNCTION], this.context);
+		return this.visitChildrenInNewContext(ctx);
+	};
+
+	protected visitChildrenInNewContext(ctx: RuleNode) {
 		let context = this.context;
 		this.context = ctx;
-		this.symbolTable.record(ctx.identifier().text, [DeclarationType.FUNCTION], context);
 		try {
 			return this.visitChildren(ctx);
 		} finally {
 			this.context = context;
 		}
-	};
+	}
 
 	visitFunctionArgument = (ctx: FunctionArgumentContext) => {
 		this.symbolTable.record(ctx.identifier().text, [DeclarationType.VARIABLE], this.context);
