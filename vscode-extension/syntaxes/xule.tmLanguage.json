@@ -57,6 +57,19 @@
 			"patterns": [{
 				"name": "constant.character.escape.xule",
 				"match": "\\\\."
+			}, {
+				"name": "meta.embedded.line.xule",
+				"begin": "(\\{)",
+				"end": "(\\})",
+				"beginCaptures": {
+					"1": { "name": "constant.character.format.placeholder.other.xule" }
+				},
+				"endCaptures": {
+					"1": { "name": "constant.character.format.placeholder.other.xule" }
+				},
+				"patterns": [{
+					"include": "source.xule"
+				}]
 			}]
 		},
 		"single-quoted-strings": {
@@ -70,7 +83,7 @@
 		},
 		"urls": {
 			"patterns": [{
-				"name": "string.xule",
+				"name": "string.unquoted.xule",
 				"match": "http[s]?://\\S+"
 			}]
 		},

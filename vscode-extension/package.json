@@ -37,7 +37,10 @@
             {
                 "language": "xule",
                 "scopeName": "source.xule",
-                "path": "./syntaxes/xule.tmLanguage.json"
+                "path": "./syntaxes/xule.tmLanguage.json",
+                "embeddedLanguages": {
+                    "source.xule": "xule"
+                  }
             }
         ],
         "configuration": {
