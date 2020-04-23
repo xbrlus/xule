@@ -24,7 +24,7 @@ import {
 import { CodeCompletionCore } from 'antlr4-c3';
 import { XULELexer } from './parser/XULELexer';
 import { CharStreams, ANTLRErrorListener, RecognitionException, Recognizer, CommonTokenStream, Token, ParserRuleContext, CommonToken } from 'antlr4ts';
-import {XULEParser, PropertyAccessContext, IdentifierContext} from './parser/XULEParser';
+import {XULEParser, PropertyAccessContext, IdentifierContext, VariableRefContext, ExpressionContext} from './parser/XULEParser';
 import { ParseTree } from 'antlr4ts/tree/ParseTree';
 import { TerminalNode } from 'antlr4ts/tree/TerminalNode';
 import { SymbolTableVisitor, SymbolTable, DeclarationType } from './symbols';
@@ -225,87 +225,93 @@ function textInterval(parserRule: ParserRuleContext) {
 	return new Interval(parserRule.start.startIndex, parserRule.stop.stopIndex);
 }
 
+function terminalNodeAtPosition(terminal: TerminalNode, line: number, column: number) {
+	let token = terminal.symbol;
+	let startLine = token.line;
+	const lines = token.text.match(LINES_REGEXP);
+	let endLine = startLine + lines.length - 1;
+	// Does the terminal node actually contain the position? If not we don't need to look further.
+	if (startLine > line || endLine < line) {
+		return undefined;
+	}
+
+	if (startLine != endLine && line < endLine) {
+		let offset = column;
+		for (let i = 0; i < line - startLine; i++) {
+			offset += lines[i].length;
+		}
+		return {node: terminal, offset: offset, tokenIndex: terminal.symbol.tokenIndex};
+	}
+
+	let tokenStartInLine = line == startLine ? token.charPositionInLine : 0;
+	let tokenStopInLine = 0;
+	if (line == startLine) {
+		if (startLine != endLine) {
+			tokenStopInLine = column;
+		} else {
+			tokenStopInLine = token.charPositionInLine + (token.stopIndex - token.startIndex + 1);
+		}
+	} else if (line == endLine) {
+		//Note: if the execution flow arrives here, then startLine != endLine
+		tokenStopInLine =
+			token.stopIndex - token.startIndex -
+			Math.max(token.text.lastIndexOf('\n'), token.text.lastIndexOf('\r'));
+	} else {
+		tokenStopInLine = column;
+	}
+	if (tokenStartInLine <= column && tokenStopInLine >= column) {
+		let offset = column - tokenStartInLine;
+		for (let i = 0; i < line - startLine; i++) {
+			offset += lines[i].length;
+		}
+		return {node: terminal, offset: offset, tokenIndex: terminal.symbol.tokenIndex};
+	}
+	return undefined;
+}
+
+function ruleContextAtPosition(context: ParserRuleContext, line: number, column: number) {
+	//Parse tree is entirely before or after the given line
+	if (context.start.line > line || context.stop.line < line) {
+		return undefined;
+	}
+	//Parse tree starts after the given line and column
+	if (line == context.start.line && column < context.start.charPositionInLine) {
+		return undefined;
+	}
+	if (line == context.stop.line) {
+		const lines = reconstructText(context).match(LINES_REGEXP);
+		let endColumn = lines[lines.length - 1].length;
+		if (line == context.start.line) {
+			endColumn += context.start.charPositionInLine;
+		}
+		//Parse tree stops before the given line and column
+		if (column > endColumn) {
+			return undefined;
+		}
+	}
+	if (context.childCount > 0) {
+		for (let i = 0; i < context.childCount; i++) {
+			let result = parseTreeAtPosition(context.getChild(i), line, column);
+			if (result) {
+				return result;
+			}
+		}
+		const closest = closestSubtree(context, line, column);
+		return {node: new TerminalNode(new CommonToken(0, "")), offset: 0, tokenIndex: closest.tokenIndex + 1};
+	}
+	return undefined;
+}
+
 /**
  * Returns the token at the given position in the stream.
  * Returns undefined if none is found.
  */
 function parseTreeAtPosition(tree: ParseTree, line: number, column: number): NodeInfo {
     if (tree instanceof TerminalNode) {
-        let terminal = (tree as TerminalNode);
-		let token = terminal.symbol;
-		let startLine = token.line;
-		const lines = token.text.match(LINES_REGEXP);
-		let endLine = startLine + lines.length - 1;
-		// Does the terminal node actually contain the position? If not we don't need to look further.
-        if(startLine > line || endLine < line) {
-			return undefined;
-		}
-
-		if(startLine != endLine && line < endLine) {
-			let offset = column;
-			for(let i = 0; i < line - startLine; i++) {
-				offset += lines[i].length;
-			}
-			return { node: terminal, offset: offset, tokenIndex: terminal.symbol.tokenIndex };
-		}
-
-		let tokenStartInLine = line == startLine ? token.charPositionInLine : 0;
-		let tokenStopInLine = 0;
-		if(line == startLine) {
-			if(startLine != endLine) {
-				tokenStopInLine = column;
-			} else {
-				tokenStopInLine = token.charPositionInLine + (token.stopIndex - token.startIndex + 1);
-			}
-		} else if(line == endLine) {
-			//Note: if the execution flow arrives here, then startLine != endLine
-			tokenStopInLine =
-				token.stopIndex - token.startIndex -
-				Math.max(token.text.lastIndexOf('\n'), token.text.lastIndexOf('\r'));
-		} else {
-			tokenStopInLine = column;
-		}
-        if (tokenStartInLine <= column && tokenStopInLine >= column) {
-            let offset = column - tokenStartInLine;
-			for(let i = 0; i < line - startLine; i++) {
-				offset += lines[i].length;
-			}
-			return { node: terminal, offset: offset, tokenIndex: terminal.symbol.tokenIndex };
-        }
-        return undefined;
-    } else {
-		let context = (tree as ParserRuleContext);
-		//Parse tree is entirely before or after the given line
-		if(context.start.line > line || context.stop.line < line) {
-			return undefined;
-		}
-		//Parse tree starts after the given line and column
-		if(line == context.start.line && column < context.start.charPositionInLine) {
-			return undefined;
-		}
-		if(line == context.stop.line) {
-			const lines = reconstructText(context).match(LINES_REGEXP);
-			let endColumn = lines[lines.length - 1].length;
-			if(line == context.start.line) {
-				endColumn += context.start.charPositionInLine;
-			}
-			//Parse tree stops before the given line and column
-			if(column > endColumn) {
-				return undefined;
-			}
-		}
-		if (context.childCount > 0) {
-            for (let i = 0; i < context.childCount; i++) {
-                let result = parseTreeAtPosition(context.getChild(i), line, column);
-                if (result) {
-                    return result;
-                }
-			}
-			const closest = closestSubtree(context, line, column);
-			return { node: new TerminalNode(new CommonToken(0, "")), offset: 0, tokenIndex: closest.tokenIndex + 1 };
-        }
-        return undefined;
-    }
+		return terminalNodeAtPosition(tree, line, column);
+	} else {
+		return ruleContextAtPosition(tree as ParserRuleContext, line, column);
+	}
 }
 
 function closestSubtree(context: ParseTree, line, column) {
@@ -317,7 +323,7 @@ function closestSubtree(context: ParseTree, line, column) {
 		}
 	}
 	//Since we invoke this only after not having found a token at the exact position, and we search depth-first,
-	//we can be sure that all child nodes are terminals
+	//we can be sure all child nodes are terminals
 	let result = closestTerminal(context.getChild(0));
 	for (let i = 1; i < context.childCount; i++) {
 		const candidate = closestTerminal(context.getChild(i));
@@ -386,33 +392,70 @@ function suggestIdentifier(
 	});
 }
 
-function suggestProperty(
-	node: ParseTree, completionKind: CompletionItemKind, symbolTable: SymbolTable, completions: any[]) {
-	function indexOfNode(parent: ParseTree, node: ParseTree) {
-		for(let i = 0; i < parent.childCount; i++) {
-			if(parent.getChild(i) == node) {
-				return i;
-			}
-		}
-		return -1;
-	}
-
-	let textToMatch = node instanceof IdentifierContext ? node.text : "";
-
-	while(!(node instanceof PropertyAccessContext)) {
-		if(node.parent) {
+function findPropertyAccessContext(node: ParseTree) {
+	while (!(node instanceof PropertyAccessContext)) {
+		if (node.parent) {
 			node = node.parent;
 		} else {
-			return;
+			return null;
 		}
+	}
+	return node;
+}
+
+function indexOfNode(parent: ParseTree, node: ParseTree) {
+	for(let i = 0; i < parent.childCount; i++) {
+		if(parent.getChild(i) == node) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+function suggestProperty(
+	node: ParseTree, completionKind: CompletionItemKind, symbolTable: SymbolTable, completions: any[]) {
+	let textToMatch = node instanceof IdentifierContext ? node.text : "";
+
+	node = findPropertyAccessContext(node);
+	if(!node) {
+		return;
 	}
 
 	const index = indexOfNode(node.parent, node);
-	if(index > 1) {
+	if(index > 0) {
 		const previous = node.parent.getChild(index - 1);
+		//Suggest properties of the @concept object
 		if(previous instanceof TerminalNode && previous.symbol.type == XULEParser.CONCEPT) {
+			maybeSuggest("balance", textToMatch, completionKind, completions);
+			maybeSuggest("base-type", textToMatch, completionKind, completions);
+			maybeSuggest("data-type", textToMatch, completionKind, completions);
+			maybeSuggest("has-enumerations", textToMatch, completionKind, completions);
+			maybeSuggest("is-monetary", textToMatch, completionKind, completions);
+			maybeSuggest("is-numeric", textToMatch, completionKind, completions);
+			maybeSuggest("local-name", textToMatch, completionKind, completions);
+			maybeSuggest("namespace-uri", textToMatch, completionKind, completions);
 			maybeSuggest("period", textToMatch, completionKind, completions);
 			maybeSuggest("period-type", textToMatch, completionKind, completions);
+			maybeSuggest("substitution", textToMatch, completionKind, completions);
+		} else {
+			//Maybe suggest properties of well-known variables
+			let varName = undefined;
+			if(previous instanceof VariableRefContext) {
+				varName = previous.text.toLowerCase();
+			} else if(previous instanceof ExpressionContext && previous.childCount == 1) {
+				if(previous.children[0] instanceof VariableRefContext) {
+					varName = previous.children[0].text.toLowerCase();
+				}
+			}
+			if(varName == "$fact") {
+				maybeSuggest("concept", textToMatch, completionKind, completions);
+				maybeSuggest("decimals", textToMatch, completionKind, completions);
+				maybeSuggest("entity", textToMatch, completionKind, completions);
+				maybeSuggest("id", textToMatch, completionKind, completions);
+				maybeSuggest("inline-scale", textToMatch, completionKind, completions);
+				maybeSuggest("period", textToMatch, completionKind, completions);
+				maybeSuggest("unit", textToMatch, completionKind, completions);
+			}
 		}
 	}
 }
