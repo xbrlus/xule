@@ -23,7 +23,6 @@ taxonomy_package_file_name = None
 catalog_file_name = None
 cur_version = None
 new_version = None
-form_name = None
 
 def reversion(in_file, out_file, zip_file, cur_version, version, package_name):
     global file_count
@@ -74,12 +73,11 @@ def reversion(in_file, out_file, zip_file, cur_version, version, package_name):
     zip_file.writestr(os.path.join(package_name, out_file.replace(cur_version, '{}'.format(version))).replace('\\','/'), 
                       content)                     
 
-def process_input_zip(input_zip, package_dir, form_name, cur_version, new_version):
+def process_input_zip(input_zip, package_dir, package_name, cur_version, new_version, revision):
 
     global taxonomy_package_file_name
     global catalog_file_name
 
-    package_name = '{}_{}'.format(form_name, new_version)
     new_package_file_name = os.path.join(package_dir, '{}.zip'.format(package_name))
     #create zipfile
     with zipfile.ZipFile(new_package_file_name, 'w', zipfile.ZIP_DEFLATED) as zip:
@@ -126,14 +124,10 @@ def cmdLineOptionExtender(parser, *args, **kwargs):
                                            "This plugin will create a FERC Taxonomy Package. The -f options should point to the folder tht contains the taxonomy.")
         parser.add_option_group(parserGroup)
 
-    parserGroup.add_option('--ferc-package-dir',
-                         default='.',
-                         help="The directory of the package file to create.")
     parserGroup.add_option('--ferc-package-version',
                          help="The version to create in the pacakge.")
-    parserGroup.add_option('--ferc-package-form',
-                             action='store',
-                             help="The name of the form. The default is the last part of the taxonomy path.")
+    parserGroup.add_option('--ferc-package-revision',
+                         help="The revision number of the taxonomy.")
     parserGroup.add_option('--ferc-package-meta-inf',
                             action='store',
                             help="The name of the META-INF template folder. The default is 'META-INF-' plus the form name.")
@@ -147,7 +141,6 @@ def cmdLineOptionExtender(parser, *args, **kwargs):
                              action='store',
                              help="The version currently in the taxonomy. This version will be replaced.")
 
-
 def fercCmdUtilityRun(cntlr, options, **kwargs): 
     '''
     The entrypoint file (-f option) will be a directory of the taxonomy files.
@@ -156,11 +149,9 @@ def fercCmdUtilityRun(cntlr, options, **kwargs):
     global catalog_file_name
     global cur_version
     global new_version
-    global form_name
 
     parser = optparse.OptionParser()
 
-    form_name = options.ferc_package_form
     cur_version = options.ferc_package_cur_version
     new_version = options.ferc_package_version
 
@@ -215,10 +206,16 @@ def fercCmdUtilityRun(cntlr, options, **kwargs):
                 entry_point = taxonomy_package['entryPoints'][first_key][0][1] # the [1] is the url of the entry point
                 options.entrypointFile = entry_point
                 cntlr.addToLog("Using entry point {}".format(entry_point), "info")
-
+            else:
+                cntlr.addToLog("Cannot determine entry point for supplied package", "error")
+                raise Exception
+        else:
+            cntlr.addToLog("Cannot determine entry point for supplied package", "error")
+            raise Exception
+            
 def cmndLineXbrlRun(cntlr, options, modelXbrl, entryPoint, **kwargs):
 
-    global form_name, cur_version, new_version
+    global cur_version, new_version
     # Get filesource - this is the file source of the file that loaded the model
     cur_file_source = cntlr.modelManager.filesource
     # Get the taxonomy package zip file that the file source came from
@@ -230,18 +227,13 @@ def cmndLineXbrlRun(cntlr, options, modelXbrl, entryPoint, **kwargs):
             break
     if package_zip is None:
         modelXbrl.error("Cannot find the taxonomy package.")
+        raise Exception
     
-    if form_name is None  or new_version is None:
-        # Get these from the package file name
-        package_dir, package_file_name = os.path.split(package_zip.basefile)
-        package_full_name = os.path.splitext(package_file_name)[0]
-        package_name_parts = package_full_name.split('-')
-        if len(package_name_parts) != 3:
-            modelXbrl.error("PackagerError", "Cannot determime form name and version from package name.")
-            raise Exception
-        package_form_name, package_new_version, revision = package_name_parts
-        form_name = form_name or package_form_name
-        new_version = new_version or package_new_version
+   
+    # Get the new package name
+    package_dir, package_file_name = os.path.split(package_zip.basefile)
+    input_package_name = os.path.splitext(package_file_name)[0]
+    new_package_name = '{}_package'.format(input_package_name)
     
     if cur_version is None:
         # Get the current version from the first xsd file in the package
@@ -257,9 +249,6 @@ def cmndLineXbrlRun(cntlr, options, modelXbrl, entryPoint, **kwargs):
                 modelXbrl.error("PackagerError", "Cannot determing the current version from the package files.")
                 raise Exception
 
-    if form_name is None:
-        modelXbrl.error("PackagerError", "Form name not provided or cannot be detrmined from the package.")
-        raise Exception
     if cur_version is None:
         modelXbrl.error("PackagerError", "Current version not provided or cannot be detrmined from the package.")  
         raise Exception
@@ -267,7 +256,12 @@ def cmndLineXbrlRun(cntlr, options, modelXbrl, entryPoint, **kwargs):
         modelXbrl.error("PackagerError", "New version not provided or cannot be detrmined from the package.") 
         raise Exception     
 
-    new_package_file_name = process_input_zip(package_zip.basefile, options.ferc_package_dir, form_name, cur_version, new_version)
+    new_package_file_name = process_input_zip(package_zip.basefile, 
+                                              os.path.dirname(package_zip.basefile), 
+                                              new_package_name, 
+                                              cur_version, 
+                                              new_version,
+                                              options.ferc_package_revision)
 
     modelXbrl.info("info", "Created taxonomy package: {}".format(os.path.realpath(new_package_file_name)))
 
