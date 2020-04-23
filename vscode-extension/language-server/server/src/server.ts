@@ -411,6 +411,7 @@ function suggestProperty(
 	if(index > 1) {
 		const previous = node.parent.getChild(index - 1);
 		if(previous instanceof TerminalNode && previous.symbol.type == XULEParser.CONCEPT) {
+			maybeSuggest("period", textToMatch, completionKind, completions);
 			maybeSuggest("period-type", textToMatch, completionKind, completions);
 		}
 	}

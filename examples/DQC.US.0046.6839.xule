@@ -1,0 +1,22 @@
+assert DQC.US.0046.6839 satisfied
+
+EffectOfExchangeRateOnCashAndCashEquivalents in navigate summation-item descendants from
+(NetCashProvidedByUsedInContinuingOperations) returns set (target-name)
+
+message
+"The element NetCashProvidedByUsedInContinuingOperations (Net Cash Providedby (Used in)
+Continuing Operations) does not include EffectOfExchangeRateOnCashAndCashEquivalents (Effect of
+Exchange Rate on Cash and Cash Equivalents) as defined in the US GAAP Taxonomy.
+
+However, in the companies extension taxonomy NetCashProvidedByUsedInContinuingOperations
+includes EffectOfExchangeRateOnCashAndCashEquivalents as a summation-child. Consider using either
+CashAndCashEquivalentsPeriodIncreaseDecrease or CashPeriodIncreaseDecrease, instead of
+NetCashProvidedByUsedInContinuingOperations.\n
+
+EffectOfExchangeRateOnCashAndCashEquivalents {NetCashProvidedByUsedInContinuingOperations}}
+
+Rule Element Id:6839
+Rule Version: 5.0.0"
+
+severity
+error

@@ -120,12 +120,12 @@ ASSERT_WS: WS -> channel(HIDDEN);
 
 mode doubleQuotedString;
 DQS_END_QUOTE: '"' -> type(DOUBLE_QUOTE), popMode;
-DQS_ESCAPE: '\\' -> pushMode(escape);
+DQS_ESCAPE: '\\' -> channel(HIDDEN), pushMode(escape);
 DQS_CURLY: '{' -> type(OPEN_CURLY), pushMode(DEFAULT_MODE);
 DQS_STRING_CHAR: ~[\\{"]+ -> type(STRING_CONTENTS);
 mode singleQuotedString;
 SQS_END_QUOTE: '\'' -> type(SINGLE_QUOTE), popMode;
-SQS_ESCAPE: '\\' -> pushMode(escape);
+SQS_ESCAPE: '\\' -> channel(HIDDEN), pushMode(escape);
 SQS_CURLY: '{' -> type(OPEN_CURLY), pushMode(DEFAULT_MODE);
 SQS_STRING_CHAR: ~[\\{']+ -> type(STRING_CONTENTS);
 mode escape;

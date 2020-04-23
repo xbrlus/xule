@@ -40,7 +40,7 @@
 			{
 				"name": "other",
 				"captures": { "3": { "name": "support.function.xule" } },
-				"match": "(?i)(^|(?<=\\*/|[\\s=,;'\"()\\[\\]{}]))((?<![a-zA-Z]])-)?(none|not|qname|role|round|rule-name|set|skip|substring|taxonomy)(?!-)\\b"
+				"match": "(?i)(^|(?<=\\*/|[\\s=,;'\"()\\[\\]{}]))((?<![a-zA-Z]])-)?(none|not|or|qname|role|round|rule-name|set|skip|substring|taxonomy|time-span)(?!-)\\b"
 			},
 			{
 				"name": "support.function.xule",
