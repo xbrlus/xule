@@ -1,3 +1,6 @@
+'''
+Reivision number: $Change$
+'''
 '''Package taxonomy
 
 This script creates a taxonomy package from a folder containing a taxonomy. It requires a template
@@ -77,9 +80,9 @@ def process_input_zip(input_zip, package_dir, form_name, cur_version, new_versio
     global catalog_file_name
 
     package_name = '{}_{}'.format(form_name, new_version)
-
+    new_package_file_name = os.path.join(package_dir, '{}.zip'.format(package_name))
     #create zipfile
-    with zipfile.ZipFile(os.path.join(package_dir, '{}.zip'.format(package_name)), 'w', zipfile.ZIP_DEFLATED) as zip:
+    with zipfile.ZipFile(new_package_file_name, 'w', zipfile.ZIP_DEFLATED) as zip:
         # copy the taxonomyPackage.xml file
         reversion(taxonomy_package_file_name, 
                     os.path.join('META-INF', 'taxonomyPackage.xml').replace('\\','/'), 
@@ -110,7 +113,9 @@ def process_input_zip(input_zip, package_dir, form_name, cur_version, new_versio
                                 cur_version, 
                                 new_version, 
                                 package_name)
-        
+
+    return new_package_file_name
+
 def cmdLineOptionExtender(parser, *args, **kwargs):
     # extend command line options to compile rules
     if isinstance(parser, Options):
@@ -207,7 +212,9 @@ def fercCmdUtilityRun(cntlr, options, **kwargs):
             if taxonomy_package['entryPoints'] and len(taxonomy_package['entryPoints']) > 0:
                 # Get the first entry point, there really should only be one
                 first_key = list(taxonomy_package['entryPoints'].keys())[0]
-                options.entrypointFile = taxonomy_package['entryPoints'][first_key][0][1] # the [1] is the url of the entry point
+                entry_point = taxonomy_package['entryPoints'][first_key][0][1] # the [1] is the url of the entry point
+                options.entrypointFile = entry_point
+                cntlr.addToLog("Using entry point {}".format(entry_point), "info")
 
 def cmndLineXbrlRun(cntlr, options, modelXbrl, entryPoint, **kwargs):
 
@@ -260,8 +267,9 @@ def cmndLineXbrlRun(cntlr, options, modelXbrl, entryPoint, **kwargs):
         modelXbrl.error("PackagerError", "New version not provided or cannot be detrmined from the package.") 
         raise Exception     
 
-    process_input_zip(package_zip.basefile, options.ferc_package_dir, form_name, cur_version, new_version)
+    new_package_file_name = process_input_zip(package_zip.basefile, options.ferc_package_dir, form_name, cur_version, new_version)
 
+    modelXbrl.info("info", "Created taxonomy package: {}".format(os.path.realpath(new_package_file_name)))
 
 __pluginInfo__ = {
     'name': 'FERC Taxonomy Packager',
