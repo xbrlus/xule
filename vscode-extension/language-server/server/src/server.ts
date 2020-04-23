@@ -172,7 +172,6 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 			diagnostics.push(diagnostic);
 		};
 	}
-	let reportingErrorListener = new ReportingLexerErrorListener();
 	lexer.addErrorListener(new ReportingLexerErrorListener());
 
 	class ReportingParserErrorListener implements ANTLRErrorListener<Token> {

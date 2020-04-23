@@ -115,7 +115,7 @@ UNRECOGNIZED_TOKEN: .;
 mode assertMode;
 ASSERT_UNSATISFIED: (U N S A T I S F I E D) -> popMode;
 ASSERT_SATISFIED: (S A T I S F I E D) -> popMode;
-ASSERT_RULE_NAME: [a-zA-Z_\-]+ ('.' [a-zA-Z0-9_\-]+)*;
+ASSERT_RULE_NAME: [a-zA-Z_\-] [a-zA-Z0-9_\-.]*;
 ASSERT_WS: WS -> channel(HIDDEN);
 
 mode doubleQuotedString;
