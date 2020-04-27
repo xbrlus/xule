@@ -12,6 +12,7 @@ describe('Assert rule names', function() {
 		let parser = new XULEParser(new CommonTokenStream(lexer));
 		let parseTree = parser.assertion();
 		expect(parser.numberOfSyntaxErrors).to.equal(0);
+		expect(input.index).to.equal(input.size);
 	});
 });
 
@@ -28,6 +29,7 @@ count(taxonomy().dimensions)`;
 		let parser = new XULEParser(new CommonTokenStream(lexer));
 		let parseTree = parser.xuleFile();
 		expect(parser.numberOfSyntaxErrors).to.equal(0);
+		expect(input.index).to.equal(input.size);
 	});
 });
 
@@ -37,16 +39,18 @@ describe('Concept', function() {
 		let input = CharStreams.fromString(xuleCode);
 		let lexer = new XULELexer(input);
 		let parser = new XULEParser(new CommonTokenStream(lexer));
-		let parseTree = parser.expression();
+		let parseTree = parser.assignment();
 		expect(parser.numberOfSyntaxErrors).to.equal(0);
+		expect(input.index).to.equal(input.size);
 	});
 	it("has a period-type property", function () {
 		const xuleCode = `$results = list([covered @concept.period-type = instant]);`;
 		let input = CharStreams.fromString(xuleCode);
 		let lexer = new XULELexer(input);
 		let parser = new XULEParser(new CommonTokenStream(lexer));
-		let parseTree = parser.expression();
+		let parseTree = parser.assignment();
 		expect(parser.numberOfSyntaxErrors).to.equal(0);
+		expect(input.index).to.equal(input.size);
 	});
 });
 
@@ -58,6 +62,7 @@ describe('Factset filtering', function() {
 		let parser = new XULEParser(new CommonTokenStream(lexer));
 		let parseTree = parser.expression();
 		expect(parser.numberOfSyntaxErrors).to.equal(0);
+		expect(input.index).to.equal(input.size);
 	});
 	it("admits != *", function() {
 		const xuleCode = `list({covered @RetirementPlanSponsorLocationAxis != * where $fact.dimensions().values.name.contains(country:US)})`;
@@ -66,6 +71,7 @@ describe('Factset filtering', function() {
 		let parser = new XULEParser(new CommonTokenStream(lexer));
 		let parseTree = parser.expression();
 		expect(parser.numberOfSyntaxErrors).to.equal(0);
+		expect(input.index).to.equal(input.size);
 	});
 	it('supports @unit != unit(...)', function() {
 		const factset = '{nonils @concept.data-type = num:perShareItemType @unit != unit(iso4217:USD, xbrli:shares)}';
@@ -74,6 +80,7 @@ describe('Factset filtering', function() {
 		let parser = new XULEParser(new CommonTokenStream(lexer));
 		let parseTree = parser.factset();
 		expect(parser.numberOfSyntaxErrors).to.equal(0);
+		expect(input.index).to.equal(input.size);
 	});
 	it("can be just {covered-dims}", function() {
 		const factset = '{covered-dims}';
@@ -82,16 +89,30 @@ describe('Factset filtering', function() {
 		let parser = new XULEParser(new CommonTokenStream(lexer));
 		let parseTree = parser.factset();
 		expect(parser.numberOfSyntaxErrors).to.equal(0);
+		expect(input.index).to.equal(input.size);
 	});
 });
 
 describe('Navigation', function() {
-	it("For descendants and ancestors, the number of levels to navigate can be specified after the direction.", function() {
+	it("for descendants and ancestors, the number of levels to navigate can be specified after the direction", function() {
 		const xuleCode = `navigate parent-child descendants 2`;
 		let input = CharStreams.fromString(xuleCode);
 		let lexer = new XULELexer(input);
 		let parser = new XULEParser(new CommonTokenStream(lexer));
 		let parseTree = parser.navigation();
 		expect(parser.numberOfSyntaxErrors).to.equal(0);
+		expect(input.index).to.equal(input.size);
+	});
+});
+
+describe('Numbers', function() {
+	it("may have a decimal part", function() {
+		const xuleCode = `$expected = 92088098335.8388;`;
+		let input = CharStreams.fromString(xuleCode);
+		let lexer = new XULELexer(input);
+		let parser = new XULEParser(new CommonTokenStream(lexer));
+		let parseTree = parser.assignment();
+		expect(parser.numberOfSyntaxErrors).to.equal(0);
+		expect(input.index).to.equal(input.size);
 	});
 });

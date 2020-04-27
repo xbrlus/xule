@@ -42,7 +42,7 @@ expression:
     expression SHARP identifier |
     OPEN_PAREN expression CLOSE_PAREN |
     //"Simple" expressions
-    variableRef | literal | factset | filter | navigation;
+    literal | variableRef | factset | filter | navigation;
 
 block: assignment* expression;
 
