@@ -56,6 +56,14 @@ describe('Factset filtering', function() {
 		let parseTree = parser.factset();
 		expect(parser.numberOfSyntaxErrors).to.equal(0);
 	});
+	it("can be just {covered-dims}", function() {
+		const factset = '{covered-dims}';
+		let input = CharStreams.fromString(factset);
+		let lexer = new XULELexer(input);
+		let parser = new XULEParser(new CommonTokenStream(lexer));
+		let parseTree = parser.factset();
+		expect(parser.numberOfSyntaxErrors).to.equal(0);
+	});
 });
 
 describe('Navigation', function() {
