@@ -62,7 +62,9 @@ aspectFilter:
 
 aspectFilterOptions: (COVERED | COVERED_DIMS) NONILS? | NONILS (COVERED | COVERED_DIMS)?;
 aspectFilterFilter:
-    AT AT? ((CONCEPT | variableRef) propertyAccess* (ASSIGN | IN))? (expression | TIMES) atUnit? | atUnit;
+    AT AT? ((CONCEPT | variableRef) propertyAccess*
+    (ASSIGN | NOT_EQUALS | GT | LT | GTE | LTE | NOT? IN))?
+    (expression | TIMES) atUnit? | atUnit;
 
 atUnit: AT UNIT ASSIGN (expression | TIMES);
 
