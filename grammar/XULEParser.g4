@@ -55,7 +55,7 @@ forHead: identifier IN expression;
 parametersList: OPEN_PAREN (expression (COMMA expression)* COMMA?)? CLOSE_PAREN;
 
 factset: AT | OPEN_CURLY factsetBody CLOSE_CURLY | OPEN_BRACKET factsetBody CLOSE_BRACKET;
-factsetBody: AT | (aspectFilter | factset)* | expression;
+factsetBody: AT | (aspectFilter | factset | expression)*;
 aspectFilter:
     (aspectFilterOptions | aspectFilterOptions? aspectFilterFilter)
     (AS identifier)? (WHERE expression)?;

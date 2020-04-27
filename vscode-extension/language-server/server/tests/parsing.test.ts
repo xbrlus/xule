@@ -102,8 +102,9 @@ describe('Factset filtering', function() {
 	});
 	it("supports division", function() {
 		const factset = `
-{@Unit=* @RetirementPlanSponsorLocationAxis{@DefinedBenefitPlanFairValueOfPlanAssets @RetirementPlanSponsorLocationAxis = country:US} /
-										   {@DefinedBenefitPlanBenefitObligation @RetirementPlanSponsorLocationAxis = country:US}}`;
+{@Unit=* @RetirementPlanSponsorLocationAxis=*
+ {@DefinedBenefitPlanFairValueOfPlanAssets @RetirementPlanSponsorLocationAxis = country:US} /
+ {@DefinedBenefitPlanBenefitObligation @RetirementPlanSponsorLocationAxis = country:US}}`;
 		let input = CharStreams.fromString(factset);
 		let lexer = new XULELexer(input);
 		let parser = new XULEParser(new CommonTokenStream(lexer));
@@ -123,8 +124,8 @@ describe('Factset filtering', function() {
 	it("admits nested factsets (2)", function() {
 		const factset = `
 	{@PercentageOfLIFOInventory @Unit=* @RetirementPlanSponsorLocationAxis} !=
-	{@Unit=* @RetirementPlanSponsorLocationAxis{@DefinedBenefitPlanFairValueOfPlanAssets @RetirementPlanSponsorLocationAxis = country:US} /
-											   {@DefinedBenefitPlanBenefitObligation @RetirementPlanSponsorLocationAxis = country:US}}`;
+	{@Unit=* @RetirementPlanSponsorLocationAxis={@DefinedBenefitPlanFairValueOfPlanAssets @RetirementPlanSponsorLocationAxis = country:US} /
+											    {@DefinedBenefitPlanBenefitObligation @RetirementPlanSponsorLocationAxis = country:US}}`;
 		let input = CharStreams.fromString(factset);
 		let lexer = new XULELexer(input);
 		let parser = new XULEParser(new CommonTokenStream(lexer));
