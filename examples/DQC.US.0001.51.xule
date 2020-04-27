@@ -46,7 +46,7 @@ message
 {$LiabilitiesAndStockholdersEquity}. These values should be equal.
 The properties of this {$Assets.concept} fact are:
 Period :{$Assets.period}
-Dimensions : {$Assets.dimensions.join(‘= ’,’’}
+Dimensions : {$Assets.dimensions.join('= ','')}
 Unit :{$Assets.unit}Rule Version : {$ruleVersion}";
 
 severity

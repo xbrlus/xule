@@ -19,7 +19,7 @@
 			},
 			{
 				"name": "keyword.control.xule",
-				"match": "(?i)(^|(?<=\\*/|[\\s=,;'\"()\\[\\]{}]))((?<![a-zA-Z]])-)?(returns|rule-name-prefix|satisfied|severity|true|where)(?!-)\\b"
+				"match": "(?i)(^|(?<=\\*/|[\\s=,;'\"()\\[\\]{}]))((?<![a-zA-Z]])-)?(returns|rule-name-prefix|satisfied|severity|skip|true|where)(?!-)\\b"
 			},
 			{
 				"name": "keyword.operator.xule",

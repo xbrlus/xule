@@ -65,14 +65,13 @@ aspectFilterFilter:
     AT AT? ((CONCEPT | variableRef) propertyAccess* (ASSIGN | NOT_EQUALS | GT | LT | GTE | LTE | NOT? IN))?
     (expression | TIMES);
 
-filter: FILTER expression (WHERE block)? (RETURNS expression)?;
+filter: FILTER expression (WHERE block)? (RETURNS returnExpression)?;
 
 navigation: NAVIGATE DIMENSIONS? arcrole? direction levels=INTEGER? (INCLUDE START)? (FROM expression)? (TO expression)?
     (STOP WHEN expression)? (ROLE role)? (DRS_ROLE role)?
     (CUBE identifier)? (TAXONOMY expression)?
     (WHERE expression)?
-    (RETURNS ((BY NETWORK returnExpression?) | returnExpression)
-        (AS DICTIONARY)?)?;
+    (RETURNS ((BY NETWORK returnExpression?) | returnExpression) (AS (LIST | DICTIONARY))?)?;
 
 returnExpression : (expression | OPEN_PAREN expression (COMMA expression)* CLOSE_PAREN);
 /** This exists so that when suggesting code we can restrict to well-known keywords. */
@@ -89,7 +88,7 @@ propertyAccess: DOT identifier;
 /** With this rule we cover IDENTIFIER tokens, as well as other tokens (keywords) that we accept as identifiers as well. */
 identifier: IDENTIFIER |
     AS | ASSERT | BY | CONCEPT | CONSTANT | COVERED | CUBE | DICTIONARY | DIMENSIONS | DRS_ROLE | FALSE | INTERSECT |
-    NETWORK | ROLE | START | STOP | TAXONOMY | TRUE | WHEN | WHERE;
+    LIST | NETWORK | ROLE | START | STOP | TAXONOMY | TRUE | WHEN | WHERE;
 literal: stringLiteral | NUMBER | booleanLiteral;
 booleanLiteral: TRUE | FALSE;
 

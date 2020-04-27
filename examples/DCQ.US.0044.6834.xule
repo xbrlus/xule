@@ -17,7 +17,7 @@ flows of the extension taxonomy.
 
 The properties of this {$accrual_fact.concept} fact are:
 Period :{$accrual_fact.period}
-Dimensions : {$accrual_fact.dimensions.join(‘= ’,’’}
+Dimensions : {$accrual_fact.dimensions.join('= ','')}
 Unit : {$accrual_fact.unit}
 Rule Version : {$ruleVersion}"
 

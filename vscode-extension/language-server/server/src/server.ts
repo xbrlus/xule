@@ -477,6 +477,14 @@ connection.onCompletion(
 	}
 );
 
+function suggestFunctions(nodeInfo: NodeInfo, symbolTable: SymbolTable, completions: any[]) {
+	//Well-known functions
+	let textToMatch = nodeInfo.node instanceof IdentifierContext ? nodeInfo.node.text : "";
+	maybeSuggest("abs", textToMatch, CompletionItemKind.Function, completions);
+	//Declared functions
+	suggestIdentifier(nodeInfo.node, DeclarationType.FUNCTION, CompletionItemKind.Function, symbolTable, completions);
+}
+
 async function computeCodeSuggestions(_textDocumentPosition: TextDocumentPositionParams): Promise<CompletionItem[]> {
 	const documentURI = _textDocumentPosition.textDocument.uri;
 	let document = documents.get(documentURI);
@@ -496,13 +504,13 @@ async function computeCodeSuggestions(_textDocumentPosition: TextDocumentPositio
 				maybeSuggest("true", text, CompletionItemKind.Constant, completions);
 				maybeSuggest("false", text, CompletionItemKind.Constant, completions);
 			}
-			const symbolTable = document['symbolTable'] as SymbolTable;
 			if(nodeInfo) {
+				const symbolTable = document['symbolTable'] as SymbolTable;
 				const text = nodeInfo.node.text.toLowerCase();
 				if(candidates.rules.has(XULEParser.RULE_variableRef)) {
 					suggestIdentifier(nodeInfo.node, DeclarationType.CONSTANT, CompletionItemKind.Constant, symbolTable, completions);
-					suggestIdentifier(nodeInfo.node, DeclarationType.FUNCTION, CompletionItemKind.Function, symbolTable, completions);
 					suggestIdentifier(nodeInfo.node, DeclarationType.VARIABLE, CompletionItemKind.Variable, symbolTable, completions);
+					suggestFunctions(nodeInfo, symbolTable, completions);
 				}
 				if(candidates.rules.has(XULEParser.RULE_propertyAccess)) {
 					suggestProperty(nodeInfo.node, CompletionItemKind.Property, symbolTable, completions);
@@ -510,6 +518,8 @@ async function computeCodeSuggestions(_textDocumentPosition: TextDocumentPositio
 				if(candidates.rules.has(XULEParser.RULE_direction)) {
 					maybeSuggest("descendants", text, CompletionItemKind.Keyword, completions);
 				}
+				maybeSuggest("none", text, CompletionItemKind.Keyword, completions);
+				maybeSuggest("skip", text, CompletionItemKind.Keyword, completions); //TODO we should check that the context is appropriate
 			}
 
 			candidates.tokens.forEach((value, key, map) => {
