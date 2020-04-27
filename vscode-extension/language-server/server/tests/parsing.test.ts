@@ -40,6 +40,14 @@ describe('Concept', function() {
 		let parseTree = parser.expression();
 		expect(parser.numberOfSyntaxErrors).to.equal(0);
 	});
+	it("has a period-type property", function () {
+		const xuleCode = `$results = list([covered @concept.period-type = instant]);`;
+		let input = CharStreams.fromString(xuleCode);
+		let lexer = new XULELexer(input);
+		let parser = new XULEParser(new CommonTokenStream(lexer));
+		let parseTree = parser.expression();
+		expect(parser.numberOfSyntaxErrors).to.equal(0);
+	});
 });
 
 describe('Factset filtering', function() {
