@@ -31,6 +31,17 @@ count(taxonomy().dimensions)`;
 	});
 });
 
+describe('Concept', function() {
+	it("has a balance property", function () {
+		const xuleCode = `$results = list([covered @concept.balance = debit]);`;
+		let input = CharStreams.fromString(xuleCode);
+		let lexer = new XULELexer(input);
+		let parser = new XULEParser(new CommonTokenStream(lexer));
+		let parseTree = parser.expression();
+		expect(parser.numberOfSyntaxErrors).to.equal(0);
+	});
+});
+
 describe('Factset filtering', function() {
 	it("admits = none", function() {
 		const xuleCode = `list({covered @RetirementPlanSponsorLocationAxis = none where $fact.dimensions().values.name.contains(country:US)})`;
