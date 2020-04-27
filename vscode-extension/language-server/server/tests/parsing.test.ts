@@ -133,6 +133,15 @@ describe('Factset filtering', function() {
 		expect(parser.numberOfSyntaxErrors).to.equal(0);
 		expect(input.index).to.equal(input.size);
 	});
+	it("supports @unit by itself, as a shortcut for @unit=*", function() {
+		const factset = `{@concept=textItem @Unit @period=*}`;
+		let input = CharStreams.fromString(factset);
+		let lexer = new XULELexer(input);
+		let parser = new XULEParser(new CommonTokenStream(lexer));
+		let parseTree = parser.expression();
+		expect(parser.numberOfSyntaxErrors).to.equal(0);
+		expect(input.index).to.equal(input.size);
+	});
 });
 
 describe('Navigation', function() {
