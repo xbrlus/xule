@@ -91,10 +91,20 @@ describe('Factset filtering', function() {
 		expect(parser.numberOfSyntaxErrors).to.equal(0);
 		expect(input.index).to.equal(input.size);
 	});
+	it("admits covered with no filter", function() {
+		const factset = 'count(list({covered where $fact.concept.name == Revenues}))';
+		let input = CharStreams.fromString(factset);
+		let lexer = new XULELexer(input);
+		let parser = new XULEParser(new CommonTokenStream(lexer));
+		let parseTree = parser.expression();
+		expect(parser.numberOfSyntaxErrors).to.equal(0);
+		expect(input.index).to.equal(input.size);
+	});
 });
 
 describe('Navigation', function() {
-	it("for descendants and ancestors, the number of levels to navigate can be specified after the direction", function() {
+	it("for descendants and ancestors, the number of levels to navigate can be specified after the direction",
+		function() {
 		const xuleCode = `navigate parent-child descendants 2`;
 		let input = CharStreams.fromString(xuleCode);
 		let lexer = new XULELexer(input);
