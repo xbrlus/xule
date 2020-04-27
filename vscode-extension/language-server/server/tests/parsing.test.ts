@@ -100,6 +100,38 @@ describe('Factset filtering', function() {
 		expect(parser.numberOfSyntaxErrors).to.equal(0);
 		expect(input.index).to.equal(input.size);
 	});
+	it("supports division", function() {
+		const factset = `
+{@Unit=* @RetirementPlanSponsorLocationAxis{@DefinedBenefitPlanFairValueOfPlanAssets @RetirementPlanSponsorLocationAxis = country:US} /
+										   {@DefinedBenefitPlanBenefitObligation @RetirementPlanSponsorLocationAxis = country:US}}`;
+		let input = CharStreams.fromString(factset);
+		let lexer = new XULELexer(input);
+		let parser = new XULEParser(new CommonTokenStream(lexer));
+		let parseTree = parser.expression();
+		expect(parser.numberOfSyntaxErrors).to.equal(0);
+		expect(input.index).to.equal(input.size);
+	});
+	it("admits nested factsets (1)", function() {
+		const factset = `list({covered @Axis2=* {list({@assets},{@liabilities},{@stock})}})`;
+		let input = CharStreams.fromString(factset);
+		let lexer = new XULELexer(input);
+		let parser = new XULEParser(new CommonTokenStream(lexer));
+		let parseTree = parser.expression();
+		expect(parser.numberOfSyntaxErrors).to.equal(0);
+		expect(input.index).to.equal(input.size);
+	});
+	it("admits nested factsets (2)", function() {
+		const factset = `
+	{@PercentageOfLIFOInventory @Unit=* @RetirementPlanSponsorLocationAxis} !=
+	{@Unit=* @RetirementPlanSponsorLocationAxis{@DefinedBenefitPlanFairValueOfPlanAssets @RetirementPlanSponsorLocationAxis = country:US} /
+											   {@DefinedBenefitPlanBenefitObligation @RetirementPlanSponsorLocationAxis = country:US}}`;
+		let input = CharStreams.fromString(factset);
+		let lexer = new XULELexer(input);
+		let parser = new XULEParser(new CommonTokenStream(lexer));
+		let parseTree = parser.expression();
+		expect(parser.numberOfSyntaxErrors).to.equal(0);
+		expect(input.index).to.equal(input.size);
+	});
 });
 
 describe('Navigation', function() {

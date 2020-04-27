@@ -48,7 +48,6 @@ WHERE: W H E R E;
 WHEN: W H E N;
 
 URL: 'http' ('s')? '://' ~('\n' | '\r' | ' ' | '\t')+;
-UNIT: U N I T;
 
 TRUE: T R U E;
 TO: T O;
