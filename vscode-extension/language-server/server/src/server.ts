@@ -389,10 +389,11 @@ function suggestIdentifier(
 	known.forEach(c => {
 		if (!completions.find(co => co.label == c.name)) {
 			let label: string = c.name;
+			let item: CompletionItem = { label: label, kind: completionKind };
 			if(label.startsWith('$') && match.length > 0) {
-				label = label.substring(1);
+				item.insertText = label.substring(1); //VSCode messes up with $
 			}
-			completions.push({ label: label, kind: completionKind });
+			completions.push(item);
 		}
 	});
 }
