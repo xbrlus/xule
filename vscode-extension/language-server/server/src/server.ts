@@ -353,7 +353,7 @@ function setupCompletionCore(parser: XULEParser, settings: XULELanguageSettings)
 	let core = new CodeCompletionCore(parser);
 	core.ignoredTokens = new Set([
 		XULEParser.ADD_L, XULEParser.ADD_LR, XULEParser.ADD_R,
-		XULEParser.ASSIGN, XULEParser.ASSERT_RULE_NAME, XULEParser.AT,
+		XULEParser.AND_OP, XULEParser.ASSIGN, XULEParser.ASSERT_RULE_NAME, XULEParser.AT,
 		XULEParser.CLOSE_BRACKET, XULEParser.CLOSE_CURLY, XULEParser.CLOSE_PAREN,
 		XULEParser.COMMA, XULEParser.DIV,
 		XULEParser.DOT, XULEParser.DOUBLE_QUOTE, XULEParser.EOF, XULEParser.EQUALS,
@@ -463,7 +463,33 @@ function suggestProperty(
 				maybeSuggest("unit", textToMatch, completionKind, completions);
 			}
 		}
+		maybeSuggest("abs", textToMatch, completionKind, completions);
+		maybeSuggest("date", textToMatch, completionKind, completions);
+		maybeSuggest("day", textToMatch, completionKind, completions);
+		maybeSuggest("days", textToMatch, completionKind, completions);
+		maybeSuggest("duration", textToMatch, completionKind, completions);
+		maybeSuggest("contains", textToMatch, completionKind, completions);
+		maybeSuggest("forever", textToMatch, completionKind, completions);
+		maybeSuggest("index-of", textToMatch, completionKind, completions);
 		maybeSuggest("is-fact", textToMatch, completionKind, completions);
+		maybeSuggest("last-index-of", textToMatch, completionKind, completions);
+		maybeSuggest("length", textToMatch, completionKind, completions);
+		maybeSuggest("lower-case", textToMatch, completionKind, completions);
+		maybeSuggest("log10", textToMatch, completionKind, completions);
+		maybeSuggest("mod", textToMatch, completionKind, completions);
+		maybeSuggest("month", textToMatch, completionKind, completions);
+		maybeSuggest("number", textToMatch, completionKind, completions);
+		maybeSuggest("power", textToMatch, completionKind, completions);
+		maybeSuggest("round", textToMatch, completionKind, completions);
+		maybeSuggest("signum", textToMatch, completionKind, completions);
+		maybeSuggest("split", textToMatch, completionKind, completions);
+		maybeSuggest("string", textToMatch, completionKind, completions);
+		maybeSuggest("substring", textToMatch, completionKind, completions);
+		maybeSuggest("to-qname", textToMatch, completionKind, completions);
+		maybeSuggest("time-span", textToMatch, completionKind, completions);
+		maybeSuggest("trunc", textToMatch, completionKind, completions);
+		maybeSuggest("upper-case", textToMatch, completionKind, completions);
+		maybeSuggest("year", textToMatch, completionKind, completions);
 	}
 }
 
@@ -492,6 +518,7 @@ const wellKnownFunctions = {
 	"any": {},
 	"avg": {},
 	"count": {},
+	"csv-data": {},
 	"date": {},
 	"day": {},
 	"duration": {},
@@ -500,6 +527,7 @@ const wellKnownFunctions = {
 	"first": {},
 	"first-value": {},
 	"forever": {},
+	"json-data": {},
 	"last": {},
 	"list": {},
 	"log10": {},
@@ -510,7 +538,9 @@ const wellKnownFunctions = {
 	"power": {},
 	"prod": {},
 	"qname": {},
+	"range": {},
 	"round": {},
+	"rule-name": {},
 	"signum": {},
 	"sum": {},
 	"stdev": {},

@@ -15,10 +15,10 @@ output:
     OUTPUT identifier (OPEN_BRACKET AT identifier CLOSE_BRACKET)?
     (constantDeclaration | assignment)*
     expression
-    (MESSAGE expression SEMI?)?;
+    (outputAttributeName expression SEMI?)*;
 
 assertion: ASSERT ASSERT_RULE_NAME (ASSERT_SATISFIED | ASSERT_UNSATISFIED)
-    (constantDeclaration | functionDeclaration | assignment | expression (MESSAGE expression SEMI?)? (SEVERITY expression)?)+;
+    (constantDeclaration | functionDeclaration | assignment | expression (outputAttributeName expression SEMI?)*)+;
 
 constantDeclaration: CONSTANT identifier ASSIGN expression;
 functionDeclaration: FUNCTION identifier OPEN_PAREN (functionArgument (COMMA functionArgument)*)? CLOSE_PAREN block;
@@ -79,7 +79,8 @@ arcrole: role;
 role: identifier propertyAccess* | stringLiteral;
 /** This exists so that when suggesting code we can restrict to well-known keywords. */
 direction: identifier;
-
+/** This exists so that when suggesting code we can restrict to well-known keywords. */
+outputAttributeName: identifier;
 //End expressions
 
 propertyAccess: DOT identifier;
