@@ -21,14 +21,25 @@ import {
 import {
 	TextDocument
 } from 'vscode-languageserver-textdocument';
-import { CodeCompletionCore } from 'antlr4-c3';
+import {CandidatesCollection, CodeCompletionCore} from 'antlr4-c3';
 import { XULELexer } from './parser/XULELexer';
-import { CharStreams, ANTLRErrorListener, RecognitionException, Recognizer, CommonTokenStream, Token, ParserRuleContext, CommonToken } from 'antlr4ts';
+import {
+	CharStreams,
+	ANTLRErrorListener,
+	RecognitionException,
+	Recognizer,
+	CommonTokenStream,
+	Token,
+	ParserRuleContext,
+	CommonToken,
+	Lexer
+} from 'antlr4ts';
 import {XULEParser, PropertyAccessContext, IdentifierContext, ExpressionContext} from './parser/XULEParser';
 import { ParseTree } from 'antlr4ts/tree/ParseTree';
 import { TerminalNode } from 'antlr4ts/tree/TerminalNode';
 import { SymbolTableVisitor, SymbolTable, DeclarationType } from './symbols';
 import { Interval } from 'antlr4ts/misc/Interval';
+import {ErrorNode} from "antlr4ts/tree";
 
 // Create a connection for the server. The connection uses Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
@@ -236,6 +247,7 @@ function terminalNodeAtPosition(terminal: TerminalNode, line: number, column: nu
 	}
 
 	if (startLine != endLine && line < endLine) {
+		//The token spans multiple lines and we're inside it, but not inside its last line
 		let offset = column;
 		for (let i = 0; i < line - startLine; i++) {
 			offset += lines[i].length;
@@ -252,7 +264,9 @@ function terminalNodeAtPosition(terminal: TerminalNode, line: number, column: nu
 			tokenStopInLine = token.charPositionInLine + (token.stopIndex - token.startIndex + 1);
 		}
 	} else if (line == endLine) {
-		//Note: if the execution flow arrives here, then startLine != endLine
+		if(startLine == endLine) {
+			throw "You've found a bug: startLine == endLine. This was not supposed to happen.";
+		}
 		tokenStopInLine =
 			token.stopIndex - token.startIndex -
 			Math.max(token.text.lastIndexOf('\n'), token.text.lastIndexOf('\r'));
@@ -264,6 +278,12 @@ function terminalNodeAtPosition(terminal: TerminalNode, line: number, column: nu
 		for (let i = 0; i < line - startLine; i++) {
 			offset += lines[i].length;
 		}
+		if(offset == terminal.text.length) {
+			if(terminal.symbol.type == XULEParser.OPEN_PAREN || terminal.symbol.type == XULEParser.COMMA) {
+				return {node: new TerminalNode(new CommonToken(0, "")), offset: 0, tokenIndex: terminal.symbol.tokenIndex + 1};
+			}
+		}
+
 		return {node: terminal, offset: offset, tokenIndex: terminal.symbol.tokenIndex};
 	}
 	return undefined;
@@ -367,7 +387,8 @@ function setupCompletionCore(parser: XULEParser, settings: XULELanguageSettings)
 	]);
 	core.preferredRules = new Set([
 		XULEParser.RULE_booleanLiteral,
-		XULEParser.RULE_identifier, XULEParser.RULE_propertyAccess, XULEParser.RULE_direction
+		XULEParser.RULE_identifier, XULEParser.RULE_propertyAccess, XULEParser.RULE_direction,
+		XULEParser.RULE_navigationReturnOption
 	]);
 	if(settings.server.debug == DebugLevel.verbose) {
 		core.showDebugOutput = true;
@@ -561,6 +582,60 @@ function suggestFunction(nodeInfo: NodeInfo, symbolTable: SymbolTable, completio
 	suggestIdentifier(nodeInfo.node, DeclarationType.FUNCTION, CompletionItemKind.Function, symbolTable, completions);
 }
 
+function suggestIdentifiers(document: TextDocument, nodeInfo: NodeInfo, candidates: CandidatesCollection, completions: any[]) {
+	if(!nodeInfo) {
+		return;
+	}
+	const symbolTable = document['symbolTable'] as SymbolTable;
+	const text = nodeInfo.node instanceof ErrorNode ? "" : nodeInfo.node.text.toLowerCase();
+	if (candidates.rules.has(XULEParser.RULE_booleanLiteral)) {
+		maybeSuggest("true", text, CompletionItemKind.Constant, completions);
+		maybeSuggest("false", text, CompletionItemKind.Constant, completions);
+	}
+	if (candidates.rules.has(XULEParser.RULE_identifier)) {
+		suggestIdentifier(nodeInfo.node, DeclarationType.CONSTANT, CompletionItemKind.Constant, symbolTable, completions);
+		suggestIdentifier(nodeInfo.node, DeclarationType.VARIABLE, CompletionItemKind.Variable, symbolTable, completions);
+		suggestFunction(nodeInfo, symbolTable, completions);
+	}
+	if (candidates.rules.has(XULEParser.RULE_propertyAccess)) {
+		suggestProperty(nodeInfo.node, CompletionItemKind.Property, symbolTable, completions);
+	}
+	if (candidates.rules.has(XULEParser.RULE_direction)) {
+		maybeSuggest("descendants", text, CompletionItemKind.Keyword, completions);
+	} else if (candidates.rules.has(XULEParser.RULE_navigationReturnOption)) {
+		maybeSuggest("source", text, CompletionItemKind.Keyword, completions);
+		maybeSuggest("source-name", text, CompletionItemKind.Keyword, completions);
+		maybeSuggest("target", text, CompletionItemKind.Keyword, completions);
+		maybeSuggest("target-name", text, CompletionItemKind.Keyword, completions);
+	} else {
+		maybeSuggest("none", text, CompletionItemKind.Keyword, completions);
+		maybeSuggest("skip", text, CompletionItemKind.Keyword, completions); //TODO we should check that the context is appropriate
+	}
+}
+
+function suggestKeywords(parser: XULEParser, nodeInfo: NodeInfo, candidates: CandidatesCollection, completions: any[]) {
+	candidates.tokens.forEach((value, key, map) => {
+		if (key == XULEParser.IDENTIFIER || key == XULEParser.TRUE || key == XULEParser.FALSE) {
+			return; //It's handled above
+		}
+		let keyword = parser.vocabulary.getDisplayName(key).toLowerCase();
+		if (key == XULEParser.ASSERT_SATISFIED) {
+			keyword = 'satisfied'
+		} else if (key == XULEParser.ASSERT_UNSATISFIED) {
+			keyword = 'unsatisfied'
+		}
+		let text = "";
+		if (nodeInfo && !(nodeInfo.node instanceof ErrorNode) && nodeInfo.node.text) {
+			text = nodeInfo.node.text.toLowerCase();
+			if (nodeInfo.offset < nodeInfo.node.text.length - 1) {
+				//The caret is inside a keyword. Let's match the existing string.
+				text = text.substring(0, nodeInfo.offset);
+			}
+		}
+		maybeSuggest(keyword, text, CompletionItemKind.Keyword, completions);
+	});
+}
+
 async function computeCodeSuggestions(_textDocumentPosition: TextDocumentPositionParams): Promise<CompletionItem[]> {
 	const documentURI = _textDocumentPosition.textDocument.uri;
 	let document = documents.get(documentURI);
@@ -575,49 +650,9 @@ async function computeCodeSuggestions(_textDocumentPosition: TextDocumentPositio
 			let core = setupCompletionCore(parser, settings);
 			let candidates = core.collectCandidates(tokenIndex);
 			let completions = [];
-			if(candidates.rules.has(XULEParser.RULE_booleanLiteral)) {
-				const text = nodeInfo.node.text.toLowerCase();
-				maybeSuggest("true", text, CompletionItemKind.Constant, completions);
-				maybeSuggest("false", text, CompletionItemKind.Constant, completions);
-			}
-			if(nodeInfo) {
-				const symbolTable = document['symbolTable'] as SymbolTable;
-				const text = nodeInfo.node.text.toLowerCase();
-				if(candidates.rules.has(XULEParser.RULE_identifier)) {
-					suggestIdentifier(nodeInfo.node, DeclarationType.CONSTANT, CompletionItemKind.Constant, symbolTable, completions);
-					suggestIdentifier(nodeInfo.node, DeclarationType.VARIABLE, CompletionItemKind.Variable, symbolTable, completions);
-					suggestFunction(nodeInfo, symbolTable, completions);
-				}
-				if(candidates.rules.has(XULEParser.RULE_propertyAccess)) {
-					suggestProperty(nodeInfo.node, CompletionItemKind.Property, symbolTable, completions);
-				}
-				if(candidates.rules.has(XULEParser.RULE_direction)) {
-					maybeSuggest("descendants", text, CompletionItemKind.Keyword, completions);
-				}
-				maybeSuggest("none", text, CompletionItemKind.Keyword, completions);
-				maybeSuggest("skip", text, CompletionItemKind.Keyword, completions); //TODO we should check that the context is appropriate
-			}
 
-			candidates.tokens.forEach((value, key, map) => {
-				if(key == XULEParser.IDENTIFIER || key == XULEParser.TRUE || key == XULEParser.FALSE) {
-					return; //It's handled above
-				}
-				let keyword = parser.vocabulary.getDisplayName(key).toLowerCase();
-				if(key == XULEParser.ASSERT_SATISFIED) {
-					keyword = 'satisfied'
-				} else if(key == XULEParser.ASSERT_UNSATISFIED) {
-					keyword = 'unsatisfied'
-				}
-				let text = "";
-				if(nodeInfo && nodeInfo.node.text) {
-					text = nodeInfo.node.text.toLowerCase();
-					if(nodeInfo.offset < nodeInfo.node.text.length - 1) {
-						//The caret is inside a keyword. Let's match the existing string.
-						text = text.substring(0, nodeInfo.offset);
-					}
-				}
-				maybeSuggest(keyword, text, CompletionItemKind.Keyword, completions);
-			});
+			suggestIdentifiers(document, nodeInfo, candidates, completions);
+			suggestKeywords(parser, nodeInfo, candidates, completions);
 			return completions;
 		}
 	}

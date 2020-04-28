@@ -65,15 +65,18 @@ aspectFilterFilter:
     AT AT? ((CONCEPT | identifier) propertyAccess* (ASSIGN | NOT_EQUALS | GT | LT | GTE | LTE | NOT? IN))?
     (expression | TIMES);
 
-filter: FILTER expression (WHERE block)? (RETURNS returnExpression)?;
+filter: FILTER expression (WHERE block)? (RETURNS filterReturn)?;
+filterReturn : (expression | OPEN_PAREN expression (COMMA expression)* CLOSE_PAREN);
 
 navigation: NAVIGATE DIMENSIONS? arcrole? direction levels=INTEGER? (INCLUDE START)? (FROM expression)? (TO expression)?
     (STOP WHEN expression)? (ROLE role)? (DRS_ROLE role)?
     (CUBE identifier)? (TAXONOMY expression)?
     (WHERE expression)?
-    (RETURNS ((BY NETWORK returnExpression?) | returnExpression) (AS (LIST | DICTIONARY))?)?;
+    (RETURNS ((BY NETWORK navigationReturnOptions?) | navigationReturnOptions) (AS (LIST | DICTIONARY))?)?;
+navigationReturnOptions: (LIST | SET)? OPEN_PAREN navigationReturnOption (COMMA navigationReturnOption)* CLOSE_PAREN;
+/** This exists so that when validating and suggesting code we can restrict to well-known keywords. */
+navigationReturnOption: identifier;
 
-returnExpression : (expression | OPEN_PAREN expression (COMMA expression)* CLOSE_PAREN);
 /** This exists so that when suggesting code we can restrict to well-known keywords. */
 arcrole: role;
 role: identifier propertyAccess* | stringLiteral;
@@ -87,7 +90,7 @@ propertyAccess: DOT identifier;
 /** With this rule we cover IDENTIFIER tokens, as well as other tokens (keywords) that we accept as identifiers as well. */
 identifier: IDENTIFIER |
     AS | ASSERT | BY | CONCEPT | CONSTANT | COVERED | CUBE | DICTIONARY | DIMENSIONS | DRS_ROLE | FALSE | INTERSECT |
-    LIST | NETWORK | ROLE | START | STOP | TAXONOMY | TRUE | WHEN | WHERE;
+    LIST | NETWORK | ROLE | SET | START | STOP | TAXONOMY | TRUE | WHEN | WHERE;
 literal: stringLiteral | NUMBER | booleanLiteral;
 booleanLiteral: TRUE | FALSE;
 
