@@ -24,7 +24,7 @@ import {
 import { CodeCompletionCore } from 'antlr4-c3';
 import { XULELexer } from './parser/XULELexer';
 import { CharStreams, ANTLRErrorListener, RecognitionException, Recognizer, CommonTokenStream, Token, ParserRuleContext, CommonToken } from 'antlr4ts';
-import {XULEParser, PropertyAccessContext, IdentifierContext, VariableRefContext, ExpressionContext} from './parser/XULEParser';
+import {XULEParser, PropertyAccessContext, IdentifierContext, ExpressionContext} from './parser/XULEParser';
 import { ParseTree } from 'antlr4ts/tree/ParseTree';
 import { TerminalNode } from 'antlr4ts/tree/TerminalNode';
 import { SymbolTableVisitor, SymbolTable, DeclarationType } from './symbols';
@@ -367,7 +367,7 @@ function setupCompletionCore(parser: XULEParser, settings: XULELanguageSettings)
 	]);
 	core.preferredRules = new Set([
 		XULEParser.RULE_booleanLiteral,
-		XULEParser.RULE_variableRef, XULEParser.RULE_propertyAccess, XULEParser.RULE_direction
+		XULEParser.RULE_identifier, XULEParser.RULE_propertyAccess, XULEParser.RULE_direction
 	]);
 	if(settings.server.debug == DebugLevel.verbose) {
 		core.showDebugOutput = true;
@@ -384,10 +384,15 @@ function suggestIdentifier(
 		return b.name.toLowerCase().startsWith(n) && b.meaning.find(m => m == declarationType) !== undefined;
 	}
 
-	let known = symbolTable.lookupAll(node.text.toLowerCase(), node, filter);
+	let match = node.text.toLowerCase();
+	let known = symbolTable.lookupAll(match, node, filter);
 	known.forEach(c => {
 		if (!completions.find(co => co.label == c.name)) {
-			completions.push({ label: c.name, kind: completionKind });
+			let label: string = c.name;
+			if(label.startsWith('$') && match.length > 0) {
+				label = label.substring(1);
+			}
+			completions.push({ label: label, kind: completionKind });
 		}
 	});
 }
@@ -440,10 +445,10 @@ function suggestProperty(
 		} else {
 			//Maybe suggest properties of well-known variables
 			let varName = undefined;
-			if(previous instanceof VariableRefContext) {
+			if(previous instanceof IdentifierContext) {
 				varName = previous.text.toLowerCase();
 			} else if(previous instanceof ExpressionContext && previous.childCount == 1) {
-				if(previous.children[0] instanceof VariableRefContext) {
+				if(previous.children[0] instanceof IdentifierContext) {
 					varName = previous.children[0].text.toLowerCase();
 				}
 			}
@@ -457,6 +462,7 @@ function suggestProperty(
 				maybeSuggest("unit", textToMatch, completionKind, completions);
 			}
 		}
+		maybeSuggest("is-fact", textToMatch, completionKind, completions);
 	}
 }
 
@@ -466,7 +472,9 @@ function maybeSuggest(candidate: string, text: string, kind: CompletionItemKind,
 			label: candidate,
 			kind: kind
 		});
+		return true;
 	}
+	return false;
 }
 
 // This handler provides the initial list of the completion items.
@@ -477,10 +485,47 @@ connection.onCompletion(
 	}
 );
 
-function suggestFunctions(nodeInfo: NodeInfo, symbolTable: SymbolTable, completions: any[]) {
+const wellKnownFunctions = {
+	"abs": {},
+	"all": {},
+	"any": {},
+	"avg": {},
+	"count": {},
+	"date": {},
+	"day": {},
+	"duration": {},
+	"entry-point-namespace": {},
+	"exists": {},
+	"first": {},
+	"first-value": {},
+	"forever": {},
+	"last": {},
+	"list": {},
+	"log10": {},
+	"min": {},
+	"missing": {},
+	"mod": {},
+	"month": {},
+	"power": {},
+	"prod": {},
+	"qname": {},
+	"round": {},
+	"signum": {},
+	"sum": {},
+	"stdev": {},
+	"taxonomy": {},
+	"time-span": {},
+	"trunc": {},
+	"unit": {},
+	"year": {}
+};
+
+function suggestFunction(nodeInfo: NodeInfo, symbolTable: SymbolTable, completions: any[]) {
+	let textToMatch = nodeInfo.node.text.toLowerCase();
 	//Well-known functions
-	let textToMatch = nodeInfo.node instanceof IdentifierContext ? nodeInfo.node.text : "";
-	maybeSuggest("abs", textToMatch, CompletionItemKind.Function, completions);
+	for(let name in wellKnownFunctions) {
+		maybeSuggest(name, textToMatch, CompletionItemKind.Function, completions);
+	}
 	//Declared functions
 	suggestIdentifier(nodeInfo.node, DeclarationType.FUNCTION, CompletionItemKind.Function, symbolTable, completions);
 }
@@ -507,10 +552,10 @@ async function computeCodeSuggestions(_textDocumentPosition: TextDocumentPositio
 			if(nodeInfo) {
 				const symbolTable = document['symbolTable'] as SymbolTable;
 				const text = nodeInfo.node.text.toLowerCase();
-				if(candidates.rules.has(XULEParser.RULE_variableRef)) {
+				if(candidates.rules.has(XULEParser.RULE_identifier)) {
 					suggestIdentifier(nodeInfo.node, DeclarationType.CONSTANT, CompletionItemKind.Constant, symbolTable, completions);
 					suggestIdentifier(nodeInfo.node, DeclarationType.VARIABLE, CompletionItemKind.Variable, symbolTable, completions);
-					suggestFunctions(nodeInfo, symbolTable, completions);
+					suggestFunction(nodeInfo, symbolTable, completions);
 				}
 				if(candidates.rules.has(XULEParser.RULE_propertyAccess)) {
 					suggestProperty(nodeInfo.node, CompletionItemKind.Property, symbolTable, completions);
@@ -523,7 +568,7 @@ async function computeCodeSuggestions(_textDocumentPosition: TextDocumentPositio
 			}
 
 			candidates.tokens.forEach((value, key, map) => {
-				if(key == XULEParser.IDENTIFIER) {
+				if(key == XULEParser.IDENTIFIER || key == XULEParser.TRUE || key == XULEParser.FALSE) {
 					return; //It's handled above
 				}
 				let keyword = parser.vocabulary.getDisplayName(key).toLowerCase();

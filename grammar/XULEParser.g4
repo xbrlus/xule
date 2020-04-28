@@ -42,7 +42,7 @@ expression:
     expression SHARP identifier |
     OPEN_PAREN expression CLOSE_PAREN |
     //"Simple" expressions
-    literal | variableRef | factset | filter | navigation;
+    literal | identifier | factset | filter | navigation;
 
 block: assignment* expression;
 
@@ -62,7 +62,7 @@ aspectFilter:
 
 aspectFilterOptions: (COVERED | COVERED_DIMS) NONILS? | NONILS (COVERED | COVERED_DIMS)?;
 aspectFilterFilter:
-    AT AT? ((CONCEPT | variableRef) propertyAccess* (ASSIGN | NOT_EQUALS | GT | LT | GTE | LTE | NOT? IN))?
+    AT AT? ((CONCEPT | identifier) propertyAccess* (ASSIGN | NOT_EQUALS | GT | LT | GTE | LTE | NOT? IN))?
     (expression | TIMES);
 
 filter: FILTER expression (WHERE block)? (RETURNS returnExpression)?;
@@ -82,8 +82,6 @@ direction: identifier;
 
 //End expressions
 
-/** This exists so that when suggesting names we can restrict only to certain name spaces. */
-variableRef: identifier;
 propertyAccess: DOT identifier;
 /** With this rule we cover IDENTIFIER tokens, as well as other tokens (keywords) that we accept as identifiers as well. */
 identifier: IDENTIFIER |
