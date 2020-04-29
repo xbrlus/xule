@@ -1813,12 +1813,21 @@ def extract_templates(cntlr, options):
         os.makedirs(options.ferc_render_extract, exist_ok=True)
         
         for template_info in catalog['templates']:
+            contents = ts_file.read(template_info['template']) 
+            new_name = os.path.join(options.ferc_render_extract, '{}.html'.format(template_info['name']))
+            with open(new_name, 'wb') as new_file:
+                new_file.write(contents)
+            cntlr.addToLog("Extracted: {}".format(new_name),'info')   
+        
+            '''
+            # This method would create the folder structure of the original file in the archive
+            # even though the was written to a new folder location.
             ts_file.extract(template_info['template'], options.ferc_render_extract)
             old_name = os.path.join(options.ferc_render_extract, template_info['template'])
             new_name = os.path.join(options.ferc_render_extract, '{}.html'.format(template_info['name']))
             os.rename(old_name, new_name)
             cntlr.addToLog("Extracted: {}".format(new_name),'info')
-
+            '''
 
 def combine_template_sets(cntlr, options):
     template_sets = get_list_of_template_sets(options.ferc_render_combine, cntlr)
