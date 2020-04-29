@@ -5,34 +5,39 @@ import {
 	AssignmentContext,
 	FunctionDeclarationContext,
 	FunctionArgumentContext,
-	ExpressionContext,
-	PropertyAccessContext,
 	XuleFileContext,
 	OutputAttributeDeclarationContext
 } from './parser/XULEParser';
 
 export type Binding = { name: any, meaning: any };
+export type Lookup = (obj: Binding) => boolean;
 
 export class Environment {
 
 	public bindings: Binding[] = [];
 	constructor(public parent?: Environment) {}
 
-	find(what, test: (obj: any) => boolean = (obj) => obj.name == what): Binding {
+	find(what: string | Lookup): Binding {
+		const test = what instanceof String ? function (binding: Binding) {
+			return binding.name == what
+		} : what as Lookup;
 		const binding = this.bindings.find(mapping => test(mapping));
 		if(binding) {
 			return binding;
 		} else if(this.parent) {
-			return this.parent.find(what, test);
+			return this.parent.find(test);
 		} else {
 			return undefined;
 		}
 	}
 
-	findAll(what, test: (obj, name) => boolean = (obj, name) => obj.name == name): Binding[] {
-		const bindings = this.bindings.filter(mapping => test(mapping, what));
+	findAll(what: string | Lookup): Binding[] {
+		const test = what instanceof String ? function (binding: Binding) {
+			return binding.name == what
+		} : what as Lookup;
+		const bindings = this.bindings.filter(mapping => test(mapping));
 		if(this.parent) {
-			return bindings.concat(this.parent.findAll(what, test));
+			return bindings.concat(this.parent.findAll(what));
 		} else {
 			return bindings;
 		}
@@ -52,17 +57,17 @@ export class SymbolTable {
 
 	public symbols: { scope: ParseTree, environment: Environment }[] = [];
 
-	lookup(name, scope: ParseTree) {
+	lookup(what: string | Lookup, scope: ParseTree) {
 		const env = this.lookupEnvironment(scope);
 		if(env) {
-			return env.find(name);
+			return env.find(what);
 		}
 	}
 
-	lookupAll(name, scope: ParseTree, test: (binding: Binding, name) => boolean = (b, n) => b.name == n) {
+	lookupAll(what: string | Lookup, scope: ParseTree) {
 		const env = this.lookupEnvironment(scope);
 		if(env) {
-			return env.findAll(name, test);
+			return env.findAll(what);
 		} else {
 			return [];
 		}

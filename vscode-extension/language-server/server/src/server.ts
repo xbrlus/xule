@@ -31,12 +31,19 @@ import {
 	Recognizer,
 	Token
 } from 'antlr4ts';
-import {ExpressionContext, IdentifierContext, PropertyAccessContext, XULEParser} from './parser/XULEParser';
+import {
+	ExpressionContext,
+	IdentifierContext,
+	PropertyAccessContext,
+	XuleFileContext,
+	XULEParser
+} from './parser/XULEParser';
 import {ParseTree} from 'antlr4ts/tree/ParseTree';
 import {TerminalNode} from 'antlr4ts/tree/TerminalNode';
 import {DeclarationType, SymbolTable, SymbolTableVisitor} from './symbols';
 import {Interval} from 'antlr4ts/misc/Interval';
 import {ErrorNode} from "antlr4ts/tree";
+import {SemanticCheckVisitor, wellKnownFunctions} from "./semanticCheckVisitor";
 
 // Create a connection for the server. The connection uses Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
@@ -212,9 +219,12 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 	parser.addErrorListener(new ReportingParserErrorListener());
 
 	let parseTree = parser.xuleFile();
+	let symbolTable = new SymbolTableVisitor().visit(parseTree);
 	textDocument['parseTree'] = parseTree;
 	textDocument['parser'] = parser;
-	textDocument['symbolTable'] = new SymbolTableVisitor().visit(parseTree);
+	textDocument['symbolTable'] = symbolTable;
+
+	new SemanticCheckVisitor(diagnostics, symbolTable, textDocument).visit(parseTree);
 	connection.sendDiagnostics({ uri: textDocument.uri, diagnostics });
 }
 
@@ -404,12 +414,15 @@ function setupCompletionCore(parser: XULEParser, settings: XULELanguageSettings)
 function suggestIdentifier(
 	node: ParseTree, declarationType: DeclarationType, completionKind: CompletionItemKind,
 	symbolTable: SymbolTable, completions: any[]) {
-	function filter(b, n) {
-		return b.name.toLowerCase().startsWith(n) && b.meaning.find(m => m == declarationType) !== undefined;
+	function filter(n) {
+		return function(b) {
+			return b.name.toLowerCase().startsWith(n) &&
+				   b.meaning.find(m => m == declarationType) !== undefined;
+		}
 	}
 
 	let match = node.text.toLowerCase();
-	let known = symbolTable.lookupAll(match, node, filter);
+	let known = symbolTable.lookupAll(filter(match), node);
 	known.forEach(c => {
 		if (!completions.find(co => co.label == c.name)) {
 			let label: string = c.name;
@@ -536,45 +549,6 @@ connection.onCompletion(
 	}
 );
 
-const wellKnownFunctions = {
-	"abs": {},
-	"all": {},
-	"any": {},
-	"avg": {},
-	"count": {},
-	"csv-data": {},
-	"date": {},
-	"day": {},
-	"duration": {},
-	"entry-point-namespace": {},
-	"exists": {},
-	"first": {},
-	"first-value": {},
-	"forever": {},
-	"json-data": {},
-	"last": {},
-	"list": {},
-	"log10": {},
-	"min": {},
-	"missing": {},
-	"mod": {},
-	"month": {},
-	"power": {},
-	"prod": {},
-	"qname": {},
-	"range": {},
-	"round": {},
-	"rule-name": {},
-	"signum": {},
-	"sum": {},
-	"stdev": {},
-	"taxonomy": {},
-	"time-span": {},
-	"trunc": {},
-	"unit": {},
-	"year": {}
-};
-
 const returnOptions = [
 	"arc-name", "arcrole", "arcrole-cycles-allowed", "arcrole-description", "arcrole-uri", "cycle",
 	"dimension-sub-type", "dimension-type", "drs-role", "link-name", "navigation-depth", "navigation-order", "network",
@@ -631,7 +605,8 @@ function suggestIdentifiers(symbolTable: SymbolTable, nodeInfo: NodeInfo, candid
 	}
 	if(candidates.rules.has(XULEParser.RULE_assignedVariable)) {
 		suggestIdentifier(nodeInfo.node, DeclarationType.VARIABLE, CompletionItemKind.Variable, symbolTable, completions);
-	} else if(candidates.rules.has(XULEParser.RULE_variableRead)) {
+	}
+	if(candidates.rules.has(XULEParser.RULE_variableRead)) {
 		suggestIdentifier(nodeInfo.node, DeclarationType.CONSTANT, CompletionItemKind.Constant, symbolTable, completions);
 		suggestIdentifier(nodeInfo.node, DeclarationType.VARIABLE, CompletionItemKind.Variable, symbolTable, completions);
 		suggestFunction(nodeInfo, symbolTable, completions);

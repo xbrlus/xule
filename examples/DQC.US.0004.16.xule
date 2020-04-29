@@ -15,3 +15,16 @@ function Tolerance_For_Decimals($left, $right, $decimal_tolerance_factor)
 assert DQC.US.0004.16 satisfied
 $Assets = {@Assets};
 $LiabilitiesAndStockholdersEquity = {@LiabilitiesAndStockholdersEquity};
+
+Tolerance_For_Decimals($Assets, $LiabilitiesAndStockholdersEquity, 2)
+message
+"{$Assets.concept.label.text} with a value of {$Assets} is not equal to the total of
+{$LiabilitiesAndStockholdersEquity.concept.label.text} with a value of
+{$LiabilitiesAndStockholdersEquity}. These values should be equal.
+The properties of this {$Assets.concept} fact are:
+Period :{$Assets.period}
+Dimensions : {$Assets.dimensions.join('= ','')}
+Unit :{$Assets.unit}Rule Version : {$ruleVersion}";
+
+severity
+error
