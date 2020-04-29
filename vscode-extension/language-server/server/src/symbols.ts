@@ -1,6 +1,15 @@
 import {ParseTree, AbstractParseTreeVisitor, RuleNode} from 'antlr4ts/tree';
 import { XULEParserVisitor } from './parser/XULEParserVisitor';
-import { ConstantDeclarationContext, AssignmentContext, FunctionDeclarationContext, FunctionArgumentContext, ExpressionContext, PropertyAccessContext, XuleFileContext } from './parser/XULEParser';
+import {
+	ConstantDeclarationContext,
+	AssignmentContext,
+	FunctionDeclarationContext,
+	FunctionArgumentContext,
+	ExpressionContext,
+	PropertyAccessContext,
+	XuleFileContext,
+	OutputAttributeDeclarationContext
+} from './parser/XULEParser';
 
 export type Binding = { name: any, meaning: any };
 
@@ -92,7 +101,7 @@ export class SymbolTable {
 }
 
 export enum DeclarationType {
-	CONSTANT, FUNCTION, VARIABLE
+	CONSTANT, FUNCTION, VARIABLE, OUTPUT_ATTRIBUTE
 }
 
 export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> implements XULEParserVisitor<SymbolTable> {
@@ -136,6 +145,11 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 
 	visitFunctionArgument = (ctx: FunctionArgumentContext) => {
 		this.symbolTable.record(ctx.identifier().text, [DeclarationType.VARIABLE], this.context);
+		return this.visitChildren(ctx);
+	};
+
+	visitOutputAttributeDeclaration = (ctx: OutputAttributeDeclarationContext) => {
+		this.symbolTable.record(ctx.identifier().text, [DeclarationType.OUTPUT_ATTRIBUTE], this.context);
 		return this.visitChildren(ctx);
 	};
 

@@ -4,41 +4,38 @@
  * ------------------------------------------------------------------------------------------ */
 
 import {
-	createConnection,
-	TextDocuments,
-	Diagnostic,
-	DiagnosticSeverity,
-	ProposedFeatures,
-	InitializeParams,
-	DidChangeConfigurationNotification,
 	CompletionItem,
 	CompletionItemKind,
+	createConnection,
+	Diagnostic,
+	DiagnosticSeverity,
+	DidChangeConfigurationNotification,
+	InitializeParams,
+	InitializeResult,
+	ProposedFeatures,
 	TextDocumentPositionParams,
-	TextDocumentSyncKind,
-	InitializeResult
+	TextDocuments,
+	TextDocumentSyncKind
 } from 'vscode-languageserver';
 
-import {
-	TextDocument
-} from 'vscode-languageserver-textdocument';
+import {TextDocument} from 'vscode-languageserver-textdocument';
 import {CandidatesCollection, CodeCompletionCore} from 'antlr4-c3';
-import { XULELexer } from './parser/XULELexer';
+import {XULELexer} from './parser/XULELexer';
 import {
-	CharStreams,
 	ANTLRErrorListener,
+	CharStreams,
+	CommonToken,
+	CommonTokenStream,
+	ParserRuleContext,
 	RecognitionException,
 	Recognizer,
-	CommonTokenStream,
-	Token,
-	ParserRuleContext,
-	CommonToken,
-	Lexer
+	Token
 } from 'antlr4ts';
-import {XULEParser, PropertyAccessContext, IdentifierContext, ExpressionContext} from './parser/XULEParser';
-import { ParseTree } from 'antlr4ts/tree/ParseTree';
-import { TerminalNode } from 'antlr4ts/tree/TerminalNode';
-import { SymbolTableVisitor, SymbolTable, DeclarationType } from './symbols';
-import { Interval } from 'antlr4ts/misc/Interval';
+import {ExpressionContext, IdentifierContext, PropertyAccessContext, XULEParser} from './parser/XULEParser';
+import {ParseTree} from 'antlr4ts/tree/ParseTree';
+import {TerminalNode} from 'antlr4ts/tree/TerminalNode';
+import {DeclarationType, SymbolTable, SymbolTableVisitor} from './symbols';
+import {Interval} from 'antlr4ts/misc/Interval';
 import {ErrorNode} from "antlr4ts/tree";
 
 // Create a connection for the server. The connection uses Node's IPC as a transport.
@@ -393,7 +390,8 @@ function setupCompletionCore(parser: XULEParser, settings: XULELanguageSettings)
 	core.preferredRules = new Set([
 		XULEParser.RULE_assignedVariable, XULEParser.RULE_booleanLiteral,
 		XULEParser.RULE_identifier, XULEParser.RULE_propertyAccess, XULEParser.RULE_direction,
-		XULEParser.RULE_navigationReturnOption, XULEParser.RULE_outputAttributeName
+		XULEParser.RULE_navigationReturnOption, XULEParser.RULE_outputAttributeName,
+		XULEParser.RULE_variableRead
 	]);
 	if(settings.server.debug == DebugLevel.verbose) {
 		core.showDebugOutput = true;
@@ -603,10 +601,11 @@ function suggestReturnOption(text: string, completions: any[]) {
 	}
 }
 
-function suggestOutputAttribute(text: string, completions: any[]) {
+function suggestOutputAttribute(symbolTable: SymbolTable, nodeInfo: NodeInfo, completions: any[]) {
 	for(let o in outputAttributes) {
-		maybeSuggest(outputAttributes[o], text, CompletionItemKind.Keyword, completions);
+		maybeSuggest(outputAttributes[o], nodeInfo.node.text, CompletionItemKind.Keyword, completions);
 	}
+	suggestIdentifier(nodeInfo.node, DeclarationType.OUTPUT_ATTRIBUTE, CompletionItemKind.Variable, symbolTable, completions);
 }
 
 function suggestIdentifiers(symbolTable: SymbolTable, nodeInfo: NodeInfo, candidates: CandidatesCollection, completions: any[]) {
@@ -628,11 +627,11 @@ function suggestIdentifiers(symbolTable: SymbolTable, nodeInfo: NodeInfo, candid
 		suggestReturnOption(text, completions);
 	}
 	if (candidates.rules.has(XULEParser.RULE_outputAttributeName)) {
-		suggestOutputAttribute(text, completions);
+		suggestOutputAttribute(symbolTable, nodeInfo, completions);
 	}
 	if(candidates.rules.has(XULEParser.RULE_assignedVariable)) {
 		suggestIdentifier(nodeInfo.node, DeclarationType.VARIABLE, CompletionItemKind.Variable, symbolTable, completions);
-	} else if (candidates.rules.has(XULEParser.RULE_identifier)) {
+	} else if(candidates.rules.has(XULEParser.RULE_variableRead)) {
 		suggestIdentifier(nodeInfo.node, DeclarationType.CONSTANT, CompletionItemKind.Constant, symbolTable, completions);
 		suggestIdentifier(nodeInfo.node, DeclarationType.VARIABLE, CompletionItemKind.Variable, symbolTable, completions);
 		suggestFunction(nodeInfo, symbolTable, completions);

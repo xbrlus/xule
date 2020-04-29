@@ -42,7 +42,7 @@ expression:
     expression SHARP identifier |
     OPEN_PAREN expression CLOSE_PAREN |
     //"Simple" expressions
-    literal | identifier | factset | filter | navigation;
+    literal | variableRead | factset | filter | navigation;
 
 block: assignment* expression;
 
@@ -76,6 +76,8 @@ navigation: NAVIGATE DIMENSIONS? arcrole? direction levels=INTEGER? (INCLUDE STA
 navigationReturnOptions: (LIST | SET)? OPEN_PAREN navigationReturnOption (COMMA navigationReturnOption)* CLOSE_PAREN;
 /** This exists so that when validating and suggesting code we can restrict to known variables. */
 assignedVariable: identifier;
+/** This exists so that when validating and suggesting code we can restrict to known variables. */
+variableRead: identifier;
 /** This exists so that when validating and suggesting code we can restrict to well-known keywords. */
 navigationReturnOption: identifier;
 
