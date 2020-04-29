@@ -39,14 +39,59 @@ import logging
 import re
 
 class XuleValidate:
-    
+
+    xbrli_names = {'NCNameItemType',
+                    'NameItemType',
+                    'QNameItemType',
+                    'anyURIItemType',
+                    'base64BinaryItemType',
+                    'booleanItemType',
+                    'byteItemType',
+                    'contextEntityType',
+                    'contextPeriodType',
+                    'contextScenarioType',
+                    'dateItemType',
+                    'dateTimeItemType',
+                    'decimalItemType',
+                    'doubleItemType',
+                    'durationItemType',
+                    'floatItemType',
+                    'fractionItemType',
+                    'gDayItemType',
+                    'gMonthDayItemType',
+                    'gMonthItemType',
+                    'gYearItemType',
+                    'gYearMonthItemType',
+                    'hexBinaryItemType',
+                    'intItemType',
+                    'integerItemType',
+                    'languageItemType',
+                    'longItemType',
+                    'measuresType',
+                    'monetaryItemType',
+                    'negativeIntegerItemType',
+                    'nonNegativeIntegerItemType',
+                    'nonPositiveIntegerItemType',
+                    'normalizedStringItemType',
+                    'positiveIntegerItemType',
+                    'pureItemType',
+                    'sharesItemType',
+                    'shortItemType',
+                    'stringItemType',
+                    'timeItemType',
+                    'tokenItemType',
+                    'unsignedByteItemType',
+                    'unsignedIntItemType',
+                    'unsignedLongItemType',
+                    'unsignedShortItemType'}
+
     def __init__(self, cntlr, rule_set, rule_set_name):
         self.cntlr = cntlr
         self.rule_set = rule_set
         self.name_models = dict()
         self.namespace_map = xu.get_rule_set_map(self.cntlr, xc.NAMESPACE_MAP)
         self.cntlr.addToLog('Using namespace map located at {}'.format(xu.get_rule_set_map_file_name(self.cntlr, xc.NAMESPACE_MAP)), 'info')
-        cntlr.addToLog("Validating ruleset {}".format(rule_set_name))
+        cntlr.addToLog("Validating ruleset {}".format(rule_set_name), 'info')
         self.validate_qnames()
         
     def validate_qnames(self):
@@ -58,11 +103,13 @@ class XuleValidate:
         qnames_by_ns = collections.defaultdict(dict)
         qnames = self._get_qnames()
         for qname,  top_names in  qnames.items():
-            qnames_by_ns[qname.namespaceURI][qname] = top_names
+            qnames_by_ns[qname.namespaceURI][qname.localName] = top_names
         
         for namespace in qnames_by_ns.keys():
             if namespace in utr_namespaces:
                 defined_names = utr_namespaces[namespace]
+                if namespace == 'http://www.xbrl.org/2003/instance':
+                    defined_names |= self.xbrli_names
             else:
                 model_xbrl = self._get_entry_point(namespace)
                 if model_xbrl is None or len(model_xbrl.errors) > 0:
@@ -70,12 +117,12 @@ class XuleValidate:
                     continue
                 else:
                     #get the names defined in the schema
-                    defined_names = set(x for x in model_xbrl.qnameConcepts.keys() if x.namespaceURI == namespace)
-                    defined_names |= set(x.qname for x in model_xbrl.modelObjects if isinstance(x, ModelType) and x.qname.namespaceURI == namespace)
-            for qname in qnames_by_ns[namespace].keys() - defined_names:
-                top_names = '\n\t'.join(qnames_by_ns[namespace][qname])
+                    defined_names = set(x.localName for x in model_xbrl.qnameConcepts.keys() if x.namespaceURI == namespace)
+                    defined_names |= set(x.qname.localName for x in model_xbrl.modelObjects if isinstance(x, ModelType) and x.qname.namespaceURI == namespace)
+            for local_name in qnames_by_ns[namespace].keys() - defined_names:
+                top_names = '\n\t'.join(qnames_by_ns[namespace][local_name])
                 
-                self.cntlr.addToLog('QName {} is not defined. Used in rules:\n\t{}'.format(qname.clarkNotation, top_names), 'QNameNotDefined', level=logging.ERROR)
+                self.cntlr.addToLog('QName {{{}}}{} is not defined. Used in rules:\n\t{}'.format(namespace, local_name, top_names), 'QNameNotDefined', level=logging.ERROR)
                     
     
     def _get_utr_namespaces(self):
