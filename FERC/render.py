@@ -18,6 +18,7 @@ import io
 import json
 import logging
 import optparse
+import os
 import os.path
 import re
 import tempfile
@@ -1567,6 +1568,11 @@ def cmdLineOptionExtender(parser, *args, **kwargs):
                       dest="ferc_render_list", 
                       help=_("List the templates in a template set."))
 
+    parserGroup.add_option("--ferc-render-extract", 
+                      action="store", 
+                      dest="ferc_render_extract", 
+                      help=_("Extract the templates from a template set. This option identifies the folder to extract the templates to."))                      
+
     parserGroup.add_option("--ferc-render-namespace",
                       action="append",
                       dest="ferc_render_namespaces",
@@ -1644,8 +1650,12 @@ def fercCmdUtilityRun(cntlr, options, **kwargs):
     #check option combinations
     parser = optparse.OptionParser()
     
-    if options.ferc_render_compile is None and options.ferc_render_render is None and options.ferc_render_combine is None and options.ferc_render_list is None:
-        parser.error(_("The render plugin requires either --ferc-render-compile, --ferc-render-render, --ferc-render-combine and/or --ferc-render-list"))
+    if (options.ferc_render_compile is None and 
+        options.ferc_render_render is None and 
+        options.ferc_render_combine is None and 
+        options.ferc_render_list is None and
+        options.ferc_render_extract is None):
+        parser.error(_("The render plugin requires either --ferc-render-compile, --ferc-render-render, --ferc-render-combine, --ferc-render-list and/or --ferc-render-extract"))
 
     if options.ferc_render_compile:
         if options.ferc_render_template is None and options.ferc_render_template_set is None:
@@ -1665,6 +1675,9 @@ def fercCmdUtilityRun(cntlr, options, **kwargs):
     if options.ferc_render_list and options.ferc_render_template_set is None:
         parser.error(_("Listing the templates in a template set requires a --ferec-render-template-set."))
 
+    if options.ferc_render_extract and options.ferc_render_template_set is None:
+        parser.error(_("Extracting the templates from a template set requires a --ferec-render-template-set."))        
+
     if options.ferc_render_inline_css and not options.ferc_render_css_file:
         parser.error(_("--ferc-render-inline-css requires the --ferc-render-css-file option to identify the css file."))
 
@@ -1680,6 +1693,10 @@ def fercCmdUtilityRun(cntlr, options, **kwargs):
 
     if options.ferc_render_list:
         list_templates(cntlr, options)     
+
+    if options.ferc_render_extract:
+        extract_templates(cntlr, options)
+
 
 def validate_namespace_map(options, parser):
     options.namespace_map = dict()
@@ -1782,6 +1799,26 @@ def list_templates(cntlr, options):
             catalog = json.load(io.TextIOWrapper(catalog_file))
         for template_info in catalog['templates']:
             cntlr.addToLog(template_info['name'],'info')
+
+def extract_templates(cntlr, options):            
+    with zipfile.ZipFile(options.ferc_render_template_set, 'r') as ts_file:
+        try:
+            catalog_file_info = ts_file.getinfo('catalog.json')
+        except KeyError:
+            # This zip file does not contain a catalog so it is not a template set
+            raise FERCRenderException("The file '{}' is not a template set.".format(options.ferc_render_template_set))
+        with ts_file.open(catalog_file_info, 'r') as catalog_file:
+            catalog = json.load(io.TextIOWrapper(catalog_file))
+        # Check that the destination folder exists
+        os.makedirs(options.ferc_render_extract, exist_ok=True)
+        
+        for template_info in catalog['templates']:
+            ts_file.extract(template_info['template'], options.ferc_render_extract)
+            old_name = os.path.join(options.ferc_render_extract, template_info['template'])
+            new_name = os.path.join(options.ferc_render_extract, '{}.html'.format(template_info['name']))
+            os.rename(old_name, new_name)
+            cntlr.addToLog("Extracted: {}".format(new_name),'info')
+
 
 def combine_template_sets(cntlr, options):
     template_sets = get_list_of_template_sets(options.ferc_render_combine, cntlr)
