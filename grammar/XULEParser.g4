@@ -14,11 +14,12 @@ ruleNamePrefixDeclaration: RULE_NAME_PREFIX identifier;
 output:
     OUTPUT identifier (OPEN_BRACKET AT identifier CLOSE_BRACKET)?
     (constantDeclaration | assignment)*
-    expression
-    (outputAttributeName expression SEMI?)*;
+    expression outputAttribute*;
+outputAttribute: outputAttributeName expression SEMI?;
 
-assertion: ASSERT ASSERT_RULE_NAME (ASSERT_SATISFIED | ASSERT_UNSATISFIED)
-    (constantDeclaration | functionDeclaration | assignment | expression (outputAttributeName expression SEMI?)*)+;
+assertion:
+    ASSERT ASSERT_RULE_NAME (ASSERT_SATISFIED | ASSERT_UNSATISFIED)
+    (constantDeclaration | functionDeclaration | assignment | expression outputAttribute*)+;
 
 constantDeclaration: CONSTANT identifier ASSIGN expression;
 functionDeclaration: FUNCTION identifier OPEN_PAREN (functionArgument (COMMA functionArgument)*)? CLOSE_PAREN block;
@@ -62,8 +63,8 @@ aspectFilter:
 
 aspectFilterOptions: (COVERED | COVERED_DIMS) NONILS? | NONILS (COVERED | COVERED_DIMS)?;
 aspectFilterFilter:
-    AT AT? ((CONCEPT | identifier) propertyAccess* (ASSIGN | NOT_EQUALS | GT | LT | GTE | LTE | NOT? IN))?
-    (expression | TIMES);
+    AT AT? (CONCEPT | identifier) propertyAccess*
+    ((ASSIGN | NOT_EQUALS | GT | LT | GTE | LTE | NOT? IN) (expression | TIMES))?;
 
 filter: FILTER expression (WHERE block)? (RETURNS filterReturn)?;
 filterReturn : (expression | OPEN_PAREN expression (COMMA expression)* CLOSE_PAREN);

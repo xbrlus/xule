@@ -1,11 +1,21 @@
 import {AbstractParseTreeVisitor} from "antlr4ts/tree";
 import {XULEParserVisitor} from "./parser/XULEParserVisitor";
 import {Diagnostic, DiagnosticSeverity} from "vscode-languageserver";
-import {SymbolTable} from "./symbols";
-import {ExpressionContext} from "./parser/XULEParser";
+import {Binding, DeclarationType, SymbolTable} from "./symbols";
+import {ExpressionContext, OutputAttributeContext, VariableReadContext} from "./parser/XULEParser";
 import {TextDocument} from "vscode-languageserver-textdocument";
 
+function isBindingType(binding: Binding, type: DeclarationType) {
+    if(binding.meaning instanceof Array) {
+        return binding.meaning.find(x => x == type);
+    } else {
+        return binding.meaning == type;
+    }
+}
+
 export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> implements XULEParserVisitor<any> {
+
+    localVariables = {};
 
     constructor(public diagnostics: Diagnostic[], protected symbolTable: SymbolTable, protected document: TextDocument) {
         super();
@@ -17,29 +27,82 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
 
     visitExpression = (ctx: ExpressionContext) => {
         if(ctx.parametersList()) {
-            const expression = ctx.expression(0);
-            const identifier = expression.variableRead();
+            this.checkFunctionCall(ctx);
+        } else {
+            let identifier = ctx.variableRead();
             if(identifier) {
-                let functionName = identifier.text.toLowerCase();
-                let lookup = function (binding) {
-                    return binding.name.toString().toLowerCase() == functionName;
+                let variableName = identifier.text.toLowerCase();
+                let binding = this.lookupIgnoreCase(variableName, ctx);
+                const range = {
+                    start: this.document.positionAt(identifier.start.startIndex),
+                    end: this.document.positionAt(identifier.stop.stopIndex + 1)
                 };
-                let binding = this.symbolTable.lookup(lookup, ctx);
-                if(!binding && !wellKnownFunctions[functionName]) {
-                    const range = {
-                        start: this.document.positionAt(identifier.start.startIndex),
-                        end: this.document.positionAt(identifier.stop.stopIndex + 1)
-                    };
+                if (!binding && !wellKnownVariables[variableName] && !this.localVariables[variableName]) {
                     this.diagnostics.push({
                         severity: DiagnosticSeverity.Error,
                         range: range,
-                        message: "Unknown function: " + identifier.text,
+                        message: "Unknown variable or constant: " + identifier.text,
+                        source: 'XULE semantic checker'
+                    });
+                } else if (binding && !isBindingType(binding, DeclarationType.CONSTANT) && !isBindingType(binding, DeclarationType.VARIABLE)) {
+                    this.diagnostics.push({
+                        severity: DiagnosticSeverity.Error,
+                        range: range,
+                        message: "Not a variable or constant: " + identifier.text,
                         source: 'XULE semantic checker'
                     });
                 }
+            } else {
+                this.visitChildren(ctx);
             }
         }
     };
+
+    visitOutputAttribute = (ctx: OutputAttributeContext) => {
+        const prev = this.localVariables;
+        this.localVariables = { ...this.localVariables, 'error': {} };
+        try {
+            this.visitChildren(ctx);
+        } finally {
+            this.localVariables = prev;
+        }
+    };
+
+    protected lookupIgnoreCase(name: string, ctx: ExpressionContext) {
+        function lookup(binding) {
+            return binding.name.toString().toLowerCase() == name;
+        }
+        return this.symbolTable.lookup(lookup, ctx);
+    }
+
+    private checkFunctionCall(ctx: ExpressionContext) {
+        const expression = ctx.expression(0);
+        const identifier = expression.variableRead();
+        if (identifier) {
+            let functionName = identifier.text.toLowerCase();
+            let binding = this.lookupIgnoreCase(functionName, ctx);
+            const range = {
+                start: this.document.positionAt(identifier.start.startIndex),
+                end: this.document.positionAt(identifier.stop.stopIndex + 1)
+            };
+            if (!binding && !wellKnownFunctions[functionName]) {
+                this.diagnostics.push({
+                    severity: DiagnosticSeverity.Error,
+                    range: range,
+                    message: "Unknown function: " + identifier.text,
+                    source: 'XULE semantic checker'
+                });
+            } else if (binding && !isBindingType(binding, DeclarationType.FUNCTION)) {
+                this.diagnostics.push({
+                    severity: DiagnosticSeverity.Error,
+                    range: range,
+                    message: "Not a function: " + identifier.text,
+                    source: 'XULE semantic checker'
+                });
+            }
+        }
+        ctx.parametersList().children.forEach(x => this.visit(x));
+    }
 }
 
 export const wellKnownFunctions = {
@@ -80,4 +143,13 @@ export const wellKnownFunctions = {
     "trunc": {},
     "unit": {},
     "year": {}
+};
+
+export const wellKnownVariables = {
+    "$fact": {},
+    "$ruleVersion": {},
+    //The following are actually constants or keywords, but for know we don't need to distinguish them
+    "inf": {},
+    "none": {},
+    "skip": {}
 };
