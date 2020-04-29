@@ -45,7 +45,7 @@ class XuleValidate:
         self.rule_set = rule_set
         self.name_models = dict()
         self.namespace_map = xu.get_rule_set_map(self.cntlr, xc.NAMESPACE_MAP)
-        
+        self.cntlr.addToLog('Using namespace map located at {}'.format(xu.get_rule_set_map_file_name(self.cntlr, xc.NAMESPACE_MAP)), 'info')
         cntlr.addToLog("Validating ruleset {}".format(rule_set_name))
         self.validate_qnames()
         
