@@ -278,8 +278,13 @@ function terminalNodeAtPosition(terminal: TerminalNode, line: number, column: nu
 		for (let i = 0; i < line - startLine; i++) {
 			offset += lines[i].length;
 		}
-		if(offset == terminal.text.length) {
-			if(terminal.symbol.type == XULEParser.OPEN_PAREN || terminal.symbol.type == XULEParser.COMMA) {
+		if(terminal.symbol.type == XULEParser.OPEN_PAREN || terminal.symbol.type == XULEParser.CLOSE_PAREN ||
+		   terminal.symbol.type == XULEParser.COMMA) {
+			if(offset == 0) {
+				//Return the (virtual) token before this one
+				return {node: new TerminalNode(new CommonToken(0, "")), offset: 0, tokenIndex: terminal.symbol.tokenIndex - 1};
+			} else if(offset == terminal.text.length) {
+				//Return the (virtual) token after this one
 				return {node: new TerminalNode(new CommonToken(0, "")), offset: 0, tokenIndex: terminal.symbol.tokenIndex + 1};
 			}
 		}
@@ -572,6 +577,12 @@ const wellKnownFunctions = {
 	"year": {}
 };
 
+const returnOptions = [
+	"arc-name", "arcrole", "arcrole-cycles-allowed", "arcrole-description", "arcrole-uri", "cycle",
+	"dimension-sub-type", "dimension-type", "drs-role", "link-name", "navigation-depth", "navigation-order", "network",
+	"order", "preferred-label", "preferred-label-role", "relationship", "result-order", "role", "role-description",
+	"role-uri", "source", "source-name", "target", "target-name", "weight"];
+
 function suggestFunction(nodeInfo: NodeInfo, symbolTable: SymbolTable, completions: any[]) {
 	let textToMatch = nodeInfo.node.text.toLowerCase();
 	//Well-known functions
@@ -582,34 +593,33 @@ function suggestFunction(nodeInfo: NodeInfo, symbolTable: SymbolTable, completio
 	suggestIdentifier(nodeInfo.node, DeclarationType.FUNCTION, CompletionItemKind.Function, symbolTable, completions);
 }
 
-function suggestIdentifiers(document: TextDocument, nodeInfo: NodeInfo, candidates: CandidatesCollection, completions: any[]) {
+function suggestReturnOptions(text: string, completions: any[]) {
+	for(let o in returnOptions) {
+		maybeSuggest(returnOptions[o], text, CompletionItemKind.Keyword, completions);
+	}
+}
+
+function suggestIdentifiers(symbolTable: SymbolTable, nodeInfo: NodeInfo, candidates: CandidatesCollection, completions: any[]) {
 	if(!nodeInfo) {
 		return;
 	}
-	const symbolTable = document['symbolTable'] as SymbolTable;
 	const text = nodeInfo.node instanceof ErrorNode ? "" : nodeInfo.node.text.toLowerCase();
 	if (candidates.rules.has(XULEParser.RULE_booleanLiteral)) {
 		maybeSuggest("true", text, CompletionItemKind.Constant, completions);
 		maybeSuggest("false", text, CompletionItemKind.Constant, completions);
 	}
-	if (candidates.rules.has(XULEParser.RULE_identifier)) {
+	if (candidates.rules.has(XULEParser.RULE_propertyAccess)) {
+		suggestProperty(nodeInfo.node, CompletionItemKind.Property, symbolTable, completions);
+	} else if (candidates.rules.has(XULEParser.RULE_direction)) {
+		maybeSuggest("descendants", text, CompletionItemKind.Keyword, completions);
+	} else if (candidates.rules.has(XULEParser.RULE_navigationReturnOption)) {
+		suggestReturnOptions(text, completions);
+	} else if (candidates.rules.has(XULEParser.RULE_identifier)) {
 		suggestIdentifier(nodeInfo.node, DeclarationType.CONSTANT, CompletionItemKind.Constant, symbolTable, completions);
 		suggestIdentifier(nodeInfo.node, DeclarationType.VARIABLE, CompletionItemKind.Variable, symbolTable, completions);
 		suggestFunction(nodeInfo, symbolTable, completions);
-	}
-	if (candidates.rules.has(XULEParser.RULE_propertyAccess)) {
-		suggestProperty(nodeInfo.node, CompletionItemKind.Property, symbolTable, completions);
-	}
-	if (candidates.rules.has(XULEParser.RULE_direction)) {
-		maybeSuggest("descendants", text, CompletionItemKind.Keyword, completions);
-	} else if (candidates.rules.has(XULEParser.RULE_navigationReturnOption)) {
-		maybeSuggest("source", text, CompletionItemKind.Keyword, completions);
-		maybeSuggest("source-name", text, CompletionItemKind.Keyword, completions);
-		maybeSuggest("target", text, CompletionItemKind.Keyword, completions);
-		maybeSuggest("target-name", text, CompletionItemKind.Keyword, completions);
-	} else {
 		maybeSuggest("none", text, CompletionItemKind.Keyword, completions);
-		maybeSuggest("skip", text, CompletionItemKind.Keyword, completions); //TODO we should check that the context is appropriate
+		maybeSuggest("skip", text, CompletionItemKind.Keyword, completions); //TODO should we check that the context is appropriate? Can we?
 	}
 }
 
@@ -641,7 +651,8 @@ async function computeCodeSuggestions(_textDocumentPosition: TextDocumentPositio
 	let document = documents.get(documentURI);
 	if(document) {
 		let settings = await getDocumentSettings(documentURI);
-		let parser = document['parser'] as XULEParser;
+		const parser = document['parser'] as XULEParser;
+		const symbolTable = document['symbolTable'] as SymbolTable;
 		if(parser) {
 			const pos = _textDocumentPosition.position;
 			const parseTree = document['parseTree'] as ParseTree;
@@ -651,7 +662,7 @@ async function computeCodeSuggestions(_textDocumentPosition: TextDocumentPositio
 			let candidates = core.collectCandidates(tokenIndex);
 			let completions = [];
 
-			suggestIdentifiers(document, nodeInfo, candidates, completions);
+			suggestIdentifiers(symbolTable, nodeInfo, candidates, completions);
 			suggestKeywords(parser, nodeInfo, candidates, completions);
 			return completions;
 		}
