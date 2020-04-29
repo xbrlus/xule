@@ -46,7 +46,7 @@ expression:
 
 block: assignment* expression;
 
-assignment: identifier ASSIGN block SEMI?;
+assignment: assignedVariable ASSIGN block SEMI?;
 ifExpression: IF expression block ELSE block;
 
 forExpression: FOR (OPEN_PAREN forHead CLOSE_PAREN | forHead) block;
@@ -74,6 +74,8 @@ navigation: NAVIGATE DIMENSIONS? arcrole? direction levels=INTEGER? (INCLUDE STA
     (WHERE expression)?
     (RETURNS ((BY NETWORK navigationReturnOptions?) | navigationReturnOptions) (AS (LIST | DICTIONARY))?)?;
 navigationReturnOptions: (LIST | SET)? OPEN_PAREN navigationReturnOption (COMMA navigationReturnOption)* CLOSE_PAREN;
+/** This exists so that when validating and suggesting code we can restrict to known variables. */
+assignedVariable: identifier;
 /** This exists so that when validating and suggesting code we can restrict to well-known keywords. */
 navigationReturnOption: identifier;
 

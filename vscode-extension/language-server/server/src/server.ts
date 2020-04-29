@@ -391,9 +391,9 @@ function setupCompletionCore(parser: XULEParser, settings: XULELanguageSettings)
 		XULEParser.TIMES
 	]);
 	core.preferredRules = new Set([
-		XULEParser.RULE_booleanLiteral,
+		XULEParser.RULE_assignedVariable, XULEParser.RULE_booleanLiteral,
 		XULEParser.RULE_identifier, XULEParser.RULE_propertyAccess, XULEParser.RULE_direction,
-		XULEParser.RULE_navigationReturnOption
+		XULEParser.RULE_navigationReturnOption, XULEParser.RULE_outputAttributeName
 	]);
 	if(settings.server.debug == DebugLevel.verbose) {
 		core.showDebugOutput = true;
@@ -583,6 +583,10 @@ const returnOptions = [
 	"order", "preferred-label", "preferred-label-role", "relationship", "result-order", "role", "role-description",
 	"role-uri", "source", "source-name", "target", "target-name", "weight"];
 
+const outputAttributes = [
+	"message", "rule-suffix", "rule-focus", "severity"
+];
+
 function suggestFunction(nodeInfo: NodeInfo, symbolTable: SymbolTable, completions: any[]) {
 	let textToMatch = nodeInfo.node.text.toLowerCase();
 	//Well-known functions
@@ -593,9 +597,15 @@ function suggestFunction(nodeInfo: NodeInfo, symbolTable: SymbolTable, completio
 	suggestIdentifier(nodeInfo.node, DeclarationType.FUNCTION, CompletionItemKind.Function, symbolTable, completions);
 }
 
-function suggestReturnOptions(text: string, completions: any[]) {
+function suggestReturnOption(text: string, completions: any[]) {
 	for(let o in returnOptions) {
 		maybeSuggest(returnOptions[o], text, CompletionItemKind.Keyword, completions);
+	}
+}
+
+function suggestOutputAttribute(text: string, completions: any[]) {
+	for(let o in outputAttributes) {
+		maybeSuggest(outputAttributes[o], text, CompletionItemKind.Keyword, completions);
 	}
 }
 
@@ -610,10 +620,18 @@ function suggestIdentifiers(symbolTable: SymbolTable, nodeInfo: NodeInfo, candid
 	}
 	if (candidates.rules.has(XULEParser.RULE_propertyAccess)) {
 		suggestProperty(nodeInfo.node, CompletionItemKind.Property, symbolTable, completions);
-	} else if (candidates.rules.has(XULEParser.RULE_direction)) {
+	}
+	if (candidates.rules.has(XULEParser.RULE_direction)) {
 		maybeSuggest("descendants", text, CompletionItemKind.Keyword, completions);
-	} else if (candidates.rules.has(XULEParser.RULE_navigationReturnOption)) {
-		suggestReturnOptions(text, completions);
+	}
+	if (candidates.rules.has(XULEParser.RULE_navigationReturnOption)) {
+		suggestReturnOption(text, completions);
+	}
+	if (candidates.rules.has(XULEParser.RULE_outputAttributeName)) {
+		suggestOutputAttribute(text, completions);
+	}
+	if(candidates.rules.has(XULEParser.RULE_assignedVariable)) {
+		suggestIdentifier(nodeInfo.node, DeclarationType.VARIABLE, CompletionItemKind.Variable, symbolTable, completions);
 	} else if (candidates.rules.has(XULEParser.RULE_identifier)) {
 		suggestIdentifier(nodeInfo.node, DeclarationType.CONSTANT, CompletionItemKind.Constant, symbolTable, completions);
 		suggestIdentifier(nodeInfo.node, DeclarationType.VARIABLE, CompletionItemKind.Variable, symbolTable, completions);
@@ -633,6 +651,10 @@ function suggestKeywords(parser: XULEParser, nodeInfo: NodeInfo, candidates: Can
 			keyword = 'satisfied'
 		} else if (key == XULEParser.ASSERT_UNSATISFIED) {
 			keyword = 'unsatisfied'
+		} else if(key == XULEParser.OUTPUT_ATTRIBUTE) {
+			keyword = 'output-attribute'
+		} else if(key == XULEParser.RULE_NAME_PREFIX) {
+			keyword = 'rule-name-prefix'
 		}
 		let text = "";
 		if (nodeInfo && !(nodeInfo.node instanceof ErrorNode) && nodeInfo.node.text) {

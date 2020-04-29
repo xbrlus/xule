@@ -115,7 +115,7 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 	};
 
 	visitAssignment = (ctx: AssignmentContext) => {
-		this.symbolTable.record(ctx.identifier().text, [DeclarationType.VARIABLE], this.context);
+		this.symbolTable.record(ctx.assignedVariable().text, [DeclarationType.VARIABLE], this.context);
 		return this.visitChildrenInNewContext(ctx);
 	};
 
