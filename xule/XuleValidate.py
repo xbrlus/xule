@@ -75,7 +75,7 @@ class XuleValidate:
             for qname in qnames_by_ns[namespace].keys() - defined_names:
                 top_names = '\n\t'.join(qnames_by_ns[namespace][qname])
                 
-                self.cntlr.addToLog('QName {} is not defined ({}). Used in rules:\n\t{}'.format(qname.clarkNotation, model_xbrl.uri, top_names), 'QNameNotDefined', level=logging.ERROR)
+                self.cntlr.addToLog('QName {} is not defined. Used in rules:\n\t{}'.format(qname.clarkNotation, top_names), 'QNameNotDefined', level=logging.ERROR)
                     
     
     def _get_utr_namespaces(self):
