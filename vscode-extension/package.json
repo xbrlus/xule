@@ -47,6 +47,18 @@
             "type": "object",
             "title": "XULE Language Server Configuration",
             "properties": {
+                "xuleLanguage.checks.variables": {
+                    "scope": "window",
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Report an error when a variable is referenced, but not defined in the file."
+                },
+                "xuleLanguage.checks.functions": {
+                    "scope": "window",
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Report an error when a function is invoked, but it's not defined in the file."
+                },
                 "xuleLanguage.server.debug": {
                     "scope": "window",
                     "type": "string",

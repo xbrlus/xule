@@ -139,10 +139,9 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 	};
 
 	visitForExpression = (ctx: ForExpressionContext) => {
-		return this.withNewContext(ctx, () => {
-			this.symbolTable.record(ctx.forHead().forVariable().identifier().text, [DeclarationType.VARIABLE], this.context);
-			return this.visitChildren(ctx);
-		});
+		//Note: the iteration variable is local to the for body, but variables assigned inside the body are not local.
+		this.symbolTable.record(ctx.forHead().forVariable().identifier().text, [DeclarationType.VARIABLE], ctx);
+		return this.visitChildren(ctx);
 	};
 
 	visitFunctionDeclaration = (ctx: FunctionDeclarationContext) => {

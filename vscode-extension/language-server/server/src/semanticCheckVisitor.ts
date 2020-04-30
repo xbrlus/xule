@@ -6,7 +6,7 @@ import {
     ExpressionContext,
     FilterContext,
     NavigationWhereClauseContext,
-    OutputAttributeContext
+    OutputAttributeContext, VariableReadContext
 } from "./parser/XULEParser";
 import {TextDocument} from "vscode-languageserver-textdocument";
 
@@ -21,6 +21,8 @@ function isBindingType(binding: Binding, type: DeclarationType) {
 export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> implements XULEParserVisitor<any> {
 
     localVariables = {};
+    checkVariables = true;
+    checkFunctions = true;
 
     constructor(public diagnostics: Diagnostic[], protected symbolTable: SymbolTable, protected document: TextDocument) {
         super();
@@ -37,31 +39,40 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
             let identifier = ctx.variableRead();
             if(identifier) {
                 let variableName = identifier.text.toLowerCase();
-                let binding = this.lookupIgnoreCase(variableName, ctx);
-                const range = {
-                    start: this.document.positionAt(identifier.start.startIndex),
-                    end: this.document.positionAt(identifier.stop.stopIndex + 1)
-                };
-                if (!binding && !wellKnownVariables[variableName] && !this.localVariables[variableName]) {
-                    this.diagnostics.push({
-                        severity: DiagnosticSeverity.Error,
-                        range: range,
-                        message: "Unknown variable or constant: " + identifier.text,
-                        source: 'XULE semantic checker'
-                    });
-                } else if (binding && !isBindingType(binding, DeclarationType.CONSTANT) && !isBindingType(binding, DeclarationType.VARIABLE)) {
-                    this.diagnostics.push({
-                        severity: DiagnosticSeverity.Error,
-                        range: range,
-                        message: "Not a variable or constant: " + identifier.text,
-                        source: 'XULE semantic checker'
-                    });
+                if(variableName.startsWith("$")) {
+                    this.checkVariableAccess(variableName, ctx, identifier);
                 }
             } else {
                 this.visitChildren(ctx);
             }
         }
     };
+
+    protected checkVariableAccess(variableName: string, ctx: ExpressionContext, identifier: VariableReadContext) {
+        if(!this.checkVariables) {
+            return;
+        }
+        let binding = this.lookupIgnoreCase(variableName, ctx);
+        const range = {
+            start: this.document.positionAt(identifier.start.startIndex),
+            end: this.document.positionAt(identifier.stop.stopIndex + 1)
+        };
+        if (!binding && !wellKnownVariables[variableName] && !this.localVariables[variableName]) {
+            this.diagnostics.push({
+                severity: DiagnosticSeverity.Warning,
+                range: range,
+                message: "Unknown variable or constant: " + identifier.text,
+                source: 'XULE semantic checker'
+            });
+        } else if (binding && !isBindingType(binding, DeclarationType.CONSTANT) && !isBindingType(binding, DeclarationType.VARIABLE)) {
+            this.diagnostics.push({
+                severity: DiagnosticSeverity.Warning,
+                range: range,
+                message: "Not a variable or constant: " + identifier.text,
+                source: 'XULE semantic checker'
+            });
+        }
+    }
 
     visitOutputAttribute = (ctx: OutputAttributeContext) => {
         this.withLocalVariables({ 'error': {} }, () => this.visitChildren(ctx));
@@ -97,6 +108,9 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
     }
 
     private checkFunctionCall(ctx: ExpressionContext) {
+        if(!this.checkFunctions) {
+            return;
+        }
         const expression = ctx.expression(0);
         const identifier = expression.variableRead();
         if (identifier) {
@@ -108,14 +122,14 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
             };
             if (!binding && !wellKnownFunctions[functionName]) {
                 this.diagnostics.push({
-                    severity: DiagnosticSeverity.Error,
+                    severity: DiagnosticSeverity.Warning,
                     range: range,
                     message: "Unknown function: " + identifier.text,
                     source: 'XULE semantic checker'
                 });
             } else if (binding && !isBindingType(binding, DeclarationType.FUNCTION)) {
                 this.diagnostics.push({
-                    severity: DiagnosticSeverity.Error,
+                    severity: DiagnosticSeverity.Warning,
                     range: range,
                     message: "Not a function: " + identifier.text,
                     source: 'XULE semantic checker'
@@ -144,6 +158,7 @@ export const wellKnownFunctions = {
     "first": {},
     "first-value": {},
     "forever": {},
+    "is_base": {},
     "json-data": {},
     "last": {},
     "length": {},
@@ -178,5 +193,15 @@ export const wellKnownVariables = {
     "duration": {},
     "inf": {},
     "none": {},
-    "skip": {}
+    "skip": {},
+    //The following are specific to taxonomies
+    "all": {},
+    "dimension-default": {},
+    "dimension-domain": {},
+    "domain-member": {},
+    "essence-alias": {},
+    "general-special": {},
+    "hypercube-dimension": {},
+    "parent-child": {},
+    "summation-item": {},
 };

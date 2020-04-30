@@ -111,12 +111,19 @@ enum DebugLevel { 'off', 'verbose' };
 interface XULELanguageSettings {
 	
 	server: { debug: DebugLevel; };
+	checks: {
+		functions: boolean,
+		variables: boolean
+	}
 }
 
 // The global settings, used when the `workspace/configuration` request is not supported by the client.
 // Please note that this is not the case when using this server with the client provided in this example
 // but could happen with other clients.
-const defaultSettings: XULELanguageSettings = { server: { debug: DebugLevel.off } };
+const defaultSettings: XULELanguageSettings = {
+	server: { debug: DebugLevel.off },
+	checks: { functions: true, variables: true }
+};
 let globalSettings: XULELanguageSettings = defaultSettings;
 
 // Cache the settings of all open documents
@@ -224,7 +231,11 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 	textDocument['parser'] = parser;
 	textDocument['symbolTable'] = symbolTable;
 
-	new SemanticCheckVisitor(diagnostics, symbolTable, textDocument).visit(parseTree);
+	let semanticCheckVisitor = new SemanticCheckVisitor(diagnostics, symbolTable, textDocument);
+	let settings = await getDocumentSettings(textDocument.uri);
+	semanticCheckVisitor.checkFunctions = settings.checks.functions;
+	semanticCheckVisitor.checkVariables = settings.checks.variables;
+	semanticCheckVisitor.visit(parseTree);
 	connection.sendDiagnostics({ uri: textDocument.uri, diagnostics });
 }
 
