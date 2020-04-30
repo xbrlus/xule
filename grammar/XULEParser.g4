@@ -28,20 +28,20 @@ functionArgument: identifier;
 /** Expressions */
 expression:
     ifExpression | forExpression |
-    expression OR expression |
-    expression AND expression |
-    NOT expression |
-    expression (EQUALS | NOT_EQUALS | GT | LT | GTE | LTE | NOT? IN) expression |
-    expression SIMM_DIFF expression |
-    expression (AND_OP | INTERSECT) expression |
-    expression (PLUS | MINUS | ADD_LR | ADD_L | ADD_R | SUB_LR | SUB_L | SUB_R) expression |
-    expression (TIMES | DIV) expression |
-    (PLUS | MINUS) expression |
-    expression parametersList |
-    expression propertyAccess+ |
-    expression OPEN_BRACKET expression CLOSE_BRACKET |
-    expression SHARP identifier |
     OPEN_PAREN expression CLOSE_PAREN |
+    expression SHARP tag |
+    expression OPEN_BRACKET expression CLOSE_BRACKET |
+    expression propertyAccess+ |
+    expression parametersList |
+    (PLUS | MINUS) expression |
+    expression (TIMES | DIV) expression |
+    expression (PLUS | MINUS | ADD_LR | ADD_L | ADD_R | SUB_LR | SUB_L | SUB_R) expression |
+    expression (AND_OP | INTERSECT) expression |
+    expression SIMM_DIFF expression |
+    expression (EQUALS | NOT_EQUALS | GT | LT | GTE | LTE | NOT? IN) expression |
+    NOT expression |
+    expression AND expression |
+    expression OR expression |
     //"Simple" expressions
     literal | variableRead | factset | filter | navigation;
 
@@ -51,7 +51,7 @@ assignment: assignedVariable ASSIGN block SEMI?;
 ifExpression: IF expression block ELSE block;
 
 forExpression: FOR (OPEN_PAREN forHead CLOSE_PAREN | forHead) block;
-forHead: identifier IN expression;
+forHead: forVariable IN expression;
 
 parametersList: OPEN_PAREN (expression (COMMA expression)* COMMA?)? CLOSE_PAREN;
 
@@ -72,9 +72,15 @@ filterReturn : (expression | OPEN_PAREN expression (COMMA expression)* CLOSE_PAR
 navigation: NAVIGATE DIMENSIONS? arcrole? direction levels=INTEGER? (INCLUDE START)? (FROM expression)? (TO expression)?
     (STOP WHEN expression)? (ROLE role)? (DRS_ROLE role)?
     (CUBE identifier)? (TAXONOMY expression)?
-    (WHERE expression)?
+    navigationWhereClause
     (RETURNS ((BY NETWORK navigationReturnOptions?) | navigationReturnOptions) (AS (LIST | DICTIONARY))?)?;
-navigationReturnOptions: (LIST | SET)? OPEN_PAREN navigationReturnOption (COMMA navigationReturnOption)* CLOSE_PAREN;
+navigationReturnOptions: (LIST | SET)?
+    (OPEN_PAREN navigationReturnOption (COMMA navigationReturnOption)* CLOSE_PAREN | navigationReturnOption);
+navigationWhereClause: (WHERE expression)?;
+/** This exists so that when we know when to declare a new variable. */
+tag: identifier;
+/** This exists so that when we know when to declare a new variable. */
+forVariable: identifier;
 /** This exists so that when validating and suggesting code we can restrict to known variables. */
 assignedVariable: identifier;
 /** This exists so that when validating and suggesting code we can restrict to known variables. */

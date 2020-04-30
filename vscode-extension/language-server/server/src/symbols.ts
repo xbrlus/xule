@@ -6,7 +6,7 @@ import {
 	FunctionDeclarationContext,
 	FunctionArgumentContext,
 	XuleFileContext,
-	OutputAttributeDeclarationContext
+	OutputAttributeDeclarationContext, TagContext, ForExpressionContext
 } from './parser/XULEParser';
 
 export type Binding = { name: any, meaning: any };
@@ -120,7 +120,7 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 
 	visitXuleFile = (ctx: XuleFileContext) => {
 		this.symbolTable = new SymbolTable();
-		return this.visitChildrenInNewContext(ctx);
+		return this.withNewContext(ctx, () => this.visitChildren(ctx));
 	};
 
 	visitConstantDeclaration = (ctx: ConstantDeclarationContext) => {
@@ -130,19 +130,31 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 
 	visitAssignment = (ctx: AssignmentContext) => {
 		this.symbolTable.record(ctx.assignedVariable().text, [DeclarationType.VARIABLE], this.context);
-		return this.visitChildrenInNewContext(ctx);
+		return this.visitChildren(ctx);
+	};
+
+	visitTag = (ctx: TagContext) => {
+		this.symbolTable.record("$" + ctx.identifier().text, [DeclarationType.VARIABLE], this.context);
+		return this.visitChildren(ctx);
+	};
+
+	visitForExpression = (ctx: ForExpressionContext) => {
+		return this.withNewContext(ctx, () => {
+			this.symbolTable.record(ctx.forHead().forVariable().identifier().text, [DeclarationType.VARIABLE], this.context);
+			return this.visitChildren(ctx);
+		});
 	};
 
 	visitFunctionDeclaration = (ctx: FunctionDeclarationContext) => {
 		this.symbolTable.record(ctx.identifier().text, [DeclarationType.FUNCTION], this.context);
-		return this.visitChildrenInNewContext(ctx);
+		return this.withNewContext(ctx, () => this.visitChildren(ctx));
 	};
 
-	protected visitChildrenInNewContext(ctx: RuleNode) {
+	protected withNewContext<T>(ctx: RuleNode, fn: () => T): T {
 		let context = this.context;
 		this.context = ctx;
 		try {
-			return this.visitChildren(ctx);
+			return fn();
 		} finally {
 			this.context = context;
 		}

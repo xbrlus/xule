@@ -2,12 +2,17 @@ import {AbstractParseTreeVisitor} from "antlr4ts/tree";
 import {XULEParserVisitor} from "./parser/XULEParserVisitor";
 import {Diagnostic, DiagnosticSeverity} from "vscode-languageserver";
 import {Binding, DeclarationType, SymbolTable} from "./symbols";
-import {ExpressionContext, OutputAttributeContext, VariableReadContext} from "./parser/XULEParser";
+import {
+    ExpressionContext,
+    FilterContext,
+    NavigationWhereClauseContext,
+    OutputAttributeContext
+} from "./parser/XULEParser";
 import {TextDocument} from "vscode-languageserver-textdocument";
 
 function isBindingType(binding: Binding, type: DeclarationType) {
     if(binding.meaning instanceof Array) {
-        return binding.meaning.find(x => x == type);
+        return binding.meaning.find(x => x == type) !== false;
     } else {
         return binding.meaning == type;
     }
@@ -59,13 +64,29 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
     };
 
     visitOutputAttribute = (ctx: OutputAttributeContext) => {
+        this.withLocalVariables({ 'error': {} }, () => this.visitChildren(ctx));
+    };
+
+    private withLocalVariables(localVariables: Object, thunk: () => void) {
         const prev = this.localVariables;
-        this.localVariables = { ...this.localVariables, 'error': {} };
+        this.localVariables = {...this.localVariables, ...localVariables};
         try {
-            this.visitChildren(ctx);
+            thunk.call(this);
         } finally {
             this.localVariables = prev;
         }
+    }
+
+    visitFilter = (ctx: FilterContext) => {
+        this.withLocalVariables({ '$item': {} }, () => this.visitChildren(ctx));
+    };
+
+    /**
+     * "A special variable $relationship is available in the ‘where’ expression to refer to the relationship being filtered."
+     * Page 31.
+     * */
+    visitNavigationWhereClause = (ctx: NavigationWhereClauseContext) => {
+        this.withLocalVariables({ '$relationship': {} }, () => this.visitChildren(ctx));
     };
 
     protected lookupIgnoreCase(name: string, ctx: ExpressionContext) {
@@ -100,8 +121,10 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
                     source: 'XULE semantic checker'
                 });
             }
+        } else {
+            this.visitExpression(expression);
         }
-        ctx.parametersList().children.forEach(x => this.visit(x));
+        this.visit(ctx.parametersList());
     }
 }
 
@@ -114,6 +137,7 @@ export const wellKnownFunctions = {
     "csv-data": {},
     "date": {},
     "day": {},
+    "dict": {},
     "duration": {},
     "entry-point-namespace": {},
     "exists": {},
@@ -122,6 +146,7 @@ export const wellKnownFunctions = {
     "forever": {},
     "json-data": {},
     "last": {},
+    "length": {},
     "list": {},
     "log10": {},
     "min": {},
@@ -147,8 +172,10 @@ export const wellKnownFunctions = {
 
 export const wellKnownVariables = {
     "$fact": {},
-    "$ruleVersion": {},
+    "$ruleversion": {},
+    "$rule-value": {},
     //The following are actually constants or keywords, but for know we don't need to distinguish them
+    "duration": {},
     "inf": {},
     "none": {},
     "skip": {}
