@@ -3,7 +3,7 @@
     "displayName": "XULE",
     "description": "XULE Language Pack",
     "publisher": "XBRL",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "license": "UNLICENSED",
     "engines": {
         "vscode": "^1.43.0"
