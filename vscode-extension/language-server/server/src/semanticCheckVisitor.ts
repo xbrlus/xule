@@ -4,11 +4,12 @@ import {Diagnostic, DiagnosticSeverity} from "vscode-languageserver";
 import {Binding, DeclarationType, SymbolTable} from "./symbols";
 import {
     ExpressionContext,
-    FilterContext,
+    FilterContext, FunctionDeclarationContext,
     NavigationWhereClauseContext,
     OutputAttributeContext, VariableReadContext
 } from "./parser/XULEParser";
-import {TextDocument} from "vscode-languageserver-textdocument";
+import {Range, TextDocument} from "vscode-languageserver-textdocument";
+import {ParserRuleContext} from "antlr4ts";
 
 function isBindingType(binding: Binding, type: DeclarationType) {
     if(binding.meaning instanceof Array) {
@@ -53,10 +54,7 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
             return;
         }
         let binding = this.lookupIgnoreCase(variableName, ctx);
-        const range = {
-            start: this.document.positionAt(identifier.start.startIndex),
-            end: this.document.positionAt(identifier.stop.stopIndex + 1)
-        };
+        const range = this.getRange(identifier);
         if (!binding && !wellKnownVariables[variableName] && !this.localVariables[variableName]) {
             this.diagnostics.push({
                 severity: DiagnosticSeverity.Warning,
@@ -71,6 +69,17 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
                 message: "Not a variable or constant: " + identifier.text,
                 source: 'XULE semantic checker'
             });
+        }
+    }
+
+    private getRange(parseTree: ParserRuleContext): Range {
+        if(this.document) {
+            return {
+                start: this.document.positionAt(parseTree.start.startIndex),
+                end: this.document.positionAt(parseTree.stop.stopIndex + 1)
+            };
+        } else {
+            return { start: null, end: null };
         }
     }
 
@@ -100,6 +109,20 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
         this.withLocalVariables({ '$relationship': {} }, () => this.visitChildren(ctx));
     };
 
+    visitFunctionDeclaration = (ctx: FunctionDeclarationContext) => {
+        let functionName = ctx.identifier().text;
+        if(functionName.startsWith("$")) {
+            const range = this.getRange(ctx.identifier());
+            this.diagnostics.push({
+                severity: DiagnosticSeverity.Error,
+                range: range,
+                message: "Invalid function name: " + ctx.identifier().text,
+                source: 'XULE semantic checker'
+            });
+        }
+        return this.visitChildren(ctx);
+    };
+
     protected lookupIgnoreCase(name: string, ctx: ExpressionContext) {
         function lookup(binding) {
             return binding.name.toString().toLowerCase() == name;
@@ -107,19 +130,25 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
         return this.symbolTable.lookup(lookup, ctx);
     }
 
-    private checkFunctionCall(ctx: ExpressionContext) {
-        if(!this.checkFunctions) {
-            return;
-        }
+    protected checkFunctionCall(ctx: ExpressionContext) {
         const expression = ctx.expression(0);
         const identifier = expression.variableRead();
         if (identifier) {
             let functionName = identifier.text.toLowerCase();
+            const range = this.getRange(identifier);
+            if(functionName.startsWith("$")) {
+                this.diagnostics.push({
+                    severity: DiagnosticSeverity.Error,
+                    range: range,
+                    message: "Invalid function name: " + identifier.text,
+                    source: 'XULE semantic checker'
+                });
+                return;
+            }
+            if(!this.checkFunctions) {
+                return;
+            }
             let binding = this.lookupIgnoreCase(functionName, ctx);
-            const range = {
-                start: this.document.positionAt(identifier.start.startIndex),
-                end: this.document.positionAt(identifier.stop.stopIndex + 1)
-            };
             if (!binding && !wellKnownFunctions[functionName]) {
                 this.diagnostics.push({
                     severity: DiagnosticSeverity.Warning,
