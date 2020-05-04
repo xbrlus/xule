@@ -6,7 +6,12 @@ import {
 	FunctionDeclarationContext,
 	FunctionArgumentContext,
 	XuleFileContext,
-	OutputAttributeDeclarationContext, TagContext, ForExpressionContext, NavigationContext
+	OutputAttributeDeclarationContext,
+	TagContext,
+	ForExpressionContext,
+	NavigationContext,
+	AspectFilterContext,
+	AssignedVariableContext
 } from './parser/XULEParser';
 
 export type Binding = { name: any, meaning: any };
@@ -111,12 +116,8 @@ export enum DeclarationType {
 
 export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> implements XULEParserVisitor<SymbolTable> {
 
-	protected symbolTable: SymbolTable;
-	protected context: ParseTree;
-
-	constructor(symbolTable: SymbolTable = null) {
+	constructor(protected symbolTable: SymbolTable = null, protected context: ParseTree = null) {
 		super();
-		this.symbolTable = symbolTable;
 	}
 
 	protected defaultResult(): SymbolTable {
@@ -128,14 +129,18 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 		return this.withNewContext(ctx, () => this.visitChildren(ctx));
 	};
 
+	visitAspectFilter = (ctx: AspectFilterContext) => {
+		return this.withNewContext(ctx, () => this.visitChildren(ctx));
+	};
+
 	visitConstantDeclaration = (ctx: ConstantDeclarationContext) => {
 		this.symbolTable.record(ctx.identifier().text, [DeclarationType.CONSTANT], this.context);
 		return this.visitChildren(ctx);
 	};
 
-	visitAssignment = (ctx: AssignmentContext) => {
-		this.symbolTable.record(ctx.assignedVariable().text, [DeclarationType.VARIABLE], this.context);
-		return this.visitChildren(ctx);
+	visitAssignedVariable = (ctx: AssignedVariableContext) => {
+		this.symbolTable.record(ctx.identifier().text, [DeclarationType.VARIABLE], this.context);
+		return this.symbolTable;
 	};
 
 	visitTag = (ctx: TagContext) => {

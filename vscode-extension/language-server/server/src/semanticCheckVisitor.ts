@@ -3,6 +3,7 @@ import {XULEParserVisitor} from "./parser/XULEParserVisitor";
 import {Diagnostic, DiagnosticSeverity} from "vscode-languageserver";
 import {Binding, DeclarationType, SymbolTable} from "./symbols";
 import {
+    AspectFilterContext,
     ExpressionContext,
     FilterContext, FunctionDeclarationContext,
     NavigationWhereClauseContext,

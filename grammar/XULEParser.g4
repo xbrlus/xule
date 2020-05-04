@@ -59,7 +59,7 @@ factset: AT | OPEN_CURLY factsetBody CLOSE_CURLY | OPEN_BRACKET factsetBody CLOS
 factsetBody: AT | (aspectFilter | factset | expression)*;
 aspectFilter:
     (aspectFilterOptions | aspectFilterOptions? aspectFilterFilter)
-    (AS identifier)? (WHERE expression)?;
+    (AS assignedVariable)? (WHERE expression)?;
 
 aspectFilterOptions: (COVERED | COVERED_DIMS) NONILS? | NONILS (COVERED | COVERED_DIMS)?;
 aspectFilterFilter:

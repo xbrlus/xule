@@ -6,6 +6,23 @@ import {XULELexer} from "../src/parser/XULELexer";
 import {SemanticCheckVisitor} from "../src/semanticCheckVisitor";
 import {SymbolTable, SymbolTableVisitor} from "../src/symbols";
 
+describe('Aspect filters', function() {
+    it("can declare variables with `as <identifier>`",
+        function() {
+            const xuleCode = `$results = list({covered @Assets @ConsolidationItemsAxis = * as $myMember where $fact > 0 and $myMember == OperatingSegmentsMember});`;
+            let input = CharStreams.fromString(xuleCode);
+            let lexer = new XULELexer(input);
+            let parser = new XULEParser(new CommonTokenStream(lexer));
+            let parseTree = parser.assignment();
+            expect(parser.numberOfSyntaxErrors).to.equal(0);
+            expect(input.index).to.equal(input.size);
+            let diagnostics = [];
+            let symbolTable = new SymbolTableVisitor(new SymbolTable(), parseTree).visit(parseTree);
+            new SemanticCheckVisitor(diagnostics, symbolTable, null).visit(parseTree);
+            expect(diagnostics.length).to.equal(0);
+        });
+});
+
 describe('Functions', function () {
     it("may not have a name that begins with $: function call", function () {
         const xuleCode = `$foo()`;
