@@ -44,6 +44,7 @@ import {DeclarationType, SymbolTable, SymbolTableVisitor} from './symbols';
 import {Interval} from 'antlr4ts/misc/Interval';
 import {ErrorNode} from "antlr4ts/tree";
 import {SemanticCheckVisitor, wellKnownFunctions} from "./semanticCheckVisitor";
+import {SafeXULELexer} from "./safeXULELexer";
 
 // Create a connection for the server. The connection uses Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
@@ -171,7 +172,7 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 	let diagnostics: Diagnostic[] = [];
 	let text = textDocument.getText();
 	let input = CharStreams.fromString(text);
-	let lexer = new XULELexer(input);
+	let lexer = new SafeXULELexer(input);
 
 	class ReportingLexerErrorListener implements ANTLRErrorListener<number> {
 		syntaxError? = <T extends number>(recognizer: Recognizer<T, any>, offendingSymbol: T | undefined, line: number, charPositionInLine: number, msg: string, e: RecognitionException | undefined) => {
