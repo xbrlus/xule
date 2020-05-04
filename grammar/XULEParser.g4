@@ -72,11 +72,11 @@ filterReturn : (expression | OPEN_PAREN expression (COMMA expression)* CLOSE_PAR
 navigation: NAVIGATE DIMENSIONS? arcrole? direction levels=INTEGER? (INCLUDE START)? (FROM expression)? (TO expression)?
     (STOP WHEN expression)? (ROLE role)? (DRS_ROLE role)?
     (CUBE identifier)? (TAXONOMY expression)?
-    navigationWhereClause
+    navigationWhereClause?
     (RETURNS ((BY NETWORK navigationReturnOptions?) | navigationReturnOptions) (AS (LIST | DICTIONARY))?)?;
 navigationReturnOptions: (LIST | SET)?
     (OPEN_PAREN navigationReturnOption (COMMA navigationReturnOption)* CLOSE_PAREN | navigationReturnOption);
-navigationWhereClause: (WHERE expression)?;
+navigationWhereClause: WHERE expression;
 /** This exists so that when we know when to declare a new variable. */
 tag: identifier;
 /** This exists so that when we know when to declare a new variable. */
@@ -88,7 +88,6 @@ variableRead: identifier;
 /** This exists so that when validating and suggesting code we can restrict to well-known keywords. */
 navigationReturnOption: identifier;
 
-/** This exists so that when suggesting code we can restrict to well-known keywords. */
 arcrole: role;
 role: identifier propertyAccess* | stringLiteral;
 /** This exists so that when suggesting code we can restrict to well-known keywords. */
@@ -102,9 +101,9 @@ propertyAccess: DOT identifier;
 identifier: IDENTIFIER |
     AS | ASSERT | BY | CONCEPT | CONSTANT | COVERED | CUBE | DICTIONARY | DIMENSIONS | DRS_ROLE | FALSE | INTERSECT |
     LIST | NETWORK | ROLE | SET | START | STOP | TAXONOMY | TRUE | WHEN | WHERE;
-literal: stringLiteral | NUMBER | booleanLiteral;
+literal: stringLiteral | numberLiteral | booleanLiteral;
 booleanLiteral: TRUE | FALSE;
-
+numberLiteral: INTEGER | REAL;
 stringLiteral:
     DOUBLE_QUOTE (STRING_CONTENTS | OPEN_CURLY expression CLOSE_CURLY)* DOUBLE_QUOTE |
     SINGLE_QUOTE (STRING_CONTENTS | OPEN_CURLY expression CLOSE_CURLY)* SINGLE_QUOTE;
