@@ -239,11 +239,6 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 	connection.sendDiagnostics({ uri: textDocument.uri, diagnostics });
 }
 
-connection.onDidChangeWatchedFiles(_change => {
-	// Monitored files have change in VSCode
-	connection.console.log('We received an file change event');
-});
-
 type NodeInfo = { node: ParseTree, offset: number, tokenIndex: number };
 
 function reconstructText(parserRule: ParserRuleContext): string {
