@@ -6,7 +6,7 @@ import {
 	FunctionDeclarationContext,
 	FunctionArgumentContext,
 	XuleFileContext,
-	OutputAttributeDeclarationContext, TagContext, ForExpressionContext
+	OutputAttributeDeclarationContext, TagContext, ForExpressionContext, NavigationContext
 } from './parser/XULEParser';
 
 export type Binding = { name: any, meaning: any };
@@ -114,6 +114,11 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 	protected symbolTable: SymbolTable;
 	protected context: ParseTree;
 
+	constructor(symbolTable: SymbolTable = null) {
+		super();
+		this.symbolTable = symbolTable;
+	}
+
 	protected defaultResult(): SymbolTable {
 		return this.symbolTable;
 	}
@@ -147,6 +152,11 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 	visitFunctionDeclaration = (ctx: FunctionDeclarationContext) => {
 		this.symbolTable.record(ctx.identifier().text, [DeclarationType.FUNCTION], this.context);
 		return this.withNewContext(ctx, () => this.visitChildren(ctx));
+	};
+
+	visitNavigation = (ctx: NavigationContext) => {
+		this.symbolTable.record("$relationship", [DeclarationType.VARIABLE], ctx);
+		return this.visitChildren(ctx);
 	};
 
 	protected withNewContext<T>(ctx: RuleNode, fn: () => T): T {
