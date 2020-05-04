@@ -6,11 +6,12 @@ import {
     ExpressionContext,
     FilterContext, FunctionDeclarationContext,
     NavigationWhereClauseContext,
-    OutputAttributeContext, ParametersListContext, VariableReadContext
+    OutputAttributeContext, ParametersListContext, PropertyAccessContext, VariableReadContext
 } from "./parser/XULEParser";
 import {Range, TextDocument} from "vscode-languageserver-textdocument";
 import {ParserRuleContext} from "antlr4ts";
 import {number} from "vscode-languageserver/lib/utils/is";
+import exp = require("constants");
 
 function bindingInfo(binding: Binding, type: IdentifierType) {
     if(binding.meaning instanceof Array) {
@@ -38,7 +39,7 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
 
     visitExpression = (ctx: ExpressionContext) => {
         if(ctx.parametersList()) {
-            this.checkFunctionCall(ctx);
+            this.checkFunctionCallOrProperty(ctx);
         } else {
             let identifier = ctx.variableRead();
             if(identifier) {
@@ -46,6 +47,8 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
                 if(variableName.startsWith("$")) {
                     this.checkVariableAccess(variableName, ctx, identifier);
                 }
+            } else if(ctx.propertyAccess().length > 0) {
+                this.checkPropertyAccess(ctx.propertyAccess(), []);
             } else {
                 this.visitChildren(ctx);
             }
@@ -133,25 +136,34 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
         return this.symbolTable.lookup(lookup, ctx);
     }
 
-    protected checkFunctionCall(ctx: ExpressionContext) {
+    protected checkFunctionCallOrProperty(ctx: ExpressionContext) {
         const expression = ctx.expression(0);
         const identifier = expression.variableRead();
         let parametersList = ctx.parametersList();
         if (identifier) {
-            let functionName = identifier.text.toLowerCase();
-            const range = this.getRange(identifier);
-            if(functionName.startsWith("$")) {
-                this.diagnostics.push({
-                    severity: DiagnosticSeverity.Error,
-                    range: range,
-                    message: "Invalid function name: " + identifier.text,
-                    source: 'XULE semantic checker'
-                });
-                return;
-            }
-            if(!this.checkFunctions) {
-                return;
-            }
+            this.checkFunctionCall(identifier, ctx, parametersList);
+        } else if(expression.propertyAccess().length > 0) {
+            this.checkPropertyAccess(expression.propertyAccess(), parametersList.expression());
+        } else {
+            this.visitExpression(expression);
+        }
+        this.visit(parametersList);
+    }
+
+    protected checkFunctionCall(identifier: VariableReadContext, ctx: ExpressionContext, parametersList: ParametersListContext) {
+        if(!this.checkFunctions) {
+            return;
+        }
+        let functionName = identifier.text.toLowerCase();
+        const range = this.getRange(identifier);
+        if (functionName.startsWith("$")) {
+            this.diagnostics.push({
+                severity: DiagnosticSeverity.Error,
+                range: range,
+                message: "Invalid function name: " + identifier.text,
+                source: 'XULE semantic checker'
+            });
+        } else {
             let binding = this.lookupIgnoreCase(functionName, ctx);
             if (!binding && !wellKnownFunctions[functionName]) {
                 this.diagnostics.push({
@@ -171,20 +183,46 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
                 let functionInfo: FunctionInfo = wellKnownFunctions[functionName] || bindingInfo(binding, IdentifierType.FUNCTION);
                 this.checkArity(functionInfo, parametersList);
             }
-        } else {
-            this.visitExpression(expression);
         }
-        this.visit(parametersList);
     }
 
-    private checkArity(functionInfo: FunctionInfo, parametersList: ParametersListContext) {
+    protected checkPropertyAccess(propertyPath: PropertyAccessContext[], parameters: ExpressionContext[]) {
+        propertyPath.forEach(p => {
+            let identifier = p.identifier();
+            let rawPropertyName = identifier.text;
+            let propertyName = rawPropertyName.toLowerCase();
+            let property = wellKnownProperties[propertyName];
+            let range = this.getRange(identifier);
+            if(!property) {
+                this.diagnostics.push({
+                    severity: DiagnosticSeverity.Warning,
+                    range: range,
+                    message: "Unknown property: " + rawPropertyName,
+                    source: 'XULE semantic checker'
+                });
+            } else {
+                let arity = property.arity as any;
+                if(typeof(arity) === "number" && arity != parameters.length) {
+                    this.diagnostics.push({
+                        severity: DiagnosticSeverity.Warning,
+                        range: range,
+                        message: `${rawPropertyName} requires exactly ${arity} parameters`,
+                        source: 'XULE semantic checker'
+                    });
+                }
+                //TODO
+            }
+        });
+    }
+
+    protected checkArity(functionInfo: FunctionInfo, parametersList: ParametersListContext) {
         const range = this.getRange(parametersList);
         if (typeof (functionInfo.arity) === 'number') {
             if (functionInfo.arity != parametersList.expression().length) {
                 this.diagnostics.push({
                     severity: DiagnosticSeverity.Error,
                     range: range,
-                    message: `Expected ${functionInfo.arity} parameters`,
+                    message: `Expected exactly ${functionInfo.arity} parameters`,
                     source: 'XULE semantic checker'
                 });
             }
@@ -220,7 +258,7 @@ export const wellKnownFunctions: { [name: string]: FunctionInfo } = {
     "csv-data": new FunctionInfo({ min: 2, max: 4 }),
     "date": new FunctionInfo(1),
     "day": new FunctionInfo(1),
-    "dict": new FunctionInfo(1),
+    "dict": new FunctionInfo(),
     "duration": new FunctionInfo(2),
     "entry-point-namespace": new FunctionInfo(1),
     "exists": new FunctionInfo(1),
@@ -284,4 +322,17 @@ export const wellKnownVariables = {
     "hypercube-dimension": {},
     "parent-child": {},
     "summation-item": {},
+};
+
+export const wellKnownProperties: { [name: string]: FunctionInfo } = {
+    "abs": new FunctionInfo(0),
+    "all": new FunctionInfo(0),
+    "any": new FunctionInfo(0),
+    "avg": new FunctionInfo(0),
+    "arc-name": new FunctionInfo(0),
+    "arcrole": new FunctionInfo(0),
+    "arcrole-description": new FunctionInfo(0),
+    "arcrole-uri": new FunctionInfo(0),
+    "aspects": new FunctionInfo(0),
+    "attribute": new FunctionInfo(1),
 };
