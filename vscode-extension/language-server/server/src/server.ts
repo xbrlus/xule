@@ -20,7 +20,6 @@ import {
 
 import {TextDocument} from 'vscode-languageserver-textdocument';
 import {CandidatesCollection, CodeCompletionCore} from 'antlr4-c3';
-import {XULELexer} from './parser/XULELexer';
 import {
 	ANTLRErrorListener,
 	CharStreams,
@@ -35,12 +34,11 @@ import {
 	ExpressionContext,
 	IdentifierContext,
 	PropertyAccessContext,
-	XuleFileContext,
 	XULEParser
 } from './parser/XULEParser';
 import {ParseTree} from 'antlr4ts/tree/ParseTree';
 import {TerminalNode} from 'antlr4ts/tree/TerminalNode';
-import {DeclarationType, SymbolTable, SymbolTableVisitor} from './symbols';
+import {IdentifierInfo, IdentifierType, SymbolTable, SymbolTableVisitor} from './symbols';
 import {Interval} from 'antlr4ts/misc/Interval';
 import {ErrorNode} from "antlr4ts/tree";
 import {SemanticCheckVisitor, wellKnownFunctions} from "./semanticCheckVisitor";
@@ -419,12 +417,12 @@ function setupCompletionCore(parser: XULEParser, settings: XULELanguageSettings)
 }
 
 function suggestIdentifier(
-	node: ParseTree, declarationType: DeclarationType, completionKind: CompletionItemKind,
+	node: ParseTree, declarationType: IdentifierType, completionKind: CompletionItemKind,
 	symbolTable: SymbolTable, completions: any[]) {
 	function filter(n) {
 		return function(b) {
 			return b.name.toLowerCase().startsWith(n) &&
-				   b.meaning.find(m => m == declarationType) !== undefined;
+				   b.meaning.find(m => m instanceof IdentifierInfo && m.type == declarationType) !== undefined;
 		}
 	}
 
@@ -573,7 +571,7 @@ function suggestFunction(nodeInfo: NodeInfo, symbolTable: SymbolTable, completio
 		maybeSuggest(name, textToMatch, CompletionItemKind.Function, completions);
 	}
 	//Declared functions
-	suggestIdentifier(nodeInfo.node, DeclarationType.FUNCTION, CompletionItemKind.Function, symbolTable, completions);
+	suggestIdentifier(nodeInfo.node, IdentifierType.FUNCTION, CompletionItemKind.Function, symbolTable, completions);
 }
 
 function suggestReturnOption(text: string, completions: any[]) {
@@ -586,7 +584,7 @@ function suggestOutputAttribute(symbolTable: SymbolTable, nodeInfo: NodeInfo, co
 	for(let o in outputAttributes) {
 		maybeSuggest(outputAttributes[o], nodeInfo.node.text, CompletionItemKind.Keyword, completions);
 	}
-	suggestIdentifier(nodeInfo.node, DeclarationType.OUTPUT_ATTRIBUTE, CompletionItemKind.Variable, symbolTable, completions);
+	suggestIdentifier(nodeInfo.node, IdentifierType.OUTPUT_ATTRIBUTE, CompletionItemKind.Variable, symbolTable, completions);
 }
 
 function suggestIdentifiers(symbolTable: SymbolTable, nodeInfo: NodeInfo, candidates: CandidatesCollection, completions: any[]) {
@@ -611,11 +609,11 @@ function suggestIdentifiers(symbolTable: SymbolTable, nodeInfo: NodeInfo, candid
 		suggestOutputAttribute(symbolTable, nodeInfo, completions);
 	}
 	if(candidates.rules.has(XULEParser.RULE_assignedVariable)) {
-		suggestIdentifier(nodeInfo.node, DeclarationType.VARIABLE, CompletionItemKind.Variable, symbolTable, completions);
+		suggestIdentifier(nodeInfo.node, IdentifierType.VARIABLE, CompletionItemKind.Variable, symbolTable, completions);
 	}
 	if(candidates.rules.has(XULEParser.RULE_variableRead)) {
-		suggestIdentifier(nodeInfo.node, DeclarationType.CONSTANT, CompletionItemKind.Constant, symbolTable, completions);
-		suggestIdentifier(nodeInfo.node, DeclarationType.VARIABLE, CompletionItemKind.Variable, symbolTable, completions);
+		suggestIdentifier(nodeInfo.node, IdentifierType.CONSTANT, CompletionItemKind.Constant, symbolTable, completions);
+		suggestIdentifier(nodeInfo.node, IdentifierType.VARIABLE, CompletionItemKind.Variable, symbolTable, completions);
 		suggestFunction(nodeInfo, symbolTable, completions);
 		maybeSuggest("none", text, CompletionItemKind.Keyword, completions);
 		maybeSuggest("skip", text, CompletionItemKind.Keyword, completions); //TODO should we check that the context is appropriate? Can we?

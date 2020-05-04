@@ -1,22 +1,24 @@
 import {AbstractParseTreeVisitor} from "antlr4ts/tree";
 import {XULEParserVisitor} from "./parser/XULEParserVisitor";
 import {Diagnostic, DiagnosticSeverity} from "vscode-languageserver";
-import {Binding, DeclarationType, SymbolTable} from "./symbols";
+import {Binding, IdentifierType, FunctionInfo, SymbolTable, IdentifierInfo} from "./symbols";
 import {
-    AspectFilterContext,
     ExpressionContext,
     FilterContext, FunctionDeclarationContext,
     NavigationWhereClauseContext,
-    OutputAttributeContext, VariableReadContext
+    OutputAttributeContext, ParametersListContext, VariableReadContext
 } from "./parser/XULEParser";
 import {Range, TextDocument} from "vscode-languageserver-textdocument";
 import {ParserRuleContext} from "antlr4ts";
+import {number} from "vscode-languageserver/lib/utils/is";
 
-function isBindingType(binding: Binding, type: DeclarationType) {
+function bindingInfo(binding: Binding, type: IdentifierType) {
     if(binding.meaning instanceof Array) {
-        return binding.meaning.find(x => x == type) !== false;
+        return binding.meaning.find(x => x instanceof IdentifierInfo && x.type == type);
     } else {
-        return binding.meaning == type;
+        if(binding.meaning instanceof IdentifierInfo && binding.meaning.type == type) {
+            return binding.meaning;
+        }
     }
 }
 
@@ -63,7 +65,7 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
                 message: "Unknown variable or constant: " + identifier.text,
                 source: 'XULE semantic checker'
             });
-        } else if (binding && !isBindingType(binding, DeclarationType.CONSTANT) && !isBindingType(binding, DeclarationType.VARIABLE)) {
+        } else if (binding && !bindingInfo(binding, IdentifierType.CONSTANT) && !bindingInfo(binding, IdentifierType.VARIABLE)) {
             this.diagnostics.push({
                 severity: DiagnosticSeverity.Warning,
                 range: range,
@@ -134,6 +136,7 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
     protected checkFunctionCall(ctx: ExpressionContext) {
         const expression = ctx.expression(0);
         const identifier = expression.variableRead();
+        let parametersList = ctx.parametersList();
         if (identifier) {
             let functionName = identifier.text.toLowerCase();
             const range = this.getRange(identifier);
@@ -157,65 +160,109 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
                     message: "Unknown function: " + identifier.text,
                     source: 'XULE semantic checker'
                 });
-            } else if (binding && !isBindingType(binding, DeclarationType.FUNCTION)) {
+            } else if (binding && !bindingInfo(binding, IdentifierType.FUNCTION)) {
                 this.diagnostics.push({
                     severity: DiagnosticSeverity.Warning,
                     range: range,
                     message: "Not a function: " + identifier.text,
                     source: 'XULE semantic checker'
                 });
+            } else {
+                let functionInfo: FunctionInfo = wellKnownFunctions[functionName] || bindingInfo(binding, IdentifierType.FUNCTION);
+                this.checkArity(functionInfo, parametersList);
             }
         } else {
             this.visitExpression(expression);
         }
-        this.visit(ctx.parametersList());
+        this.visit(parametersList);
+    }
+
+    private checkArity(functionInfo: FunctionInfo, parametersList: ParametersListContext) {
+        const range = this.getRange(parametersList);
+        if (typeof (functionInfo.arity) === 'number') {
+            if (functionInfo.arity != parametersList.expression().length) {
+                this.diagnostics.push({
+                    severity: DiagnosticSeverity.Error,
+                    range: range,
+                    message: `Expected ${functionInfo.arity} parameters`,
+                    source: 'XULE semantic checker'
+                });
+            }
+        } else if (functionInfo.arity) {
+            let arity = functionInfo.arity as any;
+            if (typeof (arity.min) === 'number' && parametersList.expression().length < arity.min) {
+                this.diagnostics.push({
+                    severity: DiagnosticSeverity.Error,
+                    range: range,
+                    message: `Expected at least ${arity.min} parameters`,
+                    source: 'XULE semantic checker'
+                });
+            }
+            if (typeof (arity.max) === 'number' && parametersList.expression().length > arity.max) {
+                this.diagnostics.push({
+                    severity: DiagnosticSeverity.Error,
+                    range: range,
+                    message: `Expected at most ${arity.max} parameters`,
+                    source: 'XULE semantic checker'
+                });
+            }
+        }
     }
 }
 
-export const wellKnownFunctions = {
-    "abs": {},
-    "all": {},
-    "any": {},
-    "avg": {},
-    "count": {},
-    "csv-data": {},
-    "date": {},
-    "day": {},
-    "dict": {},
-    "duration": {},
-    "entry-point-namespace": {},
-    "exists": {},
-    "first": {},
-    "first-value": {},
-    "forever": {},
-    "is_base": {},
-    "json-data": {},
-    "last": {},
-    "length": {},
-    "list": {},
-    "log10": {},
-    "max": {},
-    "min": {},
-    "missing": {},
-    "mod": {},
-    "month": {},
-    "power": {},
-    "prod": {},
-    "qname": {},
-    "range": {},
-    "round": {},
-    "rule-name": {},
-    "set": {},
-    "signum": {},
-    "sort": {},
-    "substring": {},
-    "sum": {},
-    "stdev": {},
-    "taxonomy": {},
-    "time-span": {},
-    "trunc": {},
-    "unit": {},
-    "year": {}
+export const wellKnownFunctions: { [name: string]: FunctionInfo } = {
+    "abs": new FunctionInfo(1),
+    "all": new FunctionInfo(1),
+    "any": new FunctionInfo(1),
+    "avg": new FunctionInfo(1),
+    "contains": new FunctionInfo(2),
+    "count": new FunctionInfo(1),
+    "csv-data": new FunctionInfo({ min: 2, max: 4 }),
+    "date": new FunctionInfo(1),
+    "day": new FunctionInfo(1),
+    "dict": new FunctionInfo(1),
+    "duration": new FunctionInfo(2),
+    "entry-point-namespace": new FunctionInfo(1),
+    "exists": new FunctionInfo(1),
+    "first": new FunctionInfo(1),
+    "first-value": new FunctionInfo(),
+    "forever": new FunctionInfo(0),
+    "is_base": new FunctionInfo(),
+    "index-of": new FunctionInfo(2),
+    "json-data": new FunctionInfo(1),
+    "last": new FunctionInfo(1),
+    "last-index-of": new FunctionInfo(2),
+    "length": new FunctionInfo(1),
+    "list": new FunctionInfo(),
+    "log10": new FunctionInfo(1),
+    "lower-case": new FunctionInfo(1),
+    "max": new FunctionInfo(1),
+    "min": new FunctionInfo(1),
+    "missing": new FunctionInfo(1),
+    "mod": new FunctionInfo(2),
+    "month": new FunctionInfo(1),
+    "number": new FunctionInfo(1),
+    "power": new FunctionInfo(2),
+    "prod": new FunctionInfo(1),
+    "qname": new FunctionInfo(2),
+    "range": new FunctionInfo({ min: 1, max: 3 }),
+    "round": new FunctionInfo(2),
+    "rule-name": new FunctionInfo(0),
+    "set": new FunctionInfo(),
+    "signum": new FunctionInfo(1),
+    "sort": new FunctionInfo(1),
+    "split": new FunctionInfo(2),
+    "string": new FunctionInfo(1),
+    "substring": new FunctionInfo({ min: 2, max: 3 }),
+    "sum": new FunctionInfo(1),
+    "stdev": new FunctionInfo(1),
+    "taxonomy": new FunctionInfo({ min: 0, max: 1 }),
+    "time-span": new FunctionInfo(1),
+    "to-qname": new FunctionInfo(1),
+    "trunc": new FunctionInfo({ min: 1, max: 2 }),
+    "unit": new FunctionInfo({ min: 1, max: 2 }),
+    "upper-case": new FunctionInfo(1),
+    "year": new FunctionInfo(1)
 };
 
 export const wellKnownVariables = {
