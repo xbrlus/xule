@@ -178,3 +178,15 @@ describe('Numbers', function() {
 		expect(input.index).to.equal(input.size);
 	});
 });
+
+describe('Properties', function() {
+	it("may be chained and have parameters", function() {
+		const xuleCode = `rule-name().split('.').length`;
+		let input = CharStreams.fromString(xuleCode);
+		let lexer = new XULELexer(input);
+		let parser = new XULEParser(new CommonTokenStream(lexer));
+		let parseTree = parser.expression();
+		expect(parser.numberOfSyntaxErrors).to.equal(0);
+		expect(input.index).to.equal(input.size);
+	});
+});

@@ -123,6 +123,8 @@ export class FunctionInfo extends IdentifierInfo {
 	}
 }
 
+export class PropertyInfo extends FunctionInfo {}
+
 export class VariableInfo extends IdentifierInfo {
 	constructor(public isConstant?: boolean) {
 		super();
