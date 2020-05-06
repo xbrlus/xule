@@ -43,6 +43,7 @@ import {Interval} from 'antlr4ts/misc/Interval';
 import {ErrorNode} from "antlr4ts/tree";
 import {SemanticCheckVisitor, wellKnownFunctions, wellKnownProperties} from "./semanticCheckVisitor";
 import {SafeXULELexer} from "./safeXULELexer";
+import * as fuzzysort from 'fuzzysort';
 
 // Create a connection for the server. The connection uses Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
@@ -240,7 +241,28 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 	connection.sendDiagnostics({ uri: textDocument.uri, diagnostics });
 }
 
-type NodeInfo = { node: ParseTree, offset: number, tokenIndex: number };
+class NodeInfo {
+	constructor(public node: ParseTree, public offset: number, public tokenIndex: number) {}
+
+	get textToMatch() {
+		if(this.node instanceof ErrorNode) {
+			return "";
+		} else if(this.node instanceof TerminalNode) {
+			if(this.node.symbol.type == XULEParser.IDENTIFIER) {
+				let text = this.node.text.toLowerCase();
+				if (this.offset < text.length - 1) {
+					//The caret is inside an identifier or keyword. Let's match the existing string.
+					text = text.substring(0, this.offset);
+				}
+				return text;
+			} else {
+				return ""; //Don't match tokens that are not keywords/identifiers
+			}
+		} else {
+			return this.node.text;
+		}
+	}
+}
 
 function reconstructText(parserRule: ParserRuleContext): string {
 	return parserRule.start.inputStream.getText(textInterval(parserRule))
@@ -266,7 +288,7 @@ function terminalNodeAtPosition(terminal: TerminalNode, line: number, column: nu
 		for (let i = 0; i < line - startLine; i++) {
 			offset += lines[i].length;
 		}
-		return {node: terminal, offset: offset, tokenIndex: terminal.symbol.tokenIndex};
+		return new NodeInfo(terminal, offset, terminal.symbol.tokenIndex);
 	}
 
 	let tokenStartInLine = line == startLine ? token.charPositionInLine : 0;
@@ -298,14 +320,14 @@ function terminalNodeAtPosition(terminal: TerminalNode, line: number, column: nu
 		   terminal.symbol.type == XULEParser.COMMA) {
 			if(offset == 0) {
 				//Return the (virtual) token before this one
-				return {node: new TerminalNode(new CommonToken(0, "")), offset: 0, tokenIndex: terminal.symbol.tokenIndex - 1};
+				return new NodeInfo(new TerminalNode(new CommonToken(0, "")), 0, terminal.symbol.tokenIndex - 1);
 			} else if(offset == terminal.text.length) {
 				//Return the (virtual) token after this one
-				return {node: new TerminalNode(new CommonToken(0, "")), offset: 0, tokenIndex: terminal.symbol.tokenIndex + 1};
+				return new NodeInfo(new TerminalNode(new CommonToken(0, "")), 0, terminal.symbol.tokenIndex + 1);
 			}
 		}
 
-		return {node: terminal, offset: offset, tokenIndex: terminal.symbol.tokenIndex};
+		return new NodeInfo(terminal, offset, terminal.symbol.tokenIndex);
 	}
 	return undefined;
 }
@@ -359,14 +381,26 @@ function closestSubtree(context: ParseTree, line, column) {
 		if(tree instanceof TerminalNode) {
 			return tree;
 		} else {
-			return closestSubtree(tree, line, column).node;
+			let subtree = closestSubtree(tree, line, column);
+			return subtree ? <TerminalNode>subtree.node : null;
 		}
+	}
+	if(context.childCount == 0) {
+		//This can happen in case of error nodes
+		return null;
 	}
 	//Since we invoke this only after not having found a token at the exact position, and we search depth-first,
 	//we can be sure all child nodes are terminals
 	let result = closestTerminal(context.getChild(0));
 	for (let i = 1; i < context.childCount; i++) {
 		const candidate = closestTerminal(context.getChild(i));
+		if(candidate && !result) {
+			result = candidate;
+			continue;
+		}
+		if(!candidate) {
+			continue;
+		}
 		let startLine = candidate.symbol.line;
 		const lines = candidate.text.match(LINES_REGEXP);
 		let endLine = startLine + lines.length - 1;
@@ -386,7 +420,7 @@ function closestSubtree(context: ParseTree, line, column) {
 			}
 		}
 	}
-	return { node: result, offset: result.text.length, tokenIndex: result.symbol.tokenIndex };
+	return result ? new NodeInfo(result, result.text.length, result.symbol.tokenIndex) : null;
 }
 
 function setupCompletionCore(parser: XULEParser, settings: XULELanguageSettings) {
@@ -419,18 +453,29 @@ function setupCompletionCore(parser: XULEParser, settings: XULELanguageSettings)
 	return core;
 }
 
-function suggestIdentifier(
-	node: ParseTree, declarationType: IdentifierType, completionKind: CompletionItemKind,
+function fuzzySearch(text: string, candidates: string[]) {
+	if(text.length == 0) {
+		return candidates.map(c => {
+			return { target: c, score: 0, indexes: [] }
+		});
+	} else {
+		return fuzzysort.go(text, candidates);
+	}
+}
+
+function suggestIdentifiers(
+	nodeInfo: NodeInfo, declarationType: IdentifierType, completionKind: CompletionItemKind,
 	symbolTable: SymbolTable, completions: any[]) {
 	function filter(n) {
 		return function(b) {
-			return b.name.toLowerCase().startsWith(n) &&
+			let results = fuzzySearch(n, [b.name.toLowerCase()]);
+			return results.length > 0 &&
 				   b.meaning.find(m => m instanceof IdentifierInfo && m.type == declarationType) !== undefined;
 		}
 	}
 
-	let match = node.text.toLowerCase();
-	let known = symbolTable.lookupAll(filter(match), node);
+	let match = nodeInfo.textToMatch;
+	let known = symbolTable.lookupAll(filter(match), nodeInfo.node);
 	known.forEach(c => {
 		if (!completions.find(co => co.label == c.name)) {
 			let label: string = c.name;
@@ -463,31 +508,36 @@ function indexOfNode(parent: ParseTree, node: ParseTree) {
 	return -1;
 }
 
-function suggestProperty(
-	node: ParseTree, completionKind: CompletionItemKind, symbolTable: SymbolTable, completions: any[]) {
+function suggestProperties(
+	nodeInfo: NodeInfo, completionKind: CompletionItemKind, symbolTable: SymbolTable, completions: any[]) {
+	let textToMatch = nodeInfo.textToMatch;
+	let node = nodeInfo.node;
 	let inIdentifier = node instanceof IdentifierContext || (node instanceof TerminalNode && node.symbol.type == XULEParser.IDENTIFIER);
-	let textToMatch = inIdentifier ? node.text : "";
-	let addDot = !inIdentifier && !(node instanceof TerminalNode && node.symbol.type == XULEParser.DOT);
-	for(let name in wellKnownProperties) {
-		maybeSuggest(addDot ? '.' + name : name, textToMatch, completionKind, completions);
-	}
-}
-
-function maybeSuggest(candidate: string, text: string, kind: CompletionItemKind, completions: any[]) {
-	if (candidate.startsWith(text)) {
-		completions.push({
-			label: candidate,
-			kind: kind
-		});
+	if(!inIdentifier && !(node instanceof TerminalNode && node.symbol.type == XULEParser.DOT)) {
 		return true;
 	}
+	let candidates = [];
+	for(let name in wellKnownProperties) {
+		candidates.push(name);
+	}
+	maybeSuggest(candidates, textToMatch, completionKind, completions);
 	return false;
+}
+
+function maybeSuggest(candidates: string[], text: string, kind: CompletionItemKind, completions: any[]) {
+	let results = fuzzySearch(text, candidates);
+	results.forEach(r => {
+		completions.push({
+			label: r.target,
+			kind: kind
+		});
+	});
+	return results.length > 0;
 }
 
 // This handler provides the initial list of the completion items.
 connection.onCompletion(
 	(_textDocumentPosition: TextDocumentPositionParams): Promise<CompletionItem[]> => {
-		let result = [];
 		return computeCodeSuggestions(_textDocumentPosition);
 	}
 );
@@ -502,27 +552,25 @@ const outputAttributes = [
 	"message", "rule-suffix", "rule-focus", "severity"
 ];
 
-function suggestFunction(nodeInfo: NodeInfo, symbolTable: SymbolTable, completions: any[]) {
-	let textToMatch = nodeInfo.node.text.toLowerCase();
+function suggestFunctions(nodeInfo: NodeInfo, symbolTable: SymbolTable, completions: any[]) {
+	let textToMatch = nodeInfo.textToMatch;
 	//Well-known functions
+	let candidates = [];
 	for(let name in wellKnownFunctions) {
-		maybeSuggest(name, textToMatch, CompletionItemKind.Function, completions);
+		candidates.push(name);
 	}
+	maybeSuggest(candidates, textToMatch, CompletionItemKind.Function, completions);
 	//Declared functions
-	suggestIdentifier(nodeInfo.node, IdentifierType.FUNCTION, CompletionItemKind.Function, symbolTable, completions);
+	suggestIdentifiers(nodeInfo, IdentifierType.FUNCTION, CompletionItemKind.Function, symbolTable, completions);
 }
 
-function suggestReturnOption(text: string, completions: any[]) {
-	for(let o in returnOptions) {
-		maybeSuggest(returnOptions[o], text, CompletionItemKind.Keyword, completions);
-	}
+function suggestReturnOptions(text: string, completions: any[]) {
+	maybeSuggest(returnOptions, text, CompletionItemKind.Keyword, completions);
 }
 
-function suggestOutputAttribute(symbolTable: SymbolTable, nodeInfo: NodeInfo, completions: any[]) {
-	for(let o in outputAttributes) {
-		maybeSuggest(outputAttributes[o], nodeInfo.node.text, CompletionItemKind.Keyword, completions);
-	}
-	suggestIdentifier(nodeInfo.node, IdentifierType.OUTPUT_ATTRIBUTE, CompletionItemKind.Variable, symbolTable, completions);
+function suggestOutputAttributes(symbolTable: SymbolTable, nodeInfo: NodeInfo, completions: any[]) {
+	maybeSuggest(outputAttributes, nodeInfo.textToMatch, CompletionItemKind.Keyword, completions);
+	suggestIdentifiers(nodeInfo, IdentifierType.OUTPUT_ATTRIBUTE, CompletionItemKind.Variable, symbolTable, completions);
 }
 
 /**
@@ -532,47 +580,51 @@ function suggestOutputAttribute(symbolTable: SymbolTable, nodeInfo: NodeInfo, co
  * @param candidates 
  * @param completions 
  */
-function suggestIdentifiers(symbolTable: SymbolTable, nodeInfo: NodeInfo, candidates: CandidatesCollection, completions: any[]) {
+function suggestAllIdentifiers(symbolTable: SymbolTable, nodeInfo: NodeInfo, candidates: CandidatesCollection, completions: any[]) {
 	if(!nodeInfo) {
 		return true;
 	}
 	let keywords = true;
-	const text = nodeInfo.node instanceof ErrorNode ? "" : nodeInfo.node.text.toLowerCase();
-	if (candidates.rules.has(XULEParser.RULE_booleanLiteral)) {
-		maybeSuggest("true", text, CompletionItemKind.Constant, completions);
-		maybeSuggest("false", text, CompletionItemKind.Constant, completions);
-	}
+	const text = nodeInfo.textToMatch;
 	if (candidates.rules.has(XULEParser.RULE_propertyAccess)) {
-		suggestProperty(nodeInfo.node, CompletionItemKind.Property, symbolTable, completions);
+		let admitOtherTokens = suggestProperties(nodeInfo, CompletionItemKind.Property, symbolTable, completions);
+		if(!admitOtherTokens) {
+			return false;
+		}
 		keywords = false;
 	}
+	if (candidates.rules.has(XULEParser.RULE_booleanLiteral)) {
+		maybeSuggest(["true", "false"], text, CompletionItemKind.Constant, completions);
+	}
 	if (candidates.rules.has(XULEParser.RULE_direction)) {
-		maybeSuggest("descendants", text, CompletionItemKind.Keyword, completions);
+		maybeSuggest(["descendants"], text, CompletionItemKind.Keyword, completions);
 		keywords = false;
 	}
 	if (candidates.rules.has(XULEParser.RULE_navigationReturnOption)) {
-		suggestReturnOption(text, completions);
+		suggestReturnOptions(text, completions);
 		keywords = false;
 	}
 	if (candidates.rules.has(XULEParser.RULE_outputAttributeName)) {
-		suggestOutputAttribute(symbolTable, nodeInfo, completions);
+		suggestOutputAttributes(symbolTable, nodeInfo, completions);
 		keywords = false;
 	}
 	if(candidates.rules.has(XULEParser.RULE_assignedVariable)) {
-		suggestIdentifier(nodeInfo.node, IdentifierType.VARIABLE, CompletionItemKind.Variable, symbolTable, completions);
+		suggestIdentifiers(nodeInfo, IdentifierType.VARIABLE, CompletionItemKind.Variable, symbolTable, completions);
 		keywords = false;
 	}
 	if(candidates.rules.has(XULEParser.RULE_variableRead)) {
-		suggestIdentifier(nodeInfo.node, IdentifierType.CONSTANT, CompletionItemKind.Constant, symbolTable, completions);
-		suggestIdentifier(nodeInfo.node, IdentifierType.VARIABLE, CompletionItemKind.Variable, symbolTable, completions);
-		suggestFunction(nodeInfo, symbolTable, completions);
-		maybeSuggest("none", text, CompletionItemKind.Keyword, completions);
-		maybeSuggest("skip", text, CompletionItemKind.Keyword, completions); //TODO should we check that the context is appropriate? Can we?
+		suggestIdentifiers(nodeInfo, IdentifierType.CONSTANT, CompletionItemKind.Constant, symbolTable, completions);
+		suggestIdentifiers(nodeInfo, IdentifierType.VARIABLE, CompletionItemKind.Variable, symbolTable, completions);
+		suggestFunctions(nodeInfo, symbolTable, completions);
+		maybeSuggest(["none"], text, CompletionItemKind.Keyword, completions);
+		maybeSuggest(["skip"], text, CompletionItemKind.Keyword, completions); //TODO should we check that the context is appropriate? Can we?
 	}
 	return keywords
 }
 
 function suggestKeywords(parser: XULEParser, nodeInfo: NodeInfo, candidates: CandidatesCollection, completions: any[]) {
+	let keywords = [];
+	let text = nodeInfo ? nodeInfo.textToMatch : "";
 	candidates.tokens.forEach((value, key, map) => {
 		if (key == XULEParser.IDENTIFIER || key == XULEParser.TRUE || key == XULEParser.FALSE) {
 			return; //It's handled above
@@ -587,16 +639,9 @@ function suggestKeywords(parser: XULEParser, nodeInfo: NodeInfo, candidates: Can
 		} else if(key == XULEParser.RULE_NAME_PREFIX) {
 			keyword = 'rule-name-prefix'
 		}
-		let text = "";
-		if (nodeInfo && !(nodeInfo.node instanceof ErrorNode) && nodeInfo.node.text) {
-			text = nodeInfo.node.text.toLowerCase();
-			if (nodeInfo.offset < nodeInfo.node.text.length - 1) {
-				//The caret is inside a keyword. Let's match the existing string.
-				text = text.substring(0, nodeInfo.offset);
-			}
-		}
-		maybeSuggest(keyword, text, CompletionItemKind.Keyword, completions);
+		keywords.push(keyword);
 	});
+	maybeSuggest(keywords, text, CompletionItemKind.Keyword, completions);
 }
 
 async function computeCodeSuggestions(_textDocumentPosition: TextDocumentPositionParams): Promise<CompletionItem[]> {
@@ -615,7 +660,7 @@ async function computeCodeSuggestions(_textDocumentPosition: TextDocumentPositio
 			let candidates = core.collectCandidates(tokenIndex);
 			let completions = [];
 
-			let keywordsToo = suggestIdentifiers(symbolTable, nodeInfo, candidates, completions);
+			let keywordsToo = suggestAllIdentifiers(symbolTable, nodeInfo, candidates, completions);
 			if(keywordsToo) {
 				suggestKeywords(parser, nodeInfo, candidates, completions);
 			}
@@ -632,26 +677,6 @@ connection.onCompletionResolve(
 		return item;
 	}
 );
-
-/*
-connection.onDidOpenTextDocument((params) => {
-	// A text document got opened in VSCode.
-	// params.textDocument.uri uniquely identifies the document. For documents store on disk this is a file URI.
-	// params.textDocument.text the initial full content of the document.
-	connection.console.log(`${params.textDocument.uri} opened.`);
-});
-connection.onDidChangeTextDocument((params) => {
-	// The content of a text document did change in VSCode.
-	// params.textDocument.uri uniquely identifies the document.
-	// params.contentChanges describe the content changes to the document.
-	connection.console.log(`${params.textDocument.uri} changed: ${JSON.stringify(params.contentChanges)}`);
-});
-connection.onDidCloseTextDocument((params) => {
-	// A text document got closed in VSCode.
-	// params.textDocument.uri uniquely identifies the document.
-	connection.console.log(`${params.textDocument.uri} closed.`);
-});
-*/
 
 // Make the text document manager listen on the connection
 // for open, change and close text document events
