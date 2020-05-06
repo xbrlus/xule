@@ -41,7 +41,7 @@ import {TerminalNode} from 'antlr4ts/tree/TerminalNode';
 import {IdentifierInfo, IdentifierType, SymbolTable, SymbolTableVisitor} from './symbols';
 import {Interval} from 'antlr4ts/misc/Interval';
 import {ErrorNode} from "antlr4ts/tree";
-import {SemanticCheckVisitor, wellKnownFunctions} from "./semanticCheckVisitor";
+import {SemanticCheckVisitor, wellKnownFunctions, wellKnownProperties} from "./semanticCheckVisitor";
 import {SafeXULELexer} from "./safeXULELexer";
 
 // Create a connection for the server. The connection uses Node's IPC as a transport.
@@ -290,7 +290,9 @@ function terminalNodeAtPosition(terminal: TerminalNode, line: number, column: nu
 		for (let i = 0; i < line - startLine; i++) {
 			offset += lines[i].length;
 		}
-		if(terminal.symbol.type == XULEParser.OPEN_PAREN || terminal.symbol.type == XULEParser.CLOSE_PAREN ||
+		if(terminal.symbol.type == XULEParser.OPEN_BRACKET || terminal.symbol.type == XULEParser.CLOSE_BRACKET ||
+		   terminal.symbol.type == XULEParser.OPEN_CURLY || terminal.symbol.type == XULEParser.CLOSE_CURLY ||
+		   terminal.symbol.type == XULEParser.OPEN_PAREN || terminal.symbol.type == XULEParser.CLOSE_PAREN ||
 		   terminal.symbol.type == XULEParser.COMMA) {
 			if(offset == 0) {
 				//Return the (virtual) token before this one
@@ -333,8 +335,7 @@ function ruleContextAtPosition(context: ParserRuleContext, line: number, column:
 				return result;
 			}
 		}
-		const closest = closestSubtree(context, line, column);
-		return {node: new TerminalNode(new CommonToken(0, "")), offset: 0, tokenIndex: closest.tokenIndex + 1};
+		return closestSubtree(context, line, column);
 	}
 	return undefined;
 }
@@ -462,76 +463,11 @@ function indexOfNode(parent: ParseTree, node: ParseTree) {
 
 function suggestProperty(
 	node: ParseTree, completionKind: CompletionItemKind, symbolTable: SymbolTable, completions: any[]) {
-	let textToMatch = node instanceof IdentifierContext ? node.text : "";
-
-	node = findPropertyAccessContext(node);
-	if(!node) {
-		return;
-	}
-
-	const index = indexOfNode(node.parent, node);
-	if(index > 0) {
-		const previous = node.parent.getChild(index - 1);
-		//Suggest properties of the @concept object
-		if(previous instanceof TerminalNode && previous.symbol.type == XULEParser.CONCEPT) {
-			maybeSuggest("balance", textToMatch, completionKind, completions);
-			maybeSuggest("base-type", textToMatch, completionKind, completions);
-			maybeSuggest("data-type", textToMatch, completionKind, completions);
-			maybeSuggest("has-enumerations", textToMatch, completionKind, completions);
-			maybeSuggest("is-monetary", textToMatch, completionKind, completions);
-			maybeSuggest("is-numeric", textToMatch, completionKind, completions);
-			maybeSuggest("local-name", textToMatch, completionKind, completions);
-			maybeSuggest("namespace-uri", textToMatch, completionKind, completions);
-			maybeSuggest("period", textToMatch, completionKind, completions);
-			maybeSuggest("period-type", textToMatch, completionKind, completions);
-			maybeSuggest("substitution", textToMatch, completionKind, completions);
-		} else {
-			//Maybe suggest properties of well-known variables
-			let varName = undefined;
-			if(previous instanceof IdentifierContext) {
-				varName = previous.text.toLowerCase();
-			} else if(previous instanceof ExpressionContext && previous.childCount == 1) {
-				if(previous.children[0] instanceof IdentifierContext) {
-					varName = previous.children[0].text.toLowerCase();
-				}
-			}
-			if(varName == "$fact") {
-				maybeSuggest("concept", textToMatch, completionKind, completions);
-				maybeSuggest("decimals", textToMatch, completionKind, completions);
-				maybeSuggest("entity", textToMatch, completionKind, completions);
-				maybeSuggest("id", textToMatch, completionKind, completions);
-				maybeSuggest("inline-scale", textToMatch, completionKind, completions);
-				maybeSuggest("period", textToMatch, completionKind, completions);
-				maybeSuggest("unit", textToMatch, completionKind, completions);
-			}
-		}
-		maybeSuggest("abs", textToMatch, completionKind, completions);
-		maybeSuggest("date", textToMatch, completionKind, completions);
-		maybeSuggest("day", textToMatch, completionKind, completions);
-		maybeSuggest("days", textToMatch, completionKind, completions);
-		maybeSuggest("duration", textToMatch, completionKind, completions);
-		maybeSuggest("contains", textToMatch, completionKind, completions);
-		maybeSuggest("forever", textToMatch, completionKind, completions);
-		maybeSuggest("index-of", textToMatch, completionKind, completions);
-		maybeSuggest("is-fact", textToMatch, completionKind, completions);
-		maybeSuggest("last-index-of", textToMatch, completionKind, completions);
-		maybeSuggest("length", textToMatch, completionKind, completions);
-		maybeSuggest("lower-case", textToMatch, completionKind, completions);
-		maybeSuggest("log10", textToMatch, completionKind, completions);
-		maybeSuggest("mod", textToMatch, completionKind, completions);
-		maybeSuggest("month", textToMatch, completionKind, completions);
-		maybeSuggest("number", textToMatch, completionKind, completions);
-		maybeSuggest("power", textToMatch, completionKind, completions);
-		maybeSuggest("round", textToMatch, completionKind, completions);
-		maybeSuggest("signum", textToMatch, completionKind, completions);
-		maybeSuggest("split", textToMatch, completionKind, completions);
-		maybeSuggest("string", textToMatch, completionKind, completions);
-		maybeSuggest("substring", textToMatch, completionKind, completions);
-		maybeSuggest("to-qname", textToMatch, completionKind, completions);
-		maybeSuggest("time-span", textToMatch, completionKind, completions);
-		maybeSuggest("trunc", textToMatch, completionKind, completions);
-		maybeSuggest("upper-case", textToMatch, completionKind, completions);
-		maybeSuggest("year", textToMatch, completionKind, completions);
+	let inIdentifier = node instanceof IdentifierContext || (node instanceof TerminalNode && node.symbol.type == XULEParser.IDENTIFIER);
+	let textToMatch = inIdentifier ? node.text : "";
+	let addDot = !inIdentifier && !(node instanceof TerminalNode && node.symbol.type == XULEParser.DOT);
+	for(let name in wellKnownProperties) {
+		maybeSuggest(addDot ? '.' + name : name, textToMatch, completionKind, completions);
 	}
 }
 
@@ -587,10 +523,18 @@ function suggestOutputAttribute(symbolTable: SymbolTable, nodeInfo: NodeInfo, co
 	suggestIdentifier(nodeInfo.node, IdentifierType.OUTPUT_ATTRIBUTE, CompletionItemKind.Variable, symbolTable, completions);
 }
 
+/**
+ * Suggests an identifier. Returns true iff a keyword can be suggested instead of an identifier
+ * @param symbolTable 
+ * @param nodeInfo 
+ * @param candidates 
+ * @param completions 
+ */
 function suggestIdentifiers(symbolTable: SymbolTable, nodeInfo: NodeInfo, candidates: CandidatesCollection, completions: any[]) {
 	if(!nodeInfo) {
-		return;
+		return true;
 	}
+	let keywords = true;
 	const text = nodeInfo.node instanceof ErrorNode ? "" : nodeInfo.node.text.toLowerCase();
 	if (candidates.rules.has(XULEParser.RULE_booleanLiteral)) {
 		maybeSuggest("true", text, CompletionItemKind.Constant, completions);
@@ -598,18 +542,23 @@ function suggestIdentifiers(symbolTable: SymbolTable, nodeInfo: NodeInfo, candid
 	}
 	if (candidates.rules.has(XULEParser.RULE_propertyAccess)) {
 		suggestProperty(nodeInfo.node, CompletionItemKind.Property, symbolTable, completions);
+		keywords = false;
 	}
 	if (candidates.rules.has(XULEParser.RULE_direction)) {
 		maybeSuggest("descendants", text, CompletionItemKind.Keyword, completions);
+		keywords = false;
 	}
 	if (candidates.rules.has(XULEParser.RULE_navigationReturnOption)) {
 		suggestReturnOption(text, completions);
+		keywords = false;
 	}
 	if (candidates.rules.has(XULEParser.RULE_outputAttributeName)) {
 		suggestOutputAttribute(symbolTable, nodeInfo, completions);
+		keywords = false;
 	}
 	if(candidates.rules.has(XULEParser.RULE_assignedVariable)) {
 		suggestIdentifier(nodeInfo.node, IdentifierType.VARIABLE, CompletionItemKind.Variable, symbolTable, completions);
+		keywords = false;
 	}
 	if(candidates.rules.has(XULEParser.RULE_variableRead)) {
 		suggestIdentifier(nodeInfo.node, IdentifierType.CONSTANT, CompletionItemKind.Constant, symbolTable, completions);
@@ -618,6 +567,7 @@ function suggestIdentifiers(symbolTable: SymbolTable, nodeInfo: NodeInfo, candid
 		maybeSuggest("none", text, CompletionItemKind.Keyword, completions);
 		maybeSuggest("skip", text, CompletionItemKind.Keyword, completions); //TODO should we check that the context is appropriate? Can we?
 	}
+	return keywords
 }
 
 function suggestKeywords(parser: XULEParser, nodeInfo: NodeInfo, candidates: CandidatesCollection, completions: any[]) {
@@ -663,8 +613,10 @@ async function computeCodeSuggestions(_textDocumentPosition: TextDocumentPositio
 			let candidates = core.collectCandidates(tokenIndex);
 			let completions = [];
 
-			suggestIdentifiers(symbolTable, nodeInfo, candidates, completions);
-			suggestKeywords(parser, nodeInfo, candidates, completions);
+			let keywordsToo = suggestIdentifiers(symbolTable, nodeInfo, candidates, completions);
+			if(keywordsToo) {
+				suggestKeywords(parser, nodeInfo, candidates, completions);
+			}
 			return completions;
 		}
 	}
