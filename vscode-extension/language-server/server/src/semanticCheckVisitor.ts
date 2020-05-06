@@ -64,7 +64,7 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
         }
         let binding = this.lookupIgnoreCase(variableName, ctx);
         const range = this.getRange(identifier);
-        if (!binding && !wellKnownVariables[variableName] && !this.localVariables[variableName]) {
+        if (!binding && !this.localVariables[variableName]) {
             this.diagnostics.push({
                 severity: DiagnosticSeverity.Warning,
                 range: range,
@@ -154,14 +154,15 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
             });
         } else {
             let binding = this.lookupIgnoreCase(functionName, ctx);
-            if (!binding && !wellKnownFunctions[functionName]) {
+            let wnf = wellKnownFunctions[functionName];
+            if (!binding && !wnf) {
                 this.diagnostics.push({
                     severity: DiagnosticSeverity.Warning,
                     range: range,
                     message: "Unknown function: " + identifier.text,
                     source: 'XULE semantic checker'
                 });
-            } else if (binding && !bindingInfo(binding, IdentifierType.FUNCTION)) {
+            } else if (binding && !wnf && !bindingInfo(binding, IdentifierType.FUNCTION)) {
                 this.diagnostics.push({
                     severity: DiagnosticSeverity.Warning,
                     range: range,
@@ -169,7 +170,7 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
                     source: 'XULE semantic checker'
                 });
             } else {
-                let functionInfo: FunctionInfo = wellKnownFunctions[functionName] || bindingInfo(binding, IdentifierType.FUNCTION);
+                let functionInfo: FunctionInfo = wnf || bindingInfo(binding, IdentifierType.FUNCTION);
                 this.checkArity(functionInfo, parametersList);
             }
         }
@@ -325,27 +326,6 @@ export const wellKnownFunctions: { [name: string]: FunctionInfo } = {
     "unit": new FunctionInfo({ min: 1, max: 2 }),
     "upper-case": new FunctionInfo(1),
     "year": new FunctionInfo(1)
-};
-
-export const wellKnownVariables = {
-    "$fact": {},
-    "$ruleversion": {},
-    "$rule-value": {},
-    //The following are actually constants or keywords, but for know we don't need to distinguish them
-    "duration": {},
-    "inf": {},
-    "none": {},
-    "skip": {},
-    //The following are specific to taxonomies
-    "all": {},
-    "dimension-default": {},
-    "dimension-domain": {},
-    "domain-member": {},
-    "essence-alias": {},
-    "general-special": {},
-    "hypercube-dimension": {},
-    "parent-child": {},
-    "summation-item": {},
 };
 
 export const wellKnownProperties: { [name: string]: PropertyInfo } = {

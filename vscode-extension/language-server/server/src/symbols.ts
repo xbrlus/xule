@@ -1,4 +1,4 @@
-import {ParseTree, AbstractParseTreeVisitor, RuleNode} from 'antlr4ts/tree';
+import {ParseTree, AbstractParseTreeVisitor, RuleNode, TerminalNode} from 'antlr4ts/tree';
 import { XULEParserVisitor } from './parser/XULEParserVisitor';
 import {
 	ConstantDeclarationContext,
@@ -13,6 +13,7 @@ import {
 	AspectFilterContext,
 	AssignedVariableContext
 } from './parser/XULEParser';
+import {CommonToken} from "antlr4ts";
 
 export type Binding = { name: any, meaning: any };
 export type Lookup = (obj: Binding) => boolean;
@@ -62,6 +63,8 @@ export class SymbolTable {
 
 	public symbols: { scope: ParseTree, environment: Environment }[] = [];
 
+	constructor(protected globalEnvironment = new Environment()) {}
+
 	lookup(what: string | Lookup, scope: ParseTree) {
 		const env = this.lookupEnvironment(scope);
 		if(env) {
@@ -104,7 +107,7 @@ export class SymbolTable {
 		} else if(scope.parent) {
 			return this.lookupEnvironment(scope.parent);
 		} else {
-			return undefined;
+			return this.globalEnvironment;
 		}
 	}
 
@@ -136,9 +139,34 @@ export class OutputAttributeInfo extends IdentifierInfo {
 	type = IdentifierType.OUTPUT_ATTRIBUTE;
 }
 
+export const initialEnvironment = new Environment();
+export const wellKnownVariables = {
+	"$fact": {},
+	"$ruleversion": {},
+	"$rule-value": {},
+	//The following are actually constants or keywords, but for know we don't need to distinguish them
+	"duration": {},
+	"inf": {},
+	"none": {},
+	"skip": {},
+	//The following are specific to taxonomies
+	"all": {},
+	"dimension-default": {},
+	"dimension-domain": {},
+	"domain-member": {},
+	"essence-alias": {},
+	"general-special": {},
+	"hypercube-dimension": {},
+	"parent-child": {},
+	"summation-item": {},
+};
+for(let name in wellKnownVariables) {
+	initialEnvironment.bindings.push({ name: name, meaning: [new VariableInfo()] });
+}
+
 export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> implements XULEParserVisitor<SymbolTable> {
 
-	constructor(protected symbolTable: SymbolTable = null, protected context: ParseTree = null) {
+	constructor(protected symbolTable = new SymbolTable(initialEnvironment), protected context: ParseTree = null) {
 		super();
 	}
 
@@ -147,7 +175,6 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 	}
 
 	visitXuleFile = (ctx: XuleFileContext) => {
-		this.symbolTable = new SymbolTable();
 		return this.withNewContext(ctx, () => this.visitChildren(ctx));
 	};
 
