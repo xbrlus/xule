@@ -51,13 +51,19 @@
                     "scope": "window",
                     "type": "boolean",
                     "default": true,
-                    "description": "Report an error when a variable is referenced, but not defined in the file."
+                    "description": "Warn when a variable or constant is referenced, but it's not defined in the file and it's not a built-in variable."
                 },
                 "xuleLanguage.checks.functions": {
                     "scope": "window",
                     "type": "boolean",
                     "default": true,
-                    "description": "Report an error when a function is invoked, but it's not defined in the file."
+                    "description": "Warn when a function is invoked, but it's not defined in the file and is not a built-in function. Report an error if it's invoked with the wrong number of arguments."
+                },
+                "xuleLanguage.checks.properties": {
+                    "scope": "window",
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Warn when a property is accessed that doesn't exist. Report an error when the wrong number of arguments is given to a property."
                 },
                 "xuleLanguage.server.debug": {
                     "scope": "window",

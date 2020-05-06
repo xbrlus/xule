@@ -24,8 +24,9 @@ function bindingInfo(binding: Binding, type: IdentifierType) {
 export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> implements XULEParserVisitor<any> {
 
     localVariables = {};
-    checkVariables = true;
     checkFunctions = true;
+    checkProperties = true;
+    checkVariables = true;
 
     constructor(public diagnostics: Diagnostic[], protected symbolTable: SymbolTable, protected document: TextDocument) {
         super();
@@ -37,6 +38,7 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
 
     visitExpression = (ctx: ExpressionContext) => {
         if(ctx.propertyAccess().length > 0) {
+            this.visitExpression(ctx.expression(0));
             this.checkPropertyAccess(ctx.propertyAccess());
         } else if(ctx.parametersList()) {
             const expression = ctx.expression(0);
@@ -178,8 +180,11 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
 
     protected checkPropertyAccess(propertyPath: PropertyAccessContext[]) {
         propertyPath.forEach(p => {
-            if(this.checkPropertyExists(p)) {
+            if(this.checkProperties && this.checkPropertyExists(p)) {
                 this.checkPropertyArity(p);
+            }
+            if(p.parametersList()) {
+                this.visit(p.parametersList());
             }
         });
     }

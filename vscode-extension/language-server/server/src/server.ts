@@ -112,6 +112,7 @@ interface XULELanguageSettings {
 	server: { debug: DebugLevel; };
 	checks: {
 		functions: boolean,
+		properties: boolean,
 		variables: boolean
 	}
 }
@@ -121,7 +122,7 @@ interface XULELanguageSettings {
 // but could happen with other clients.
 const defaultSettings: XULELanguageSettings = {
 	server: { debug: DebugLevel.off },
-	checks: { functions: true, variables: true }
+	checks: { functions: true, properties: true, variables: true }
 };
 let globalSettings: XULELanguageSettings = defaultSettings;
 
@@ -233,6 +234,7 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 	let semanticCheckVisitor = new SemanticCheckVisitor(diagnostics, symbolTable, textDocument);
 	let settings = await getDocumentSettings(textDocument.uri);
 	semanticCheckVisitor.checkFunctions = settings.checks.functions;
+	semanticCheckVisitor.checkProperties = settings.checks.properties;
 	semanticCheckVisitor.checkVariables = settings.checks.variables;
 	semanticCheckVisitor.visit(parseTree);
 	connection.sendDiagnostics({ uri: textDocument.uri, diagnostics });
