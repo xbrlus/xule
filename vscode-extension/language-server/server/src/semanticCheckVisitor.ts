@@ -43,8 +43,13 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
         } else if(ctx.parametersList()) {
             const expression = ctx.expression(0);
             const identifier = expression.variableRead();
-            let parametersList = ctx.parametersList();
-            this.checkFunctionCall(identifier, expression, parametersList);
+            const parametersList = ctx.parametersList();
+            if(identifier) {
+                this.checkFunctionCall(identifier, expression, parametersList);
+            } else {
+                this.visitExpression(expression);
+            }
+            this.visit(parametersList);
         } else {
             let identifier = ctx.variableRead();
             if(identifier) {
@@ -52,8 +57,6 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
                 if(variableName.startsWith("$")) {
                     this.checkVariableAccess(variableName, ctx, identifier);
                 }
-            } else if(ctx.propertyAccess().length > 0) {
-                this.checkPropertyAccess(ctx.propertyAccess());
             } else {
                 this.visitChildren(ctx);
             }
@@ -190,7 +193,7 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
     }
 
     private checkPropertyArity(p: PropertyAccessContext) {
-        let identifier = p.identifier();
+        let identifier = p.propertyRef();
         let rawPropertyName = identifier.text;
         let propertyName = rawPropertyName.toLowerCase();
         let property = wellKnownProperties[propertyName];
@@ -228,7 +231,7 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
     }
 
     private checkPropertyExists(p: PropertyAccessContext) {
-        let identifier = p.identifier();
+        let identifier = p.propertyRef();
         let rawPropertyName = identifier.text;
         let propertyName = rawPropertyName.toLowerCase();
         let property = wellKnownProperties[propertyName];

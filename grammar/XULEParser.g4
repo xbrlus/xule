@@ -47,7 +47,7 @@ expression:
 
 block: assignment* expression;
 
-assignment: assignedVariable ASSIGN block SEMI?;
+assignment: assignedVariable ASSIGN expression SEMI?;
 ifExpression: IF expression block ELSE block;
 
 forExpression: FOR (OPEN_PAREN forHead CLOSE_PAREN | forHead) block;
@@ -96,7 +96,8 @@ direction: identifier;
 outputAttributeName: identifier;
 //End expressions
 
-propertyAccess: DOT identifier parametersList?;
+propertyAccess: DOT propertyRef parametersList?;
+propertyRef: identifier;
 /** With this rule we cover IDENTIFIER tokens, as well as other tokens (keywords) that we accept as identifiers as well. */
 identifier: IDENTIFIER |
     AS | ASSERT | BY | CONCEPT | CONSTANT | COVERED | CUBE | DICTIONARY | DIMENSIONS | DRS_ROLE | FALSE | INTERSECT |

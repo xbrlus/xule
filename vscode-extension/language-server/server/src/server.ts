@@ -42,7 +42,7 @@ import {IdentifierInfo, IdentifierType, SymbolTable, SymbolTableVisitor} from '.
 import {Interval} from 'antlr4ts/misc/Interval';
 import {ErrorNode} from "antlr4ts/tree";
 import {SemanticCheckVisitor, wellKnownFunctions, wellKnownProperties} from "./semanticCheckVisitor";
-import {SafeXULELexer} from "./safeXULELexer";
+import {EnhancedXULELexer} from "./enhancedXULELexer";
 import * as fuzzysort from 'fuzzysort';
 
 // Create a connection for the server. The connection uses Node's IPC as a transport.
@@ -172,7 +172,7 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 	let diagnostics: Diagnostic[] = [];
 	let text = textDocument.getText();
 	let input = CharStreams.fromString(text);
-	let lexer = new SafeXULELexer(input);
+	let lexer = new EnhancedXULELexer(input);
 
 	class ReportingLexerErrorListener implements ANTLRErrorListener<number> {
 		syntaxError? = <T extends number>(recognizer: Recognizer<T, any>, offendingSymbol: T | undefined, line: number, charPositionInLine: number, msg: string, e: RecognitionException | undefined) => {
@@ -275,6 +275,14 @@ function textInterval(parserRule: ParserRuleContext) {
 function terminalNodeAtPosition(terminal: TerminalNode, line: number, column: number) {
 	let token = terminal.symbol;
 	let startLine = token.line;
+	if(token.text.length == 0) {
+		//Handle zero-length tokens, including the virtual tokens we insert for better code completion
+		if(line == startLine && column == token.charPositionInLine) {
+			return new NodeInfo(terminal, 0, terminal.symbol.tokenIndex);
+		} else {
+			return undefined;
+		}
+	}
 	const lines = token.text.match(LINES_REGEXP);
 	let endLine = startLine + lines.length - 1;
 	// Does the terminal node actually contain the position? If not we don't need to look further.
@@ -314,19 +322,6 @@ function terminalNodeAtPosition(terminal: TerminalNode, line: number, column: nu
 		for (let i = 0; i < line - startLine; i++) {
 			offset += lines[i].length;
 		}
-		if(terminal.symbol.type == XULEParser.OPEN_BRACKET || terminal.symbol.type == XULEParser.CLOSE_BRACKET ||
-		   terminal.symbol.type == XULEParser.OPEN_CURLY || terminal.symbol.type == XULEParser.CLOSE_CURLY ||
-		   terminal.symbol.type == XULEParser.OPEN_PAREN || terminal.symbol.type == XULEParser.CLOSE_PAREN ||
-		   terminal.symbol.type == XULEParser.COMMA) {
-			if(offset == 0) {
-				//Return the (virtual) token before this one
-				return new NodeInfo(new TerminalNode(new CommonToken(0, "")), 0, terminal.symbol.tokenIndex - 1);
-			} else if(offset == terminal.text.length) {
-				//Return the (virtual) token after this one
-				return new NodeInfo(new TerminalNode(new CommonToken(0, "")), 0, terminal.symbol.tokenIndex + 1);
-			}
-		}
-
 		return new NodeInfo(terminal, offset, terminal.symbol.tokenIndex);
 	}
 	return undefined;
@@ -441,7 +436,7 @@ function setupCompletionCore(parser: XULEParser, settings: XULELanguageSettings)
 	]);
 	core.preferredRules = new Set([
 		XULEParser.RULE_assignedVariable, XULEParser.RULE_booleanLiteral,
-		XULEParser.RULE_identifier, XULEParser.RULE_propertyAccess, XULEParser.RULE_direction,
+		XULEParser.RULE_identifier, XULEParser.RULE_propertyRef, XULEParser.RULE_direction,
 		XULEParser.RULE_navigationReturnOption, XULEParser.RULE_outputAttributeName,
 		XULEParser.RULE_variableRead
 	]);
@@ -509,22 +504,16 @@ function indexOfNode(parent: ParseTree, node: ParseTree) {
 }
 
 function suggestProperties(
-	nodeInfo: NodeInfo, completionKind: CompletionItemKind, symbolTable: SymbolTable, completions: any[]) {
+	nodeInfo: NodeInfo, completionKind: CompletionItemKind, symbolTable: SymbolTable, completions: CompletionItem[]) {
 	let textToMatch = nodeInfo.textToMatch;
-	let node = nodeInfo.node;
-	let inIdentifier = node instanceof IdentifierContext || (node instanceof TerminalNode && node.symbol.type == XULEParser.IDENTIFIER);
-	if(!inIdentifier && !(node instanceof TerminalNode && node.symbol.type == XULEParser.DOT)) {
-		return true;
-	}
 	let candidates = [];
 	for(let name in wellKnownProperties) {
 		candidates.push(name);
 	}
 	maybeSuggest(candidates, textToMatch, completionKind, completions);
-	return false;
 }
 
-function maybeSuggest(candidates: string[], text: string, kind: CompletionItemKind, completions: any[]) {
+function maybeSuggest(candidates: string[], text: string, kind: CompletionItemKind, completions: CompletionItem[]) {
 	let results = fuzzySearch(text, candidates);
 	results.forEach(r => {
 		completions.push({
@@ -586,12 +575,9 @@ function suggestAllIdentifiers(symbolTable: SymbolTable, nodeInfo: NodeInfo, can
 	}
 	let keywords = true;
 	const text = nodeInfo.textToMatch;
-	if (candidates.rules.has(XULEParser.RULE_propertyAccess)) {
-		let admitOtherTokens = suggestProperties(nodeInfo, CompletionItemKind.Property, symbolTable, completions);
-		if(!admitOtherTokens) {
-			return false;
-		}
-		keywords = false;
+	if (candidates.rules.has(XULEParser.RULE_propertyRef)) {
+		suggestProperties(nodeInfo, CompletionItemKind.Property, symbolTable, completions);
+		return false;
 	}
 	if (candidates.rules.has(XULEParser.RULE_booleanLiteral)) {
 		maybeSuggest(["true", "false"], text, CompletionItemKind.Constant, completions);
@@ -655,7 +641,17 @@ async function computeCodeSuggestions(_textDocumentPosition: TextDocumentPositio
 			const pos = _textDocumentPosition.position;
 			const parseTree = document['parseTree'] as ParseTree;
 			const nodeInfo = parseTreeAtPosition(parseTree, pos.line + 1, pos.character);
-			let tokenIndex = nodeInfo ? nodeInfo.tokenIndex : 0;
+			let tokenIndex = 0;
+			if(nodeInfo) {
+				tokenIndex = nodeInfo.tokenIndex;
+				if(nodeInfo.node instanceof TerminalNode && nodeInfo.node.symbol.type != XULEParser.IDENTIFIER) {
+					if(nodeInfo.offset == 0) {
+						tokenIndex--;
+					} else if(nodeInfo.offset >= nodeInfo.node.text.length) {
+						tokenIndex++;
+					}
+				}
+			}
 			let core = setupCompletionCore(parser, settings);
 			let candidates = core.collectCandidates(tokenIndex);
 			let completions = [];

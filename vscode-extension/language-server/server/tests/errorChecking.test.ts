@@ -4,7 +4,7 @@ import {XULEParser} from "../src/parser/XULEParser";
 import {CharStreams, CommonTokenStream} from "antlr4ts";
 import {XULELexer} from "../src/parser/XULELexer";
 import {SemanticCheckVisitor} from "../src/semanticCheckVisitor";
-import {SymbolTable, SymbolTableVisitor} from "../src/symbols";
+import {initialEnvironment, SymbolTable, SymbolTableVisitor} from "../src/symbols";
 
 describe('Aspect filters', function() {
     it("can declare variables with `as <identifier>`",
@@ -17,7 +17,7 @@ describe('Aspect filters', function() {
             expect(parser.numberOfSyntaxErrors).to.equal(0);
             expect(input.index).to.equal(input.size);
             let diagnostics = [];
-            let symbolTable = new SymbolTableVisitor(new SymbolTable(), parseTree).visit(parseTree);
+            let symbolTable = new SymbolTableVisitor(new SymbolTable(initialEnvironment), parseTree).visit(parseTree);
             new SemanticCheckVisitor(diagnostics, symbolTable, null).visit(parseTree);
             expect(diagnostics.length).to.equal(0);
         });
