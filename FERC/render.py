@@ -2138,7 +2138,8 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
         if model_fact.isNumeric:
             ix_node =  etree.Element('{{{}}}nonFraction'.format(_XULE_NAMESPACE_MAP['ix']), nsmap=_XULE_NAMESPACE_MAP)
             ix_node.set('unitRef', model_fact.unitID)
-            ix_node.set('decimals', xule_expression_node.get('decimals', model_fact.decimals) if xule_expression_node is not None else model_fact.decimals)
+            if model_fact.decimals is not None:
+                ix_node.set('decimals', xule_expression_node.get('decimals', model_fact.decimals) if xule_expression_node is not None else model_fact.decimals)
         else:
             ix_node = etree.Element('{{{}}}nonNumeric'.format(_XULE_NAMESPACE_MAP['ix']), nsmap=_XULE_NAMESPACE_MAP)
 
