@@ -5,7 +5,7 @@ This module provides database interfaces to postgres SQL
 Mark V copyright applies to this software, which is licensed according to the terms of Arelle(r).
 '''
 import sys, os, io, time, re, datetime
-from math import isnan, isinf
+from math import isnan, isinf, floor, ceil
 from decimal import Decimal
 from arelle.ModelValue import dateTime
 import socket
@@ -95,6 +95,7 @@ except ImportError:
     mssqlConnect = noop
     mssqlOperationalError = mssqlProgrammingError = mssqlInterfaceError = mssqlInternalError = \
         mssqlDataError = mssqlIntegrityError = NoopException
+
 try:
     import adodbapi
     hasMSSql = True
@@ -389,7 +390,10 @@ class SqlDbConnection():
             raise
 
         if fetch:
-            result = cursor.fetchall()
+            if cursor.rowcount > 0:
+                result = cursor.fetchall()
+            else:
+                result = tuple()
         else:
             #if cursor.rowcount > 0:
             #    cursor.fetchall()  # must get anyway
@@ -541,17 +545,22 @@ class SqlDbConnection():
                 #                              "WHERE table_name = '{0}'"
                 #                              .format( table )) # table name is not " " quoted here
 
-                query = ("SELECT column_name, data_type, character_maximum_length "
+                query = ("SELECT column_name, data_type, character_maximum_length, numeric_precision, numeric_scale "
                                               "FROM INFORMATION_SCHEMA.COLUMNS "
                                               "WHERE table_name = ?")
                 colTypesResult = self.execute(query, params=(table,))                                              
                 colTypes = []
-                for name, fulltype, characterMaxLength in colTypesResult:
+                for name, fulltype, characterMaxLength, numeric_precision, numeric_scale in colTypesResult:
                     name = name.lower()
                     if fulltype in ("char", "varchar", "nvarchar", "varbinary"):
                         if characterMaxLength == -1: 
                             characterMaxLength = "max"
                         colDecl = "{}({})".format(fulltype, characterMaxLength)
+                    elif fulltype == 'numeric' and not (numeric_precision == 18 and numeric_scale == 0):
+                        if numeric_scale == 0:
+                            colDecl = "{}({})".format(fulltype, numeric_precision)
+                        else:
+                            colDecl = "{}({},{})".format(fulltype, numeric_precision, numeric_scale)
                     else:
                         colDecl = fulltype
                     colTypes.append( (name, fulltype, colDecl) )
@@ -605,6 +614,133 @@ class SqlDbConnection():
                 colLengths.append(None)
         return colLengths
 
+    def process_rows(self, table, data, newCols, colDeclarations):
+
+        isOracle = self.product == "orcl"
+        isMSSql = self.product.startswith("mssql")
+        isPostgres = self.product == "postgres"
+        isSQLite = self.product == "sqlite"
+
+        if isMSSql:
+            colLengths = self.columnLengths(newCols, colDeclarations)
+
+        rowValues = []
+        rowLongValues = []  # contains None if no parameters, else {} parameter dict
+        binaryCols=set()
+        if isOracle:
+            longColValues = {}
+        else:
+            longColValues = []
+        for row in data:
+            colValues = []
+            for colPos, col in enumerate(row):
+                if colDeclarations[newCols[colPos]] in ('text', 'ntext') and isMSSql:
+                    colValues.append(str(col))                
+                elif isinstance(col, bool):
+                    if isOracle or isSQLite:
+                        colValues.append('1' if col else '0')
+                    elif isMSSql:
+                        colValues.append(1 if col else 0)
+                    else:
+                        colValues.append('TRUE' if col else 'FALSE')
+                elif isinstance(col, int):
+                    if isMSSql:
+                        colValues.append(col)
+                    else:
+                        colValues.append(str(col))
+                elif isinstance(col, float):
+                    if _ISFINITE(col):
+                        if isMSSql:
+                            colValues.append(col)
+                        else:
+                            colValues.append(str(col))
+                    else:  # no NaN, INF, in SQL implementations (Postgres has it but not IEEE implementation)
+                        if isMSSql:
+                            colValus.append(None)
+                        else:
+                            colValues.append('NULL')
+                elif isinstance(col, Decimal):
+                    if col.is_finite():
+                        if isMSSql:
+                            colValues.append(col)
+                        else:
+                            colValues.append(str(col))
+                    else:  # no NaN, INF, in SQL implementations (Postgres has it but not IEEE implementation)
+                        if isMSSql:
+                            colValues.append(None)
+                        else:
+                            colValues.append('NULL')
+                elif isinstance(col, (datetime.date, datetime.datetime)) and self.product == "orcl":
+                    colValues.append("DATE '{:04}-{:02}-{:02}'".format(col.year, col.month, col.day))
+                elif isinstance(col, datetime.datetime) and isSQLite:
+                    colValues.append("'{:04}-{:02}-{:02} {:02}:{:02}:{:02}'".format(col.year, col.month, col.day, col.hour, col.minute, col.second))
+                elif isinstance(col, datetime.datetime) and isMSSql:
+                    colValues.append("{:04}-{:02}-{:02} {:02}:{:02}:{:02}".format(col.year, col.month, col.day, col.hour, col.minute, col.second))
+                
+                elif isinstance(col, datetime.date) and isSQLite:
+                    colValues.append("'{:04}-{:02}-{:02}'".format(col.year, col.month, col.day))
+                elif isinstance(col, datetime.date) and isMSSql:
+                    colValues.append("{:04}-{:02}-{:02}".format(col.year, col.month, col.day))
+                elif col is None:
+                    if isMSSql:
+                        colValues.append(None)
+                    else:
+                        colValues.append('NULL')
+                #elif isinstance(col, _STR_BASE) and len(col) >= 4000 and (isOracle or isMSSql):
+                elif isinstance(col, _STR_BASE) and len(col) >= 4000 and isOracle:
+                    if isOracle:
+                        colName = "col{}".format(len(colValues))
+                        longColValues[colName] = col
+                        colValues.append(":" + colName)
+                    else:
+                        longColValues.append(col)
+                        colValues.append("?")
+                elif isinstance(col, _STR_BASE) and isMSSql:
+                    if colLengths[colPos] is not None and len(col) > colLengths[colPos]:
+                        colValues.append(col[:colLengths[colPos]])
+                        self.modelXbrl.info("warning", "Table: {table}, Field: {field} - Value of length {colLength} is too "
+                                            "long for the database field with max length of {dbLength}"
+                                            "".format(table=table, field=newCols[colPos], colLength=len(col), dbLength=colLengths[colPos]))
+                    else:
+                        colValues.append(col)
+                elif isinstance(col, bytes) and isPostgres:
+                    hexvals = "".join([hex(x)[2:] for x in col])
+                    #get the hex values
+                    hexvals = [hex(x)[2:] for x in col]
+                    #fix up single digit values
+                    for i in range(len(hexvals)):
+                        if len(hexvals[i]) == 1:
+                            hexvals[i] = "0" + hexvals[i]
+
+                    colValues.append(r"E'\\x" + "".join(hexvals) + "'")
+                    #colValues.append(r"E'\\x" + col.decode() + "'" )
+                elif isinstance(col, bytes) and isMSSql:
+                    #binaryCols.add(len(colValues))
+                    #colValues.append('0x{}'.format(col.hex()))
+                    colValues.append(col)
+                else:
+                    colValues.append(self.dbStr(col))
+            if not rowValues and isPostgres:  # first row
+                for i, cast in enumerate(colTypeCast):
+                    if cast:
+                        colValues[i] = colValues[i] + cast
+            if isMSSql:
+                rowValues.append(colValues)
+            else:
+                rowColValues = ", ".join(colValues)
+                rowValues.append("(" + rowColValues + ")" if not isOracle else rowColValues)
+                if longColValues:
+                    rowLongValues.append(longColValues)
+                    if isOracle:
+                        longColValues = {} # must be new instance of dict
+                    else:
+                        longColValues = []
+                else:
+                    rowLongValues.append(None)
+                values = ", \n".join(rowValues)         
+
+        return rowValues, rowLongValues, binaryCols
+
     def getTable(self, table, idCol, newCols=None, matchCols=None, data=None, commit=False, 
                  comparisonOperator='=', checkIfExisting=False, insertIfNotMatched=True, 
                  returnMatches=True, returnExistenceStatus=False):
@@ -621,6 +757,8 @@ class SqlDbConnection():
         newCols = [newCol.lower() for newCol in newCols]
         matchCols = [matchCol.lower() for matchCol in matchCols]
         returningCols = []
+        tableRows = [] # returned results
+
         if idCol: # idCol is the first returned column if present
             returningCols.append(idCol.lower())
         for matchCol in matchCols:
@@ -628,8 +766,7 @@ class SqlDbConnection():
                 returningCols.append(matchCol)
         colTypeFunctions = self.columnTypeFunctions(table)
         colDeclarations = self.tableColDeclaration.get(table)
-        if isMSSql:
-            colLengths = self.columnLengths(newCols, colDeclarations)
+
         try:
             colTypeCast = tuple(colTypeFunctions[colName][0] for colName in newCols)
             colTypeFunction = [colTypeFunctions[colName][1] for colName in returningCols]
@@ -639,88 +776,9 @@ class SqlDbConnection():
             raise XDBException("xpgDB:MissingColumnDefinition",
                                 _("Table %(table)s column definition missing: %(missingColumnName)s"),
                                 table=table, missingColumnName=str(err)) 
-        rowValues = []
-        rowLongValues = []  # contains None if no parameters, else {} parameter dict
-        if isOracle:
-            longColValues = {}
-        else:
-            longColValues = []
-        for row in data:
-            colValues = []
-            for colPos, col in enumerate(row):
-                if isinstance(col, bool):
-                    if isOracle or isMSSql or isSQLite:
-                        colValues.append('1' if col else '0')
-                    else:
-                        colValues.append('TRUE' if col else 'FALSE')
-                elif isinstance(col, int):
-                    colValues.append(str(col))
-                elif isinstance(col, float):
-                    if _ISFINITE(col):
-                        colValues.append(str(col))
-                    else:  # no NaN, INF, in SQL implementations (Postgres has it but not IEEE implementation)
-                        colValues.append('NULL')
-                elif isinstance(col, Decimal):
-                    if col.is_finite():
-                        colValues.append(str(col))
-                    else:  # no NaN, INF, in SQL implementations (Postgres has it but not IEEE implementation)
-                        colValues.append('NULL')
-                elif isinstance(col, (datetime.date, datetime.datetime)) and self.product == "orcl":
-                    colValues.append("DATE '{:04}-{:02}-{:02}'".format(col.year, col.month, col.day))
-                elif isinstance(col, datetime.datetime) and (isMSSql or isSQLite):
-                    colValues.append("'{:04}-{:02}-{:02} {:02}:{:02}:{:02}'".format(col.year, col.month, col.day, col.hour, col.minute, col.second))
-                elif isinstance(col, datetime.date) and (isMSSql or isSQLite):
-                    colValues.append("'{:04}-{:02}-{:02}'".format(col.year, col.month, col.day))
-                elif col is None:
-                    colValues.append('NULL')
-                #elif isinstance(col, _STR_BASE) and len(col) >= 4000 and (isOracle or isMSSql):
-                elif isinstance(col, _STR_BASE) and len(col) >= 4000 and isOracle:
-                    if isOracle:
-                        colName = "col{}".format(len(colValues))
-                        longColValues[colName] = col
-                        colValues.append(":" + colName)
-                    else:
-                        longColValues.append(col)
-                        colValues.append("?")
-                elif isinstance(col, _STR_BASE) and isMSSql:
-                    if colLengths[colPos] is not None and len(col) > colLengths[colPos]:
-                        colValues.append(self.dbStr(col[:colLengths[colPos]]))
-                        self.modelXbrl.info("warning", "Table: {table}, Field: {field} - Value of length {colLength} is too "
-                                            "long for the database field with max length of {dbLength}"
-                                            "".format(table=table, field=newCols[colPos], colLength=len(col), dbLength=colLengths[colPos]))
-                    else:
-                        colValues.append(self.dbStr(col))
-                elif isinstance(col, bytes) and isPostgres:
-                    hexvals = "".join([hex(x)[2:] for x in col])
-                    #get the hex values
-                    hexvals = [hex(x)[2:] for x in col]
-                    #fix up single digit values
-                    for i in range(len(hexvals)):
-                        if len(hexvals[i]) == 1:
-                            hexvals[i] = "0" + hexvals[i]
-
-                    colValues.append(r"E'\\x" + "".join(hexvals) + "'")
-                    #colValues.append(r"E'\\x" + col.decode() + "'" )
-                elif isinstance(col, bytes) and isMSSql:
-                    colValues.append('0x{}'.format(col.hex()))
-                else:
-                    colValues.append(self.dbStr(col))
-            if not rowValues and isPostgres:  # first row
-                for i, cast in enumerate(colTypeCast):
-                    if cast:
-                        colValues[i] = colValues[i] + cast
-            rowColValues = ", ".join(colValues)
-            rowValues.append("(" + rowColValues + ")" if not isOracle else rowColValues)
-            if longColValues:
-                rowLongValues.append(longColValues)
-                if isOracle:
-                    longColValues = {} # must be new instance of dict
-                else:
-                    longColValues = []
-            else:
-                rowLongValues.append(None)
-        values = ", \n".join(rowValues)
         
+        rowValues, rowLongValues, binaryCols = self.process_rows(table, data, newCols, colDeclarations)
+
         _table = self.dbTableName(table)
         _inputTableName = self.tempInputTableName
         if self.product == "postgres":
@@ -800,90 +858,218 @@ WITH row_values (%(newCols)s) AS (
                          {"inputTable": _inputTableName}, None, False) )
 
         elif self.product.startswith('mssql'):
-            sql = []
-            i = 0
-            while i < len(rowValues):
-                start = i
-                end = i + 1000
-                exist_query = None
-                insert_query = None
+            sql = tuple()
+            # going to process each row separately
+            for row in rowValues:
+                predicate_list = []
+                predicate_params = []
+                predicate_names = []
+                for col_name in matchCols:
+                    col_value = row[newCols.index(col_name)]
+                    if col_value is None:
+                        predicate_list.append('{table_name}.{col_name} IS NULL'.format(table_name=_table, col_name=col_name))
+                    else:
+                        predicate_list.append('{table_name}.{col_name} = ?'.format(table_name=_table, col_name=col_name))
+                        predicate_params.append(col_value)
+                        predicate_names.append((col_name, colDeclarations[col_name]))
+                predicate = ' AND '.join(predicate_list)
 
-                # This gets existing rows. This is only needed if there is something to return and if check existence.
+                # Select for existing rows. This is only needed if there is something to return and if check existence
                 if (returnMatches or returnExistenceStatus) and checkIfExisting:
                     exist_query = '''
                     SELECT {return_cols} {existence}
                     FROM {table_name}
-                    JOIN (VALUES {data}) AS x({cols})
-                    ON {match};
+                    WHERE {predicate}
                     '''.format(
                         return_cols=', '.join('{0}.{1}'.format(_table,col)
                                                                 for col in returningCols),
                         existence=', 1' if returnExistenceStatus else '',
                         table_name=_table,
-                        data=', \n'.join(rowValues[start:end]),
+                        predicate=predicate
+                    )
+                    result = self.execute(exist_query, 
+                                          params=predicate_params if len(predicate_params) > 0 else None, 
+                                          fetch=returnMatches or returnExistenceStatus, 
+                                          close=False, commit=commit)
+                    tableRows.extend(result)  
+                    
+                # insert new rows
+                insert_subs_list = []
+                insert_value_params = []
+                for col_pos, col_value in enumerate(row):
+                    col_type = colDeclarations[newCols[col_pos]]
+                    if col_type.startswith('numeric') and col_value is not None:
+                        # This is a hack to fix large numeric numbers. When a numeric is used in a VALUES () clause
+                        # it is first interpreted as an integer if it does not have a decimal place. If the number
+                        # is too big it will fail being. By making it a string and then casting it, the 
+                        # problem is advoided.
+                        insert_subs_list.append('CAST(? AS {})'.format(col_type))
+                        insert_value_params.append(str(col_value))
+                    else:
+                        insert_subs_list.append('?')
+                        insert_value_params.append(col_value)
+
+                insert_subs = ', '.join(insert_subs_list)
+                #insert_value_params = [x for x in row]
+                insert_names = [((col_name, colDeclarations[col_name])) for col_name in newCols]
+
+                if insertIfNotMatched:                       
+                    insert_query = '''
+                    INSERT INTO {table_name} ({cols})
+                    {output} {return_cols} {existence}
+                    VALUES ({insert_subs})
+                    '''.format(
+                        table_name=_table,
                         cols=', '.join(newCols),
-                        #match=' AND '.join('(({0}.{2} = {1}.{2}) or coalesce({0}.{2}, {1}.{2}) is null)'.format(_table,'x',col) 
-                        #                        for col in matchCols),
-                        match=' AND '.join('(({0}.{2} = {1}.{2}) or ({0}.{2} IS NULL AND {1}.{2} is NULL))'.format(_table,'x',col) 
-                                                for col in matchCols)
+                        output='OUTPUT' if returnMatches or returnExistenceStatus else '',
+                        return_cols=', '.join('{0}.{1}'.format('INSERTED',col)
+                                                                for col in returningCols) if returnMatches or returnExistenceStatus else '',
+                        existence=', 0' if returnExistenceStatus else '',
+                        insert_subs=insert_subs
                     )
 
-                if insertIfNotMatched:
-                    if checkIfExisting:             
+                    if checkIfExisting:
                         insert_query = '''
-                        INSERT INTO {table_name} ({cols})
-                        {output} {return_cols} {existence}
-                        SELECT {select_cols}
-                        FROM (VALUES {data}) AS x({cols})
-                        LEFT JOIN {table_name}
-                        ON {match}
-                        WHERE {null_predicate};
-                        '''.format(
-                            table_name=_table,
-                            data=', \n'.join(rowValues[start:end]),
-                            cols=', '.join(newCols),
-                            select_cols=', '.join(('x.{}'.format( x) for x in newCols)),
-                            #match= ' AND '.join('(({0}.{2} = {1}.{2}) or coalesce({0}.{2}, {1}.{2}) is null)'.format(_table,'x',col) 
-                            #                        for col in matchCols),
-                            match=' AND '.join('(({0}.{2} = {1}.{2}) or ({0}.{2} IS NULL AND {1}.{2} is NULL))'.format(_table,'x',col) 
-                                                for col in matchCols),
-                            null_predicate=' AND '.join(('{tn}.{cn} IS NULL'.format(tn=_table, cn=x) for x in matchCols)) if matchCols is not None else '1=1',
-                            output='OUTPUT' if returnMatches or returnExistenceStatus else '',
-                            return_cols=', '.join('{0}.{1}'.format('INSERTED',col)
-                                                                    for col in returningCols),
-                            existence=', 0' if returnExistenceStatus else ''
-                        )
-                    else: # insert even if existing
-                        insert_query = '''
-                        INSERT INTO {table_name} ({cols})
-                        {output} {return_cols} {existence}
-                        SELECT {cols}
-                        FROM (VALUES {data}) AS x({cols});
-                        '''.format(
-                            table_name=_table,
-                            data=', \n'.join(rowValues[start:end]),
-                            cols=', '.join(newCols),
+                        IF NOT EXISTS (SELECT 1 FROM {table_name} WHERE {predicate})
+                        {insert_portion}
+                        '''.format(table_name=_table,
+                                   predicate=predicate,
+                                   insert_portion=insert_query)
 
-                            output='OUTPUT' if returnMatches or returnExistenceStatus else '',
-                            return_cols=', '.join('{0}.{1}'.format('INSERTED',col)
-                                                                    for col in returningCols),
-                            existence=', 0' if returnExistenceStatus else ''
-                        )                        
-                if exist_query is not None:
-                    sql.append((exist_query, None, returnMatches or returnExistenceStatus))
-                if insert_query is not None:
-                    sql.append((insert_query, None, returnMatches or returnExistenceStatus))
+                        insert_params = predicate_params + insert_value_params
+                        names = predicate_names + insert_names
+                    else:
+                        insert_params = insert_value_params
+                        names = insert_names
 
-                i += 1000
+                    try:
+                        result = self.execute(insert_query, 
+                                            params=insert_params if len(insert_params) > 0 else None,
+                                            fetch=returnMatches or returnExistenceStatus, 
+                                            close=False, 
+                                            commit=commit)
+                    except:
+                        param_values = ['{num} : {name} : {type} : {python_type} : {val}'
+                                        ''.format(num=num, 
+                                                  name=names[num][0], 
+                                                  type=names[num][1], 
+                                                  python_type=str(type(val)), 
+                                                  val=val) for num, val in enumerate(insert_params)]
+                        message = ('Error executing insert query for table {table}\n' 
+                                   '********************************\n' 
+                                   '{query}\n' 
+                                   '********************************\n' 
+                                   '{values}\n' 
+                                   '********************************\n' 
+                                   ''.format(table=_table,
+                                             query=insert_query,
+                                             values='\n'.join(param_values)))
+                        self.modelXbrl.error('error', message)
+                        raise
 
-                # check if tracing is on - This will only output the first 1000 from any query
-                if TRACESQLFILE and start == 0:
-                    with io.open(TRACESQLFILE, "a", encoding='utf-8') as fh:
-                        fh.write('Check existing for table {}'.format(_table))
-                        fh.write(exist_query if exist_query else 'NO EXIST QUERY')
-                        fh.write('\nInsert new for table {}'.format(_table))
-                        fh.write(insert_query if insert_query else 'NO INSERT QUERY')
-                        fh.write('\n')
+                    tableRows.extend(result) 
+
+           
+            # # Create temp table for rows to insert
+            # create_query = 'CREATE TABLE #{} ({});'.format(_table,
+            #                                             ', '.join('{0} {1}'.format(newCol, colDeclarations[newCol])
+            #                                                     for newCol in newCols))
+            # sql.append((create_query, None, False))
+
+            # # Load data into temporary table
+            # # must break values into no more than 1000 rows or 2000 substitutions
+            # block_size = floor(2000 / len(newCols)) # This is the number of rows that can be processed at one time.
+            # if block_size > 1000:
+            #     block_size = 1000
+            # block_size = 1
+            # for block in range(ceil(len(rowValues) / block_size)):
+            #     section = rowValues[block * block_size:block * block_size + block_size]
+            #     # Need to cast the first row of the query subs, otherwise SQL Server will make its own guess.
+            #     # This is problematic for text data as SQL Server will assume that these are fixed length char() instead of varchar()
+            #     # and will right pad the text with spaces fill the full length of the longest value in the data.
+            #     query_subs = ','.join('({})'.format(','.join(tuple('cast(? as {})'.format(colDeclarations[col_name]) 
+            #                                                     for col_num, col_name in enumerate(newCols))
+            #                                                 )  
+            #                                         ) for row_num, x in enumerate(section))                                                                                                        
+            #     query_params = tuple(item for sublist in section for item in sublist)
+            #     select_cols=', '.join((x for x in newCols))
+
+            #     temp_insert_query = '''
+            #     INSERT INTO #{}
+            #     VALUES {};
+            #     '''.format(_table,
+            #             query_subs)
+            #     sql.append((temp_insert_query, query_params, False))
+
+            # # Index temp table on match cols
+            # # Only need the index if the temp table will be joined to an existing table.
+            # if ((returnMatches or returnExistenceStatus) and checkIfExisting) or (insertIfNotMatched and checkIfExisting):
+            #     index_stmt = '''
+            #     CREATE INDEX temp_{table}_index ON #{table}
+            #         ({matchCols});
+            #     '''.format(table=_table,
+            #             matchCols=', '.join(matchCols))
+            #     sql.append((index_stmt, None, False))
+            
+            # # Select for existing rows. This is only needed if there is something to return and if check existence
+            # if (returnMatches or returnExistenceStatus) and checkIfExisting:
+            #     exist_query = '''
+            #     SELECT {return_cols} {existence}
+            #     FROM {table_name}
+            #     JOIN #{table_name}
+            #     ON {match};
+            #     '''.format(
+            #         return_cols=', '.join('{0}.{1}'.format(_table,col)
+            #                                                 for col in returningCols),
+            #         existence=', 1' if returnExistenceStatus else '',
+            #         table_name=_table,
+            #         match=' AND '.join('(({0}.{2} = {1}.{2}) or ({0}.{2} IS NULL AND {1}.{2} is NULL))'.format(_table,'#{}'.format(_table),col) 
+            #                                 for col in matchCols)
+            #     )
+            #     sql.append((exist_query, None, returnMatches or returnExistenceStatus))
+            # # insert new rows
+            # if insertIfNotMatched:
+            #     if checkIfExisting:             
+            #         insert_query = '''
+            #         INSERT INTO {table_name} ({cols})
+            #         {output} {return_cols} {existence}
+            #         SELECT {select_cols}
+            #         FROM #{table_name}
+            #         LEFT JOIN {table_name}
+            #         ON {match}
+            #         WHERE {null_predicate};
+            #         '''.format(
+            #             table_name=_table,
+            #             cols=', '.join(newCols),
+            #             select_cols=', '.join(('{}.{}'.format('#{}'.format(_table), x) for x in newCols)),
+            #             match=' AND '.join('(({0}.{2} = {1}.{2}) or ({0}.{2} IS NULL AND {1}.{2} is NULL))'.format(_table,'#{}'.format(_table),col) 
+            #                                 for col in matchCols),
+            #             null_predicate=' AND '.join(('{tn}.{cn} IS NULL'.format(tn=_table, cn=x) for x in matchCols)) if matchCols is not None else '1=1',
+            #             output='OUTPUT' if returnMatches or returnExistenceStatus else '',
+            #             return_cols=', '.join('{0}.{1}'.format('INSERTED',col)
+            #                                                     for col in returningCols) if returnMatches or returnExistenceStatus else '',
+            #             existence=', 0' if returnExistenceStatus else ''
+            #         )
+            #         sql.append((insert_query, None, returnMatches or returnExistenceStatus))
+            #     else: # insert even if existing
+            #         insert_query = '''
+            #         INSERT INTO {table_name} ({cols})
+            #         {output} {return_cols} {existence}
+            #         SELECT {cols}
+            #         FROM #{table_name};
+            #         '''.format(
+            #             table_name=_table,
+            #             cols=', '.join(newCols),
+            #             output='OUTPUT' if returnMatches or returnExistenceStatus else '',
+            #             return_cols=', '.join('{0}.{1}'.format('INSERTED',col)
+            #                                                     for col in returningCols),
+            #             existence=', 0' if returnExistenceStatus else ''
+            #         )                        
+            #         sql.append((insert_query, None, returnMatches or returnExistenceStatus))
+
+            # # Drop temp table
+            # drop_query = 'DROP TABLE #{};'.format(_table)
+            # sql.append((drop_query, None, False))
 
         elif self.product == "orcl":
             sql = [("CREATE GLOBAL TEMPORARY TABLE %(inputTable)s ( %(inputCols)s )" %
@@ -990,7 +1176,7 @@ WITH row_values (%(newCols)s) AS (
                               {"table": _table}, None, False) )
         
         
-        tableRows = []
+        
         for sqlStmt, params, fetch in sql:
             if TRACESQLFILE:
                 with io.open(TRACESQLFILE, "a", encoding='utf-8') as fh:
@@ -1003,31 +1189,26 @@ WITH row_values (%(newCols)s) AS (
                 self.cursor.setinputsizes(**dict((name,oracleNCLOB) for name in params))
             
             #startTime = datetime.datetime.today()
-            
-            result = self.execute(sqlStmt,commit=commit, close=False, fetch=fetch, params=params)
+            if isMSSql:
+                self.paramstyle = 'qmark'
+            else:
+                self.paramstyle = 'format'
+            try:
+                result = self.execute(sqlStmt,commit=commit, close=False, fetch=fetch, params=params)
+            except:
+                print("SQL Failed for {}".format(_table))
+                print("****************query*****************")
+                print(sqlStmt)
+                if params is not None:
+                    print("****************parmas*****************")
+                    print(params)
+                print("****************done*****************")
+                #raise
+            self.paramstyle = 'qmark'
             #endTime = datetime.datetime.today()
-            
-            # if fetch == 'new ids' and idCol and returnExistenceStatus:
-            #     # This indicates that a merge is return new ids
-            #     new_ids = tuple(x[0] for x in result)
-            # elif fetch == True and result:
-            #     if idCol and new_ids is not None and returnExistenceStatus:
-            #         # need to add the correct existence status
-            #         for i in range(len(result)):
-            #             if result[i][0] not in new_ids: # the first item is the id
-            #                 result[i] = result[i][:-1] + (True,) # copy all but the last item (which is the existance flag) and set the flag to true
-            #     # Return the results
-            #     tableRows.extend(result)
 
             if fetch:
-                tableRows.extend(result)
-
-            #hours, remainder = divmod((endTime - startTime).total_seconds(), 3600)
-            #minutes, seconds = divmod(remainder, 60)
-            #self.modelXbrl.info("info",_("%(now)s - Table %(tableName)s loaded in %(timeTook)s"),
-            #                             now=str(datetime.datetime.today()),
-            #                             tableName=table,
-            #                             timeTook='%02.0f:%02.0f:%02.4f' % (hours, minutes, seconds))          
+                tableRows.extend(result)        
 
             if TRACESQLFILE:
                 with io.open(TRACESQLFILE, "a", encoding='utf-8') as fh:
@@ -1047,6 +1228,7 @@ WITH row_values (%(newCols)s) AS (
             return () # place breakpoint here to debug
         isOracle = self.product == "orcl"
         isSQLite = self.product == "sqlite"
+        isMSSql = self.product.startswith("mssql")
         idCol = cols[0]
         colTypeFunctions = self.columnTypeFunctions(table)
         colDeclarations = self.tableColDeclaration.get(table)
@@ -1077,9 +1259,11 @@ WITH row_values (%(newCols)s) AS (
                 rowValues.append(rowColValues)
             elif isSQLite:
                 rowValues.append(colValues)
+            elif isMSSql:
+                rowValues.append(colValues)
             else:
                 rowValues.append("(" + rowColValues + ")")
-        if not isOracle and not isSQLite:
+        if not isOracle and not isSQLite and not isMSSql:
             values = ", \n".join(rowValues)
         
         _table = self.dbTableName(table)
@@ -1124,13 +1308,19 @@ WITH input (%(valCols)s) AS ( VALUES %(values)s )
                         {"inputTable": _inputTableName,
                          "valCols": ', '.join('{0} {1}'.format(col, colDeclarations[col])
                                               for col in cols)}]
-            # must break values insertion into 1000's each
-            for i in range(0, len(rowValues), 950):
-                values = ", \n".join(rowValues[i: i+950])
-                sql.append("INSERT INTO #%(inputTable)s ( %(cols)s ) VALUES %(values)s;" %     
+            # must break values into no more than 100 rows and 2000 substitutions
+            block_size = floor(2000 / len(cols)) # This is the number of rows that can be processed at one time.
+            if block_size > 1000:
+                block_size = 1000
+            for block in range(ceil(len(rowValues) / block_size)):
+                section = rowValues[block * block_size:block * block_size + block_size]
+                query_subs = ','.join('({})'.format(','.join(['?'] * len(cols))) for x in section)
+                query = ("INSERT INTO #%(inputTable)s ( %(cols)s ) VALUES  %(values)s;" %
                         {"inputTable": _inputTableName,
                          "cols": ', '.join(cols),
-                         "values": values})
+                         "values": query_subs})
+                sql.append((query, tuple(item for sublist in section for item in sublist))) # This flattens the values into a single tuple
+
             sql.append("MERGE INTO %(table)s USING #%(inputTable)s ON (#%(inputTable)s.%(idCol)s = %(table)s.%(idCol)s) "
                        "WHEN MATCHED THEN UPDATE SET %(settings)s;" %
                         {"inputTable": _inputTableName,
@@ -1177,4 +1367,9 @@ WITH input (%(valCols)s) AS ( VALUES %(values)s )
                 for sqlStmt in sql:
                     fh.write(sqlStmt)
         for sqlStmt in sql:
-            self.execute(sqlStmt,commit=commit, fetch=False, close=False)
+            if isinstance(sqlStmt, tuple):
+                query = sqlStmt[0]
+                params = sqlStmt[1]
+                self.execute(query, params=params, commit=commit, fetch=False, close=False)
+            else:
+                self.execute(sqlStmt,commit=commit, fetch=False, close=False)

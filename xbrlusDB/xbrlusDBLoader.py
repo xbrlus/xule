@@ -46,25 +46,27 @@ from arelle.ModelValue import qname
 from arelle.ValidateXbrlCalcs import roundValue
 from arelle.XmlUtil import elementFragmentIdentifier
 from arelle import XbrlConst, FileSource
-from .SqlDb import XDBException, isSqlConnection, SqlDbConnection, setTraceFile
-import aniso8601
-import datetime
-import decimal
 from contextlib import contextmanager
-import re
-import hashlib
 from fileinput import filename
 from lxml import etree
-import os
-import urllib.request
-import urllib.parse
+from .SqlDb import XDBException, isSqlConnection, SqlDbConnection, setTraceFile
+
+import aniso8601
 import collections
+import datetime
+import decimal
+import hashlib
 import importlib
 import inspect
 import json
-import time
+import math
+import os
 import pathlib
+import re
 import sys
+import time
+import urllib.request
+import urllib.parse
 
 def insertIntoDB(cntlr, modelXbrl, 
                  user=None, password=None, host=None, port=None, database=None, timeout=None,
@@ -224,7 +226,10 @@ class DBConnection(SqlDbConnection):
             self.timeCall(self.identifyEntityAndFilingingInfo)
             
             #check if the filing is already in the database
-            result = self.timeCall((self.execute, 'check if exists'), "SELECT 1 FROM report WHERE source_report_identifier = '%s' AND source_id = %s;" % (self.accessionNumber, self.sourceId))
+            result = self.timeCall((self.execute, 'check if exists'), 
+                                    "SELECT 1 FROM report WHERE source_report_identifier = ? AND source_id = ?;", 
+                                    params=(self.accessionNumber, self.sourceId))
+
             if result:
                 self.modelXbrl.info("info", _("%(now)s - Skipped filing already in database. Accession filing number:  %(filingNumber)s"),
                         filingNumber=self.accessionNumber,
@@ -293,7 +298,7 @@ class DBConnection(SqlDbConnection):
         else:
             self.modelXbrl.info("info", _("%(now)s - Loaded DTS into database in %(timeTook)s %(dtsNumber)s %(dtsName)s"),
                 dtsNumber=self.dtsId,
-                dtsName=getattr(self.options,'xbrlusDBDTSName', None) or self.entryUrl,
+                dtsName=getattr(self.options,'xbrlusDBDTSName', None) or getattr(self, 'entryUrl', 'UNKNOWN'),
                 timeTook='%02.0f:%02.0f:%02.4f' % (hours, minutes, seconds),
                 now=str(datetime.datetime.today())) 
     
@@ -356,15 +361,24 @@ class DBConnection(SqlDbConnection):
         #namespaceUris = self.modelXbrl.namespaceDocs.keys()
 
         #check namespace source table
-        inListForQuery = '(' +  ','.join("'" + uri + "'" for uri in namespaceUris) + ')'
-        results = self.execute('''
-            SELECT n.uri, n.prefix, ns.is_base
-            FROM namespace n
-            JOIN namespace_source ns
-              ON n.namespace_id = ns.namespace_id
-            WHERE ns.source_id = %s
-              AND n.uri in %s
-            ''' % (self.sourceId, inListForQuery))
+        results = []
+        frozenNamespaceUris = tuple(namespaceUris)
+        # this is broken up into block in case there are more than 2000 substitutions which can be 
+        # a problem with sql server.
+        for block in range(math.ceil(len(frozenNamespaceUris) / 2000)):
+            section = frozenNamespaceUris[block*2000:block*2000+2000]
+            querySubs = '({})'.format(', '.join('?' for uri in section))
+            
+            block_results = self.execute('''
+                SELECT n.uri, n.prefix, ns.is_base
+                FROM namespace n
+                JOIN namespace_source ns
+                ON n.namespace_id = ns.namespace_id
+                WHERE ns.source_id = ?
+                AND n.uri in {}
+                '''.format(querySubs), params=(self.sourceId,) + tuple(section))
+            results.extend(block_results)
+
         processedUris = set()
         for uri, prefix, isBase in results:
             processedUris.add(uri)
@@ -381,7 +395,7 @@ class DBConnection(SqlDbConnection):
             self.updateBaseNamespaceTable()
             
             #get base namespace patterns
-            results = self.execute("SELECT preface,  prefix_expression FROM base_namespace WHERE source_id = %s;" %self.sourceId)
+            results = self.execute("SELECT preface,  prefix_expression FROM base_namespace WHERE source_id = ?;", params =(self.sourceId,))
             namespace_prefaces = [{'preface' :row[0], 'regex': row[1]} for row in results]
             #sort the prefaces so the longest ones are first. This will allow preface like /a/b/c/d to match to /a/b/c before /a/b.
             namespace_prefaces.sort(key=lambda x: x['preface'], reverse=True)
@@ -496,7 +510,8 @@ class DBConnection(SqlDbConnection):
             if result[0][3]: #existence status
                 if taxonomyVersionDocument: #a taxonomy version document was provided
                     #check if the the taxonomy version document is the same
-                    result = self.execute("SELECT identifier_document_id FROM taxonomy_version WHERE taxonomy_id = {} AND version = '{}';".format(self.taxonomyId, taxonomyVersion))
+                    result = self.execute("SELECT identifier_document_id FROM taxonomy_version WHERE taxonomy_id = ? AND version = ?;",
+                                           params=(self.taxonomyId, taxonomyVersion))
                     if len(result) != 1:
                         raise XDBException("xDB:taxonomyVersionDcoumentError", 
                                     _("Querying taxonomy_version. Only expected one result but got {} for taxonomy id {} and version '{}'.".format(len(result), self.taxonomyId, taxonomyVersion)))
@@ -659,13 +674,13 @@ class DBConnection(SqlDbConnection):
             currentEntityName = None
           
         #get all the accessions after and including the processing accession.
-        trim_string = 'rtrim(ltrim(entity_name))' if self.product.startswith('mssql') else 'trim(both entity_name)'
-        result = self.execute('''SELECT report_id, {} 
-                        FROM report
-                        WHERE entity_id = %s
-                          AND accepted_timestamp >= %s
-                        ORDER BY accepted_timestamp'''.format(trim_string), params=(self.entityId, self.acceptedTimestamp))
+        query = '''SELECT report_id, rtrim(ltrim(entity_name)) 
+                   FROM report
+                   WHERE entity_id = ?
+                   AND accepted_timestamp >= ?
+                   ORDER BY accepted_timestamp'''
 
+        result = self.execute(query, params=(self.entityId, self.acceptedTimestamp))
         if len(result) > 0:
             rowsToAdd = []
             for accessionRow in result:
@@ -834,17 +849,29 @@ class DBConnection(SqlDbConnection):
         self.identifyBaseNamespaces({x.namespaceURI for x in self.qnameId.keys() if x.namespaceURI != '' and x.namespaceURI is not None})
 
         # get qnames for existing used concepts
-        existingUsedQnames = self.conceptsUsed - qnames
+        existingUsedQnames = tuple(self.conceptsUsed - qnames)
         if len(existingUsedQnames) > 0:
-            valuesClauseQnames = ("('" + x.namespaceURI + "','" + x.localName + "')" for x in existingUsedQnames)
-            valuesClause = '(VALUES ' + ','.join(valuesClauseQnames) + ' ) x(namespace, local_name)'
-            
-            query = '''SELECT q.qname_id, q.namespace, q.local_name
-                       FROM qname q
-                       JOIN ''' + valuesClause + '''
-                         ON q.namespace = x.namespace
-                        AND q.local_name = x.local_name'''
-            results = self.execute(query)
+            results = []
+            # Need to group the qname in block sof 1000 qnames. This is because the database has a limit of the number of 
+            # substitutions it can handle. For Sql Server it is 2100. Each qname has 2 substitutions.
+            for block in range(math.ceil(len(existingUsedQnames) / 1000)):
+                section = existingUsedQnames[block*1000:block*1000+1000]
+                valuesClauseQnames = ("('" + x.namespaceURI + "','" + x.localName + "')" for x in section)
+                valuesClause = '(VALUES ' + ','.join(valuesClauseQnames) + ' ) x(namespace, local_name)'
+
+                querySubs = ', '.join(tuple("(?, ?)" for x in section))
+                paramSubs = []
+                for y in section:
+                    for x in (y.namespaceURI, y.localName):
+                        paramSubs.append(x)
+
+                query = '''SELECT q.qname_id, q.namespace, q.local_name
+                        FROM qname q
+                        JOIN (VALUES {} ) x(namespace, local_name)
+                            ON q.namespace = x.namespace
+                            AND q.local_name = x.local_name'''.format(querySubs)
+                results.extend(self.execute(query, params=paramSubs))
+
             for qnameId, namespaceURI, localName in results:
                 self.qnameId[qname(namespaceURI, localName)] = qnameId        
       
@@ -935,7 +962,7 @@ class DBConnection(SqlDbConnection):
         if self.getSourceSetting("doNotAllowUnnamedDTS") and self.loadType == 'instance':
             if self.dtsExists:
                 # Get name of the DTS
-                dtsNameResult = self.execute('SELECT dts_name FROM dts WHERE dts_id = {}'.format(self.dtsId))
+                dtsNameResult = self.execute('SELECT dts_name FROM dts WHERE dts_id = ?', params=(self.dtsId,))
                 dtsName = dtsNameResult[0][0] if dtsNameResult.numberOfRows > 0 else None
                 self.cntlr.addToLog(_("Using DTS '{}'".format(dtsName)), "info")
             else:
@@ -1075,23 +1102,42 @@ class DBConnection(SqlDbConnection):
                 docsByUri[docUri[0]] = docUri[1]
 
         #Determine if the document is in the database
-        if self.product == 'postgres':
-            query = '''
-                SELECT d.document_id, a.document_uri, d.document_loaded, d.document_id IS NOT NULL AS existing
-                FROM (VALUES %s) a(document_uri)
-                LEFT JOIN document d
-                ON a.document_uri = d.document_uri;
-            ''' % ','.join(tuple("('" + x + "')" for x in docsByUri.keys()))
-        elif self.product.startswith('mssql'):
-            query = '''
-                SELECT d.document_id, a.document_uri, d.document_loaded, CAST(CASE WHEN d.document_id IS NOT NULL THEN 1 ELSE 0 END AS bit) AS existing
-                FROM (VALUES %s) a(document_uri)
-                LEFT JOIN document d
-                ON a.document_uri = d.document_uri;
-            ''' % ','.join(tuple("('" + x + "')" for x in docsByUri.keys()))            
+        # if self.product == 'postgres':
+        #     query = '''
+        #         SELECT d.document_id, a.document_uri, d.document_loaded, d.document_id IS NOT NULL AS existing
+        #         FROM (VALUES %s) a(document_uri)
+        #         LEFT JOIN document d
+        #         ON a.document_uri = d.document_uri;
+        #     ''' % ','.join(tuple("('" + x + "')" for x in docsByUri.keys()))
+        # elif self.product.startswith('mssql'):
+        #     query = '''
+        #         SELECT d.document_id, a.document_uri, d.document_loaded, CAST(CASE WHEN d.document_id IS NOT NULL THEN 1 ELSE 0 END AS bit) AS existing
+        #         FROM (VALUES %s) a(document_uri)
+        #         LEFT JOIN document d
+        #         ON a.document_uri = d.document_uri;
+        #     ''' % ','.join(tuple("('" + x + "')" for x in docsByUri.keys()))            
 
-
-        docResults = self.execute(query)
+        docResults = []
+        for doc_uri in docsByUri.keys():
+            if self.product == 'postgres':
+                query = '''
+                    SELECT d.document_id, a.document_uri, d.document_loaded, d.document_id IS NOT NULL AS existing
+                    FROM (VALUES (?)) a(document_uri)
+                    LEFT JOIN document d
+                    ON a.document_uri = d.document_uri;
+                '''
+            elif self.product.startswith('mssql'):
+                query = '''
+                    SELECT d.document_id, a.document_uri, d.document_loaded, CAST(CASE WHEN d.document_id IS NOT NULL THEN 1 ELSE 0 END AS bit) AS existing
+                    FROM (VALUES (?)) a(document_uri)
+                    LEFT JOIN document d
+                    ON a.document_uri = d.document_uri;
+                '''
+            singleDocResult = self.execute(query, params=(doc_uri,))
+            for row in singleDocResult:
+                docResults.append(row)
+        
+        #docResults = self.execute(query)
         existingDocumentIds = dict()
         documentIds = dict()
         docsToLoad = dict()
@@ -1176,10 +1222,10 @@ class DBConnection(SqlDbConnection):
             FROM document d
             JOIN dts_document dd
               ON d.document_id  = dd.document_id
-            WHERE dd.dts_id = %s
-            ''' % self.dtsId
+            WHERE dd.dts_id = ?
+            ''' 
         
-        results = self.execute(query)
+        results = self.execute(query, params=(self.dtsId,))
         documentIds = {row[1]: row[0] for row in results}
         return documentIds
     
@@ -1439,8 +1485,15 @@ class DBConnection(SqlDbConnection):
 #             for elementId, qnameId in results:
 #                 self.elementId[qnameId] = elementId
         if len(self.existingDocumentIds) > 0:
-            query = "SELECT element_id, qname_id FROM element WHERE document_id in (" + ','.join(str(x) for x in self.existingDocumentIds.values()) + ");"
-            results = self.execute(query)
+            # Work the documents in blocks of 2000 documents. This is becasue sql server can onlhave a mzx of 2100 substititons in a query.
+            frozenDocumentIds = tuple(self.existingDocumentIds.values())
+            results = []
+            for block in range(math.ceil(len(frozenDocumentIds) / 2000)):
+                section = frozenDocumentIds[block*2000:block*2000+2000]
+                query = "SELECT element_id, qname_id FROM element WHERE document_id in (" + ','.join('?' for x in section) + ");"
+                sectionResults = self.execute(query, params=section)
+                results.extend(sectionResults)
+
             self.reportTime('ran existing element query')
             for elementId, qnameId in results:
                 self.elementId[qnameId] = elementId
@@ -1481,7 +1534,7 @@ class DBConnection(SqlDbConnection):
             return self.qnameId[qname]
         else:
             #need to get the qname_id from the database
-            result = self.execute("SELECT qname_id FROM qname WHERE namespace = '%s' AND local_name = '%s'" % (qname.namespaceURI, qname.localName))
+            result = self.execute("SELECT qname_id FROM qname WHERE namespace = ? AND local_name = ?", params=(qname.namespaceURI, qname.localName))
             if result:
                 self.qnameId[qname] = result[0][0]
                 return result[0][0]
@@ -2392,20 +2445,17 @@ class DBConnection(SqlDbConnection):
         if ultimusType == 'normal':
             indexName = 'ultimus_index'
             hashName = 'fact_hash'
-            factsByHash = self.factsByHashString
             contextJoin = ''
             orderBy = 'r.accepted_timestamp DESC, r.report_id DESC, f.xml_id, f.fact_id DESC'
         elif ultimusType == 'calendar':
             #calendar
             indexName = 'calendar_ultimus_index'
             hashName = 'calendar_hash'
-            factsByHash = self.factsByCalendarHashString
             contextJoin = 'JOIN context c ON f.context_id = c.context_id'
             orderBy = 'r.accepted_timestamp DESC, r.report_id DESC, abs(c.calendar_period_size_diff_percentage), abs(c.calendar_end_offset), f.xml_id, f.fact_id DESC'
         elif ultimusType == 'fiscal':
             indexName = 'fiscal_ultimus_index'
             hashName = 'fiscal_hash'
-            factsByHash = self.factsByFiscalHashString
             contextJoin = ''
             orderBy = 'r.accepted_timestamp DESC, r.report_id DESC, f.xml_id, f.fact_id DESC'            
         
@@ -2423,12 +2473,12 @@ class DBConnection(SqlDbConnection):
                     JOIN fact f
                     ON r.report_id = f.accession_id
                     {contextJoin}
-                    WHERE f.{hashName} in (SELECT {hashName} FROM fact WHERE accession_id = {reportId})
+                    WHERE f.{hashName} in (SELECT {hashName} FROM fact WHERE accession_id = ?)
                 )
                 UPDATE ultimus_calc
                 SET old_index = new_index
                 WHERE COALESCE(old_index, 0) <> new_index
-                '''.format(indexName=indexName, hashName=hashName, orderBy=orderBy, reportId=self.accessionId, contextJoin=contextJoin)
+                '''.format(indexName=indexName, hashName=hashName, orderBy=orderBy, contextJoin=contextJoin)
         else:
             hashQuery = '''
                 WITH ultimus_calc AS (
@@ -2439,20 +2489,16 @@ class DBConnection(SqlDbConnection):
                     JOIN fact f
                     ON r.report_id = f.accession_id
                     {contextJoin}
-                    WHERE f.{hashName} in (SELECT {hashName} FROM fact WHERE accession_id = {reportId})
+                    WHERE f.{hashName} in (SELECT {hashName} FROM fact WHERE accession_id = ?)
                 )
                 UPDATE fact f
                 SET {indexName} = ultimus_calc.new_index
                 FROM ultimus_calc
                 WHERE f.fact_id = ultimus_calc.fact_id
                 AND COALESCE(ultimus_calc.old_index, 0) <> ultimus_calc.new_index
-                '''.format(indexName=indexName, hashName=hashName, orderBy=orderBy, reportId=self.accessionId, contextJoin=contextJoin)
+                '''.format(indexName=indexName, hashName=hashName, orderBy=orderBy, contextJoin=contextJoin)
 
-
-
-#         self.reportTime()
-        self.execute(hashQuery, fetch=False)
-
+        self.execute(hashQuery, params=(self.accessionId,), fetch=False)
         
     def isExtendedFact(self, fact):
         '''
@@ -2628,14 +2674,18 @@ class DBConnection(SqlDbConnection):
 
     def updateNamespace(self):
         if len(self.namespace_ids_to_update) > 0:
-            update_query = """
-                UPDATE namespace
-                SET taxonomy_version_id = base_taxonomy_version({})
-                WHERE namespace_id in ({})
-                  AND not is_base
-                """.format(self.accessionId, ','.join(self.namespace_ids_to_update))
+            frozen_namespace_ids = tuple(self.namespace_ids_to_update)
+            for block in range(math.ceil(len(frozen_namespace_ids))):
+                section = frozen_namespace_ids[block*2000:block*2000+2000]
+                query_subs = tuple('?' for x in section)
+                update_query = """
+                    UPDATE namespace
+                    SET taxonomy_version_id = base_taxonomy_version(?)
+                    WHERE namespace_id in ({})
+                    AND not is_base
+                    """.format(','.join(query_subs))
 
-            self.execute(update_query, fetch=False)
+                self.execute(update_query, params=tuple(self.accessionID,) + section, fetch=False)
 
     def postLoad(self):
         try:
@@ -2653,17 +2703,17 @@ class DBConnection(SqlDbConnection):
                 FROM (
                     SELECT row_number() over(w) AS rn, report_id
                     FROM report
-                    WHERE entity_id = %s
+                    WHERE entity_id = ?
                     WINDOW w AS (partition BY entity_id, reporting_period_end_date ORDER BY accepted_timestamp DESC)) x
                 WHERE r.report_id = x.report_id 
-                  AND x.rn <> coalesce(r.restatement_index,0)''' % (self.entityId)
-            self.execute(query, fetch=False)
+                  AND x.rn <> coalesce(r.restatement_index,0)'''
+            self.execute(query, params=(self.entityId,), fetch=False)
         else:
             query = '''
             UPDATE report 
             SET restatement_index = 1
-            WHERE report_id = %s''' % (self.accessionId)
-            self.execute(query, fetch=False)
+            WHERE report_id = ?'''
+            self.execute(query, params=(self.accessionId,), fetch=False)
 
         #recalculate the period index for all reports for the entity
         if self.product.startswith('mssql'):
@@ -2673,11 +2723,11 @@ class DBConnection(SqlDbConnection):
                         ,report_id
                         ,period_index
                     FROM report
-                    WHERE entity_id = %s
+                    WHERE entity_id = ?
                 )
                 UPDATE x
                 SET period_index = rn
-                WHERE rn <> coalesce(period_index, 0)''' % (self.entityId)
+                WHERE rn <> coalesce(period_index, 0)''' 
         else:
             query = '''
                 UPDATE report r
@@ -2685,11 +2735,11 @@ class DBConnection(SqlDbConnection):
                 FROM (
                     SELECT row_number() over(w) AS rn, report_id
                     FROM report
-                    WHERE entity_id = %s
+                    WHERE entity_id = ?
                     WINDOW w AS (partition BY entity_id ORDER BY reporting_period_end_date DESC, restatement_index ASC)) x
                 WHERE r.report_id = x.report_id
-                AND x.rn <> coalesce(r.period_index, 0)''' % (self.entityId)
-        self.execute(query, fetch=False)
+                AND x.rn <> coalesce(r.period_index, 0)''' 
+        self.execute(query, params=(self.entityId,), fetch=False)
 
         #update is most current
         if self.product.startswith('mssql'):
@@ -2700,11 +2750,11 @@ class DBConnection(SqlDbConnection):
                           ,report_id
                           ,is_most_current
                     FROM report
-                    WHERE entity_id = %s
+                    WHERE entity_id = ?
                 )
                 UPDATE x
                 SET is_most_current = new_is_most_current
-                WHERE is_most_current <> new_is_most_current''' % (self.entityId)
+                WHERE is_most_current <> new_is_most_current'''
         else:
             query = '''
                 UPDATE report r
@@ -2712,11 +2762,11 @@ class DBConnection(SqlDbConnection):
                 FROM (
                     SELECT row_number() over (w) = 1 AS is_most_current, report_id
                     FROM report
-                    WHERE entity_id = %s
+                    WHERE entity_id = ?
                     WINDOW w AS (ORDER BY accepted_timestamp DESC, source_report_identifier)) x
                 WHERE r.report_id = x.report_id
-                AND r.is_most_current != x.is_most_current''' % (self.entityId)
-        self.execute(query, fetch=False)
+                AND r.is_most_current != x.is_most_current''' 
+        self.execute(query, params=(self.entityId,), fetch=False)
 
     def getSourceSetting(self, name):
         if getattr(self, 'sourceMod', None) is not None:

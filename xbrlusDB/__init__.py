@@ -15,7 +15,7 @@ and does not apply to the XBRL US Database schema and description.
 
 import time, os, io, sys, logging
 from arelle.Locale import format_string
-from .XbrlPublicPostgresDB import insertIntoDB, DBConnection
+from .xbrlusDBLoader import insertIntoDB, DBConnection
 from lxml import etree
 from arelle import ModelManager
 import optparse
