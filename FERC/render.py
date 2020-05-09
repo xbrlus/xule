@@ -1813,21 +1813,33 @@ def extract_templates(cntlr, options):
         os.makedirs(options.ferc_render_extract, exist_ok=True)
         
         for template_info in catalog['templates']:
+            # Extract the tempalte
             contents = ts_file.read(template_info['template']) 
             new_name = os.path.join(options.ferc_render_extract, '{}.html'.format(template_info['name']))
             with open(new_name, 'wb') as new_file:
                 new_file.write(contents)
-            cntlr.addToLog("Extracted: {}".format(new_name),'info')   
-        
-            '''
-            # This method would create the folder structure of the original file in the archive
-            # even though the was written to a new folder location.
-            ts_file.extract(template_info['template'], options.ferc_render_extract)
-            old_name = os.path.join(options.ferc_render_extract, template_info['template'])
-            new_name = os.path.join(options.ferc_render_extract, '{}.html'.format(template_info['name']))
-            os.rename(old_name, new_name)
-            cntlr.addToLog("Extracted: {}".format(new_name),'info')
-            '''
+            cntlr.addToLog("Extracted: {}".format(new_name),'info')  
+
+            # Extract the individual template set
+            ts_name = os.path.join(options.ferc_render_extract, '{}.zip'.format(template_info['name']))
+            with zipfile.ZipFile(ts_name, 'w', zipfile.ZIP_DEFLATED) as new_ts_file:
+                new_catalog = {'templates': [], 'css': []}
+                new_catalog['css'] = catalog['css'] # copy the css from the combined template set to the new one
+                # Set the file names to 't0'
+                # Copy the files
+                # 'line-numbers' and 'substitutions' is being replace with 'rule-meta-data', but left here for backward compatibility
+                new_info = {'name': template_info['name']}
+                for key in ('line-numbers', 'substitutions', 'template', 'xule-rule-set', 'xule-text', 'rule-meta-data'):
+                    orig_file_name = template_info.get(key)
+                    if orig_file_name is not None:
+                        orig_file_ext = os.path.splitext(orig_file_name)[1]
+                        new_file_name = 'templates/t0/t0-{key}{ext}'.format(key=key, ext=orig_file_ext)
+                        file_data = ts_file.read(orig_file_name)
+                        new_ts_file.writestr(new_file_name, file_data)
+                        new_info[key] = new_file_name
+                new_catalog['templates'].append(new_info)
+                new_ts_file.writestr('catalog.json', json.dumps(new_catalog, indent=4))
+            cntlr.addToLog("Extracted: {}".format(ts_name),'info') 
 
 def combine_template_sets(cntlr, options):
     template_sets = get_list_of_template_sets(options.ferc_render_combine, cntlr)
