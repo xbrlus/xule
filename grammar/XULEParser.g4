@@ -19,7 +19,7 @@ outputAttribute: outputAttributeName expression SEMI?;
 
 assertion:
     ASSERT ASSERT_RULE_NAME (ASSERT_SATISFIED | ASSERT_UNSATISFIED)
-    (constantDeclaration | functionDeclaration | assignment | expression outputAttribute*)+;
+    (constantDeclaration | functionDeclaration | assignment | outputAttribute | expression)+;
 
 constantDeclaration: CONSTANT identifier ASSIGN expression;
 functionDeclaration: FUNCTION identifier OPEN_PAREN (functionArgument (COMMA functionArgument)*)? CLOSE_PAREN block;

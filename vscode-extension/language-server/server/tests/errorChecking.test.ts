@@ -23,6 +23,23 @@ describe('Aspect filters', function() {
         });
 });
 
+describe('Assertions', function() {
+    it("must contain at least an expression",
+        function() {
+            const xuleCode = `assert F126 unsatisfied $sum1 = 1 message "{$sum1}"`;
+            let input = CharStreams.fromString(xuleCode);
+            let lexer = new XULELexer(input);
+            let parser = new XULEParser(new CommonTokenStream(lexer));
+            let parseTree = parser.assertion();
+            expect(parser.numberOfSyntaxErrors).to.equal(0);
+            expect(input.index).to.equal(input.size);
+            let diagnostics = [];
+            let symbolTable = new SymbolTableVisitor(new SymbolTable(initialEnvironment), parseTree).visit(parseTree);
+            new SemanticCheckVisitor(diagnostics, symbolTable, null).visit(parseTree);
+            expect(diagnostics.length).to.equal(1);
+        });
+});
+
 describe('Functions', function () {
     it("may not have a name that begins with $: function call", function () {
         const xuleCode = `$foo()`;

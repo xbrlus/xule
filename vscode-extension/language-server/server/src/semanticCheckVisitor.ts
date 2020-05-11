@@ -1,12 +1,17 @@
-import {AbstractParseTreeVisitor} from "antlr4ts/tree";
+import {AbstractParseTreeVisitor, ParseTree, TerminalNode} from "antlr4ts/tree";
 import {XULEParserVisitor} from "./parser/XULEParserVisitor";
 import {Diagnostic, DiagnosticSeverity} from "vscode-languageserver";
-import {Binding, IdentifierType, FunctionInfo, SymbolTable, IdentifierInfo, PropertyInfo} from "./symbols";
+import {Binding, FunctionInfo, IdentifierInfo, IdentifierType, PropertyInfo, SymbolTable} from "./symbols";
 import {
+    AssertionContext,
     ExpressionContext,
-    FilterContext, FunctionDeclarationContext,
+    FilterContext,
+    FunctionDeclarationContext,
     NavigationWhereClauseContext,
-    OutputAttributeContext, ParametersListContext, PropertyAccessContext, VariableReadContext
+    OutputAttributeContext,
+    ParametersListContext,
+    PropertyAccessContext,
+    VariableReadContext
 } from "./parser/XULEParser";
 import {Range, TextDocument} from "vscode-languageserver-textdocument";
 import {ParserRuleContext} from "antlr4ts";
@@ -35,6 +40,19 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
     protected defaultResult(): any {
         return undefined;
     }
+
+    visitAssertion = (ctx: AssertionContext) => {
+        if(ctx.expression().length == 0) {
+            let range = this.getRange(ctx.ASSERT());
+            this.diagnostics.push({
+                severity: DiagnosticSeverity.Error,
+                range: range,
+                message: `Assertions must contain at least one expression`,
+                source: 'XULE semantic checker'
+            });
+        }
+        return this.visitChildren(ctx);
+    };
 
     visitExpression = (ctx: ExpressionContext) => {
         if(ctx.propertyAccess().length > 0) {
@@ -86,15 +104,21 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
         }
     }
 
-    private getRange(parseTree: ParserRuleContext): Range {
+    private getRange(parseTree: ParseTree): Range {
         if(this.document) {
-            return {
-                start: this.document.positionAt(parseTree.start.startIndex),
-                end: this.document.positionAt(parseTree.stop.stopIndex + 1)
-            };
-        } else {
-            return { start: null, end: null };
+            if(parseTree instanceof ParserRuleContext) {
+                return {
+                    start: this.document.positionAt(parseTree.start.startIndex),
+                    end: this.document.positionAt(parseTree.stop.stopIndex + 1)
+                };
+            } else if(parseTree instanceof TerminalNode) {
+                return {
+                    start: this.document.positionAt(parseTree.symbol.startIndex),
+                    end: this.document.positionAt(parseTree.symbol.stopIndex + 1)
+                };
+            }
         }
+        return { start: null, end: null };
     }
 
     visitOutputAttribute = (ctx: OutputAttributeContext) => {
@@ -471,3 +495,7 @@ export const wellKnownProperties: { [name: string]: PropertyInfo } = {
     "weight": new PropertyInfo(0),
     "year": new PropertyInfo(0),
 };
+
+export const wellKnownOutputAttributes = [
+    "message", "rule-suffix", "rule-focus", "severity"
+];

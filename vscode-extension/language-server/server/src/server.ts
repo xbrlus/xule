@@ -23,25 +23,24 @@ import {CandidatesCollection, CodeCompletionCore} from 'antlr4-c3';
 import {
 	ANTLRErrorListener,
 	CharStreams,
-	CommonToken,
 	CommonTokenStream,
 	ParserRuleContext,
 	RecognitionException,
 	Recognizer,
 	Token
 } from 'antlr4ts';
-import {
-	ExpressionContext,
-	IdentifierContext,
-	PropertyAccessContext,
-	XULEParser
-} from './parser/XULEParser';
+import {PropertyAccessContext, XULEParser} from './parser/XULEParser';
 import {ParseTree} from 'antlr4ts/tree/ParseTree';
 import {TerminalNode} from 'antlr4ts/tree/TerminalNode';
 import {IdentifierInfo, IdentifierType, SymbolTable, SymbolTableVisitor} from './symbols';
 import {Interval} from 'antlr4ts/misc/Interval';
 import {ErrorNode} from "antlr4ts/tree";
-import {SemanticCheckVisitor, wellKnownFunctions, wellKnownProperties} from "./semanticCheckVisitor";
+import {
+	SemanticCheckVisitor,
+	wellKnownFunctions,
+	wellKnownOutputAttributes,
+	wellKnownProperties
+} from "./semanticCheckVisitor";
 import {EnhancedXULELexer} from "./enhancedXULELexer";
 import * as fuzzysort from 'fuzzysort';
 
@@ -537,10 +536,6 @@ const returnOptions = [
 	"order", "preferred-label", "preferred-label-role", "relationship", "result-order", "role", "role-description",
 	"role-uri", "source", "source-name", "target", "target-name", "weight"];
 
-const outputAttributes = [
-	"message", "rule-suffix", "rule-focus", "severity"
-];
-
 function suggestFunctions(nodeInfo: NodeInfo, symbolTable: SymbolTable, completions: any[]) {
 	let textToMatch = nodeInfo.textToMatch;
 	//Well-known functions
@@ -558,7 +553,7 @@ function suggestReturnOptions(text: string, completions: any[]) {
 }
 
 function suggestOutputAttributes(symbolTable: SymbolTable, nodeInfo: NodeInfo, completions: any[]) {
-	maybeSuggest(outputAttributes, nodeInfo.textToMatch, CompletionItemKind.Keyword, completions);
+	maybeSuggest(wellKnownOutputAttributes, nodeInfo.textToMatch, CompletionItemKind.Keyword, completions);
 	suggestIdentifiers(nodeInfo, IdentifierType.OUTPUT_ATTRIBUTE, CompletionItemKind.Variable, symbolTable, completions);
 }
 
