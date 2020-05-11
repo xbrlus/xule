@@ -179,6 +179,18 @@ describe('Numbers', function() {
 	});
 });
 
+describe('Outputs', function() {
+	it('can contain numbers and dots', function() {
+		const assertion = 'output F.2.1 true';
+		let input = CharStreams.fromString(assertion);
+		let lexer = new XULELexer(input);
+		let parser = new XULEParser(new CommonTokenStream(lexer));
+		let parseTree = parser.output();
+		expect(parser.numberOfSyntaxErrors).to.equal(0);
+		expect(input.index).to.equal(input.size);
+	});
+});
+
 describe('Properties', function() {
 	it("may be chained and have parameters", function() {
 		const xuleCode = `rule-name().split('.').length`;

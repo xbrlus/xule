@@ -62,7 +62,7 @@ ROLE: R O L E;
 RETURNS: R E T U R N S;
 
 OUTPUT_ATTRIBUTE: O U T P U T MINUS A T T R I B U T E;
-OUTPUT: O U T P U T;
+OUTPUT: O U T P U T -> pushMode(output);
 OR: O R;
 
 NOT: N O T;
@@ -98,7 +98,7 @@ CONCEPT: C O N C E P T;
 
 BY: B Y;
 
-ASSERT: A S S E R T -> pushMode(assertMode);
+ASSERT: A S S E R T -> pushMode(assert);
 AS: A S;
 AND: A N D;
 
@@ -110,22 +110,28 @@ IDENTIFIER_COMPONENT : [$a-zA-Z] [a-zA-Z_\-0-9]*;
 
 UNRECOGNIZED_TOKEN: .;
 
-mode assertMode;
+mode assert;
 ASSERT_UNSATISFIED: (U N S A T I S F I E D) -> popMode;
 ASSERT_SATISFIED: (S A T I S F I E D) -> popMode;
 ASSERT_RULE_NAME: [a-zA-Z_\-] [a-zA-Z0-9_\-.]*;
 ASSERT_WS: WS -> channel(HIDDEN);
+
+mode output;
+OUTPUT_RULE_NAME: [a-zA-Z_\-] [a-zA-Z0-9_\-.]* -> popMode;
+OUTPUT_WS: WS -> channel(HIDDEN);
 
 mode doubleQuotedString;
 DQS_END_QUOTE: '"' -> type(DOUBLE_QUOTE), popMode;
 DQS_ESCAPE: '\\' -> channel(HIDDEN), pushMode(escape);
 DQS_CURLY: '{' -> type(OPEN_CURLY), pushMode(DEFAULT_MODE);
 DQS_STRING_CHAR: ~[\\{"]+ -> type(STRING_CONTENTS);
+
 mode singleQuotedString;
 SQS_END_QUOTE: '\'' -> type(SINGLE_QUOTE), popMode;
 SQS_ESCAPE: '\\' -> channel(HIDDEN), pushMode(escape);
 SQS_CURLY: '{' -> type(OPEN_CURLY), pushMode(DEFAULT_MODE);
 SQS_STRING_CHAR: ~[\\{']+ -> type(STRING_CONTENTS);
+
 mode escape;
 ESCAPED_CHAR: . -> popMode, type(STRING_CONTENTS);
 

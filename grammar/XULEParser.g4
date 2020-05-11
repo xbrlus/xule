@@ -12,7 +12,7 @@ outputAttributeDeclaration: OUTPUT_ATTRIBUTE identifier;
 ruleNamePrefixDeclaration: RULE_NAME_PREFIX identifier;
 
 output:
-    OUTPUT identifier (OPEN_BRACKET AT identifier CLOSE_BRACKET)?
+    OUTPUT OUTPUT_RULE_NAME (OPEN_BRACKET AT identifier CLOSE_BRACKET)?
     (constantDeclaration | assignment)*
     expression outputAttribute*;
 outputAttribute: outputAttributeName expression SEMI?;
