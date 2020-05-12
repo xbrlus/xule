@@ -15,6 +15,8 @@ import urllib.request
 import xml.etree.ElementTree as ET
 import csv
 import codecs
+import json
+from slugify import slugify
 
 def saveXuleQNamesWinMain(cntlr, menu):
 	pass
@@ -25,10 +27,15 @@ def saveXuleQNamesOptions(parser):
                       action="store", 
                       dest="saveXuleQnamesDirectory", 
                       help=_("Directory for Xule QNames files"))
+	
+	parser.add_option("--xule-qnames-format",
+					  action="store",
+					  dest="saveXuleQnamesFormat",
+					  choices=('csv', 'json'),
+					  default='csv',
+					  help=_("csv or json"))
 
-
-
-def saveXuleQNamesRun(cntlr, options, modelXbrl):
+def saveXuleQNamesRun(cntlr, options, modelXbrl, *args, **kwargs):
 	if getattr(options, "saveXuleQnamesDirectory", None):
 		# extend XBRL-loaded run processing for this option
 		QNameDir = getattr(options, "saveXuleQnamesDirectory", None)
@@ -37,6 +44,7 @@ def saveXuleQNamesRun(cntlr, options, modelXbrl):
 		
 		if QNameDir:
 			localNames = baseItemTypes(modelXbrl)
+			
 			for ns, names in processDTR(cntlr).items():
 				localNames[ns].update(names)
 			for ns, names in processUTR(cntlr).items():
@@ -51,37 +59,63 @@ def saveXuleQNamesRun(cntlr, options, modelXbrl):
 							label = (concept.propertyView[0])[1]
 						else:
 							label = "NONE"
-						localNames[concept.qname.namespaceURI].add((concept.qname.localName, 'Concept', label, concept.abstract, concept.typeQname, concept.periodType, concept.balance))
+						localNames[concept.qname.namespaceURI].add((concept.qname.localName,
+																    'Concept', 
+																	label, 
+																	str(concept.abstract), 
+																	str(concept.typeQname), 
+																	concept.periodType,
+																	concept.balance))
 					elif concept.isLinkPart: #reference part
 						if concept.typeQname.namespaceURI == 'http://www.w3.org/2001/XMLSchema':
 							conceptType = concept.typeQname.localName
 						else:
 							conceptType = concept.typeQname
-						localNames[concept.qname.namespaceURI].add((concept.qname.localName, 'Reference',concept.qname.localName, concept.abstract, conceptType, None, None ))
-					
-			if not os.path.exists(entryLocation):
-				os.makedirs(entryLocation)
-	
-			entryFile = os.path.join(entryLocation, "entryPoint.xep")
-			with open(entryFile,"w") as o:
-				o.write("\n".join(sorted(localNames.keys())))
-	
-			cntlr.addToLog("Entry point file: %s" % entryFile)
-	
-			for namespace, localNameList in localNames.items():
-				nameLocation = os.path.join(QNameDir, convertURLToPath(namespace))
-				if not os.path.exists(nameLocation):
-					os.makedirs(nameLocation)
-				nameFile = os.path.join(nameLocation, "names.xns")
-				overwrite = os.path.isfile(nameFile)
-				with codecs.open(nameFile, "w", "utf-8") as o:
-					csvwriter = csv.writer(o)
-					csvwriter.writerows(sorted(localNameList, key=lambda x: x[0]))
-					#o.write("\n".join(y[0] for y in sorted(localNameList, key=lambda x: x[0])))
-				if overwrite:
-					cntlr.addToLog("Name file (overwritten): %s" % nameFile)
-				else:
-					cntlr.addToLog("Name file: %s" % nameFile)
+						localNames[concept.qname.namespaceURI].add((concept.qname.localName, 
+																	'Reference',
+																	concept.qname.localName, 
+																	str(concept.abstract), 
+																	str(conceptType), 
+																	None, 
+																	None ))
+			if options.saveXuleQnamesFormat == 'csv':		
+				if not os.path.exists(entryLocation):
+					os.makedirs(entryLocation)
+		
+				entryFile = os.path.join(entryLocation, "entryPoint.xep")
+				with open(entryFile,"w") as o:
+					o.write("\n".join(sorted(localNames.keys())))
+		
+				cntlr.addToLog("Entry point file: %s" % entryFile)
+			
+				for namespace, localNameList in localNames.items():
+					nameLocation = os.path.join(QNameDir, convertURLToPath(namespace))
+					if not os.path.exists(nameLocation):
+						os.makedirs(nameLocation)
+					nameFile = os.path.join(nameLocation, "names.xns")
+					overwrite = os.path.isfile(nameFile)
+					with codecs.open(nameFile, "w", "utf-8") as o:
+						csvwriter = csv.writer(o)
+						csvwriter.writerows(sorted(localNameList, key=lambda x: x[0]))
+						#o.write("\n".join(y[0] for y in sorted(localNameList, key=lambda x: x[0])))
+					if overwrite:
+						cntlr.addToLog("Name file (overwritten): %s" % nameFile)
+					else:
+						cntlr.addToLog("Name file: %s" % nameFile)
+			else: # json
+				parts = ('type', 'label', 'isAbstract', 'dataType', 'periodType', 'balanceType')
+				for namespace, localNameList in localNames.items():
+					nameLocation = os.path.join(QNameDir, '{}.json'.format(slugify(namespace)))
+					contentLocalNames = []
+					for localNameInfo in localNameList:
+						contentLocalName = {'localName': localNameInfo[0]}
+						for i in range(6):
+							if localNameInfo[i+1] is not None:
+								contentLocalName[parts[i]] = localNameInfo[i+1]
+						contentLocalNames.append(contentLocalName)
+					content = {namespace: contentLocalNames}
+					with open(nameLocation, 'w') as outFile:
+						json.dump(content, outFile, indent=4)
 
 def baseItemTypes(modelXbrl):
 	'''This types are from the XBRL instance schema https://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd'''
@@ -139,7 +173,7 @@ def baseItemTypes(modelXbrl):
 	typeNames = defaultdict(set)
 	for typeModel in modelXbrl.qnameTypes.values():
 		if isItemType(typeModel):
-			typeNames[typeModel.qname.namespaceURI].add((typeModel.qname.localName, 'Type', typeModel.qname.localName, False, None, None, None))
+			typeNames[typeModel.qname.namespaceURI].add((typeModel.qname.localName, 'Type', typeModel.qname.localName, None, None, None, None))
 	
 	return typeNames
 
@@ -215,7 +249,7 @@ def processDTR(cntlr):
 			dtrNS = xbrlType.find('dtr:typeNamespace', ns)
 			dtrName = xbrlType.find('dtr:typeName', ns)
 			if dtrNS is not None and dtrName is not None:
-				dtrDict[dtrNS.text].add((dtrName.text,'Type', dtrName.text, False, None, None, None))
+				dtrDict[dtrNS.text].add((dtrName.text,'Type', dtrName.text, None, None, None, None))
 				
 	except urllib.error.HTTPError:
 		cntlr.addToLog("DTR not found at http://www.xbrl.org/dtr/dtr.xml")
@@ -242,7 +276,7 @@ def processUTR(cntlr):
 					label = unitName.text
 				else:
 					label = unitLabel.text
-				utrDict[unitNS.text].add((unitName.text,'Unit', label, False, None, None, None))
+				utrDict[unitNS.text].add((unitName.text,'Unit', label, None, None, None, None))
 		
 	except urllib.error.HTTPError:
 		cntlr.addToLog("UTR not found at http://www.xbrl.org/utr/utr.xml")
