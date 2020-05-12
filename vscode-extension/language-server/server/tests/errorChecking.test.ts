@@ -17,7 +17,7 @@ describe('Aspect filters', function() {
             expect(parser.numberOfSyntaxErrors).to.equal(0);
             expect(input.index).to.equal(input.size);
             let diagnostics = [];
-            let symbolTable = new SymbolTableVisitor(new SymbolTable(initialEnvironment), parseTree).visit(parseTree);
+            let symbolTable = new SymbolTableVisitor().withInitialContext(parseTree).visit(parseTree);
             new SemanticCheckVisitor(diagnostics, symbolTable, null).visit(parseTree);
             expect(diagnostics.length).to.equal(0);
         });
@@ -34,7 +34,7 @@ describe('Assertions', function() {
             expect(parser.numberOfSyntaxErrors).to.equal(0);
             expect(input.index).to.equal(input.size);
             let diagnostics = [];
-            let symbolTable = new SymbolTableVisitor(new SymbolTable(initialEnvironment), parseTree).visit(parseTree);
+            let symbolTable = new SymbolTableVisitor().withInitialContext(parseTree).visit(parseTree);
             new SemanticCheckVisitor(diagnostics, symbolTable, null).visit(parseTree);
             expect(diagnostics.length).to.equal(1);
         });
@@ -78,7 +78,7 @@ describe('Navigation', function() {
             expect(parser.numberOfSyntaxErrors).to.equal(0);
             expect(input.index).to.equal(input.size);
             let diagnostics = [];
-            let symbolTable = new SymbolTableVisitor(new SymbolTable()).visit(parseTree);
+            let symbolTable = new SymbolTableVisitor().withSymbolTable(new SymbolTable()).visit(parseTree);
             new SemanticCheckVisitor(diagnostics, symbolTable, null).visit(parseTree);
             expect(diagnostics.length).to.equal(0);
         });

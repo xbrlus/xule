@@ -43,6 +43,7 @@ import {
 } from "./semanticCheckVisitor";
 import {EnhancedXULELexer} from "./enhancedXULELexer";
 import * as fuzzysort from 'fuzzysort';
+import {builtInNamespaces} from "./builtInNamespaces";
 
 // Create a connection for the server. The connection uses Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
@@ -226,7 +227,7 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 	parser.addErrorListener(new ReportingParserErrorListener());
 
 	let parseTree = parser.xuleFile();
-	let symbolTable = new SymbolTableVisitor().visit(parseTree);
+	let symbolTable = new SymbolTableVisitor().withNamespaces(...builtInNamespaces).visit(parseTree);
 	textDocument['parseTree'] = parseTree;
 	textDocument['parser'] = parser;
 	textDocument['symbolTable'] = symbolTable;
@@ -548,6 +549,26 @@ function suggestFunctions(nodeInfo: NodeInfo, symbolTable: SymbolTable, completi
 	suggestIdentifiers(nodeInfo, IdentifierType.FUNCTION, CompletionItemKind.Function, symbolTable, completions);
 }
 
+function suggestAttributes(nodeInfo: NodeInfo, kind: CompletionItemKind, symbolTable: SymbolTable, completions: any[]) {
+	let textToMatch = nodeInfo.textToMatch;
+	let namespace = "";
+	if(textToMatch.indexOf(':') >= 0) {
+		let parts = textToMatch.split(':');
+		namespace = parts[0];
+		textToMatch = parts.slice(1).join(":");
+	} else {
+		let namespaces = [];
+		for(let n in symbolTable.namespaces) {
+			if(n) { namespaces.push(n);	}
+		}
+		maybeSuggest(namespaces, textToMatch, CompletionItemKind.Enum, completions);
+	}
+	let ns = symbolTable.lookupNamespace(namespace);
+	if(ns && ns.names) {
+		maybeSuggest(ns.names.map(n => n.localName), textToMatch, kind, completions);
+	}
+}
+
 function suggestReturnOptions(text: string, completions: any[]) {
 	maybeSuggest(returnOptions, text, CompletionItemKind.Keyword, completions);
 }
@@ -597,6 +618,7 @@ function suggestAllIdentifiers(symbolTable: SymbolTable, nodeInfo: NodeInfo, can
 		suggestIdentifiers(nodeInfo, IdentifierType.CONSTANT, CompletionItemKind.Constant, symbolTable, completions);
 		suggestIdentifiers(nodeInfo, IdentifierType.VARIABLE, CompletionItemKind.Variable, symbolTable, completions);
 		suggestFunctions(nodeInfo, symbolTable, completions);
+		suggestAttributes(nodeInfo, CompletionItemKind.EnumMember, symbolTable, completions);
 		maybeSuggest(["none"], text, CompletionItemKind.Keyword, completions);
 		maybeSuggest(["skip"], text, CompletionItemKind.Keyword, completions); //TODO should we check that the context is appropriate? Can we?
 	}

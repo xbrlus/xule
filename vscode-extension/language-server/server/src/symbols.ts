@@ -1,19 +1,18 @@
-import {ParseTree, AbstractParseTreeVisitor, RuleNode, TerminalNode} from 'antlr4ts/tree';
-import { XULEParserVisitor } from './parser/XULEParserVisitor';
+import {AbstractParseTreeVisitor, ParseTree, RuleNode} from 'antlr4ts/tree';
+import {XULEParserVisitor} from './parser/XULEParserVisitor';
 import {
-	ConstantDeclarationContext,
-	AssignmentContext,
-	FunctionDeclarationContext,
-	FunctionArgumentContext,
-	XuleFileContext,
-	OutputAttributeDeclarationContext,
-	TagContext,
-	ForExpressionContext,
-	NavigationContext,
-	AspectFilterContext,
-	AssignedVariableContext
+    AspectFilterContext,
+    AssignedVariableContext,
+    ConstantDeclarationContext,
+    ForExpressionContext,
+    FunctionArgumentContext,
+    FunctionDeclarationContext,
+    NamespaceDeclarationContext,
+    NavigationContext,
+    OutputAttributeDeclarationContext,
+    TagContext,
+    XuleFileContext
 } from './parser/XULEParser';
-import {CommonToken} from "antlr4ts";
 
 export type Binding = { name: any, meaning: any };
 export type Lookup = (obj: Binding) => boolean;
@@ -59,9 +58,14 @@ function ensureArray(obj): any[] {
 	}
 }
 
-export class SymbolTable {
+export type Name = { localName: string } | any;
+export class Namespace {
+	constructor(public readonly uri: string, public names: Name[] = []) {}
+}
 
+export class SymbolTable {
 	public symbols: { scope: ParseTree, environment: Environment }[] = [];
+	public namespaces: { [name: string]: Namespace } = {};
 
 	constructor(protected globalEnvironment = new Environment()) {}
 
@@ -110,6 +114,12 @@ export class SymbolTable {
 			return this.globalEnvironment;
 		}
 	}
+
+	lookupNamespace(namespace: string) {
+		return this.namespaces[namespace];
+	}
+
+
 
 }
 
@@ -166,9 +176,24 @@ for(let name in wellKnownVariables) {
 
 export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> implements XULEParserVisitor<SymbolTable> {
 
-	constructor(protected symbolTable = new SymbolTable(initialEnvironment), protected context: ParseTree = null) {
-		super();
-	}
+    protected symbolTable = new SymbolTable(initialEnvironment);
+    protected context: ParseTree = null;
+    protected namespaces: Namespace[] = [];
+
+    withSymbolTable(symbolTable: SymbolTable) {
+        this.symbolTable = symbolTable;
+        return this;
+    }
+
+    withInitialContext(context: ParseTree) {
+        this.context = context;
+        return this;
+    }
+
+    withNamespaces(...namespaces: Namespace[]) {
+        this.namespaces.push(...namespaces);
+        return this;
+    }
 
 	protected defaultResult(): SymbolTable {
 		return this.symbolTable;
@@ -176,6 +201,15 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 
 	visitXuleFile = (ctx: XuleFileContext) => {
 		return this.withNewContext(ctx, () => this.visitChildren(ctx));
+	};
+
+	visitNamespaceDeclaration = (ctx: NamespaceDeclarationContext) => {
+		if(ctx.exception) {
+			return;
+		}
+		let localName = ctx.identifier() ? ctx.identifier().text : "";
+		this.symbolTable.namespaces[localName] = this.lookupNamespace(ctx.URL().text);
+		return this.visitChildren(ctx);
 	};
 
 	visitAspectFilter = (ctx: AspectFilterContext) => {
@@ -234,15 +268,13 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 		return this.visitChildren(ctx);
 	};
 
-	/*visitPropertyAccess = (ctx: PropertyAccessContext) => {
-		let context = this.context;
-		this.context = ctx;
-		this.symbolTable.record(ctx.identifier().text, [DeclarationType.VARIABLE], this.context);
-		try {
-			return this.visitChildren(ctx);
-		} finally {
-			this.context = context;
+	protected lookupNamespace(uri: string) {
+		for(let n in this.namespaces) {
+			let namespace = this.namespaces[n];
+			if(namespace.uri == uri) {
+				return namespace;
+			}
 		}
-	};*/
-	
+		return new Namespace(uri);
+	}
 }

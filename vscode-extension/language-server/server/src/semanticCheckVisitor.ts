@@ -74,6 +74,8 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
                 let variableName = identifier.text.toLowerCase();
                 if(variableName.startsWith("$")) {
                     this.checkVariableAccess(variableName, ctx, identifier);
+                } else {
+                    this.checkAttribute(variableName, ctx, identifier);
                 }
             } else {
                 this.visitChildren(ctx);
@@ -81,7 +83,7 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
         }
     };
 
-    protected checkVariableAccess(variableName: string, ctx: ExpressionContext, identifier: VariableReadContext) {
+    protected checkVariableAccess(variableName: string, ctx: ParseTree, identifier: ParseTree) {
         if(!this.checkVariables) {
             return;
         }
@@ -102,6 +104,10 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
                 source: 'XULE semantic checker'
             });
         }
+    }
+
+    protected checkAttribute(variableName: string, ctx: ParseTree, identifier: ParseTree) {
+        //TODO
     }
 
     private getRange(parseTree: ParseTree): Range {
@@ -161,7 +167,7 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
         return this.visitChildren(ctx);
     };
 
-    protected lookupIgnoreCase(name: string, ctx: ExpressionContext) {
+    protected lookupIgnoreCase(name: string, ctx: ParseTree) {
         function lookup(binding) {
             return binding.name.toString().toLowerCase() == name;
         }
