@@ -559,7 +559,7 @@ function suggestAttributes(nodeInfo: NodeInfo, kind: CompletionItemKind, symbolT
 	} else {
 		let namespaces = [];
 		for(let n in symbolTable.namespaces) {
-			if(n) { namespaces.push(n);	}
+			if(n) { namespaces.push(n + ":");	}
 		}
 		maybeSuggest(namespaces, textToMatch, CompletionItemKind.Enum, completions);
 	}
