@@ -45,27 +45,36 @@
         ],
         "configuration": {
             "type": "object",
-            "title": "XULE Language Server Configuration",
+            "title": "XULE Configuration",
             "properties": {
-                "xuleLanguage.checks.variables": {
+                "xule.checks.variables": {
                     "scope": "window",
                     "type": "boolean",
                     "default": true,
                     "description": "Warn when a variable or constant is referenced, but it's not defined in the file and it's not a built-in variable."
                 },
-                "xuleLanguage.checks.functions": {
+                "xule.checks.functions": {
                     "scope": "window",
                     "type": "boolean",
                     "default": true,
                     "description": "Warn when a function is invoked, but it's not defined in the file and is not a built-in function. Report an error if it's invoked with the wrong number of arguments."
                 },
-                "xuleLanguage.checks.properties": {
+                "xule.checks.properties": {
                     "scope": "window",
                     "type": "boolean",
                     "default": true,
                     "description": "Warn when a property is accessed that doesn't exist. Report an error when the wrong number of arguments is given to a property."
                 },
-                "xuleLanguage.server.debug": {
+                "xule.namespaces.definitions": {
+                    "scope": "window",
+                    "type": "array",
+                    "default": [],
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Load namespace definitions from these JSON files."
+                },
+                "xule.server.debug": {
                     "scope": "window",
                     "type": "string",
                     "enum": [ "off", "verbose" ],

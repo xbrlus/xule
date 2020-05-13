@@ -33,11 +33,7 @@ export function activate(context: ExtensionContext) {
 	// Options to control the language client
 	let clientOptions: LanguageClientOptions = {
 		// Register the server for XULE documents
-		documentSelector: [{ scheme: 'file', language: 'xule' }],
-		synchronize: {
-			// Notify the server about file changes to '.clientrc files contained in the workspace
-			fileEvents: workspace.createFileSystemWatcher('**/.clientrc')
-		}
+		documentSelector: [{ scheme: 'file', language: 'xule' }]
 	};
 
 	// Create the language client and start the client.

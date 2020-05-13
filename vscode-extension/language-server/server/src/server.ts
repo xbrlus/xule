@@ -1,8 +1,3 @@
-/* --------------------------------------------------------------------------------------------
- * Copyright (c) Microsoft Corporation. All rights reserved.
- * Licensed under the MIT License. See License.txt in the project root for license information.
- * ------------------------------------------------------------------------------------------ */
-
 import {
 	CompletionItem,
 	CompletionItemKind,
@@ -15,7 +10,8 @@ import {
 	ProposedFeatures,
 	TextDocumentPositionParams,
 	TextDocuments,
-	TextDocumentSyncKind
+	TextDocumentSyncKind,
+	WorkspaceFolder
 } from 'vscode-languageserver';
 
 import {TextDocument} from 'vscode-languageserver-textdocument';
@@ -29,10 +25,10 @@ import {
 	Recognizer,
 	Token
 } from 'antlr4ts';
-import {PropertyAccessContext, XULEParser} from './parser/XULEParser';
+import {PropertyAccessContext, XuleFileContext, XULEParser} from './parser/XULEParser';
 import {ParseTree} from 'antlr4ts/tree/ParseTree';
 import {TerminalNode} from 'antlr4ts/tree/TerminalNode';
-import {IdentifierInfo, IdentifierType, SymbolTable, SymbolTableVisitor} from './symbols';
+import {IdentifierInfo, IdentifierType, Namespace, SymbolTable, SymbolTableVisitor} from './symbols';
 import {Interval} from 'antlr4ts/misc/Interval';
 import {ErrorNode} from "antlr4ts/tree";
 import {
@@ -44,6 +40,7 @@ import {
 import {EnhancedXULELexer} from "./enhancedXULELexer";
 import * as fuzzysort from 'fuzzysort';
 import {builtInNamespaces} from "./builtInNamespaces";
+import * as fs from "fs";
 
 // Create a connection for the server. The connection uses Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
@@ -107,7 +104,7 @@ connection.onInitialized(() => {
 	}
 });
 
-enum DebugLevel { 'off', 'verbose' };
+enum DebugLevel { 'off', 'verbose' }
 interface XULELanguageSettings {
 	
 	server: { debug: DebugLevel; };
@@ -115,7 +112,8 @@ interface XULELanguageSettings {
 		functions: boolean,
 		properties: boolean,
 		variables: boolean
-	}
+	},
+	namespaces: { definitions: string[] }
 }
 
 // The global settings, used when the `workspace/configuration` request is not supported by the client.
@@ -123,7 +121,8 @@ interface XULELanguageSettings {
 // but could happen with other clients.
 const defaultSettings: XULELanguageSettings = {
 	server: { debug: DebugLevel.off },
-	checks: { functions: true, properties: true, variables: true }
+	checks: { functions: true, properties: true, variables: true },
+	namespaces: { definitions: [] }
 };
 let globalSettings: XULELanguageSettings = defaultSettings;
 
@@ -135,7 +134,7 @@ connection.onDidChangeConfiguration(change => {
 		// Reset all cached document settings
 		documentSettings.clear();
 	} else {
-		globalSettings = <XULELanguageSettings>((change.settings.xuleLanguage || defaultSettings));
+		globalSettings = <XULELanguageSettings>((change.settings.xule || defaultSettings));
 	}
 
 	// Revalidate all open text documents
@@ -150,7 +149,7 @@ function getDocumentSettings(resource: string): Thenable<XULELanguageSettings> {
 	if (!result) {
 		result = connection.workspace.getConfiguration({
 			scopeUri: resource,
-			section: 'xuleLanguage'
+			section: 'xule'
 		});
 		documentSettings.set(resource, result);
 	}
@@ -167,6 +166,61 @@ documents.onDidClose(e => {
 documents.onDidChangeContent(change => {
 	validateTextDocument(change.document);
 });
+
+//This could be cached if loading them every time is too slow
+function loadNamespaces(path: string, namespaces: Namespace[]) {
+	let prefix = "file:";
+	if(path.startsWith(prefix)) {
+		path = path.substring(prefix.length);
+	}
+	while(path.startsWith("/")) {
+		path = path.substring(1);
+	}
+	path = "/" + path;
+	if (fs.existsSync(path)) {
+		let data = fs.readFileSync(path);
+		let definition = JSON.parse(data.toString());
+		for (let uri in definition) {
+			namespaces.push(new Namespace(uri, definition[uri]));
+		}
+	} else {
+		connection.console.error("Namespace definitions file not found: " + path);
+	}
+}
+
+async function semanticChecks(textDocument: TextDocument, parseTree: XuleFileContext, parser: XULEParser, diagnostics: Diagnostic[]) {
+	let settings = await getDocumentSettings(textDocument.uri);
+	let namespaces = [];
+
+	function getPath(f: WorkspaceFolder, path: string) {
+		let uri = f.uri;
+		if(!uri.endsWith("/")) {
+			uri += "/";
+		}
+		return uri + path;
+	}
+
+	for (let n in settings.namespaces.definitions) {
+		let path = settings.namespaces.definitions[n].trim();
+		if(path.startsWith("/") || path.startsWith("file://")) {
+			loadNamespaces(path, namespaces);
+		} else {
+			let folders = await connection.workspace.getWorkspaceFolders();
+			folders.forEach(f => loadNamespaces(getPath(f, path), namespaces));
+		}
+	}
+	let symbolTable = new SymbolTableVisitor().withNamespaces(...builtInNamespaces, ...namespaces).visit(parseTree);
+	//Save these for code completions
+	textDocument['parseTree'] = parseTree;
+	textDocument['parser'] = parser;
+	textDocument['symbolTable'] = symbolTable;
+
+	let semanticCheckVisitor = new SemanticCheckVisitor(diagnostics, symbolTable, textDocument);
+	semanticCheckVisitor.checkFunctions = settings.checks.functions;
+	semanticCheckVisitor.checkProperties = settings.checks.properties;
+	semanticCheckVisitor.checkVariables = settings.checks.variables;
+	semanticCheckVisitor.visit(parseTree);
+}
 
 async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 	let diagnostics: Diagnostic[] = [];
@@ -227,17 +281,7 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 	parser.addErrorListener(new ReportingParserErrorListener());
 
 	let parseTree = parser.xuleFile();
-	let symbolTable = new SymbolTableVisitor().withNamespaces(...builtInNamespaces).visit(parseTree);
-	textDocument['parseTree'] = parseTree;
-	textDocument['parser'] = parser;
-	textDocument['symbolTable'] = symbolTable;
-
-	let semanticCheckVisitor = new SemanticCheckVisitor(diagnostics, symbolTable, textDocument);
-	let settings = await getDocumentSettings(textDocument.uri);
-	semanticCheckVisitor.checkFunctions = settings.checks.functions;
-	semanticCheckVisitor.checkProperties = settings.checks.properties;
-	semanticCheckVisitor.checkVariables = settings.checks.variables;
-	semanticCheckVisitor.visit(parseTree);
+	await semanticChecks(textDocument, parseTree, parser, diagnostics);
 	connection.sendDiagnostics({ uri: textDocument.uri, diagnostics });
 }
 
