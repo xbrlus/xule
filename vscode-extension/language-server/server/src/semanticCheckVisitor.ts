@@ -71,11 +71,11 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
         } else {
             let identifier = ctx.variableRead();
             if(identifier) {
-                let variableName = identifier.text.toLowerCase();
-                if(variableName.startsWith("$")) {
-                    this.checkVariableAccess(variableName, ctx, identifier);
+                let name = identifier.text;
+                if(name.startsWith("$")) {
+                    this.checkVariableAccess(name.toLowerCase(), ctx, identifier);
                 } else {
-                    this.checkAttribute(variableName, ctx, identifier);
+                    this.checkAttribute(name, ctx, identifier);
                 }
             } else {
                 this.visitChildren(ctx);
@@ -106,8 +106,36 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
         }
     }
 
-    protected checkAttribute(variableName: string, ctx: ParseTree, identifier: ParseTree) {
-        //TODO
+    protected checkAttribute(name: string, ctx: ParseTree, identifier: ParserRuleContext) {
+        let namespace = "";
+        if(name.indexOf(':') >= 0) {
+            let parts = name.split(':');
+            namespace = parts[0];
+            name = parts.slice(1).join(":");
+        }
+        let ns = this.symbolTable.lookupNamespace(namespace);
+        if(ns && ns.names) {
+            if(!ns.names.find(n => n.localName == name)) {
+                this.diagnostics.push({
+                    severity: DiagnosticSeverity.Warning,
+                    range: this.getRange(identifier),
+                    message: "Unknown attribute: " + name + " in namespace " + ns.uri,
+                    source: 'XULE semantic checker'
+                });
+            }
+        } else {
+            let startIndex = identifier.start.startIndex;
+            let range = {
+                start: this.document.positionAt(startIndex),
+                end: this.document.positionAt(startIndex + namespace.length + 1)
+            };
+            this.diagnostics.push({
+                severity: DiagnosticSeverity.Error,
+                range: range,
+                message: "Unknown namespace: " + namespace,
+                source: 'XULE semantic checker'
+            });
+        }
     }
 
     private getRange(parseTree: ParseTree): Range {
