@@ -45,7 +45,7 @@
         ],
         "configuration": {
             "type": "object",
-            "title": "XULE Configuration",
+            "title": "XULE",
             "properties": {
                 "xule.checks.variables": {
                     "scope": "window",
@@ -66,13 +66,22 @@
                     "description": "Warn when a property is accessed that doesn't exist. Report an error when the wrong number of arguments is given to a property."
                 },
                 "xule.namespaces.definitions": {
-                    "scope": "window",
+                    "scope": "resource",
                     "type": "array",
                     "default": [],
                     "items": {
                         "type": "string"
                     },
-                    "description": "Load namespace definitions from these JSON files."
+                    "description": "Load namespace definitions from these JSON files (relative to the workspace or absolute)."
+                },
+                "xule.autoImports": {
+                    "scope": "resource",
+                    "type": "array",
+                    "default": [],
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Load XULE definitions from these files (relative to the workspace or absolute)."
                 },
                 "xule.server.debug": {
                     "scope": "window",

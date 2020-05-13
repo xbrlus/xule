@@ -123,11 +123,11 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
                     source: 'XULE semantic checker'
                 });
             }
-        } else {
+        } else if(namespace) {
             let startIndex = identifier.start.startIndex;
             let range = {
                 start: this.document.positionAt(startIndex),
-                end: this.document.positionAt(startIndex + namespace.length + 1)
+                end: this.document.positionAt(startIndex + namespace.length)
             };
             this.diagnostics.push({
                 severity: DiagnosticSeverity.Error,

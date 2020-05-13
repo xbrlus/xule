@@ -1,4 +1,4 @@
-import {AbstractParseTreeVisitor, ParseTree, RuleNode} from 'antlr4ts/tree';
+import {AbstractParseTreeVisitor, ParseTree, ParseTreeVisitor, RuleNode, Tree} from 'antlr4ts/tree';
 import {XULEParserVisitor} from './parser/XULEParserVisitor';
 import {
     AspectFilterContext,
@@ -13,6 +13,8 @@ import {
     TagContext,
     XuleFileContext
 } from './parser/XULEParser';
+import {Interval} from "antlr4ts/misc";
+import {Parser, ParserRuleContext, RuleContext} from "antlr4ts";
 
 export type Binding = { name: any, meaning: any };
 export type Lookup = (obj: Binding) => boolean;
@@ -61,6 +63,38 @@ function ensureArray(obj): any[] {
 export type Name = { localName: string } | any;
 export class Namespace {
 	constructor(public readonly uri: string, public names: Name[] = []) {}
+}
+
+export class CompilationUnit extends ParserRuleContext {
+	protected files: XuleFileContext[] = [];
+
+	readonly payload: any;
+	readonly text: string;
+
+	accept<T>(visitor: XULEParserVisitor<T>): T {
+		if(visitor["visitCompilationUnit"]) {
+			return visitor["visitCompilationUnit"](this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
+
+	get childCount() {
+		return this.files.length;
+	}
+
+	getChild(i: number): ParseTree {
+		return this.files[i];
+	}
+
+	setParent(parent: RuleContext): void {
+		throw "Not supported";
+	}
+
+	add(file: XuleFileContext) {
+		file.setParent(this);
+		this.files.push(file);
+	}
 }
 
 export class SymbolTable {
@@ -118,9 +152,6 @@ export class SymbolTable {
 	lookupNamespace(namespace: string) {
 		return this.namespaces[namespace];
 	}
-
-
-
 }
 
 export enum IdentifierType { CONSTANT, FUNCTION, VARIABLE, OUTPUT_ATTRIBUTE}
@@ -199,8 +230,16 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 		return this.symbolTable;
 	}
 
+	visitCompilationUnit = (cu: CompilationUnit) => {
+		return this.withNewContext(cu, () => this.visitChildren(cu));
+	};
+
 	visitXuleFile = (ctx: XuleFileContext) => {
-		return this.withNewContext(ctx, () => this.visitChildren(ctx));
+		if(this.context instanceof CompilationUnit) {
+			return this.visitChildren(ctx);
+		} else {
+			return this.withNewContext(ctx, () => this.visitChildren(ctx));
+		}
 	};
 
 	visitNamespaceDeclaration = (ctx: NamespaceDeclarationContext) => {

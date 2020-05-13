@@ -17,8 +17,8 @@ import {
 import {TextDocument} from 'vscode-languageserver-textdocument';
 import {CandidatesCollection, CodeCompletionCore} from 'antlr4-c3';
 import {
-	ANTLRErrorListener,
-	CharStreams,
+	ANTLRErrorListener, CharStream,
+	CharStreams, CodePointCharStream,
 	CommonTokenStream,
 	ParserRuleContext,
 	RecognitionException,
@@ -28,7 +28,7 @@ import {
 import {PropertyAccessContext, XuleFileContext, XULEParser} from './parser/XULEParser';
 import {ParseTree} from 'antlr4ts/tree/ParseTree';
 import {TerminalNode} from 'antlr4ts/tree/TerminalNode';
-import {IdentifierInfo, IdentifierType, Namespace, SymbolTable, SymbolTableVisitor} from './symbols';
+import {CompilationUnit, IdentifierInfo, IdentifierType, Namespace, SymbolTable, SymbolTableVisitor} from './symbols';
 import {Interval} from 'antlr4ts/misc/Interval';
 import {ErrorNode} from "antlr4ts/tree";
 import {
@@ -113,7 +113,8 @@ interface XULELanguageSettings {
 		properties: boolean,
 		variables: boolean
 	},
-	namespaces: { definitions: string[] }
+	namespaces: { definitions: string[] },
+	autoImports: string[]
 }
 
 // The global settings, used when the `workspace/configuration` request is not supported by the client.
@@ -122,7 +123,8 @@ interface XULELanguageSettings {
 const defaultSettings: XULELanguageSettings = {
 	server: { debug: DebugLevel.off },
 	checks: { functions: true, properties: true, variables: true },
-	namespaces: { definitions: [] }
+	namespaces: { definitions: [] },
+	autoImports: []
 };
 let globalSettings: XULELanguageSettings = defaultSettings;
 
@@ -167,63 +169,37 @@ documents.onDidChangeContent(change => {
 	validateTextDocument(change.document);
 });
 
-//This could be cached if loading them every time is too slow
-function loadNamespaces(path: string, namespaces: Namespace[]) {
+function ensurePath(path: string) {
 	let prefix = "file:";
-	if(path.startsWith(prefix)) {
+	if (path.startsWith(prefix)) {
 		path = path.substring(prefix.length);
 	}
-	while(path.startsWith("/")) {
+	while (path.startsWith("/")) {
 		path = path.substring(1);
 	}
 	path = "/" + path;
-	if (fs.existsSync(path)) {
-		let data = fs.readFileSync(path);
-		let definition = JSON.parse(data.toString());
-		for (let uri in definition) {
-			namespaces.push(new Namespace(uri, definition[uri]));
-		}
-	} else {
-		connection.console.error("Namespace definitions file not found: " + path);
-	}
+	return path;
 }
 
-async function semanticChecks(textDocument: TextDocument, parseTree: XuleFileContext, parser: XULEParser, diagnostics: Diagnostic[]) {
-	let settings = await getDocumentSettings(textDocument.uri);
-	let namespaces = [];
-
-	function getPath(f: WorkspaceFolder, path: string) {
-		let uri = f.uri;
-		if(!uri.endsWith("/")) {
-			uri += "/";
-		}
-		return uri + path;
-	}
-
-	for (let n in settings.namespaces.definitions) {
-		let path = settings.namespaces.definitions[n].trim();
-		if(path.startsWith("/") || path.startsWith("file://")) {
-			loadNamespaces(path, namespaces);
+//This could be cached if loading them every time is too slow
+function loadNamespaces(path: string, namespaces: Namespace[]) {
+	path = ensurePath(path);
+	try {
+		if (fs.existsSync(path)) {
+				let data = fs.readFileSync(path);
+				let definition = JSON.parse(data.toString());
+				for (let uri in definition) {
+					namespaces.push(new Namespace(uri, definition[uri]));
+				}
 		} else {
-			let folders = await connection.workspace.getWorkspaceFolders();
-			folders.forEach(f => loadNamespaces(getPath(f, path), namespaces));
+			connection.console.error("Namespace definitions file not found: " + path);
 		}
+	} catch (e) {
+		connection.console.error(`Could not load namespaces from ${path}: ${e}`);
 	}
-	let symbolTable = new SymbolTableVisitor().withNamespaces(...builtInNamespaces, ...namespaces).visit(parseTree);
-	//Save these for code completions
-	textDocument['parseTree'] = parseTree;
-	textDocument['parser'] = parser;
-	textDocument['symbolTable'] = symbolTable;
-
-	let semanticCheckVisitor = new SemanticCheckVisitor(diagnostics, symbolTable, textDocument);
-	semanticCheckVisitor.checkFunctions = settings.checks.functions;
-	semanticCheckVisitor.checkProperties = settings.checks.properties;
-	semanticCheckVisitor.checkVariables = settings.checks.variables;
-	semanticCheckVisitor.visit(parseTree);
 }
 
-async function validateTextDocument(textDocument: TextDocument): Promise<void> {
-	let diagnostics: Diagnostic[] = [];
+function setupParser(textDocument: TextDocument, diagnostics: Diagnostic[]) {
 	let text = textDocument.getText();
 	let input = CharStreams.fromString(text);
 	let lexer = new EnhancedXULELexer(input);
@@ -279,9 +255,80 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 	}
 	let parser = new XULEParser(new CommonTokenStream(lexer));
 	parser.addErrorListener(new ReportingParserErrorListener());
+	return parser;
+}
 
+function workspacePathToAbsolutePath(f: WorkspaceFolder, path: string) {
+	let uri = f.uri;
+	if (!uri.endsWith("/")) {
+		uri += "/";
+	}
+	return uri + path;
+}
+
+async function loadAdditionalNamespaces(settings: XULELanguageSettings) {
+	let namespaces = [];
+	for (let n in settings.namespaces.definitions) {
+		let path = settings.namespaces.definitions[n].trim();
+		if (path.startsWith("/") || path.startsWith("file://")) {
+			loadNamespaces(path, namespaces);
+		} else {
+			let folders = await connection.workspace.getWorkspaceFolders();
+			folders.forEach(f => loadNamespaces(workspacePathToAbsolutePath(f, path), namespaces));
+		}
+	}
+	return namespaces;
+}
+
+function loadXuleFile(path: string, cu: CompilationUnit) {
+	path = ensurePath(path);
+	try {
+		if (fs.existsSync(path)) {
+			let data = fs.readFileSync(path);
+			let input = CharStreams.fromString(data.toString());
+			let lexer = new EnhancedXULELexer(input);
+			let parser = new XULEParser(new CommonTokenStream(lexer));
+			cu.add(parser.xuleFile());
+		} else {
+			connection.console.error("AutoImport file not found: " + path);
+		}
+	} catch (e) {
+		connection.console.error(`Could not load ${path}: ${e}`);
+	}
+}
+
+async function validateTextDocument(textDocument: TextDocument): Promise<void> {
+	let diagnostics: Diagnostic[] = [];
+	let parser = setupParser(textDocument, diagnostics);
 	let parseTree = parser.xuleFile();
-	await semanticChecks(textDocument, parseTree, parser, diagnostics);
+	let settings = await getDocumentSettings(textDocument.uri);
+	let namespaces = await loadAdditionalNamespaces(settings);
+
+	let cu = new CompilationUnit();
+	settings.autoImports.forEach(imp => {
+		let path = imp.trim();
+		if (path.startsWith("/") || path.startsWith("file://")) {
+			loadXuleFile(path, cu);
+		} else {
+			let folders = connection.workspace.getWorkspaceFolders();
+			folders.then(f => f.forEach(f => loadXuleFile(workspacePathToAbsolutePath(f, path), cu)));
+		}
+	});
+	cu.add(parseTree);
+
+	let symbolTableVisitor = new SymbolTableVisitor().withNamespaces(...builtInNamespaces, ...namespaces);
+	let symbolTable = symbolTableVisitor.visit(cu);
+	//Save these for code completions
+	textDocument['parseTree'] = parseTree;
+	textDocument['parser'] = parser;
+	textDocument['symbolTable'] = symbolTable;
+
+	let semanticCheckVisitor = new SemanticCheckVisitor(diagnostics, symbolTable, textDocument);
+	semanticCheckVisitor.checkFunctions  = settings.checks.functions;
+	semanticCheckVisitor.checkProperties = settings.checks.properties;
+	semanticCheckVisitor.checkVariables  = settings.checks.variables;
+	semanticCheckVisitor.visit(parseTree);
+
 	connection.sendDiagnostics({ uri: textDocument.uri, diagnostics });
 }
 
