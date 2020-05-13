@@ -192,7 +192,13 @@ function loadNamespaces(path: string, namespaces: Namespace[]) {
 					namespaces.push(new Namespace(uri, definition[uri]));
 				}
 		} else {
-			connection.console.error("Namespace definitions file not found: " + path);
+			let msg = "Namespace definitions file not found: " + path;
+			connection.console.error(msg);
+			connection.sendDiagnostics({
+				uri: "file://" + path, diagnostics: [{
+					severity: DiagnosticSeverity.Error, range: null, message: msg
+				}]
+			});
 		}
 	} catch (e) {
 		connection.console.error(`Could not load namespaces from ${path}: ${e}`);

@@ -13,8 +13,7 @@ import {
     TagContext,
     XuleFileContext
 } from './parser/XULEParser';
-import {Interval} from "antlr4ts/misc";
-import {Parser, ParserRuleContext, RuleContext} from "antlr4ts";
+import {ParserRuleContext, RuleContext} from "antlr4ts";
 
 export type Binding = { name: any, meaning: any };
 export type Lookup = (obj: Binding) => boolean;
@@ -25,7 +24,7 @@ export class Environment {
 	constructor(public parent?: Environment) {}
 
 	find(what: string | Lookup): Binding {
-		const test = what instanceof String ? function (binding: Binding) {
+		const test = typeof what === "string" ? function (binding: Binding) {
 			return binding.name == what
 		} : what as Lookup;
 		const binding = this.bindings.find(mapping => test(mapping));
@@ -39,7 +38,7 @@ export class Environment {
 	}
 
 	findAll(what: string | Lookup): Binding[] {
-		const test = what instanceof String ? function (binding: Binding) {
+		const test = typeof what === "string" ? function (binding: Binding) {
 			return binding.name == what
 		} : what as Lookup;
 		const bindings = this.bindings.filter(mapping => test(mapping));

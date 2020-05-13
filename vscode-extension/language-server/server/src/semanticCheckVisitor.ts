@@ -1,7 +1,15 @@
 import {AbstractParseTreeVisitor, ParseTree, TerminalNode} from "antlr4ts/tree";
 import {XULEParserVisitor} from "./parser/XULEParserVisitor";
 import {Diagnostic, DiagnosticSeverity} from "vscode-languageserver";
-import {Binding, FunctionInfo, IdentifierInfo, IdentifierType, PropertyInfo, SymbolTable} from "./symbols";
+import {
+    Binding,
+    FunctionInfo,
+    IdentifierInfo,
+    IdentifierType,
+    PropertyInfo,
+    SymbolTable,
+    wellKnownVariables
+} from "./symbols";
 import {
     AssertionContext,
     ExpressionContext,
@@ -42,7 +50,7 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
     }
 
     visitAssertion = (ctx: AssertionContext) => {
-        if(ctx.expression().length == 0) {
+        if(ctx.expression().length == 0 && ctx.outputAttribute().length == 0) {
             let range = this.getRange(ctx.ASSERT());
             this.diagnostics.push({
                 severity: DiagnosticSeverity.Error,
@@ -116,12 +124,17 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
         let ns = this.symbolTable.lookupNamespace(namespace);
         if(ns && ns.names) {
             if(!ns.names.find(n => n.localName == name)) {
-                this.diagnostics.push({
-                    severity: DiagnosticSeverity.Warning,
-                    range: this.getRange(identifier),
-                    message: "Unknown attribute: " + name + " in namespace " + ns.uri,
-                    source: 'XULE semantic checker'
-                });
+                let lower = name.toLowerCase();
+                if(namespace ||
+                    (!wellKnownVariables[lower] && !this.localVariables[lower] &&
+                     !wellKnownOutputAttributes[lower] && !this.symbolTable.lookup(lower, identifier))) {
+                    this.diagnostics.push({
+                        severity: DiagnosticSeverity.Warning,
+                        range: this.getRange(identifier),
+                        message: "Unknown attribute: " + name + " in namespace " + ns.uri,
+                        source: 'XULE semantic checker'
+                    });
+                }
             }
         } else if(namespace) {
             let startIndex = identifier.start.startIndex;
