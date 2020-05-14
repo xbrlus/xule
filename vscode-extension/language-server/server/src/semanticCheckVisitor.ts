@@ -50,7 +50,7 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
     }
 
     visitAssertion = (ctx: AssertionContext) => {
-        if(ctx.expression().length == 0 && ctx.outputAttribute().length == 0) {
+        if(ctx.expression().length == 0) {
             let range = this.getRange(ctx.ASSERT());
             this.diagnostics.push({
                 severity: DiagnosticSeverity.Error,
@@ -127,7 +127,7 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
                 let lower = name.toLowerCase();
                 if(namespace ||
                     (!wellKnownVariables[lower] && !this.localVariables[lower] &&
-                     !wellKnownOutputAttributes[lower] && !this.symbolTable.lookup(lower, identifier))) {
+                     wellKnownOutputAttributes.indexOf(lower) < 0 && !this.symbolTable.lookup(lower, identifier))) {
                     this.diagnostics.push({
                         severity: DiagnosticSeverity.Warning,
                         range: this.getRange(identifier),
@@ -400,7 +400,9 @@ export const wellKnownFunctions: { [name: string]: FunctionInfo } = {
     "stdev": new FunctionInfo(1),
     "taxonomy": new FunctionInfo({ min: 0, max: 1 }),
     "time-span": new FunctionInfo(1),
+    "to-list": new FunctionInfo(1),
     "to-qname": new FunctionInfo(1),
+    "to-set": new FunctionInfo(1),
     "trunc": new FunctionInfo({ min: 1, max: 2 }),
     "unit": new FunctionInfo({ min: 1, max: 2 }),
     "upper-case": new FunctionInfo(1),

@@ -1,4 +1,4 @@
-import {AbstractParseTreeVisitor, ParseTree, ParseTreeVisitor, RuleNode, Tree} from 'antlr4ts/tree';
+import {AbstractParseTreeVisitor, ParseTree, RuleNode} from 'antlr4ts/tree';
 import {XULEParserVisitor} from './parser/XULEParserVisitor';
 import {
     AspectFilterContext,
@@ -65,10 +65,9 @@ export class Namespace {
 }
 
 export class CompilationUnit extends ParserRuleContext {
-	protected files: XuleFileContext[] = [];
-
 	readonly payload: any;
 	readonly text: string;
+	children = [];
 
 	accept<T>(visitor: XULEParserVisitor<T>): T {
 		if(visitor["visitCompilationUnit"]) {
@@ -78,21 +77,13 @@ export class CompilationUnit extends ParserRuleContext {
 		}
 	}
 
-	get childCount() {
-		return this.files.length;
-	}
-
-	getChild(i: number): ParseTree {
-		return this.files[i];
-	}
-
 	setParent(parent: RuleContext): void {
 		throw "Not supported";
 	}
 
 	add(file: XuleFileContext) {
 		file.setParent(this);
-		this.files.push(file);
+		this.children.push(file);
 	}
 }
 
@@ -185,8 +176,12 @@ export const wellKnownVariables = {
 	"$ruleversion": {},
 	"$rule-value": {},
 	//The following are actually constants or keywords, but for know we don't need to distinguish them
+	"credit": {},
+	"debit": {},
 	"duration": {},
+	"error": {},
 	"inf": {},
+	"instant": {},
 	"none": {},
 	"skip": {},
 	//The following are specific to taxonomies
@@ -234,7 +229,10 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 	};
 
 	visitXuleFile = (ctx: XuleFileContext) => {
-		if(this.context instanceof CompilationUnit) {
+		//We coalesce all imported files into a global context, the compilation unit.
+		//Instead, we give the main file – the last one among the compilation unit's children – a more specific scope,
+		//so that local definitions can shadow imported definitions.
+		if(this.context instanceof CompilationUnit && this.context.children.indexOf(ctx) != this.context.childCount - 1) {
 			return this.visitChildren(ctx);
 		} else {
 			return this.withNewContext(ctx, () => this.visitChildren(ctx));
