@@ -35,6 +35,11 @@ _XULE_NAMESPACE_MAP = {'xule': 'http://xbrl.us/xule/2.0/template',
 _XHTM_NAMESPACE = 'http://www.w3.org/1999/xhtml'
 _RULE_NAME_PREFIX = 'rule-'
 _EXTRA_ATTRIBUTES = ('format', 'scale', 'sign', 'decimals')
+_PHRASING_CONTENT_TAGS = {'a', 'audio', 'b', 'bdi', 'bdo', 'br', 'button', 'canvas', 'cite', 'code', 'command',
+                          'datalist', 'del', 'dfn', 'em', 'embed', 'i', 'iframe', 'img', 'input', 'ins', 'kbd', 'keygen',
+                          'label', 'map', 'mark', 'math', 'meter', 'noscript', 'object', 'output', 'progress', 'q',
+                          'ruby', 's', 'samp', 'script', 'select', 'small', 'span', 'strong', 'sub', 'sup', 'svg',
+                          'textarea', 'time', 'u', 'var', 'video', 'wbr'}
 
 class FERCRenderException(Exception):
     pass
@@ -1222,11 +1227,16 @@ def build_footnote_page(template, template_number, footnotes, processed_footnote
             if footnote.get('is_redacted', False):
                 footnote_data_cell_classes.append('redacted')
             footnote_data_cell.set('class', ' '.join(footnote_data_cell_classes))
-            inline_footnote = create_inline_footnote_node(footnote['node'])
+            inline_footnote, is_preformatted = create_inline_footnote_node(footnote['node'])
             inline_footnote.set('id', footnote_id)
-            footnote_data_cell.append(inline_footnote)
+            if is_preformatted:
+                div_node = etree.Element('div')
+                div_node.set('class', 'preformatted-text')
+                div_node.append(inline_footnote)
+                footnote_data_cell.append(div_node)
+            else:
+                footnote_data_cell.append(inline_footnote)
             processed_footnotes[footnote['node']]['refs'].append((footnote['fact_id'], footnote_id))
-
 
             footnote_data_row.append(footnote_data_cell)
             
@@ -1291,7 +1301,7 @@ def create_inline_footnote_node(footnote_node):
             inline_footnote.append(deepcopy(child))
 
     #inline_footnote.set('id', footnote_node.id)
-    return inline_footnote
+    return inline_footnote, len(footnote_node) == 0
 
 def convert_number_to_letter(num):
     alphabet = 'abcdefghijklmnopqrstuvwxyz'
@@ -1454,7 +1464,7 @@ def add_unused_facts_and_footnotes(main_html, modelXbrl, processed_facts, fact_n
         rels = footnote_network.fromModelObject(model_fact)
         for rel in rels:
             footnote_id = 'fn-{}'.format(new_fact_id)
-            ix_footnote = create_inline_footnote_node(rel.toModelObject)
+            ix_footnote, is_preformatted = create_inline_footnote_node(rel.toModelObject)
             ix_footnote.set('id', footnote_id)
             hidden.append(ix_footnote)
             footnotes[rel.toModelObject]['refs'].append((new_fact_id, footnote_id))
@@ -2221,17 +2231,46 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
         if xule_expression_node is not None and xule_expression_node.get('scale') is not None:
             ix_node.set('scale', xule_expression_node.get('scale'))
 
+        # this is the node that will be returned.
+        return_node = ix_node
         if is_html:
             try:
                 # Fact content that is intended as html must first be unescaped becasue XBRL does not allow fact content to contain xml/html element
-                content_node = etree.fromstring('<div class="sub-html">{}</div>'.format(display_value))
-                ix_node.append(content_node)
+                div_node = etree.Element('div', nsmap=_XULE_NAMESPACE_MAP)
+                div_node.set('class', 'sub-html')
+                content_node = etree.fromstring('<content>{}</content>'.format(display_value))
+                # copy the content of the content node to the ix_node
+                ix_node.text = content_node.text
+                for x in content_node:
+                    ix_node.append(x)
+                # Check if the content only has html phrasing content. If so, then mark it to preserve white space
+                descendant_tags = {x.tag.replace('{http://www.w3.org/1999/xhtml}', '') for x in (ix_node.findall('.//*') or tuple())}
+                if ('{http://www.xbrl.org/dtr/type/non-numeric}textBlockItemType' in type_ancestry(model_fact.concept.type) and
+                
+                
+                    (re.search(r'\s\s', display_value) or '\t' in display_value or '\n' in display_value) and
+                    len(descendant_tags - _PHRASING_CONTENT_TAGS) == 0):
+                    div_node.set('class', 'sub-html preformatted-text')
+             
+                div_node.append(ix_node)
+
+                return_node = div_node
             except etree.XMLSyntaxError as e:
                 # The content was not valid xml/xhtml - put out a warning and 
                 model_fact.modelXbrl.warning("Warning", "For fact:\n{}\nAttempting to substitute invalid XHTML into the template. "
                                                         "Inserted as plain text.".format(display_fact_info(model_fact)))
                 ix_node.text = display_value
+                div_node = etree.Element('div', nsmap=_XULE_NAMESPACE_MAP)
+                div_node.set('class', 'sub-html sub-html-error')
+                div_node.append(ix_node)
+                return_node = div_node
         else:
+            if '{http://www.xbrl.org/dtr/type/non-numeric}textBlockItemType' in type_ancestry(model_fact.concept.type):
+                # set as preformatted text around the content
+                div_node = etree.Element('div', nsmap=_XULE_NAMESPACE_MAP)
+                div_node.set('class', 'preformatted-text')
+                div_node.append(ix_node)
+                return_node = div_node
             ix_node.text = display_value
 
         # handle sign
@@ -2248,27 +2287,27 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
                 sign_wrapper.set('class', 'sign sign-postive')
             else:
                 sign_wrapper.set('class', 'sign sign-zero')
-            sign_wrapper.append(ix_node)
-            ix_node = sign_wrapper
+            sign_wrapper.append(return_node)
+            return_node = sign_wrapper
             wrapped = True
 
         # handle units for numeric facts
         if model_fact.isNumeric:
             unit_wrapper = etree.Element('div', nsmap=_XULE_NAMESPACE_MAP)
             unit_wrapper.set('class', 'unit unit-{}'.format(unit_string(model_fact.unit)))
-            unit_wrapper.append(ix_node)
-            ix_node = unit_wrapper
+            unit_wrapper.append(return_node)
+            return_node = unit_wrapper
             wrapped = True
         
         if wrapped:
-            append_classes(ix_node, ['xbrl', 'fact'])
+            append_classes(return_node, ['xbrl', 'fact'])
         else:
             wrapper = etree.Element('div', nsmap=_XULE_NAMESPACE_MAP)
             wrapper.set('class', 'xbrl fact')
-            wrapper.append(ix_node)
-            ix_node = wrapper
+            wrapper.append(return_node)
+            return_node = wrapper
         
-        return ix_node, new_fact_id
+        return return_node, new_fact_id
 
     except FERCRenderException as e:
         model_fact.modelXbrl.error('RenderFormattingError', '{} - {}'.format(' - '.join(e.args), str(model_fact)))
@@ -2276,6 +2315,12 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
         div_node.set('class', 'format-error')
         div_node.text = str(model_fact.xValue)
         return div_node, new_fact_id
+
+def type_ancestry(model_type):
+    if model_type.typeDerivedFrom is None:
+        return [model_type.qname.clarkNotation]
+    else:
+        return [model_type.qname.clarkNotation] + type_ancestry(model_type.typeDerivedFrom)
 
 def append_classes(node, classes):
     # Added classes to an existing node
