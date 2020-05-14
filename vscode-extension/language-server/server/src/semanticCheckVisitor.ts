@@ -126,14 +126,15 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
             if(!ns.names.find(n => n.localName == name)) {
                 let lower = name.toLowerCase();
                 if(namespace ||
-                    (!wellKnownVariables[lower] && !this.localVariables[lower] &&
-                     wellKnownOutputAttributes.indexOf(lower) < 0 && !this.symbolTable.lookup(lower, identifier))) {
-                    this.diagnostics.push({
-                        severity: DiagnosticSeverity.Warning,
-                        range: this.getRange(identifier),
-                        message: "Unknown attribute: " + name + " in namespace " + ns.uri,
-                        source: 'XULE semantic checker'
-                    });
+                    (!wellKnownVariables[lower] && !this.localVariables[lower] && wellKnownOutputAttributes.indexOf(lower) < 0)) {
+                    if(!this.symbolTable.lookup(lower, identifier)) {
+                        this.diagnostics.push({
+                            severity: DiagnosticSeverity.Warning,
+                            range: this.getRange(identifier),
+                            message: "Unknown attribute: " + name + " in namespace " + ns.uri,
+                            source: 'XULE semantic checker'
+                        });
+                    }
                 }
             }
         } else if(namespace) {

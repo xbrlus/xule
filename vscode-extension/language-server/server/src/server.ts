@@ -311,15 +311,15 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 	let namespaces = await loadAdditionalNamespaces(settings);
 
 	let cu = new CompilationUnit();
-	settings.autoImports.forEach(imp => {
-		let path = imp.trim();
+	for(let i in settings.autoImports) {
+		let path = settings.autoImports[i].trim();
 		if (path.startsWith("/") || path.startsWith("file://")) {
 			loadXuleFile(path, cu);
 		} else {
-			let folders = connection.workspace.getWorkspaceFolders();
-			folders.then(f => f.forEach(f => loadXuleFile(workspacePathToAbsolutePath(f, path), cu)));
+			let folders = await connection.workspace.getWorkspaceFolders();
+			folders.forEach(f => loadXuleFile(workspacePathToAbsolutePath(f, path), cu));
 		}
-	});
+	}
 	cu.add(parseTree);
 
 	let symbolTableVisitor = new SymbolTableVisitor().withNamespaces(...builtInNamespaces, ...namespaces);

@@ -229,14 +229,17 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 	};
 
 	visitXuleFile = (ctx: XuleFileContext) => {
-		//We coalesce all imported files into a global context, the compilation unit.
-		//Instead, we give the main file – the last one among the compilation unit's children – a more specific scope,
-		//so that local definitions can shadow imported definitions.
-		if(this.context instanceof CompilationUnit && this.context.children.indexOf(ctx) != this.context.childCount - 1) {
-			return this.visitChildren(ctx);
-		} else {
-			return this.withNewContext(ctx, () => this.visitChildren(ctx));
-		}
+		//Be sure to restore the context on exit
+		return this.withNewContext(this.context, () => {
+			//We coalesce all imported files into a global context, the compilation unit.
+			//Instead, we give the main file – the last one among the compilation unit's children – a more specific scope,
+			//so that local definitions can shadow imported definitions.
+			if(this.context instanceof CompilationUnit && this.context.children.indexOf(ctx) != this.context.childCount - 1) {
+				return this.visitChildren(ctx);
+			} else {
+				return this.withNewContext(ctx, () => this.visitChildren(ctx));
+			}
+		});
 	};
 
 	visitNamespaceDeclaration = (ctx: NamespaceDeclarationContext) => {
@@ -284,7 +287,7 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 		return this.visitChildren(ctx);
 	};
 
-	protected withNewContext<T>(ctx: RuleNode, fn: () => T): T {
+	protected withNewContext<T>(ctx: ParseTree, fn: () => T): T {
 		let context = this.context;
 		this.context = ctx;
 		try {
@@ -300,7 +303,7 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 	};
 
 	visitOutputAttributeDeclaration = (ctx: OutputAttributeDeclarationContext) => {
-		this.symbolTable.record(ctx.identifier().text, [new OutputAttributeInfo()], this.context);
+		this.symbolTable.record(ctx.identifier().text.toLowerCase(), [new OutputAttributeInfo()], this.context);
 		return this.visitChildren(ctx);
 	};
 
