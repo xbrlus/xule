@@ -1,17 +1,17 @@
 import {AbstractParseTreeVisitor, ParseTree, RuleNode} from 'antlr4ts/tree';
 import {XULEParserVisitor} from './parser/XULEParserVisitor';
 import {
-    AspectFilterContext,
-    AssignedVariableContext,
-    ConstantDeclarationContext,
-    ForExpressionContext,
-    FunctionArgumentContext,
-    FunctionDeclarationContext,
-    NamespaceDeclarationContext,
-    NavigationContext,
-    OutputAttributeDeclarationContext,
-    TagContext,
-    XuleFileContext
+	AspectFilterContext, AssertionContext,
+	AssignedVariableContext,
+	ConstantDeclarationContext,
+	ForExpressionContext,
+	FunctionArgumentContext,
+	FunctionDeclarationContext,
+	NamespaceDeclarationContext,
+	NavigationContext,
+	OutputAttributeDeclarationContext,
+	TagContext,
+	XuleFileContext
 } from './parser/XULEParser';
 import {ParserRuleContext, RuleContext} from "antlr4ts";
 
@@ -266,7 +266,17 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 	};
 
 	visitTag = (ctx: TagContext) => {
-		this.symbolTable.record("$" + ctx.identifier().text, [new VariableInfo()], this.context);
+		//Tags are always global in scope
+		let context = this.context;
+		while(context && !(context instanceof XuleFileContext)) {
+			context = context.parent;
+		}
+		let tag = ctx.identifier().text;
+		if(context) {
+			this.symbolTable.record("$" + tag, [new VariableInfo()], context);
+		} else {
+			console.warn("Tag outside an assertion, ignoring: " + tag);
+		}
 		return this.visitChildren(ctx);
 	};
 

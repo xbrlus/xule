@@ -14,12 +14,12 @@ ruleNamePrefixDeclaration: RULE_NAME_PREFIX identifier;
 output:
     OUTPUT OUTPUT_RULE_NAME (OPEN_BRACKET AT identifier CLOSE_BRACKET)?
     (constantDeclaration | assignment)*
-    expression outputAttribute*;
-outputAttribute: outputAttributeName expression SEMI?;
+    expression (outputAttribute SEMI?)*;
+outputAttribute: outputAttributeName expression;
 
 assertion:
     ASSERT ASSERT_RULE_NAME (ASSERT_SATISFIED | ASSERT_UNSATISFIED)
-    (constantDeclaration | functionDeclaration | assignment | expression)+;
+    (constantDeclaration | functionDeclaration | assignment | outputAttribute SEMI | expression)+;
 
 constantDeclaration: CONSTANT identifier ASSIGN expression;
 functionDeclaration: FUNCTION identifier OPEN_PAREN (functionArgument (COMMA functionArgument)*)? CLOSE_PAREN block;
@@ -62,8 +62,7 @@ aspectFilter:
     WHERE expression;
 
 aspectFilterOptions: (COVERED | COVERED_DIMS) NONILS? | NONILS (COVERED | COVERED_DIMS)?;
-aspectFilterFilter:
-    AT AT? (CONCEPT | qname) propertyAccess*
+aspectFilterFilter: atIdentifier propertyAccess*
     ((ASSIGN | NOT_EQUALS | GT | LT | GTE | LTE | NOT? IN) (expression | TIMES))?;
 
 filter: FILTER expression (WHERE block)? (RETURNS filterReturn)?;
@@ -91,7 +90,7 @@ navigationReturnOption: identifier;
 arcrole: role;
 role: identifier propertyAccess* | stringLiteral;
 /** This exists so that when suggesting code we can restrict to known attribute names. */
-qname: identifier;
+atIdentifier: AT_IDENTIFIER;
 /** This exists so that when suggesting code we can restrict to well-known keywords. */
 direction: identifier;
 /** This exists so that when suggesting code we can restrict to well-known keywords. */

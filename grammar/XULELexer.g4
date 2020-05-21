@@ -108,6 +108,7 @@ REAL: INTEGER DOT INTEGER;
 INTEGER: [0-9]+;
 
 /** Also cover partial/invalid identifiers because we need them for code completion. */
+AT_IDENTIFIER: AT AT? IDENTIFIER;
 IDENTIFIER: (IDENTIFIER_COMPONENT ':')? IDENTIFIER_COMPONENT | IDENTIFIER_COMPONENT ':' IDENTIFIER_COMPONENT?;
 IDENTIFIER_COMPONENT : [$a-zA-Z] [a-zA-Z_\-0-9]*;
 

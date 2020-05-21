@@ -17,15 +17,15 @@ import {
 import {TextDocument} from 'vscode-languageserver-textdocument';
 import {CandidatesCollection, CodeCompletionCore} from 'antlr4-c3';
 import {
-	ANTLRErrorListener, CharStream,
-	CharStreams, CodePointCharStream,
+	ANTLRErrorListener,
+	CharStreams,
 	CommonTokenStream,
 	ParserRuleContext,
 	RecognitionException,
 	Recognizer,
 	Token
 } from 'antlr4ts';
-import {PropertyAccessContext, XuleFileContext, XULEParser} from './parser/XULEParser';
+import {PropertyAccessContext, XULEParser} from './parser/XULEParser';
 import {ParseTree} from 'antlr4ts/tree/ParseTree';
 import {TerminalNode} from 'antlr4ts/tree/TerminalNode';
 import {CompilationUnit, IdentifierInfo, IdentifierType, Namespace, SymbolTable, SymbolTableVisitor} from './symbols';
@@ -532,7 +532,7 @@ function setupCompletionCore(parser: XULEParser, settings: XULELanguageSettings)
 		XULEParser.TIMES
 	]);
 	core.preferredRules = new Set([
-		XULEParser.RULE_assignedVariable, XULEParser.RULE_booleanLiteral,
+		XULEParser.RULE_assignedVariable, XULEParser.RULE_atIdentifier, XULEParser.RULE_booleanLiteral,
 		XULEParser.RULE_identifier, XULEParser.RULE_propertyRef, XULEParser.RULE_direction,
 		XULEParser.RULE_navigationReturnOption, XULEParser.RULE_outputAttributeName,
 		XULEParser.RULE_variableRead
@@ -646,7 +646,7 @@ function suggestFunctions(nodeInfo: NodeInfo, symbolTable: SymbolTable, completi
 	suggestIdentifiers(nodeInfo, IdentifierType.FUNCTION, CompletionItemKind.Function, symbolTable, completions);
 }
 
-function suggestAttributes(nodeInfo: NodeInfo, kind: CompletionItemKind, symbolTable: SymbolTable, completions: any[]) {
+function suggestQNames(nodeInfo: NodeInfo, kind: CompletionItemKind, symbolTable: SymbolTable, completions: any[]) {
 	let textToMatch = nodeInfo.textToMatch;
 	let namespace = "";
 	if(textToMatch.indexOf(':') >= 0) {
@@ -711,11 +711,17 @@ function suggestAllIdentifiers(symbolTable: SymbolTable, nodeInfo: NodeInfo, can
 		suggestIdentifiers(nodeInfo, IdentifierType.VARIABLE, CompletionItemKind.Variable, symbolTable, completions);
 		keywords = false;
 	}
+	if(candidates.rules.has(XULEParser.RULE_atIdentifier)) {
+		suggestQNames(nodeInfo, CompletionItemKind.EnumMember, symbolTable, completions);
+		keywords = false;
+	}
 	if(candidates.rules.has(XULEParser.RULE_variableRead)) {
 		suggestIdentifiers(nodeInfo, IdentifierType.CONSTANT, CompletionItemKind.Constant, symbolTable, completions);
 		suggestIdentifiers(nodeInfo, IdentifierType.VARIABLE, CompletionItemKind.Variable, symbolTable, completions);
 		suggestFunctions(nodeInfo, symbolTable, completions);
-		suggestAttributes(nodeInfo, CompletionItemKind.EnumMember, symbolTable, completions);
+		if(!candidates.rules.has(XULEParser.RULE_atIdentifier)) {
+			suggestQNames(nodeInfo, CompletionItemKind.EnumMember, symbolTable, completions);
+		}
 		maybeSuggest(["none"], text, CompletionItemKind.Keyword, completions);
 		maybeSuggest(["skip"], text, CompletionItemKind.Keyword, completions); //TODO should we check that the context is appropriate? Can we?
 	}

@@ -11,14 +11,14 @@ import {
     wellKnownVariables
 } from "./symbols";
 import {
-    AssertionContext,
-    ExpressionContext,
+    AssertionContext, AtIdentifierContext,
+    ExpressionContext, FactsetBodyContext,
     FilterContext,
     FunctionDeclarationContext,
     NavigationWhereClauseContext,
     OutputAttributeContext,
     ParametersListContext,
-    PropertyAccessContext, QnameContext,
+    PropertyAccessContext,
     VariableReadContext
 } from "./parser/XULEParser";
 import {Range, TextDocument} from "vscode-languageserver-textdocument";
@@ -92,8 +92,31 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
         }
     };
 
-    visitQname = (ctx: QnameContext) => {
-        this.checkQName(ctx.identifier().text, ctx, ctx.identifier());
+    visitFactsetBody = (ctx: FactsetBodyContext) => {
+        ctx.expression().forEach(e => {
+            let vr = e.variableRead();
+            if(vr && !vr.text.startsWith("@")) {
+                this.diagnostics.push({
+                    severity: DiagnosticSeverity.Error,
+                    range: this.getRange(ctx),
+                    message: "Malformed factset",
+                    source: 'XULE semantic checker'
+                });
+            }
+        });
+        this.visitChildren(ctx);
+    };
+
+    visitAtIdentifier = (ctx: AtIdentifierContext) => {
+        let name = ctx.text;
+        while(name.startsWith("@")) {
+            name = name.substring(1);
+        }
+        let lower = name.toLowerCase();
+        if(lower == 'concept' || lower == 'cube' || lower == 'period' || lower == 'unit') {
+            return;
+        }
+        this.checkQName(name, ctx, ctx);
     };
 
     protected checkVariableAccess(variableName: string, ctx: ParseTree, identifier: ParseTree) {
@@ -185,7 +208,7 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
     }
 
     visitOutputAttribute = (ctx: OutputAttributeContext) => {
-        this.withLocalVariables({ 'error': {} }, () => this.visitChildren(ctx));
+        this.withLocalVariables({ 'error': {}, 'ok': {}, 'warning': {} }, () => this.visitChildren(ctx));
     };
 
     private withLocalVariables(localVariables: Object, thunk: () => void) {
