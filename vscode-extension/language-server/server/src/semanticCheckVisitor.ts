@@ -18,7 +18,7 @@ import {
     NavigationWhereClauseContext,
     OutputAttributeContext,
     ParametersListContext,
-    PropertyAccessContext,
+    PropertyAccessContext, QnameContext,
     VariableReadContext
 } from "./parser/XULEParser";
 import {Range, TextDocument} from "vscode-languageserver-textdocument";
@@ -40,6 +40,7 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
     checkFunctions = true;
     checkProperties = true;
     checkVariables = true;
+    checkQNames = true;
 
     constructor(public diagnostics: Diagnostic[], protected symbolTable: SymbolTable, protected document: TextDocument) {
         super();
@@ -83,12 +84,16 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
                 if(name.startsWith("$")) {
                     this.checkVariableAccess(name.toLowerCase(), ctx, identifier);
                 } else {
-                    this.checkAttribute(name, ctx, identifier);
+                    this.checkQName(name, ctx, identifier);
                 }
             } else {
                 this.visitChildren(ctx);
             }
         }
+    };
+
+    visitQname = (ctx: QnameContext) => {
+        this.checkQName(ctx.identifier().text, ctx, ctx.identifier());
     };
 
     protected checkVariableAccess(variableName: string, ctx: ParseTree, identifier: ParseTree) {
@@ -114,7 +119,10 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
         }
     }
 
-    protected checkAttribute(name: string, ctx: ParseTree, identifier: ParserRuleContext) {
+    protected checkQName(name: string, ctx: ParseTree, identifier: ParserRuleContext) {
+        if(!this.checkQNames) {
+            return;
+        }
         let namespace = "";
         if(name.indexOf(':') >= 0) {
             let parts = name.split(':');
@@ -147,6 +155,13 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
                 severity: DiagnosticSeverity.Error,
                 range: range,
                 message: "Unknown namespace: " + namespace,
+                source: 'XULE semantic checker'
+            });
+        } else {
+            this.diagnostics.push({
+                severity: DiagnosticSeverity.Warning,
+                range: this.getRange(identifier),
+                message: "Unknown attribute: " + name + " and no default namespace set.",
                 source: 'XULE semantic checker'
             });
         }

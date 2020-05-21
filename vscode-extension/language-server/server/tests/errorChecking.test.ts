@@ -4,7 +4,7 @@ import {XULEParser} from "../src/parser/XULEParser";
 import {CharStreams, CommonTokenStream} from "antlr4ts";
 import {XULELexer} from "../src/parser/XULELexer";
 import {SemanticCheckVisitor} from "../src/semanticCheckVisitor";
-import {initialEnvironment, SymbolTable, SymbolTableVisitor} from "../src/symbols";
+import {Namespace, SymbolTable, SymbolTableVisitor} from "../src/symbols";
 
 describe('Aspect filters', function() {
     it("can declare variables with `as <identifier>`",
@@ -18,7 +18,9 @@ describe('Aspect filters', function() {
             expect(input.index).to.equal(input.size);
             let diagnostics = [];
             let symbolTable = new SymbolTableVisitor().withInitialContext(parseTree).visit(parseTree);
-            new SemanticCheckVisitor(diagnostics, symbolTable, null).visit(parseTree);
+            let visitor = new SemanticCheckVisitor(diagnostics, symbolTable, null);
+            visitor.checkQNames = false;
+            visitor.visit(parseTree);
             expect(diagnostics.length).to.equal(0);
         });
 });
@@ -79,7 +81,75 @@ describe('Navigation', function() {
             expect(input.index).to.equal(input.size);
             let diagnostics = [];
             let symbolTable = new SymbolTableVisitor().withSymbolTable(new SymbolTable()).visit(parseTree);
+            let visitor = new SemanticCheckVisitor(diagnostics, symbolTable, null);
+            visitor.checkQNames = false;
+            visitor.visit(parseTree);
+            expect(diagnostics.length).to.equal(0);
+        });
+});
+
+describe('Qnames', function() {
+    it("are checked in filters: @concept = qname",
+        function() {
+            const xuleCode = `{@concept = Assets}`;
+            let input = CharStreams.fromString(xuleCode);
+            let lexer = new XULELexer(input);
+            let parser = new XULEParser(new CommonTokenStream(lexer));
+            let parseTree = parser.factset();
+            expect(parser.numberOfSyntaxErrors).to.equal(0);
+            expect(input.index).to.equal(input.size);
+
+            let diagnostics = [];
+            let namespace = new Namespace("", [{ localName: 'Assets' }]);
+            let symbolTable = new SymbolTableVisitor().visit(parseTree);
+            symbolTable.namespaces[""] = namespace;
             new SemanticCheckVisitor(diagnostics, symbolTable, null).visit(parseTree);
             expect(diagnostics.length).to.equal(0);
+
+            symbolTable.namespaces = {};
+            diagnostics = [];
+            symbolTable = new SymbolTableVisitor().visit(parseTree);
+            new SemanticCheckVisitor(diagnostics, symbolTable, null).visit(parseTree);
+            expect(diagnostics.length).to.equal(1);
+        });
+    it("are checked in filters: @qname",
+        function() {
+            const xuleCode = `{@Assets}`;
+            let input = CharStreams.fromString(xuleCode);
+            let lexer = new XULELexer(input);
+            let parser = new XULEParser(new CommonTokenStream(lexer));
+            let parseTree = parser.factset();
+            expect(parser.numberOfSyntaxErrors).to.equal(0);
+            expect(input.index).to.equal(input.size);
+
+            let diagnostics = [];
+            let namespace = new Namespace("", [{ localName: 'Assets' }]);
+            let symbolTable = new SymbolTableVisitor().visit(parseTree);
+            symbolTable.namespaces[""] = namespace;
+            new SemanticCheckVisitor(diagnostics, symbolTable, null).visit(parseTree);
+            expect(diagnostics.length).to.equal(0);
+
+            symbolTable.namespaces = {};
+            diagnostics = [];
+            symbolTable = new SymbolTableVisitor().visit(parseTree);
+            new SemanticCheckVisitor(diagnostics, symbolTable, null).visit(parseTree);
+            expect(diagnostics.length).to.equal(1);
+        });
+    it("are checked in filters: axis",
+        function() {
+            const xuleCode = `{@concept = Assets @BalanceSheetLocationAxis=ABCMember}`;
+            let input = CharStreams.fromString(xuleCode);
+            let lexer = new XULELexer(input);
+            let parser = new XULEParser(new CommonTokenStream(lexer));
+            let parseTree = parser.factset();
+            expect(parser.numberOfSyntaxErrors).to.equal(0);
+            expect(input.index).to.equal(input.size);
+
+            let diagnostics = [];
+            let namespace = new Namespace("", [{ localName: 'Assets' }, { localName: 'ABCMember' }]);
+            let symbolTable = new SymbolTableVisitor().visit(parseTree);
+            symbolTable.namespaces[""] = namespace;
+            new SemanticCheckVisitor(diagnostics, symbolTable, null).visit(parseTree);
+            expect(diagnostics.length).to.equal(1);
         });
 });

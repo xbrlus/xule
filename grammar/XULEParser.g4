@@ -63,7 +63,7 @@ aspectFilter:
 
 aspectFilterOptions: (COVERED | COVERED_DIMS) NONILS? | NONILS (COVERED | COVERED_DIMS)?;
 aspectFilterFilter:
-    AT AT? (CONCEPT | identifier) propertyAccess*
+    AT AT? (CONCEPT | qname) propertyAccess*
     ((ASSIGN | NOT_EQUALS | GT | LT | GTE | LTE | NOT? IN) (expression | TIMES))?;
 
 filter: FILTER expression (WHERE block)? (RETURNS filterReturn)?;
@@ -90,6 +90,8 @@ navigationReturnOption: identifier;
 
 arcrole: role;
 role: identifier propertyAccess* | stringLiteral;
+/** This exists so that when suggesting code we can restrict to known attribute names. */
+qname: identifier;
 /** This exists so that when suggesting code we can restrict to well-known keywords. */
 direction: identifier;
 /** This exists so that when suggesting code we can restrict to well-known keywords. */
