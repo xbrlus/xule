@@ -1825,7 +1825,7 @@ PROPERTIES = {
               'days': (property_days, 0, ('instant', 'duration'), False),
               'numerator': (property_numerator, 0, ('unit', ), False),
               'denominator': (property_denominator, 0, ('unit',), False),
-              'attribute': (property_attribute, 1, ('concept', 'relationship'), False),
+              'attribute': (property_attribute, 1, ('concept', 'relationship', 'role'), False),
               'balance': (property_balance, 0, ('concept',), False),              
               'base-type': (property_base_type, 0, ('concept', 'fact'), True),
               'data-type': (property_data_type, 0, ('concept', 'fact'), True), 
