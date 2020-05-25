@@ -1378,6 +1378,12 @@ def property_dts_document_locations(xule_context, object_value, *args):
         locations.add(xv.XuleValue(xule_context, doc_url, 'uri'))
     return xv.XuleValue(xule_context, frozenset(locations), 'set') 
 
+def property_document_location(xule_context, object_value, *args):
+    if hasattr(object_value.value, 'modelDocument'):
+        return xv.XuleValue(xule_context, object_value.value.modelDocument.uri, 'uri')
+    else:
+        return xv.XuleValue(xule_context, None, 'none')
+
 def property_entry_point(xule_context, object_value, *args):
     dts = object_value.value
     
@@ -1898,6 +1904,7 @@ PROPERTIES = {
               'entry-point-namespace': (property_entry_point_namespace, 0, ('taxonomy',), False),
               'effective-weight': (property_effective_weight, 2, ('taxonomy',), False),
               'effective-weight-network': (property_effective_weight_network, -3, ('taxonomy',), False),
+              'document-location': (property_document_location, 0, (), False),
               'all': (property_all, 0, ('set', 'list'), False),
               'any': (property_any, 0, ('set', 'list'), False),
               'first': (property_first, 0, ('set', 'list'), False),
