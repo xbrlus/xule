@@ -1,0 +1,121 @@
+
+constant $form = get_form()
+constant $form-name = if $form == none 'UNKNOWN' else $form.name.local-name
+constant $form-id = if $form == none 'UNKNOWN' else $form.attribute(id)
+
+constant $list-of-schedules-role = 
+    (
+    $roles = (navigate parent-child children from $form 
+                where $last-slash = $relationship.role.uri.last-index-of('/')
+                        $relationship.role.uri.substring($last-slash) == '/ListOfSchedules'
+                returns set role);
+    if $roles.length != 1
+        none
+    else
+        $roles.to-list[1]
+    )
+
+constant $nav = (navigate parent-child children where $relationship.source.data-type.name.local-name == 'scheduleItemType' returns set (source, role)).to-list
+
+function get_form()
+    // Find form concepts
+    $forms = (filter taxonomy().concepts() where $item != none and $item.data-type != none and $item.data-type.name.local-name == 'formItemType').to-list
+    // Find the ones that are used in a presentation
+    $used-forms = (navigate parent-child children from $forms returns set (source)).to-list
+
+    if $used-forms.length == 1
+        $used-forms[1]
+    else
+        none
+
+output a-linkbase
+"<?xml version='1.0' encoding='utf-8'?>
+<!--Initial FERC Form taxonomy-->
+<link:linkbase
+  xmlns:link='http://www.xbrl.org/2003/linkbase'
+  xmlns:xlink='http://www.w3.org/1999/xlink'
+  xmlns:gen='http://xbrl.org/2008/generic'
+  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+  xsi:schemaLocation='http://www.xbrl.org/2003/linkbase http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd
+                      http://xbrl.org/2008/generic http://www.xbrl.org/2008/generic-link.xsd'>
+"
+
+output b-arcrole-ref
+"
+    <link:arcroleRef arcroleURI='http://eforms.ferc.gov/form/2020-01-01/arcroles/schedule-form'
+      xlink:href='../../ferc-core-arcroles_2020-01-01.xsd#schedule-form'
+      xlink:type='simple'/>"
+
+output c1-schedule-role-ref
+    $doc = $list-of-schedules-role.document-location
+    $doc-parts = $doc.split('/')
+    $rel_doc = $doc-parts[8] + '/' + $doc-parts[9] + '/' + $doc-parts[10]
+"
+<link:roleRef roleURI='{$list-of-schedules-role.uri}'
+    xlink:href='../../{$rel_doc}#{$list-of-schedules-role.attribute(id)}'
+    xlink:type='simple'/>"
+
+output c2-role-refs
+/*
+    $sort-prep = filter $nav returns list($item[2].uri, $item[2])
+*/
+    for $x in set(for $y in $nav $y[2])
+        $doc = $x.document-location
+        $doc-parts = $doc.split('/')
+        $rel_doc = $doc-parts[8] + '/' + $doc-parts[9] + '/' + $doc-parts[10]
+"
+    <link:roleRef roleURI='{$x.uri}'
+      xlink:href='../../{$rel_doc}#{$x.attribute(id)}'
+      xlink:type='simple'/>"
+
+output e1-list-of-schedules
+
+    $schedules-concept = taxonomy().concept(qname($form.name.namespace-uri, 'ScheduleListOfSchedulesAbstract'))
+
+
+"<link:presentationLink xlink:role='{$list-of-schedules-role.uri}' xlink:type='extended'>
+    <link:loc xlink:label='lab_{$form-name}' 
+              xlink:href='../../ferc-core_2020-01-01.xsd#{$form-id}'
+              xlink:type='locator'/>
+    <link:loc xlink:label='lab_{$schedules-concept.name.local-name}' 
+              xlink:href='../../ferc-core_2020-01-01.xsd#{$schedules-concept.attribute(id)}'
+              xlink:type='locator'/>
+    <link:presentationArc xlink:type='arc'
+               xlink:arcrole='http://eforms.ferc.gov/form/2020-01-01/arcroles/schedule-form'
+               xlink:from='lab_{$schedules-concept.name.local-name}'               
+               xlink:to='lab_{$form-name}'
+               order='-1'/>
+</link:presentationLink>"
+
+output e2-by-role
+/*
+    $sort-prep = filter $nav returns list($item[1].name.local-name, $item[2].uri, $item[1])
+    for $y in $sort-prep.sort
+        $source-local-name = $y[1]
+        $source-id = $y[3].attribute(id)
+        $role-uri = $y[2]
+        1
+*/
+    for $x in $nav
+        $source-local-name = $x[1].name.local-name
+        $source-id = $x[1].attribute(id)
+        $role-uri = $x[2].uri
+        1
+        
+message
+"<link:presentationLink xlink:role='{$role-uri}' xlink:type='extended'>
+    <link:loc xlink:label='lab_{$form-name}' 
+              xlink:href='../../ferc-core_2020-01-01.xsd#{$form-id}'
+              xlink:type='locator'/>
+    <link:loc xlink:label='lab_{$source-local-name}' 
+              xlink:href='../../ferc-core_2020-01-01.xsd#{$source-id}'
+              xlink:type='locator'/>
+    <link:presentationArc xlink:type='arc'
+               xlink:arcrole='http://eforms.ferc.gov/form/2020-01-01/arcroles/schedule-form'
+               xlink:from='lab_{$source-local-name}'               
+               xlink:to='lab_{$form-name}'
+               order='-1'/>
+</link:presentationLink>"
+
+output f-the-end
+    "</link:linkbase>"
