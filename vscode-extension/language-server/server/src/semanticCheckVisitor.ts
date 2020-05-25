@@ -5,10 +5,9 @@ import {
     Binding,
     FunctionInfo,
     IdentifierInfo,
-    IdentifierType,
+    IdentifierType, OutputAttributeInfo,
     PropertyInfo,
-    SymbolTable,
-    wellKnownVariables
+    SymbolTable, VariableInfo, wellKnownVariables
 } from "./symbols";
 import {
     AssertionContext, AtIdentifierContext,
@@ -82,7 +81,7 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
             if(identifier) {
                 let name = identifier.text;
                 if(name.startsWith("$")) {
-                    this.checkVariableAccess(name.toLowerCase(), ctx, identifier);
+                    this.checkVariableAccess(name, ctx, identifier);
                 } else {
                     this.checkQName(name, ctx, identifier);
                 }
@@ -123,7 +122,7 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
         if(!this.checkVariables) {
             return;
         }
-        let binding = this.lookupIgnoreCase(variableName, ctx);
+        let binding = this.symbolTable.lookup(variableName, ctx);
         const range = this.getRange(identifier);
         if (!binding && !this.localVariables[variableName]) {
             this.diagnostics.push({
@@ -155,14 +154,17 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
         let ns = this.symbolTable.lookupNamespace(namespace);
         if(ns && ns.names) {
             if(!ns.names.find(n => n.localName == name)) {
-                let lower = name.toLowerCase();
                 if(namespace ||
-                    (!wellKnownVariables[lower] && !this.localVariables[lower] && wellKnownOutputAttributes.indexOf(lower) < 0)) {
-                    if(!this.symbolTable.lookup(lower, identifier)) {
+                    (!wellKnownVariables[name] && !this.localVariables[name] && wellKnownOutputAttributes.indexOf(name.toLowerCase()) < 0)) {
+                    let bindings = this.lookupIgnoreCase(name, identifier);
+                    if(!bindings || !bindings.find(
+                        b => b.name == name ||
+                            b.meaning.find(m => m instanceof OutputAttributeInfo) ||
+                            b.meaning.find(m => m instanceof VariableInfo && m.ignoreCase))) {
                         this.diagnostics.push({
                             severity: DiagnosticSeverity.Warning,
                             range: this.getRange(identifier),
-                            message: "Unknown attribute: " + name + " in namespace " + ns.uri,
+                            message: "Unknown local name: " + name + " in namespace " + ns.uri,
                             source: 'XULE semantic checker'
                         });
                     }
@@ -248,17 +250,18 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
     };
 
     protected lookupIgnoreCase(name: string, ctx: ParseTree) {
+        let lower = name.toLowerCase();
         function lookup(binding) {
-            return binding.name.toString().toLowerCase() == name;
+            return binding.name.toString().toLowerCase() == lower;
         }
-        return this.symbolTable.lookup(lookup, ctx);
+        return this.symbolTable.lookupAll(lookup, ctx);
     }
 
     protected checkFunctionCall(identifier: VariableReadContext, ctx: ExpressionContext, parametersList: ParametersListContext) {
         if(!this.checkFunctions) {
             return;
         }
-        let functionName = identifier.text.toLowerCase();
+        let functionName = identifier.text;
         const range = this.getRange(identifier);
         if (functionName.startsWith("$")) {
             this.diagnostics.push({
@@ -268,7 +271,7 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
                 source: 'XULE semantic checker'
             });
         } else {
-            let binding = this.lookupIgnoreCase(functionName, ctx);
+            let binding = this.symbolTable.lookup(functionName, ctx);
             let wnf = wellKnownFunctions[functionName];
             if (!binding && !wnf) {
                 this.diagnostics.push({
@@ -304,8 +307,7 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
 
     private checkPropertyArity(p: PropertyAccessContext) {
         let identifier = p.propertyRef();
-        let rawPropertyName = identifier.text;
-        let propertyName = rawPropertyName.toLowerCase();
+        let propertyName = identifier.text;
         let property = wellKnownProperties[propertyName];
         if(!property) {
             return;
@@ -317,7 +319,7 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
             this.diagnostics.push({
                 severity: DiagnosticSeverity.Error,
                 range: range,
-                message: `${rawPropertyName} requires exactly ${arity} parameters`,
+                message: `${propertyName} requires exactly ${arity} parameters`,
                 source: 'XULE semantic checker'
             });
         } else if (arity) {
@@ -325,7 +327,7 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
                 this.diagnostics.push({
                     severity: DiagnosticSeverity.Error,
                     range: range,
-                    message: `${rawPropertyName} requires at least ${arity.min} parameters`,
+                    message: `${propertyName} requires at least ${arity.min} parameters`,
                     source: 'XULE semantic checker'
                 });
             }
@@ -333,7 +335,7 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
                 this.diagnostics.push({
                     severity: DiagnosticSeverity.Error,
                     range: range,
-                    message: `${rawPropertyName} requires at most ${arity.max} parameters`,
+                    message: `${propertyName} requires at most ${arity.max} parameters`,
                     source: 'XULE semantic checker'
                 });
             }
@@ -342,15 +344,14 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
 
     private checkPropertyExists(p: PropertyAccessContext) {
         let identifier = p.propertyRef();
-        let rawPropertyName = identifier.text;
-        let propertyName = rawPropertyName.toLowerCase();
+        let propertyName = identifier.text;
         let property = wellKnownProperties[propertyName];
         if (!property) {
             let range = this.getRange(identifier);
             this.diagnostics.push({
                 severity: DiagnosticSeverity.Warning,
                 range: range,
-                message: "Unknown property: " + rawPropertyName,
+                message: "Unknown property: " + propertyName,
                 source: 'XULE semantic checker'
             });
             return false;

@@ -160,7 +160,7 @@ export class FunctionInfo extends IdentifierInfo {
 export class PropertyInfo extends FunctionInfo {}
 
 export class VariableInfo extends IdentifierInfo {
-	constructor(public isConstant?: boolean) {
+	constructor(public isConstant?: boolean, public ignoreCase?: boolean) {
 		super();
 		this.type = isConstant ? IdentifierType.CONSTANT : IdentifierType.VARIABLE;
 	}
@@ -180,7 +180,7 @@ export const wellKnownVariables = {
 	"debit": {},
 	"duration": {},
 	"error": {},
-	"inf": {},
+	"inf": { isConstant: true, ignoreCase: true },
 	"instant": {},
 	"none": {},
 	"skip": {},
@@ -196,7 +196,8 @@ export const wellKnownVariables = {
 	"summation-item": {},
 };
 for(let name in wellKnownVariables) {
-	initialEnvironment.bindings.push({ name: name, meaning: [new VariableInfo()] });
+	let info = wellKnownVariables[name];
+	initialEnvironment.bindings.push({ name: name, meaning: [new VariableInfo(info.isConstant, info.ignoreCase)] });
 }
 
 export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> implements XULEParserVisitor<SymbolTable> {
@@ -313,7 +314,7 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 	};
 
 	visitOutputAttributeDeclaration = (ctx: OutputAttributeDeclarationContext) => {
-		this.symbolTable.record(ctx.identifier().text.toLowerCase(), [new OutputAttributeInfo()], this.context);
+		this.symbolTable.record(ctx.identifier().text, [new OutputAttributeInfo()], this.context);
 		return this.visitChildren(ctx);
 	};
 
