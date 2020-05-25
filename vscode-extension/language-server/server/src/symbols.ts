@@ -2,7 +2,7 @@ import {AbstractParseTreeVisitor, ParseTree, RuleNode} from 'antlr4ts/tree';
 import {XULEParserVisitor} from './parser/XULEParserVisitor';
 import {
 	AspectFilterContext, AssertionContext,
-	AssignedVariableContext,
+	AssignedVariableContext, BlockContext,
 	ConstantDeclarationContext,
 	ForExpressionContext,
 	FunctionArgumentContext,
@@ -238,6 +238,8 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 			if(this.context instanceof CompilationUnit && this.context.children.indexOf(ctx) != this.context.childCount - 1) {
 				return this.visitChildren(ctx);
 			} else {
+				//Establish environment for the file, so that the scope chain will include it even if it's empty initially
+				this.symbolTable.record("global-environment", [], ctx);
 				return this.withNewContext(ctx, () => this.visitChildren(ctx));
 			}
 		});
@@ -256,8 +258,19 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 		return this.withNewContext(ctx, () => this.visitChildren(ctx));
 	};
 
+	visitBlock = (ctx: BlockContext) => {
+		return this.withNewContext(ctx, () => this.visitChildren(ctx));
+	};
+
 	visitConstantDeclaration = (ctx: ConstantDeclarationContext) => {
-		this.symbolTable.record(ctx.identifier().text, [new VariableInfo(true)], this.context);
+		//Constants are always global in scope
+		let context = this.getGlobalContext();
+		let name = ctx.identifier().text;
+		if(context) {
+			this.symbolTable.record(name, [new VariableInfo(true)], context);
+		} else {
+			console.warn("Constant outside an assertion, ignoring: " + name);
+		}
 		return this.visitChildren(ctx);
 	};
 
@@ -268,10 +281,7 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 
 	visitTag = (ctx: TagContext) => {
 		//Tags are always global in scope
-		let context = this.context;
-		while(context && !(context instanceof XuleFileContext)) {
-			context = context.parent;
-		}
+		let context = this.getGlobalContext();
 		let tag = ctx.identifier().text;
 		if(context) {
 			this.symbolTable.record("$" + tag, [new VariableInfo()], context);
@@ -281,6 +291,13 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 		return this.visitChildren(ctx);
 	};
 
+	private getGlobalContext(context: ParseTree = this.context) {
+		while (context && !(context instanceof XuleFileContext || context instanceof CompilationUnit)) {
+			context = context.parent;
+		}
+		return context;
+	}
+
 	visitForExpression = (ctx: ForExpressionContext) => {
 		this.symbolTable.record(ctx.forHead().forVariable().identifier().text, [new VariableInfo()], this.context);
 		return this.visitChildren(ctx);
@@ -289,7 +306,14 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 	visitFunctionDeclaration = (ctx: FunctionDeclarationContext) => {
 		let functionInfo = new FunctionInfo();
 		functionInfo.arity = ctx.functionArgument().length;
-		this.symbolTable.record(ctx.identifier().text, [functionInfo], this.context);
+		//Functions are always global in scope
+		let context = this.getGlobalContext();
+		let name = ctx.identifier().text;
+		if(context) {
+			this.symbolTable.record(name, [functionInfo], context);
+		} else {
+			console.warn("Function outside an assertion, ignoring: " + name);
+		}
 		return this.withNewContext(ctx, () => this.visitChildren(ctx));
 	};
 

@@ -4,7 +4,7 @@ tokens {
     STRING_CONTENTS
 }
 
-LINE_COMMENT: ('//' [^\n\r]*) -> channel(HIDDEN);
+LINE_COMMENT: ('//' ~[\n\r]*) -> channel(HIDDEN);
 BLOCK_COMMENT: ('/*' .*? '*/') -> channel(HIDDEN);
 WS: (' ' | '\t' | '\n' | '\r' | '\u00A0') -> channel(HIDDEN);
 

@@ -40,6 +40,7 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
     checkProperties = true;
     checkVariables = true;
     checkQNames = true;
+    scopedVariables = true;
 
     constructor(public diagnostics: Diagnostic[], protected symbolTable: SymbolTable, protected document: TextDocument) {
         super();
@@ -48,19 +49,6 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
     protected defaultResult(): any {
         return undefined;
     }
-
-    visitAssertion = (ctx: AssertionContext) => {
-        if(ctx.expression().length == 0) {
-            let range = this.getRange(ctx.ASSERT());
-            this.diagnostics.push({
-                severity: DiagnosticSeverity.Error,
-                range: range,
-                message: `Assertions must contain at least one expression`,
-                source: 'XULE semantic checker'
-            });
-        }
-        return this.visitChildren(ctx);
-    };
 
     visitExpression = (ctx: ExpressionContext) => {
         if(ctx.propertyAccess().length > 0) {
@@ -122,20 +110,31 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
         if(!this.checkVariables) {
             return;
         }
+        //First, search in local scope
         let binding = this.symbolTable.lookup(variableName, ctx);
+        if(!binding) {
+            //Then, search in global scope, but only accept it if !scopedVariables or if it's a constant
+            let scope = this.symbolTable.symbols.find(s => s.environment.find(variableName));
+            if(scope) {
+                let candidateBinding = scope.environment.find(variableName);
+                if((!this.scopedVariables || bindingInfo(candidateBinding, IdentifierType.CONSTANT))) {
+                    binding = candidateBinding;
+                }
+            }
+        }
         const range = this.getRange(identifier);
         if (!binding && !this.localVariables[variableName]) {
             this.diagnostics.push({
                 severity: DiagnosticSeverity.Warning,
                 range: range,
-                message: "Unknown variable or constant: " + identifier.text,
+                message: `Unknown variable or constant: ${identifier.text}`,
                 source: 'XULE semantic checker'
             });
         } else if (binding && !bindingInfo(binding, IdentifierType.CONSTANT) && !bindingInfo(binding, IdentifierType.VARIABLE)) {
             this.diagnostics.push({
                 severity: DiagnosticSeverity.Warning,
                 range: range,
-                message: "Not a variable or constant: " + identifier.text,
+                message: `Not a variable or constant: ${identifier.text}`,
                 source: 'XULE semantic checker'
             });
         }
@@ -210,7 +209,12 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
     }
 
     visitOutputAttribute = (ctx: OutputAttributeContext) => {
-        this.withLocalVariables({ 'error': {}, 'ok': {}, 'warning': {} }, () => this.visitChildren(ctx));
+        try {
+            this.scopedVariables = false;
+            return this.withLocalVariables({ 'error': {}, 'ok': {}, 'warning': {} }, () => this.visitChildren(ctx));
+        } finally {
+            this.scopedVariables = true;
+        }
     };
 
     private withLocalVariables(localVariables: Object, thunk: () => void) {

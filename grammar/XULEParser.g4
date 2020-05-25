@@ -11,15 +11,16 @@ namespaceDeclaration: NAMESPACE (identifier ASSIGN)? URL;
 outputAttributeDeclaration: OUTPUT_ATTRIBUTE identifier;
 ruleNamePrefixDeclaration: RULE_NAME_PREFIX identifier;
 
+outputAttribute: outputAttributeName expression SEMI?;
+
 output:
     OUTPUT OUTPUT_RULE_NAME (OPEN_BRACKET AT identifier CLOSE_BRACKET)?
-    (constantDeclaration | assignment)*
-    expression (outputAttribute SEMI?)*;
-outputAttribute: outputAttributeName expression;
+    constantDeclaration* block outputAttribute*;
 
 assertion:
     ASSERT ASSERT_RULE_NAME (ASSERT_SATISFIED | ASSERT_UNSATISFIED)
-    (constantDeclaration | functionDeclaration | assignment | outputAttribute SEMI | expression)+;
+    (constantDeclaration | functionDeclaration)*
+    block outputAttribute*;
 
 constantDeclaration: CONSTANT identifier ASSIGN expression;
 functionDeclaration: FUNCTION identifier OPEN_PAREN (functionArgument (COMMA functionArgument)*)? CLOSE_PAREN block;
@@ -45,7 +46,7 @@ expression:
     //"Simple" expressions
     literal | variableRead | factset | filter | navigation;
 
-block: assignment* expression;
+block: assignment block | expression;
 
 assignment: assignedVariable ASSIGN block SEMI?;
 ifExpression: IF expression block ELSE block;

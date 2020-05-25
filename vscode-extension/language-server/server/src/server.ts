@@ -557,7 +557,7 @@ function fuzzySearch(text: string, candidates: string[]) {
 
 function suggestIdentifiers(
 	nodeInfo: NodeInfo, declarationType: IdentifierType, completionKind: CompletionItemKind,
-	symbolTable: SymbolTable, completions: any[]) {
+	symbolTable: SymbolTable, completions: any[], global?: boolean) {
 	function filter(n) {
 		return function(b) {
 			let results = fuzzySearch(n, [b.name.toLowerCase()]);
@@ -567,7 +567,13 @@ function suggestIdentifiers(
 	}
 
 	let match = nodeInfo.textToMatch;
-	let known = symbolTable.lookupAll(filter(match), nodeInfo.node);
+	let known = [];
+	if(global) {
+		let allMatching = symbolTable.symbols.map(s => s.environment.findAll(filter(match)));
+		allMatching.forEach(list => known.push(list.filter(x => x)));
+	} else {
+		known = symbolTable.lookupAll(filter(match), nodeInfo.node);
+	}
 	known.forEach(c => {
 		if (!completions.find(co => co.label == c.name)) {
 			let label: string = c.name;
