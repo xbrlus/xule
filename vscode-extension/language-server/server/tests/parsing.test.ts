@@ -16,7 +16,21 @@ describe('Assert rule names', function() {
 	});
 });
 
-describe('Variable assignment', function() {
+describe('Assertions', function() {
+	it("must contain at least an expression",
+		function() {
+			const xuleCode = `assert F126 unsatisfied $sum1 = 1 message "{$sum1}"`;
+			let input = CharStreams.fromString(xuleCode);
+			let lexer = new XULELexer(input);
+			let parser = new XULEParser(new CommonTokenStream(lexer));
+			let parseTree = parser.assertion();
+			expect(parser.numberOfSyntaxErrors).to.equal(0);
+			expect(input.index).to.not.equal(input.size);
+		});
+});
+
+
+describe('Assignment', function() {
 	it("doesn't need to end with a semicolon", function() {
 		const xuleCode = `
 output ND8

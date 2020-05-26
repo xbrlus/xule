@@ -24,6 +24,24 @@ describe('Aspect filters', function() {
             expect(diagnostics.length).to.equal(0);
         });
 });
+
+describe('Constants', function() {
+    it("cannot be redefined",
+        function() {
+            const xuleCode = `constant $a = 10 constant $a = 15`;
+            let input = CharStreams.fromString(xuleCode);
+            let lexer = new XULELexer(input);
+            let parser = new XULEParser(new CommonTokenStream(lexer));
+            let parseTree = parser.xuleFile();
+            expect(parser.numberOfSyntaxErrors).to.equal(0);
+            expect(input.index).to.equal(input.size);
+            let diagnostics = [];
+            let symbolTable = new SymbolTableVisitor().withInitialContext(parseTree).visit(parseTree);
+            new SemanticCheckVisitor(diagnostics, symbolTable, null).visit(parseTree);
+            expect(diagnostics.length).to.equal(2);
+        });
+});
+
 describe('Factsets', function() {
     it("invalid forms are detected",
         function() {
@@ -84,23 +102,6 @@ describe('Factsets', function() {
             let visitor = new SemanticCheckVisitor(diagnostics, symbolTable, null);
             visitor.visit(parseTree);
             expect(diagnostics.length).to.equal(2);
-        });
-});
-
-describe('Assertions', function() {
-    it("must contain at least an expression",
-        function() {
-            const xuleCode = `assert F126 unsatisfied $sum1 = 1 message "{$sum1}"`;
-            let input = CharStreams.fromString(xuleCode);
-            let lexer = new XULELexer(input);
-            let parser = new XULEParser(new CommonTokenStream(lexer));
-            let parseTree = parser.assertion();
-            expect(parser.numberOfSyntaxErrors).to.equal(0);
-            expect(input.index).to.equal(input.size);
-            let diagnostics = [];
-            let symbolTable = new SymbolTableVisitor().withInitialContext(parseTree).visit(parseTree);
-            new SemanticCheckVisitor(diagnostics, symbolTable, null).visit(parseTree);
-            expect(diagnostics.length).to.equal(1);
         });
 });
 
@@ -213,5 +214,56 @@ describe('Qnames', function() {
             symbolTable.namespaces[""] = namespace;
             new SemanticCheckVisitor(diagnostics, symbolTable, null).visit(parseTree);
             expect(diagnostics.length).to.equal(1);
+        });
+});
+
+describe('Variable scoping', function() {
+    it("is limited to the defining block",
+        function() {
+            const xuleCode = `if true $a = 5 $a else $a`;
+            let input = CharStreams.fromString(xuleCode);
+            let lexer = new XULELexer(input);
+            let parser = new XULEParser(new CommonTokenStream(lexer));
+            let parseTree = parser.expression();
+            expect(parser.numberOfSyntaxErrors).to.equal(0);
+            expect(input.index).to.equal(input.size);
+            let diagnostics = [];
+            let symbolTable = new SymbolTableVisitor().visit(parseTree);
+            let visitor = new SemanticCheckVisitor(diagnostics, symbolTable, null);
+            visitor.checkQNames = false;
+            visitor.visit(parseTree);
+            expect(diagnostics.length).to.equal(1);
+        });
+    it("is determined by the order of declaration (1)",
+        function() {
+            const xuleCode = `$c = $a + $b $a = 5 $b = 3 $c`;
+            let input = CharStreams.fromString(xuleCode);
+            let lexer = new XULELexer(input);
+            let parser = new XULEParser(new CommonTokenStream(lexer));
+            let parseTree = parser.block();
+            expect(parser.numberOfSyntaxErrors).to.equal(0);
+            expect(input.index).to.equal(input.size);
+            let diagnostics = [];
+            let symbolTable = new SymbolTableVisitor().visit(parseTree);
+            let visitor = new SemanticCheckVisitor(diagnostics, symbolTable, null);
+            visitor.checkQNames = false;
+            visitor.visit(parseTree);
+            expect(diagnostics.length).to.equal(2);
+        });
+    it("is determined by the order of declaration (2)",
+        function() {
+            const xuleCode = `$a = 5 $b = 3 $a = 10 $c = $a + $b $c`;
+            let input = CharStreams.fromString(xuleCode);
+            let lexer = new XULELexer(input);
+            let parser = new XULEParser(new CommonTokenStream(lexer));
+            let parseTree = parser.block();
+            expect(parser.numberOfSyntaxErrors).to.equal(0);
+            expect(input.index).to.equal(input.size);
+            let diagnostics = [];
+            let symbolTable = new SymbolTableVisitor().visit(parseTree);
+            let visitor = new SemanticCheckVisitor(diagnostics, symbolTable, null);
+            visitor.checkQNames = false;
+            visitor.visit(parseTree);
+            expect(diagnostics.length).to.equal(0);
         });
 });

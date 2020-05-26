@@ -160,6 +160,9 @@ export class FunctionInfo extends IdentifierInfo {
 export class PropertyInfo extends FunctionInfo {}
 
 export class VariableInfo extends IdentifierInfo {
+
+	public definedAt: { line: number, column: number };
+
 	constructor(public isConstant?: boolean, public ignoreCase?: boolean) {
 		super();
 		this.type = isConstant ? IdentifierType.CONSTANT : IdentifierType.VARIABLE;
@@ -267,7 +270,11 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 		let context = this.getGlobalContext();
 		let name = ctx.identifier().text;
 		if(context) {
-			this.symbolTable.record(name, [new VariableInfo(true)], context);
+			let info = new VariableInfo(true);
+			info.definedAt = {
+				line: ctx.start.line, column: ctx.start.charPositionInLine + 1
+			};
+			this.symbolTable.record(name, [info], context);
 		} else {
 			console.warn("Constant outside an assertion, ignoring: " + name);
 		}

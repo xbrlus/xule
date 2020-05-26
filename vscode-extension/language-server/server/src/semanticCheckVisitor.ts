@@ -5,13 +5,18 @@ import {
     Binding,
     FunctionInfo,
     IdentifierInfo,
-    IdentifierType, OutputAttributeInfo,
+    IdentifierType,
+    OutputAttributeInfo,
     PropertyInfo,
-    SymbolTable, VariableInfo, wellKnownVariables
+    SymbolTable,
+    VariableInfo,
+    wellKnownVariables
 } from "./symbols";
 import {
-    AssertionContext, AtIdentifierContext,
-    ExpressionContext, FactsetBodyContext,
+    AtIdentifierContext,
+    ConstantDeclarationContext,
+    ExpressionContext,
+    FactsetBodyContext,
     FilterContext,
     FunctionDeclarationContext,
     NavigationWhereClauseContext,
@@ -49,6 +54,21 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
     protected defaultResult(): any {
         return undefined;
     }
+
+    visitConstantDeclaration = (ctx: ConstantDeclarationContext) => {
+        let bindings = this.symbolTable.lookupAll(ctx.identifier().text, ctx);
+        if(bindings) {
+            bindings = bindings.filter(b => bindingInfo(b, IdentifierType.CONSTANT));
+        }
+        if(bindings && bindings.length > 1) {
+            this.diagnostics.push({
+                severity: DiagnosticSeverity.Error,
+                range: this.getRange(ctx),
+                message: "Constant defined more than once",
+                source: 'XULE semantic checker'
+            });
+        }
+    };
 
     visitExpression = (ctx: ExpressionContext) => {
         if(ctx.propertyAccess().length > 0) {
