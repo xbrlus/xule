@@ -1,8 +1,7 @@
-import {AbstractParseTreeVisitor, ParseTree, RuleNode} from 'antlr4ts/tree';
+import {AbstractParseTreeVisitor, ParseTree} from 'antlr4ts/tree';
 import {XULEParserVisitor} from './parser/XULEParserVisitor';
 import {
-	AspectFilterContext, AssertionContext,
-	AssignedVariableContext, BlockContext,
+	AspectFilterContext, AssignedVariableContext, BlockContext,
 	ConstantDeclarationContext,
 	ForExpressionContext,
 	FunctionArgumentContext,
@@ -89,7 +88,8 @@ export class CompilationUnit extends ParserRuleContext {
 
 export class SymbolTable {
 	public symbols: { scope: ParseTree, environment: Environment }[] = [];
-	public namespaces: { [name: string]: Namespace } = {};
+	public namespaces: { [name: string]: { namespace: Namespace, definedAt: ParseTree }} = {};
+	public errors: { message: string, scope: ParseTree }[] = [];
 
 	constructor(protected globalEnvironment = new Environment()) {}
 
@@ -250,10 +250,25 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 
 	visitNamespaceDeclaration = (ctx: NamespaceDeclarationContext) => {
 		if(ctx.exception) {
-			return;
+			return this.symbolTable;
 		}
 		let localName = ctx.identifier() ? ctx.identifier().text : "";
-		this.symbolTable.namespaces[localName] = this.lookupNamespace(ctx.URL().text);
+		if(this.symbolTable.namespaces[localName]) {
+			let message = (localName ? `Namespace '${localName}'` : "The default namespace") + " is defined more than once";
+			this.symbolTable.errors.push({
+				message: message,
+				scope: ctx
+			});
+			let scope = this.symbolTable.namespaces[localName].definedAt;
+			if(!this.symbolTable.errors.find(e => e.message == message && e.scope == scope)) {
+				this.symbolTable.errors.push({ message: message, scope: scope });
+			}
+			return this.symbolTable;
+		}
+		this.symbolTable.namespaces[localName] = {
+			namespace: this.lookupNamespace(ctx.URL().text),
+			definedAt: ctx
+		};
 		return this.visitChildren(ctx);
 	};
 
@@ -298,7 +313,7 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 		return this.visitChildren(ctx);
 	};
 
-	private getGlobalContext(context: ParseTree = this.context) {
+	protected getGlobalContext(context: ParseTree = this.context) {
 		while (context && !(context instanceof XuleFileContext || context instanceof CompilationUnit)) {
 			context = context.parent;
 		}

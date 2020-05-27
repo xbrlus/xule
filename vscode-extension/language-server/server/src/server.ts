@@ -670,13 +670,14 @@ function suggestQNames(nodeInfo: NodeInfo, kind: CompletionItemKind, symbolTable
 	} else {
 		let namespaces = [];
 		for(let n in symbolTable.namespaces) {
-			if(n) { namespaces.push(n + ":");	}
+			if(n) {
+				namespaces.push(n + ":")}
 		}
 		maybeSuggest(namespaces, textToMatch, CompletionItemKind.Enum, completions);
 	}
 	let ns = symbolTable.lookupNamespace(namespace);
-	if(ns && ns.names) {
-		maybeSuggest(ns.names.map(n => n.localName), textToMatch, kind, completions);
+	if(ns && ns.namespace.names) {
+		maybeSuggest(ns.namespace.names.map(n => n.localName), textToMatch, kind, completions);
 	}
 }
 

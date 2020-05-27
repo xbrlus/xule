@@ -23,7 +23,7 @@ import {
     OutputAttributeContext,
     ParametersListContext,
     PropertyAccessContext,
-    VariableReadContext
+    VariableReadContext, XuleFileContext
 } from "./parser/XULEParser";
 import {Range, TextDocument} from "vscode-languageserver-textdocument";
 import {ParserRuleContext} from "antlr4ts";
@@ -38,7 +38,7 @@ function bindingInfo(binding: Binding, type: IdentifierType) {
     }
 }
 
-export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> implements XULEParserVisitor<any> {
+export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implements XULEParserVisitor<any> {
 
     localVariables = {};
     checkFunctions = true;
@@ -54,6 +54,28 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
     protected defaultResult(): any {
         return undefined;
     }
+
+    visitXuleFile = (ctx: XuleFileContext) => {
+        this.symbolTable.errors.forEach(e => {
+            let file = e.scope;
+            while(!(file instanceof XuleFileContext)) {
+                if(file) {
+                    file = file.parent;
+                } else {
+                    break;
+                }
+            }
+            if(file == ctx) {
+                this.diagnostics.push({
+                    severity: DiagnosticSeverity.Error,
+                    range: this.getRange(e.scope),
+                    message: e.message,
+                    source: 'XULE semantic checker'
+                });
+            }
+        });
+        return this.visitChildren(ctx);
+    };
 
     visitConstantDeclaration = (ctx: ConstantDeclarationContext) => {
         let bindings = this.symbolTable.lookupAll(ctx.identifier().text, ctx);
@@ -171,8 +193,8 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
             name = parts.slice(1).join(":");
         }
         let ns = this.symbolTable.lookupNamespace(namespace);
-        if(ns && ns.names) {
-            if(!ns.names.find(n => n.localName == name)) {
+        if(ns && ns.namespace.names) {
+            if(!ns.namespace.names.find(n => n.localName == name)) {
                 if(namespace ||
                     (!wellKnownVariables[name] && !this.localVariables[name] && wellKnownOutputAttributes.indexOf(name.toLowerCase()) < 0)) {
                     let bindings = this.lookupIgnoreCase(name, identifier);
@@ -183,7 +205,7 @@ export class SemanticCheckVisitor  extends AbstractParseTreeVisitor<any> impleme
                         this.diagnostics.push({
                             severity: DiagnosticSeverity.Warning,
                             range: this.getRange(identifier),
-                            message: "Unknown local name: " + name + " in namespace " + ns.uri,
+                            message: "Unknown local name: " + name + " in namespace " + ns.namespace.uri,
                             source: 'XULE semantic checker'
                         });
                     }
