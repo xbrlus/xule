@@ -1,0 +1,2012 @@
+{
+    "http://xbrl.sec.gov/country/2020-01-31": [
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:AM",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "AM",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:MF",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "MF",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:MY",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "MY",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:TO",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "TO",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:ZA",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "ZA",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:IS",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "IS",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:SV",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "SV",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:YT",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "YT",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:IN",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "IN",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:BM",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "BM",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:KN",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "KN",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:SC",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "SC",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:GN",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "GN",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:SJ",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "SJ",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:AO",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "AO",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:HR",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "HR",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:LT",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "LT",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:NG",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "NG",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:SA",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "SA",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:FO",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "FO",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:SE",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "SE",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:VA",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "VA",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:CX",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "CX",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:AD",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "AD",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:PT",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "PT",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:PW",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "PW",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:BF",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "BF",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:FM",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "FM",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:IO",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "IO",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:TW",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "TW",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:OM",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "OM",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:EC",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "EC",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:KI",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "KI",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:LA",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "LA",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:CL",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "CL",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:AI",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "AI",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:ID",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "ID",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:KH",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "KH",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:KE",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "KE",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:IQ",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "IQ",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:AW",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "AW",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:TT",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "TT",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:CA",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "CA",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:PM",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "PM",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:NA",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "NA",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:JO",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "JO",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:YE",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "YE",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:ZW",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "ZW",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:KY",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "KY",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:CM",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "CM",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:BZ",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "BZ",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:PY",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "PY",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:CV",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "CV",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:SR",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "SR",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:AG",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "AG",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:GW",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "GW",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:UG",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "UG",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:HT",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "HT",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:BR",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "BR",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:DZ",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "DZ",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:GR",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "GR",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:RE",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "RE",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:ZM",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "ZM",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:NF",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "NF",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:CW",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "CW",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:SL",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "SL",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:PK",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "PK",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:RW",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "RW",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:PL",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "PL",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:RO",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "RO",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:TM",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "TM",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:NC",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "NC",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:QA",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "QA",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:BV",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "BV",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:CI",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "CI",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:CC",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "CC",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:KM",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "KM",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:TK",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "TK",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:NO",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "NO",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:TD",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "TD",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:GS",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "GS",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:TR",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "TR",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:ML",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "ML",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:UZ",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "UZ",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:NI",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "NI",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:SI",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "SI",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:AQ",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "AQ",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:GQ",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "GQ",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:PS",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "PS",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:SO",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "SO",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:FR",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "FR",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:GF",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "GF",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:LU",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "LU",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:AS",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "AS",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:TZ",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "TZ",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:BG",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "BG",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:PH",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "PH",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:BD",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "BD",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:BL",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "BL",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:LB",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "LB",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:BJ",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "BJ",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:LI",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "LI",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:LC",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "LC",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:SN",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "SN",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:HU",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "HU",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:SX",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "SX",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:MS",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "MS",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:MC",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "MC",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:MO",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "MO",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:WS",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "WS",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:IE",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "IE",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:AU",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "AU",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:TV",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "TV",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:US",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "US",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:NR",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "NR",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:KG",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "KG",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:AllCountriesDomain",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "AllCountriesDomain",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:BA",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "BA",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:GD",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "GD",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:DO",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "DO",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:GB",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "GB",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:CK",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "CK",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:MW",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "MW",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:WF",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "WF",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:AX",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "AX",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:BE",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "BE",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:TN",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "TN",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:JP",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "JP",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:UA",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "UA",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:EG",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "EG",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:GE",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "GE",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:GH",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "GH",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:ME",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "ME",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:TG",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "TG",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:MQ",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "MQ",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:PG",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "PG",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:KP",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "KP",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:HM",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "HM",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:AT",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "AT",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:BO",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "BO",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:BQ",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "BQ",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:BS",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "BS",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:CZ",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "CZ",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:SH",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "SH",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:GA",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "GA",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:ER",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "ER",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:CD",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "CD",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:GP",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "GP",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:UY",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "UY",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:VE",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "VE",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:MH",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "MH",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:RS",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "RS",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:MG",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "MG",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:IM",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "IM",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:KZ",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "KZ",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:SM",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "SM",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:TL",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "TL",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:CY",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "CY",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:BH",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "BH",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:PR",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "PR",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:GM",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "GM",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:DJ",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "DJ",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:TF",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "TF",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:MT",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "MT",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:LY",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "LY",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:PE",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "PE",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:NU",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "NU",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:MM",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "MM",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:BB",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "BB",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:MP",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "MP",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:GG",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "GG",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:DM",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "DM",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:GT",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "GT",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:NL",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "NL",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:DE",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "DE",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:VG",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "VG",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:CU",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "CU",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:VU",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "VU",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:NE",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "NE",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:AE",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "AE",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:LS",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "LS",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:FJ",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "FJ",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:BT",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "BT",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:MZ",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "MZ",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:IR",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "IR",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:TJ",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "TJ",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:HN",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "HN",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:CN",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "CN",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:CO",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "CO",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:LR",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "LR",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:MN",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "MN",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:MR",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "MR",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:UM",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "UM",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:PN",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "PN",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:XX",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "XX",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:GY",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "GY",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:MX",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "MX",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:KW",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "KW",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:RU",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "RU",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:CH",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "CH",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:BW",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "BW",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:CG",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "CG",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:JE",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "JE",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:GU",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "GU",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:FI",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "FI",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:LK",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "LK",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:BY",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "BY",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:AF",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "AF",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:EE",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "EE",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:PA",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "PA",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:VI",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "VI",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:TH",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "TH",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:MD",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "MD",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:BI",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "BI",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:JM",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "JM",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:HK",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "HK",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:MA",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "MA",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:MV",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "MV",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:SS",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "SS",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:CR",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "CR",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:DK",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "DK",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:LV",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "LV",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:TC",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "TC",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:SG",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "SG",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:ET",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "ET",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:PF",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "PF",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:FK",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "FK",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:KR",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "KR",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:EH",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "EH",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:SB",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "SB",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:GI",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "GI",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:SD",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "SD",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:VN",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "VN",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:ES",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "ES",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:GL",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "GL",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:AZ",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "AZ",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:IT",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "IT",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:SY",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "SY",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:VC",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "VC",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:AR",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "AR",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:SK",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "SK",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:ST",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "ST",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:SZ",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "SZ",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:CF",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "CF",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:IL",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "IL",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:AL",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "AL",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:NP",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "NP",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:NZ",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "NZ",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:MK",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "MK",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:BN",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "BN",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "label": "country:MU",
+            "type": "Concept",
+            "periodType": "duration",
+            "localName": "MU",
+            "isAbstract": "true"
+        }
+    ]
+}
