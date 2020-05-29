@@ -6,6 +6,7 @@ Mark V copyright applies to this software, which is licensed according to the te
 '''
 import sys, os, io, time, re, datetime
 from math import isnan, isinf, floor, ceil
+import datetime
 from decimal import Decimal
 from arelle.ModelValue import dateTime
 import socket
@@ -860,7 +861,17 @@ WITH row_values (%(newCols)s) AS (
         elif self.product.startswith('mssql'):
             sql = tuple()
             # going to process each row separately
+            row_count = 0
+
+            if TRACESQLFILE:
+                exist_time = datetime.timedelta()
+                insert_time = datetime.timedelta()
+                trace_start = datetime.datetime.today()
+                with io.open(TRACESQLFILE, "a", encoding='utf-8') as fh:
+                    fh.write("\n************ Table: {} ************\n".format(table))
+
             for row in rowValues:
+                row_count += 1
                 predicate_list = []
                 predicate_params = []
                 predicate_names = []
@@ -887,11 +898,38 @@ WITH row_values (%(newCols)s) AS (
                         table_name=_table,
                         predicate=predicate
                     )
-                    result = self.execute(exist_query, 
-                                          params=predicate_params if len(predicate_params) > 0 else None, 
-                                          fetch=returnMatches or returnExistenceStatus, 
-                                          close=False, commit=commit)
-                    tableRows.extend(result)  
+                    
+                    if TRACESQLFILE and row_count < 3:
+                        self.trace(_table, exist_query, predicate_names, predicate_params)
+                    try:
+                        if TRACESQLFILE:
+                            exist_start = datetime.datetime.today()
+                        result = self.execute(exist_query, 
+                                            params=predicate_params if len(predicate_params) > 0 else None, 
+                                            fetch=returnMatches or returnExistenceStatus, 
+                                            close=False, commit=commit)
+                        if TRACESQLFILE:
+                            single_exist_time = (datetime.datetime.today() - exist_start)
+                            exist_time += single_exist_time
+                        tableRows.extend(result)  
+                    except:
+                        param_values = ['{num} : {name} : {type} : {python_type} : {val}'
+                                        ''.format(num=num, 
+                                                  name=predicate_names[num][0], 
+                                                  type=predicate_names[num][1], 
+                                                  python_type=str(type(val)), 
+                                                  val=val) for num, val in enumerate(predicate_params)]
+                        message = ('Error executing insert query for table {table}\n' 
+                                   '********************************\n' 
+                                   '{query}\n' 
+                                   '********************************\n' 
+                                   '{values}\n' 
+                                   '********************************\n' 
+                                   ''.format(table=_table,
+                                             query=exist_query,
+                                             values='\n'.join(param_values)))
+                        self.modelXbrl.error('error', message)
+                        raise
                     
                 # insert new rows
                 insert_subs_list = []
@@ -942,12 +980,19 @@ WITH row_values (%(newCols)s) AS (
                         insert_params = insert_value_params
                         names = insert_names
 
+                    if TRACESQLFILE and row_count < 3:
+                        self.trace(_table, insert_query, names, insert_params)
                     try:
+                        if TRACESQLFILE:
+                            insert_start = datetime.datetime.today()
                         result = self.execute(insert_query, 
                                             params=insert_params if len(insert_params) > 0 else None,
                                             fetch=returnMatches or returnExistenceStatus, 
                                             close=False, 
                                             commit=commit)
+                        if TRACESQLFILE:
+                            single_insert_time = (datetime.datetime.today() - insert_start)
+                            insert_time += single_insert_time
                     except:
                         param_values = ['{num} : {name} : {type} : {python_type} : {val}'
                                         ''.format(num=num, 
@@ -968,8 +1013,37 @@ WITH row_values (%(newCols)s) AS (
                         raise
 
                     tableRows.extend(result) 
+            
+            # All rows are done
+            if TRACESQLFILE:
+                if (returnMatches or returnExistenceStatus) and checkIfExisting:
+                    with io.open(TRACESQLFILE, "a", encoding='utf-8') as fh:
+                        sehours, remainder = divmod(single_exist_time.total_seconds(), 3600)
+                        seminutes, seseconds = divmod(remainder, 60)
+                        fh.write("\nLast Exist Query {}:{}:{}".format(int(sehours), int(seminutes), seseconds))
 
-           
+                    self.trace(_table, exist_query, predicate_names, predicate_params)
+
+                if insertIfNotMatched: 
+                    with io.open(TRACESQLFILE, "a", encoding='utf-8') as fh:
+                        sihours, remainder = divmod(single_insert_time.total_seconds(), 3600)
+                        siminutes, siseconds = divmod(remainder, 60)
+                        fh.write("\nLast Insert Query {}:{}:{}".format(int(sihours), int(siminutes), siseconds))
+                
+                    self.trace(_table, insert_query, names, insert_params)
+
+                trace_end = datetime.datetime.today()
+                hours, remainder = divmod((trace_end - trace_start).total_seconds(), 3600)
+                minutes, seconds = divmod(remainder, 60)
+                ehours, remainder = divmod(exist_time.total_seconds(), 3600)
+                eminutes, eseconds = divmod(remainder, 60)
+                ihours, remainder = divmod(insert_time.total_seconds(), 3600)
+                iminutes, iseconds = divmod(remainder, 60)
+                with io.open(TRACESQLFILE, "a", encoding='utf-8') as fh:
+                    fh.write("\nCompleted {} - Rows: {} - Total {}:{}:{} - exist {}:{}:{} - Insert {}:{}:{}\n"
+                            .format(table, row_count, int(hours), int(minutes), seconds, int(ehours), int(eminutes), eseconds, int(ihours), int(iminutes), iseconds))
+        
+
             # # Create temp table for rows to insert
             # create_query = 'CREATE TABLE #{} ({});'.format(_table,
             #                                             ', '.join('{0} {1}'.format(newCol, colDeclarations[newCol])
@@ -1218,7 +1292,18 @@ WITH row_values (%(newCols)s) AS (
                            colTypeFunction[i](colValue)  # convert to int, datetime, etc
                            for i, colValue in enumerate(row))
                      for row in tableRows)
-        
+    
+    def trace(self, table, query, names, params):
+        with io.open(TRACESQLFILE, "a", encoding='utf-8') as fh:
+            fh.write("\n\t******* Query table {} *******\n".format(table))
+            param_values = ['\t\t{num} : {name} : {type} : {python_type} : {val}'
+                    ''.format(num=num, 
+                                name=names[num][0], 
+                                type=names[num][1], 
+                                python_type=str(type(val)), 
+                                val=val) for num, val in enumerate(params)]
+            fh.write("\n{}\n\t\t/******** DATA *********\n{}\n*/\n".format(query, '\n'.join(param_values)))
+
     def updateTable(self, table, cols=None, data=None, commit=False):
         # generate SQL
         # note: comparison by = will never match NULL fields
@@ -1360,12 +1445,14 @@ WITH input (%(valCols)s) AS ( VALUES %(values)s )
                                                    for i, col in enumerate(cols)
                                                    if i > 0)}
                    for rowValue in rowValues]
+        
         if TRACESQLFILE:
-            with io.open(TRACESQLFILE, "a", encoding='utf-8') as fh:
-                fh.write("\n\n>>> accession {0} table {1} sql length {2} row count {3}\n"
-                         .format(self.accessionId, table, len(sql), len(data)))
-                for sqlStmt in sql:
-                    fh.write(sqlStmt)
+            for sqlStmt in sql:
+                if isinstance(sqlStmt, tuple):
+                    sqlStmt = sqlStmt[0]
+                with io.open(TRACESQLFILE, "a", encoding='utf-8') as fh:
+                    fh.write("\n\n>>> UPDATE accession {0} table {1} sql length {2} row count {3}\n"
+                            .format(self.accessionId, table, len(sql), len(data)))
         for sqlStmt in sql:
             if isinstance(sqlStmt, tuple):
                 query = sqlStmt[0]
