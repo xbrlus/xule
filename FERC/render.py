@@ -2199,9 +2199,11 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
                 raise FERCRenderException('Format {} is not a valid format'.format(format))
 
             format_clark = '{{{}}}{}'.format(format_ns, local_name)
-            format_function = _formats.get(format_clark)
+            format_function, deprecated = _formats.get(format_clark)
             if format_function is None:
                 raise FERCRenderException('Format {} is not a valid format'.format(format))
+            if deprecated:
+                model_fact.modelXbrl.warning('RenderWarning', 'Template uses a deprecated inline xbrl transformation: {}'.format(format_clark))
 
             display_sign = json_result.get('sign', xule_expression_node.get('sign'))
             scale = json_result.get('scale', xule_expression_node.get('scale'))
@@ -2419,9 +2421,12 @@ def format_durwordsen(model_fact, *args, **kwargs):
             duration_string_parts.append('{} {}{}'. format(duration_parts[part_name], part_name, plural))
     return ', '.join(duration_string_parts)
 
-_formats = {'{http://www.xbrl.org/inlineXBRL/transformation/2010-04-20}numcommadot': format_numcommadot,
-            '{http://www.xbrl.org/inlineXBRL/transformation/2010-04-20}dateslashus': format_dateslahus,
-            '{http://www.sec.gov/inlineXBRL/transformation/2015-08-31}durwordsen' : format_durwordsen
+# Inline XBRL transformations. The value of this dictionary contains the formatter function followed by a deprecated indicator.
+_formats = {'{http://www.xbrl.org/inlineXBRL/transformation/2010-04-20}numcommadot': (format_numcommadot, True),
+            '{http://www.xbrl.org/inlineXBRL/transformation/2010-04-20}dateslashus': (format_dateslahus, True),
+            '{http://www.sec.gov/inlineXBRL/transformation/2015-08-31}durwordsen' : (format_durwordsen, False),
+            '{http://www.xbrl.org/inlineXBRL/transformation/2020-02-12}date-momth-day-year': (format_dateslahus, False),
+            '{http://www.xbrl.org/inlineXBRL/transformation/2020-02-12}num-dot-decimal': (format_numcommadot, False)
             }
 
 __pluginInfo__ = {
