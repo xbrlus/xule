@@ -2199,7 +2199,7 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
                 raise FERCRenderException('Format {} is not a valid format'.format(format))
 
             format_clark = '{{{}}}{}'.format(format_ns, local_name)
-            format_function, deprecated = _formats.get(format_clark)
+            format_function, deprecated = _formats.get(format_clark, (None, False)
             if format_function is None:
                 raise FERCRenderException('Format {} is not a valid format'.format(format))
             if deprecated:
@@ -2425,7 +2425,7 @@ def format_durwordsen(model_fact, *args, **kwargs):
 _formats = {'{http://www.xbrl.org/inlineXBRL/transformation/2010-04-20}numcommadot': (format_numcommadot, True),
             '{http://www.xbrl.org/inlineXBRL/transformation/2010-04-20}dateslashus': (format_dateslahus, True),
             '{http://www.sec.gov/inlineXBRL/transformation/2015-08-31}durwordsen' : (format_durwordsen, False),
-            '{http://www.xbrl.org/inlineXBRL/transformation/2020-02-12}date-momth-day-year': (format_dateslahus, False),
+            '{http://www.xbrl.org/inlineXBRL/transformation/2020-02-12}date-month-day-year': (format_dateslahus, False),
             '{http://www.xbrl.org/inlineXBRL/transformation/2020-02-12}num-dot-decimal': (format_numcommadot, False)
             }
 
