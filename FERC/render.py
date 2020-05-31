@@ -1382,7 +1382,8 @@ def setup_inline_html(modelXbrl):
         'xsi': "http://www.w3.org/2001/XMLSchema-instance",
         'link': "http://www.xbrl.org/2003/linkbase",
         'xlink': "http://www.w3.org/1999/xlink",
-        'ixtsec': "http://www.sec.gov/inlineXBRL/transformation/2015-08-31"}
+        'ixtsec': "http://www.sec.gov/inlineXBRL/transformation/2015-08-31",
+        'ixt4': "http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"}
     # Find namespaces in the instance document and add them
     for prefix, uri in modelXbrl.modelDocument.xmlRootElement.nsmap.items():
         if uri not in namespaces.values():
