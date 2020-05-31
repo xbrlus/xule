@@ -2422,10 +2422,19 @@ def format_durwordsen(model_fact, *args, **kwargs):
             duration_string_parts.append('{} {}{}'. format(duration_parts[part_name], part_name, plural))
     return ', '.join(duration_string_parts)
 
+def format_durhour(model_fact, *args, **kwargs):
+    pattern = r'^PT(\d+)H$'
+    duration_res = re.match(pattern, str(model_fact.xValue))
+    if duration_res is None:
+        raise FERCRenderException("Invalid durhour '{}'. durhour should be in the format of PT#H where #=1 or more digits.".format(model_fact.xValue))
+    else:
+        return duration_res.group(1)
+
 # Inline XBRL transformations. The value of this dictionary contains the formatter function followed by a deprecated indicator.
 _formats = {'{http://www.xbrl.org/inlineXBRL/transformation/2010-04-20}numcommadot': (format_numcommadot, True),
             '{http://www.xbrl.org/inlineXBRL/transformation/2010-04-20}dateslashus': (format_dateslahus, True),
             '{http://www.sec.gov/inlineXBRL/transformation/2015-08-31}durwordsen' : (format_durwordsen, False),
+            '{http://www.sec.gov/inlineXBRL/transformation/2015-08-31}durhour' : (format_durhour, False),
             '{http://www.xbrl.org/inlineXBRL/transformation/2020-02-12}date-month-day-year': (format_dateslahus, False),
             '{http://www.xbrl.org/inlineXBRL/transformation/2020-02-12}num-dot-decimal': (format_numcommadot, False)
             }
