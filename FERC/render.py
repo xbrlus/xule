@@ -2199,7 +2199,7 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
                 raise FERCRenderException('Format {} is not a valid format'.format(format))
 
             format_clark = '{{{}}}{}'.format(format_ns, local_name)
-            format_function, deprecated = _formats.get(format_clark, (None, False)
+            format_function, deprecated = _formats.get(format_clark, (None, False))
             if format_function is None:
                 raise FERCRenderException('Format {} is not a valid format'.format(format))
             if deprecated:
