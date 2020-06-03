@@ -13,6 +13,7 @@ import {
     wellKnownVariables
 } from "./symbols";
 import {
+    AssertionContext,
     AtIdentifierContext,
     ConstantDeclarationContext,
     ExpressionContext,
@@ -73,6 +74,20 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
                 });
             }
         });
+        return this.visitChildren(ctx);
+    };
+
+    visitAssertion = (ctx: AssertionContext) => {
+        let assertionsWithTheSameName = ctx.parent.children.filter(c =>
+            c instanceof AssertionContext && c.ASSERT_RULE_NAME().text == ctx.ASSERT_RULE_NAME().text);
+        if(assertionsWithTheSameName.length > 1) {
+            this.diagnostics.push({
+                severity: DiagnosticSeverity.Error,
+                range: this.getRange(ctx),
+                message: "Assertion defined more than once",
+                source: 'XULE semantic checker'
+            });
+        }
         return this.visitChildren(ctx);
     };
 

@@ -25,6 +25,24 @@ describe('Aspect filters', function() {
         });
 });
 
+describe('Assertions', function() {
+    it("must have unique names",function() {
+        const xuleCode = `assert foo satisfied true assert foo satisfied false`;
+            let input = CharStreams.fromString(xuleCode);
+            let lexer = new XULELexer(input);
+            let parser = new XULEParser(new CommonTokenStream(lexer));
+            let parseTree = parser.xuleFile();
+            expect(parser.numberOfSyntaxErrors).to.equal(0);
+            expect(input.index).to.equal(input.size);
+            let diagnostics = [];
+            let symbolTable = new SymbolTableVisitor().visit(parseTree);
+            let visitor = new SemanticCheckVisitor(diagnostics, symbolTable, null);
+            visitor.checkQNames = false;
+            visitor.visit(parseTree);
+            expect(diagnostics.length).to.equal(2);
+        });
+});
+
 describe('Constants', function() {
     it("cannot be redefined",
         function() {
