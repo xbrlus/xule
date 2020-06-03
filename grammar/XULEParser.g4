@@ -62,7 +62,9 @@ aspectFilter:
     (aspectFilterOptions | aspectFilterOptions? aspectFilterFilter) (AS assignedVariable)? (WHERE expression)? |
     WHERE expression;
 
-aspectFilterOptions: (COVERED | COVERED_DIMS) NONILS? | NONILS (COVERED | COVERED_DIMS)?;
+aspectFilterOptions:
+    (COVERED | COVERED_DIMS) (NILDEFAULT | NONILS)? |
+    (NILDEFAULT | NONILS) (COVERED | COVERED_DIMS)?;
 aspectFilterFilter: atIdentifier propertyAccess*
     ((ASSIGN | NOT_EQUALS | GT | LT | GTE | LTE | NOT? IN) (expression | TIMES))?;
 

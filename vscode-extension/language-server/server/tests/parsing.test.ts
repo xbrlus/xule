@@ -152,6 +152,15 @@ describe('Factset filtering', function() {
 		expect(parser.numberOfSyntaxErrors).to.equal(0);
 		expect(input.index).to.equal(input.size);
 	});
+	it("admits the nildefault keyword", function() {
+		const factset = `{ nildefault @Assets} != {nildefault @LiabilitiesAndStockholdersEquity}`;
+		let input = CharStreams.fromString(factset);
+		let lexer = new XULELexer(input);
+		let parser = new XULEParser(new CommonTokenStream(lexer));
+		let parseTree = parser.expression();
+		expect(parser.numberOfSyntaxErrors).to.equal(0);
+		expect(input.index).to.equal(input.size);
+	});
 });
 
 describe('Navigation', function() {
