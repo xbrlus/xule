@@ -4,8 +4,8 @@ import {XULEParser} from "../src/parser/XULEParser";
 import {CharStreams, CommonTokenStream} from "antlr4ts";
 import {XULELexer} from "../src/parser/XULELexer";
 
-describe('Assert rule names', function() {
-	it('can contain numbers and dots', function() {
+describe('Assertions', function() {
+	it('can have a name containing numbers and dots', function() {
 		const assertion = 'assert F6.110.1 satisfied true';
 		let input = CharStreams.fromString(assertion);
 		let lexer = new XULELexer(input);
@@ -14,9 +14,6 @@ describe('Assert rule names', function() {
 		expect(parser.numberOfSyntaxErrors).to.equal(0);
 		expect(input.index).to.equal(input.size);
 	});
-});
-
-describe('Assertions', function() {
 	it("must contain at least an expression",
 		function() {
 			const xuleCode = `assert F126 unsatisfied $sum1 = 1 message "{$sum1}"`;
@@ -29,9 +26,8 @@ describe('Assertions', function() {
 		});
 });
 
-
-describe('Assignment', function() {
-	it("doesn't need to end with a semicolon", function() {
+describe('Assignments', function() {
+	it("don't need to end with a semicolon", function() {
 		const xuleCode = `
 output ND8
 $results = count(navigate dimensions descendants from StatementTable drs-role ConsolidatedBalanceSheet returns usable)
@@ -212,6 +208,18 @@ describe('Properties', function() {
 		let lexer = new XULELexer(input);
 		let parser = new XULEParser(new CommonTokenStream(lexer));
 		let parseTree = parser.expression();
+		expect(parser.numberOfSyntaxErrors).to.equal(0);
+		expect(input.index).to.equal(input.size);
+	});
+});
+
+describe('Rule name prefixes', function() {
+	it('can contain numbers and dots', function () {
+		const statement = 'rule-name-prefix xbrlus-cc.bc.dim_equivalents assert r14251 satisfied true';
+		let input = CharStreams.fromString(statement);
+		let lexer = new XULELexer(input);
+		let parser = new XULEParser(new CommonTokenStream(lexer));
+		let parseTree = parser.xuleFile();
 		expect(parser.numberOfSyntaxErrors).to.equal(0);
 		expect(input.index).to.equal(input.size);
 	});

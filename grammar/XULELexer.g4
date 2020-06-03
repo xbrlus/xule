@@ -57,7 +57,7 @@ STOP: S T O P;
 START: S T A R T;
 SET: S E T;
 
-RULE_NAME_PREFIX: R U L E MINUS N A M E MINUS P R E F I X;
+RULE_NAME_PREFIX: R U L E MINUS N A M E MINUS P R E F I X -> pushMode(ruleNamePrefix);
 ROLE: R O L E;
 RETURNS: R E T U R N S;
 
@@ -123,6 +123,11 @@ ASSERT_WS: WS -> channel(HIDDEN);
 mode output;
 OUTPUT_RULE_NAME: [a-zA-Z_\-] [a-zA-Z0-9_\-.]* -> popMode;
 OUTPUT_WS: WS -> channel(HIDDEN);
+
+mode ruleNamePrefix;
+RULE_NAME_PREFIX_PREFIX: [a-zA-Z_\-] [a-zA-Z0-9_\-.]* -> popMode;
+RULE_NAME_PREFIX_WS: WS -> channel(HIDDEN);
+
 
 mode doubleQuotedString;
 DQS_END_QUOTE: '"' -> type(DOUBLE_QUOTE), popMode;

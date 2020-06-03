@@ -9,7 +9,7 @@ topLevelDeclaration:
 
 namespaceDeclaration: NAMESPACE (identifier ASSIGN)? URL;
 outputAttributeDeclaration: OUTPUT_ATTRIBUTE identifier;
-ruleNamePrefixDeclaration: RULE_NAME_PREFIX identifier;
+ruleNamePrefixDeclaration: RULE_NAME_PREFIX RULE_NAME_PREFIX_PREFIX;
 
 outputAttribute: outputAttributeName expression SEMI?;
 
