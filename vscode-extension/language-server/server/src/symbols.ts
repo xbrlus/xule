@@ -1,7 +1,7 @@
 import {AbstractParseTreeVisitor, ParseTree} from 'antlr4ts/tree';
 import {XULEParserVisitor} from './parser/XULEParserVisitor';
 import {
-	AspectFilterContext, AssignedVariableContext, BlockContext,
+	AspectFilterContext, AssertionContext, AssignedVariableContext, BlockContext,
 	ConstantDeclarationContext,
 	ForExpressionContext,
 	FunctionArgumentContext,
@@ -88,7 +88,7 @@ export class CompilationUnit extends ParserRuleContext {
 
 export class SymbolTable {
 	public symbols: { scope: ParseTree, environment: Environment }[] = [];
-	public namespaces: { [name: string]: { namespace: Namespace, definedAt: ParseTree }} = {};
+	public namespaces: { [name: string]: { namespace: Namespace, definedAt?: ParseTree }} = {};
 	public errors: { message: string, scope: ParseTree }[] = [];
 
 	constructor(protected globalEnvironment = new Environment()) {}
@@ -241,11 +241,15 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 			if(this.context instanceof CompilationUnit && this.context.children.indexOf(ctx) != this.context.childCount - 1) {
 				return this.visitChildren(ctx);
 			} else {
-				//Establish environment for the file, so that the scope chain will include it even if it's empty initially
+				//Establish an environment for the file, so that the scope chain will include it even if it's empty initially
 				this.symbolTable.record("global-environment", [], ctx);
 				return this.withNewContext(ctx, () => this.visitChildren(ctx));
 			}
 		});
+	};
+
+	visitAssertion = (ctx: AssertionContext) => {
+		return this.withNewContext(ctx, () => this.visitChildren(ctx));
 	};
 
 	visitNamespaceDeclaration = (ctx: NamespaceDeclarationContext) => {
@@ -298,6 +302,16 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 
 	visitAssignedVariable = (ctx: AssignedVariableContext) => {
 		this.symbolTable.record(ctx.identifier().text, [new VariableInfo()], this.context);
+		let assertion = this.context;
+		while(assertion && !(assertion instanceof AssertionContext)) {
+			assertion = assertion.parent;
+		}
+		if(assertion instanceof AssertionContext) {
+			//Register the variable so that it's declared for every output attribute
+			assertion.outputAttribute().forEach(a => {
+				this.symbolTable.record(ctx.identifier().text, [new VariableInfo()], a);
+			});
+		}
 		return this.symbolTable;
 	};
 

@@ -45,7 +45,6 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
     checkProperties = true;
     checkVariables = true;
     checkQNames = true;
-    scopedVariables = true;
 
     constructor(public diagnostics: Diagnostic[], protected symbolTable: SymbolTable, protected document: TextDocument) {
         super();
@@ -152,18 +151,7 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
         if(!this.checkVariables) {
             return;
         }
-        //First, search in local scope
-        let binding = this.symbolTable.lookup(variableName, ctx);
-        if(!binding) {
-            //Then, search in global scope, but only accept it if !scopedVariables or if it's a constant
-            let scope = this.symbolTable.symbols.find(s => s.environment.find(variableName));
-            if(scope) {
-                let candidateBinding = scope.environment.find(variableName);
-                if((!this.scopedVariables || bindingInfo(candidateBinding, IdentifierType.CONSTANT))) {
-                    binding = candidateBinding;
-                }
-            }
-        }
+        const binding = this.symbolTable.lookup(variableName, ctx);
         const range = this.getRange(identifier);
         if (!binding && !this.localVariables[variableName]) {
             this.diagnostics.push({
@@ -251,12 +239,7 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
     }
 
     visitOutputAttribute = (ctx: OutputAttributeContext) => {
-        try {
-            this.scopedVariables = false;
-            return this.withLocalVariables({ 'error': {}, 'ok': {}, 'warning': {} }, () => this.visitChildren(ctx));
-        } finally {
-            this.scopedVariables = true;
-        }
+        return this.withLocalVariables({ 'error': {}, 'ok': {}, 'warning': {} }, () => this.visitChildren(ctx));
     };
 
     private withLocalVariables(localVariables: Object, thunk: () => void) {
