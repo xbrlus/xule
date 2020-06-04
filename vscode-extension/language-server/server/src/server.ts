@@ -25,10 +25,18 @@ import {
 	Recognizer,
 	Token
 } from 'antlr4ts';
-import {PropertyAccessContext, XULEParser} from './parser/XULEParser';
+import {IdentifierContext, PropertyAccessContext, XULEParser} from './parser/XULEParser';
 import {ParseTree} from 'antlr4ts/tree/ParseTree';
 import {TerminalNode} from 'antlr4ts/tree/TerminalNode';
-import {CompilationUnit, IdentifierInfo, IdentifierType, Namespace, SymbolTable, SymbolTableVisitor} from './symbols';
+import {
+	bindingInfo,
+	CompilationUnit,
+	IdentifierInfo,
+	IdentifierType,
+	Namespace,
+	SymbolTable,
+	SymbolTableVisitor
+} from './symbols';
 import {Interval} from 'antlr4ts/misc/Interval';
 import {ErrorNode} from "antlr4ts/tree";
 import {
@@ -79,7 +87,9 @@ connection.onInitialize((params: InitializeParams) => {
 			// Tell the client that the server supports code completion
 			completionProvider: {
 				resolveProvider: true
-			}
+			},
+			// Tell the client that the server supports Go to definition
+			definitionProvider: true
 		}
 	};
 	if (hasWorkspaceFolderCapability) {
@@ -141,6 +151,35 @@ connection.onDidChangeConfiguration(change => {
 
 	// Revalidate all open text documents
 	documents.all().forEach(validateTextDocument);
+});
+
+connection.onDefinition(params => {
+	let document = documents.get(params.textDocument.uri);
+	if(!document || !document['parseTree']) {
+		return null;
+	}
+	let treeInfo = parseTreeAtPosition(document['parseTree'], params.position.line + 1, params.position.character);
+	if(!treeInfo) {
+		return null;
+	}
+	let tree = treeInfo.node;
+	if(tree instanceof IdentifierContext || (tree instanceof TerminalNode && tree.symbol.type == XULEParser.IDENTIFIER)) {
+		let symbolTable = document['symbolTable'] as SymbolTable;
+		let binding = symbolTable.lookup(tree.text, tree);
+		let info = bindingInfo(binding, IdentifierType.CONSTANT);
+		if(info && info.definedAt) {
+			//TODO
+			let definition = info.definedAt as ParseTree;
+			console.log(definition);
+		}
+		info = bindingInfo(binding, IdentifierType.VARIABLE);
+		if(info && info.definedAt) {
+			//TODO
+			let definition = info.definedAt as ParseTree;
+			console.log(definition);
+		}
+	}
+	return null;
 });
 
 function getDocumentSettings(resource: string): Thenable<XULELanguageSettings> {

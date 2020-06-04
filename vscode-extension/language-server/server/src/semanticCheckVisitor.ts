@@ -2,9 +2,8 @@ import {AbstractParseTreeVisitor, ParseTree, TerminalNode} from "antlr4ts/tree";
 import {XULEParserVisitor} from "./parser/XULEParserVisitor";
 import {Diagnostic, DiagnosticSeverity} from "vscode-languageserver";
 import {
-    Binding,
+    bindingInfo,
     FunctionInfo,
-    IdentifierInfo,
     IdentifierType,
     OutputAttributeInfo,
     PropertyInfo,
@@ -24,20 +23,11 @@ import {
     OutputAttributeContext,
     ParametersListContext,
     PropertyAccessContext,
-    VariableReadContext, XuleFileContext
+    VariableReadContext,
+    XuleFileContext
 } from "./parser/XULEParser";
 import {Range, TextDocument} from "vscode-languageserver-textdocument";
 import {ParserRuleContext} from "antlr4ts";
-
-function bindingInfo(binding: Binding, type: IdentifierType) {
-    if(binding.meaning instanceof Array) {
-        return binding.meaning.find(x => x instanceof IdentifierInfo && x.type == type);
-    } else {
-        if(binding.meaning instanceof IdentifierInfo && binding.meaning.type == type) {
-            return binding.meaning;
-        }
-    }
-}
 
 export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implements XULEParserVisitor<any> {
 

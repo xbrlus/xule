@@ -1,7 +1,10 @@
 import {AbstractParseTreeVisitor, ParseTree} from 'antlr4ts/tree';
 import {XULEParserVisitor} from './parser/XULEParserVisitor';
 import {
-	AspectFilterContext, AssertionContext, AssignedVariableContext, BlockContext,
+	AspectFilterContext,
+	AssertionContext,
+	AssignedVariableContext,
+	BlockContext,
 	ConstantDeclarationContext,
 	ForExpressionContext,
 	FunctionArgumentContext,
@@ -161,7 +164,7 @@ export class PropertyInfo extends FunctionInfo {}
 
 export class VariableInfo extends IdentifierInfo {
 
-	public definedAt: { line: number, column: number };
+	public definedAt: ParseTree;
 
 	constructor(public isConstant?: boolean, public ignoreCase?: boolean) {
 		super();
@@ -291,9 +294,7 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 		let name = ctx.identifier().text;
 		if(context) {
 			let info = new VariableInfo(true);
-			info.definedAt = {
-				line: ctx.start.line, column: ctx.start.charPositionInLine + 1
-			};
+			info.definedAt = ctx;
 			this.symbolTable.record(name, [info], context);
 		} else {
 			console.warn("Constant outside an assertion, ignoring: " + name);
@@ -302,7 +303,14 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 	};
 
 	visitAssignedVariable = (ctx: AssignedVariableContext) => {
-		this.symbolTable.record(ctx.identifier().text, [new VariableInfo()], this.context);
+		let variableName = ctx.identifier().text;
+		const binding = this.symbolTable.lookup(variableName, ctx);
+		if(bindingInfo(binding, IdentifierType.VARIABLE)) {
+			return this.symbolTable;
+		}
+		let info = new VariableInfo();
+		info.definedAt = ctx.identifier();
+		this.symbolTable.record(variableName, [info], this.context);
 		let assertion = this.context;
 		while(assertion && !(assertion instanceof AssertionContext)) {
 			assertion = assertion.parent;
@@ -310,7 +318,7 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 		if(assertion instanceof AssertionContext) {
 			//Register the variable so that it's declared for every output attribute
 			assertion.outputAttribute().forEach(a => {
-				this.symbolTable.record(ctx.identifier().text, [new VariableInfo()], a);
+				this.symbolTable.record(variableName, [info], a);
 			});
 		}
 		return this.symbolTable;
@@ -321,7 +329,9 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 		let context = this.getGlobalContext();
 		let tag = ctx.identifier().text;
 		if(context) {
-			this.symbolTable.record("$" + tag, [new VariableInfo()], context);
+			let info = new VariableInfo();
+			info.definedAt = ctx;
+			this.symbolTable.record("$" + tag, [info], context);
 		} else {
 			console.warn("Tag outside an assertion, ignoring: " + tag);
 		}
@@ -387,5 +397,18 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 			}
 		}
 		return new Namespace(uri);
+	}
+}
+
+export function bindingInfo(binding: Binding, type: IdentifierType) {
+	if(!binding) {
+		return undefined;
+	}
+	if (binding.meaning instanceof Array) {
+		return binding.meaning.find(x => x instanceof IdentifierInfo && x.type == type);
+	} else {
+		if (binding.meaning instanceof IdentifierInfo && binding.meaning.type == type) {
+			return binding.meaning;
+		}
 	}
 }
