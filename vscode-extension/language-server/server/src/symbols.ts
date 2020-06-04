@@ -183,6 +183,7 @@ export const wellKnownVariables = {
 	"debit": {},
 	"duration": {},
 	"error": {},
+	"forever": { isConstant: true, ignoreCase: true },
 	"inf": { isConstant: true, ignoreCase: true },
 	"instant": {},
 	"none": {},

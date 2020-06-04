@@ -169,6 +169,25 @@ describe('Navigation', function() {
         });
 });
 
+describe('Period', function() {
+    it("can be compared to 'forever'",
+        function() {
+            const xuleCode = `{@period = forever }`;
+            let input = CharStreams.fromString(xuleCode);
+            let lexer = new XULELexer(input);
+            let parser = new XULEParser(new CommonTokenStream(lexer));
+            let parseTree = parser.factset();
+            expect(parser.numberOfSyntaxErrors).to.equal(0);
+            expect(input.index).to.equal(input.size);
+            let diagnostics = [];
+            let symbolTable = new SymbolTableVisitor().withInitialContext(parseTree).visit(parseTree);
+            let visitor = new SemanticCheckVisitor(diagnostics, symbolTable, null);
+            visitor.checkQNames = false;
+            visitor.visit(parseTree);
+            expect(diagnostics.length).to.equal(0);
+        });
+});
+
 describe('Qnames', function() {
     it("are checked in filters: @concept = qname",
         function() {
