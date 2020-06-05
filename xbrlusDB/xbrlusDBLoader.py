@@ -1560,7 +1560,13 @@ class DBConnection(SqlDbConnection):
 
     def insertReportElements(self):
  
-        table = self.getTable('report_element', 'report_element_id', 
+        # Check that all the elements are defined in the taxonomy
+        missingConcepts = {k.clarkNotation for k in self.reportElements.keys() if self.conceptElementIdByQname(k) is None}
+        if len(missingConcepts) > 0:
+            raise XDBException("xDB:MissingConceptError", 
+                               "The following concepts are used in the filing but missing in the report\n{}.".format(', '.join(missingConcepts)))
+            
+        self.getTable('report_element', 'report_element_id', 
                       ('report_id', 'element_id', 'is_base', 'primary_count', 'dimension_count', 'member_count'), 
                       ('report_id', 'element_id'), 
                       tuple((self.accessionId,
