@@ -5,7 +5,7 @@ This module provides database interfaces to postgres SQL
 Mark V copyright applies to this software, which is licensed according to the terms of Arelle(r).
 '''
 import sys, os, io, time, re, datetime
-from math import isnan, isinf, floor
+from math import isnan, isinf, floor, ceil
 from decimal import Decimal
 from arelle.ModelValue import dateTime
 import socket
@@ -1122,7 +1122,7 @@ WITH row_values (%(newCols)s) AS (
                                "match": ' AND '.join('x.{0} {1} i.{0}'.format(col, comparisonOperator) 
                                                      for col in matchCols)})
                 else:
-                    _where = "";
+                    _where = ""
                 sql.append( ("INSERT INTO %(table)s ( %(newCols)s ) SELECT %(newCols)s FROM %(inputTable)s i %(where)s;" %     
                                 {"inputTable": _inputTableName,
                                  "table": _table,
