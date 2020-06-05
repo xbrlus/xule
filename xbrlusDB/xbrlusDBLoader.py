@@ -856,8 +856,8 @@ class DBConnection(SqlDbConnection):
             # substitutions it can handle. For Sql Server it is 2100. Each qname has 2 substitutions.
             for block in range(math.ceil(len(existingUsedQnames) / 1000)):
                 section = existingUsedQnames[block*1000:block*1000+1000]
-                valuesClauseQnames = ("('" + x.namespaceURI + "','" + x.localName + "')" for x in section)
-                valuesClause = '(VALUES ' + ','.join(valuesClauseQnames) + ' ) x(namespace, local_name)'
+                #valuesClauseQnames = ("('" + x.namespaceURI + "','" + x.localName + "')" for x in section)
+                #valuesClause = '(VALUES ' + ','.join(valuesClauseQnames) + ' ) x(namespace, local_name)'
 
                 querySubs = ', '.join(tuple("(?, ?)" for x in section))
                 paramSubs = []
@@ -2458,9 +2458,7 @@ class DBConnection(SqlDbConnection):
             hashName = 'fiscal_hash'
             contextJoin = ''
             orderBy = 'r.accepted_timestamp DESC, r.report_id DESC, f.xml_id, f.fact_id DESC'            
-        
-        self.reportTime()
-        updateFacts = []
+
         self.reportTime()
         
         if self.product.startswith('mssql'):
