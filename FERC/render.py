@@ -1784,7 +1784,7 @@ def process_single_template(cntlr, options, template_catalog, template_set_file,
         # xule rule set name
         xule_rule_set_name = os.path.join(temp_dir, 'temp-ruleset.zip')
         compile_method = getXuleMethod(cntlr, 'Xule.compile')
-        compile_method(xule_rule_file_name, xule_rule_set_name, 'json', getattr(options, "xule_max_resurse_depth"))
+        compile_method(xule_rule_file_name, xule_rule_set_name, 'pickle', getattr(options, "xule_max_resurse_depth"))
 
         template_catalog.append({'name': template_name,
                             'template': template_file_name,
