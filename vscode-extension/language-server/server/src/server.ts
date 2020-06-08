@@ -25,7 +25,7 @@ import {
 	Recognizer,
 	Token
 } from 'antlr4ts';
-import {IdentifierContext, PropertyAccessContext, XULEParser} from './parser/XULEParser';
+import {IdentifierContext, PropertyAccessContext, XuleFileContext, XULEParser} from './parser/XULEParser';
 import {ParseTree} from 'antlr4ts/tree/ParseTree';
 import {TerminalNode} from 'antlr4ts/tree/TerminalNode';
 import {
@@ -49,6 +49,7 @@ import {EnhancedXULELexer} from "./enhancedXULELexer";
 import * as fuzzysort from 'fuzzysort';
 import {builtInNamespaces} from "./builtInNamespaces";
 import * as fs from "fs";
+import {getRange, LINES_REGEXP} from "./utils";
 
 // Create a connection for the server. The connection uses Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
@@ -61,8 +62,6 @@ let documents: TextDocuments<TextDocument> = new TextDocuments(TextDocument);
 let hasConfigurationCapability: boolean = false;
 let hasWorkspaceFolderCapability: boolean = false;
 let hasDiagnosticRelatedInformationCapability: boolean = false;
-
-const LINES_REGEXP = /[^\n\r]*(\r\n|\n|\r)|[^\n\r]+$/g;
 
 connection.onInitialize((params: InitializeParams) => {
 	let capabilities = params.capabilities;
@@ -153,34 +152,51 @@ connection.onDidChangeConfiguration(change => {
 	documents.all().forEach(validateTextDocument);
 });
 
+const COMPILATION_UNIT = 'compilationUnit';
+const PARSE_TREE = 'parseTree';
+const SYMBOL_TABLE = 'symbolTable';
+
 connection.onDefinition(params => {
 	let document = documents.get(params.textDocument.uri);
-	if(!document || !document['parseTree']) {
+	if(!document || !document[PARSE_TREE]) {
 		return null;
 	}
-	let treeInfo = parseTreeAtPosition(document['parseTree'], params.position.line + 1, params.position.character);
+	let treeInfo = parseTreeAtPosition(document[PARSE_TREE], params.position.line + 1, params.position.character);
 	if(!treeInfo) {
 		return null;
 	}
 	let tree = treeInfo.node;
 	if(tree instanceof IdentifierContext || (tree instanceof TerminalNode && tree.symbol.type == XULEParser.IDENTIFIER)) {
-		let symbolTable = document['symbolTable'] as SymbolTable;
+		let cu = document[COMPILATION_UNIT] as CompilationUnit;
+		let symbolTable = document[SYMBOL_TABLE] as SymbolTable;
 		let binding = symbolTable.lookup(tree.text, tree);
 		let info = bindingInfo(binding, IdentifierType.CONSTANT);
 		if(info && info.definedAt) {
-			//TODO
-			let definition = info.definedAt as ParseTree;
-			console.log(definition);
+			return definitionLocation(info, cu);
+		}
+		info = bindingInfo(binding, IdentifierType.FUNCTION);
+		if(info && info.definedAt) {
+			return definitionLocation(info, cu);
 		}
 		info = bindingInfo(binding, IdentifierType.VARIABLE);
 		if(info && info.definedAt) {
-			//TODO
-			let definition = info.definedAt as ParseTree;
-			console.log(definition);
+			return definitionLocation(info, cu);
 		}
 	}
 	return null;
 });
+
+function definitionLocation(info: any, cu: CompilationUnit) {
+	let xuleFile = info.definedAt as ParseTree;
+	while(xuleFile && !(xuleFile instanceof XuleFileContext)) {
+		xuleFile = xuleFile.parent;
+	}
+	if(xuleFile) {
+		let uri = cu.childUris[cu.children.indexOf(xuleFile)];
+		let range = getRange(info.definedAt);
+		return { uri: uri, range: range	}
+	}
+}
 
 function getDocumentSettings(resource: string): Thenable<XULELanguageSettings> {
 	if (!hasConfigurationCapability) {
@@ -220,6 +236,10 @@ function ensurePath(path: string) {
 	return path;
 }
 
+function canonicalizedPathToURI(path: string) {
+	return "file://" + path;
+}
+
 //This could be cached if loading them every time is too slow
 function loadNamespaces(path: string, namespaces: Namespace[]) {
 	path = ensurePath(path);
@@ -233,11 +253,6 @@ function loadNamespaces(path: string, namespaces: Namespace[]) {
 		} else {
 			let msg = "Namespace definitions file not found: " + path;
 			connection.console.error(msg);
-			connection.sendDiagnostics({
-				uri: "file://" + path, diagnostics: [{
-					severity: DiagnosticSeverity.Error, range: null, message: msg
-				}]
-			});
 		}
 	} catch (e) {
 		connection.console.error(`Could not load namespaces from ${path}: ${e}`);
@@ -333,7 +348,7 @@ function loadXuleFile(path: string, cu: CompilationUnit) {
 			let input = CharStreams.fromString(data.toString());
 			let lexer = new EnhancedXULELexer(input);
 			let parser = new XULEParser(new CommonTokenStream(lexer));
-			cu.add(parser.xuleFile());
+			cu.add(parser.xuleFile(), canonicalizedPathToURI(path));
 		} else {
 			connection.console.error("AutoImport file not found: " + path);
 		}
@@ -367,14 +382,15 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 			});
 		}
 	}
-	cu.add(parseTree);
+	cu.add(parseTree, textDocument.uri);
 
 	let symbolTableVisitor = new SymbolTableVisitor().withNamespaces(...builtInNamespaces, ...namespaces);
 	let symbolTable = symbolTableVisitor.visit(cu);
 	//Save these for code completions
-	textDocument['parseTree'] = parseTree;
+	textDocument[COMPILATION_UNIT] = cu;
+	textDocument[PARSE_TREE] = parseTree;
 	textDocument['parser'] = parser;
-	textDocument['symbolTable'] = symbolTable;
+	textDocument[SYMBOL_TABLE] = symbolTable;
 
 	let semanticCheckVisitor = new SemanticCheckVisitor(diagnostics, symbolTable, textDocument);
 	semanticCheckVisitor.checkFunctions  = settings.checks.functions;
@@ -810,10 +826,10 @@ async function computeCodeSuggestions(_textDocumentPosition: TextDocumentPositio
 	if(document) {
 		let settings = await getDocumentSettings(documentURI);
 		const parser = document['parser'] as XULEParser;
-		const symbolTable = document['symbolTable'] as SymbolTable;
+		const symbolTable = document[SYMBOL_TABLE] as SymbolTable;
 		if(parser) {
 			const pos = _textDocumentPosition.position;
-			const parseTree = document['parseTree'] as ParseTree;
+			const parseTree = document[PARSE_TREE] as ParseTree;
 			const nodeInfo = parseTreeAtPosition(parseTree, pos.line + 1, pos.character);
 			let tokenIndex = 0;
 			if(nodeInfo) {

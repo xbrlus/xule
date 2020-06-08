@@ -28,6 +28,7 @@ import {
 } from "./parser/XULEParser";
 import {Range, TextDocument} from "vscode-languageserver-textdocument";
 import {ParserRuleContext} from "antlr4ts";
+import {getRange} from "./utils";
 
 export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implements XULEParserVisitor<any> {
 
@@ -73,7 +74,7 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
         if(assertionsWithTheSameName.length > 1) {
             this.diagnostics.push({
                 severity: DiagnosticSeverity.Error,
-                range: this.getRange(ctx),
+                range: this.getRange(ctx.ASSERT_RULE_NAME()),
                 message: "Assertion defined more than once",
                 source: 'XULE semantic checker'
             });
@@ -89,7 +90,7 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
         if(bindings && bindings.length > 1) {
             this.diagnostics.push({
                 severity: DiagnosticSeverity.Error,
-                range: this.getRange(ctx),
+                range: this.getRange(ctx.identifier()),
                 message: "Constant defined more than once",
                 source: 'XULE semantic checker'
             });
@@ -228,19 +229,10 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
 
     private getRange(parseTree: ParseTree): Range {
         if(this.document) {
-            if(parseTree instanceof ParserRuleContext) {
-                return {
-                    start: this.document.positionAt(parseTree.start.startIndex),
-                    end: this.document.positionAt(parseTree.stop.stopIndex + 1)
-                };
-            } else if(parseTree instanceof TerminalNode) {
-                return {
-                    start: this.document.positionAt(parseTree.symbol.startIndex),
-                    end: this.document.positionAt(parseTree.symbol.stopIndex + 1)
-                };
-            }
+            return getRange(parseTree);
+        } else {
+            return { start: null, end: null };
         }
-        return { start: null, end: null };
     }
 
     visitOutputAttribute = (ctx: OutputAttributeContext) => {

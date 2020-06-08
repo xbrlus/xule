@@ -70,6 +70,7 @@ export class CompilationUnit extends ParserRuleContext {
 	readonly payload: any;
 	readonly text: string;
 	children = [];
+	childUris = [];
 
 	accept<T>(visitor: XULEParserVisitor<T>): T {
 		if(visitor["visitCompilationUnit"]) {
@@ -83,9 +84,10 @@ export class CompilationUnit extends ParserRuleContext {
 		throw "Not supported";
 	}
 
-	add(file: XuleFileContext) {
+	add(file: XuleFileContext, uri: string) {
 		file.setParent(this);
 		this.children.push(file);
+		this.childUris.push(uri);
 	}
 }
 
@@ -233,23 +235,28 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 	}
 
 	visitCompilationUnit = (cu: CompilationUnit) => {
-		return this.withNewContext(cu, () => this.visitChildren(cu));
+		return this.withNewContext(cu, () => {
+			cu.children.forEach((ctx, index) => {
+				//Be sure to restore the context on exit
+				this.withNewContext(this.context, () => {
+					//We coalesce all imported files into a global context, the compilation unit.
+					//Instead, we give the main file – the last one among the compilation unit's children – a more specific scope,
+					//so that local definitions can shadow imported definitions.
+					if(index < this.context.childCount - 1) {
+						this.visitChildren(ctx);
+					} else {
+						//Establish an environment for the file, so that the scope chain will include it even if it's empty initially
+						this.symbolTable.record("global-environment", [], ctx);
+						this.visitXuleFile(ctx);
+					}
+				});
+			});
+			return this.symbolTable;
+		});
 	};
 
 	visitXuleFile = (ctx: XuleFileContext) => {
-		//Be sure to restore the context on exit
-		return this.withNewContext(this.context, () => {
-			//We coalesce all imported files into a global context, the compilation unit.
-			//Instead, we give the main file – the last one among the compilation unit's children – a more specific scope,
-			//so that local definitions can shadow imported definitions.
-			if(this.context instanceof CompilationUnit && this.context.children.indexOf(ctx) != this.context.childCount - 1) {
-				return this.visitChildren(ctx);
-			} else {
-				//Establish an environment for the file, so that the scope chain will include it even if it's empty initially
-				this.symbolTable.record("global-environment", [], ctx);
-				return this.withNewContext(ctx, () => this.visitChildren(ctx));
-			}
-		});
+		return this.withNewContext(ctx, () => this.visitChildren(ctx));
 	};
 
 	visitAssertion = (ctx: AssertionContext) => {
