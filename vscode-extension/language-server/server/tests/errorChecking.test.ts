@@ -325,4 +325,25 @@ describe('Variable scoping', function() {
             visitor.visit(parseTree);
             expect(diagnostics.length).to.equal(0);
         });
+    it("spills into output statements",
+        function() {
+            const xuleCode = `assert foo satisfied
+            if true
+              for $defined in list()
+                true
+            else true
+            message "{$defined} {$undefined}"`;
+            let input = CharStreams.fromString(xuleCode);
+            let lexer = new XULELexer(input);
+            let parser = new XULEParser(new CommonTokenStream(lexer));
+            let parseTree = parser.xuleFile();
+            expect(parser.numberOfSyntaxErrors).to.equal(0);
+            expect(input.index).to.equal(input.size);
+            let diagnostics = [];
+            let symbolTable = new SymbolTableVisitor().visit(parseTree);
+            let visitor = new SemanticCheckVisitor(diagnostics, symbolTable, null);
+            visitor.checkQNames = false;
+            visitor.visit(parseTree);
+            expect(diagnostics.length).to.equal(1);
+        });
 });

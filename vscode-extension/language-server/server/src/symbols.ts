@@ -8,7 +8,7 @@ import {
 	ConstantDeclarationContext,
 	ForExpressionContext,
 	FunctionArgumentContext,
-	FunctionDeclarationContext,
+	FunctionDeclarationContext, IdentifierContext,
 	NamespaceDeclarationContext,
 	NavigationContext,
 	OutputAttributeDeclarationContext,
@@ -310,26 +310,30 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 	};
 
 	visitAssignedVariable = (ctx: AssignedVariableContext) => {
-		let variableName = ctx.identifier().text;
-		const binding = this.symbolTable.lookup(variableName, ctx);
-		if(bindingInfo(binding, IdentifierType.VARIABLE)) {
+		return this.registerVariable(ctx.identifier(), ctx);
+	};
+
+	protected registerVariable(variable: IdentifierContext, scope: ParseTree) {
+		let variableName = variable.text;
+		const binding = this.symbolTable.lookup(variableName, scope);
+		if (bindingInfo(binding, IdentifierType.VARIABLE)) {
 			return this.symbolTable;
 		}
 		let info = new VariableInfo();
-		info.definedAt = ctx.identifier();
+		info.definedAt = variable;
 		this.symbolTable.record(variableName, [info], this.context);
 		let assertion = this.context;
-		while(assertion && !(assertion instanceof AssertionContext)) {
+		while (assertion && !(assertion instanceof AssertionContext)) {
 			assertion = assertion.parent;
 		}
-		if(assertion instanceof AssertionContext) {
+		if (assertion instanceof AssertionContext) {
 			//Register the variable so that it's declared for every output attribute
 			assertion.outputAttribute().forEach(a => {
 				this.symbolTable.record(variableName, [info], a);
 			});
 		}
 		return this.symbolTable;
-	};
+	}
 
 	visitTag = (ctx: TagContext) => {
 		//Tags are always global in scope
@@ -353,7 +357,7 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 	}
 
 	visitForExpression = (ctx: ForExpressionContext) => {
-		this.symbolTable.record(ctx.forHead().forVariable().identifier().text, [new VariableInfo()], this.context);
+		this.registerVariable(ctx.forHead().forVariable().identifier(), this.context);
 		return this.visitChildren(ctx);
 	};
 
