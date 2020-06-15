@@ -59,7 +59,7 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
             if(file == ctx) {
                 this.diagnostics.push({
                     severity: DiagnosticSeverity.Error,
-                    range: this.getRange(e.scope),
+                    range: getRange(e.scope),
                     message: e.message,
                     source: 'XULE semantic checker'
                 });
@@ -74,7 +74,7 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
         if(assertionsWithTheSameName.length > 1) {
             this.diagnostics.push({
                 severity: DiagnosticSeverity.Error,
-                range: this.getRange(ctx.ASSERT_RULE_NAME()),
+                range: getRange(ctx.ASSERT_RULE_NAME()),
                 message: "Assertion defined more than once",
                 source: 'XULE semantic checker'
             });
@@ -90,7 +90,7 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
         if(bindings && bindings.length > 1) {
             this.diagnostics.push({
                 severity: DiagnosticSeverity.Error,
-                range: this.getRange(ctx.identifier()),
+                range: getRange(ctx.identifier()),
                 message: "Constant defined more than once",
                 source: 'XULE semantic checker'
             });
@@ -132,7 +132,7 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
             if(vr && !vr.text.startsWith("@")) {
                 this.diagnostics.push({
                     severity: DiagnosticSeverity.Error,
-                    range: this.getRange(ctx),
+                    range: getRange(ctx),
                     message: "Malformed factset",
                     source: 'XULE semantic checker'
                 });
@@ -158,7 +158,7 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
             return;
         }
         const binding = this.symbolTable.lookup(variableName, ctx);
-        const range = this.getRange(identifier);
+        const range = getRange(identifier);
         if (!binding && !this.localVariables[variableName]) {
             this.diagnostics.push({
                 severity: DiagnosticSeverity.Warning,
@@ -198,7 +198,7 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
                             b.meaning.find(m => m instanceof VariableInfo && m.ignoreCase))) {
                         this.diagnostics.push({
                             severity: DiagnosticSeverity.Warning,
-                            range: this.getRange(identifier),
+                            range: getRange(identifier),
                             message: "Unknown local name: " + name + " in namespace " + ns.namespace.uri,
                             source: 'XULE semantic checker'
                         });
@@ -220,18 +220,10 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
         } else {
             this.diagnostics.push({
                 severity: DiagnosticSeverity.Warning,
-                range: this.getRange(identifier),
+                range: getRange(identifier),
                 message: "Unknown attribute: " + name + " and no default namespace set.",
                 source: 'XULE semantic checker'
             });
-        }
-    }
-
-    private getRange(parseTree: ParseTree): Range {
-        if(this.document) {
-            return getRange(parseTree);
-        } else {
-            return { start: null, end: null };
         }
     }
 
@@ -264,7 +256,7 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
     visitFunctionDeclaration = (ctx: FunctionDeclarationContext) => {
         let functionName = ctx.identifier().text;
         if(functionName.startsWith("$")) {
-            const range = this.getRange(ctx.identifier());
+            const range = getRange(ctx.identifier());
             this.diagnostics.push({
                 severity: DiagnosticSeverity.Error,
                 range: range,
@@ -288,7 +280,7 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
             return;
         }
         let functionName = identifier.text;
-        const range = this.getRange(identifier);
+        const range = getRange(identifier);
         if (functionName.startsWith("$")) {
             this.diagnostics.push({
                 severity: DiagnosticSeverity.Error,
@@ -338,10 +330,10 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
         if(!property) {
             return;
         }
-        let parameters = p.parametersList() ? p.parametersList().expression() : [];
+        let parameters = p.parametersList() ? p.parametersList().block().length : 0;
         let arity = property.arity as any;
-        let range = this.getRange(p.parametersList() || identifier);
-        if (typeof (arity) === "number" && arity != parameters.length) {
+        let range = getRange(p.parametersList() || identifier);
+        if (typeof (arity) === "number" && arity != parameters) {
             this.diagnostics.push({
                 severity: DiagnosticSeverity.Error,
                 range: range,
@@ -349,7 +341,7 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
                 source: 'XULE semantic checker'
             });
         } else if (arity) {
-            if (typeof (arity.min) === 'number' && parameters.length < arity.min) {
+            if (typeof (arity.min) === 'number' && parameters < arity.min) {
                 this.diagnostics.push({
                     severity: DiagnosticSeverity.Error,
                     range: range,
@@ -357,7 +349,7 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
                     source: 'XULE semantic checker'
                 });
             }
-            if (typeof (arity.max) === 'number' && parameters.length > arity.max) {
+            if (typeof (arity.max) === 'number' && parameters > arity.max) {
                 this.diagnostics.push({
                     severity: DiagnosticSeverity.Error,
                     range: range,
@@ -373,7 +365,7 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
         let propertyName = identifier.text;
         let property = wellKnownProperties[propertyName];
         if (!property) {
-            let range = this.getRange(identifier);
+            let range = getRange(identifier);
             this.diagnostics.push({
                 severity: DiagnosticSeverity.Warning,
                 range: range,
@@ -386,9 +378,10 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
     }
 
     protected checkArity(functionInfo: FunctionInfo, parametersList: ParametersListContext) {
-        const range = this.getRange(parametersList);
+        const range = getRange(parametersList);
+        let arity = parametersList.block().length;
         if (typeof (functionInfo.arity) === 'number') {
-            if (functionInfo.arity != parametersList.expression().length) {
+            if (functionInfo.arity != arity) {
                 this.diagnostics.push({
                     severity: DiagnosticSeverity.Error,
                     range: range,
@@ -398,7 +391,7 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
             }
         } else if (functionInfo.arity) {
             let arity = functionInfo.arity as any;
-            if (typeof (arity.min) === 'number' && parametersList.expression().length < arity.min) {
+            if (typeof (arity.min) === 'number' && arity < arity.min) {
                 this.diagnostics.push({
                     severity: DiagnosticSeverity.Error,
                     range: range,
@@ -406,7 +399,7 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
                     source: 'XULE semantic checker'
                 });
             }
-            if (typeof (arity.max) === 'number' && parametersList.expression().length > arity.max) {
+            if (typeof (arity.max) === 'number' && arity > arity.max) {
                 this.diagnostics.push({
                     severity: DiagnosticSeverity.Error,
                     range: range,

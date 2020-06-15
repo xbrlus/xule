@@ -54,7 +54,7 @@ ifExpression: IF expression block ELSE block;
 forExpression: FOR (OPEN_PAREN forHead CLOSE_PAREN | forHead) block;
 forHead: forVariable IN expression;
 
-parametersList: OPEN_PAREN (expression (COMMA expression)* COMMA?)? CLOSE_PAREN;
+parametersList: OPEN_PAREN (block (COMMA block)* COMMA?)? CLOSE_PAREN;
 
 factset: AT | OPEN_CURLY factsetBody CLOSE_CURLY | OPEN_BRACKET factsetBody CLOSE_BRACKET;
 factsetBody: AT | (aspectFilter | factset | expression)*;
