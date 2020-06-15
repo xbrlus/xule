@@ -313,8 +313,7 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 		return this.registerVariable(ctx.identifier(), ctx);
 	};
 
-	protected registerVariable(variable: IdentifierContext, scope: ParseTree) {
-		let variableName = variable.text;
+	protected registerVariable(variable: IdentifierContext, scope: ParseTree, variableName = variable.text) {
 		const binding = this.symbolTable.lookup(variableName, scope);
 		if (bindingInfo(binding, IdentifierType.VARIABLE)) {
 			return this.symbolTable;
@@ -336,17 +335,8 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 	}
 
 	visitTag = (ctx: TagContext) => {
-		//Tags are always global in scope
-		let context = this.getGlobalContext();
-		let tag = ctx.identifier().text;
-		if(context) {
-			let info = new VariableInfo();
-			info.definedAt = ctx;
-			this.symbolTable.record("$" + tag, [info], context);
-		} else {
-			console.warn("Tag outside an assertion, ignoring: " + tag);
-		}
-		return this.visitChildren(ctx);
+		let tag = ctx.identifier();
+		return this.registerVariable(tag, ctx, "$" + tag.text);
 	};
 
 	protected getGlobalContext(context: ParseTree = this.context) {

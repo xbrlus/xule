@@ -254,6 +254,61 @@ describe('Qnames', function() {
         });
 });
 
+describe('Tag scoping', function() {
+    it("is limited to the defining assertion",
+        function() {
+            const xuleCode = `assert r1 satisfied
+
+$hello1 = "hello1"#hello;
+$hello2 = "hello2";
+true
+
+message
+"This has the variable {$hello} and {$hello2}"
+
+assert r2 satisfied
+
+$hello2 = "hello2";
+$hello3 = "hello";
+true
+
+message
+"This has the variable {$hello2} and {$hello}"`;
+            let input = CharStreams.fromString(xuleCode);
+            let lexer = new XULELexer(input);
+            let parser = new XULEParser(new CommonTokenStream(lexer));
+            let parseTree = parser.xuleFile();
+            expect(parser.numberOfSyntaxErrors).to.equal(0);
+            expect(input.index).to.equal(input.size);
+            let diagnostics = [];
+            let symbolTable = new SymbolTableVisitor().visit(parseTree);
+            let visitor = new SemanticCheckVisitor(diagnostics, symbolTable, null);
+            visitor.checkQNames = false;
+            visitor.visit(parseTree);
+            expect(diagnostics.length).to.equal(1);
+        });
+    it("spills into output statements",
+        function() {
+            const xuleCode = `assert foo satisfied
+            if true
+              true#defined
+            else true
+            message "{$defined} {$undefined}"`;
+            let input = CharStreams.fromString(xuleCode);
+            let lexer = new XULELexer(input);
+            let parser = new XULEParser(new CommonTokenStream(lexer));
+            let parseTree = parser.xuleFile();
+            expect(parser.numberOfSyntaxErrors).to.equal(0);
+            expect(input.index).to.equal(input.size);
+            let diagnostics = [];
+            let symbolTable = new SymbolTableVisitor().visit(parseTree);
+            let visitor = new SemanticCheckVisitor(diagnostics, symbolTable, null);
+            visitor.checkQNames = false;
+            visitor.visit(parseTree);
+            expect(diagnostics.length).to.equal(1);
+        });
+});
+
 describe('Variable scoping', function() {
     it("is limited to the defining assertion",
         function() {
