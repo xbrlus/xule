@@ -147,7 +147,7 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
             name = name.substring(1);
         }
         let lower = name.toLowerCase();
-        if(lower == 'concept' || lower == 'cube' || lower == 'period' || lower == 'unit') {
+        if(dimensions[lower]) {
             return;
         }
         this.checkQName(name, ctx, ctx);
@@ -603,6 +603,15 @@ export const wellKnownProperties: { [name: string]: PropertyInfo } = {
     "weight": new PropertyInfo(0),
     "year": new PropertyInfo(0),
 };
+
+export const dimensions = {
+    "assets": {},
+    "concept": {},
+    "cube": {},
+    "entity": {},
+    "period": {},
+    "unit": {}
+}
 
 export const wellKnownOutputAttributes = [
     "message", "rule-suffix", "rule-focus", "severity"

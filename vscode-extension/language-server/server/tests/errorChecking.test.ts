@@ -60,6 +60,25 @@ describe('Constants', function() {
         });
 });
 
+describe('Entity', function() {
+    it("is a valid dimension",
+        function() {
+            const xuleCode = `{covered @Assets @entity.id='0000320193'}`;
+            let input = CharStreams.fromString(xuleCode);
+            let lexer = new XULELexer(input);
+            let parser = new XULEParser(new CommonTokenStream(lexer));
+            let parseTree = parser.factset();
+            expect(parser.numberOfSyntaxErrors).to.equal(0);
+            expect(input.index).to.equal(input.size);
+            let diagnostics = [];
+            let symbolTable = new SymbolTableVisitor().withInitialContext(parseTree).visit(parseTree);
+            let visitor = new SemanticCheckVisitor(diagnostics, symbolTable, null);
+            visitor.visit(parseTree);
+            expect(diagnostics.length).to.equal(0);
+        });
+});
+
+
 describe('Factsets', function() {
     it("invalid forms are detected",
         function() {
@@ -198,7 +217,7 @@ describe('Navigation', function() {
 describe('Period', function() {
     it("can be compared to 'forever'",
         function() {
-            const xuleCode = `{@period = forever }`;
+            const xuleCode = `{@period = forever}`;
             let input = CharStreams.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
@@ -240,7 +259,7 @@ describe('Qnames', function() {
         });
     it("are checked in filters: @qname",
         function() {
-            const xuleCode = `{@Assets}`;
+            const xuleCode = `{@test}`;
             let input = CharStreams.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
@@ -249,7 +268,7 @@ describe('Qnames', function() {
             expect(input.index).to.equal(input.size);
 
             let diagnostics = [];
-            let namespace = new Namespace("", [{ localName: 'Assets' }]);
+            let namespace = new Namespace("", [{ localName: 'test' }]);
             let symbolTable = new SymbolTableVisitor().visit(parseTree);
             symbolTable.namespaces[""] = { namespace: namespace };
             new SemanticCheckVisitor(diagnostics, symbolTable, null).visit(parseTree);
