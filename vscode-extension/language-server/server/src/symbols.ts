@@ -11,7 +11,7 @@ import {
 	FunctionDeclarationContext, IdentifierContext,
 	NamespaceDeclarationContext,
 	NavigationContext,
-	OutputAttributeDeclarationContext,
+	OutputAttributeDeclarationContext, OutputContext,
 	TagContext,
 	XuleFileContext
 } from './parser/XULEParser';
@@ -322,10 +322,10 @@ export class SymbolTableVisitor extends AbstractParseTreeVisitor<SymbolTable> im
 		info.definedAt = variable;
 		this.symbolTable.record(variableName, [info], this.context);
 		let assertion = this.context;
-		while (assertion && !(assertion instanceof AssertionContext)) {
+		while (assertion && !((assertion instanceof AssertionContext) || (assertion instanceof OutputContext))) {
 			assertion = assertion.parent;
 		}
-		if (assertion instanceof AssertionContext) {
+		if (assertion instanceof AssertionContext || assertion instanceof OutputContext) {
 			//Register the variable so that it's declared for every output attribute
 			assertion.outputAttribute().forEach(a => {
 				this.symbolTable.record(variableName, [info], a);
