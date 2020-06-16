@@ -274,7 +274,6 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
         }
         return this.symbolTable.lookupAll(lookup, ctx);
     }
-
     protected checkFunctionCall(identifier: VariableReadContext, ctx: ExpressionContext, parametersList: ParametersListContext) {
         if(!this.checkFunctions) {
             return;
@@ -314,20 +313,26 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
 
     protected checkPropertyAccess(propertyPath: PropertyAccessContext[]) {
         propertyPath.forEach(p => {
-            if(this.checkProperties && this.checkPropertyExists(p)) {
-                this.checkPropertyArity(p);
-            }
-            if(p.parametersList()) {
+            if(this.checkProperties) {
+                this.checkSinglePropertyAccess(p);
+            } else if(p.parametersList()) {
                 this.visit(p.parametersList());
             }
         });
     }
 
-    private checkPropertyArity(p: PropertyAccessContext) {
+    private checkSinglePropertyAccess(p: PropertyAccessContext) {
         let identifier = p.propertyRef();
         let propertyName = identifier.text;
         let property = wellKnownProperties[propertyName];
         if(!property) {
+            let range = getRange(identifier);
+            this.diagnostics.push({
+                severity: DiagnosticSeverity.Warning,
+                range: range,
+                message: "Unknown property: " + propertyName,
+                source: 'XULE semantic checker'
+            });
             return;
         }
         let parameters = p.parametersList() ? p.parametersList().block().length : 0;
@@ -358,23 +363,24 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
                 });
             }
         }
-    }
-
-    private checkPropertyExists(p: PropertyAccessContext) {
-        let identifier = p.propertyRef();
-        let propertyName = identifier.text;
-        let property = wellKnownProperties[propertyName];
-        if (!property) {
-            let range = getRange(identifier);
-            this.diagnostics.push({
-                severity: DiagnosticSeverity.Warning,
-                range: range,
-                message: "Unknown property: " + propertyName,
-                source: 'XULE semantic checker'
+        if(p.parametersList()) {
+            let parameters = p.parametersList().block();
+            parameters.forEach((b, i) => {
+                if((propertyName == 'cube' && i == 1) ||
+                    (propertyName == 'effective-weight-network' && i == 2)) {
+                    if(b.assignment() || !b.expression().variableRead()) {
+                        this.diagnostics.push({
+                            severity: DiagnosticSeverity.Error,
+                            range: getRange(b),
+                            message: "Not a role: " + b.text,
+                            source: 'XULE semantic checker'
+                        });
+                    }
+                } else {
+                    this.visit(b);
+                }
             });
-            return false;
         }
-        return true;
     }
 
     protected checkArity(functionInfo: FunctionInfo, parametersList: ParametersListContext) {
@@ -459,9 +465,11 @@ export const wellKnownFunctions: { [name: string]: FunctionInfo } = {
     "stdev": new FunctionInfo(1),
     "taxonomy": new FunctionInfo({ min: 0, max: 1 }),
     "time-span": new FunctionInfo(1),
+    "to-json": new FunctionInfo(1),
     "to-list": new FunctionInfo(1),
     "to-qname": new FunctionInfo(1),
     "to-set": new FunctionInfo(1),
+    "trim": new FunctionInfo(1),
     "trunc": new FunctionInfo({ min: 1, max: 2 }),
     "unit": new FunctionInfo({ min: 1, max: 2 }),
     "upper-case": new FunctionInfo(1),
@@ -486,7 +494,7 @@ export const wellKnownProperties: { [name: string]: PropertyInfo } = {
     "concepts": new PropertyInfo(0),
     "contains": new PropertyInfo(1),
     "count": new PropertyInfo(0),
-    "cube": new PropertyInfo(2),
+    "cube": new PropertyInfo({ min: 1, max: 2 }),
     "cube-concept": new PropertyInfo(0),
     "cubes": new PropertyInfo(0),
     "data-type": new PropertyInfo(0),
