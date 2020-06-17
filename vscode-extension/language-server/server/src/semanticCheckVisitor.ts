@@ -95,6 +95,7 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
                 source: 'XULE semantic checker'
             });
         }
+        return this.visit(ctx.expression());
     };
 
     visitExpression = (ctx: ExpressionContext) => {

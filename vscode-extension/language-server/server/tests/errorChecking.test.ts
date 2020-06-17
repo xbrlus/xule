@@ -390,6 +390,23 @@ describe('Qnames', function() {
             new SemanticCheckVisitor(diagnostics, symbolTable, null).visit(parseTree);
             expect(diagnostics.length).to.equal(1);
         });
+    it("are checked in constant declarations",
+        function() {
+            const xuleCode = `
+            constant $balance_sheet_items = navigate parent-child descendants from
+                list(Undefined) where $relationship.target.is-monetary == true returns set (target-name)`;
+            let input = CharStreams.fromString(xuleCode);
+            let lexer = new XULELexer(input);
+            let parser = new XULEParser(new CommonTokenStream(lexer));
+            let parseTree = parser.constantDeclaration();
+            expect(parser.numberOfSyntaxErrors).to.equal(0);
+            expect(input.index).to.equal(input.size);
+
+            let diagnostics = [];
+            let symbolTable = new SymbolTableVisitor().visit(parseTree);
+            new SemanticCheckVisitor(diagnostics, symbolTable, null).visit(parseTree);
+            expect(diagnostics.length).to.equal(1);
+        });
 });
 
 describe('Tag scoping', function() {
