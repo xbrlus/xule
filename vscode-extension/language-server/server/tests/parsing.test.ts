@@ -184,6 +184,16 @@ describe('Navigation', function() {
 		expect(parser.numberOfSyntaxErrors).to.equal(0);
 		expect(input.index).to.equal(input.size);
 	});
+	it("roles can include list access",
+	function() {
+		const xuleCode = `navigate summation-item descendants from $balance_sheet_items role $balance_sheet_roles[1] returns set (source)`;
+		let input = CharStreams.fromString(xuleCode);
+		let lexer = new XULELexer(input);
+		let parser = new XULEParser(new CommonTokenStream(lexer));
+		let parseTree = parser.navigation();
+		expect(parser.numberOfSyntaxErrors).to.equal(0);
+		expect(input.index).to.equal(input.size);
+	});
 });
 
 describe('Numbers', function() {

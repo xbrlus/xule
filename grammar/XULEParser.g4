@@ -31,7 +31,7 @@ expression:
     ifExpression | forExpression |
     OPEN_PAREN expression CLOSE_PAREN |
     expression SHARP tag |
-    expression OPEN_BRACKET expression CLOSE_BRACKET |
+    expression listAccess |
     expression propertyAccess+ |
     expression parametersList |
     (PLUS | MINUS) expression |
@@ -91,7 +91,7 @@ variableRead: identifier;
 navigationReturnOption: identifier;
 
 arcrole: role;
-role: identifier propertyAccess* | stringLiteral;
+role: identifier (listAccess | propertyAccess)* | stringLiteral;
 /** This exists so that when suggesting code we can restrict to known attribute names. */
 atIdentifier: AT_IDENTIFIER;
 /** This exists so that when suggesting code we can restrict to well-known keywords. */
@@ -100,6 +100,7 @@ direction: identifier;
 outputAttributeName: identifier;
 //End expressions
 
+listAccess: OPEN_BRACKET expression CLOSE_BRACKET;
 propertyAccess: DOT propertyRef parametersList?;
 propertyRef: identifier;
 /** With this rule we cover IDENTIFIER tokens, as well as other tokens (keywords) that we accept as identifiers as well. */
