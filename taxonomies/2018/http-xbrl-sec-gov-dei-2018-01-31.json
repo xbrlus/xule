@@ -1,0 +1,1252 @@
+{
+    "http://xbrl.sec.gov/dei/2018-01-31": [
+        {
+            "dataType": "xbrli:gMonthDayItemType",
+            "periodType": "duration",
+            "localName": "FormerFiscalYearEndDate",
+            "type": "Concept",
+            "label": "Former Fiscal Year End Date",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "dei:countryItemType",
+            "periodType": "duration",
+            "localName": "EntityHomeCountryISOCode",
+            "type": "Concept",
+            "label": "Entity Home Country ISO Code",
+            "isAbstract": "false"
+        },
+        {
+            "label": "fiscalPeriodItemType",
+            "localName": "fiscalPeriodItemType",
+            "type": "Type"
+        },
+        {
+            "dataType": "xbrli:dateItemType",
+            "periodType": "duration",
+            "localName": "DocumentPeriodEndDate",
+            "type": "Concept",
+            "label": "Document Period End Date",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "ContactPersonTypeDomain",
+            "type": "Concept",
+            "label": "Contact Person Type [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:gYearItemType",
+            "periodType": "duration",
+            "localName": "DocumentFiscalYearFocus",
+            "type": "Concept",
+            "label": "Document Fiscal Year Focus",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "LegalAddressMember",
+            "type": "Concept",
+            "label": "Legal Address [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration",
+            "localName": "EntityAddressCityOrTown",
+            "type": "Concept",
+            "label": "Entity Address, City or Town",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "AccountingPhoneMember",
+            "type": "Concept",
+            "label": "Accounting Phone [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "DocumentDomain",
+            "type": "Concept",
+            "label": "Document [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "DocumentCopyrightInformation",
+            "type": "Concept",
+            "label": "Document Copyright Information",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "LegalPhoneMember",
+            "type": "Concept",
+            "label": "Legal Phone [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "EntitySectorIndustryClassificationsTable",
+            "type": "Concept",
+            "label": "Entity Sector Industry Classifications [Table]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration",
+            "localName": "TradingSymbol",
+            "type": "Concept",
+            "label": "Trading Symbol",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "EntityAddressAddressDescription",
+            "type": "Concept",
+            "label": "Entity Address, Address Description",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration",
+            "localName": "CountryRegion",
+            "type": "Concept",
+            "label": "Country Region",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration",
+            "localName": "EntityRegistrantName",
+            "type": "Concept",
+            "label": "Entity Registrant Name",
+            "isAbstract": "false"
+        },
+        {
+            "label": "centralIndexKeyItemType",
+            "localName": "centralIndexKeyItemType",
+            "type": "Type"
+        },
+        {
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration",
+            "localName": "PreEffectiveAmendmentNumber",
+            "type": "Concept",
+            "label": "Pre-Effective Amendment Number",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "SectorDomain",
+            "type": "Concept",
+            "label": "Sector [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "dei:nineDigitItemType",
+            "periodType": "duration",
+            "localName": "EntityTaxIdentificationNumber",
+            "type": "Concept",
+            "label": "Entity Tax Identification Number",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration",
+            "localName": "EntityAddressAddressLine1",
+            "type": "Concept",
+            "label": "Entity Address, Address Line One",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "DocumentInformationDocumentAxis",
+            "type": "Concept",
+            "label": "Document Information, Document [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "dei:yesNoItemType",
+            "periodType": "duration",
+            "localName": "EntitySectorIndustryClassificationPrimary",
+            "type": "Concept",
+            "label": "Entity Sector Industry Classification, Primary",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "dei:filerCategoryItemType",
+            "periodType": "duration",
+            "localName": "EntityFilerCategory",
+            "type": "Concept",
+            "label": "Entity Filer Category",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:dateItemType",
+            "periodType": "duration",
+            "localName": "ApproximateDateOfCommencementOfProposedSaleToThePublic",
+            "type": "Concept",
+            "label": "Approximate Date of Commencement of Proposed Sale to Public",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:sharesItemType",
+            "periodType": "instant",
+            "localName": "EntityCommonStockSharesOutstanding",
+            "type": "Concept",
+            "label": "Entity Common Stock, Shares Outstanding",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "EntityPhoneFaxNumbersPhoneFaxNumberTypeAxis",
+            "type": "Concept",
+            "label": "Entity Phone Fax Numbers, Phone Fax Number Type [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "DeprecatedItemsForDEI",
+            "type": "Concept",
+            "label": "Deprecated Items for DEI [Abstract]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "EntityAccountingStandard",
+            "type": "Concept",
+            "label": "Entity Accounting Standard",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration",
+            "localName": "DocumentSynopsis",
+            "type": "Concept",
+            "label": "Document Synopsis",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration",
+            "localName": "EntityOtherIdentificationValue",
+            "type": "Concept",
+            "label": "Entity Other Identification Value",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration",
+            "localName": "EntityAddressCountry",
+            "type": "Concept",
+            "label": "Entity Address, Country",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration",
+            "localName": "EntityInformationFormerLegalOrRegisteredName",
+            "type": "Concept",
+            "label": "Entity Information, Former Legal or Registered Name",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "EntityListingsInstrumentAxis",
+            "type": "Concept",
+            "label": "Entity Listings, Instrument [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration",
+            "localName": "DocumentSubtitle",
+            "type": "Concept",
+            "label": "Document Subtitle",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration",
+            "localName": "EntityAddressStateOrProvince",
+            "type": "Concept",
+            "label": "Entity Address, State or Province",
+            "isAbstract": "false"
+        },
+        {
+            "label": "nineDigitItemType",
+            "localName": "nineDigitItemType",
+            "type": "Type"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "EntityPhoneFaxNumbersLineItems",
+            "type": "Concept",
+            "label": "Entity Phone Fax Numbers [Line Items]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "GeneralPhoneMember",
+            "type": "Concept",
+            "label": "General Phone [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "OtherAddressMember",
+            "type": "Concept",
+            "label": "Other Address [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "GeneralFaxMember",
+            "type": "Concept",
+            "label": "General Fax [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "EntityContactPersonnelTable",
+            "type": "Concept",
+            "label": "Entity Contact Personnel [Table]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "LegalEntityAxis",
+            "type": "Concept",
+            "label": "Legal Entity [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "localName": "EntityPublicFloat",
+            "balanceType": "credit",
+            "type": "Concept",
+            "label": "Entity Public Float",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "PrincipalAddressMember",
+            "type": "Concept",
+            "label": "Principal Address [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:textBlockItemType",
+            "periodType": "duration",
+            "localName": "EntityTextBlock",
+            "type": "Concept",
+            "label": "Entity [Text Block]",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "AccountingFaxMember",
+            "type": "Concept",
+            "label": "Accounting Fax [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "duration",
+            "localName": "AmendmentFlag",
+            "type": "Concept",
+            "label": "Amendment Flag",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "NameChangeEventDateAxis",
+            "type": "Concept",
+            "label": "Name Change Event Date [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "label": "yesNoItemType",
+            "localName": "yesNoItemType",
+            "type": "Type"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "EntityPhoneFaxNumbersTable",
+            "type": "Concept",
+            "label": "Entity Phone Fax Numbers [Table]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "PhoneFaxNumberDescription",
+            "type": "Concept",
+            "label": "Phone Fax Number Description",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "dei:fiscalPeriodItemType",
+            "periodType": "duration",
+            "localName": "DocumentFiscalPeriodFocus",
+            "type": "Concept",
+            "label": "Document Fiscal Period Focus",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "EntityListingDescription",
+            "type": "Concept",
+            "label": "Entity Listing, Description",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "EntityNorthAmericanIndustryClassificationsTable",
+            "type": "Concept",
+            "label": "Entity North American Industry Classifications [Table]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "dei:yesNoItemType",
+            "periodType": "duration",
+            "localName": "EntityListingForeign",
+            "type": "Concept",
+            "label": "Entity Listing, Foreign",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration",
+            "localName": "EntityAddressRegion",
+            "type": "Concept",
+            "label": "Entity Address, Region",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "EntityNorthAmericanIndustryClassificationsLineItems",
+            "type": "Concept",
+            "label": "Entity North American Industry Classifications [Line Items]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration",
+            "localName": "EntityAddressAddressLine3",
+            "type": "Concept",
+            "label": "Entity Address, Address Line Three",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "UTR",
+            "type": "Concept",
+            "label": "UTR",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "dei:yesNoItemType",
+            "periodType": "duration",
+            "localName": "EntityCurrentReportingStatus",
+            "type": "Concept",
+            "label": "Entity Current Reporting Status",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "EntityNorthAmericanIndustryClassificationsIndustryAxis",
+            "type": "Concept",
+            "label": "Entity North American Industry Classifications, Industry [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "EntityAddressesAddressTypeAxis",
+            "type": "Concept",
+            "label": "Entity Addresses, Address Type [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "label": "currencyItemType",
+            "localName": "currencyItemType",
+            "type": "Type"
+        },
+        {
+            "dataType": "xbrli:dateItemType",
+            "periodType": "duration",
+            "localName": "EntityIncorporationDateOfIncorporation",
+            "type": "Concept",
+            "label": "Entity Incorporation, Date of Incorporation",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "EntitySectorIndustryClassificationsLineItems",
+            "type": "Concept",
+            "label": "Entity Sector Industry Classifications [Line Items]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "EntityListingSecurityTradingCurrency",
+            "type": "Concept",
+            "label": "Entity Listing, Security Trading Currency",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "EntityDomain",
+            "type": "Concept",
+            "label": "Entity [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "NameChangeEventTable",
+            "type": "Concept",
+            "label": "Name Change Event [Table]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "EntityInformationLineItems",
+            "type": "Concept",
+            "label": "Entity Information [Line Items]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "EntityContactPersonnelContactPersonTypeAxis",
+            "type": "Concept",
+            "label": "Entity Contact Personnel, Contact Person Type [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "EntityByLocationAxis",
+            "type": "Concept",
+            "label": "Entity by Location [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "ContactAddressMember",
+            "type": "Concept",
+            "label": "Contact Address [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "duration",
+            "localName": "EntityShellCompany",
+            "type": "Concept",
+            "label": "Entity Shell Company",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "EntityAddressesTable",
+            "type": "Concept",
+            "label": "Entity Addresses [Table]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "EntityLegalForm",
+            "type": "Concept",
+            "label": "Entity Legal Form",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "ContactPhoneMember",
+            "type": "Concept",
+            "label": "Contact Phone [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "num:perShareItemType",
+            "periodType": "duration",
+            "localName": "EntityListingParValuePerShare",
+            "type": "Concept",
+            "label": "Entity Listing, Par Value Per Share",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "ContactFaxMember",
+            "type": "Concept",
+            "label": "Contact Fax [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "label": "submissionTypeItemType",
+            "localName": "submissionTypeItemType",
+            "type": "Type"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "ExchangeDomain",
+            "type": "Concept",
+            "label": "Exchange [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration",
+            "localName": "CityAreaCode",
+            "type": "Concept",
+            "label": "City Area Code",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "duration",
+            "localName": "EntitySmallBusiness",
+            "type": "Concept",
+            "label": "Entity Small Business",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration",
+            "localName": "EntityIncorporationStateCountryName",
+            "type": "Concept",
+            "label": "Entity Incorporation, State Country Name",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "DocumentInformationLineItems",
+            "type": "Concept",
+            "label": "Document Information [Line Items]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "InvestorRelationsPhoneMember",
+            "type": "Concept",
+            "label": "Investor Relations Phone [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "AccountingContactMember",
+            "type": "Concept",
+            "label": "Accounting Contact [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "EntityListingsLineItems",
+            "type": "Concept",
+            "label": "Entity Listings [Line Items]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "AmendmentDescription",
+            "type": "Concept",
+            "label": "Amendment Description",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "InvestorRelationsContactMember",
+            "type": "Concept",
+            "label": "Investor Relations Contact [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "duration",
+            "localName": "EntityEmergingGrowthCompany",
+            "type": "Concept",
+            "label": "Entity Emerging Growth Company",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "DocumentContactMember",
+            "type": "Concept",
+            "label": "Document Contact [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:decimalItemType",
+            "periodType": "instant",
+            "localName": "EntityNumberOfEmployees",
+            "type": "Concept",
+            "label": "Entity Number of Employees",
+            "isAbstract": "false"
+        },
+        {
+            "label": "invCompanyType",
+            "localName": "invCompanyType",
+            "type": "Type"
+        },
+        {
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration",
+            "localName": "ContainedFileInformationFileType",
+            "type": "Concept",
+            "label": "Contained File Information, File Type",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "EntityListingsTable",
+            "type": "Concept",
+            "label": "Entity Listings [Table]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "LegalFaxMember",
+            "type": "Concept",
+            "label": "Legal Fax [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "InstrumentDomain",
+            "type": "Concept",
+            "label": "Instrument [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "dei:nineDigitItemType",
+            "periodType": "duration",
+            "localName": "EntityDataUniversalNumberingSystemNumber",
+            "type": "Concept",
+            "label": "Entity Data Universal Numbering System Number",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "dei:currencyItemType",
+            "periodType": "duration",
+            "localName": "EntityReportingCurrencyISOCode",
+            "type": "Concept",
+            "label": "Entity Reporting Currency ISO Code",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "PhoneFaxNumberTypeDomain",
+            "type": "Concept",
+            "label": "Phone Fax Number Type [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration",
+            "localName": "DocumentVersion",
+            "type": "Concept",
+            "label": "Document Version",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "LegalContactMember",
+            "type": "Concept",
+            "label": "Legal Contact [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "label": "legalEntityIdentifierItemType",
+            "localName": "legalEntityIdentifierItemType",
+            "type": "Type"
+        },
+        {
+            "label": "filerCategoryItemType",
+            "localName": "filerCategoryItemType",
+            "type": "Type"
+        },
+        {
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration",
+            "localName": "Extension",
+            "type": "Concept",
+            "label": "Extension",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration",
+            "localName": "DocumentTitle",
+            "type": "Concept",
+            "label": "Document Title",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration",
+            "localName": "EntityAddressPostalZipCode",
+            "type": "Concept",
+            "label": "Entity Address, Postal Zip Code",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "dei:invCompanyType",
+            "periodType": "duration",
+            "localName": "EntityInvCompanyType",
+            "type": "Concept",
+            "label": "Entity Inv Company Type",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "dei:yesNoItemType",
+            "periodType": "duration",
+            "localName": "EntityListingPrimary",
+            "type": "Concept",
+            "label": "Entity Listing, Primary",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "InvestorRelationsFaxMember",
+            "type": "Concept",
+            "label": "Investor Relations Fax [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "dei:centralIndexKeyItemType",
+            "periodType": "duration",
+            "localName": "EntityCentralIndexKey",
+            "type": "Concept",
+            "label": "Entity Central Index Key",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "AddressTypeDomain",
+            "type": "Concept",
+            "label": "Address Type [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:dateItemType",
+            "periodType": "duration",
+            "localName": "DocumentEffectiveDate",
+            "type": "Concept",
+            "label": "Document Effective Date",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:gMonthDayItemType",
+            "periodType": "duration",
+            "localName": "CurrentFiscalYearEndDate",
+            "type": "Concept",
+            "label": "Current Fiscal Year End Date",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "ContainedFileInformationFileDescription",
+            "type": "Concept",
+            "label": "Contained File Information, File Description",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "EntitySectorIndustryClassificationsSectorAxis",
+            "type": "Concept",
+            "label": "Entity Sector Industry Classifications, Sector [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "dei:yesNoItemType",
+            "periodType": "duration",
+            "localName": "EntityNorthAmericanIndustryClassificationPrimary",
+            "type": "Concept",
+            "label": "Entity North American Industry Classification, Primary",
+            "isAbstract": "false"
+        },
+        {
+            "label": "countryItemType",
+            "localName": "countryItemType",
+            "type": "Type"
+        },
+        {
+            "label": "fileNumberItemType",
+            "localName": "fileNumberItemType",
+            "type": "Type"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "BusinessContactMember",
+            "type": "Concept",
+            "label": "Business Contact [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "NameChangeEventLineItems",
+            "type": "Concept",
+            "label": "Name Change Event [Line Items]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "DocumentInformationTable",
+            "type": "Concept",
+            "label": "Document Information [Table]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "EntitiesTable",
+            "type": "Concept",
+            "label": "Entities [Table]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:dateItemType",
+            "periodType": "duration",
+            "localName": "DocumentCreationDate",
+            "type": "Concept",
+            "label": "Document Creation Date",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "LocationDomain",
+            "type": "Concept",
+            "label": "Location [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "dei:submissionTypeItemType",
+            "periodType": "duration",
+            "localName": "DocumentType",
+            "type": "Concept",
+            "label": "Document Type",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "dei:fileNumberItemType",
+            "periodType": "duration",
+            "localName": "EntityFileNumber",
+            "type": "Concept",
+            "label": "Entity File Number",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "NAICSDomain",
+            "type": "Concept",
+            "label": "NAICS [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "EntityLocationTable",
+            "type": "Concept",
+            "label": "Entity Location [Table]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration",
+            "localName": "DocumentName",
+            "type": "Concept",
+            "label": "Document Name",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration",
+            "localName": "EntityOtherIdentificationType",
+            "type": "Concept",
+            "label": "Entity Other Identification Type",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "dei:yesNoItemType",
+            "periodType": "duration",
+            "localName": "EntityWellKnownSeasonedIssuer",
+            "type": "Concept",
+            "label": "Entity Well-known Seasoned Issuer",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration",
+            "localName": "ContactPersonnelEmailAddress",
+            "type": "Concept",
+            "label": "Contact Personnel Email Address",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration",
+            "localName": "ContainedFileInformationFileName",
+            "type": "Concept",
+            "label": "Contained File Information, File Name",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "duration",
+            "localName": "EntityExTransitionPeriod",
+            "type": "Concept",
+            "label": "Entity Ex Transition Period",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "dei:yesNoItemType",
+            "periodType": "duration",
+            "localName": "EntityLocationPrimary",
+            "type": "Concept",
+            "label": "Entity Location, Primary",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "EntityContactPersonnelLineItems",
+            "type": "Concept",
+            "label": "Entity Contact Personnel [Line Items]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration",
+            "localName": "ContainedFileInformationFileNumber",
+            "type": "Concept",
+            "label": "Contained File Information, File Number",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration",
+            "localName": "LocalPhoneNumber",
+            "type": "Concept",
+            "label": "Local Phone Number",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration",
+            "localName": "ContactPersonnelName",
+            "type": "Concept",
+            "label": "Contact Personnel Name",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:pureItemType",
+            "periodType": "instant",
+            "localName": "EntityListingDepositoryReceiptRatio",
+            "type": "Concept",
+            "label": "Entity Listing, Depository Receipt Ratio",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:anyURIItemType",
+            "periodType": "duration",
+            "localName": "ContactPersonnelUniformResourceLocatorURL",
+            "type": "Concept",
+            "label": "Contact Personnel Uniform Resource Locator (URL)",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "dei:legalEntityIdentifierItemType",
+            "periodType": "duration",
+            "localName": "LegalEntityIdentifier",
+            "type": "Concept",
+            "label": "Legal Entity Identifier",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MailingAddressMember",
+            "type": "Concept",
+            "label": "Mailing Address [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "EntityLocationLineItems",
+            "type": "Concept",
+            "label": "Entity Location [Line Items]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "DocumentDescription",
+            "type": "Concept",
+            "label": "Document Description",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "HumanResourcesContactMember",
+            "type": "Concept",
+            "label": "Human Resources Contact [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:dateItemType",
+            "periodType": "duration",
+            "localName": "EntityInformationDateToChangeFormerLegalOrRegisteredName",
+            "type": "Concept",
+            "label": "Entity Information, Date to Change Former Legal or Registered Name",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "AccountingAddressMember",
+            "type": "Concept",
+            "label": "Accounting Address [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:textBlockItemType",
+            "periodType": "duration",
+            "localName": "DocumentInformationTextBlock",
+            "type": "Concept",
+            "label": "Document Information [Text Block]",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration",
+            "localName": "PostEffectiveAmendmentNumber",
+            "type": "Concept",
+            "label": "Post-Effective Amendment Number",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:dateItemType",
+            "periodType": "duration",
+            "localName": "DocumentPeriodStartDate",
+            "type": "Concept",
+            "label": "Document Period Start Date",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "dei:yesNoItemType",
+            "periodType": "duration",
+            "localName": "EntityVoluntaryFilers",
+            "type": "Concept",
+            "label": "Entity Voluntary Filers",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration",
+            "localName": "EntityAddressAddressLine2",
+            "type": "Concept",
+            "label": "Entity Address, Address Line Two",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "EntityListingsExchangeAxis",
+            "type": "Concept",
+            "label": "Entity Listings, Exchange [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:normalizedStringItemType",
+            "periodType": "duration",
+            "localName": "RegistrationStatementAmendmentNumber",
+            "type": "Concept",
+            "label": "Registration Statement Amendment Number",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "ParentEntityLegalName",
+            "type": "Concept",
+            "label": "Parent Entity Legal Name",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "EntityAddressesLineItems",
+            "type": "Concept",
+            "label": "Entity Addresses [Line Items]",
+            "isAbstract": "true"
+        }
+    ]
+}

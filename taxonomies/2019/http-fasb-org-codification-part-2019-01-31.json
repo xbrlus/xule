@@ -1,0 +1,32 @@
+{
+    "http://fasb.org/codification-part/2019-01-31": [
+        {
+            "dataType": "string",
+            "label": "Topic",
+            "isAbstract": "false",
+            "localName": "Topic",
+            "type": "Reference"
+        },
+        {
+            "dataType": "anyURI",
+            "label": "URI",
+            "isAbstract": "false",
+            "localName": "URI",
+            "type": "Reference"
+        },
+        {
+            "dataType": "string",
+            "label": "SubTopic",
+            "isAbstract": "false",
+            "localName": "SubTopic",
+            "type": "Reference"
+        },
+        {
+            "dataType": "string",
+            "label": "Glossary",
+            "isAbstract": "false",
+            "localName": "Glossary",
+            "type": "Reference"
+        }
+    ]
+}

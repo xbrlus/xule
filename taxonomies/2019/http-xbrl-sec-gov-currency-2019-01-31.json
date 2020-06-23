@@ -1,0 +1,1444 @@
+{
+    "http://xbrl.sec.gov/currency/2019-01-31": [
+        {
+            "localName": "ARS",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:ARS",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "TRY",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:TRY",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "KHR",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:KHR",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "BTN",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:BTN",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "VEF",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:VEF",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "XBB",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:XBB",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "SBD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:SBD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "RON",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:RON",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "TZS",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:TZS",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "PHP",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:PHP",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "GEL",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:GEL",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "XAG",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:XAG",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "SRD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:SRD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "AOA",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:AOA",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "CNY",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:CNY",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "CAD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:CAD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "CDF",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:CDF",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "BMD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:BMD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "XBD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:XBD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "DZD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:DZD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "HTG",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:HTG",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "NAD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:NAD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "FKP",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:FKP",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "DOP",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:DOP",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "KRW",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:KRW",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "KZT",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:KZT",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "XAF",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:XAF",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "XBC",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:XBC",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "JMD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:JMD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "CHE",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:CHE",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "PLN",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:PLN",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "RWF",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:RWF",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "QAR",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:QAR",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "XXX",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:XXX",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "CRC",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:CRC",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "BND",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:BND",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "NIO",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:NIO",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "SLL",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:SLL",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "LYD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:LYD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "COP",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:COP",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "IRR",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:IRR",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "SGD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:SGD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "ANG",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:ANG",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "BAM",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:BAM",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "ZAR",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:ZAR",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "ZWL",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:ZWL",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "GBP",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:GBP",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "INR",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:INR",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "JOD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:JOD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "UAH",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:UAH",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "MMK",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:MMK",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "XAU",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:XAU",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "PAB",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:PAB",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "UYU",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:UYU",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "GHS",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:GHS",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "GMD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:GMD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "XSU",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:XSU",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "HNL",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:HNL",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "MVR",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:MVR",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "THB",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:THB",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "VUV",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:VUV",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "ZMW",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:ZMW",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "BIF",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:BIF",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "SEK",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:SEK",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "AUD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:AUD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "ETB",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:ETB",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "SYP",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:SYP",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "GNF",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:GNF",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "NGN",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:NGN",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "PYG",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:PYG",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "SAR",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:SAR",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "DeprecatedItemsForCurrency",
+            "periodType": "duration",
+            "dataType": "xbrli:stringItemType",
+            "type": "Concept",
+            "label": "currency:DeprecatedItemsForCurrency",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "MZN",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:MZN",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "XPT",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:XPT",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "SDG",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:SDG",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "KMF",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:KMF",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "DKK",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:DKK",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "BGN",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:BGN",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "AMD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:AMD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "GIP",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:GIP",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "BWP",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:BWP",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "XTS",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:XTS",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "AED",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:AED",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "SSP",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:SSP",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "KPW",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:KPW",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "CUC",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:CUC",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "MYR",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:MYR",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "MKD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:MKD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "TND",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:TND",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "DJF",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:DJF",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "KWD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:KWD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "SHP",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:SHP",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "MUR",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:MUR",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "AWG",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:AWG",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "MGA",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:MGA",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "UYI",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:UYI",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "LBP",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:LBP",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "UZS",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:UZS",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "TMT",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:TMT",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "MWK",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:MWK",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "LRD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:LRD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "VND",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:VND",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "CHW",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:CHW",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "MAD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:MAD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "ILS",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:ILS",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "ISK",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:ISK",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "NPR",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:NPR",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "ERN",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:ERN",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "JPY",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:JPY",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "TJS",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:TJS",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "TTD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:TTD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "TWD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:TWD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "HKD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:HKD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "LSL",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:LSL",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "UGX",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:UGX",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "HUF",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:HUF",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "ALL",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:ALL",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "HRK",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:HRK",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "LAK",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:LAK",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "USN",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:USN",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "MDL",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:MDL",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "CVE",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:CVE",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "MOP",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:MOP",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "XPF",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:XPF",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "EUR",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:EUR",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "TOP",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:TOP",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "PEN",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:PEN",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "STD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:STD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "BHD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:BHD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "CUP",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:CUP",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "EGP",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:EGP",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "MNT",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:MNT",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "AZN",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:AZN",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "XPD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:XPD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "CZK",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:CZK",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "AllCurrenciesDomain",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:AllCurrenciesDomain",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "BOV",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:BOV",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "XUA",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:XUA",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "BBD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:BBD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "BRL",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:BRL",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "USD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:USD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "XDR",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:XDR",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "SZL",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:SZL",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "LKR",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:LKR",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "GTQ",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:GTQ",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "MXN",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:MXN",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "BZD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:BZD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "CLF",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:CLF",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "KGS",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:KGS",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "BYN",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:BYN",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "SCR",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:SCR",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "MXV",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:MXV",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "UYW",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:UYW",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "XCD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:XCD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "BOB",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:BOB",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "PGK",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:PGK",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "CLP",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:CLP",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "OMR",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:OMR",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "YER",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:YER",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "BSD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:BSD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "CHF",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:CHF",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "XBA",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:XBA",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "KES",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:KES",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "IDR",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:IDR",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "GYD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:GYD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "BDT",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:BDT",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "XOF",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:XOF",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "IQD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:IQD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "MRO",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:MRO",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "SOS",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:SOS",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "COU",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:COU",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "NOK",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:NOK",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "NZD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:NZD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "WST",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:WST",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "RUB",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:RUB",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "AFN",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:AFN",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "RSD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:RSD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "PKR",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:PKR",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "FJD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:FJD",
+            "isAbstract": "true"
+        },
+        {
+            "localName": "KYD",
+            "periodType": "duration",
+            "dataType": "nonnum:domainItemType",
+            "type": "Concept",
+            "label": "currency:KYD",
+            "isAbstract": "true"
+        }
+    ]
+}

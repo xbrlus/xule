@@ -1,0 +1,29 @@
+{
+    "http://www.xbrl.org/dtr/type/non-numeric": [
+        {
+            "label": "xmlNodesItemType",
+            "localName": "xmlNodesItemType",
+            "type": "Type"
+        },
+        {
+            "label": "textBlockItemType",
+            "localName": "textBlockItemType",
+            "type": "Type"
+        },
+        {
+            "label": "escapedItemType",
+            "localName": "escapedItemType",
+            "type": "Type"
+        },
+        {
+            "label": "xmlItemType",
+            "localName": "xmlItemType",
+            "type": "Type"
+        },
+        {
+            "label": "domainItemType",
+            "localName": "domainItemType",
+            "type": "Type"
+        }
+    ]
+}

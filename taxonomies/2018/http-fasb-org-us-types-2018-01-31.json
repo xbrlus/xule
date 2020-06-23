@@ -1,0 +1,99 @@
+{
+    "http://fasb.org/us-types/2018-01-31": [
+        {
+            "label": "distributionsReceivedApproach",
+            "localName": "distributionsReceivedApproach",
+            "type": "Type"
+        },
+        {
+            "label": "fundedStatusItemType",
+            "localName": "fundedStatusItemType",
+            "type": "Type"
+        },
+        {
+            "label": "zoneStatusItemType",
+            "localName": "zoneStatusItemType",
+            "type": "Type"
+        },
+        {
+            "label": "interestRateItemType",
+            "localName": "interestRateItemType",
+            "type": "Type"
+        },
+        {
+            "label": "gYearListItemType",
+            "localName": "gYearListItemType",
+            "type": "Type"
+        },
+        {
+            "label": "MalpracticeInsurance-OccurrenceOrClaims-madeItemType",
+            "localName": "MalpracticeInsurance-OccurrenceOrClaims-madeItemType",
+            "type": "Type"
+        },
+        {
+            "label": "surchargeItemType",
+            "localName": "surchargeItemType",
+            "type": "Type"
+        },
+        {
+            "label": "forfeitureMethod",
+            "localName": "forfeitureMethod",
+            "type": "Type"
+        },
+        {
+            "label": "investmentOnLoanForShortSalesItemType",
+            "localName": "investmentOnLoanForShortSalesItemType",
+            "type": "Type"
+        },
+        {
+            "label": "yesNoItemType",
+            "localName": "yesNoItemType",
+            "type": "Type"
+        },
+        {
+            "label": "restrictedInvestmentItemType",
+            "localName": "restrictedInvestmentItemType",
+            "type": "Type"
+        },
+        {
+            "label": "authorizedUnlimitedItemType",
+            "localName": "authorizedUnlimitedItemType",
+            "type": "Type"
+        },
+        {
+            "label": "threeDigitItemType",
+            "localName": "threeDigitItemType",
+            "type": "Type"
+        },
+        {
+            "label": "nineDigitItemType",
+            "localName": "nineDigitItemType",
+            "type": "Type"
+        },
+        {
+            "label": "flowItemType",
+            "localName": "flowItemType",
+            "type": "Type"
+        },
+        {
+            "label": "perUnitItemType",
+            "localName": "perUnitItemType",
+            "type": "Type"
+        },
+        {
+            "label": "investmentPledgedItemType",
+            "localName": "investmentPledgedItemType",
+            "type": "Type"
+        },
+        {
+            "label": "fundingImprovementAndRehabilitationPlanItemType",
+            "localName": "fundingImprovementAndRehabilitationPlanItemType",
+            "type": "Type"
+        },
+        {
+            "label": "durationStringItemType",
+            "localName": "durationStringItemType",
+            "type": "Type"
+        }
+    ]
+}

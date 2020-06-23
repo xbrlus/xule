@@ -1,0 +1,3075 @@
+{
+    "http://fasb.org/srt/2018-01-31": [
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "RangeMember",
+            "type": "Concept",
+            "label": "Range [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FitchAAMinusRatingMember",
+            "type": "Concept",
+            "label": "Fitch, AA- Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "StandardPoorsAMinusRatingMember",
+            "type": "Concept",
+            "label": "Standard & Poor's, A- Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "RealEstateAndAccumulatedDepreciationOtherRequiredDisclosuresAbstract",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-28, Real Estate Companies, Investment in Real Estate, and Accumulated Depreciation, Other Disclosure [Abstract]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstatePeriodicPaymentTermsVaryingAmounts",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans on Real Estate, Periodic Payment Terms, Varying Amount, Description",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateReserves",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans on Real Estate, Reserve, Description",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "CommonTable",
+            "type": "Concept",
+            "label": "Common [Table]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "PartnershipInterestMember",
+            "type": "Concept",
+            "label": "Partnership Interest [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "B767200Member",
+            "type": "Concept",
+            "label": "B-767-200 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "CurrencyAxis",
+            "type": "Concept",
+            "label": "Currency [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "EquityMethodInvesteeNameDomain",
+            "type": "Concept",
+            "label": "Investment, Name [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "StandardPoorsCCCPlusRatingMember",
+            "type": "Concept",
+            "label": "Standard & Poor's, CCC+ Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FitchDRatingMember",
+            "type": "Concept",
+            "label": "Fitch, D Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "A300Member",
+            "type": "Concept",
+            "label": "A-300 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "CreditRatingMoodysAxis",
+            "type": "Concept",
+            "label": "Credit Rating, Moody's [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "num:volumeItemType",
+            "periodType": "duration",
+            "localName": "ProvedDevelopedAndUndevelopedReservesImprovedRecovery",
+            "type": "Concept",
+            "label": "Proved Developed and Undeveloped Reserves, Improved Recovery",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:dateItemType",
+            "periodType": "duration",
+            "localName": "RealEstateAndAccumulatedDepreciationDateOfConstruction1",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-28, Real Estate Companies, Investment in Real Estate and Accumulated Depreciation, Date of Construction",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MoodysAa1RatingMember",
+            "type": "Concept",
+            "label": "Moody's, Aa1 Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "localName": "MortgageLoansOnRealEstateDelinquentPrincipalOrInterestAcquiredFromAffiliates",
+            "balanceType": "debit",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans on Real Estate, Delinquent Principal or Interest, Acquired from Affiliates",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "CondensedIncomeStatementsCaptionsLineItems",
+            "type": "Concept",
+            "label": "Condensed Income Statements, Captions [Line Items]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "AfricaMember",
+            "type": "Concept",
+            "label": "Africa [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "A330200Member",
+            "type": "Concept",
+            "label": "A-330-200 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "CondensedBalanceSheetStatementTable",
+            "type": "Concept",
+            "label": "Condensed Balance Sheet Statement [Table]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateNamePropertyTypeDomain",
+            "type": "Concept",
+            "label": "Real Estate [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "B737MaxMember",
+            "type": "Concept",
+            "label": "B-737-Max [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "LongTermSupplyAgreementsWithGovernmentsOrAuthoritiesAbstract",
+            "type": "Concept",
+            "label": "Long-term Supply Agreements with Governments or Authorities [Abstract]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "AMBestCRatingMember",
+            "type": "Concept",
+            "label": "AM Best, C Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FitchAARatingMember",
+            "type": "Concept",
+            "label": "Fitch, AA Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "num:volumeItemType",
+            "periodType": "instant",
+            "localName": "ReservesShareOfEquityMethodInvesteesNetProvedOilAndGasReserves",
+            "type": "Concept",
+            "label": "Reserves, Share of Equity Method Investee's Net Proved Oil and Gas Reserves",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "ApartmentBuildingMember",
+            "type": "Concept",
+            "label": "Apartment Building [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "localName": "LifeInsuranceInForceGross",
+            "balanceType": "credit",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-17, Insurance Companies, Reinsurance, Life Insurance in Force, Gross",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "num:volumeItemType",
+            "periodType": "instant",
+            "localName": "ProvedUndevelopedReserveVolume",
+            "type": "Concept",
+            "label": "Proved Undeveloped Reserve (Volume)",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "ExternalCreditRatingStandardPoorsMember",
+            "type": "Concept",
+            "label": "External Credit Rating, Standard & Poor's [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "num:energyItemType",
+            "periodType": "duration",
+            "localName": "ProvedDevelopedAndUndevelopedReserveRevisionOfPreviousEstimateEnergy",
+            "type": "Concept",
+            "label": "Proved Developed and Undeveloped Reserve, Revision of Previous Estimate (Energy)",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "StandardPoorsARatingMember",
+            "type": "Concept",
+            "label": "Standard & Poor's, A Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "AMBestAMinusRatingMember",
+            "type": "Concept",
+            "label": "AM Best, A- Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "RepurchaseAgreementCounterpartyNameDomain",
+            "type": "Concept",
+            "label": "Counterparty Name [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MoodysA3RatingMember",
+            "type": "Concept",
+            "label": "Moody's, A3 Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MoodysAa2RatingMember",
+            "type": "Concept",
+            "label": "Moody's, Aa2 Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "OwnershipDomain",
+            "type": "Concept",
+            "label": "Ownership [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "localName": "MortgageLoansOnRealEstatePeriodicPaymentTermsBalloonPaymentToBeReceived",
+            "balanceType": "debit",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans on Real Estate, Periodic Payment Terms, Balloon Payment to be Received",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "num:volumeItemType",
+            "periodType": "duration",
+            "localName": "ProvedDevelopedAndUndevelopedReservesRevisionsOfPreviousEstimatesIncreaseDecrease",
+            "type": "Concept",
+            "label": "Proved Developed and Undeveloped Reserves, Revisions of Previous Estimates",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "CRJ900Member",
+            "type": "Concept",
+            "label": "CRJ-900 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "num:energyItemType",
+            "periodType": "duration",
+            "localName": "ProvedDevelopedAndUndevelopedReserveExtensionAndDiscoveryEnergy",
+            "type": "Concept",
+            "label": "Proved Developed and Undeveloped Reserve, Extension and Discovery (Energy)",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FitchBBMinusRatingMember",
+            "type": "Concept",
+            "label": "Fitch, BB- Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "IncreaseDecreaseInStandardizedMeasureOfDiscountedFutureNetCashFlowRelatingToProvedOilAndGasReservesRollForward",
+            "type": "Concept",
+            "label": "Increase (Decrease) in Standardized Measure of Discounted Future Net Cash Flows Relating to Proved Oil and Gas Reserves [Roll Forward]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FederalHomeLoanBankOfTopekaMember",
+            "type": "Concept",
+            "label": "Federal Home Loan Bank of Topeka [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "AircraftTypeAxis",
+            "type": "Concept",
+            "label": "Aircraft Type [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FederalHomeLoanBankOfIndianapolisMember",
+            "type": "Concept",
+            "label": "Federal Home Loan Bank of Indianapolis [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "FederalHomeLoanBankAdvancesBranchOfFHLBBankAxis",
+            "type": "Concept",
+            "label": "Federal Home Loan Bank Branch [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "localName": "RealEstateFederalIncomeTaxBasis",
+            "balanceType": "debit",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-28, Real Estate Companies, Investment in Real Estate, Federal Income Tax Basis",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "SupplementalScheduleOfReinsurancePremiumsForInsuranceCompaniesAbstract",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-17, Insurance Companies, Reinsurance [Abstract]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MoodysBaa3RatingMember",
+            "type": "Concept",
+            "label": "Moody's, Baa3 Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "StandardPoorsAAPlusRatingMember",
+            "type": "Concept",
+            "label": "Standard & Poor's, AA+ Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "ConsolidationItemsDomain",
+            "type": "Concept",
+            "label": "Consolidation Items [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FederalHomeLoanBankOfPittsburghMember",
+            "type": "Concept",
+            "label": "Federal Home Loan Bank of Pittsburgh [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "ScheduleOfCondensedFinancialStatementsTable",
+            "type": "Concept",
+            "label": "Condensed Financial Statements [Table]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "B757Member",
+            "type": "Concept",
+            "label": "B-757 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "CreditRatingAMBestDomain",
+            "type": "Concept",
+            "label": "Credit Rating, AM Best [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "StandardPoorsBBMinusRatingMember",
+            "type": "Concept",
+            "label": "Standard & Poor's, BB- Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "ProvedDevelopedAndUndevelopedOilAndGasReserveQuantitiesTable",
+            "type": "Concept",
+            "label": "Proved Developed and Undeveloped Oil and Gas Reserve Quantities [Table]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateOriginalLoanAmountDomain",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans on Real Estate, Original Loan Amount [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "ConsolidatedPropertyAndCasualtyInsuranceEntityMember",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-18, Supplemental Information, Property-Casualty Insurance Underwriters, Consolidated Property and Casualty Insurance Entity [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "PrincipalSourcesOfChangeInStandardizedMeasureOfDiscountedFutureNetCashFlowRelatingToProvedOilAndGasReservesAbstract",
+            "type": "Concept",
+            "label": "Principal Sources of Change in Standardized Measure of Discounted Future Net Cash Flow Relating to Proved Oil and Gas Reserves [Abstract]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "RestatementAdjustmentMember",
+            "type": "Concept",
+            "label": "Restatement Adjustment [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "StandardPoorsCCCRatingMember",
+            "type": "Concept",
+            "label": "Standard & Poor's, CCC Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MoodysAaaRatingMember",
+            "type": "Concept",
+            "label": "Moody's, Aaa Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "CondensedBalanceSheetStatementsCaptionsLineItems",
+            "type": "Concept",
+            "label": "Condensed Balance Sheet Statements, Captions [Line Items]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "AMBestBPlusRatingMember",
+            "type": "Concept",
+            "label": "AM Best, B+ Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "RealEstateAndAccumulatedDepreciationDescriptionOfPropertyAxis",
+            "type": "Concept",
+            "label": "Name of Property [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "SummaryOfInvestmentsOtherThanInvestmentsInRelatedPartiesCarryingAmountExplanation",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-15, Insurance Companies, Summary of Investments, Other than Investments in Related Parties, Difference in Amounts, Explanation",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "num:percentItemType",
+            "periodType": "instant",
+            "localName": "LifeInsuranceInForcePercentageAssumedToNet",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-17, Insurance Companies, Reinsurance, Life Insurance in Force, Percentage Assumed to Net",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MoodysB1RatingMember",
+            "type": "Concept",
+            "label": "Moody's, B1 Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateScheduleTable",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans on Real Estate Schedule [Table]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "ConsolidationEliminationsMember",
+            "type": "Concept",
+            "label": "Consolidation, Eliminations [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "B717Member",
+            "type": "Concept",
+            "label": "B-717 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "ExtractiveIndustriesAbstract",
+            "type": "Concept",
+            "label": "Extractive Industries [Abstract]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MoodysA1RatingMember",
+            "type": "Concept",
+            "label": "Moody's, A1 Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MoodysA2RatingMember",
+            "type": "Concept",
+            "label": "Moody's, A2 Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FederalHomeLoanBankOfChicagoMember",
+            "type": "Concept",
+            "label": "Federal Home Loan Bank of Chicago [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "LifeInsuranceInForceNetAbstract",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-17, Insurance Companies, Reinsurance, Life Insurance in Force, Net [Abstract]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "num:volumeItemType",
+            "periodType": "duration",
+            "localName": "ProvedDevelopedAndUndevelopedReservesProduction",
+            "type": "Concept",
+            "label": "Proved Developed and Undeveloped Reserves, Production",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "RealEstateWriteDownOrReserveTable",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-28, Real Estate Companies, Investment in Real Estate, Write-down or Reserve [Table]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "DiscountedFutureNetCashFlowsRelatingToProvedOilAndGasReservesTable",
+            "type": "Concept",
+            "label": "Discounted Future Net Cash Flows Relating to Proved Oil and Gas Reserves [Table]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "localName": "FutureNetCashFlowsRelatingToProvedOilAndGasReservesIncomeTaxExpense",
+            "balanceType": "credit",
+            "type": "Concept",
+            "label": "Future Net Cash Flows Relating to Proved Oil and Gas Reserves, Income Tax Expense",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "SyntheticGasMember",
+            "type": "Concept",
+            "label": "Synthetic Gas [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "AMBestBRatingMember",
+            "type": "Concept",
+            "label": "AM Best, B Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoansBetween750000And999999Member",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans between $750,000 and $999,999 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FederalHomeLoanBankOfAtlantaMember",
+            "type": "Concept",
+            "label": "Federal Home Loan Bank of Atlanta [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "A320Member",
+            "type": "Concept",
+            "label": "A-320 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "localName": "MortgageLoansOnRealEstatePrincipalAmountOfDelinquentLoans",
+            "balanceType": "debit",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans on Real Estate, Principal Amount of Delinquent Loans",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "AMBestAPlusRatingMember",
+            "type": "Concept",
+            "label": "AM Best, A+ Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "StatementGeographicalAxis",
+            "type": "Concept",
+            "label": "Geographical [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "StandardPoorsAAARatingMember",
+            "type": "Concept",
+            "label": "Standard & Poor's, AAA Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:integerItemType",
+            "periodType": "duration",
+            "localName": "SECScheduleIIIRealEstateNumberOfUnits",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-28, Real Estate Companies, Investment in Real Estate, Number of Units",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "LitigationCaseTypeDomain",
+            "type": "Concept",
+            "label": "Litigation Case [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "B777Member",
+            "type": "Concept",
+            "label": "B-777 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "AMBestSRatingMember",
+            "type": "Concept",
+            "label": "AM Best, S Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:integerItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateNumberOfLoans",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans on Real Estate, Number of Loans",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "RangeAxis",
+            "type": "Concept",
+            "label": "Range [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "TypeOfReserveDomain",
+            "type": "Concept",
+            "label": "Type of Reserve [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "AMBestCPlusPlusRatingMember",
+            "type": "Concept",
+            "label": "AM Best, C++ Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "RealEstateAndAccumulatedDepreciationByPropertyTable",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-28, Real Estate Companies, Investment in Real Estate and Accumulated Depreciation, by Property [Table]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:textBlockItemType",
+            "periodType": "duration",
+            "localName": "ScheduleOfProvedDevelopedAndUndevelopedOilAndGasReserveQuantitiesTextBlock",
+            "type": "Concept",
+            "label": "Schedule of Proved Developed and Undeveloped Oil and Gas Reserve Quantities [Table Text Block]",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateOriginalLoanAmountAxis",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans on Real Estate, Original Amount [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "srt-types:extensibleListItemType",
+            "periodType": "instant",
+            "localName": "SecSchedule1229InvestmentInMortgageLoansOnRealEstateLocationOfPropertyExtensibleList",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Investment in Mortgage Loans on Real Estate, Location of Property [Extensible List]",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:textBlockItemType",
+            "periodType": "duration",
+            "localName": "ScheduleOfValuationAndQualifyingAccountsDisclosureTextBlock",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-09, Schedule of Valuation and Qualifying Accounts Disclosure [Text Block]",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "ReportableLegalEntitiesMember",
+            "type": "Concept",
+            "label": "Reportable Legal Entities [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "AsiaPacificMember",
+            "type": "Concept",
+            "label": "Asia Pacific [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "PropertyCasualtyInsuranceUnderwritersAffiliationWithRegistrantDomain",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-18, Supplemental Information, Property-Casualty Insurance Underwriters, Affiliation with Registrant [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "WarehouseMember",
+            "type": "Concept",
+            "label": "Warehouse [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateWriteDownOrReserveTable",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans on Real Estate, Write-down or Reserve [Table]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "NameOfMajorCustomerDomain",
+            "type": "Concept",
+            "label": "Customer [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FitchAAARatingMember",
+            "type": "Concept",
+            "label": "Fitch, AAA Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateLineItems",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans on Real Estate [Line Items]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "num:energyItemType",
+            "periodType": "instant",
+            "localName": "ProvedUndevelopedReserveBOE1",
+            "type": "Concept",
+            "label": "Proved Undeveloped Reserves (Energy)",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "num:energyItemType",
+            "periodType": "duration",
+            "localName": "ProvedDevelopedAndUndevelopedReservePurchaseOfMineralInPlaceEnergy",
+            "type": "Concept",
+            "label": "Proved Developed and Undeveloped Reserve, Purchase of Mineral in Place (Energy)",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "localName": "StandardizedMeasureOfDiscountedFutureNetCashFlowOfProvedOilAndGasReservesOther",
+            "balanceType": "debit",
+            "type": "Concept",
+            "label": "Standardized Measure of Discounted Future Net Cash Flow of Proved Oil and Gas Reserves, Other",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FitchCCCPlusRatingMember",
+            "type": "Concept",
+            "label": "Fitch, CCC+ Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "AMBestERatingMember",
+            "type": "Concept",
+            "label": "AM Best, E Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MoodysBa2RatingMember",
+            "type": "Concept",
+            "label": "Moody's, Ba2 Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "NorthAmericaMember",
+            "type": "Concept",
+            "label": "North America [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FederalHomeLoanBankOfNewYorkMember",
+            "type": "Concept",
+            "label": "Federal Home Loan Bank of New York [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "HotelMember",
+            "type": "Concept",
+            "label": "Hotel [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "GuarantorSubsidiariesMember",
+            "type": "Concept",
+            "label": "Guarantor Subsidiaries [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "CreditRatingStandardPoorsAxis",
+            "type": "Concept",
+            "label": "Credit Rating, Standard & Poor's [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FitchARatingMember",
+            "type": "Concept",
+            "label": "Fitch, A Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "AMBestBMinusRatingMember",
+            "type": "Concept",
+            "label": "AM Best, B- Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "localName": "SalesAndTransfersOfOilAndGasProducedNetOfProductionCosts",
+            "balanceType": "credit",
+            "type": "Concept",
+            "label": "Sales and Transfers of Oil and Gas Produced, Net of Production Costs",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "AircraftTypeMember",
+            "type": "Concept",
+            "label": "Aircraft [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "DescriptionOfSignificantProvisionsOfLongTermObligationsOfParentCompany",
+            "type": "Concept",
+            "label": "Description of Significant Provisions of Long-term Obligations of Registrant",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "StandardPoorsBBPlusRatingMember",
+            "type": "Concept",
+            "label": "Standard & Poor's, BB+ Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FederalHomeLoanBankOfBostonMember",
+            "type": "Concept",
+            "label": "Federal Home Loan Bank of Boston [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "SingleFamilyMember",
+            "type": "Concept",
+            "label": "Single Family [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "ProvedDevelopedAndUndevelopedReserveEnergyRollForward",
+            "type": "Concept",
+            "label": "Proved Developed and Undeveloped Reserve (Energy) [Roll Forward]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "num:volumeItemType",
+            "periodType": "duration",
+            "localName": "ProvedDevelopedAndUndevelopedReservesNetPeriodIncreaseDecrease",
+            "type": "Concept",
+            "label": "Proved Developed and Undeveloped Reserves, Net, Period Increase (Decrease)",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MoodysCRatingMember",
+            "type": "Concept",
+            "label": "Moody's, C Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FitchAPlusRatingMember",
+            "type": "Concept",
+            "label": "Fitch, A+ Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FitchAAPlusRatingMember",
+            "type": "Concept",
+            "label": "Fitch, AA+ Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "AMBestDRatingMember",
+            "type": "Concept",
+            "label": "AM Best, D Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "B717200Member",
+            "type": "Concept",
+            "label": "B-717-200 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FitchBPlusRatingMember",
+            "type": "Concept",
+            "label": "Fitch, B+ Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "SupplementaryInsuranceInformationBySegmentTable",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-16, Insurance Companies, Supplementary Insurance Information [Table]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MoodysBaa1RatingMember",
+            "type": "Concept",
+            "label": "Moody's, Baa1 Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "SummaryOfInvestmentsOtherThanInvestmentsInRelatedPartiesReportableDataLineItems",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-15, Insurance Companies, Summary of Investments, Other than Investments in Related Parties [Line Items]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "EMB135Member",
+            "type": "Concept",
+            "label": "EMB-135 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "CreditRatingFitchAxis",
+            "type": "Concept",
+            "label": "Credit Rating, Fitch [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:dateItemType",
+            "periodType": "duration",
+            "localName": "RealEstateAndAccumulatedDepreciationDateAcquired1",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-28, Real Estate Companies, Investment in Real Estate and Accumulated Depreciation, Date Acquired",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "num:energyItemType",
+            "periodType": "duration",
+            "localName": "ProvedDevelopedAndUndevelopedReserveNetEnergyPeriodIncreaseDecrease",
+            "type": "Concept",
+            "label": "Proved Developed and Undeveloped Reserve, Net (Energy), Period Increase (Decrease)",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateAbstract",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans on Real Estate [Abstract]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "CommonDomainMembersAbstract",
+            "type": "Concept",
+            "label": "Common Domain Members [Abstract]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FitchCRatingMember",
+            "type": "Concept",
+            "label": "Fitch, C Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:textBlockItemType",
+            "periodType": "duration",
+            "localName": "ScheduleOfCondensedCashFlowStatementTableTextBlock",
+            "type": "Concept",
+            "label": "Condensed Cash Flow Statement [Table Text Block]",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MoodysBaa2RatingMember",
+            "type": "Concept",
+            "label": "Moody's, Baa2 Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "SupplementalInformationForPropertyCasualtyInsuranceUnderwritersTable",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-18, Supplemental Information, Property-Casualty Insurance Underwriters [Table]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "StandardPoorsAAMinusRatingMember",
+            "type": "Concept",
+            "label": "Standard & Poor's, AA- Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "CRJ200Member",
+            "type": "Concept",
+            "label": "CRJ-200 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "StandardPoorsAPlusRatingMember",
+            "type": "Concept",
+            "label": "Standard & Poor's, A+ Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "num:volumeItemType",
+            "periodType": "instant",
+            "localName": "ProvedOilAndGasReserveQuantitiesApplicableToLongTermSupplyAgreementsWithGovernmentsOrAuthorities",
+            "type": "Concept",
+            "label": "Proved Oil and Gas Reserve Quantities Applicable to Long-term Supply Agreements with Governments or Authorities",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "ConsolidatedEntityExcludingVariableInterestEntitiesVIEMember",
+            "type": "Concept",
+            "label": "Consolidated Entity Excluding Variable Interest Entities (VIE) [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "NaturalGasReservesMember",
+            "type": "Concept",
+            "label": "Natural Gas [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "localName": "ExtensionsDiscoveriesAdditionsAndImprovedRecoveryLessRelatedCosts",
+            "balanceType": "debit",
+            "type": "Concept",
+            "label": "Extensions, Discoveries, Additions and Improved Recovery, Less Related Costs",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FederalHomeLoanBankOfCincinnatiMember",
+            "type": "Concept",
+            "label": "Federal Home Loan Bank of Cincinnati [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FederalHomeLoanBankOfSeattleMember",
+            "type": "Concept",
+            "label": "Federal Home Loan Bank of Seattle [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "localName": "IncreaseDueToPurchasesOfMineralsInPlace",
+            "balanceType": "debit",
+            "type": "Concept",
+            "label": "Increase Due to Purchases of Minerals in Place",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "A320NeoMember",
+            "type": "Concept",
+            "label": "A-320-Neo [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateTransactionsWithAffiliates",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans on Real Estate, Transactions with Affiliates, Description",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MultifamilyMember",
+            "type": "Concept",
+            "label": "Multifamily [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoansBetween250000And499999Member",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans between $250,000 and $499,999 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "IncreaseDecreaseInProvedDevelopedAndUndevelopedReservesRollForward",
+            "type": "Concept",
+            "label": "Proved Developed and Undeveloped Reserves [Roll Forward]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:textBlockItemType",
+            "periodType": "duration",
+            "localName": "SummaryOfInvestmentsOtherThanInvestmentsInRelatedPartiesTextBlock",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-15, Insurance Companies, Summary of Investments, Other than Investments in Related Parties [Text Block]",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "ExternalCreditRatingFitchMember",
+            "type": "Concept",
+            "label": "External Credit Rating, Fitch [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "localName": "LifeInsuranceInForceAssumed",
+            "balanceType": "credit",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-17, Insurance Companies, Reinsurance, Life Insurance in Force, Assumed",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "SummaryOfInvestmentsOtherThanInvestmentsInRelatedPartiesAbstract",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-15, Insurance Companies, Summary of Investments, Other than Investments in Related Parties [Abstract]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "MajorCustomersAxis",
+            "type": "Concept",
+            "label": "Customer [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "StandardPoorsCCCMinusRatingMember",
+            "type": "Concept",
+            "label": "Standard & Poor's, CCC- Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "localName": "FutureNetCashFlowsRelatingToProvedOilAndGasReservesTenPercentAnnualDiscountForEstimatedTimingOfCashFlows",
+            "balanceType": "credit",
+            "type": "Concept",
+            "label": "Future Net Cash Flows Relating to Proved Oil and Gas Reserves, Ten Percent Annual Discount for Estimated Timing of Cash Flows",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "ConsolidatedEntitiesDomain",
+            "type": "Concept",
+            "label": "Consolidated Entities [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "DiscountedFutureNetCashFlowsRelatingToProvedOilAndGasReservesFutureNetCashFlowsAbstract",
+            "type": "Concept",
+            "label": "Future Net Cash Flows Relating to Proved Oil and Gas Reserves, Net Cash Flows [Abstract]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "num:percentItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateInterestRate",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans on Real Estate, Interest Rate",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "localName": "FutureNetCashFlowsRelatingToProvedOilAndGasReservesNetCashFlows",
+            "balanceType": "debit",
+            "type": "Concept",
+            "label": "Future Net Cash Flows Relating to Proved Oil and Gas Reserves, Net Cash Flows",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "CentralAmericaMember",
+            "type": "Concept",
+            "label": "Central America [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "localName": "FutureNetCashFlowsRelatingToProvedOilAndGasReservesDevelopmentCosts",
+            "balanceType": "credit",
+            "type": "Concept",
+            "label": "Future Net Cash Flows Relating to Proved Oil and Gas Reserves, Development Costs",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "RealEstateWriteDownOrReserveLineItems",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-28, Real Estate Companies, Investment in Real Estate, Write-down or Reserve [Line Items]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MoodysCaa2RatingMember",
+            "type": "Concept",
+            "label": "Moody's, Caa2 Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "B767Member",
+            "type": "Concept",
+            "label": "B-767 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MoodysCaa1RatingMember",
+            "type": "Concept",
+            "label": "Moody's, Caa1 Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstatePeriodicPaymentTerms",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans on Real Estate, Periodic Payment Terms, Description",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "SupplementaryInsuranceInformationAbstract",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-16, Insurance Companies, Supplementary Insurance Information [Abstract]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FederalHomeLoanBankOfDallasMember",
+            "type": "Concept",
+            "label": "Federal Home Loan Bank of Dallas [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "num:energyItemType",
+            "periodType": "instant",
+            "localName": "ProvedDevelopedReservesBOE1",
+            "type": "Concept",
+            "label": "Proved Developed Reserves (Energy)",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:textBlockItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateByLoanDisclosureTextBlock",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans on Real Estate [Text Block]",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FitchBRatingMember",
+            "type": "Concept",
+            "label": "Fitch, B Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "B777300Member",
+            "type": "Concept",
+            "label": "B-777-300 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "DescriptionOfGuaranteesGivenByParentCompany",
+            "type": "Concept",
+            "label": "Description of Guarantees Given by Registrant",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "RealEstateAndAccumulatedDepreciationLineItems",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-28, Real Estate Companies, Investment in Real Estate and Accumulated Depreciation [Line Items]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "StandardPoorsCRatingMember",
+            "type": "Concept",
+            "label": "Standard & Poor's, C Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "localName": "DecreaseDueToSalesOfMineralsInPlace",
+            "balanceType": "credit",
+            "type": "Concept",
+            "label": "Decrease Due to Sales of Minerals in Place",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "CounterpartyNameAxis",
+            "type": "Concept",
+            "label": "Counterparty Name [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:textBlockItemType",
+            "periodType": "duration",
+            "localName": "SupplementaryInsuranceInformationForInsuranceCompaniesDisclosureTextBlock",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-16, Insurance Companies, Supplementary Insurance Information, Disclosure [Text Block]",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "CondensedCashFlowStatementTable",
+            "type": "Concept",
+            "label": "Condensed Cash Flow Statement [Table]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FitchCCCRatingMember",
+            "type": "Concept",
+            "label": "Fitch, CCC Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "localName": "IncreaseDecreaseInFutureIncomeTaxExpenseEstimatesOnFutureCashFlowsRelatedToProvedOilAndGasReserves",
+            "balanceType": "debit",
+            "type": "Concept",
+            "label": "Changes in Future Income Tax Expense Estimates on Future Cash Flows Related to Proved Oil and Gas Reserves",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "ReportableGeographicalComponentsMember",
+            "type": "Concept",
+            "label": "Reportable Geographical Components [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FitchBBBMinusRatingMember",
+            "type": "Concept",
+            "label": "Fitch, BBB- Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "localName": "MortgageLoansOnRealEstateFaceAmountOfMortgages",
+            "balanceType": "debit",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans on Real Estate, Face Amount of Mortgages",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoansUnder250000Member",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans under $250,000 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FederalHomeLoanBankOfSanFranciscoMember",
+            "type": "Concept",
+            "label": "Federal Home Loan Bank of San Francisco [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "GeographyEliminationsMember",
+            "type": "Concept",
+            "label": "Geography Eliminations [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FitchBBPlusRatingMember",
+            "type": "Concept",
+            "label": "Fitch, BB+ Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "RestatementAxis",
+            "type": "Concept",
+            "label": "Restatement [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "EMB120Member",
+            "type": "Concept",
+            "label": "EMB-120 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "localName": "RevisionsOfPreviousQuantityEstimates",
+            "balanceType": "debit",
+            "type": "Concept",
+            "label": "Revisions of Previous Quantity Estimates",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateWriteDownOrReserveLineItems",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans on Real Estate, Write-down or Reserve [Line Items]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "WeightedAverageMember",
+            "type": "Concept",
+            "label": "Weighted Average [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:textBlockItemType",
+            "periodType": "duration",
+            "localName": "ScheduleOfCondensedFinancialStatementsTableTextBlock",
+            "type": "Concept",
+            "label": "Condensed Financial Statements [Table Text Block]",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "B737820Member",
+            "type": "Concept",
+            "label": "B-737-820 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "StandardPoorsDRatingMember",
+            "type": "Concept",
+            "label": "Standard & Poor's, D Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:textBlockItemType",
+            "periodType": "duration",
+            "localName": "RealEstateAndAccumulatedDepreciationDisclosureTextBlock",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-28, Real Estate Companies, Investment in Real Estate and Accumulated Depreciation Disclosure [Text Block]",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "AsiaMember",
+            "type": "Concept",
+            "label": "Asia [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateLoanCategoryDomain",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans on Real Estate, Loan Category [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "AMBestCMinusRatingMember",
+            "type": "Concept",
+            "label": "AM Best, C- Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "B767300Member",
+            "type": "Concept",
+            "label": "B-767-300 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "StandardPoorsBBBRatingMember",
+            "type": "Concept",
+            "label": "Standard & Poor's, BBB Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "CreditRatingAMBestAxis",
+            "type": "Concept",
+            "label": "Credit Rating, AM Best [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "NonGuarantorSubsidiariesMember",
+            "type": "Concept",
+            "label": "Non-Guarantor Subsidiaries [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:textBlockItemType",
+            "periodType": "duration",
+            "localName": "CondensedStatementOfComprehensiveIncomeTableTextBlock",
+            "type": "Concept",
+            "label": "Condensed Statement of Comprehensive Income [Table Text Block]",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "StandardPoorsBBBMinusRatingMember",
+            "type": "Concept",
+            "label": "Standard & Poor's, BBB- Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "localName": "FutureNetCashFlowsRelatingToProvedOilAndGasReservesCashInflows",
+            "balanceType": "debit",
+            "type": "Concept",
+            "label": "Future Net Cash Flows Relating to Proved Oil and Gas Reserves, Cash Inflows",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MoodysCaa3RatingMember",
+            "type": "Concept",
+            "label": "Moody's, Caa3 Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "AdditionalInformationNecessaryToPreventDisclosureOfDiscountsFutureNetCashFlowsFromBeingMisleading",
+            "type": "Concept",
+            "label": "Additional Information Necessary to Prevent Disclosure of Discounts Future Net Cash Flows from Being Misleading",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "SummaryOfInvestmentsOtherThanInvestmentsInRelatedPartiesTable",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-15, Insurance Companies, Summary of Investments, Other than Investments in Related Parties [Table]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "CondensedCashFlowStatementsCaptionsLineItems",
+            "type": "Concept",
+            "label": "Condensed Cash Flow Statements, Captions [Line Items]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "ParentCompanyMember",
+            "type": "Concept",
+            "label": "Parent Company [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateDescriptionTypeOfPropertyAxis",
+            "type": "Concept",
+            "label": "Real Estate, Type of Property [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "StandardPoorsBRatingMember",
+            "type": "Concept",
+            "label": "Standard & Poor's, B Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "SupplementalInformationForPropertyCasualtyInsuranceUnderwritersLineItems",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-18, Supplemental Information, Property-Casualty Insurance Underwriters [Line Items]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "SubsidiariesMember",
+            "type": "Concept",
+            "label": "Subsidiaries [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "StandardPoorsBMinusRatingMember",
+            "type": "Concept",
+            "label": "Standard & Poor's, B- Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:textBlockItemType",
+            "periodType": "duration",
+            "localName": "ScheduleOfCondensedIncomeStatementTableTextBlock",
+            "type": "Concept",
+            "label": "Condensed Income Statement [Table Text Block]",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:textBlockItemType",
+            "periodType": "duration",
+            "localName": "StandardizedMeasureOfDiscountedFutureCashFlowsRelatingToProvedReservesDisclosureTextBlock",
+            "type": "Concept",
+            "label": "Standardized Measure of Discounted Future Cash Flows Relating to Proved Reserves Disclosure [Table Text Block]",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateWriteDownOrReserveBasis",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans on Real Estate, Write-down or Reserve, Basis",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "SubsidiaryIssuerMember",
+            "type": "Concept",
+            "label": "Subsidiary Issuer [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:textBlockItemType",
+            "periodType": "duration",
+            "localName": "SupplementalScheduleOfReinsurancePremiumsForInsuranceCompaniesTextBlock",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-17, Insurance Companies, Reinsurance [Text Block]",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MoodysBa3RatingMember",
+            "type": "Concept",
+            "label": "Moody's, Ba3 Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "OfficeBuildingMember",
+            "type": "Concept",
+            "label": "Office Building [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "EMB145Member",
+            "type": "Concept",
+            "label": "EMB-145 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "localName": "StandardizedMeasureOfDiscountedFutureNetCashFlowsRelatingToProvedOilAndGasReserves",
+            "balanceType": "debit",
+            "type": "Concept",
+            "label": "Standardized Measure of Discounted Future Net Cash Flows Relating to Proved Oil and Gas Reserves",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "OwnershipAxis",
+            "type": "Concept",
+            "label": "Ownership [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "instant",
+            "localName": "ReserveQuantityAttributableToConsolidatedSubsidiaryNoncontrollingInterest",
+            "type": "Concept",
+            "label": "Reserve Quantity Attributable to Consolidated Subsidiary, Noncontrolling Interest [true false]",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:textBlockItemType",
+            "periodType": "duration",
+            "localName": "ScheduleOfChangesInStandardizedMeasureOfDiscountedFutureNetCashFlowsTableTextBlock",
+            "type": "Concept",
+            "label": "Schedule of Changes in Standardized Measure of Discounted Future Net Cash Flows [Table Text Block]",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "AMBestFRatingMember",
+            "type": "Concept",
+            "label": "AM Best, F Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MoodysB2RatingMember",
+            "type": "Concept",
+            "label": "Moody's, B2 Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "StandardPoorsBBRatingMember",
+            "type": "Concept",
+            "label": "Standard & Poor's, BB Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "CRJ700Member",
+            "type": "Concept",
+            "label": "CRJ-700 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "ExternalCreditRatingMoodysMember",
+            "type": "Concept",
+            "label": "External Credit Rating, Moody's [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:textBlockItemType",
+            "periodType": "duration",
+            "localName": "ScheduleOfSupplementalInformationForPropertyCasualtyInsuranceUnderwritersTextBlock",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-18, Supplemental Information, Property-Casualty Insurance Underwriters [Text Block]",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FitchAMinusRatingMember",
+            "type": "Concept",
+            "label": "Fitch, A- Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateOtherRequiredDisclosuresAbstract",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans on Real Estate, Other Disclosure [Abstract]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "localName": "StandardizedMeasureOfDiscountedFutureNetCashFlowRelatingToProvedOilAndGasReservesAccretionOfDiscount",
+            "balanceType": "credit",
+            "type": "Concept",
+            "label": "Standardized Measure of Discounted Future Net Cash Flow Relating to Proved Oil and Gas Reserves, Accretion of Discount",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoansOver1000000Member",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans over $1,000,000 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "AffiliatedEntityMember",
+            "type": "Concept",
+            "label": "Affiliated Entity [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateLoanTypeAxis",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans on Real Estate, Loan Type [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "localName": "StandardizedMeasureOfDiscountedFutureNetCashFlowOfProvedOilAndGasReservesPeriodIncreaseDecrease",
+            "type": "Concept",
+            "label": "Standardized Measure of Discounted Future Net Cash Flow of Proved Oil and Gas Reserves, Period Increase (Decrease)",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MoodysCaRatingMember",
+            "type": "Concept",
+            "label": "Moody's, Ca Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "CondensedFinancialStatementsCaptionsLineItems",
+            "type": "Concept",
+            "label": "Condensed Financial Statements, Captions [Line Items]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "ProductsAndServicesDomain",
+            "type": "Concept",
+            "label": "Product and Service [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "num:volumeItemType",
+            "periodType": "duration",
+            "localName": "ProvedDevelopedAndUndevelopedReservesPurchasesOfMineralsInPlace",
+            "type": "Concept",
+            "label": "Proved Developed and Undeveloped Reserves, Purchases of Minerals in Place",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "SignificantChangesInReserves",
+            "type": "Concept",
+            "label": "Significant Changes in Reserves",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "localName": "MortgageLoansOnRealEstateFederalIncomeTaxBasis1",
+            "balanceType": "debit",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans on Real Estate, Federal Income Tax Basis",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "CRJMember",
+            "type": "Concept",
+            "label": "CRJ [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "AMBestARatingMember",
+            "type": "Concept",
+            "label": "AM Best, A Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "B737Member",
+            "type": "Concept",
+            "label": "B-737 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "ConsolidationItemsAxis",
+            "type": "Concept",
+            "label": "Consolidation Items [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:textBlockItemType",
+            "periodType": "duration",
+            "localName": "CondensedFinancialStatementsTextBlock",
+            "type": "Concept",
+            "label": "Condensed Financial Statements [Text Block]",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "ReserveQuantitiesLineItems",
+            "type": "Concept",
+            "label": "Reserve Quantities [Line Items]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis",
+            "type": "Concept",
+            "label": "Investment, Name [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "B777223Member",
+            "type": "Concept",
+            "label": "B-777-223 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "LitigationCaseAxis",
+            "type": "Concept",
+            "label": "Litigation Case [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "localName": "LifeInsuranceInForceCeded",
+            "balanceType": "debit",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-17, Insurance Companies, Reinsurance, Life Insurance in Force, Ceded",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "localName": "PreviouslyEstimatedDevelopmentCostsIncurred",
+            "balanceType": "debit",
+            "type": "Concept",
+            "label": "Previously Estimated Development Costs Incurred",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "ReinsurancePremiumsForInsuranceCompaniesByProductSegmentTable",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-17, Insurance Companies, Reinsurance [Table]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "StandardPoorsBBBPlusRatingMember",
+            "type": "Concept",
+            "label": "Standard & Poor's, BBB+ Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "localName": "MortgageLoansOnRealEstatePriorLiens1",
+            "balanceType": "credit",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans on Real Estate, Prior Lien, Amount",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "ValuationAndQualifyingAccountsAbstract",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-09, Valuation and Qualifying Accounts [Abstract]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "B777200Member",
+            "type": "Concept",
+            "label": "B-777-200 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MoodysBa1RatingMember",
+            "type": "Concept",
+            "label": "Moody's, Ba1 Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "localName": "FutureNetCashFlowsRelatingToProvedOilAndGasReservesProductionCosts",
+            "balanceType": "credit",
+            "type": "Concept",
+            "label": "Future Net Cash Flows Relating to Proved Oil and Gas Reserves, Production Costs",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "StandardPoorsAARatingMember",
+            "type": "Concept",
+            "label": "Standard & Poor's, AA Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "RealEstateAndAccumulatedDepreciationDisclosureAbstract",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-28, Real Estate Companies, Investment in Real Estate and Accumulated Depreciation Disclosure [Abstract]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "DiscountedFutureNetCashFlowsRelatingToProvedOilAndGasReservesStandardizedMeasureAbstract",
+            "type": "Concept",
+            "label": "Standardized Measure of Discounted Future Net Cash Flows Relating to Proved Oil and Gas Reserves [Abstract]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "ReinsurancePremiumsForInsuranceCompaniesByProductSegmentLineItems",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-17, Insurance Companies, Reinsurance [Line Items]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "num:energyItemType",
+            "periodType": "duration",
+            "localName": "ProvedDevelopedAndUndevelopedReservesSaleOfMineralInPlaceEnergy",
+            "type": "Concept",
+            "label": "Proved Developed and Undeveloped Reserves, Sale of Mineral in Place (Energy)",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "SupplementalInformationForPropertyCasualtyInsuranceUnderwritersByAffiliationWithRegistrantAxis",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-18, Supplemental Information, Property-Casualty Insurance Underwriters, Affiliation with Registrant [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "ScenarioPreviouslyReportedMember",
+            "type": "Concept",
+            "label": "Previously Reported [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "StandardPoorsBPlusRatingMember",
+            "type": "Concept",
+            "label": "Standard & Poor's, B+ Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FitchBMinusRatingMember",
+            "type": "Concept",
+            "label": "Fitch, B- Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MoodysAa3RatingMember",
+            "type": "Concept",
+            "label": "Moody's, Aa3 Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "B737800Member",
+            "type": "Concept",
+            "label": "B-737-800 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "EquityInvestmentInPropertyAndCasualtyInsuranceInvesteeMember",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-18, Supplemental Information, Property-Casualty Insurance Underwriters, Equity Investment in Property and Casualty Insurance Investee [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MaximumMember",
+            "type": "Concept",
+            "label": "Maximum [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "RealEstateAndAccumulatedDepreciationNameOfPropertyDomain",
+            "type": "Concept",
+            "label": "Name of Property [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FitchCCCMinusRatingMember",
+            "type": "Concept",
+            "label": "Fitch, CCC- Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "OilReservesMember",
+            "type": "Concept",
+            "label": "Oil [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "num:energyItemType",
+            "periodType": "duration",
+            "localName": "ProvedDevelopedAndUndevelopedReserveImprovedRecoveryEnergy",
+            "type": "Concept",
+            "label": "Proved Developed and Undeveloped Reserve, Improved Recovery (Energy)",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "OtherPropertyMember",
+            "type": "Concept",
+            "label": "Other Property [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "CondensedStatementOfComprehensiveIncomeTable",
+            "type": "Concept",
+            "label": "Condensed Statement of Comprehensive Income [Table]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FitchBBRatingMember",
+            "type": "Concept",
+            "label": "Fitch, BB Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "num:volumeItemType",
+            "periodType": "instant",
+            "localName": "ProvedDevelopedReservesVolume",
+            "type": "Concept",
+            "label": "Proved Developed Reserves (Volume)",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateLoanTypeDomain",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans on Real Estate, Loan Type [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "EMBMember",
+            "type": "Concept",
+            "label": "EMB [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FederalHomeLoanBankAdvancesBranchOfFHLBBankStateDomain",
+            "type": "Concept",
+            "label": "Federal Home Loan Bank Branch [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "SignificantEconomicInterestInStandardizedMeasureOfDiscountedFutureNetCashFlowsAttributableToConsolidatedSubsidiaryIesWithSignificantMinorityInterests",
+            "type": "Concept",
+            "label": "Significant Economic Interest in Standardized Measure of Discounted Future Net Cash Flows Attributable to Consolidated Subsidiary(ies) with Significant Noncontrolling Interests",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "localName": "LifeInsuranceInForceNet",
+            "balanceType": "credit",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-17, Insurance Companies, Reinsurance, Life Insurance in Force, Net",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "num:volumeItemType",
+            "periodType": "duration",
+            "localName": "ProvedDevelopedAndUndevelopedReservesSalesOfMineralsInPlace",
+            "type": "Concept",
+            "label": "Proved Developed and Undeveloped Reserves, Sales of Minerals in Place",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FitchBBBRatingMember",
+            "type": "Concept",
+            "label": "Fitch, BBB Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "num:volumeItemType",
+            "periodType": "duration",
+            "localName": "ProvedDevelopedAndUndevelopedReservesExtensionsDiscoveriesAndAdditions",
+            "type": "Concept",
+            "label": "Proved Developed and Undeveloped Reserves, Extensions, Discoveries, and Additions",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "RealEstateOtherDisclosures",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-28, Real Estate Companies, Investment in Real Estate, Noncash Transaction, Description",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "RetailSiteMember",
+            "type": "Concept",
+            "label": "Retail Site [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateCollectionsOfPrincipal",
+            "balanceType": "credit",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans on Real Estate, Collections of Principal",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "SupplementalInformationForPropertyCasualtyInsuranceUnderwritersAbstract",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-18, Supplemental Information, Property-Casualty Insurance Underwriters [Abstract]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "SupplementaryInsuranceInformationBySegmentLineItems",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-16, Insurance Companies, Supplementary Insurance Information [Line Items]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "instant",
+            "localName": "ProvedReserveQuantityLocationInHomeCountry",
+            "type": "Concept",
+            "label": "Proved Reserve Quantity, Location in Home Country [true false]",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateWriteDownOrReserveLoanDomain",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans on Real Estate, Write-down or Reserve, Loan [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FederalHomeLoanBankOfDesMoinesMember",
+            "type": "Concept",
+            "label": "Federal Home Loan Bank of Des Moines [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "localName": "NetIncreaseDecreaseInSalesAndTransferPricesAndProductionCosts",
+            "balanceType": "debit",
+            "type": "Concept",
+            "label": "Net Increase (Decrease) in Sales and Transfer Prices and Production Costs",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "ConsolidatedEntitiesAxis",
+            "type": "Concept",
+            "label": "Consolidated Entities [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "B737700Member",
+            "type": "Concept",
+            "label": "B-737-700 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateDescriptionLoanCategoryAxis",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans on Real Estate, Loan Category [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "DescriptionOfMandatoryDividendOrRedemptionProvisionsOfRedeemableStockOfParentCompany",
+            "type": "Concept",
+            "label": "Description of Mandatory Dividend or Redemption Provisions of Redeemable Stock of Registrant",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "UnconsolidatedPropertyAndCasualtyInsuranceEntityMember",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-18, Supplemental Information, Property-Casualty Insurance Underwriters, Unconsolidated Property and Casualty Insurance Entity [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "ValuationAndQualifyingAccountsDisclosureLineItems",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-09, Valuation and Qualifying Accounts Disclosure [Line Items]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "CondensedFinancialInformationOfParentCompanyOnlyDisclosureAbstract",
+            "type": "Concept",
+            "label": "Condensed Financial Information Disclosure [Abstract]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoansBetween500000And749999Member",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans between $500,000 and $749,999 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "StandardPoorsCCRatingMember",
+            "type": "Concept",
+            "label": "Standard & Poor's, CC Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FitchBBBPlusRatingMember",
+            "type": "Concept",
+            "label": "Fitch, BBB+ Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "ProductOrServiceAxis",
+            "type": "Concept",
+            "label": "Product and Service [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "num:energyItemType",
+            "periodType": "instant",
+            "localName": "ProvedDevelopedAndUndevelopedReserveNetEnergy",
+            "type": "Concept",
+            "label": "Proved Developed and Undeveloped Reserve, Net (Energy)",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "RealEstateWriteDownOrReserveBasis",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-28, Real Estate Companies, Investment in Real Estate, Write-down or Reserve, Basis",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "OtherNonrenewableNaturalResourcesMember",
+            "type": "Concept",
+            "label": "Other Nonrenewable Natural Resources [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "ValuationAndQualifyingAccountsDisclosureTable",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-09, Valuation and Qualifying Accounts Disclosure [Table]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MinimumMember",
+            "type": "Concept",
+            "label": "Minimum [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "EuropeMember",
+            "type": "Concept",
+            "label": "Europe [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "NaturalGasLiquidsReservesMember",
+            "type": "Concept",
+            "label": "Natural Gas Liquids [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "AMBestCPlusRatingMember",
+            "type": "Concept",
+            "label": "AM Best, C+ Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "CondensedIncomeStatementTable",
+            "type": "Concept",
+            "label": "Condensed Income Statement [Table]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "FitchCCRatingMember",
+            "type": "Concept",
+            "label": "Fitch, CC Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "localName": "RealEstateAndAccumulatedDepreciationAmountOfEncumbrances",
+            "balanceType": "credit",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-28, Real Estate Companies, Investment in Real Estate and Accumulated Depreciation, Amount of Encumbrances",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "ReserveQuantitiesByTypeOfReserveAxis",
+            "type": "Concept",
+            "label": "Petroleum Reserves [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstatePeriodicPaymentTermsLevelPayments",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans on Real Estate, Periodic Payment Terms, Level Payment, Description",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "num:volumeItemType",
+            "periodType": "duration",
+            "localName": "OilAndGasQuantitiesReceivedUnderLongTermSupplyAgreementsWithGovernmentsOrAuthorities",
+            "type": "Concept",
+            "label": "Oil and Gas Quantities Received under Long-term Supply Agreements with Governments or Authorities",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "num:energyItemType",
+            "periodType": "duration",
+            "localName": "ProvedDevelopedAndUndevelopedReserveProductionEnergy",
+            "type": "Concept",
+            "label": "Proved Developed and Undeveloped Reserve, Production (Energy)",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "MoodysB3RatingMember",
+            "type": "Concept",
+            "label": "Moody's, B3 Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "IndustrialPropertyMember",
+            "type": "Concept",
+            "label": "Industrial Property [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "AMBestBPlusPlusRatingMember",
+            "type": "Concept",
+            "label": "AM Best, B++ Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "A312Member",
+            "type": "Concept",
+            "label": "A-312 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:dateItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoanOnRealEstateFinalMaturityDate",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans on Real Estate, Final Maturity Date",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "B767323Member",
+            "type": "Concept",
+            "label": "B-767-323 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "DiscountedFutureNetCashFlowsRelatingToProvedOilAndGasReservesLineItems",
+            "type": "Concept",
+            "label": "Discounted Future Net Cash Flows Relating to Proved Oil and Gas Reserves [Line Items]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "SECScheduleIIIRealEstateTransactionsWithAffiliatesDisclosure",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-28, Real Estate Companies, Investment in Real Estate, Transaction with Affiliate, Description",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateWriteDownOrReserveByLoanAxis",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans on Real Estate, Write-down or Reserve by Loan [Axis]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "AmericasMember",
+            "type": "Concept",
+            "label": "Americas [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:textBlockItemType",
+            "periodType": "duration",
+            "localName": "ScheduleOfCondensedBalanceSheetTableTextBlock",
+            "type": "Concept",
+            "label": "Condensed Balance Sheet [Table Text Block]",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "A330Member",
+            "type": "Concept",
+            "label": "A-330 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateRenewedAndExtended",
+            "type": "Concept",
+            "label": "SEC Schedule, 12-29, Real Estate Companies, Investment in Mortgage Loans on Real Estate, Renewed and Extended, Description",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "SouthAmericaMember",
+            "type": "Concept",
+            "label": "South America [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "AMBestAPlusPlusRatingMember",
+            "type": "Concept",
+            "label": "AM Best, A++ Rating [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "LatinAmericaMember",
+            "type": "Concept",
+            "label": "Latin America [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "num:volumeItemType",
+            "periodType": "instant",
+            "localName": "ProvedDevelopedAndUndevelopedReservesNet",
+            "type": "Concept",
+            "label": "Proved Developed and Undeveloped Reserves, Net",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "CondensedStatementOfIncomeCaptionsLineItems",
+            "type": "Concept",
+            "label": "Condensed Statement of Income Captions [Line Items]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "A320200Member",
+            "type": "Concept",
+            "label": "A-320-200 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "B757200Member",
+            "type": "Concept",
+            "label": "B-757-200 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration",
+            "localName": "DescriptionOfMaterialContingenciesOfParentCompany",
+            "type": "Concept",
+            "label": "Description of Material Contingencies of Registrant",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "B757223Member",
+            "type": "Concept",
+            "label": "B-757-223 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "SegmentGeographicalDomain",
+            "type": "Concept",
+            "label": "Geographical [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "num:volumeItemType",
+            "periodType": "instant",
+            "localName": "ReserveQuantityAttributableToConsolidatedSubsidiaryNoncontrollingInterestVolume",
+            "type": "Concept",
+            "label": "Reserve Quantity Attributable to Consolidated Subsidiary, Noncontrolling Interest, Volume",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "RestatementDomain",
+            "type": "Concept",
+            "label": "Restatement [Domain]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "B737900Member",
+            "type": "Concept",
+            "label": "B-737-900 [Member]",
+            "isAbstract": "true"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "localName": "IncreaseDecreaseInEstimatedFutureDevelopmentCosts",
+            "balanceType": "debit",
+            "type": "Concept",
+            "label": "Changes in Estimated Future Development Costs",
+            "isAbstract": "false"
+        },
+        {
+            "dataType": "nonnum:domainItemType",
+            "periodType": "duration",
+            "localName": "SyntheticOilMember",
+            "type": "Concept",
+            "label": "Synthetic Oil [Member]",
+            "isAbstract": "true"
+        }
+    ]
+}

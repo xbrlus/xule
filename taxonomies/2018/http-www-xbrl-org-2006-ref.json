@@ -1,0 +1,151 @@
+{
+    "http://www.xbrl.org/2006/ref": [
+        {
+            "label": "Name",
+            "isAbstract": "false",
+            "localName": "Name",
+            "dataType": "string",
+            "type": "Reference"
+        },
+        {
+            "label": "Publisher",
+            "isAbstract": "false",
+            "localName": "Publisher",
+            "dataType": "string",
+            "type": "Reference"
+        },
+        {
+            "label": "Note",
+            "isAbstract": "false",
+            "localName": "Note",
+            "dataType": "string",
+            "type": "Reference"
+        },
+        {
+            "label": "Section",
+            "isAbstract": "false",
+            "localName": "Section",
+            "dataType": "string",
+            "type": "Reference"
+        },
+        {
+            "label": "Paragraph",
+            "isAbstract": "false",
+            "localName": "Paragraph",
+            "dataType": "string",
+            "type": "Reference"
+        },
+        {
+            "label": "Subparagraph",
+            "isAbstract": "false",
+            "localName": "Subparagraph",
+            "dataType": "string",
+            "type": "Reference"
+        },
+        {
+            "label": "Example",
+            "isAbstract": "false",
+            "localName": "Example",
+            "dataType": "string",
+            "type": "Reference"
+        },
+        {
+            "label": "Page",
+            "isAbstract": "false",
+            "localName": "Page",
+            "dataType": "string",
+            "type": "Reference"
+        },
+        {
+            "label": "Article",
+            "isAbstract": "false",
+            "localName": "Article",
+            "dataType": "string",
+            "type": "Reference"
+        },
+        {
+            "label": "Chapter",
+            "isAbstract": "false",
+            "localName": "Chapter",
+            "dataType": "string",
+            "type": "Reference"
+        },
+        {
+            "label": "URI",
+            "isAbstract": "false",
+            "localName": "URI",
+            "dataType": "anyURI",
+            "type": "Reference"
+        },
+        {
+            "label": "URIDate",
+            "isAbstract": "false",
+            "localName": "URIDate",
+            "dataType": "ref:URIDate@anonymousType",
+            "type": "Reference"
+        },
+        {
+            "label": "Subclause",
+            "isAbstract": "false",
+            "localName": "Subclause",
+            "dataType": "string",
+            "type": "Reference"
+        },
+        {
+            "label": "IssueDate",
+            "isAbstract": "false",
+            "localName": "IssueDate",
+            "dataType": "string",
+            "type": "Reference"
+        },
+        {
+            "label": "Number",
+            "isAbstract": "false",
+            "localName": "Number",
+            "dataType": "string",
+            "type": "Reference"
+        },
+        {
+            "label": "Appendix",
+            "isAbstract": "false",
+            "localName": "Appendix",
+            "dataType": "string",
+            "type": "Reference"
+        },
+        {
+            "label": "Exhibit",
+            "isAbstract": "false",
+            "localName": "Exhibit",
+            "dataType": "string",
+            "type": "Reference"
+        },
+        {
+            "label": "Sentence",
+            "isAbstract": "false",
+            "localName": "Sentence",
+            "dataType": "string",
+            "type": "Reference"
+        },
+        {
+            "label": "Clause",
+            "isAbstract": "false",
+            "localName": "Clause",
+            "dataType": "string",
+            "type": "Reference"
+        },
+        {
+            "label": "Subsection",
+            "isAbstract": "false",
+            "localName": "Subsection",
+            "dataType": "string",
+            "type": "Reference"
+        },
+        {
+            "label": "Footnote",
+            "isAbstract": "false",
+            "localName": "Footnote",
+            "dataType": "string",
+            "type": "Reference"
+        }
+    ]
+}

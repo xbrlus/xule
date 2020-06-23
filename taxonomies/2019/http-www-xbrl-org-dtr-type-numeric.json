@@ -1,0 +1,54 @@
+{
+    "http://www.xbrl.org/dtr/type/numeric": [
+        {
+            "label": "percentItemType",
+            "localName": "percentItemType",
+            "type": "Type"
+        },
+        {
+            "label": "memoryItemType",
+            "localName": "memoryItemType",
+            "type": "Type"
+        },
+        {
+            "label": "areaItemType",
+            "localName": "areaItemType",
+            "type": "Type"
+        },
+        {
+            "label": "energyItemType",
+            "localName": "energyItemType",
+            "type": "Type"
+        },
+        {
+            "label": "perShareItemType",
+            "localName": "perShareItemType",
+            "type": "Type"
+        },
+        {
+            "label": "powerItemType",
+            "localName": "powerItemType",
+            "type": "Type"
+        },
+        {
+            "label": "weightItemType",
+            "localName": "weightItemType",
+            "type": "Type"
+        },
+        {
+            "label": "lengthItemType",
+            "localName": "lengthItemType",
+            "type": "Type"
+        },
+        {
+            "label": "volumeItemType",
+            "localName": "volumeItemType",
+            "type": "Type"
+        },
+        {
+            "label": "massItemType",
+            "localName": "massItemType",
+            "type": "Type"
+        }
+    ]
+}
