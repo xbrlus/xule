@@ -1,0 +1,112 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "XULE",
+	"patterns": [
+		{ "include": "#keywords" },
+		{ "include": "#built-in-functions" },
+		{ "include": "#variables" },
+		{ "include": "#double-quoted-strings" },
+		{ "include": "#single-quoted-strings" },
+		{ "include": "#urls" },
+		{ "include": "#block-comments" },
+		{ "include": "#line-comments" }
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control.xule",
+				"match": "(?i)(^|(?<=\\*/|[\\s=,;'\"()\\[\\]{}]))((?<![a-zA-Z]])-)?(assert|constant|else|false|filter|for|function|if|message|namespace|navigate|output-attribute|output)(?!-)\\b"
+			},
+			{
+				"name": "keyword.control.xule",
+				"match": "(?i)(^|(?<=\\*/|[\\s=,;'\"()\\[\\]{}]))((?<![a-zA-Z]])-)?(returns|rule-focus|rule-name-prefix|satisfied|severity|skip|true|unsatisfied|where)(?!-)\\b"
+			},
+			{
+				"name": "keyword.operator.xule",
+				"match": "@|#|\\b==\\b|\\b!=\\b"
+			}]
+		},
+		"built-in-functions": {
+			"patterns": [{
+				"name": "other",
+				"captures": { "3": { "name": "support.function.xule" } },
+				"match": "(?i)(^|(?<=\\*/|[\\s=,;'\"()\\[\\]{}]))((?<![a-zA-Z]])-)?(abs|and|as|date|descendants|dict|dimensions|duration|exists|first)(?!-)\\b"
+			},
+			{
+				"name": "other",
+				"captures": { "3": { "name": "support.function.xule" } },
+				"match": "(?i)(^|(?<=\\*/|[\\s=,;'\"()\\[\\]{}]))((?<![a-zA-Z]])-)?(from|in|index-of|json-data|length|list|name|namespace-uri)(?!-)\\b"
+			},
+			{
+				"name": "other",
+				"captures": { "3": { "name": "support.function.xule" } },
+				"match": "(?i)(^|(?<=\\*/|[\\s=,;'\"()\\[\\]{}]))((?<![a-zA-Z]])-)?(none|not|or|qname|role|round|rule-name|set|skip|substring|taxonomy|time-span)(?!-)\\b"
+			},
+			{
+				"name": "support.function.xule",
+				"match": "(?i)(?<=.)(dimensions|index-of|join|length|number|period(-type)?|split|substring|unit)(?!-)\\b"
+			}]
+		},
+		"variables": {
+			"patterns": [{
+				"name": "other",
+				"captures": { "1": { "name": "variable.xule" } },
+				"match": "(\\$.+?)(?=[\\s=,;.'\"()\\[\\]{}])"
+			}]
+		},
+		"double-quoted-strings": {
+			"name": "string.quoted.double.xule",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [{
+				"name": "constant.character.escape.xule",
+				"match": "\\\\."
+			}, {
+				"include": "#string-interpolation"
+			}]
+		},
+		"single-quoted-strings": {
+			"name": "string.quoted.single.xule",
+			"begin": "'",
+			"end": "'",
+			"patterns": [{
+				"name": "constant.character.escape.xule",
+				"match": "\\\\."
+			}, {
+				"include": "#string-interpolation"
+			}]
+		},
+		"string-interpolation": {
+			"name": "meta.embedded.line.xule",
+			"begin": "(\\{)",
+			"end": "(\\})",
+			"beginCaptures": {
+				"1": { "name": "constant.character.format.placeholder.other.xule" }
+			},
+			"endCaptures": {
+				"1": { "name": "constant.character.format.placeholder.other.xule" }
+			},
+			"patterns": [{
+				"include": "source.xule"
+			}]
+		},
+		"urls": {
+			"patterns": [{
+				"name": "string.unquoted.xule",
+				"match": "http[s]?://\\S+"
+			}]
+		},
+		"block-comments": {
+			"name": "comment.block.xule",
+			"begin": "/\\*",
+			"end": "\\*/"
+		},
+		"line-comments": {
+			"patterns": [{
+				"name": "comment.line.xule",
+				"match": "//[^\n\r]*"
+			}]
+		}
+	},
+	"scopeName": "source.xule"
+}

@@ -1,0 +1,28 @@
+/**
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: US GAAP 2018
+**/
+
+
+rule-name-prefix DQC
+
+assert US.0036.1 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+exists({@concept.local-name ='DocumentPeriodEndDate' where $fact > ($fact.period.end + (time-span("P4D"))) or $fact < ($fact.period.end - (time-span("P4D")))}#fact1)
+
+message
+"The context ending date of {$fact1.period.end} used for Document Period End Date must match the value reported for the element of {$fact1}. Revise either the ending context date or the value of the Document Period End Date.
+
+The properties of this {$fact1.concept} fact are:
+Period :{$fact1.period}
+Dimensions : {$fact1.dimensions.join(', ','=')}
+Unit : {$fact1.unit}
+Rule version: {$ruleVersion}"
+
+severity error
+effectiveDate $effective_dates[$rule_id]
+

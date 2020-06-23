@@ -1,0 +1,91 @@
+/**
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: US GAAP 2016
+**/
+
+
+rule-name-prefix DQC
+
+assert US.0084.9298 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+$decimal_tolerance_factor = 2
+
+$fact1 = {nonils @period = * where $fact.concept.is-monetary and $fact.concept.period-type == duration
+	  	 	    and not $fact.concept.name.local-name.lower-case.contains('average')
+	  	 	    and not $non_additive_duration_concepts.contains($fact.concept.name)};
+				
+
+$sub-periods =  
+
+		$p1 = {@period=* where ($fact.period.start + time-span("P0D")) == ($fact1.period.start + time-span("P0D")) and $fact.period.end < $fact1.period.end};
+		$p2 = {@period=* where ($fact.period.start + time-span("P0D")) == ($p1.period.end + time-span("P0D"))};
+		if (($p2.period.end + time-span("P0D")) == ($fact1.period.end + time-span("P0D")))
+			list($p1, $p2)
+			
+		else
+			$p3 = {@period = * where ($fact.period.start + time-span("P0D")) == ($p2.period.end + time-span("P0D"))};
+			if (($p3.period.end + time-span("P0D")) == ($fact1.period.end + time-span("P0D")))
+				list($p1, $p2, $p3)
+			else
+				$p4 = {@period=* where ($fact.period.start + time-span("P0D")) == ($p3.period.end + time-span("P0D"))};
+				if (($p4.period.end + time-span("P0D")) == ($fact1.period.end + time-span("P0D")))
+					list($p1, $p2, $p3, $p4)
+				else
+					skip
+					;
+					
+if not exists($sub-periods)
+	false
+else
+	$sum-periods = sum(list(for ($x in $sub-periods) $x));
+	$all-decimals = set(for ($y in $sub-periods) $y.decimals);
+	$min-decimals_sub = min(filter $all-decimals where $item.decimals != INF);
+	$sum-decimals = $fact1.decimals;
+	$min-decimals = min(list($sum-decimals,$min-decimals_sub));
+	
+	$it-does-not-sum = 
+		if ($min-decimals == none)
+			$fact1 != $sum-periods
+		else
+			$componentNum = $sub-periods.length;
+			$scale = 10.power($min-decimals * - 1);
+			$tolerance = ($componentNum - 1) * $scale * $decimal_tolerance_factor;
+			
+			($fact1 - $sum-periods).abs > $tolerance;
+	if $it-does-not-sum
+		$period-message = (filter $sub-periods returns "\t" + $item.period.string +"\t" + $item.string +"\t Decimals: " + $item.decimals.string).join("\n");
+		if (is_base($fact1.concept, $all_base_taxonomies))
+			true
+		else
+			false
+	else
+		false
+message
+"Sum of the cumulative periods of {$sum-periods} for {$fact1.concept.name} does not match the reported total of {$fact1}, a difference of {abs($sum-periods - $fact1)}.
+
+Period values are:\n{$period-message}\n\nThis rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of {$tolerance} which is calculated by taking the lowest decimal value used in the calculation of {$min-decimals}. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this {$fact1.concept.name} fact are:
+
+Period :{$fact1.period}
+Dimensions : {$fact1.dimensions.join(', ','=')}
+Unit : {$fact1.unit}
+Decimals: {$fact1.decimals}
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+rule-focus $fact1
+
+constant $non_additive_duration_concepts = set()

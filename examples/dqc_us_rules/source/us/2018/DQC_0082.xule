@@ -1,0 +1,44 @@
+/**
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: US GAAP 2018
+**/
+
+
+rule-name-prefix DQC
+
+assert US.0082.9295 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+$superseded_elements = list(  list(VariableInterestEntityConsolidatedAssetsCurrent, AssetsCurrent)
+							, list(VariableInterestEntityConsolidatedAssetsNoncurrent, AssetsNoncurrent)
+							, list(VariableInterestEntityConsolidatedCarryingAmountAssets, Assets)
+							, list(VariableInterestEntityConsolidatedLiabilitiesCurrent, LiabilitiesCurrent)
+							, list(VariableInterestEntityConsolidatedLiabilitiesNoncurrent, LiabilitiesNoncurrent)
+							, list(VariableInterestEntityConsolidatedCarryingAmountLiabilities, Liabilities)
+							, list(VariableInterestEntityConsolidatedCarryingAmountAssetsAndLiabilitiesNet, AssetsNet)
+);
+for $x in range($superseded_elements.length)
+		$fact1 = {@concept = $superseded_elements[$x][1]};
+	$replace_with = $superseded_elements[$x][2];
+	exists($fact1)
+
+message
+"The filer has used the element {$superseded_elements[$x][1]} to report a value of {$fact1} in the filing. The filer should use the element {$superseded_elements[$x][2]} with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to consolidated VIE's.
+
+The properties of this {$fact1.concept.name.local-name} fact are:
+Period :{$fact1.period}
+Dimensions : {$fact1.dimensions.join(', ','=')}
+Unit : {$fact1.unit}
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+rule-focus $fact1

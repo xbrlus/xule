@@ -1,0 +1,9 @@
+
+output hello-1
+    "Hello, World"
+
+output hello-2
+    "Hello" + ", " + "World"
+
+output hello-3
+    list("Hello", "World").join(", ")

@@ -1,0 +1,81 @@
+/**
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: US GAAP 2018
+**/
+
+
+rule-name-prefix DQC
+
+/** REMOVED RULE 9374 OPERATING LEASE REC BECAUSE OF RECONCILING ITEMS INCLUDED BY MANY FILERS - NEEDS MORE RESERACH ON THESE **/
+/**
+assert US.0090.9374 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+/** Rule only applies to an annual filing **/
+/**
+if set('10-K','10-KT','20-F').contains([covered @concept.local-name ='DocumentType']) 
+**/
+/** Identifies that the concept LesseeOperatingLeaseLiabilityPaymentsDue is the sum of components OperatingLeaseLiability and LesseeOperatingLeaseLiabilityUndiscountedExcessAmount if either one is used. **/
+/**
+	$sum1 = [@LesseeOperatingLeaseLiabilityPaymentsDue];
+
+	$addend = [@OperatingLeaseLiability] + [@LesseeOperatingLeaseLiabilityUndiscountedExcessAmount];
+	
+	tolerance_for_decimals($sum1, $addend, 2)
+
+else
+	false
+message
+
+"The element {$sum1.concept.name} with a value of {$sum1} should be equal to the sum of OperatingLeaseLiability plus LesseeOperatingLeaseLiabilityUndiscountedExcessAmount. The value of these adds to {$addend}.  A difference of {$sum1 - $addend}. In an annual filing this reconciliation is required and all elements should have a value in the current reporting period.
+ 
+Period :{$sum1.period}
+Dimensions : {$sum1.dimensions.join(', ','=')}
+Unit : {$sum1.unit}
+Decimals: {$sum1.decimals}
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}"
+
+SEVERITY error
+
+effectiveDate $effective_dates[$rule_id]
+**/
+
+assert US.0090.9375 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+/** Rule only applies to an annual filing **/
+
+if set('10-K','10-KT','20-F').contains([covered @concept.local-name ='DocumentType']) 
+	
+/** Identifies that the concept FinanceLeaseLiabilityPaymentsDue is the sum of components FinanceLeaseLiability and FinanceLeaseLiabilityUndiscountedExcessAmount if either one is used **/
+/** Rule only works at the default level **/
+
+	$sum1 = [@FinanceLeaseLiabilityPaymentsDue];
+
+	$addend = [@FinanceLeaseLiability] + [@FinanceLeaseLiabilityUndiscountedExcessAmount];
+
+	tolerance_for_decimals($sum1,$addend,2 )
+
+else
+	false
+message
+
+"The element {$sum1.concept.name} with a value of {$sum1} should be equal to the sum of FinanceLeaseLiability plus FinanceLeaseLiabilityUndiscountedExcessAmount. The value of these adds to {$addend}.  A difference of {$sum1 - $addend}. In an annual filing this reconciliation is required and all elements should have a value in the current reporting period.
+ 
+Period :{$sum1.period}
+Unit : {$sum1.unit}
+Decimals: {$sum1.decimals}
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}"
+
+SEVERITY error
+
+effectiveDate $effective_dates[$rule_id]

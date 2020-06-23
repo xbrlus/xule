@@ -1,0 +1,29 @@
+assert dqc.us.0047.7481 satisfied
+
+for( $cashOperating in
+set(NetCashProvidedByUsedInOperatingActivitiesContinuingOperations,NetCashProvidedByUsedInOperatingActivities))
+
+    $misplaced_concept = navigate summation-item descendants from
+    ($cashOperating)
+    /** tests if the element has no balance type **/
+    where $relationship.target.balance == none
+    /** Excludes as this is a known exception **/
+    and $relationship.target.name  !=
+    NetCashProvidedByUsedInOperatingActivitiesContinuingOperations
+    /** Does not flag an error if the element is an extension element **/
+    and is_base($relationship.target);
+    
+    for $x in $misplaced_concept true
+    
+message
+"In the company's extension taxonomy the concept {taxonomy().concept($cashOperating).label.text}
+includes {$misplaced_concept} as a summation-child. The concept {$misplaced_concept} should not
+appear as a child of {$cashOperating} because it does not have a balance type. Increase (Decrease) items
+without balance attributes are used in a roll forward and should not be used in the cash flow statement
+as they represent the impact on the balance sheet item which is the opposite of the impact on cash.
+
+Rule Element Id:7481
+Rule Version: 5.0"
+
+Element_id 7481
+severity error

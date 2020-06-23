@@ -1,0 +1,168 @@
+/**
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: US GAAP 2018
+**/
+
+rule-name-prefix DQC
+
+assert US.0081.9277 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+/** Get all the calculations defined in the Instance document. **/
+$extCalcRelationship1 = navigate summation-item descendants returns by network set (relationship);
+
+/** loop through every calculation network in the extension taxonomy **/	
+for ($network in $extCalcRelationship1.keys)
+
+/** loop through every relationship for calculations defined in FS statements of the extension taxonomy **/
+	for ($extCalcRelationship in (filter $extCalcRelationship1[$network] where $item.role.description.contains('- Statement ')))
+		
+		/** Define Variables **/
+		$extCalcNetwork = $network.role.description;
+		$extCalcSourceName = $extCalcRelationship.source.name;
+		$extCalcTargetNameSet = set($extCalcRelationship.target.name.local-name);
+		$parent_child_allowed = list($extCalcSourceName, $extCalcRelationship.target.name);
+		
+		/** Stop running rule if this calculation relationship is permitted. This reads the constants file for allowable exceptions**/
+		if  ($parent_child_allowed in $siblings_demotable_to_child or
+			$extCalcSourceName == AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities or 
+			$extCalcSourceName in $elements_excluded_from_rule or
+			$extCalcRelationship.target.name in $child_elements_promotable_to_sibling_of_parent_element or
+			$extCalcRelationship.target.name in $cash_flow_exceptions
+			)
+			skip
+		else
+		
+			/**Identify the siblings of the parent element that were defined in the US gaap taxonomy**/
+			$s1 = navigate summation-item siblings from $extCalcSourceName taxonomy $us-gaap returns (target-name);
+			
+			/** Generate a list of $sibling_items that includes descendants of the siblings in the US GAAP taxonomy, but excludes the cash flow adjustment items as they are add backs and can be legitimate  children. **/
+			$sibling_items = navigate summation-item descendants include start from ($s1) stop when ($relationship.source.name == AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities) taxonomy $us-gaap returns (target-name);
+			
+			/** convert sibling items from a list of concepts to a set of qnames so they can be compared to the extension taxonomy. This must be a set to use intersect**/
+			$sibling_items_names = filter $sibling_items.to-set returns $item.local-name;
+			
+			/** Compare the child element to the list of siblings and identify any overlap called an inconsistency **/
+			$inconsistencies = $extCalcTargetNameSet.intersect($sibling_items_names);
+			
+			/** If there is an inconsistency then get the fact values (Except zero or nil values) and if values exist then check there are not additional exceptions **/
+			if ($inconsistencies.length > 0)
+			
+				/** Get the fact values that have no dimensions, are not nil and the child element is not equal to zero (The parent element can be zero)**/
+				$inappropriate_child = [nonils @concept.local-name in $inconsistencies where $fact != 0];
+				$source_value = [nonils @concept = $extCalcSourceName];
+				
+				/** Check for Actual values in the filing **/
+				exists($inappropriate_child) and 
+				exists($source_value) and
+				
+				/** Read list of elements that can have any siblings demoted to a child except the exceptions. Any source elements of the inconsistencies in this list will not be reported -- This is typically "Other elments".  These 2 checks are run at the end so they are only checked for a limited set of relationships.**/
+				not any(set(for ($parent in $sibling_elements_with_siblings_demotable_to_descendant)
+									$extCalcSourceName.local-name == $parent[1] and $extCalcRelationship.target.name.local-name not in $parent[2])) and
+
+				/** This takes any descendants of siblings demotable to child and allows them also be demoted. **/
+				all(set(for ($pair in $siblings_demotable_to_child)
+					if ($extCalcSourceName == $pair[1])
+						$descendants_of_demotable_child = navigate summation-item descendants from $pair[2] taxonomy $us-gaap returns (target-name);
+						not $extCalcRelationship.target.name in $descendants_of_demotable_child
+					else
+						true))
+			else
+				false
+	 
+message
+"The line item concept {$inappropriate_child.concept.name} with a value of {$inappropriate_child} is represented as a child of {$extCalcSourceName} with a value of {$source_value} in the companies extension taxonomy role {$extCalcNetwork}. The element {$inappropriate_child.concept.name} however, is not represented as a component of {$extCalcSourceName} in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include {$inappropriate_child.concept.name} as a sibling element (or child of that sibling) relative to {$extCalcSourceName} in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element {$extCalcSourceName} and the child element {$inappropriate_child.concept.name}.
+
+The properties of this {$inappropriate_child.concept.name} fact are:
+
+Period :{$inappropriate_child.period}
+Dimensions : {$inappropriate_child.dimensions.join(', ','=')}
+Unit : {$inappropriate_child.unit}\n
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}
+"
+
+RULE-FOCUS $inappropriate_child
+
+SEVERITY error
+
+
+
+effectiveDate $effective_dates[$rule_id]
+
+
+assert US.0081.9278 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+/** Get all the calculations defined in the Instance document. **/
+
+$fact_values = list([nonils covered]);
+
+/** Exludes NetIncomeLoss, ProfitLoss as these are are used in the CF for addbacks **/
+$value-concepts = (filter $fact_values returns $item.concept.name).to-set - $income_items;
+for ($value-con in $value-concepts)
+	$extCalcRelationship1 = navigate summation-item siblings from $value-con returns by network set (relationship);
+
+		
+	for ($network in $extCalcRelationship1.keys)
+		for ($extCalcRelationship in (filter $extCalcRelationship1[$network] where $item.role.description.contains('- Statement ')))
+			$extCalcNetwork = $network.role.description;
+			$extCalcSourceName = $extCalcRelationship.source.name;
+			$extCalcTargetName = set($extCalcRelationship.target.name.local-name);
+			$parent_sibling_allowed = list($value-con, $extCalcRelationship.target.name);
+			if  (($parent_sibling_allowed in $child_elements_promotable_to_sibling) or 
+				($value-con in $elements_excluded_from_rule) or 
+				$extCalcRelationship.target.name in $child_elements_promotable_to_sibling_of_parent_element
+				)
+				
+				skip
+			else
+				$child_items = navigate summation-item descendants from $value-con taxonomy $us-gaap returns (target-name);
+				$child_items_names = filter $child_items.to-set returns $item.local-name;
+				$inconsistencies = $extCalcTargetName.intersect($child_items_names);
+				
+			
+				/** If there is an inconsistency then get the fact value (Except zero or nil values) and if values exist then check there are not additional exceptions **/
+				
+				$inappropriate_sibling = [nonils @concept.local-name in $inconsistencies where $fact != 0];
+				$source_value = [nonils @concept = $value-con];
+					$inconsistencies.length > 0 and 
+					exists($inappropriate_sibling) and 
+					exists($source_value) and
+					not any(set(for ($parent in $parent_elements_with_children_promotable_to_sibling)
+										$value-con.local-name == $parent[1] and $extCalcRelationship.target.name.local-name not in $parent[2])) and
+					
+					/** This takes any descendants of siblings demotable to child and allows them also be demoted. **/
+					all(set(for ($pair in $child_elements_promotable_to_sibling)
+						if ($value-con == $pair[1])
+							$descendants_of_promoted_child = navigate summation-item descendants from $pair[2] taxonomy $us-gaap returns (target-name);
+							not $extCalcRelationship.target.name in $descendants_of_promoted_child
+						else
+							true))
+				
+	 
+message
+"The line item concept {$inappropriate_sibling.concept.name} with a value of {$inappropriate_sibling} and a calculation parent of {$extCalcSourceName} is represented as a sibling of {$value-con} with a value of {$source_value} in the extension taxonomy role {$extCalcNetwork}, but {$inappropriate_sibling.concept.name} is represented as a descendent of {$value-con} in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this {$inappropriate_sibling.concept.name} fact are:
+
+Period :{$inappropriate_sibling.period}
+Dimensions : {$inappropriate_sibling.dimensions.join(', ','=')}
+Unit : {$inappropriate_sibling.unit}\n
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}
+"
+RULE-FOCUS $inappropriate_sibling
+
+SEVERITY error
+
+
+
+effectiveDate $effective_dates[$rule_id]
+

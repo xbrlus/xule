@@ -1,0 +1,94 @@
+/**
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: US GAAP 2016
+**/
+
+
+rule-name-prefix DQC
+
+assert US.0083.9296 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+$all_networks = taxonomy().networks(parent-child);
+
+if $all_networks == none
+	false
+else
+	/** Get those networks that are the financial Statements **/
+	$FS_Networks = filter $all_networks where $item.role.description.contains('- Statement ');
+
+	/** Get all concepts in FS Networks **/
+	$FS_Concepts = sum(set(for ($network in $FS_Networks)
+							$network.concepts));
+
+	/** Get all the monetary item types that could be consolidated **/						
+	$FS_Monetary_Concepts = filter $FS_Concepts where $item.data-type.name == xbrli:monetaryItemType;
+
+	/** Get all FS Statement facts that use the primary beneficiary member and the VariableInterestEntitiesByClassificationOfEntityAxis **/
+	$fact1 = {@concept in $FS_Monetary_Concepts @VariableInterestEntitiesByClassificationOfEntityAxis = VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember};
+
+	exists($fact1)
+
+message
+"The filer has used the element {$fact1.concept.name.local-name} with the axis VariableInterestEntitiesByClassificationOfEntityAxis and the member VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember to report a value of {$fact1} in the filing. The filer should use the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the financial statement category that is applicable to consolidated VIE's.
+
+The properties of this {$fact1.concept.name.local-name} fact are:
+Period :{$fact1.period}
+Dimensions : {$fact1.dimensions.join(', ','=')}
+Unit : {$fact1.unit}
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+rule-focus $fact1
+
+assert US.0083.9297 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+$all_networks = taxonomy().networks(parent-child);
+
+if $all_networks == none
+	false
+else
+
+	/** Get those networks that are the financial Statements **/
+	$FS_Networks = filter $all_networks where $item.role.description.contains('- Statement ');
+
+	/** Get all concepts in FS Networks **/
+	$FS_Concepts = sum(set(for ($network in $FS_Networks)
+							$network.concepts));
+
+	/** Get monetary items used in the financial statements **/	
+
+	$FS_Monetary_Concepts = filter $FS_Concepts where $item.data-type.name == xbrli:monetaryItemType;
+
+	/** Get all FS Statement facts that use the primary beneficiary member and the VariableInterestEntitiesByClassificationOfEntityAxis **/
+	$fact1 = {@concept in $FS_Monetary_Concepts @VariableInterestEntitiesByClassificationOfEntityAxis = VariableInterestEntityPrimaryBeneficiaryMember};
+
+	exists($fact1)
+
+message
+"The filer has used the element {$fact1.concept.name.local-name} with the axis VariableInterestEntitiesByClassificationOfEntityAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to report a value of {$fact1} in the filing. The filer should use the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the financial statement category that is applicable to consolidated VIE's.
+
+The properties of this {$fact1.concept.name.local-name} fact are:
+Period :{$fact1.period}
+Dimensions : {$fact1.dimensions.join(', ','=')}
+Unit : {$fact1.unit}
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+rule-focus $fact1

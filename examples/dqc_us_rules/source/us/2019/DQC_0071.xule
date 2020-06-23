@@ -1,0 +1,62 @@
+/**
+
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: US GAAP 2019
+
+**/
+
+
+/** THIS RULE IDENTIFIES WHERE A COMPANY HAS BROKEN DOWN REVENUE BY ONE ITEM ONLY and NOT USED THE EXTENSIBLE LIST VALUE. **/
+/** https://www.sec.gov/Archives/edgar/data/844143/000155837018004825/dfbg-20180331.xml **/
+
+rule-name-prefix DQC
+
+
+assert US.0071.7646 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+$valid_line_items = set(RevenueFromContractWithCustomerIncludingAssessedTax, RevenueFromContractWithCustomerExcludingAssessedTax, CostOfGoodsAndServicesSold);
+$all_cubes = filter taxonomy().cubes where $item.drs-role.description.contains('- Statement ');
+
+for $x in $all_cubes
+	if $x.dimensions().concept().name.contains(InitialApplicationPeriodCumulativeEffectTransitionAxis)
+		skip
+	else
+		if $x.dimensions().concept().name.contains(srt:ProductOrServiceAxis)
+			if count($x.primary-concepts.name.to-set.intersect($valid_line_items)) > 0
+				if count(navigate dimensions descendants from srt:ProductsAndServicesDomain drs-role $x.drs-role cube $x.cube-concept()) == 1
+					$count_values =count(list({@@concept in list(RevenueFromContractWithCustomerIncludingAssessedTax, RevenueFromContractWithCustomerExcludingAssessedTax, CostOfGoodsAndServicesSold) @cube = $x @srt:ProductOrServiceAxis = *}#Revenue));
+				
+					$count_values == 1 and (not exists({@srt:ProductOrServiceAxis = none}))
+				else
+					skip
+			else
+				skip
+		else
+			skip
+
+
+message
+"The filing has  reported a value for the element {$Revenue.concept} with a value of {$Revenue} using the ProductOrServiceAxis in the role {$x.drs-role.description} on the table {$x.cube-concept()}. However, the only member used to disaggregate the total for {$Revenue.concept} was the member {$Revenue.dimension(srt:ProductOrServiceAxis)}. If only one member is used on this axis then the filer should either:
+
+1. Retag the filing using the element TypeOfRevenueExtensibleList/TypeOfCostGoodOrServiceExtensibleList with a value of {$Revenue.dimension(srt:ProductOrServiceAxis)} and the member {$Revenue.dimension(srt:ProductOrServiceAxis)} should be removed from the value as it represents the aggregate value of {$Revenue.concept}.
+ 
+2. Tag the aggregate value of {$Revenue.concept} with a value of {$Revenue} without the product of service axis. This rule will not generate an error if the aggregate value of {$Revenue.concept} is reported.
+
+The properties of this {$Revenue.concept} fact are:
+Period :{$Revenue.period}
+Dimensions : {$Revenue.dimensions.join(', ','=')}
+Unit : {$Revenue.unit}
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}
+"
+
+SEVERITY error
+
+effectiveDate $effective_dates[$rule_id]
+
+

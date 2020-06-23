@@ -1,0 +1,123 @@
+{
+    "name": "xule",
+    "displayName": "XULE",
+    "description": "XULE Language Pack",
+    "author": "Strumenta s.r.l.",
+    "publisher": "XBRL",
+    "version": "1.4.1",
+    "license": "UNLICENSED",
+    "engines": {
+        "vscode": "^1.43.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Strumenta/xule-editor"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "activationEvents": [
+        "onLanguage:xule"
+    ],
+    "main": "./language-server/client/out/extension",
+    "contributes": {
+        "languages": [
+            {
+                "id": "xule",
+                "aliases": [
+                    "XULE",
+                    "xule"
+                ],
+                "extensions": [
+                    ".xule"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "xule",
+                "scopeName": "source.xule",
+                "path": "./syntaxes/xule.tmLanguage.json",
+                "embeddedLanguages": {
+                    "source.xule": "xule"
+                  }
+            }
+        ],
+        "configuration": {
+            "type": "object",
+            "title": "XULE",
+            "properties": {
+                "xule.checks.variables": {
+                    "scope": "window",
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Warn when a variable or constant is referenced, but it's not defined in the file and it's not a built-in variable."
+                },
+                "xule.checks.functions": {
+                    "scope": "window",
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Warn when a function is invoked, but it's not defined in the file and is not a built-in function. Report an error if it's invoked with the wrong number of arguments."
+                },
+                "xule.checks.properties": {
+                    "scope": "window",
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Warn when a property is accessed that doesn't exist. Report an error when the wrong number of arguments is given to a property."
+                },
+                "xule.namespaces.definitions": {
+                    "scope": "resource",
+                    "type": "array",
+                    "default": [],
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Load namespace definitions from these JSON files (relative to the workspace or absolute)."
+                },
+                "xule.autoImports": {
+                    "scope": "resource",
+                    "type": "array",
+                    "default": [],
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Load XULE definitions from these files (relative to the workspace or absolute)."
+                },
+                "xule.server.debug": {
+                    "scope": "window",
+                    "type": "string",
+                    "enum": [ "off", "verbose" ],
+                    "default": "off",
+                    "description": "Traces the work of the language server and its communication with VS Code. Note: enabling this may dramatically slow down the extension."
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "cd language-server/client && npm run update-vscode && cd ../.. && npm run webpack",
+        "webpack": "npm run clean && webpack --mode production --config ./language-server/client/webpack.config.js && webpack --mode production --config ./language-server/server/webpack.config.js",
+        "webpack:dev": "npm run clean && webpack --mode none --config ./language-server/client/webpack.config.js && webpack --mode none --config ./language-server/server/webpack.config.js",
+        "clean": "rimraf language-server/client/out && rimraf language-server/server/out",
+        "compile": "tsc -b",
+        "compile:client": "tsc -b ./client/tsconfig.json",
+        "compile:server": "tsc -b ./server/tsconfig.json",
+        "watch": "tsc -b -w",
+        "postinstall": "cd language-server/client && npm install && cd ../server && npm install && npm run antlr4ts && cd ..",
+        "test": "cd language-server/server && npm run test"
+    },
+    "devDependencies": {
+        "@types/mocha": "^5.2.7",
+        "@types/node": "^12.11.7",
+        "@typescript-eslint/parser": "^2.3.0",
+        "eslint": "^6.4.0",
+        "merge-options": "^2.0.0",
+        "mocha": "^6.2.2",
+        "rimraf": "^3.0.0",
+        "ts-loader": "^6.2.2",
+        "ts-node": "^8.8.2",
+        "typescript": "^3.8.3",
+        "webpack": "^4.42.1",
+        "webpack-cli": "^3.3.11"
+    }
+}

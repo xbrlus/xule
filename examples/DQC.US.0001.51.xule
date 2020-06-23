@@ -1,0 +1,40 @@
+/** Define the base taxonomy as a constant**/
+constant $us-gaap = taxonomy('http://xbrl.fasb.org/us-gaap/2016/elts/us-gaap-2016-01-31.xsd')
+
+/** Determine the members on the axis in the taxonomy using the definition tree **/
+constant $member_USGAAP_fair_value = navigate dimensions dimension-member
+descendants from FairValueByFairValueHierarchyLevelAxis taxonomy $us-gaap
+returns set (target-name)
+
+/** Define a function to identify a concept as an extension**/
+constant $extension_ns = first(filter taxonomy().concepts where is_extension($item)).name.namespace-uri
+
+function is_extension($test_extension)
+    $test_extension not in $us-gaap.concepts
+
+assert dqc.us.0001.51 satisfied
+/** Define allowable extensions with the qname function**/
+$allowable_extensions =
+set(qname($extension_ns,'FairValueInputsLevel1AndLevel2Member'),
+qname($extension_ns,'FairValueInputsLevel2AndLevel3Member'),
+qname($extension_ns,'InvestmentsNetAssetValueMember'));
+
+/** Union the sets**/
+$allowed_members = $allowable_extensions + $member_USGAAP_fair_value;
+
+/** Evaluate if facts exists with the unallowable members **/
+exists({@FairValueByFairValueHierarchyLevelAxis = * as $FV where
+($allowed_members not in $FV#member)}#fact)
+message
+"The concept {$fact.concept.name.local-name} with a value of {$fact} is dimensionally qualified with the
+FairValueByFairValueHierarchyLevelAxis and the unallowable member {$member.local-name}. The filer
+should use members from the US GAAP taxonomy that are
+children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of :
+{$allowable_extensions.join(', ')}.
+The properties of the fact for {$fact.concept.name.local-name} are:
+Period: {$fact.period}
+Dimensions: {$fact.dimensions.join(', ','=')}
+Unit: {$fact.unit}"
+
+severity
+error

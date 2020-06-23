@@ -1,0 +1,95 @@
+/**
+
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: US GAAP 2020
+
+**/
+
+rule-name-prefix DQC
+
+assert US.0070.7645 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+/** Find valid cubes where the Categories Axis is Used to define a breakdown of plan assets and return the drs-role
+	Criteria:
+		- Exclude cubes where the range axis is used as this indicates a target allocation table
+		- Exclude cubes where monetary duration primary items are included as these are a roll-forward
+		- Include cubes where the DefinedBenefitPlanByPlanAssetCategoriesAxis is used
+		- Include cubes where the primary concept DefinedBenefitPlanFairValueOfPlanAssets is used
+**/
+
+$drs_roles = set(for $y in
+					filter taxonomy().cubes where 
+						taxonomy().concept(DefinedBenefitPlanFairValueOfPlanAssets) in $item.primary-concepts 						/** Include cubes with DefinedBenefitPlanFairValueOfPlanAssets		**/
+						and not any(filter $item.primary-concepts returns $item.period-type == duration and $item.is-monetary)		/** Exclude roll forward Cubes										**/
+						and taxonomy().concept(DefinedBenefitPlanByPlanAssetCategoriesAxis) in $item.dimensions.concept				/** Include Cubes with categories axis								**/
+						and taxonomy().concept(srt:RangeAxis) not in $item.dimensions.concept										/** Exclude cubes with range axis 									**/
+				$y.drs-role);
+
+/** Get a list of all the members on the DefinedBenefitPlanByPlanAssetCategoriesAxis and include the role they are used in. **/
+
+$drs_members = dict(for $drs_role in $drs_roles
+					list($drs_role, navigate dimensions descendants from DefinedBenefitPlanByPlanAssetCategoriesAxis drs-role $drs_role));
+
+/** Loop through each role and evaluate that the members add to the total in the default. **/
+for  $x in $drs_members.keys
+
+	/** Get a list of the members **/
+	$member_descendants = $drs_members[$x].to-set;
+
+	/** Generate a list of the member values to sum. It excludes member values that are included as a subtotal, by checking if a members ancestor has a value. If yes, then the value is excluded. **/
+	$member_facts = list(for $member in $member_descendants
+		$ancestors_list = navigate dimensions domain-member ancestors from $member drs-role $x;
+		if list({nonils @DefinedBenefitPlanFairValueOfPlanAssets @cube.drs-role = $x @DefinedBenefitPlanByPlanAssetCategoriesAxis in $ancestors_list}).length > 0
+			skip
+		else 
+			{nonils @DefinedBenefitPlanFairValueOfPlanAssets @cube.drs-role = $x @DefinedBenefitPlanByPlanAssetCategoriesAxis = $member});
+	
+	/** If there are no member facts the rule ends otherwise the subtotal is evaluated **/
+	if 	$member_facts.length == 0 
+	 skip
+	else
+		
+		/** aggregate the fact values on the axis **/
+		$member_sum = sum($member_facts);
+		
+		/** Make a string that shows the components of the components that comprise the total **/
+		$member_string = sum(list(for $member_fact in $member_facts
+			"\t" + $member_fact.dimension(DefinedBenefitPlanByPlanAssetCategoriesAxis).local-name + " --> {$member_fact}" + " --> {$member_fact.dimensions.join(', ','=')} \n"));
+		
+		tolerance_for_decimals({nonils @concept = DefinedBenefitPlanFairValueOfPlanAssets @DefinedBenefitPlanByPlanAssetCategoriesAxis = none}#FairValueOfPlanAssets, $member_sum, 2 ) and $member_sum != 0
+
+message
+"The concept DefinedBenefitPlanFairValueOfPlanAssets with a defaulted value of {$FairValueOfPlanAssets} is not equal to the aggregated value of the dimensionally qualified components on the axis DefinedBenefitPlanByPlanAssetCategoriesAxis which has an aggregate value of {$member_sum} based on the data in the filing. 
+The aggregated value is calculated by adding the members in the network {$x.description} with the uri {$x.uri}. The values of the calculation components are as follows:
+{$member_string}
+
+The value of a concept broken down by its components along the DefinedBenefitPlanByPlanAssetCategoriesAxis axis should  be equal to its component pieces. An error could occur for one of the following reasons:
+
+1. The values of the plan assets by category have been further disaggregated by additional dimensions such as geography. Plan Asset categories should not be dimensionally disaggregated and members should be defined for each security class reported. i.e. Equity Securities in the US should be represented as a single member.
+
+2. The  default value of {$FairValueOfPlanAssets} is incorrectly totaled for DefinedBenefitPlanFairValueOfPlanAssets 
+
+3. Not all dimension members or additional dimensions have been defined on the category axis DefinedBenefitPlanByPlanAssetCategoriesAxis. 
+
+4. The filer has reported a sub component of plan assets that does not represent a complete breakdown of the total. In these cases the element DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount should be used instead of the element DefinedBenefitPlanFairValueOfPlanAssets.
+
+This rule aggregates the value of member components located on the axis at the highest level of aggregation to avoid double counting in the event that the company uses a hierarchy of members.
+
+The properties of this {$FairValueOfPlanAssets.concept} fact are:
+Period :{$FairValueOfPlanAssets.period}
+Dimensions : {$FairValueOfPlanAssets.dimensions.join(', ','=')}
+Unit : {$FairValueOfPlanAssets.unit}
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}"
+
+SEVERITY error
+
+rule-focus $FairValueOfPlanAssets
+
+effectiveDate $effective_dates[$rule_id]
+

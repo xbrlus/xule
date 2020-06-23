@@ -1,0 +1,42 @@
+/**
+
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: US GAAP 2019
+
+**/
+
+
+rule-name-prefix DQC
+
+assert US.0077.7654 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+$ComponentAmount = {@concept = RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1}#sat_period;
+
+
+$Member = $ComponentAmount.dimension(RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis);
+
+$Member == none
+
+
+message
+"The filer has reported a value for the element {$sat_period.concept} with a value of {$sat_period} without using the axis RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis. This axis must be used when reporting a value for {$sat_period.concept}. Please refer to the FASB implementation guide on Revenue from Contracts with Customers on the FASB website.
+
+The properties of this {$sat_period.concept} fact are:
+Period :{$sat_period.period}
+Dimensions : {$sat_period.dimensions.join(', ','=')}
+Unit : {$sat_period.unit}
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}"
+
+
+SEVERITY error
+
+rule-focus $sat_period
+
+effectiveDate $effective_dates[$rule_id]
+

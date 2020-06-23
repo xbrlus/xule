@@ -1,0 +1,40 @@
+/**
+
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: US GAAP 2018
+
+**/
+
+rule-name-prefix DQC
+
+assert US.0055.7493 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+$listmembers = navigate parent-child descendants from RetirementPlanSponsorLocationAxis returns by network set (target-name)
+
+for ($network in $listmembers.keys)
+	$nrole = $network.role.uri;
+	if not ($listmembers[$network].contains(DomesticPlanMember) or  $listmembers[$network].contains(ForeignPlanMember))
+		if ($listmembers[$network].length > 1)
+			true
+		else 
+			false
+	else
+		false
+
+message
+"Neither the  Domestic Plan [Member] NOR Foreign Plan [Member] has been used on the Retirement Plan Sponsor Location [Axis] in the presentation linkbase  {$nrole}. The FASB requires that either one or both of these members is present on the Retirement Plan Sponsor Location [Axis]. Please review the axis and add one of these members or assess the need to use the Retirement Plan Sponsor Location [Axis].
+
+The axis RetirementPlanSponsorLocationAxis has the following members listed under it:
+{$listmembers[$network].join(', 
+')}
+
+
+Rule Element Id:7493
+Rule version: {$ruleVersion}"
+
+severity error
+effectiveDate $effective_dates[$rule_id]

@@ -1,0 +1,1069 @@
+/**
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: US GAAP 2017
+Release Version 6
+**/
+
+rule-name-prefix DQC
+
+assert US.0001.51 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+/** Determine the members on the axis in the taxonomy using the definition linkbase CHANGE TO - dimensions dimension-member **/
+
+$member_extension = navigate dimensions dimension-member descendants from FairValueByFairValueHierarchyLevelAxis returns set (target-name);
+
+/** Define allowable extensions with the qname function **/
+
+/** In 2018 InvestmentsNetAssetValueMember has to be removed **/
+
+$allowable_extensions = set(qname($extension_ns,'FairValueInputsLevel1AndLevel2Member'), 
+						qname($extension_ns,'FairValueInputsLevel2AndLevel3Member'), 
+						qname($extension_ns,'FairValueInputsLevel12And3Member'), 
+						qname($extension_ns,'FairValueInputsLevel1AndLevel3Member'), 
+						qname($extension_ns,'FairValueMeasuredAtNetAssetValuePerShareMember'));
+
+/** Union the sets**/
+
+$allowed_members = $allowable_extensions + $member_USGAAP_fair_value;
+
+$unallowed_members = $member_extension - $allowed_members;
+
+/** Evaluate if facts exists with the unallowable members **/
+/** We have used covered because if it was not covered then the processor looks for alignmnet. This means that the exist will run and if it does not get a result then the processor will stop processing results. i.e. the non existence of the fact means the iteration does not run and the else statement does not run.
+**/
+	for ($member in $unallowed_members)
+		$fact1 = {covered @FairValueByFairValueHierarchyLevelAxis = $member};
+		if exists($fact1)
+			$message_for_fact = "The concept {$fact1.concept.name.local-name} with a value of {$fact1} is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member {$member.local-name}. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : {$allowable_extensions.join(', ')}.
+
+The properties of the fact for {$fact1.concept.name.local-name} are:
+Period: {$fact1.period}
+Dimensions: {$fact1.dimensions.join(', ','=')} 
+Unit: {$fact1.unit}";
+			true
+		else 
+			$message_for_fact = " The member {$member.local-name} is used on the axis FairValueByFairValueHierarchyLevelAxis. There are no facts associated with this member and axis.";
+			true
+
+
+message
+"{$message_for_fact}
+
+
+Rule Element Id:51
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+
+assert US.0001.52 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+/** Determine the members on the axis in the taxonomy using the definition linkbase **/
+
+$allowed_members = navigate dimensions dimension-member descendants from ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis taxonomy $us-gaap returns set (target-name);
+
+$member_extension = navigate dimensions dimension-member descendants from ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis returns set (target-name);
+
+$unallowed_members = $member_extension - $allowed_members;
+
+/** Evaluate if facts exists with the unallowable members **/
+
+for ($member in $unallowed_members)
+	$fact1 = {covered @ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis = $member};
+	if exists($fact1)
+		$message_for_fact = "The concept {$fact1.concept.name.local-name} with a value of {$fact1} is dimensionally qualified with the ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis and the unallowable member {$member.local-name}. 
+The properties of the fact for {$fact1.concept.name.local-name} are:
+Period: {$fact1.period}
+Dimensions: {$fact1.dimensions.join(', ','=')} 
+Unit: {$fact1.unit}";
+			true
+	else 
+			$message_for_fact = " The member {$member.local-name}is inappropriately used on the axis ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis. The only members allowed on this axis are {$allowed_members.join(', ')} . There are no facts associated with this member and axis.";
+			true
+
+message
+"{$message_for_fact}
+
+Rule Element Id:52
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+assert US.0001.53 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+$base_members = navigate dimensions dimension-member descendants from OtherOwnershipInterestsByNameAxis where is_base($relationship.target, $all_base_taxonomies) returns set (target-name);
+$allowed_base_member = set(OtherOwnershipInterestsNameDomain);
+$unallowed_base_members = $base_members - $allowed_base_member;
+
+for ($member in $unallowed_base_members)
+	$fact1 = {covered @OtherOwnershipInterestsByNameAxis = $member};
+	if exists($fact1)
+		$message_for_fact = "The concept {$fact1.concept.name.local-name} with a value of {$fact1} is dimensionally qualified with the OtherOwnershipInterestsByNameAxis and the base taxonomy member {$member.local-name}. Only extension members should be used with the axis OtherOwnershipInterestsByNameAxis.
+The properties of the fact for {$fact1.concept.name.local-name} are:
+Period: {$fact1.period}
+Dimensions: {$fact1.dimensions.join(', ','=')} 
+Unit: {$fact1.unit}";
+		true
+	else 
+		$message_for_fact = " The member {$member.local-name} is inappropriately used on the axis OtherOwnershipInterestsByNameAxis. The only members allowed on this axis are extension members defined by the filer. There are no facts associated with this member and axis.";
+		true
+
+
+message
+"{$message_for_fact}
+
+Rule Element Id:53
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+
+assert US.0001.54 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+/** Determine the members on the axis in the taxonomy using the definition linkbase **/
+
+/** Use nested navigation as the LegalEntityAxis in the US GAAP taxonomy is not a valid hypercube in all cases so the dimensions will not return all members. Specifically the 190000 group **/
+$allowed_members_lea = navigate domain-member descendants include start
+     from (navigate dimension-domain children
+           from dei:LegalEntityAxis
+           taxonomy $us-gaap returns set)
+     taxonomy $us-gaap
+     returns set (target-name);
+$allowed_members_FHLB = navigate dimensions dimension-member descendants from FederalHomeLoanBankAdvancesBranchOfFHLBBankAxis taxonomy $us-gaap returns set (target-name);
+
+$allowed_base_member = set(PredecessorMember, CoVenturerMember, SpinOffMember, PartnershipMember, LimitedLiabilityCompanyMember, TrustForBenefitOfEmployeesMember, dei:EntityDomain);
+
+$member_extension = navigate dimensions dimension-member descendants from dei:LegalEntityAxis where is_base($relationship.target, $all_base_taxonomies) returns set (target-name);
+
+$allowed_members = $allowed_members_lea + $allowed_members_FHLB + $allowed_base_member;
+
+$unallowed_base_members = $member_extension - $allowed_members;
+
+/** Evaluate if facts exists with the unallowable members **/
+
+	for ($member in $unallowed_base_members)
+		$fact1 = {covered @dei:LegalEntityAxis = $member};
+		if exists($fact1)
+			$message_for_fact = "The concept {$fact1.concept.name.local-name} with a value of {$fact1} is dimensionally qualified with the LegalEntityAxis and the unallowable member {$member.local-name}. Only extension members should be used with the axis LegalEntityAxis other than the members predefined in the US-GAAP taxonomy. 
+The properties of the fact for {$fact1.concept.name.local-name} are:
+Period: {$fact1.period}
+Dimensions: {$fact1.dimensions.join(', ','=')} 
+Unit: {$fact1.unit}";
+				true
+		else 
+				$message_for_fact = " The member {$member.local-name} is inappropriately used on the axis LegalEntityAxis. The only members allowed on this axis are extensions or legal entities defined in the US GAAP taxonomy. There are no facts associated with this member and axis.";
+				true
+
+message
+"{$message_for_fact}
+
+Rule Element Id:54
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+
+
+
+assert US.0001.56 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+$base_members = navigate dimensions dimension-member descendants from NoncashOrPartNoncashDivestituresByUniqueNameAxis where is_base($relationship.target, $all_base_taxonomies) returns set (target-name);
+$allowed_base_member = set(NoncashOrPartNoncashDivestitureNameDomain);
+$unallowed_base_members = $base_members - $allowed_base_member;
+
+for ($member in $unallowed_base_members)
+	$fact1 = {covered @NoncashOrPartNoncashDivestituresByUniqueNameAxis = $member};
+	if exists($fact1)
+		$message_for_fact = "The concept {$fact1.concept.name.local-name} with a value of {$fact1} is dimensionally qualified with the NoncashOrPartNoncashDivestituresByUniqueNameAxis and the base taxonomy member {$member.local-name}. Only extension members should be used with the axis NoncashOrPartNoncashDivestituresByUniqueNameAxis.
+The properties of the fact for {$fact1.concept.name.local-name} are:
+Period: {$fact1.period}
+Dimensions: {$fact1.dimensions.join(', ','=')} 
+Unit: {$fact1.unit}";
+		true
+	else 
+		$message_for_fact = " The member {$member.local-name} is inappropriately used on the axis NoncashOrPartNoncashDivestituresByUniqueNameAxis. The only members allowed on this axis are extension members defined by the filer. There are no facts associated with this member and axis.";
+		true
+
+
+message
+"{$message_for_fact}
+
+Rule Element Id:56
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+
+assert US.0001.57 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+$base_members = navigate dimensions dimension-member descendants from ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis where is_base($relationship.target, $all_base_taxonomies) returns set (target-name);
+$allowed_base_member = set(EquityMethodInvesteeNameDomain);
+$unallowed_base_members = $base_members - $allowed_base_member;
+
+for ($member in $unallowed_base_members)
+	$fact1 = {covered @ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis = $member};
+	if exists($fact1)
+		$message_for_fact = "The concept {$fact1.concept.name.local-name} with a value of {$fact1} is dimensionally qualified with the ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis and the base taxonomy member {$member.local-name}. Only extension members should be used with the axis ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis.
+The properties of the fact for {$fact1.concept.name.local-name} are:
+Period: {$fact1.period}
+Dimensions: {$fact1.dimensions.join(', ','=')} 
+Unit: {$fact1.unit}";
+		true
+	else 
+		$message_for_fact = " The member {$member.local-name} is inappropriately used on the axis ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis. The only members allowed on this axis are extension members defined by the filer. There are no facts associated with this member and axis.";
+		true
+
+
+message
+"{$message_for_fact}
+
+Rule Element Id:57
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+
+assert US.0001.58 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+$base_members = navigate dimensions dimension-member descendants from CounterpartyNameAxis where is_base($relationship.target, $all_base_taxonomies) returns set (target-name);
+$allowed_base_member = set(RepurchaseAgreementCounterpartyNameDomain, AffiliatedEntityMember, InvestorMember, VariableInterestEntityNotPrimaryBeneficiaryMember, ChiefFinancialOfficerMember, IndividualMember, GovernmentMember, GuarantorSubsidiariesMember, SubsidiaryIssuerMember, DirectorMember, ChiefExecutiveOfficerMember, ChiefOperatingOfficerMember, GeneralPartnerMember, CorporateJointVentureMember, SubsidiaryOfCommonParentMember);
+$unallowed_base_members = $base_members - $allowed_base_member;
+
+for ($member in $unallowed_base_members)
+	$fact1 = {covered @CounterpartyNameAxis = $member};
+	if exists($fact1)
+		$message_for_fact = "The concept {$fact1.concept.name.local-name} with a value of {$fact1} is dimensionally qualified with the CounterpartyNameAxis and the base taxonomy member {$member.local-name}. Only extension members should be used with the axis CounterpartyNameAxis.
+The properties of the fact for {$fact1.concept.name.local-name} are:
+Period: {$fact1.period}
+Dimensions: {$fact1.dimensions.join(', ','=')} 
+Unit: {$fact1.unit}";
+		true
+	else 
+		$message_for_fact = " The member {$member.local-name} is inappropriately used on the axis CounterpartyNameAxis. The only members allowed on this axis are extension members defined by the filer and the following members in the US-GAAP taxonomy {$allowed_base_member.join(', ')} . There are no facts associated with this member and axis.";
+		true
+
+
+message
+"{$message_for_fact}
+
+Rule Element Id:58
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+assert US.0001.59 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+$base_members = navigate dimensions dimension-member descendants from PlanNameAxis where is_base($relationship.target, $all_base_taxonomies) returns set (target-name);
+$allowed_base_member = navigate dimensions dimension-member descendants from PlanNameAxis taxonomy $us-gaap returns set (target-name);
+$unallowed_base_members = $base_members - $allowed_base_member;
+
+for ($member in $unallowed_base_members)
+	$fact1 = {covered @PlanNameAxis = $member};
+	if exists($fact1)
+		$message_for_fact = "The concept {$fact1.concept.name.local-name} with a value of {$fact1} is dimensionally qualified with the PlanNameAxis and the base taxonomy member {$member.local-name}. Only extension members should be used with the axis PlanNameAxis.
+The properties of the fact for {$fact1.concept.name.local-name} are:
+Period: {$fact1.period}
+Dimensions: {$fact1.dimensions.join(', ','=')} 
+Unit: {$fact1.unit}";
+		true
+	else 
+		$message_for_fact = " The member {$member.local-name} is inappropriately used on the axis PlanNameAxis. The only members allowed on this axis are extension members defined by the filer. There are no facts associated with this member and axis.";
+		true
+
+
+message
+"{$message_for_fact}
+
+Rule Element Id:59
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+/** Rule Removed as Axis was deprecated **/
+/**
+assert US.0001.60 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+$base_members = navigate dimensions dimension-member descendants from DefinedContributionPlanNameAxis where is_base($relationship.target, $all_base_taxonomies) returns set (target-name);
+$allowed_base_member = navigate dimensions dimension-member descendants from DefinedContributionPlanNameAxis taxonomy $us-gaap returns set (target-name);
+$unallowed_base_members = $base_members - $allowed_base_member;
+
+for ($member in $unallowed_base_members)
+	$fact1 = {covered @DefinedContributionPlanNameAxis = $member};
+	if exists($fact1)
+		$message_for_fact = "The concept {$fact1.concept.name.local-name} with a value of {$fact1} is dimensionally qualified with the DefinedContributionPlanNameAxis and the base taxonomy member {$member.local-name}. Only extension members should be used with the axis DefinedContributionPlanNameAxis.
+The properties of the fact for {$fact1.concept.name.local-name} are:
+Period: {$fact1.period}
+Dimensions: {$fact1.dimensions.join(', ','=')} 
+Unit: {$fact1.unit}";
+		true
+	else 
+		$message_for_fact = " The member {$member.local-name} is inappropriately used on the axis DefinedContributionPlanNameAxis. The only members allowed on this axis are extension members defined by the filer. There are no facts associated with this member and axis.";
+		true
+
+
+message
+"{$message_for_fact}
+
+Rule Element Id:60
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+**/
+
+assert US.0001.61 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+/** Determine the members on the axis in the taxonomy using the definition linkbase **/
+
+$allowed_members = navigate dimensions dimension-member descendants from RangeAxis taxonomy $us-gaap returns set (target-name);
+
+$member_extension = navigate dimensions dimension-member descendants from RangeAxis returns set (target-name);
+
+$unallowed_members = $member_extension - $allowed_members;
+
+/** Evaluate if facts exists with the unallowable members **/
+
+	for ($member in $unallowed_members)
+		$fact1 = {covered @RangeAxis = $member};
+		if exists($fact1)
+			$message_for_fact = "The concept {$fact1.concept.name.local-name} with a value of {$fact1} is dimensionally qualified with the RangeAxis and the unallowable member {$member}. 
+The properties of the fact for {$fact1.concept.name.local-name} are:
+Period: {$fact1.period}
+Dimensions: {$fact1.dimensions.join(', ','=')} 
+Unit: {$fact1.unit}";
+				true
+		else 
+				$message_for_fact = "The member {$member} is inappropriately used on the axis RangeAxis. The only members allowed on this axis are {$allowed_members.join(', ')} . There are no facts associated with this member and axis.";
+				true
+
+message
+"{$message_for_fact}
+
+Rule Element Id:61
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+
+assert US.0001.62 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+/** Use nested navigation as the StatementScenarioAxis in the US GAAP taxonomy is not a valid hypercube in all cases so the dimensions will not return all members. Specifically the 190000 group **/
+$member_USGAAP = navigate domain-member descendants include start
+     from (navigate dimension-domain children
+           from CurrencyAxis
+           taxonomy $us-gaap returns set)
+     taxonomy $us-gaap
+     returns set (target-name);
+
+$member_extension = navigate dimensions dimension-member descendants from CurrencyAxis returns set (target-name);
+
+/** Define allowable extensions with the qname function **/
+
+$allowable_extensions = set(qname($extension_ns,'SICAD1Member'), qname($extension_ns,'SICAD2Member'), qname($extension_ns,'OtherCurrencyMember'), qname($extension_ns,'NonUSDollarMember'),qname($extension_ns,'CENCOEXMember'),qname($extension_ns,'SICADMember'),qname($extension_ns,'SIMADIMember'),qname($extension_ns,'DIPROMember'),qname($extension_ns,'DICOMMember'));
+
+/** Union the sets**/
+
+$allowed_members = $allowable_extensions + $member_USGAAP;
+
+$unallowed_members = $member_extension - $allowed_members;
+
+/** Evaluate if facts exists with the unallowable members **/
+/** We have used covered because if it was not covered then the processor looks for alignmnet. This means that the exist will run and if it does not get a result then the processor will stop processing results. i.e. the non existence of the fact means the iteration does not run and the else statement does not run.
+**/
+for ($member in $unallowed_members)
+	$fact1 = {covered @CurrencyAxis = $member};
+	if exists($fact1)
+		$message_for_fact = "The concept {$fact1.concept.name.local-name} with a value of {$fact1} is dimensionally qualified with the CurrencyAxis and the unallowable member {$member}. 
+The properties of the fact for {$fact1.concept.name.local-name} are:
+Period: {$fact1.period}
+Dimensions: {$fact1.dimensions.join(', ','=')} 
+Unit: {$fact1.unit}";
+		true
+	else 
+		$message_for_fact = " The member {$member.local-name} is used on the axis CurrencyAxis. The Currency Axis should only be used with the members defined in the US GAAP taxonomy or the followng extension members: {$allowable_extensions.join(', ')} .There are no facts associated with this member and axis.";
+		true
+
+
+message
+"{$message_for_fact}
+
+Rule Element Id:62
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+
+assert US.0001.63 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+/** Determine the members on the axis in the taxonomy using the definition linkbase CHANGE TO - dimensions dimension-member **/
+
+$member_USGAAP = navigate dimensions dimension-member descendants from PositionAxis taxonomy $us-gaap returns set (target-name);
+
+$member_extension = navigate dimensions dimension-member descendants from PositionAxis returns set (target-name);
+
+/** Define allowable extensions with the qname function **/
+
+$allowable_extensions = set(qname($extension_ns,'NetLongPositionMember'), qname($extension_ns,'NetShortPositionMember'));
+
+/** Union the sets**/
+
+$allowed_members = $allowable_extensions + $member_USGAAP;
+
+$unallowed_members = $member_extension - $allowed_members;
+
+/** Evaluate if facts exists with the unallowable members **/
+/** We have used covered because if it was not covered then the processor looks for alignmnet. This means that the exist will run and if it does not get a result then the processor will stop processing results. i.e. the non existence of the fact means the iteration does not run and the else statement does not run.
+**/
+for ($member in $unallowed_members)
+	$fact1 = {covered @PositionAxis = $member};
+	if exists($fact1)
+		$message_for_fact = "The concept {$fact1.concept.name.local-name} with a value of {$fact1} is dimensionally qualified with the PositionAxis and the unallowable member {$member.local-name}. 
+The properties of the fact for {$fact1.concept.name.local-name} are:
+Period: {$fact1.period}
+Dimensions: {$fact1.dimensions.join(', ','=')} 
+Unit: {$fact1.unit}";
+		true
+	else 
+		$message_for_fact = " The member {$member.local-name} is used on the axis PositionAxis. The Position Axis should only be used with the members defined in the US GAAP taxonomy or the followng extension members: {$allowable_extensions.join(', ')} .There are no facts associated with this member and axis.";
+		true
+
+
+message
+"{$message_for_fact}
+
+Rule Element Id:63
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+assert US.0001.64 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+/** Determine the members on the axis in the taxonomy using the definition linkbase **/
+
+$allowed_members = navigate dimensions dimension-member descendants from FairValueByMeasurementFrequencyAxis taxonomy $us-gaap returns set (target-name);
+
+$member_extension = navigate dimensions dimension-member descendants from FairValueByMeasurementFrequencyAxis returns set (target-name);
+
+$unallowed_members = $member_extension - $allowed_members;
+
+/** Evaluate if facts exists with the unallowable members **/
+
+for ($member in $unallowed_members)
+	$fact1 = {covered @FairValueByMeasurementFrequencyAxis = $member};
+	if exists($fact1)
+		$message_for_fact = "The concept {$fact1.concept.name.local-name} with a value of {$fact1} is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member {$member.local-name}. 
+The properties of the fact for {$fact1.concept.name.local-name} are:
+Period: {$fact1.period}
+Dimensions: {$fact1.dimensions.join(', ','=')} 
+Unit: {$fact1.unit}";
+			true
+	else 
+			$message_for_fact = " The member {$member.local-name} is inappropriately used on the axis FairValueByMeasurementFrequencyAxis. The only members allowed on this axis are {$allowed_members.join(', ')} . There are no facts associated with this member and axis.";
+			true
+
+message
+"{$message_for_fact}
+
+Rule Element Id:64
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+assert US.0001.65 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+/** Determine the members on the axis in the taxonomy using the definition linkbase CHANGE TO - dimensions dimension-member **/
+
+$member_USGAAP = navigate dimensions dimension-member descendants from FairValueByMeasurementBasisAxis taxonomy $us-gaap returns set (target-name);
+
+$member_extension = navigate dimensions dimension-member descendants from FairValueByMeasurementBasisAxis returns set (target-name);
+
+/** Define allowable extensions with the qname function **/
+
+$allowable_extensions = set(qname($extension_ns,'InvestmentsNetAssetValueMember'));
+
+/** Union the sets**/
+
+$allowed_members = $allowable_extensions + $member_USGAAP;
+
+$unallowed_members = $member_extension - $allowed_members;
+
+/** Evaluate if facts exists with the unallowable members **/
+/** We have used covered because if it was not covered then the processor looks for alignmnet. This means that the exist will run and if it does not get a result then the processor will stop processing results. i.e. the non existence of the fact means the iteration does not run and the else statement does not run.
+**/
+for ($member in $unallowed_members)
+	$fact1 = {covered @FairValueByMeasurementBasisAxis = $member};
+	if exists($fact1)
+		$message_for_fact = "The concept {$fact1.concept.name.local-name} with a value of {$fact1} is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member {$member.local-name}. 
+The properties of the fact for {$fact1.concept.name.local-name} are:
+Period: {$fact1.period}
+Dimensions: {$fact1.dimensions.join(', ','=')} 
+Unit: {$fact1.unit}";
+		true
+	else 
+		$message_for_fact = " The member {$member.local-name} is used on the axis FairValueByMeasurementBasisAxis. The FairValueByMeasurementBasisAxis should only be used with the members defined in the US GAAP taxonomy or the followng extension members: {$allowable_extensions.join(', ')} .There are no facts associated with this member and axis.";
+		true
+
+
+message
+"{$message_for_fact}
+
+Rule Element Id:65
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+
+assert US.0001.66 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+/** Determine the members on the axis in the taxonomy using the definition linkbase CHANGE TO - dimensions dimension-member **/
+
+$member_USGAAP = navigate dimensions dimension-member descendants from HedgingDesignationAxis taxonomy $us-gaap returns set (target-name);
+
+$member_extension = navigate dimensions dimension-member descendants from HedgingDesignationAxis returns set (target-name);
+
+/** Define allowable extensions with the qname function **/
+
+/**  REMOVED AS ADDED TO THE TAXONOMY $allowable_extensions = set(qname($extension_ns,'NotDesignatedAsHedgingInstrumentEconomicHedgesMember'), qname($extension_ns,'NotDesignatedAsHedgingInstrumentTradingMember')); **/
+
+/** Union the sets**/
+
+$allowed_members = $member_USGAAP;
+
+$unallowed_members = $member_extension - $allowed_members;
+
+/** Evaluate if facts exists with the unallowable members **/
+/** We have used covered because if it was not covered then the processor looks for alignmnet. This means that the exist will run and if it does not get a result then the processor will stop processing results. i.e. the non existence of the fact means the iteration does not run and the else statement does not run.
+**/
+for ($member in $unallowed_members)
+	$fact1 = {covered @HedgingDesignationAxis = $member};
+	if exists($fact1)
+		$message_for_fact = "The concept {$fact1.concept.name.local-name} with a value of {$fact1} is dimensionally qualified with the HedgingDesignationAxis and the unallowable member {$member.local-name}. 
+The properties of the fact for {$fact1.concept.name.local-name} are:
+Period: {$fact1.period}
+Dimensions: {$fact1.dimensions.join(', ','=')} 
+Unit: {$fact1.unit}";
+		true
+	else 
+		$message_for_fact = " The member {$member.local-name} is used on the axis HedgingDesignationAxis. The HedgingDesignationAxis should only be used with the members defined in the US GAAP taxonomy. There are no facts associated with this member and axis.";
+		true
+
+
+message
+"{$message_for_fact}
+
+Rule Element Id:66
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+assert US.0001.69 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+/** Determine the members on the axis in the taxonomy using the definition linkbase **/
+
+$allowed_members_product = navigate dimensions dimension-member descendants from ProductOrServiceAxis taxonomy $us-gaap returns set (target-name);
+$allowed_members_reinsurance = navigate dimensions dimension-member descendants from ReinsurancePremiumsForInsuranceCompaniesByProductSegmentAxis taxonomy $us-gaap returns set (target-name);
+
+$allowed_members_aircraft = navigate domain-member descendants include start
+     from (navigate dimension-domain children
+           from AircraftTypeAxis
+           taxonomy $us-gaap returns set)
+     taxonomy $us-gaap
+     returns set (target-name);
+$allowed_members_malpractice_insurance = navigate dimensions dimension-member descendants from ScheduleOfMalpracticeInsuranceTypeAndTierIdentifierAxis taxonomy $us-gaap returns set (target-name);
+$allowed_members_PublicUtilitiesInventoryAxis = navigate dimensions dimension-member descendants from PublicUtilitiesInventoryAxis taxonomy $us-gaap returns set (target-name);
+
+$allowed_base_member = set(AuctionRateSecuritiesMember, AutomobileLoanMember, CommercialLoanMember, CommercialRealEstateMember, ConstructionLoansMember, ConsumerLoanMember, CrudeOilMember, FuelMember, GeneralLiabilityMember, HeatingOilMember, HomeEquityLoanMember, HomeEquityMember, LetterOfCreditMember, LineOfCreditMember, LoansMember, MortgageLoansOnRealEstateMember, NaturalGasLiquidsReservesMember, NaturalGasReservesMember, OilReservesMember, ProfessionalMalpracticeLiabilityMember, RealEstateLoanMember, ResidentialMortgageMember, SyntheticOilMember, ResidentialRealEstateMember, RealEstateMember, PublicUtilitiesInventoryPropaneMember, PublicUtilitiesInventoryWaterMember, AutomobilesMember, HotelMember, RegionalCarrierMember, MainlineMember);
+
+$member_extension = navigate dimensions dimension-member descendants from ProductOrServiceAxis where is_base($relationship.target, $all_base_taxonomies) returns set (target-name);
+
+$allowed_members = $allowed_members_product + $allowed_members_reinsurance + $allowed_members_aircraft + $allowed_members_malpractice_insurance + $allowed_base_member + $allowed_members_PublicUtilitiesInventoryAxis;
+
+$unallowed_base_members = $member_extension - $allowed_members;
+
+/** Evaluate if facts exists with the unallowable members **/
+
+	for ($member in $unallowed_base_members)
+		$fact1 = {covered @ProductOrServiceAxis = $member};
+		if exists($fact1)
+			$message_for_fact = "The concept {$fact1.concept.name.local-name} with a value of {$fact1} is dimensionally qualified with the ProductOrServiceAxis and the unallowable member {$member.local-name} Only extension members should be used with the axis ProductOrServiceAxis other than the members predefined in the US-GAAP taxonomy. 
+The properties of the fact for {$fact1.concept.name.local-name} are:
+Period: {$fact1.period}
+Dimensions: {$fact1.dimensions.join(', ','=')} 
+Unit: {$fact1.unit}";
+				true
+		else 
+				$message_for_fact = " The member {$member.local-name} is inappropriately used on the axis ProductOrServiceAxis. The only members allowed on this axis are extensions or products defined in the US GAAP taxonomy. There are no facts associated with this member and axis.";
+				true
+
+message
+"{$message_for_fact}
+
+Rule Element Id:69
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+
+assert US.0001.70 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+/** Determine the members on the axis in the taxonomy using the definition linkbase CHANGE TO - dimensions dimension-member **/
+
+$member_USGAAP = navigate dimensions dimension-member descendants from ConsolidationItemsAxis taxonomy $us-gaap returns set (target-name);
+
+$member_extension = navigate dimensions dimension-member descendants from ConsolidationItemsAxis returns set (target-name);
+
+/** Define allowable extensions with the qname function **/
+
+$allowable_extensions = set(qname($extension_ns,'CorporateReconcilingItemsAndEliminationsMember'), qname($extension_ns,'CorporateAndReconcilingItemsMember'), qname($extension_ns,'CorporateAndEliminationsMember'), qname($extension_ns,'EliminationsAndReconcilingItemsMember'), qname($extension_ns,'OperatingSegmentsAndCorporateNonSegmentMember'), qname($extension_ns,'OperatingSegmentsExcludingIntersegmentEliminationMember'));
+
+/** Union the sets**/
+
+$allowed_members = $allowable_extensions + $member_USGAAP;
+
+$unallowed_members = $member_extension - $allowed_members;
+
+/** Evaluate if facts exists with the unallowable members **/
+/** We have used covered because if it was not covered then the processor looks for alignmnet. This means that the exist will run and if it does not get a result then the processor will stop processing results. i.e. the non existence of the fact means the iteration does not run and the else statement does not run.
+**/
+for ($member in $unallowed_members)
+	$fact1 = {covered @ConsolidationItemsAxis = $member};
+	if exists($fact1)
+		$message_for_fact = "The concept {$fact1.concept.name.local-name} with a value of {$fact1} is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member {$member.local-name}. 
+The properties of the fact for {$fact1.concept.name.local-name} are:
+Period: {$fact1.period}
+Dimensions: {$fact1.dimensions.join(', ','=')} 
+Unit: {$fact1.unit}";
+		true
+	else 
+		$message_for_fact = " The member {$member.local-name} is used on the axis ConsolidationItemsAxis. The ConsolidationItemsAxis should only be used with the members defined in the US GAAP taxonomy or the followng extension members: {$allowable_extensions.join(', ')}. There are no facts associated with this member and axis.";
+		true
+
+
+message
+"{$message_for_fact}
+
+Rule Element Id:70
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+
+assert US.0001.71 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+$not_allowed_base_member_tree_1 = navigate dimensions dimension-member descendants from RetirementPlanTypeAxis taxonomy $us-gaap returns set (target-name);
+$not_allowed_base_member_tree_2 = navigate dimensions dimension-member descendants from RetirementPlanSponsorLocationAxis taxonomy $us-gaap returns set (target-name);
+$not_allowed_base_member_tree_3 = navigate dimensions dimension-member descendants from RetirementPlanFundingStatusAxis taxonomy $us-gaap returns set (target-name);
+$not_allowed_base_member_tree_4 = navigate dimensions dimension-member descendants from RetirementPlanNameAxis taxonomy $us-gaap returns set (target-name);
+
+$not_allowed_base_member_trees = $not_allowed_base_member_tree_1 + $not_allowed_base_member_tree_2 + $not_allowed_base_member_tree_3 + $not_allowed_base_member_tree_4;
+
+$base_members = navigate dimensions dimension-member descendants from DefinedBenefitPlanByPlanAssetCategoriesAxis returns set (target-name);
+
+$unallowed_base_members = $base_members intersect $not_allowed_base_member_trees;
+
+for ($member in $unallowed_base_members)
+	$fact1 = {covered @DefinedBenefitPlanByPlanAssetCategoriesAxis = $member};
+	if exists($fact1)
+		$message_for_fact = "The concept {$fact1.concept.name.local-name} with a value of {$fact1} is dimensionally qualified with the DefinedBenefitPlanByPlanAssetCategoriesAxis and the base taxonomy member {$member.local-name}. Members that represent various types of pension plans should not be used on this axis.
+The properties of the fact for {$fact1.concept.name.local-name} are:
+Period: {$fact1.period}
+Dimensions: {$fact1.dimensions.join(', ','=')} 
+Unit: {$fact1.unit}";
+		true
+	else 
+		$message_for_fact = " The member {$member.local-name} is inappropriately used on the axis DefinedBenefitPlanByPlanAssetCategoriesAxis. Members that are children of the axis DefinedBenefitPlansDisclosuresDefinedBenefitPlansAxis represent various types of pension plans should not be used on this axis.";
+		true
+
+
+message
+"{$message_for_fact}
+
+Rule Element Id:71
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+
+assert US.0001.72 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+$base_members = navigate dimensions dimension-member descendants from AwardDateAxis where is_base($relationship.target, $all_base_taxonomies) returns set (target-name);
+$allowed_base_member = navigate dimensions dimension-member descendants from AwardDateAxis taxonomy $us-gaap returns set (target-name);
+$unallowed_base_members = $base_members - $allowed_base_member;
+
+for ($member in $unallowed_base_members)
+	$fact1 = {covered @AwardDateAxis = $member};
+	if exists($fact1)
+		$message_for_fact = "The concept {$fact1.concept.name.local-name} with a value of {$fact1} is dimensionally qualified with the AwardDateAxis and the base taxonomy member {$member.local-name}. Only extension members should be used with the axis AwardDateAxis.
+The properties of the fact for {$fact1.concept.name.local-name} are:
+Period: {$fact1.period}
+Dimensions: {$fact1.dimensions.join(', ','=')} 
+Unit: {$fact1.unit}";
+		true
+	else 
+		$message_for_fact = " The member {$member.local-name} is inappropriately used on the axis AwardDateAxis. The only members allowed on this axis are extension members defined by the filer. There are no facts associated with this member and axis.";
+		true
+
+
+message
+"{$message_for_fact}
+
+Rule Element Id:72
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+
+assert US.0001.74 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+/** Determine the members on the axis in the taxonomy using the definition linkbase **/
+
+$allowed_members = navigate dimensions dimension-member descendants from SubsequentEventTypeAxis taxonomy $us-gaap returns set (target-name);
+
+$member_extension = navigate dimensions dimension-member descendants from SubsequentEventTypeAxis returns set (target-name);
+
+$unallowed_members = $member_extension - $allowed_members;
+
+/** Evaluate if facts exists with the unallowable members **/
+
+for ($member in $unallowed_members)
+	$fact1 = {covered @SubsequentEventTypeAxis = $member};
+	if exists($fact1)
+		$message_for_fact = "The concept {$fact1.concept.name.local-name} with a value of {$fact1} is dimensionally qualified with the SubsequentEventTypeAxis and the unallowable member {$member.local-name}. 
+The properties of the fact for {$fact1.concept.name.local-name} are:
+Period: {$fact1.period}
+Dimensions: {$fact1.dimensions.join(', ','=')} 
+Unit: {$fact1.unit}";
+			true
+	else 
+			$message_for_fact = " The member {$member.local-name} is inappropriately used on the axis SubsequentEventTypeAxis. The only members allowed on this axis are {$allowed_members.join(', ')}. There are no facts associated with this member and axis.";
+			true
+
+message
+"{$message_for_fact}
+
+Rule Element Id:74
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+assert US.0001.75 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+$allowed_base_member_tree = navigate dimensions dimension-member descendants from StatementEquityComponentsAxis taxonomy $us-gaap returns set (target-name);
+
+$allowed_base_member_predefined = set(WarrantsNotSettleableInCashMember, ContingentConsiderationClassifiedAsEquityMember, EquityIssuedInBusinessCombinationMember, TrustForBenefitOfEmployeesMember);
+
+$allowed_base_member = ($allowed_base_member_tree + $allowed_base_member_predefined);
+
+$base_members = navigate dimensions dimension-member descendants from StatementEquityComponentsAxis where is_base($relationship.target, $all_base_taxonomies) returns set (target-name);
+
+$unallowed_base_members = $base_members - $allowed_base_member;
+
+for ($member in $unallowed_base_members)
+	$fact1 = {covered @StatementEquityComponentsAxis = $member};
+	if exists($fact1)
+		$message_for_fact = "The concept {$fact1.concept.name.local-name} with a value of {$fact1} is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member {$member.local-name}. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for {$fact1.concept.name.local-name} are:
+Period: {$fact1.period}
+Dimensions: {$fact1.dimensions.join(', ','=')} 
+Unit: {$fact1.unit}";
+		true
+	else 
+		$message_for_fact = " The member {$member.local-name} is inappropriately used on the axis StatementEquityComponentsAxis. The only members allowed on this axis are extension members defined by the filer and the elements defined as children of this axis in the US GAAP taxonomy. There are no facts associated with this member and axis.";
+		true
+
+
+message
+"{$message_for_fact}
+
+Rule Element Id:75
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+assert US.0001.76 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+/** Use nested navigation as the StatementScenarioAxis in the US GAAP taxonomy is not a valid hypercube in all cases so the dimensions will not return all members. Specifically the 190000 group **/
+$allowed_base_member = navigate domain-member descendants include start
+     from (navigate dimension-domain children
+           from StatementScenarioAxis
+           taxonomy $us-gaap returns set)
+     taxonomy $us-gaap
+     returns set (target-name);
+	 
+$base_members = navigate dimensions dimension-member descendants from StatementScenarioAxis where is_base($relationship.target, $all_base_taxonomies) returns set (target-name);
+$unallowed_base_members = $base_members - $allowed_base_member;
+
+for ($member in $unallowed_base_members)
+	$fact1 = {covered @StatementScenarioAxis = $member};
+	if exists($fact1)
+		$message_for_fact = "The concept {$fact1.concept.name.local-name} with a value of {$fact1} is dimensionally qualified with the StatementScenarioAxis and the base taxonomy member {$member.local-name}. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementScenarioAxis.
+The properties of the fact for {$fact1.concept.name.local-name} are:
+Period: {$fact1.period}
+Dimensions: {$fact1.dimensions.join(', ','=')} 
+Unit: {$fact1.unit}";
+		true
+	else 
+		$message_for_fact = " The member {$member.local-name} is inappropriately used on the axis StatementScenarioAxis. The only members allowed on this axis are extension members defined by the filer and the elements defined as children of this axis in the US GAAP taxonomy. There are no facts associated with this member and axis.";
+		true
+
+
+message
+"{$message_for_fact}
+
+Rule Element Id:76
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+
+assert US.0001.77 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+$base_members = navigate dimensions dimension-member descendants from PreferredUnitsByNameAxis where is_base($relationship.target, $all_base_taxonomies) returns set (target-name);
+$allowed_base_member = navigate dimensions dimension-member descendants from PreferredUnitsByNameAxis taxonomy $us-gaap returns set (target-name);
+$unallowed_base_members = $base_members - $allowed_base_member;
+
+for ($member in $unallowed_base_members)
+	$fact1 = {covered @PreferredUnitsByNameAxis = $member};
+	if exists($fact1)
+		$message_for_fact = "The concept {$fact1.concept.name.local-name} with a value of {$fact1} is dimensionally qualified with the PreferredUnitsByNameAxis and the base taxonomy member {$member.local-name}. Only extension members should be used with the axis PreferredUnitsByNameAxis.
+The properties of the fact for {$fact1.concept.name.local-name} are:
+Period: {$fact1.period}
+Dimensions: {$fact1.dimensions.join(', ','=')} 
+Unit: {$fact1.unit}";
+		true
+	else 
+		$message_for_fact = " The member {$member.local-name} is inappropriately used on the axis PreferredUnitsByNameAxis. The only members allowed on this axis are extension members defined by the filer. There are no facts associated with this member and axis.";
+		true
+
+
+message
+"{$message_for_fact}
+
+Rule Element Id:77
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+
+assert US.0001.78 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+$base_members = navigate dimensions dimension-member descendants from RetirementPlanNameAxis where is_base($relationship.target, $all_base_taxonomies) returns set (target-name);
+$allowed_base_member = navigate dimensions dimension-member descendants from RetirementPlanNameAxis taxonomy $us-gaap returns set (target-name);
+$unallowed_base_members = $base_members - $allowed_base_member;
+
+for ($member in $unallowed_base_members)
+	$fact1 = {covered @RetirementPlanNameAxis = $member};
+	if exists($fact1)
+		$message_for_fact = "The concept {$fact1.concept.name.local-name} with a value of {$fact1} is dimensionally qualified with the RetirementPlanNameAxis and the base taxonomy member {$member.local-name}. Only extension members should be used with the axis RetirementPlanNameAxis.
+The properties of the fact for {$fact1.concept.name.local-name} are:
+Period: {$fact1.period}
+Dimensions: {$fact1.dimensions.join(', ','=')} 
+Unit: {$fact1.unit}";
+		true
+	else 
+		$message_for_fact = " The member {$member.local-name} is inappropriately used on the axis RetirementPlanNameAxis. The only members allowed on this axis are extension members defined by the filer. There are no facts associated with this member and axis.";
+		true
+
+
+message
+"{$message_for_fact}
+
+Rule Element Id:78
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+assert US.0001.79 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+$base_members = navigate dimensions dimension-member descendants from OwnershipAxis where is_base($relationship.target, $all_base_taxonomies) returns set (target-name);
+$allowed_base_member = navigate dimensions dimension-member descendants from OwnershipAxis taxonomy $us-gaap returns set (target-name);
+$unallowed_base_members = $base_members - $allowed_base_member;
+
+for ($member in $unallowed_base_members)
+	$fact1 = {covered @OwnershipAxis = $member};
+	if exists($fact1)
+		$message_for_fact = "The concept {$fact1.concept.name.local-name} with a value of {$fact1} is dimensionally qualified with the OwnershipAxis and the base taxonomy member {$member.local-name}. Only extension members should be used with the axis OwnershipAxis.
+The properties of the fact for {$fact1.concept.name.local-name} are:
+Period: {$fact1.period}
+Dimensions: {$fact1.dimensions.join(', ','=')} 
+Unit: {$fact1.unit}";
+		true
+	else 
+		$message_for_fact = " The member {$member.local-name} is inappropriately used on the axis OwnershipAxis. The only members allowed on this axis are extension members defined by the filer. There are no facts associated with this member and axis.";
+		true
+
+
+message
+"{$message_for_fact}
+
+Rule Element Id:79
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+assert US.0001.80 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+$base_members = navigate dimensions dimension-member descendants from MajorCustomersAxis where is_base($relationship.target, $all_base_taxonomies) returns set (target-name);
+$allowed_base_member = navigate dimensions dimension-member descendants from MajorCustomersAxis taxonomy $us-gaap returns set (target-name);
+$unallowed_base_members = $base_members - $allowed_base_member;
+
+for ($member in $unallowed_base_members)
+	$fact1 = {covered @MajorCustomersAxis = $member};
+	if exists($fact1)
+		$message_for_fact = "The concept {$fact1.concept.name.local-name} with a value of {$fact1} is dimensionally qualified with the MajorCustomersAxis and the base taxonomy member {$member.local-name}. Only extension members should be used with the axis MajorCustomersAxis.
+The properties of the fact for {$fact1.concept.name.local-name} are:
+Period: {$fact1.period}
+Dimensions: {$fact1.dimensions.join(', ','=')} 
+Unit: {$fact1.unit}";
+		true
+	else 
+		$message_for_fact = " The member {$member.local-name} is inappropriately used on the axis MajorCustomersAxis. The only members allowed on this axis are extension members defined by the filer. There are no facts associated with this member and axis.";
+		true
+
+
+message
+"{$message_for_fact}
+
+Rule Element Id:80
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]
+
+assert US.0001.9366 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+$base_members = navigate dimensions dimension-member descendants from BusinessAcquisitionAxis where is_base($relationship.target, $all_base_taxonomies) returns set (target-name);
+$allowed_base_member = navigate dimensions dimension-member descendants from BusinessAcquisitionAxis taxonomy $us-gaap returns set (target-name);
+$unallowed_base_members = $base_members - $allowed_base_member;
+
+for ($member in $unallowed_base_members)
+	$fact1 = {covered @BusinessAcquisitionAxis = $member};
+	if exists($fact1)
+		$message_for_fact = "The concept {$fact1.concept.name.local-name} with a value of {$fact1} is dimensionally qualified with the BusinessAcquisitionAxis and the base taxonomy member {$member.local-name}. Only extension members should be used with the axis BusinessAcquisitionAxis and the members {$allowed_base_member.join(', ')}.
+The properties of the fact for {$fact1.concept.name.local-name} are:
+Period: {$fact1.period}
+Dimensions: {$fact1.dimensions.join(', ','=')} 
+Unit: {$fact1.unit}";
+		true
+	else 
+		$message_for_fact = " The member {$member.local-name} is inappropriately used on the axis BusinessAcquisitionAxis. The only members allowed on this axis are extension members defined by the filer and the members {$allowed_base_member.join(', ')}. There are no facts associated with this member and axis.";
+		true
+
+
+message
+"{$message_for_fact}
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}"
+
+SEVERITY error
+
+effectiveDate $effective_dates[$rule_id]
+

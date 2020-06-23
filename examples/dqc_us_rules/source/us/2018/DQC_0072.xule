@@ -1,0 +1,47 @@
+/**
+
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: US GAAP 2018
+
+**/
+
+rule-name-prefix DQC
+
+assert US.0072.7647 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+$ComponentAmount = {@concept = DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryPercentage};
+
+
+$childMember = $ComponentAmount.dimension(DefinedBenefitPlanByPlanAssetCategoriesAxis);
+
+if $childMember == none
+	$message_inv_in_cat = "The element {$ComponentAmount.concept} with a value of {$ComponentAmount} must be used with the dimension DefinedBenefitPlanByPlanAssetCategoriesAxis.";
+	true
+else
+	$parentMember = navigate dimensions descendants from DefinedBenefitPlanByPlanAssetCategoriesAxis to $childMember where $relationship.target == $childMember returns source-name;
+	
+	if (DefinedBenefitPlanByPlanAssetCategoriesAxis in  $parentMember)
+		$message_inv_in_cat = "It is expected that the concept {$ComponentAmount.concept} with a value of {$ComponentAmount} should not be a direct child of DefinedBenefitPlanByPlanAssetCategoriesAxis .  The element {$ComponentAmount.concept} is supposed to be used as a  component of DefinedBenefitPlanFairValueOfPlanAssets with a more specific member.  This member should appear on the DefinedBenefitPlanByPlanAssetCategoriesAxis as a child of the member used to report the value for DefinedBenefitPlanFairValueOfPlanAssets.";
+		true
+	else
+		false
+
+message
+"{$message_inv_in_cat}
+
+The properties of this {$ComponentAmount.concept} fact are:
+Period :{$ComponentAmount.period}
+Dimensions : {$ComponentAmount.dimensions.join(', ','=')}
+Unit : {$ComponentAmount.unit}
+
+Rule Element Id:7647
+Rule version: {$ruleVersion}"
+
+SEVERITY error
+
+effectiveDate $effective_dates[$rule_id]

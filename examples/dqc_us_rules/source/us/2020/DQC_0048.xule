@@ -1,0 +1,77 @@
+/**
+
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: US GAAP 2020
+Release Version 8.0
+**/
+
+rule-name-prefix DQC
+
+assert US.0048.7482 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+/* Identify the cashflow statement by StatementOfCashFlowsAbstract */
+
+$networkPresRole = filter taxonomy().networks(parent-child) where ($item.concept-names.contains(StatementOfCashFlowsAbstract) and $item.role.uri.lower-case.contains('cashflow')) and  $item.role.description.contains('- Statement ') and not $item.role.uri.lower-case.contains('parenthetical') returns $item.role;
+
+$EGCFlag = if list([covered @concept.local-name ='EntityEmergingGrowthCompany']).length > 0
+				first(list([covered @concept.local-name ='EntityEmergingGrowthCompany']))
+			else 
+				false
+				
+if (any(set(exists({covered @concept.local-name ='DocumentType' where $fact in $report_type_exclusions}))))
+	skip
+else
+	if ($networkPresRole.length == 0)
+		skip
+	else
+
+	/* This uses  navigation. It finds the root relationships and returns the networks. Since it  returns a set, the dups will be eliminated. */
+
+		if (filter taxonomy().networks(summation-item) where $item.role in $networkPresRole).length == 0
+			$root_string = "There are no calculations defined for the role(s)  " + $networkPresRole.join(', ');
+			$network_role = $networkPresRole.join(', ');
+			true
+		else
+
+			for ($calcNetwork in 
+				filter taxonomy().networks(summation-item) where $item.role in $networkPresRole)
+							
+				$network_role = $calcNetwork.role.uri;
+
+				$roots = set(for $root in $calcNetwork.roots 
+									if ($root.name.namespace-uri != $extension_ns)
+										$root.name.local-name
+									else
+										none);
+							
+				$root_string = "The calculation linkbase in the filing has the following root elements defined: " + $roots.join(', ');
+	
+				not ($roots.contains('CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseIncludingExchangeRateEffect') or
+				$roots.contains('CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect') or
+				$EGCFlag) and
+				not ($roots.contains('NetCashProvidedByUsedInContinuingOperations') and $roots.contains('NetCashProvidedByUsedInDiscontinuedOperations'))
+	
+	
+
+message
+"The filing should include in the cash flow statement calculation linkbase(s) {$network_role} one of the following elements as the root(first element) of the calculation tree to represent the aggregate change in cash for the period:
+
+CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseIncludingExchangeRateEffect,
+CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect, 
+NetCashProvidedByUsedInContinuingOperations (As long as the element NetCashProvidedByUsedInDiscontinuedOperations is also included the reconciliation between opening and closing cash).
+
+{$root_string}.
+
+
+
+Rule Element Id: {$rule_id}
+Rule version: {$ruleVersion}"
+
+
+severity error
+effectiveDate $effective_dates[$rule_id]
+rule-focus taxonomy().concept(StatementOfCashFlowsAbstract)

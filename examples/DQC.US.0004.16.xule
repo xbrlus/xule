@@ -1,0 +1,30 @@
+/** Define a function that works out the tolerance between 2 values with different decimals. The decimal
+tolerance factor for this rule takes the value of 2**/
+function Tolerance_For_Decimals($left, $right, $decimal_tolerance_factor)
+    $tolerance1 = if ($left.decimals < $right.decimals)
+                      $left.decimals
+                  else $right.decimals;
+    $tolerance2 = if($tolerance1 == inf)
+                     0
+                  else (10^(-1 * $tolerance1)) * $decimal_tolerance_factor;
+    if(abs(round($left,$tolerance1) - round($right,$tolerance1)) > $tolerance2)
+        true
+    else
+        false
+
+assert DQC.US.0004.16 satisfied
+$Assets = {@Assets};
+$LiabilitiesAndStockholdersEquity = {@LiabilitiesAndStockholdersEquity};
+
+Tolerance_For_Decimals($Assets, $LiabilitiesAndStockholdersEquity, 2)
+message
+"{$Assets.concept.label.text} with a value of {$Assets} is not equal to the total of
+{$LiabilitiesAndStockholdersEquity.concept.label.text} with a value of
+{$LiabilitiesAndStockholdersEquity}. These values should be equal.
+The properties of this {$Assets.concept} fact are:
+Period :{$Assets.period}
+Dimensions : {$Assets.dimensions.join('= ','')}
+Unit :{$Assets.unit}Rule Version : {$ruleVersion}";
+
+severity
+error

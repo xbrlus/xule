@@ -1,0 +1,51 @@
+/**
+
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: IFRS 2017
+
+**/
+
+constant $ifrs-gaap = taxonomy('http://xbrl.ifrs.org/taxonomy/2017-03-09/full_ifrs_entry_point_2017-03-09.xsd') 
+
+
+constant $ifrs-gaap-dep = taxonomy('http://xbrl.ifrs.org/taxonomy/2017-03-09/depr_entry_point_2017-03-09.xsd')
+
+/** Current Taxonomies **/
+
+constant $country = taxonomy('http://xbrl.sec.gov/country/2017/country-2017-01-31.xsd')
+
+constant $currency = taxonomy('http://xbrl.sec.gov/currency/2017/currency-2017-01-31.xsd')
+
+constant $exchange = taxonomy('https://xbrl.sec.gov/exch/2018/exch-2018-01-31.xsd')
+
+constant $state_province = taxonomy('https://xbrl.sec.gov/stpr/2018/stpr-2018-01-31.xsd')
+
+constant $naics = taxonomy('https://xbrl.sec.gov/naics/2017/naics-2017-01-31.xsd')
+
+constant $sic = taxonomy('https://xbrl.sec.gov/sic/2011/sic-2011-01-31.xsd')
+
+constant $srt = taxonomy('http://xbrl.fasb.org/srt/2018/elts/srt-2018-01-31.xsd')
+
+constant $dei = taxonomy('https://xbrl.sec.gov/dei/2018/dei-2018-01-31.xsd')
+
+constant $invest = taxonomy('http://xbrl.sec.gov/invest/2013/invest-2013-01-31.xsd')
+
+
+/** Prior Taxonomies **/
+
+
+constant $us-gaap = taxonomy('http://xbrl.fasb.org/us-gaap/2017/entire/us-gaap-entryPoint-std-2017-01-31.xsd')
+
+constant $exchange_2017 = taxonomy('https://xbrl.sec.gov/exch/2017/exch-2017-01-31.xsd')
+
+constant $state_province_2011 = taxonomy('https://xbrl.sec.gov/stpr/2011/stpr-2011-01-31.xsd')
+
+constant $naics_2011 = taxonomy('http://xbrl.sec.gov/naics/2011/naics-2011-01-31.xsd')
+
+
+constant $all_ifrs_base_taxonomies = list($ifrs-gaap, $exchange, $state_province, $naics, $sic, $dei, $srt, $country, $currency, $invest, $us-gaap, $exchange_2017, $state_province_2011, $naics_2011 )
+
+

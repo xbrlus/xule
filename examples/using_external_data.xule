@@ -1,0 +1,39 @@
+assert values_compare satisfied
+/** Shows how durational data in an instance can be compared to a previous filing
+using an api that returns the previous filing as json from an XBRL API. An API could
+also be used to get data such as stock quotes or exchange rates that could be used in
+a rule **/
+
+/** Returns an quarterly Apple Inc. filing in an XBRL OIM format **/
+constant $prior_filing =
+    json-data('https://csuite.xbrl.us/php/dispatch.php?Task=xbrlValues&API_Key=4cd4576a-aada-4d35-9e40-dc7f0734f8d6&Accession=0001628280-17-000717&Ultimus=false&DimReqd=false&Format=json')
+    
+/** Get durational data from the current filing **/
+$instance_element = [@concept.period-type = duration @concept.is-numeric = true];
+$eop = $instance_element.period.end + time-span("P0D");
+$sop = $instance_element.period.start + time-span("P0D");
+$element_name = $instance_element.name.local-name;
+
+/** Get data from prior filing **/
+$old_value = filter $prior_filing['facts'] where
+    $concept_name = $item['aspects']['xbrl:concept'];
+    $num_dims = length($item['aspects']);
+    $concept_local-name = $concept_name.substring($concept_name.index-of(':')+1);
+$concept_local-name == $element_name
+    and date($item['aspects']['xbrl:periodEnd']) == $eop
+    and date($item['aspects']['xbrl:periodStart']) == $sop
+    and $num_dims == 5 and $item['value'].number != $instance_element
+returns $item['value'];
+
+length($old_value) > 0
+message
+"The fact with a value of {$instance_element} for the element {$instance_element.name.local-name} does not
+match the prior filing value of {$old_value[1].number}.
+
+The properties of this {$instance_element.concept} fact are:
+Period :{$instance_element.period}
+Dimensions : {$instance_element.dimensions.join(', ','=')}
+Unit : {$instance_element.unit}"
+
+severity
+error

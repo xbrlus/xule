@@ -1,0 +1,40 @@
+assert dqc.us.0045.6835 satisfied
+
+/** This rule identifies elements in the investing section of the cash flow calculation that are operating
+items. It uses a function to build a list of misplaced items by navigating the calculation tree of the filing
+dts and the calculation of the US-GAAP taxonomy.**/
+
+$misplaced_concept  = compare_baseCalc_to_extensionCalc(NetCashProvidedByUsedInOperatingActivitiesContinuingOperations,
+NetCashProvidedByUsedInInvestingActivitiesContinuingOperations);
+for $x in $misplaced_concept true
+
+message
+"The concept {$x} appears in the investing cash flows of the company's cash flow statement. {$x} is an
+operating item and it is expected that this item would only appear in the cash flow generated from
+operating activities. Please review the calculations defined for the cash flow statement to determine that
+the correct element has been used for this item.
+Rule Element Id: 6835
+Rule Version: 5.0.0"
+
+severity
+error
+
+function compare_baseCalc_to_extensionCalc($baseConcept, $extensionConcept)
+    $extensionNames = navigate summation-itemdescendants from ($extensionConcept);
+
+navigate summation-item descendants from ($baseConcept) taxonomy $us-gaap
+where $relationship.target in $extensionNames and not
+($relationship.target.name in $cash_flow_exceptions)
+
+constant $cash_flow_exceptions =
+set(ProceedsFromDepositsWithOtherInstitutions, InterestPaidCapitalized,
+ProceedsFromFederalHomeLoanBankAdvances,
+PaymentsForFederalHomeLoanBankAdvances,
+ProceedsFromPaymentsForTradingSecurities,
+PaymentsForDepositsWithOtherInstitutions,
+ProceedsFromPaymentsForInSecuritiesSoldUnderAgreementsToRepurchase,
+IncreaseDecreaseInFederalFundsPurchasedAndSecuritiesSoldUnderAgreementsToRepurchaseNet,
+IncreaseDecreaseInRestrictedCash,
+IncreaseDecreaseOfRestrictedInvestments)
+
+constant $us-gaap = taxonomy('http://xbrl.fasb.org/us-gaap/2016/elts/us-gaap-2016-01-31.xsd')

@@ -1,0 +1,43 @@
+/**
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: US GAAP 2019
+**/
+
+
+rule-name-prefix DQC
+
+assert US.0086.9368 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+$transition_elements = navigate parent-child descendants from ASU201517TransitionAbstract taxonomy $us-gaap where not $relationship.target.is-abstract returns (target-name);
+
+for $transition_element in $transition_elements
+
+	$fact1 = {@concept = $transition_element}
+	
+	if exists($fact1)
+		true
+	else
+		skip
+
+
+
+message
+
+"The element {$fact1.concept.name} with a value of {$fact1} has been used in the filing.  This element is a transition element and is intended to be used in periods before adoption of amendments from Accounting Standards Update 2015-17. The element should no longer be used for filings with fiscal years beginning after December 15th 2016.  
+
+Period :{$fact1.period}
+Dimensions : {$fact1.dimensions.join(', ','=')}
+Unit : {$fact1.unit}
+Decimals: {$fact1.decimals}
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}"
+
+SEVERITY error
+
+effectiveDate $effective_dates[$rule_id]

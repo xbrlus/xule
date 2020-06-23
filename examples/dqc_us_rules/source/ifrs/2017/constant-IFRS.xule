@@ -1,0 +1,65 @@
+/**
+
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: IFRS 2017
+
+**/
+
+constant $calcRelationships = set(for ($rel in navigate summation-item descendants taxonomy $ifrs-gaap returns (relationship))
+										set($rel.source.name.namespace-uri + ':' + $rel.source.name.local-name + ':' + $rel.target.name.namespace-uri + ':' + $rel.target.name.local-name,$rel.weight))
+										
+/** Constants Used for Nonneg Rules **/
+
+constant $base_qname = sum(filter $all_ifrs_base_taxonomies.concepts returns $item.name)
+
+constant $filing_qname = filter taxonomy().concepts returns $item.name
+
+constant $extension_qname = $filing_qname - $base_qname
+
+constant $extension_ns = first($extension_qname).namespace-uri
+										
+constant $exclude_non_neg_string_members = set(
+				'adjust',
+				'consolidat',
+				'eliminat',
+				'netting',
+				'reconcili',
+				'reclass',
+				'change',
+				'increasedecrease'
+				)
+
+constant $exclude_non_neg_members = set()
+
+constant $exclude_non_neg_axis = set(SegmentsAxis, 
+				ComponentsOfEquityAxis)
+				
+constant  $exclude_non_neg_axis_members = list(
+				list(srt:ConsolidatedEntitiesAxis, set(srt:ParentCompanyMember, srt:SubsidiariesMember, srt:GuarantorSubsidiariesMember, srt:NonGuarantorSubsidiariesMember, srt:SubsidiaryIssuerMember)),
+				list(SegmentConsolidationItemsAxis,
+						set(EliminationOfIntersegmentAmountsMember, MaterialReconcilingItemsMember, UnallocatedAmountsMember)),
+				list(CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis,
+						set(AccumulatedImpairmentMember, AccumulatedDepreciationAmortisationAndImpairmentMember, AccumulatedDepreciationAndAmortisationMember)),
+				list(RetrospectiveApplicationAndRetrospectiveRestatementAxis,
+						set(IncreaseDecreaseDueToChangesInAccountingPolicyAndCorrectionsOfPriorPeriodErrorsMember, FinancialEffectOfChangesInAccountingPolicyMember, 						IncreaseDecreaseDueToChangesInAccountingPolicyRequiredByIFRSsMember, IncreaseDecreaseDueToVoluntaryChangesInAccountingPolicyMember, 						FinancialEffectOfCorrectionsOfAccountingErrorsMember)),
+				list(FinancialEffectOfTransitionFromPreviousGAAPToIFRSsAxis,
+						set(EffectOfTransitionToIFRSsMember)),
+				list(RedesignationAxis,
+						set(RedesignatedAmountMember)),
+				list(FairValueAsDeemedCostAxis,
+						set(AggregateAdjustmentToCarryingValueReportedUnderPreviousGAAPMember)),
+				list(DepartureFromRequirementOfIFRSAxis,
+						set(IncreaseDecreaseDueToDepartureFromRequirementOfIFRSMember)),
+				list(ComponentsOfEquityAxis,
+						set(TreasurySharesMember)),
+				list(TypesOfRisksAxis,
+						set(RiskDiversificationEffectMember)),
+				list(AmountsArisingFromInsuranceContractsAxis,
+						set(ReinsurersShareOfAmountArisingFromInsuranceContractsMember)),
+				list(NetDefinedBenefitLiabilityAssetAxis,
+						set(PresentValueOfDefinedBenefitObligationMember,PlanAssetsMember,EffectOfAssetCeilingMember))
+				)
+

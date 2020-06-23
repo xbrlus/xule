@@ -1,0 +1,39 @@
+/**
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: IFRS 2016
+Original Release: Version 6
+**/
+
+rule-name-prefix DQC
+
+assert IFRS.0008.6819 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+
+$extCalcRelationship1 = navigate summation-item descendants returns by network set (relationship);
+		
+for ($network in $extCalcRelationship1.keys)
+	for ($extCalcRelationship in $extCalcRelationship1[$network])
+		$extCalcSource = $extCalcRelationship.source;
+		$extCalcTarget = $extCalcRelationship.target;
+		$extCalcNetwork = $network.role.description;
+		$extCalcSourceName = $extCalcSource.name.local-name;
+		$extCalcTargetName = $extCalcTarget.name.local-name;
+
+		$calcRelationships.contains(set($extCalcRelationship.target.name.namespace-uri + ':' + $extCalcTargetName + ':' + $extCalcRelationship.source.name.namespace-uri + ':' + $extCalcSourceName, $extCalcRelationship.weight))
+		and $extCalcSource != $extCalcTarget
+		/**and not OCI_Calc_Error_Elements().contains($extCalcSource.name)**/
+		
+
+message
+"The calculation in the extension taxonomy rolling up from {$extCalcTargetName} to {$extCalcSourceName} in {$extCalcNetwork} is the opposite of a calculation defined in the base taxonomy. Check that the calculation is correct or that you have used the correct tag for the two elements identified in the calculation It is possible that the calculation is correct in the case of a reconciliation calculation.
+Check that the concept {$extCalcSourceName} is the correct calculation parent for this element.
+
+Rule version: {$ruleVersion}"
+
+severity error
+
+effectiveDate $effective_dates[$rule_id]

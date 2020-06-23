@@ -1,0 +1,64 @@
+/**
+
+DQC Rules
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+ See https://xbrl.us/dqc-license for license information.
+ See https://xbrl.us/dqc-patent for patent infringement notice.
+Taxonomy: US GAAP 2016
+
+**/
+
+/*** EXAMPLE
+https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml
+**/
+
+rule-name-prefix DQC
+
+assert US.0073.7648 satisfied
+
+$rule_id = (rule-name().split('.'))[rule-name().split('.').length];
+$allowable_line_items = list(
+DefinedBenefitPlanActualReturnOnPlanAssetsSoldDuringPeriod,
+DefinedBenefitPlanActualReturnOnPlanAssetsStillHeld,
+DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets,
+DefinedBenefitPlanAssetsExpectedToBeReturnedToEmployerAmount,
+DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets,
+DefinedBenefitPlanChangeInFairValueOfPlanAssetsLevel3ReconciliationPeriodIncreaseDecrease,
+DefinedBenefitPlanFairValueOfPlanAssets,
+DefinedBenefitPlanInvestmentPoliciesAndStrategiesNarrativeDescription,
+DefinedBenefitPlanNarrativeDescriptionOfBasisUsedToDetermineOverallExpectedLongTermRateOfReturnOnAssetsAssumption,
+DefinedBenefitPlanNumberOfSharesOfEquitySecuritiesIssuedByEmployerAndRelatedPartiesIncludedInPlanAssets,
+DefinedBenefitPlanPlanAssetsAtFairValueValuationTechniquesAndInputsChanges,
+DefinedBenefitPlanPurchasesSalesAndSettlements,
+DefinedBenefitPlanTargetAllocationPercentage,
+DefinedBenefitPlanTransfersBetweenMeasurementLevels,
+DefinedBenefitPlanPlanAssetsForeignCurrencyTranslationGainLoss,
+DefinedBenefitPlanTargetPlanAssetAllocationsRangeMinimum,
+DefinedBenefitPlanTargetPlanAssetAllocationsRangeMaximum,
+DefinedBenefitPlanTargetPlanAssetAllocations,
+AlternativeInvestmentsFairValueDisclosure,
+DefinedBenefitPlanWeightedAverageAssetAllocations);
+
+
+
+
+exists({@concept not in $allowable_line_items @DefinedBenefitPlanByPlanAssetCategoriesAxis = * where is_base($fact.concept, $all_base_taxonomies)}#bad_fact)
+
+message
+"The concept {$bad_fact.concept} with a value of {$bad_fact} is used with the DefinedBenefitPlanByPlanAssetCategoriesAxis. This element cannot be used with this axis. The allowable list of elements that can be used are as follows:
+- {$allowable_line_items.join(', 
+ - ')}
+
+
+The properties of this {$bad_fact.concept} fact are:
+Period :{$bad_fact.period}
+Dimensions : {$bad_fact.dimensions.join(', ','=')}
+Unit : {$bad_fact.unit}
+
+Rule Element Id:{$rule_id}
+Rule version: {$ruleVersion}"
+
+SEVERITY error
+
+effectiveDate $effective_dates[$rule_id]
+
