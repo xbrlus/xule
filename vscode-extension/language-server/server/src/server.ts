@@ -248,7 +248,7 @@ function loadNamespaces(path: string, namespaces: Namespace[]) {
 				let data = fs.readFileSync(path);
 				let definition = JSON.parse(data.toString());
 				for (let uri in definition) {
-					namespaces.push(new Namespace(uri, definition[uri]));
+					namespaces.push(new Namespace(uri, definition[uri], path));
 				}
 		} else {
 			let msg = "Namespace definitions file not found: " + path;
@@ -326,15 +326,17 @@ function workspacePathToAbsolutePath(f: WorkspaceFolder, path: string) {
 	return uri + path;
 }
 
-async function loadAdditionalNamespaces(settings: XULELanguageSettings) {
+async function loadAdditionalNamespaces(textDocument: TextDocument, settings: XULELanguageSettings) {
 	let namespaces = [];
 	for (let n in settings.namespaces.definitions) {
 		let path = settings.namespaces.definitions[n].trim();
 		if (path.startsWith("/") || path.startsWith("file://")) {
 			loadNamespaces(path, namespaces);
 		} else {
-			let folders = await connection.workspace.getWorkspaceFolders();
-			folders.forEach(f => loadNamespaces(workspacePathToAbsolutePath(f, path), namespaces));
+			let folder = await getDocumentNamespaceFolder(textDocument);
+			if(folder) {
+				loadNamespaces(workspacePathToAbsolutePath(folder, path), namespaces);
+			}
 		}
 	}
 	return namespaces;
@@ -357,12 +359,21 @@ function loadXuleFile(path: string, cu: CompilationUnit) {
 	}
 }
 
+async function getDocumentNamespaceFolder(textDocument: TextDocument) {
+	let folders = await connection.workspace.getWorkspaceFolders();
+	let folder = folders.find(f => textDocument.uri.startsWith(f.uri));
+	if (!folder && folders.length > 0) {
+		folder = folders[0];
+	}
+	return folder;
+}
+
 async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 	let diagnostics: Diagnostic[] = [];
 	let parser = setupParser(textDocument, diagnostics);
 	let parseTree = parser.xuleFile();
 	let settings = await getDocumentSettings(textDocument.uri);
-	let namespaces = await loadAdditionalNamespaces(settings);
+	let namespaces = await loadAdditionalNamespaces(textDocument, settings);
 
 	let docPath = ensurePath(textDocument.uri);
 	let cu = new CompilationUnit();
@@ -373,11 +384,7 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 				loadXuleFile(path, cu);
 			}
 		} else {
-			let folders = await connection.workspace.getWorkspaceFolders();
-			let folder = folders.find(f => textDocument.uri.startsWith(f.uri));
-			if(!folder && folders.length > 0) {
-				folder = folders[0];
-			}
+			let folder = await getDocumentNamespaceFolder(textDocument);
 			if(folder) {
 				let actualPath = ensurePath(workspacePathToAbsolutePath(folder, path));
 				if(actualPath != docPath) {

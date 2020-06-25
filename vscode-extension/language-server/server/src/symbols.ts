@@ -63,7 +63,7 @@ function ensureArray(obj): any[] {
 
 export type Name = { localName: string } | any;
 export class Namespace {
-	constructor(public readonly uri: string, public names: Name[] = []) {}
+	constructor(public readonly uri: string, public names: Name[] = [], public path?: string) {}
 }
 
 export class CompilationUnit extends ParserRuleContext {

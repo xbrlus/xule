@@ -197,10 +197,16 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
                         b => b.name == name ||
                             b.meaning.find(m => m instanceof OutputAttributeInfo) ||
                             b.meaning.find(m => m instanceof VariableInfo && m.ignoreCase))) {
+                        let message = `Unknown local name: ${name} in namespace ${ns.namespace.uri}`;
+                        if(ns.namespace.path) {
+                            message += ` (loaded from ${ns.namespace.path})`;
+                        } else {
+                            message += " (built-in)";
+                        }
                         this.diagnostics.push({
                             severity: DiagnosticSeverity.Warning,
                             range: getRange(identifier),
-                            message: "Unknown local name: " + name + " in namespace " + ns.namespace.uri,
+                            message: message,
                             source: 'XULE semantic checker'
                         });
                     }
