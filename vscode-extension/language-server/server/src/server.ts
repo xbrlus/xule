@@ -374,12 +374,16 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 			}
 		} else {
 			let folders = await connection.workspace.getWorkspaceFolders();
-			folders.forEach(f => {
-				let actualPath = ensurePath(workspacePathToAbsolutePath(f, path));
+			let folder = folders.find(f => textDocument.uri.startsWith(f.uri));
+			if(!folder && folders.length > 0) {
+				folder = folders[0];
+			}
+			if(folder) {
+				let actualPath = ensurePath(workspacePathToAbsolutePath(folder, path));
 				if(actualPath != docPath) {
 					loadXuleFile(actualPath, cu);
 				}
-			});
+			}
 		}
 	}
 	cu.add(parseTree, textDocument.uri);

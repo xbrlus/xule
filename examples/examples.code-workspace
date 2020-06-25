@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "dqc_us_rules/source/us/2016"
+		},
+		{
+			"path": "dqc_us_rules/source/us/2017"
+		},
+		{
+			"path": "dqc_us_rules/source/us/2018"
+		},
+		{
+			"path": "dqc_us_rules/source/us/2019"
+		},
+		{
+			"path": "dqc_us_rules/source/us/2020"
+		}
+	],
+	"settings": {}
+}
