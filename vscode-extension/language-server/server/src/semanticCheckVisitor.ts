@@ -265,6 +265,18 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
                 source: 'XULE semantic checker'
             });
         }
+        let bindings = this.symbolTable.lookupAll(ctx.identifier().text, ctx);
+        if(bindings) {
+            bindings = bindings.filter(b => bindingInfo(b, IdentifierType.FUNCTION));
+        }
+        if(bindings && bindings.length > 1) {
+            this.diagnostics.push({
+                severity: DiagnosticSeverity.Error,
+                range: getRange(ctx.identifier()),
+                message: "Function defined more than once",
+                source: 'XULE semantic checker'
+            });
+        }
         return this.visitChildren(ctx);
     };
 
