@@ -395,7 +395,7 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 	}
 	cu.add(parseTree, textDocument.uri);
 
-	let symbolTableVisitor = new SymbolTableVisitor().withNamespaces(...builtInNamespaces, ...namespaces);
+	let symbolTableVisitor = new SymbolTableVisitor().withNamespaces(...namespaces, ...builtInNamespaces);
 	let symbolTable = symbolTableVisitor.visit(cu);
 	//Save these for code completions
 	textDocument[COMPILATION_UNIT] = cu;
