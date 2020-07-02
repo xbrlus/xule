@@ -245,11 +245,11 @@ function loadNamespaces(path: string, namespaces: Namespace[]) {
 	path = ensurePath(path);
 	try {
 		if (fs.existsSync(path)) {
-				let data = fs.readFileSync(path);
-				let definition = JSON.parse(data.toString());
-				for (let uri in definition) {
-					namespaces.push(new Namespace(uri, definition[uri], path));
-				}
+			let data = fs.readFileSync(path);
+			let definition = JSON.parse(data.toString());
+			for (let uri in definition) {
+				namespaces.push(new Namespace(uri, definition[uri], path));
+			}
 		} else {
 			let msg = "Namespace definitions file not found: " + path;
 			connection.console.error(msg);
