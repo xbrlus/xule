@@ -11,7 +11,8 @@ import {
 	TextDocumentPositionParams,
 	TextDocuments,
 	TextDocumentSyncKind,
-	WorkspaceFolder
+	WorkspaceFolder,
+    MessageType
 } from 'vscode-languageserver';
 
 import {TextDocument} from 'vscode-languageserver-textdocument';
@@ -25,7 +26,13 @@ import {
 	Recognizer,
 	Token
 } from 'antlr4ts';
-import {IdentifierContext, PropertyAccessContext, XuleFileContext, XULEParser} from './parser/XULEParser';
+import {
+	ExpressionContext,
+	IdentifierContext,
+	PropertyAccessContext,
+	XuleFileContext,
+	XULEParser
+} from './parser/XULEParser';
 import {ParseTree} from 'antlr4ts/tree/ParseTree';
 import {TerminalNode} from 'antlr4ts/tree/TerminalNode';
 import {
@@ -155,6 +162,7 @@ connection.onDidChangeConfiguration(change => {
 });
 
 const COMPILATION_UNIT = 'compilationUnit';
+const PARSER = 'parser';
 const PARSE_TREE = 'parseTree';
 const SYMBOL_TABLE = 'symbolTable';
 
@@ -251,11 +259,10 @@ function loadNamespaces(path: string, namespaces: Namespace[]) {
 				namespaces.push(new Namespace(uri, definition[uri], path));
 			}
 		} else {
-			let msg = "Namespace definitions file not found: " + path;
-			connection.console.error(msg);
+			connection.window.showErrorMessage("Namespace definitions file not found: " + path);
 		}
 	} catch (e) {
-		connection.console.error(`Could not load namespaces from ${path}: ${e}`);
+		connection.window.showErrorMessage(`Could not load namespaces from ${path}: ${e}`);
 	}
 }
 
@@ -342,7 +349,7 @@ async function loadAdditionalNamespaces(textDocument: TextDocument, settings: XU
 	return namespaces;
 }
 
-function loadXuleFile(path: string, cu: CompilationUnit) {
+function importXuleFile(path: string, cu: CompilationUnit) {
 	path = ensurePath(path);
 	try {
 		if (fs.existsSync(path)) {
@@ -352,10 +359,10 @@ function loadXuleFile(path: string, cu: CompilationUnit) {
 			let parser = new XULEParser(new CommonTokenStream(lexer));
 			cu.add(parser.xuleFile(), canonicalizedPathToURI(path));
 		} else {
-			connection.console.error("AutoImport file not found: " + path);
+			connection.window.showErrorMessage("AutoImport file not found: " + path);
 		}
 	} catch (e) {
-		connection.console.error(`Could not load ${path}: ${e}`);
+		connection.window.showErrorMessage(`Could not load ${path}: ${e}`);
 	}
 }
 
@@ -381,14 +388,14 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 		let path = settings.autoImports[i].trim();
 		if (pathFunctions.isAbsolute(path) || path.startsWith("file://")) {
 			if(ensurePath(path) != docPath) {
-				loadXuleFile(path, cu);
+				importXuleFile(path, cu);
 			}
 		} else {
 			let folder = await getDocumentNamespaceFolder(textDocument);
 			if(folder) {
 				let actualPath = ensurePath(workspacePathToURI(folder, path));
 				if(actualPath != docPath) {
-					loadXuleFile(actualPath, cu);
+					importXuleFile(actualPath, cu);
 				}
 			}
 		}
@@ -400,7 +407,7 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 	//Save these for code completions
 	textDocument[COMPILATION_UNIT] = cu;
 	textDocument[PARSE_TREE] = parseTree;
-	textDocument['parser'] = parser;
+	textDocument[PARSER] = parser;
 	textDocument[SYMBOL_TABLE] = symbolTable;
 
 	let semanticCheckVisitor = new SemanticCheckVisitor(diagnostics, symbolTable, textDocument);
@@ -831,40 +838,73 @@ function suggestKeywords(parser: XULEParser, nodeInfo: NodeInfo, candidates: Can
 	maybeSuggest(keywords, text, CompletionItemKind.Keyword, completions);
 }
 
+function getCompletions(
+	core: CodeCompletionCore, tokenIndex: number, symbolTable: SymbolTable, nodeInfo: NodeInfo, parser: XULEParser,
+	parseTree: ParserRuleContext) {
+	let candidates = core.collectCandidates(tokenIndex, parseTree);
+	let completions = [];
+
+	let keywordsToo = suggestAllIdentifiers(symbolTable, nodeInfo, candidates, completions);
+	if (keywordsToo) {
+		suggestKeywords(parser, nodeInfo, candidates, completions);
+	}
+	return completions;
+}
+
 async function computeCodeSuggestions(_textDocumentPosition: TextDocumentPositionParams): Promise<CompletionItem[]> {
 	const documentURI = _textDocumentPosition.textDocument.uri;
 	let document = documents.get(documentURI);
-	if(document) {
-		let settings = await getDocumentSettings(documentURI);
-		const parser = document['parser'] as XULEParser;
-		const symbolTable = document[SYMBOL_TABLE] as SymbolTable;
-		if(parser) {
-			const pos = _textDocumentPosition.position;
-			const parseTree = document[PARSE_TREE] as ParseTree;
-			const nodeInfo = parseTreeAtPosition(parseTree, pos.line + 1, pos.character);
-			let tokenIndex = 0;
-			if(nodeInfo) {
-				tokenIndex = nodeInfo.tokenIndex;
-				if(nodeInfo.node instanceof TerminalNode && nodeInfo.node.symbol.type != XULEParser.IDENTIFIER) {
-					if(nodeInfo.offset == 0) {
-						tokenIndex--;
-					} else if(nodeInfo.offset >= nodeInfo.node.text.length) {
-						tokenIndex++;
-					}
+	if(!document) {
+		return [];
+	}
+	let settings = await getDocumentSettings(documentURI);
+	const parser = document[PARSER] as XULEParser;
+	const symbolTable = document[SYMBOL_TABLE] as SymbolTable;
+	if(parser) {
+		const pos = _textDocumentPosition.position;
+		const parseTree = document[PARSE_TREE] as XuleFileContext;
+		const nodeInfo = parseTreeAtPosition(parseTree, pos.line + 1, pos.character);
+		let tokenIndex = 0;
+		if(nodeInfo) {
+			tokenIndex = nodeInfo.tokenIndex;
+			if(nodeInfo.node instanceof TerminalNode && nodeInfo.node.symbol.type != XULEParser.IDENTIFIER) {
+				if(nodeInfo.offset == 0) {
+					tokenIndex--;
+				} else if(nodeInfo.offset >= nodeInfo.node.text.length) {
+					tokenIndex++;
 				}
 			}
-			let core = setupCompletionCore(parser, settings);
-			let candidates = core.collectCandidates(tokenIndex);
-			let completions = [];
-
-			let keywordsToo = suggestAllIdentifiers(symbolTable, nodeInfo, candidates, completions);
-			if(keywordsToo) {
-				suggestKeywords(parser, nodeInfo, candidates, completions);
-			}
-			return completions;
 		}
+		let core = setupCompletionCore(parser, settings);
+		let processRuleMethod = Object.getPrototypeOf(core).processRule;
+		const start = new Date().getTime();
+		Object.getPrototypeOf(core).processRule = (...args) => {
+			if (new Date().getTime() - start > 1000) {
+				connection.window.showErrorMessage("Completion timeout exceeded");
+				throw new TimeoutException(core['candidates'] || []);
+			}
+			return processRuleMethod.call(core, ...args);
+		}
+		let candidates;
+		try {
+			candidates = core.collectCandidates(tokenIndex, parseTree);
+		} catch (e) {
+			if(e instanceof TimeoutException) {
+				candidates = e.candidates;
+			} else {
+				return [];
+			}
+		} finally {
+			Object.getPrototypeOf(core).processRule = processRuleMethod;
+		}
+		let completions = [];
+
+		let keywordsToo = suggestAllIdentifiers(symbolTable, nodeInfo, candidates, completions);
+		if(keywordsToo) {
+			suggestKeywords(parser, nodeInfo, candidates, completions);
+		}
+		return completions;
 	}
-	return [];
 }
 
 // This handler resolves additional information for the item selected in
@@ -881,3 +921,9 @@ documents.listen(connection);
 
 // Listen on the connection
 connection.listen();
+
+class TimeoutException extends Error {
+	constructor(public candidates: CandidatesCollection) {
+		super();
+	}
+}
