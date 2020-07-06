@@ -50,6 +50,8 @@ import * as fuzzysort from 'fuzzysort';
 import {builtInNamespaces} from "./builtInNamespaces";
 import * as fs from "fs";
 import {getRange, LINES_REGEXP} from "./utils";
+import * as pathFunctions from "path";
+import fileUriToPath = require("file-uri-to-path");
 
 // Create a connection for the server. The connection uses Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
@@ -225,15 +227,13 @@ documents.onDidChangeContent(change => {
 });
 
 function ensurePath(path: string) {
-	let prefix = "file:";
-	if (path.startsWith(prefix)) {
-		path = path.substring(prefix.length);
+	if (path.startsWith("file:")) {
+		return fileUriToPath(path);
+	} else if(!pathFunctions.isAbsolute(path)) {
+		return pathFunctions.resolve(path);
+	} else {
+		return path;
 	}
-	while (path.startsWith("/")) {
-		path = path.substring(1);
-	}
-	path = "/" + path;
-	return path;
 }
 
 function canonicalizedPathToURI(path: string) {
@@ -318,24 +318,24 @@ function setupParser(textDocument: TextDocument, diagnostics: Diagnostic[]) {
 	return parser;
 }
 
-function workspacePathToAbsolutePath(f: WorkspaceFolder, path: string) {
+function workspacePathToURI(f: WorkspaceFolder, path: string) {
 	let uri = f.uri;
 	if (!uri.endsWith("/")) {
 		uri += "/";
 	}
-	return uri + path;
+	return uri + path.replace(pathFunctions.delimiter, "/");
 }
 
 async function loadAdditionalNamespaces(textDocument: TextDocument, settings: XULELanguageSettings) {
 	let namespaces = [];
 	for (let n in settings.namespaces.definitions) {
 		let path = settings.namespaces.definitions[n].trim();
-		if (path.startsWith("/") || path.startsWith("file://")) {
+		if (pathFunctions.isAbsolute(path) || path.startsWith("file://")) {
 			loadNamespaces(path, namespaces);
 		} else {
 			let folder = await getDocumentNamespaceFolder(textDocument);
 			if(folder) {
-				loadNamespaces(workspacePathToAbsolutePath(folder, path), namespaces);
+				loadNamespaces(workspacePathToURI(folder, path), namespaces);
 			}
 		}
 	}
@@ -379,14 +379,14 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 	let cu = new CompilationUnit();
 	for(let i in settings.autoImports) {
 		let path = settings.autoImports[i].trim();
-		if (path.startsWith("/") || path.startsWith("file://")) {
+		if (pathFunctions.isAbsolute(path) || path.startsWith("file://")) {
 			if(ensurePath(path) != docPath) {
 				loadXuleFile(path, cu);
 			}
 		} else {
 			let folder = await getDocumentNamespaceFolder(textDocument);
 			if(folder) {
-				let actualPath = ensurePath(workspacePathToAbsolutePath(folder, path));
+				let actualPath = ensurePath(workspacePathToURI(folder, path));
 				if(actualPath != docPath) {
 					loadXuleFile(actualPath, cu);
 				}

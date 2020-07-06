@@ -41,7 +41,7 @@
                 "path": "./syntaxes/xule.tmLanguage.json",
                 "embeddedLanguages": {
                     "source.xule": "xule"
-                  }
+                }
             }
         ],
         "configuration": {
@@ -87,7 +87,10 @@
                 "xule.server.debug": {
                     "scope": "window",
                     "type": "string",
-                    "enum": [ "off", "verbose" ],
+                    "enum": [
+                        "off",
+                        "verbose"
+                    ],
                     "default": "off",
                     "description": "Traces the work of the language server and its communication with VS Code. Note: enabling this may dramatically slow down the extension."
                 }
