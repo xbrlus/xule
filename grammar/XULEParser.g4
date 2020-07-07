@@ -91,7 +91,7 @@ variableRead: identifier;
 navigationReturnOption: identifier;
 
 arcrole: role;
-role: identifier (listAccess | propertyAccess)* | stringLiteral;
+role: ({ this._input.LT(1).text.startsWith("$") }? variableRead | identifier) (listAccess | propertyAccess)* | stringLiteral;
 /** This exists so that when suggesting code we can restrict to known attribute names. */
 atIdentifier: AT_IDENTIFIER;
 /** This exists so that when suggesting code we can restrict to well-known keywords. */

@@ -22,7 +22,7 @@ import {
     NavigationWhereClauseContext,
     OutputAttributeContext,
     ParametersListContext,
-    PropertyAccessContext,
+    PropertyAccessContext, RoleContext,
     VariableReadContext,
     XuleFileContext
 } from "./parser/XULEParser";
@@ -92,6 +92,14 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
                 severity: DiagnosticSeverity.Error,
                 range: getRange(ctx.identifier()),
                 message: "Constant defined more than once",
+                source: 'XULE semantic checker'
+            });
+        }
+        if(!ctx.identifier().text.startsWith("$")) {
+            this.diagnostics.push({
+                severity: DiagnosticSeverity.Error,
+                range: getRange(ctx.identifier()),
+                message: "Constant names must start with the dollar character ($)",
                 source: 'XULE semantic checker'
             });
         }
@@ -197,34 +205,42 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
                         b => b.name == name ||
                             b.meaning.find(m => m instanceof OutputAttributeInfo) ||
                             b.meaning.find(m => m instanceof VariableInfo && m.ignoreCase))) {
+                        let message = `Unknown local name: ${name} in namespace ${ns.namespace.uri}`;
+                        if(ns.namespace.path) {
+                            message += ` (loaded from ${ns.namespace.path})`;
+                        } else {
+                            message += " (built-in)";
+                        }
                         this.diagnostics.push({
                             severity: DiagnosticSeverity.Warning,
                             range: getRange(identifier),
-                            message: "Unknown local name: " + name + " in namespace " + ns.namespace.uri,
+                            message: message,
                             source: 'XULE semantic checker'
                         });
                     }
                 }
             }
         } else if(namespace) {
-            let startIndex = identifier.start.startIndex;
-            let range = {
-                start: this.document.positionAt(startIndex),
-                end: this.document.positionAt(startIndex + namespace.length)
-            };
+            let startIndex = identifier.start.startIndex + identifier.text.indexOf(namespace);
+            let endIndex = startIndex + namespace.length;
             this.diagnostics.push({
                 severity: DiagnosticSeverity.Error,
-                range: range,
+                range: {
+                    start: this.document.positionAt(startIndex),
+                    end: this.document.positionAt(endIndex)
+                },
                 message: "Unknown namespace: " + namespace,
                 source: 'XULE semantic checker'
             });
         } else {
-            this.diagnostics.push({
-                severity: DiagnosticSeverity.Warning,
-                range: getRange(identifier),
-                message: "Unknown attribute: " + name + " and no default namespace set.",
-                source: 'XULE semantic checker'
-            });
+            if((!wellKnownVariables[name] && !this.localVariables[name] && wellKnownOutputAttributes.indexOf(name.toLowerCase()) < 0)) {
+                this.diagnostics.push({
+                    severity: DiagnosticSeverity.Warning,
+                    range: getRange(identifier),
+                    message: "Unknown attribute: " + name + " and no default namespace set.",
+                    source: 'XULE semantic checker'
+                });
+            }
         }
     }
 
@@ -254,6 +270,17 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
         this.withLocalVariables({ '$relationship': {} }, () => this.visitChildren(ctx));
     };
 
+    visitRole = (ctx: RoleContext) => {
+        let variable = ctx.variableRead();
+        if(variable) {
+            //The grammar guarantees that the variable has a name that starts with $, otherwise it's a role name
+            this.checkVariableAccess(variable.text, ctx, variable);
+            this.checkPropertyAccess(ctx.propertyAccess());
+        } else {
+            this.visitChildren(ctx);
+        }
+    }
+
     visitFunctionDeclaration = (ctx: FunctionDeclarationContext) => {
         let functionName = ctx.identifier().text;
         if(functionName.startsWith("$")) {
@@ -262,6 +289,18 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
                 severity: DiagnosticSeverity.Error,
                 range: range,
                 message: "Invalid function name: " + ctx.identifier().text,
+                source: 'XULE semantic checker'
+            });
+        }
+        let bindings = this.symbolTable.lookupAll(ctx.identifier().text, ctx);
+        if(bindings) {
+            bindings = bindings.filter(b => bindingInfo(b, IdentifierType.FUNCTION));
+        }
+        if(bindings && bindings.length > 1) {
+            this.diagnostics.push({
+                severity: DiagnosticSeverity.Error,
+                range: getRange(ctx.identifier()),
+                message: "Function defined more than once",
                 source: 'XULE semantic checker'
             });
         }

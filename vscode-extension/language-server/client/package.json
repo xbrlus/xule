@@ -3,7 +3,7 @@
 	"description": "VSCode part of the XULE language server",
 	"author": "Strumenta s.r.l.",
 	"license": "UNLICENSED",
-	"version": "1.4.1",
+	"version": "1.4.4",
 	"publisher": "XBRL",
 	"repository": {
 		"type": "git",
