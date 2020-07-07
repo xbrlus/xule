@@ -1,0 +1,16 @@
+{
+"http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v11/dqc_us_rules/dqc-ifrs-2019-V11-ruleset.zip",
+"http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v11/dqc_us_rules/dqc-ifrs-2018-V11-ruleset.zip",
+"http://xbrl.ifrs.org/taxonomy/2017-03-09/ifrs-full": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v11/dqc_us_rules/dqc-ifrs-2017-V11-ruleset.zip",
+"http://xbrl.ifrs.org/taxonomy/2016-03-31/ifrs-full": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v11/dqc_us_rules/dqc-ifrs-2016-V11-ruleset.zip",
+"http://fasb.org/us-gaap/2020-01-31": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v11/dqc_us_rules/dqc-us-2020-V11-ruleset.zip",
+"http://fasb.org/us-gaap/2019-01-31": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v11/dqc_us_rules/dqc-us-2019-V11-ruleset.zip",
+"http://fasb.org/us-gaap/2018-01-31": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v11/dqc_us_rules/dqc-us-2018-V11-ruleset.zip",
+"http://fasb.org/us-gaap/2017-01-31": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v11/dqc_us_rules/dqc-us-2017-V11-ruleset.zip",
+"http://fasb.org/us-gaap/2016-01-31": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v11/dqc_us_rules/dqc-us-2016-V11-ruleset.zip",
+"http://fasb.org/us-gaap/2015-01-31": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v9/dqc_us_rules/dqc-us-2015-V6-ruleset.zip",
+"http://fasb.org/us-gaap/2014-01-31": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v9/dqc_us_rules/dqc-us-2014-V5-ruleset.zip",
+"http://fasb.org/us-gaap/2013-01-31": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v9/dqc_us_rules/dqc-us-2013-V5-ruleset.zip",
+"http://fasb.org/us-gaap/2012-01-31": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v9/dqc_us_rules/dqc-us-2012-V5-ruleset.zip",
+"http://fasb.org/us-gaap/2011-01-31": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v9/dqc_us_rules/dqc-us-2011-V5-ruleset.zip"
+}
