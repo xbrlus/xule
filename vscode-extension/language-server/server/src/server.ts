@@ -27,6 +27,7 @@ import {
 	Token
 } from 'antlr4ts';
 import {
+	AssertionContext, BlockContext,
 	ExpressionContext,
 	IdentifierContext,
 	PropertyAccessContext,
@@ -600,13 +601,14 @@ function setupCompletionCore(parser: XULEParser, settings: XULELanguageSettings)
 	let core = new CodeCompletionCore(parser);
 	core.ignoredTokens = new Set([
 		XULEParser.ADD_L, XULEParser.ADD_LR, XULEParser.ADD_R,
-		XULEParser.AND_OP, XULEParser.ASSIGN, XULEParser.ASSERT_RULE_NAME, XULEParser.AT,
+		XULEParser.AND, XULEParser.AND_OP, XULEParser.ASSIGN, XULEParser.ASSERT_RULE_NAME, XULEParser.AT,
 		XULEParser.CLOSE_BRACKET, XULEParser.CLOSE_CURLY, XULEParser.CLOSE_PAREN,
 		XULEParser.COMMA, XULEParser.DIV,
 		XULEParser.DOT, XULEParser.DOUBLE_QUOTE, XULEParser.EOF, XULEParser.EQUALS,
-		XULEParser.GT, XULEParser.GTE, XULEParser.LT, XULEParser.LTE, XULEParser.MINUS,
-		XULEParser.NOT_EQUALS,
+		XULEParser.GT, XULEParser.GTE, XULEParser.IN, XULEParser.LT, XULEParser.LTE, XULEParser.MINUS,
+		XULEParser.NOT, XULEParser.NOT_EQUALS,
 		XULEParser.OPEN_BRACKET, XULEParser.OPEN_CURLY, XULEParser.OPEN_PAREN,
+		XULEParser.OR,
 		XULEParser.PLUS,
 		XULEParser.SEMI, XULEParser.SHARP, XULEParser.SIMM_DIFF, XULEParser.SINGLE_QUOTE, XULEParser.STRING_CONTENTS,
 		XULEParser.SUB_L, XULEParser.SUB_LR, XULEParser.SUB_R,
@@ -875,11 +877,19 @@ async function computeCodeSuggestions(_textDocumentPosition: TextDocumentPositio
 				}
 			}
 		}
+
+		let restrictedContext = nodeInfo.node;
+		while(restrictedContext && !(restrictedContext instanceof AssertionContext) && !(restrictedContext instanceof BlockContext)) {
+			restrictedContext = restrictedContext.parent;
+		}
+		let context = (restrictedContext instanceof ParserRuleContext) ? restrictedContext : parseTree;
+
 		let core = setupCompletionCore(parser, settings);
 		let processRuleMethod = Object.getPrototypeOf(core).processRule;
 		const start = new Date().getTime();
 		Object.getPrototypeOf(core).processRule = (...args) => {
-			if (new Date().getTime() - start > 1000) {
+			let now = new Date().getTime();
+			if (now - start > 1000) {
 				connection.window.showErrorMessage("Completion timeout exceeded");
 				throw new TimeoutException(core['candidates'] || []);
 			}
@@ -887,7 +897,7 @@ async function computeCodeSuggestions(_textDocumentPosition: TextDocumentPositio
 		}
 		let candidates;
 		try {
-			candidates = core.collectCandidates(tokenIndex, parseTree);
+			candidates = core.collectCandidates(tokenIndex, context);
 		} catch (e) {
 			if(e instanceof TimeoutException) {
 				candidates = e.candidates;
