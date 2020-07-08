@@ -1,7 +1,7 @@
 {
 	"name": "xule-language-server",
 	"description": "Language Server component for the XULE language.",
-	"version": "1.4.4",
+	"version": "1.4.5",
 	"author": "Alessio Stalla (Strumenta)",
 	"license": "UNLICENSED",
 	"repository": {
