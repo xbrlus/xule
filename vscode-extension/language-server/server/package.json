@@ -1,7 +1,7 @@
 {
 	"name": "xule-language-server",
 	"description": "Language Server component for the XULE language.",
-	"version": "1.4.4",
+	"version": "1.4.5",
 	"author": "Alessio Stalla (Strumenta)",
 	"license": "UNLICENSED",
 	"repository": {
@@ -22,6 +22,7 @@
 	},
 	"scripts": {
 		"antlr4ts": "antlr4ts -o src/parser -Xexact-output-dir -visitor ../../../grammar/XULEParser.g4 ../../../grammar/XULELexer.g4",
+		"postinstall": "npm run antlr4ts",
 		"test": "mocha -r ts-node/register tests/**/*.test.ts"
 	},
 	"devDependencies": {

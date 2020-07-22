@@ -4,7 +4,7 @@
     "description": "XULE Language Pack",
     "author": "Strumenta s.r.l.",
     "publisher": "XBRL",
-    "version": "1.4.4",
+    "version": "1.4.5",
     "license": "UNLICENSED",
     "engines": {
         "vscode": "^1.43.0"
@@ -102,11 +102,10 @@
         "webpack": "npm run clean && webpack --mode production --config ./language-server/client/webpack.config.js && webpack --mode production --config ./language-server/server/webpack.config.js",
         "webpack:dev": "npm run clean && webpack --mode none --config ./language-server/client/webpack.config.js && webpack --mode none --config ./language-server/server/webpack.config.js",
         "clean": "rimraf language-server/client/out && rimraf language-server/server/out",
-        "compile": "tsc -b",
+        "compile": "cd language-server/client && npm install && cd ../server && npm install && cd ../.. && tsc -b",
         "compile:client": "tsc -b ./client/tsconfig.json",
         "compile:server": "tsc -b ./server/tsconfig.json",
         "watch": "tsc -b -w",
-        "postinstall": "cd language-server/client && npm install && cd ../server && npm install && npm run antlr4ts && cd ..",
         "test": "cd language-server/server && npm run test"
     },
     "devDependencies": {
