@@ -164,7 +164,8 @@ describe('Functions', function () {
         expect(parser.numberOfSyntaxErrors).to.equal(0);
         expect(input.index).to.equal(input.size);
         let diagnostics = [];
-        new SemanticCheckVisitor(diagnostics, null, null).visit(parseTree);
+        let symbolTable = new SymbolTableVisitor().withInitialContext(parseTree).visit(parseTree);
+        new SemanticCheckVisitor(diagnostics, symbolTable, null).visit(parseTree);
         expect(diagnostics.length).to.equal(1);
     });
     it("can be invoked with one variable assignment", function () {
@@ -172,7 +173,7 @@ describe('Functions', function () {
         let input = CharStreams.fromString(xuleCode);
         let lexer = new XULELexer(input);
         let parser = new XULEParser(new CommonTokenStream(lexer));
-        let parseTree = parser.output();
+        let parseTree = parser.xuleFile();
         expect(parser.numberOfSyntaxErrors).to.equal(0);
         expect(input.index).to.equal(input.size);
         let diagnostics = [];
@@ -258,7 +259,7 @@ describe('Properties', function() {
             let input = CharStreams.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
-            let parseTree = parser.output();
+            let parseTree = parser.xuleFile();
             expect(parser.numberOfSyntaxErrors).to.equal(0);
             expect(input.index).to.equal(input.size);
             let diagnostics = [];
@@ -273,7 +274,7 @@ describe('Properties', function() {
             let input = CharStreams.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
-            let parseTree = parser.output();
+            let parseTree = parser.xuleFile();
             expect(parser.numberOfSyntaxErrors).to.equal(0);
             expect(input.index).to.equal(input.size);
             let diagnostics = [];
@@ -288,7 +289,7 @@ describe('Properties', function() {
             let input = CharStreams.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
-            let parseTree = parser.output();
+            let parseTree = parser.xuleFile();
             expect(parser.numberOfSyntaxErrors).to.equal(0);
             expect(input.index).to.equal(input.size);
             let diagnostics = [];
@@ -303,7 +304,7 @@ describe('Properties', function() {
             let input = CharStreams.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
-            let parseTree = parser.output();
+            let parseTree = parser.xuleFile();
             expect(parser.numberOfSyntaxErrors).to.equal(0);
             expect(input.index).to.equal(input.size);
             let diagnostics = [];
@@ -318,7 +319,7 @@ describe('Properties', function() {
             let input = CharStreams.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
-            let parseTree = parser.output();
+            let parseTree = parser.xuleFile();
             expect(parser.numberOfSyntaxErrors).to.equal(0);
             expect(input.index).to.equal(input.size);
             let diagnostics = [];
@@ -333,7 +334,7 @@ describe('Properties', function() {
             let input = CharStreams.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
-            let parseTree = parser.output();
+            let parseTree = parser.xuleFile();
             expect(parser.numberOfSyntaxErrors).to.equal(0);
             expect(input.index).to.equal(input.size);
             let diagnostics = [];
@@ -579,7 +580,7 @@ describe('Variable scoping', function() {
             let input = CharStreams.fromString(xuleCode);
             let lexer = new XULELexer(input);
             let parser = new XULEParser(new CommonTokenStream(lexer));
-            let parseTree = parser.output();
+            let parseTree = parser.xuleFile();
             expect(parser.numberOfSyntaxErrors).to.equal(0);
             expect(input.index).to.equal(input.size);
             let diagnostics = [];
