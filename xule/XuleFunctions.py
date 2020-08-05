@@ -648,7 +648,7 @@ def func_range(xule_context, *args):
     # Check that the
     number_list = list(range(start_num, stop_num, step))
     number_list_values = tuple(xv.XuleValue(xule_context, x, 'int') for x in number_list)
-    return xv.XuleValue(xule_context, number_list_values, 'list', shadow_collection=number_list)
+    return xv.XuleValue(xule_context, number_list_values, 'list', shadow_collection=tuple(number_list))
 
 def func_difference(xule_context, *args):
     '''Difference between 2 sets'''
