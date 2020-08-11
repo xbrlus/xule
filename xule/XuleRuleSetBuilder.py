@@ -388,8 +388,10 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
                 parse_node['stopExpr']['location'] = 'navigation'
         if current_part == 'filter':                         
             if 'whereExpr' in parse_node:
+                var_names['item'].append(parse_node['whereExpr'])
                 parse_node['whereExpr']['location'] = 'filter'
             if 'returnsExpr' in parse_node:
+                var_names['item'].append(parse_node['returnsExpr'])
                 parse_node['returnsExpr']['location'] = 'filter'
         if current_part == 'functionDeclaration':
             for arg in parse_node['functionArgs']:
@@ -518,6 +520,11 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
 #         if current_part == 'filter':
 #             if 'whereExpr' or 'returnsExpr' in parse_node:
 #                 var_names['item'].pop()
+        if current_part == 'filter':
+            if 'returnsExpr' in parse_node:
+                var_names['item'].pop()
+            if 'whereExpr' in parse_node:
+                var_names['item'].pop()
         if current_part == 'functionDeclaration':
             for arg in parse_node['functionArgs']:
                 var_names[arg['argName']].pop()
@@ -638,6 +645,7 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
             elif current_part == 'filter':
                 if 'whereExpr' in parse_node or 'returnsExpr' in parse_node:
                     parse_node['var_refs'] = [x for x in parse_node['var_refs'] if x[0] != parse_node['expr']['node_id']]
+                self.assign_table_id(parse_node, var_defs, skip=parse_node['expr'])
         
             elif current_part == 'forExpr':
                 parse_node['number'] = 'multi'

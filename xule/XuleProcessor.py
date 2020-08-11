@@ -2926,24 +2926,11 @@ def evaluate_filter(filter_expr, xule_context):
                              'single')
 
         try:
-            keep = True
-            if 'whereExpr' in filter_expr:
-                keep = False
-                filter_where_result = evaluate(filter_expr['whereExpr'], xule_context)
-
-                if filter_where_result.type == 'bool':
-                    keep = filter_where_result.value
-                elif filter_where_result.type not in ('unbound', 'none'):
-                    raise XuleProcessingError(_(
-                        "The where clause on a filter expression must evaluate to a boolean, found '{}'.".format(
-                            filter_where_result.type)), xule_context)
-
-            if keep:
-                if 'returnsExpr' in filter_expr:
-                    keep_item = evaluate(filter_expr['returnsExpr'], xule_context)
-                else:
-                    keep_item = item_value
-
+            keep_item = evaluate_filter_body_detail(filter_expr,
+                                                      filter_expr['node_id'],
+                                                      item_value,
+                                                      xule_context)
+            if keep_item is not None:
                 if collection_value.type == 'set':
                     if (keep_item.shadow_collection if keep_item.type in (
                     'list', 'set', 'dictionary') else keep_item.value) not in results_shadow:
@@ -2966,6 +2953,48 @@ def evaluate_filter(filter_expr, xule_context):
     else:  # list
         return XuleValue(xule_context, tuple(results), 'list', shadow_collection=tuple(results_shadow))
 
+def evaluate_filter_body_detail(filter_expr, table_id, item_value, xule_context):
+    
+    keep_item = None
+    # set up new table
+    aligned_result_only = False
+    save_aligned_result_only = xule_context.aligned_result_only
+    save_used_expressions = xule_context.used_expressions
+
+    filter_body_table = xule_context.iteration_table.add_table(table_id, xule_context.get_processing_id(table_id))
+    filter_body_table.dependent_alignment = item_value.alignment
+
+    try:
+        keep = True
+        if 'whereExpr' in filter_expr:
+            keep = False
+            filter_where_result = evaluate(filter_expr['whereExpr'], xule_context)
+
+            if filter_where_result.type == 'bool':
+                keep = filter_where_result.value
+            elif filter_where_result.type not in ('unbound', 'none'):
+                raise XuleProcessingError(_(
+                    "The where clause on a filter expression must evaluate to a boolean, found '{}'.".format(
+                        filter_where_result.type)), xule_context)
+
+        if keep:
+            if 'returnsExpr' in filter_expr:
+                keep_item = evaluate(filter_expr['returnsExpr'], xule_context)
+            else:
+                keep_item = item_value
+
+            aligned_result_only = aligned_result_only or xule_context.aligned_result_only
+            keep_item.aligned_result_only = aligned_result_only
+            keep_item.facts = xule_context.iteration_table.facts.copy()
+            keep_item.tags = xule_context.iteration_table.tags.copy()
+            keep_item.used_expressions = xule_context.used_expressions
+
+    finally:
+        xule_context.aligned_result_only = save_aligned_result_only
+        xule_context.used_expressions = save_used_expressions
+        xule_context.iteration_table.del_table(table_id)
+    
+    return keep_item
 
 def evaluate_navigate(nav_expr, xule_context):
     # Get the taxonomy
