@@ -20,7 +20,7 @@ import {
     FilterContext,
     FunctionDeclarationContext,
     NavigationWhereClauseContext,
-    OutputAttributeContext,
+    OutputAttributeContext, OutputContext,
     ParametersListContext,
     PropertyAccessContext, RoleContext,
     VariableReadContext,
@@ -243,6 +243,20 @@ export class SemanticCheckVisitor extends AbstractParseTreeVisitor<any> implemen
             }
         }
     }
+
+    visitOutput = (ctx: OutputContext) => {
+        let outputsWithTheSameName = ctx.parent.children.filter(c =>
+            c instanceof OutputContext && c.OUTPUT_RULE_NAME().text == ctx.OUTPUT_RULE_NAME().text);
+        if(outputsWithTheSameName.length > 1) {
+            this.diagnostics.push({
+                severity: DiagnosticSeverity.Error,
+                range: getRange(ctx.OUTPUT_RULE_NAME()),
+                message: "Output defined more than once",
+                source: 'XULE semantic checker'
+            });
+        }
+        return this.visitChildren(ctx);
+    };
 
     visitOutputAttribute = (ctx: OutputAttributeContext) => {
         return this.withLocalVariables({ 'error': {}, 'ok': {}, 'warning': {} }, () => this.visitChildren(ctx));
