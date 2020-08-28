@@ -2898,173 +2898,8 @@ def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non
 #
 #     return XuleValue(xule_context, frozenset(result), 'set', shadow_collection=frozenset(result_shadow))
 
+
 def evaluate_filter(filter_expr, xule_context):
-    ''' There is the old version of the filter and the new version. The old version does not treat the filter as an
-        iterable expression. This is actually wrong and caused problems if you had a list in the returns portion of a filter.
-        The new version now treats the filter expression as an iterable., but it requires any rule with a filter
-        expression to be recompiled. There are still many rules which work fine without this update, so This code checks
-        if the filter was recompiled with the update for being an iterable or not based on the 'is_iterable' flag on the 
-        expression.
-    '''
-    if 'is_iterable' in filter_expr:
-        return evaluate_filter_new(filter_expr, xule_context)
-    else:
-        return evaluate_filter_old(filter_expr, xule_context)
-
-def evaluate_filter_new(filter_expr, xule_context):
-    """Evaluator for filter expressions
-
-    :param filter_expr: Rule expression for the filter expression
-    :type filter_expr: dict
-    :type xule_context: XuleRuleContext
-    :rtype: XuleValueSet    
-    """
-    results_by_item = []
-    alignments = set()
-
-    saved_used_expressions = xule_context.used_expressions
-    xule_context.used_expressions = set()
-    try:
-        collection_value = evaluate(filter_expr['expr'], xule_context)
-    finally:
-        used_expressions = xule_context.used_expressions
-        xule_context.used_expressions = saved_used_expressions | used_expressions
-
-    if collection_value.type not in ('set', 'list'):
-        raise XuleProcessingError(
-            _("Filter expresssion can only be used on a 'set' or 'list', found '{}'.".format(collection_value.type)),
-            xule_context)
-
-    for item_value in collection_value.value:
-        if item_value.used_expressions is None:
-            item_value.used_expressions = used_expressions
-        else:
-            item_value.used_expressions.update(used_expressions)
-
-        xule_context.add_arg('item',
-                             filter_expr['expr']['node_id'],
-                             None,
-                             item_value,
-                             'single')
-        try:
-            body_values = evaluate_filter_body_detail_new(filter_expr,
-                                                          item_value,
-                                                          xule_context)
-        finally:
-            xule_context.del_arg('item',
-                                 filter_expr['expr']['node_id'])
-
-        results_by_item.append(XuleValueSet())
-        if item_value.alignment is None:
-            # add all
-            for body_value in body_values.values.values():
-                results_by_item[-1].append(body_value)
-        else:
-            if item_value.alignemnt in body_values.values:
-                # take the aligned values
-                for body_value in body_values.values[item_value.alignment]:
-                    results_by_item[-1].append(body_value)
-            else:
-                # take only non aligned values and add alignment
-                for body_value in body_values.values[None]:
-                    body_value.alignment = item_value.alignment
-                    results_by_item[-1].append(body_value)
-
-        alignments.update(results_by_item[-1].values.keys())
-
-    final_result = XuleValueSet()
-    if len(alignments) > 0:
-        # Combine the results into the sets or lists. Combine by alignment.
-        for alignment in alignments:
-            results_by_alignment = []
-            for results in results_by_item:
-                if alignment in results.values:
-                    results_by_alignment.append(results.values[alignment])
-
-            for product in it.product(*results_by_alignment):
-                if collection_value.type == 'set':
-                    iteration_result = XuleValue(xule_context, frozenset(product), 'set')
-                else: # it is a list
-                    iteration_result = XuleValue(xule_context, tuple(product), 'list')
-                final_result.append(iteration_result)
-    else: # Nothing is returned from processing the items. Return an empty set/list
-        if collection_value.type == 'set':
-            final_result.append(XuleValue(xule_context, frozenset(), 'set'))
-        else:
-            final_result.append(XuleValue(xule_context, tuple(), 'list'))
-
-    return final_result
-
-
-
-def evaluate_filter_body_detail_new(filter_expr, current_item, xule_context):
-    """Evalueates the filter body
-
-    This really evaluates the where and returns expressions of the filter
-
-    :param filter_expr: Rule Expression for the filter
-    :type filter_expr: dict
-    :param xule_context: Rule processing context
-    :type xule_context: XuleRuleContext
-    :rtype: XuleValueSet   
-    """
-
-    body_values = XuleValueSet()
-    aligned_result_only = False
-    save_aligned_result_only = xule_context.aligned_result_only
-    save_used_epxression = xule_context.used_expressions
-
-    table_id = filter_expr['node_id']
-    filter_body_table = xule_context.iteration_table.add_table(table_id,
-                                                               xule_context.get_processing_id(table_id))
-    filter_body_table.dependent_alignment = current_item.alignment
-
-    try:
-        while True:
-            xule_context.aligned_result_only = False
-            xule_context.used_expressions = set()
-
-            keep = True
-            if 'whereExpr' in filter_expr:
-                keep = False
-                try:
-                    filter_where_result = evaluate(filter_expr['whereExpr'], xule_context)
-                    if filter_where_result.type == 'bool':
-                        keep = filter_where_result.value
-                    elif filter_where_result.type not in ('unbound', 'none'):
-                        raise XuleProcessingError(_(
-                            "The where clause on a filter expression must evaluate to a boolean, found '{}'.".format(
-                                filter_where_result.type)), xule_context)
-                except XuleIterationStop:
-                    pass
-
-            if keep:
-                try:
-                    if 'returnsExpr' in filter_expr:
-                        keep_item = evaluate(filter_expr['returnsExpr'], xule_context)
-                    else:
-                        keep_item = current_item
-
-                    aligned_result_only = aligned_result_only or xule_context.aligned_result_only
-                    keep_item.aligned_result_only = aligned_result_only
-                    keep_item.facts = xule_context.iteration_table.facts.copy()
-                    keep_item.tags = xule_context.iteration_table.tags.copy()
-                    keep_item.used_expressions = xule_context.used_expressions
-                    body_values.append(keep_item)
-                except XuleIterationStop:
-                    pass
-                
-            xule_context.iteration_table.next(filter_body_table.table_id)
-            if filter_body_table.is_empty:
-                break
-    finally:
-        xule_context.aligned_reuslt_only = save_aligned_result_only
-        xule_context. used_expressions = save_used_epxression
-        xule_context.iteration_table.del_table(filter_body_table.table_id)
-    
-    return body_values
-
-def evaluate_filter_old(filter_expr, xule_context):
     collection_value = evaluate(filter_expr['expr'], xule_context)
 
     if collection_value.type not in ('set', 'list'):
@@ -3091,11 +2926,24 @@ def evaluate_filter_old(filter_expr, xule_context):
                              'single')
 
         try:
-            keep_item = evaluate_filter_body_detail(filter_expr,
-                                                      filter_expr['node_id'],
-                                                      item_value,
-                                                      xule_context)
-            if keep_item is not None:
+            keep = True
+            if 'whereExpr' in filter_expr:
+                keep = False
+                filter_where_result = evaluate(filter_expr['whereExpr'], xule_context)
+
+                if filter_where_result.type == 'bool':
+                    keep = filter_where_result.value
+                elif filter_where_result.type not in ('unbound', 'none'):
+                    raise XuleProcessingError(_(
+                        "The where clause on a filter expression must evaluate to a boolean, found '{}'.".format(
+                            filter_where_result.type)), xule_context)
+
+            if keep:
+                if 'returnsExpr' in filter_expr:
+                    keep_item = evaluate(filter_expr['returnsExpr'], xule_context)
+                else:
+                    keep_item = item_value
+
                 if collection_value.type == 'set':
                     if (keep_item.shadow_collection if keep_item.type in (
                     'list', 'set', 'dictionary') else keep_item.value) not in results_shadow:
@@ -3118,48 +2966,6 @@ def evaluate_filter_old(filter_expr, xule_context):
     else:  # list
         return XuleValue(xule_context, tuple(results), 'list', shadow_collection=tuple(results_shadow))
 
-def evaluate_filter_body_detail(filter_expr, table_id, item_value, xule_context):
-    
-    keep_item = None
-    # set up new table
-    aligned_result_only = False
-    save_aligned_result_only = xule_context.aligned_result_only
-    save_used_expressions = xule_context.used_expressions
-
-    filter_body_table = xule_context.iteration_table.add_table(table_id, xule_context.get_processing_id(table_id))
-    filter_body_table.dependent_alignment = item_value.alignment
-
-    try:
-        keep = True
-        if 'whereExpr' in filter_expr:
-            keep = False
-            filter_where_result = evaluate(filter_expr['whereExpr'], xule_context)
-
-            if filter_where_result.type == 'bool':
-                keep = filter_where_result.value
-            elif filter_where_result.type not in ('unbound', 'none'):
-                raise XuleProcessingError(_(
-                    "The where clause on a filter expression must evaluate to a boolean, found '{}'.".format(
-                        filter_where_result.type)), xule_context)
-
-        if keep:
-            if 'returnsExpr' in filter_expr:
-                keep_item = evaluate(filter_expr['returnsExpr'], xule_context)
-            else:
-                keep_item = item_value
-
-            aligned_result_only = aligned_result_only or xule_context.aligned_result_only
-            keep_item.aligned_result_only = aligned_result_only
-            keep_item.facts = xule_context.iteration_table.facts.copy()
-            keep_item.tags = xule_context.iteration_table.tags.copy()
-            keep_item.used_expressions = xule_context.used_expressions
-
-    finally:
-        xule_context.aligned_result_only = save_aligned_result_only
-        xule_context.used_expressions = save_used_expressions
-        xule_context.iteration_table.del_table(table_id)
-    
-    return keep_item
 
 def evaluate_navigate(nav_expr, xule_context):
     # Get the taxonomy
@@ -4212,7 +4018,7 @@ def user_defined_function(xule_context, function_ref):
                                  arg_value,
                                  'single')
 
-        # add the node_id of the function reference to the prefix used for calculating the processing node id
+            # add the node_id of the function reference to the prefix used for calculating the processing node id
         # This is done before adding the args so the id prefix is set with the function delcaration id before the args are added as varaiables.
         xule_context.id_prefix.append(function_ref['node_id'])
 
