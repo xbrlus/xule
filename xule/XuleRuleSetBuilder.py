@@ -643,23 +643,8 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
                     parse_node['var_refs'] = [x for x in parse_node['var_refs'] if x[0] != parse_node['stopExpr']['node_id']]                    
                     
             elif current_part == 'filter':
-                parse_node['number'] = 'multi'
-                parse_node['is_iterable'] = True
-
                 if 'whereExpr' in parse_node or 'returnsExpr' in parse_node:
                     parse_node['var_refs'] = [x for x in parse_node['var_refs'] if x[0] != parse_node['expr']['node_id']]
-
-                # If the filter where and returns clause use the $item variable, the var_refs for the $item should be added to the
-                # clause.
-                var_ref_ids = []
-                var_ref_ids += [var_ref[0] for var_ref in parse_node['whereExpr']['var_refs']] if 'whereExpr' in parse_node else []
-                var_ref_ids += [var_ref[0] for var_ref in parse_node['returnsExpr']['var_refs']] if 'returnsExpr' in parse_node else []
-                if parse_node['expr']['node_id'] in var_ref_ids:
-                    if 'whereExpr' in parse_node:
-                        parse_node['whereExpr']['var_refs'] += parse_node['expr']['var_refs']
-                    if 'returnsExpr' in parse_node:
-                        parse_node['returnsExpr']['var_refs'] += parse_node['expr']['var_refs']
-            
                 self.assign_table_id(parse_node, var_defs, skip=parse_node['expr'])
         
             elif current_part == 'forExpr':
