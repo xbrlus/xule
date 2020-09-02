@@ -361,7 +361,8 @@ function importXuleFile(path: string, cu: CompilationUnit) {
 			let input = CharStreams.fromString(data.toString());
 			let lexer = new EnhancedXULELexer(input);
 			let parser = new XULEParser(new CommonTokenStream(lexer));
-			cu.add(parser.xuleFile(), "file://" + path.replace(pathFunctions.sep, "/"));
+			const encoded = path.replace(new RegExp(pathFunctions.sep.replace("\\", "\\\\"), "g"), "/").split("/").map(encodeURIComponent).join("/");
+			cu.add(parser.xuleFile(), "file:///" + encoded);
 		} else {
 			connection.window.showErrorMessage("AutoImport file not found: " + path);
 		}
