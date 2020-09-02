@@ -4,7 +4,7 @@
     "description": "XULE Language Pack",
     "author": "Strumenta s.r.l.",
     "publisher": "XBRL",
-    "version": "1.4.6",
+    "version": "1.4.7",
     "license": "UNLICENSED",
     "engines": {
         "vscode": "^1.43.0"

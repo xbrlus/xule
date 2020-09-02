@@ -26,7 +26,7 @@ import {
     VariableReadContext,
     XuleFileContext
 } from "./parser/XULEParser";
-import {Range, TextDocument} from "vscode-languageserver-textdocument";
+import {TextDocument} from "vscode-languageserver-textdocument";
 import {ParserRuleContext} from "antlr4ts";
 import {getRange} from "./utils";
 
