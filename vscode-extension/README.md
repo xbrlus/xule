@@ -23,10 +23,11 @@ None so far.
 
 See the [Changelog](CHANGELOG.md).
 
-## Building
+## Building and Testing
 
-To compile the extension use: `npm run compile`.
+To compile the extension use: `npm run compile`. This will also rebuild the lexer and the parser from the grammar.
 To package it: `vsce package`.
+To run the tests: `npm run test`.
 
 ## Development and Debugging
 
