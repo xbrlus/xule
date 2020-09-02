@@ -7,6 +7,7 @@ import {
 	DidChangeConfigurationNotification,
 	InitializeParams,
 	InitializeResult,
+	Location,
 	ProposedFeatures,
 	TextDocumentPositionParams,
 	TextDocuments,
@@ -205,7 +206,7 @@ function definitionLocation(info: any, cu: CompilationUnit) {
 	if(xuleFile) {
 		let uri = cu.childUris[cu.children.indexOf(xuleFile)];
 		let range = getRange(info.definedAt);
-		return { uri: uri, range: range	}
+		return Location.create(uri, range);
 	}
 }
 
@@ -237,16 +238,18 @@ documents.onDidChangeContent(change => {
 
 function ensurePath(path: string) {
 	if (path.startsWith("file:")) {
-		return fileUriToPath(path);
+		//Decode for Windows paths like /C%3A/...
+		let decoded = decodeURIComponent(fileUriToPath(path));
+		if(!decoded.startsWith("\\\\") && decoded.startsWith("\\")) {
+			//Windows doesn't seem to like paths like \C:\...
+			decoded = decoded.substring(1);
+		}
+		return decoded;
 	} else if(!pathFunctions.isAbsolute(path)) {
 		return pathFunctions.resolve(path);
 	} else {
 		return path;
 	}
-}
-
-function canonicalizedPathToURI(path: string) {
-	return "file://" + path;
 }
 
 //This could be cached if loading them every time is too slow
@@ -331,7 +334,7 @@ function workspacePathToURI(f: WorkspaceFolder, path: string) {
 	if (!uri.endsWith("/")) {
 		uri += "/";
 	}
-	return uri + path.replace(pathFunctions.delimiter, "/");
+	return uri + path.replace(pathFunctions.sep, "/");
 }
 
 async function loadAdditionalNamespaces(textDocument: TextDocument, settings: XULELanguageSettings) {
@@ -358,7 +361,8 @@ function importXuleFile(path: string, cu: CompilationUnit) {
 			let input = CharStreams.fromString(data.toString());
 			let lexer = new EnhancedXULELexer(input);
 			let parser = new XULEParser(new CommonTokenStream(lexer));
-			cu.add(parser.xuleFile(), canonicalizedPathToURI(path));
+			const encoded = path.replace(new RegExp(pathFunctions.sep.replace("\\", "\\\\"), "g"), "/").split("/").map(encodeURIComponent).join("/");
+			cu.add(parser.xuleFile(), "file:///" + encoded);
 		} else {
 			connection.window.showErrorMessage("AutoImport file not found: " + path);
 		}

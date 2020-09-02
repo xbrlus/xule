@@ -2,12 +2,12 @@
 	"name": "xule-lsp-client",
 	"description": "VSCode part of the XULE language server",
 	"author": "Strumenta s.r.l.",
-	"license": "UNLICENSED",
-	"version": "1.4.6",
-	"publisher": "XBRL",
+	"publisher": "xbrlus",
+	"version": "1.4.7",
+	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/Strumenta/xule-editor"
+		"url": "https://github.com/xbrlus/xule-editor"
 	},
 	"engines": {
 		"vscode": "^1.43.0"

@@ -1,11 +1,13 @@
 {
 	"name": "xule-language-server",
 	"description": "Language Server component for the XULE language.",
-	"version": "1.4.6",
-	"author": "Alessio Stalla (Strumenta)",
-	"license": "UNLICENSED",
+	"author": "Strumenta s.r.l.",
+	"publisher": "xbrlus",
+	"version": "1.4.7",
+	"license": "MIT",
 	"repository": {
-		"url": "https://github.com/Strumenta/xule-editor"
+		"type": "git",
+		"url": "https://github.com/xbrlus/xule-editor"
 	},
 	"engines": {
 		"node": "*"
