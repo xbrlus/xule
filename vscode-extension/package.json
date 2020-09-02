@@ -3,19 +3,19 @@
     "displayName": "XULE",
     "description": "XULE Language Pack",
     "author": "Strumenta s.r.l.",
-    "publisher": "XBRL",
+    "publisher": "xbrlus",
     "version": "1.4.7",
-    "license": "UNLICENSED",
-    "engines": {
-        "vscode": "^1.43.0"
-    },
+    "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/Strumenta/xule-editor"
+        "url": "https://github.com/xbrlus/xule-editor"
     },
     "categories": [
         "Programming Languages"
     ],
+    "engines": {
+        "vscode": "^1.43.0"
+    },
     "activationEvents": [
         "onLanguage:xule"
     ],
