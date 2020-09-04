@@ -529,8 +529,8 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
             for arg in parse_node['functionArgs']:
                 var_names[arg['argName']].pop()
 
-        if parse_node.get('location') == 'filter':
-            var_names['item'].pop()
+        #if parse_node.get('location') == 'filter':
+        #    var_names['item'].pop()
             
         if parse_node.get('location') == 'navigation':
             var_names['relationship'].pop()
@@ -606,7 +606,7 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
                 else:
                     parse_node['has_alignment'] = True
                 
-                remove_refs = set()
+                #remove_refs = set()
                 
                 factset_var_def_ids = [parse_node['whereExpr']['node_id']] if 'whereExpr' in parse_node else []
                 if 'aspectFilters' in parse_node:
@@ -645,36 +645,35 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
             elif current_part == 'filter':
                 if 'whereExpr' in parse_node or 'returnsExpr' in parse_node:
                     parse_node['var_refs'] = [x for x in parse_node['var_refs'] if x[0] != parse_node['expr']['node_id']]
-                self.assign_table_id(parse_node, var_defs, skip=parse_node['expr'])
+                #self.assign_table_id(parse_node, var_defs, skip=parse_node['expr'])
+
+                # colleciton_dependent_vars = self.get_dependent_vars(parse_node['expr'], var_defs)
+                # collection_iterables = parse_node['expr']['downstream_iterables'] + self.get_dependent_var_iterables(parse_node['expr'], colleciton_dependent_vars, var_defs)
         
+                # collection_iterables = parse_node['expr']['dependent_iterables']
+
+                # if 'whereExpr' in parse_node:
+                #     for iterable_expr in parse_node['whereExpr']['downstream_iterables']:
+                #         iterable_expr['dependent_iterables'].extend(collection_iterables)
+                #     #parse_node['whereExpr']['dependent_iterables'].extend(collection_iterables)
+                # if 'returnsExpr' in parse_node:
+                #     for iterable_expr in parse_node['returnsExpr']['downstream_iterables']:
+                #         iterable_expr['dependent_iterables'].extend(collection_iterables)
+                #     #parse_node['returnsExpr']['dependent_iterables'].extend(collection_iterables)
+
             elif current_part == 'forExpr':
                 parse_node['number'] = 'multi'
                 parse_node['is_iterable'] = True
                 
                 parse_node['var_refs'] = [var_ref for var_ref in parse_node['var_refs'] if var_ref[0] != parse_node['forLoopExpr']['node_id']]
                 # If the for body uses the loop variable (which it normally would), the var_refs from the loop control should be 
-                # aded to the for body expression.
+                # added to the for body expression.
                 var_ref_ids = [var_ref[0] for var_ref in parse_node['forBodyExpr']['var_refs']]
                 if parse_node['forLoopExpr']['node_id'] in var_ref_ids:
                     parse_node['forBodyExpr']['var_refs'] += parse_node['forLoopExpr']['var_refs']
 
                 #set table ids
                 self.assign_table_id(parse_node, var_defs, skip=parse_node['forLoopExpr'])
-
-#                 # Make the for expression dependent if the for loop expression is iterable
-#                 if parse_node['forLoopExpr']['is_iterable']:
-#                     parse_node['downstream_iterables'].append(parse_node['forLoopExpr'])
-
-#             elif current_part == 'forBodyExpr':
-#                 parse_node['number'] = 'multi'
-#                 parse_node['is_iterable'] = True
-#                 
-#                 var_ref_ids = [var_ref[0] for var_ref in parse_node['var_refs']]
-#                 if parse_node['forControl']['node_id'] in var_ref_ids:
-#                     parse_node['var_refs'].update(parse_node['forControl']['var_refs'])
-#                 
-#                 #set table ids
-#                 self.assign_table_id(parse_node, var_defs)
 
             elif current_part == "ifExpr":
                 condition_dependent_vars = self.get_dependent_vars(parse_node['condition'], var_defs)
@@ -827,7 +826,7 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
                 additional_dependent_iterables = self.get_dependent_var_iterables(parse_node, dependent_vars, var_defs)
                 parse_node['dependent_iterables'] += additional_dependent_iterables
                 
-                #add downstream iterables for fucntion references. This makes the function reference dependent on the iterables in the arguments.
+                #add downstream iterables for function references. This makes the function reference dependent on the iterables in the arguments.
                 #This is needed when passing iterables (i.e. factset) in the argument.
                 if current_part == 'functionReference' and parse_node['function_type'] == 'xule_defined':
                     for dependent_node in parse_node['functionArgs']:
