@@ -561,7 +561,8 @@ def evaluate(rule_part, xule_context, trace_dependent=False, override_table_id=N
                 xule_context.expression_trace[rule_part['node_id']]['iterations'] += 1
             expression_trace_start = datetime.datetime.today()
 
-        processing_id = xule_context.get_processing_id(rule_part['node_id'])
+        #processing_id = xule_context.get_processing_id(rule_part['node_id'])
+        processing_id = xule_context.get_column_id(rule_part['node_id'])
         rule_part_name = rule_part['exprName']
         # trace
         if getattr(xule_context.global_context.options, "xule_trace", False):
@@ -572,7 +573,7 @@ def evaluate(rule_part, xule_context, trace_dependent=False, override_table_id=N
             print(">", trace_is_dependent, " ", processing_id, trace.replace("\n", " "))
 
         if ('is_iterable' in rule_part):
-            # is_iterable is always true if it is present, so done't need to check the actual value
+            # is_iterable is always true if it is present, so don't need to check the actual value
             xule_context.used_expressions.add(processing_id)
 
             if 'is_dependent' in rule_part:
@@ -2918,48 +2919,51 @@ def evaluate_filter(filter_expr, xule_context):
         results = list()
         results_shadow = list()
 
-    for item_value in collection_value.value:
+    for item_number, item_value in enumerate(collection_value.value):
         xule_context.add_arg('item',
                              filter_expr['expr']['node_id'],
                              None,
                              item_value,
                              'single')
-
         try:
-            keep = True
-            if 'whereExpr' in filter_expr:
-                keep = False
-                filter_where_result = evaluate(filter_expr['whereExpr'], xule_context)
+            xule_context.column_prefix.append("{}-{}".format(filter_expr['node_id'], item_number))
+            try:
+                keep = True
+                if 'whereExpr' in filter_expr:
+                    keep = False
+                    filter_where_result = evaluate(filter_expr['whereExpr'], xule_context)
 
-                if filter_where_result.type == 'bool':
-                    keep = filter_where_result.value
-                elif filter_where_result.type not in ('unbound', 'none'):
-                    raise XuleProcessingError(_(
-                        "The where clause on a filter expression must evaluate to a boolean, found '{}'.".format(
-                            filter_where_result.type)), xule_context)
+                    if filter_where_result.type == 'bool':
+                        keep = filter_where_result.value
+                    elif filter_where_result.type not in ('unbound', 'none'):
+                        raise XuleProcessingError(_(
+                            "The where clause on a filter expression must evaluate to a boolean, found '{}'.".format(
+                                filter_where_result.type)), xule_context)
 
-            if keep:
-                if 'returnsExpr' in filter_expr:
-                    keep_item = evaluate(filter_expr['returnsExpr'], xule_context)
-                else:
-                    keep_item = item_value
+                if keep:
+                    if 'returnsExpr' in filter_expr:
+                        keep_item = evaluate(filter_expr['returnsExpr'], xule_context)
+                    else:
+                        keep_item = item_value
 
-                if collection_value.type == 'set':
-                    if (keep_item.shadow_collection if keep_item.type in (
-                    'list', 'set', 'dictionary') else keep_item.value) not in results_shadow:
-                        results.add(keep_item)
-                        results_shadow.add(keep_item.shadow_collection if keep_item.type in (
+                    if collection_value.type == 'set':
+                        if (keep_item.shadow_collection if keep_item.type in (
+                        'list', 'set', 'dictionary') else keep_item.value) not in results_shadow:
+                            results.add(keep_item)
+                            results_shadow.add(keep_item.shadow_collection if keep_item.type in (
+                            'list', 'set', 'dictionary') else keep_item.value)
+                        # otherwise, this a duplicate
+                    else:  # list
+                        results.append(keep_item)
+                        results_shadow.append(keep_item.shadow_collection if keep_item.type in (
                         'list', 'set', 'dictionary') else keep_item.value)
-                    # otherwise, this a duplicate
-                else:  # list
-                    results.append(keep_item)
-                    results_shadow.append(keep_item.shadow_collection if keep_item.type in (
-                    'list', 'set', 'dictionary') else keep_item.value)
 
+            finally:
+                # remove the args
+                xule_context.del_arg('item',
+                                    filter_expr['expr']['node_id'])
         finally:
-            # remove the args
-            xule_context.del_arg('item',
-                                 filter_expr['expr']['node_id'])
+            xule_context.column_prefix.pop()
 
     if collection_value.type == 'set':
         return XuleValue(xule_context, frozenset(results), 'set', shadow_collection=frozenset(results_shadow))

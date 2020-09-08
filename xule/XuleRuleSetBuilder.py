@@ -323,12 +323,24 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
         
     def dependencies_detail(self, parse_node, var_names=None, var_exclusions=None):
         
+        current_part = parse_node['exprName']
         #initialize the varNames list - this is used to determine if a variable reference is a variable or constant
         if var_names is None:
             var_names = collections.defaultdict(list)
         if var_exclusions is None:
             var_exclusions = []
-        
+
+        if current_part == 'filter':                         
+            if 'whereExpr' in parse_node:
+                parse_node['whereExpr']['location'] = 'filter'
+            if 'returnsExpr' in parse_node:
+                parse_node['returnsExpr']['location'] = 'filter'
+        if current_part == 'navigation':
+            if 'whereExpr' in parse_node:
+                parse_node['whereExpr']['location'] = 'navigation'
+            if 'stopExpr' in parse_node:
+                parse_node['stopExpr']['location'] = 'navigation'
+
         dependencies = {'constants': set(),
                         'functions': set(),
                         'instance': False,
@@ -339,8 +351,6 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
                 'instance': False,
                 'rules-taxonomy': False,
                 }      
-        
-        current_part = parse_node['exprName']
 
         #add variable names
         if current_part == 'blockExpr':
@@ -380,19 +390,19 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
                 #identify that this whereExpr is from a factset. This is needed to identify that this whereExpr is dependant on an instance
                 parse_node['whereExpr']['location'] = 'factset'
                 
-        if current_part == 'navigation':
-            if 'whereExpr' in parse_node:
-                #var_names['relationship'].append(parse_node['whereExpr'])
-                parse_node['whereExpr']['location'] = 'navigation'
-            if 'stopExpr' in parse_node:
-                parse_node['stopExpr']['location'] = 'navigation'
-        if current_part == 'filter':                         
-            if 'whereExpr' in parse_node:
-                #var_names['item'].append(parse_node['whereExpr'])
-                parse_node['whereExpr']['location'] = 'filter'
-            if 'returnsExpr' in parse_node:
-                #var_names['item'].append(parse_node['returnsExpr'])
-                parse_node['returnsExpr']['location'] = 'filter'
+        # if current_part == 'navigation':
+        #     if 'whereExpr' in parse_node:
+        #         #var_names['relationship'].append(parse_node['whereExpr'])
+        #         parse_node['whereExpr']['location'] = 'navigation'
+        #     if 'stopExpr' in parse_node:
+        #         parse_node['stopExpr']['location'] = 'navigation'
+        # if current_part == 'filter':                         
+        #     if 'whereExpr' in parse_node:
+        #         #var_names['item'].append(parse_node['whereExpr'])
+        #         parse_node['whereExpr']['location'] = 'filter'
+        #     if 'returnsExpr' in parse_node:
+        #         #var_names['item'].append(parse_node['returnsExpr'])
+        #         parse_node['returnsExpr']['location'] = 'filter'
         if current_part == 'functionDeclaration':
             for arg in parse_node['functionArgs']:
                 var_names[arg['argName']].append(arg)
@@ -534,6 +544,8 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
             
         if parse_node.get('location') == 'navigation':
             var_names['relationship'].pop()
+        if parse_node.get('location') == 'filter':
+            var_names['item'].pop()
 
         return dependencies, immediate_dependencies
     

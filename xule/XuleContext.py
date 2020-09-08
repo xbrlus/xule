@@ -354,7 +354,8 @@ class XuleRuleContext(object):
         
         self.iteration_table = XuleIterationTable(self)
         self.vars = collections.defaultdict(list)
-        self.id_prefix = []     
+        self.id_prefix = []  
+        self.column_prefix = []   
         self.no_alignment = False
         self.ignore_vars = []
         self.nested_factset_filters = []
@@ -454,6 +455,7 @@ class XuleRuleContext(object):
         """Reset the rule context for the next iteration of a rule"""
         self.vars = collections.defaultdict(list)
         self.id_prefix = []
+        self.column_prefix = []
         self.aligned_result_only = False
         self.ignore_vars = []
 
@@ -475,7 +477,22 @@ class XuleRuleContext(object):
 
     def get_processing_id(self, node_id):
         return tuple(self.id_prefix) + (node_id,)   
-         
+
+    def get_column_id(self, node_id):
+        if len(self.column_prefix) == 0:
+            return node_id
+        else:
+            return tuple(self.column_prefix) + (node_id,)
+
+    def potential_column_ids(self, node_id):
+        for i in range(len(self.column_prefix), -1, -1):
+            if i == 0:
+                column_id = node_id
+            else:
+                column_id = tuple(self.column_prefix[:i]) + (node_id,)
+
+            yield column_id
+
     def add_var(self, name, node_id, tag, expr):
         """Add a variable to the rule context
         
@@ -1332,10 +1349,15 @@ class XuleIterationSubTable:
                 is_dependent = True
                 #The only time the master column will not be in the table is if the dependent column is in an isolated table and the master is not. In this case,
                 #the dependency does not matter. This may also happen if the master column is in a conditional (if statement) that is not executed.
-                master_processing_id = xule_context.get_processing_id(dep['node_id'])
-                if master_processing_id in self._columns:
-                    #dep_processing_id = xule_context.get_processing_id(dep.node_id)
-                    self._column_dependencies[master_processing_id].add(processing_id)
+
+                # The node id of the master needs to be checked agains a list of potential processing ids based on the column_prefix. This happens becasue
+                # the master node may or may not be prefixed (which is used for the filter expressions).
+                for master_processing_id in self._iteration_table.xule_context.potential_column_ids():
+                    #master_processing_id = xule_context.get_processing_id(dep['node_id'])
+                    if master_processing_id in self._columns:
+                        #dep_processing_id = xule_context.get_processing_id(dep.node_id)
+                        self._column_dependencies[master_processing_id].add(processing_id)
+                        break
 
         if is_dependent:
             self.dependent_alignment = self.current_alignment
