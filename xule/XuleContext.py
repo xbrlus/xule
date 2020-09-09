@@ -1352,7 +1352,8 @@ class XuleIterationSubTable:
 
                 # The node id of the master needs to be checked agains a list of potential processing ids based on the column_prefix. This happens becasue
                 # the master node may or may not be prefixed (which is used for the filter expressions).
-                for master_processing_id in self._iteration_table.xule_context.potential_column_ids():
+                print("start testing")
+                for master_processing_id in self._iteration_table.xule_context.potential_column_ids(dep['node_id']):
                     #master_processing_id = xule_context.get_processing_id(dep['node_id'])
                     if master_processing_id in self._columns:
                         #dep_processing_id = xule_context.get_processing_id(dep.node_id)
