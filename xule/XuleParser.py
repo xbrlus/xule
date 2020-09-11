@@ -30,6 +30,7 @@ import os
 import datetime
 import sys
 import hashlib
+import threading
 
 def printRes(pr, level=0):
     level = level + 1
@@ -67,7 +68,18 @@ def parseFile(dir, fileName, xuleGrammar, ruleSet):
         else:
             start_time = datetime.datetime.today()
             print("%s: parse start" % datetime.datetime.isoformat(start_time))
-            parseRes = xuleGrammar.parseFile(full_file_name).asDict()
+
+            returns = []
+            def threaded_parse():
+                returns.append(xuleGrammar.parseFile(full_file_name).asDict())
+
+            threading.stack_size(0x2000000)
+            t = threading.Thread(target=threaded_parse)
+            t.start()
+            t.join()
+            parseRes = returns[0]
+
+            #parseRes = xuleGrammar.parseFile(full_file_name).asDict()
             end_time = datetime.datetime.today()
             print("%s: parse end. Took %s" % (datetime.datetime.isoformat(end_time), end_time - start_time))
             ast_start = datetime.datetime.today()
