@@ -32,6 +32,12 @@ import sys
 import hashlib
 import threading
 
+_options = None
+
+def setOptions(options):
+    global _options
+    _options = options
+
 def printRes(pr, level=0):
     level = level + 1
     print("level: " + str(level))
@@ -73,7 +79,6 @@ def parseFile(dir, fileName, xuleGrammar, ruleSet):
             def threaded_parse():
                 returns.append(xuleGrammar.parseFile(full_file_name).asDict())
 
-            threading.stack_size(0x2000000)
             t = threading.Thread(target=threaded_parse)
             t.start()
             t.join()
@@ -103,6 +108,16 @@ def parseRules(files, dest, compile_type, max_recurse_depth=None):
 
     parse_start = datetime.datetime.today()
     parse_errors = []
+
+    # Set the stack size
+    global _options
+    if _options is None or getattr(_options, 'xule_stack_size', None) is None:
+        #threading.stack_size(0x2000000)
+        threading.stack_size(8 * 1048576)
+    else:
+        threading.stack_size(getattr(_options, 'xule_stack_size') * 1048576)
+    
+    #threading.stack_size(0x2000000)
     
     #Need to check the recursion limit. 1000 is too small for some rules.
     new_depth = max_recurse_depth or 5500

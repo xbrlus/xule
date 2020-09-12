@@ -533,10 +533,17 @@ def xuleCmdOptions(parser):
     parserGroup.add_option("--xule-max-recurse-depth",
                             action="store",
                             type="int",
-                            dest="xule_max_resurse_depth",
+                            dest="xule_max_recurse_depth",
                             help=_("The recurse depth for python. The default is 2500. If there is a 'RecursionError: maximum recursion depth exceeded' "
                                    "error this argument can be used to increase the max recursion depth."))
-    
+    parserGroup.add_option("--xule-stack-size",
+                          type="int",
+                          action="store",
+                          dest="xule_stack_size",
+                          default="2",
+                          help=_("Stack size to use when parsing rules. The default stack size is 8Mb. Use 0 to indicate that the operating "
+                                 "system default stack size should be used. Otherwise indicate the stack size in megabytes (i.e. 10 for 10 Mb)."))
+
     if xm is not None:
         parserGroup.add_option("--xule-server",
                          action="store",
@@ -626,6 +633,8 @@ def xuleCmdOptions(parser):
 
 def saveOptions(cntlr, options, **kwargs):
     XuleVars.set(cntlr, 'options', options)
+    # Save the options in the xuleparser
+    xp.setOptions(options)
 
 def xuleCmdUtilityRun(cntlr, options, **kwargs): 
     # Save the controller and options in the module global variable
@@ -675,7 +684,7 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
     # compile rules
     if getattr(options, "xule_compile", None):
         compile_destination = getattr(options, "xule_rule_set", "xuleRules") 
-        xuleCompile(options.xule_compile, compile_destination, getattr(options, "xule_compile_type"), getattr(options, "xule_max_resurse_depth"))
+        xuleCompile(options.xule_compile, compile_destination, getattr(options, "xule_compile_type"), getattr(options, "xule_max_recurse_depth"))
         #xp.parseRules(options.xule_compile.split("|"), compile_destination, getattr(options, "xule_compile_type"))
     
     # add packages
