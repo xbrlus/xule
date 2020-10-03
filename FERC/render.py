@@ -378,7 +378,7 @@ def build_named_rule_info(named_rule, part_list, next_rule_number, template_tree
                                 'template-line-number': expression.sourceline,
                                 'extras': extra_attributes,
                                 'node-pos': node_pos[replacement_node]}
-                if expression.get('html', 'false').lower == 'true':
+                if expression.get('html', 'false').lower() == 'true':
                     sub_content['html'] = True                                   
                 substitutions.append(sub_content)
 
@@ -575,7 +575,7 @@ def format_extra_expressions(replacement_node):
     extra_expressions = dict()
     for extra_node in replacement_node.findall('{{{}}}*'.format(etree.QName(replacement_node).namespace)):
         extra_name = etree.QName(extra_node.tag).localname
-        if extra_name in _EXTRA_ATTRIBUTES + ('class', 'colspan', 'attribute', 'fact'):
+        if extra_name in _EXTRA_ATTRIBUTES + ('class', 'colspan', 'attribute', 'fact', 'html'):
             if extra_node.text is not None:
                 exists_extra_expression = '$test-expr = {expr}; if exists($test-expr) $test-expr else none'.format(expr=extra_node.text.strip())
                 if extra_name == 'class':
@@ -583,7 +583,7 @@ def format_extra_expressions(replacement_node):
                         extra_expressions['class'] = list()
                     location = extra_node.attrib.get('location', 'self')
                     extra_expressions[extra_name].append('list("{}",{})'.format(location, exists_extra_expression)) 
-                elif extra_name in _EXTRA_ATTRIBUTES + ('colspan', 'fact'): # these are inline attributes
+                elif extra_name in _EXTRA_ATTRIBUTES + ('colspan', 'fact', 'html'): # these are inline attributes
                     extra_expressions[extra_name] = exists_extra_expression
                 elif extra_name == 'attribute':
                     att_name = extra_node.get('name')
@@ -859,7 +859,16 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                             model_fact = modelXbrl.modelObject(fact_object_index)
                             processed_facts.add(model_fact)
                             expression_node = get_node_by_pos(template, sub['expression-node'])
-                            content, new_fact_id = format_fact(expression_node, model_fact, main_html, sub.get('html', False), json_result, template_nsmap, fact_number)
+                            content, new_fact_id = format_fact(expression_node, 
+                                                               model_fact, 
+                                                               main_html, 
+                                                               # This will check if the html flag is in meta data (sub) or calculated in the result
+                                                               sub.get('html', json_result.get('html', False)), 
+                                                               json_result, 
+                                                               template_nsmap, 
+                                                               fact_number)
+
+                                            
                             # Save the context and unit ids
                             context_ids.add(model_fact.contextID)
                             if model_fact.unitID is not None:
@@ -872,7 +881,9 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                             current_footnote_ids = get_footnotes(footnotes, model_fact, sub, new_fact_id, is_confidential, is_redacted)
 
                     else: # json_result['type'] == 's': # result is a string
-                        if sub.get('html', False):
+                        # This will check if the html flag is in meta data (sub) or calculated in the result
+                        if sub.get('html', json_result.get('html', False)):
+                        #if sub.get('html', False):
                             content = etree.fromstring('<div class="sub-html">{}</div>'.format(clean_entities(json_result['value'])))
                         elif json_result['value'] is not None:
                             content = json_result['value']
@@ -1550,12 +1561,12 @@ def add_footnote_relationships(main_html, processed_footnotes):
 def cmdLineOptionExtender(parser, *args, **kwargs):
     
     # extend command line options to compile rules
-    if isinstance(parser, Options):
-        parserGroup = parser
-    else:
+    if isinstance(parser, optparse.OptionParser):
         parserGroup = optparse.OptionGroup(parser,
                                            "FERC Renderer")
         parser.add_option_group(parserGroup)
+    else:
+        parserGroup = parser
     
     parserGroup.add_option("--ferc-render-compile", 
                       action="store_true", 
@@ -1784,7 +1795,7 @@ def process_single_template(cntlr, options, template_catalog, template_set_file,
         # xule rule set name
         xule_rule_set_name = os.path.join(temp_dir, 'temp-ruleset.zip')
         compile_method = getXuleMethod(cntlr, 'Xule.compile')
-        compile_method(xule_rule_file_name, xule_rule_set_name, 'pickle', getattr(options, "xule_max_resurse_depth"))
+        compile_method(xule_rule_file_name, xule_rule_set_name, 'pickle', getattr(options, "xule_max_recurse_depth"))
 
         template_catalog.append({'name': template_name,
                             'template': template_file_name,
@@ -2095,15 +2106,39 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
         # This causes issues with browsers that will interpret <br></br> as 2 <br> tags.
         output_string = output_string.decode().replace('<br></br>', '<br/>')
 
-        # Write the file
-        with open(inline_name, 'w') as output_file:
-            output_file.write(output_string)
+        # Write the file or output to zip
+        
+        # Code snippet to unescape the "greater than" signs in the .css that the lxml is escaping.
+        output_string = re.sub('<style>(.*?)</style>',fix_style, output_string, 1, re.DOTALL)
+
+        responseZipStream = kwargs.get("responseZipStream")
+        if responseZipStream is not None:
+            _zip = zipfile.ZipFile(responseZipStream, "a", zipfile.ZIP_DEFLATED, True)
+            if responseZipStream is not None:
+                _zip.writestr(inline_name, output_string)
+                _zip.writestr("log.txt", cntlr.logHandler.getJson())
+                _zip.close()
+                responseZipStream.seek(0)
+        else:
+            with open(inline_name, 'w') as output_file:
+                output_file.write(output_string)
 
         cntlr.addToLog(_("Rendered template as '{}'".format(inline_name)), 'info')
 
         if options.ferc_render_debug:
             end_time = datetime.datetime.now()
             cntlr.addToLog(_("Processing time: {}".format(str(end_time - start_time))), "info")
+
+def fix_style(style_match):
+    if len(style_match.groups()) > 0:
+        style_text = style_match.group(1)
+        return '<style>\n{}{}{}\n</style>'.format(
+            '/*<![CDATA[*/',
+            style_text.replace("&gt;",">"),
+            '/*]]>*/')
+    else:
+        return '<style></style>'
+
 
 def add_css(main_html, template_catalog, options):
     """This will add the css style info to the html file.
