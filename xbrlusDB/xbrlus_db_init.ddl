@@ -3138,9 +3138,6 @@ SELECT CASE WHEN c.fiscal_period like '%-%' THEN NULL
     GROUP BY c.fiscal_period, c.fiscal_year, f.fact_id , n.is_base, n.prefix, q.local_name, en.authority_scheme, en.entity_code, c.period_start, c.period_end, c.period_instant, f.uom
 $BODY$
   LANGUAGE sql;
-ALTER FUNCTION hash_fact_fiscal_string(integer)
-  OWNER TO postgres;
-
 
 --
 -- Name: hmac(bytea, bytea, text); Type: FUNCTION; Schema: public; Owner: -
