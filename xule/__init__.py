@@ -42,7 +42,6 @@ try:
     from . import XuleParser as xp
 except ImportError:
     xp = None
-    raise
     
 try:
     from . import XuleMultiProcessing as xm
@@ -570,60 +569,60 @@ def xuleCmdOptions(parser):
                          dest="xule_numthreads",
                          help=_("Indicates number of concurrents threads will run while the Xule Server is active"))
         
-        parserGroup.add_option("--xule-skip",
-                          action="store",
-                          dest="xule_skip",
-                          help=_("List of rules to skip"))
-        
-        parserGroup.add_option("--xule-run-only",
-                          action="store",
-                          dest="xule_run_only",
-                          help=_("List of rules to run"))    
-        
-        parserGroup.add_option("--xule-no-cache",
-                          action="store_true",
-                          dest="xule_no_cache",
-                          help=_("Turns off local caching for a rule."))
-        
-        parserGroup.add_option("--xule-precalc-constants",
-                          action="store_true",
-                          dest="xule_precalc_constants",
-                          help=_("Pre-calculate constants that do not depend on the instance."))
+    parserGroup.add_option("--xule-skip",
+                        action="store",
+                        dest="xule_skip",
+                        help=_("List of rules to skip"))
     
-        parserGroup.add_option("--xule-exclude-nils",
-                          action="store_true",
-                          dest="xule_exclude_nils",
-                          help=_("Indicates that the processor should exclude nil facts. By default, nils are included."))
-        
-        parserGroup.add_option("--xule-include-dups",
-                          action="store_true",
-                          dest="xule_include_dups",
-                          help=_("Indicates that the processor should include duplicate facts. By default, duplicate facts are ignored."))    
-        
-        parserGroup.add_option("--xule-version",
-                          action="store_true",
-                          dest="xule_version",
-                          help=_("Display version number of the xule module."))
-        
-        parserGroup.add_option("--xule-display-rule-set-map",
-                               action="store_true",
-                               dest="xule_display_rule_set_map",
-                               help=_("Display the rule set map currently used."))
+    parserGroup.add_option("--xule-run-only",
+                        action="store",
+                        dest="xule_run_only",
+                        help=_("List of rules to run"))    
+    
+    parserGroup.add_option("--xule-no-cache",
+                        action="store_true",
+                        dest="xule_no_cache",
+                        help=_("Turns off local caching for a rule."))
+    
+    parserGroup.add_option("--xule-precalc-constants",
+                        action="store_true",
+                        dest="xule_precalc_constants",
+                        help=_("Pre-calculate constants that do not depend on the instance."))
 
-        parserGroup.add_option("--xule-update-rule-set-map",
-                               action="store",
-                               dest="xule_update_rule_set_map",
-                               help=_("Update the rule set map currently used. The supplied file will be merged with the current rule set map."))
+    parserGroup.add_option("--xule-exclude-nils",
+                        action="store_true",
+                        dest="xule_exclude_nils",
+                        help=_("Indicates that the processor should exclude nil facts. By default, nils are included."))
     
-        parserGroup.add_option("--xule-replace-rule-set-map",
-                               action="store",
-                               dest="xule_replace_rule_set_map",
-                               help=_("Replace the rule set map currently used."))
-        
-        parserGroup.add_option("--xule-reset-rule-set-map",
-                               action="store_true",
-                               dest=("xule_reset_rule_set_map"),
-                               help=_("Reset the rule set map to the default."))
+    parserGroup.add_option("--xule-include-dups",
+                        action="store_true",
+                        dest="xule_include_dups",
+                        help=_("Indicates that the processor should include duplicate facts. By default, duplicate facts are ignored."))    
+    
+    parserGroup.add_option("--xule-version",
+                        action="store_true",
+                        dest="xule_version",
+                        help=_("Display version number of the xule module."))
+    
+    parserGroup.add_option("--xule-display-rule-set-map",
+                            action="store_true",
+                            dest="xule_display_rule_set_map",
+                            help=_("Display the rule set map currently used."))
+
+    parserGroup.add_option("--xule-update-rule-set-map",
+                            action="store",
+                            dest="xule_update_rule_set_map",
+                            help=_("Update the rule set map currently used. The supplied file will be merged with the current rule set map."))
+
+    parserGroup.add_option("--xule-replace-rule-set-map",
+                            action="store",
+                            dest="xule_replace_rule_set_map",
+                            help=_("Replace the rule set map currently used."))
+    
+    parserGroup.add_option("--xule-reset-rule-set-map",
+                            action="store_true",
+                            dest=("xule_reset_rule_set_map"),
+                            help=_("Reset the rule set map to the default."))
     
     if xv is not None: # The XuleValidate module is imported
         parserGroup.add_option("--xule-validate",
@@ -634,7 +633,8 @@ def xuleCmdOptions(parser):
 def saveOptions(cntlr, options, **kwargs):
     XuleVars.set(cntlr, 'options', options)
     # Save the options in the xuleparser
-    xp.setOptions(options)
+    if xp is not None:
+        xp.setOptions(options)
 
 def xuleCmdUtilityRun(cntlr, options, **kwargs): 
     # Save the controller and options in the module global variable
