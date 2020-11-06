@@ -1,7 +1,7 @@
 '''
 Reivision number: $Change$
 '''
-
+from arelle import FileSource
 from arelle import PluginManager
 from arelle.CntlrWebMain import Options
 from arelle.ModelRelationshipSet import ModelRelationshipSet
@@ -1810,8 +1810,17 @@ def process_single_template(cntlr, options, template_catalog, template_set_file,
 
     return css_file_names
 
+def get_file_or_url(file_name, cntlr):
+    try:
+        file_source = FileSource.openFileSource(file_name, cntlr)
+        file_object = file_source.file(file_name, binary=True)[0]    
+        return file_object
+    except:
+        raise FERCRenderException("Cannot open file: {}".format(file_name))
+
 def list_templates(cntlr, options):
-    with zipfile.ZipFile(options.ferc_render_template_set, 'r') as ts_file:
+    zipIO = get_file_or_url(options.ferc_render_template_set, cntlr)
+    with zipfile.ZipFile(zipIO, 'r') as ts_file:
         try:
             catalog_file_info = ts_file.getinfo('catalog.json')
         except KeyError:
@@ -1822,8 +1831,9 @@ def list_templates(cntlr, options):
         for template_info in catalog['templates']:
             cntlr.addToLog(template_info['name'],'info')
 
-def extract_templates(cntlr, options):            
-    with zipfile.ZipFile(options.ferc_render_template_set, 'r') as ts_file:
+def extract_templates(cntlr, options):  
+    zipIO = get_file_or_url(options.ferc_render_template_set, cntlr)          
+    with zipfile.ZipFile(zipIO, 'r') as ts_file:
         try:
             catalog_file_info = ts_file.getinfo('catalog.json')
         except KeyError:
@@ -1964,7 +1974,8 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
         main_html = setup_inline_html(modelXbrl)
 
         schedule_divs = []
-        with zipfile.ZipFile(options.ferc_render_template_set, 'r') as ts:
+        zipIO = get_file_or_url(options.ferc_render_template_set, cntlr)
+        with zipfile.ZipFile(zipIO, 'r') as ts:
             with ts.open('catalog.json', 'r') as catalog_file:
                 template_catalog = json.load(io.TextIOWrapper(catalog_file))
 
