@@ -532,7 +532,6 @@ def load_rules_queue(context, *args, number=None):
             #print("working on: %s: %d" % (rules_type, len(context.all_rules[rules_type])))
             if number is None:
                 for rule in context.all_rules[rules_type]: 
-                    context.message_queue.logging(rule)
                     if not (run_only_rules is None or rule in run_only_rules):
                         continue
                     num +=1
