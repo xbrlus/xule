@@ -1,7 +1,7 @@
 {
     "name": "xule",
-    "displayName": "XULE",
-    "description": "XULE Language Pack",
+    "displayName": "XULE Editor",
+    "description": "A language syntax highlighter and code completion extension for editing Xule. ![alt text](src/after-xule-editor.png)",
     "author": "Strumenta s.r.l.",
     "publisher": "xbrlus",
     "version": "1.4.7",
@@ -10,6 +10,12 @@
         "type": "git",
         "url": "https://github.com/xbrlus/xule-editor"
     },
+	"icon": "XBRLUS.png",	
+    "bugs": {
+        "url": "https://github.com/xbrlus/xule-editor/issues",
+        "email": "info@xbrl.us"
+    },
+    "homepage": "https://github.com/xbrlus/xule-editor/blob/master/README.md",
     "categories": [
         "Programming Languages"
     ],
