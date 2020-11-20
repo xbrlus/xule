@@ -1,7 +1,7 @@
 {
     "name": "xule",
     "displayName": "XULE Editor",
-    "description": "A language syntax highlighter and code completion extension for editing Xule. ![alt text](src/after-xule-editor.png)",
+    "description": "A language syntax highlighter and code completion extension for editing Xule.",
     "author": "Strumenta s.r.l.",
     "publisher": "xbrlus",
     "version": "1.4.7",
