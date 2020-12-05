@@ -26,9 +26,9 @@ Once the DQC.code-workspace and .json files are extracted, **open the DQC.code-w
   * MacOS users might need to remove the '../../lib/' string from the *_functions.xule_* and *_version.xule_* entries in the settings.json files.
   * Check that the settings.json file is being read properly by the Xule Editor extension - open the settings for the extension, then browse to the corresponding folder(s) using the dropdown, to confirm that the Auto Imports and Namespaces: Definitions are listed (like the image at right below).  If not, try uninstalling and reinstalling the Xule Editor extension.
  
-<center><img align=center width="300" src="https://github.com/xbrlus/xule-editor/raw/master/src/problem-xule-editor.png" /> &nbsp; <img align=center width="300" src="https://github.com/xbrlus/xule-editor/raw/master/src/xule-folder-settings.png" /> 
+<div style="text-align:center"><img align=center width="300" src="https://github.com/xbrlus/xule-editor/raw/master/src/problem-xule-editor.png" /> &nbsp; <img align=center width="300" src="https://github.com/xbrlus/xule-editor/raw/master/src/xule-folder-settings.png" /> 
 
-<a href="https://github.com/xbrlus/xule-editor/raw/master/src/problem-xule-editor.png">full size - problem</a> &nbsp; <a href="https://github.com/xbrlus/xule-editor/raw/master/src/xule-folder-settings.png">full size - settings</a></center>
+<a href="https://github.com/xbrlus/xule-editor/raw/master/src/problem-xule-editor.png">full size - problem</a> &nbsp; <a href="https://github.com/xbrlus/xule-editor/raw/master/src/xule-folder-settings.png">full size - settings</a></div>
 
 ## About the Xule Editor Extension
 
