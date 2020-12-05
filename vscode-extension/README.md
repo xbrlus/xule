@@ -27,8 +27,8 @@ Once the DQC.code-workspace and .json files are extracted, **open the DQC.code-w
   * Check that the settings.json file is being read properly by the Xule Editor extension - open the settings for the extension, then browse to the corresponding folder(s) using the dropdown, to confirm that the Auto Imports and Namespaces: Definitions are listed (like the image at right below).  If not, try uninstalling and reinstalling the Xule Editor extension.
  
 <center><img align=center width="300" src="https://github.com/xbrlus/xule-editor/raw/master/src/problem-xule-editor.png" /> &nbsp; <img align=center width="300" src="https://github.com/xbrlus/xule-editor/raw/master/src/xule-folder-settings.png" /> 
-</center>
-[full size - problem](https://github.com/xbrlus/xule-editor/raw/master/src/problem-xule-editor.png) &nbsp; [full size - settings](https://github.com/xbrlus/xule-editor/raw/master/src/xule-folder-settings.png)
+
+<a href="https://github.com/xbrlus/xule-editor/raw/master/src/problem-xule-editor.png">full size - problem</a> &nbsp; <a href="https://github.com/xbrlus/xule-editor/raw/master/src/xule-folder-settings.png">full size - settings</a></center>
 
 ## About the Xule Editor Extension
 
