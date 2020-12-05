@@ -10,7 +10,7 @@
         "type": "git",
         "url": "https://github.com/xbrlus/xule-editor"
     },
-	"icon": "XBRLUS.png",	
+    "icon": "XBRLUS.png",
     "bugs": {
         "url": "https://github.com/xbrlus/xule-editor/issues",
         "email": "info@xbrl.us"

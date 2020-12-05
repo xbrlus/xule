@@ -12,7 +12,7 @@ The files in the .zip linked below include:
 
 Together, these resources enable highlighting and code completion in the Xule Editor. 
 
-### Getting Started
+### Getting Started (<a href="https://youtu.be/LQtbUBjx0qQ" target="_blank">Watch video</a>)
   1. Install the latest [Xule Editor](https://marketplace.visualstudio.com/items?itemName=XBRLUS.xule).
   1. Download and **extract all folders and files from the [dqc-xule-settings.zip](dqc-xule-settings.zip?raw=true)** archive into the ```dqc_us_rules``` subdirectory of the release, so that the **```taxonomy``` folder is at the same level as the existing ```source``` folder**.
 <br /><div style="text-align:center"><img src="https://github.com/xbrlus/xule-editor/raw/master/src/taxonomy-folder.png" /></div><br /><br />
@@ -26,7 +26,9 @@ Once the DQC.code-workspace and .json files are extracted, **open the DQC.code-w
   * MacOS users might need to remove the '../../lib/' string from the *_functions.xule_* and *_version.xule_* entries in the settings.json files.
   * Check that the settings.json file is being read properly by the Xule Editor extension - open the settings for the extension, then browse to the corresponding folder(s) using the dropdown, to confirm that the Auto Imports and Namespaces: Definitions are listed (like the image at right below).  If not, try uninstalling and reinstalling the Xule Editor extension.
  
-<div style="text-align:center"><img width="300" src="https://github.com/xbrlus/xule-editor/raw/master/src/problem-xule-editor.png" /> &nbsp; <img width="300" src="https://github.com/xbrlus/xule-editor/raw/master/src/xule-folder-settings.png" /></div>
+<center><img align=center width="300" src="https://github.com/xbrlus/xule-editor/raw/master/src/problem-xule-editor.png" /> &nbsp; <img align=center width="300" src="https://github.com/xbrlus/xule-editor/raw/master/src/xule-folder-settings.png" /> 
+</center>
+[full size - problem](https://github.com/xbrlus/xule-editor/raw/master/src/problem-xule-editor.png) &nbsp; [full size - settings](https://github.com/xbrlus/xule-editor/raw/master/src/xule-folder-settings.png)
 
 ## About the Xule Editor Extension
 
