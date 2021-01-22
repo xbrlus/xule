@@ -28,7 +28,7 @@ from . import XuleValue as xv
 from . import XuleUtility 
 from . import XuleFunctions
 from arelle.ModelDocument import Type
-from arelle.ModelRelationshipSet import ModelRelationshipSet
+#from arelle.ModelRelationshipSet import ModelRelationshipSet
 from arelle.ModelValue import QName, qname
 import collections
 import decimal
@@ -858,8 +858,9 @@ def property_label(xule_context, object_value, *args):
     else:
         return xv.XuleValue(xule_context, label, 'label')
      
-def get_label(xule_context, concept, base_label_type, base_lang):#label type
-    label_network = get_relationshipset(concept.modelXbrl, CONCEPT_LABEL)
+def get_label(xule_context, concept, base_label_type, base_lang):
+    #label_network = get_relationshipset(concept.modelXbrl, CONCEPT_LABEL)
+    label_network = concept.modelXbrl.relationshipSet(CONCEPT_LABEL)
     label_rels = label_network.fromModelObject(concept)
     if len(label_rels) > 0:
         #filter the labels
@@ -886,11 +887,11 @@ def get_label(xule_context, concept, base_label_type, base_lang):#label type
     else:
         return None
 
-def get_relationshipset(model_xbrl, arcrole, linkrole=None, linkqname=None, arcqname=None, includeProhibits=False):
-    # This checks if the relationship set is already built. If not it will build it. The ModelRelationshipSet class
-    # stores the relationship set in the model at .relationshipSets.
-    relationship_key = (arcrole, linkrole, linkqname, arcqname, includeProhibits)
-    return model_xbrl.relationshipSets[relationship_key] if relationship_key in model_xbrl.relationshipSets else ModelRelationshipSet(model_xbrl, *relationship_key)
+#def get_relationshipset(model_xbrl, arcrole, linkrole=None, linkqname=None, arcqname=None, includeProhibits=False):
+#    # This checks if the relationship set is already built. If not it will build it. The ModelRelationshipSet class
+#    # stores the relationship set in the model at .relationshipSets.
+#    relationship_key = (arcrole, linkrole, linkqname, arcqname, includeProhibits)
+#    return model_xbrl.relationshipSets[relationship_key] if relationship_key in model_xbrl.relationshipSets else ModelRelationshipSet(model_xbrl, *relationship_key)
 
 def property_text(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, object_value.value.textValue, 'string')
@@ -951,8 +952,13 @@ def property_references(xule_context, object_value, *args):
         concept = object_value.fact.concept
     else:
         concept = object_value.value
+
+    #If there is no concept, then return an empty set.
+    if concept is None:
+        return xv.XuleValue(xule_context, frozenset(), 'set')
  
-    reference_network = get_relationshipset(concept.modelXbrl, CONCEPT_REFERENCE)
+    #reference_network = get_relationshipset(concept.modelXbrl, CONCEPT_REFERENCE)
+    reference_network = concept.modelXbrl.relationshipSet(CONCEPT_REFERENCE)
     reference_rels = reference_network.fromModelObject(concept)
     if len(reference_rels) > 0:
         #filter the references
@@ -968,6 +974,7 @@ def property_references(xule_context, object_value, *args):
                     references = reference_by_type.get(role)
                     if references is not None:
                         xule_references = set(xv.XuleValue(xule_context, x, 'reference') for x in references)
+                        return xv.XuleValue(xule_context, frozenset(xule_references), 'set')
             #if we are here, there were no matching references in the ordered list of label types, so just pick one
             return xv.XuleValue(xule_context, frozenset(set(xv.XuleValue(xule_context, x, 'reference') for x in next(iter(reference_by_type.values())))), 'set')
         elif len(reference_by_type) > 0:
@@ -1152,13 +1159,21 @@ def property_arc_name(xule_context, object_value, *args):
 def property_network(xule_context, object_value, *args):
     network_info = (object_value.value.arcrole, object_value.value.linkrole, object_value.value.linkQname, object_value.value.qname, False)
 
-    network = (network_info, 
-               get_relationshipset(object_value.value.modelXbrl, 
-                                    network_info[NETWORK_ARCROLE],
-                                    network_info[NETWORK_ROLE],
-                                    network_info[NETWORK_LINK],
-                                    network_info[NETWORK_ARC]))
+    #network = (network_info, 
+    #           get_relationshipset(object_value.value.modelXbrl, 
+    #                                network_info[NETWORK_ARCROLE],
+    #                                network_info[NETWORK_ROLE],
+    #                                network_info[NETWORK_LINK],
+    #                                network_info[NETWORK_ARC]))
     
+    network_relationship_set = object_value.value.modelXbrl.relationshipSet(
+        network_info[NETWORK_ARCROLE],
+        network_info[NETWORK_ROLE],
+        network_info[NETWORK_LINK],
+        network_info[NETWORK_ARC]
+    )
+
+    network = (network_info, network_relationship_set)
     return xv.XuleValue(xule_context, network, 'network')
     
 def property_power(xule_context, object_value, *args):  
@@ -1424,7 +1439,6 @@ def property_decimals(xule_context, object_value, *args):
     
 
 def get_networks(xule_context, dts_value, arcrole=None, role=None, link=None, arc=None):
-    #final_result_set = XuleResultSet()
     networks = set()
     dts = dts_value.value
     network_infos = get_base_set_info(dts, arcrole, role, link, arc)
@@ -1436,21 +1450,27 @@ def get_networks(xule_context, dts_value, arcrole=None, role=None, link=None, ar
             network_info[NETWORK_LINK] is not None and
             network_info[NETWORK_ARC] is not None):
             
-            if network_info in dts.relationshipSets:
-                net = xv.XuleValue(xule_context, (network_info, dts.relationshipSets[network_info]), 'network')
-            else:
-                net = xv.XuleValue(xule_context, 
-                                (network_info, 
-                                    get_relationshipset(dts, 
-                                               network_info[NETWORK_ARCROLE],
-                                               network_info[NETWORK_ROLE],
-                                               network_info[NETWORK_LINK],
-                                               network_info[NETWORK_ARC])),
-                                     'network')
+            #if network_info in dts.relationshipSets:
+            #    net = xv.XuleValue(xule_context, (network_info, dts.relationshipSets[network_info]), 'network')
+            #else:
+            #    net = xv.XuleValue(xule_context, 
+            #                    (network_info, 
+            #                        get_relationshipset(dts, 
+            #                                   network_info[NETWORK_ARCROLE],
+            #                                   network_info[NETWORK_ROLE],
+            #                                   network_info[NETWORK_LINK],
+            #                                   network_info[NETWORK_ARC])),
+            #                         'network')
             
-            #final_result_set.append(net)
+            network_relationship_set = dts.relationshipSet(
+                network_info[NETWORK_ARCROLE],
+                network_info[NETWORK_ROLE],
+                network_info[NETWORK_LINK],
+                network_info[NETWORK_ARC]
+            )
+            net = xv.XuleValue(xule_context, (network_info, network_relationship_set), 'network')
             networks.add(net)
-    #return final_result_set
+
     return frozenset(networks)
 
 def get_base_set_info(dts, arcrole=None, role=None, link=None, arc=None):
