@@ -1399,22 +1399,60 @@ def property_document_location(xule_context, object_value, *args):
     else:
         return xv.XuleValue(xule_context, None, 'none')
 
+def cleanDocumentUri(doc):
+    if doc.filepathdir.endswith('.zip'):
+        pathParts = doc.filepathdir.split('/')
+        pathParts.pop()
+        pathParts.append(doc.basename)
+        return '/'.join(pathParts)
+    else:
+        return doc.uri
+
 def property_entry_point(xule_context, object_value, *args):
     dts = object_value.value
     
-    return xv.XuleValue(xule_context, get_taxonomy_entry_point_doc(dts).uri, 'uri')
+    dtstype, documentlist = get_taxonomy_entry_point_doc(dts)
+    uri_list = {}
+    uri = None
 
-def get_taxonomy_entry_point_doc(dts):
-    
-    if dts.modelDocument.type in (Type.INSTANCE, Type.INLINEXBRL):
-        # This will take the first document
-        return list(dts.modelDocument.referencesDocument.keys())[0]
+    if dtstype in (Type.INSTANCE, Type.INLINEXBRL, Type.INLINEXBRLDOCUMENTSET):
+        for item in documentlist:
+            uri_list[item.uri] = item
     else:
-        return dts.modelDocument
+        uri_list[documentlist.uri] = 1
+    
+    for u in sorted(uri_list):
+        uri = cleanDocumentUri(uri_list[u])
+        break    
+    
+    return xv.XuleValue(xule_context, uri, 'uri')
+    
+def get_taxonomy_entry_point_doc(dts):
+    if dts.modelDocument.type in (Type.INSTANCE, Type.INLINEXBRL, Type.INLINEXBRLDOCUMENTSET):
+        # This will take the first document
+        return dts.modelDocument.type, dts.modelDocument.referencesDocument
+    else:
+        return dts.modelDocument.type, dts.modelDocument
 
 def property_entry_point_namespace(xule_context, object_value, *args):
     dts = object_value.value
-    namespace = get_taxonomy_entry_point_doc(dts).targetNamespace
+    dtstype, documentlist = get_taxonomy_entry_point_doc(dts)
+    namespaces = {}
+    namespace = None
+
+    if dtstype in (Type.INSTANCE, Type.INLINEXBRL):
+        for item in documentlist:
+            namespaces[item.uri] = item.targetNamespace
+    elif dtstype == Type.INLINEXBRLDOCUMENTSET:
+        for topitem in documentlist:
+            for item in topitem.referencesDocument:
+                namespaces[item.uri] = item.targetNamespace
+    else:
+        namespaces[documentlist.uri] = documentlist.targetNamespace
+    
+    for uri in sorted(namespaces.keys()):
+        namespace = namespaces[uri]
+        break
     
     if namespace is None:
         return xv.XuleValue(xule_context, None, 'none')
