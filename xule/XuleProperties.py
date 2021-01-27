@@ -1415,11 +1415,15 @@ def property_entry_point(xule_context, object_value, *args):
     uri_list = {}
     uri = None
 
-    if dtstype in (Type.INSTANCE, Type.INLINEXBRL, Type.INLINEXBRLDOCUMENTSET):
+    if dtstype in (Type.INSTANCE, Type.INLINEXBRL):
         for item in documentlist:
             uri_list[item.uri] = item
+    elif dtstype == Type.INLINEXBRLDOCUMENTSET:
+        for topitem in documentlist:
+            for item in topitem.referencesDocument:
+                uri_list[item.uri] = item
     else:
-        uri_list[documentlist.uri] = 1
+        uri_list[documentlist.uri] = documentlist
     
     for u in sorted(uri_list):
         uri = cleanDocumentUri(uri_list[u])
