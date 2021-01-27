@@ -688,43 +688,48 @@ class XuleRuleContext(object):
         """
         return self.global_context.get_other_taxonomies(taxonomy_url)
     
+    # The build in constants are commented out. They were originally here for performance reasons when getting the extension namespace.
+    # However, when the .entry-point-namespace property was implemented the performance problem was no longer an issue by defining
+    # the constant $extension_ns = taxonomy().entry-point-namespace.
+
     #built in constants
-    def _const_extension_ns(self):
-        for doc in self.model.modelDocument.hrefObjects:
-            if doc[0].elementQname.localName == 'schemaRef' and doc[0].elementQname.namespaceURI == 'http://www.xbrl.org/2003/linkbase':
-                values = XuleValueSet()
-                values.append(XuleValue(self, doc[1].targetNamespace, 'uri'))
-                return values
+    # def _const_extension_ns(self):
+    #     for doc in self.model.modelDocument.hrefObjects:
+    #         if doc[0].elementQname.localName == 'schemaRef' and doc[0].elementQname.namespaceURI == 'http://www.xbrl.org/2003/linkbase':
+    #             values = XuleValueSet()
+    #             values.append(XuleValue(self, doc[1].targetNamespace, 'uri'))
+    #             return values
         
-        values = XuleValueSet()
-        values.append(XuleValue(self, None, 'unbound'))
-        return values
+    #     values = XuleValueSet()
+    #     values.append(XuleValue(self, None, 'unbound'))
+    #     return values
     
-    def _const_ext_concepts(self):
-        extension_ns_value_set = self._const_extension_ns()
-        if len(extension_ns_value_set.values) > 0:
-            extension_ns = extension_ns_value_set.values[None][0].value
-        else:
-            raise XuleProcessingError(_("Cannot determine extension namespace."), self)
+    # def _const_ext_concepts(self):
+    #     extension_ns_value_set = self._const_extension_ns()
+    #     if len(extension_ns_value_set.values) > 0:
+    #         extension_ns = extension_ns_value_set.values[None][0].value
+    #     else:
+    #         raise XuleProcessingError(_("Cannot determine extension namespace."), self)
         
-        concepts = set(XuleValue(self, x, 'concept') for x in self.model.qnameConcepts.values() if (x.isItem or x.isTuple) and x.qname.namespaceURI == extension_ns)
+    #     concepts = set(XuleValue(self, x, 'concept') for x in self.model.qnameConcepts.values() if (x.isItem or x.isTuple) and x.qname.namespaceURI == extension_ns)
         
-        return XuleValueSet(XuleValue(self, frozenset(concepts), 'set'))
+    #     return XuleValueSet(XuleValue(self, frozenset(concepts), 'set'))
 
-    def _const_ext_concept_local_name(self):
-        extension_ns_value_set = self._const_extension_ns()
-        if len(extension_ns_value_set.values) > 0:
-            extension_ns = extension_ns_value_set.values[None][0].value
-        else:
-            raise XuleProcessingError(_("Cannot determine extension namespace."), self)
+    # def _const_ext_concept_local_name(self):
+    #     extension_ns_value_set = self._const_extension_ns()
+    #     if len(extension_ns_value_set.values) > 0:
+    #         extension_ns = extension_ns_value_set.values[None][0].value
+    #     else:
+    #         raise XuleProcessingError(_("Cannot determine extension namespace."), self)
         
-        base_local_names = list(XuleValue(self, local_part, 'string') for local_part in set(concept.qname.localName for concept in self.model.qnameConcepts.values() if (concept.isItem or concept.isTuple) and concept.qname.namespaceURI == extension_ns))
+    #     base_local_names = list(XuleValue(self, local_part, 'string') for local_part in set(concept.qname.localName for concept in self.model.qnameConcepts.values() if (concept.isItem or concept.isTuple) and concept.qname.namespaceURI == extension_ns))
         
-        return XuleValueSet(XuleValue(self, tuple(base_local_names), 'list'))
+    #     return XuleValueSet(XuleValue(self, tuple(base_local_names), 'list'))
 
-    _BUILTIN_CONSTANTS = {'extension_ns': _const_extension_ns,
-                          'ext_concepts': _const_ext_concepts,
-                          'EXT_CONCEPT_LOCAL_NAMES': _const_ext_concept_local_name}    
+    _BUILTIN_CONSTANTS = {#'extension_ns': _const_extension_ns,
+                          #'ext_concepts': _const_ext_concepts,
+                          #'EXT_CONCEPT_LOCAL_NAMES': _const_ext_concept_local_name
+                          }    
 
     #properties from the global_context   
     @property
