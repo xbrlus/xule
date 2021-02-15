@@ -640,6 +640,12 @@ def evaluate(rule_part, xule_context, trace_dependent=False, override_table_id=N
                             value.tags = new_tags
                 else:
                     trace_source = "T"
+                    # The tags on the value may not apply to this iteration.  The value was pulled from the iteration table. It
+                    # will have tags from the previously calculated value.
+                    if value is not None and value.tags is not None:
+                        new_tags = value.tags.copy()
+                        new_tags.update(xule_context.tags)
+                        value.tags = new_tags
             else:
                 raise XuleProcessingError(
                     _("Internal error: Found iterable (%s) that does not have a dependency flag." % rule_part_name),
