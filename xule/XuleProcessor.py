@@ -1551,7 +1551,8 @@ def evaluate_for(for_expr, xule_context):
                                                    xule_context)
         finally:
             xule_context.del_arg(for_expr['forVar'], for_expr['forLoopExpr']['node_id'])
-
+            del xule_context.tags[for_expr['forVar']]
+            
         if for_loop_var.alignment is None:
             # add all
             for body_value in body_values.values.values():
