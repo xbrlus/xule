@@ -5,7 +5,7 @@ Xule is a rule processor for XBRL (X)brl r(ULE).
 DOCSKIP
 See https://xbrl.us/dqc-license for license information.  
 See https://xbrl.us/dqc-patent for patent infringement notice.
-Copyright (c) 2017 - 2020 XBRL US, Inc.
+Copyright (c) 2017 - 2021 XBRL US, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 22812 $
+$Change: 23185 $
 DOCSKIP
 """
 
@@ -28,8 +28,8 @@ from . import XuleValue as xv
 from . import XuleUtility 
 from . import XuleFunctions
 from arelle.ModelDocument import Type
-from arelle.ModelRelationshipSet import ModelRelationshipSet
-from arelle.ModelValue import QName
+#from arelle.ModelRelationshipSet import ModelRelationshipSet
+from arelle.ModelValue import QName, qname
 import collections
 import decimal
 import math
@@ -44,6 +44,14 @@ def property_union(xule_context, object_value, *args):
 def property_intersect(xule_context, object_value, *args):
     other_set = args[0]
     return XuleUtility.intersect_sets(xule_context, object_value, other_set)
+
+def property_difference(xule_context, object_value, *args):
+    other_set = args[0]
+    return XuleUtility.subtract_sets(xule_context, object_value, other_set)
+
+def property_symetric_difference(xule_context, object_value, *args):
+    other_set = args[0]
+    return XuleUtility.symetric_difference(xule_context, object_value, other_set)
 
 def property_contains(xule_context, object_value, *args):
     search_item = args[0]
@@ -158,6 +166,13 @@ def property_is_superset(xule_context, object_value, *args):
 
     return xv.XuleValue(xule_context, object_value.shadow_collection >= sub_values.shadow_collection, 'bool')
 
+class xule_json_encoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, decimal.Decimal):
+            return str(o)
+        # Let the base class default method raise the TypeError
+        return super.default(self, o)
+
 def property_to_json(xule_context, object_value, *args):
     if object_value.type == 'dictionary':
         unfrozen = dict(object_value.shadow_collection)
@@ -166,7 +181,23 @@ def property_to_json(xule_context, object_value, *args):
     else:
         unfrozen = object_value.shadow_collection
     
-    return xv.XuleValue(xule_context, json.dumps(unfrozen), 'string')
+    unfrozen = unfreeze_shadow(object_value, True)
+
+    return xv.XuleValue(xule_context, json.dumps(unfrozen, cls=xule_json_encoder), 'string')
+
+def unfreeze_shadow(cur_val, for_json=False):
+    if cur_val.type == 'list':
+        return [unfreeze_shadow(x) for x in cur_val.value]
+    elif cur_val.type == 'set':
+        if for_json:
+            # convert the set to a list. JSON does not handle sets
+            return [unfreeze_shadow(x) for x in cur_val.value]
+        else:
+            return {unfreeze_shadow(x) for x in cur_val.value}
+    elif cur_val.type == 'dictionary':
+        return {unfreeze_shadow(k): unfreeze_shadow(v) for k, v in cur_val.value}
+    else:
+        return cur_val.value
 
 def property_join(xule_context, object_value, *args):
     if object_value.type in ('list', 'set'):
@@ -209,8 +240,20 @@ def property_join(xule_context, object_value, *args):
 def property_sort(xule_context, object_value, *args):
     #sorted_list = sorted(object_value.value, key=lambda x: x.shadow_collection if x.type in ('set', 'list', 'dictionary') else x.value)
 
+    reverse = False
+    if len(args) == 1:
+        if args[0].type == 'string':
+            if args[0].value.lower() == 'asc':
+                pass
+            elif args[0].value.lower() == 'desc':
+                reverse = True
+            else:
+                raise XuleProcessingError(_("The argument of the sort property must be either 'asc' or 'desc'. Found: '{}'.".format(args[0].value)), xule_context)
+        else:
+            raise XuleProcessingError(_("The argument of the sort property must be a string with either 'asc' or 'desc'. Found type: '{}'.".format(args[0].type)), xule_context)
+
     try:
-        sorted_list = sorted(object_value.value, key=lambda x: x.sort_value)
+        sorted_list = sorted(object_value.value, key=lambda x: x.sort_value, reverse=reverse)
         return xv.XuleValue(xule_context, tuple(sorted_list), 'list')
     except TypeError:
         # items are not sortable
@@ -439,34 +482,75 @@ def property_format(xule_context, object_value, *args):
             return xv.XuleValue(xule_context, None, 'none')
     else: #none value
         return object_value
-    
+
+def property_display_value(xule_context, object_value, *args):
+    if object_value.is_fact:
+        if hasattr(object_value.fact, 'text'):
+            return xv.XuleValue(xule_context, object_value.fact.text, 'string')
+        else:
+            return xv.XuleValue(xule_context, None, 'none')
+    else: #none value
+        return object_value    
+
+def property_negated(xule_context, object_value, *args):
+    if object_value.is_fact:
+        if hasattr(object_value.fact, 'sign'):
+            return xv.XuleValue(xule_context, object_value.fact.sign == '-', 'bool')
+        else:
+            return xv.XuleValue(xule_context, None, 'none')
+    else: #none value
+        return object_value  
+
+def property_hidden(xule_context, object_value, *args):
+    if object_value.is_fact:
+        if object_value.fact.modelXbrl.modelDocument.type in (Type.INLINEXBRL, Type.INLINEXBRLDOCUMENTSET):
+            return xv.XuleValue(xule_context, qname('http://www.xbrl.org/2013/inlineXBRL', 'hidden') in object_value.fact.ancestorQnames, 'bool')
+        else:
+            return xv.XuleValue(xule_contet, None, 'none')
+    else:
+        return object_value
+
 def property_scheme(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, object_value.value[0], 'string')
 
 def property_dimension(xule_context, object_value, *args):
-    
-    if not object_value.is_fact:
-        return object_value
-    
+
     dim_name = args[0]
-    model_fact = object_value.fact
-    
     if dim_name.type == 'qname':
-        dim_qname = dim_name.value
+            dim_qname = dim_name.value
     elif dim_name.type == 'concept':
         dim_qname = dim_name.value.qname
     else:
         raise XuleProcessingError(_("The argument for property 'dimension' must be a qname, found '%s'." % dim_name.type),xule_context)
-     
-    member_model = model_fact.context.qnameDims.get(dim_qname)
-    if member_model is None:
-        return xv.XuleValue(xule_context, None, 'none')
-    else:
-        if member_model.isExplicit:
-            return xv.XuleValue(xule_context, member_model.member, 'concept')
+
+    if object_value.is_fact:
+        if not object_value.is_fact:
+            return object_value
+        
+        model_fact = object_value.fact
+        member_model = model_fact.context.qnameDims.get(dim_qname)
+        if member_model is None:
+            return xv.XuleValue(xule_context, None, 'none')
         else:
-            #this is a typed dimension
-            return xv.XuleValue(xule_context, member_model.typedMember.xValue, xv.model_to_xule_type(xule_context, member_model.typedMember.xValue))
+            if member_model.isExplicit:
+                return xv.XuleValue(xule_context, member_model.member, 'concept')
+            else:
+                #this is a typed dimension
+                return xv.XuleValue(xule_context, member_model.typedMember.xValue, xv.model_to_xule_type(xule_context, member_model.typedMember.xValue))
+
+    else: # taxonomy
+        # Get the cubes of the taxonomy
+        cubes = [xv.XuleDimensionCube(object_value.value, *cube_base)
+                 for cube_base in xv.XuleDimensionCube.base_dimension_sets(object_value.value)]
+        dims = dict()
+        for cube in cubes:
+            for dim in cube.dimensions:
+                dims[dim.dimension_concept.qname] = dim
+
+        if dim_qname in dims:
+            return xv.XuleValue(xule_context, dims[dim_qname], 'dimension')
+        else:
+            return xv.XuleValue(xule_context, None, 'none')
 
 def property_dimensions(xule_context, object_value, *args):
     if object_value.type == 'taxonomy':
@@ -652,6 +736,14 @@ def property_data_type(xule_context, object_value, *args):
     else: #none value
         return object_value
 
+def property_substitution(xule_context, object_value, *args):
+    if object_value.is_fact:
+        return xv.XuleValue(xule_context, object_value.fact.concept.substitutionGroupQname, 'qname')
+    elif object_value.type == 'concept':
+        return xv.XuleValue(xule_context, object_value.value.substitutionGroupQname, 'qname')
+    else: #none value
+        return object_value
+
 def property_enumerations(xule_context, object_value, *args):
     if object_value.is_fact:
         model_type = object_value.fact.concept.type
@@ -766,8 +858,9 @@ def property_label(xule_context, object_value, *args):
     else:
         return xv.XuleValue(xule_context, label, 'label')
      
-def get_label(xule_context, concept, base_label_type, base_lang):#label type
-    label_network = ModelRelationshipSet(concept.modelXbrl, CONCEPT_LABEL)
+def get_label(xule_context, concept, base_label_type, base_lang):
+    #label_network = get_relationshipset(concept.modelXbrl, CONCEPT_LABEL)
+    label_network = concept.modelXbrl.relationshipSet(CONCEPT_LABEL)
     label_rels = label_network.fromModelObject(concept)
     if len(label_rels) > 0:
         #filter the labels
@@ -793,7 +886,13 @@ def get_label(xule_context, concept, base_label_type, base_lang):#label type
             return None        
     else:
         return None
- 
+
+#def get_relationshipset(model_xbrl, arcrole, linkrole=None, linkqname=None, arcqname=None, includeProhibits=False):
+#    # This checks if the relationship set is already built. If not it will build it. The ModelRelationshipSet class
+#    # stores the relationship set in the model at .relationshipSets.
+#    relationship_key = (arcrole, linkrole, linkqname, arcqname, includeProhibits)
+#    return model_xbrl.relationshipSets[relationship_key] if relationship_key in model_xbrl.relationshipSets else ModelRelationshipSet(model_xbrl, *relationship_key)
+
 def property_text(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, object_value.value.textValue, 'string')
  
@@ -853,8 +952,13 @@ def property_references(xule_context, object_value, *args):
         concept = object_value.fact.concept
     else:
         concept = object_value.value
+
+    #If there is no concept, then return an empty set.
+    if concept is None:
+        return xv.XuleValue(xule_context, frozenset(), 'set')
  
-    reference_network = ModelRelationshipSet(concept.modelXbrl, CONCEPT_REFERENCE)
+    #reference_network = get_relationshipset(concept.modelXbrl, CONCEPT_REFERENCE)
+    reference_network = concept.modelXbrl.relationshipSet(CONCEPT_REFERENCE)
     reference_rels = reference_network.fromModelObject(concept)
     if len(reference_rels) > 0:
         #filter the references
@@ -870,6 +974,7 @@ def property_references(xule_context, object_value, *args):
                     references = reference_by_type.get(role)
                     if references is not None:
                         xule_references = set(xv.XuleValue(xule_context, x, 'reference') for x in references)
+                        return xv.XuleValue(xule_context, frozenset(xule_references), 'set')
             #if we are here, there were no matching references in the ordered list of label types, so just pick one
             return xv.XuleValue(xule_context, frozenset(set(xv.XuleValue(xule_context, x, 'reference') for x in next(iter(reference_by_type.values())))), 'set')
         elif len(reference_by_type) > 0:
@@ -1054,13 +1159,21 @@ def property_arc_name(xule_context, object_value, *args):
 def property_network(xule_context, object_value, *args):
     network_info = (object_value.value.arcrole, object_value.value.linkrole, object_value.value.linkQname, object_value.value.qname, False)
 
-    network = (network_info, 
-               ModelRelationshipSet(object_value.value.modelXbrl, 
-                                    network_info[NETWORK_ARCROLE],
-                                    network_info[NETWORK_ROLE],
-                                    network_info[NETWORK_LINK],
-                                    network_info[NETWORK_ARC]))
+    #network = (network_info, 
+    #           get_relationshipset(object_value.value.modelXbrl, 
+    #                                network_info[NETWORK_ARCROLE],
+    #                                network_info[NETWORK_ROLE],
+    #                                network_info[NETWORK_LINK],
+    #                                network_info[NETWORK_ARC]))
     
+    network_relationship_set = object_value.value.modelXbrl.relationshipSet(
+        network_info[NETWORK_ARCROLE],
+        network_info[NETWORK_ROLE],
+        network_info[NETWORK_LINK],
+        network_info[NETWORK_ARC]
+    )
+
+    network = (network_info, network_relationship_set)
     return xv.XuleValue(xule_context, network, 'network')
     
 def property_power(xule_context, object_value, *args):  
@@ -1211,6 +1324,24 @@ def property_split(xule_context, object_value, *args):
 
     return xv.XuleValue(xule_context, tuple(xv.XuleValue(xule_context, x, 'string') for x in shadow), 'list', shadow_collection=shadow)
 
+def property_trim(xule_context, object_value, *args):
+    if len(args) == 0:
+        side = 'both'
+    else:
+        if args[0].value.lower() in ('left', 'right', 'both'):
+            side = args[0].value.lower()
+        else:
+            raise XuleProcessingError(_("The argument for property 'trim' must be one of 'left', 'right' or 'both', found '%s'" % args[0]), xule_context)
+
+    if side == 'both':
+        new_value = object_value.value.strip()
+    elif side == 'left':
+        new_value = object_value.value.lstrip()
+    else:
+        new_value = object_value.value.rstrip()
+    
+    return xv.XuleValue(xule_context, new_value, 'string')
+
 def property_to_qname(xule_context, object_value, *args):
     '''Create a qname from a single string with an optional namespace prefix.
 
@@ -1262,6 +1393,12 @@ def property_dts_document_locations(xule_context, object_value, *args):
         locations.add(xv.XuleValue(xule_context, doc_url, 'uri'))
     return xv.XuleValue(xule_context, frozenset(locations), 'set') 
 
+def property_document_location(xule_context, object_value, *args):
+    if hasattr(object_value.value, 'modelDocument'):
+        return xv.XuleValue(xule_context, object_value.value.modelDocument.uri, 'uri')
+    else:
+        return xv.XuleValue(xule_context, None, 'none')
+
 def cleanDocumentUri(doc):
     if doc.filepathdir.endswith('.zip'):
         pathParts = doc.filepathdir.split('/')
@@ -1278,18 +1415,22 @@ def property_entry_point(xule_context, object_value, *args):
     uri_list = {}
     uri = None
 
-    if dtstype in (Type.INSTANCE, Type.INLINEXBRL, Type.INLINEXBRLDOCUMENTSET):
+    if dtstype in (Type.INSTANCE, Type.INLINEXBRL):
         for item in documentlist:
             uri_list[item.uri] = item
+    elif dtstype == Type.INLINEXBRLDOCUMENTSET:
+        for topitem in documentlist:
+            for item in topitem.referencesDocument:
+                uri_list[item.uri] = item
     else:
-        uri_list[documentlist.uri] = 1
+        uri_list[documentlist.uri] = documentlist
     
     for u in sorted(uri_list):
         uri = cleanDocumentUri(uri_list[u])
         break    
     
     return xv.XuleValue(xule_context, uri, 'uri')
-
+    
 def get_taxonomy_entry_point_doc(dts):
     if dts.modelDocument.type in (Type.INSTANCE, Type.INLINEXBRL, Type.INLINEXBRLDOCUMENTSET):
         # This will take the first document
@@ -1340,7 +1481,6 @@ def property_decimals(xule_context, object_value, *args):
     
 
 def get_networks(xule_context, dts_value, arcrole=None, role=None, link=None, arc=None):
-    #final_result_set = XuleResultSet()
     networks = set()
     dts = dts_value.value
     network_infos = get_base_set_info(dts, arcrole, role, link, arc)
@@ -1352,21 +1492,27 @@ def get_networks(xule_context, dts_value, arcrole=None, role=None, link=None, ar
             network_info[NETWORK_LINK] is not None and
             network_info[NETWORK_ARC] is not None):
             
-            if network_info in dts.relationshipSets:
-                net = xv.XuleValue(xule_context, (network_info, dts.relationshipSets[network_info]), 'network')
-            else:
-                net = xv.XuleValue(xule_context, 
-                                (network_info, 
-                                    ModelRelationshipSet(dts, 
-                                               network_info[NETWORK_ARCROLE],
-                                               network_info[NETWORK_ROLE],
-                                               network_info[NETWORK_LINK],
-                                               network_info[NETWORK_ARC])),
-                                     'network')
+            #if network_info in dts.relationshipSets:
+            #    net = xv.XuleValue(xule_context, (network_info, dts.relationshipSets[network_info]), 'network')
+            #else:
+            #    net = xv.XuleValue(xule_context, 
+            #                    (network_info, 
+            #                        get_relationshipset(dts, 
+            #                                   network_info[NETWORK_ARCROLE],
+            #                                   network_info[NETWORK_ROLE],
+            #                                   network_info[NETWORK_LINK],
+            #                                   network_info[NETWORK_ARC])),
+            #                         'network')
             
-            #final_result_set.append(net)
+            network_relationship_set = dts.relationshipSet(
+                network_info[NETWORK_ARCROLE],
+                network_info[NETWORK_ROLE],
+                network_info[NETWORK_LINK],
+                network_info[NETWORK_ARC]
+            )
+            net = xv.XuleValue(xule_context, (network_info, network_relationship_set), 'network')
             networks.add(net)
-    #return final_result_set
+
     return frozenset(networks)
 
 def get_base_set_info(dts, arcrole=None, role=None, link=None, arc=None):
@@ -1707,6 +1853,8 @@ PROPERTIES = {
               #NEW PROPERTIES
               'union': (property_union, 1, ('set',), False),
               'intersect': (property_intersect, 1, ('set',), False),
+              'difference': (property_difference, 1, ('set',), False),
+              'symetric-difference': (property_symetric_difference, 1, ('set',), False),
               'contains': (property_contains, 1, ('set', 'list', 'string', 'uri'), False),
               'length': (property_length, 0, ('string', 'uri', 'set', 'list', 'dictionary'), False),
               'to-list': (property_to_list, 0, ('list', 'set'), False),
@@ -1717,7 +1865,7 @@ PROPERTIES = {
               'is-superset': (property_is_superset, 1, ('set',), False),
               'to-json': (property_to_json, 0, ('list', 'set', 'dictionary'), False),           
               'join': (property_join, -2, ('list', 'set', 'dictionary'), False),
-              'sort': (property_sort, 0, ('list', 'set'), False),
+              'sort': (property_sort, -1, ('list', 'set'), False),
               'keys': (property_keys, -1, ('dictionary',), False),
               'values': (property_values, 0, ('dictionary', ), False),
               'has-key': (property_has_key, 1, ('dictionary',), False),
@@ -1735,7 +1883,7 @@ PROPERTIES = {
               'entity': (property_entity, 0, ('fact',), True),
               'id': (property_id, 0, ('entity','unit','fact'), True),
               'scheme': (property_scheme, 0, ('entity',), False),
-              'dimension': (property_dimension, 1, ('fact',), True),
+              'dimension': (property_dimension, 1, ('fact', 'taxonomy'), True),
               'dimensions': (property_dimensions, 0, ('fact', 'cube', 'taxonomy'), True),
               'dimensions-explicit': (property_dimensions_explicit, 0, ('fact',), True),
               'dimensions-typed': (property_dimensions_typed, 0, ('fact',), True),                            
@@ -1745,10 +1893,11 @@ PROPERTIES = {
               'days': (property_days, 0, ('instant', 'duration'), False),
               'numerator': (property_numerator, 0, ('unit', ), False),
               'denominator': (property_denominator, 0, ('unit',), False),
-              'attribute': (property_attribute, 1, ('concept',), False),
+              'attribute': (property_attribute, 1, ('concept', 'relationship', 'role'), False),
               'balance': (property_balance, 0, ('concept',), False),              
               'base-type': (property_base_type, 0, ('concept', 'fact'), True),
-              'data-type': (property_data_type, 0, ('concept', 'fact'), True),    
+              'data-type': (property_data_type, 0, ('concept', 'fact'), True), 
+              'substitution': (property_substitution, 0, ('concept', 'fact'), True),   
               'enumerations': (property_enumerations, 0, ('type', 'concept', 'fact'), True), 
               'has-enumerations': (property_has_enumerations, 0, ('type', 'concept', 'fact'), True),
               'is-type': (property_is_type, 1, ('concept', 'fact'), True),          
@@ -1757,8 +1906,11 @@ PROPERTIES = {
               'is-abstract': (property_is_abstract, 0, ('concept', 'fact'), True),
               'is-nil': (property_is_nil, 0, ('fact',), True),
               'is-fact': (property_is_fact, 0, (), True),
-              'scale': (property_scale, 0, ('fact',), True),
-              'format': (property_format, 0, ('fact',), True),
+              'inline-scale': (property_scale, 0, ('fact',), True),
+              'inline-format': (property_format, 0, ('fact',), True),
+              'inline-display-value': (property_display_value, 0, ('fact',), True),
+              'inline-negated': (property_negated, 0, ('fact',), True),
+              'inline-hidden': (property_hidden, 0, ('fact',), True),
               'label': (property_label, -2, ('concept', 'fact'), True),
               'text': (property_text, 0, ('label',), False),
               'lang': (property_lang, 0, ('label',), False),              
@@ -1808,11 +1960,13 @@ PROPERTIES = {
               'month': (property_month, 0, ('instant',), False),
               'year': (property_year, 0, ('instant',), False),
               'string': (property_string, 0, (), False),
+              'trim': (property_trim, -1, ('string', 'uri'), False),
               'dts-document-locations': (property_dts_document_locations, 0, ('taxonomy',), False),
               'entry-point': (property_entry_point, 0, ('taxonomy',), False),
               'entry-point-namespace': (property_entry_point_namespace, 0, ('taxonomy',), False),
               'effective-weight': (property_effective_weight, 2, ('taxonomy',), False),
               'effective-weight-network': (property_effective_weight_network, -3, ('taxonomy',), False),
+              'document-location': (property_document_location, 0, (), False),
               'all': (property_all, 0, ('set', 'list'), False),
               'any': (property_any, 0, ('set', 'list'), False),
               'first': (property_first, 0, ('set', 'list'), False),

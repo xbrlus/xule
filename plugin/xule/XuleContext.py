@@ -8,7 +8,7 @@ for keeping track of the processing (including the iterations that are created w
 DOCSKIP
 See https://xbrl.us/dqc-license for license information.  
 See https://xbrl.us/dqc-patent for patent infringement notice.
-Copyright (c) 2017 - 2020 XBRL US, Inc.
+Copyright (c) 2017 - 2021 XBRL US, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 22792 $
+$Change: 23184 $
 DOCSKIP
 """
 from .XuleRunTime import XuleProcessingError
@@ -354,7 +354,8 @@ class XuleRuleContext(object):
         
         self.iteration_table = XuleIterationTable(self)
         self.vars = collections.defaultdict(list)
-        self.id_prefix = []     
+        self.id_prefix = []  
+        self.column_prefix = []   
         self.no_alignment = False
         self.ignore_vars = []
         self.nested_factset_filters = []
@@ -368,6 +369,7 @@ class XuleRuleContext(object):
         self.look_for_alignment = False
         self.where_table_ids = None
         self.where_dependent_iterables = None
+        self._constant_overrides = None
         
         self.iter_count = 0
         self.iter_pass_count = 0
@@ -410,10 +412,28 @@ class XuleRuleContext(object):
     def dependent_alignment(self):
         return self.iteration_table.dependent_alignment
     
-    def create_message_copy(self, processing_id):
+    @property
+    def constant_overrides(self):
+        if self._constant_overrides is None:
+            overrides = dict()
+            for arg in getattr(self.global_context.options,'xule_arg') or tuple():
+                arg_parts = arg.split('=')
+                name = arg_parts[0]
+                if len(name) > 0:
+                    if len(arg_parts) > 1:
+                        val = XuleValue(self, ''.join(arg_parts[1:]), 'string')
+                    else:
+                        val = XuleValue(self, None, 'none')
+                    overrides[name] = val
+            self._constant_overridess = overrides
+
+        return self._constant_overridess
+
+    def create_message_copy(self, table_id, processing_id):
         new_context = copy.copy(self)
         new_context.iteration_table = XuleIterationTable(self)
-        new_context.iteration_table.add_table(-1, processing_id)
+        new_context.iteration_table.add_table(table_id, processing_id)
+        new_context.iteration_table.current_table.current_alignment= self.iteration_table.current_table.current_alignment
         new_context.facts = self.facts.copy()
         new_context.tags = self.tags.copy()
 
@@ -435,6 +455,7 @@ class XuleRuleContext(object):
         """Reset the rule context for the next iteration of a rule"""
         self.vars = collections.defaultdict(list)
         self.id_prefix = []
+        self.column_prefix = []
         self.aligned_result_only = False
         self.ignore_vars = []
 
@@ -456,7 +477,22 @@ class XuleRuleContext(object):
 
     def get_processing_id(self, node_id):
         return tuple(self.id_prefix) + (node_id,)   
-         
+
+    def get_column_id(self, node_id):
+        if len(self.column_prefix) == 0:
+            return node_id
+        else:
+            return tuple(self.column_prefix) + (node_id,)
+
+    def potential_column_ids(self, node_id):
+        for i in range(len(self.column_prefix), -1, -1):
+            if i == 0:
+                column_id = node_id
+            else:
+                column_id = tuple(self.column_prefix[:i]) + (node_id,)
+
+            yield column_id
+
     def add_var(self, name, node_id, tag, expr):
         """Add a variable to the rule context
         
@@ -652,43 +688,48 @@ class XuleRuleContext(object):
         """
         return self.global_context.get_other_taxonomies(taxonomy_url)
     
+    # The build in constants are commented out. They were originally here for performance reasons when getting the extension namespace.
+    # However, when the .entry-point-namespace property was implemented the performance problem was no longer an issue by defining
+    # the constant $extension_ns = taxonomy().entry-point-namespace.
+
     #built in constants
-    def _const_extension_ns(self):
-        for doc in self.model.modelDocument.hrefObjects:
-            if doc[0].elementQname.localName == 'schemaRef' and doc[0].elementQname.namespaceURI == 'http://www.xbrl.org/2003/linkbase':
-                values = XuleValueSet()
-                values.append(XuleValue(self, doc[1].targetNamespace, 'uri'))
-                return values
+    # def _const_extension_ns(self):
+    #     for doc in self.model.modelDocument.hrefObjects:
+    #         if doc[0].elementQname.localName == 'schemaRef' and doc[0].elementQname.namespaceURI == 'http://www.xbrl.org/2003/linkbase':
+    #             values = XuleValueSet()
+    #             values.append(XuleValue(self, doc[1].targetNamespace, 'uri'))
+    #             return values
         
-        values = XuleValueSet()
-        values.append(XuleValue(self, None, 'unbound'))
-        return values
+    #     values = XuleValueSet()
+    #     values.append(XuleValue(self, None, 'unbound'))
+    #     return values
     
-    def _const_ext_concepts(self):
-        extension_ns_value_set = self._const_extension_ns()
-        if len(extension_ns_value_set.values) > 0:
-            extension_ns = extension_ns_value_set.values[None][0].value
-        else:
-            raise XuleProcessingError(_("Cannot determine extension namespace."), self)
+    # def _const_ext_concepts(self):
+    #     extension_ns_value_set = self._const_extension_ns()
+    #     if len(extension_ns_value_set.values) > 0:
+    #         extension_ns = extension_ns_value_set.values[None][0].value
+    #     else:
+    #         raise XuleProcessingError(_("Cannot determine extension namespace."), self)
         
-        concepts = set(XuleValue(self, x, 'concept') for x in self.model.qnameConcepts.values() if (x.isItem or x.isTuple) and x.qname.namespaceURI == extension_ns)
+    #     concepts = set(XuleValue(self, x, 'concept') for x in self.model.qnameConcepts.values() if (x.isItem or x.isTuple) and x.qname.namespaceURI == extension_ns)
         
-        return XuleValueSet(XuleValue(self, frozenset(concepts), 'set'))
+    #     return XuleValueSet(XuleValue(self, frozenset(concepts), 'set'))
 
-    def _const_ext_concept_local_name(self):
-        extension_ns_value_set = self._const_extension_ns()
-        if len(extension_ns_value_set.values) > 0:
-            extension_ns = extension_ns_value_set.values[None][0].value
-        else:
-            raise XuleProcessingError(_("Cannot determine extension namespace."), self)
+    # def _const_ext_concept_local_name(self):
+    #     extension_ns_value_set = self._const_extension_ns()
+    #     if len(extension_ns_value_set.values) > 0:
+    #         extension_ns = extension_ns_value_set.values[None][0].value
+    #     else:
+    #         raise XuleProcessingError(_("Cannot determine extension namespace."), self)
         
-        base_local_names = list(XuleValue(self, local_part, 'string') for local_part in set(concept.qname.localName for concept in self.model.qnameConcepts.values() if (concept.isItem or concept.isTuple) and concept.qname.namespaceURI == extension_ns))
+    #     base_local_names = list(XuleValue(self, local_part, 'string') for local_part in set(concept.qname.localName for concept in self.model.qnameConcepts.values() if (concept.isItem or concept.isTuple) and concept.qname.namespaceURI == extension_ns))
         
-        return XuleValueSet(XuleValue(self, tuple(base_local_names), 'list'))
+    #     return XuleValueSet(XuleValue(self, tuple(base_local_names), 'list'))
 
-    _BUILTIN_CONSTANTS = {'extension_ns-DISABLED': _const_extension_ns,
-                          'ext_concepts': _const_ext_concepts,
-                          'EXT_CONCEPT_LOCAL_NAMES': _const_ext_concept_local_name}    
+    _BUILTIN_CONSTANTS = {#'extension_ns': _const_extension_ns,
+                          #'ext_concepts': _const_ext_concepts,
+                          #'EXT_CONCEPT_LOCAL_NAMES': _const_ext_concept_local_name
+                          }    
 
     #properties from the global_context   
     @property
@@ -969,6 +1010,8 @@ class XuleIterationTable:
             parent_table = self.current_table      
 
         child_table = XuleIterationSubTable(table_id, self, processing_id, is_aggregation=is_aggregation)
+        # copy the tags down to the sub table
+        child_table.tags = self.tags.copy()
         table_processing_id = self.xule_context.get_processing_id(table_id)
         self._ordered_tables[table_processing_id] = child_table
 
@@ -1311,10 +1354,15 @@ class XuleIterationSubTable:
                 is_dependent = True
                 #The only time the master column will not be in the table is if the dependent column is in an isolated table and the master is not. In this case,
                 #the dependency does not matter. This may also happen if the master column is in a conditional (if statement) that is not executed.
-                master_processing_id = xule_context.get_processing_id(dep['node_id'])
-                if master_processing_id in self._columns:
-                    #dep_processing_id = xule_context.get_processing_id(dep.node_id)
-                    self._column_dependencies[master_processing_id].add(processing_id)
+
+                # The node id of the master needs to be checked agains a list of potential processing ids based on the column_prefix. This happens becasue
+                # the master node may or may not be prefixed (which is used for the filter expressions).
+                for master_processing_id in self._iteration_table.xule_context.potential_column_ids(dep['node_id']):
+                    #master_processing_id = xule_context.get_processing_id(dep['node_id'])
+                    if master_processing_id in self._columns:
+                        #dep_processing_id = xule_context.get_processing_id(dep.node_id)
+                        self._column_dependencies[master_processing_id].add(processing_id)
+                        break
 
         if is_dependent:
             self.dependent_alignment = self.current_alignment

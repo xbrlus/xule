@@ -5,7 +5,7 @@ Xule is a rule processor for XBRL (X)brl r(ULE).
 DOCSKIP
 See https://xbrl.us/dqc-license for license information.  
 See https://xbrl.us/dqc-patent for patent infringement notice.
-Copyright (c) 2017 - 2020 XBRL US, Inc.
+Copyright (c) 2017 - 2021 XBRL US, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 22780 $
+$Change: 23066 $
 DOCSKIP
 """
 
@@ -86,20 +86,30 @@ def func_entity(xule_context, *args):
     return xv.XuleValue(xule_context, (scheme.value, identifier.value), 'entity')
 
 def func_qname(xule_context, *args):
-    namespace_uri = args[0]
-    local_name = args[1]
+    namespace_uri_arg = args[0]
+    local_name_arg = args[1]
     
-    if namespace_uri.type not in ('string', 'uri', 'unbound', 'none'):
-        raise XuleProcessingError(_("Function 'qname' requires the namespace_uri argument to be a string, uri or none, found '%s'" % namespace_uri.type), xule_context)
-    if local_name.type != 'string':
-        raise XuleProcessingError(_("Function 'qname' requires the local_part argument to be a string, found '%s'" % local_name.type), xule_context)
-    
-    if namespace_uri.type == 'unbound':
-        return xv.XuleValue(xule_context, qname(local_name.value, noPrefixIsNoNamespace=True), 'qname')
+    if namespace_uri_arg.type not in ('string', 'uri', 'unbound', 'none'):
+        raise XuleProcessingError(_("Function 'qname' requires the namespace_uri argument to be a string, uri or none, found '%s'" % namespace_uri_arg.type), xule_context)
+    if local_name_arg.type != 'string':
+        raise XuleProcessingError(_("Function 'qname' requires the local_part argument to be a string, found '%s'" % local_name_arg.type), xule_context)
+
+    if namespace_uri_arg.type == 'unbound':
+        return xv.XuleValue(xule_context, qname(local_name_arg.value, noPrefixIsNoNamespace=True), 'qname')
     else:
-        '''INSTEAD OF PASSING None FOR THE PREFIX, THIS SHOULD FIND THE PREFIX FOR THE NAMESPACE URI FROM THE RULE FILE. IF IT CANNOT FIND ONE, IT SHOULD CREATE ONE.'''
-        return xv.XuleValue(xule_context, QName(None, namespace_uri.value, local_name.value), 'qname')
- 
+        # get the prefix from the rule file
+        prefix = get_prefix(xule_context, namespace_uri_arg.value)
+        return xv.XuleValue(xule_context, QName(prefix, namespace_uri_arg.value, local_name_arg.value), 'qname')
+
+def get_prefix(xule_context, uri):
+    for k, v in xule_context.global_context.catalog['namespaces'].items():
+        if v['uri'] == uri:
+            if k == '*':
+                return None
+            else:
+                return k
+    return None
+
 def func_uri(xule_context, *args):
     arg = args[0]
 
@@ -289,7 +299,7 @@ def agg_list(xule_context, values):
     
     for current_value in values:
         list_values.append(current_value)
-        shadow.append(current_value.shadow_collection if current_value.type in ('list','set') else current_value.value)
+        shadow.append(current_value.shadow_collection if current_value.type in ('list','set', 'dictionary') else current_value.value)
         if current_value.tags is not None:
             tags.update(current_value.tags)
         if current_value.facts is not None:
@@ -334,7 +344,6 @@ def agg_set(xule_context, values):
     return return_value #xv.XuleValue(xule_context, frozenset(set_values), 'set')
 
 def agg_dict(xule_context, values):
-    set_values = []
     shadow = []
     tags = {}
     facts = collections.OrderedDict()
@@ -354,6 +363,15 @@ def agg_dict(xule_context, values):
             raise XuleProcessingError(_("Key to a dictionary cannot be a dictionary."), xule_context)
         
         value = current_value.value[1]
+        
+        # A dictionary can only have one value for a key. If the key is already in the dicitionary then the current set of values can be skipped.
+        # This is determined by the shadow (the underlying value of the XuleValue) as it is done for agg_set.
+        if key.type in ('set', 'list'):
+            if key.shadow_collection in shadow:
+                continue
+        else:
+            if key.value in shadow:
+                continue
         
         if key.tags is not None:
             tags.update(key.tags)
@@ -588,7 +606,7 @@ def func_first_value(xule_context, *args):
         if arg.value is not None:
             return arg.clone()
     # If here, either there were no arguments, or they were all none
-    return xv.XuleValue(xule_context, None, 'none')
+    return xv.XuleValue(xule_context, None, 'unbound')
 
 def func_range(xule_context, *args):
     """Return a list of numbers.
@@ -630,7 +648,7 @@ def func_range(xule_context, *args):
     # Check that the
     number_list = list(range(start_num, stop_num, step))
     number_list_values = tuple(xv.XuleValue(xule_context, x, 'int') for x in number_list)
-    return xv.XuleValue(xule_context, number_list_values, 'list', shadow_collection=number_list)
+    return xv.XuleValue(xule_context, number_list_values, 'list', shadow_collection=tuple(number_list))
 
 def func_difference(xule_context, *args):
     '''Difference between 2 sets'''
@@ -726,8 +744,7 @@ def built_in_functions():
              'version': ('regular', func_version, 0, False, 'single'),
              'rule-name': ('regular', func_rule_name, 0, False, 'single')
              }    
-    
-    
+
     try:
         funcs.update(xrf.BUILTIN_FUNCTIONS)
     except NameError:
