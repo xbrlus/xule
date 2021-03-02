@@ -67,6 +67,9 @@ def parseFile(dir, fileName, xuleGrammar, ruleSet):
                 file_hash_contents.update(buffer)
             file_hash = file_hash_contents.hexdigest()
         
+        # Check version compatibility of the rule set to the current version of the xule processor
+        
+
         #check if the file has changed
         if ruleSet.getFileHash(fileName) == file_hash:
             #The file has not changed.

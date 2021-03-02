@@ -39,30 +39,27 @@ XuleValue = None
 XuleProperties = None
 
 
-def version(plugin_init_file=__file__):
+def version(plugin_init_files=__file__):
     change_numbers = set()
 
-    if plugin_init_file == __file__:
-        xule_mod_pattern = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(plugin_init_file), '*.py'))
-    
-        for mod_file_name in glob.glob(xule_mod_pattern):
-            with open(mod_file_name, 'r') as mod_file:
-                file_text = mod_file.read()
-                match = re.search(r'\$' + r'Change:\s*(\d+)\s*\$', file_text)
-                if match is not None:
-                    change_numbers.add(int(match.group(1)))
-        
-        if len(change_numbers) == 0:
-            return ''
-        else:
-            return str(max(change_numbers))
-    else:
-        with open(plugin_init_file, 'r') as mod_file:
+    if plugin_init_files == __file__:
+        xule_mod_pattern = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(plugin_init_files), '*.py'))
+        files_to_check = glob.glob(xule_mod_pattern)
+    elif isinstance(plugin_init_files, str):
+        files_to_check = (plugin_init_files,) # change the string to a tuple
+
+    for mod_file_name in files_to_check:
+        with open(mod_file_name, 'r') as mod_file:
             file_text = mod_file.read()
             match = re.search(r'\$' + r'Change:\s*(\d+)\s*\$', file_text)
             if match is not None:
-                return match.group(1)        
-
+                change_numbers.add(int(match.group(1)))
+    
+    if len(change_numbers) == 0:
+        return ''
+    else:
+        return str(max(change_numbers))
+    
     return ''
 
 def _imports():

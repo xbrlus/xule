@@ -32,3 +32,4 @@ DIMENSION_PSEUD0_ARCROLE_PART = 1
 
 # Rule set mapping 
 NAMESPACE_MAP = 'namespaceMap.json'
+VERSION_CONTROL = 'xuleVersionControl.json'

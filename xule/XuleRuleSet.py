@@ -74,6 +74,11 @@ class XuleRuleSet(object):
     def __del__(self):
         self.close()
     
+    @property
+    def xuleCompiledVersion(self):
+        if self.catalog is not None:
+            return self.catalog.get('xule_compiled_version')
+
     def close(self):
         """Close the ruleset"""
         pass
@@ -528,4 +533,4 @@ class XuleRuleSet(object):
             
         return self.all_rules
 
-
+    

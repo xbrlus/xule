@@ -22,7 +22,6 @@ limitations under the License.
 $Change$
 DOCSKIP
 """
-from . import XuleRuleSet as xr
 import pickle
 import os
 import shutil
@@ -32,6 +31,10 @@ import json
 import zipfile
 import tempfile
 from . import XuleFunctions as xf
+from . import XuleRuleSet as xr
+from . import XuleUtility as xu
+
+PARSER_FILES = ('XuleRuleSetBuiler.py', 'XuleRuleSet.py', 'XuleParser.py', 'xule_grammar.py')
 
 class JSONEncoderForSet(json.JSONEncoder):
     def default(self, obj):
@@ -96,6 +99,8 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
                             "functions": {},
                             "constants": {},
                             "output_attributes": {},
+                            "version": None,
+                            "xule_compliled_version": xu.version(PARSER_FILES)
                             }
             
             self._open_for_add = True
@@ -111,6 +116,9 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
         super().open(ruleSetLocation, open_packages=False)
         self._open_for_add = True
 
+        #current_xule_version = xu.version()
+        #if self.catalog.get('xule_compiled_version') or 0 < current_xule_version:
+
         #clear out the catalog. This will be rebuilt as files are added.
         self.catalog['namespaces'] = {}
         self.catalog['rules'] = {}
@@ -119,6 +127,7 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
         self.catalog['constants'] = {}
         self.catalog['output_attributes'] = {}
         self.catalog['version'] = None
+        self.catalog['xule_compiled_version'] = xu.version(PARSER_FILES)
     
     def close(self):
         """Close the ruleset"""
