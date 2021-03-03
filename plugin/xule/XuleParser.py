@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23092 $
+$Change: 23197 $
 DOCSKIP
 """
 from pyparsing import ParseResults, lineno, ParseException, ParseSyntaxException, ParserElement
@@ -66,9 +66,9 @@ def parseFile(dir, fileName, xuleGrammar, ruleSet):
                 buffer = xule_file.read(4096)
                 file_hash_contents.update(buffer)
             file_hash = file_hash_contents.hexdigest()
-        
+
         #check if the file has changed
-        if ruleSet.getFileHash(fileName) == file_hash:
+        if ruleSet.getFileHash(fileName) == file_hash and not ruleSet.recompile_all:
             #The file has not changed.
             ruleSet.markFileKeep(fileName)
         else:

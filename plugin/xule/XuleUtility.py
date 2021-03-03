@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 22800 $
+$Change: 23197 $
 DOCSKIP
 """
 from arelle.ModelRelationshipSet import ModelRelationshipSet
@@ -39,30 +39,29 @@ XuleValue = None
 XuleProperties = None
 
 
-def version(plugin_init_file=__file__):
+def version(plugin_init_files=__file__):
     change_numbers = set()
 
-    if plugin_init_file == __file__:
-        xule_mod_pattern = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(plugin_init_file), '*.py'))
-    
-        for mod_file_name in glob.glob(xule_mod_pattern):
-            with open(mod_file_name, 'r') as mod_file:
-                file_text = mod_file.read()
-                match = re.search(r'\$' + r'Change:\s*(\d+)\s*\$', file_text)
-                if match is not None:
-                    change_numbers.add(int(match.group(1)))
-        
-        if len(change_numbers) == 0:
-            return ''
-        else:
-            return str(max(change_numbers))
+    if plugin_init_files == __file__:
+        xule_mod_pattern = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(plugin_init_files), '*.py'))
+        files_to_check = glob.glob(xule_mod_pattern)
+    elif isinstance(plugin_init_files, str):
+        files_to_check = (plugin_init_files,) # change the string to a tuple
     else:
-        with open(plugin_init_file, 'r') as mod_file:
+        files_to_check = plugin_init_files
+
+    for mod_file_name in files_to_check:
+        with open(mod_file_name, 'r') as mod_file:
             file_text = mod_file.read()
             match = re.search(r'\$' + r'Change:\s*(\d+)\s*\$', file_text)
             if match is not None:
-                return match.group(1)        
-
+                change_numbers.add(int(match.group(1)))
+    
+    if len(change_numbers) == 0:
+        return ''
+    else:
+        return str(max(change_numbers))
+    
     return ''
 
 def _imports():
@@ -394,5 +393,16 @@ def get_tree_location(model_object):
     else:
         prev_location = get_tree_location(parent)
         return prev_location + "/" + str(parent.index(model_object) + 1)
-  
-    
+
+def get_rule_set_compatibility_version():
+
+    current_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+    compatibility_file_name = os.path.join(current_dir, xc.RULE_SET_COMPATIBILITY_FILE)        
+    if not os.path.isfile(compatibility_file_name):
+        raise xrt.XuleProcessingError("Cannot find rule set compatibility file for '{}'. This file is needed to determine which rule set to use.".format(compatibility_file_name))
+    try:
+        with open(compatibility_file_name, 'r') as compatibility_file:
+            compatibility_json =  json.load(compatibility_file)
+            return compatibility_json.get('versionControl')
+    except ValueError:
+        raise XuleProcessingError(_("Rule set compatibility file does not appear to be a valid JSON file. File: {}".format(xc.RULE_SET_COMPATIBILITY_FILE))) 
