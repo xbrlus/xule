@@ -34,7 +34,8 @@ from . import XuleFunctions as xf
 from . import XuleRuleSet as xr
 from . import XuleUtility as xu
 
-PARSER_FILES = ('XuleRuleSetBuiler.py', 'XuleRuleSet.py', 'XuleParser.py', 'xule_grammar.py')
+PARSER_FILES = tuple(os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__), x)) 
+                        for x in ('XuleRuleSetBuilder.py', 'XuleRuleSet.py', 'XuleParser.py', 'xule_grammar.py'))
 
 class JSONEncoderForSet(json.JSONEncoder):
     def default(self, obj):
@@ -49,6 +50,7 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
         self._compile_type = compile_type
         self._file_status = {}
         self._open_for_add = False
+        self.recompile_all = False
         super().__init__(cntlr)
     
     def markFileKeep(self, file_name):
@@ -84,7 +86,7 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
         
         #check if the ruleset is already opened.
         if self._open_for_add:
-            raise XuleRuleSetError("Trying to create a new rule set in an open rule set.")
+            raise xr.XuleRuleSetError("Trying to create a new rule set in an open rule set.")
         else:
             self.name = os.path.basename(location)
             self.location = location
@@ -110,14 +112,15 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
             self.open(location)
         except FileNotFoundError:
             self.new(location)
-
+            
     def open(self, ruleSetLocation):
 
-        super().open(ruleSetLocation, open_packages=False)
+        try:
+            super().open(ruleSetLocation, open_packages=False)
+        except xr.XuleRuleCompatibilityError:
+            self.recompile_all = True
+            print("Due to rule set incompatibility, recompiling all files")
         self._open_for_add = True
-
-        #current_xule_version = xu.version()
-        #if self.catalog.get('xule_compiled_version') or 0 < current_xule_version:
 
         #clear out the catalog. This will be rebuilt as files are added.
         self.catalog['namespaces'] = {}

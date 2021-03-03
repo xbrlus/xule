@@ -47,6 +47,8 @@ def version(plugin_init_files=__file__):
         files_to_check = glob.glob(xule_mod_pattern)
     elif isinstance(plugin_init_files, str):
         files_to_check = (plugin_init_files,) # change the string to a tuple
+    else:
+        files_to_check = plugin_init_files
 
     for mod_file_name in files_to_check:
         with open(mod_file_name, 'r') as mod_file:
@@ -391,5 +393,16 @@ def get_tree_location(model_object):
     else:
         prev_location = get_tree_location(parent)
         return prev_location + "/" + str(parent.index(model_object) + 1)
-  
-    
+
+def get_rule_set_compatibility_version():
+
+    current_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+    compatibility_file_name = os.path.join(current_dir, xc.RULE_SET_COMPATIBILITY_FILE)        
+    if not os.path.isfile(compatibility_file_name):
+        raise xrt.XuleProcessingError("Cannot find rule set compatibility file for '{}'. This file is needed to determine which rule set to use.".format(compatibility_file_name))
+    try:
+        with open(compatibility_file_name, 'r') as compatibility_file:
+            compatibility_json =  json.load(compatibility_file)
+            return compatibility_json.get('versionControl')
+    except ValueError:
+        raise XuleProcessingError(_("Rule set compatibility file does not appear to be a valid JSON file. File: {}".format(xc.RULE_SET_COMPATIBILITY_FILE))) 
