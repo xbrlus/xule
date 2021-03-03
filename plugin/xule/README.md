@@ -11,7 +11,7 @@
 4. Copy the "aniso8601" folder to the root of the Arelle install in your environment. In a Windows environment, this would be located on a path similar to C:\Program FIles\Arelle; on a Mac, the location would be at /Applications/Arelle.app/Contents/MacOS/.
 
 ### Source Install
-* Download the latest version of [Arelle](https://github.com/Arelle/Arelle/releases) fro GitHub to your environment and install. 
+* Download the latest [Arelle source code](https://github.com/Arelle/Arelle/) from GitHub to your environment and run setup.py to install. 
 * Install the following modules to python:
   * isodate
   * aniso8601
@@ -62,4 +62,4 @@ To *exclude the rule number, filename and line number from the message*, use the
 See [License](https://xbrl.us/dqc-license) for license information.  
 See [Patent Notice](https://xbrl.us/dqc-patent) for patent infringement notice.
 
-Copyright 2015 - 2020 XBRL US, Inc. All rights reserved.
+Copyright 2015 - 2021 XBRL US, Inc. All rights reserved.
