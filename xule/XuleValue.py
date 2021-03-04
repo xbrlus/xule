@@ -103,6 +103,8 @@ class XuleValue:
         elif self.type == 'dictionary' and self.shadow_collection is None:
             shadow = self.shadow_dictionary
             self.shadow_collection = frozenset(shadow.items())
+        elif self.type == 'string': # make all strings XuleStrings
+            self.value = XuleString(self.value)
     @property
     def shadow_dictionary(self):
         if self.type == 'dictionary':
