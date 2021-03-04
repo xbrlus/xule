@@ -642,8 +642,9 @@ class XuleString(str):
 
         if substitutions is None or len(substitutions) == 0:
             # In this case there are no substitutions so the the XuleString is just a plain string
-            string_inst = super().__new__(cls, format_string)
-            string_inst._format_string = None
+            format_string = format_string.replace('%', '%%')
+            string_inst = super().__new__(cls, format_string % dict())
+            string_inst._format_string = format_string
             string_inst.substitutions = dict()
         else:
             # The format string is not a real python format string. It is a string without the substitutions in it.
