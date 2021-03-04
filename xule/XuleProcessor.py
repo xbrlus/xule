@@ -35,6 +35,7 @@ from arelle.ModelInstanceObject import ModelFact
 from arelle.ModelRelationshipSet import ModelRelationshipSet
 from arelle.ModelDtsObject import ModelConcept
 from arelle.ModelObject import ModelObject
+from arelle.XmlValidate import VALID
 import decimal
 import datetime
 import math
@@ -269,6 +270,10 @@ def index_model(xule_context):
     facts_to_index = collections.defaultdict(list)
     if xule_context.model is not None:
         for model_fact in xule_context.model.factsInInstance:
+            if not fact_is_complete(model_fact):
+                # Fact is incomplete. This can be caused by a filing that is still in the process of being built.
+                # Ignore the fact and continue validating the rest of the filing.
+                continue
             all_aspects = list()
             all_aspects.append((('builtin', 'concept'), model_fact.qname))
 
@@ -5392,3 +5397,16 @@ def trace_count_next_time(rule_part, traces):
                         total_child_times += child_info[0]
                         total_child_nodes += child_info[1]
     return (total_child_times, total_child_nodes)
+
+def fact_is_complete(model_fact):
+    if model_fact.xValid < VALID:
+        return False
+    if model_fact.context is None or not context_has_period(model_fact.context):
+        return False
+    if model_fact.isNumeric and model_fact.unit is None:
+        return False
+    return True
+
+
+def context_has_period(model_context):
+    return model_context.isStartEndPeriod or model_context.isInstantPeriod or model_context.isForeverPeriod

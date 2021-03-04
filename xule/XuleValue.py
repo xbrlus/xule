@@ -926,9 +926,9 @@ class XuleDimensionCube:
                                                                                          XuleProperties.NETWORK_ARC]))
 
                     for rel in relationship_set.modelRelationships:
-                        drs_role = base_set[XuleProperties.NETWORK_ROLE] #rel.targetRole or base_set[XuleProperties.NETWORK_ROLE]
-                        hypercube = rel.toModelObject
-                        dts.xuleBaseDimensionSets[(drs_role, hypercube)].add(rel)
+                        if rel.toModelObject is not None:
+                            drs_role = base_set[XuleProperties.NETWORK_ROLE]
+                            dts.xuleBaseDimensionSets[(drs_role, rel.toModelObject)].add(rel)
 
     @classmethod
     def _establish_dimension_defaults(cls, dts):
