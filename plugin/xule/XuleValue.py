@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 22950 $
+$Change: 23202 $
 DOCSKIP
 """
 from .XuleRunTime import XuleProcessingError
@@ -103,6 +103,8 @@ class XuleValue:
         elif self.type == 'dictionary' and self.shadow_collection is None:
             shadow = self.shadow_dictionary
             self.shadow_collection = frozenset(shadow.items())
+        elif self.type == 'string': # make all strings XuleStrings
+            self.value = XuleString(self.value)
     @property
     def shadow_dictionary(self):
         if self.type == 'dictionary':
@@ -642,8 +644,9 @@ class XuleString(str):
 
         if substitutions is None or len(substitutions) == 0:
             # In this case there are no substitutions so the the XuleString is just a plain string
-            string_inst = super().__new__(cls, format_string)
-            string_inst._format_string = None
+            format_string = format_string.replace('%', '%%')
+            string_inst = super().__new__(cls, format_string % dict())
+            string_inst._format_string = format_string
             string_inst.substitutions = dict()
         else:
             # The format string is not a real python format string. It is a string without the substitutions in it.
@@ -923,9 +926,9 @@ class XuleDimensionCube:
                                                                                          XuleProperties.NETWORK_ARC]))
 
                     for rel in relationship_set.modelRelationships:
-                        drs_role = base_set[XuleProperties.NETWORK_ROLE] #rel.targetRole or base_set[XuleProperties.NETWORK_ROLE]
-                        hypercube = rel.toModelObject
-                        dts.xuleBaseDimensionSets[(drs_role, hypercube)].add(rel)
+                        if rel.toModelObject is not None:
+                            drs_role = base_set[XuleProperties.NETWORK_ROLE]
+                            dts.xuleBaseDimensionSets[(drs_role, rel.toModelObject)].add(rel)
 
     @classmethod
     def _establish_dimension_defaults(cls, dts):
