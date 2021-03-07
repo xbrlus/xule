@@ -224,7 +224,7 @@ def addMenuTools(cntlr, menu, name, version_prefix, version_file, map_name, clou
             col_id = headers[col_index]
             col_w = tree_box.column(col_id, width=None)
             for row in map:
-                x = list(row)[col_index]
+                x = list(row)[col_index] or ''
                 new_w = tkFont.Font().measure(x)
                 if new_w > max_w:
                     col_w = max_w
@@ -983,7 +983,7 @@ def rulesetMapData(cntlr, map_name):
             rule_set = xr.XuleRuleSet(cntlr)
             try:
                 rule_set.open(v, open_packages=False, open_files=False)
-                version = rule_set.catalog.get('version', 'NOT VERSIONED')
+                version = rule_set.catalog.get('version') or 'not versioned'
             except FileNotFoundError:
                 version = 'Rule set not found'
             map_data.append((k, v, version))

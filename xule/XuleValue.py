@@ -644,8 +644,11 @@ class XuleString(str):
 
         if substitutions is None or len(substitutions) == 0:
             # In this case there are no substitutions so the the XuleString is just a plain string
-            format_string = format_string.replace('%', '%%')
-            string_inst = super().__new__(cls, format_string % dict())
+            if format_string is not None:
+                format_string = format_string.replace('%', '%%')
+                string_inst = super().__new__(cls, format_string % dict())
+            else:
+                string_inst = super().__new__(cls, format_string)
             string_inst._format_string = format_string
             string_inst.substitutions = dict()
         else:
