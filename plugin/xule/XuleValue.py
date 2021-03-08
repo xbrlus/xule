@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23202 $
+$Change: 23204 $
 DOCSKIP
 """
 from .XuleRunTime import XuleProcessingError
@@ -644,8 +644,11 @@ class XuleString(str):
 
         if substitutions is None or len(substitutions) == 0:
             # In this case there are no substitutions so the the XuleString is just a plain string
-            format_string = format_string.replace('%', '%%')
-            string_inst = super().__new__(cls, format_string % dict())
+            if format_string is not None:
+                format_string = format_string.replace('%', '%%')
+                string_inst = super().__new__(cls, format_string % dict())
+            else:
+                string_inst = super().__new__(cls, format_string)
             string_inst._format_string = format_string
             string_inst.substitutions = dict()
         else:

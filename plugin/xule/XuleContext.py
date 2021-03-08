@@ -22,7 +22,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23184 $
+$Change: 23204 $
 DOCSKIP
 """
 from .XuleRunTime import XuleProcessingError
@@ -416,7 +416,7 @@ class XuleRuleContext(object):
     def constant_overrides(self):
         if self._constant_overrides is None:
             overrides = dict()
-            for arg in getattr(self.global_context.options,'xule_arg') or tuple():
+            for arg in getattr(self.global_context.options,'xule_arg', None) or tuple():
                 arg_parts = arg.split('=')
                 name = arg_parts[0]
                 if len(name) > 0:
