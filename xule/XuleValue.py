@@ -647,10 +647,11 @@ class XuleString(str):
             if format_string is not None:
                 format_string = format_string.replace('%', '%%')
                 string_inst = super().__new__(cls, format_string % dict())
+                string_inst._format_string = format_string
+                string_inst._substitutions = dict()
             else:
-                string_inst = super().__new__(cls, format_string)
-            string_inst._format_string = format_string
-            string_inst.substitutions = dict()
+                #string_inst = super().__new__(cls, format_string)
+                string_inst = None
         else:
             # The format string is not a real python format string. It is a string without the substitutions in it.
             # The substitutions is a list of 3 part tuples: 0=location in format string, 1=substitution name, 2=substitution value.
@@ -684,15 +685,18 @@ class XuleString(str):
                 string_inst._format_string = None
             else:
                 string_inst._format_string = format_string
-            string_inst.substitutions = format_subs
+            string_inst._substitutions = format_subs
         
         return string_inst
     
     
     @property
     def format_string(self):
-        return self._format_string or self
+        return getattr(self, '_format_string', None) or self
     
+    @property
+    def substitutions(self):
+        return getattr(self, '_substitutions', None) or dict()
 class XuleUnit:
     def __init__(self, *args):
         if len(args) == 1:
