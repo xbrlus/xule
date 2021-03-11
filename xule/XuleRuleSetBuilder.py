@@ -102,7 +102,7 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
                             "constants": {},
                             "output_attributes": {},
                             "version": None,
-                            "xule_compliled_version": xu.version(PARSER_FILES)
+                            "xule_compiled_version": xu.version(PARSER_FILES)
                             }
             
             self._open_for_add = True
