@@ -657,7 +657,7 @@ def substituteTemplate(rule_meta_data, rule_results, template, modelXbrl, main_h
         show_template_results = set()
         for showif_rule_name in rule_meta_data.get('showifs', dict()).keys():
             for showif_result in rule_results.get(showif_rule_name, tuple()):
-                show_template_results.add(showif_result.msg.lower().strip() != 'false')
+                show_template_results.add(showif_result.getMessage().lower().strip() != 'false')
 
         # there is an evaluation that is False and no evaluation was True
         if False in show_template_results and not True in show_template_results:
@@ -776,7 +776,7 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
         if isinstance(rule_result, list):
             json_rule_result = rule_result
         else:
-            json_rule_result = json.loads(rule_result.msg)
+            json_rule_result = json.loads(rule_result.getMessage())
 
         if repeating_model_node is not None:
             # Copy the model of the repeating node. This will be used to do the actual substitutions
@@ -1056,7 +1056,7 @@ def set_line_number_starts(line_number_subs, rule_results):
                     start_value = 1
                 else:
                     try:
-                        start_value = int(start_result[0].msg.strip())
+                        start_value = int(start_result[0].getMessage().strip())
                     except ValueError:
                         # didn't an integer back, default to 1
                         start_value = 1
