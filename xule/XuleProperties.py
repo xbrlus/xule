@@ -1842,6 +1842,11 @@ def traverse_for_weight(network, parent, stop_concept, previous_concepts=None, p
     
     return results
 
+def property_namespaces(xule_context, object_value, *args):
+    namespaces = set(object_value.value.namespaceDocs.keys())
+    namespaces_value = set(xv.XuleValue(xule_context, x, 'uri') for x in namespaces)
+    return xv.XuleValue(xule_context, frozenset(namespaces_value), 'set', shadow_collection=namespaces)
+
 #Property tuple
 PROP_FUNCTION = 0
 PROP_ARG_NUM = 1 #arg num allows negative numbers to indicated that the arguments are optional
@@ -1985,6 +1990,7 @@ PROPERTIES = {
               'primary-concepts': (property_primary_concepts, 0, ('cube',), False),
               'facts': (property_facts, 0, ('cube',), False),
               'default': (property_default, 0, ('dimension',), False),
+              'namespaces': (property_namespaces, 0, ('taxonomy',), False),
 
               # Debugging properties
               '_type': (property_type, 0, (), False),
