@@ -740,6 +740,7 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
         except xr.XuleRuleSetError:
             raise
 
+
         # Create global Context
         global_context = XuleGlobalContext(rule_set, cntlr=cntlr, options=options)
 
@@ -861,55 +862,62 @@ def runXule(cntlr, options, modelXbrl, rule_set_map=_xule_rule_set_map_name):
                 rule_set.open(rule_set_location, open_packages=not getattr(options, 'xule_bypass_packages', False))
         except xr.XuleRuleSetError:
             raise
-
-        if getattr(options, "xule_multi", False):
-            xm.start_process(rule_set,
-                         modelXbrl,
-                         cntlr,
-                         options
-                         )
+        except xr.XuleRuleCompatibilityError as err:
+            # output the message to the log and NOT raise an exception
+            cntlr.addToLog(err.msg, 'error')
         else:
-            if modelXbrl is None:
-                # check if there are any rules that need a model
-                for rule in rule_set.catalog['rules'].values():
-                    if rule['dependencies']['instance'] == True and rule['dependencies']['rules-taxonomy'] != False:
-                        raise xr.XuleRuleSetError('Need instance to process rules')
-                    
-            global _saved_taxonomies        
-            used_taxonomies = process_xule(rule_set,
-                                           modelXbrl,
-                                           cntlr,
-                                           options,
-                                           _saved_taxonomies
-                                           )
-            # Save one loaded taxonomy
-            new_taxonomy_keys = used_taxonomies.keys() - _saved_taxonomies.keys()
-            if len(new_taxonomy_keys) > 0:
-                for tax_key in list(new_taxonomy_keys)[:2]: # This take at most 2 taxonomies.
-                    tax_key = next(iter(new_taxonomy_keys)) # randomly get one key
-                    _saved_taxonomies[tax_key] = used_taxonomies[tax_key]
+            if getattr(options, "xule_multi", False):
+                xm.start_process(rule_set,
+                            modelXbrl,
+                            cntlr,
+                            options
+                            )
+            else:
+                if modelXbrl is None:
+                    # check if there are any rules that need a model
+                    for rule in rule_set.catalog['rules'].values():
+                        if rule['dependencies']['instance'] == True and rule['dependencies']['rules-taxonomy'] != False:
+                            raise xr.XuleRuleSetError('Need instance to process rules')
+                        
+                global _saved_taxonomies        
+                used_taxonomies = process_xule(rule_set,
+                                            modelXbrl,
+                                            cntlr,
+                                            options,
+                                            _saved_taxonomies
+                                            )
+                # Save one loaded taxonomy
+                new_taxonomy_keys = used_taxonomies.keys() - _saved_taxonomies.keys()
+                if len(new_taxonomy_keys) > 0:
+                    for tax_key in list(new_taxonomy_keys)[:2]: # This take at most 2 taxonomies.
+                        tax_key = next(iter(new_taxonomy_keys)) # randomly get one key
+                        _saved_taxonomies[tax_key] = used_taxonomies[tax_key]
 
 def callXuleProcessor(cntlr, modelXbrl, rule_set_location, options):
     '''Call xule from other plugins
 
     This is an entry point for other plugins to call xule.
     '''
-    rule_set = xr.XuleRuleSet(cntlr)              
-    rule_set.open(rule_set_location)
+    try:
+        rule_set = xr.XuleRuleSet(cntlr)              
+        rule_set.open(rule_set_location)
 
-    global _saved_taxonomies        
-    used_taxonomies = process_xule(rule_set,
-                                    modelXbrl,
-                                    cntlr,
-                                    options,
-                                    _saved_taxonomies
-                                    )
-    # Save one loaded taxonomy
-    new_taxonomy_keys = used_taxonomies.keys() - _saved_taxonomies.keys()
-    if len(new_taxonomy_keys) > 0:
-        for tax_key in list(new_taxonomy_keys)[:2]: # This take at most 2 taxonomies.
-            tax_key = next(iter(new_taxonomy_keys)) # randomly get one key
-            _saved_taxonomies[tax_key] = used_taxonomies[tax_key]
+        global _saved_taxonomies        
+        used_taxonomies = process_xule(rule_set,
+                                        modelXbrl,
+                                        cntlr,
+                                        options,
+                                        _saved_taxonomies
+                                        )
+        # Save one loaded taxonomy
+        new_taxonomy_keys = used_taxonomies.keys() - _saved_taxonomies.keys()
+        if len(new_taxonomy_keys) > 0:
+            for tax_key in list(new_taxonomy_keys)[:2]: # This take at most 2 taxonomies.
+                tax_key = next(iter(new_taxonomy_keys)) # randomly get one key
+                _saved_taxonomies[tax_key] = used_taxonomies[tax_key]
+    except xr.XuleRuleCompatibilityError as err:
+        # output the message to the log and NOT raise an exception
+        cntlr.addToLog(err.msg, 'error')
 
 def xuleValidate(val):
     global _cntlr
