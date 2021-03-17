@@ -21,7 +21,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23204 $
+$Change: 23214 $
 DOCSKIP
 """
 from .XuleContext import XuleGlobalContext, XuleRuleContext  # XuleContext
@@ -4305,7 +4305,6 @@ def process_property(current_property_expr, object_value, property_info, xule_co
 
     return object_value
 
-
 def evaluate_index(index_expr, xule_context):
     # evaluate the left side of the expression
     left_value = evaluate(index_expr['expr'], xule_context)
@@ -4317,10 +4316,14 @@ def evaluate_index(index_expr, xule_context):
 
     return left_value
 
-
 def evaluate_tag_ref(tag_ref, xule_context):
     if tag_ref['varName'] in xule_context.tags:
-        return xule_context.tags[tag_ref['varName']]
+        # When tags are evaluated for message production, the tags associated with the tagged value
+        # should overwrite the the current tags. Making a copy of the value and removing the tags (and likewise for facts)
+        tag_value =  copy.copy(xule_context.tags[tag_ref['varName']])
+        tag_value.tags = dict()
+        tag_value.facts = collections.OrderedDict()
+        return tag_value
     else:
         # The reference may be to a constant
         cat_const = xule_context.global_context.catalog['constants'].get(tag_ref['varName'])

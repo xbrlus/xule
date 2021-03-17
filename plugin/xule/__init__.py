@@ -21,7 +21,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23204 $
+$Change: 23217 $
 DOCSKIP
 """
 from .XuleProcessor import process_xule
@@ -32,6 +32,7 @@ from . import XuleConstants as xc
 from .XuleContext import XuleGlobalContext, XuleRuleContext
 import collections
 import copy
+import logging
 
 try:
     from . import XuleValidate as xv
@@ -689,25 +690,36 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
     
     # add packages
     if getattr(options, "xule_add_packages", None):
-        rule_set = xr.XuleRuleSet(cntlr)
-        rule_set.open(getattr(options, "xule_rule_set"), open_packages=False, open_files=False)
-        packages = options.xule_add_packages.split('|')
-        rule_set.manage_packages(packages, 'add')
-
+        try:
+            rule_set = xr.XuleRuleSet(cntlr)
+            rule_set.open(getattr(options, "xule_rule_set"), open_packages=False, open_files=False)
+            packages = options.xule_add_packages.split('|')
+            rule_set.manage_packages(packages, 'add')
+        except xr.XuleRuleCompatibilityError as err:
+            # output the message to the log and NOT raise an exception
+            cntlr.addToLog(err.args[0] if len(err.args)>0 else 'Unknown rule compatibility error', 'xule', level=logging.ERROR)
     # remove packages
     if getattr(options, "xule_remove_packages", None):
-        rule_set = xr.XuleRuleSet(cntlr)
-        rule_set.open(getattr(options, "xule_rule_set"), open_packages=False, open_files=False)
-        packages = options.xule_remove_packages.split('|')
-        rule_set.manage_packages(packages, 'del')
+        try:
+            rule_set = xr.XuleRuleSet(cntlr)
+            rule_set.open(getattr(options, "xule_rule_set"), open_packages=False, open_files=False)
+            packages = options.xule_remove_packages.split('|')
+            rule_set.manage_packages(packages, 'del')
+        except xr.XuleRuleCompatibilityError as err:
+            # output the message to the log and NOT raise an exception
+            cntlr.addToLog(err.args[0] if len(err.args)>0 else 'Unknown rule compatibility error', 'xule', level=logging.ERROR)
     
     # show packages
     if getattr(options, "xule_show_packages", False):
-        rule_set = xr.XuleRuleSet(cntlr)
-        rule_set.open(getattr(options, "xule_rule_set"), open_packages=False, open_files=False)
-        print("Packages in rule set:")
-        for package_info in rule_set.get_packages_info():
-            print('\t' + package_info.get('name') + ' (' + os.path.basename(package_info.get('URL')) + ')')
+        try:
+            rule_set = xr.XuleRuleSet(cntlr)
+            rule_set.open(getattr(options, "xule_rule_set"), open_packages=False, open_files=False)
+            print("Packages in rule set:")
+            for package_info in rule_set.get_packages_info():
+                print('\t' + package_info.get('name') + ' (' + os.path.basename(package_info.get('URL')) + ')')
+        except xr.XuleRuleCompatibilityError as err:
+            # output the message to the log and NOT raise an exception
+            cntlr.addToLog(err.args[0] if len(err.args)>0 else 'Unknown rule compatibility error', 'xule', level=logging.ERROR)
         
     # update rule set map
     if getattr(options, 'xule_update_rule_set_map', None):
@@ -739,48 +751,51 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
             rule_set.open(options.xule_rule_set, False)
         except xr.XuleRuleSetError:
             raise
+        except xr.XuleRuleCompatibilityError as err:
+            # output the message to the log and NOT raise an exception
+            cntlr.addToLog(err.args[0] if len(err.args)>0 else 'Unknown rule compatibility error', 'xule', level=logging.ERROR)
+        else:
+            # Create global Context
+            global_context = XuleGlobalContext(rule_set, cntlr=cntlr, options=options)
 
-        # Create global Context
-        global_context = XuleGlobalContext(rule_set, cntlr=cntlr, options=options)
+            global_context.message_queue.print("Using %d processors" % (global_context.num_processors)) 
 
-        global_context.message_queue.print("Using %d processors" % (global_context.num_processors)) 
+            # Start Output message queue
+            if getattr(options, "xule_multi", False):
+                t = Thread(target=xm.output_message_queue, args=(global_context,))
+                t.start()
+            
+            global_context.message_queue.logging("Building Constant and Rule Groups")
+            global_context.all_constants = rule_set.get_grouped_constants()
+            global_context.all_rules = rule_set.get_grouped_rules()        
 
-        # Start Output message queue
-        if getattr(options, "xule_multi", False):
-            t = Thread(target=xm.output_message_queue, args=(global_context,))
-            t.start()
-        
-        global_context.message_queue.logging("Building Constant and Rule Groups")
-        global_context.all_constants = rule_set.get_grouped_constants()
-        global_context.all_rules = rule_set.get_grouped_rules()        
+            
+            for g in global_context.all_constants:
+                global_context.message_queue.logging("Constants: %s - %d" % (g, len(global_context.all_constants[g])))
 
-        
-        for g in global_context.all_constants:
-            global_context.message_queue.logging("Constants: %s - %d" % (g, len(global_context.all_constants[g])))
+            for g in global_context.all_rules:
+                global_context.message_queue.logging("Rules: %s - %d" % (g, len(global_context.all_rules[g])))
 
-        for g in global_context.all_rules:
-            global_context.message_queue.logging("Rules: %s - %d" % (g, len(global_context.all_rules[g])))
+            # evaluate valid constants (no dependency, rules taxonomy)
+            global_context.message_queue.logging("Calculating and Storing Constants")
+            xm.run_constant_group(global_context, 'c', 'rtc')
 
-        # evaluate valid constants (no dependency, rules taxonomy)
-        global_context.message_queue.logging("Calculating and Storing Constants")
-        xm.run_constant_group(global_context, 'c', 'rtc')
-
-                                   
-        # Add precalculated information to the cntlr to pass to XuleServer
-        setattr(cntlr, "xule_options", options)
-        setattr(cntlr, "rule_set", global_context.rule_set)        
-        setattr(cntlr, "constant_list", global_context._constants)
-        setattr(cntlr, "all_constants", global_context.all_constants)
-        setattr(cntlr, "all_rules", global_context.all_rules)        
+                                    
+            # Add precalculated information to the cntlr to pass to XuleServer
+            setattr(cntlr, "xule_options", options)
+            setattr(cntlr, "rule_set", global_context.rule_set)        
+            setattr(cntlr, "constant_list", global_context._constants)
+            setattr(cntlr, "all_constants", global_context.all_constants)
+            setattr(cntlr, "all_rules", global_context.all_rules)        
 
 
-        global_context.message_queue.logging("Finished Server Initialization")
-        
-        # stop message_queue
-        global_context.message_queue.stop()
-        
-        if getattr(options, "xule_multi", False):
-            t.join()
+            global_context.message_queue.logging("Finished Server Initialization")
+            
+            # stop message_queue
+            global_context.message_queue.stop()
+            
+            if getattr(options, "xule_multi", False):
+                t.join()
     else:
         if getattr(options, 'xule_filing_list', None) is not None:
             # process filing list
@@ -859,57 +874,64 @@ def runXule(cntlr, options, modelXbrl, rule_set_map=_xule_rule_set_map_name):
                 
                 rule_set = xr.XuleRuleSet(cntlr)              
                 rule_set.open(rule_set_location, open_packages=not getattr(options, 'xule_bypass_packages', False))
+        except xr.XuleRuleCompatibilityError as err:
+            # output the message to the log and NOT raise an exception
+            cntlr.addToLog(err.args[0] if len(err.args)>0 else 'Unknown rule compatibility error', 'xule', level=logging.ERROR)
         except xr.XuleRuleSetError:
             raise
-
-        if getattr(options, "xule_multi", False):
-            xm.start_process(rule_set,
-                         modelXbrl,
-                         cntlr,
-                         options
-                         )
         else:
-            if modelXbrl is None:
-                # check if there are any rules that need a model
-                for rule in rule_set.catalog['rules'].values():
-                    if rule['dependencies']['instance'] == True and rule['dependencies']['rules-taxonomy'] != False:
-                        raise xr.XuleRuleSetError('Need instance to process rules')
-                    
-            global _saved_taxonomies        
-            used_taxonomies = process_xule(rule_set,
-                                           modelXbrl,
-                                           cntlr,
-                                           options,
-                                           _saved_taxonomies
-                                           )
-            # Save one loaded taxonomy
-            new_taxonomy_keys = used_taxonomies.keys() - _saved_taxonomies.keys()
-            if len(new_taxonomy_keys) > 0:
-                for tax_key in list(new_taxonomy_keys)[:2]: # This take at most 2 taxonomies.
-                    tax_key = next(iter(new_taxonomy_keys)) # randomly get one key
-                    _saved_taxonomies[tax_key] = used_taxonomies[tax_key]
+            if getattr(options, "xule_multi", False):
+                xm.start_process(rule_set,
+                            modelXbrl,
+                            cntlr,
+                            options
+                            )
+            else:
+                if modelXbrl is None:
+                    # check if there are any rules that need a model
+                    for rule in rule_set.catalog['rules'].values():
+                        if rule['dependencies']['instance'] == True and rule['dependencies']['rules-taxonomy'] != False:
+                            raise xr.XuleRuleSetError('Need instance to process rules')
+                        
+                global _saved_taxonomies        
+                used_taxonomies = process_xule(rule_set,
+                                            modelXbrl,
+                                            cntlr,
+                                            options,
+                                            _saved_taxonomies
+                                            )
+                # Save one loaded taxonomy
+                new_taxonomy_keys = used_taxonomies.keys() - _saved_taxonomies.keys()
+                if len(new_taxonomy_keys) > 0:
+                    for tax_key in list(new_taxonomy_keys)[:2]: # This take at most 2 taxonomies.
+                        tax_key = next(iter(new_taxonomy_keys)) # randomly get one key
+                        _saved_taxonomies[tax_key] = used_taxonomies[tax_key]
 
 def callXuleProcessor(cntlr, modelXbrl, rule_set_location, options):
     '''Call xule from other plugins
 
     This is an entry point for other plugins to call xule.
     '''
-    rule_set = xr.XuleRuleSet(cntlr)              
-    rule_set.open(rule_set_location)
+    try:
+        rule_set = xr.XuleRuleSet(cntlr)              
+        rule_set.open(rule_set_location)
 
-    global _saved_taxonomies        
-    used_taxonomies = process_xule(rule_set,
-                                    modelXbrl,
-                                    cntlr,
-                                    options,
-                                    _saved_taxonomies
-                                    )
-    # Save one loaded taxonomy
-    new_taxonomy_keys = used_taxonomies.keys() - _saved_taxonomies.keys()
-    if len(new_taxonomy_keys) > 0:
-        for tax_key in list(new_taxonomy_keys)[:2]: # This take at most 2 taxonomies.
-            tax_key = next(iter(new_taxonomy_keys)) # randomly get one key
-            _saved_taxonomies[tax_key] = used_taxonomies[tax_key]
+        global _saved_taxonomies        
+        used_taxonomies = process_xule(rule_set,
+                                        modelXbrl,
+                                        cntlr,
+                                        options,
+                                        _saved_taxonomies
+                                        )
+        # Save one loaded taxonomy
+        new_taxonomy_keys = used_taxonomies.keys() - _saved_taxonomies.keys()
+        if len(new_taxonomy_keys) > 0:
+            for tax_key in list(new_taxonomy_keys)[:2]: # This take at most 2 taxonomies.
+                tax_key = next(iter(new_taxonomy_keys)) # randomly get one key
+                _saved_taxonomies[tax_key] = used_taxonomies[tax_key]
+    except xr.XuleRuleCompatibilityError as err:
+        # output the message to the log and NOT raise an exception
+        cntlr.addToLog(err.args[0] if len(err.args)>0 else 'Unknown rule compatibility error', 'xule', level=logging.ERROR)
 
 def xuleValidate(val):
     global _cntlr
@@ -983,7 +1005,9 @@ def rulesetMapData(cntlr, map_name):
             rule_set = xr.XuleRuleSet(cntlr)
             try:
                 rule_set.open(v, open_packages=False, open_files=False)
-                version = rule_set.catalog.get('version') or 'not versioned'
+                version = rule_set.catalog.get('xule_compiled_version') or 'not versioned'
+            except xr.XuleRuleCompatibilityError as err:
+                version = err.args[0] if len(err.args)>0 else 'incompatible rule set version'
             except FileNotFoundError:
                 version = 'Rule set not found'
             map_data.append((k, v, version))

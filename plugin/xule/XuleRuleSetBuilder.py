@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23204 $
+$Change: 23211 $
 DOCSKIP
 """
 import pickle
@@ -102,7 +102,7 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
                             "constants": {},
                             "output_attributes": {},
                             "version": None,
-                            "xule_compliled_version": xu.version(PARSER_FILES)
+                            "xule_compiled_version": xu.version(PARSER_FILES)
                             }
             
             self._open_for_add = True
