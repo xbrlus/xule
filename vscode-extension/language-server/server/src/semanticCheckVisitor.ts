@@ -610,6 +610,7 @@ export const wellKnownProperties: { [name: string]: PropertyInfo } = {
     "month": new PropertyInfo(0),
     "name": new PropertyInfo(0),
     "namespace-uri": new PropertyInfo(0),
+    "namespaces": new PropertyInfo(0),
     "network": new PropertyInfo(0),
     "networks": new PropertyInfo({ min: 0, max: 2 }),
     "number": new PropertyInfo(0),
