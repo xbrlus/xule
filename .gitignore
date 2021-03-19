@@ -2,4 +2,8 @@
 .idea/
 gen/
 .vscode-test/
-**/.vscode
+out/
+**/node_modules/
+dist/
+*.vsix
+package-lock.json

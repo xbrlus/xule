@@ -50,7 +50,7 @@ See the [Changelog](CHANGELOG.md).
 
 ## Building and Testing
 
-To compile the extension use: `npm run compile`. This will also rebuild the lexer and the parser from the grammar.
+To compile the extension use: `npm run compile`. This will also rebuild the lexer and the parser from the grammar (nb: if you receive a 'JavaScript heap out of memory' error run the following command to increase the memory limit for the session - Windows: `set NODE_OPTIONS=--max_old_space_size=8192` Linux `export NODE_OPTIONS=--max_old_space_size=4096`)
 To package it: `vsce package`.
 To run the tests: `npm run test`.
 
