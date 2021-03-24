@@ -1859,7 +1859,7 @@ PROPERTIES = {
               'union': (property_union, 1, ('set',), False),
               'intersect': (property_intersect, 1, ('set',), False),
               'difference': (property_difference, 1, ('set',), False),
-              'symetric-difference': (property_symetric_difference, 1, ('set',), False),
+              'symmetric-difference': (property_symetric_difference, 1, ('set',), False),
               'contains': (property_contains, 1, ('set', 'list', 'string', 'uri'), False),
               'length': (property_length, 0, ('string', 'uri', 'set', 'list', 'dictionary'), False),
               'to-list': (property_to_list, 0, ('list', 'set'), False),
