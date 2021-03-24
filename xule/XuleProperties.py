@@ -221,7 +221,7 @@ def property_join(xule_context, object_value, *args):
         if main_sep.type != 'string':
             raise XuleProcessingError(_("The argument of the join property must be a string, found '{}'".format(main_sep.type)), xule_context)
         if pair_sep.type != 'string':
-            raise XuleProcessingError(_("The argument of the join property must be a string, found '{}'.".format(pair_spe.type)), xule_context)
+            raise XuleProcessingError(_("The argument of the join property must be a string, found '{}'.".format(pair_sep.type)), xule_context)
         
         result_string = ''
         next_sep = ''
@@ -506,7 +506,7 @@ def property_hidden(xule_context, object_value, *args):
         if object_value.fact.modelXbrl.modelDocument.type in (Type.INLINEXBRL, Type.INLINEXBRLDOCUMENTSET):
             return xv.XuleValue(xule_context, qname('http://www.xbrl.org/2013/inlineXBRL', 'hidden') in object_value.fact.ancestorQnames, 'bool')
         else:
-            return xv.XuleValue(xule_contet, None, 'none')
+            return xv.XuleValue(xule_context, None, 'none')
     else:
         return object_value
 
@@ -650,7 +650,7 @@ def property_aspects(xule_context, object_value, *args):
         if member_model.isExplicit:
             member_value = xv.XuleValue(xule_context, member_model.member, 'concept')
         else: # Typed dimension
-            member_value = xv.XuleValue(xule_context, member.typedMember.xValue, xv.model_to_xule_type(xule_context, member.typedMember.xValue))
+            member_value = xv.XuleValue(xule_context, member_model.typedMember.xValue, xv.model_to_xule_type(xule_context, member_model.typedMember.xValue))
             
         result_dict[dim_value] = member_value
         result_shadow[dim_value.value] = member_value.value
@@ -781,7 +781,7 @@ def property_has_enumerations(xule_context, object_value, *args):
 def property_is_type(xule_context, object_value, *args):
     type_name = args[0]
     if type_name.type != 'qname':
-        raise XuleProcessingError(_("The argument for the 'is-type' property must ba a qname, founct '[]'.".format(type_name.type)), xule_context)
+        raise XuleProcessingError(_("The argument for the 'is-type' property must ba a qname, found '{}'.".format(type_name.type)), xule_context)
     
     if object_value.is_fact:
         return xv.XuleValue(xule_context, object_value.fact.concept.instanceOfType(type_name.value), 'bool')
@@ -2001,7 +2001,7 @@ PROPERTIES = {
               '_hash': (property_hash, 0, (), True),
               
               #Generate a list of available properties  
-              'list-properties': (property_list_properties, 0, ('unbound',), True),
+              '_list-properties': (property_list_properties, 0, ('unbound',), True),
               }
 
 
