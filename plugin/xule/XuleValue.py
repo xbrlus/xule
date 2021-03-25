@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23209 $
+$Change: 23218 $
 DOCSKIP
 """
 from .XuleRunTime import XuleProcessingError
@@ -190,10 +190,29 @@ class XuleValue:
         #set value, type, fact on the XuleValue
         if orig_type == 'fact':
             #get the underlying value and determine the type
-            xule_type, compute_value = model_to_xule_type(xule_context, orig_value.xValue)
-            return xule_type, compute_value, orig_value
+            if "{http://xbrl.org/2020/extensible-enumerations-2.0}enumerationSetItemType" in self._type_ancestry(orig_value.concept.type):
+                # This is concept that is an extensibile enumeration set. Arelle will pass the valueas
+                # a list of QNames. Need to convert to a set of XuleValues where each Xulevalue is a
+                # "qname" xule type.
+                # The orig_value should be a list or set of qname values
+                if not (isinstance(orig_value.xValue, list) or isinstance(orig_value.xValue, set)):
+                    raise XuleProcessingError(_("Encountered a extensible enumeration. Expected the fact value to be a set or list, but found '{}'.".format(type(orig_value.xValue).__name__)))
+                enum_set = set()
+                for enum in orig_value.xValue:
+                    enum_value_type, enum_compute_value = model_to_xule_type(xule_context, enum)
+                    enum_set.add(XuleValue(xule_context, enum_compute_value, enum_value_type))
+                return 'set', enum_set, orig_value
+            else:
+                xule_type, compute_value = model_to_xule_type(xule_context, orig_value.xValue)
+                return xule_type, compute_value, orig_value
         else:
             return orig_type, orig_value, None
+
+    def _type_ancestry(self, model_type):
+        if model_type.typeDerivedFrom is None:
+            return [model_type.qname.clarkNotation]
+        else:
+            return [model_type.qname.clarkNotation] + self._type_ancestry(model_type.typeDerivedFrom)
 
     @property
     def is_fact(self):

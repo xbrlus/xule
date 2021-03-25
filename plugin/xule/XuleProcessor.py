@@ -21,7 +21,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23214 $
+$Change: 23219 $
 DOCSKIP
 """
 from .XuleContext import XuleGlobalContext, XuleRuleContext  # XuleContext
@@ -4216,9 +4216,10 @@ def evaluate_property(property_expr, xule_context):
         property_info = XuleProperties.PROPERTIES[current_property_expr['propertyName']]
 
         # Check if the property can operate on a set or list.
-        if object_value.type not in ('set', 'list') or (object_value.type in ('set', 'list') and len(
-                {'set', 'list'} & set(property_info[XuleProperties.PROP_OPERAND_TYPES])) > 0):
-            pass
+        if object_value.type not in ('set', 'list') or (object_value.type in ('set', 'list') and (
+            len({'set', 'list'} & set(property_info[XuleProperties.PROP_OPERAND_TYPES])) > 0) or
+            (object_value.is_fact and 'fact' in property_info[XuleProperties.PROP_OPERAND_TYPES])
+        ):
             object_value = process_property(current_property_expr, object_value, property_info, xule_context)
         else:
             # This is a set or list. The property is not for a set or list, so try to create a new set or list after applying the property to the members.
