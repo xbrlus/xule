@@ -1364,7 +1364,7 @@ def get_dates(modelXbrl):
                 year=report_year, period=report_period
             )
         )
-        month_day = {
+    month_day = {
         'Q4': ('01-01', '12-31'),
         'Q3': ('01-01', '09-30'),
         'Q2': ('01-01', '06-30'),
