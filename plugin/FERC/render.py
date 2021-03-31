@@ -1,5 +1,5 @@
 '''
-Reivision number: $Change: 23213 $
+Reivision number: $Change: 23225 $
 '''
 from arelle import FileSource
 from arelle import PluginManager
@@ -1336,7 +1336,8 @@ def get_dates(modelXbrl):
 
     if modelXbrl.modelDocument.type == Type.SCHEMA:
         # This will be a blank rendering
-        return ('current-start',
+        return (
+            'current-start',
             'current-end',
             'prior-start',
             'prior-end',
@@ -1347,33 +1348,38 @@ def get_dates(modelXbrl):
 
     report_year_fact = get_fact_by_local_name(modelXbrl, 'ReportYear')
     report_period_fact = get_fact_by_local_name(modelXbrl, 'ReportPeriod')
-    if report_period_fact is None:
-        report_period_fact = get_fact_by_local_name(modelXbrl, 'ReportYearPeriod')
+    report_year = report_year_fact.value if report_year_fact is not None else None
+    report_period = report_period_fact.value if report_period_fact is not None else None
+    if not report_year or not report_period:
+        report_year_period_fact = get_fact_by_local_name(modelXbrl, 'ReportYearPeriod')
+        if report_year_period_fact is not None:
+            year_match = re.match(r'.*([1-2][0-9]{3})', report_year_period_fact.value)
+            period_match = re.match(r'.*([qQ][1-4])', report_year_period_fact.value)
+            report_year = year_match[1] if year_match is not None else None
+            report_period = period_match[1].upper() if period_match is not None else None
 
-    if report_year_fact is None or report_period_fact is None:
-        raise FERCRenderException("Cannot obtain the report year or report period from the XBRL document")
+    if not report_year or not report_period:
+        raise FERCRenderException(
+            'Cannot obtain a valid report year({year}) or report period({period}) from the XBRL document'.format(
+                year=report_year, period=report_period
+            )
+        )
+    month_day = {
+        'Q4': ('01-01', '12-31'),
+        'Q3': ('01-01', '09-30'),
+        'Q2': ('01-01', '06-30'),
+        'Q1': ('01-01', '03-31')
+    }
 
-    month_day = {'Q4': ('01-01', '12-31'),
-                 'Q3': ('01-01', '09-30'),
-                 'Q2': ('01-01', '06-30'),
-                 'Q1': ('01-01', '03-31')}
-    
-    current_start = '{}-{}'.format(report_year_fact.value, '01-01')
-    current_end ='{}-{}'.format(report_year_fact.value, month_day[report_period_fact.value][1])
-    prior_start = '{}-{}'.format(int(report_year_fact.value) - 1, '01-01')
-    prior_end = '{}-{}'.format(int(report_year_fact.value) - 1, month_day[report_period_fact.value][1])
-    prior2_start = '{}-{}'.format(int(report_year_fact.value) - 2, '01-01')
-    prior2_end = '{}-{}'.format(int(report_year_fact.value) - 2, month_day[report_period_fact.value][1])
-    month_ends = ','.join(tuple(str(calendar.monthrange(int(report_year_fact.xValue), x)[1]) for x in range(1,13)))
-
-    return (('current-start={}'.format(current_start)),
-            ('current-end={}'.format(current_end)),
-            ('prior-start={}'.format(prior_start)),
-            ('prior-end={}'.format(prior_end)),
-            ('prior2-start={}'.format(prior2_start)),
-            ('prior2-end={}'.format(prior2_end)),
-            ('month-ends={}'.format(month_ends))
-           )
+    return (
+        ('current-start={}-{}'.format(report_year, '01-01')),
+        ('current-end={}-{}'.format(report_year, month_day[report_period][1])),
+        ('prior-start={}-{}'.format(int(report_year) - 1, '01-01')),
+        ('prior-end={}-{}'.format(int(report_year) - 1, month_day[report_period][1])),
+        ('prior2-start={}-{}'.format(int(report_year) - 2, '01-01')),
+        ('prior2-end={}-{}'.format(int(report_year) - 2, month_day[report_period][1])),
+        ('month-ends={}'.format(','.join(tuple(str(calendar.monthrange(int(report_year), x)[1]) for x in range(1,13)))))
+    )
 
 def get_fact_by_local_name(modelXbrl, fact_name):
     for fact in modelXbrl.factsInInstance:
@@ -1424,7 +1430,9 @@ def setup_inline_html(modelXbrl):
     irefs = html.find('.//ix:references', namespaces=_XULE_NAMESPACE_MAP)
     for doc_ref in modelXbrl.modelDocument.referencesDocument.values():
         if doc_ref.referringModelObject.elementNamespaceURI == 'http://www.xbrl.org/2003/linkbase':
-            if doc_ref.referringModelObject.localName == 'schemaRef' and doc_ref.referenceType == 'href':
+            if (doc_ref.referringModelObject.localName == 'schemaRef' and
+                    ((hasattr(doc_ref, 'referenceType') and doc_ref.referenceType == 'href') or
+                     (hasattr(doc_ref, 'referenceTypes') and 'href' in doc_ref.referenceTypes))):
                 link = etree.SubElement(irefs, '{http://www.xbrl.org/2003/linkbase}schemaRef')
                 link.set('{http://www.w3.org/1999/xlink}type', 'simple')
                 link.set('{http://www.w3.org/1999/xlink}href', doc_ref.referringModelObject.attrib['{http://www.w3.org/1999/xlink}href'])
