@@ -2239,7 +2239,11 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
         if model_fact.xValue is None:
             display_value = ''
         elif format is None:
-            display_value = str(model_fact.xValue)
+            #check if boolean
+            if isinstance(model_fact.xValue, bool):
+                display_value = str(model_fact.xValue).lower()
+            else:
+                display_value = str(model_fact.xValue)
             if model_fact.isNumeric:
                 result_sign = '-' if model_fact.xValue < 0 else '+' if model_fact.xValue > 0 else '0'
         else:
