@@ -6,7 +6,8 @@ from arelle import PluginManager
 from arelle.CntlrWebMain import Options
 from arelle.ModelRelationshipSet import ModelRelationshipSet
 from arelle.ModelDocument import Type
-from copy import deepcopy
+from arelle.ModelValue import QName
+from copy import deepcopy, copy
 from lxml import etree, html
 from lxml.builder import E
 
@@ -32,6 +33,7 @@ _xule_plugin_info = None
 _XULE_NAMESPACE_MAP = {'xule': 'http://xbrl.us/xule/2.0/template', 
                        'xhtml': 'http://www.w3.org/1999/xhtml',
                        'ix': 'http://www.xbrl.org/2013/inlineXBRL'}
+_XBRLI_NAMESPACE = 'http://www.xbrl.org/2003/instance'
 _XHTM_NAMESPACE = 'http://www.w3.org/1999/xhtml'
 _RULE_NAME_PREFIX = 'rule-'
 _EXTRA_ATTRIBUTES = ('format', 'scale', 'sign', 'decimals')
@@ -1511,15 +1513,96 @@ def add_contexts_to_inline(main_html, modelXbrl, context_ids):
         model_context = modelXbrl.contexts[context_id]
         # The model_context is a modelObject, but it is based on etree.Element so it can be added to 
         # the inline tree 
-        resources.append(model_context)
+        copy_xml_node(model_context, resources) # This will copy the node and add it to the parent (resources)
 
 def add_units_to_inline(main_html, modelXbrl, unit_ids):
 
     resources = main_html.find('.//ix:resources', namespaces=_XULE_NAMESPACE_MAP)
     for unit_id in unit_ids:
         model_unit = modelXbrl.units[unit_id]
-        resources.append(model_unit)
+        copy_xml_node(model_unit, resources) # This will copy the node and add it to the parent (resources)
 
+def copy_xml_node(node, parent):
+    '''Copies an xml node and handles qname values.
+
+    Qname values are not recognized as qnames, so the namespace handling is not 
+    managed correctly.
+    '''
+    new_node = etree.Element(node.qname.clarkNotation)
+    parent.append(new_node)
+    for att_name, att_value in node.xAttributes.items():
+        new_node.set(att_name, copy_xml_value(new_node, att_value.xValue))
+
+    if isinstance(node.xValue, QName):
+        new_node.text = get_qname_value(new_node, node.xValue)
+    else:
+        new_node.text = node.text
+
+    for child in node:
+        copy_xml_node(child, new_node)
+
+def get_qname_value(node, qname_value):
+    # Get the root to find the namespace prefix
+    root = node.getroottree().getroot()
+    prefix_found = False
+    for prefix in root.nsmap:
+        if root.nsmap[prefix] == qname_value.namespaceURI:
+            prefix_found = True
+            break
+    if not prefix_found:
+        raise FERCRenderException("Cannot determine QName prefix for namespace '{}'".format(qname_value.namespaceURI))
+
+    return '{}{}{}'.format(prefix or '', '' if prefix is None else ':', qname_value.localName)
+
+def copy_xml_value(node, xValue):
+    if isinstance(xValue, QName):
+        return get_qname_value(node, xValue)
+    else:
+        return xValue
+
+
+
+
+def copy_unit(model_unit):
+    # The messure value of the unites are qname. If you just copy the model_unit to the new inline
+    # tree, it will not handle the qname values of the <measure> elements correctly.
+    new_unit = etree.Element('{http://www.xbrl.org/2003/instance}unit')
+    
+    if model_unit.isDivide:
+        pass
+    else:
+        for child in model_unit:
+            if child.tag == '{http://www.xbrl.org/2003/instance}measure':
+                new_measure = etree.Element('{http://www.xbrl.org/2003/instance}measure')
+                new_measure.text = child.xValue # This should be a qname value
+                new_unit.append(new_measure)
+    
+    return new_unit
+
+
+
+
+
+
+    '''
+    if model_unit.isDivide:
+        new_unit_parent = etree.Element('{{{}}}divide'.format(_XBRLI_NAMESPACE))
+        new_unit.append(new_unit_parent)
+        for child in model_unit:
+            if child.tag == '{http://www.xbrl.org/2003/instance}divide':
+                measure_parent = child
+                break
+    else:
+        new_unit_parent = new_unit
+        measure_parent = model_unit
+
+    for child_node in measure_parent:
+        # The child will be either a <measure> or a <divide>
+        if child_node.tag == '{http://www.xbrl.org/2003/instance}measure':
+            new_measure = etree.Element('{http://www.xbrl.org/2003/instance}measure')
+            new_measure.text = child_node.xValue
+            new_unit_parent.append(new_measure)
+    '''
 def add_footnote_relationships(main_html, processed_footnotes):
 
     resources = main_html.find('.//ix:resources', namespaces=_XULE_NAMESPACE_MAP)
