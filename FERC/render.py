@@ -716,7 +716,7 @@ def substituteTemplate(rule_meta_data, rule_results, template, modelXbrl, main_h
                                                 context_ids, unit_ids, footnotes, template_number, fact_number, processed_facts)
         if rule_has_confidential: has_confidential = True
 
-    footnote_page = build_footnote_page(template, template_number, footnotes, processed_footnotes)
+    footnote_page = build_footnote_page(template, template_number, footnotes, processed_footnotes, fact_number)
     if footnote_page is not None:
         template_body = template.find('xhtml:body', namespaces=_XULE_NAMESPACE_MAP)
         if template_body is None:
@@ -1189,7 +1189,7 @@ def get_relationshipset(model_xbrl, arcrole, linkrole=None, linkqname=None, arcq
     relationship_key = (arcrole, linkrole, linkqname, arcqname, includeProhibits)
     return model_xbrl.relationshipSets[relationship_key] if relationship_key in model_xbrl.relationshipSets else ModelRelationshipSet(model_xbrl, *relationship_key)
 
-def build_footnote_page(template, template_number, footnotes, processed_footnotes):
+def build_footnote_page(template, template_number, footnotes, processed_footnotes, fact_number):
     '''Create the footnote page for the schedule'''
 
     footnote_counter = 0
@@ -1267,7 +1267,12 @@ def build_footnote_page(template, template_number, footnotes, processed_footnote
     page = etree.Element('div', attrib={"class":"xbrl footnote-page"})
     # Add page header
     for node in nodes_for_class(template, 'schedule-header'):
-        page.append(deepcopy(node))
+        new_header = deepcopy(node)
+        # Dedup fact ids in the copied schedule header
+        for ix_node in node.xpath('.//ix:*', namespaces=_XULE_NAMESPACE_MAP):
+            if 'id' in ix_node.keys():
+                ix_node.set('id', dedup_id(ix_node.get('id'), fact_number))
+        page.append(new_header)
         break
 
     page.append(
@@ -1287,11 +1292,11 @@ def build_footnote_page(template, template_number, footnotes, processed_footnote
         footer = deepcopy(node)
         # If there are facts in the footer, they will be duplicated. Need to update the fact ids to make
         # them unique.
-        dup_counter = 0
+        # dedup ids in the page footer.
         for ix_node in footer.xpath('.//ix:*', namespaces=_XULE_NAMESPACE_MAP):
             if 'id' in ix_node.keys():
-                ix_node.set('id', '{}-{}'.format(ix_node.get('id'), dup_counter))
-                dup_counter +=1
+                ix_node.set('id', dedup_id(ix_node.get('id'), fact_number))
+
         page.append(footer)
         break
 
@@ -2360,12 +2365,8 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
         ix_node.set('name', str(model_fact.qname))
         # Assign fact id
         if model_fact.id is not None:
-            if model_fact.id in fact_number:
-                new_fact_id =  "{}-dup-{}".format(model_fact.id, fact_number[model_fact.id])
-            else:
-                new_fact_id = "{}".format(model_fact.id)
+            new_fact_id = dedup_id(model_fact.id, fact_number)
             ix_node.set('id', new_fact_id)
-            fact_number[model_fact.id] += 1
 
         # Get the formated value
         result_sign = None # this will indicate the sign for numeric results
@@ -2378,10 +2379,11 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
             #check if boolean
             if isinstance(model_fact.xValue, bool):
                 display_value = str(model_fact.xValue).lower()
-            else:
-                display_value = str(model_fact.xValue)
-            if model_fact.isNumeric:
+            elif model_fact.isNumeric:
+                display_value = str(abs(model_fact.xValue))
                 result_sign = '-' if model_fact.xValue < 0 else '+' if model_fact.xValue > 0 else '0'
+            else:
+                display_value = str(model_fact.xValue)               
         else:
             # convert format to clark notation 
             if ':' in format:
@@ -2512,6 +2514,15 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
         div_node.set('class', 'format-error')
         div_node.text = str(model_fact.xValue)
         return div_node, new_fact_id
+
+def dedup_id(fact_id, fact_number):
+    if fact_id in fact_number:
+        new_fact_id =  "{}-dup-{}".format(fact_id, fact_number[fact_id])
+    else:
+        new_fact_id = "{}".format(fact_id)
+    fact_number[fact_id] += 1
+
+    return new_fact_id
 
 def type_ancestry(model_type):
     if model_type.typeDerivedFrom is None:
