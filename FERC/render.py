@@ -43,6 +43,7 @@ _PHRASING_CONTENT_TAGS = {'a', 'audio', 'b', 'bdi', 'bdo', 'br', 'button', 'canv
                           'ruby', 's', 'samp', 'script', 'select', 'small', 'span', 'strong', 'sub', 'sup', 'svg',
                           'textarea', 'time', 'u', 'var', 'video', 'wbr'}
 _NAMESPACE_DECLARATION = 'TEMPORARY_NAMESPACE_DECLARATION'
+_ORIGINAL_FACT_ID_ATTRIBUTE = 'original_fact_id'
 
 class FERCRenderException(Exception):
     pass
@@ -1270,8 +1271,8 @@ def build_footnote_page(template, template_number, footnotes, processed_footnote
         new_header = deepcopy(node)
         # Dedup fact ids in the copied schedule header
         for ix_node in node.xpath('.//ix:*', namespaces=_XULE_NAMESPACE_MAP):
-            if 'id' in ix_node.keys():
-                ix_node.set('id', dedup_id(ix_node.get('id'), fact_number))
+            if _ORIGINAL_FACT_ID_ATTRIBUTE in ix_node.keys():
+                ix_node.set('id', dedup_id(ix_node.get(_ORIGINAL_FACT_ID_ATTRIBUTE), fact_number))
         page.append(new_header)
         break
 
@@ -1294,8 +1295,8 @@ def build_footnote_page(template, template_number, footnotes, processed_footnote
         # them unique.
         # dedup ids in the page footer.
         for ix_node in footer.xpath('.//ix:*', namespaces=_XULE_NAMESPACE_MAP):
-            if 'id' in ix_node.keys():
-                ix_node.set('id', dedup_id(ix_node.get('id'), fact_number))
+            if _ORIGINAL_FACT_ID_ATTRIBUTE in ix_node.keys():
+                ix_node.set('id', dedup_id(ix_node.get(_ORIGINAL_FACT_ID_ATTRIBUTE), fact_number))
 
         page.append(footer)
         break
@@ -2088,7 +2089,7 @@ def render_report(cntlr, options, modelXbrl, *args, **kwargs):
     used_unit_ids = set()
 
     template_number = 0
-    fact_number = collections.defaultdict(int)
+    fact_number = initialize_fact_number(modelXbrl)
     processed_facts = set() # track which facts have been outputed
 
     # Footnotes were originally only outputted once as an ix
@@ -2226,6 +2227,7 @@ def render_report(cntlr, options, modelXbrl, *args, **kwargs):
     # <div><div>content</div></div>
     
     #main_html.getroottree().write(inline_name, pretty_print=True, method="c14n")
+    dedup_id_full_document(main_html, fact_number)
     for elem in main_html.iter():
         # Clean up empty tags
         if elem.text == None:
@@ -2237,6 +2239,9 @@ def render_report(cntlr, options, modelXbrl, *args, **kwargs):
             tag_qname = etree.QName(tag)
             if tag_qname.namespace == _XHTM_NAMESPACE:
                 elem.tag = tag.lower()
+        # Removed _ORIGINAL_FACT_ID_ATTRIBUTE
+        if _ORIGINAL_FACT_ID_ATTRIBUTE in elem.attrib:
+            elem.attrib.pop(_ORIGINAL_FACT_ID_ATTRIBUTE)
 
     main_html = fix_namespace_declarations(main_html)
 
@@ -2267,6 +2272,20 @@ def render_report(cntlr, options, modelXbrl, *args, **kwargs):
     if options.ferc_render_debug:
         end_time = datetime.datetime.now()
         cntlr.addToLog(_("Processing time: {}".format(str(end_time - start_time))), "info")
+
+def dedup_id_full_document(root, fact_number):
+    all_ids = collections.defaultdict(list)
+
+    for elem in root.xpath('.//*[@id]'):
+        all_ids[elem.get('id')].append(elem)
+
+    dup_ids = [x for x in all_ids if len(all_ids[x]) > 1]
+    # These are the duplicate ids
+    for dup_id in dup_ids:
+        xbrl_elements = [x for x in all_ids[dup_id] if etree.QName(x).namespace in (_XULE_NAMESPACE_MAP['ix'], _XBRLI_NAMESPACE)]
+        # XBRL elements should already be dudupped, and it is important that these ids don't change.
+        for elem in all_ids[dup_id] - xbrl_elements:
+            elem.set('id', dedup_id(dup_id, fact_number))
 
 def fix_namespace_declarations(root):
     '''This adds additional namespace declarations to the <html> element.
@@ -2344,7 +2363,7 @@ class _logCaptureHandler(logging.Handler):
 
 def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_result, nsmap, fact_number):
     '''Format the fact to a string value'''
-    preamble = None
+
     new_fact_id = None
     try:
         if xule_expression_node is None:
@@ -2367,6 +2386,9 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
         if model_fact.id is not None:
             new_fact_id = dedup_id(model_fact.id, fact_number)
             ix_node.set('id', new_fact_id)
+            # Save the original fact id. This will be removed later before serializing the document. It is used when copying
+            # a section of the inline xbrl (i.e. page header). The ids on the fact will have to be dedupped.
+            ix_node.set(_ORIGINAL_FACT_ID_ATTRIBUTE, model_fact.id)
 
         # Get the formated value
         result_sign = None # this will indicate the sign for numeric results
@@ -2515,13 +2537,27 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
         div_node.text = str(model_fact.xValue)
         return div_node, new_fact_id
 
-def dedup_id(fact_id, fact_number):
-    if fact_id in fact_number:
-        new_fact_id =  "{}-dup-{}".format(fact_id, fact_number[fact_id])
-    else:
-        new_fact_id = "{}".format(fact_id)
-    fact_number[fact_id] += 1
+def initialize_fact_number(model_xbrl):
+    fact_number = collections.defaultdict(int)
+    # Load context and unit ids. This will prevent and edge case where a fact id after deduping is a context
+    # or unit id
+    for cid in model_xbrl.contexts:
+        fact_number[cid] = 1
+    for uid in model_xbrl.units:
+        fact_number[uid] = 1
 
+    return fact_number
+
+def dedup_id(fact_id, fact_number):
+    while True:
+        if fact_id in fact_number:
+            new_fact_id =  "{}-dup-{}".format(fact_id, fact_number[fact_id])
+        else:
+            new_fact_id = "{}".format(fact_id)
+        fact_number[fact_id] += 1
+        if new_fact_id not in fact_number:
+            fact_number[new_fact_id] = 1
+            break
     return new_fact_id
 
 def type_ancestry(model_type):
