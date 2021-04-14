@@ -7,7 +7,8 @@
 * Choose the "Help" menu and select "Manage plug-ins" to verify the "DQC Rules Validator" is listed.
 * ***If DQC Rules Validator is not listed:***
     * Use the "Select" button to bring up teh "Select Plug-in Module" dialog. 
-    * Select the the "DQC.py" file (under "Validate"). Next to the file, the name will appear as "DQC Rules Validator". Click on "Ok". 
+    * Select the **DQC.py** file (under "Validate"). Next to the file, the name will appear as "DQC Rules Validator". Click on "OK". 
+    * Also select the **EdgarRenderer** file and click "OK".
     * The "Select Plug-in Module" will close. On the "Plug-in Manager" dialog click on "Close".
 	* When the dialogue box appears requesting a program restart, choose "Yes".
 * Choose the "Tools" menu and "Validation" and confirm there is a check mark for "DQC Rules". If not, select this item from the menu.
