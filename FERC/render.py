@@ -2381,7 +2381,8 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
             ix_node = etree.Element('{{{}}}nonNumeric'.format(_XULE_NAMESPACE_MAP['ix']), nsmap=_XULE_NAMESPACE_MAP)
 
         ix_node.set('contextRef', model_fact.contextID)
-        ix_node.set('name', str(model_fact.qname))
+        # Add the name to the inline node. The html_inline is used to resolve the qname
+        ix_node.set('name', get_qname_value(inline_html, model_fact.qname))
         # Assign fact id
         if model_fact.id is not None:
             new_fact_id = dedup_id(model_fact.id, fact_number)
