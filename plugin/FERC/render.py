@@ -1,12 +1,13 @@
 '''
-Reivision number: $Change: 23225 $
+Reivision number: $Change: 23236 $
 '''
 from arelle import FileSource
 from arelle import PluginManager
 from arelle.CntlrWebMain import Options
 from arelle.ModelRelationshipSet import ModelRelationshipSet
 from arelle.ModelDocument import Type
-from copy import deepcopy
+from arelle.ModelValue import QName
+from copy import deepcopy, copy
 from lxml import etree, html
 from lxml.builder import E
 
@@ -32,6 +33,7 @@ _xule_plugin_info = None
 _XULE_NAMESPACE_MAP = {'xule': 'http://xbrl.us/xule/2.0/template', 
                        'xhtml': 'http://www.w3.org/1999/xhtml',
                        'ix': 'http://www.xbrl.org/2013/inlineXBRL'}
+_XBRLI_NAMESPACE = 'http://www.xbrl.org/2003/instance'
 _XHTM_NAMESPACE = 'http://www.w3.org/1999/xhtml'
 _RULE_NAME_PREFIX = 'rule-'
 _EXTRA_ATTRIBUTES = ('format', 'scale', 'sign', 'decimals')
@@ -40,6 +42,8 @@ _PHRASING_CONTENT_TAGS = {'a', 'audio', 'b', 'bdi', 'bdo', 'br', 'button', 'canv
                           'label', 'map', 'mark', 'math', 'meter', 'noscript', 'object', 'output', 'progress', 'q',
                           'ruby', 's', 'samp', 'script', 'select', 'small', 'span', 'strong', 'sub', 'sup', 'svg',
                           'textarea', 'time', 'u', 'var', 'video', 'wbr'}
+_NAMESPACE_DECLARATION = 'TEMPORARY_NAMESPACE_DECLARATION'
+_ORIGINAL_FACT_ID_ATTRIBUTE = 'original_fact_id'
 
 class FERCRenderException(Exception):
     pass
@@ -713,7 +717,7 @@ def substituteTemplate(rule_meta_data, rule_results, template, modelXbrl, main_h
                                                 context_ids, unit_ids, footnotes, template_number, fact_number, processed_facts)
         if rule_has_confidential: has_confidential = True
 
-    footnote_page = build_footnote_page(template, template_number, footnotes, processed_footnotes)
+    footnote_page = build_footnote_page(template, template_number, footnotes, processed_footnotes, fact_number)
     if footnote_page is not None:
         template_body = template.find('xhtml:body', namespaces=_XULE_NAMESPACE_MAP)
         if template_body is None:
@@ -1186,7 +1190,7 @@ def get_relationshipset(model_xbrl, arcrole, linkrole=None, linkqname=None, arcq
     relationship_key = (arcrole, linkrole, linkqname, arcqname, includeProhibits)
     return model_xbrl.relationshipSets[relationship_key] if relationship_key in model_xbrl.relationshipSets else ModelRelationshipSet(model_xbrl, *relationship_key)
 
-def build_footnote_page(template, template_number, footnotes, processed_footnotes):
+def build_footnote_page(template, template_number, footnotes, processed_footnotes, fact_number):
     '''Create the footnote page for the schedule'''
 
     footnote_counter = 0
@@ -1264,7 +1268,12 @@ def build_footnote_page(template, template_number, footnotes, processed_footnote
     page = etree.Element('div', attrib={"class":"xbrl footnote-page"})
     # Add page header
     for node in nodes_for_class(template, 'schedule-header'):
-        page.append(deepcopy(node))
+        new_header = deepcopy(node)
+        # Dedup fact ids in the copied schedule header
+        for ix_node in node.xpath('.//ix:*', namespaces=_XULE_NAMESPACE_MAP):
+            if _ORIGINAL_FACT_ID_ATTRIBUTE in ix_node.keys():
+                ix_node.set('id', dedup_id(ix_node.get(_ORIGINAL_FACT_ID_ATTRIBUTE), fact_number))
+        page.append(new_header)
         break
 
     page.append(
@@ -1284,11 +1293,11 @@ def build_footnote_page(template, template_number, footnotes, processed_footnote
         footer = deepcopy(node)
         # If there are facts in the footer, they will be duplicated. Need to update the fact ids to make
         # them unique.
-        dup_counter = 0
+        # dedup ids in the page footer.
         for ix_node in footer.xpath('.//ix:*', namespaces=_XULE_NAMESPACE_MAP):
-            if 'id' in ix_node.keys():
-                ix_node.set('id', '{}-{}'.format(ix_node.get('id'), dup_counter))
-                dup_counter +=1
+            if _ORIGINAL_FACT_ID_ATTRIBUTE in ix_node.keys():
+                ix_node.set('id', dedup_id(ix_node.get(_ORIGINAL_FACT_ID_ATTRIBUTE), fact_number))
+
         page.append(footer)
         break
 
@@ -1511,15 +1520,121 @@ def add_contexts_to_inline(main_html, modelXbrl, context_ids):
         model_context = modelXbrl.contexts[context_id]
         # The model_context is a modelObject, but it is based on etree.Element so it can be added to 
         # the inline tree 
-        resources.append(model_context)
+        copy_xml_node(model_context, resources) # This will copy the node and add it to the parent (resources)
 
 def add_units_to_inline(main_html, modelXbrl, unit_ids):
 
     resources = main_html.find('.//ix:resources', namespaces=_XULE_NAMESPACE_MAP)
     for unit_id in unit_ids:
         model_unit = modelXbrl.units[unit_id]
-        resources.append(model_unit)
+        copy_xml_node(model_unit, resources) # This will copy the node and add it to the parent (resources)
 
+def copy_xml_node(node, parent):
+    '''Copies an xml node and handles qname values.
+
+    Qname values are not recognized as qnames, so the namespace handling is not 
+    managed correctly.
+    '''
+    new_node = etree.Element(node.qname.clarkNotation)
+    parent.append(new_node)
+    for att_name, att_value in node.xAttributes.items():
+        new_node.set(att_name, copy_xml_value(new_node, att_value.xValue))
+
+    if isinstance(node.xValue, QName):
+        new_node.text = get_qname_value(new_node, node.xValue)
+    else:
+        new_node.text = node.text
+
+    for child in node:
+        copy_xml_node(child, new_node)
+
+def get_qname_value(node, qname_value):
+    # Get the root to find the namespace prefix
+    root = node.getroottree().getroot()
+    prefix_found = False
+    nsmap = get_nsmap(root)
+
+    for prefix in nsmap:
+        if nsmap[prefix] == qname_value.namespaceURI:
+            prefix_found = True
+            break
+    if not prefix_found:
+        # Need to add a new namespace declaration
+        # Make sure the prefix is not in the map.
+        dup_num = 0
+        prefix = qname_value.prefix or 'ns'
+        while prefix in nsmap:
+            prefix = '{}_{}'.format(prefix, dup_num)
+            dup_num += 1
+        # Add this namespace as a temporary element to the root.
+        namespace_node = etree.Element(_NAMESPACE_DECLARATION)
+        namespace_node.text = '{}:{}'.format(prefix, qname_value.namespaceURI)
+        root.append(namespace_node) # This will be removed later
+
+        #raise FERCRenderException("Cannot determine QName prefix for namespace '{}'".format(qname_value.namespaceURI))
+
+    return '{}{}{}'.format(prefix or '', '' if prefix is None else ':', qname_value.localName)
+
+def get_nsmap(root):
+    # Get list of namepspaces on the root.
+    nsmap = root.nsmap
+    # Add in additional namespaces
+    for child in root:
+        if child.tag == _NAMESPACE_DECLARATION:
+            additional_prefix, additional_namespace = child.text.split(':', 1)
+            nsmap[additional_prefix] = additional_namespace
+    
+    return nsmap
+
+def copy_xml_value(node, xValue):
+    if isinstance(xValue, QName):
+        return get_qname_value(node, xValue)
+    else:
+        return xValue
+
+
+
+
+def copy_unit(model_unit):
+    # The messure value of the unites are qname. If you just copy the model_unit to the new inline
+    # tree, it will not handle the qname values of the <measure> elements correctly.
+    new_unit = etree.Element('{http://www.xbrl.org/2003/instance}unit')
+    
+    if model_unit.isDivide:
+        pass
+    else:
+        for child in model_unit:
+            if child.tag == '{http://www.xbrl.org/2003/instance}measure':
+                new_measure = etree.Element('{http://www.xbrl.org/2003/instance}measure')
+                new_measure.text = child.xValue # This should be a qname value
+                new_unit.append(new_measure)
+    
+    return new_unit
+
+
+
+
+
+
+    '''
+    if model_unit.isDivide:
+        new_unit_parent = etree.Element('{{{}}}divide'.format(_XBRLI_NAMESPACE))
+        new_unit.append(new_unit_parent)
+        for child in model_unit:
+            if child.tag == '{http://www.xbrl.org/2003/instance}divide':
+                measure_parent = child
+                break
+    else:
+        new_unit_parent = new_unit
+        measure_parent = model_unit
+
+    for child_node in measure_parent:
+        # The child will be either a <measure> or a <divide>
+        if child_node.tag == '{http://www.xbrl.org/2003/instance}measure':
+            new_measure = etree.Element('{http://www.xbrl.org/2003/instance}measure')
+            new_measure.text = child_node.xValue
+            new_unit_parent.append(new_measure)
+    '''
 def add_footnote_relationships(main_html, processed_footnotes):
 
     resources = main_html.find('.//ix:resources', namespaces=_XULE_NAMESPACE_MAP)
@@ -1964,189 +2079,234 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
     '''Render a filing'''
     
     if options.ferc_render_render and options.ferc_render_template_set is not None:
-        if options.ferc_render_debug:
-            start_time = datetime.datetime.now()
+        render_report(cntlr, options, modelXbrl, *args, **kwargs)
 
-        used_context_ids = set()
-        used_unit_ids = set()
+def render_report(cntlr, options, modelXbrl, *args, **kwargs):
+    if options.ferc_render_debug:
+        start_time = datetime.datetime.now()
 
-        template_number = 0
-        fact_number = collections.defaultdict(int)
-        processed_facts = set() # track which facts have been outputed
+    used_context_ids = set()
+    used_unit_ids = set()
 
-        # Footnotes were originally only outputted once as an ix
-        processed_footnotes = collections.defaultdict(lambda: {'footnote_id': None, 'fact_ids': list(), 'refs': list()}) # track when a footnote is outputted.
+    template_number = 0
+    fact_number = initialize_fact_number(modelXbrl)
+    processed_facts = set() # track which facts have been outputed
 
-        has_confidential = False
+    # Footnotes were originally only outputted once as an ix
+    processed_footnotes = collections.defaultdict(lambda: {'footnote_id': None, 'fact_ids': list(), 'refs': list()}) # track when a footnote is outputted.
 
-        main_html = setup_inline_html(modelXbrl)
+    has_confidential = False
 
-        schedule_divs = []
-        zipIO = get_file_or_url(options.ferc_render_template_set, cntlr)
-        with zipfile.ZipFile(zipIO, 'r') as ts:
-            with ts.open('catalog.json', 'r') as catalog_file:
-                template_catalog = json.load(io.TextIOWrapper(catalog_file))
+    main_html = setup_inline_html(modelXbrl)
 
-            # Get name of rendered html file
-            if options.ferc_render_inline is None:
-                inline_name = '{}.html'.format(os.path.splitext(os.path.split(options.ferc_render_template_set)[1])[0])
-            else:
-                inline_name = options.ferc_render_inline
+    schedule_divs = []
+    zipIO = get_file_or_url(options.ferc_render_template_set, cntlr)
+    with zipfile.ZipFile(zipIO, 'r') as ts:
+        with ts.open('catalog.json', 'r') as catalog_file:
+            template_catalog = json.load(io.TextIOWrapper(catalog_file))
 
-            # Add css link
-            add_css(main_html, template_catalog, options)
-
-            # Iterate through each of the templates in the catalog
-            for catalog_item in template_catalog['templates']: # A catalog item is a set of files for a single template
-
-                if options.ferc_render_only is not None:
-                    if catalog_item['name'] not in options.ferc_render_only.split('|'):
-                        continue
-
-                if options.ferc_render_debug:
-                    cntlr.addToLog("{} Processing template '{}'".format(str(datetime.datetime.now()), catalog_item.get('name', 'UNKNOWN')),"info")
-                # Get the html template
-                with ts.open(catalog_item['template']) as template_file:
-                    try:
-                        template = etree.parse(template_file)
-                    except etree.XMLSchemaValidateError:
-                        raise FERCRenderException("Template file '{}' is not a valid XHTML file.".format(catalog_item['template']))
-
-                if 'rule-meta-data' in catalog_item:
-                    with ts.open(catalog_item['rule-meta-data']) as meta_file:
-                        rule_meta_data = json.load(io.TextIOWrapper(meta_file))
-                else:
-                    # This is for backward compatibility. The new templates put the substitutions and line_number_subs in the rule meta data.
-                    # The old format had separate entries in the catalog for the substitutions and line_number_subs.
-                    # Get the substitutions
-                    with ts.open(catalog_item['substitutions']) as sub_file:
-                        meta_substitutions = json.load(io.TextIOWrapper(sub_file))
-                    # Get line number substitutions
-                    with ts.open(catalog_item['line-numbers']) as line_number_file:
-                        meta_line_number_subs = json.load(io.TextIOWrapper(line_number_file))
-
-                    rule_meta_data = {'substitutions': meta_substitutions,
-                                      'line-numbers': meta_line_number_subs}
-
-                # Get the date values from the instance
-                xule_date_args = get_dates(modelXbrl)
-
-                # Run Xule rules
-                # Create a log handler that will capture the messages when the rules are run.
-                log_capture_handler = _logCaptureHandler()
-                if not options.ferc_render_show_xule_log:
-                    cntlr.logger.removeHandler(cntlr.logHandler)
-                cntlr.logger.addHandler(log_capture_handler)
-
-                # Call the xule processor to run the rules
-                call_xule_method = getXuleMethod(cntlr, 'Xule.callXuleProcessor')
-                run_options = deepcopy(options)
-                xule_args = getattr(run_options, 'xule_arg', []) or []
-                xule_args += list(xule_date_args)
-                setattr(run_options, 'xule_arg', xule_args)
-                 # Get xule rule set
-                with ts.open(catalog_item['xule-rule-set']) as rule_set_file:
-                    call_xule_method(cntlr, modelXbrl, io.BytesIO(rule_set_file.read()), run_options)
-                
-                # Remove the handler from the logger. This will stop the capture of messages
-                cntlr.logger.removeHandler(log_capture_handler)
-                if not options.ferc_render_show_xule_log:
-                    cntlr.logger.addHandler(cntlr.logHandler)
-                
-                # Substitute template
-                template_number += 1
-                template_result = substituteTemplate(rule_meta_data, 
-                                                     log_capture_handler.captured, template, modelXbrl, main_html,
-                                                     template_number, fact_number, processed_facts, processed_footnotes)
-                if template_result is not None: # the template_result is none when a xule:showif returns false
-                    rendered_template, template_context_ids, template_unit_ids, template_has_confidential = template_result
-                    used_context_ids |= template_context_ids
-                    used_unit_ids |= template_unit_ids
-                    if template_has_confidential: has_confidential = True
-                    # Save the body as a div
-                    body = rendered_template.find('xhtml:body', namespaces=_XULE_NAMESPACE_MAP)
-                    if body is None:
-                        raise FERCRenderException("Cannot find body of the template: {}".format(os.path.split(catalog_item['template'])[1]))   
-                    body.tag = 'div'
-                    schedule_divs.append(body)
-
-        main_body = main_html.find('xhtml:body', namespaces=_XULE_NAMESPACE_MAP)
-
-        # Add confidential indicator
-        # if has_confidential: 
-        #     watermark_div = etree.Element('{{{}}}div'.format(_XHTM_NAMESPACE))
-        #     watermark_div.set('id', 'watermark')
-        #     watermark_p = etree.Element('{{{}}}p'.format(_XHTM_NAMESPACE))
-        #     watermark_p.set('id', 'watermark')
-        #     watermark_p.text = "Contains confidential information"
-        #     watermark_div.append(watermark_p)
-        #     main_body.append(watermark_div)
-        for div in schedule_divs:
-            main_body.append(div)
-            if div is not schedule_divs[-1]: # If it is not the last span put a separator in
-                #main_body.append(etree.fromstring('<hr xmlns="{}"/>'.format(_XHTM_NAMESPACE)))
-                main_body.append(etree.Element('{{{}}}hr'.format(_XHTM_NAMESPACE), attrib={'class': 'screen-page-separator schedule-separator'}))
-                main_body.append(etree.Element('{{{}}}div'.format(_XHTM_NAMESPACE), attrib={'class': 'print-page-separator sechedule-separator'}))
-        
-        if not options.ferc_render_partial:
-            additional_context_ids, additional_unit_ids = add_unused_facts_and_footnotes(main_html, 
-                                                                                         modelXbrl, 
-                                                                                         processed_facts, 
-                                                                                         fact_number, 
-                                                                                         processed_footnotes,
-                                                                                         options)
-            used_context_ids |= additional_context_ids
-            used_unit_ids |= additional_unit_ids
-
-        add_contexts_to_inline(main_html, modelXbrl, used_context_ids)
-        add_units_to_inline(main_html, modelXbrl, used_unit_ids)
-        add_footnote_relationships(main_html, processed_footnotes)
-        
-        # Write generated html
-        #main_html.getroottree().write(inline_name, pretty_print=True, method="xml", encoding='utf8', xml_declaration=True)
-        # Using c14n becaue it will force empty elements to have a start and end tag. This is necessary becasue a <div/> element is
-        # interpreted by a browser as not having an end tag. When you have <div/><div>content</div> the browser interprets it as
-        # <div><div>content</div></div>
-        
-        #main_html.getroottree().write(inline_name, pretty_print=True, method="c14n")
-        for elem in main_html.iter():
-            # Clean up empty tags
-            if elem.text == None:
-                elem.text = ''
-            # Fix XHTML tags. Sometimes template authors use upper case in the tag names i.e. <Span> instead of <span>.
-            # Most browsers will ignore the case so it appears valid, but it is not valid to the XHTM schema.
-            tag = elem.tag
-            if isinstance(tag, str):
-                tag_qname = etree.QName(tag)
-                if tag_qname.namespace == _XHTM_NAMESPACE:
-                    elem.tag = tag.lower()
-        output_string = etree.tostring(main_html.getroottree(), pretty_print=True, method="xml")
-        # Fix the <br></br> tags. When using the c14n method all empty elements will be written out with start and end tags. 
-        # This causes issues with browsers that will interpret <br></br> as 2 <br> tags.
-        output_string = output_string.decode().replace('<br></br>', '<br/>')
-
-        # Write the file or output to zip
-        
-        # Code snippet to unescape the "greater than" signs in the .css that the lxml is escaping.
-        output_string = re.sub('<style>(.*?)</style>',fix_style, output_string, 1, re.DOTALL)
-
-        responseZipStream = kwargs.get("responseZipStream")
-        if responseZipStream is not None:
-            _zip = zipfile.ZipFile(responseZipStream, "a", zipfile.ZIP_DEFLATED, True)
-            if responseZipStream is not None:
-                _zip.writestr(inline_name, output_string)
-                _zip.writestr("log.txt", cntlr.logHandler.getJson())
-                _zip.close()
-                responseZipStream.seek(0)
+        # Get name of rendered html file
+        if options.ferc_render_inline is None:
+            inline_name = '{}.html'.format(os.path.splitext(os.path.split(options.ferc_render_template_set)[1])[0])
         else:
-            with open(inline_name, 'w') as output_file:
-                output_file.write(output_string)
+            inline_name = options.ferc_render_inline
 
-        cntlr.addToLog(_("Rendered template as '{}'".format(inline_name)), 'info')
+        # Add css link
+        add_css(main_html, template_catalog, options)
 
-        if options.ferc_render_debug:
-            end_time = datetime.datetime.now()
-            cntlr.addToLog(_("Processing time: {}".format(str(end_time - start_time))), "info")
+        # Iterate through each of the templates in the catalog
+        for catalog_item in template_catalog['templates']: # A catalog item is a set of files for a single template
+
+            if options.ferc_render_only is not None:
+                if catalog_item['name'] not in options.ferc_render_only.split('|'):
+                    continue
+
+            if options.ferc_render_debug:
+                cntlr.addToLog("{} Processing template '{}'".format(str(datetime.datetime.now()), catalog_item.get('name', 'UNKNOWN')),"info")
+            # Get the html template
+            with ts.open(catalog_item['template']) as template_file:
+                try:
+                    template = etree.parse(template_file)
+                except etree.XMLSchemaValidateError:
+                    raise FERCRenderException("Template file '{}' is not a valid XHTML file.".format(catalog_item['template']))
+
+            if 'rule-meta-data' in catalog_item:
+                with ts.open(catalog_item['rule-meta-data']) as meta_file:
+                    rule_meta_data = json.load(io.TextIOWrapper(meta_file))
+            else:
+                # This is for backward compatibility. The new templates put the substitutions and line_number_subs in the rule meta data.
+                # The old format had separate entries in the catalog for the substitutions and line_number_subs.
+                # Get the substitutions
+                with ts.open(catalog_item['substitutions']) as sub_file:
+                    meta_substitutions = json.load(io.TextIOWrapper(sub_file))
+                # Get line number substitutions
+                with ts.open(catalog_item['line-numbers']) as line_number_file:
+                    meta_line_number_subs = json.load(io.TextIOWrapper(line_number_file))
+
+                rule_meta_data = {'substitutions': meta_substitutions,
+                                    'line-numbers': meta_line_number_subs}
+
+            # Get the date values from the instance
+            xule_date_args = get_dates(modelXbrl)
+
+            # Run Xule rules
+            # Create a log handler that will capture the messages when the rules are run.
+            log_capture_handler = _logCaptureHandler()
+            if not options.ferc_render_show_xule_log:
+                cntlr.logger.removeHandler(cntlr.logHandler)
+            cntlr.logger.addHandler(log_capture_handler)
+
+            # Call the xule processor to run the rules
+            call_xule_method = getXuleMethod(cntlr, 'Xule.callXuleProcessor')
+            run_options = deepcopy(options)
+            xule_args = getattr(run_options, 'xule_arg', []) or []
+            xule_args += list(xule_date_args)
+            setattr(run_options, 'xule_arg', xule_args)
+                # Get xule rule set
+            with ts.open(catalog_item['xule-rule-set']) as rule_set_file:
+                call_xule_method(cntlr, modelXbrl, io.BytesIO(rule_set_file.read()), run_options)
+            
+            # Remove the handler from the logger. This will stop the capture of messages
+            cntlr.logger.removeHandler(log_capture_handler)
+            if not options.ferc_render_show_xule_log:
+                cntlr.logger.addHandler(cntlr.logHandler)
+            
+            # Substitute template
+            template_number += 1
+            template_result = substituteTemplate(rule_meta_data, 
+                                                    log_capture_handler.captured, template, modelXbrl, main_html,
+                                                    template_number, fact_number, processed_facts, processed_footnotes)
+            if template_result is not None: # the template_result is none when a xule:showif returns false
+                rendered_template, template_context_ids, template_unit_ids, template_has_confidential = template_result
+                used_context_ids |= template_context_ids
+                used_unit_ids |= template_unit_ids
+                if template_has_confidential: has_confidential = True
+                # Save the body as a div
+                body = rendered_template.find('xhtml:body', namespaces=_XULE_NAMESPACE_MAP)
+                if body is None:
+                    raise FERCRenderException("Cannot find body of the template: {}".format(os.path.split(catalog_item['template'])[1]))   
+                body.tag = 'div'
+                schedule_divs.append(body)
+
+    main_body = main_html.find('xhtml:body', namespaces=_XULE_NAMESPACE_MAP)
+
+    # Add confidential indicator
+    # if has_confidential: 
+    #     watermark_div = etree.Element('{{{}}}div'.format(_XHTM_NAMESPACE))
+    #     watermark_div.set('id', 'watermark')
+    #     watermark_p = etree.Element('{{{}}}p'.format(_XHTM_NAMESPACE))
+    #     watermark_p.set('id', 'watermark')
+    #     watermark_p.text = "Contains confidential information"
+    #     watermark_div.append(watermark_p)
+    #     main_body.append(watermark_div)
+    for div in schedule_divs:
+        main_body.append(div)
+        if div is not schedule_divs[-1]: # If it is not the last span put a separator in
+            #main_body.append(etree.fromstring('<hr xmlns="{}"/>'.format(_XHTM_NAMESPACE)))
+            main_body.append(etree.Element('{{{}}}hr'.format(_XHTM_NAMESPACE), attrib={'class': 'screen-page-separator schedule-separator'}))
+            main_body.append(etree.Element('{{{}}}div'.format(_XHTM_NAMESPACE), attrib={'class': 'print-page-separator sechedule-separator'}))
+    
+    if not options.ferc_render_partial:
+        additional_context_ids, additional_unit_ids = add_unused_facts_and_footnotes(main_html, 
+                                                                                        modelXbrl, 
+                                                                                        processed_facts, 
+                                                                                        fact_number, 
+                                                                                        processed_footnotes,
+                                                                                        options)
+        used_context_ids |= additional_context_ids
+        used_unit_ids |= additional_unit_ids
+
+    add_contexts_to_inline(main_html, modelXbrl, used_context_ids)
+    add_units_to_inline(main_html, modelXbrl, used_unit_ids)
+    add_footnote_relationships(main_html, processed_footnotes)
+    
+    # Write generated html
+    #main_html.getroottree().write(inline_name, pretty_print=True, method="xml", encoding='utf8', xml_declaration=True)
+    # Using c14n becaue it will force empty elements to have a start and end tag. This is necessary becasue a <div/> element is
+    # interpreted by a browser as not having an end tag. When you have <div/><div>content</div> the browser interprets it as
+    # <div><div>content</div></div>
+    
+    #main_html.getroottree().write(inline_name, pretty_print=True, method="c14n")
+    dedup_id_full_document(main_html, fact_number)
+    for elem in main_html.iter():
+        # Clean up empty tags
+        if elem.text == None:
+            elem.text = ''
+        # Fix XHTML tags. Sometimes template authors use upper case in the tag names i.e. <Span> instead of <span>.
+        # Most browsers will ignore the case so it appears valid, but it is not valid to the XHTM schema.
+        tag = elem.tag
+        if isinstance(tag, str):
+            tag_qname = etree.QName(tag)
+            if tag_qname.namespace == _XHTM_NAMESPACE:
+                elem.tag = tag.lower()
+        # Removed _ORIGINAL_FACT_ID_ATTRIBUTE
+        if _ORIGINAL_FACT_ID_ATTRIBUTE in elem.attrib:
+            elem.attrib.pop(_ORIGINAL_FACT_ID_ATTRIBUTE)
+
+    main_html = fix_namespace_declarations(main_html)
+
+    output_string = etree.tostring(main_html.getroottree(), pretty_print=True, method="xml")
+    # Fix the <br></br> tags. When using the c14n method all empty elements will be written out with start and end tags. 
+    # This causes issues with browsers that will interpret <br></br> as 2 <br> tags.
+    output_string = output_string.decode().replace('<br></br>', '<br/>')
+
+    # Write the file or output to zip
+    
+    # Code snippet to unescape the "greater than" signs in the .css that the lxml is escaping.
+    output_string = re.sub('<style>(.*?)</style>',fix_style, output_string, 1, re.DOTALL)
+
+    responseZipStream = kwargs.get("responseZipStream")
+    if responseZipStream is not None:
+        _zip = zipfile.ZipFile(responseZipStream, "a", zipfile.ZIP_DEFLATED, True)
+        if responseZipStream is not None:
+            _zip.writestr(inline_name, output_string)
+            _zip.writestr("log.txt", cntlr.logHandler.getJson())
+            _zip.close()
+            responseZipStream.seek(0)
+    else:
+        with open(inline_name, 'w') as output_file:
+            output_file.write(output_string)
+
+    cntlr.addToLog(_("Rendered template as '{}'".format(inline_name)), 'info')
+
+    if options.ferc_render_debug:
+        end_time = datetime.datetime.now()
+        cntlr.addToLog(_("Processing time: {}".format(str(end_time - start_time))), "info")
+
+def dedup_id_full_document(root, fact_number):
+    all_ids = collections.defaultdict(list)
+
+    for elem in root.xpath('.//*[@id]'):
+        all_ids[elem.get('id')].append(elem)
+
+    dup_ids = [x for x in all_ids if len(all_ids[x]) > 1]
+    # These are the duplicate ids
+    for dup_id in dup_ids:
+        xbrl_elements = [x for x in all_ids[dup_id] if etree.QName(x).namespace in (_XULE_NAMESPACE_MAP['ix'], _XBRLI_NAMESPACE)]
+        # XBRL elements should already be dudupped, and it is important that these ids don't change.
+        for elem in all_ids[dup_id] - xbrl_elements:
+            elem.set('id', dedup_id(dup_id, fact_number))
+
+def fix_namespace_declarations(root):
+    '''This adds additional namespace declarations to the <html> element.
+
+    The namespace declarations are added element nodes of <namespace_declaration> that contain the 
+    prefix and the namespace URI for namespaces to be added. These nodes are added when copying
+    context and unit nodes and there are attributes or element VALUES that are qnames. lxml does
+    not handle the namespace when the value of an element or attribute is a qname.
+    '''
+    # Get the full ns_map
+    new_nsmap = get_nsmap(root)
+    new_root = etree.Element(root.tag, nsmap=new_nsmap)
+    # Copy any attributes
+    for aname, avalue in root.attrib.items():
+        new_root.set(aname, avalue)
+    # Move the childern
+    for child in root:
+        if child.tag != _NAMESPACE_DECLARATION:
+            new_root.append(child)
+
+    return new_root
 
 def fix_style(style_match):
     if len(style_match.groups()) > 0:
@@ -2203,7 +2363,7 @@ class _logCaptureHandler(logging.Handler):
 
 def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_result, nsmap, fact_number):
     '''Format the fact to a string value'''
-    preamble = None
+
     new_fact_id = None
     try:
         if xule_expression_node is None:
@@ -2221,15 +2381,15 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
             ix_node = etree.Element('{{{}}}nonNumeric'.format(_XULE_NAMESPACE_MAP['ix']), nsmap=_XULE_NAMESPACE_MAP)
 
         ix_node.set('contextRef', model_fact.contextID)
-        ix_node.set('name', str(model_fact.qname))
+        # Add the name to the inline node. The html_inline is used to resolve the qname
+        ix_node.set('name', get_qname_value(inline_html, model_fact.qname))
         # Assign fact id
         if model_fact.id is not None:
-            if model_fact.id in fact_number:
-                new_fact_id =  "{}-dup-{}".format(model_fact.id, fact_number[model_fact.id])
-            else:
-                new_fact_id = "{}".format(model_fact.id)
+            new_fact_id = dedup_id(model_fact.id, fact_number)
             ix_node.set('id', new_fact_id)
-            fact_number[model_fact.id] += 1
+            # Save the original fact id. This will be removed later before serializing the document. It is used when copying
+            # a section of the inline xbrl (i.e. page header). The ids on the fact will have to be dedupped.
+            ix_node.set(_ORIGINAL_FACT_ID_ATTRIBUTE, model_fact.id)
 
         # Get the formated value
         result_sign = None # this will indicate the sign for numeric results
@@ -2239,9 +2399,14 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
         if model_fact.xValue is None:
             display_value = ''
         elif format is None:
-            display_value = str(model_fact.xValue)
-            if model_fact.isNumeric:
+            #check if boolean
+            if isinstance(model_fact.xValue, bool):
+                display_value = str(model_fact.xValue).lower()
+            elif model_fact.isNumeric:
+                display_value = str(abs(model_fact.xValue))
                 result_sign = '-' if model_fact.xValue < 0 else '+' if model_fact.xValue > 0 else '0'
+            else:
+                display_value = str(model_fact.xValue)               
         else:
             # convert format to clark notation 
             if ':' in format:
@@ -2372,6 +2537,29 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
         div_node.set('class', 'format-error')
         div_node.text = str(model_fact.xValue)
         return div_node, new_fact_id
+
+def initialize_fact_number(model_xbrl):
+    fact_number = collections.defaultdict(int)
+    # Load context and unit ids. This will prevent and edge case where a fact id after deduping is a context
+    # or unit id
+    for cid in model_xbrl.contexts:
+        fact_number[cid] = 1
+    for uid in model_xbrl.units:
+        fact_number[uid] = 1
+
+    return fact_number
+
+def dedup_id(fact_id, fact_number):
+    while True:
+        if fact_id in fact_number:
+            new_fact_id =  "{}-dup-{}".format(fact_id, fact_number[fact_id])
+        else:
+            new_fact_id = "{}".format(fact_id)
+        fact_number[fact_id] += 1
+        if new_fact_id not in fact_number:
+            fact_number[new_fact_id] = 1
+            break
+    return new_fact_id
 
 def type_ancestry(model_type):
     if model_type.typeDerivedFrom is None:
