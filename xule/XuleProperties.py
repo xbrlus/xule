@@ -1923,7 +1923,7 @@ def regex_match_object(xule_context, search_string, pattern, start=0):
             xule_groups.append(xv.XuleValue(xule_context, frozenset(xule_group.items()), 'dictionary', shadow_collection=frozenset(shadow_group.items())))
             shadow_groups.append(shadow_group)
         
-        xule_result[xv.XuleValue(xule_context, 'groups', 'string')] = xv.XuleValue(xule_context, tuple(xule_groups), 'list', shadow_collection=tuple(shadow_groups))
+        xule_result[xv.XuleValue(xule_context, 'groups', 'string')] = xv.XuleValue(xule_context, tuple(xule_groups), 'list') #, shadow_collection=tuple(shadow_groups))
         shadow['groups'] = tuple(shadow_groups)
         
     return xv.XuleValue(xule_context, frozenset(xule_result.items()), 'dictionary') #, shadow_collection=frozenset(shadow.items()))
