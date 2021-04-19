@@ -2684,7 +2684,7 @@ _formats = {'{http://www.xbrl.org/inlineXBRL/transformation/2010-04-20}numcommad
 __pluginInfo__ = {
     'name': 'FERC Tools',
     'version': '0.9',
-    'description': "FERC Tools",
+    'description': "FERC Renderer",
     'copyright': '(c) Copyright 2018 XBRL US Inc., All rights reserved.',
     'import': 'xule',
     # classes of mount points (required)
@@ -2692,5 +2692,5 @@ __pluginInfo__ = {
     'CntlrCmdLine.Utility.Run': fercCmdUtilityRun,
     'CntlrCmdLine.Xbrl.Loaded': cmdLineXbrlLoaded,
     #'CntlrWinMain.Menu.Tools': fercMenuTools,
-    'CntlrWinMain.Xbrl.Loaded': cmdLineXbrlLoaded,    
+    #'CntlrWinMain.Xbrl.Loaded': cmdLineXbrlLoaded,    
 }
