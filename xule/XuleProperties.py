@@ -32,10 +32,10 @@ from arelle.ModelDocument import Type
 from arelle.ModelValue import QName, qname
 import collections
 import decimal
+import json
 import math
 import numpy
-
-import json
+import re
 
 def property_union(xule_context, object_value, *args):
     other_set = args[0]
@@ -1847,12 +1847,154 @@ def property_namespaces(xule_context, object_value, *args):
     namespaces_value = set(xv.XuleValue(xule_context, x, 'uri') for x in namespaces)
     return xv.XuleValue(xule_context, frozenset(namespaces_value), 'set', shadow_collection=namespaces)
 
+
+def property_regex_match(xule_context, object_value, pattern, *args):
+    if pattern.type != 'string':
+        raise XuleProcessingError(_("Property regex match requires a string for the regex pattern, found '{}'".format(pattern.type)))
+
+    return regex_match_object(xule_context, object_value.value, pattern)
+
+def property_regex_match_all(xule_context, object_value, pattern, *args):
+    if pattern.type != 'string':
+        raise XuleProcessingError(_("Property regex match requires a string for the regex pattern, found '{}'".format(pattern.type)))
+
+    search_start = 0
+    xule_matches = []
+    # Need to repeat match
+    while search_start < len(object_value.value):
+        match_object = regex_match_object(xule_context, object_value.value[search_start:], pattern, search_start)
+        if match_object.shadow_dictionary['match-count'] == 0:
+            break
+        xule_matches.append(match_object)
+        search_start = match_object.shadow_dictionary['end'] - 1
+
+    return xv.XuleValue(xule_context, tuple(xule_matches), 'list')
+
+def regex_match_object(xule_context, search_string, pattern, start=0):
+
+    try:
+        re_result = re.search(pattern.value, search_string)
+    except Exception as e:
+        raise XuleProcessingError(_("Error evaluaing regular exparession. Message: {}".format(e)))
+
+    if re_result is None:
+        # There were no matches
+        xule_result = {xv.XuleValue(xule_context, 'match', 'string'): xv.XuleValue(xule_context, None, 'none'),
+                       xv.XuleValue(xule_context, 'start', 'string'): xv.XuleValue(xule_context, 0, 'int'),
+                       xv.XuleValue(xule_context, 'end', 'string'): xv.XuleValue(xule_context, 0, 'int'),
+                       xv.XuleValue(xule_context, 'match-count', 'string'): xv.XuleValue(xule_context, 0, 'int'),
+                       xv.XuleValue(xule_context, 'groups', 'string'): xv.XuleValue(xule_context, tuple(), 'list')}
+        shadow = {'match': None,
+                  'start': 0,
+                  'end': 0,
+                  'match-count': 0,
+                  'groups': tuple()}
+    else:
+        xule_result = dict()
+        shadow = dict()
+        xule_result[xv.XuleValue(xule_context, 'match', 'string')] =  xv.XuleValue(xule_context, re_result.group(), 'string')
+        shadow['match'] = re_result.group()
+        
+        xule_result[xv.XuleValue(xule_context, 'start', 'string')] = xv.XuleValue(xule_context, re_result.start() + 1 + start, 'int')
+        shadow['start'] = re_result.start() + 1 + start
+        xule_result[xv.XuleValue(xule_context, 'end', 'string')] = xv.XuleValue(xule_context, re_result.end() + 1 + start, 'int')
+        shadow['end'] = re_result.end() + 1 + start
+        xule_result[xv.XuleValue(xule_context, 'match-count', 'string')] = xv.XuleValue(xule_context, len(re_result.groups()) + 1, 'int')
+        shadow['match-count'] = len(re_result.groups()) + 1
+        # Now process each group
+        xule_groups = []
+        shadow_groups = []
+        for group_num in range(len(re_result.groups())):
+            xule_group = dict()
+            shadow_group = dict()
+
+            xule_group[xv.XuleValue(xule_context, 'group', 'string')] = xv.XuleValue(xule_context, group_num + 1, 'int')
+            shadow_group['group'] = group_num + 1
+            xule_group[xv.XuleValue(xule_context, 'match', 'string')] =  xv.XuleValue(xule_context, re_result.group(group_num + 1), 'string')
+            shadow_group['match'] = re_result.group(group_num + 1)
+            xule_group[xv.XuleValue(xule_context, 'start', 'string')] = xv.XuleValue(xule_context, re_result.start(group_num + 1) + 1 + start, 'int')
+            shadow_group['start'] = re_result.start(group_num + 1) + 1 + start
+            xule_group[xv.XuleValue(xule_context, 'end', 'string')] = xv.XuleValue(xule_context, re_result.end(group_num + 1) + 1 + start, 'int')
+            shadow_group['end'] = re_result.end(group_num + 1) + 1 + start
+
+            xule_groups.append(xv.XuleValue(xule_context, frozenset(xule_group.items()), 'dictionary', shadow_collection=frozenset(shadow_group.items())))
+            shadow_groups.append(shadow_group)
+        
+        xule_result[xv.XuleValue(xule_context, 'groups', 'string')] = xv.XuleValue(xule_context, tuple(xule_groups), 'list', shadow_collection=tuple(shadow_groups))
+        shadow['groups'] = tuple(shadow_groups)
+        
+    return xv.XuleValue(xule_context, frozenset(xule_result.items()), 'dictionary') #, shadow_collection=frozenset(shadow.items()))
+
+def property_regex_match_string(xule_context, object_value, *args):
+    if len(args) == 0 :
+        raise XuleProcessingError(_("Property regex-match-stirng requires a match pattern"))
+
+    if args[0].type != 'string':
+        raise XuleProcessingError(_("Property regex match requires a string for the regex pattern, found '{}'".format(args[0].type)))
+    else:
+        pattern = args[0]
+    
+    if len(args) == 2:
+        try:
+            group_num = int(args[1].value)
+        except (ValueError, TypeError):
+            raise XuleProcessingError(_("Second argument of regex-match-string cannot be converted to an integer, found value '{}'".format(args[1].value)))
+    else:
+        group_num = None
+
+    return regex_match_string(xule_context, object_value.value, pattern, group_num)[0]
+
+def property_regex_match_string_all(xule_context, object_value, *args):
+    if len(args) == 0 :
+        raise XuleProcessingError(_("Property regex-match-stirng requires a match pattern"))
+
+    if args[0].type != 'string':
+        raise XuleProcessingError(_("Property regex match requires a string for the regex pattern, found '{}'".format(args[0].type)))
+    else:
+        pattern = args[0]
+    
+    if len(args) == 2:
+        try:
+            group_num = int(args[1].value)
+        except (ValueError, TypeError):
+            raise XuleProcessingError(_("Second argument of regex-match-string cannot be converted to an integer, found value '{}'".format(args[1].value)))
+    else:
+        group_num = None
+
+    search_start = 0
+    xule_matches = []
+    # Need to repeat match
+    while search_start < len(object_value.value):
+        match_object, new_end = regex_match_string(xule_context, object_value.value[search_start:], pattern, group_num)
+        if match_object.type == 'none':
+            break
+        xule_matches.append(match_object)
+        search_start += new_end
+
+    return xv.XuleValue(xule_context, tuple(xule_matches), 'list')
+
+def regex_match_string(xule_context, search_string, pattern, group_num=None):
+
+    try:
+        re_result = re.search(pattern.value, search_string)
+    except Exception as e:
+        raise XuleProcessingError(_("Error evaluaing regular exparession. Message: {}".format(e)))
+
+    if re_result is None:
+        return xv.XuleValue(xule_context, None, 'none'), 0
+    else:
+        try:
+            return xv.XuleValue(xule_context, re_result.group(group_num or 0), 'string'), re_result.end()
+        except IndexError:
+            raise XuleProcessingError(_("Group does not exist for group number {} for regex-match-string".format(group_num)))
+
 #Property tuple
 PROP_FUNCTION = 0
 PROP_ARG_NUM = 1 #arg num allows negative numbers to indicated that the arguments are optional
 PROP_OPERAND_TYPES = 2
 PROP_UNBOUND_ALLOWED = 3
 PROP_DATA = 4
+PROP_VERSION = 5
 
 PROPERTIES = {
               #NEW PROPERTIES
@@ -1991,6 +2133,13 @@ PROPERTIES = {
               'facts': (property_facts, 0, ('cube',), False),
               'default': (property_default, 0, ('dimension',), False),
               'namespaces': (property_namespaces, 0, ('taxonomy',), False),
+
+              # Version 1.1 properties
+              #'regex-match-first': (property_regex_match_first, 1, ('string', 'uri'), False),
+              'regex-match': (property_regex_match, 1, ('string', 'uri'), False),
+              'regex-match-all': (property_regex_match_all, 1, ('string', 'uri'), False),
+              'regex-match-string': (property_regex_match_string, -2, ('string', 'uri'), False),
+              'regex-match-string-all': (property_regex_match_string_all, -2, ('string', 'uri'), False),
 
               # Debugging properties
               '_type': (property_type, 0, (), False),
