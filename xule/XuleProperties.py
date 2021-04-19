@@ -1866,7 +1866,10 @@ def property_regex_match_all(xule_context, object_value, pattern, *args):
         if match_object.shadow_dictionary['match-count'] == 0:
             break
         xule_matches.append(match_object)
-        search_start = match_object.shadow_dictionary['end'] - 1
+        if match_object.shadow_dictionary['start'] == match_object.shadow_dictionary['end']:
+            search_start += 1
+        else:
+            search_start = match_object.shadow_dictionary['end'] - 1
 
     return xv.XuleValue(xule_context, tuple(xule_matches), 'list')
 
@@ -1969,7 +1972,10 @@ def property_regex_match_string_all(xule_context, object_value, *args):
         if match_object.type == 'none':
             break
         xule_matches.append(match_object)
-        search_start += new_end
+        if new_end == 0:
+            search_start += 1
+        else:
+            search_start += new_end
 
     return xv.XuleValue(xule_context, tuple(xule_matches), 'list')
 
