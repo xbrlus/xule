@@ -1,5 +1,5 @@
 '''
-Reivision number: $Change: 23236 $
+Reivision number: $Change: 23239 $
 '''
 from arelle import FileSource
 from arelle import PluginManager
@@ -2692,5 +2692,5 @@ __pluginInfo__ = {
     'CntlrCmdLine.Utility.Run': fercCmdUtilityRun,
     'CntlrCmdLine.Xbrl.Loaded': cmdLineXbrlLoaded,
     #'CntlrWinMain.Menu.Tools': fercMenuTools,
-    'CntlrWinMain.Xbrl.Loaded': cmdLineXbrlLoaded,    
+    #'CntlrWinMain.Xbrl.Loaded': cmdLineXbrlLoaded,    
 }
