@@ -1866,10 +1866,10 @@ def property_regex_match_all(xule_context, object_value, pattern, *args):
         if match_object.shadow_dictionary['match-count'] == 0:
             break
         xule_matches.append(match_object)
-        if match_object.shadow_dictionary['start'] == match_object.shadow_dictionary['end']:
+        if match_object.shadow_dictionary['start'] > match_object.shadow_dictionary['end']:
             search_start += 1
         else:
-            search_start = match_object.shadow_dictionary['end'] - 1
+            search_start = match_object.shadow_dictionary['end']
 
     return xv.XuleValue(xule_context, tuple(xule_matches), 'list')
 
@@ -1887,46 +1887,28 @@ def regex_match_object(xule_context, search_string, pattern, start=0):
                        xv.XuleValue(xule_context, 'end', 'string'): xv.XuleValue(xule_context, 0, 'int'),
                        xv.XuleValue(xule_context, 'match-count', 'string'): xv.XuleValue(xule_context, 0, 'int'),
                        xv.XuleValue(xule_context, 'groups', 'string'): xv.XuleValue(xule_context, tuple(), 'list')}
-        shadow = {'match': None,
-                  'start': 0,
-                  'end': 0,
-                  'match-count': 0,
-                  'groups': tuple()}
     else:
         xule_result = dict()
-        shadow = dict()
         xule_result[xv.XuleValue(xule_context, 'match', 'string')] =  xv.XuleValue(xule_context, re_result.group(), 'string')
-        shadow['match'] = re_result.group()
-        
         xule_result[xv.XuleValue(xule_context, 'start', 'string')] = xv.XuleValue(xule_context, re_result.start() + 1 + start, 'int')
-        shadow['start'] = re_result.start() + 1 + start
-        xule_result[xv.XuleValue(xule_context, 'end', 'string')] = xv.XuleValue(xule_context, re_result.end() + 1 + start, 'int')
-        shadow['end'] = re_result.end() + 1 + start
+        xule_result[xv.XuleValue(xule_context, 'end', 'string')] = xv.XuleValue(xule_context, re_result.end() + start, 'int')
         xule_result[xv.XuleValue(xule_context, 'match-count', 'string')] = xv.XuleValue(xule_context, len(re_result.groups()) + 1, 'int')
-        shadow['match-count'] = len(re_result.groups()) + 1
         # Now process each group
         xule_groups = []
-        shadow_groups = []
+
         for group_num in range(len(re_result.groups())):
             xule_group = dict()
-            shadow_group = dict()
 
             xule_group[xv.XuleValue(xule_context, 'group', 'string')] = xv.XuleValue(xule_context, group_num + 1, 'int')
-            shadow_group['group'] = group_num + 1
             xule_group[xv.XuleValue(xule_context, 'match', 'string')] =  xv.XuleValue(xule_context, re_result.group(group_num + 1), 'string')
-            shadow_group['match'] = re_result.group(group_num + 1)
             xule_group[xv.XuleValue(xule_context, 'start', 'string')] = xv.XuleValue(xule_context, re_result.start(group_num + 1) + 1 + start, 'int')
-            shadow_group['start'] = re_result.start(group_num + 1) + 1 + start
-            xule_group[xv.XuleValue(xule_context, 'end', 'string')] = xv.XuleValue(xule_context, re_result.end(group_num + 1) + 1 + start, 'int')
-            shadow_group['end'] = re_result.end(group_num + 1) + 1 + start
+            xule_group[xv.XuleValue(xule_context, 'end', 'string')] = xv.XuleValue(xule_context, re_result.end(group_num + 1) + start, 'int')
 
-            xule_groups.append(xv.XuleValue(xule_context, frozenset(xule_group.items()), 'dictionary', shadow_collection=frozenset(shadow_group.items())))
-            shadow_groups.append(shadow_group)
+            xule_groups.append(xv.XuleValue(xule_context, frozenset(xule_group.items()), 'dictionary'))
         
-        xule_result[xv.XuleValue(xule_context, 'groups', 'string')] = xv.XuleValue(xule_context, tuple(xule_groups), 'list') #, shadow_collection=tuple(shadow_groups))
-        shadow['groups'] = tuple(shadow_groups)
+        xule_result[xv.XuleValue(xule_context, 'groups', 'string')] = xv.XuleValue(xule_context, tuple(xule_groups), 'list') 
         
-    return xv.XuleValue(xule_context, frozenset(xule_result.items()), 'dictionary') #, shadow_collection=frozenset(shadow.items()))
+    return xv.XuleValue(xule_context, frozenset(xule_result.items()), 'dictionary')
 
 def property_regex_match_string(xule_context, object_value, *args):
     if len(args) == 0 :
