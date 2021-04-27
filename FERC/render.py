@@ -7,6 +7,7 @@ from arelle.CntlrWebMain import Options
 from arelle.ModelRelationshipSet import ModelRelationshipSet
 from arelle.ModelDocument import Type
 from arelle.ModelValue import QName
+from arelle.XmlValidate import VALID
 from copy import deepcopy, copy
 from lxml import etree, html
 from lxml.builder import E
@@ -1538,7 +1539,8 @@ def copy_xml_node(node, parent):
     new_node = etree.Element(node.qname.clarkNotation)
     parent.append(new_node)
     for att_name, att_value in node.xAttributes.items():
-        new_node.set(att_name, copy_xml_value(new_node, att_value.xValue))
+        if att_value.xValid >= VALID:
+            new_node.set(att_name, copy_xml_value(new_node, att_value.xValue))
 
     if isinstance(node.xValue, QName):
         new_node.text = get_qname_value(new_node, node.xValue)
@@ -2497,7 +2499,7 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
 
         # handle sign
         value_sign = None
-        if model_fact.isNumeric and not model_fact.isNil and model_fact.xValue < 0:
+        if model_fact.isNumeric and not model_fact.isNil and model_fact.xValid >= VALID and model_fact.xValue < 0:
             ix_node.set('sign', '-')
 
         wrapped = False
@@ -2682,9 +2684,9 @@ _formats = {'{http://www.xbrl.org/inlineXBRL/transformation/2010-04-20}numcommad
             }
 
 __pluginInfo__ = {
-    'name': 'FERC Tools',
+    'name': 'FERC Renderer',
     'version': '0.9',
-    'description': "FERC Renderer",
+    'description': "FERC Tools",
     'copyright': '(c) Copyright 2018 XBRL US Inc., All rights reserved.',
     'import': 'xule',
     # classes of mount points (required)
