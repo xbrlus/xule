@@ -2276,17 +2276,17 @@ def render_report(cntlr, options, modelXbrl, *args, **kwargs):
         cntlr.addToLog(_("Processing time: {}".format(str(end_time - start_time))), "info")
 
 def dedup_id_full_document(root, fact_number):
-    all_ids = collections.defaultdict(list)
+    all_ids = collections.defaultdict(set)
 
     for elem in root.xpath('.//*[@id]'):
-        all_ids[elem.get('id')].append(elem)
+        all_ids[elem.get('id')].add(elem)
 
     dup_ids = [x for x in all_ids if len(all_ids[x]) > 1]
     # These are the duplicate ids
     for dup_id in dup_ids:
-        xbrl_elements = [x for x in all_ids[dup_id] if etree.QName(x).namespace in (_XULE_NAMESPACE_MAP['ix'], _XBRLI_NAMESPACE)]
+        xbrl_elements = {x for x in all_ids[dup_id] if etree.QName(x).namespace in (_XULE_NAMESPACE_MAP['ix'], _XBRLI_NAMESPACE)}
         # XBRL elements should already be dudupped, and it is important that these ids don't change.
-        for elem in all_ids[dup_id] - xbrl_elements:
+        for elem in all_ids[dup_id] - xbrl_elements: 
             elem.set('id', dedup_id(dup_id, fact_number))
 
 def fix_namespace_declarations(root):
