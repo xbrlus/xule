@@ -1200,7 +1200,7 @@ def build_footnote_page(template, template_number, footnotes, processed_footnote
         for footnote in footnotes[footnote_key]:
             footnote_reference_id = 'fr-{}-{}'.format(template_number, footnote['id']) # This is the <a> around the footnote letter before the fact value
             #footnote_id = 'fn-{}-{}'.format(template_number, footnote['id'])
-            footnote_id = 'fn-{}'.format(footnote['fact_id'])
+            footnote_id = 'fn-{}-t{}-n{}'.format(footnote['fact_id'], template_number, footnote_counter)
             footnote_ref_letter = convert_number_to_letter(footnote_counter)
             footnote_header_id = 'fh-{}-{}'.format(template_number, footnote['id'])
             #footnote_header_id = 'fn-{}'.format(uuid.uuid4().hex)
@@ -2313,12 +2313,12 @@ def fix_namespace_declarations(root):
 def fix_style(style_match):
     if len(style_match.groups()) > 0:
         style_text = style_match.group(1)
-        return '<style>\n{}{}{}\n</style>'.format(
+        return '<style type="text/css">\n{}{}{}\n</style>'.format(
             '/*<![CDATA[*/',
             style_text.replace("&gt;",">"),
             '/*]]>*/')
     else:
-        return '<style></style>'
+        return '<style type="text/css"></style>'
 
 
 def add_css(main_html, template_catalog, options):
