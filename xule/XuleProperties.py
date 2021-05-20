@@ -1346,6 +1346,22 @@ def property_to_qname(xule_context, object_value, *args):
     '''Create a qname from a single string with an optional namespace prefix.
 
     QNames created with this property use the prefix defined in the rule set.'''
+
+    # This property has an optional parameter of a namespace map. A namespace map is a dictionary
+    # keyed by prefix of namespace uris. If the parameter is not supplied, the namespace
+    # declaratoins in the rule set are used.
+
+    if len(args) == 1:
+        # namespace map is supplied
+        if args[0].type != 'dictionary':
+            raise XuleProcessingError(
+                _("When a namespace map is supplied as the argument to the .to-qname(nsmap) property, it must be a dictionary,"
+                  " found '{}'".format(args[0].type)), xule_context)
+
+        namespace_map = args[0].shadow_dictionary
+    else:
+        namespace_map = {None if k == '*' else k: v.get('uri') for k, v in xule_context.global_context.catalog['namespaces'].items()}
+
     if object_value.value.count(':') > 1:
         raise XuleProcessingError(
             _("The local part of the 'to-qname' property can contain only 1 ':' to designate the namespace prefix. "
@@ -1357,7 +1373,8 @@ def property_to_qname(xule_context, object_value, *args):
         prefix = None
         local_name = object_value.value
 
-    namespace_uri = xule_context.global_context.catalog['namespaces'].get(prefix if prefix is not None else '*', dict()).get('uri')
+    #namespace_uri = xule_context.global_context.catalog['namespaces'].get(prefix if prefix is not None else '*', dict()).get('uri')
+    namespace_uri = namespace_map.get(prefix)
     if namespace_uri is None:
         raise XuleProcessingError(_("In the 'to-qname' property, could not resolve the namespace prefix '{}' "
                                     "to a namespace uri in '{}'".format(prefix, object_value.value)), xule_context)
@@ -1847,6 +1864,10 @@ def property_namespaces(xule_context, object_value, *args):
     namespaces_value = set(xv.XuleValue(xule_context, x, 'uri') for x in namespaces)
     return xv.XuleValue(xule_context, frozenset(namespaces_value), 'set', shadow_collection=namespaces)
 
+def property_namespace_map(xule_context, object_value, *args):
+    nsmap = object_value.fact.nsmap
+    result = {xv.XuleValue(xule_context, prefix, 'stirng'): xv.XuleValue(xule_context, uri, 'uri') for prefix, uri in nsmap.items()}
+    return xv.XuleValue(xule_context, frozenset(result.items()), 'dictionary')
 
 def property_regex_match(xule_context, object_value, pattern, *args):
     if pattern.type != 'string':
@@ -2016,6 +2037,7 @@ PROPERTIES = {
               'period': (property_period, 0, ('fact',), True),
               'unit': (property_unit, 0, ('fact',), True),
               'entity': (property_entity, 0, ('fact',), True),
+              'namespace-map': (property_namespace_map, 0, ('fact',), True),
               'id': (property_id, 0, ('entity','unit','fact'), True),
               'scheme': (property_scheme, 0, ('entity',), False),
               'dimension': (property_dimension, 1, ('fact', 'taxonomy'), True),
@@ -2090,7 +2112,7 @@ PROPERTIES = {
               'lower-case': (property_lower_case, 0, ('string', 'uri'), False),
               'upper-case': (property_upper_case, 0, ('string', 'uri'), False),
               'split': (property_split, 1, ('string', 'uri'), False),
-              'to-qname': (property_to_qname, 0, ('string'), False),
+              'to-qname': (property_to_qname, -1, ('string'), False),
               'day': (property_day, 0, ('instant',), False),
               'month': (property_month, 0, ('instant',), False),
               'year': (property_year, 0, ('instant',), False),
