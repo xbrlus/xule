@@ -2612,8 +2612,11 @@ def format_numcommadot(model_fact, sign, scale, *args, **kwargs):
     val = model_fact.xValue * sign_mult
 
     # Decimals allow -0 (yes I know its weird, but its must be a math thing). If I get a -0 make it a regualr 0
-    if isinstance(val, decimal.Decimal) and val.is_zero() and val.is_signed():
-        val = decimal.Decimal(0)
+    try:
+        if val == 0:
+            val = abs(val)
+    except TypeError:
+        pass
 
     if scale is not None:
         # Convert scale from string to number
