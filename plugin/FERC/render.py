@@ -1,5 +1,5 @@
 '''
-Reivision number: $Change: 23239 $
+Reivision number: $Change: 23263 $
 '''
 from arelle import FileSource
 from arelle import PluginManager
@@ -7,6 +7,7 @@ from arelle.CntlrWebMain import Options
 from arelle.ModelRelationshipSet import ModelRelationshipSet
 from arelle.ModelDocument import Type
 from arelle.ModelValue import QName
+from arelle.XmlValidate import VALID
 from copy import deepcopy, copy
 from lxml import etree, html
 from lxml.builder import E
@@ -1199,7 +1200,7 @@ def build_footnote_page(template, template_number, footnotes, processed_footnote
         for footnote in footnotes[footnote_key]:
             footnote_reference_id = 'fr-{}-{}'.format(template_number, footnote['id']) # This is the <a> around the footnote letter before the fact value
             #footnote_id = 'fn-{}-{}'.format(template_number, footnote['id'])
-            footnote_id = 'fn-{}'.format(footnote['fact_id'])
+            footnote_id = 'fn-{}-t{}-n{}'.format(footnote['fact_id'], template_number, footnote_counter)
             footnote_ref_letter = convert_number_to_letter(footnote_counter)
             footnote_header_id = 'fh-{}-{}'.format(template_number, footnote['id'])
             #footnote_header_id = 'fn-{}'.format(uuid.uuid4().hex)
@@ -1538,7 +1539,8 @@ def copy_xml_node(node, parent):
     new_node = etree.Element(node.qname.clarkNotation)
     parent.append(new_node)
     for att_name, att_value in node.xAttributes.items():
-        new_node.set(att_name, copy_xml_value(new_node, att_value.xValue))
+        if att_value.xValid >= VALID:
+            new_node.set(att_name, copy_xml_value(new_node, att_value.xValue))
 
     if isinstance(node.xValue, QName):
         new_node.text = get_qname_value(new_node, node.xValue)
@@ -2274,17 +2276,17 @@ def render_report(cntlr, options, modelXbrl, *args, **kwargs):
         cntlr.addToLog(_("Processing time: {}".format(str(end_time - start_time))), "info")
 
 def dedup_id_full_document(root, fact_number):
-    all_ids = collections.defaultdict(list)
+    all_ids = collections.defaultdict(set)
 
     for elem in root.xpath('.//*[@id]'):
-        all_ids[elem.get('id')].append(elem)
+        all_ids[elem.get('id')].add(elem)
 
     dup_ids = [x for x in all_ids if len(all_ids[x]) > 1]
     # These are the duplicate ids
     for dup_id in dup_ids:
-        xbrl_elements = [x for x in all_ids[dup_id] if etree.QName(x).namespace in (_XULE_NAMESPACE_MAP['ix'], _XBRLI_NAMESPACE)]
+        xbrl_elements = {x for x in all_ids[dup_id] if etree.QName(x).namespace in (_XULE_NAMESPACE_MAP['ix'], _XBRLI_NAMESPACE)}
         # XBRL elements should already be dudupped, and it is important that these ids don't change.
-        for elem in all_ids[dup_id] - xbrl_elements:
+        for elem in all_ids[dup_id] - xbrl_elements: 
             elem.set('id', dedup_id(dup_id, fact_number))
 
 def fix_namespace_declarations(root):
@@ -2311,12 +2313,12 @@ def fix_namespace_declarations(root):
 def fix_style(style_match):
     if len(style_match.groups()) > 0:
         style_text = style_match.group(1)
-        return '<style>\n{}{}{}\n</style>'.format(
+        return '<style type="text/css">\n{}{}{}\n</style>'.format(
             '/*<![CDATA[*/',
             style_text.replace("&gt;",">"),
             '/*]]>*/')
     else:
-        return '<style></style>'
+        return '<style type="text/css"></style>'
 
 
 def add_css(main_html, template_catalog, options):
@@ -2497,7 +2499,7 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
 
         # handle sign
         value_sign = None
-        if model_fact.isNumeric and not model_fact.isNil and model_fact.xValue < 0:
+        if model_fact.isNumeric and not model_fact.isNil and model_fact.xValid >= VALID and model_fact.xValue < 0:
             ix_node.set('sign', '-')
 
         wrapped = False
@@ -2609,6 +2611,13 @@ def format_numcommadot(model_fact, sign, scale, *args, **kwargs):
     sign_mult = -1 if sign == '-' else 1
     val = model_fact.xValue * sign_mult
 
+    # Decimals allow -0 (yes I know its weird, but its must be a math thing). If I get a -0 make it a regualr 0
+    try:
+        if val == 0:
+            val = abs(val)
+    except TypeError:
+        pass
+
     if scale is not None:
         # Convert scale from string to number
         try:
@@ -2682,7 +2691,7 @@ _formats = {'{http://www.xbrl.org/inlineXBRL/transformation/2010-04-20}numcommad
             }
 
 __pluginInfo__ = {
-    'name': 'FERC Tools',
+    'name': 'FERC Renderer',
     'version': '0.9',
     'description': "FERC Tools",
     'copyright': '(c) Copyright 2018 XBRL US Inc., All rights reserved.',
