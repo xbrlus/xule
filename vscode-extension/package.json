@@ -105,7 +105,7 @@
     },
     "scripts": {
         "vscode:prepublish": "cd language-server/client && npm run update-vscode && cd ../.. && npm run webpack",
-        "webpack": "npm run clean && webpack --mode production --config ./language-server/client/webpack.config.js && webpack --mode production --config ./language-server/server/webpack.config.js",
+        "webpack": "set NODE_OPTIONS=--max-old-space-size=10240 && npm run clean && webpack --mode production --config ./language-server/client/webpack.config.js && webpack --mode production --config ./language-server/server/webpack.config.js",
         "webpack:dev": "npm run clean && webpack --mode none --config ./language-server/client/webpack.config.js && webpack --mode none --config ./language-server/server/webpack.config.js",
         "clean": "rimraf language-server/client/out && rimraf language-server/server/out",
         "compile": "cd language-server/client && npm install && cd ../server && npm install && cd ../.. && tsc -b",
