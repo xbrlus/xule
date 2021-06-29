@@ -5,10 +5,10 @@
 ### Workspace, Settings and Taxonomy Files
 The settings .zip file below includes a Visual Studio Code .code-workspace and settings files corresponding to the reference implementation code (```source``` folder) included in every [Data Quality Committee Rules release (DQC)](https://github.com/DataQualityCommittee/dqc_us_rules/releases).  
 
-The files in the .zip linked below include US GAAP (2015 - 2021) and IFRS Taxonomies (2018 - 2021): 
+The files in the .zip linked below include: 
   1. a **DQC.code-workspace** file defining folders corresponding to the reference implementation 
   1. **settings.json files** that define imports and namespaces required by the Xule Editor in each workspace folder, and 
-  1. US GAAP and IFRS **Taxonomies in .json format** called by the settings.json files. 
+  1. US GAAP (2015 - 2021) and IFRS (2018 - 2021) **Taxonomies in .json format** called by the settings.json files. 
 
 Together, these resources enable highlighting and code completion in the Xule Editor. 
 
