@@ -27,3 +27,43 @@ limitations under the License.
 $Change: 23092 $
 DOCSKIP
 """
+import collections
+import inspect
+import sys
+
+from . import SXM
+
+def xsmGetModule():
+    '''Returns the members of a the SXM module
+
+    The return value is an object (really a namedtuple) that has a an attribute for each member in the module.
+    This can be used like a module.
+    '''
+    clsMembers = inspect.getmembers(SXM, inspect.isclass)
+    clsDict = {x[0]: x[1] for x in clsMembers}
+    clsObject = collections.namedtuple('ModuleClasses', clsDict.keys())(*clsDict.values())
+    return clsObject
+
+def sxmCmdUtilityRun(*args, **kwargs):
+    pass
+    #xsmGetModule()
+
+__pluginInfo__ = {
+    'name': 'Simple XBRL Model Plugin',
+    'version': '0.1',
+    'description': 'T',
+    'license': 'Apache-2',
+    'author': 'XBRL US Inc.',
+    'copyright': '(c) 2017-2020',
+    # classes of mount points (required)
+    'ModelObjectFactory.ElementSubstitutionClasses': None,
+    #'CntlrWinMain.Menu.Tools': sxmMenuTools,
+    #'CntlrWinMain.Menu.Validation':sxmValidateMenuTools,
+    #'CntlrCmdLine.Options': sxmCmdOptions,
+    'CntlrCmdLine.Utility.Run': sxmCmdUtilityRun,
+    #'CntlrCmdLine.Xbrl.Loaded': sxmCmdXbrlLoaded,
+    #'Validate.Finally': sxmValidate,
+    #'TestcaseVariation.Xbrl.Loaded': sxmTestXbrlLoaded,
+    #'TestcaseVariation.Xbrl.Validated': sxmTestValidated,
+    'SXM.getModule': xsmGetModule
+    }
