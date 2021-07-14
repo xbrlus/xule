@@ -129,7 +129,7 @@ def parseRules(files, dest, compile_type, max_recurse_depth=None):
     ruleSet = xrsb.XuleRuleSetBuilder(compile_type)
     ruleSet.append(dest)
     
-    for ruleFile in files:
+    for ruleFile in sorted(files):
         processFile = ruleFile.strip()
         if os.path.isfile(processFile):
             root = os.path.dirname(processFile)
@@ -139,7 +139,7 @@ def parseRules(files, dest, compile_type, max_recurse_depth=None):
             #Remove an ending slash if there is one
             processFile = processFile[:-1] if processFile.endswith(os.sep) else processFile
             for root, dirs, files in os.walk(ruleFile.strip()):
-                for name in files:
+                for name in sorted(files):
                     if os.path.splitext(name)[1] == ".xule":
                         print("Processing: %s" % os.path.basename(name))
                         relpath = os.path.relpath(root, processFile)
