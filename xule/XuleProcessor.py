@@ -523,9 +523,6 @@ def evaluate(rule_part, xule_context, trace_dependent=False, override_table_id=N
     
     This evaluator also includes capturing information about the evaluation for debugging purposes.
     """
-    if isinstance(rule_part, list):
-        rule_part = rule_part[0]
-
     try:
         # Setup trace information.
         if getattr(xule_context.global_context.options, "xule_trace", False) or getattr(

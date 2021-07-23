@@ -84,6 +84,12 @@ def parseFile(dir, fileName, xuleGrammar, ruleSet):
             t.join()
             parseRes = returns[0]
 
+            # Fix parse result for later versions of PyParsing. PyParsing up to version 2.3.0 works fine. After 2.3.0 
+            # the parse creates an extra layer in the hiearachy of the parse result for tagged, indexed and property
+            # expressions. 
+            fixForPyParsing(parseRes)
+
+
             #parseRes = xuleGrammar.parseFile(full_file_name).asDict()
             end_time = datetime.datetime.today()
             print("%s: parse end. Took %s" % (datetime.datetime.isoformat(end_time), end_time - start_time))
@@ -103,6 +109,19 @@ def parseFile(dir, fileName, xuleGrammar, ruleSet):
         print(error_message)
     
     return parse_errors
+
+def fixForPyParsing(parseRes):
+        if isinstance(parseRes, dict):
+            if isinstance(parseRes.get('expr'), list):
+                if len(parseRes['expr']) == 1:
+                    parseRes['expr'] = parseRes['expr'][0]
+                else:
+                    raise xrs.XuleRuleSetError("Unable to parse rules. Using a version of PyParsing later than 2.3.0 and cannot correct parse result\n")
+            for child in parseRes.values():
+                fixForPyParsing(child)
+        elif isinstance(parseRes, list) or isinstance(parseRes, set): # I don't think there will ever be a set, but this won't hurt.
+            for child in parseRes:
+                fixForPyParsing(child)
 
 def parseRules(files, dest, compile_type, max_recurse_depth=None):
 
