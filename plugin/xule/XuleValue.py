@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23218 $
+$Change: 23296 $
 DOCSKIP
 """
 from .XuleRunTime import XuleProcessingError
@@ -202,6 +202,18 @@ class XuleValue:
                     enum_value_type, enum_compute_value = model_to_xule_type(xule_context, enum)
                     enum_set.add(XuleValue(xule_context, enum_compute_value, enum_value_type))
                 return 'set', enum_set, orig_value
+            elif "{http://xbrl.org/2020/extensible-enumerations-2.0}enumerationItemType" in self._type_ancestry(orig_value.concept.type):
+                # This should be a single qname, but Arelle puts it in a list
+                if isinstance(orig_value.xValue, list):
+                    if len(orig_value.xValue) != 1:
+                        raise XuleProcessingError(_("Encountered an enumerationItemType that contains more than one value. This type of fact can only have one fact. Concept is '{}' with value of '{}'".format(orig_value.concept.qname.clarkNotation, orig_value.text)))
+                    elif len(orig_value.xValue) == 0:
+                        xule_type, compute_value = model_to_xule_type(xule_context, None)
+                    else:
+                        xule_type, compute_value = model_to_xule_type(xule_context, orig_value.xValue[0])
+                else:
+                    xule_type, compute_value = model_to_xule_type(xule_context, orig_value.xValue)
+                return xule_type, compute_value, orig_value
             else:
                 xule_type, compute_value = model_to_xule_type(xule_context, orig_value.xValue)
                 return xule_type, compute_value, orig_value
