@@ -5,7 +5,7 @@ Xule is a rule processor for XBRL (X)brl r(ULE).
 DOCSKIP
 See https://xbrl.us/dqc-license for license information.  
 See https://xbrl.us/dqc-patent for patent infringement notice.
-Copyright (c) 2017 - 20121 XBRL US, Inc.
+Copyright (c) 2017 - 2021 XBRL US, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -243,15 +243,6 @@ def arcrole_uri_to_model_role(model_xbrl, arcrole_uri):
 # 
 #     return dimension_sets(dts)[dimension_set_info]                                                         
                                                                                         
-def relationship_set(dts, relationship_set_info):
-    _imports()
-    return (dts.relationshipSets[relationship_set_info] 
-                if relationship_set_info in dts.relationshipSets 
-                else ModelRelationshipSet(dts, 
-                                          relationship_set_info[XuleProperties.NETWORK_ARCROLE],
-                                          relationship_set_info[XuleProperties.NETWORK_ROLE],
-                                          relationship_set_info[XuleProperties.NETWORK_LINK],
-                                          relationship_set_info[XuleProperties.NETWORK_ARC]))
 
 def determine_rule_set(model_xbrl, cntlr, rule_set_map_name):
     """Determine which rule set to use based on the instance.
