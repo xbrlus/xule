@@ -1,5 +1,5 @@
 '''
-Reivision number: $Change: 23263 $
+Reivision number: $Change: 23300 $
 '''
 from arelle import FileSource
 from arelle import PluginManager
@@ -1518,10 +1518,11 @@ def add_contexts_to_inline(main_html, modelXbrl, context_ids):
     # Contexts are added to the ix:resources element in the inline
     resources = main_html.find('.//ix:resources', namespaces=_XULE_NAMESPACE_MAP)
     for context_id in context_ids:
-        model_context = modelXbrl.contexts[context_id]
-        # The model_context is a modelObject, but it is based on etree.Element so it can be added to 
-        # the inline tree 
-        copy_xml_node(model_context, resources) # This will copy the node and add it to the parent (resources)
+        model_context = modelXbrl.contexts.get(context_id)
+        if model_context is not None:
+            # The model_context is a modelObject, but it is based on etree.Element so it can be added to
+            # the inline tree
+            copy_xml_node(model_context, resources) # This will copy the node and add it to the parent (resources)
 
 def add_units_to_inline(main_html, modelXbrl, unit_ids):
 
@@ -2376,13 +2377,15 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
 
         if model_fact.isNumeric:
             ix_node =  etree.Element('{{{}}}nonFraction'.format(_XULE_NAMESPACE_MAP['ix']), nsmap=_XULE_NAMESPACE_MAP)
-            ix_node.set('unitRef', model_fact.unitID)
+            if model_fact.unitID is not None:
+                ix_node.set('unitRef', model_fact.unitID)
             if model_fact.decimals is not None:
                 ix_node.set('decimals', xule_expression_node.get('decimals', model_fact.decimals) if xule_expression_node is not None else model_fact.decimals)
         else:
             ix_node = etree.Element('{{{}}}nonNumeric'.format(_XULE_NAMESPACE_MAP['ix']), nsmap=_XULE_NAMESPACE_MAP)
 
-        ix_node.set('contextRef', model_fact.contextID)
+        if model_fact.contextID is not None:
+            ix_node.set('contextRef', model_fact.contextID)
         # Add the name to the inline node. The html_inline is used to resolve the qname
         ix_node.set('name', get_qname_value(inline_html, model_fact.qname))
         # Assign fact id
@@ -2516,7 +2519,7 @@ def format_fact(xule_expression_node, model_fact, inline_html, is_html, json_res
             wrapped = True
 
         # handle units for numeric facts
-        if model_fact.isNumeric:
+        if model_fact.isNumeric and model_fact.unit is not None:
             unit_wrapper = etree.Element('div', nsmap=_XULE_NAMESPACE_MAP)
             unit_wrapper.set('class', 'unit unit-{}'.format(unit_string(model_fact.unit)))
             unit_wrapper.append(return_node)

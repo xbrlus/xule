@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23204 $
+$Change: 23280 $
 DOCSKIP
 """
 from pyparsing import ParseResults, lineno, ParseException, ParseSyntaxException, ParserElement
@@ -84,6 +84,12 @@ def parseFile(dir, fileName, xuleGrammar, ruleSet):
             t.join()
             parseRes = returns[0]
 
+            # Fix parse result for later versions of PyParsing. PyParsing up to version 2.3.0 works fine. After 2.3.0 
+            # the parse creates an extra layer in the hiearachy of the parse result for tagged, indexed and property
+            # expressions. 
+            fixForPyParsing(parseRes)
+
+
             #parseRes = xuleGrammar.parseFile(full_file_name).asDict()
             end_time = datetime.datetime.today()
             print("%s: parse end. Took %s" % (datetime.datetime.isoformat(end_time), end_time - start_time))
@@ -103,6 +109,19 @@ def parseFile(dir, fileName, xuleGrammar, ruleSet):
         print(error_message)
     
     return parse_errors
+
+def fixForPyParsing(parseRes):
+        if isinstance(parseRes, dict):
+            if isinstance(parseRes.get('expr'), list):
+                if len(parseRes['expr']) == 1:
+                    parseRes['expr'] = parseRes['expr'][0]
+                else:
+                    raise xrs.XuleRuleSetError("Unable to parse rules. Using a version of PyParsing later than 2.3.0 and cannot correct parse result\n")
+            for child in parseRes.values():
+                fixForPyParsing(child)
+        elif isinstance(parseRes, list) or isinstance(parseRes, set): # I don't think there will ever be a set, but this won't hurt.
+            for child in parseRes:
+                fixForPyParsing(child)
 
 def parseRules(files, dest, compile_type, max_recurse_depth=None):
 
@@ -129,7 +148,7 @@ def parseRules(files, dest, compile_type, max_recurse_depth=None):
     ruleSet = xrsb.XuleRuleSetBuilder(compile_type)
     ruleSet.append(dest)
     
-    for ruleFile in files:
+    for ruleFile in sorted(files):
         processFile = ruleFile.strip()
         if os.path.isfile(processFile):
             root = os.path.dirname(processFile)
@@ -139,7 +158,7 @@ def parseRules(files, dest, compile_type, max_recurse_depth=None):
             #Remove an ending slash if there is one
             processFile = processFile[:-1] if processFile.endswith(os.sep) else processFile
             for root, dirs, files in os.walk(ruleFile.strip()):
-                for name in files:
+                for name in sorted(files):
                     if os.path.splitext(name)[1] == ".xule":
                         print("Processing: %s" % os.path.basename(name))
                         relpath = os.path.relpath(root, processFile)

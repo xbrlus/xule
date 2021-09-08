@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23298 $
+$Change: 23301 $
 DOCSKIP
 """
 from .XuleRunTime import XuleProcessingError
@@ -1059,32 +1059,33 @@ class XuleDimensionCube:
                     self._concept_types[has_rel.toModelObject][DIMENSION_SUB_TYPE] = 'primary'
                     self._concept_types[has_rel.toModelObject][HYPERCUBE_CLOSED] = (self._concept_types[has_rel.toModelObject][HYPERCUBE_CLOSED] or True) and bool(has_rel.arcElement.get('{http://xbrl.org/2005/xbrldt}closed', False))
                     #traverse the primary domain-member
-                    self._traverse_dimension_relationships(dts,
-                                                           'primary',
-                                                           has_rel.toModelObject,
-                                                           'http://xbrl.org/int/dim/arcrole/domain-member',
-                                                           has_rel.linkrole,
-                                                           has_rel.linkQname,
-                                                           has_rel.qname,
-                                                           primary_all=primary_all,
-                                                           closed=has_rel.arcElement.get('{http://xbrl.org/2005/xbrldt}closed', False))
+                    self._traverse_dimension_relationships(
+                        dts, 'primary', has_rel.toModelObject, 'http://xbrl.org/int/dim/arcrole/domain-member',
+                        has_rel.linkrole, has_rel.linkQname, has_rel.qname, set(),
+                        primary_all=primary_all,
+                        closed=has_rel.arcElement.get('{http://xbrl.org/2005/xbrldt}closed', False)
+                    )
                     #traverse the dimensions
-                    self._traverse_dimension_relationships(dts, 'dimension', has_rel.fromModelObject, 'http://xbrl.org/int/dim/arcrole/hypercube-dimension', has_rel.targetRole or has_rel.linkrole, has_rel.linkQname, has_rel.qname)
+                    self._traverse_dimension_relationships(
+                        dts, 'dimension', has_rel.fromModelObject,
+                        'http://xbrl.org/int/dim/arcrole/hypercube-dimension', has_rel.targetRole or has_rel.linkrole,
+                        has_rel.linkQname, has_rel.qname, set()
+                    )
 
             if include_facts:
                 self.add_facts()
 
-    def _traverse_dimension_relationships(self, dts, side, parent, arcrole, role, link_name, arc_name, previous=None,
-                                          dimension_concept=None, primary_all=None, closed=None):
-        if previous is None: previous = list()
-        relationship_set = XuleUtility.relationship_set(dts, (arcrole, role, link_name, arc_name, False))
-        for model_child_rel in relationship_set.fromModelObjects().get(parent, list()):
-            child_rel = DimensionRelationship(model_child_rel, self,
-                                              side)  # 'primary' if dimension_concept is None else 'dimension')
+    def _traverse_dimension_relationships(self, dts, side, parent, arcrole, role, link_name, arc_name, seen_concepts,
+                                          dimension_concept=None, primary_all=None, closed=False):
+        relationship_set = dts.relationshipSet(arcrole, role, link_name, arc_name)
+        rels_to_process = [
+            rel for rel in relationship_set.fromModelObject(parent) if rel.toModelObject not in seen_concepts
+        ]
+        for model_child_rel in rels_to_process:
+            seen_concepts.add(model_child_rel.toModelObject)
+            child_rel = DimensionRelationship(model_child_rel, self, side)
             self._from_relationships[child_rel.fromModelObject].append(child_rel)
             self._to_relationships[child_rel.toModelObject].append(child_rel)
-            # self._from_concepts[child_rel.fromModelObject].add(child_rel.toModelObject)
-            # self._to_concepts[child_rel.toModelObject].add(child_rel.fromModelObject)
 
             child_concept = child_rel.toModelObject
             if side == 'primary':
@@ -1098,19 +1099,6 @@ class XuleDimensionCube:
                     self._dimensions.add(dimension_concept)
                     # Check for dimension default.
                     self._dimension_default[dimension_concept] = dts.xuleDimensionDefaults.get(dimension_concept)
-                    # default_relationship_set = XuleUtility.relationship_set(dts, (
-                    # 'http://xbrl.org/int/dim/arcrole/dimension-default', child_rel.targetRole or role, link_name,
-                    # arc_name, False))
-                    # default_concept = set(
-                    #     rel.toModelObject for rel in default_relationship_set.fromModelObject(dimension_concept))
-                    # if len(default_concept) == 0:
-                    #     self._dimension_default[dimension_concept] = None
-                    # elif len(default_concept) == 1:
-                    #     self._dimension_default[dimension_concept] = next(iter(default_concept))
-                    # else:
-                    #     raise XuleProcessingError(_(
-                    #         "Dimension {} has multiple defaults ({}).".format(dimension_concept.qname, ', '.join(
-                    #             [x.qname for x in default_concept]))), None)
                 elif child_rel.arcrole.endswith('member'):
                     self._dimension_members[dimension_concept].add(child_concept)
                 elif child_rel.arcrole.endswith('domain'):
@@ -1120,25 +1108,31 @@ class XuleDimensionCube:
             # Identify type of child concept
             if arcrole.endswith('dimension'):
                 self._concept_types[child_concept][DIMENSION_TYPE] = 'dimension'
-                if child_concept.isExplicitDimension: self._concept_types[child_concept][
-                    DIMENSION_SUB_TYPE] = 'explicit'
-                if child_concept.isTypedDimension: self._concept_types[child_concept][DIMENSION_SUB_TYPE] = 'typed'
+                if child_concept.isExplicitDimension:
+                    self._concept_types[child_concept][DIMENSION_SUB_TYPE] = 'explicit'
+                if child_concept.isTypedDimension:
+                    self._concept_types[child_concept][DIMENSION_SUB_TYPE] = 'typed'
             else:  # this is a member of some kind
                 if side == 'primary':
                     self._concept_types[child_concept][DIMENSION_TYPE] = 'primary-member'
-                    # This handles the odd case if a concept is both in a closed and open relationship to the hypercube, basically, the open wins.
-                    self._concept_types[child_concept][HYPERCUBE_CLOSED] = (self._concept_types[child_concept][
-                                                                                HYPERCUBE_CLOSED] or True) and closed
+                    # This handles the odd case if a concept is both in a closed and open relationship to the
+                    # hypercube, basically, the open wins.
+                    self._concept_types[child_concept][HYPERCUBE_CLOSED] = closed and (
+                            self._concept_types[child_concept][HYPERCUBE_CLOSED] or True
+                    )
                 else:
                     self._concept_types[child_concept][DIMENSION_USABLE] = child_rel.isUsable
                     self._concept_types[child_concept][DIMENSION_TYPE] = 'dimension-member'
                     if child_concept is self._dimension_default.get(dimension_concept):
                         self._concept_types[child_concept][DIMENSION_SUB_TYPE] = 'default'
 
-            self._traverse_dimension_relationships(dts, side, child_rel.toModelObject,
-                                                   self._consecutive_arcroles[arcrole], child_rel.targetRole or role,
-                                                   link_name, arc_name, previous, dimension_concept, primary_all,
-                                                   closed)
+            self._traverse_dimension_relationships(
+                dts, side, child_rel.toModelObject, self._consecutive_arcroles[arcrole],
+                child_rel.targetRole or role, link_name, arc_name, seen_concepts,
+                dimension_concept=dimension_concept,
+                primary_all=primary_all,
+                closed=closed
+            )
 
     def add_facts(self):
         """This method adds facts to the cube

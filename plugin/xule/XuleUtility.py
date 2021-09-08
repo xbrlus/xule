@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23204 $
+$Change: 23301 $
 DOCSKIP
 """
 from arelle.ModelRelationshipSet import ModelRelationshipSet
@@ -243,15 +243,6 @@ def arcrole_uri_to_model_role(model_xbrl, arcrole_uri):
 # 
 #     return dimension_sets(dts)[dimension_set_info]                                                         
                                                                                         
-def relationship_set(dts, relationship_set_info):
-    _imports()
-    return (dts.relationshipSets[relationship_set_info] 
-                if relationship_set_info in dts.relationshipSets 
-                else ModelRelationshipSet(dts, 
-                                          relationship_set_info[XuleProperties.NETWORK_ARCROLE],
-                                          relationship_set_info[XuleProperties.NETWORK_ROLE],
-                                          relationship_set_info[XuleProperties.NETWORK_LINK],
-                                          relationship_set_info[XuleProperties.NETWORK_ARC]))
 
 def determine_rule_set(model_xbrl, cntlr, rule_set_map_name):
     """Determine which rule set to use based on the instance.

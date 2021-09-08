@@ -21,7 +21,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23219 $
+$Change: 23301 $
 DOCSKIP
 """
 from .XuleContext import XuleGlobalContext, XuleRuleContext  # XuleContext
@@ -3041,7 +3041,14 @@ def evaluate_navigate(nav_expr, xule_context):
                                           XuleDimensionCube.DIMENSION_SET_HYPERCUBE] in table_concepts))]
             else:
                 relationship_set_infos = XuleProperties.get_base_set_info(dts, arcrole, role, link_qname, arc_qname)
-                relationship_sets = [XuleUtility.relationship_set(dts, x) for x in relationship_set_infos]
+                relationship_sets = [
+                    dts.relationshipSet(
+                        relationship_set_info[XuleProperties.NETWORK_ARCROLE],
+                        relationship_set_info[XuleProperties.NETWORK_ROLE],
+                        relationship_set_info[XuleProperties.NETWORK_LINK],
+                        relationship_set_info[XuleProperties.NETWORK_ARC]
+                    ) for relationship_set_info in relationship_set_infos
+                ]
 
         direction = nav_expr['direction']
         include_start = nav_expr.get('includeStart', False)
