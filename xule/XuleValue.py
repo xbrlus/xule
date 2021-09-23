@@ -1082,6 +1082,9 @@ class XuleDimensionCube:
             rel for rel in relationship_set.fromModelObject(parent) if rel.toModelObject not in seen_concepts
         ]
         for model_child_rel in rels_to_process:
+            # Reset the seen concepts for each iteration of the dimension in the cube.
+            if arcrole == 'http://xbrl.org/int/dim/arcrole/hypercube-dimension':
+                seen_concepts = set()
             seen_concepts.add(model_child_rel.toModelObject)
             child_rel = DimensionRelationship(model_child_rel, self, side)
             self._from_relationships[child_rel.fromModelObject].append(child_rel)
