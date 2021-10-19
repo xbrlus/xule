@@ -1,0 +1,5 @@
+{
+    "http://xbrl.ifrs.org/taxonomy/2021-03-24/ifrs-full": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v16/dqc_us_rules/dqc-esef-2021-V16-ruleset.zip",
+    "http://xbrl.ifrs.org/taxonomy/2020-03-16/ifrs-full": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v16/dqc_us_rules/dqc-esef-2020-V16-ruleset.zip",
+    "http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v16/dqc_us_rules/dqc-esef-2019-V16-ruleset.zip"
+    }

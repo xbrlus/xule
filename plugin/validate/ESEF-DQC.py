@@ -1,7 +1,7 @@
 """
-Data Quality Consortium validation (ESMA DQC) processor
+Data Quality Consortium validation (ESEF DQC) processor
 
-This validation module runs ESMA DQC rules. It uses the Xule rule processor
+This validation module runs ESEF DQC rules. It uses the Xule rule processor
 
 DOCSKIP
 See https://xbrl.us/dqc-license for license information.  
@@ -27,16 +27,16 @@ import optparse
 from arelle import PluginManager
 
 """ Xule validator specific variables."""
-_short_name = 'ESMA-dqc'
-_name = 'ESMA DQC Rules Validator'
+_short_name = 'ESEF-dqc'
+_name = 'ESEF DQC Rules Validator'
 _version = 'Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line'
 _version_prefix = '1.0.'
-_description = 'ESMA DQC rules validator.'
+_description = 'ESEF DQC rules validator.'
 _license = 'Apache-2'
 _author = 'XBRL US Inc.'
 _copyright = '(c) 2017-2021'
-_rule_set_map_name = 'esmaRulesetMap.json'
-_latest_map_name = 'https://github.com/DataQualityCommittee/dqc_us_rules/blob/master/plugin/xule/esmaRulesetMap.json?raw=true' 
+_rule_set_map_name = 'esefRulesetMap.json'
+_latest_map_name = 'https://github.com/DataQualityCommittee/dqc_us_rules/blob/master/plugin/xule/esefRulesetMap.json?raw=true' 
 
 """Do not change anything below this line."""
 _xule_plugin_info = None
