@@ -2,8 +2,6 @@
 
 The semantic hasher will create a canonical string of an XBRL instance document and create a hex digest from it.
 '''
-
-from numpy.core.arrayprint import format_float_scientific
 from arelle.ModelDtsObject import ModelResource
 from arelle.ModelInstanceObject import ModelFact
 from arelle.ModelValue import qname
@@ -191,8 +189,7 @@ def canonicalizeValue(base_type, string_value):
             base_type = 'date'
     value_string_hasher = _CANONICAL_METHODS.get(base_type)
     if value_string_hasher is None:
-        print(base_type)
-        exit()
+        raise SemanticHashException("sh", _("Do not have a canonicalizer for type {}".format(base_type)))
     if base_type == 'QName':
         return_value = value_string_hasher(*string_value)
     elif base_type == 'textBlock':
@@ -242,8 +239,7 @@ def canonicalizeDecimal(string_value):
     try:
         internal = decimal.Decimal(string_value).normalize().as_tuple()
     except:
-        print(string_value)
-        raise
+        raise SemanticHashException("sh", _("Cannot convert decimal value '{}'".format(string_value)))
     
     if internal[2] < 0:
         whole = internal[1][:internal[2]]
