@@ -22,6 +22,31 @@ class SemanticHashException(Exception):
     def __repr__(self):
         return _('[{0}] exception: {1}').format(self.code, self.message % self.kwargs)
 
+def semanticHashOptions(parser):
+	# extend command line options with a save DTS option
+	parser.add_option("--semantic-hash-file", 
+                      action="store", 
+                      help=_("File name to save the canonicalized string"))
+	
+	parser.add_option("--semantic-hash",
+					  action="store_true",
+					  help=_("Flag to return the semantic hash as a hex digest"))
+
+def semanticHashRun(cntlr, options, modelXbrl, *args, **kwargs):
+
+    # if the semantic hash options are used, then get the canonical string
+    if getattr(options, "semantic_hash", False) or getattr(options, "semantic_hash_file") is not None:
+        report_string = semanticHashDocumentString(modelXbrl)
+
+    if getattr(options, "semantic_hash"):
+        # output the hexdigest of the canonical string to the log
+        modelXbrl.info("info", _("Semantic Hash: {}".format(hashlib.sha256(report_string.encode()).hexdigest())))
+
+    if getattr(options, "semantic_hash_file") is not None:
+        # write the canonical strint to the file
+        with open(options.semantic_hash_file, 'wb') as o:
+            o.write(report_string.encode()) 
+
 def semanticHashDocument(model_xbrl):
 
     report_string = semanticHashDocumentString(model_xbrl)
@@ -452,5 +477,7 @@ __pluginInfo__ = {
     # classes of mount points (required)
     'ModelObjectFactory.ElementSubstitutionClasses': None,
     'semanticHash.hashDocument': semanticHashDocument,
-    'semanticHash.hashDocumentString': semanticHashDocumentString
+    'semanticHash.hashDocumentString': semanticHashDocumentString,
+    'CntlrCmdLine.Options': semanticHashOptions,
+    'CntlrCmdLine.Xbrl.Run': semanticHashRun
     }
