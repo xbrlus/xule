@@ -10,8 +10,13 @@ import datetime
 import decimal
 import hashlib
 import isodate
+import optparse
 import numpy
 import re 
+
+_CNTLR = None
+_OPTIONS = None
+_HASHES = set()
 
 class SemanticHashException(Exception):
     def __init__(self, code, message, **kwargs ):
@@ -24,28 +29,29 @@ class SemanticHashException(Exception):
 
 def semanticHashOptions(parser):
 	# extend command line options with a save DTS option
-	parser.add_option("--semantic-hash-file", 
-                      action="store", 
-                      help=_("File name to save the canonicalized string"))
-	
-	parser.add_option("--semantic-hash",
+    parserGroup = optparse.OptionGroup(parser,
+                                    "Semantic Hash",
+                                    "Calculates the semantic hash of an XBRL document. Currently only supports instance documents.")
+    
+    parserGroup.add_option("--semantic-hash",
 					  action="store_true",
 					  help=_("Flag to return the semantic hash as a hex digest"))
+
+    parserGroup.add_option("--semantic-hash-string", 
+                       action="store", 
+                       help=_("File name to save the canonicalized string"))
+
+def semanticHashUtilityRun(cntlr, options, *arg, **kwargs):
+    # save the controller and the options for use later.
+    global _CNTLR, _OPTIONS
+    _CNTLR = cntlr
+    _OPTIONS = options
 
 def semanticHashRun(cntlr, options, modelXbrl, *args, **kwargs):
 
     # if the semantic hash options are used, then get the canonical string
-    if getattr(options, "semantic_hash", False) or getattr(options, "semantic_hash_file") is not None:
-        report_string = semanticHashDocumentString(modelXbrl)
-
-    if getattr(options, "semantic_hash"):
-        # output the hexdigest of the canonical string to the log
-        modelXbrl.info("info", _("Semantic Hash: {}".format(hashlib.sha256(report_string.encode()).hexdigest())))
-
-    if getattr(options, "semantic_hash_file") is not None:
-        # write the canonical strint to the file
-        with open(options.semantic_hash_file, 'wb') as o:
-            o.write(report_string.encode()) 
+    if getattr(options, "semantic_hash", False) or getattr(options, "semantic_hash_string") is not None:
+        semanticHashDocument(modelXbrl)
 
 def semanticHashDocument(model_xbrl):
 
@@ -59,20 +65,47 @@ def semanticHashDocumentString(model_xbrl):
     algorithm.
     """
     # This is a list of tuples which contain the string of the fact and the original model fact.
-    fact_string_map_hashes = [(semanticStringHashFact(x), x) for x in model_xbrl.facts]
+    fact_string_map_hashes = [(semanticStringHashFact(fact), fact) for fact in model_xbrl.facts]
+    # dedup
+    fact_string_map_hashes_dedup = []
+    previous_fact_string = ''
+    for fact_item in sorted(fact_string_map_hashes, key=lambda x:x[0]):
+        if fact_item[0] == previous_fact_string:
+            # this is a dup
+            fact_string_map_hashes_dedup[-1][1].append(fact_item[1])
+        else:
+            fact_string_map_hashes_dedup.append((fact_item[0], [fact_item[1],]))
+        previous_fact_string = fact_item[0]
     # Get the facts sorted by the hash string. The map will be keyed by the model fact and the value will be the position
     # of the fact after the INSTANCEnum.
     fact_map = dict()
     cur_len = 1
     fact_string_hashes = []
-    for fact_item in sorted(fact_string_map_hashes, key=lambda x:x[0]):
-        fact_map[fact_item[1]] = cur_len
+    for fact_item in fact_string_map_hashes_dedup:
+        for fact in fact_item[1]:
+            fact_map[fact] = cur_len
         cur_len += len(fact_item[0])
         fact_string_hashes.append(fact_item[0])
 
     footnote_string_hashes = [semanticStringHashFootnote(x, fact_map) for x in model_xbrl.relationshipSet("XBRL-footnotes").modelRelationships]
 
-    return semanticFormat('INSTANCE', '{}{}'.format(''.join(sorted(fact_string_hashes)), ''.join(sorted(footnote_string_hashes))))
+    report_string = semanticFormat('INSTANCE', '{}{}'.format(''.join(sorted(fact_string_hashes)), ''.join(sorted(footnote_string_hashes))))
+
+    # Check the options if the hashstring should be outputted
+    report_hash = hashlib.sha256(report_string.encode()).hexdigest()
+    if report_hash not in _HASHES:
+        # This is only called the first time.
+        _HASHES.add(report_hash)
+        if getattr(_OPTIONS, "semantic_hash"):
+            # output the hexdigest of the canonical string to the log
+            model_xbrl.info("SemanticHash", format(hashlib.sha256(report_string.encode()).hexdigest()))
+
+        if getattr(_OPTIONS, "semantic_hash_string") is not None:
+            # write the canonical strint to the file
+            with open(_OPTIONS.semantic_hash_string, 'wb') as o:
+                o.write(report_string.encode()) 
+
+    return report_string
 
 def semanticStringHashFact(fact):
 
@@ -85,9 +118,10 @@ def semanticStringHashFact(fact):
         period = semanticHashPeriod(fact.context)
         unit = semanticFormat('UNIT', UOMDefault(fact.unit)) if fact.unit is not None else ''
         dimensions = semanticHashDimensions(fact.context) if len(fact.context.qnameDims) > 0 else ''
+        decimals = semanticHashDecimals(fact)
         fact_val = semanticHashFactValue(fact)
 
-        hash_string = '{}{}{}{}{}{}'.format(fact_name, entity, period, unit, dimensions, fact_val)
+        hash_string = '{}{}{}{}{}{}{}'.format(fact_name, entity, period, unit, decimals, dimensions, fact_val)
 
         return semanticFormat('FACT', hash_string)
 
@@ -139,6 +173,18 @@ def semanticHashMember(modelDimension):
         raise SemanticHashException("sh:UnknownMemberType",
                             _("Dimension member is not explicit or typed"))
 
+def semanticHashDecimals(fact):
+    if not fact.isNumeric:
+        return ''
+    else:
+        if fact.precision is not None:
+            raise SemanticHashException("sh:PrecisionNotSupported",
+                            _("The precision attribute of a fact is not supported"))
+        if fact.decimals is None:
+            return ''
+        else:
+            return semanticFormat('DECIMALS', 'INF' if fact.decimals == 'INF' else str(int(fact.decimals)))
+
 def semanticStringHashFootnote(footnote_rel, obj_map):
     from_hash_string = semanticHashObject(footnote_rel.fromModelObject, obj_map)
     to_hash_string = semanticHashObject(footnote_rel.toModelObject, obj_map)
@@ -172,8 +218,6 @@ def semanticStringHashResource(resource):
         else: # there is XHTML content
             res_text = canonicalizeXML(resource, include_node_tag=False)
 
-    if res_text is None or res_text == '':
-        res_text = stringify_node_content(resource)
     res_value = semanticFormat('VALUE', res_text)
 
     return semanticFormat('RESOURCE', '{}{}{}{}'.format(res_element, role, lang, res_value))
@@ -241,14 +285,6 @@ def UOMDefault(unit):
             return '/'.join((numerator, denominator))
         else:
             return numerator
-
-def stringify_node_content(node):
-    s = node.text
-    if s is None:
-        s = ''
-    for child in node:
-        s += etree.tostring(child, encoding='unicode')
-    return s
 
 def canonicalizeTypedDimensionMember(member):
     element = member.modelXbrl.qnameConcepts.get(member.elementQname)
@@ -398,20 +434,20 @@ def canonicalizeXML(node, include_node_tag=True):
     if include_node_tag:
         string_value = semanticFormat('TAG', node.tag)
         if len(node.attrib) > 0:
-            attributes = ''
-            for att_name, att_value in sorted(node.attrib.items()):
+            attributes = []
+            for att_name, att_value in node.attrib.items():
                 att_name_string = semanticFormat('ATT_NAME', att_name)
                 att_value_string = semanticFormat('ATT_VALUE', att_value)
-                attributes += att_name_string + att_value_string
-            string_value += semanticFormat('ATTRIBUTES', attributes)
+                attributes.append(att_name_string + att_value_string)
+            string_value += semanticFormat('ATTRIBUTES', ''.join(sorted(attributes)))
 
-    if node.text is not None and len(node.text.strip()) > 0:
-        string_value += semanticFormat('T', node.text.strip())
+    if node.text is not None and len(canonicalizeString(node.text)) > 0:
+        string_value += semanticFormat('T', canonicalizeString(node.text))
     for child in node:
         string_value += canonicalizeXML(child)
 
-    if include_node_tag and node.tail is not None and len(node.tail.strip()) > 0:
-        string_value += semanticFormat('T', node.tail.strip())
+    if include_node_tag and node.tail is not None and len(canonicalizeString(node.tail)) > 0:
+        string_value += semanticFormat('T', canonicalizeString(node.tail))
     
     if include_node_tag:
         return semanticFormat('NODE', string_value)
@@ -479,5 +515,6 @@ __pluginInfo__ = {
     'semanticHash.hashDocument': semanticHashDocument,
     'semanticHash.hashDocumentString': semanticHashDocumentString,
     'CntlrCmdLine.Options': semanticHashOptions,
+    'CntlrCmdLine.Utility.Run': semanticHashUtilityRun,
     'CntlrCmdLine.Xbrl.Run': semanticHashRun
     }
