@@ -33,7 +33,7 @@ _ROLE_TYPE = '{http://www.xbrl.org/2003/linkbase}roleType'
 _ROLE_DEFINITION = '{http://www.xbrl.org/2003/linkbase}definition'
 _APP_INFO_ELEMENT = '{http://www.w3.org/2001/XMLSchema}appinfo'
 _ANNOTATION_ELEMENT = '{http://www.w3.org/2001/XMLSchema}annotation'
-_DEFINITION_ELEMENT = '{http://www.w3.org/2001/XMLSchema}definition'
+_DOCUMENTATION_ELEMENT = '{http://www.w3.org/2001/XMLSchema}documentation'
 _LINKBASE_REF_ELEMENT = '{http://www.xbrl.org/2003/linkbase}linkbaseRef'
 _USEDON_ELEMENT = '{http://www.xbrl.org/2003/linkbase}usedOn'
 
@@ -229,22 +229,59 @@ def cmdLineOptionExtender(parser, *args, **kwargs):
                                            "Serializer",
                                            "This plugin will create a Taxonomy Package. ")
         parser.add_option_group(parserGroup)
+    
+    parserGroup.add_option('--serializer-package-taxonomy-package',
+                            action='store',
+                            help="The name of the taxonomyPackage.xml file to use in the package.")
 
+    parserGroup.add_option('--serializer-package-identifier',
+                           help='Package identifier')
+    
     parserGroup.add_option('--serializer-package-name',
                            help="The name of the taxonomy package file to create.")
+    
     parserGroup.add_option('--serializer-package-version',
                          help="The version to create in the pacakge.")
+
+    parserGroup.add_option('--serializer-package-description',
+                           help='Package description')
+
+    parserGroup.add_option('--serializer-package-description-language',
+                           help='Package description')
+
+    parserGroup.add_option('--serializer-package-license-href',
+                           help='Package license href')
+
+    parserGroup.add_option('--serializer-package-license-name',
+                           help='Package license name')
+
+    parserGroup.add_option('--serializer-package-publisher',
+                           help='Package publisher')
+
+    parserGroup.add_option('--serializer-package-publisher-url',
+                           help='Package publisher url')
+
+    parserGroup.add_option('--serializer-package-country',
+                           help='Package publisher country')
+
+    parserGroup.add_option('--serializer-package-date',
+                           help='Package publisher date')
+
+    parserGroup.add_option('--serializer-package-rewrite',
+                           action='append', 
+                           help='Package rewrite in the form of "{prefix} {start string}". '
+                                'There can be multiple.')
+
     parserGroup.add_option('--serializer-has-relationship-location',
                             type="choice",
                             choices=("segment", "scenario"),
                             default="segment", 
                             help="Either segment or scenario. Segment is the default. Identifies the location for all and notAll dimensonal relationships")
-    parserGroup.add_option('--serializer-package-taxonomy-package',
-                            action='store',
-                            help="The name of the taxonomyPackage.xml file to use in the package.")                                                       
+    
     parserGroup.add_option('--serializer-package-allow-errors',
                            action='store_true',
                            help='Allow errors and continue processing')
+
 
 def  cmdUtilityRun(cntlr, options, **kwargs): 
     '''
@@ -313,8 +350,6 @@ def cmndLineXbrlRun(cntlr, options, model_xbrl, entryPoint, *args, **kwargs):
         dts = serializer['serializer.serialize'](model_xbrl, options, _SXM)
         write(dts, options.serializer_package_name or 'taxonomy_package.zip', cntlr)
 
-    return
-
 def write(dts, package_name, cntlr):
 
     with zipfile.ZipFile(package_name, 'w') as z:
@@ -322,6 +357,7 @@ def write(dts, package_name, cntlr):
             if document.is_relative:
                 contents = serialize_document(document)
                 z.writestr(document.uri, contents)
+        serialize_package_files(z, dts)
     info("Writing package {}".format(package_name))
 
 def verify(document):
@@ -695,8 +731,8 @@ def serialize_schema(document):
     schema_attributes = {'targetNamespace': document.target_namespace,
                          'elementFormDefault': 'qualified',
                          'attributeFormDefault': 'unqualified'}
-    if document.target_namespace in document.dts.namespaces:
-        schema_attributes[document.dts.namespaces[document.target_namespace]] = document.target_namespace
+    # if document.target_namespace in document.dts.namespaces:
+    #     schema_attributes[document.dts.namespaces[document.target_namespace]] = document.target_namespace
     schema = etree.Element(_SCHEMA,
                            schema_attributes,
                            nsmap=namespaces.ns_by_prefix)
@@ -737,7 +773,7 @@ def serialize_schema(document):
         annotation_element = etree.Element(_ANNOTATION_ELEMENT, nsmap=namespaces.ns_by_prefix)
         schema.append(annotation_element)
         if document.description is not None:
-            description_element = etree.Element(_DEFINITION_ELEMENT, nsmap=namespaces.ns_by_prefix)
+            description_element = etree.Element(_DOCUMENTATION_ELEMENT, nsmap=namespaces.ns_by_prefix)
             description_element.text = document.description
             annotation_element.append(description_element)
         if (len(document.linkbase_refs) + len(roles) + len(arcroles) > 0):
@@ -798,8 +834,7 @@ def serialize_element(new_element, namespaces):
     if new_element.is_abstract:
         element_node.set('abstract', 'true')
     if new_element.nillable:
-        element_node.set('{http://www.w3.org/2001/XMLSchema-instance}nillable', 'true')
-        needed_namespaces.add('http://www.w3.org/2001/XMLSchema-instance')
+        element_node.set('nillable', 'true')
     if new_element.substitution_group is not None:
         element_node.set('substitutionGroup', namespaces.get_qname(*new_element.substitution_group_name.name_pair))
         needed_namespaces.add(new_element.substitution_group_name.namespace)
@@ -912,6 +947,44 @@ def serialize_import(new_import_document, document, namespaces):
                                     nsmap=namespaces.ns_by_prefix)
     return import_element
 
+def serialize_package_files(zip_file, dts):
+    folder_name = 'META-INF'
+    # taxonomy_package
+    ns_map = {'tp': 'https://eCollection.ferc.gov/taxonomy/form1/2022-01-01/',
+              'ferc-tp': 'http://www.ferc.gov/form/taxonomy-package'}
+    package = etree.Element('{https://eCollection.ferc.gov/taxonomy/form1/2022-01-01/}taxonomyPackage', nsmap=ns_map)
+    add_package_element(package, dts, 'identifier', 'serializer_package_identifier', 
+                        '{https://eCollection.ferc.gov/taxonomy/form1/2022-01-01/}identifier', ns_map)
+    add_package_element(package, dts, 'name', 'serializer_package_name', 
+                        '{https://eCollection.ferc.gov/taxonomy/form1/2022-01-01/}name', ns_map)
+    add_package_element(package, dts, 'description', 'serializer_package_description', 
+                        '{https://eCollection.ferc.gov/taxonomy/form1/2022-01-01/}description', ns_map)
+    # add description language
+    if (package[-1].tag == '{https://eCollection.ferc.gov/taxonomy/form1/2022-01-01/}description' and 
+        _OPTIONS.serializer_package_description_language is not None or dts.description_language is not None):
+        package[-1].set('{http://www.w3.org/XML/1998/namespace}lang', _OPTIONS.serializer_package_description_language or dts.description_language)
+    add_package_element(package, dts, 'version', 'serializer_package_version', 
+                        '{https://eCollection.ferc.gov/taxonomy/form1/2022-01-01/}version', ns_map)
+
+
+
+
+    add_package_element(package, dts, 'license', 'serializer_package_description', 
+                        '{https://eCollection.ferc.gov/taxonomy/form1/2022-01-01/}description', ns_map)
+
+
+
+
+
+
+
+
+
+def add_package_element(package, dts, property_name, option_name, element_name, ns_map):
+    if getattr(_OPTIONS, option_name, None) is not None or getattr(dts, property_name, None) is not None:
+        element = etree.Element(element_name, nsmap=ns_map)
+        element.text = getattr(_OPTIONS, option_name, None) or getattr(dts, property_name, None)
+        package.append(element)
 
 __pluginInfo__ = {
     'name': 'XBRL Serializer',

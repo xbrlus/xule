@@ -1,11 +1,13 @@
 '''Serializer for FERC'''
 
+from ast import Index
 import collections
+import optparse
 import re
 
-from arelle.ModelDocument import ModelDocument
-from arelle.ModelDtsObject import ModelResource, ModelConcept, ModelType
+from arelle.ModelDtsObject import ModelConcept, ModelType
 from arelle.ModelValue import QName
+from arelle.CntlrWebMain import Options
 import arelle.XbrlConst as xc
 from lxml import etree
 
@@ -52,6 +54,9 @@ _ARCROLE_DESCRIPTION = 'This schema contains ferc arcrole role definitions'
 _FOOTNOTE_ARC_DESCRIPTION = 'This schema contains ferc footnote arcrole defintions.'
 _REFERENCE_ROLE_DESCRIPTION = 'This schema contains roles for references.'
 _LABEL_ROLE_DESCRIPTION = 'This schema contains roles for labels.'
+
+_ENTRY_POINT_LABEL_ROLE = None
+_EFORMS_LABEL_ROLE = None
 
 _STANDARD_ROLE_DEFINITIONS = {'http://www.xbrl.org/2003/role/link':'Standard extended link role',
                 'http://www.xbrl.org/2003/role/label':    'Standard label for a Concept.',
@@ -116,7 +121,7 @@ def serialize(model_xbrl, options, sxm):
     set_configuration(options, model_xbrl)
 
     new_model = sxm.SXMDTS()
-    new_model = organize_taxonomy(model_xbrl, new_model, options)
+    new_model, forms = organize_taxonomy(model_xbrl, new_model, options)
 
     return new_model
 
@@ -200,6 +205,36 @@ def set_configuration(options, old_model):
     global _NEW_SCHEDULE_TYPE
     _NEW_SCHEDULE_TYPE = '{{{}{}/types}}scheduleItemType'.format(_NAMESPACE_START, _NEW_VERSION)
 
+def add_package_defaults(new_model, forms):
+
+    if len(forms) == 0:
+        raise FERCSerialzierException("No forms were found")
+
+    # form_names = []
+    # for form in forms:
+    #     form_dir = form.name.local_name.lower().split('abstract')[0]
+    #     form_names.append('form{}'.format(form_dir[4:]))
+
+    main_form = sorted(forms, key=lambda x: x.name.local_name)[0]
+    try:
+        form_name = list(main_form.labels.get((_EFORMS_LABEL_ROLE, 'en'), []))[0].content
+    except IndexError:
+        raise FERCSerialzierException("Cannot get entryPoint label for form concept {}".format(main_form.name.clark))
+
+    form_name_no_space = form_name.replace(' ','').lower()
+    new_model.identifier = 'http://xbrl.ferc.gov/taxonomy/{}/{}'.format(form_name_no_space, _NEW_VERSION)
+    new_model.name = 'FERC {} Taxonomy'.format(form_name)
+    new_model.description = 'This taxonomy packacge contains the taxonomies used for FERC {}'.format(form_name)
+    new_model.description_language = 'en-US'
+    new_model.version = _NEW_VERSION
+    new_model.license_href = 'https://eCollection.ferc.gov/taxonomy/terms/TaxonomiesTermsConditions.html'
+    new_model.license_name = 'Taxonomies Terms and Conditions'
+    new_model.publisher = 'Federal Energy Regulatory Commission (FERC)'
+    new_model.publisher_url = 'http://www.ferc.gov/'
+    new_model.publisher_country = 'US'
+    new_model.publication_date = _NEW_VERSION
+    new_model.rewrites['../'] = 'https://eCollection.ferc.gov/taxonomy/{}/{}/'.format(form_name_no_space, _NEW_VERSION)
+
 def organize_taxonomy(model_xbrl, new_model, options):
     global _OPTIONS
     _OPTIONS = options
@@ -230,8 +265,10 @@ def organize_taxonomy(model_xbrl, new_model, options):
     #count_docs(new_model)
     # Build entry points for forms and ferc-all
     add_form_entry_points(new_model, forms, schedule_documents)
+    # fill in the package meta data information
+    add_package_defaults(new_model, forms)
 
-    return new_model
+    return new_model, forms
 
 def organize_networks(relationship_set, new_model):
 
@@ -601,7 +638,12 @@ def new_label_role(new_model, old_model, old_role):
         # add import to core file
         if label_role.document is not None: # if its none it is a core xbrl role
             core_document.add(label_role.document, new_model.DOCUMENT_CONTENT_TYPES.IMPORT)
-    
+        if label_role.role_uri.lower().endswith('/eform'):
+            global _EFORMS_LABEL_ROLE
+            _EFORMS_LABEL_ROLE = label_role
+        if label_role.role_uri.lower().endswith('/entrypoint'):
+            global _ENTRY_POINT_LABEL_ROLE
+            _ENTRY_POINT_LABEL_ROLE = label_role
     return label_role
 
 def organize_references(model_xbrl, new_model):
@@ -948,9 +990,24 @@ def add_footnote_arcroles(old_model, new_model):
 
 def add_form_entry_points(new_model, forms, schedule_documents):
     form_entry_documents = set() # This will save all the form entry points for the all entry point
-    for form, schedules in forms.items():
-        form_dir = form.name.local_name.lower().split('abstract')[0]
-        form_name = 'form-{}'.format(form_dir[4:])
+    first_form = None
+    first_name = None
+    all_form_names = []
+    for form, schedules in sorted(forms.items(), key=lambda x: x[0].name.local_name):
+        # first form (in sorted order) is used for the 'all' entry point
+        if first_form is None:
+            first_form = form
+        try:
+            entry_point_name = list(form.labels.get((_EFORMS_LABEL_ROLE, 'en'), []))[0].content
+        except IndexError:
+            raise FERCSerialzierException("Cannot get eForm lable for form concept {}".format(form.name.clark))
+        if first_form is form:
+            first_name = entry_point_name
+        all_form_names.append(entry_point_name)
+
+        # Create form document
+        form_dir = ''.join(entry_point_name.lower().split())
+        form_name = entry_point_name.lower().replace(' ', '-')
         document_name = 'form/{}/{}_{}.xsd'.format(form_dir, form_name, _NEW_VERSION)
         document_namespace = '{}{}/ferc-{}'.format(_NAMESPACE_START, _NEW_VERSION, form_name)
         form_document = new_document(new_model, document_name, new_model.DOCUMENT_TYPES.SCHEMA, document_namespace)
@@ -961,12 +1018,32 @@ def add_form_entry_points(new_model, forms, schedule_documents):
             except KeyError:
                 pass # This is a schedule in the list of schedules that isn't really schedule.
 
+        # Create entry point
+        entry_point = new_model.new('PackageEntryPoint', entry_point_name)
+        try:
+            entry_point.description = list(form.labels.get((_ENTRY_POINT_LABEL_ROLE, 'en'), []))[0].content
+        except IndexError:
+            raise FERCSerialzierException("Cannot get entryPoint label for form concept {}".format(form.name.clark))
+        entry_point.version = _NEW_VERSION
+        entry_point.documents.append(form_document)
+        other_element_qname = new_model.new('QName', 'http://www.ferc.gov/form/taxonomy-package', 'entryPoint', 'tp')
+        entry_point.other_elements[other_element_qname] = entry_point_name
+
+    # Add the all forms document and entry point
     if len(form_entry_documents) > 0:
+        # Add 'all' document
         all_document_name = '{}-all_{}.xsd'.format(_CORE_NAME, _NEW_VERSION)
         all_namespace = '{}{}/{}-all'.format(_NAMESPACE_START, _NEW_VERSION, _CORE_NAME)
         all_document = new_document(new_model, all_document_name, new_model.DOCUMENT_TYPES.SCHEMA, all_namespace)
         for form_doc in sorted(form_entry_documents, key=lambda x: x.uri):
             all_document.add(form_doc, new_model.DOCUMENT_CONTENT_TYPES.IMPORT)
+
+        # Add 'all' entry point
+        all_name = '{} - All'.format(first_name)
+        entry_point = new_model.new('PackageEntryPoint', all_name)
+        entry_point.description = 'This entry point contais the FERC {} taxonomies'.format(', '.join(sorted(all_form_names)))
+        entry_point.version = _NEW_VERSION
+        entry_point.documents.append(all_document)
 
 def get_schedule_role(schedule_concept):
     '''Find the role that cooresponds to the schedule concept'''

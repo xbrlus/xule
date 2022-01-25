@@ -31,7 +31,9 @@ _SAVE_LOCATIONS = {
     'PartElement': {'attribute': 'part_elements',
               'key': ('name',)},
     'Document': {'attribute': 'documents',
-                 'key': ('uri',)}
+                 'key': ('uri',)},
+    'PackageEntryPoint': {'attribute': 'entry_points',
+                          'key': ('name',)}
 }
 
 _STANDARD_ARCROLES = {
@@ -115,7 +117,7 @@ class SXMException(Exception):
 class SXMObjectExists(SXMException):
     pass
 
-class SXMBase:
+class _SXMBase:
     '''A base class for all SXM classes'''
 
     # SXM constants - attached to all classes
@@ -136,7 +138,7 @@ class SXMBase:
     def get_class_name(cls):
         return cls.__name__[3:]
 
-class SXMAttributedBase(SXMBase):
+class SXMAttributedBase(_SXMBase):
     '''Án object that has attributes with ditionary values'''
     
     def new(self, class_name, *args, **kwargs):
@@ -234,7 +236,7 @@ class SXMAttributedBase(SXMBase):
                     else: # dups not allowed
                         del list_of_objects[key]
 
-        if removable and isinstance(del_object, SXMDefined) and del_object.document is not None:
+        if removable and isinstance(del_object, _SXMDefined) and del_object.document is not None:
             del_object.document.remove_from_document(del_object)
 
         return removable
@@ -279,13 +281,13 @@ class SXMAttributedBase(SXMBase):
         except:
             raise SXMException("Unable to get utiltiy class method {} from class {}".format(class_name, class_method))
 
-class SXMDTSBase(SXMBase):
+class _SXMDTSBase(_SXMBase):
     '''An object that is part of a DTS'''
     def __init__(self, dts):
         super().__init__()
         self.dts = dts
 
-class SXMDocument(SXMDTSBase):
+class SXMDocument(_SXMDTSBase):
     def __init__(self, dts, document_uri, document_type, target_namespace=None, description=None):
         super().__init__(dts)
 
@@ -360,7 +362,7 @@ class SXMDocument(SXMDTSBase):
         if content_type not in _DOCUMENT_CONTENT_TYPES:
             raise SXMException("Invalid content type for adding to a document: {}".format(content_type))
 
-        if content_type == self.DOCUMENT_CONTENT_TYPES.CONTENT and isinstance(sxm_object, SXMDefined):
+        if content_type == self.DOCUMENT_CONTENT_TYPES.CONTENT and isinstance(sxm_object, _SXMDefined):
             self._contents.add(sxm_object)
             sxm_object._document = self
         elif content_type == self.DOCUMENT_CONTENT_TYPES.ARCROLE_REF and isinstance(sxm_object, SXMArcrole):
@@ -381,7 +383,7 @@ class SXMDocument(SXMDTSBase):
         if content_type not in self.DOCUMENT_CONTENT_TYPES:
             raise SXMException("Invalid content type for deleting from document: {}".format(content_type))
         try:
-            if content_type == self.DOCUMENT_CONTENT_TYPES.CONTENT and isinstance(sxm_object, SXMDefined):
+            if content_type == self.DOCUMENT_CONTENT_TYPES.CONTENT and isinstance(sxm_object, _SXMDefined):
                 self._contents.remove(sxm_object)
                 sxm_object._document = None
                 if sxm_object in self._ids:
@@ -412,11 +414,11 @@ class SXMDocument(SXMDTSBase):
             self._seeds[seed] += 1
             return id
 
-class SXMDefined(SXMBase):
+class _SXMDefined(_SXMDTSBase):
     '''Defined objects are defined in a document'''
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, dts, *args, **kwargs):
+        super().__init__(dts)
         self._document = None
 
     @property
@@ -426,7 +428,7 @@ class SXMDefined(SXMBase):
     @document.setter
     def document(self, val):
         if val is not None and not isinstance(val, SXMDocument):
-            raise SXMException("Trying to add a {} to a {} instead of a document".format(self.get_class_name), val.get_class_name if isinstance(val, SXMBase) else type(val).__name__)
+            raise SXMException("Trying to add a {} to a {} instead of a document".format(self.get_class_name), val.get_class_name if isinstance(val, _SXMBase) else type(val).__name__)
         if self._document is not None:
             self._document.remove_from_document(self)
         if val is not None:
@@ -439,7 +441,7 @@ class SXMDefined(SXMBase):
         else:
             return self._document.get_id(self)
 
-class SXMQName(SXMDTSBase):
+class SXMQName(_SXMDTSBase):
     def __init__(self, dts, namespace, local_name, prefix=None):
         super().__init__(dts)
         self.namespace = namespace
@@ -487,8 +489,39 @@ class SXMQName(SXMDTSBase):
     @property
     def name_pair(self):
         return self.namespace, self.local_name
-    
-class SXMDTS(SXMAttributedBase):
+
+class _SXMPackageDTS(_SXMBase):
+    # This class just adds package properties to the SXMDTS
+    # This is done as a separate class just to separate these properties out
+    # for organizational purposes
+    def __init__(self):
+        self.identifier = None
+        self.name = None
+        self.description = None
+        self.description_language = None
+        self.version = None
+        self.license_href = None
+        self.license_name = None
+        self.publisher = None
+        self.publisher_url = None
+        self.publisher_country = None
+        self.publication_date = None
+        self.entry_points = dict()
+        # superceded taxonomies and version reports are not currently supported
+        self.rewrites = dict()
+        self.other_elements = dict()
+
+class SXMPackageEntryPoint(_SXMDTSBase):
+    def __init__(self, dts, name):
+        super().__init__(dts)
+        self.name = name
+        self.description = None
+        self.version = None
+        self.documents = []
+        self.languages = []
+        self.other_elements = dict()
+        
+class SXMDTS(_SXMPackageDTS, SXMAttributedBase):
 
     def __init__(self):
         super().__init__()
@@ -534,7 +567,7 @@ class SXMDTS(SXMAttributedBase):
         if remove:
             del_object.dts = None
 
-class SXMArcrole(SXMDTSBase, SXMDefined):
+class SXMArcrole(_SXMDefined):
 
     def __init__(self, dts, arcrole_uri, cycles_allowed, description, used_ons):
         super().__init__(dts)
@@ -577,7 +610,7 @@ class SXMArcrole(SXMDTSBase, SXMDefined):
     def remove(self):
         return len(self.networks) == 0
 
-class SXMRole(SXMDTSBase, SXMDefined):
+class SXMRole(_SXMDefined):
     def __init__(self, dts, role_uri, description, used_ons):
         super().__init__(dts)
         self._role_uri = role_uri
@@ -631,7 +664,7 @@ class SXMRole(SXMDTSBase, SXMDefined):
     def remove(self):
         return len(self.networks) == 0 and len(self.resources) == 0
 
-class SXMElement(SXMDTSBase, SXMDefined):
+class SXMElement(_SXMDefined):
     def __init__(self, dts, name, data_type, abstract, nillable=None, id=None, substitution_group=None, attributes=None):
         super().__init__(dts)
 
@@ -745,7 +778,7 @@ class SXMTypedDomain(SXMElement):
         # Its removeable as long there are no concepts using it
         return len(self.concepts) == 0
 
-class SXMType(SXMDTSBase, SXMDefined):
+class SXMType(_SXMDefined):
 
     def __init__(self, dts, name, parent_type, xml_content, anonymous_element=None):
         super().__init__(dts)
@@ -949,7 +982,7 @@ class SXMConcept(SXMElement, SXMAttributedBase):
                 for resource in resources:
                     resource.document = None
 
-class SXMResource(SXMDTSBase, SXMDefined):
+class SXMResource(_SXMDefined):
     def __init__(self, dts, concept, role, content=None, attributes=None):
         if not isinstance(role, SXMRole):
             raise SXMException("Trying to add resource with an invalid role. Found {}: {}".format(type(role).__name__, str(role)))
@@ -985,7 +1018,7 @@ class SXMReference(_SXMReferenceBase):
     def remove(self):
         return len(self.parts) == 0
 
-class SXMPart(SXMDTSBase, SXMDefined):
+class SXMPart(_SXMDefined):
     def __init__(self, dts, part_element, part_content):
         super().__init__(dts)
         self.part_element = part_element
@@ -995,7 +1028,7 @@ class SXMPart(SXMDTSBase, SXMDefined):
     def part_name(self):
         return self.part_element.name
 
-class SXMNetwork(SXMDTSBase, SXMDefined):
+class SXMNetwork(_SXMDefined):
     def __init__(self, dts, link_name, arc_name, arcrole, role):
         if not isinstance(role, SXMRole):
             raise SXMException("Trying to add a network with an invalid role. Found {}: {}".format(type(role).__name__, str(role)))
@@ -1059,7 +1092,7 @@ class SXMNetwork(SXMDTSBase, SXMDefined):
                 len(self._from_relationships) == 0
                 )
 
-class SXMRelationship(SXMDTSBase, SXMDefined):
+class SXMRelationship(_SXMDefined):
     def __init__(self, dts, network, from_concept, to_concept, order, weight=None, preferred_label=None, attributes=None):
         # Check that the from and to concept are already in the DTS
         if from_concept.name not in dts.concepts:
@@ -1128,7 +1161,7 @@ class SXMRelationship(SXMDTSBase, SXMDefined):
     def is_root(self):
         return self.from_concept in self.network.roots
 
-class _SXMCubePart(SXMDTSBase):
+class _SXMCubePart(_SXMDefined):
     def __init__(self, dts, dim_type, concept, role):
         super().__init__(dts)
         self.dim_type = dim_type
@@ -1147,7 +1180,7 @@ class _SXMCubePart(SXMDTSBase):
     def __eq__(self, other):
         return self.concept == other.concept
     
-class SXMCube(_SXMCubePart, SXMDefined):
+class SXMCube(_SXMCubePart):
 
     def __init__(self, dts, role, concept):
         super().__init__(dts, 'cube', concept, role)
@@ -1168,7 +1201,7 @@ class SXMCube(_SXMCubePart, SXMDefined):
     def add_dimension_node(self, dimension_node):
         self._dimensions.append(dimension_node)
 
-class _SXMCubeTreeNode(_SXMCubePart, SXMDefined):
+class _SXMCubeTreeNode(_SXMCubePart):
     def __init__(self, dts, dim_type, concept, role, usable=True, attributes=None):
         super().__init__(dts, dim_type, concept, role)
         self.usable = usable
@@ -1271,14 +1304,6 @@ class SXMDimension(_SXMCubeTreeNode):
     @property
     def is_explicit(self):
         return self.typed_domain is None
-    
-# class SXMDomain(_SXMCubeTreeNode):
-#     def __init__(self, dts, concept, role, usable=True, attributes=None):
-#         super().__init__(dts, 'domain', concept, role, usable, attributes)
-
-#     @property
-#     def domain_type(self):
-#         return self._domain_type
 
 class SXMPrimary(_SXMCubeTreeNode):
     def __init__(self, dts, concept, role, is_all=True, usable=True, attributes=None):
