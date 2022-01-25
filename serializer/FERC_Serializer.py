@@ -169,10 +169,6 @@ def set_configuration(options, old_model):
     global _ARCROLE_NAMESPACE
     _ARCROLE_NAMESPACE = '{}{}/arcroles/core'.format(_NAMESPACE_START, _NEW_VERSION)
     _DOCUMENT_MAP[_ARCROLE_NAMESPACE] = '{}-core-arcroles_{}.xsd'.format(_CORE_NAME, _NEW_VERSION)
-
-    global _PART_NAMESPACE
-    _PART_NAMESPACE = '{}{}/parts'.format(_NAMESPACE_START, _NEW_VERSION)
-    _DOCUMENT_MAP[_PART_NAMESPACE] = '{}-core-ref-parts_{}.xsd'.format(_CORE_NAME, _NEW_VERSION)
     
     global _OLD_PART_NAMESPACE
     for old_part_element in old_model.qnameConcepts.values():
@@ -182,6 +178,12 @@ def set_configuration(options, old_model):
             _OLD_PART_NAMESPACE = old_part_element.qname.namespaceURI
             break
 
+    global _PART_NAMESPACE
+    #_PART_NAMESPACE = '{}{}/parts'.format(_NAMESPACE_START, _NEW_VERSION)
+    # Use the original namespace for the parts
+    _PART_NAMESPACE = _OLD_PART_NAMESPACE
+    _DOCUMENT_MAP[_PART_NAMESPACE] = '{}-core-ref-parts_{}.xsd'.format(_CORE_NAME, _NEW_VERSION)
+    
     global _OLD_TYPE_NAMESPACE
     for old_type_name in old_model.qnameTypes.keys():
         if _OLD_NS_MATCH.fullmatch(old_type_name.namespaceURI) is not None:

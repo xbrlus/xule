@@ -952,32 +952,45 @@ def serialize_package_files(zip_file, dts):
     # taxonomy_package
     ns_map = {'tp': 'https://eCollection.ferc.gov/taxonomy/form1/2022-01-01/',
               'ferc-tp': 'http://www.ferc.gov/form/taxonomy-package'}
-    package = etree.Element('{https://eCollection.ferc.gov/taxonomy/form1/2022-01-01/}taxonomyPackage', nsmap=ns_map)
+    package = etree.Element('{http://xbrl.org/2016/taxonomy-package}taxonomyPackage', nsmap=ns_map)
     add_package_element(package, dts, 'identifier', 'serializer_package_identifier', 
-                        '{https://eCollection.ferc.gov/taxonomy/form1/2022-01-01/}identifier', ns_map)
+                        '{http://xbrl.org/2016/taxonomy-package}identifier', ns_map)
     add_package_element(package, dts, 'name', 'serializer_package_name', 
-                        '{https://eCollection.ferc.gov/taxonomy/form1/2022-01-01/}name', ns_map)
+                        '{http://xbrl.org/2016/taxonomy-package}name', ns_map)
     add_package_element(package, dts, 'description', 'serializer_package_description', 
-                        '{https://eCollection.ferc.gov/taxonomy/form1/2022-01-01/}description', ns_map)
+                        '{http://xbrl.org/2016/taxonomy-package}description', ns_map)
     # add description language
-    if (package[-1].tag == '{https://eCollection.ferc.gov/taxonomy/form1/2022-01-01/}description' and 
+    if (package[-1].tag == '{http://xbrl.org/2016/taxonomy-package}description' and 
         _OPTIONS.serializer_package_description_language is not None or dts.description_language is not None):
         package[-1].set('{http://www.w3.org/XML/1998/namespace}lang', _OPTIONS.serializer_package_description_language or dts.description_language)
     add_package_element(package, dts, 'version', 'serializer_package_version', 
-                        '{https://eCollection.ferc.gov/taxonomy/form1/2022-01-01/}version', ns_map)
+                        '{http://xbrl.org/2016/taxonomy-package}version', ns_map)
+    # License
+    if (_OPTIONS.serializer_package_license_href is not None or 
+        dts.license_href is not None or
+        _OPTIONS.serializer_package_license_name is not None or
+        dts.license_name is not None):
+        license_element = etree.Element('{http://xbrl.org/2016/taxonomy-package}license', nsmap=ns_map)
+        if (_OPTIONS.serializer_package_license_href is not None or 
+            dts.license_href is not None):
+            license_element.set('href', _OPTIONS.serializer_package_license_href or dts.license_href)
+        if (_OPTIONS.serializer_package_license_name is not None or
+            dts.license_name is not None):
+            license_element.set('name', _OPTIONS.serializer_package_license_name or dts.license_name)
 
+    add_package_element(package, dts, 'publisher', 'serializer_package_publisher', 
+                        '{http://xbrl.org/2016/taxonomy-package}publisher', ns_map)
 
+    add_package_element(package, dts, 'publisher_url', 'serializer_package_publisher_url', 
+                        '{http://xbrl.org/2016/taxonomy-package}publisherURL', ns_map)
+    add_package_element(package, dts, 'publisherCountry', 'serializer_package_publisher_country', 
+                        '{http://xbrl.org/2016/taxonomy-package}publisherCountry', ns_map)
+    add_package_element(package, dts, 'publication_date', 'serializer_package_publication_date', 
+                        '{http://xbrl.org/2016/taxonomy-package}publicationDate', ns_map)
 
-
-    add_package_element(package, dts, 'license', 'serializer_package_description', 
-                        '{https://eCollection.ferc.gov/taxonomy/form1/2022-01-01/}description', ns_map)
-
-
-
-
-
-
-
+    # entry points
+    if len(dts.entry_points) > 0:
+        entry_point_element = etree.Element('{http://xbrl.org/2016/taxonomy-package}entryPoints', nsmap=ns_map)
 
 
 def add_package_element(package, dts, property_name, option_name, element_name, ns_map):
