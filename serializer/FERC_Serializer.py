@@ -897,16 +897,23 @@ def assign_documents_to_networks(new_model, schedule_role_map):
     for schedule, roles in schedule_role_map.items():
         if len(roles) == 0:
             continue
-        # The name of the file is the name on the role of the primary role for the schedule.
-        # The primary role is found by the very sophisticated by sorting all the rolse for a schedule abstract
-        # and taking the first one.
-        primary_role = sorted(roles, key=lambda x: x.role_uri)[0]
-        primary_role_name = primary_role.role_uri.split('/')[-1]
-        document_start = 'schedules/{role_name}/{role_name}_{version}'.format(role_name=primary_role_name, version=_NEW_VERSION)
+        # The folder for the schedule is the schedule element name
+        schedule_name = schedule.name.local_name.split('Abstract')[0]
+        if schedule.type.name.local_name == 'formItemType': # This is the list of schedules
+            schedule_name = 'ScheduleListOfSchedules{}'.format(schedule_name)
+        # The file name will be the page number
+        file_name = None
+        for label_info in sorted(schedule.labels, key=lambda x: x[0].role_uri):
+            if label_info[0].role_uri.lower().endswith('page'):
+                file_name = 'sched-{}'.format(sorted(schedule.labels[label_info], key=lambda x: x.content)[0].content)
+                break
+        if file_name is None: # no page number was found
+            file_name = 'sched-0'
+        document_start = 'schedules/{schedule_name}/{file_name}_{version}'.format(schedule_name=schedule_name, file_name=file_name, version=_NEW_VERSION)
         schema_document = new_document(new_model, 
             '{}.xsd'.format(document_start),
             new_model.DOCUMENT_TYPES.SCHEMA,
-            '{}{}/sched-{}'.format(_NAMESPACE_START, _NEW_VERSION, primary_role_name))
+            '{}{}/sched-{}'.format(_NAMESPACE_START, _NEW_VERSION, schedule_name))
         schedule_documents[schedule] = schema_document
 
         for role in roles:
