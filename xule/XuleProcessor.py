@@ -987,13 +987,17 @@ def evaluate_output_rule(output_rule, xule_context):
                     messages['severity'] = 'info'
                 severity = messages['severity']
                 # message - this is the main message
-                main_message = messages.get('message', xule_value)
+
+                # Check if there is an instane output. If so, then don't produce a message unless there is an explicit "message" output.
+                #has_instance_output = process_instance_output(xule_context, messages)
+                main_message = messages.get('message', xule_value) # This will default the message to the value of the rule.
                 if main_message.type == 'string':
                     main_message = main_message.value
                 else:
                     main_message = main_message.format_value()
 
                 messages.pop('message', None)
+            
 
                 full_rule_name = xule_context.rule_name
                 # Handle rule suffix

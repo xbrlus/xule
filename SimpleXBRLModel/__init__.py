@@ -33,16 +33,29 @@ import sys
 
 from . import SXM
 
-def xsmGetModule():
+def sxmGetModule():
     '''Returns the members of a the SXM module
 
     The return value is an object (really a namedtuple) that has a an attribute for each member in the module.
     This can be used like a module.
     '''
     clsMembers = inspect.getmembers(SXM, inspect.isclass)
-    clsDict = {x[0]: x[1] for x in clsMembers}
-    clsObject = collections.namedtuple('ModuleClasses', clsDict.keys())(*clsDict.values())
-    return clsObject
+    # Create a dummy class
+    class _SXM:
+        pass
+    # Instantiate the class
+    sxm = _SXM()
+    # Add the members as properties
+    for mem in clsMembers:
+        setattr(sxm, mem[0], mem[1])
+
+    return sxm
+
+    # # Remove classes whose names start with an underscore. These are not allowed in named tuples and they shouldn't be 
+    # # called from outside the module anyway.
+    # clsDict = {x[0]: x[1] for x in clsMembers if not x[0].startswith('_')}
+    # clsObject = collections.namedtuple('ModuleClasses', clsDict.keys())(*clsDict.values())
+    # return clsObject
 
 def sxmCmdUtilityRun(*args, **kwargs):
     pass
@@ -65,5 +78,5 @@ __pluginInfo__ = {
     #'Validate.Finally': sxmValidate,
     #'TestcaseVariation.Xbrl.Loaded': sxmTestXbrlLoaded,
     #'TestcaseVariation.Xbrl.Validated': sxmTestValidated,
-    'SXM.getModule': xsmGetModule
+    'SXM.getModule': sxmGetModule
     }
