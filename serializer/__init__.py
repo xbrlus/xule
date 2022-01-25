@@ -352,7 +352,7 @@ def cmndLineXbrlRun(cntlr, options, model_xbrl, entryPoint, *args, **kwargs):
 
 def write(dts, package_name, cntlr):
 
-    with zipfile.ZipFile(package_name, 'w') as z:
+    with zipfile.ZipFile(package_name, 'w', compression=zipfile.ZIP_DEFLATED) as z:
         for document in dts.documents.values():
             if document.is_relative:
                 contents = serialize_document(document)
@@ -728,11 +728,12 @@ def get_dimension_arc(dts, name):
 
 def serialize_schema(document):
     namespaces = _STANDARD_NS.copy()
+    namespaces.get_or_add_prefix(document.target_namespace)
+
     schema_attributes = {'targetNamespace': document.target_namespace,
                          'elementFormDefault': 'qualified',
                          'attributeFormDefault': 'unqualified'}
-    # if document.target_namespace in document.dts.namespaces:
-    #     schema_attributes[document.dts.namespaces[document.target_namespace]] = document.target_namespace
+
     schema = etree.Element(_SCHEMA,
                            schema_attributes,
                            nsmap=namespaces.ns_by_prefix)
