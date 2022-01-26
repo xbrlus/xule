@@ -186,7 +186,7 @@ def set_configuration(options, old_model):
     
     global _OLD_TYPE_NAMESPACE
     for old_type_name in old_model.qnameTypes.keys():
-        if _OLD_NS_MATCH.fullmatch(old_type_name.namespaceURI) is not None and '@' not in old_type_name.localName: # This ensur
+        if _OLD_NS_MATCH.fullmatch(old_type_name.namespaceURI) is not None and old_type_name.localName == 'formItemType':
             _OLD_TYPE_NAMESPACE = old_type_name.namespaceURI
             break
 
