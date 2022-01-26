@@ -1010,7 +1010,7 @@ def add_form_entry_points(new_model, forms, schedule_documents):
         try:
             entry_point_name = list(form.labels.get((_EFORMS_LABEL_ROLE, 'en'), []))[0].content
         except IndexError:
-            raise FERCSerialzierException("Cannot get eForm lable for form concept {}".format(form.name.clark))
+            raise FERCSerialzierException("Cannot get eForm label for form concept {}".format(form.name.clark))
         if first_form is form:
             first_name = entry_point_name
         all_form_names.append(entry_point_name)
