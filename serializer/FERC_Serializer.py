@@ -186,7 +186,7 @@ def set_configuration(options, old_model):
     
     global _OLD_TYPE_NAMESPACE
     for old_type_name in old_model.qnameTypes.keys():
-        if _OLD_NS_MATCH.fullmatch(old_type_name.namespaceURI) is not None:
+        if _OLD_NS_MATCH.fullmatch(old_type_name.namespaceURI) is not None and '@' not in old_type_name.localName: # This ensur
             _OLD_TYPE_NAMESPACE = old_type_name.namespaceURI
             break
 
@@ -1084,9 +1084,8 @@ def find_forms(new_model):
 
     This method finds all the form concepts and the schedules that belong to each form. It also identifies a definitive
     page number for each schedule. This page number will be used for the file names for the schedule schemas and related
-    linkbases. A schedule can be used in more than one form and so have different page numbers for each form. to get to 
-    definitive page number, the forms are ranked by the number of schedules in the form and the page number for the highest
-    ranked form is used.
+    linkbases. A schedule can be used in more than one form and so have different page numbers for each form. The page number
+    associated with the alphabetically first form name is used.
     '''
     # find form concepts that are in a presentation and they are the root. This should only happen
     # in the list of schedules/Table of concepts.
