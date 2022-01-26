@@ -33,7 +33,7 @@ _SAVE_LOCATIONS = {
     'Document': {'attribute': 'documents',
                  'key': ('uri',)},
     'PackageEntryPoint': {'attribute': 'entry_points',
-                          'key': ('name',)}
+                          'key': ('identifier',)}
 }
 
 _STANDARD_ARCROLES = {
@@ -497,12 +497,14 @@ class _SXMPackageDTS(_SXMBase):
     def __init__(self):
         self.identifier = None
         self.name = None
+        self.name_language = None
         self.description = None
         self.description_language = None
         self.version = None
         self.license_href = None
         self.license_name = None
         self.publisher = None
+        self.publisher_language = None
         self.publisher_url = None
         self.publisher_country = None
         self.publication_date = None
@@ -512,9 +514,10 @@ class _SXMPackageDTS(_SXMBase):
         self.other_elements = dict()
 
 class SXMPackageEntryPoint(_SXMDTSBase):
-    def __init__(self, dts, name):
+    def __init__(self, dts, identifier):
         super().__init__(dts)
-        self.name = name
+        self.identifier = identifier
+        self.names = []
         self.description = None
         self.version = None
         self.documents = []

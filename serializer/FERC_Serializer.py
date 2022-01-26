@@ -226,6 +226,7 @@ def add_package_defaults(new_model, forms):
     form_name_no_space = form_name.replace(' ','').lower()
     new_model.identifier = 'http://xbrl.ferc.gov/taxonomy/{}/{}'.format(form_name_no_space, _NEW_VERSION)
     new_model.name = 'FERC {} Taxonomy'.format(form_name)
+    new_model.name_language = 'en'
     new_model.description = 'This taxonomy packacge contains the taxonomies used for FERC {}'.format(form_name)
     new_model.description_language = 'en-US'
     new_model.version = _NEW_VERSION
@@ -1029,10 +1030,12 @@ def add_form_entry_points(new_model, forms, schedule_documents):
 
         # Create entry point
         entry_point = new_model.new('PackageEntryPoint', entry_point_name)
+        entry_point.names.append((entry_point_name, 'en'))
         try:
             entry_point.description = list(form.labels.get((_ENTRY_POINT_LABEL_ROLE, 'en'), []))[0].content
         except IndexError:
             raise FERCSerialzierException("Cannot get entryPoint label for form concept {}".format(form.name.clark))
+        entry_point.description_language = 'en'
         entry_point.version = _NEW_VERSION
         entry_point.documents.append(form_document)
         other_element_qname = new_model.new('QName', 'http://www.ferc.gov/form/taxonomy-package', 'entryPoint', 'tp')
@@ -1049,8 +1052,10 @@ def add_form_entry_points(new_model, forms, schedule_documents):
 
         # Add 'all' entry point
         all_name = '{} - All'.format(first_name)
-        entry_point = new_model.new('PackageEntryPoint', all_name)
-        entry_point.description = 'This entry point contais the FERC {} taxonomies'.format(', '.join(sorted(all_form_names)))
+        entry_point = new_model.new('PackageEntryPoint', 'All')
+        entry_point.names.append((all_name, 'en'))
+        entry_point.description = 'This entry point contains the FERC {} taxonomies'.format(', '.join(sorted(all_form_names)))
+        entry_point.description_language = 'en'
         entry_point.version = _NEW_VERSION
         entry_point.documents.append(all_document)
 

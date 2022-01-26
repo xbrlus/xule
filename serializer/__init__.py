@@ -14,6 +14,7 @@ _CNTLR = None
 _OPTIONS = None
 _PLUGINS = {}
 _SXM = None
+_PACKAGE_FOLDER = None
 
 _SCHEMA_NAMESPACE = 'http://www.w3.org/2001/XMLSchema'
 _SCHEMA = '{http://www.w3.org/2001/XMLSchema}schema'
@@ -173,7 +174,11 @@ _STANDARD_LINKBASE_NS = NSMap({'link': {'ns': 'http://www.xbrl.org/2003/linkbase
                               'xlink': {'ns': 'http://www.w3.org/1999/xlink'},
                               'xsi': {'ns': 'http://www.w3.org/2001/XMLSchema-instance'}
                               })
-        
+
+_TAXONOMY_PACKAGE_NS = NSMap({'tp': {'ns': 'http://xbrl.org/2016/taxonomy-package'}})
+
+_CATALOG_NS = NSMap({'ct': {'ns': 'urn:oasis:names:tc:entity:xmlns:xml:catalog'}})
+
 # Utility to find another plugin
 def getSerizlierPlugins(cntlr):
     '''Serializer plugins have a 'serializer.serialize' entry in the _PLUGIN dictionary.'''
@@ -240,6 +245,12 @@ def cmdLineOptionExtender(parser, *args, **kwargs):
     parserGroup.add_option('--serializer-package-name',
                            help="The name of the taxonomy package file to create.")
     
+    parserGroup.add_option('--serializer-package-meta-name',
+                           help="The name of the taxonomy in the taxonomy package meta inf.")
+
+    parserGroup.add_option('--serializer-package-meta-name_language',
+                           help="The language of the taxonomy name in the taxonomy package meta inf.")
+
     parserGroup.add_option('--serializer-package-version',
                          help="The version to create in the pacakge.")
 
@@ -247,7 +258,7 @@ def cmdLineOptionExtender(parser, *args, **kwargs):
                            help='Package description')
 
     parserGroup.add_option('--serializer-package-description-language',
-                           help='Package description')
+                           help='Package description language')
 
     parserGroup.add_option('--serializer-package-license-href',
                            help='Package license href')
@@ -257,6 +268,9 @@ def cmdLineOptionExtender(parser, *args, **kwargs):
 
     parserGroup.add_option('--serializer-package-publisher',
                            help='Package publisher')
+    
+    parserGroup.add_option('--serializer-package-publisher-language',
+                           help='Package publisher language')
 
     parserGroup.add_option('--serializer-package-publisher-url',
                            help='Package publisher url')
@@ -313,30 +327,30 @@ def  cmdUtilityRun(cntlr, options, **kwargs):
         else:
             parser.error("Supplied taxonomy package file name (--serializer-package-taxonomy-package) does not exist '{}'".format(options.serializer_package_taxonomy_package))
     
-    # Check if an entry point file is supplied, if not get it from the package
-    if options.entrypointFile is None:
-        # Find the taxonomyPackage.xml file and get the entry point from there.
-        if len(PackageManager.packagesConfig['packages']) > 0:
-            # open up the taxonomy package 
-            package_fs = FileSource.openFileSource(PackageManager.packagesConfig['packages'][0]['URL'], cntlr)
-            metadataFiles = package_fs.taxonomyPackageMetadataFiles
-            metadataFile = metadataFiles[0]
-            metadata = package_fs.url + os.sep + metadataFile
-            taxonomy_package = PackageManager.parsePackage(cntlr, package_fs, metadata,
-                                            os.sep.join(os.path.split(metadata)[:-1]) + os.sep)
+    # # Check if an entry point file is supplied, if not get it from the package
+    # if options.entrypointFile is None:
+    #     # Find the taxonomyPackage.xml file and get the entry point from there.
+    #     if len(PackageManager.packagesConfig['packages']) > 0:
+    #         # open up the taxonomy package 
+    #         package_fs = FileSource.openFileSource(PackageManager.packagesConfig['packages'][0]['URL'], cntlr)
+    #         metadataFiles = package_fs.taxonomyPackageMetadataFiles
+    #         metadataFile = metadataFiles[0]
+    #         metadata = package_fs.url + os.sep + metadataFile
+    #         taxonomy_package = PackageManager.parsePackage(cntlr, package_fs, metadata,
+    #                                         os.sep.join(os.path.split(metadata)[:-1]) + os.sep)
             
-            if taxonomy_package['entryPoints'] and len(taxonomy_package['entryPoints']) > 0:
-                # Get the first entry point, there really should only be one
-                first_key = list(taxonomy_package['entryPoints'].keys())[0]
-                entry_point = taxonomy_package['entryPoints'][first_key][0][1] # the [1] is the url of the entry point
-                options.entrypointFile = entry_point
-                cntlr.addToLog("Using entry point {}".format(entry_point), "info")
-            else:
-                cntlr.addToLog("Cannot determine entry point for supplied package", "error")
-                raise SerializerException
-        else:
-            cntlr.addToLog("Cannot determine entry point for supplied package", "error")
-            raise SerializerException
+    #         if taxonomy_package['entryPoints'] and len(taxonomy_package['entryPoints']) > 0:
+    #             # Get the first entry point, there really should only be one
+    #             first_key = list(taxonomy_package['entryPoints'].keys())[0]
+    #             entry_point = taxonomy_package['entryPoints'][first_key][0][1] # the [1] is the url of the entry point
+    #             options.entrypointFile = entry_point
+    #             cntlr.addToLog("Using entry point {}".format(entry_point), "info")
+    #         else:
+    #             cntlr.addToLog("Cannot determine entry point for supplied package", "error")
+    #             raise SerializerException
+    #     else:
+    #         cntlr.addToLog("Cannot determine entry point for supplied package", "error")
+    #         raise SerializerException
 
 def cmndLineXbrlRun(cntlr, options, model_xbrl, entryPoint, *args, **kwargs):
     # Multiple serializer methods may be used. Serialize for each one. Find them by looking at the plugins that
@@ -345,6 +359,8 @@ def cmndLineXbrlRun(cntlr, options, model_xbrl, entryPoint, *args, **kwargs):
     # of documents to create
     global _OPTIONS
     _OPTIONS = options
+    global _PACKAGE_FOLDER
+    _PACKAGE_FOLDER = os.path.splitext(os.path.basename(options.serializer_package_name))[0]
 
     for serializer in getSerizlierPlugins(cntlr):
         dts = serializer['serializer.serialize'](model_xbrl, options, _SXM)
@@ -356,7 +372,7 @@ def write(dts, package_name, cntlr):
         for document in dts.documents.values():
             if document.is_relative:
                 contents = serialize_document(document)
-                z.writestr(document.uri, contents)
+                z.writestr(os.path.join(_PACKAGE_FOLDER, document.uri), contents)
         serialize_package_files(z, dts)
     info("Writing package {}".format(package_name))
 
@@ -951,27 +967,33 @@ def serialize_import(new_import_document, document, namespaces):
 def serialize_package_files(zip_file, dts):
     folder_name = 'META-INF'
     # taxonomy_package
-    ns_map = {'tp': 'https://eCollection.ferc.gov/taxonomy/form1/2022-01-01/',
-              'ferc-tp': 'http://www.ferc.gov/form/taxonomy-package'}
-    package = etree.Element('{http://xbrl.org/2016/taxonomy-package}taxonomyPackage', nsmap=ns_map)
+    namespaces = _TAXONOMY_PACKAGE_NS.copy()
+
+    package = etree.Element('{http://xbrl.org/2016/taxonomy-package}taxonomyPackage', nsmap=namespaces.ns_by_prefix)
     add_package_element(package, dts, 'identifier', 'serializer_package_identifier', 
-                        '{http://xbrl.org/2016/taxonomy-package}identifier', ns_map)
-    add_package_element(package, dts, 'name', 'serializer_package_name', 
-                        '{http://xbrl.org/2016/taxonomy-package}name', ns_map)
-    add_package_element(package, dts, 'description', 'serializer_package_description', 
-                        '{http://xbrl.org/2016/taxonomy-package}description', ns_map)
+                        '{http://xbrl.org/2016/taxonomy-package}identifier', namespaces)
+    name_element = add_package_element(package, dts, 'name', 'serializer_package_meta_name', 
+                        '{http://xbrl.org/2016/taxonomy-package}name', namespaces)
+    if name_element is not None:
+        # add the language
+        # english is the default. 
+        name_element.set('{http://www.w3.org/XML/1998/namespace}lang', _OPTIONS.serializer_package_meta_name_language or dts.name_language or 'en')
+
+    description_element = add_package_element(package, dts, 'description', 'serializer_package_description', 
+                        '{http://xbrl.org/2016/taxonomy-package}description', namespaces)
     # add description language
-    if (package[-1].tag == '{http://xbrl.org/2016/taxonomy-package}description' and 
-        _OPTIONS.serializer_package_description_language is not None or dts.description_language is not None):
-        package[-1].set('{http://www.w3.org/XML/1998/namespace}lang', _OPTIONS.serializer_package_description_language or dts.description_language)
+    if (description_element is not None and
+        (_OPTIONS.serializer_package_description_language is not None or dts.description_language is not None)):
+        description_element.set('{http://www.w3.org/XML/1998/namespace}lang', _OPTIONS.serializer_package_description_language or dts.description_language or 'en')
+
     add_package_element(package, dts, 'version', 'serializer_package_version', 
-                        '{http://xbrl.org/2016/taxonomy-package}version', ns_map)
+                        '{http://xbrl.org/2016/taxonomy-package}version', namespaces)
     # License
     if (_OPTIONS.serializer_package_license_href is not None or 
         dts.license_href is not None or
         _OPTIONS.serializer_package_license_name is not None or
         dts.license_name is not None):
-        license_element = etree.Element('{http://xbrl.org/2016/taxonomy-package}license', nsmap=ns_map)
+        license_element = etree.Element('{http://xbrl.org/2016/taxonomy-package}license', nsmap=namespaces.ns_by_prefix)
         if (_OPTIONS.serializer_package_license_href is not None or 
             dts.license_href is not None):
             license_element.set('href', _OPTIONS.serializer_package_license_href or dts.license_href)
@@ -979,26 +1001,82 @@ def serialize_package_files(zip_file, dts):
             dts.license_name is not None):
             license_element.set('name', _OPTIONS.serializer_package_license_name or dts.license_name)
 
-    add_package_element(package, dts, 'publisher', 'serializer_package_publisher', 
-                        '{http://xbrl.org/2016/taxonomy-package}publisher', ns_map)
+    publisher_element = add_package_element(package, dts, 'publisher', 'serializer_package_publisher', 
+                        '{http://xbrl.org/2016/taxonomy-package}publisher', namespaces)
+    if publisher_element is not None:
+            publisher_element.set('{http://www.w3.org/XML/1998/namespace}lang', _OPTIONS.serializer_package_publisher_language or dts.publisher_language or 'en')
 
     add_package_element(package, dts, 'publisher_url', 'serializer_package_publisher_url', 
-                        '{http://xbrl.org/2016/taxonomy-package}publisherURL', ns_map)
+                        '{http://xbrl.org/2016/taxonomy-package}publisherURL', namespaces)
     add_package_element(package, dts, 'publisherCountry', 'serializer_package_publisher_country', 
-                        '{http://xbrl.org/2016/taxonomy-package}publisherCountry', ns_map)
+                        '{http://xbrl.org/2016/taxonomy-package}publisherCountry', namespaces)
     add_package_element(package, dts, 'publication_date', 'serializer_package_publication_date', 
-                        '{http://xbrl.org/2016/taxonomy-package}publicationDate', ns_map)
+                        '{http://xbrl.org/2016/taxonomy-package}publicationDate', namespaces)
 
     # entry points
     if len(dts.entry_points) > 0:
-        entry_point_element = etree.Element('{http://xbrl.org/2016/taxonomy-package}entryPoints', nsmap=ns_map)
+        entry_points_element = etree.Element('{http://xbrl.org/2016/taxonomy-package}entryPoints', nsmap=namespaces.ns_by_prefix)
+        package.append(entry_points_element)
+        for entry_point in dts.entry_points.values():
+            entry_point_element = etree.Element('{http://xbrl.org/2016/taxonomy-package}entryPoint', nsmap=namespaces.ns_by_prefix)
+            entry_points_element.append(entry_point_element)
+            for name, lang in entry_point.names:
+                name_element = add_entry_point_detail(entry_point_element, name, 'name', namespaces, lang)
+            add_entry_point_detail(entry_point_element, entry_point.description, 'description', namespaces, entry_point.description_language)
+            add_entry_point_detail(entry_point_element, entry_point.version, 'version', namespaces)
+            for document in entry_point.documents:
+                if document.is_absolute:
+                    document_uri = document.uri
+                else:
+                    document_start = dts.rewrites.get('../')
+                    if document_start is None:
+                        document_start = ''
+                    document_uri = os.path.join(document_start, document.uri)
+                doc_element = add_entry_point_detail(entry_point_element, '', 'entryPointDocument', namespaces)
+                doc_element.set('href', document_uri)
 
+            for name, val in entry_point.other_elements.items():
+                namespaces.get_or_add_prefix(name.namespace)
+                child_element = etree.Element(name.clark, nsmap=namespaces.ns_by_prefix) 
+                child_element.text = val
+                entry_point_element.append(child_element)
 
-def add_package_element(package, dts, property_name, option_name, element_name, ns_map):
+    # Write the taxonomy package file
+    etree.cleanup_namespaces(package, namespaces.ns_by_prefix, namespaces.ns_by_prefix.keys())
+    taxonomy_package_file_name = '{}/{}/{}'.format(_PACKAGE_FOLDER, folder_name, 'taxonomyPackage.xml')
+    zip_file.writestr(taxonomy_package_file_name, etree.tostring(package, pretty_print=True))
+
+    # Catalog file
+    if len(dts.rewrites) > 0:
+        namespaces = _CATALOG_NS.copy()
+        catalog_element = etree.Element('{urn:oasis:names:tc:entity:xmlns:xml:catalog}catalog', nsmap=namespaces.ns_by_prefix)
+        for prefix, start_string in dts.rewrites.items():
+            child_element = etree.Element('{urn:oasis:names:tc:entity:xmlns:xml:catalog}rewriteURI', nsmap=namespaces.ns_by_prefix)
+            child_element.set('rewritePrefix', prefix)
+            child_element.set('uriStartString', start_string)
+            catalog_element.append(child_element)
+        
+        etree.cleanup_namespaces(catalog_element, namespaces.ns_by_prefix, namespaces.ns_by_prefix.keys())
+        taxonomy_package_file_name = '{}/{}/{}'.format(_PACKAGE_FOLDER, folder_name, 'catalog.xml')
+        zip_file.writestr(taxonomy_package_file_name, etree.tostring(catalog_element, pretty_print=True))
+
+def add_entry_point_detail(entry_point_element, val, detail_name, namespaces, language=None):
+    if val is not None:
+        if detail_name in ('description', 'name') and language is None:
+            raise SerializerException("The description element in the taxonomyPagckage.xml requires a language")
+        child_element = etree.Element('{{http://xbrl.org/2016/taxonomy-package}}{}'.format(detail_name), nsmap=namespaces.ns_by_prefix)
+        child_element.text = val
+        if language is not None:
+            child_element.set('{http://www.w3.org/XML/1998/namespace}lang', language)
+        entry_point_element.append(child_element)
+        return child_element
+
+def add_package_element(package, dts, property_name, option_name, element_name, namespaces):
     if getattr(_OPTIONS, option_name, None) is not None or getattr(dts, property_name, None) is not None:
-        element = etree.Element(element_name, nsmap=ns_map)
+        element = etree.Element(element_name, nsmap=namespaces.ns_by_prefix)
         element.text = getattr(_OPTIONS, option_name, None) or getattr(dts, property_name, None)
         package.append(element)
+        return element
 
 __pluginInfo__ = {
     'name': 'XBRL Serializer',
