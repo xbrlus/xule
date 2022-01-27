@@ -59,8 +59,9 @@ _FOOTNOTE_ARC_DESCRIPTION = 'This schema contains ferc footnote arcrole defintio
 _REFERENCE_ROLE_DESCRIPTION = 'This schema contains roles for references.'
 _LABEL_ROLE_DESCRIPTION = 'This schema contains roles for labels.'
 
-_ENTRY_POINT_LABEL_ROLE = None
-_EFORMS_LABEL_ROLE = None
+_ENTRY_POINT_LABEL_ROLE = 'http://ferc.gov/form/2030-01-01/roles/label/EntryPoint'
+_EFORMS_LABEL_ROLE = 'http://ferc.gov/form/2030-01-01/roles/label/eForm'
+_ENTRY_POINT_PATH_LABEL_ROLE= 'http://ferc.gov/form/2030-01-01/roles/label/EntryPointPath'
 
 _DEFAULT_TABLE_STANDARD_LABEL = 'Default [Table]'
 _DEFAULT_TABLE_TERSE_LABEL = 'This [Table] abastract element is used for creating table for "Total" line items without dimension assignment. The element is used in "Default" group.'
@@ -231,7 +232,7 @@ def organize_taxonomy(model_xbrl, new_model, options):
     # Build entry points for forms and ferc-all
     form_entry_documents = add_form_entry_points(new_model, forms, schedule_documents)
     # Add the default table
-    create_default_table(new_model, form_entry_documents)
+    create_default_table(new_model, form_entry_documents, forms, schedule_role_map)
     # fill in the package meta data information
     add_package_defaults(new_model, forms)
 
@@ -605,12 +606,6 @@ def new_label_role(new_model, old_model, old_role):
         # add import to core file
         if label_role.document is not None: # if its none it is a core xbrl role
             core_document.add(label_role.document, new_model.DOCUMENT_CONTENT_TYPES.IMPORT)
-        if label_role.role_uri.lower().endswith('/entrypointpath'):
-            global _EFORMS_LABEL_ROLE
-            _EFORMS_LABEL_ROLE = label_role
-        if label_role.role_uri.lower().endswith('/entrypoint'):
-            global _ENTRY_POINT_LABEL_ROLE
-            _ENTRY_POINT_LABEL_ROLE = label_role
     return label_role
 
 def organize_references(model_xbrl, new_model):
@@ -743,7 +738,7 @@ def is_dimensional(concept, dimension_type):
             return True
     return False
 
-def create_default_table(new_model, form_entry_documents):
+def create_default_table(new_model, form_entry_documents, forms, schedule_role_map):
     ''''
     The default table is a table of only line items (no dimensions) for line items that only exist in 
     a tables with at least one typed dimension. Because of the typed dimension, facts for these
@@ -760,7 +755,6 @@ def create_default_table(new_model, form_entry_documents):
             if dim.is_typed:
                 typed_cubes.add(cube)
                 all_defaulted = False
-                break
             else:
                 if dim.default is None:
                     all_defaulted = False
@@ -1108,17 +1102,21 @@ def add_form_entry_points(new_model, forms, schedule_documents):
         if first_form is None:
             first_form = form
         try:
-            entry_point_name = list(form.labels.get((_EFORMS_LABEL_ROLE, 'en'), []))[0].content
+            entry_point_name = list(form.labels.get((_ENTRY_POINT_PATH_LABEL_ROLE, 'en'), []))[0].content
+        except IndexError:
+            raise FERCSerialzierException("Cannot get entryPointPath label for form concept {}".format(form.name.clark))
+        try:
+            form_name = list(form.labels.get((_EFORMS_LABEL_ROLE, 'en'), []))[0].content
         except IndexError:
             raise FERCSerialzierException("Cannot get eForm label for form concept {}".format(form.name.clark))
+
         if first_form is form:
-            first_name = entry_point_name
-        all_form_names.append(entry_point_name)
+            first_name = form_name
+        all_form_names.append(form_name)
 
         # Create form document
-        form_name = entry_point_name.replace(' ', '-')
-        document_name = 'form/{}_{}.xsd'.format(form_name, _NEW_VERSION)
-        document_namespace = '{}{}/ferc-{}'.format(_NAMESPACE_START, _NEW_VERSION, form_name.split('/')[-1])
+        document_name = 'form/{}_{}.xsd'.format(entry_point_name, _NEW_VERSION)
+        document_namespace = '{}{}/ferc-{}'.format(_NAMESPACE_START, _NEW_VERSION, form_name.lower().replace(' ', '-'))
         form_document = new_document(new_model, document_name, new_model.DOCUMENT_TYPES.SCHEMA, document_namespace)
         form_entry_documents.add(form_document)
         for schedule in schedules:
@@ -1129,7 +1127,7 @@ def add_form_entry_points(new_model, forms, schedule_documents):
 
         # Create entry point
         entry_point = new_model.new('PackageEntryPoint', entry_point_name)
-        entry_point.names.append((entry_point_name, 'en'))
+        entry_point.names.append((form_name, 'en'))
         try:
             entry_point.description = list(form.labels.get((_ENTRY_POINT_LABEL_ROLE, 'en'), []))[0].content
         except IndexError:
@@ -1138,7 +1136,7 @@ def add_form_entry_points(new_model, forms, schedule_documents):
         entry_point.version = _NEW_VERSION
         entry_point.documents.append(form_document)
         other_element_qname = new_model.new('QName', 'http://www.ferc.gov/form/taxonomy-package', 'entryPoint', 'tp')
-        entry_point.other_elements[other_element_qname] = entry_point_name
+        entry_point.other_elements[other_element_qname] = form_name
 
     # Add the all forms document and entry point
     if len(form_entry_documents) > 0:
