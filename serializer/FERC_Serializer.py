@@ -59,9 +59,9 @@ _FOOTNOTE_ARC_DESCRIPTION = 'This schema contains ferc footnote arcrole defintio
 _REFERENCE_ROLE_DESCRIPTION = 'This schema contains roles for references.'
 _LABEL_ROLE_DESCRIPTION = 'This schema contains roles for labels.'
 
-_ENTRY_POINT_LABEL_ROLE = 'http://ferc.gov/form/2030-01-01/roles/label/EntryPoint'
-_EFORMS_LABEL_ROLE = 'http://ferc.gov/form/2030-01-01/roles/label/eForm'
-_ENTRY_POINT_PATH_LABEL_ROLE= 'http://ferc.gov/form/2030-01-01/roles/label/EntryPointPath'
+_ENTRY_POINT_LABEL_ROLE = 'http://ferc.gov/form/2020-01-01/roles/label/EntryPoint'
+_EFORMS_LABEL_ROLE = 'http://ferc.gov/form/2020-01-01/roles/label/eForm'
+_ENTRY_POINT_PATH_LABEL_ROLE= 'http://ferc.gov/form/2020-01-01/roles/label/EntryPointPath'
 
 _DEFAULT_TABLE_STANDARD_LABEL = 'Default [Table]'
 _DEFAULT_TABLE_TERSE_LABEL = 'This [Table] abastract element is used for creating table for "Total" line items without dimension assignment. The element is used in "Default" group.'
