@@ -746,6 +746,11 @@ def create_default_table(new_model, form_entry_documents, forms, schedule_role_m
     table is created to allow these facts to be valid in the default table.
     '''
 
+    # Reverse the schedule_role_map so I can look up by role. This will identify the document
+    # for the schedule
+    role_schedule_map
+
+
     # Find the line items
     typed_cubes = set()
     defaulted_cube_concepts = set()
@@ -1104,11 +1109,11 @@ def add_form_entry_points(new_model, forms, schedule_documents):
         try:
             entry_point_name = list(form.labels.get((_ENTRY_POINT_PATH_LABEL_ROLE, 'en'), []))[0].content
         except IndexError:
-            raise FERCSerialzierException("Cannot get entryPointPath label for form concept {}".format(form.name.clark))
+            raise FERCSerialzierException("Cannot get {}} label for form concept {}".format(_ENTRY_POINT_PATH_LABEL_ROLE, form.name.clark))
         try:
             form_name = list(form.labels.get((_EFORMS_LABEL_ROLE, 'en'), []))[0].content
         except IndexError:
-            raise FERCSerialzierException("Cannot get eForm label for form concept {}".format(form.name.clark))
+            raise FERCSerialzierException("Cannot get {}} label for form concept {}".format(_EFORMS_LABEL_ROLE, form.name.clark))
 
         if first_form is form:
             first_name = form_name
@@ -1131,7 +1136,7 @@ def add_form_entry_points(new_model, forms, schedule_documents):
         try:
             entry_point.description = list(form.labels.get((_ENTRY_POINT_LABEL_ROLE, 'en'), []))[0].content
         except IndexError:
-            raise FERCSerialzierException("Cannot get entryPoint label for form concept {}".format(form.name.clark))
+            raise FERCSerialzierException("Cannot get {}} label for form concept {}".format(_ENTRY_POINT_PATH_LABEL_ROLE, form.name.clark))
         entry_point.description_language = 'en'
         entry_point.version = _NEW_VERSION
         entry_point.documents.append(form_document)
