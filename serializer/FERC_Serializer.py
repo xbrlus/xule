@@ -1116,10 +1116,9 @@ def add_form_entry_points(new_model, forms, schedule_documents):
         all_form_names.append(entry_point_name)
 
         # Create form document
-        form_dir = ''.join(entry_point_name.split())
         form_name = entry_point_name.replace(' ', '-')
-        document_name = 'form/{}/{}_{}.xsd'.format(form_dir, form_name, _NEW_VERSION)
-        document_namespace = '{}{}/ferc-{}'.format(_NAMESPACE_START, _NEW_VERSION, form_name)
+        document_name = 'form/{}_{}.xsd'.format(form_name, _NEW_VERSION)
+        document_namespace = '{}{}/ferc-{}'.format(_NAMESPACE_START, _NEW_VERSION, form_name.split('/')[-1])
         form_document = new_document(new_model, document_name, new_model.DOCUMENT_TYPES.SCHEMA, document_namespace)
         form_entry_documents.add(form_document)
         for schedule in schedules:
