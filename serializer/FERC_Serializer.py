@@ -534,16 +534,18 @@ def new_arcrole(new_model, model_xbrl, arcrole_uri):
     return new_arcrole
 
 def get_new_role_uri(uri):
-    # Convert role uri for new version
-    ferc_match = _OLD_ROLE_MATCH.fullmatch(uri)
-    if ferc_match is not None:
-        # Convert arcrole uri to lastest version
-        return 'http://{}ferc.gov/form/{}/roles/{}/{}'.format('{}.'.format(ferc_match.group('pre')) if ferc_match.group('pre') is not None else '', 
-                                                                       _NEW_VERSION, 
-                                                                       ferc_match.group('role_type'),
-                                                                       ferc_match.group('rest'))
-    else: # not defined by the ferc taxonomy
-        return uri
+    return uri
+
+    # # Convert role uri for new version
+    # ferc_match = _OLD_ROLE_MATCH.fullmatch(uri)
+    # if ferc_match is not None:
+    #     # Convert arcrole uri to lastest version
+    #     return 'http://{}ferc.gov/form/{}/roles/{}/{}'.format('{}.'.format(ferc_match.group('pre')) if ferc_match.group('pre') is not None else '', 
+    #                                                                    _NEW_VERSION, 
+    #                                                                    ferc_match.group('role_type'),
+    #                                                                    ferc_match.group('rest'))
+    # else: # not defined by the ferc taxonomy
+    #     return uri
 
 def new_role(new_model, model_xbrl, role_uri):
 
@@ -749,7 +751,10 @@ def create_default_table(new_model, form_entry_documents, forms, schedule_role_m
     # Reverse the schedule_role_map so I can look up by role. This will identify the document
     # for the schedule
     role_schedule_map = dict()
-
+    for schedule_concept, roles in schedule_role_map.items():
+        for role in roles:
+            role_schedule_map[role] = schedule_concept
+    
 
     # Find the line items
     typed_cubes = set()
