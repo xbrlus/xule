@@ -605,7 +605,7 @@ def new_label_role(new_model, old_model, old_role):
         # add import to core file
         if label_role.document is not None: # if its none it is a core xbrl role
             core_document.add(label_role.document, new_model.DOCUMENT_CONTENT_TYPES.IMPORT)
-        if label_role.role_uri.lower().endswith('/eform'):
+        if label_role.role_uri.lower().endswith('/entrypointpath'):
             global _EFORMS_LABEL_ROLE
             _EFORMS_LABEL_ROLE = label_role
         if label_role.role_uri.lower().endswith('/entrypoint'):
@@ -781,8 +781,9 @@ def create_default_table(new_model, form_entry_documents):
         if len(parent_rels) != 1:
             raise FERCSerialzierException("Cube {} is in a presentation network more than once in role {}.".find(cube.concept.name.clark, cube.role.role_uri))
         for child_rel in network.get_children(parent_rels[0].from_concept):
-            if (child_rel.order > parent_rels[0].order and # This indicates the child is a following sibling of the table
-                child_rel.to_concept.type.is_numeric):
+            if (child_rel.order >= parent_rels[0].order and # This indicates the child is a following sibling of the table
+                child_rel.to_concept.type.is_numeric and
+                child_rel.to_concept is not cube.concept):
                 typed_total_concepts.add(child_rel.to_concept)
     
     # remove concepts that are in tables that only have explicit dimensions that all have defaults
@@ -803,13 +804,21 @@ def create_default_table(new_model, form_entry_documents):
                     new_model.new('QName', _LINK_NS, 'presentationLink'))
         default_role = new_model.new('Role', 'http://ferc.gov/form/{}/roles/default'.format(_NEW_VERSION), _DEFAULT_ROLE_DEFINITION, used_ons)
 
+        # Create the documents 
         default_linkbase = new_document(new_model, 'default/default_{}_def.xml'.format(_NEW_VERSION), new_model.DOCUMENT_TYPES.LINKBASE)
         default_labels = new_document(new_model, 'default/default_{}_lab.xml'.format(_NEW_VERSION), new_model.DOCUMENT_TYPES.LINKBASE)
         default_schema = new_document(new_model, 'default/default_{}.xsd'.format(_NEW_VERSION), 
                                       new_model.DOCUMENT_TYPES.SCHEMA, '{}default'.format(_NAMESPACE_START))
         default_schema.add(default_linkbase, new_model.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
         default_schema.add(default_labels, new_model.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
+        default_presentation = new_document(new_model, 'default/default_{}_pre.xml'.format(_NEW_VERSION), new_model.DOCUMENT_TYPES.LINKBASE)
+        default_schema.add(default_presentation, new_model.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
         default_role.document = default_schema
+
+        # add the default schema to each of the form entry points
+        for form_document in form_entry_documents:
+            form_document.add(default_schema, new_model.DOCUMENT_CONTENT_TYPES.IMPORT)
+        
 
         default_table = new_model.new('Concept', new_model.new('QName', _CORE_NAMESPACE, 'DefaultTable'),
                                                 string_item_type,
@@ -855,22 +864,20 @@ def create_default_table(new_model, form_entry_documents):
         default_cube.document = default_linkbase
         default_primary.document = default_linkbase
 
-        for form_document in form_entry_documents:
-            form_document.add(default_schema, new_model.DOCUMENT_CONTENT_TYPES.IMPORT)
+        # Create presentation the network
+        network_key = (new_qname_from_clark(new_model, _PRESENTATION_LINK_ELEMENT),
+                    new_qname_from_clark(new_model, _PRESENTATION_ARC_ELEMENT),
+                    new_model.get('Arcrole', _PARENT_CHILD) or new_model.new('Arcrole', _PARENT_CHILD),
+                    default_role)
+        network = new_model.get('Network', *network_key) or new_model.new('Network', *network_key)
+        default_presentation.add(network.add_relationship(default_abstract, default_table))
+        default_presentation.add(network.add_relationship(default_table, default_line_items))
 
         # Add to the default cube
         for concept in sorted(default_concepts, key=lambda x: x.name.clark):
             child = default_primary.add_child(new_model.get_class('Member'), concept)
             child.document = default_linkbase
-
-        # # Create the network
-        # network_key = (new_qname_from_clark(new_model, _PRESENTATION_LINK_ELEMENT),
-        #             new_qname_from_clark(new_model, _PRESENTATION_ARC_ELEMENT),
-        #             _PARENT_CHILD,
-        #             default_role)
-        # network = new_model.new('Network', *network_key)
-
-        
+            default_presentation.add(network.add_relationship(default_line_items, concept))
 
 def new_document(new_model, uri, document_type, target_namespace=None, description=None):
     return new_model.get('Document', uri) or new_model.new('Document', uri, document_type, target_namespace, description)
@@ -1109,8 +1116,8 @@ def add_form_entry_points(new_model, forms, schedule_documents):
         all_form_names.append(entry_point_name)
 
         # Create form document
-        form_dir = ''.join(entry_point_name.lower().split())
-        form_name = entry_point_name.lower().replace(' ', '-')
+        form_dir = ''.join(entry_point_name.split())
+        form_name = entry_point_name.replace(' ', '-')
         document_name = 'form/{}/{}_{}.xsd'.format(form_dir, form_name, _NEW_VERSION)
         document_namespace = '{}{}/ferc-{}'.format(_NAMESPACE_START, _NEW_VERSION, form_name)
         form_document = new_document(new_model, document_name, new_model.DOCUMENT_TYPES.SCHEMA, document_namespace)
