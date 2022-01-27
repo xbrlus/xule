@@ -735,7 +735,7 @@ def create_href(component, start_document):
 
 def get_dimension_arc(dts, name):
     if name not in _DIMENSION_ARC_COMPONENTS:
-        usedon = (dts.new('QName', 'http://www.xbrl.org/2003/linkbase', 'defintionArc', 'xbrldt'),)
+        usedon = (dts.new('QName', 'http://www.xbrl.org/2003/linkbase', 'defintionArc', 'link'),)
         arc = dts.new('Arcrole', _DIMENSION_ARCROLES[name][0], _DIMENSION_ARCROLES[name][1], _DIMENSION_ARCROLES[name][2], usedon)
         _DIMENSION_ARC_COMPONENTS[name] = arc
         dimension_document = dts.get('Document', _DIMENSION_URI) or dts.new('Document', _DIMENSION_URI, dts.DOCUMENT_TYPES.SCHEMA, _DIMENSION_NAMESPACE)

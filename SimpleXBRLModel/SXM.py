@@ -49,32 +49,81 @@ _STANDARD_ARCROLES = {
     "http://www.xbrl.org/2003/arcrole/requires-element"
 }
 
-_STANDARD_ROLES = {
-    'http://www.xbrl.org/2003/role/label',
-    'http://www.xbrl.org/2003/role/terseLabel',
-    'http://www.xbrl.org/2003/role/verboseLabel',
-    'http://www.xbrl.org/2003/role/totalLabel',
-    'http://www.xbrl.org/2003/role/periodStartLabel',
-    'http://www.xbrl.org/2003/role/periodEndLabel',
-    'http://www.xbrl.org/2003/role/documentation',
-    'http://www.xbrl.org/2003/role/definitionGuidance',
-    'http://www.xbrl.org/2003/role/disclosureGuidance',
-    'http://www.xbrl.org/2003/role/presentationGuidance',
-    'http://www.xbrl.org/2003/role/measurementGuidance',
-    'http://www.xbrl.org/2003/role/commentaryGuidance',
-    'http://www.xbrl.org/2003/role/exampleGuidance',
-    'http://www.xbrl.org/2003/role/positiveLabel',
-    'http://www.xbrl.org/2003/role/positiveTerseLabel',
-    'http://www.xbrl.org/2003/role/positiveVerboseLabel',
-    'http://www.xbrl.org/2003/role/negativeLabel',
-    'http://www.xbrl.org/2003/role/negativeTerseLabel',
-    'http://www.xbrl.org/2003/role/negativeVerboseLabel',
-    'http://www.xbrl.org/2003/role/zeroLabel',
-    'http://www.xbrl.org/2003/role/zeroTerseLabel',
-    'http://www.xbrl.org/2003/role/zeroVerboseLabel',
-    'http://www.xbrl.org/2003/role/link'
-}
+# _STANDARD_ROLES = {
+#     'http://www.xbrl.org/2003/role/label',
+#     'http://www.xbrl.org/2003/role/terseLabel',
+#     'http://www.xbrl.org/2003/role/verboseLabel',
+#     'http://www.xbrl.org/2003/role/totalLabel',
+#     'http://www.xbrl.org/2003/role/periodStartLabel',
+#     'http://www.xbrl.org/2003/role/periodEndLabel',
+#     'http://www.xbrl.org/2003/role/documentation',
+#     'http://www.xbrl.org/2003/role/definitionGuidance',
+#     'http://www.xbrl.org/2003/role/disclosureGuidance',
+#     'http://www.xbrl.org/2003/role/presentationGuidance',
+#     'http://www.xbrl.org/2003/role/measurementGuidance',
+#     'http://www.xbrl.org/2003/role/commentaryGuidance',
+#     'http://www.xbrl.org/2003/role/exampleGuidance',
+#     'http://www.xbrl.org/2003/role/positiveLabel',
+#     'http://www.xbrl.org/2003/role/positiveTerseLabel',
+#     'http://www.xbrl.org/2003/role/positiveVerboseLabel',
+#     'http://www.xbrl.org/2003/role/negativeLabel',
+#     'http://www.xbrl.org/2003/role/negativeTerseLabel',
+#     'http://www.xbrl.org/2003/role/negativeVerboseLabel',
+#     'http://www.xbrl.org/2003/role/zeroLabel',
+#     'http://www.xbrl.org/2003/role/zeroTerseLabel',
+#     'http://www.xbrl.org/2003/role/zeroVerboseLabel',
+#     'http://www.xbrl.org/2003/role/link'
+# }
 
+_STANDARD_ROLES = {'http://www.xbrl.org/2003/role/link':'Standard extended link role',
+                'http://www.xbrl.org/2003/role/label':    'Standard label for a Concept.',
+                'http://www.xbrl.org/2003/role/terseLabel': 'Short label for a Concept, often omitting text that should be inferable when the concept is reported in the context of other related concepts.',
+                'http://www.xbrl.org/2003/role/verboseLabel': 'Extended label for a Concept, making sure not to omit text that is required to enable the label to be understood on a stand alone basis.',
+                'http://www.xbrl.org/2003/role/positiveLabel': 'Label for a Concept, when the value being presented is positive (negative, zero). For example, the standard and standard positive labels might be "profit after tax" and the standard negative labels "loss after tax", the terse label and terse positive labels might both be "profit", while the negative terse label might be "loss".',
+                'http://www.xbrl.org/2003/role/positiveTerseLabel': 'Label for a Concept, when the value being presented is positive (negative, zero). For example, the standard and standard positive labels might be "profit after tax" and the standard negative labels "loss after tax", the terse label and terse positive labels might both be "profit", while the negative terse label might be "loss".',
+                'http://www.xbrl.org/2003/role/positiveVerboseLabel': 'Label for a Concept, when the value being presented is positive (negative, zero). For example, the standard and standard positive labels might be "profit after tax" and the standard negative labels "loss after tax", the terse label and terse positive labels might both be "profit", while the negative terse label might be "loss".',
+                'http://www.xbrl.org/2003/role/negativeLabel': 'Label for a Concept, when the value being presented is positive (negative, zero). For example, the standard and standard positive labels might be "profit after tax" and the standard negative labels "loss after tax", the terse label and terse positive labels might both be "profit", while the negative terse label might be "loss".',
+                'http://www.xbrl.org/2003/role/negativeTerseLabel': 'Label for a Concept, when the value being presented is positive (negative, zero). For example, the standard and standard positive labels might be "profit after tax" and the standard negative labels "loss after tax", the terse label and terse positive labels might both be "profit", while the negative terse label might be "loss".',
+                'http://www.xbrl.org/2003/role/negativeVerboseLabel': 'Label for a Concept, when the value being presented is positive (negative, zero). For example, the standard and standard positive labels might be "profit after tax" and the standard negative labels "loss after tax", the terse label and terse positive labels might both be "profit", while the negative terse label might be "loss".',
+                'http://www.xbrl.org/2003/role/zeroLabel': 'Label for a Concept, when the value being presented is positive (negative, zero). For example, the standard and standard positive labels might be "profit after tax" and the standard negative labels "loss after tax", the terse label and terse positive labels might both be "profit", while the negative terse label might be "loss".',
+                'http://www.xbrl.org/2003/role/zeroTerseLabel': 'Label for a Concept, when the value being presented is positive (negative, zero). For example, the standard and standard positive labels might be "profit after tax" and the standard negative labels "loss after tax", the terse label and terse positive labels might both be "profit", while the negative terse label might be "loss".',
+                'http://www.xbrl.org/2003/role/zeroVerboseLabel':'Label for a Concept, when the value being presented is positive (negative, zero). For example, the standard and standard positive labels might be "profit after tax" and the standard negative labels "loss after tax", the terse label and terse positive labels might both be "profit", while the negative terse label might be "loss".',
+                'http://www.xbrl.org/2003/role/totalLabel': 'The label for a Concept for use in presenting values associated with the concept when it is being reported as the total of a set of other values.',
+                'http://www.xbrl.org/2003/role/periodStartLabel': 'The label for a Concept with periodType="instant" for use in presenting values associated with the concept when it is being reported as a start (end) of period value.',
+                'http://www.xbrl.org/2003/role/periodEndLabel': 'The label for a Concept with periodType="instant" for use in presenting values associated with the concept when it is being reported as a start (end) of period value.',
+                'http://www.xbrl.org/2003/role/documentation':    'Documentation of a Concept, providing an explanation of its meaning and its appropriate usage and any other documentation deemed necessary.',
+                'http://www.xbrl.org/2003/role/definitionGuidance':    'A precise definition of a Concept, providing an explanation of its meaning and its appropriate usage.',
+                'http://www.xbrl.org/2003/role/disclosureGuidance':    '''An explanation of the disclosure requirements relating to the Concept. Indicates whether the disclosure is,
+mandatory (i.e. prescribed by authoritative literature);,
+recommended (i.e. encouraged by authoritative literature;,
+common practice (i.e. not prescribed by authoritative literature, but disclosure is common);,
+structural completeness (i.e., included to complete the structure of the taxonomy).''',
+                'http://www.xbrl.org/2003/role/presentationGuidance': 'An explanation of the rules guiding presentation (placement and/or labelling) of this Concept in the context of other concepts in one or more specific types of business reports. For example, "Net Surplus should be disclosed on the face of the Profit and Loss statement".',
+                'http://www.xbrl.org/2003/role/measurementGuidance': 'An explanation of the method(s) required to be used when measuring values associated with this Concept in business reports.',
+                'http://www.xbrl.org/2003/role/commentaryGuidance':    'Any other general commentary on the Concept that assists in determining definition, disclosure, measurement, presentation or usage.',
+                'http://www.xbrl.org/2003/role/exampleGuidance': 'An example of the type of information intended to be captured by the Concept.',
+
+                'http://www.xbrl.org/2003/role/reference': 'Standard reference for a Concept',
+                'http://www.xbrl.org/2003/role/definitionRef':'Reference to documentation that details a precise definition of the Concept.',
+                'http://www.xbrl.org/2003/role/disclosureRef':'''Reference to documentation that details an explanation of the disclosure requirements relating to the Concept. Specified categories include:
+mandatory
+recommended''',
+                'http://www.xbrl.org/2003/role/mandatoryDisclosureRef':'''Reference to documentation that details an explanation of the disclosure requirements relating to the Concept. Specified categories include:
+mandatory
+recommended''',
+                'http://www.xbrl.org/2003/role/recommendedDisclosureRef':'''Reference to documentation that details an explanation of the disclosure requirements relating to the Concept. Specified categories include:
+mandatory
+recommended''',
+                'http://www.xbrl.org/2003/role/unspecifiedDisclosureRef':'''Reference to documentation that details an explanation of the disclosure requirements relating to the Concept. Unspecified categories include, but are not limited to:
+common practice
+structural completeness
+The latter categories do not reference documentation but are indicated in the link role to indicate why the Concept has been included in the taxonomy.''',
+                'http://www.xbrl.org/2003/role/presentationRef':'Reference to documentation which details an explanation of the presentation, placement or labelling of this Concept in the context of other Concepts in one or more specific types of business reports',
+                'http://www.xbrl.org/2003/role/measurementRef':'Reference concerning the method(s) required to be used when measuring values associated with this Concept in business reports',
+                'http://www.xbrl.org/2003/role/commentaryRef':'Any other general commentary on the Concept that assists in determining appropriate usage',
+                'http://www.xbrl.org/2003/role/exampleRef':'Reference to documentation that illustrates by example the application of the Concept that assists in determining appropriate usage.',
+                'http://www.xbrl.org/2003/role/footnote':'Standard footnote role'
+}
 
 _DOCUMENT_TYPES = collections.namedtuple('DocumentTypes',
                                         ('SCHEMA', 'LINKBASE', 'OTHER'))('taxonomy-schema',
@@ -111,6 +160,48 @@ _ALLOWED_DOCUMENT_CONTENT = {
 _TYPED_DOMAIN_REF_ATTRIBUTE = '{http://xbrl.org/2005/xbrldt}typedDomainRef'
 _PERIOD_ATTRIBUTE = '{http://www.xbrl.org/2003/instance}periodType'
 _BALANCE_ATTRIBUTE = '{http://www.xbrl.org/2003/instance}balance'
+
+_NUMERIC_XBRL_TYPES = {'{http://www.xbrl.org/2003/instance}decimalItemType': '{http://www.w3.org/2001/XMLSchema}decimal',
+                       '{http://www.xbrl.org/2003/instance}floatItemType': '{http://www.w3.org/2001/XMLSchema}float',
+                       '{http://www.xbrl.org/2003/instance}doubleItemType': '{http://www.w3.org/2001/XMLSchema}double',
+                       '{http://www.xbrl.org/2003/instance}integerItemType': '{http://www.w3.org/2001/XMLSchema}integer',
+                       '{http://www.xbrl.org/2003/instance}nonPositiveIntegerItemType': '{http://www.w3.org/2001/XMLSchema}nonPostiveInteger',
+                       '{http://www.xbrl.org/2003/instance}negativeIntegerItemType': '{http://www.w3.org/2001/XMLSchema}negativeInteger',
+                       '{http://www.xbrl.org/2003/instance}longItemType': '{http://www.w3.org/2001/XMLSchema}long',
+                       '{http://www.xbrl.org/2003/instance}intItemType': '{http://www.w3.org/2001/XMLSchema}int',
+                       '{http://www.xbrl.org/2003/instance}shortItemType': '{http://www.w3.org/2001/XMLSchema}short',
+                       '{http://www.xbrl.org/2003/instance}byteItemType': '{http://www.w3.org/2001/XMLSchema}byte',
+                       '{http://www.xbrl.org/2003/instance}nonNegativeIntegerItemType': '{http://www.w3.org/2001/XMLSchema}nonNegativeInteger',
+                       '{http://www.xbrl.org/2003/instance}unsignedLongItemType': '{http://www.w3.org/2001/XMLSchema}unsignedLong',
+                       '{http://www.xbrl.org/2003/instance}unsignedIntItemType': '{http://www.w3.org/2001/XMLSchema}unsignedInt',
+                       '{http://www.xbrl.org/2003/instance}unsignedShortItemType': '{http://www.w3.org/2001/XMLSchema}unsignedShort',
+                       '{http://www.xbrl.org/2003/instance}unsignedByteItemType': '{http://www.w3.org/2001/XMLSchema}unsignedByte',
+                       '{http://www.xbrl.org/2003/instance}positiveIntegerItemType': '{http://www.w3.org/2001/XMLSchema}positiveInteger',
+                       '{http://www.xbrl.org/2003/instance}monetaryItemType': '{http://www.w3.org/2001/XMLSchema}decimal',
+                       '{http://www.xbrl.org/2003/instance}sharesItemType': '{http://www.w3.org/2001/XMLSchema}decimal',
+                       '{http://www.xbrl.org/2003/instance}pureItemType': '{http://www.w3.org/2001/XMLSchema}decimal',
+                       '{http://www.xbrl.org/2003/instance}fractionItemType': None}
+
+_NUMERIC_XML_TYPES = {'{http://www.w3.org/2001/XMLSchema}float',
+                      '{http://www.w3.org/2001/XMLSchema}decimal',
+                      '{http://www.w3.org/2001/XMLSchema}double',
+                      '{http://www.w3.org/2001/XMLSchema}integer',
+                      '{http://www.w3.org/2001/XMLSchema}nonPostiveInteger',
+                      '{http://www.w3.org/2001/XMLSchema}long',
+                      '{http://www.w3.org/2001/XMLSchema}nonNegativeInteger',
+                      '{http://www.w3.org/2001/XMLSchema}negativeInteger',
+                      '{http://www.w3.org/2001/XMLSchema}int',
+                      '{http://www.w3.org/2001/XMLSchema}unsignedLong',
+                      '{http://www.w3.org/2001/XMLSchema}positiveInteger',
+                      '{http://www.w3.org/2001/XMLSchema}short',
+                      '{http://www.w3.org/2001/XMLSchema}unsignedInt',
+                      '{http://www.w3.org/2001/XMLSchema}byte',
+                      '{http://www.w3.org/2001/XMLSchema}unsignedShort',
+                      '{http://www.w3.org/2001/XMLSchema}unsignedByte',
+                      
+
+
+}
 
 class SXMException(Exception):
     pass
@@ -432,7 +523,7 @@ class _SXMDefined(_SXMDTSBase):
         if self._document is not None:
             self._document.remove_from_document(self)
         if val is not None:
-            self._document.add(self)
+            val.add(self)
 
     @property
     def id(self):
@@ -614,11 +705,11 @@ class SXMArcrole(_SXMDefined):
         return len(self.networks) == 0
 
 class SXMRole(_SXMDefined):
-    def __init__(self, dts, role_uri, description, used_ons):
+    def __init__(self, dts, role_uri, description=None, used_ons=None):
         super().__init__(dts)
         self._role_uri = role_uri
-        self.description = description
-        self.used_ons = used_ons
+        self._description = description if not self.is_standard else None
+        self.used_ons = used_ons or set()
 
     @property
     def role_uri(self): # make this property immutable because it is used for the hash
@@ -627,6 +718,18 @@ class SXMRole(_SXMDefined):
     @property
     def _seed_id(self):
         return self._role_uri.split('/')[-1]
+
+    @property
+    def description(self):
+        if self.is_standard:
+            return _STANDARD_ROLES[self._role_uri]
+        else:
+            return self._description
+
+    @description.setter
+    def description(self, val):
+        if not self.is_standard:
+            self._description = val
 
     def __repr__(self):
         return 'Role: {}'.format(str(self))
@@ -685,10 +788,11 @@ class SXMElement(_SXMDefined):
         self.substitution_group = substitution_group
         
         self.attributes = dict()
-        for att_name, att_value in attributes.items():
-            # these attributes are captured as properties
-            if att_name.clark not in ('name', 'type', 'id', 'nillable', 'substitutionGroup', 'abstract', _PERIOD_ATTRIBUTE, _BALANCE_ATTRIBUTE):
-                self.attributes[att_name] = att_value
+        if attributes is not None:
+            for att_name, att_value in attributes.items():
+                # these attributes are captured as properties
+                if att_name.clark not in ('name', 'type', 'id', 'nillable', 'substitutionGroup', 'abstract', _PERIOD_ATTRIBUTE, _BALANCE_ATTRIBUTE):
+                    self.attributes[att_name] = att_value
             
         # elements with anonymous types will have @anonymousType at the end of the type local name. These
         # are types that are inside the <element> tag. The type has to be created before the element. When
@@ -783,8 +887,11 @@ class SXMTypedDomain(SXMElement):
 
 class SXMType(_SXMDefined):
 
-    def __init__(self, dts, name, parent_type, xml_content, anonymous_element=None):
+    def __init__(self, dts, name, parent_type=None, xml_content=None, anonymous_element=None):
         super().__init__(dts)
+
+        # the xml_content is None when it is a base xbrli item type or a base xml type. Should consider checking this
+
         self._name = name
         self.parent_type = parent_type
         if self.is_base_xbrl or self.is_base_xml:
@@ -849,6 +956,8 @@ class SXMType(_SXMDefined):
 
     @property
     def base_xml_type(self):
+        # Should add translating the XBRL type into the xml type.
+        # For now XBRL types will return None
         if self.is_base_xml:
             return self
         elif self.parent_type is None:
@@ -877,6 +986,10 @@ class SXMType(_SXMDefined):
     @property
     def is_anonymous(self):
         return self.anonymous_element is not None
+
+    @property
+    def is_numeric(self):
+        return self.base_xbrl_type in _NUMERIC_XBRL_TYPES or self.base_xml_type in _NUMERIC_XML_TYPES
 
     def remove(self):
         # check if there are any elements using the type or a type derrived from the type
@@ -907,7 +1020,7 @@ class SXMPartElement(SXMElement):
         return super().remove and len(self.parts) == 0
     
 class SXMConcept(SXMElement, SXMAttributedBase):
-    def __init__(self, dts, name, data_type, abstract, nillable, period_type, balance_type, substitution_group, id, attributes, typed_domain=None):
+    def __init__(self, dts, name, data_type, abstract, nillable, period_type, balance_type, substitution_group, id=None, attributes=None, typed_domain=None):
         super().__init__(dts, name, data_type, abstract, nillable, id, substitution_group, attributes)
         
         if not (isinstance(substitution_group, SXMConcept) or
@@ -1090,6 +1203,9 @@ class SXMNetwork(_SXMDefined):
 
         return results
 
+    def get_parents(self, child_concept):
+        return self._to_relationships.get(child_concept, list())
+
     def remove(self):
         return (len(self._to_relationships) == 0 and
                 len(self._from_relationships) == 0
@@ -1193,6 +1309,15 @@ class SXMCube(_SXMCubePart):
     @property
     def primary_items(self):
         return copy.copy(self. _primary_items)
+
+    @property
+    def line_item_concepts(self):
+        # Returns the concepts
+        result = set()
+        for primary in self._primary_items:
+            result.add(primary.concept)
+            result |= {x.concept for x in primary.all_descendants}
+        return result
     
     @property
     def dimensions(self):

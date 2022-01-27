@@ -2,8 +2,10 @@
 
 from ast import Index
 import collections
+from curses.ascii import BEL
 import optparse
 import re
+from tkinter import NUMERIC
 
 from arelle.ModelDtsObject import ModelConcept, ModelType
 from arelle.ModelValue import QName
@@ -23,11 +25,13 @@ _PRESENTATION_LINK_ELEMENT = '{http://www.xbrl.org/2003/linkbase}presentationLin
 _PRESENTATION_ARC_ELEMENT = '{http://www.xbrl.org/2003/linkbase}presentationArc'
 _FOOTNOTE_ARC_NAME = '{http://www.xbrl.org/2003/linkbase}footnoteArc'
 _STANDARD_LABEL = 'http://www.xbrl.org/2003/role/label'
+_TERSE_LABEL = 'http://www.xbrl.org/2003/role/terseLabel'
 _ITEM = '{http://www.xbrl.org/2003/instance}item'
 _TUPLE = '{http://www.xbrl.org/2003/instance}tuple'
 _XBRLI_NS = 'http://www.xbrl.org/2003/instance'
 _LINK_NS = 'http://www.xbrl.org/2003/linkbase'
 _GEN_NS = 'http://xbrl.org/2008/generic'
+_DIMENSION_NAMESPACE = 'http://xbrl.org/2005/xbrldt'
 _LINK_PART_CLARK = '{http://www.xbrl.org/2003/linkbase}part'
 _DOCUMENT_MAP = dict()
 _NEW_VERSION = None
@@ -58,55 +62,13 @@ _LABEL_ROLE_DESCRIPTION = 'This schema contains roles for labels.'
 _ENTRY_POINT_LABEL_ROLE = None
 _EFORMS_LABEL_ROLE = None
 
-_STANDARD_ROLE_DEFINITIONS = {'http://www.xbrl.org/2003/role/link':'Standard extended link role',
-                'http://www.xbrl.org/2003/role/label':    'Standard label for a Concept.',
-                'http://www.xbrl.org/2003/role/terseLabel': 'Short label for a Concept, often omitting text that should be inferable when the concept is reported in the context of other related concepts.',
-                'http://www.xbrl.org/2003/role/verboseLabel': 'Extended label for a Concept, making sure not to omit text that is required to enable the label to be understood on a stand alone basis.',
-                'http://www.xbrl.org/2003/role/positiveLabel': 'Label for a Concept, when the value being presented is positive (negative, zero). For example, the standard and standard positive labels might be "profit after tax" and the standard negative labels "loss after tax", the terse label and terse positive labels might both be "profit", while the negative terse label might be "loss".',
-                'http://www.xbrl.org/2003/role/positiveTerseLabel': 'Label for a Concept, when the value being presented is positive (negative, zero). For example, the standard and standard positive labels might be "profit after tax" and the standard negative labels "loss after tax", the terse label and terse positive labels might both be "profit", while the negative terse label might be "loss".',
-                'http://www.xbrl.org/2003/role/positiveVerboseLabel': 'Label for a Concept, when the value being presented is positive (negative, zero). For example, the standard and standard positive labels might be "profit after tax" and the standard negative labels "loss after tax", the terse label and terse positive labels might both be "profit", while the negative terse label might be "loss".',
-                'http://www.xbrl.org/2003/role/negativeLabel': 'Label for a Concept, when the value being presented is positive (negative, zero). For example, the standard and standard positive labels might be "profit after tax" and the standard negative labels "loss after tax", the terse label and terse positive labels might both be "profit", while the negative terse label might be "loss".',
-                'http://www.xbrl.org/2003/role/negativeTerseLabel': 'Label for a Concept, when the value being presented is positive (negative, zero). For example, the standard and standard positive labels might be "profit after tax" and the standard negative labels "loss after tax", the terse label and terse positive labels might both be "profit", while the negative terse label might be "loss".',
-                'http://www.xbrl.org/2003/role/negativeVerboseLabel': 'Label for a Concept, when the value being presented is positive (negative, zero). For example, the standard and standard positive labels might be "profit after tax" and the standard negative labels "loss after tax", the terse label and terse positive labels might both be "profit", while the negative terse label might be "loss".',
-                'http://www.xbrl.org/2003/role/zeroLabel': 'Label for a Concept, when the value being presented is positive (negative, zero). For example, the standard and standard positive labels might be "profit after tax" and the standard negative labels "loss after tax", the terse label and terse positive labels might both be "profit", while the negative terse label might be "loss".',
-                'http://www.xbrl.org/2003/role/zeroTerseLabel': 'Label for a Concept, when the value being presented is positive (negative, zero). For example, the standard and standard positive labels might be "profit after tax" and the standard negative labels "loss after tax", the terse label and terse positive labels might both be "profit", while the negative terse label might be "loss".',
-                'http://www.xbrl.org/2003/role/zeroVerboseLabel':'Label for a Concept, when the value being presented is positive (negative, zero). For example, the standard and standard positive labels might be "profit after tax" and the standard negative labels "loss after tax", the terse label and terse positive labels might both be "profit", while the negative terse label might be "loss".',
-                'http://www.xbrl.org/2003/role/totalLabel': 'The label for a Concept for use in presenting values associated with the concept when it is being reported as the total of a set of other values.',
-                'http://www.xbrl.org/2003/role/periodStartLabel': 'The label for a Concept with periodType="instant" for use in presenting values associated with the concept when it is being reported as a start (end) of period value.',
-                'http://www.xbrl.org/2003/role/periodEndLabel': 'The label for a Concept with periodType="instant" for use in presenting values associated with the concept when it is being reported as a start (end) of period value.',
-                'http://www.xbrl.org/2003/role/documentation':    'Documentation of a Concept, providing an explanation of its meaning and its appropriate usage and any other documentation deemed necessary.',
-                'http://www.xbrl.org/2003/role/definitionGuidance':    'A precise definition of a Concept, providing an explanation of its meaning and its appropriate usage.',
-                'http://www.xbrl.org/2003/role/disclosureGuidance':    '''An explanation of the disclosure requirements relating to the Concept. Indicates whether the disclosure is,
-mandatory (i.e. prescribed by authoritative literature);,
-recommended (i.e. encouraged by authoritative literature;,
-common practice (i.e. not prescribed by authoritative literature, but disclosure is common);,
-structural completeness (i.e., included to complete the structure of the taxonomy).''',
-                'http://www.xbrl.org/2003/role/presentationGuidance': 'An explanation of the rules guiding presentation (placement and/or labelling) of this Concept in the context of other concepts in one or more specific types of business reports. For example, "Net Surplus should be disclosed on the face of the Profit and Loss statement".',
-                'http://www.xbrl.org/2003/role/measurementGuidance': 'An explanation of the method(s) required to be used when measuring values associated with this Concept in business reports.',
-                'http://www.xbrl.org/2003/role/commentaryGuidance':    'Any other general commentary on the Concept that assists in determining definition, disclosure, measurement, presentation or usage.',
-                'http://www.xbrl.org/2003/role/exampleGuidance': 'An example of the type of information intended to be captured by the Concept.',
-
-                'http://www.xbrl.org/2003/role/reference': 'Standard reference for a Concept',
-                'http://www.xbrl.org/2003/role/definitionRef':'Reference to documentation that details a precise definition of the Concept.',
-                'http://www.xbrl.org/2003/role/disclosureRef':'''Reference to documentation that details an explanation of the disclosure requirements relating to the Concept. Specified categories include:
-mandatory
-recommended''',
-                'http://www.xbrl.org/2003/role/mandatoryDisclosureRef':'''Reference to documentation that details an explanation of the disclosure requirements relating to the Concept. Specified categories include:
-mandatory
-recommended''',
-                'http://www.xbrl.org/2003/role/recommendedDisclosureRef':'''Reference to documentation that details an explanation of the disclosure requirements relating to the Concept. Specified categories include:
-mandatory
-recommended''',
-                'http://www.xbrl.org/2003/role/unspecifiedDisclosureRef':'''Reference to documentation that details an explanation of the disclosure requirements relating to the Concept. Unspecified categories include, but are not limited to:
-common practice
-structural completeness
-The latter categories do not reference documentation but are indicated in the link role to indicate why the Concept has been included in the taxonomy.''',
-                'http://www.xbrl.org/2003/role/presentationRef':'Reference to documentation which details an explanation of the presentation, placement or labelling of this Concept in the context of other Concepts in one or more specific types of business reports',
-                'http://www.xbrl.org/2003/role/measurementRef':'Reference concerning the method(s) required to be used when measuring values associated with this Concept in business reports',
-                'http://www.xbrl.org/2003/role/commentaryRef':'Any other general commentary on the Concept that assists in determining appropriate usage',
-                'http://www.xbrl.org/2003/role/exampleRef':'Reference to documentation that illustrates by example the application of the Concept that assists in determining appropriate usage.',
-                'http://www.xbrl.org/2003/role/footnote':'Standard footnote role'
-}
+_DEFAULT_TABLE_STANDARD_LABEL = 'Default [Table]'
+_DEFAULT_TABLE_TERSE_LABEL = 'This [Table] abastract element is used for creating table for "Total" line items without dimension assignment. The element is used in "Default" group.'
+_DEFAULT_LINE_ITEMS_STANDARD_LABEL = 'Default [Line Items]'
+_DEFAULT_LINE_ITEMS_TERSE_LABEL = 'This [Line Items] abastract element is used for creating table for "Total" line items without dimension assignment. The element is used in "Default" group.'
+_DEFAULT_ABSTRACT_STANDARD_LABEL = 'Default [Abstract]'
+_DEFAULT_ABSTRACT_TERSE_LABEL = 'This abastract element is used for creating table for "Total" line items without dimension assignment. The element is used in "Default" group.'
+_DEFAULT_ROLE_DEFINITION = 'Default'
 
 class FERCSerialzierException(Exception):
     pass
@@ -121,7 +83,7 @@ def serialize(model_xbrl, options, sxm):
     set_configuration(options, model_xbrl)
 
     new_model = sxm.SXMDTS()
-    new_model, forms = organize_taxonomy(model_xbrl, new_model, options)
+    new_model = organize_taxonomy(model_xbrl, new_model, options)
 
     return new_model
 
@@ -267,11 +229,13 @@ def organize_taxonomy(model_xbrl, new_model, options):
     add_footnote_arcroles(model_xbrl, new_model)
     #count_docs(new_model)
     # Build entry points for forms and ferc-all
-    add_form_entry_points(new_model, forms, schedule_documents)
+    form_entry_documents = add_form_entry_points(new_model, forms, schedule_documents)
+    # Add the default table
+    create_default_table(new_model, form_entry_documents)
     # fill in the package meta data information
     add_package_defaults(new_model, forms)
 
-    return new_model, forms
+    return new_model
 
 def organize_networks(relationship_set, new_model):
 
@@ -593,7 +557,7 @@ def new_role(new_model, model_xbrl, role_uri):
     if len(old_role) == 0:
         if role_uri in xc.standardRoles:
             usedons = tuple()
-            definition = _STANDARD_ROLE_DEFINITIONS[role_uri]
+            definition = None
         else:
             error('FERCSerializerError', 'role {} not found in source DTS'.format(role_uri))
     else:
@@ -778,6 +742,135 @@ def is_dimensional(concept, dimension_type):
         if standard_label.content.endswith('[{}]'.format(dimension_type.uppercase())):
             return True
     return False
+
+def create_default_table(new_model, form_entry_documents):
+    ''''
+    The default table is a table of only line items (no dimensions) for line items that only exist in 
+    a tables with at least one typed dimension. Because of the typed dimension, facts for these
+    concepts cannot be reported without dimensions (typed dimensions don't have a default). So the default
+    table is created to allow these facts to be valid in the default table.
+    '''
+
+    # Find the line items
+    typed_cubes = set()
+    defaulted_cube_concepts = set()
+    for cube in new_model.cubes.values():
+        all_defaulted = True
+        for dim in cube.dimensions:
+            if dim.is_typed:
+                typed_cubes.add(cube)
+                all_defaulted = False
+                break
+            else:
+                if dim.default is None:
+                    all_defaulted = False
+        if all_defaulted:
+            defaulted_cube_concepts |= cube.line_item_concepts
+
+    # Go through the cubes with typed dimensions. Find the cooresponding presentation network and
+    # look for siblings of the table that are total elements
+    typed_total_concepts = set()
+    for cube in typed_cubes:
+        network = new_model.get('Network', new_qname_from_clark(new_model, _PRESENTATION_LINK_ELEMENT), 
+                                           new_qname_from_clark(new_model, _PRESENTATION_ARC_ELEMENT),
+                                           _PARENT_CHILD,
+                                           cube.role)
+        if network is None:
+            raise FERCSerialzierException("Cannot find cooresponding network for cube {} in role {}".format(cube.concept.name, cube.role.role_uri))
+        parent_rels = network.get_parents(cube.concept)
+        if len(parent_rels) != 1:
+            raise FERCSerialzierException("Cube {} is in a presentation network more than once in role {}.".find(cube.concept.name.clark, cube.role.role_uri))
+        for child_rel in network.get_children(parent_rels[0].from_concept):
+            if (child_rel.order > parent_rels[0].order and # This indicates the child is a following sibling of the table
+                child_rel.to_concept.type.is_numeric):
+                typed_total_concepts.add(child_rel.to_concept)
+    
+    # remove concepts that are in tables that only have explicit dimensions that all have defaults
+    default_concepts = typed_total_concepts - defaulted_cube_concepts
+    
+    if len(default_concepts)> 0:
+        # Create the default concepts (table, line items, abastract)
+        string_item_type_name = new_model.new('QName', _XBRLI_NS, 'stringItemType')
+        string_item_type = new_model.get('Type', string_item_type_name) or new_model.new('Type', string_item_type_name)
+        substitution_group_name = new_model.new('QName', _XBRLI_NS, 'item')
+        table_substitution_group_name = new_model.new('QName', _DIMENSION_NAMESPACE, 'hypercubeItem')
+        standard_label_role = new_model.get('Role', _STANDARD_LABEL) or new_model.new('Role', _STANDARD_LABEL)
+        terse_label_role = new_model.get('Role', _TERSE_LABEL) or new_model.new('Role', _TERSE_LABEL)
+
+        core_document = new_document(new_model, _DOCUMENT_MAP[_CORE_NAMESPACE], new_model.DOCUMENT_TYPES.SCHEMA, _CORE_NAMESPACE, _CORE_DESCRIPTION)
+        #Create the default extended link role
+        used_ons = (new_model.new('QName', _LINK_NS, 'definitionLink'),
+                    new_model.new('QName', _LINK_NS, 'presentationLink'))
+        default_role = new_model.new('Role', 'http://ferc.gov/form/{}/roles/default'.format(_NEW_VERSION), _DEFAULT_ROLE_DEFINITION, used_ons)
+
+        default_linkbase = new_document(new_model, 'default/default_{}_def.xml'.format(_NEW_VERSION), new_model.DOCUMENT_TYPES.LINKBASE)
+        default_labels = new_document(new_model, 'default/default_{}_lab.xml'.format(_NEW_VERSION), new_model.DOCUMENT_TYPES.LINKBASE)
+        default_schema = new_document(new_model, 'default/default_{}.xsd'.format(_NEW_VERSION), 
+                                      new_model.DOCUMENT_TYPES.SCHEMA, '{}default'.format(_NAMESPACE_START))
+        default_schema.add(default_linkbase, new_model.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
+        default_schema.add(default_labels, new_model.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
+        default_role.document = default_schema
+
+        default_table = new_model.new('Concept', new_model.new('QName', _CORE_NAMESPACE, 'DefaultTable'),
+                                                string_item_type,
+                                                True, # abstract
+                                                True, # nillable
+                                                'duration',
+                                                None, # id
+                                                table_substitution_group_name)
+        lab = default_table.add_label(standard_label_role, 'en', _DEFAULT_TABLE_STANDARD_LABEL)
+        lab.document = default_labels
+        lab = default_table.add_label(terse_label_role, 'en', _DEFAULT_TABLE_TERSE_LABEL)
+        lab.document = default_labels
+        default_table.document = core_document
+        default_line_items = new_model.new('Concept', new_model.new('QName', _CORE_NAMESPACE, 'DefaultLineItems'),
+                                                string_item_type,
+                                                True, # abstract
+                                                True, # nillable
+                                                'duration',
+                                                None, # id
+                                                substitution_group_name)
+        lab = default_line_items.add_label(standard_label_role, 'en', _DEFAULT_LINE_ITEMS_STANDARD_LABEL)
+        lab.document = default_labels
+        lab = default_line_items.add_label(terse_label_role, 'en', _DEFAULT_LINE_ITEMS_TERSE_LABEL)
+        lab.document = default_labels
+        default_line_items.document = core_document
+        default_abstract = new_model.new('Concept', new_model.new('QName', _CORE_NAMESPACE, 'DefaultAbstract'),
+                                                string_item_type,
+                                                True, # abstract
+                                                True, # nillable
+                                                'duration',
+                                                None, # id
+                                                substitution_group_name)
+        lab = default_abstract.add_label(standard_label_role, 'en', _DEFAULT_ABSTRACT_STANDARD_LABEL)
+        lab.document = default_labels 
+        lab = default_abstract.add_label(terse_label_role, 'en', _DEFAULT_ABSTRACT_TERSE_LABEL)
+        lab.document = default_labels
+        default_abstract.document = core_document 
+
+        # Create the default cube
+        default_cube = new_model.new('Cube', default_role, default_table)
+        default_primary = new_model.new('Primary', default_line_items, default_role)
+        default_cube.add_primary_node(default_primary)
+        default_cube.document = default_linkbase
+        default_primary.document = default_linkbase
+
+        for form_document in form_entry_documents:
+            form_document.add(default_schema, new_model.DOCUMENT_CONTENT_TYPES.IMPORT)
+
+        # Add to the default cube
+        for concept in sorted(default_concepts, key=lambda x: x.name.clark):
+            child = default_primary.add_child(new_model.get_class('Member'), concept)
+            child.document = default_linkbase
+
+        # # Create the network
+        # network_key = (new_qname_from_clark(new_model, _PRESENTATION_LINK_ELEMENT),
+        #             new_qname_from_clark(new_model, _PRESENTATION_ARC_ELEMENT),
+        #             _PARENT_CHILD,
+        #             default_role)
+        # network = new_model.new('Network', *network_key)
+
+        
 
 def new_document(new_model, uri, document_type, target_namespace=None, description=None):
     return new_model.get('Document', uri) or new_model.new('Document', uri, document_type, target_namespace, description)
@@ -1058,6 +1151,8 @@ def add_form_entry_points(new_model, forms, schedule_documents):
         entry_point.description_language = 'en'
         entry_point.version = _NEW_VERSION
         entry_point.documents.append(all_document)
+
+    return form_entry_documents
 
 def get_schedule_role(schedule_concept):
     '''Find the role that cooresponds to the schedule concept'''
