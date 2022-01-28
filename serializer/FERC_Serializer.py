@@ -180,7 +180,7 @@ def add_package_defaults(new_model, forms):
     #     form_dir = form.name.local_name.lower().split('abstract')[0]
     #     form_names.append('form{}'.format(form_dir[4:]))
 
-    main_form = sorted(forms, key=lambda x: x.name.local_name)[0]
+    main_form = sorted(forms, key=lambda x: (len(x.name.local_name), x.name.local_name))[0]
     try:
         form_name = list(main_form.labels.get((_EFORMS_LABEL_ROLE, 'en'), []))[0].content
     except IndexError:
@@ -230,9 +230,9 @@ def organize_taxonomy(model_xbrl, new_model, options):
     add_footnote_arcroles(model_xbrl, new_model)
     #count_docs(new_model)
     # Build entry points for forms and ferc-all
-    form_entry_documents = add_form_entry_points(new_model, forms, schedule_documents)
+    add_form_entry_points(new_model, forms, schedule_documents)
     # Add the default table
-    create_default_table(new_model, form_entry_documents, forms, schedule_role_map)
+    create_default_table(new_model, schedule_role_map)
     # fill in the package meta data information
     add_package_defaults(new_model, forms)
 
@@ -740,7 +740,7 @@ def is_dimensional(concept, dimension_type):
             return True
     return False
 
-def create_default_table(new_model, form_entry_documents, forms, schedule_role_map):
+def create_default_table(new_model, schedule_role_map):
     ''''
     The default table is a table of only line items (no dimensions) for line items that only exist in 
     a tables with at least one typed dimension. Because of the typed dimension, facts for these
@@ -1047,7 +1047,7 @@ def add_form_entry_points(new_model, forms, schedule_documents):
     first_form = None
     first_name = None
     all_form_names = []
-    for form, schedules in sorted(forms.items(), key=lambda x: x[0].name.local_name):
+    for form, schedules in sorted(forms.items(), key=lambda x: (len(x[0].name.local_name), x[0].name.local_name)):
         # first form (in sorted order) is used for the 'all' entry point
         if first_form is None:
             first_form = form
