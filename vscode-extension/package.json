@@ -4,7 +4,7 @@
     "description": "A language syntax highlighter and code completion extension for editing Xule.",
     "author": "Strumenta s.r.l.",
     "publisher": "xbrlus",
-    "version": "1.4.9",
+    "version": "1.4.91",
     "license": "MIT",
     "repository": {
         "type": "git",
@@ -127,5 +127,8 @@
         "typescript": "^3.8.3",
         "webpack": "^4.42.1",
         "webpack-cli": "^3.3.11"
+    },
+    "dependencies": {
+        "vsce": "^2.6.5"
     }
 }
