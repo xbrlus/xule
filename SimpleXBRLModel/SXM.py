@@ -198,14 +198,13 @@ _NUMERIC_XML_TYPES = {'{http://www.w3.org/2001/XMLSchema}float',
                       '{http://www.w3.org/2001/XMLSchema}byte',
                       '{http://www.w3.org/2001/XMLSchema}unsignedShort',
                       '{http://www.w3.org/2001/XMLSchema}unsignedByte',
-                      
-
-
 }
 
 class SXMException(Exception):
     pass
 class SXMObjectExists(SXMException):
+    pass
+class SXMOjbectNotCopyable(SXMException):
     pass
 
 class _SXMBase:
@@ -258,6 +257,38 @@ class SXMAttributedBase(_SXMBase):
 
         return new_object
 
+    def copy(self, original, save=True, deep=False, copy_document=True, **kwargs):
+        '''Copy an exisiting object
+        
+           The first argument is the object to copy. All other arguments must
+           be keyword arguments.
+        '''
+
+        class_bit = type(original)
+        if class_bit is not None:
+            try:
+                new_object = original._copy(**kwargs)
+            except AttributeError:
+                raise SXMOjbectNotCopyable("Copy is not currently supported for {}".format(original.get_class_name()))
+        else:
+            new_object = None
+
+        if new_object is not None:
+            if copy_document and isinstance(new_object, _SXMDefined):
+                new_object.document = original.document
+
+        if deep:
+            try:
+                original._deep_copy(new_object, copy_document=copy_document, **kwargs)
+            except AttributeError:
+                raise SXMOjbectNotCopyable("Deep copy is not currently supported for {}".format(original.get_class_name()))
+        
+        # Save the object in the containing object (DTS or Concept) (if it should be save and there is an object)
+        if new_object is not None and save:
+            self.save(new_object.get_class_name(), new_object)
+
+        return new_object
+
     @staticmethod
     def component_key(component):
         save_info = _SAVE_LOCATIONS.get(component.get_class_name())
@@ -302,7 +333,7 @@ class SXMAttributedBase(_SXMBase):
                 list_of_objects[key].add(new_object)
             else:
                 if key in list_of_objects:
-                    raise SXMException("{} object with key {} already exists".format(class_name, key))
+                    raise SXMObjectExists("{} object with key {} already exists".format(class_name, key))
                 list_of_objects[key] = new_object
 
     def remove(self, del_object):
@@ -377,6 +408,9 @@ class _SXMDTSBase(_SXMBase):
     def __init__(self, dts):
         super().__init__()
         self.dts = dts
+
+    def copy(self, **kwargs):
+        return self.dts.copy(self, **kwargs)
 
 class SXMDocument(_SXMDTSBase):
     def __init__(self, dts, document_uri, document_type, target_namespace=None, description=None):
@@ -670,6 +704,13 @@ class SXMArcrole(_SXMDefined):
         self.used_ons = used_ons
         self.cycles_allowed = cycles_allowed
     
+    def _copy(self, arcrole_uri=None, cycles_allowed=None, description=None, used_ons=None):
+        return self.__class__(self.dts, 
+                              arcrole_uri or self._arcrole_uri,
+                              cycles_allowed or self.cycles_allowed,
+                              description or self.description,
+                              used_ons or self.used_ons)
+
     @property # make this property immutable because it is used for the hash
     def arcrole_uri(self):
         return copy.copy(self._arcrole_uri)
@@ -710,6 +751,12 @@ class SXMRole(_SXMDefined):
         self._role_uri = role_uri
         self._description = description if not self.is_standard else None
         self.used_ons = used_ons or set()
+
+    def _copy(self, role_uri=None, description=None, used_ons=None):
+        return self.__class__(self.dts, 
+                              role_uri or self._role_uri,
+                              description or self._description,
+                              used_ons or self.used_ons)
 
     @property
     def role_uri(self): # make this property immutable because it is used for the hash
@@ -1162,6 +1209,13 @@ class SXMNetwork(_SXMDefined):
         self._from_relationships = collections.defaultdict(list)
         self._to_relationships = collections.defaultdict(list)
     
+    def _copy(self, link_name=None, arc_name=None, arcrole=None, role=None):
+        return self.__class__(self.dts,
+                              link_name or self.link_name,
+                              arc_name or self.arc_name,
+                              arcrole or self.arcrole,
+                              role or self.role)
+
     def __contains__(self, concept):
         # Determines if the concept is in the network
         return self in (concept.from_concept_relationships.keys() | concept.to_concept_relationships.keys())
@@ -1200,9 +1254,9 @@ class SXMNetwork(_SXMDefined):
     def get_descendants(self, parent_concept):
         results = []
         for child in self.get_children(parent_concept):
-            if child not in results:
+            if child not in results: # prevents infinite loops when there is a cylce
                 results.append(child)
-                results += self.get_descendants(child)
+                results += self.get_descendants(child.to_concept)
 
         return results
 
@@ -1240,6 +1294,18 @@ class SXMRelationship(_SXMDefined):
         from_concept._from_concept_relationships[self.network].add(self)
         to_concept._to_concept_relationships[self.network].add(self)
     
+    def _copy(self, network=None, from_concept=None, to_concept=None, order=None, weight=None, preferred_label=None, attributes=None):
+        return (network or self.network).add_relationship(from_concept or self.from_concept,
+                                                          to_concept or self.to_concept,
+                                                          order or self.order,
+                                                          weight or self.weight,
+                                                          preferred_label or self.preferred_label,
+                                                          attributes or self.attributes)
+
+    def _deep_copy(self, new_rel, copy_document=None, **kwargs):
+        for next_rel in self.network.get_descendants(self.to_concept):
+            next_rel.copy(copy_document=copy_document, **kwargs)
+
     def remove(self):
         # remove the reationship from the network
         remove_all_from_list(self.network._from_relationships[self.from_concept], self)
@@ -1301,13 +1367,21 @@ class _SXMCubePart(_SXMDefined):
 
     def __eq__(self, other):
         return self.concept == other.concept
-    
+
 class SXMCube(_SXMCubePart):
 
     def __init__(self, dts, role, concept):
         super().__init__(dts, 'cube', concept, role)
         self._primary_items = list()
         self._dimensions = list() # using list to preserve order
+
+    def _copy(self, concept=None, role=None):
+        new_copy = self.__class__(self.dts,
+                                  role or self.role,
+                                  concept or self.concept)
+        return new_copy
+
+    # should add _deep_copy
 
     @property
     def primary_items(self):
@@ -1337,9 +1411,14 @@ class _SXMCubeTreeNode(_SXMCubePart):
         super().__init__(dts, dim_type, concept, role)
         self.usable = usable
         self._children = []
-        self.usable = usable
         # should make sure the usable attribute is not in the attributes
         self.attributes = attributes or dict()
+
+    def _deep_copy(self, new_object, copy_document=None, concept=None, role=None, usable=None, attributes=None, **kwargs):
+        # This will copy the children
+        for child in self._children:
+            new_child = child.copy(deep=True, copy_document=copy_document, role=role, usable=usable, attributes=attributes)
+            new_object._children.append(new_child)
 
     @property
     def children(self):
@@ -1399,6 +1478,15 @@ class SXMDimension(_SXMCubeTreeNode):
         self.typed_domain = typed_domain
         self._default = None
 
+    def _copy(self, concept=None, role=None, typed_domain=None, attributes=None):
+        new_copy = self.__class__(self.dts, 
+                                  concept or self.concept,
+                                  role or self.role,
+                                  typed_domain or self.typed_domain,
+                                  attributes or self.attributes)
+        new_copy._default = self._default
+        return new_copy
+
     @property
     def default(self):
         return self._default
@@ -1441,9 +1529,27 @@ class SXMPrimary(_SXMCubeTreeNode):
         super().__init__(dts, 'primary', concept, role, usable, attributes)
         self.is_all = is_all
 
+
+    def _copy(self, concept=None, role=None, is_all=None, usable=None, attributes=None):
+        new_copy = self.__class__(self.dts, 
+                                  concept or self.concept,
+                                  role or self.role,
+                                  is_all or self.is_all,
+                                  usable or self. usable,
+                                  attributes or self.attributes)
+        return new_copy
+
 class SXMMember(_SXMCubeTreeNode):
     def __init__(self, dts, concept, role, usable=True, attributes=None):
         super().__init__(dts, 'member', concept, role, usable, attributes)
+
+    def _copy(self, concept=None, role=None, usable=None, attributes=None):
+        new_copy = self.__class__(self.dts, 
+                                  concept or self.concept,
+                                  role or self.role,
+                                  usable or self.usable,
+                                  attributes or self.attributes)
+        return new_copy
 
     @classmethod
     def build_from_network(cls, network, root=None, role=None, include_root=False):

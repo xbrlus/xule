@@ -781,8 +781,11 @@ def create_default_table(new_model, form_entry_documents, forms, schedule_role_m
                 child_rel.to_concept.type.is_numeric and
                 child_rel.to_concept is not cube.concept):
                 typed_total_concepts.add(child_rel.to_concept)
+                for descendant in network.get_descendants(child_rel.to_concept):
+                    if descendant.to_concept.type.is_nuemric:
+                        typed_total_concepts.add(descendant.to_concept)
         
-        if len(typed_total_concepts) > 0:
+        if len(typed_total_concepts) > 0: # This indicates a total table needs to be created
             # Create a new role for the totals. This will be based on the exiting cube role
             i = 0
             while True:
@@ -793,25 +796,27 @@ def create_default_table(new_model, form_entry_documents, forms, schedule_role_m
                     i += 1
                 if i > 1000000:
                     raise FERCSerialzierException("In a terrible loop trying to create the total role for role {}".format(cube.role.role_uri))
-            new_role = new_model.new('Role', new_role_uri, '{} - Totals'.format(cube.role.description), cube.role.used_ons)
-            cube.role.document.add(new_role)
+            new_role = cube.role.copy(role_uri=new_role_uri, description='{} - Totals'.format(cube.role.description))
             # Create the new cube
-            new_cube = new_model.new('Cube', new_role, cube.concept)
-            new_cube.document = cube.document
-            new_primary = new_model.new('Primary', cube.primary_items[0].concept, new_role)
+            new_cube = cube.copy(role=new_role)
+            for dimension in cube.dimensions:
+                if dimension.is_explicit and dimension.default is not None:
+                    # Copy this defaulted dimension to the total table
+                    new_dimension = dimension.copy(deep=True, role=new_role)
+                    new_cube.add_dimension_node(new_dimension)
+            new_primary = cube.primary_items[0].copy(role=new_role)
             new_cube.add_primary_node(new_primary)
             # create the new presentation network
-            new_network = new_model.new('Network', network.link_name, 
-                                                   network.arc_name,
-                                                   network.arcrole,
-                                                   new_role)
-            presentation_document = network.from_relationships[network.roots[0]][0].document
+            new_network = network.copy(role=new_role)
+            presentation_document = parent_rels[0].document
+            new_network.add_relationship(parent_rels[0].from_concept, new_cube.concept)
             presentation_document.add(new_network.add_relationship(parent_rels[0].from_concept, new_cube.concept))
             presentation_document.add(new_network.add_relationship(new_cube.concept, new_primary.concept))
 
             for concept in typed_total_concepts:
                 # add to the cube
-                new_primary.add_child(concept.get_class('Member'), concept, new_role)
+                new_member = new_primary.add_child(concept.get_class('Member'), concept)
+                new_member.document = new_primary.document
                 # add to the presentation network
                 new_rel = new_network.add_relationship(new_primary.concept, concept)
                 presentation_document.add(new_rel)
