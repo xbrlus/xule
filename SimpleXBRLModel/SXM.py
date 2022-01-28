@@ -992,7 +992,7 @@ class SXMType(_SXMDefined):
         if self.base_xbrl_type is None:
             return self.base_xml_type.name.clark in _NUMERIC_XML_TYPES
         else:
-            return self.base_xbrl_type.name.clark in _NUMERIC_XML_TYPES
+            return self.base_xbrl_type.name.clark in _NUMERIC_XBRL_TYPES
 
     def remove(self):
         # check if there are any elements using the type or a type derrived from the type

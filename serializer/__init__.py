@@ -404,7 +404,7 @@ def serialize_document(document, serialization_type='xml'):
         raise SerializerException("Invalid serialization type. Found '{}'".format(serialization_type))
 
     if not verify(document):
-        raise SerializerException("Document contains invalid content")
+        raise SerializerException("Document contains invalid content. {}".format(document.uri))
 
     # there is only a serialization type of xml, so don't need to check
     if document.document_type == document.DOCUMENT_TYPES.LINKBASE:

@@ -755,26 +755,18 @@ def create_default_table(new_model, form_entry_documents, forms, schedule_role_m
         for role in roles:
             role_schedule_map[role] = schedule_concept
     
-
     # Find the line items
     typed_cubes = set()
-    defaulted_cube_concepts = set()
     for cube in new_model.cubes.values():
-        all_defaulted = True
         for dim in cube.dimensions:
             if dim.is_typed:
                 typed_cubes.add(cube)
-                all_defaulted = False
-            else:
-                if dim.default is None:
-                    all_defaulted = False
-        if all_defaulted:
-            defaulted_cube_concepts |= cube.line_item_concepts
+                break
 
     # Go through the cubes with typed dimensions. Find the cooresponding presentation network and
     # look for siblings of the table that are total elements
-    typed_total_concepts = set()
     for cube in typed_cubes:
+        typed_total_concepts = set()
         network = new_model.get('Network', new_qname_from_clark(new_model, _PRESENTATION_LINK_ELEMENT), 
                                            new_qname_from_clark(new_model, _PRESENTATION_ARC_ELEMENT),
                                            _PARENT_CHILD,
@@ -789,99 +781,133 @@ def create_default_table(new_model, form_entry_documents, forms, schedule_role_m
                 child_rel.to_concept.type.is_numeric and
                 child_rel.to_concept is not cube.concept):
                 typed_total_concepts.add(child_rel.to_concept)
+        
+        if len(typed_total_concepts) > 0:
+            # Create a new role for the totals. This will be based on the exiting cube role
+            i = 0
+            while True:
+                new_role_uri = '{}Total{}'.format(cube.role.role_uri, '' if i == 0 else str(i))
+                if new_role_uri not in new_model.roles:
+                    break
+                else:
+                    i += 1
+                if i > 1000000:
+                    raise FERCSerialzierException("In a terrible loop trying to create the total role for role {}".format(cube.role.role_uri))
+            new_role = new_model.new('Role', new_role_uri, '{} - Totals'.format(cube.role.description), cube.role.used_ons)
+            cube.role.document.add(new_role)
+            # Create the new cube
+            new_cube = new_model.new('Cube', new_role, cube.concept)
+            new_cube.document = cube.document
+            new_primary = new_model.new('Primary', cube.primary_items[0].concept, new_role)
+            new_cube.add_primary_node(new_primary)
+            # create the new presentation network
+            new_network = new_model.new('Network', network.link_name, 
+                                                   network.arc_name,
+                                                   network.arcrole,
+                                                   new_role)
+            presentation_document = network.from_relationships[network.roots[0]][0].document
+            presentation_document.add(new_network.add_relationship(parent_rels[0].from_concept, new_cube.concept))
+            presentation_document.add(new_network.add_relationship(new_cube.concept, new_primary.concept))
+
+            for concept in typed_total_concepts:
+                # add to the cube
+                new_primary.add_child(concept.get_class('Member'), concept, new_role)
+                # add to the presentation network
+                new_rel = new_network.add_relationship(new_primary.concept, concept)
+                presentation_document.add(new_rel)
+
+    # # remove concepts that are in tables that only have explicit dimensions that all have defaults
+    # default_concepts = typed_total_concepts - defaulted_cube_concepts
     
-    # remove concepts that are in tables that only have explicit dimensions that all have defaults
-    default_concepts = typed_total_concepts - defaulted_cube_concepts
-    
-    if len(default_concepts)> 0:
-        # Create the default concepts (table, line items, abastract)
-        string_item_type_name = new_model.new('QName', _XBRLI_NS, 'stringItemType')
-        string_item_type = new_model.get('Type', string_item_type_name) or new_model.new('Type', string_item_type_name)
-        substitution_group_name = new_model.new('QName', _XBRLI_NS, 'item')
-        table_substitution_group_name = new_model.new('QName', _DIMENSION_NAMESPACE, 'hypercubeItem')
-        standard_label_role = new_model.get('Role', _STANDARD_LABEL) or new_model.new('Role', _STANDARD_LABEL)
-        terse_label_role = new_model.get('Role', _TERSE_LABEL) or new_model.new('Role', _TERSE_LABEL)
+    # if len(default_concepts)> 0:
+    #     # Create the default concepts (table, line items, abastract)
+    #     string_item_type_name = new_model.new('QName', _XBRLI_NS, 'stringItemType')
+    #     string_item_type = new_model.get('Type', string_item_type_name) or new_model.new('Type', string_item_type_name)
+    #     substitution_group_name = new_model.new('QName', _XBRLI_NS, 'item')
+    #     table_substitution_group_name = new_model.new('QName', _DIMENSION_NAMESPACE, 'hypercubeItem')
+    #     standard_label_role = new_model.get('Role', _STANDARD_LABEL) or new_model.new('Role', _STANDARD_LABEL)
+    #     terse_label_role = new_model.get('Role', _TERSE_LABEL) or new_model.new('Role', _TERSE_LABEL)
 
-        core_document = new_document(new_model, _DOCUMENT_MAP[_CORE_NAMESPACE], new_model.DOCUMENT_TYPES.SCHEMA, _CORE_NAMESPACE, _CORE_DESCRIPTION)
-        #Create the default extended link role
-        used_ons = (new_model.new('QName', _LINK_NS, 'definitionLink'),
-                    new_model.new('QName', _LINK_NS, 'presentationLink'))
-        default_role = new_model.new('Role', 'http://ferc.gov/form/{}/roles/default'.format(_NEW_VERSION), _DEFAULT_ROLE_DEFINITION, used_ons)
+    #     core_document = new_document(new_model, _DOCUMENT_MAP[_CORE_NAMESPACE], new_model.DOCUMENT_TYPES.SCHEMA, _CORE_NAMESPACE, _CORE_DESCRIPTION)
+    #     #Create the default extended link role
+    #     used_ons = (new_model.new('QName', _LINK_NS, 'definitionLink'),
+    #                 new_model.new('QName', _LINK_NS, 'presentationLink'))
+    #     default_role = new_model.new('Role', 'http://ferc.gov/form/{}/roles/default'.format(_NEW_VERSION), _DEFAULT_ROLE_DEFINITION, used_ons)
 
-        # Create the documents 
-        default_linkbase = new_document(new_model, 'default/default_{}_def.xml'.format(_NEW_VERSION), new_model.DOCUMENT_TYPES.LINKBASE)
-        default_labels = new_document(new_model, 'default/default_{}_lab.xml'.format(_NEW_VERSION), new_model.DOCUMENT_TYPES.LINKBASE)
-        default_schema = new_document(new_model, 'default/default_{}.xsd'.format(_NEW_VERSION), 
-                                      new_model.DOCUMENT_TYPES.SCHEMA, '{}default'.format(_NAMESPACE_START))
-        default_schema.add(default_linkbase, new_model.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
-        default_schema.add(default_labels, new_model.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
-        default_presentation = new_document(new_model, 'default/default_{}_pre.xml'.format(_NEW_VERSION), new_model.DOCUMENT_TYPES.LINKBASE)
-        default_schema.add(default_presentation, new_model.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
-        default_role.document = default_schema
+    #     # Create the documents 
+    #     default_linkbase = new_document(new_model, 'default/default_{}_def.xml'.format(_NEW_VERSION), new_model.DOCUMENT_TYPES.LINKBASE)
+    #     default_labels = new_document(new_model, 'default/default_{}_lab.xml'.format(_NEW_VERSION), new_model.DOCUMENT_TYPES.LINKBASE)
+    #     default_schema = new_document(new_model, 'default/default_{}.xsd'.format(_NEW_VERSION), 
+    #                                   new_model.DOCUMENT_TYPES.SCHEMA, '{}default'.format(_NAMESPACE_START))
+    #     default_schema.add(default_linkbase, new_model.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
+    #     default_schema.add(default_labels, new_model.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
+    #     default_presentation = new_document(new_model, 'default/default_{}_pre.xml'.format(_NEW_VERSION), new_model.DOCUMENT_TYPES.LINKBASE)
+    #     default_schema.add(default_presentation, new_model.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
+    #     default_role.document = default_schema
 
-        # add the default schema to each of the form entry points
-        for form_document in form_entry_documents:
-            form_document.add(default_schema, new_model.DOCUMENT_CONTENT_TYPES.IMPORT)
+    #     # add the default schema to each of the form entry points
+    #     for form_document in form_entry_documents:
+    #         form_document.add(default_schema, new_model.DOCUMENT_CONTENT_TYPES.IMPORT)
         
 
-        default_table = new_model.new('Concept', new_model.new('QName', _CORE_NAMESPACE, 'DefaultTable'),
-                                                string_item_type,
-                                                True, # abstract
-                                                True, # nillable
-                                                'duration',
-                                                None, # id
-                                                table_substitution_group_name)
-        lab = default_table.add_label(standard_label_role, 'en', _DEFAULT_TABLE_STANDARD_LABEL)
-        lab.document = default_labels
-        lab = default_table.add_label(terse_label_role, 'en', _DEFAULT_TABLE_TERSE_LABEL)
-        lab.document = default_labels
-        default_table.document = core_document
-        default_line_items = new_model.new('Concept', new_model.new('QName', _CORE_NAMESPACE, 'DefaultLineItems'),
-                                                string_item_type,
-                                                True, # abstract
-                                                True, # nillable
-                                                'duration',
-                                                None, # id
-                                                substitution_group_name)
-        lab = default_line_items.add_label(standard_label_role, 'en', _DEFAULT_LINE_ITEMS_STANDARD_LABEL)
-        lab.document = default_labels
-        lab = default_line_items.add_label(terse_label_role, 'en', _DEFAULT_LINE_ITEMS_TERSE_LABEL)
-        lab.document = default_labels
-        default_line_items.document = core_document
-        default_abstract = new_model.new('Concept', new_model.new('QName', _CORE_NAMESPACE, 'DefaultAbstract'),
-                                                string_item_type,
-                                                True, # abstract
-                                                True, # nillable
-                                                'duration',
-                                                None, # id
-                                                substitution_group_name)
-        lab = default_abstract.add_label(standard_label_role, 'en', _DEFAULT_ABSTRACT_STANDARD_LABEL)
-        lab.document = default_labels 
-        lab = default_abstract.add_label(terse_label_role, 'en', _DEFAULT_ABSTRACT_TERSE_LABEL)
-        lab.document = default_labels
-        default_abstract.document = core_document 
+    #     default_table = new_model.new('Concept', new_model.new('QName', _CORE_NAMESPACE, 'DefaultTable'),
+    #                                             string_item_type,
+    #                                             True, # abstract
+    #                                             True, # nillable
+    #                                             'duration',
+    #                                             None, # id
+    #                                             table_substitution_group_name)
+    #     lab = default_table.add_label(standard_label_role, 'en', _DEFAULT_TABLE_STANDARD_LABEL)
+    #     lab.document = default_labels
+    #     lab = default_table.add_label(terse_label_role, 'en', _DEFAULT_TABLE_TERSE_LABEL)
+    #     lab.document = default_labels
+    #     default_table.document = core_document
+    #     default_line_items = new_model.new('Concept', new_model.new('QName', _CORE_NAMESPACE, 'DefaultLineItems'),
+    #                                             string_item_type,
+    #                                             True, # abstract
+    #                                             True, # nillable
+    #                                             'duration',
+    #                                             None, # id
+    #                                             substitution_group_name)
+    #     lab = default_line_items.add_label(standard_label_role, 'en', _DEFAULT_LINE_ITEMS_STANDARD_LABEL)
+    #     lab.document = default_labels
+    #     lab = default_line_items.add_label(terse_label_role, 'en', _DEFAULT_LINE_ITEMS_TERSE_LABEL)
+    #     lab.document = default_labels
+    #     default_line_items.document = core_document
+    #     default_abstract = new_model.new('Concept', new_model.new('QName', _CORE_NAMESPACE, 'DefaultAbstract'),
+    #                                             string_item_type,
+    #                                             True, # abstract
+    #                                             True, # nillable
+    #                                             'duration',
+    #                                             None, # id
+    #                                             substitution_group_name)
+    #     lab = default_abstract.add_label(standard_label_role, 'en', _DEFAULT_ABSTRACT_STANDARD_LABEL)
+    #     lab.document = default_labels 
+    #     lab = default_abstract.add_label(terse_label_role, 'en', _DEFAULT_ABSTRACT_TERSE_LABEL)
+    #     lab.document = default_labels
+    #     default_abstract.document = core_document 
 
-        # Create the default cube
-        default_cube = new_model.new('Cube', default_role, default_table)
-        default_primary = new_model.new('Primary', default_line_items, default_role)
-        default_cube.add_primary_node(default_primary)
-        default_cube.document = default_linkbase
-        default_primary.document = default_linkbase
+    #     # Create the default cube
+    #     default_cube = new_model.new('Cube', default_role, default_table)
+    #     default_primary = new_model.new('Primary', default_line_items, default_role)
+    #     default_cube.add_primary_node(default_primary)
+    #     default_cube.document = default_linkbase
+    #     default_primary.document = default_linkbase
 
-        # Create presentation the network
-        network_key = (new_qname_from_clark(new_model, _PRESENTATION_LINK_ELEMENT),
-                    new_qname_from_clark(new_model, _PRESENTATION_ARC_ELEMENT),
-                    new_model.get('Arcrole', _PARENT_CHILD) or new_model.new('Arcrole', _PARENT_CHILD),
-                    default_role)
-        network = new_model.get('Network', *network_key) or new_model.new('Network', *network_key)
-        default_presentation.add(network.add_relationship(default_abstract, default_table))
-        default_presentation.add(network.add_relationship(default_table, default_line_items))
+    #     # Create presentation the network
+    #     network_key = (new_qname_from_clark(new_model, _PRESENTATION_LINK_ELEMENT),
+    #                 new_qname_from_clark(new_model, _PRESENTATION_ARC_ELEMENT),
+    #                 new_model.get('Arcrole', _PARENT_CHILD) or new_model.new('Arcrole', _PARENT_CHILD),
+    #                 default_role)
+    #     network = new_model.get('Network', *network_key) or new_model.new('Network', *network_key)
+    #     default_presentation.add(network.add_relationship(default_abstract, default_table))
+    #     default_presentation.add(network.add_relationship(default_table, default_line_items))
 
-        # Add to the default cube
-        for concept in sorted(default_concepts, key=lambda x: x.name.clark):
-            child = default_primary.add_child(new_model.get_class('Member'), concept)
-            child.document = default_linkbase
-            default_presentation.add(network.add_relationship(default_line_items, concept))
+    #     # Add to the default cube
+    #     for concept in sorted(default_concepts, key=lambda x: x.name.clark):
+    #         child = default_primary.add_child(new_model.get_class('Member'), concept)
+    #         child.document = default_linkbase
+    #         default_presentation.add(network.add_relationship(default_line_items, concept))
 
 def new_document(new_model, uri, document_type, target_namespace=None, description=None):
     return new_model.get('Document', uri) or new_model.new('Document', uri, document_type, target_namespace, description)
