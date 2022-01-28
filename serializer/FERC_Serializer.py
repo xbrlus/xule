@@ -92,7 +92,7 @@ def error(code, msg):
 
     _OLD_MODEL.error(code, msg)
     if not getattr(_OPTIONS, 'serializer_package_allow_errors', False):
-        raise FERCSerialzierException
+        raise FERCSerialzierException(msg)
 
 def warning(code, msg):
     _OLD_MODEL.warning(code, msg)
@@ -804,6 +804,8 @@ def create_default_table(new_model, form_entry_documents, forms, schedule_role_m
                     # Copy this defaulted dimension to the total table
                     new_dimension = dimension.copy(deep=True, role=new_role)
                     new_cube.add_dimension_node(new_dimension)
+            if len(cube.primary_items) == 0:
+                raise FERCSerialzierException("There are no primary items for table concept {}".format(cube.concept.name.clark))
             new_primary = cube.primary_items[0].copy(role=new_role)
             new_cube.add_primary_node(new_primary)
             # create the new presentation network
