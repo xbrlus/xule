@@ -4514,8 +4514,8 @@ def process_factset_aspects(factset, xule_context):
                 # This is a concept aspect and the filter name is really the aspect value (i.e. @Assets)
                 if aspect_in_filters('builtin', 'concept', aspect_dictionary):
                     raise XuleProcessingError(_(
-                        "The factset specifies the concept aspect as both @{0} and @concept={0}. Only one method should be used".format(
-                            aspect_name.value)), xule_context)
+                        "The factset specifies the concept aspect as both @{0} and @concept={0}. Only one method should be used. Is dimension={1}. Sub Group={2}".format(
+                            aspect_name.value, aspect_filter_model_concept.isDimensionItem, aspect_filter_model_concept.substitutionGroup)), xule_context)
                 alternate_notation = True  # Indicate that the concept aspect is provided
                 aspect_dictionary[('builtin', 'concept', None, '=', None)] = aspect_name
                 add_aspect_var(aspect_vars, 'builtin', 'concept', aspect_var_name, aspect_filter['node_id'],
