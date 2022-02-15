@@ -1,10 +1,10 @@
 {
-    "http://xbrl.ifrs.org/taxonomy/2021-03-24/ifrs-full": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v15/dqc_us_rules/dqc-ifrs-2021-V15-ruleset.zip",
-    "http://xbrl.ifrs.org/taxonomy/2020-03-16/ifrs-full": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v15/dqc_us_rules/dqc-ifrs-2020-V15-ruleset.zip",
-    "http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v15/dqc_us_rules/dqc-ifrs-2019-V15-ruleset.zip",
-    "http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v15/dqc_us_rules/dqc-ifrs-2018-V15-ruleset.zip",
-    "http://fasb.org/us-gaap/2021-01-31": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v15/dqc_us_rules/dqc-us-2021-V15-ruleset.zip",
-    "http://fasb.org/us-gaap/2020-01-31": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v15/dqc_us_rules/dqc-us-2020-V15-ruleset.zip",
-    "http://fasb.org/us-gaap/2019-01-31": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v15/dqc_us_rules/dqc-us-2019-V15-ruleset.zip",
-    "http://fasb.org/us-gaap/2018-01-31": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v15/dqc_us_rules/dqc-us-2018-V15-ruleset.zip"
+    "http://xbrl.ifrs.org/taxonomy/2021-03-24/ifrs-full": "https://github.com/DataQualityCommittee/dqc_us_rules/blob/v16/dqc_us_rules/dqc-ifrs-2021-V16-ruleset.zip?raw=true",
+    "http://xbrl.ifrs.org/taxonomy/2020-03-16/ifrs-full": "https://github.com/DataQualityCommittee/dqc_us_rules/blob/v16/dqc_us_rules/dqc-ifrs-2020-V16-ruleset.zip?raw=true",
+    "http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full": "https://github.com/DataQualityCommittee/dqc_us_rules/blob/v16/dqc_us_rules/dqc-ifrs-2019-V16-ruleset.zip?raw=true",
+    "http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full": "https://github.com/DataQualityCommittee/dqc_us_rules/blob/v16/dqc_us_rules/dqc-ifrs-2018-V16-ruleset.zip?raw=true",
+    "http://fasb.org/us-gaap/2021-01-31": "https://github.com/DataQualityCommittee/dqc_us_rules/blob/v16/dqc_us_rules/dqc-us-2021-V16-ruleset.zip?raw=true",
+    "http://fasb.org/us-gaap/2020-01-31": "https://github.com/DataQualityCommittee/dqc_us_rules/blob/v16/dqc_us_rules/dqc-us-2020-V16-ruleset.zip?raw=true",
+    "http://fasb.org/us-gaap/2019-01-31": "https://github.com/DataQualityCommittee/dqc_us_rules/blob/v16/dqc_us_rules/dqc-us-2019-V16-ruleset.zip?raw=true",
+    "http://fasb.org/us-gaap/2018-01-31": "https://github.com/DataQualityCommittee/dqc_us_rules/blob/v16/dqc_us_rules/dqc-us-2018-V16-ruleset.zip?raw=true"
     }
