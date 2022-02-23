@@ -440,7 +440,7 @@ def serialize_linkbase(document):
             document.add(content.network.role, content.DOCUMENT_CONTENT_TYPES.ROLE_REF)
             # Make sure the preferred label role has a role ref
             if content.preferred_label is not None:
-                document.add(content.preferred_label)
+                document.add(content.preferred_label, content.DOCUMENT_CONTENT_TYPES.ROLE_REF)
             # Make sure the arcrole has an arcroleref
             document.add(content.network.arcrole, content.DOCUMENT_CONTENT_TYPES.ARCROLE_REF)
         if isinstance(content, _SXM.SXMResource):
