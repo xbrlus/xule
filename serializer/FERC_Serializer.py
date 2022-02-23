@@ -1,15 +1,10 @@
 '''Serializer for FERC'''
 
-from ast import Index
 import collections
-from curses.ascii import BEL
-import optparse
 import re
-from tkinter import NUMERIC
 
 from arelle.ModelDtsObject import ModelConcept, ModelType
 from arelle.ModelValue import QName
-from arelle.CntlrWebMain import Options
 import arelle.XbrlConst as xc
 from lxml import etree
 

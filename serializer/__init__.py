@@ -1,7 +1,7 @@
 import collections
 import logging
 import optparse
-import os
+import posixpath
 import re
 import zipfile
 
@@ -131,7 +131,7 @@ class NSMap:
                 if namespace_info['location'].lower().startswith('http:') or namespace_info['location'].lower().startswith('http:s'):
                     href = namespace_info['location']
                 else:
-                    href = os.path.relpath(namespace_info['location'], start=os.path.dirname(start_document.uri))
+                    href = posixpath.relpath(namespace_info['location'], start=posixpath.dirname(start_document.uri))
                 result.append(namespace_info['ns'])
                 result.append(href)
 
@@ -322,8 +322,8 @@ def  cmdUtilityRun(cntlr, options, **kwargs):
 
     # Check if supplied taxonomy package exists
     if options.serializer_package_taxonomy_package is not None:
-        if os.path.isfile(options.serializer_package_taxonomy_package):
-            taxonomy_package_file_name = os.path.join(options.serializer_package_taxonomy_package)
+        if posixpath.isfile(options.serializer_package_taxonomy_package):
+            taxonomy_package_file_name = posixpath.join(options.serializer_package_taxonomy_package)
         else:
             parser.error("Supplied taxonomy package file name (--serializer-package-taxonomy-package) does not exist '{}'".format(options.serializer_package_taxonomy_package))
     
@@ -337,7 +337,7 @@ def  cmdUtilityRun(cntlr, options, **kwargs):
     #         metadataFile = metadataFiles[0]
     #         metadata = package_fs.url + os.sep + metadataFile
     #         taxonomy_package = PackageManager.parsePackage(cntlr, package_fs, metadata,
-    #                                         os.sep.join(os.path.split(metadata)[:-1]) + os.sep)
+    #                                         os.sep.join(posixpath.split(metadata)[:-1]) + os.sep)
             
     #         if taxonomy_package['entryPoints'] and len(taxonomy_package['entryPoints']) > 0:
     #             # Get the first entry point, there really should only be one
@@ -360,7 +360,7 @@ def cmndLineXbrlRun(cntlr, options, model_xbrl, entryPoint, *args, **kwargs):
     global _OPTIONS
     _OPTIONS = options
     global _PACKAGE_FOLDER
-    _PACKAGE_FOLDER = os.path.splitext(os.path.basename(options.serializer_package_name))[0]
+    _PACKAGE_FOLDER = posixpath.splitext(posixpath.basename(options.serializer_package_name))[0]
 
     for serializer in getSerizlierPlugins(cntlr):
         dts = serializer['serializer.serialize'](model_xbrl, options, _SXM)
@@ -372,7 +372,7 @@ def write(dts, package_name, cntlr):
         for document in dts.documents.values():
             if document.is_relative:
                 contents = serialize_document(document)
-                z.writestr(os.path.join(_PACKAGE_FOLDER, document.uri), contents)
+                z.writestr(posixpath.join(_PACKAGE_FOLDER, document.uri), contents)
         serialize_package_files(z, dts)
     info("Writing package {}".format(package_name))
 
@@ -729,7 +729,7 @@ def create_href(component, start_document):
     elif component.document.is_absolute:
         href_base = component.document.uri
     else:
-        href_base = os.path.relpath(component.document.uri, start=os.path.dirname(start_document.uri))
+        href_base = posixpath.relpath(component.document.uri, start=posixpath.dirname(start_document.uri))
     
     return '{}#{}'.format(href_base, component.id)
 
@@ -945,7 +945,7 @@ def serialize_linkbase_ref(new_linkbase, document, namespaces):
     if new_linkbase.is_absolute:
         href = new_linkbase.uri
     else:
-        href = os.path.relpath(new_linkbase.uri, start=os.path.dirname(document.uri))
+        href = posixpath.relpath(new_linkbase.uri, start=posixpath.dirname(document.uri))
     linkbase_ref_element = etree.Element(_LINKBASE_REF_ELEMENT,
                            {'{http://www.w3.org/1999/xlink}href': href,
                             '{http://www.w3.org/1999/xlink}arcrole': 'http://www.w3.org/1999/xlink/properties/linkbase',
@@ -957,7 +957,7 @@ def serialize_import(new_import_document, document, namespaces):
     if new_import_document.is_absolute:
         href = new_import_document.uri
     else:
-        href = os.path.relpath(new_import_document.uri, start=os.path.dirname(document.uri))
+        href = posixpath.relpath(new_import_document.uri, start=posixpath.dirname(document.uri))
     import_element = etree.Element(_IMPORT,
                                    {'namespace': new_import_document.target_namespace,
                                     'schemaLocation': href},
@@ -1031,7 +1031,7 @@ def serialize_package_files(zip_file, dts):
                     document_start = dts.rewrites.get('../')
                     if document_start is None:
                         document_start = ''
-                    document_uri = os.path.join(document_start, document.uri)
+                    document_uri = posixpath.join(document_start, document.uri)
                 doc_element = add_entry_point_detail(entry_point_element, '', 'entryPointDocument', namespaces)
                 doc_element.set('href', document_uri)
 
