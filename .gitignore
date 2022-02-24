@@ -5,5 +5,4 @@ gen/
 out/
 **/node_modules/
 dist/
-*.vsix
 package-lock.json
