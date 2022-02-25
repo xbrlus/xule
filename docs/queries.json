@@ -1,0 +1,722 @@
+{
+	"fact": {
+		"endPoint": "fact/search",
+		"limitObjects": "fact",
+		"offsetObjects": "fact",
+		"ParameterLayout": {
+			"filing_report_identifier": {
+				"title": "Select Report by Entity Name",
+				"type": "dropDownGeneratedFromUserEntry",
+				"PassedParameter": "entity.name",
+				"APIQuery": "report/search?fields=report.id.sort(DESC),report.entity-name.sort(ASC),report.filing-date,report.document-type&report.entity-name={PassedParameter}",
+				"dropDownContent": [ "report.document-type", "report.filing-date", "report.entity-name" ],
+				"dropDownValue": "report.id",
+				"multiSelect": false,
+				"RunOnSelect": true,
+				"APIValue": "selected[0]",
+				"APIParameter": "report.id",
+				"ParameterIn": "path",
+				"Action_Invalidates": "filing_taxonomy_identifier,fact_ultimus,entity_name,select_cik,sic_code",
+				"exampleValue": "Apple Inc.",
+				"exampleParam": "dts/421364/network/search",
+				"definition": "Type the entity name to get a list of matching companies taxonomies to search on.",
+				"__comment__": "Parameter is included in rest path"
+			},
+			"filing_taxonomy_identifier": {
+				"title": "or Select DTS by Entity Name",
+				"type": "dropDownGeneratedFromUserEntry",
+				"PassedParameter": "entity.name",
+				"APIQuery": "report/search?fields=dts.id.sort(DESC),report.entity-name.sort(ASC),report.filing-date,report.document-type&report.entity-name={PassedParameter}",
+				"dropDownContent": [ "report.document-type", "report.filing-date", "report.entity-name" ],
+				"dropDownValue": "dts.id",
+				"multiSelect": false,
+				"RunOnSelect": true,
+				"APIValue": "selected[0]",
+				"APIParameter": "dts.id",
+				"ParameterIn": "path",
+				"Action_Invalidates": "filing_report_identifier,fact_ultimus,entity_name,select_cik,sic_code",
+				"exampleValue": "Apple Inc.",
+				"exampleParam": "dts/421364/network/search",
+				"definition": "Type the entity name to get a list of matching companies taxonomies to search on.",
+				"__comment__": "Parameter is included in rest path"
+			},
+			"entity_name": {
+				"title": "or Get Facts by Entity Name",
+				"type": "dropDownGeneratedFromUserEntry",
+				"PassedParameter": "entity.name",
+				"APIQuery": "entity/search?entity.name={PassedParameter}&fields=entity.name.sort(ASC),entity.cik",
+				"dropDownContent": "entity.name",
+				"dropDownValue": "entity.cik",
+				"multiSelect": true,
+				"APIValue": "selected[1]",
+				"Action_copyTo": "filing_report_identifier",
+				"Action_AddsTo": "select_cik",
+				"ParameterIn": "query",
+				"exampleValue": "Apple Inc.",
+				"definition": "Type the entity name to get a list of matching companies to search on."
+			},
+			"select_cik": {
+				"title": "Get Facts by Entity CIK",
+				"type": "inputField",
+				"APIValue": "entered",
+				"APIParameter": "entity.cik",
+				"exampleParam": "entity.cik=0001482512,000099998,000099997",
+
+				"definition": "Type the entity CIK identifier to search for. This can be a comma separated list.",
+				"__comment__": "Any value here should be added to a comma separated list from Entity Name parameter above."
+			},
+			"sic_code": {
+				"title": "or Get Facts by SIC Code (<a style=color:#333333 href=https://www.sec.gov/corpfin/division-of-corporation-finance-standard-industrial-classification-sic-code-list target=_blank>SEC list</a>)",
+				"type": "dropDown",
+				"dropDownContent": "1000,1540,2750,2911,3571,4833,5700,6021,9721,9995",
+				"multiSelect": true,
+				"isAddable": true,
+				"APIValue": "selected",
+				"APIParameter": "report.sic-code",
+				"ParameterIn": "query",
+				"Action_Invalidates": "filing_taxonomy_identifier,entity_name,select_cik",
+				"exampleParam": "report.sic-code=8900,9721,9995",
+				"definition": "Select the fiscal periods to search on. This can be a combination of values."
+			},
+			"year": {
+				"title": "Filter by Fiscal Year",
+				"type": "dropDown",
+				"dropDownContent": {
+					"startInteger": "2009",
+					"endInteger": "present+5"
+				},
+				"multiSelect": true,
+				"APIValue": "selected",
+				"APIParameter": "period.fiscal-year",
+				"ParameterIn": "query",
+				"exampleParam": "period.fiscal-year=2019,2020,2021",
+				"definition": "Type the fiscal year to search for."
+			},
+			"period": {
+				"title": "Filter by Period",
+				"type": "dropDown",
+				"dropDownContent": "Y,1Q,2Q,3Q,3QCUM,4Q,1H,2H",
+				"multiSelect": true,
+				"APIValue": "selected",
+				"APIParameter": "period.fiscal-period",
+				"ParameterIn": "query",
+				"exampleParam": "period.fiscal-period=1Q,2Q,3Q,4Q",
+				"definition": "Select the fiscal periods to search on. This can be a combination of values."
+			},
+			"concept_name": {
+				"title": "Filter by Concept Name",
+				"type": "dropDownGeneratedFromUserEntry",
+				"PassedParameter": "label.text",
+				"APIQuery": "label/search?fields=concept.local-name.sort(ASC),label.text&label.role=http://www.xbrl.org/2003/role/label&label.text={PassedParameter}&dts.id=450562&concept.is-abstract=false",
+				"dropDownContent": [ "label.text" ],
+				"dropDownValue": "concept.local-name",
+				"multiSelect": false,
+				"APIValue": "selected[0]",
+				"APIParameter": "concept.local-name",
+				"ParameterIn": "query",
+				"exampleValue": "Assets",
+				"exampleParam": "concept.local-name=Assets,Liabilities",
+				"definition": "Type the concept name to search for. This can be a comma separated list."
+			},
+			"fact_ultimus": {
+				"title": "Get Latest Facts",
+				"type": "dropDown",
+				"dropDownContent": "null,true,false",
+				"APIValue": "selected",
+				"APIParameter": "fact.ultimus",
+				"ParameterIn": "query",
+				"exampleParam": "fact.ultimus=true",
+				"definition": "Select true to see the latest values reported and ignore duplicate values reported in prior periods.",
+				"__comment__": "If value is null then do not pass parameter, null will appear as a blank in all cases"
+			},
+			"fact_has-dimensions": {
+				"title": "Get Facts with Dimensions",
+				"type": "dropDown",
+				"dropDownContent": "null,true,false",
+				"APIValue": "selected",
+				"APIParameter": "fact.has-dimensions",
+				"ParameterIn": "query",
+				"defaultValues": "false",
+				"exampleParam": "fact.has-dimensions=false",
+				"definition": "Select true to see those facts with dimensions.",
+				"__comment__": "If value is null then do not pass parameter, null will appear as a blank in all cases"
+			},
+			"limit": {
+				"title": "Data Limit",
+				"type": "inputField",
+				"exampleValue": "100",
+				"exampleParam": "fact.limit(100)",
+				"definition": "This is the limit for the results to return."
+			},
+			"offset": {
+				"title": "Data Offset",
+				"type": "inputField",
+				"exampleValue": "20",
+				"exampleParam": "report.offset(20) ",
+				"definition": "This is the offset of the results ."
+			},
+			"Fields": {
+				"title": "Fields to Return",
+				"type": "dropDownGeneratedFromAPI",
+				"PassedParameter": "none",
+				"APIQuery": "meta/fact",
+				"dropDownContent": "result[fields]",
+				"multiSelect": true,
+				"sortable": true,
+				"APIValue": "selected[0]",
+				"APIParameter": "fields",
+				"ParameterIn": "query",
+				"defaultValues": "concept.local-name,fact.value,period.fiscal-period,period.fiscal-year",
+				"exampleValue": "fact.id, period.fiscal-period,fact.value,dimensions,concept.local-name,period.year,dimensions.count,fact.ultimus,unit,fact.hash",
+				"exampleParam": "fields=fact.id, period.fiscal-period,fact.value,dimensions,concept.local-name,period.year,dimensions.count,fact.ultimus,unit,fact.hash",
+				"definition": "Enter the data fields to return."
+			}
+		}
+	},
+	"entity": {
+		"endPoint": "entity/search",
+		"limitObjects": "entity",
+		"offsetObjects": "entity",
+		"ParameterLayout": {
+			"entity_name": {
+				"title": "Search Entities by Name",
+				"type": "inputField",
+				"APIValue": "entered",
+				"APIParameter": "entity.name",
+				"exampleParam": "entity.name=Apple",
+
+				"definition": "Type the entity name to search for.",
+				"__comment__": "Any text value here."
+			},
+			"select_cik": {
+				"title": "Select by Entity CIK",
+				"type": "inputField",
+				"APIValue": "entered",
+				"APIParameter": "entity.cik",
+				"exampleParam": "entity.cik=0001482512,000099998,000099997",
+
+				"definition": "Type the entity CIK identifier to search for. This can be a comma separated list.",
+				"__comment__": "Any value here should be added to a comma separated list from Entity Name parameter above."
+			},
+			"select_ticker": {
+				"title": "Select by Entity Ticker",
+				"type": "inputField",
+				"APIValue": "entered",
+				"APIParameter": "entity.ticker",
+				"exampleParam": "entity.ticker=ibm",
+
+				"definition": "Type the entity ticker identifier to search for. This can be a comma separated list.",
+				"__comment__": "Any value here should be added to a comma separated list."
+			},
+			"limit": {
+				"title": "Data Limit",
+				"type": "inputField",
+				"exampleValue": "100",
+				"exampleParam": "entity.limit(100)",
+				"definition": "This is the limit for the results to return."
+			},
+			"offset": {
+				"title": "Data Offset",
+				"type": "inputField",
+				"exampleValue": "20",
+				"exampleParam": "entity.offset(20) ",
+				"definition": "This is the offset of the results ."
+			},
+			"Fields": {
+				"title": "Fields to Return",
+				"type": "dropDownGeneratedFromAPI",
+				"PassedParameter": "none",
+				"APIQuery": "meta/entity",
+				"dropDownContent": "result[fields]",
+				"multiSelect": true,
+				"sortable": true,
+				"APIValue": "selected[0]",
+				"APIParameter": "fields",
+				"ParameterIn": "query",
+				"defaultValues": "entity.name",
+				"exampleValue": "entity.id",
+				"exampleParam": "fields=entity.id",
+				"definition": "Enter the data fields to return."
+			}
+		}
+	},
+	"label": {
+		"endPoint": "label/{taxonomy_identifier}/search",
+		"limitObjects": "label",
+		"offsetObjects": "label",
+		"ParameterLayout": {
+			"filing_taxonomy_identifier": {
+				"title": "Select DTS by Entity Name",
+				"type": "dropDownGeneratedFromUserEntry",
+				"PassedParameter": "entity.name",
+				"APIQuery": "report/search?fields=dts.id.sort(DESC),report.entity-name.sort(ASC),report.filing-date,report.document-type&report.entity-name={PassedParameter}",
+				"dropDownContent": [ "report.document-type", "report.filing-date", "report.entity-name" ],
+				"dropDownValue": "dts.id",
+				"multiSelect": false,
+				"APIValue": "selected[0]",
+				"ParameterIn": "path",
+				"ActionReplaces": "{taxonomy_identifier}",
+				"exampleValue": "Apple Inc.",
+				"exampleParam": "dts/421364/network/search",
+				"definition": "Type the entity name to get a list of matching companies taxonomies to search on.",
+				"__comment__": "Parameter is included in rest path"
+			},
+			"base_taxonomy_identifier": {
+				"title": "or Select Base Taxonomy Year (eg. 2020)",
+				"type": "dropDownGeneratedFromUserEntry",
+				"PassedParameter": "dts.version",
+				"APIQuery": "dts/search?fields=dts.id,dts.version.sort(DESC),dts.taxonomy-name.sort(DESC)&dts.version={PassedParameter}",
+				"dropDownContent": "dts.taxonomy-name",
+				"dropDownValue": "dts.id",
+				"multiSelect": false,
+				"APIValue": "selected[0]",
+				"ParameterIn": "path",
+				"ActionReplaces": "{taxonomy_identifier}",
+				"Action_Invalidates": "filing_taxonomy_identifier",
+				"exampleValue": "Apple Inc.",
+				"exampleParam": "dts/421364/network/search",
+				"definition": "Type the base taxonomy name to get a list of matching taxonomies to search on.",
+				"__comment__": "Parameter is included in rest path"
+			},
+			"label_text": {
+				"title": "Search by Label Text",
+				"type": "inputField",
+				"APIValue": "entered",
+				"APIParameter": "label.text",
+				"exampleParam": "label.text=Liabilities",
+				"definition": "Type the label to search for.",
+				"__comment__": "Any text value here."
+			},
+			"concept_name": {
+				"title": "Filter by Concept Name",
+				"type": "dropDownGeneratedFromUserEntry",
+				"PassedParameter": "label.text",
+				"APIQuery": "label/search?fields=concept.local-name.sort(ASC),label.text&label.role=http://www.xbrl.org/2003/role/label&label.text={PassedParameter}&dts.id=450562&concept.is-abstract=false",
+				"dropDownContent": [ "label.text" ],
+				"dropDownValue": "concept.local-name",
+				"multiSelect": false,
+				"APIValue": "selected[0]",
+				"APIParameter": "concept.local-name",
+				"ParameterIn": "query",
+				"exampleValue": "Assets",
+				"exampleParam": "concept.local-name=Assets,Liabilities",
+				"definition": "Type the concept name to search for. This can be a comma separated list."
+			},
+			"limit": {
+				"title": "Data Limit",
+				"type": "inputField",
+				"exampleValue": "100",
+				"exampleParam": "label.limit(100)",
+				"definition": "This is the limit for the results to return."
+			},
+			"offset": {
+				"title": "Data Offset",
+				"type": "inputField",
+				"exampleValue": "20",
+				"exampleParam": "label.offset(20) ",
+				"definition": "This is the offset of the results ."
+			},
+			"Fields": {
+				"title": "Fields to Return",
+				"type": "dropDownGeneratedFromAPI",
+				"PassedParameter": "none",
+				"APIQuery": "meta/label",
+				"dropDownContent": "result[fields]",
+				"multiSelect": true,
+				"sortable": true,
+				"APIValue": "selected[0]",
+				"APIParameter": "fields",
+				"ParameterIn": "query",
+				"defaultValues": "concept.local-name,label.text",
+				"exampleValue": "label.text",
+				"exampleParam": "fields=label.text",
+				"definition": "Enter the data fields to return."
+			}
+
+		}
+
+	},
+	"report": {
+		"endPoint": "report/search",
+		"limitObjects": "report",
+		"offsetObjects": "report",
+		"ParameterLayout": {
+			"entity_name": {
+				"title": "Select by Entity Name",
+				"type": "dropDownGeneratedFromUserEntry",
+				"PassedParameter": "entity.name",
+				"APIQuery": "entity/search?entity.name={PassedParameter}&fields=entity.name.sort(ASC),entity.cik",
+				"dropDownContent": "entity.name",
+				"dropDownValue": "entity.cik",
+				"multiSelect": true,
+				"APIValue": "selected[1]",
+				"Action_AddsTo": "select_cik",
+				"ParameterIn": "query",
+				"exampleValue": "Apple Inc.",
+				"definition": "Type the entity name to get a list of matching companies to search on."
+			},
+			"select_cik": {
+				"title": "Select by Entity CIK",
+				"type": "inputField",
+				"APIValue": "entered",
+				"APIParameter": "entity.cik",
+				"exampleParam": "entity.cik=0001482512,000099998,000099997",
+
+				"definition": "Type the entity CIK identifier to search for. This can be a comma separated list.",
+				"__comment__": "Any value here should be added to a comma separated list from Entity Name parameter above."
+			},
+			"sic_code": {
+				"title": "or Select by SIC Code (<a style=color:#333333 href=https://www.sec.gov/corpfin/division-of-corporation-finance-standard-industrial-classification-sic-code-list target=_blank>SEC list</a>)",
+				"type": "dropDown",
+				"dropDownContent": "1000,1540,2750,2911,3571,4833,5700,6021,9721,9995",
+				"multiSelect": true,
+				"isAddable": true,
+				"APIValue": "selected",
+				"APIParameter": "report.sic-code",
+				"ParameterIn": "query",
+				"exampleParam": "report.sic-code=8900,9721,9995",
+				"definition": "Select the fiscal periods to search on. This can be a combination of values."
+			},			
+			"document_type": {
+				"title": "Filter by Document Type (eg. 10-K, 10-Q)",
+				"type": "inputField",
+				"APIValue": "entered",
+				"APIParameter": "report.document-type",
+				"ParameterIn": "query",
+				"exampleValue": "10-K",
+				"exampleParam": "report.document-type=10-K",
+				"definition": "Type the document type. This can be a comma separated list."
+			},			
+			"document_index": {
+				"title": "Filter Type by Index (eg. 1 is most recent)",
+				"type": "inputField",
+				"APIValue": "entered",
+				"APIParameter": "report.document-index",
+				"ParameterIn": "query",
+				"exampleValue": "1,2,3",
+				"exampleParam": "report.document-type=10-K",
+				"definition": "Integer of report index. This can be a comma separated list."
+			},
+			"limit": {
+				"title": "Data Limit",
+				"type": "inputField",
+				"exampleValue": "100",
+				"exampleParam": "report.limit(100)",
+				"definition": "This is the limit for the results to return."
+			},
+			"offset": {
+				"title": "Data Offset",
+				"type": "inputField",
+				"exampleValue": "20",
+				"exampleParam": "report.offset(20) ",
+				"definition": "This is the offset of the results ."
+			},
+			"Fields": {
+				"title": "Fields to Return",
+				"type": "dropDownGeneratedFromAPI",
+				"PassedParameter": "none",
+				"APIQuery": "meta/report",
+				"dropDownContent": "result[fields]",
+				"multiSelect": true,
+				"sortable": true,
+				"APIValue": "selected[0]",
+				"APIParameter": "fields",
+				"ParameterIn": "query",
+				"defaultValues": "report.entity-name,report.document-type,report.sec-url",
+				"exampleValue": "report.id",
+				"exampleParam": "fields=report.id",
+				"definition": "Enter the data fields to return."
+			}
+		}
+	},
+		"network": {
+		"endPoint": "dts/{taxonomy_identifier}/network/search",
+		"limitObjects": "network",
+		"offsetObjects": "network",
+		"ParameterLayout": {
+			"filing_taxonomy_identifier": {
+				"title": "Select DTS by Entity Name",
+				"type": "dropDownGeneratedFromUserEntry",
+				"PassedParameter": "entity.name",
+				"APIQuery": "report/search?fields=dts.id.sort(DESC),report.entity-name.sort(ASC),report.filing-date,report.document-type&report.entity-name={PassedParameter}",
+				"dropDownContent": [ "report.document-type", "report.filing-date", "report.entity-name" ],
+				"dropDownValue": "dts.id",
+				"multiSelect": false,
+				"APIValue": "selected[0]",
+				"ParameterIn": "path",
+				"ActionReplaces": "{taxonomy_identifier}",
+				"exampleValue": "Apple Inc.",
+				"exampleParam": "dts/421364/network/search",
+				"definition": "Type the entity name to get a list of matching companies taxonomies to search on.",
+				"__comment__": "Parameter is included in rest path"
+			},
+			"base_taxonomy_identifier": {
+				"title": "or Select Base Taxonomy Year (eg. 2020)",
+				"type": "dropDownGeneratedFromUserEntry",
+				"PassedParameter": "dts.version",
+				"APIQuery": "dts/search?fields=dts.id,dts.version.sort(DESC),dts.taxonomy-name.sort(DESC)&dts.version={PassedParameter}",
+				"dropDownContent": "dts.taxonomy-name",
+				"dropDownValue": "dts.id",
+				"multiSelect": false,
+				"APIValue": "selected[0]",
+				"ParameterIn": "path",
+				"ActionReplaces": "{taxonomy_identifier}",
+				"Action_Invalidates": "filing_taxonomy_identifier",
+				"exampleValue": "Apple Inc.",
+				"exampleParam": "dts/421364/network/search",
+				"definition": "Type the base taxonomy name to get a list of matching taxonomies to search on.",
+				"__comment__": "Parameter is included in rest path"
+			},
+			"network_type": {
+				"title": "Select Network Type",
+				"type": "dropDown",
+				"dropDownContent": "presentationLink,calculationLink,definitionLink",
+				"multiSelect": true,
+				"APIValue": "selected",
+				"APIParameter": "network.link-name",
+				"ParameterIn": "query",
+				"defaultValues": "presentationLink",
+				"exampleValue": "presentationLink",
+				"exampleParam": "network.link-name=presentationLink",
+				"definition": "Type the entity name to get a list of matching companies to search on."
+			},
+			"limit": {
+				"title": "Data Limit",
+				"type": "inputField",
+				"exampleValue": "100",
+				"exampleParam": "network.limit(100)",
+				"definition": "This is the limit for the results to return."
+			},
+			"offset": {
+				"title": "Data Offset",
+				"type": "inputField",
+				"exampleValue": "20",
+				"exampleParam": "network.offset(20) ",
+				"definition": "This is the offset of the results ."
+			},
+			"Fields": {
+				"title": "Fields to Return",
+				"type": "dropDownGeneratedFromAPI",
+				"PassedParameter": "none",
+				"APIQuery": "meta/network",
+				"dropDownContent": "result[fields]",
+				"multiSelect": true,
+				"sortable": true,
+				"APIValue": "selected[0]",
+				"APIParameter": "fields",
+				"ParameterIn": "query",
+				"defaultValues": "network.role-description",
+				"exampleValue": "network.arcrole-uri",
+				"exampleParam": "fields=network.arcrole-uri",
+				"definition": "Enter the data fields to return."
+			}
+
+		}
+
+	},
+	"relationship": {
+		"endPoint": "relationship/search",
+		"limitObjects": "relationship",
+		"offsetObjects": "relationship",
+		"ParameterLayout": {
+			"filing_taxonomy_identifier": {
+				"title": "Select DTS by Entity Name",
+				"type": "dropDownGeneratedFromUserEntry",
+				"PassedParameter": "entity.name",
+				"APIQuery": "report/search?fields=dts.id.sort(DESC),report.entity-name.sort(ASC),report.filing-date,report.document-type&report.entity-name={PassedParameter}",
+				"dropDownContent": [ "report.document-type", "report.filing-date", "report.entity-name" ],
+				"dropDownValue": "dts.id",
+				"multiSelect": false,
+				"APIValue": "selected[0]",
+				"APIParameter": "dts.id",
+				"ParameterIn": "query",
+				"exampleValue": "Apple Inc.",
+				"exampleParam": "relationship/search?dts.id=1234",
+				"definition": "Type the entity name to get a list of matching companies taxonomies to search on.",
+				"__comment__": "Parameter is included in rest query"
+			},
+			"base_taxonomy_identifier": {
+				"title": "or Select Base Taxonomy Year (eg. 2020)",
+				"type": "dropDownGeneratedFromUserEntry",
+				"PassedParameter": "dts.version",
+				"APIQuery": "dts/search?fields=dts.id,dts.version.sort(DESC),dts.taxonomy-name.sort(DESC)&dts.version={PassedParameter}",
+				"dropDownContent": "dts.taxonomy-name",
+				"dropDownValue": "dts.id",
+				"multiSelect": false,
+				"APIValue": "selected[0]",
+				"APIParameter": "dts.id",
+				"ParameterIn": "query",
+				"Action_Invalidates": "filing_taxonomy_identifier",
+				"exampleValue": "1234",
+				"exampleParam": "relationship/search?dts.id=1234",
+				"definition": "Type the base taxonomy name to get a list of matching taxonomies to search on.",
+				"__comment__": "Parameter is included in rest query"
+			},
+			"string_match": {
+				"title": "Select Description Search type",
+				"type": "dropDown",
+				"dropDownContent": "null,network.role-description(like),network.role-description(ts)",
+				"multiSelect": false,
+				"APIValue": "selected",
+				"APIParameter": "stringmatch",
+				"ParameterIn": "query",
+				"defaultValues": "network.role-description(ts)",
+				"exampleValue": "presentationLink",
+				"exampleParam": "stringmatch=network.role-description(ts)",
+				"definition": "Enables simple text search functionality with the network.role-description parameter on the relationship object. Use the like switch to find the exact phrase and the ts switch to find phrases containing the word. "
+			},
+			"role_description": {
+				"title": "Filter by Role Description (eg. Balance Sheet)",
+				"type": "inputField",
+				"APIValue": "entered",
+				"APIParameter": "network.role-description",
+				"ParameterIn": "query",
+				"defaultValue": "Statement Balance Sheet",
+				"exampleValue": "0002 - Statement - Consolidated Balance Sheets",
+				"exampleParam": "network.role-description=Statement",
+				"definition": "Type the role description to search for eg. Balance Sheet."
+			},
+			"network_type": {
+				"title": "Select Network Type",
+				"type": "dropDown",
+				"dropDownContent": "presentationLink,calculationLink,definitionLink",
+				"multiSelect": true,
+				"APIValue": "selected",
+				"APIParameter": "network.link-name",
+				"ParameterIn": "query",
+				"defaultValues": "presentationLink",
+				"exampleValue": "presentationLink",
+				"exampleParam": "network.link-name=presentationLink",
+				"definition": "Type the network type to get the matching network types."
+			},
+			"arcrole-uri": {
+				"title": "Select Arcrole Type",
+				"type": "dropDown",
+				"dropDownContent": "http://xbrl.org/int/dim/arcrole/all,http://xbrl.org/int/dim/arcrole/dimension-default,http://xbrl.org/int/dim/arcrole/dimension-domain,http://xbrl.org/int/dim/arcrole/domain-member,http://xbrl.org/int/dim/arcrole/hypercube-dimension,http://www.xbrl.org/2003/arcrole/parent-child,http://www.xbrl.org/2003/arcrole/summation-item",
+				"multiSelect": true,
+				"APIValue": "selected",
+				"APIParameter": "network.arcrole-uri",
+				"ParameterIn": "query",
+				"exampleValue": "presentationLink",
+				"exampleParam": "network.arcrole-uri=http://www.xbrl.org/2003/arcrole/summation-item",
+				"definition": "Type the arcrole to get the specific relationship types."
+			},
+			"limit": {
+				"title": "Data Limit",
+				"type": "inputField",
+				"exampleValue": "100",
+				"exampleParam": "relationship.limit(100)",
+				"definition": "This is the limit for the results to return."
+			},
+			"offset": {
+				"title": "Data Offset",
+				"type": "inputField",
+				"exampleValue": "20",
+				"exampleParam": "relationship.offset(20) ",
+				"definition": "This is the offset of the results ."
+			},
+			"Fields": {
+				"title": "Fields to Return",
+				"type": "dropDownGeneratedFromAPI",
+				"PassedParameter": "none",
+				"APIQuery": "meta/relationship",
+				"dropDownContent": "result[fields]",
+				"multiSelect": true,
+				"sortable": true,
+				"APIValue": "selected[0]",
+				"APIParameter": "fields",
+				"ParameterIn": "query",
+				"defaultValues": "network.role-description,relationship.order,relationship.target-name,relationship.tree-depth,relationship.tree-sequence",
+				"exampleValue": "assertion.code",
+				"exampleParam": "fields=assertion.code",
+				"definition": "Enter the data fields to return."
+			}
+		}
+	},
+	"assertion": {
+		"endPoint": "assertion/search",
+		"limitObjects": "assertion",
+		"offsetObjects": "assertion",
+		"ParameterLayout": {
+			"filing_report_identifier": {
+				"title": "Select Report by Entity Name",
+				"type": "dropDownGeneratedFromUserEntry",
+				"PassedParameter": "entity.name",
+				"APIQuery": "report/search?fields=report.id.sort(DESC),report.entity-name.sort(ASC),report.filing-date,report.document-type&report.entity-name={PassedParameter}",
+				"dropDownContent": [ "report.document-type", "report.filing-date", "report.entity-name" ],
+				"dropDownValue": "report.id",
+				"multiSelect": false,
+				"APIValue": "selected[0]",
+				"APIParameter": "report.id",
+				"ParameterIn": "query",
+				"exampleValue": "Apple Inc.",
+				"exampleParam": "assertion/search?report.id=1234",
+				"definition": "Type the entity name to get a list of matching companies taxonomies to search on.",
+				"__comment__": "Parameter is included in rest path"
+			},
+			"accession_number": {
+				"title": "Filter by filing Number (eg. 0000008868-20-000025)",
+				"type": "inputField",
+				"APIValue": "entered",
+				"APIParameter": "report.accession",
+				"ParameterIn": "query",
+				"Action_Invalidates": "filing_taxonomy_identifier",
+				"exampleValue": "0000008868-20-000025",
+				"exampleParam": "report.accession=0000008868-20-000025",
+				"definition": "Type the accession_number to search for specific filings eg. 0000008868-20-000025. This can be a comma separated list."
+			},
+			"assertion_code": {
+				"title": "Filter by Assertion Code (eg. DQC.US.0001.62)",
+				"type": "inputField",
+				"APIValue": "entered",
+				"APIParameter": "assertion.code",
+				"ParameterIn": "query",
+				"exampleValue": "DQC.US.0001.62",
+				"exampleParam": "assertion.code=DQC.US.0001.62",
+				"definition": "Type the assertion code to search for eg. DQC.US.0001.62. This can be a comma separated list."
+			},
+			"assertion_source": {
+				"title": "Error Source",
+				"type": "dropDown",
+				"dropDownContent": "EFM,DQC,xbrlus-cc",
+				"multiSelect": true,
+				"APIValue": "selected",
+				"APIParameter": "assertion.source",
+				"ParameterIn": "query",
+				"exampleParam": "assertion.source=DQC",
+				"definition": "Select the source to view errors from xbrl-us rules, DQC rules or EFM related errors."
+			},
+			"limit": {
+				"title": "Data Limit",
+				"type": "inputField",
+				"exampleValue": "100",
+				"exampleParam": "assertion.limit(100)",
+				"definition": "This is the limit for the results to return."
+			},
+			"offset": {
+				"title": "Data Offset",
+				"type": "inputField",
+				"exampleValue": "20",
+				"exampleParam": "assertion.offset(20) ",
+				"definition": "This is the offset of the results ."
+			},
+			"Fields": {
+				"title": "Fields to Return",
+				"type": "dropDownGeneratedFromAPI",
+				"PassedParameter": "none",
+				"APIQuery": "meta/assertion",
+				"dropDownContent": "result[fields]",
+				"multiSelect": true,
+				"sortable": true,
+				"APIValue": "selected[0]",
+				"APIParameter": "fields",
+				"ParameterIn": "query",
+				"exampleValue": "assertion.code",
+				"exampleParam": "fields=assertion.code",
+				"definition": "Enter the data fields to return."
+			}
+
+		}
+
+	}
+}

@@ -1,0 +1,41 @@
+{
+  "functions": [
+    {
+      "description": "In addition to the required url parameter, the custom function =XBRL.showData() includes three optional parameters to display facets of the information queried. Click on XBRL.showData or 'Help on this function' in this window to learn more.",
+      "id": "showData",
+      "name": "showData",
+      "helpUrl": "https://xbrlus.github.io/exceladdin/Help.html",
+      "parameters": [
+        {
+          "description": "[required string]: The url of the api call that's to be called",
+          "name": "url",
+          "type": "string"
+        },
+        {
+          "description": "[optional string] (blank|fields|name): Determines how the information will be returned: blank - 'data' without the metadata; fields - a tree of the fields in the data array; name - with a 'fieldname' to filter on information for the specified field",
+          "name": "type",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "description": "[optional string]: with name as above - different levels are separated by a '/'",
+          "name": "fieldname",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "description": "[optional boolean]: toggle column header display for the output",
+          "name": "showheaders",
+          "type": "string",
+          "optional": true
+        }
+      ],
+      "result": {
+        "dimensionality": "matrix"
+      },
+      "options": {
+        "sync": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Published:70EDFC97-B41D-43C5-B751-7C00AD999804-->
+<!--Created:ce44715c-8c4e-446b-879c-ea9ebe0f09c8-->
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0" xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides/1.0" xsi:type="TaskPaneApp">
+
+  <!-- Begin Basic Settings: Add-in metadata, used for all versions of Office unless override provided. -->
+  
+  <!-- IMPORTANT! Id must be unique for your add-in, if you reuse this manifest ensure that you change this id to a new GUID. -->
+  <Id>2db2d9d2-9d33-5f44-8f8b-5c43ff7b315c</Id>
+
+  <!--Version. Updates from the store only get triggered if there is a version change. -->
+  <Version>2.0.0.5</Version>
+  <ProviderName>XBRLUS</ProviderName>
+  <DefaultLocale>en-US</DefaultLocale>
+  <!-- The display name of your add-in. Used on the store and various places of the Office UI such as the add-ins dialog. -->
+  <DisplayName DefaultValue="XBRL Filed Data" />  
+  <Description DefaultValue="XBRL US" />
+  <!-- Icon for your add-in. Used on installation screens and the add-ins dialog. -->
+  <IconUrl DefaultValue="https://xbrlus.github.io//xule-dev/Images/xbrl-filed-data32x32.png" />
+  <HighResolutionIconUrl DefaultValue="https://xbrlus.github.io//xule-dev/Images/xbrl-filed-data64x64.png" />
+
+  <SupportUrl DefaultValue="https://xbrl.us/xbrl-api-excel" />
+  <!-- Domains that will be allowed when navigating. For example, if you use ShowTaskpane and then have an href link, navigation will only be allowed if the domain is on this list. -->
+  <AppDomains>
+    <AppDomain>AppDomain1</AppDomain>
+    <AppDomain>api.xbrl.us</AppDomain>
+    <AppDomain>https://api.xbrl.us</AppDomain>
+    <!-- AppDomain>http://api.xbrl.us</AppDomain>
+    <AppDomain>http://xbrl.us</AppDomain -->
+    <AppDomain>https://xbrl.us</AppDomain>
+    <AppDomain>https://localhost</AppDomain>
+    <AppDomain>https://xbrlus.github.io//xule-dev</AppDomain>
+    <AppDomain>https://xbrlus.github.io/xbrl-api/</AppDomain>
+  </AppDomains>
+  <!--End Basic Settings. -->
+  
+  <!--Begin TaskPane Mode integration. This section is used if there are no VersionOverrides or if the Office client version does not support add-in commands. -->
+  <Hosts>
+    <Host Name="Workbook" />
+   
+  </Hosts>
+  <Requirements>
+    <Sets DefaultMinVersion="1.1">
+      <Set Name="CustomFunctionsRuntime" MinVersion="1.1"/>
+    </Sets>
+  </Requirements>
+  <DefaultSettings>
+    <SourceLocation DefaultValue="https://xbrlus.github.io//xule-dev/Wizard.html" /> 
+  </DefaultSettings>
+  <!-- End TaskPane Mode integration.  -->
+
+  <Permissions>ReadWriteDocument</Permissions>
+
+  <!-- Begin Add-in Commands Mode integration. -->
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
+    
+      <!-- The Hosts node is required. -->
+    <Hosts>
+      <!-- Each host can have a different set of commands. -->
+      <!-- Excel host is Workbook, Word host is Document, and PowerPoint host is Presentation. -->
+      <!-- Make sure the hosts you override match the hosts declared in the top section of the manifest. -->
+     
+      <Host xsi:type="Workbook">        
+        <Runtimes>
+          <Runtime resid="XBRL.WizardTaskpane2.Url" lifetime="long" />
+        </Runtimes> 
+        <AllFormFactors>          
+          <ExtensionPoint xsi:type="CustomFunctions">
+            <Script>
+              <SourceLocation resid="Functions.Script.Url" />
+            </Script>
+            <Page>
+              <SourceLocation resid="XBRL.WizardTaskpane2.Url" />
+            </Page>
+            <Metadata>
+              <SourceLocation resid="Functions.Metadata.Url" />
+            </Metadata>
+            <Namespace resid="Functions.Namespace" />
+          </ExtensionPoint>
+        </AllFormFactors>
+        <!-- Form factor. Currently only DesktopFormFactor is supported. -->
+        <DesktopFormFactor>
+          <!--"This code enables a customizable message to be displayed when the add-in is loaded successfully upon individual install."-->
+          <GetStarted>
+            <!-- Title of the Getting Started callout. The resid attribute points to a ShortString resource -->
+            <Title resid="XBRL.GetStarted.Title" />
+
+            <!-- Description of the Getting Started callout. resid points to a LongString resource -->
+            <Description resid="XBRL.GetStarted.Description" />
+
+            <!-- Points to a URL resource which details how the add-in should be used. -->
+            <LearnMoreUrl resid="XBRL.GetStarted.LearnMoreUrl" />
+          </GetStarted>
+          <!-- Function file is a HTML page that includes the JavaScript where functions for ExecuteAction will be called. 
+            Think of the FunctionFile as the code behind ExecuteFunction. -->
+          <FunctionFile resid="XBRL.WizardTaskpane2.Url" />
+    
+ 
+          <!-- PrimaryCommandSurface is the main Office Ribbon. -->
+          <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <!-- Use OfficeTab to extend an existing Tab. Use CustomTab to create a new tab. -->            
+            <CustomTab id="XBRLCustomTab">
+              
+              <!-- Ensure you provide a unique id for the group. Recommendation for any IDs is to namespace using your company name. -->
+              <Group id="XBRL.Group1">
+                <!-- Label for your group. resid must point to a ShortString resource. -->
+                <Label resid="XBRL.Group1Label" />
+                <!-- Icons. Required sizes 16,32,80, optional 20, 24, 40, 48, 64. Strongly recommended to provide all sizes for great UX. -->
+                <!-- Use PNG icons. All URLs on the resources section must use HTTPS. -->
+                <Icon>
+                  <bt:Image size="16" resid="XBRL.tpicon_16x16" />
+                  <bt:Image size="32" resid="XBRL.tpicon_32x32" />
+                  <bt:Image size="80" resid="XBRL.tpicon_80x80" />
+                </Icon>
+
+                <!-- Control. It can be of type "Button" or "Menu". -->
+
+                <Control xsi:type="Button" id="XBRL.WizardButton">
+                  <Label resid="XBRL.WizardButton.Label" />
+                  <Supertip>
+                    <!-- ToolTip title. resid must point to a ShortString resource. -->
+                    <Title resid="XBRL.WizardButton.Label" />
+                    <!-- ToolTip description. resid must point to a LongString resource. -->
+                    <Description resid="XBRL.WizardButton.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="XBRL.wizard_16x16" />
+                    <bt:Image size="32" resid="XBRL.wizard_32x32" />
+                    <bt:Image size="80" resid="XBRL.wizard_80x80" />
+                  </Icon>
+                  <!-- This is what happens when the command is triggered (E.g. click on the Ribbon). Supported actions are ExecuteFunction or ShowTaskpane. -->
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>ButtonShowWiz</TaskpaneId>
+                    <!-- Provide a URL resource id for the location that will be displayed on the task pane. -->
+                    <SourceLocation resid="XBRL.WizardTaskpane2.Url" />
+                  </Action>
+                </Control>
+ 
+                <Control xsi:type="Button" id="XBRL.Credentials">
+                  <Label resid="XBRL.Credentials.Label" />
+                  <Supertip>
+                    <!-- ToolTip title. resid must point to a ShortString resource. -->
+                    <Title resid="XBRL.Credentials.Label" />
+                    <!-- ToolTip description. resid must point to a LongString resource. -->
+                    <Description resid="XBRL.Credentials.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="XBRL.credentials_16x16" />
+                    <bt:Image size="32" resid="XBRL.credentials_32x32" />
+                    <bt:Image size="80" resid="XBRL.credentials_80x80" />
+                  </Icon>
+
+                  <!-- This is what happens when the command is triggered (E.g. click on the Ribbon). Supported actions are ExecuteFunction or ShowTaskpane. -->
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>showCredentialsURL</FunctionName>
+                  </Action>
+                </Control>
+
+              </Group>
+
+              <Group id="XBRL.Group2">
+                <!-- Label for your group. resid must point to a ShortString resource. -->
+                <Label resid="XBRL.Group2Label" />
+                <!-- Icons. Required sizes 16,32,80, optional 20, 24, 40, 48, 64. Strongly recommended to provide all sizes for great UX. -->
+                <!-- Use PNG icons. All URLs on the resources section must use HTTPS. -->
+                <Icon>
+                  <bt:Image size="16" resid="XBRL.tpicon_16x16" />
+                  <bt:Image size="32" resid="XBRL.tpicon_32x32" />
+                  <bt:Image size="80" resid="XBRL.tpicon_80x80" />
+                </Icon>
+
+                <!-- Control. It can be of type "Button" or "Menu". -->
+
+                <Control xsi:type="Button" id="XBRL.QrySheetButton">
+                  <Label resid="XBRL.QrySheetButton.Label" />
+                  <Supertip>
+                    <!-- ToolTip title. resid must point to a ShortString resource. -->
+                    <Title resid="XBRL.QrySheetButton.Label" />
+                    <!-- ToolTip description. resid must point to a LongString resource. -->
+                    <Description resid="XBRL.QrySheetButton.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="XBRL.sheet_16x16" />
+                    <bt:Image size="32" resid="XBRL.sheet_32x32" />
+                    <bt:Image size="80" resid="XBRL.sheet_80x80" />
+                  </Icon>
+
+                  <!-- This is what happens when the command is triggered (E.g. click on the Ribbon). Supported actions are ExecuteFunction or ShowTaskpane. -->
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>doQrySheet</FunctionName>                    
+                  </Action>
+                </Control>
+
+              <Control xsi:type="Button" id="XBRL.QryAllButton">
+                  <Label resid="XBRL.QryAllButton.Label" />
+                  <Supertip>
+                    <!-- ToolTip title. resid must point to a ShortString resource. -->
+                    <Title resid="XBRL.QryAllButton.Label" />
+                    <!-- ToolTip description. resid must point to a LongString resource. -->
+                    <Description resid="XBRL.QryAllButton.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="XBRL.book_16x16" />
+                    <bt:Image size="32" resid="XBRL.book_32x32" />
+                    <bt:Image size="80" resid="XBRL.book_80x80" />
+                  </Icon>
+
+                  <!-- This is what happens when the command is triggered (E.g. click on the Ribbon). Supported actions are ExecuteFunction or ShowTaskpane. -->
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>doQryAll</FunctionName>                    
+                  </Action>
+                </Control>                 
+
+              </Group> 
+        <Group id="XBRL.Group3">
+                <!-- Label for your group. resid must point to a ShortString resource. -->
+                <Label resid="XBRL.Group3Label" />
+                <!-- Icons. Required sizes 16,32,80, optional 20, 24, 40, 48, 64. Strongly recommended to provide all sizes for great UX. -->
+                <!-- Use PNG icons. All URLs on the resources section must use HTTPS. -->
+                <Icon>
+                  <bt:Image size="16" resid="XBRL.tpicon_16x16" />
+                  <bt:Image size="32" resid="XBRL.tpicon_32x32" />
+                  <bt:Image size="80" resid="XBRL.tpicon_80x80" />
+                </Icon>
+
+                <!-- Control. It can be of type "Button" or "Menu". 
+                <Control xsi:type="Button" id="XBRL.Account">
+                  <Label resid="XBRL.Account.Label" />
+                  <Supertip>-->
+ 
+                    <!-- ToolTip title. resid must point to a ShortString resource. 
+                    <Title resid="XBRL.Account.Label" />-->
+                    <!-- ToolTip description. resid must point to a LongString resource. 
+                    <Description resid="XBRL.Account.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="XBRL.account_16x16" />
+                    <bt:Image size="32" resid="XBRL.account_32x32" />
+                    <bt:Image size="80" resid="XBRL.account_80x80" />
+                  </Icon>-->
+
+                  <!-- This is what happens when the command is triggered (E.g. click on the Ribbon). Supported actions are ExecuteFunction or ShowTaskpane. 
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>showAccountURL</FunctionName>
+                  </Action>
+                </Control>-->
+
+                <Control xsi:type="Button" id="XBRL.Documentation">
+                  <Label resid="XBRL.Documentation.Label" />
+                  <Supertip>
+                    <!-- ToolTip title. resid must point to a ShortString resource. -->
+                    <Title resid="XBRL.Documentation.Label" />
+                    <!-- ToolTip description. resid must point to a LongString resource. -->
+                    <Description resid="XBRL.Documentation.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="XBRL.documentation_16x16" />
+                    <bt:Image size="32" resid="XBRL.documentation_32x32" />
+                    <bt:Image size="80" resid="XBRL.documentation_80x80" />
+                  </Icon>
+
+                  <!-- This is what happens when the command is triggered (E.g. click on the Ribbon). Supported actions are ExecuteFunction or ShowTaskpane. -->
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>showDocumentationURL</FunctionName>
+                  </Action>
+                </Control>
+                <Control xsi:type="Button" id="XBRL.Community">
+                  <Label resid="XBRL.Community.Label" />
+                  <Supertip>
+                    <!-- ToolTip title. resid must point to a ShortString resource. -->
+                    <Title resid="XBRL.Community.Label" />
+                    <!-- ToolTip description. resid must point to a LongString resource. -->
+                    <Description resid="XBRL.Community.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="XBRL.community_16x16" />
+                    <bt:Image size="32" resid="XBRL.community_32x32" />
+                    <bt:Image size="80" resid="XBRL.community_80x80" />
+                  </Icon>
+
+                  <!-- This is what happens when the command is triggered (E.g. click on the Ribbon). Supported actions are ExecuteFunction or ShowTaskpane. -->
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>showCommunityURL</FunctionName>
+                  </Action>
+                </Control>
+
+
+              </Group>
+
+
+              <Label resid="XBRLCustomTab.Label" />
+            </CustomTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+    
+    
+    
+    <!-- You can use resources across hosts and form factors. -->
+    <Resources>
+      <bt:Images>
+        <bt:Image id="XBRL.tpicon_16x16" DefaultValue="https://xbrlus.github.io//xule-dev/Images/Button16x16.png" />
+        <bt:Image id="XBRL.tpicon_32x32" DefaultValue="https://xbrlus.github.io//xule-dev/Images/Button32x32.png" />
+        <bt:Image id="XBRL.tpicon_80x80" DefaultValue="https://xbrlus.github.io//xule-dev/Images/Button80x80.png" />
+        <bt:Image id="XBRL.wizard_16x16" DefaultValue="https://xbrlus.github.io//xule-dev/Images/Wizard16x16.png" />
+        <bt:Image id="XBRL.wizard_32x32" DefaultValue="https://xbrlus.github.io//xule-dev/Images/Wizard32x32.png" />
+        <bt:Image id="XBRL.wizard_80x80" DefaultValue="https://xbrlus.github.io//xule-dev/Images/Wizard80x80.png" /> 
+        <bt:Image id="XBRL.validate_16x16" DefaultValue="https://xbrlus.github.io//xule-dev/Images/Validate16x16.png" />
+        <bt:Image id="XBRL.validate_32x32" DefaultValue="https://xbrlus.github.io//xule-dev/Images/Validate32x32.png" />
+        <bt:Image id="XBRL.validate_80x80" DefaultValue="https://xbrlus.github.io//xule-dev/Images/Validate80x80.png" />      
+        <bt:Image id="XBRL.sheet_16x16" DefaultValue="https://xbrlus.github.io//xule-dev/Images/Sheet16x16.png" />
+        <bt:Image id="XBRL.sheet_32x32" DefaultValue="https://xbrlus.github.io//xule-dev/Images/Sheet32x32.png" />
+        <bt:Image id="XBRL.sheet_80x80" DefaultValue="https://xbrlus.github.io//xule-dev/Images/Sheet80x80.png" />        
+        <bt:Image id="XBRL.book_16x16" DefaultValue="https://xbrlus.github.io//xule-dev/Images/Book16x16.png" />
+        <bt:Image id="XBRL.book_32x32" DefaultValue="https://xbrlus.github.io//xule-dev/Images/Book32x32.png" />
+        <bt:Image id="XBRL.book_80x80" DefaultValue="https://xbrlus.github.io//xule-dev/Images/Book80x80.png" />        
+        <bt:Image id="XBRL.account_16x16" DefaultValue="https://xbrlus.github.io//xule-dev/Images/Account16x16.png" />
+        <bt:Image id="XBRL.account_32x32" DefaultValue="https://xbrlus.github.io//xule-dev/Images/Account32x32.png" />
+        <bt:Image id="XBRL.account_80x80" DefaultValue="https://xbrlus.github.io//xule-dev/Images/Account80x80.png" />        
+        <bt:Image id="XBRL.credentials_16x16" DefaultValue="https://xbrlus.github.io//xule-dev/Images/Credentials16x16.png" />
+        <bt:Image id="XBRL.credentials_32x32" DefaultValue="https://xbrlus.github.io//xule-dev/Images/Credentials32x32.png" />
+        <bt:Image id="XBRL.credentials_80x80" DefaultValue="https://xbrlus.github.io//xule-dev/Images/Credentials80x80.png" />      
+        <bt:Image id="XBRL.documentation_16x16" DefaultValue="https://xbrlus.github.io//xule-dev/Images/Documentation16x16.png" />
+        <bt:Image id="XBRL.documentation_32x32" DefaultValue="https://xbrlus.github.io//xule-dev/Images/Documentation32x32.png" />
+        <bt:Image id="XBRL.documentation_80x80" DefaultValue="https://xbrlus.github.io//xule-dev/Images/Documentation80x80.png" />
+        <bt:Image id="XBRL.community_16x16" DefaultValue="https://xbrlus.github.io//xule-dev/Images/Community16x16.png" />
+        <bt:Image id="XBRL.community_32x32" DefaultValue="https://xbrlus.github.io//xule-dev/Images/Community32x32.png" />
+        <bt:Image id="XBRL.community_80x80" DefaultValue="https://xbrlus.github.io//xule-dev/Images/Community80x80.png" />
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="XBRL.DesktopFunctionFile.Url" DefaultValue="https://xbrlus.github.io//xule-dev/Functions/FunctionFile.html" />
+        <bt:Url id="XBRL.Taskpane.Url" DefaultValue="https://xbrlus.github.io//xule-dev/Wizard.html" />
+        <bt:Url id="XBRL.Taskpane2.Url" DefaultValue="https://xbrlus.github.io//xule-dev/home.html" />
+        <bt:Url id="XBRL.WizardTaskpane2.Url" DefaultValue="https://xbrlus.github.io//xule-dev/Wizard.html" />
+        <bt:Url id="XBRL.ValidateTaskpane.Url" DefaultValue="https://xbrlus.github.io//xule-dev/Validate.html" />
+        
+        <bt:Url id="XBRL.Debug.Url" DefaultValue="https://xbrlus.github.io//xule-dev/Debug.html" />
+        <bt:Url id="XBRL.GetStarted.LearnMoreUrl" DefaultValue="https://xbrl.us/xbrl-api-community" />
+        <bt:Url id="Functions.Script.Url" DefaultValue="https://xbrlus.github.io//xule-dev/Scripts/customfunctions.js" />
+        <bt:Url id="Functions.Metadata.Url" DefaultValue="https://xbrlus.github.io//xule-dev/Scripts/customfunctions.json" />
+        <bt:Url id="Functions.Page.Url" DefaultValue="https://xbrlus.github.io//xule-dev/Scripts/customfunctions.html" />
+
+      </bt:Urls>
+      <!-- ShortStrings max characters==125. -->
+      <bt:ShortStrings>
+        <bt:String id="namespace" DefaultValue="XBRL"/>
+        <bt:String id="XBRL.TaskpaneButton2.Label" DefaultValue="Show Task Pane" />
+        <bt:String id="XBRL.WizardButton.Label" DefaultValue="Show Task Pane / Login" />
+        <bt:String id="XBRL.ValidateButton.Label" DefaultValue="Validate Filing" />
+        <bt:String id="XBRL.DebugButton.Label" DefaultValue="Show Debug" />
+        <bt:String id="XBRL.LoginButton.Label" DefaultValue="Login" />
+        
+        <bt:String id="XBRL.QrySelButton.Label" DefaultValue="Query Selected Cells" />
+        <bt:String id="XBRL.QrySheetButton.Label" DefaultValue="Query Worksheet" />
+        <bt:String id="XBRL.QryAllButton.Label" DefaultValue="Query Workbook" />
+        <bt:String id="Functions.Namespace" DefaultValue="XBRL" />                
+        <bt:String id="XBRL.DelTokenButton.Label" DefaultValue="Delete Token" />
+        
+		<bt:String id="XBRL.Group1Label" DefaultValue="Login, Query Data &amp; Validate Filings" />
+		<bt:String id="XBRL.Group2Label" DefaultValue="Spreadsheet Commands" />
+		<bt:String id="XBRL.Group3Label" DefaultValue="Web Resources" />
+        
+		<bt:String id="XBRL.AuthGroupLabel" DefaultValue="Authentication" />
+        <bt:String id="XBRL.GetStarted.Title" DefaultValue="The XBRL Filed Data add-in is ready." />
+        <bt:String id="XBRLCustomTab.Label" DefaultValue="XBRL Filed Data" />
+		
+		<bt:String id="XBRL.Account.Label" DefaultValue="Create a Free Account" />
+		    <bt:String id="XBRL.Credentials.Label" DefaultValue="Get a Free Account / XBRL API Credentials" />
+        <bt:String id="XBRL.Documentation.Label" DefaultValue="Browse Online Documentation" />
+        <bt:String id="XBRL.Community.Label" DefaultValue="Download Free Templates / Online Support" />
+      </bt:ShortStrings>
+      <!-- LongStrings max characters==250. -->
+      <bt:LongStrings>        
+        <bt:String id="XBRL.TaskpaneButton2.Tooltip" DefaultValue="Click to Show the add-in Task Pane" />
+        <bt:String id="XBRL.WizardButton.Tooltip" DefaultValue="Click to login and use the Query and Validate functions" />
+        <bt:String id="XBRL.ValidateButton.Tooltip" DefaultValue="Click to login and use Validate Filing" />
+        <bt:String id="XBRL.DebugButton.Tooltip" DefaultValue="Click to Show a the Debug Pane" />
+        
+        <bt:String id="XBRL.LoginButton.Tooltip" DefaultValue="Authorize Access to the API" />
+        <bt:String id="XBRL.QrySelButton.Tooltip" DefaultValue="Query Selected" />
+        <bt:String id="XBRL.QrySheetButton.Tooltip" DefaultValue="Query Sheet" />
+        <bt:String id="XBRL.QryAllButton.Tooltip" DefaultValue="Query All" />
+        <bt:String id="XBRL.DelTokenButton.Tooltip" DefaultValue="Delete Auth Token" />
+        <bt:String id="XBRL.GetStarted.Description" DefaultValue="Click 'Show Task Pane / Login' on the ribbon below, then Login with your XBRL US credentials to get started." />
+		
+		        
+        <bt:String id="XBRL.Account.Tooltip" DefaultValue="Register for a free XBRL US Web account" />
+        <bt:String id="XBRL.Credentials.Tooltip" DefaultValue="Create Client ID and Secret pairs for the XBRL API" />
+        <bt:String id="XBRL.Documentation.Tooltip" DefaultValue="Review XBRL API Documentation" />
+        <bt:String id="XBRL.Community.Tooltip" DefaultValue="Get templates from the XBRL Data Community and and learn about XBRL US Membership" />
+        
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
+  <!-- End Add-in Commands Mode integration. -->
+
+</OfficeApp>

@@ -1,0 +1,151 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>Excel Add-In with Commands Sample</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.4/bluebird.min.js"></script>
+    <script src="Scripts/jquery-3.4.1.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+    <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js" type="text/javascript"></script>
+    <script src="Scripts/global.js?1500" type="text/javascript"></script>
+    <script src="Scripts/customfunctions.js?1501" type="text/javascript"></script>
+    <script src="Index.js?1501" type="text/javascript"></script>
+    <script src="Scripts/verifyfile.js" type="text/javascript"></script>
+
+    <!-- To enable offline debugging using a local reference to Office.js, use:  -->
+    <!-- <script src="Scripts/Office/MicrosoftAjax.js" type="text/javascript"></script>  -->
+    <!-- <script src="Scripts/Office/1/office.js" type="text/javascript"></script>  -->
+
+
+    <link href="Content/Button.css" rel="stylesheet" type="text/css" />
+    <link href="Content/MessageBanner.css" rel="stylesheet" type="text/css" />
+    <link href="Content/slimselect.css" rel="stylesheet" type="text/css" />
+
+
+    <!-- For Office UI Fabric Core, go to https://aka.ms/office-ui-fabric to learn more. -->
+    <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/9.6.0/css/fabric.min.css">
+    <link href="Home.css" rel="stylesheet" type="text/css" />
+
+    <!-- To enable the offline use of Office UI Fabric Core, use: -->
+    <!-- link rel="stylesheet" href="Content/fabric.min.css" -->
+</head>
+
+    <!-- Office UI Fabric JS and it's components are no longer actively supported. Please see https://aka.ms/PnP-OfficeFabricReact for recommended Patterns and Practices -->
+    <!-- <link rel="stylesheet" href="https://appsforoffice.microsoft.com/fabric/2.1.0/fabric.components.min.css"> -->
+
+<body class="ms-Fabric" dir="ltr">
+    <div id="navigation">
+        <div class="web-buttons">
+            <a href="https://xbrl.us/access-token" target="blank"><img src="Images/Credentials16x16.png" alt="Get Credentials" title="Get Credentials" /></a>
+            <a href="https://xbrlus.github.io/xbrl-api" target="blank" alt="Browse Documentation" title="Browse Documentation"><img src="Images/Documentation16x16.png" /></a>
+            <a href="https://xbrl.us/xbrl-api-community" target="blank" alt="Community/Support" title="Community/Support"><img src="Images/Community16x16.png" /></a>
+        </div>
+        <a id="queryPage" class="query-check selected">Query</a><a id="verifyPage" class="query-check">Validate</a>
+    </div>
+    <div id="content-main">
+        <div id="queryDiv" class="padding">
+            <div class="intro">
+                <div class="introtext">
+                    <p>Anyone can use a free <a href="https://xbrl.us/access-token" target="_blank">XBRL US Web Account and API credentials</a> to get up-to-the-minute data from financial reports filed with the US SEC.</p>
+                </div>
+                <div class="status-query"></div>
+            </div>
+            <div class="formcontent">
+                <form id="funcSel" action="" method="post" class="form-example">
+                </form>
+                <form id="target" action="" method="post" class="form-example">
+                </form>
+                <div id="SubmitDiv"></div>
+            </div>
+            <div class="output"></div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button  class="LoginButton Button Button--primary">
+                        <span class="Button-label" id="button-text">
+                            Login
+                        </span>
+                    </button>
+                    <button   class="LogoutButton Button Button--primary">
+                        <span class="Button-label" id="button-text">
+                            Logout
+                        </span>
+                    </button>
+                </div>
+                <p><b>XBRL API endpoints:</b></p>
+                <p><b>Fact</b> - filed facts and related metadata</p>
+                <p><b>Entity</b> - information about entities submitting reports</p>
+                <p><b>Label</b> - human-readable concept equivalents with additional metadata</p>
+                <p><b>Report</b> - details about submitted reports</p>
+                <p><b>Network</b> - structural details about filed reports (Presentation, Calculation and Definition characteristics)</p>
+                <p><b>Relationship</b> - parent-child associations and other details for elements in a discoverable taxonomy set (DTS)</p>
+                <p><b>Assertion</b> - issues related to facts in an entity's report (eg. signage, decimals) affecting the overall quality of the information submitted</p>
+                <p>See "Online Documentation" linked in the Ribbon for full details on endpoints, as well as filter, sort, limit and offset options for the XBRL API.
+                <p>The <b>=XBRL.showData()</b> custom function can be created or modified directly in the sheet, and accepts valid queries for all endpoints. This custom function accepts three optional parameters to display facets of the information queried. After completing a query, find out about these options from Excel's insert function button under the formulas menu.</p>
+                <!--<blockquote style="font-weight: 600;">=XBRL.showData(url, <em>type</em>, <em>fieldname</em>, <em>showheaders</em>)</blockquote>
+        <ul>
+            <li><b>url</b> [required string]: The url of the api call that's to be called</li>
+            <li><em><b>type</b></em> [optional string] (blank|fields|name): Determines how the information will be returned <br />
+            &nbsp;&nbsp; <u>blank</u>: "data" without the metadata, <br />
+            &nbsp;&nbsp; <u>fields</u>: a tree of the fields in the data array, <br />
+            &nbsp;&nbsp; <u>name</u>: with a "fieldname" to filter on information for the specified field</li>
+            <li><b><em>fieldname</em></b> [optional string]: with name as above - different levels are separated by a "/" </li>
+            <li><b><em>showheaders</em></b> [optional boolean]: toggle column header display for the output</li>
+        </ul>
+        <a class="query-check" href="Validate.html" >Switch to Validate</a -->
+            </div>
+        </div>
+        <div id="verifierDiv" class="padding hidden">
+            <div class="introtext">
+                <p>Anyone can use a free <a href="https://xbrl.us/access-token" target="_blank">XBRL US Web Account and API credentials</a> to get up-to-the-minute data from financial reports filed with the US SEC.</p>
+            </div>            
+			<div class="status-validate"></div>
+            <div class="formcontent">
+                <div class="form-input">
+                    Select an XBRL filing (in zip format) from your computer, set ruleset options and click Check Filing. <br />
+                    <input id="verifySelect" type="file" /><br />
+                    Ruleset options:<br />
+                    <select id="taskVerify" name="taskVerify">
+                        <option value="dqcfiling">DQC Ruleset</option>
+                        <option value="checkfiling">DQC + SEC Filer Rulesets</option>
+                    </select>
+                    <input id="proposedVerify" name="proposedVerify" value="proposed" type="checkbox" /> include proposed DQC rules <br /><br />
+                    OR run a specific DQC Rule <input id="singleVerify" name="singleVerify" type="textfield" value="" /><br />
+                    (e.g. DQC.US.0099.9533)
+                </div>
+                <button id="verifyButton" class="Button Button--primary">
+                    <span class="Button-label" id="button-text">
+                        Check Filing
+                    </span>
+                </button>
+            </div>
+            <div id="verifyStatus"></div>
+            <div class="output"></div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button  class="LoginButton Button Button--primary">
+                        <span class="Button-label" id="button-text">
+                            Login
+                        </span>
+                    </button>
+                    <button   class="LogoutButton Button Button--primary">
+                        <span class="Button-label" id="button-text">
+                            Logout
+                        </span>
+                    </button>
+                </div>
+                <p>The details for a filing are returned to the Excel spreadsheet <em>starting from the location of your cursor</em>. Be sure you don't overwrite necessary data in cells.</p>
+                <p>This form uses POST on the <b>/assertion/validate</b> endpoint and runs checks using the same ruleset files that are available from Tools for SEC Filers and the XBRL US Web site.</p>
+                <!-- a class="query-check" href="Wizard.html" >Switch to Query</a -->
+            </div>
+        </div>
+    
+        <p class="footer"><a href="https://xbrl.us" target="_blank"><img src="Images/logoHeader-US.png" alt="Visit XBRL US on the Web" title="Visit XBRL US on the Web" class="logo" /></a> <br />the national consortium for the reporting standard of business and government</p>
+    </div>
+
+    <script type="text/javascript" src="Scripts/formcreator.js"></script>
+    <script type="text/javascript" src="Scripts/slimselect.js"></script>
+</body>
+</html>
