@@ -13,8 +13,12 @@
 
 </head>
 <body class="ms-Fabric" dir="ltr">
+    <div id="navigation">
+        <a id="XusloginPage" class="query-check selected">XBRL US Web Account</a><a id="BasicloginPage" class="query-check">Basic Login</a>
+    </div>
+    
     <div id="content-main" class="login">
-        <div class="padding">
+        <div id="XusloginDiv" class="padding">               
             <div class="login-modal">
                 <label for="username">XBRL US Web account:</label>
                 <input type="text" id="username" name="username"><br>
@@ -49,9 +53,31 @@
                 <div class="loginResult">
                 </div>
                 <div class="loginDebugResult">
-
-                </div>
             </div>
+        </div>
+        </div>
+        <div id="BasicloginDiv" class="padding hidden">
+            <div class="login-modal">
+                <label for="winusername">Username:</label>
+                <input type="text" id="winusername" name="winusername"><br>
+                <label for="winpassword">Password:</label>
+                <input type="text" id="winpassword" name="winpassword"><br-->
+                <label for="winendpoint">Entrypoint:</label>
+                <input type="text" id="winendpoint" name="winendpoint" list="winendpointList" value="https://ecollection.ferc.gov/">
+                <datalist id="winendpointList">
+                    <option value="https://ecollection.ferc.gov/">
+                    <option value="https://testapi.xbrl.us/api/v1/">
+                </datalist><br>
+                <button id="winLoginButton" class="Button Button--primary">
+                    <span class="Button-label" id="button-text">
+                        Login
+                    </span>
+                </button>
+            <div class="loginResult">
+            </div>
+            <div class="loginDebugResult">
+            </div>
+        </div>
         </div>
     </div>
 

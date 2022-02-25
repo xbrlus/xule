@@ -4,6 +4,20 @@
 
 $(document).ready(function () {
 
+    $('#XusloginPage').click(function () {
+        $('#BasicloginPage').removeClass("selected");
+        $('#XusloginPage').addClass("selected");
+        $('#XusloginDiv').removeClass("hidden");
+        $('#BasicloginDiv').addClass("hidden");
+    });
+
+    $('#BasicloginPage').click(function () {
+
+        $('#BasicloginPage').addClass("selected");
+        $('#XusloginPage').removeClass("selected");
+        $('#XusloginDiv').addClass("hidden");
+        $('#BasicloginDiv').removeClass("hidden");
+    });
 
     var query = window.location.search.substring(1);
     var qs = parse_query_string(query);
