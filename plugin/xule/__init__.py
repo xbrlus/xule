@@ -21,7 +21,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23217 $
+$Change: 23339 $
 DOCSKIP
 """
 from .XuleProcessor import process_xule
@@ -859,7 +859,7 @@ def xuleCompile(xule_file_names, ruleset_file_name, compile_type, max_recurse_de
 def runXule(cntlr, options, modelXbrl, rule_set_map=_xule_rule_set_map_name):
         try:
             if getattr(options, "xule_multi", True) and \
-                getattr(cntlr, "rule_set", None) is not None:
+                    getattr(cntlr, "rule_set", None) is not None:
                 rule_set = getattr(cntlr, "rule_set")
             else:
                 if getattr(options, 'xule_rule_set', None) is not None:
@@ -869,16 +869,23 @@ def runXule(cntlr, options, modelXbrl, rule_set_map=_xule_rule_set_map_name):
                     rule_set_location = xu.determine_rule_set(modelXbrl, cntlr, rule_set_map)
                     modelXbrl.log('INFO', 'info', 'Using ruleset {}'.format(rule_set_location))
                     if rule_set_location is None:
-                        # The rule set could not be determined.
-                        modelXbrl.log('ERROR', 'xule', "Cannot determine which rule set to use for the filing. Check the rule set map at '{}'.".format(xu.get_rule_set_map_file_name(cntlr, rule_set_map))) 
-                
+                        raise xr.XuleRuleSetError(
+                            "Cannot determine which rule set to use for the filing. Check the rule set map at '{}'.".format(
+                                xu.get_rule_set_map_file_name(cntlr, rule_set_map)
+                            )
+                        )
                 rule_set = xr.XuleRuleSet(cntlr)              
                 rule_set.open(rule_set_location, open_packages=not getattr(options, 'xule_bypass_packages', False))
         except xr.XuleRuleCompatibilityError as err:
-            # output the message to the log and NOT raise an exception
-            cntlr.addToLog(err.args[0] if len(err.args)>0 else 'Unknown rule compatibility error', 'xule', level=logging.ERROR)
-        except xr.XuleRuleSetError:
-            raise
+            modelXbrl.error(
+                'xule:RulesetCompatabilityError',
+                'Rule compatibility error: {}'.format(err),
+            )
+        except xr.XuleRuleSetError as rse:
+            modelXbrl.error(
+                'xule:RulesetError',
+                'An issue occurred with the xule ruleset: {}'.format(rse)
+            )
         else:
             if getattr(options, "xule_multi", False):
                 xm.start_process(rule_set,

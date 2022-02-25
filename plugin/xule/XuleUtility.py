@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23301 $
+$Change: 23339 $
 DOCSKIP
 """
 from arelle.ModelRelationshipSet import ModelRelationshipSet
@@ -254,14 +254,11 @@ def determine_rule_set(model_xbrl, cntlr, rule_set_map_name):
     """
     # Open the rule set map file. This is a json file that maps namespace uris to a location for a rule set.
     rule_set_map = get_rule_set_map(cntlr, rule_set_map_name)
-    
+
     if rule_set_map is not None:
-        # Get a list of namespaces that are used by the facts.
-        used_namespaces = set(x.namespaceURI for x in model_xbrl.factsByQname.keys())
         # Go through the list of namespaces in the rule set map
         for mapped_namespace, rule_set_location in rule_set_map.items():
             if mapped_namespace in model_xbrl.namespaceDocs:
-            #if mapped_namespace in used_namespaces:
                 return rule_set_location
     
 #     # This is only reached if a rule set location was not found in the map.
