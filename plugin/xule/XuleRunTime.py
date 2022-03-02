@@ -7,7 +7,7 @@ The XuleRuntime module contains exception classes for the xule processor
 DOCSKIP
 See https://xbrl.us/dqc-license for license information.  
 See https://xbrl.us/dqc-patent for patent infringement notice.
-Copyright (c) 2017 - 2021 XBRL US, Inc.
+Copyright (c) 2017 - 2022 XBRL US, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
