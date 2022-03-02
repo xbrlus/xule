@@ -34,6 +34,6 @@ See also [from a command prompt](usage_command_prompt.md) for advanced configura
 
 ### [return to README](README.md#using)
  
-© Copyright 2015 - 2021 XBRL US, Inc. All rights reserved.   
+© Copyright 2015 - 2022 XBRL US, Inc. All rights reserved.   
 See [License](https://xbrl.us/dqc-license) for license information.  
 See [Patent Notice](https://xbrl.us/dqc-patent) for patent infringement notice.

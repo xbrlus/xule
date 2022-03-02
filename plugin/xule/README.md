@@ -62,4 +62,4 @@ To *exclude the rule number, filename and line number from the message*, use the
 See [License](https://xbrl.us/dqc-license) for license information.  
 See [Patent Notice](https://xbrl.us/dqc-patent) for patent infringement notice.
 
-Copyright 2015 - 2021 XBRL US, Inc. All rights reserved.
+Copyright 2015 - 2022 XBRL US, Inc. All rights reserved.
