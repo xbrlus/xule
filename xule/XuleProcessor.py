@@ -1272,7 +1272,7 @@ def tag_default_for_factset(aspect_filters, xule_context):
                             concepts.append(str(aspect_name.value))
                         elif aspect_name == 'concept':
                             concepts.append(str(aspect_name.value.qname))
-                    if len(concetps) == 1:
+                    if len(concepts) == 1:
                         return str(concepts[0])
                     else:
                         return 'one of (' + ', '.join(concepts) + ')'
@@ -2183,7 +2183,7 @@ def remove_alignments(val):
     if val.type == 'dictionary':
         for key, child_val in val.value:
             remove_alignments(key)
-            remove_alignments(chidl_val)
+            remove_alignments(child_val)
 
 def evaluate_factset_detail(factset, xule_context):
     """Evaluate a factset
@@ -2607,8 +2607,8 @@ def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non
 
         '''Check closed factset'''
         if factset['factsetType'] == 'closed':
-            aspect_dimensions = {aspect_info[ASPECT] for aspect_info in non_align_aspects}
-            if set(model_fact.context.qnameDims.keys()) - aspect_dimensions:
+            aspect_dimensions = {aspect_info[ASPECT] for aspect_info in (non_align_aspects | align_aspects)}
+            if len(set(model_fact.context.qnameDims.keys()) - aspect_dimensions) != 0:
                 continue
 
         if alignment is not None:
@@ -3298,7 +3298,7 @@ def nav_traverse_where(nav_expr, clause_name, relationship, xule_context):
             return nav_where_results.value
         elif nav_where_results.type in ('unbound', 'none'):
             return False
-        elif filter_where_result.type not in ('unbound', 'none'):
+        elif nav_where_results.type not in ('unbound', 'none'):
             raise XuleProcessingError(_(
                 "The {} clause on a navigation expression must evaluate to a boolean, found '{}'.".format(
                     clause_name[:clause_name.find('Expr')], nav_where_results.type)), xule_context)
