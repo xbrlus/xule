@@ -3,7 +3,7 @@
     "http://xbrl.ifrs.org/taxonomy/2020-03-16/ifrs-full": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v17/dqc_us_rules/dqc-ifrs-2020-V17-ruleset.zip",
     "http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v17/dqc_us_rules/dqc-ifrs-2019-V17-ruleset.zip",
     "http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v17/dqc_us_rules/dqc-ifrs-2018-V17-ruleset.zip",
-    "http://fasb.org/us-gaap/2022-01-31": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v17/dqc_us_rules/dqc-us-2022-V17-ruleset.zip",
+    "http://fasb.org/us-gaap/2022": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v17/dqc_us_rules/dqc-us-2022-V17-ruleset.zip",
     "http://fasb.org/us-gaap/2021-01-31": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v17/dqc_us_rules/dqc-us-2021-V17-ruleset.zip",
     "http://fasb.org/us-gaap/2020-01-31": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v17/dqc_us_rules/dqc-us-2020-V17-ruleset.zip",
     "http://fasb.org/us-gaap/2019-01-31": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v17/dqc_us_rules/dqc-us-2019-V17-ruleset.zip",
