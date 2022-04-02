@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23221 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.69 secs at 2021-04-16T12:06:51 - https://www.sec.gov/Archives/edgar/data/1409375/000156459020028509/oesx-20200331.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1409375/000156459020028509/oesx-20200331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpirw3u6fk\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpirw3u6fk\packages\resources.zip"/></entry>
+<entry code="DQC.US.0109.9570" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1409375/000156459020028509/oesx-20200331.xml" severity="error" status="PROPOSED" effectiveDate="None" cid="2703617323984">[DQC.US.0109.9570] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.118 is used with the ConcentrationRiskByBenchmarkAxis with a benchmark of us-gaap:CostOfGoodsTotalMember.  The risk associated with this benchmark of us-gaap:CustomerConcentrationRiskMember is not approproiate to this benchmark.  Consider using an extension risk or one of the risks associated with this banch mark such as GeographicConcentrationRiskMember, SupplierConcentrationRiskMember, ProductConcentrationRiskMember, LaborForceConcentrationRiskMember, UnionizedEmployeesConcentrationRiskMember
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2019-04-01 to 2020-03-31
+Dimensions : us-gaap:ConcentrationRiskByTypeAxis=us-gaap:CustomerConcentrationRiskMember, srt:MajorCustomersAxis=oesx:CustomerOneMember, us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:CostOfGoodsTotalMember
+Unit : pure
+
+
+Rule Element Id:9570
+Rule version: 15.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1409375/000156459020028509/oesx-20200331.xml 18763</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1409375/000156459020028509/oesx-20200331.xml#F_000413" sourceLine="18763">
+  <property name="label" value="Concentration Risk Percentage1"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="C_0001409375_srtMajorCustomersAxis_oesxCustomerOneMember_us-gaapConcentrationRiskByBenchmarkAxis_us-gaapCostOfGoodsTotalMember_us-gaapConcentrationRiskByTypeAxis_us-gaapCustomerConcentrationRiskMember_20190401_20200331">
+   <property name="entity" value="0001409375">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-04-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="srt:MajorCustomersAxis" value="oesx:CustomerOneMember"/>
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:CostOfGoodsTotalMember"/>
+    <property name="us-gaap:ConcentrationRiskByTypeAxis" value="us-gaap:CustomerConcentrationRiskMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U_xbrlipure (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.118"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 19.39 secs - https://www.sec.gov/Archives/edgar/data/1409375/000156459020028509/oesx-20200331.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1409375/000156459020028509/oesx-20200331.xml"/></entry>
+</log>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 4.99 secs at 2019-11-05T14:43:11 - https://www.sec.gov/Archives/edgar/data/1356093/000121390018008179/crex-20180331.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1356093/000121390018008179/crex-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpuptkfro4\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpuptkfro4\packages\resources.zip"/></entry>
+<entry code="DQC.US.0001.54" level="error">
+ <message severity="error" effectiveDate="2017-01-01" cid="1732084884648" filing_url="https://www.sec.gov/Archives/edgar/data/1356093/000121390018008179/crex-20180331.xml">[DQC.US.0001.54] The concept EquityMethodInvestmentOwnershipPercentage with a value of 0.2 is dimensionally qualified with the LegalEntityAxis and the unallowable member AffiliatedEntityMember. Only extension members should be used with the axis LegalEntityAxis other than the members predefined in the US-GAAP taxonomy. 
+The properties of the fact for EquityMethodInvestmentOwnershipPercentage are:
+Period: 2018-03-31
+Dimensions: dei:LegalEntityAxis=us-gaap:AffiliatedEntityMember 
+Unit: pure
+
+Rule Element Id:54
+Rule version: 10.0.2 - https://www.sec.gov/Archives/edgar/data/1356093/000121390018008179/crex-20180331.xml 13911</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1356093/000121390018008179/crex-20180331.xml#element(/1/1471)" sourceLine="13911">
+  <property name="label" value="Equity Method Investment, Ownership Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="EquityMethodInvestmentOwnershipPercentage"/>
+  <property name="QName" value="us-gaap:EquityMethodInvestmentOwnershipPercentage"/>
+  <property name="contextRef" value="Context_As_Of_31_Mar_2018T00_00_00_TO_31_Mar_2018T00_00_00_LegalEntityAxis_AffiliatedEntityMember">
+   <property name="entity" value="0001356093">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="dei:LegalEntityAxis" value="us-gaap:AffiliatedEntityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="pure (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.20"/>
+ </ref></entry>
+<entry code="DQC.US.0001.54" level="error">
+ <message severity="error" effectiveDate="2017-01-01" cid="1732084884648" filing_url="https://www.sec.gov/Archives/edgar/data/1356093/000121390018008179/crex-20180331.xml">[DQC.US.0001.54] The concept SalesRevenueNet with a value of 108,000 is dimensionally qualified with the LegalEntityAxis and the unallowable member AffiliatedEntityMember. Only extension members should be used with the axis LegalEntityAxis other than the members predefined in the US-GAAP taxonomy. 
+The properties of the fact for SalesRevenueNet are:
+Period: 2017-01-01 to 2017-03-31
+Dimensions: dei:LegalEntityAxis=us-gaap:AffiliatedEntityMember 
+Unit: USD
+
+Rule Element Id:54
+Rule version: 10.0.2 - https://www.sec.gov/Archives/edgar/data/1356093/000121390018008179/crex-20180331.xml 5576</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1356093/000121390018008179/crex-20180331.xml#element(/1/531)" sourceLine="5576">
+  <property name="label" value="Revenue, Net"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="SalesRevenueNet"/>
+  <property name="QName" value="us-gaap:SalesRevenueNet"/>
+  <property name="contextRef" value="Context_3ME_01_Jan_2017T00_00_00_TO_31_Mar_2017T00_00_00_LegalEntityAxis_AffiliatedEntityMember">
+   <property name="entity" value="0001356093">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="dei:LegalEntityAxis" value="us-gaap:AffiliatedEntityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="108,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.54" level="error">
+ <message severity="error" effectiveDate="2017-01-01" cid="1732084884648" filing_url="https://www.sec.gov/Archives/edgar/data/1356093/000121390018008179/crex-20180331.xml">[DQC.US.0001.54] The concept SalesRevenueNet with a value of 417,000 is dimensionally qualified with the LegalEntityAxis and the unallowable member AffiliatedEntityMember. Only extension members should be used with the axis LegalEntityAxis other than the members predefined in the US-GAAP taxonomy. 
+The properties of the fact for SalesRevenueNet are:
+Period: 2018-01-01 to 2018-03-31
+Dimensions: dei:LegalEntityAxis=us-gaap:AffiliatedEntityMember 
+Unit: USD
+
+Rule Element Id:54
+Rule version: 10.0.2 - https://www.sec.gov/Archives/edgar/data/1356093/000121390018008179/crex-20180331.xml 5581</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1356093/000121390018008179/crex-20180331.xml#element(/1/536)" sourceLine="5581">
+  <property name="label" value="Revenue, Net"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="SalesRevenueNet"/>
+  <property name="QName" value="us-gaap:SalesRevenueNet"/>
+  <property name="contextRef" value="Context_3ME_01_Jan_2018T00_00_00_TO_31_Mar_2018T00_00_00_LegalEntityAxis_AffiliatedEntityMember">
+   <property name="entity" value="0001356093">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="dei:LegalEntityAxis" value="us-gaap:AffiliatedEntityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="417,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 108.30 secs - https://www.sec.gov/Archives/edgar/data/1356093/000121390018008179/crex-20180331.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1356093/000121390018008179/crex-20180331.xml"/></entry>
+</log>

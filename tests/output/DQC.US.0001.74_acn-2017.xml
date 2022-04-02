@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.75 secs at 2018-10-16T09:48:50 - http://www.sec.gov/Archives/edgar/data/1467373/000146737318000228/acn-20180531.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1467373/000146737318000228/acn-20180531.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - acn-20180531.xml </message>
+ <ref href="acn-20180531.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmprhiyzskn/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmprhiyzskn/packages/resources.zip"/></entry>
+<entry code="DQC.US.0001.74" level="error">
+ <message cid="4366298808" severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1467373/000146737318000228/acn-20180531.xml">[DQC.US.0001.74]  The member DividendDeclaredMember is inappropriately used on the axis SubsequentEventTypeAxis. The only members allowed on this axis are us-gaap:SubsequentEventMember, us-gaap:SubsequentEventTypeDomain. There are no facts associated with this member and axis.
+
+Rule Element Id:74
+Rule version: 9.0.0RC1 - </message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 16.59 secs - http://www.sec.gov/Archives/edgar/data/1467373/000146737318000228/acn-20180531.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1467373/000146737318000228/acn-20180531.xml"/></entry>
+</log>

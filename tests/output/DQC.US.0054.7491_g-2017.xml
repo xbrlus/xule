@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 9.80 secs at 2018-10-16T09:46:56 - http://www.sec.gov/Archives/edgar/data/1398659/000095012318006130/g-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1398659/000095012318006130/g-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - g-20171231.xml </message>
+ <ref href="g-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpaeuswqbr/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpaeuswqbr/packages/resources.zip"/></entry>
+<entry code="DQC.US.0054.7491" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1398659/000095012318006130/g-20171231.xml" cid="4520197816">[DQC.US.0054.7491] The definition linkbase in the extension taxonomy defines the axis Statement Geographical Axis as an axis of  the table Defined Contribution Plan [Table]. This axis cannot be used on this table as this axis is expressly prohibited from being used on this table by the 2017 FASB taxonomy and retirement benefits implementation guide.  Consider using the axis Retirement Plan Sponsor Location [Axis] instead.
+
+Rule Element Id:7491
+Rule version: 9.0.0RC1 - </message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 4.77 secs - http://www.sec.gov/Archives/edgar/data/1398659/000095012318006130/g-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1398659/000095012318006130/g-20171231.xml"/></entry>
+</log>

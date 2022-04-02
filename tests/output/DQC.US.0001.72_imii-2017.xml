@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.55 secs at 2018-10-16T09:47:12 - http://www.sec.gov/Archives/edgar/data/1416090/000149315217009548/imii-20170630.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1416090/000149315217009548/imii-20170630.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - imii-20170630.xml </message>
+ <ref href="imii-20170630.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpy6h8j6ag/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpy6h8j6ag/packages/resources.zip"/></entry>
+<entry code="DQC.US.0001.72" level="error">
+ <message cid="4513246904" filing_url="http://www.sec.gov/Archives/edgar/data/1416090/000149315217009548/imii-20170630.xml" severity="error">[DQC.US.0001.72] The concept ConversionOfStockSharesConverted1 with a value of 600,000 is dimensionally qualified with the AwardDateAxis and the base taxonomy member RestrictedStockMember. Only extension members should be used with the axis AwardDateAxis.
+The properties of the fact for ConversionOfStockSharesConverted1 are:
+Period: 2017-07-17 to 2017-07-18
+Dimensions: dei:LegalEntityAxis=IMII:MDLVenturesLlcMember, us-gaap:AwardDateAxis=us-gaap:RestrictedStockMember, us-gaap:SubsequentEventTypeAxis=us-gaap:SubsequentEventMember 
+Unit: shares
+
+Rule Element Id:72
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1416090/000149315217009548/imii-20170630.xml 3734</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1416090/000149315217009548/imii-20170630.xml#element(/1/1073)" sourceLine="3734">
+  <property name="label" value="Conversion of note into shares"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="ConversionOfStockSharesConverted1"/>
+  <property name="QName" value="us-gaap:ConversionOfStockSharesConverted1"/>
+  <property name="contextRef" value="From2017-07-17to2017-07-18_us-gaap_SubsequentEventMember_custom_MDLVenturesLlcMember_us-gaap_RestrictedStockMember">
+   <property name="entity" value="0001416090">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-07-17"/>
+   <property name="endDate" value="2017-07-18"/>
+   <property name="dimensions" value="(3)">
+    <property name="us-gaap:AwardDateAxis" value="us-gaap:RestrictedStockMember"/>
+    <property name="us-gaap:SubsequentEventTypeAxis" value="us-gaap:SubsequentEventMember"/>
+    <property name="dei:LegalEntityAxis" value="IMII:MDLVenturesLlcMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="600,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 18.03 secs - http://www.sec.gov/Archives/edgar/data/1416090/000149315217009548/imii-20170630.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1416090/000149315217009548/imii-20170630.xml"/></entry>
+</log>

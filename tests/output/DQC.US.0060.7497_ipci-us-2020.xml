@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.48 secs at 2020-07-24T23:32:33 - http://www.sec.gov/Archives/edgar/data/1474835/000165495420007737/ipci-20200531.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1474835/000165495420007737/ipci-20200531.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpz57d3et3\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpz57d3et3\packages\resources.zip"/></entry>
+<entry code="DQC.US.0060.7497" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1474835/000165495420007737/ipci-20200531.xml" severity="error" effectiveDate="2018-06-01" cid="2138724672896">[DQC.US.0060.7497] This rule reflects updated guidance from the Data Quality Committee which contradicts with historical rules. This is a change based on the changes in the cashflow ASU published by FASB.
+ The element us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations  has been reported with a value of 66,046. However no value has been reported for either the element(s) NetCashProvidedByUsedInOperatingActivities and CashProvidedByUsedInOperatingActivitiesDiscontinuedOperations. 
+It is expected that if the element us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations  is reported then values would be reported for these corresponding elements. If the value of 66,046 represents the value of NetCashProvidedByUsedInOperatingActivities then this more general element should be used as it is a required disclosure.
+
+The properties of this us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations fact are:
+Period :2020-03-01 to 2020-05-31
+Dimensions : 
+Unit : USD
+
+Rule Element Id:7497
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1474835/000165495420007737/ipci-20200531.xml 2573</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1474835/000165495420007737/ipci-20200531.xml#element(/1/526)" sourceLine="2573">
+  <property name="label" value="Net Cash Provided by (Used in) Operating Activities, Continuing Operations"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInOperatingActivitiesContinuingOperations"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations"/>
+  <property name="contextRef" value="From2020-03-01to2020-05-31">
+   <property name="entity" value="0001474835">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-03-01"/>
+   <property name="endDate" value="2020-05-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="66,046"/>
+ </ref></entry>
+<entry code="DQC.US.0060.7497" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1474835/000165495420007737/ipci-20200531.xml" severity="error" effectiveDate="2018-06-01" cid="2138724672896">[DQC.US.0060.7497] This rule reflects updated guidance from the Data Quality Committee which contradicts with historical rules. This is a change based on the changes in the cashflow ASU published by FASB.
+ The element us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations  has been reported with a value of -5,326,237. However no value has been reported for either the element(s) NetCashProvidedByUsedInOperatingActivities and CashProvidedByUsedInOperatingActivitiesDiscontinuedOperations. 
+It is expected that if the element us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations  is reported then values would be reported for these corresponding elements. If the value of -5,326,237 represents the value of NetCashProvidedByUsedInOperatingActivities then this more general element should be used as it is a required disclosure.
+
+The properties of this us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations fact are:
+Period :2018-12-01 to 2019-05-31
+Dimensions : 
+Unit : USD
+
+Rule Element Id:7497
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1474835/000165495420007737/ipci-20200531.xml 2572</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1474835/000165495420007737/ipci-20200531.xml#element(/1/525)" sourceLine="2572">
+  <property name="label" value="Net Cash Provided by (Used in) Operating Activities, Continuing Operations"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInOperatingActivitiesContinuingOperations"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations"/>
+  <property name="contextRef" value="c3_From1Dec2013To30Nov2014">
+   <property name="entity" value="0001474835">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-12-01"/>
+   <property name="endDate" value="2019-05-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-5,326,237"/>
+ </ref></entry>
+<entry code="DQC.US.0060.7497" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1474835/000165495420007737/ipci-20200531.xml" severity="error" effectiveDate="2018-06-01" cid="2138724672896">[DQC.US.0060.7497] This rule reflects updated guidance from the Data Quality Committee which contradicts with historical rules. This is a change based on the changes in the cashflow ASU published by FASB.
+ The element us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations  has been reported with a value of 7,476. However no value has been reported for either the element(s) NetCashProvidedByUsedInOperatingActivities and CashProvidedByUsedInOperatingActivitiesDiscontinuedOperations. 
+It is expected that if the element us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations  is reported then values would be reported for these corresponding elements. If the value of 7,476 represents the value of NetCashProvidedByUsedInOperatingActivities then this more general element should be used as it is a required disclosure.
+
+The properties of this us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations fact are:
+Period :2019-12-01 to 2020-05-31
+Dimensions : 
+Unit : USD
+
+Rule Element Id:7497
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1474835/000165495420007737/ipci-20200531.xml 2571</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1474835/000165495420007737/ipci-20200531.xml#element(/1/524)" sourceLine="2571">
+  <property name="label" value="Net Cash Provided by (Used in) Operating Activities, Continuing Operations"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInOperatingActivitiesContinuingOperations"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations"/>
+  <property name="contextRef" value="c2_From1Dec2014To30Nov2015">
+   <property name="entity" value="0001474835">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-12-01"/>
+   <property name="endDate" value="2020-05-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="7,476"/>
+ </ref></entry>
+<entry code="DQC.US.0060.7497" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1474835/000165495420007737/ipci-20200531.xml" severity="error" effectiveDate="2018-06-01" cid="2138724672896">[DQC.US.0060.7497] This rule reflects updated guidance from the Data Quality Committee which contradicts with historical rules. This is a change based on the changes in the cashflow ASU published by FASB.
+ The element us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations  has been reported with a value of -1,783,366. However no value has been reported for either the element(s) NetCashProvidedByUsedInOperatingActivities and CashProvidedByUsedInOperatingActivitiesDiscontinuedOperations. 
+It is expected that if the element us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations  is reported then values would be reported for these corresponding elements. If the value of -1,783,366 represents the value of NetCashProvidedByUsedInOperatingActivities then this more general element should be used as it is a required disclosure.
+
+The properties of this us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations fact are:
+Period :2019-03-01 to 2019-05-31
+Dimensions : 
+Unit : USD
+
+Rule Element Id:7497
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1474835/000165495420007737/ipci-20200531.xml 2574</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1474835/000165495420007737/ipci-20200531.xml#element(/1/527)" sourceLine="2574">
+  <property name="label" value="Net Cash Provided by (Used in) Operating Activities, Continuing Operations"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInOperatingActivitiesContinuingOperations"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations"/>
+  <property name="contextRef" value="From2019-03-01to2019-05-31">
+   <property name="entity" value="0001474835">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-03-01"/>
+   <property name="endDate" value="2019-05-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-1,783,366"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 3.56 secs - http://www.sec.gov/Archives/edgar/data/1474835/000165495420007737/ipci-20200531.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1474835/000165495420007737/ipci-20200531.xml"/></entry>
+</log>

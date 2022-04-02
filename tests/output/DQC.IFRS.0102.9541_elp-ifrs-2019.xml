@@ -1,0 +1,1278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 4.38 secs at 2020-10-28T16:42:30 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml"/></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 1,443,693,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 60,964,000 + 734,724,000 ) with a value of 795,688,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2018-12-31
+Dimensions :  ifrs-full:JointVenturesAxis=elp:CantareiraMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40037</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5928)" sourceLine="40037">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2018-12-31_custom_CantareiraMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:JointVenturesAxis" value="elp:CantareiraMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,443,693,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 61,163,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 1,808,000 + 22,776,000 ) with a value of 24,584,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2017-12-31
+Dimensions :  ifrs-full:SignificantInvestmentsInAssociatesAxis=elp:FozDoChopimMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40060</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5951)" sourceLine="40060">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2017-12-31_custom_FozDoChopimMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SignificantInvestmentsInAssociatesAxis" value="elp:FozDoChopimMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="61,163,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 1,698,213,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 124,764,000 + 911,107,000 ) with a value of 1,035,871,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2017-12-31
+Dimensions :  ifrs-full:JointVenturesAxis=elp:ParanaibaMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40044</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5935)" sourceLine="40044">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2017-12-31_custom_ParanaibaMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:JointVenturesAxis" value="elp:ParanaibaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,698,213,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 486,305,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 77,116,000 + 126,095,000 ) with a value of 203,211,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2019-12-31
+Dimensions :  ifrs-full:JointVenturesAxis=elp:IntegracaoMaranhenseMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40049</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5940)" sourceLine="40049">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2019-12-31_custom_IntegracaoMaranhenseMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:JointVenturesAxis" value="elp:IntegracaoMaranhenseMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="486,305,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 1,318,517,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 84,863,000 + 545,742,000 ) with a value of 630,605,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2019-12-31
+Dimensions :  ifrs-full:JointVenturesAxis=elp:GuaraciabaMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40051</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5942)" sourceLine="40051">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2019-12-31_custom_GuaraciabaMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:JointVenturesAxis" value="elp:GuaraciabaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,318,517,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 134,141,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 4,231,000 + 3,361,000 ) with a value of 7,592,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2018-12-31
+Dimensions :  ifrs-full:SignificantInvestmentsInAssociatesAxis=elp:DonaFranciscaMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40056</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5947)" sourceLine="40056">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2018-12-31_custom_DonaFranciscaMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SignificantInvestmentsInAssociatesAxis" value="elp:DonaFranciscaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="134,141,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 632,910,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 147,743,000 + 87,409,000 ) with a value of 235,152,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2017-12-31
+Dimensions :  ifrs-full:SignificantInvestmentsInSubsidiariesAxis=elp:CompagasMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40023</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5914)" sourceLine="40023">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2017-12-31_custom_CompagasMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SignificantInvestmentsInSubsidiariesAxis" value="elp:CompagasMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="632,910,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 675,286,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 133,769,000 + 106,900,000 ) with a value of 240,669,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2018-12-31
+Dimensions :  ifrs-full:SignificantInvestmentsInSubsidiariesAxis=elp:CompagasMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40024</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5915)" sourceLine="40024">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2018-12-31_custom_CompagasMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SignificantInvestmentsInSubsidiariesAxis" value="elp:CompagasMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="675,286,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 130,883,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 4,344,000 + 3,118,000 ) with a value of 7,462,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2019-12-31
+Dimensions :  ifrs-full:SignificantInvestmentsInAssociatesAxis=elp:DonaFranciscaMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40055</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5946)" sourceLine="40055">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2019-12-31_custom_DonaFranciscaMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SignificantInvestmentsInAssociatesAxis" value="elp:DonaFranciscaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="130,883,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 466,783,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 71,563,000 + 163,790,000 ) with a value of 235,353,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2017-12-31
+Dimensions :  ifrs-full:JointVenturesAxis=elp:IntegracaoMaranhenseMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40041</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5932)" sourceLine="40041">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2017-12-31_custom_IntegracaoMaranhenseMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:JointVenturesAxis" value="elp:IntegracaoMaranhenseMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="466,783,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 659,464,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 220,845,000 + 116,818,000 ) with a value of 337,663,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2017-12-31
+Dimensions :  ifrs-full:JointVenturesAxis=elp:TransmissoraSulBrasileiraMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40039</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5930)" sourceLine="40039">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2017-12-31_custom_TransmissoraSulBrasileiraMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:JointVenturesAxis" value="elp:TransmissoraSulBrasileiraMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="659,464,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 1,722,063,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 12,630,000 + 792,519,000 ) with a value of 805,149,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2017-12-31
+Dimensions :  ifrs-full:JointVenturesAxis=elp:MataDeSantaGenebraMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40045</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5936)" sourceLine="40045">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2017-12-31_custom_MataDeSantaGenebraMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:JointVenturesAxis" value="elp:MataDeSantaGenebraMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,722,063,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 904,993,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 236,190,000 + 110,475,000 ) with a value of 346,665,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2019-12-31
+Dimensions :  ifrs-full:SignificantInvestmentsInSubsidiariesAxis=elp:CompagasMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40025</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5916)" sourceLine="40025">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2019-12-31_custom_CompagasMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SignificantInvestmentsInSubsidiariesAxis" value="elp:CompagasMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="904,993,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 138,079,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 4,144,000 + 4,443,000 ) with a value of 8,587,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2017-12-31
+Dimensions :  ifrs-full:SignificantInvestmentsInAssociatesAxis=elp:DonaFranciscaMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40057</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5948)" sourceLine="40057">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2017-12-31_custom_DonaFranciscaMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SignificantInvestmentsInAssociatesAxis" value="elp:DonaFranciscaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="138,079,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 261,951,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 24,955,000 + 84,672,000 ) with a value of 109,627,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2018-12-31
+Dimensions :  ifrs-full:JointVenturesAxis=elp:CaiuaMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40031</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5922)" sourceLine="40031">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2018-12-31_custom_CaiuaMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:JointVenturesAxis" value="elp:CaiuaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="261,951,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 507,060,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 38,386,000 + 22,470,000 ) with a value of 60,856,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2017-12-31
+Dimensions :  ifrs-full:SignificantInvestmentsInSubsidiariesAxis=elp:UEGAraucariaMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40028</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5919)" sourceLine="40028">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2017-12-31_custom_UEGAraucariaMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SignificantInvestmentsInSubsidiariesAxis" value="elp:UEGAraucariaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="507,060,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 106,736,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 57,603,000 + 26,133,000 ) with a value of 83,736,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2018-12-31
+Dimensions :  ifrs-full:SignificantInvestmentsInAssociatesAxis=elp:FozDoChopimMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40059</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5950)" sourceLine="40059">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2018-12-31_custom_FozDoChopimMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SignificantInvestmentsInAssociatesAxis" value="elp:FozDoChopimMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="106,736,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 952,670,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 9,706,000 + 534,764,000 ) with a value of 544,470,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2017-12-31
+Dimensions :  ifrs-full:JointVenturesAxis=elp:CantareiraMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40046</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5937)" sourceLine="40046">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2017-12-31_custom_CantareiraMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:JointVenturesAxis" value="elp:CantareiraMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="952,670,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 465,801,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 73,856,000 + 127,284,000 ) with a value of 201,140,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2018-12-31
+Dimensions :  ifrs-full:JointVenturesAxis=elp:IntegracaoMaranhenseMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40032</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5923)" sourceLine="40032">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2018-12-31_custom_IntegracaoMaranhenseMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:JointVenturesAxis" value="elp:IntegracaoMaranhenseMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="465,801,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 652,175,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 124,880,000 + 473,318,000 ) with a value of 598,198,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2018-12-31
+Dimensions :  ifrs-full:SignificantInvestmentsInSubsidiariesAxis=elp:ElejorMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40027</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5918)" sourceLine="40027">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2018-12-31_custom_ElejorMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SignificantInvestmentsInSubsidiariesAxis" value="elp:ElejorMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="652,175,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 1,496,577,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 72,907,000 + 733,326,000 ) with a value of 806,233,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2019-12-31
+Dimensions :  ifrs-full:JointVenturesAxis=elp:CantareiraMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40054</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5945)" sourceLine="40054">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2019-12-31_custom_CantareiraMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:JointVenturesAxis" value="elp:CantareiraMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,496,577,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 436,137,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 42,185,000 + 23,290,000 ) with a value of 65,475,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2018-12-31
+Dimensions :  ifrs-full:SignificantInvestmentsInSubsidiariesAxis=elp:UEGAraucariaMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40029</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5920)" sourceLine="40029">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2018-12-31_custom_UEGAraucariaMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SignificantInvestmentsInSubsidiariesAxis" value="elp:UEGAraucariaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="436,137,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 1,574,846,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 104,599,000 + 814,798,000 ) with a value of 919,397,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2018-12-31
+Dimensions :  ifrs-full:JointVenturesAxis=elp:ParanaibaMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40035</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5926)" sourceLine="40035">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2018-12-31_custom_ParanaibaMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:JointVenturesAxis" value="elp:ParanaibaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,574,846,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 1,625,008,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 104,065,000 + 810,847,000 ) with a value of 914,912,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2019-12-31
+Dimensions :  ifrs-full:JointVenturesAxis=elp:ParanaibaMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40052</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5943)" sourceLine="40052">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2019-12-31_custom_ParanaibaMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:JointVenturesAxis" value="elp:ParanaibaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,625,008,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 2,482,326,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 129,810,000 + 1,208,089,000 ) with a value of 1,337,899,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2019-12-31
+Dimensions :  ifrs-full:JointVenturesAxis=elp:MataDeSantaGenebraMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40053</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5944)" sourceLine="40053">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2019-12-31_custom_MataDeSantaGenebraMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:JointVenturesAxis" value="elp:MataDeSantaGenebraMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,482,326,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 2,199,434,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 137,627,000 + 687,897,000 ) with a value of 825,524,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2018-12-31
+Dimensions :  ifrs-full:JointVenturesAxis=elp:MatrinchaMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40033</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5924)" sourceLine="40033">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2018-12-31_custom_MatrinchaMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:JointVenturesAxis" value="elp:MatrinchaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,199,434,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 675,450,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 164,574,000 + 449,149,000 ) with a value of 613,723,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2017-12-31
+Dimensions :  ifrs-full:SignificantInvestmentsInSubsidiariesAxis=elp:ElejorMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40026</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5917)" sourceLine="40026">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2017-12-31_custom_ElejorMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SignificantInvestmentsInSubsidiariesAxis" value="elp:ElejorMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="675,450,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 2,295,925,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 166,430,000 + 677,398,000 ) with a value of 843,828,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2019-12-31
+Dimensions :  ifrs-full:JointVenturesAxis=elp:MatrinchaMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40050</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5941)" sourceLine="40050">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2019-12-31_custom_MatrinchaMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:JointVenturesAxis" value="elp:MatrinchaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,295,925,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 230,743,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 23,608,000 + 92,774,000 ) with a value of 116,382,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2017-12-31
+Dimensions :  ifrs-full:JointVenturesAxis=elp:CaiuaMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40040</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5931)" sourceLine="40040">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2017-12-31_custom_CaiuaMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:JointVenturesAxis" value="elp:CaiuaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="230,743,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 1,295,670,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 79,701,000 + 487,520,000 ) with a value of 567,221,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2018-12-31
+Dimensions :  ifrs-full:JointVenturesAxis=elp:GuaraciabaMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40034</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5925)" sourceLine="40034">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2018-12-31_custom_GuaraciabaMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:JointVenturesAxis" value="elp:GuaraciabaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,295,670,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 1,428,247,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 71,818,000 + 502,713,000 ) with a value of 574,531,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2017-12-31
+Dimensions :  ifrs-full:JointVenturesAxis=elp:GuaraciabaMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40043</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5934)" sourceLine="40043">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2017-12-31_custom_GuaraciabaMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:JointVenturesAxis" value="elp:GuaraciabaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,428,247,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 2,365,160,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 124,606,000 + 1,273,962,000 ) with a value of 1,398,568,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2018-12-31
+Dimensions :  ifrs-full:JointVenturesAxis=elp:MataDeSantaGenebraMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40036</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5927)" sourceLine="40036">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2018-12-31_custom_MataDeSantaGenebraMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:JointVenturesAxis" value="elp:MataDeSantaGenebraMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,365,160,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 271,409,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 28,892,000 + 82,699,000 ) with a value of 111,591,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2019-12-31
+Dimensions :  ifrs-full:JointVenturesAxis=elp:CaiuaMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40048</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5939)" sourceLine="40048">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2019-12-31_custom_CaiuaMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:JointVenturesAxis" value="elp:CaiuaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="271,409,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 2,774,973,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 140,515,000 + 928,706,000 ) with a value of 1,069,221,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2017-12-31
+Dimensions :  ifrs-full:JointVenturesAxis=elp:MatrinchaMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40042</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5933)" sourceLine="40042">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2017-12-31_custom_MatrinchaMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:JointVenturesAxis" value="elp:MatrinchaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,774,973,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9541" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml" severity="error" effectiveDate="None" cid="2493380924800">[DQC.IFRS.0102.9541] Liabilities assumed with a value of 61,635,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 2,354,000 + 25,243,000 ) with a value of 27,597,000. Consider using the element CurrentLiabilitiesOtherThanLiabilitiesIncludedInDisposalGroupsClassifiedAsHeldForSale other than CurrentLiabilities.
+
+These values should be equal.
+The properties of this ifrs-full:Liabilities fact are:
+Period :2019-12-31
+Dimensions :  ifrs-full:SignificantInvestmentsInAssociatesAxis=elp:FozDoChopimMember
+Unit : BRL
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9541
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml 40058</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml#element(/1/5949)" sourceLine="40058">
+  <property name="label" value="Liabilities assumed"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="AsOf2019-12-31_custom_FozDoChopimMember">
+   <property name="entity" value="0001041792">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SignificantInvestmentsInAssociatesAxis" value="elp:FozDoChopimMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="61,635,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 11.23 secs - https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1041792/000129281420001451/elp-20191231.xml"/></entry>
+</log>

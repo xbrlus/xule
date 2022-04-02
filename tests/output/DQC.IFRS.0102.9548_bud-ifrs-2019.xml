@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.41 secs at 2020-10-28T16:43:35 - https://www.sec.gov/Archives/edgar/data/1668717/000119312520209350/bud-20200630.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1668717/000119312520209350/bud-20200630.xml"/></entry>
+<entry code="DQC.IFRS.0102.9548" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1668717/000119312520209350/bud-20200630.xml" severity="error" effectiveDate="None" cid="2656856216960">[DQC.IFRS.0102.9548] Increase (decrease) in cash and cash equivalents, discontinued operations with a value of 417,000,000 is not equal to the combined total of Cash flows from (used in) operating activities, discontinued operations, Cash flows from (used in) investing activities, discontinued operations and Cash flows from (used in) financing activities, discontinued operations ( 84,000,000 + -13,000,000 + -6,000,000 ) with a value of 65,000,000. 
+
+These values should be equal.
+The properties of this ifrs-full:IncreaseDecreaseInCashAndCashEquivalentsDiscontinuedOperations fact are:
+Period :2020-01-01 to 2020-06-30
+Dimensions :  srt:ConsolidatedEntitiesAxis=srt:NonGuarantorSubsidiariesMember
+Unit : USD
+Decimals of Increase (decrease) in cash and cash equivalents, discontinued operations : -6
+Decimals of Cash flows from (used in) operating activities, discontinued operations : -6
+Decimals of Cash flows from (used in) investing activities, discontinued operations : -6
+Decimals of Cash flows from (used in) financing activities, discontinued operations : -6
+
+Rule Element Id:9548
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1668717/000119312520209350/bud-20200630.xml 19024</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1668717/000119312520209350/bud-20200630.xml#Factid_14184208" sourceLine="19024">
+  <property name="label" value="Increase (decrease) in cash and cash equivalents, discontinued operations"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="IncreaseDecreaseInCashAndCashEquivalentsDiscontinuedOperations"/>
+  <property name="QName" value="ifrs-full:IncreaseDecreaseInCashAndCashEquivalentsDiscontinuedOperations"/>
+  <property name="contextRef" value="P01_01_2020To06_30_2020_NonGuarantorSubsidiariesMembersrtConsolidatedEntitiesAxis">
+   <property name="entity" value="0001668717">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidatedEntitiesAxis" value="srt:NonGuarantorSubsidiariesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="417,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9548" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1668717/000119312520209350/bud-20200630.xml" severity="error" effectiveDate="None" cid="2656856216960">[DQC.IFRS.0102.9548] Increase (decrease) in cash and cash equivalents, discontinued operations with a value of 18,416,000,000 is not equal to the combined total of Cash flows from (used in) operating activities, discontinued operations, Cash flows from (used in) investing activities, discontinued operations and Cash flows from (used in) financing activities, discontinued operations ( 84,000,000 + -13,000,000 + -6,000,000 ) with a value of 65,000,000. 
+
+These values should be equal.
+The properties of this ifrs-full:IncreaseDecreaseInCashAndCashEquivalentsDiscontinuedOperations fact are:
+Period :2020-01-01 to 2020-06-30
+Dimensions :  
+Unit : USD
+Decimals of Increase (decrease) in cash and cash equivalents, discontinued operations : -6
+Decimals of Cash flows from (used in) operating activities, discontinued operations : -6
+Decimals of Cash flows from (used in) investing activities, discontinued operations : -6
+Decimals of Cash flows from (used in) financing activities, discontinued operations : -6
+
+Rule Element Id:9548
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1668717/000119312520209350/bud-20200630.xml 18837</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1668717/000119312520209350/bud-20200630.xml#Factid_14183969" sourceLine="18837">
+  <property name="label" value="Increase (decrease) in cash and cash equivalents, discontinued operations"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="IncreaseDecreaseInCashAndCashEquivalentsDiscontinuedOperations"/>
+  <property name="QName" value="ifrs-full:IncreaseDecreaseInCashAndCashEquivalentsDiscontinuedOperations"/>
+  <property name="contextRef" value="P01_01_2020To06_30_2020">
+   <property name="entity" value="0001668717">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+  </property>
+  <property name="unitRef" value="Unit_USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="18,416,000,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.39 secs - https://www.sec.gov/Archives/edgar/data/1668717/000119312520209350/bud-20200630.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1668717/000119312520209350/bud-20200630.xml"/></entry>
+</log>

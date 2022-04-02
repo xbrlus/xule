@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23303 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.34 secs at 2021-11-15T17:37:20 - https://www.sec.gov/Archives/edgar/data/926042/000119312521202050/ttm-20210331.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/926042/000119312521202050/ttm-20210331.xml"/></entry>
+<entry code="DQC.IFRS.0130.9725" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/926042/000119312521202050/ttm-20210331.xml" severity="error" effectiveDate="None" cid="1773941949392">[DQC.IFRS.0130.9725] The calculated earnings or loss per share does not equal the actual value reported for the concept DilutedEarningsLossPerShare for the period 2019-04-01 to 2020-03-31. The value reported is -32.9. The calculated value is calculated by dividing the concept ProfitLossAttributableToOrdinaryEquityHoldersOfParentEntityIncludingDilutiveEffects with a value of -43,895,800,000  by the denominator AdjustedWeightedAverageShares with a value of 508,502,371. This equals -86.3237 (rounded 4d) which differs from the reported value of -32.9. Please check that the calculation is correct or that the correct elements have been used.
+
+Element : DilutedEarningsLossPerShare
+Period : 2019-04-01 to 2020-03-31 
+Dimensions : ifrs-full:ClassesOfShareCapitalAxis=ttm:AOrdinarySharesMember
+Decimals : 1
+Unit : INR/shares
+
+Rule Element Id:9725
+Rule version: 17.0.0RC1 
+ - https://www.sec.gov/Archives/edgar/data/926042/000119312521202050/ttm-20210331.xml 21690</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/926042/000119312521202050/ttm-20210331.xml#Factid_22417414" sourceLine="21690">
+  <property name="label" value="Diluted earnings (loss) per share"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2020-03-16/ifrs-full"/>
+  <property name="name" value="DilutedEarningsLossPerShare"/>
+  <property name="QName" value="ifrs-full:DilutedEarningsLossPerShare"/>
+  <property name="contextRef" value="P04_01_2019To03_31_2020_AOrdinarySharesMemberifrsfullClassesOfShareCapitalAxis">
+   <property name="entity" value="0000926042">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-04-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ClassesOfShareCapitalAxis" value="ttm:AOrdinarySharesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_INR_per_Share (₨ / shares)">
+   <property name="mul" value="iso4217:INR"/>
+   <property name="div" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="1"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-32.9"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 6.58 secs - https://www.sec.gov/Archives/edgar/data/926042/000119312521202050/ttm-20210331.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/926042/000119312521202050/ttm-20210331.xml"/></entry>
+</log>

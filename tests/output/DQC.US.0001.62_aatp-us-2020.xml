@@ -1,0 +1,720 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.04 secs at 2020-07-24T23:23:44 - http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpqr7lfuzd\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpqr7lfuzd\packages\resources.zip"/></entry>
+<entry code="DQC.US.0001.62" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="1552503973248">[DQC.US.0001.62] The concept ForeignCurrencyExchangeRateTranslation1 with a value of 4.13 is dimensionally qualified with the CurrencyAxis and the unallowable member AATP:MalaysianRinggitMember. 
+The properties of the fact for ForeignCurrencyExchangeRateTranslation1 are:
+Period: 2018-12-31
+Dimensions: us-gaap:RelatedPartyTransactionsByRelatedPartyAxis=AATP:SuperiorLivingSDNBHDMember, srt:CurrencyAxis=AATP:MalaysianRinggitMember 
+Unit: pure
+
+Rule Element Id:62
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml 7256</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml#element(/1/1283)" sourceLine="7256">
+  <property name="label" value="Foreign Currency Exchange Rate, Translation"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ForeignCurrencyExchangeRateTranslation1"/>
+  <property name="QName" value="us-gaap:ForeignCurrencyExchangeRateTranslation1"/>
+  <property name="contextRef" value="AsOf2018-12-31_custom_SuperiorLivingSDNBHDMember_custom_MalaysianRinggitMember">
+   <property name="entity" value="0001713210">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:CurrencyAxis" value="AATP:MalaysianRinggitMember"/>
+    <property name="us-gaap:RelatedPartyTransactionsByRelatedPartyAxis" value="AATP:SuperiorLivingSDNBHDMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Pure (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4.13"/>
+ </ref></entry>
+<entry code="DQC.US.0001.62" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="1552503973248">[DQC.US.0001.62] The concept Revenues with a value of 500,000 is dimensionally qualified with the CurrencyAxis and the unallowable member AATP:MalaysianRinggitMember. 
+The properties of the fact for Revenues are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: us-gaap:RelatedPartyTransactionsByRelatedPartyAxis=AATP:SuperiorLivingSDNBHDMember, srt:CurrencyAxis=AATP:MalaysianRinggitMember 
+Unit: USD
+
+Rule Element Id:62
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml 8385</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml#element(/1/2412)" sourceLine="8385">
+  <property name="label" value="Income"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="Revenues"/>
+  <property name="QName" value="us-gaap:Revenues"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_custom_SuperiorLivingSDNBHDMember_custom_MalaysianRinggitMember">
+   <property name="entity" value="0001713210">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:CurrencyAxis" value="AATP:MalaysianRinggitMember"/>
+    <property name="us-gaap:RelatedPartyTransactionsByRelatedPartyAxis" value="AATP:SuperiorLivingSDNBHDMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="500,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.62" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="1552503973248">[DQC.US.0001.62] The concept ForeignCurrencyExchangeRateTranslation1 with a value of 4.14 is dimensionally qualified with the CurrencyAxis and the unallowable member AATP:MalaysianRinggitMember. 
+The properties of the fact for ForeignCurrencyExchangeRateTranslation1 are:
+Period: 2019-12-31
+Dimensions: us-gaap:OtherComprehensiveIncomeLocationAxis=us-gaap:OtherComprehensiveIncomeMember, us-gaap:RelatedPartyTransactionsByRelatedPartyAxis=AATP:SuperiorLivingSDNBHDMember, srt:CurrencyAxis=AATP:MalaysianRinggitMember 
+Unit: pure
+
+Rule Element Id:62
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml 7257</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml#element(/1/1284)" sourceLine="7257">
+  <property name="label" value="Foreign Currency Exchange Rate, Translation"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ForeignCurrencyExchangeRateTranslation1"/>
+  <property name="QName" value="us-gaap:ForeignCurrencyExchangeRateTranslation1"/>
+  <property name="contextRef" value="AsOf2019-12-31_custom_SuperiorLivingSDNBHDMember_custom_MalaysianRinggitMember_us-gaap_OtherComprehensiveIncomeMember">
+   <property name="entity" value="0001713210">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="srt:CurrencyAxis" value="AATP:MalaysianRinggitMember"/>
+    <property name="us-gaap:OtherComprehensiveIncomeLocationAxis" value="us-gaap:OtherComprehensiveIncomeMember"/>
+    <property name="us-gaap:RelatedPartyTransactionsByRelatedPartyAxis" value="AATP:SuperiorLivingSDNBHDMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Pure (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4.14"/>
+ </ref></entry>
+<entry code="DQC.US.0001.62" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="1552503973248">[DQC.US.0001.62] The concept MonthlySalary with a value of 4,000 is dimensionally qualified with the CurrencyAxis and the unallowable member AATP:MalaysianRinggitMember. 
+The properties of the fact for MonthlySalary are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: us-gaap:RelatedPartyTransactionsByRelatedPartyAxis=AATP:SuperiorLivingSDNBHDMember, srt:CurrencyAxis=AATP:MalaysianRinggitMember, dei:LegalEntityAxis=AATP:EmploymentInsuranceSystemMember 
+Unit: MYR
+
+Rule Element Id:62
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml 8195</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml#element(/1/2222)" sourceLine="8195">
+  <property name="label" value="Monthly salary"/>
+  <property name="namespace" value="http://agapeatp.com/20200331"/>
+  <property name="name" value="MonthlySalary"/>
+  <property name="QName" value="AATP:MonthlySalary"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_custom_SuperiorLivingSDNBHDMember_custom_EmploymentInsuranceSystemMember_custom_MalaysianRinggitMember">
+   <property name="entity" value="0001713210">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="srt:CurrencyAxis" value="AATP:MalaysianRinggitMember"/>
+    <property name="us-gaap:RelatedPartyTransactionsByRelatedPartyAxis" value="AATP:SuperiorLivingSDNBHDMember"/>
+    <property name="dei:LegalEntityAxis" value="AATP:EmploymentInsuranceSystemMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="MYR (RM)">
+   <property name="measure" value="iso4217:MYR"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.62" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="1552503973248">[DQC.US.0001.62] The concept ForeignCurrencyExchangeRateTranslation1 with a value of 4.03 is dimensionally qualified with the CurrencyAxis and the unallowable member AATP:MalaysianRinggitMember. 
+The properties of the fact for ForeignCurrencyExchangeRateTranslation1 are:
+Period: 2018-12-31
+Dimensions: us-gaap:RelatedPartyTransactionsByRelatedPartyAxis=AATP:SuperiorLivingSDNBHDMember, us-gaap:OtherComprehensiveIncomeLocationAxis=us-gaap:OtherComprehensiveIncomeMember, srt:CurrencyAxis=AATP:MalaysianRinggitMember 
+Unit: pure
+
+Rule Element Id:62
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml 7258</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml#element(/1/1285)" sourceLine="7258">
+  <property name="label" value="Foreign Currency Exchange Rate, Translation"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ForeignCurrencyExchangeRateTranslation1"/>
+  <property name="QName" value="us-gaap:ForeignCurrencyExchangeRateTranslation1"/>
+  <property name="contextRef" value="AsOf2018-12-31_custom_SuperiorLivingSDNBHDMember_custom_MalaysianRinggitMember_us-gaap_OtherComprehensiveIncomeMember">
+   <property name="entity" value="0001713210">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="srt:CurrencyAxis" value="AATP:MalaysianRinggitMember"/>
+    <property name="us-gaap:OtherComprehensiveIncomeLocationAxis" value="us-gaap:OtherComprehensiveIncomeMember"/>
+    <property name="us-gaap:RelatedPartyTransactionsByRelatedPartyAxis" value="AATP:SuperiorLivingSDNBHDMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Pure (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4.03"/>
+ </ref></entry>
+<entry code="DQC.US.0001.62" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="1552503973248">[DQC.US.0001.62] The concept Revenues with a value of 500,000 is dimensionally qualified with the CurrencyAxis and the unallowable member AATP:MalaysianRinggitMember. 
+The properties of the fact for Revenues are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: us-gaap:RelatedPartyTransactionsByRelatedPartyAxis=AATP:SuperiorLivingSDNBHDMember, srt:CurrencyAxis=AATP:MalaysianRinggitMember 
+Unit: USD
+
+Rule Element Id:62
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml 8386</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml#element(/1/2413)" sourceLine="8386">
+  <property name="label" value="Income"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="Revenues"/>
+  <property name="QName" value="us-gaap:Revenues"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_custom_SuperiorLivingSDNBHDMember_custom_MalaysianRinggitMember">
+   <property name="entity" value="0001713210">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:CurrencyAxis" value="AATP:MalaysianRinggitMember"/>
+    <property name="us-gaap:RelatedPartyTransactionsByRelatedPartyAxis" value="AATP:SuperiorLivingSDNBHDMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="500,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.62" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="1552503973248">[DQC.US.0001.62] The concept MonthlySalary with a value of 4,000 is dimensionally qualified with the CurrencyAxis and the unallowable member AATP:MalaysianRinggitMember. 
+The properties of the fact for MonthlySalary are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: us-gaap:RelatedPartyTransactionsByRelatedPartyAxis=AATP:SuperiorLivingSDNBHDMember, dei:LegalEntityAxis=AATP:SocialSecurityOrganizationMember, srt:CurrencyAxis=AATP:MalaysianRinggitMember 
+Unit: MYR
+
+Rule Element Id:62
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml 8194</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml#element(/1/2221)" sourceLine="8194">
+  <property name="label" value="Monthly salary"/>
+  <property name="namespace" value="http://agapeatp.com/20200331"/>
+  <property name="name" value="MonthlySalary"/>
+  <property name="QName" value="AATP:MonthlySalary"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_custom_SuperiorLivingSDNBHDMember_custom_SocialSecurityOrganizationMember_custom_MalaysianRinggitMember">
+   <property name="entity" value="0001713210">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="srt:CurrencyAxis" value="AATP:MalaysianRinggitMember"/>
+    <property name="us-gaap:RelatedPartyTransactionsByRelatedPartyAxis" value="AATP:SuperiorLivingSDNBHDMember"/>
+    <property name="dei:LegalEntityAxis" value="AATP:SocialSecurityOrganizationMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="MYR (RM)">
+   <property name="measure" value="iso4217:MYR"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.62" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="1552503973248">[DQC.US.0001.62] The concept Revenues with a value of 600,000 is dimensionally qualified with the CurrencyAxis and the unallowable member AATP:MalaysianRinggitMember. 
+The properties of the fact for Revenues are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: us-gaap:RelatedPartyTransactionsByRelatedPartyAxis=AATP:SuperiorLivingSDNBHDMember, srt:CurrencyAxis=AATP:MalaysianRinggitMember 
+Unit: USD
+
+Rule Element Id:62
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml 8382</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml#element(/1/2409)" sourceLine="8382">
+  <property name="label" value="Income"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="Revenues"/>
+  <property name="QName" value="us-gaap:Revenues"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_custom_SuperiorLivingSDNBHDMember_custom_MalaysianRinggitMember">
+   <property name="entity" value="0001713210">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:CurrencyAxis" value="AATP:MalaysianRinggitMember"/>
+    <property name="us-gaap:RelatedPartyTransactionsByRelatedPartyAxis" value="AATP:SuperiorLivingSDNBHDMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="600,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.62" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="1552503973248">[DQC.US.0001.62] The concept LoansPayable with a value of 8,090,598 is dimensionally qualified with the CurrencyAxis and the unallowable member AATP:MalaysianRinggitMember. 
+The properties of the fact for LoansPayable are:
+Period: 2019-12-16
+Dimensions: srt:TitleOfIndividualAxis=AATP:CEOAndDirectorMember, srt:CurrencyAxis=AATP:MalaysianRinggitMember, us-gaap:RelatedPartyTransactionsByRelatedPartyAxis=AATP:SuperiorLivingSDNBHDMember 
+Unit: USD
+
+Rule Element Id:62
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml 8352</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml#element(/1/2379)" sourceLine="8352">
+  <property name="label" value="Loans payable"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="LoansPayable"/>
+  <property name="QName" value="us-gaap:LoansPayable"/>
+  <property name="contextRef" value="AsOf2019-12-16_custom_SuperiorLivingSDNBHDMember_custom_CEOAndDirectorMember_custom_MalaysianRinggitMember">
+   <property name="entity" value="0001713210">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-16"/>
+   <property name="dimensions" value="(3)">
+    <property name="srt:CurrencyAxis" value="AATP:MalaysianRinggitMember"/>
+    <property name="srt:TitleOfIndividualAxis" value="AATP:CEOAndDirectorMember"/>
+    <property name="us-gaap:RelatedPartyTransactionsByRelatedPartyAxis" value="AATP:SuperiorLivingSDNBHDMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="8,090,598"/>
+ </ref></entry>
+<entry code="DQC.US.0001.62" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="1552503973248">[DQC.US.0001.62] The concept MonthlySalary with a value of 5,000 is dimensionally qualified with the CurrencyAxis and the unallowable member AATP:MalaysianRinggitMember. 
+The properties of the fact for MonthlySalary are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: srt:CurrencyAxis=AATP:MalaysianRinggitMember, us-gaap:RelatedPartyTransactionsByRelatedPartyAxis=AATP:SuperiorLivingSDNBHDMember, dei:LegalEntityAxis=AATP:EmploymentInsuranceSystemMember 
+Unit: MYR
+
+Rule Element Id:62
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml 8197</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml#element(/1/2224)" sourceLine="8197">
+  <property name="label" value="Monthly salary"/>
+  <property name="namespace" value="http://agapeatp.com/20200331"/>
+  <property name="name" value="MonthlySalary"/>
+  <property name="QName" value="AATP:MonthlySalary"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_custom_SuperiorLivingSDNBHDMember_custom_EmploymentInsuranceSystemMember_custom_MalaysianRinggitMember">
+   <property name="entity" value="0001713210">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="srt:CurrencyAxis" value="AATP:MalaysianRinggitMember"/>
+    <property name="us-gaap:RelatedPartyTransactionsByRelatedPartyAxis" value="AATP:SuperiorLivingSDNBHDMember"/>
+    <property name="dei:LegalEntityAxis" value="AATP:EmploymentInsuranceSystemMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="MYR (RM)">
+   <property name="measure" value="iso4217:MYR"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="5,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.62" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="1552503973248">[DQC.US.0001.62] The concept SharePrice with a value of 1 is dimensionally qualified with the CurrencyAxis and the unallowable member AATP:MalaysianRinggitMember. 
+The properties of the fact for SharePrice are:
+Period: 2019-12-16
+Dimensions: srt:TitleOfIndividualAxis=AATP:CEOAndDirectorMember, srt:CurrencyAxis=AATP:MalaysianRinggitMember, us-gaap:RelatedPartyTransactionsByRelatedPartyAxis=AATP:SuperiorLivingSDNBHDMember 
+Unit: USD/shares
+
+Rule Element Id:62
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml 8353</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml#element(/1/2380)" sourceLine="8353">
+  <property name="label" value="Share price"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="SharePrice"/>
+  <property name="QName" value="us-gaap:SharePrice"/>
+  <property name="contextRef" value="AsOf2019-12-16_custom_SuperiorLivingSDNBHDMember_custom_CEOAndDirectorMember_custom_MalaysianRinggitMember">
+   <property name="entity" value="0001713210">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-16"/>
+   <property name="dimensions" value="(3)">
+    <property name="srt:CurrencyAxis" value="AATP:MalaysianRinggitMember"/>
+    <property name="srt:TitleOfIndividualAxis" value="AATP:CEOAndDirectorMember"/>
+    <property name="us-gaap:RelatedPartyTransactionsByRelatedPartyAxis" value="AATP:SuperiorLivingSDNBHDMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USDPShares ($ / shares)">
+   <property name="mul" value="iso4217:USD"/>
+   <property name="div" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1.00"/>
+ </ref></entry>
+<entry code="DQC.US.0001.62" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="1552503973248">[DQC.US.0001.62] The concept ForeignCurrencyExchangeRateTranslation1 with a value of 4.33 is dimensionally qualified with the CurrencyAxis and the unallowable member AATP:MalaysianRinggitMember. 
+The properties of the fact for ForeignCurrencyExchangeRateTranslation1 are:
+Period: 2020-03-31
+Dimensions: us-gaap:RelatedPartyTransactionsByRelatedPartyAxis=AATP:SuperiorLivingSDNBHDMember, srt:CurrencyAxis=AATP:MalaysianRinggitMember 
+Unit: pure
+
+Rule Element Id:62
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml 7250</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml#element(/1/1277)" sourceLine="7250">
+  <property name="label" value="Foreign Currency Exchange Rate, Translation"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ForeignCurrencyExchangeRateTranslation1"/>
+  <property name="QName" value="us-gaap:ForeignCurrencyExchangeRateTranslation1"/>
+  <property name="contextRef" value="AsOf2020-03-31_custom_SuperiorLivingSDNBHDMember_custom_MalaysianRinggitMember">
+   <property name="entity" value="0001713210">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:CurrencyAxis" value="AATP:MalaysianRinggitMember"/>
+    <property name="us-gaap:RelatedPartyTransactionsByRelatedPartyAxis" value="AATP:SuperiorLivingSDNBHDMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Pure (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4.33"/>
+ </ref></entry>
+<entry code="DQC.US.0001.62" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="1552503973248">[DQC.US.0001.62] The concept ForeignCurrencyExchangeRateTranslation1 with a value of 4.09 is dimensionally qualified with the CurrencyAxis and the unallowable member AATP:MalaysianRinggitMember. 
+The properties of the fact for ForeignCurrencyExchangeRateTranslation1 are:
+Period: 2019-12-31
+Dimensions: srt:CurrencyAxis=AATP:MalaysianRinggitMember, us-gaap:RelatedPartyTransactionsByRelatedPartyAxis=AATP:SuperiorLivingSDNBHDMember 
+Unit: pure
+
+Rule Element Id:62
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml 7251</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml#element(/1/1278)" sourceLine="7251">
+  <property name="label" value="Foreign Currency Exchange Rate, Translation"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ForeignCurrencyExchangeRateTranslation1"/>
+  <property name="QName" value="us-gaap:ForeignCurrencyExchangeRateTranslation1"/>
+  <property name="contextRef" value="AsOf2019-12-31_custom_SuperiorLivingSDNBHDMember_custom_MalaysianRinggitMember">
+   <property name="entity" value="0001713210">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:CurrencyAxis" value="AATP:MalaysianRinggitMember"/>
+    <property name="us-gaap:RelatedPartyTransactionsByRelatedPartyAxis" value="AATP:SuperiorLivingSDNBHDMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Pure (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4.09"/>
+ </ref></entry>
+<entry code="DQC.US.0001.62" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="1552503973248">[DQC.US.0001.62] The concept ForeignCurrencyExchangeRateTranslation1 with a value of 4.21 is dimensionally qualified with the CurrencyAxis and the unallowable member AATP:MalaysianRinggitMember. 
+The properties of the fact for ForeignCurrencyExchangeRateTranslation1 are:
+Period: 2020-03-31
+Dimensions: srt:CurrencyAxis=AATP:MalaysianRinggitMember, us-gaap:RelatedPartyTransactionsByRelatedPartyAxis=AATP:SuperiorLivingSDNBHDMember, us-gaap:OtherComprehensiveIncomeLocationAxis=us-gaap:OtherComprehensiveIncomeMember 
+Unit: pure
+
+Rule Element Id:62
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml 7252</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml#element(/1/1279)" sourceLine="7252">
+  <property name="label" value="Foreign Currency Exchange Rate, Translation"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ForeignCurrencyExchangeRateTranslation1"/>
+  <property name="QName" value="us-gaap:ForeignCurrencyExchangeRateTranslation1"/>
+  <property name="contextRef" value="AsOf2020-03-31_custom_SuperiorLivingSDNBHDMember_custom_MalaysianRinggitMember_us-gaap_OtherComprehensiveIncomeMember">
+   <property name="entity" value="0001713210">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="srt:CurrencyAxis" value="AATP:MalaysianRinggitMember"/>
+    <property name="us-gaap:OtherComprehensiveIncomeLocationAxis" value="us-gaap:OtherComprehensiveIncomeMember"/>
+    <property name="us-gaap:RelatedPartyTransactionsByRelatedPartyAxis" value="AATP:SuperiorLivingSDNBHDMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Pure (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4.21"/>
+ </ref></entry>
+<entry code="DQC.US.0001.62" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="1552503973248">[DQC.US.0001.62] The concept Revenues with a value of 500,000 is dimensionally qualified with the CurrencyAxis and the unallowable member AATP:MalaysianRinggitMember. 
+The properties of the fact for Revenues are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: srt:CurrencyAxis=AATP:MalaysianRinggitMember, us-gaap:RelatedPartyTransactionsByRelatedPartyAxis=AATP:SuperiorLivingSDNBHDMember 
+Unit: USD
+
+Rule Element Id:62
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml 8383</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml#element(/1/2410)" sourceLine="8383">
+  <property name="label" value="Income"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="Revenues"/>
+  <property name="QName" value="us-gaap:Revenues"/>
+  <property name="contextRef" value="From2019-01-01to2019-03-31_custom_SuperiorLivingSDNBHDMember_custom_MalaysianRinggitMember">
+   <property name="entity" value="0001713210">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:CurrencyAxis" value="AATP:MalaysianRinggitMember"/>
+    <property name="us-gaap:RelatedPartyTransactionsByRelatedPartyAxis" value="AATP:SuperiorLivingSDNBHDMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="500,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.62" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="1552503973248">[DQC.US.0001.62] The concept MonthlySalary with a value of 4,000 is dimensionally qualified with the CurrencyAxis and the unallowable member AATP:MalaysianRinggitMember. 
+The properties of the fact for MonthlySalary are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: srt:CurrencyAxis=AATP:MalaysianRinggitMember, dei:LegalEntityAxis=AATP:SocialSecurityOrganizationMember, us-gaap:RelatedPartyTransactionsByRelatedPartyAxis=AATP:SuperiorLivingSDNBHDMember 
+Unit: MYR
+
+Rule Element Id:62
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml 8196</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml#element(/1/2223)" sourceLine="8196">
+  <property name="label" value="Monthly salary"/>
+  <property name="namespace" value="http://agapeatp.com/20200331"/>
+  <property name="name" value="MonthlySalary"/>
+  <property name="QName" value="AATP:MonthlySalary"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_custom_SuperiorLivingSDNBHDMember_custom_SocialSecurityOrganizationMember_custom_MalaysianRinggitMember">
+   <property name="entity" value="0001713210">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="srt:CurrencyAxis" value="AATP:MalaysianRinggitMember"/>
+    <property name="us-gaap:RelatedPartyTransactionsByRelatedPartyAxis" value="AATP:SuperiorLivingSDNBHDMember"/>
+    <property name="dei:LegalEntityAxis" value="AATP:SocialSecurityOrganizationMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="MYR (RM)">
+   <property name="measure" value="iso4217:MYR"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.62" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="1552503973248">[DQC.US.0001.62] The concept ForeignCurrencyExchangeRateTranslation1 with a value of 4.08 is dimensionally qualified with the CurrencyAxis and the unallowable member AATP:MalaysianRinggitMember. 
+The properties of the fact for ForeignCurrencyExchangeRateTranslation1 are:
+Period: 2019-03-31
+Dimensions: us-gaap:OtherComprehensiveIncomeLocationAxis=us-gaap:OtherComprehensiveIncomeMember, srt:CurrencyAxis=AATP:MalaysianRinggitMember, us-gaap:RelatedPartyTransactionsByRelatedPartyAxis=AATP:SuperiorLivingSDNBHDMember 
+Unit: pure
+
+Rule Element Id:62
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml 7253</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml#element(/1/1280)" sourceLine="7253">
+  <property name="label" value="Foreign Currency Exchange Rate, Translation"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ForeignCurrencyExchangeRateTranslation1"/>
+  <property name="QName" value="us-gaap:ForeignCurrencyExchangeRateTranslation1"/>
+  <property name="contextRef" value="AsOf2019-03-31_custom_SuperiorLivingSDNBHDMember_custom_MalaysianRinggitMember_us-gaap_OtherComprehensiveIncomeMember">
+   <property name="entity" value="0001713210">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-03-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="srt:CurrencyAxis" value="AATP:MalaysianRinggitMember"/>
+    <property name="us-gaap:OtherComprehensiveIncomeLocationAxis" value="us-gaap:OtherComprehensiveIncomeMember"/>
+    <property name="us-gaap:RelatedPartyTransactionsByRelatedPartyAxis" value="AATP:SuperiorLivingSDNBHDMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Pure (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4.08"/>
+ </ref></entry>
+<entry code="DQC.US.0001.62" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="1552503973248">[DQC.US.0001.62] The concept DividendsPaidinkind with a value of 13,210,000 is dimensionally qualified with the CurrencyAxis and the unallowable member AATP:MalaysianRinggitMember. 
+The properties of the fact for DividendsPaidinkind are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: srt:TitleOfIndividualAxis=AATP:DirectorsMember, us-gaap:RelatedPartyTransactionsByRelatedPartyAxis=AATP:SuperiorLivingSDNBHDMember, srt:CurrencyAxis=AATP:MalaysianRinggitMember 
+Unit: USD
+
+Rule Element Id:62
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml 8350</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml#element(/1/2377)" sourceLine="8350">
+  <property name="label" value="Dividends paid"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="DividendsPaidinkind"/>
+  <property name="QName" value="us-gaap:DividendsPaidinkind"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_custom_SuperiorLivingSDNBHDMember_custom_MalaysianRinggitMember_custom_DirectorsMember">
+   <property name="entity" value="0001713210">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="srt:CurrencyAxis" value="AATP:MalaysianRinggitMember"/>
+    <property name="srt:TitleOfIndividualAxis" value="AATP:DirectorsMember"/>
+    <property name="us-gaap:RelatedPartyTransactionsByRelatedPartyAxis" value="AATP:SuperiorLivingSDNBHDMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="13,210,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.62" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="1552503973248">[DQC.US.0001.62] The concept Deposits with a value of 250,000 is dimensionally qualified with the CurrencyAxis and the unallowable member AATP:MalaysianRinggitMember. 
+The properties of the fact for Deposits are:
+Period: 2020-03-31
+Dimensions: srt:RangeAxis=srt:MaximumMember, us-gaap:RelatedPartyTransactionsByRelatedPartyAxis=AATP:SuperiorLivingSDNBHDMember, srt:CurrencyAxis=AATP:MalaysianRinggitMember, srt:TitleOfIndividualAxis=AATP:EachDepositorMember 
+Unit: MYR
+
+Rule Element Id:62
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml 8158</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml#element(/1/2185)" sourceLine="8158">
+  <property name="label" value="Deposits"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="Deposits"/>
+  <property name="QName" value="us-gaap:Deposits"/>
+  <property name="contextRef" value="AsOf2020-03-31_custom_SuperiorLivingSDNBHDMember_custom_EachDepositorMember_custom_MalaysianRinggitMember_srt_MaximumMember">
+   <property name="entity" value="0001713210">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(4)">
+    <property name="srt:CurrencyAxis" value="AATP:MalaysianRinggitMember"/>
+    <property name="srt:RangeAxis" value="srt:MaximumMember"/>
+    <property name="srt:TitleOfIndividualAxis" value="AATP:EachDepositorMember"/>
+    <property name="us-gaap:RelatedPartyTransactionsByRelatedPartyAxis" value="AATP:SuperiorLivingSDNBHDMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="MYR (RM)">
+   <property name="measure" value="iso4217:MYR"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="250,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.62" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="1552503973248">[DQC.US.0001.62] The concept Deposits with a value of 250,000 is dimensionally qualified with the CurrencyAxis and the unallowable member AATP:MalaysianRinggitMember. 
+The properties of the fact for Deposits are:
+Period: 2019-12-31
+Dimensions: srt:RangeAxis=srt:MaximumMember, srt:CurrencyAxis=AATP:MalaysianRinggitMember, srt:TitleOfIndividualAxis=AATP:EachDepositorMember, us-gaap:RelatedPartyTransactionsByRelatedPartyAxis=AATP:SuperiorLivingSDNBHDMember 
+Unit: USD
+
+Rule Element Id:62
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml 8164</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml#element(/1/2191)" sourceLine="8164">
+  <property name="label" value="Deposits"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="Deposits"/>
+  <property name="QName" value="us-gaap:Deposits"/>
+  <property name="contextRef" value="AsOf2019-12-31_custom_SuperiorLivingSDNBHDMember_custom_EachDepositorMember_custom_MalaysianRinggitMember_srt_MaximumMember">
+   <property name="entity" value="0001713210">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(4)">
+    <property name="srt:CurrencyAxis" value="AATP:MalaysianRinggitMember"/>
+    <property name="srt:RangeAxis" value="srt:MaximumMember"/>
+    <property name="srt:TitleOfIndividualAxis" value="AATP:EachDepositorMember"/>
+    <property name="us-gaap:RelatedPartyTransactionsByRelatedPartyAxis" value="AATP:SuperiorLivingSDNBHDMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="250,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.62" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="1552503973248">[DQC.US.0001.62] The concept MonthlySalary with a value of 4,000 is dimensionally qualified with the CurrencyAxis and the unallowable member AATP:MalaysianRinggitMember. 
+The properties of the fact for MonthlySalary are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: dei:LegalEntityAxis=AATP:EmploymentInsuranceSystemOneMember, srt:CurrencyAxis=AATP:MalaysianRinggitMember, us-gaap:RelatedPartyTransactionsByRelatedPartyAxis=AATP:SuperiorLivingSDNBHDMember 
+Unit: MYR
+
+Rule Element Id:62
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml 8198</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml#element(/1/2225)" sourceLine="8198">
+  <property name="label" value="Monthly salary"/>
+  <property name="namespace" value="http://agapeatp.com/20200331"/>
+  <property name="name" value="MonthlySalary"/>
+  <property name="QName" value="AATP:MonthlySalary"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_custom_SuperiorLivingSDNBHDMember_custom_EmploymentInsuranceSystemOneMember_custom_MalaysianRinggitMember">
+   <property name="entity" value="0001713210">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="srt:CurrencyAxis" value="AATP:MalaysianRinggitMember"/>
+    <property name="us-gaap:RelatedPartyTransactionsByRelatedPartyAxis" value="AATP:SuperiorLivingSDNBHDMember"/>
+    <property name="dei:LegalEntityAxis" value="AATP:EmploymentInsuranceSystemOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="MYR (RM)">
+   <property name="measure" value="iso4217:MYR"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 16.41 secs - http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1713210/000149315220013599/aatp-20200331.xml"/></entry>
+</log>

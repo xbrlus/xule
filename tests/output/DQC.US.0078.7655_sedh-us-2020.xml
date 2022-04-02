@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.04 secs at 2020-07-29T09:42:33 - http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmp9wsrwm2k\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmp9wsrwm2k\packages\resources.zip"/></entry>
+<entry code="DQC.US.0078.7655" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml" severity="error" effectiveDate="2019-01-01" cid="2331845174656">[DQC.US.0078.7655] The filer has reported a value for the element us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest with a value of 1 without using the axis OwnershipAxis. This axis must be used when reporting a value for us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest. Please refer to the FASB implementation guide on Dimensional Modeling for Disclosures of Consolidated and Nonconsolidated Entities on the FASB website.
+
+The properties of this us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest fact are:
+Period :2020-01-01 to 2020-03-31
+Dimensions : srt:ConsolidatedEntitiesAxis=SEDH:Subsidiaries6Member
+Unit : pure
+
+Rule Element Id:7655
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml 762</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml#element(/1/271)" sourceLine="762">
+  <property name="label" value="Attributable Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest"/>
+  <property name="QName" value="us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_custom_Subsidiaries6Member">
+   <property name="entity" value="0001503658">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidatedEntitiesAxis" value="SEDH:Subsidiaries6Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1.0000"/>
+ </ref></entry>
+<entry code="DQC.US.0078.7655" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml" severity="error" effectiveDate="2019-01-01" cid="2331845174656">[DQC.US.0078.7655] The filer has reported a value for the element us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest with a value of 1 without using the axis OwnershipAxis. This axis must be used when reporting a value for us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest. Please refer to the FASB implementation guide on Dimensional Modeling for Disclosures of Consolidated and Nonconsolidated Entities on the FASB website.
+
+The properties of this us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest fact are:
+Period :2020-01-01 to 2020-03-31
+Dimensions : srt:ConsolidatedEntitiesAxis=SEDH:Subsidiaries2Member
+Unit : pure
+
+Rule Element Id:7655
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml 758</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml#element(/1/267)" sourceLine="758">
+  <property name="label" value="Attributable Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest"/>
+  <property name="QName" value="us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_custom_Subsidiaries2Member">
+   <property name="entity" value="0001503658">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidatedEntitiesAxis" value="SEDH:Subsidiaries2Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1.0000"/>
+ </ref></entry>
+<entry code="DQC.US.0078.7655" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml" severity="error" effectiveDate="2019-01-01" cid="2331845174656">[DQC.US.0078.7655] The filer has reported a value for the element us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest with a value of 0.85 without using the axis OwnershipAxis. This axis must be used when reporting a value for us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest. Please refer to the FASB implementation guide on Dimensional Modeling for Disclosures of Consolidated and Nonconsolidated Entities on the FASB website.
+
+The properties of this us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest fact are:
+Period :2020-01-01 to 2020-03-31
+Dimensions : srt:ConsolidatedEntitiesAxis=SEDH:Subsidiaries8Member
+Unit : pure
+
+Rule Element Id:7655
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml 764</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml#element(/1/273)" sourceLine="764">
+  <property name="label" value="Attributable Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest"/>
+  <property name="QName" value="us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_custom_Subsidiaries8Member">
+   <property name="entity" value="0001503658">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidatedEntitiesAxis" value="SEDH:Subsidiaries8Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.8500"/>
+ </ref></entry>
+<entry code="DQC.US.0078.7655" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml" severity="error" effectiveDate="2019-01-01" cid="2331845174656">[DQC.US.0078.7655] The filer has reported a value for the element us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest with a value of 1 without using the axis OwnershipAxis. This axis must be used when reporting a value for us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest. Please refer to the FASB implementation guide on Dimensional Modeling for Disclosures of Consolidated and Nonconsolidated Entities on the FASB website.
+
+The properties of this us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest fact are:
+Period :2020-01-01 to 2020-03-31
+Dimensions : srt:ConsolidatedEntitiesAxis=SEDH:Subsidiaries12Member
+Unit : pure
+
+Rule Element Id:7655
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml 768</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml#element(/1/277)" sourceLine="768">
+  <property name="label" value="Attributable Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest"/>
+  <property name="QName" value="us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_custom_Subsidiaries12Member">
+   <property name="entity" value="0001503658">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidatedEntitiesAxis" value="SEDH:Subsidiaries12Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1.0000"/>
+ </ref></entry>
+<entry code="DQC.US.0078.7655" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml" severity="error" effectiveDate="2019-01-01" cid="2331845174656">[DQC.US.0078.7655] The filer has reported a value for the element us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest with a value of 1 without using the axis OwnershipAxis. This axis must be used when reporting a value for us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest. Please refer to the FASB implementation guide on Dimensional Modeling for Disclosures of Consolidated and Nonconsolidated Entities on the FASB website.
+
+The properties of this us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest fact are:
+Period :2020-01-01 to 2020-03-31
+Dimensions : srt:ConsolidatedEntitiesAxis=SEDH:Subsidiaries11Member
+Unit : pure
+
+Rule Element Id:7655
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml 767</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml#element(/1/276)" sourceLine="767">
+  <property name="label" value="Attributable Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest"/>
+  <property name="QName" value="us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_custom_Subsidiaries11Member">
+   <property name="entity" value="0001503658">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidatedEntitiesAxis" value="SEDH:Subsidiaries11Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1.0000"/>
+ </ref></entry>
+<entry code="DQC.US.0078.7655" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml" severity="error" effectiveDate="2019-01-01" cid="2331845174656">[DQC.US.0078.7655] The filer has reported a value for the element us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest with a value of 1 without using the axis OwnershipAxis. This axis must be used when reporting a value for us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest. Please refer to the FASB implementation guide on Dimensional Modeling for Disclosures of Consolidated and Nonconsolidated Entities on the FASB website.
+
+The properties of this us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest fact are:
+Period :2020-01-01 to 2020-03-31
+Dimensions : srt:ConsolidatedEntitiesAxis=SEDH:Subsidiaries10Member
+Unit : pure
+
+Rule Element Id:7655
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml 766</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml#element(/1/275)" sourceLine="766">
+  <property name="label" value="Attributable Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest"/>
+  <property name="QName" value="us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_custom_Subsidiaries10Member">
+   <property name="entity" value="0001503658">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidatedEntitiesAxis" value="SEDH:Subsidiaries10Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1.0000"/>
+ </ref></entry>
+<entry code="DQC.US.0078.7655" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml" severity="error" effectiveDate="2019-01-01" cid="2331845174656">[DQC.US.0078.7655] The filer has reported a value for the element us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest with a value of 1 without using the axis OwnershipAxis. This axis must be used when reporting a value for us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest. Please refer to the FASB implementation guide on Dimensional Modeling for Disclosures of Consolidated and Nonconsolidated Entities on the FASB website.
+
+The properties of this us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest fact are:
+Period :2020-01-01 to 2020-03-31
+Dimensions : srt:ConsolidatedEntitiesAxis=SEDH:Subsidiaries5Member
+Unit : pure
+
+Rule Element Id:7655
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml 761</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml#element(/1/270)" sourceLine="761">
+  <property name="label" value="Attributable Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest"/>
+  <property name="QName" value="us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_custom_Subsidiaries5Member">
+   <property name="entity" value="0001503658">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidatedEntitiesAxis" value="SEDH:Subsidiaries5Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1.0000"/>
+ </ref></entry>
+<entry code="DQC.US.0078.7655" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml" severity="error" effectiveDate="2019-01-01" cid="2331845174656">[DQC.US.0078.7655] The filer has reported a value for the element us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest with a value of 1 without using the axis OwnershipAxis. This axis must be used when reporting a value for us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest. Please refer to the FASB implementation guide on Dimensional Modeling for Disclosures of Consolidated and Nonconsolidated Entities on the FASB website.
+
+The properties of this us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest fact are:
+Period :2020-01-01 to 2020-03-31
+Dimensions : srt:ConsolidatedEntitiesAxis=SEDH:Subsidiaries4Member
+Unit : pure
+
+Rule Element Id:7655
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml 760</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml#element(/1/269)" sourceLine="760">
+  <property name="label" value="Attributable Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest"/>
+  <property name="QName" value="us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_custom_Subsidiaries4Member">
+   <property name="entity" value="0001503658">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidatedEntitiesAxis" value="SEDH:Subsidiaries4Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1.0000"/>
+ </ref></entry>
+<entry code="DQC.US.0078.7655" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml" severity="error" effectiveDate="2019-01-01" cid="2331845174656">[DQC.US.0078.7655] The filer has reported a value for the element us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest with a value of 1 without using the axis OwnershipAxis. This axis must be used when reporting a value for us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest. Please refer to the FASB implementation guide on Dimensional Modeling for Disclosures of Consolidated and Nonconsolidated Entities on the FASB website.
+
+The properties of this us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest fact are:
+Period :2020-01-01 to 2020-03-31
+Dimensions : srt:ConsolidatedEntitiesAxis=SEDH:Subsidiaries9Member
+Unit : pure
+
+Rule Element Id:7655
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml 765</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml#element(/1/274)" sourceLine="765">
+  <property name="label" value="Attributable Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest"/>
+  <property name="QName" value="us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_custom_Subsidiaries9Member">
+   <property name="entity" value="0001503658">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidatedEntitiesAxis" value="SEDH:Subsidiaries9Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1.0000"/>
+ </ref></entry>
+<entry code="DQC.US.0078.7655" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml" severity="error" effectiveDate="2019-01-01" cid="2331845174656">[DQC.US.0078.7655] The filer has reported a value for the element us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest with a value of 1 without using the axis OwnershipAxis. This axis must be used when reporting a value for us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest. Please refer to the FASB implementation guide on Dimensional Modeling for Disclosures of Consolidated and Nonconsolidated Entities on the FASB website.
+
+The properties of this us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest fact are:
+Period :2020-01-01 to 2020-03-31
+Dimensions : srt:ConsolidatedEntitiesAxis=SEDH:Subsidiaries3Member
+Unit : pure
+
+Rule Element Id:7655
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml 759</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml#element(/1/268)" sourceLine="759">
+  <property name="label" value="Attributable Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest"/>
+  <property name="QName" value="us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_custom_Subsidiaries3Member">
+   <property name="entity" value="0001503658">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidatedEntitiesAxis" value="SEDH:Subsidiaries3Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1.0000"/>
+ </ref></entry>
+<entry code="DQC.US.0078.7655" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml" severity="error" effectiveDate="2019-01-01" cid="2331845174656">[DQC.US.0078.7655] The filer has reported a value for the element us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest with a value of 1 without using the axis OwnershipAxis. This axis must be used when reporting a value for us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest. Please refer to the FASB implementation guide on Dimensional Modeling for Disclosures of Consolidated and Nonconsolidated Entities on the FASB website.
+
+The properties of this us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest fact are:
+Period :2020-01-01 to 2020-03-31
+Dimensions : srt:ConsolidatedEntitiesAxis=SEDH:Subsidiaries1Member
+Unit : pure
+
+Rule Element Id:7655
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml 757</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml#element(/1/266)" sourceLine="757">
+  <property name="label" value="Attributable Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest"/>
+  <property name="QName" value="us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_custom_Subsidiaries1Member">
+   <property name="entity" value="0001503658">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidatedEntitiesAxis" value="SEDH:Subsidiaries1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1.0000"/>
+ </ref></entry>
+<entry code="DQC.US.0078.7655" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml" severity="error" effectiveDate="2019-01-01" cid="2331845174656">[DQC.US.0078.7655] The filer has reported a value for the element us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest with a value of 0.8355 without using the axis OwnershipAxis. This axis must be used when reporting a value for us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest. Please refer to the FASB implementation guide on Dimensional Modeling for Disclosures of Consolidated and Nonconsolidated Entities on the FASB website.
+
+The properties of this us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest fact are:
+Period :2020-01-01 to 2020-03-31
+Dimensions : srt:ConsolidatedEntitiesAxis=SEDH:Subsidiaries7Member
+Unit : pure
+
+Rule Element Id:7655
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml 763</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml#element(/1/272)" sourceLine="763">
+  <property name="label" value="Attributable Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest"/>
+  <property name="QName" value="us-gaap:SubsidiaryOfLimitedLiabilityCompanyOrLimitedPartnershipOwnershipInterest"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_custom_Subsidiaries7Member">
+   <property name="entity" value="0001503658">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidatedEntitiesAxis" value="SEDH:Subsidiaries7Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.8355"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 3.02 secs - http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1503658/000165495420005498/sedh-20200331.xml"/></entry>
+</log>

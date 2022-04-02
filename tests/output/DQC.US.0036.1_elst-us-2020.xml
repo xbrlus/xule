@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.45 secs at 2020-07-28T15:28:29 - http://www.sec.gov/Archives/edgar/data/752294/000105291820000090/elst-20190331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/752294/000105291820000090/elst-20190331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpv2iwu5nr\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpv2iwu5nr\packages\resources.zip"/></entry>
+<entry code="DQC.US.0036.1" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/752294/000105291820000090/elst-20190331.xml" severity="error" effectiveDate="None" cid="2072231650688">[DQC.US.0036.1] The context ending date of 2019-03-31 used for Document Period End Date must match the value reported for the element of 2020-03-31. Revise either the ending context date or the value of the Document Period End Date.
+
+The properties of this dei:DocumentPeriodEndDate fact are:
+Period :2019-01-01 to 2019-03-31
+Dimensions : 
+Unit : None
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/752294/000105291820000090/elst-20190331.xml 15</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/752294/000105291820000090/elst-20190331.xml#element(/1/12)" sourceLine="15">
+  <property name="label" value="Period End date"/>
+  <property name="namespace" value="http://xbrl.sec.gov/dei/2019-01-31"/>
+  <property name="name" value="DocumentPeriodEndDate"/>
+  <property name="QName" value="dei:DocumentPeriodEndDate"/>
+  <property name="contextRef" value="Y19Q1">
+   <property name="entity" value="0000752294">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2020-03-31"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 3.44 secs - http://www.sec.gov/Archives/edgar/data/752294/000105291820000090/elst-20190331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/752294/000105291820000090/elst-20190331.xml"/></entry>
+</log>

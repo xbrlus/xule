@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.61 secs at 2018-10-16T09:54:42 - http://www.sec.gov/Archives/edgar/data/319200/000121465918002860/regt-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/319200/000121465918002860/regt-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - regt-20171231.xml </message>
+ <ref href="regt-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpyu1kjv7y/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpyu1kjv7y/packages/resources.zip"/></entry>
+<entry code="DQC.US.0009.19" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/319200/000121465918002860/regt-20171231.xml" cid="4432215736">[DQC.US.0009.19] The value of Convertible Preferred stock, outstanding, 175,000, should be less than or equal to Convertible Preferred stock, issued, 150,000.
+
+The properties of this us-gaap:PreferredStockSharesOutstanding fact are:
+
+Period: 2016-12-31
+Dimensions: us-gaap:StatementClassOfStockAxis=us-gaap:SeriesAPreferredStockMember
+Unit: shares
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/319200/000121465918002860/regt-20171231.xml 1004</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/319200/000121465918002860/regt-20171231.xml#element(/1/180)" sourceLine="1004">
+  <property name="label" value="Convertible Preferred stock, outstanding"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="PreferredStockSharesOutstanding"/>
+  <property name="QName" value="us-gaap:PreferredStockSharesOutstanding"/>
+  <property name="contextRef" value="AsOf2016-12-31_us-gaap_SeriesAPreferredStockMember">
+   <property name="entity" value="0000319200">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementClassOfStockAxis" value="us-gaap:SeriesAPreferredStockMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="175,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 1.57 secs - http://www.sec.gov/Archives/edgar/data/319200/000121465918002860/regt-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/319200/000121465918002860/regt-20171231.xml"/></entry>
+</log>

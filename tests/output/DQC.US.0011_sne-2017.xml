@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 6.39 secs at 2018-10-16T09:54:27 - http://www.sec.gov/Archives/edgar/data/313838/000119312518196263/sne-20180331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/313838/000119312518196263/sne-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - sne-20180331.xml </message>
+ <ref href="sne-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpxj7u8_4k/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpxj7u8_4k/packages/resources.zip"/></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 6.73 secs - http://www.sec.gov/Archives/edgar/data/313838/000119312518196263/sne-20180331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/313838/000119312518196263/sne-20180331.xml"/></entry>
+</log>

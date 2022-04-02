@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.29 secs at 2020-07-29T11:52:57 - https://www.sec.gov/Archives/edgar/data/70866/000007086620000007/ncr-20191231x10k_htm.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/70866/000007086620000007/ncr-20191231x10k_htm.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmp1l8r3n4r\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmp1l8r3n4r\packages\resources.zip"/></entry>
+<entry code="DQC.US.0004.9289" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/70866/000007086620000007/ncr-20191231x10k_htm.xml" severity="error" effectiveDate="2019-09-30" cid="1816428389760">[DQC.US.0004.9289] Net Cash Provided by (Used in) Operating Activities with a value of 628,000,000 is not equal to the combined total of Net Cash Provided by (Used in) Operating Activities, Continuing Operations and Cash Provided by (Used in) Operating Activities, Discontinued Operations ( 628,000,000 + -24,000,000 ) with a value of 604,000,000. 
+
+These values should be equal.
+The properties of this us-gaap:NetCashProvidedByUsedInOperatingActivities fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions :  
+Unit : USD
+Decimals of Net Cash Provided by (Used in) Operating Activities : -6
+Decimals of Net Cash Provided by (Used in) Operating Activities, Continuing Operations : -6
+Decimals of Cash Provided by (Used in) Operating Activities, Discontinued Operations : -6
+
+Rule Element Id:9289
+Rule version: 13.0.0RC1 - https://www.sec.gov/Archives/edgar/data/70866/000007086620000007/ncr-20191231x10k_htm.xml 12084</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/70866/000007086620000007/ncr-20191231x10k_htm.xml#d81286195e1881-wk-Fact-52EC1E19EF4F57F4837BC4EEF2A5863E" sourceLine="12084">
+  <property name="label" value="Net Cash Provided by (Used in) Operating Activities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="contextRef" value="FD2019Q4YTD">
+   <property name="entity" value="0000070866">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="628,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9289" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/70866/000007086620000007/ncr-20191231x10k_htm.xml" severity="error" effectiveDate="2019-09-30" cid="1816428389760">[DQC.US.0004.9289] Net Cash Provided by (Used in) Operating Activities with a value of 572,000,000 is not equal to the combined total of Net Cash Provided by (Used in) Operating Activities, Continuing Operations and Cash Provided by (Used in) Operating Activities, Discontinued Operations ( 572,000,000 + -36,000,000 ) with a value of 536,000,000. 
+
+These values should be equal.
+The properties of this us-gaap:NetCashProvidedByUsedInOperatingActivities fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions :  
+Unit : USD
+Decimals of Net Cash Provided by (Used in) Operating Activities : -6
+Decimals of Net Cash Provided by (Used in) Operating Activities, Continuing Operations : -6
+Decimals of Cash Provided by (Used in) Operating Activities, Discontinued Operations : -6
+
+Rule Element Id:9289
+Rule version: 13.0.0RC1 - https://www.sec.gov/Archives/edgar/data/70866/000007086620000007/ncr-20191231x10k_htm.xml 12089</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/70866/000007086620000007/ncr-20191231x10k_htm.xml#d81286195e1900-wk-Fact-10D9406B897158FDAB03E7CC381FE2AB" sourceLine="12089">
+  <property name="label" value="Net Cash Provided by (Used in) Operating Activities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="contextRef" value="FD2018Q4YTD">
+   <property name="entity" value="0000070866">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="572,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9289" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/70866/000007086620000007/ncr-20191231x10k_htm.xml" severity="error" effectiveDate="2019-09-30" cid="1816428389760">[DQC.US.0004.9289] Net Cash Provided by (Used in) Operating Activities with a value of 752,000,000 is not equal to the combined total of Net Cash Provided by (Used in) Operating Activities, Continuing Operations and Cash Provided by (Used in) Operating Activities, Discontinued Operations ( 752,000,000 + -8,000,000 ) with a value of 744,000,000. 
+
+These values should be equal.
+The properties of this us-gaap:NetCashProvidedByUsedInOperatingActivities fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions :  
+Unit : USD
+Decimals of Net Cash Provided by (Used in) Operating Activities : -6
+Decimals of Net Cash Provided by (Used in) Operating Activities, Continuing Operations : -6
+Decimals of Cash Provided by (Used in) Operating Activities, Discontinued Operations : -6
+
+Rule Element Id:9289
+Rule version: 13.0.0RC1 - https://www.sec.gov/Archives/edgar/data/70866/000007086620000007/ncr-20191231x10k_htm.xml 12094</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/70866/000007086620000007/ncr-20191231x10k_htm.xml#d81286195e1919-wk-Fact-13FF4CB5E90502AE835FA2F3B50B11E1" sourceLine="12094">
+  <property name="label" value="Net Cash Provided by (Used in) Operating Activities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="contextRef" value="FD2017Q4YTD">
+   <property name="entity" value="0000070866">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="752,000,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 8.09 secs - https://www.sec.gov/Archives/edgar/data/70866/000007086620000007/ncr-20191231x10k_htm.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/70866/000007086620000007/ncr-20191231x10k_htm.xml"/></entry>
+</log>

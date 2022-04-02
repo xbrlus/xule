@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.72 secs at 2020-04-16T18:10:51 - http://www.sec.gov/Archives/edgar/data/1059784/000160706220000067/gnbt-20200131.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1059784/000160706220000067/gnbt-20200131.xml"/></entry>
+<entry code="DQC.US.0091.9376" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1059784/000160706220000067/gnbt-20200131.xml" severity="error" effectiveDate="2020-05-30" cid="1652703339904">[DQC.US.0091.9376] The element us-gaap:DebtInstrumentInterestRateDuringPeriod with a value of 4,801,652 has a value greater than a 1,000 percent.  Percentage items should have a value that are generally between 0 and 1. In XBRL a value of 1 is equal to 100%. Please review the value of the element to ensure that it is scaled correctly.  For example 200 basis points should be reported as 0.02.
+ 
+Period :2020-02-03 to 2020-03-16
+Dimensions : us-gaap:SubsequentEventTypeAxis=us-gaap:SubsequentEventMember
+Unit : pure
+Decimals: inf
+
+Rule Element Id:9376
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1059784/000160706220000067/gnbt-20200131.xml 3621</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1059784/000160706220000067/gnbt-20200131.xml#element(/1/1196)" sourceLine="3621">
+  <property name="label" value="Interest rate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DebtInstrumentInterestRateDuringPeriod"/>
+  <property name="QName" value="us-gaap:DebtInstrumentInterestRateDuringPeriod"/>
+  <property name="contextRef" value="From2020-02-03to2020-03-16_us-gaap_SubsequentEventMember">
+   <property name="entity" value="0001059784">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-02-03"/>
+   <property name="endDate" value="2020-03-16"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:SubsequentEventTypeAxis" value="us-gaap:SubsequentEventMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Pure (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4,801,652"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 26.01 secs - http://www.sec.gov/Archives/edgar/data/1059784/000160706220000067/gnbt-20200131.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1059784/000160706220000067/gnbt-20200131.xml"/></entry>
+</log>

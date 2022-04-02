@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 5.15 secs at 2018-10-16T09:41:04 - http://www.sec.gov/Archives/edgar/data/1039101/000103910118000008/lll-20180330.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1039101/000103910118000008/lll-20180330.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - lll-20180330.xml </message>
+ <ref href="lll-20180330.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpocg7ow9u/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpocg7ow9u/packages/resources.zip"/></entry>
+<entry code="DQC.US.0011.6824" level="error">
+ <message severity="error" rule-suffix="6824" filing_url="http://www.sec.gov/Archives/edgar/data/1039101/000103910118000008/lll-20180330.xml" cid="4514000568">[DQC.US.0011.6824] It is expected that CommonStockValue with a value of 6,607,000,000 reported in the network role http://l3t.com/role/UnauditedCondensedConsolidatedBalanceSheets should be equal to the dimensionally qualified concept, StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest with the dimension us-gaap:StatementEquityComponentsAxis = us-gaap:CommonStockMember and a reported value of 1,000,000 multiplied by 1. This value appears in the network role http://l3t.com/role/UnauditedCondensedConsolidatedStatementsOfEquity. This error occurs when the dimensionally qualified fact is not equal to the value input for the non dimensional item.
+
+The properties of this us-gaap:CommonStockValue fact are:
+
+Period : 2018-03-30
+Dimensions : 
+Unit : USD
+Decimals of CommonStockValue : -6
+Decimals of StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest : -6
+Rule version: 9.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1039101/000103910118000008/lll-20180330.xml 4499</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1039101/000103910118000008/lll-20180330.xml#Fact-1D62110CE053598D957B45D8D1C38023" sourceLine="4499">
+  <property name="label" value="Common Stock, Value, Issued"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="CommonStockValue"/>
+  <property name="QName" value="us-gaap:CommonStockValue"/>
+  <property name="contextRef" value="FI2018Q1">
+   <property name="entity" value="0001039101">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-03-30"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="6,607,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0011.6824" level="error">
+ <message severity="error" rule-suffix="6824" filing_url="http://www.sec.gov/Archives/edgar/data/1039101/000103910118000008/lll-20180330.xml" cid="4514000568">[DQC.US.0011.6824] It is expected that CommonStockValue with a value of 6,519,000,000 reported in the network role http://l3t.com/role/UnauditedCondensedConsolidatedBalanceSheets should be equal to the dimensionally qualified concept, StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest with the dimension us-gaap:StatementEquityComponentsAxis = us-gaap:CommonStockMember and a reported value of 1,000,000 multiplied by 1. This value appears in the network role http://l3t.com/role/UnauditedCondensedConsolidatedStatementsOfEquity. This error occurs when the dimensionally qualified fact is not equal to the value input for the non dimensional item.
+
+The properties of this us-gaap:CommonStockValue fact are:
+
+Period : 2017-12-31
+Dimensions : 
+Unit : USD
+Decimals of CommonStockValue : -6
+Decimals of StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest : -6
+Rule version: 9.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1039101/000103910118000008/lll-20180330.xml 4498</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1039101/000103910118000008/lll-20180330.xml#Fact-2C4F89E1A23759AAA51D3099A47BE782" sourceLine="4498">
+  <property name="label" value="Common Stock, Value, Issued"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="CommonStockValue"/>
+  <property name="QName" value="us-gaap:CommonStockValue"/>
+  <property name="contextRef" value="FI2017Q4">
+   <property name="entity" value="0001039101">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="6,519,000,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 4.22 secs - http://www.sec.gov/Archives/edgar/data/1039101/000103910118000008/lll-20180330.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1039101/000103910118000008/lll-20180330.xml"/></entry>
+</log>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.52 secs at 2018-10-16T09:49:23 - http://www.sec.gov/Archives/edgar/data/1487952/000148795218000016/vpg-20180331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1487952/000148795218000016/vpg-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - vpg-20180331.xml </message>
+ <ref href="vpg-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpk0x8av9s/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpk0x8av9s/packages/resources.zip"/></entry>
+<entry code="DQC.US.0036.1" level="error">
+ <message cid="4405407416" severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1487952/000148795218000016/vpg-20180331.xml">[DQC.US.0036.1] The context ending date of 2018-03-31 used for Document Period End Date must match the value reported for the element of 2018-12-31. Revise either the ending context date or the value of the Document Period End Date.
+
+The properties of this dei:DocumentPeriodEndDate fact are:
+Period :2018-01-01 to 2018-03-31
+Dimensions : 
+Unit : None
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1487952/000148795218000016/vpg-20180331.xml 2108</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1487952/000148795218000016/vpg-20180331.xml#Fact-D1A4BF1CCD255AC18277E8ED03E667B4" sourceLine="2108">
+  <property name="label" value="Document Period End Date"/>
+  <property name="namespace" value="http://xbrl.sec.gov/dei/2014-01-31"/>
+  <property name="name" value="DocumentPeriodEndDate"/>
+  <property name="QName" value="dei:DocumentPeriodEndDate"/>
+  <property name="contextRef" value="FD2018Q1YTD">
+   <property name="entity" value="0001487952">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-03-31"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2018-12-31"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 1.84 secs - http://www.sec.gov/Archives/edgar/data/1487952/000148795218000016/vpg-20180331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1487952/000148795218000016/vpg-20180331.xml"/></entry>
+</log>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.96 secs at 2019-11-16T07:41:08 - https://www.sec.gov/Archives/edgar/data/943861/000143774919021889/gdp-20190930.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/943861/000143774919021889/gdp-20190930.xml"/></entry>
+<entry code="arelle:info.preferredLabelEmpty" level="info">
+ <message linkrole="http://www.goodrichpetroleum.com/20190930/role/statement-consolidated-balance-sheets-current-period-unaudited" source="us-gaap:PropertyPlantAndEquipmentNetAbstract" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" target="us-gaap:PropertyPlantAndEquipmentGross">[arelle:info.preferredLabelEmpty] (Info xbrl.5.2.4.2.1) Presentation relationship from us-gaap:PropertyPlantAndEquipmentNetAbstract to us-gaap:PropertyPlantAndEquipmentGross in link role http://www.goodrichpetroleum.com/20190930/role/statement-consolidated-balance-sheets-current-period-unaudited has empty preferredLabel http://www.xbrl.org/2003/role/totalLabel - https://www.sec.gov/Archives/edgar/data/943861/000143774919021889/gdp-20190930_pre.xml 1131</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/943861/000143774919021889/gdp-20190930_pre.xml#element(/1/76/60)" sourceLine="1131">
+  <property name="label" value="us-gaap_PropertyPlantAndEquipmentGross">
+   <property name="label (en-US)" value="us-gaap_PropertyPlantAndEquipmentGross"/>
+   <property name="totalLabel (en-US)" value=""/>
+  </property>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="PropertyPlantAndEquipmentGross"/>
+  <property name="QName" value="us-gaap:PropertyPlantAndEquipmentGross"/>
+  <property name="id" value="us-gaap_PropertyPlantAndEquipmentGross"/>
+  <property name="abstract" value="false"/>
+  <property name="type" value="xbrli:monetaryItemType"/>
+  <property name="subst grp" value="xbrli:item"/>
+  <property name="period type" value="instant"/>
+  <property name="balance" value="debit"/>
+  <property name="arcrole" value="http://www.xbrl.org/2003/arcrole/parent-child"/>
+  <property name="preferredLabel" value="http://www.xbrl.org/2003/role/totalLabel"/>
+  <property name="order" value="3.0"/>
+  <property name="priority" value="0"/>
+  <property name="from" value="us-gaap:PropertyPlantAndEquipmentNetAbstract"/>
+ </ref></entry>
+<entry code="arelle:info.preferredLabelEmpty" level="info">
+ <message linkrole="http://www.goodrichpetroleum.com/20190930/role/statement-consolidated-statements-of-operations-unaudited" source="us-gaap:NonoperatingIncomeExpenseAbstract" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" target="us-gaap:NonoperatingIncomeExpense">[arelle:info.preferredLabelEmpty] (Info xbrl.5.2.4.2.1) Presentation relationship from us-gaap:NonoperatingIncomeExpenseAbstract to us-gaap:NonoperatingIncomeExpense in link role http://www.goodrichpetroleum.com/20190930/role/statement-consolidated-statements-of-operations-unaudited has empty preferredLabel http://www.xbrl.org/2003/role/totalLabel - https://www.sec.gov/Archives/edgar/data/943861/000143774919021889/gdp-20190930_pre.xml 1219</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/943861/000143774919021889/gdp-20190930_pre.xml#element(/1/78/60)" sourceLine="1219">
+  <property name="label" value="us-gaap_NonoperatingIncomeExpense">
+   <property name="label (en-US)" value="us-gaap_NonoperatingIncomeExpense"/>
+   <property name="totalLabel (en-US)" value=""/>
+  </property>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="NonoperatingIncomeExpense"/>
+  <property name="QName" value="us-gaap:NonoperatingIncomeExpense"/>
+  <property name="id" value="us-gaap_NonoperatingIncomeExpense"/>
+  <property name="abstract" value="false"/>
+  <property name="type" value="xbrli:monetaryItemType"/>
+  <property name="subst grp" value="xbrli:item"/>
+  <property name="period type" value="duration"/>
+  <property name="balance" value="credit"/>
+  <property name="arcrole" value="http://www.xbrl.org/2003/arcrole/parent-child"/>
+  <property name="preferredLabel" value="http://www.xbrl.org/2003/role/totalLabel"/>
+  <property name="order" value="4.0"/>
+  <property name="priority" value="0"/>
+  <property name="from" value="us-gaap:NonoperatingIncomeExpenseAbstract"/>
+ </ref></entry>
+<entry code="arelle:info.preferredLabelEmpty" level="info">
+ <message linkrole="http://www.goodrichpetroleum.com/20190930/role/statement-consolidated-statements-of-operations-unaudited" source="us-gaap:OperatingExpensesAbstract" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" target="us-gaap:OperatingExpenses">[arelle:info.preferredLabelEmpty] (Info xbrl.5.2.4.2.1) Presentation relationship from us-gaap:OperatingExpensesAbstract to us-gaap:OperatingExpenses in link role http://www.goodrichpetroleum.com/20190930/role/statement-consolidated-statements-of-operations-unaudited has empty preferredLabel http://www.xbrl.org/2003/role/totalLabel - https://www.sec.gov/Archives/edgar/data/943861/000143774919021889/gdp-20190930_pre.xml 1212</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/943861/000143774919021889/gdp-20190930_pre.xml#element(/1/78/53)" sourceLine="1212">
+  <property name="label" value="us-gaap_OperatingExpenses">
+   <property name="label (en-US)" value="us-gaap_OperatingExpenses"/>
+   <property name="totalLabel (en-US)" value=""/>
+  </property>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="OperatingExpenses"/>
+  <property name="QName" value="us-gaap:OperatingExpenses"/>
+  <property name="id" value="us-gaap_OperatingExpenses"/>
+  <property name="abstract" value="false"/>
+  <property name="type" value="xbrli:monetaryItemType"/>
+  <property name="subst grp" value="xbrli:item"/>
+  <property name="period type" value="duration"/>
+  <property name="balance" value="debit"/>
+  <property name="arcrole" value="http://www.xbrl.org/2003/arcrole/parent-child"/>
+  <property name="preferredLabel" value="http://www.xbrl.org/2003/role/totalLabel"/>
+  <property name="order" value="6.0"/>
+  <property name="priority" value="0"/>
+  <property name="from" value="us-gaap:OperatingExpensesAbstract"/>
+ </ref></entry>
+<entry code="arelle:info.preferredLabelEmpty" level="info">
+ <message linkrole="http://www.goodrichpetroleum.com/20190930/role/statement-note-10-leases-lease-cost-and-information-details" source="us-gaap:StatementLineItems" preferredLabel="http://www.xbrl.org/2003/role/label" target="us-gaap:LeaseCost">[arelle:info.preferredLabelEmpty] (Info xbrl.5.2.4.2.1) Presentation relationship from us-gaap:StatementLineItems to us-gaap:LeaseCost in link role http://www.goodrichpetroleum.com/20190930/role/statement-note-10-leases-lease-cost-and-information-details has empty preferredLabel http://www.xbrl.org/2003/role/label - https://www.sec.gov/Archives/edgar/data/943861/000143774919021889/gdp-20190930_pre.xml 978</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/943861/000143774919021889/gdp-20190930_pre.xml#element(/1/68/21)" sourceLine="978">
+  <property name="label" value="">
+   <property name="label (en-US)" value=""/>
+  </property>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="LeaseCost"/>
+  <property name="QName" value="us-gaap:LeaseCost"/>
+  <property name="id" value="us-gaap_LeaseCost"/>
+  <property name="abstract" value="false"/>
+  <property name="type" value="xbrli:monetaryItemType"/>
+  <property name="subst grp" value="xbrli:item"/>
+  <property name="period type" value="duration"/>
+  <property name="balance" value="debit"/>
+  <property name="arcrole" value="http://www.xbrl.org/2003/arcrole/parent-child"/>
+  <property name="preferredLabel" value="http://www.xbrl.org/2003/role/label"/>
+  <property name="order" value="2.0"/>
+  <property name="priority" value="0"/>
+  <property name="from" value="us-gaap:StatementLineItems"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpug03uwlj\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpug03uwlj\packages\resources.zip"/></entry>
+<entry code="DQC.US.0085.9362" level="error">
+ <message severity="error" effectiveDate="None" filing_url="https://www.sec.gov/Archives/edgar/data/943861/000143774919021889/gdp-20190930.xml" cid="2519078921384">[DQC.US.0085.9362] The element us-gaap:DeferredIncomeTaxAssetsNet with a value 800,000 does not appear in a calculation defined in the filing.  This concept is a balance sheet item and should appear on the balance sheet or as a component of a balance sheet item in the footnotes.  If this value is the amount with jurisdictional netting and it is reported in the footnotes then the value of DeferredTaxAssetsNet (the amount without jurisdictional netting) should also be reported. To resolve the error the element DeferredIncomeTaxAssetsNet needs to be either included with the Balance Sheet Location Axis or be included in a calculation with Assets as an ancestor.
+
+Period :2018-12-31
+Dimensions : 
+Unit : USD
+Decimals: -3
+
+Rule Element Id:9362
+Rule version: 11.0.0RC1 - https://www.sec.gov/Archives/edgar/data/943861/000143774919021889/gdp-20190930.xml 306</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/943861/000143774919021889/gdp-20190930.xml#c52921120" sourceLine="306">
+  <property name="label" value="us-gaap_DeferredIncomeTaxAssetsNet"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DeferredIncomeTaxAssetsNet"/>
+  <property name="QName" value="us-gaap:DeferredIncomeTaxAssetsNet"/>
+  <property name="contextRef" value="i_2018-12-31">
+   <property name="entity" value="0000943861">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="iso4217-usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="800,000"/>
+ </ref></entry>
+<entry code="DQC.US.0085.9362" level="error">
+ <message severity="error" effectiveDate="None" filing_url="https://www.sec.gov/Archives/edgar/data/943861/000143774919021889/gdp-20190930.xml" cid="2519078921384">[DQC.US.0085.9362] The element us-gaap:DeferredIncomeTaxAssetsNet with a value 400,000 does not appear in a calculation defined in the filing.  This concept is a balance sheet item and should appear on the balance sheet or as a component of a balance sheet item in the footnotes.  If this value is the amount with jurisdictional netting and it is reported in the footnotes then the value of DeferredTaxAssetsNet (the amount without jurisdictional netting) should also be reported. To resolve the error the element DeferredIncomeTaxAssetsNet needs to be either included with the Balance Sheet Location Axis or be included in a calculation with Assets as an ancestor.
+
+Period :2019-09-30
+Dimensions : 
+Unit : USD
+Decimals: -3
+
+Rule Element Id:9362
+Rule version: 11.0.0RC1 - https://www.sec.gov/Archives/edgar/data/943861/000143774919021889/gdp-20190930.xml 307</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/943861/000143774919021889/gdp-20190930.xml#c52921127" sourceLine="307">
+  <property name="label" value="us-gaap_DeferredIncomeTaxAssetsNet"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DeferredIncomeTaxAssetsNet"/>
+  <property name="QName" value="us-gaap:DeferredIncomeTaxAssetsNet"/>
+  <property name="contextRef" value="i_2019-09-30">
+   <property name="entity" value="0000943861">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-09-30"/>
+  </property>
+  <property name="unitRef" value="iso4217-usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="400,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.25 secs - https://www.sec.gov/Archives/edgar/data/943861/000143774919021889/gdp-20190930.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/943861/000143774919021889/gdp-20190930.xml"/></entry>
+</log>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.26 secs at 2018-10-16T09:54:58 - http://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - f-20171231.xml </message>
+ <ref href="f-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmphm3hbcl5/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmphm3hbcl5/packages/resources.zip"/></entry>
+<entry code="DQC.US.0074.7649" level="error">
+ <message severity="error" cid="4507193016" filing_url="http://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml">[DQC.US.0074.7649] The element us-gaap:RevenueRemainingPerformanceObligation with a value of 3,800,000,000 has been tagged with the axis RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis with a nil value as a member. This element should be reported without using this axis.
+
+The properties of this us-gaap:RevenueRemainingPerformanceObligation fact are:
+Period :2017-12-31
+Dimensions : us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis=None, us-gaap:ConsolidationItemsAxis=us-gaap:OperatingSegmentsMember, us-gaap:ProductOrServiceAxis=f:ExtendedServiceContractsMember, us-gaap:StatementBusinessSegmentsAxis=f:AutomotiveSegmentMember
+Unit : USD
+
+Rule Element Id:7649
+Rule version: 9.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml 14471</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml#Fact-7FCC46009FB109FC4B94085C656F4749" sourceLine="14471">
+  <property name="label" value="Revenue, Remaining Performance Obligation"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="RevenueRemainingPerformanceObligation"/>
+  <property name="QName" value="us-gaap:RevenueRemainingPerformanceObligation"/>
+  <property name="contextRef" value="FI2017Q4_us-gaap_ConsolidationItemsAxis_us-gaap_OperatingSegmentsMember_us-gaap_ProductOrServiceAxis_f_ExtendedServiceContractsMember_us-gaap_RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis_us-gaap_RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis.domain_nil_us-gaap_StatementBusinessSegmentsAxis_f_AutomotiveSegmentMember">
+   <property name="entity" value="0000037996">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(4)">
+    <property name="us-gaap:ConsolidationItemsAxis" value="us-gaap:OperatingSegmentsMember"/>
+    <property name="us-gaap:ProductOrServiceAxis" value="f:ExtendedServiceContractsMember"/>
+    <property name="us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis" value="&lt;us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis.domain xsi:nil=&quot;true&quot;/>
+				
+"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="f:AutomotiveSegmentMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="3,800,000,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.73 secs - http://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml"/></entry>
+</log>

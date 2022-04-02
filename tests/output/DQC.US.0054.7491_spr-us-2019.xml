@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 9.38 secs at 2020-07-24T23:31:49 - http://www.sec.gov/Archives/edgar/data/1364885/000162828020002543/spr-20191231x10k.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1364885/000162828020002543/spr-20191231x10k.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmp36wrw5hu\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmp36wrw5hu\packages\resources.zip"/></entry>
+<entry code="DQC.US.0054.7491" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1364885/000162828020002543/spr-20191231x10k.htm" severity="error" effectiveDate="2018-06-01" cid="2158872274304">[DQC.US.0054.7491] The definition linkbase in the extension taxonomy defines the axis Statement Geographical Axis as an axis of  the table Defined Contribution Plan [Table]. This axis cannot be used on this table as this axis is expressly prohibited from being used on this table by the 2017 FASB taxonomy and retirement benefits implementation guide.  Consider using the axis Retirement Plan Sponsor Location [Axis] instead.
+
+Rule Element Id:7491
+Rule version: 13.0.0RC1 - </message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 8.37 secs - http://www.sec.gov/Archives/edgar/data/1364885/000162828020002543/spr-20191231x10k.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1364885/000162828020002543/spr-20191231x10k.htm"/></entry>
+</log>

@@ -1,0 +1,1106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.28 secs at 2020-07-24T23:24:31 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpm5j57fk4\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpm5j57fk4\packages\resources.zip"/></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept ConvertibleDebtCurrent with a value of 6,281,584 is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel3Member. 
+The properties of the fact for ConvertibleDebtCurrent are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel3Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 901</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/393)" sourceLine="901">
+  <property name="label" value="Convertible debentures, net of discounts"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="ConvertibleDebtCurrent"/>
+  <property name="QName" value="us-gaap:ConvertibleDebtCurrent"/>
+  <property name="contextRef" value="AsOf2019-12-31_us-gaap_FairValueInputsLevel3Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel3Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="6,281,584"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept ShortTermDebtNetOfDiscounts with a value of None is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel3Member. 
+The properties of the fact for ShortTermDebtNetOfDiscounts are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel3Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 906</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/398)" sourceLine="906">
+  <property name="label" value="Short term debt, net of discounts"/>
+  <property name="namespace" value="http://kayaholdings.com/20200331"/>
+  <property name="name" value="ShortTermDebtNetOfDiscounts"/>
+  <property name="QName" value="kays:ShortTermDebtNetOfDiscounts"/>
+  <property name="contextRef" value="AsOf2020-03-31_us-gaap_FairValueInputsLevel3Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel3Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept ShortTermDebtNetOfDiscounts with a value of None is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel3Member. 
+The properties of the fact for ShortTermDebtNetOfDiscounts are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel3Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 907</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/399)" sourceLine="907">
+  <property name="label" value="Short term debt, net of discounts"/>
+  <property name="namespace" value="http://kayaholdings.com/20200331"/>
+  <property name="name" value="ShortTermDebtNetOfDiscounts"/>
+  <property name="QName" value="kays:ShortTermDebtNetOfDiscounts"/>
+  <property name="contextRef" value="AsOf2019-12-31_us-gaap_FairValueInputsLevel3Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel3Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept Cash with a value of None is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel3Member. 
+The properties of the fact for Cash are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel3Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 838</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/330)" sourceLine="838">
+  <property name="label" value="Cash"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Cash"/>
+  <property name="QName" value="us-gaap:Cash"/>
+  <property name="contextRef" value="AsOf2020-03-31_us-gaap_FairValueInputsLevel3Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel3Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept Liabilities with a value of 15,015,576 is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel3Member. 
+The properties of the fact for Liabilities are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel3Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 680</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/172)" sourceLine="680">
+  <property name="label" value="Liabilities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="us-gaap:Liabilities"/>
+  <property name="contextRef" value="AsOf2020-03-31_us-gaap_FairValueInputsLevel3Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel3Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="15,015,576"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept ConvertibleDebtCurrent with a value of 7,004,838 is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel3Member. 
+The properties of the fact for ConvertibleDebtCurrent are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel3Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 900</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/392)" sourceLine="900">
+  <property name="label" value="Convertible debentures, net of discounts"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="ConvertibleDebtCurrent"/>
+  <property name="QName" value="us-gaap:ConvertibleDebtCurrent"/>
+  <property name="contextRef" value="AsOf2020-03-31_us-gaap_FairValueInputsLevel3Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel3Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="7,004,838"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept Assets with a value of None is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel3Member. 
+The properties of the fact for Assets are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel3Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 651</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/143)" sourceLine="651">
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="AsOf2019-12-31_us-gaap_FairValueInputsLevel3Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel3Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept DerivativeAssetFairValueGrossLiability with a value of 8,010,738 is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel3Member. 
+The properties of the fact for DerivativeAssetFairValueGrossLiability are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel3Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 660</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/152)" sourceLine="660">
+  <property name="label" value="Derivative liabilities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DerivativeAssetFairValueGrossLiability"/>
+  <property name="QName" value="us-gaap:DerivativeAssetFairValueGrossLiability"/>
+  <property name="contextRef" value="AsOf2020-03-31_us-gaap_FairValueInputsLevel3Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel3Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="8,010,738"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept Cash with a value of None is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel3Member. 
+The properties of the fact for Cash are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel3Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 839</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/331)" sourceLine="839">
+  <property name="label" value="Cash"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Cash"/>
+  <property name="QName" value="us-gaap:Cash"/>
+  <property name="contextRef" value="AsOf2019-12-31_us-gaap_FairValueInputsLevel3Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel3Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept DerivativeAssetFairValueGrossLiability with a value of 7,817,081 is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel3Member. 
+The properties of the fact for DerivativeAssetFairValueGrossLiability are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel3Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 661</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/153)" sourceLine="661">
+  <property name="label" value="Derivative liabilities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DerivativeAssetFairValueGrossLiability"/>
+  <property name="QName" value="us-gaap:DerivativeAssetFairValueGrossLiability"/>
+  <property name="contextRef" value="AsOf2019-12-31_us-gaap_FairValueInputsLevel3Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel3Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="7,817,081"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept Liabilities with a value of 14,098,665 is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel3Member. 
+The properties of the fact for Liabilities are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel3Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 681</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/173)" sourceLine="681">
+  <property name="label" value="Liabilities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="us-gaap:Liabilities"/>
+  <property name="contextRef" value="AsOf2019-12-31_us-gaap_FairValueInputsLevel3Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel3Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="14,098,665"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept ShortTermDebtNetOfDiscounts with a value of None is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel1Member. 
+The properties of the fact for ShortTermDebtNetOfDiscounts are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel1Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 903</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/395)" sourceLine="903">
+  <property name="label" value="Short term debt, net of discounts"/>
+  <property name="namespace" value="http://kayaholdings.com/20200331"/>
+  <property name="name" value="ShortTermDebtNetOfDiscounts"/>
+  <property name="QName" value="kays:ShortTermDebtNetOfDiscounts"/>
+  <property name="contextRef" value="AsOf2019-12-31_us-gaap_FairValueInputsLevel1Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept Assets with a value of 68,864 is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel1Member. 
+The properties of the fact for Assets are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel1Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 647</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/139)" sourceLine="647">
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="AsOf2020-03-31_us-gaap_FairValueInputsLevel1Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="68,864"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept DerivativeAssetFairValueGrossLiability with a value of None is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel1Member. 
+The properties of the fact for DerivativeAssetFairValueGrossLiability are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel1Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 656</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/148)" sourceLine="656">
+  <property name="label" value="Derivative liabilities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DerivativeAssetFairValueGrossLiability"/>
+  <property name="QName" value="us-gaap:DerivativeAssetFairValueGrossLiability"/>
+  <property name="contextRef" value="AsOf2020-03-31_us-gaap_FairValueInputsLevel1Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept Cash with a value of 68,864 is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel1Member. 
+The properties of the fact for Cash are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel1Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 834</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/326)" sourceLine="834">
+  <property name="label" value="Cash"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Cash"/>
+  <property name="QName" value="us-gaap:Cash"/>
+  <property name="contextRef" value="AsOf2020-03-31_us-gaap_FairValueInputsLevel1Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="68,864"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept Liabilities with a value of 68,864 is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel1Member. 
+The properties of the fact for Liabilities are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel1Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 676</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/168)" sourceLine="676">
+  <property name="label" value="Liabilities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="us-gaap:Liabilities"/>
+  <property name="contextRef" value="AsOf2020-03-31_us-gaap_FairValueInputsLevel1Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="68,864"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept Assets with a value of 86,967 is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel1Member. 
+The properties of the fact for Assets are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel1Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 648</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/140)" sourceLine="648">
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="AsOf2019-12-31_us-gaap_FairValueInputsLevel1Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="86,967"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept DerivativeAssetFairValueGrossLiability with a value of None is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel1Member. 
+The properties of the fact for DerivativeAssetFairValueGrossLiability are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel1Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 657</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/149)" sourceLine="657">
+  <property name="label" value="Derivative liabilities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DerivativeAssetFairValueGrossLiability"/>
+  <property name="QName" value="us-gaap:DerivativeAssetFairValueGrossLiability"/>
+  <property name="contextRef" value="AsOf2019-12-31_us-gaap_FairValueInputsLevel1Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept ConvertibleDebtCurrent with a value of None is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel1Member. 
+The properties of the fact for ConvertibleDebtCurrent are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel1Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 897</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/389)" sourceLine="897">
+  <property name="label" value="Convertible debentures, net of discounts"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="ConvertibleDebtCurrent"/>
+  <property name="QName" value="us-gaap:ConvertibleDebtCurrent"/>
+  <property name="contextRef" value="AsOf2019-12-31_us-gaap_FairValueInputsLevel1Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept Cash with a value of 86,967 is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel1Member. 
+The properties of the fact for Cash are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel1Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 835</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/327)" sourceLine="835">
+  <property name="label" value="Cash"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Cash"/>
+  <property name="QName" value="us-gaap:Cash"/>
+  <property name="contextRef" value="AsOf2019-12-31_us-gaap_FairValueInputsLevel1Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="86,967"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept ShortTermDebtNetOfDiscounts with a value of None is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel1Member. 
+The properties of the fact for ShortTermDebtNetOfDiscounts are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel1Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 902</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/394)" sourceLine="902">
+  <property name="label" value="Short term debt, net of discounts"/>
+  <property name="namespace" value="http://kayaholdings.com/20200331"/>
+  <property name="name" value="ShortTermDebtNetOfDiscounts"/>
+  <property name="QName" value="kays:ShortTermDebtNetOfDiscounts"/>
+  <property name="contextRef" value="AsOf2020-03-31_us-gaap_FairValueInputsLevel1Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept Liabilities with a value of 86,967 is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel1Member. 
+The properties of the fact for Liabilities are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel1Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 677</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/169)" sourceLine="677">
+  <property name="label" value="Liabilities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="us-gaap:Liabilities"/>
+  <property name="contextRef" value="AsOf2019-12-31_us-gaap_FairValueInputsLevel1Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="86,967"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept ConvertibleDebtCurrent with a value of None is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel1Member. 
+The properties of the fact for ConvertibleDebtCurrent are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel1Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 896</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/388)" sourceLine="896">
+  <property name="label" value="Convertible debentures, net of discounts"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="ConvertibleDebtCurrent"/>
+  <property name="QName" value="us-gaap:ConvertibleDebtCurrent"/>
+  <property name="contextRef" value="AsOf2020-03-31_us-gaap_FairValueInputsLevel1Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept Liabilities with a value of None is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel2Member. 
+The properties of the fact for Liabilities are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel2Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 678</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/170)" sourceLine="678">
+  <property name="label" value="Liabilities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="us-gaap:Liabilities"/>
+  <property name="contextRef" value="AsOf2020-03-31_us-gaap_FairValueInputsLevel2Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel2Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept ConvertibleDebtCurrent with a value of None is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel2Member. 
+The properties of the fact for ConvertibleDebtCurrent are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel2Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 899</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/391)" sourceLine="899">
+  <property name="label" value="Convertible debentures, net of discounts"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="ConvertibleDebtCurrent"/>
+  <property name="QName" value="us-gaap:ConvertibleDebtCurrent"/>
+  <property name="contextRef" value="AsOf2019-12-31_us-gaap_FairValueInputsLevel2Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel2Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept Liabilities with a value of None is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel2Member. 
+The properties of the fact for Liabilities are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel2Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 679</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/171)" sourceLine="679">
+  <property name="label" value="Liabilities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="us-gaap:Liabilities"/>
+  <property name="contextRef" value="AsOf2019-12-31_us-gaap_FairValueInputsLevel2Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel2Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept ShortTermDebtNetOfDiscounts with a value of None is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel2Member. 
+The properties of the fact for ShortTermDebtNetOfDiscounts are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel2Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 904</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/396)" sourceLine="904">
+  <property name="label" value="Short term debt, net of discounts"/>
+  <property name="namespace" value="http://kayaholdings.com/20200331"/>
+  <property name="name" value="ShortTermDebtNetOfDiscounts"/>
+  <property name="QName" value="kays:ShortTermDebtNetOfDiscounts"/>
+  <property name="contextRef" value="AsOf2020-03-31_us-gaap_FairValueInputsLevel2Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel2Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept Assets with a value of None is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel2Member. 
+The properties of the fact for Assets are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel2Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 649</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/141)" sourceLine="649">
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="AsOf2020-03-31_us-gaap_FairValueInputsLevel2Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel2Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept DerivativeAssetFairValueGrossLiability with a value of None is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel2Member. 
+The properties of the fact for DerivativeAssetFairValueGrossLiability are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel2Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 658</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/150)" sourceLine="658">
+  <property name="label" value="Derivative liabilities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DerivativeAssetFairValueGrossLiability"/>
+  <property name="QName" value="us-gaap:DerivativeAssetFairValueGrossLiability"/>
+  <property name="contextRef" value="AsOf2020-03-31_us-gaap_FairValueInputsLevel2Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel2Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept Cash with a value of None is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel2Member. 
+The properties of the fact for Cash are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel2Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 836</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/328)" sourceLine="836">
+  <property name="label" value="Cash"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Cash"/>
+  <property name="QName" value="us-gaap:Cash"/>
+  <property name="contextRef" value="AsOf2020-03-31_us-gaap_FairValueInputsLevel2Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel2Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept Assets with a value of None is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel2Member. 
+The properties of the fact for Assets are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel2Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 650</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/142)" sourceLine="650">
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="AsOf2019-12-31_us-gaap_FairValueInputsLevel2Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel2Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept DerivativeAssetFairValueGrossLiability with a value of None is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel2Member. 
+The properties of the fact for DerivativeAssetFairValueGrossLiability are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel2Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 659</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/151)" sourceLine="659">
+  <property name="label" value="Derivative liabilities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DerivativeAssetFairValueGrossLiability"/>
+  <property name="QName" value="us-gaap:DerivativeAssetFairValueGrossLiability"/>
+  <property name="contextRef" value="AsOf2019-12-31_us-gaap_FairValueInputsLevel2Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel2Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept Cash with a value of None is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel2Member. 
+The properties of the fact for Cash are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel2Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 837</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/329)" sourceLine="837">
+  <property name="label" value="Cash"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Cash"/>
+  <property name="QName" value="us-gaap:Cash"/>
+  <property name="contextRef" value="AsOf2019-12-31_us-gaap_FairValueInputsLevel2Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel2Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept ConvertibleDebtCurrent with a value of None is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel2Member. 
+The properties of the fact for ConvertibleDebtCurrent are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel2Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 898</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/390)" sourceLine="898">
+  <property name="label" value="Convertible debentures, net of discounts"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="ConvertibleDebtCurrent"/>
+  <property name="QName" value="us-gaap:ConvertibleDebtCurrent"/>
+  <property name="contextRef" value="AsOf2020-03-31_us-gaap_FairValueInputsLevel2Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel2Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2174288438656">[DQC.US.0001.64] The concept ShortTermDebtNetOfDiscounts with a value of None is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member FairValueInputsLevel2Member. 
+The properties of the fact for ShortTermDebtNetOfDiscounts are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=us-gaap:FairValueInputsLevel2Member 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml 905</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml#element(/1/397)" sourceLine="905">
+  <property name="label" value="Short term debt, net of discounts"/>
+  <property name="namespace" value="http://kayaholdings.com/20200331"/>
+  <property name="name" value="ShortTermDebtNetOfDiscounts"/>
+  <property name="QName" value="kays:ShortTermDebtNetOfDiscounts"/>
+  <property name="contextRef" value="AsOf2019-12-31_us-gaap_FairValueInputsLevel2Member">
+   <property name="entity" value="0001530746">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="us-gaap:FairValueInputsLevel2Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 22.66 secs - http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1530746/000172186820000295/kays-20200331.xml"/></entry>
+</log>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 10.21 secs at 2018-10-16T09:57:20 - http://www.sec.gov/Archives/edgar/data/776867/000077686717000005/wtm-20161231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/776867/000077686717000005/wtm-20161231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2016-V7-ruleset.zip - wtm-20161231.xml </message>
+ <ref href="wtm-20161231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpdvxd8ltc/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpdvxd8ltc/packages/resources.zip"/></entry>
+<entry code="DQC.US.0001.56" level="error">
+ <message cid="4477181624" severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/776867/000077686717000005/wtm-20161231.xml">[DQC.US.0001.56] The concept SupplementalInformationForPropertyCasualtyInsuranceUnderwritersPriorYearClaimsAndClaimsAdjustmentExpense with a value of 8,200,000 is dimensionally qualified with the NoncashOrPartNoncashDivestituresByUniqueNameAxis and the base taxonomy member FinancialServicesSectorMember. Only extension members should be used with the axis NoncashOrPartNoncashDivestituresByUniqueNameAxis.
+The properties of the fact for SupplementalInformationForPropertyCasualtyInsuranceUnderwritersPriorYearClaimsAndClaimsAdjustmentExpense are:
+Period: 2016-01-01 to 2016-12-31
+Dimensions: us-gaap:StatementBusinessSegmentsAxis=wtm:OnebeaconMember, us-gaap:NoncashOrPartNoncashDivestituresByUniqueNameAxis=us-gaap:FinancialServicesSectorMember 
+Unit: USD
+
+Rule Element Id:56
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/776867/000077686717000005/wtm-20161231.xml 29143</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/776867/000077686717000005/wtm-20161231.xml#Fact-3DFF648B444F388F4A55664617DFA176" sourceLine="29143">
+  <property name="label" value="Prior Year Claims and Claims Adjustment Expense"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="SupplementalInformationForPropertyCasualtyInsuranceUnderwritersPriorYearClaimsAndClaimsAdjustmentExpense"/>
+  <property name="QName" value="us-gaap:SupplementalInformationForPropertyCasualtyInsuranceUnderwritersPriorYearClaimsAndClaimsAdjustmentExpense"/>
+  <property name="contextRef" value="FD2016Q4YTD_us-gaap_NoncashOrPartNoncashDivestituresByUniqueNameAxis_us-gaap_FinancialServicesSectorMember_us-gaap_StatementBusinessSegmentsAxis_wtm_OnebeaconMember">
+   <property name="entity" value="0000776867">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-01-01"/>
+   <property name="endDate" value="2016-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:NoncashOrPartNoncashDivestituresByUniqueNameAxis" value="us-gaap:FinancialServicesSectorMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="wtm:OnebeaconMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="8,200,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.56" level="error">
+ <message cid="4477181624" severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/776867/000077686717000005/wtm-20161231.xml">[DQC.US.0001.56] The concept SupplementalInformationForPropertyCasualtyInsuranceUnderwritersPriorYearClaimsAndClaimsAdjustmentExpense with a value of 9,300,000 is dimensionally qualified with the NoncashOrPartNoncashDivestituresByUniqueNameAxis and the base taxonomy member TechnologySectorMember. Only extension members should be used with the axis NoncashOrPartNoncashDivestituresByUniqueNameAxis.
+The properties of the fact for SupplementalInformationForPropertyCasualtyInsuranceUnderwritersPriorYearClaimsAndClaimsAdjustmentExpense are:
+Period: 2016-01-01 to 2016-12-31
+Dimensions: us-gaap:StatementBusinessSegmentsAxis=wtm:OnebeaconMember, us-gaap:NoncashOrPartNoncashDivestituresByUniqueNameAxis=us-gaap:TechnologySectorMember 
+Unit: USD
+
+Rule Element Id:56
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/776867/000077686717000005/wtm-20161231.xml 29145</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/776867/000077686717000005/wtm-20161231.xml#Fact-0ABCEB574ECC51953EDA664616A774A1" sourceLine="29145">
+  <property name="label" value="Prior Year Claims and Claims Adjustment Expense"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="SupplementalInformationForPropertyCasualtyInsuranceUnderwritersPriorYearClaimsAndClaimsAdjustmentExpense"/>
+  <property name="QName" value="us-gaap:SupplementalInformationForPropertyCasualtyInsuranceUnderwritersPriorYearClaimsAndClaimsAdjustmentExpense"/>
+  <property name="contextRef" value="FD2016Q4YTD_us-gaap_NoncashOrPartNoncashDivestituresByUniqueNameAxis_us-gaap_TechnologySectorMember_us-gaap_StatementBusinessSegmentsAxis_wtm_OnebeaconMember">
+   <property name="entity" value="0000776867">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-01-01"/>
+   <property name="endDate" value="2016-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:NoncashOrPartNoncashDivestituresByUniqueNameAxis" value="us-gaap:TechnologySectorMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="wtm:OnebeaconMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="9,300,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.56" level="error">
+ <message cid="4477181624" severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/776867/000077686717000005/wtm-20161231.xml">[DQC.US.0001.56] The concept SupplementalInformationForPropertyCasualtyInsuranceUnderwritersPriorYearClaimsAndClaimsAdjustmentExpense with a value of 40,700,000 is dimensionally qualified with the NoncashOrPartNoncashDivestituresByUniqueNameAxis and the base taxonomy member HealthcareSectorMember. Only extension members should be used with the axis NoncashOrPartNoncashDivestituresByUniqueNameAxis.
+The properties of the fact for SupplementalInformationForPropertyCasualtyInsuranceUnderwritersPriorYearClaimsAndClaimsAdjustmentExpense are:
+Period: 2016-01-01 to 2016-12-31
+Dimensions: us-gaap:NoncashOrPartNoncashDivestituresByUniqueNameAxis=us-gaap:HealthcareSectorMember, us-gaap:StatementBusinessSegmentsAxis=wtm:OnebeaconMember 
+Unit: USD
+
+Rule Element Id:56
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/776867/000077686717000005/wtm-20161231.xml 29144</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/776867/000077686717000005/wtm-20161231.xml#Fact-03E93FB58AEE8AF6EFD266461B0A39D4" sourceLine="29144">
+  <property name="label" value="Prior Year Claims and Claims Adjustment Expense"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="SupplementalInformationForPropertyCasualtyInsuranceUnderwritersPriorYearClaimsAndClaimsAdjustmentExpense"/>
+  <property name="QName" value="us-gaap:SupplementalInformationForPropertyCasualtyInsuranceUnderwritersPriorYearClaimsAndClaimsAdjustmentExpense"/>
+  <property name="contextRef" value="FD2016Q4YTD_us-gaap_NoncashOrPartNoncashDivestituresByUniqueNameAxis_us-gaap_HealthcareSectorMember_us-gaap_StatementBusinessSegmentsAxis_wtm_OnebeaconMember">
+   <property name="entity" value="0000776867">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-01-01"/>
+   <property name="endDate" value="2016-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:NoncashOrPartNoncashDivestituresByUniqueNameAxis" value="us-gaap:HealthcareSectorMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="wtm:OnebeaconMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="40,700,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 22.23 secs - http://www.sec.gov/Archives/edgar/data/776867/000077686717000005/wtm-20161231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/776867/000077686717000005/wtm-20161231.xml"/></entry>
+</log>

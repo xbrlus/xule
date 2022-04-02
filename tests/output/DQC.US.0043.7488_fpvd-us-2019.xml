@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23303 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.56 secs at 2022-02-22T14:52:41 - http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv, dqc_0129.csv and effective_dates.csv successful. - D:\Temp\tmpvju84xlm\packages\resources.zip </message>
+ <ref href="D:\Temp\tmpvju84xlm\packages\resources.zip"/></entry>
+<entry code="DQC.US.0043.7488" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml" severity="error" effectiveDate="2018-06-01" cid="2895208842192">[DQC.US.0043.7488] The concept AccretionOfDebtDiscounts is included in the calculation of NetCashProvidedByUsedInOperatingActivities. This is in the role 0000006 - Statement - Consolidated Statements of Cash Flows. AccretionOfDebtDiscounts is a credit balance type concept representing a natural cash outflow in the reconciliation of net income (loss) to NetCashProvidedByUsedInOperatingActivities.
+A credit balance type concept should always be assigned a negative one (-1) calculation weight as it is a deduction from net income (loss) to reconcile to NetCashProvidedByUsedInOperatingActivities. AccretionOfDebtDiscounts has been incorrectly provided a positive one (+1) calculation weight in the extension taxonomy. 
+Correct the calculation weight to negative one (-1) and input the value as a positive amount if it is a deduction of a non-cash income or gain, an increase in an asset, or a decrease in a liability. If the value is an add-back of a non-cash expense or loss, decrease in an asset, or an increase in a liability and AccretionOfDebtDiscounts is the correct concept, input a negative value.  
+
+Rule Element Id:7488
+Rule version: 17.0.0 - http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml 2279</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml#element(/1/367)" sourceLine="2279">
+  <property name="label" value="[Net Cash Provided by (Used in) Operating Activities]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="contextRef" value="From2017-05-01to2018-04-30">
+   <property name="entity" value="0001518720">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-05-01"/>
+   <property name="endDate" value="2018-04-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-495,107"/>
+ </ref></entry>
+<entry code="DQC.US.0043.7488" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml" severity="error" effectiveDate="2018-06-01" cid="2895208842192">[DQC.US.0043.7488] The concept IncreaseDecreaseInInventories is included in the calculation of NetCashProvidedByUsedInOperatingActivities. This is in the role 0000006 - Statement - Consolidated Statements of Cash Flows. IncreaseDecreaseInInventories is a credit balance type concept representing a natural cash outflow in the reconciliation of net income (loss) to NetCashProvidedByUsedInOperatingActivities.
+A credit balance type concept should always be assigned a negative one (-1) calculation weight as it is a deduction from net income (loss) to reconcile to NetCashProvidedByUsedInOperatingActivities. IncreaseDecreaseInInventories has been incorrectly provided a positive one (+1) calculation weight in the extension taxonomy. 
+Correct the calculation weight to negative one (-1) and input the value as a positive amount if it is a deduction of a non-cash income or gain, an increase in an asset, or a decrease in a liability. If the value is an add-back of a non-cash expense or loss, decrease in an asset, or an increase in a liability and IncreaseDecreaseInInventories is the correct concept, input a negative value.
+
+Rule Element Id:7488
+Rule version: 17.0.0 - http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml 2279</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml#element(/1/367)" sourceLine="2279">
+  <property name="label" value="[Net Cash Provided by (Used in) Operating Activities]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="contextRef" value="From2017-05-01to2018-04-30">
+   <property name="entity" value="0001518720">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-05-01"/>
+   <property name="endDate" value="2018-04-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-495,107"/>
+ </ref></entry>
+<entry code="DQC.US.0043.7488" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml" severity="error" effectiveDate="2018-06-01" cid="2895208842192">[DQC.US.0043.7488] The concept IncreaseDecreaseInOtherCurrentAssets is included in the calculation of NetCashProvidedByUsedInOperatingActivities. This is in the role 0000006 - Statement - Consolidated Statements of Cash Flows. IncreaseDecreaseInOtherCurrentAssets is a credit balance type concept representing a natural cash outflow in the reconciliation of net income (loss) to NetCashProvidedByUsedInOperatingActivities.
+A credit balance type concept should always be assigned a negative one (-1) calculation weight as it is a deduction from net income (loss) to reconcile to NetCashProvidedByUsedInOperatingActivities. IncreaseDecreaseInOtherCurrentAssets has been incorrectly provided a positive one (+1) calculation weight in the extension taxonomy. 
+Correct the calculation weight to negative one (-1) and input the value as a positive amount if it is a deduction of a non-cash income or gain, an increase in an asset, or a decrease in a liability. If the value is an add-back of a non-cash expense or loss, decrease in an asset, or an increase in a liability and IncreaseDecreaseInOtherCurrentAssets is the correct concept, input a negative value.
+
+Rule Element Id:7488
+Rule version: 17.0.0 - http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml 2279</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml#element(/1/367)" sourceLine="2279">
+  <property name="label" value="[Net Cash Provided by (Used in) Operating Activities]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="contextRef" value="From2017-05-01to2018-04-30">
+   <property name="entity" value="0001518720">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-05-01"/>
+   <property name="endDate" value="2018-04-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-495,107"/>
+ </ref></entry>
+<entry code="DQC.US.0043.7488" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml" severity="error" effectiveDate="2018-06-01" cid="2895208842192">[DQC.US.0043.7488] The concept GainsLossesOnSalesOfAssets is included in the calculation of NetCashProvidedByUsedInOperatingActivities. This is in the role 0000006 - Statement - Consolidated Statements of Cash Flows. GainsLossesOnSalesOfAssets is a credit balance type concept representing a natural cash outflow in the reconciliation of net income (loss) to NetCashProvidedByUsedInOperatingActivities.
+A credit balance type concept should always be assigned a negative one (-1) calculation weight as it is a deduction from net income (loss) to reconcile to NetCashProvidedByUsedInOperatingActivities. GainsLossesOnSalesOfAssets has been incorrectly provided a positive one (+1) calculation weight in the extension taxonomy. 
+Correct the calculation weight to negative one (-1) and input the value as a positive amount if it is a deduction of a non-cash income or gain, an increase in an asset, or a decrease in a liability. If the value is an add-back of a non-cash expense or loss, decrease in an asset, or an increase in a liability and GainsLossesOnSalesOfAssets is the correct concept, input a negative value.
+
+Rule Element Id:7488
+Rule version: 17.0.0 - http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml 2279</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml#element(/1/367)" sourceLine="2279">
+  <property name="label" value="[Net Cash Provided by (Used in) Operating Activities]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="contextRef" value="From2017-05-01to2018-04-30">
+   <property name="entity" value="0001518720">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-05-01"/>
+   <property name="endDate" value="2018-04-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-495,107"/>
+ </ref></entry>
+<entry code="DQC.US.0043.7488" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml" severity="error" effectiveDate="2018-06-01" cid="2895208842192">[DQC.US.0043.7488] The concept DebtFfinancingPenalties is included in the calculation of NetCashProvidedByUsedInOperatingActivities. This is in the role 0000006 - Statement - Consolidated Statements of Cash Flows. DebtFfinancingPenalties is a credit balance type concept representing a natural cash outflow in the reconciliation of net income (loss) to NetCashProvidedByUsedInOperatingActivities.
+A credit balance type concept should always be assigned a negative one (-1) calculation weight as it is a deduction from net income (loss) to reconcile to NetCashProvidedByUsedInOperatingActivities. DebtFfinancingPenalties has been incorrectly provided a positive one (+1) calculation weight in the extension taxonomy. 
+Correct the calculation weight to negative one (-1) and input the value as a positive amount if it is a deduction of a non-cash income or gain, an increase in an asset, or a decrease in a liability. If the value is an add-back of a non-cash expense or loss, decrease in an asset, or an increase in a liability and DebtFfinancingPenalties is the correct concept, input a negative value.
+
+Rule Element Id:7488
+Rule version: 17.0.0 - http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml 2279</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml#element(/1/367)" sourceLine="2279">
+  <property name="label" value="[Net Cash Provided by (Used in) Operating Activities]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="contextRef" value="From2017-05-01to2018-04-30">
+   <property name="entity" value="0001518720">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-05-01"/>
+   <property name="endDate" value="2018-04-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-495,107"/>
+ </ref></entry>
+<entry code="DQC.US.0043.7488" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml" severity="error" effectiveDate="2018-06-01" cid="2895208842192">[DQC.US.0043.7488] The concept IncreaseDecreaseInAccountsReceivable is included in the calculation of NetCashProvidedByUsedInOperatingActivities. This is in the role 0000006 - Statement - Consolidated Statements of Cash Flows. IncreaseDecreaseInAccountsReceivable is a credit balance type concept representing a natural cash outflow in the reconciliation of net income (loss) to NetCashProvidedByUsedInOperatingActivities.
+A credit balance type concept should always be assigned a negative one (-1) calculation weight as it is a deduction from net income (loss) to reconcile to NetCashProvidedByUsedInOperatingActivities. IncreaseDecreaseInAccountsReceivable has been incorrectly provided a positive one (+1) calculation weight in the extension taxonomy. 
+Correct the calculation weight to negative one (-1) and input the value as a positive amount if it is a deduction of a non-cash income or gain, an increase in an asset, or a decrease in a liability. If the value is an add-back of a non-cash expense or loss, decrease in an asset, or an increase in a liability and IncreaseDecreaseInAccountsReceivable is the correct concept, input a negative value.
+
+Rule Element Id:7488
+Rule version: 17.0.0 - http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml 2279</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml#element(/1/367)" sourceLine="2279">
+  <property name="label" value="[Net Cash Provided by (Used in) Operating Activities]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="contextRef" value="From2017-05-01to2018-04-30">
+   <property name="entity" value="0001518720">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-05-01"/>
+   <property name="endDate" value="2018-04-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-495,107"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 4.98 secs - http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml"/></entry>
+</log>

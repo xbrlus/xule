@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22716 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.82 secs at 2019-02-08T15:29:22 - http://www.sec.gov/Archives/edgar/data/1004411/000165495418007170/glla-20180331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1004411/000165495418007170/glla-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv and dqc_0080.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp88yjk_9b/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp88yjk_9b/packages/resources.zip"/></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1004411/000165495418007170/glla-20180331.xml" cid="4422779008">[DQC.US.0001.70] The concept WebsiteDevelopment with a value of 5,083 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member VaporLiqWebsiteMember. 
+The properties of the fact for WebsiteDevelopment are:
+Period: 2017-12-31
+Dimensions: us-gaap:ConsolidationItemsAxis=GLLA:VaporLiqWebsiteMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1004411/000165495418007170/glla-20180331.xml 2754</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1004411/000165495418007170/glla-20180331.xml#element(/1/293)" sourceLine="2754">
+  <property name="label" value="Website development (note 8)"/>
+  <property name="namespace" value="http://gillainc.com/20180331"/>
+  <property name="name" value="WebsiteDevelopment"/>
+  <property name="QName" value="GLLA:WebsiteDevelopment"/>
+  <property name="contextRef" value="AsOf2017-12-31_custom_VaporLiqWebsiteMember">
+   <property name="entity" value="0001004411">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ConsolidationItemsAxis" value="GLLA:VaporLiqWebsiteMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="5,083"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1004411/000165495418007170/glla-20180331.xml" cid="4422779008">[DQC.US.0001.70] The concept WebsiteDevelopmentCost with a value of 10,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member VaporLiqWebsiteMember. 
+The properties of the fact for WebsiteDevelopmentCost are:
+Period: 2018-03-31
+Dimensions: us-gaap:ConsolidationItemsAxis=GLLA:VaporLiqWebsiteMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1004411/000165495418007170/glla-20180331.xml 3144</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1004411/000165495418007170/glla-20180331.xml#element(/1/683)" sourceLine="3144">
+  <property name="label" value="Website Development Cost"/>
+  <property name="namespace" value="http://gillainc.com/20180331"/>
+  <property name="name" value="WebsiteDevelopmentCost"/>
+  <property name="QName" value="GLLA:WebsiteDevelopmentCost"/>
+  <property name="contextRef" value="AsOf2018-03-31_custom_VaporLiqWebsiteMember">
+   <property name="entity" value="0001004411">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ConsolidationItemsAxis" value="GLLA:VaporLiqWebsiteMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="10,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1004411/000165495418007170/glla-20180331.xml" cid="4422779008">[DQC.US.0001.70] The concept WebsiteDevelopment with a value of 4,583 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member VaporLiqWebsiteMember. 
+The properties of the fact for WebsiteDevelopment are:
+Period: 2018-03-31
+Dimensions: us-gaap:ConsolidationItemsAxis=GLLA:VaporLiqWebsiteMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1004411/000165495418007170/glla-20180331.xml 2753</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1004411/000165495418007170/glla-20180331.xml#element(/1/292)" sourceLine="2753">
+  <property name="label" value="Website development (note 8)"/>
+  <property name="namespace" value="http://gillainc.com/20180331"/>
+  <property name="name" value="WebsiteDevelopment"/>
+  <property name="QName" value="GLLA:WebsiteDevelopment"/>
+  <property name="contextRef" value="AsOf2018-03-31_custom_VaporLiqWebsiteMember">
+   <property name="entity" value="0001004411">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ConsolidationItemsAxis" value="GLLA:VaporLiqWebsiteMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4,583"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1004411/000165495418007170/glla-20180331.xml" cid="4422779008">[DQC.US.0001.70] The concept WebsiteDevelopmentAccumulatedAmortization with a value of 5,417 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member VaporLiqWebsiteMember. 
+The properties of the fact for WebsiteDevelopmentAccumulatedAmortization are:
+Period: 2018-03-31
+Dimensions: us-gaap:ConsolidationItemsAxis=GLLA:VaporLiqWebsiteMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1004411/000165495418007170/glla-20180331.xml 3145</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1004411/000165495418007170/glla-20180331.xml#element(/1/684)" sourceLine="3145">
+  <property name="label" value="Accumulated Amortization"/>
+  <property name="namespace" value="http://gillainc.com/20180331"/>
+  <property name="name" value="WebsiteDevelopmentAccumulatedAmortization"/>
+  <property name="QName" value="GLLA:WebsiteDevelopmentAccumulatedAmortization"/>
+  <property name="contextRef" value="AsOf2018-03-31_custom_VaporLiqWebsiteMember">
+   <property name="entity" value="0001004411">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ConsolidationItemsAxis" value="GLLA:VaporLiqWebsiteMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="5,417"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 19.95 secs - http://www.sec.gov/Archives/edgar/data/1004411/000165495418007170/glla-20180331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1004411/000165495418007170/glla-20180331.xml"/></entry>
+</log>

@@ -1,0 +1,1462 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22790 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.91 secs at 2019-07-29T17:02:59 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml"/></entry>
+<entry code="DQC.IFRS.0080.7777" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7777" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7777] ifrs-full:CreditExposure has a value of -69,243,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:CreditExposure fact are:
+Period :2018-06-30
+Dimensions : ifrs-full:TypesOfInterestRatesAxis=est:BrazilianInterbankDepositCertificateMember, ifrs-full:ClassesOfContingentLiabilitiesAxis=est:ProbableIMember, ifrs-full:TypesOfRisksAxis=ifrs-full:InterestRateRiskMember, ifrs-full:ClassesOfFinancialLiabilitiesAxis=est:DebenturesMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 10984</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1179)" sourceLine="10984">
+  <property name="label" value="Credit exposure"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="CreditExposure"/>
+  <property name="QName" value="ifrs-full:CreditExposure"/>
+  <property name="contextRef" value="c20180630_ClassesOfContingentLiabilitiesAxis_ProbableIMember_ClassesOfFinancialLiabilitiesAxis_DebenturesMember_TypesOfInterestRatesAxis_BrazilianInterbankDepositCertificateMember_TypesOfRisksAxis_InterestRateRiskMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-06-30"/>
+   <property name="dimensions" value="(4)">
+    <property name="ifrs-full:ClassesOfContingentLiabilitiesAxis" value="est:ProbableIMember"/>
+    <property name="ifrs-full:ClassesOfFinancialLiabilitiesAxis" value="est:DebenturesMember"/>
+    <property name="ifrs-full:TypesOfInterestRatesAxis" value="est:BrazilianInterbankDepositCertificateMember"/>
+    <property name="ifrs-full:TypesOfRisksAxis" value="ifrs-full:InterestRateRiskMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-69,243,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7777" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7777" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7777] ifrs-full:CreditExposure has a value of -12,669,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:CreditExposure fact are:
+Period :2018-06-30
+Dimensions : ifrs-full:TypesOfRisksAxis=ifrs-full:InterestRateRiskMember, ifrs-full:ClassesOfFinancialLiabilitiesAxis=ifrs-full:LeaseLiabilitiesMember, ifrs-full:TypesOfInterestRatesAxis=est:BrazilianInterbankDepositCertificateMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 11008</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1191)" sourceLine="11008">
+  <property name="label" value="Credit exposure"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="CreditExposure"/>
+  <property name="QName" value="ifrs-full:CreditExposure"/>
+  <property name="contextRef" value="c20180630_ClassesOfFinancialLiabilitiesAxis_LeaseLiabilitiesMember_TypesOfInterestRatesAxis_BrazilianInterbankDepositCertificateMember_TypesOfRisksAxis_InterestRateRiskMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-06-30"/>
+   <property name="dimensions" value="(3)">
+    <property name="ifrs-full:ClassesOfFinancialLiabilitiesAxis" value="ifrs-full:LeaseLiabilitiesMember"/>
+    <property name="ifrs-full:TypesOfInterestRatesAxis" value="est:BrazilianInterbankDepositCertificateMember"/>
+    <property name="ifrs-full:TypesOfRisksAxis" value="ifrs-full:InterestRateRiskMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-12,669,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7777" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7777" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7777] ifrs-full:CreditExposure has a value of -95,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:CreditExposure fact are:
+Period :2018-06-30
+Dimensions : ifrs-full:TypesOfRisksAxis=ifrs-full:InterestRateRiskMember, ifrs-full:ClassesOfFinancialLiabilitiesAxis=est:EquipmentDebtMember, ifrs-full:TypesOfInterestRatesAxis=est:BrazilianLongTermInterestRateTaxaDeJurosDeLongoPrazoMember, ifrs-full:ClassesOfContingentLiabilitiesAxis=est:ScenarioIIIEstimateIncreaseMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 10958</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1166)" sourceLine="10958">
+  <property name="label" value="Credit exposure"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="CreditExposure"/>
+  <property name="QName" value="ifrs-full:CreditExposure"/>
+  <property name="contextRef" value="c20180630_ClassesOfContingentLiabilitiesAxis_ScenarioIIIEstimateIncreaseMember_ClassesOfFinancialLiabilitiesAxis_EquipmentDebtMember_TypesOfInterestRatesAxis_BrazilianLongTermInterestRateTaxaDeJurosDeLongoPrazoMember_TypesOfRisksAxis_InterestRateRiskMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-06-30"/>
+   <property name="dimensions" value="(4)">
+    <property name="ifrs-full:ClassesOfContingentLiabilitiesAxis" value="est:ScenarioIIIEstimateIncreaseMember"/>
+    <property name="ifrs-full:ClassesOfFinancialLiabilitiesAxis" value="est:EquipmentDebtMember"/>
+    <property name="ifrs-full:TypesOfInterestRatesAxis" value="est:BrazilianLongTermInterestRateTaxaDeJurosDeLongoPrazoMember"/>
+    <property name="ifrs-full:TypesOfRisksAxis" value="ifrs-full:InterestRateRiskMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-95,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7777" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7777" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7777] ifrs-full:CreditExposure has a value of -190,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:CreditExposure fact are:
+Period :2018-06-30
+Dimensions : ifrs-full:ClassesOfContingentLiabilitiesAxis=est:ProbableIMember, ifrs-full:TypesOfRisksAxis=ifrs-full:InterestRateRiskMember, ifrs-full:ClassesOfFinancialLiabilitiesAxis=est:EquipmentDebtMember, ifrs-full:TypesOfInterestRatesAxis=est:BrazilianLongTermInterestRateTaxaDeJurosDeLongoPrazoMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 11012</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1193)" sourceLine="11012">
+  <property name="label" value="Credit exposure"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="CreditExposure"/>
+  <property name="QName" value="ifrs-full:CreditExposure"/>
+  <property name="contextRef" value="c20180630_ClassesOfContingentLiabilitiesAxis_ProbableIMember_ClassesOfFinancialLiabilitiesAxis_EquipmentDebtMember_TypesOfInterestRatesAxis_BrazilianLongTermInterestRateTaxaDeJurosDeLongoPrazoMember_TypesOfRisksAxis_InterestRateRiskMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-06-30"/>
+   <property name="dimensions" value="(4)">
+    <property name="ifrs-full:ClassesOfContingentLiabilitiesAxis" value="est:ProbableIMember"/>
+    <property name="ifrs-full:ClassesOfFinancialLiabilitiesAxis" value="est:EquipmentDebtMember"/>
+    <property name="ifrs-full:TypesOfInterestRatesAxis" value="est:BrazilianLongTermInterestRateTaxaDeJurosDeLongoPrazoMember"/>
+    <property name="ifrs-full:TypesOfRisksAxis" value="ifrs-full:InterestRateRiskMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-190,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8503" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="8503" effectiveDate="2019-06-30" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.8503] ifrs-full:RepaymentsOfBondsNotesAndDebentures has a value of -166,881,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:RepaymentsOfBondsNotesAndDebentures fact are:
+Period :2017-12-21 to 2017-12-21
+Dimensions : ifrs-full:BorrowingsByNameAxis=est:SecondIssueUnsecuredSubordinatedDebenturesMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 13468</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/2421)" sourceLine="13468">
+  <property name="label" value="Repayments of bonds, notes and debentures"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RepaymentsOfBondsNotesAndDebentures"/>
+  <property name="QName" value="ifrs-full:RepaymentsOfBondsNotesAndDebentures"/>
+  <property name="contextRef" value="c20171221to20171221_BorrowingsByNameAxis_SecondIssueUnsecuredSubordinatedDebenturesMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-12-21"/>
+   <property name="endDate" value="2017-12-21"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:BorrowingsByNameAxis" value="est:SecondIssueUnsecuredSubordinatedDebenturesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-166,881,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7777" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7777" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7777] ifrs-full:CreditExposure has a value of -55,215,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:CreditExposure fact are:
+Period :2018-06-30
+Dimensions : ifrs-full:ClassesOfFinancialLiabilitiesAxis=est:NetFinancialLiabilitiesMember, ifrs-full:TypesOfRisksAxis=ifrs-full:InterestRateRiskMember, ifrs-full:ClassesOfContingentLiabilitiesAxis=est:ScenarioIIIEstimateIncreaseMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 10982</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1178)" sourceLine="10982">
+  <property name="label" value="Credit exposure"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="CreditExposure"/>
+  <property name="QName" value="ifrs-full:CreditExposure"/>
+  <property name="contextRef" value="c20180630_ClassesOfContingentLiabilitiesAxis_ScenarioIIIEstimateIncreaseMember_ClassesOfFinancialLiabilitiesAxis_NetFinancialLiabilitiesMember_TypesOfRisksAxis_InterestRateRiskMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-06-30"/>
+   <property name="dimensions" value="(3)">
+    <property name="ifrs-full:ClassesOfContingentLiabilitiesAxis" value="est:ScenarioIIIEstimateIncreaseMember"/>
+    <property name="ifrs-full:ClassesOfFinancialLiabilitiesAxis" value="est:NetFinancialLiabilitiesMember"/>
+    <property name="ifrs-full:TypesOfRisksAxis" value="ifrs-full:InterestRateRiskMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-55,215,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8372" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="8372" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.8372] ifrs-full:UnusedProvisionReversedOtherProvisions has a value of -7,436,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:UnusedProvisionReversedOtherProvisions fact are:
+Period :2017-01-01 to 2017-06-30
+Dimensions : ifrs-full:ClassesOfProvisionsAxis=ifrs-full:ProvisionForDecommissioningRestorationAndRehabilitationCostsMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 13818</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/2596)" sourceLine="13818">
+  <property name="label" value="Reversal"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="UnusedProvisionReversedOtherProvisions"/>
+  <property name="QName" value="ifrs-full:UnusedProvisionReversedOtherProvisions"/>
+  <property name="contextRef" value="c20170101to20170630_ClassesOfProvisionsAxis_ProvisionForDecommissioningRestorationAndRehabilitationCostsMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ClassesOfProvisionsAxis" value="ifrs-full:ProvisionForDecommissioningRestorationAndRehabilitationCostsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-7,436,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8229" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="8229" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.8229] ifrs-full:ProvisionUsedOtherProvisions has a value of -6,869,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:ProvisionUsedOtherProvisions fact are:
+Period :2017-01-01 to 2017-06-30
+Dimensions : ifrs-full:ClassesOfProvisionsAxis=ifrs-full:ProvisionForDecommissioningRestorationAndRehabilitationCostsMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 13434</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/2404)" sourceLine="13434">
+  <property name="label" value="Amount used"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="ProvisionUsedOtherProvisions"/>
+  <property name="QName" value="ifrs-full:ProvisionUsedOtherProvisions"/>
+  <property name="contextRef" value="c20170101to20170630_ClassesOfProvisionsAxis_ProvisionForDecommissioningRestorationAndRehabilitationCostsMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ClassesOfProvisionsAxis" value="ifrs-full:ProvisionForDecommissioningRestorationAndRehabilitationCostsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-6,869,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7777" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7777" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7777] ifrs-full:CreditExposure has a value of -1,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:CreditExposure fact are:
+Period :2018-06-30
+Dimensions : ifrs-full:TypesOfRisksAxis=ifrs-full:InterestRateRiskMember, ifrs-full:ClassesOfContingentLiabilitiesAxis=est:ScenarioIVEstimateDecreaseMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 10972</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1173)" sourceLine="10972">
+  <property name="label" value="Credit exposure"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="CreditExposure"/>
+  <property name="QName" value="ifrs-full:CreditExposure"/>
+  <property name="contextRef" value="c20180630_ClassesOfContingentLiabilitiesAxis_ScenarioIVEstimateDecreaseMember_TypesOfRisksAxis_InterestRateRiskMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-06-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="ifrs-full:ClassesOfContingentLiabilitiesAxis" value="est:ScenarioIVEstimateDecreaseMember"/>
+    <property name="ifrs-full:TypesOfRisksAxis" value="ifrs-full:InterestRateRiskMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-1,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7877" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7877" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7877] ifrs-full:DisposalsPropertyPlantAndEquipment has a value of -3,051,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:DisposalsPropertyPlantAndEquipment fact are:
+Period :2017-01-01 to 2017-06-30
+Dimensions : ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis=ifrs-full:GrossCarryingAmountMember, ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis=est:OperatingEquipmentMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 11448</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1411)" sourceLine="11448">
+  <property name="label" value="Disposals"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="DisposalsPropertyPlantAndEquipment"/>
+  <property name="QName" value="ifrs-full:DisposalsPropertyPlantAndEquipment"/>
+  <property name="contextRef" value="c20170101to20170630_CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis_GrossCarryingAmountMember_ClassesOfPropertyPlantAndEquipmentAxis_OperatingEquipmentMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-06-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis" value="ifrs-full:GrossCarryingAmountMember"/>
+    <property name="ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis" value="est:OperatingEquipmentMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-3,051,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7777" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7777" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7777] ifrs-full:CreditExposure has a value of -2,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:CreditExposure fact are:
+Period :2018-06-30
+Dimensions : ifrs-full:ClassesOfFinancialAssetsAxis=est:Investments1Member, ifrs-full:TypesOfInterestRatesAxis=est:BrazilianInterbankDepositCertificateMember, ifrs-full:ClassesOfContingentLiabilitiesAxis=est:ScenarioVEstimateDecreaseMember, ifrs-full:TypesOfRisksAxis=ifrs-full:InterestRateRiskMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 11006</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1190)" sourceLine="11006">
+  <property name="label" value="Credit exposure"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="CreditExposure"/>
+  <property name="QName" value="ifrs-full:CreditExposure"/>
+  <property name="contextRef" value="c20180630_ClassesOfContingentLiabilitiesAxis_ScenarioVEstimateDecreaseMember_ClassesOfFinancialAssetsAxis_Investments1Member_TypesOfInterestRatesAxis_BrazilianInterbankDepositCertificateMember_TypesOfRisksAxis_InterestRateRiskMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-06-30"/>
+   <property name="dimensions" value="(4)">
+    <property name="ifrs-full:ClassesOfContingentLiabilitiesAxis" value="est:ScenarioVEstimateDecreaseMember"/>
+    <property name="ifrs-full:ClassesOfFinancialAssetsAxis" value="est:Investments1Member"/>
+    <property name="ifrs-full:TypesOfInterestRatesAxis" value="est:BrazilianInterbankDepositCertificateMember"/>
+    <property name="ifrs-full:TypesOfRisksAxis" value="ifrs-full:InterestRateRiskMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-2,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8372" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="8372" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.8372] ifrs-full:UnusedProvisionReversedOtherProvisions has a value of -101,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:UnusedProvisionReversedOtherProvisions fact are:
+Period :2017-01-01 to 2017-06-30
+Dimensions : ifrs-full:ClassesOfProvisionsAxis=est:CivilProceedingsProvisionMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 13826</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/2600)" sourceLine="13826">
+  <property name="label" value="Reversal"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="UnusedProvisionReversedOtherProvisions"/>
+  <property name="QName" value="ifrs-full:UnusedProvisionReversedOtherProvisions"/>
+  <property name="contextRef" value="c20170101to20170630_ClassesOfProvisionsAxis_CivilProceedingsProvisionMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ClassesOfProvisionsAxis" value="est:CivilProceedingsProvisionMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-101,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7777" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7777" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7777] ifrs-full:CreditExposure has a value of -110,429,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:CreditExposure fact are:
+Period :2018-06-30
+Dimensions : ifrs-full:ClassesOfContingentLiabilitiesAxis=est:ProbableIMember, ifrs-full:ClassesOfFinancialLiabilitiesAxis=est:NetFinancialLiabilitiesMember, ifrs-full:TypesOfRisksAxis=ifrs-full:InterestRateRiskMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 10962</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1168)" sourceLine="10962">
+  <property name="label" value="Credit exposure"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="CreditExposure"/>
+  <property name="QName" value="ifrs-full:CreditExposure"/>
+  <property name="contextRef" value="c20180630_ClassesOfContingentLiabilitiesAxis_ProbableIMember_ClassesOfFinancialLiabilitiesAxis_NetFinancialLiabilitiesMember_TypesOfRisksAxis_InterestRateRiskMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-06-30"/>
+   <property name="dimensions" value="(3)">
+    <property name="ifrs-full:ClassesOfContingentLiabilitiesAxis" value="est:ProbableIMember"/>
+    <property name="ifrs-full:ClassesOfFinancialLiabilitiesAxis" value="est:NetFinancialLiabilitiesMember"/>
+    <property name="ifrs-full:TypesOfRisksAxis" value="ifrs-full:InterestRateRiskMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-110,429,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7777" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7777" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7777] ifrs-full:CreditExposure has a value of -1,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:CreditExposure fact are:
+Period :2018-06-30
+Dimensions : ifrs-full:TypesOfRisksAxis=ifrs-full:InterestRateRiskMember, ifrs-full:ClassesOfFinancialAssetsAxis=est:Investments1Member, ifrs-full:TypesOfInterestRatesAxis=est:BrazilianInterbankDepositCertificateMember, ifrs-full:ClassesOfContingentLiabilitiesAxis=est:ScenarioIVEstimateDecreaseMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 10950</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1162)" sourceLine="10950">
+  <property name="label" value="Credit exposure"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="CreditExposure"/>
+  <property name="QName" value="ifrs-full:CreditExposure"/>
+  <property name="contextRef" value="c20180630_ClassesOfContingentLiabilitiesAxis_ScenarioIVEstimateDecreaseMember_ClassesOfFinancialAssetsAxis_Investments1Member_TypesOfInterestRatesAxis_BrazilianInterbankDepositCertificateMember_TypesOfRisksAxis_InterestRateRiskMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-06-30"/>
+   <property name="dimensions" value="(4)">
+    <property name="ifrs-full:ClassesOfContingentLiabilitiesAxis" value="est:ScenarioIVEstimateDecreaseMember"/>
+    <property name="ifrs-full:ClassesOfFinancialAssetsAxis" value="est:Investments1Member"/>
+    <property name="ifrs-full:TypesOfInterestRatesAxis" value="est:BrazilianInterbankDepositCertificateMember"/>
+    <property name="ifrs-full:TypesOfRisksAxis" value="ifrs-full:InterestRateRiskMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-1,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8469" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="8469" effectiveDate="2019-06-30" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.8469] ifrs-full:IncreaseDecreaseThroughTimeValueOfMoneyAdjustmentOtherProvisions has a value of -6,110,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:IncreaseDecreaseThroughTimeValueOfMoneyAdjustmentOtherProvisions fact are:
+Period :2018-01-01 to 2018-06-30
+Dimensions : ifrs-full:ClassesOfProvisionsAxis=ifrs-full:ProvisionForDecommissioningRestorationAndRehabilitationCostsMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 12090</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1732)" sourceLine="12090">
+  <property name="label" value="Increase through adjustments arising from passage of time, other provisions"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="IncreaseDecreaseThroughTimeValueOfMoneyAdjustmentOtherProvisions"/>
+  <property name="QName" value="ifrs-full:IncreaseDecreaseThroughTimeValueOfMoneyAdjustmentOtherProvisions"/>
+  <property name="contextRef" value="c20180101to20180630_ClassesOfProvisionsAxis_ProvisionForDecommissioningRestorationAndRehabilitationCostsMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ClassesOfProvisionsAxis" value="ifrs-full:ProvisionForDecommissioningRestorationAndRehabilitationCostsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-6,110,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8229" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="8229" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.8229] ifrs-full:ProvisionUsedOtherProvisions has a value of -3,910,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:ProvisionUsedOtherProvisions fact are:
+Period :2018-01-01 to 2018-06-30
+Dimensions : ifrs-full:ClassesOfProvisionsAxis=ifrs-full:ProvisionForDecommissioningRestorationAndRehabilitationCostsMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 13432</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/2403)" sourceLine="13432">
+  <property name="label" value="Amount used"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="ProvisionUsedOtherProvisions"/>
+  <property name="QName" value="ifrs-full:ProvisionUsedOtherProvisions"/>
+  <property name="contextRef" value="c20180101to20180630_ClassesOfProvisionsAxis_ProvisionForDecommissioningRestorationAndRehabilitationCostsMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ClassesOfProvisionsAxis" value="ifrs-full:ProvisionForDecommissioningRestorationAndRehabilitationCostsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-3,910,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7777" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7777" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7777] ifrs-full:CreditExposure has a value of -2,886,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:CreditExposure fact are:
+Period :2018-06-30
+Dimensions : ifrs-full:ClassesOfFinancialLiabilitiesAxis=est:EquipmentDebtMember, ifrs-full:TypesOfInterestRatesAxis=est:BrazilianLongTermInterestRateTaxaDeJurosDeLongoPrazoMember, ifrs-full:TypesOfRisksAxis=ifrs-full:InterestRateRiskMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 10978</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1176)" sourceLine="10978">
+  <property name="label" value="Credit exposure"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="CreditExposure"/>
+  <property name="QName" value="ifrs-full:CreditExposure"/>
+  <property name="contextRef" value="c20180630_ClassesOfFinancialLiabilitiesAxis_EquipmentDebtMember_TypesOfInterestRatesAxis_BrazilianLongTermInterestRateTaxaDeJurosDeLongoPrazoMember_TypesOfRisksAxis_InterestRateRiskMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-06-30"/>
+   <property name="dimensions" value="(3)">
+    <property name="ifrs-full:ClassesOfFinancialLiabilitiesAxis" value="est:EquipmentDebtMember"/>
+    <property name="ifrs-full:TypesOfInterestRatesAxis" value="est:BrazilianLongTermInterestRateTaxaDeJurosDeLongoPrazoMember"/>
+    <property name="ifrs-full:TypesOfRisksAxis" value="ifrs-full:InterestRateRiskMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-2,886,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7877" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7877" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7877] ifrs-full:DisposalsPropertyPlantAndEquipment has a value of -388,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:DisposalsPropertyPlantAndEquipment fact are:
+Period :2017-01-01 to 2017-06-30
+Dimensions : ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis=ifrs-full:OtherPropertyPlantAndEquipmentMember, ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis=ifrs-full:GrossCarryingAmountMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 11462</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1418)" sourceLine="11462">
+  <property name="label" value="Disposals"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="DisposalsPropertyPlantAndEquipment"/>
+  <property name="QName" value="ifrs-full:DisposalsPropertyPlantAndEquipment"/>
+  <property name="contextRef" value="c20170101to20170630_CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis_GrossCarryingAmountMember_ClassesOfPropertyPlantAndEquipmentAxis_OtherPropertyPlantAndEquipmentMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-06-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis" value="ifrs-full:GrossCarryingAmountMember"/>
+    <property name="ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis" value="ifrs-full:OtherPropertyPlantAndEquipmentMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-388,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7777" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7777" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7777] ifrs-full:CreditExposure has a value of -27,607,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:CreditExposure fact are:
+Period :2018-06-30
+Dimensions : ifrs-full:ClassesOfFinancialLiabilitiesAxis=est:NetFinancialLiabilitiesMember, ifrs-full:TypesOfRisksAxis=ifrs-full:InterestRateRiskMember, ifrs-full:ClassesOfContingentLiabilitiesAxis=est:ScenarioIIEstimateIncreaseMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 10980</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1177)" sourceLine="10980">
+  <property name="label" value="Credit exposure"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="CreditExposure"/>
+  <property name="QName" value="ifrs-full:CreditExposure"/>
+  <property name="contextRef" value="c20180630_ClassesOfContingentLiabilitiesAxis_ScenarioIIEstimateIncreaseMember_ClassesOfFinancialLiabilitiesAxis_NetFinancialLiabilitiesMember_TypesOfRisksAxis_InterestRateRiskMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-06-30"/>
+   <property name="dimensions" value="(3)">
+    <property name="ifrs-full:ClassesOfContingentLiabilitiesAxis" value="est:ScenarioIIEstimateIncreaseMember"/>
+    <property name="ifrs-full:ClassesOfFinancialLiabilitiesAxis" value="est:NetFinancialLiabilitiesMember"/>
+    <property name="ifrs-full:TypesOfRisksAxis" value="ifrs-full:InterestRateRiskMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-27,607,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7937" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7937" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7937] ifrs-full:FinanceCosts has a value of -17,324,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:FinanceCosts fact are:
+Period :2018-01-01 to 2018-06-30
+Dimensions : ifrs-full:CategoriesOfRelatedPartiesAxis=est:PrivateDebtAcknowledgmentInstrumentMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 11630</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1502)" sourceLine="11630">
+  <property name="label" value="Finance expenses"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="FinanceCosts"/>
+  <property name="QName" value="ifrs-full:FinanceCosts"/>
+  <property name="contextRef" value="c20180101to20180630_CategoriesOfRelatedPartiesAxis_PrivateDebtAcknowledgmentInstrumentMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:CategoriesOfRelatedPartiesAxis" value="est:PrivateDebtAcknowledgmentInstrumentMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-17,324,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7937" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7937" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7937] ifrs-full:FinanceCosts has a value of -15,197,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:FinanceCosts fact are:
+Period :2018-01-01 to 2018-06-30
+Dimensions : ifrs-full:CategoriesOfRelatedPartiesAxis=est:DebenturesMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 11632</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1503)" sourceLine="11632">
+  <property name="label" value="Finance expenses"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="FinanceCosts"/>
+  <property name="QName" value="ifrs-full:FinanceCosts"/>
+  <property name="contextRef" value="c20180101to20180630_CategoriesOfRelatedPartiesAxis_DebenturesMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:CategoriesOfRelatedPartiesAxis" value="est:DebenturesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-15,197,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7777" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7777" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7777] ifrs-full:CreditExposure has a value of -17,311,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:CreditExposure fact are:
+Period :2018-06-30
+Dimensions : ifrs-full:TypesOfRisksAxis=ifrs-full:InterestRateRiskMember, ifrs-full:ClassesOfContingentLiabilitiesAxis=est:ScenarioIIEstimateIncreaseMember, ifrs-full:ClassesOfFinancialLiabilitiesAxis=est:DebenturesMember, ifrs-full:TypesOfInterestRatesAxis=est:BrazilianInterbankDepositCertificateMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 10948</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1161)" sourceLine="10948">
+  <property name="label" value="Credit exposure"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="CreditExposure"/>
+  <property name="QName" value="ifrs-full:CreditExposure"/>
+  <property name="contextRef" value="c20180630_ClassesOfContingentLiabilitiesAxis_ScenarioIIEstimateIncreaseMember_ClassesOfFinancialLiabilitiesAxis_DebenturesMember_TypesOfInterestRatesAxis_BrazilianInterbankDepositCertificateMember_TypesOfRisksAxis_InterestRateRiskMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-06-30"/>
+   <property name="dimensions" value="(4)">
+    <property name="ifrs-full:ClassesOfContingentLiabilitiesAxis" value="est:ScenarioIIEstimateIncreaseMember"/>
+    <property name="ifrs-full:ClassesOfFinancialLiabilitiesAxis" value="est:DebenturesMember"/>
+    <property name="ifrs-full:TypesOfInterestRatesAxis" value="est:BrazilianInterbankDepositCertificateMember"/>
+    <property name="ifrs-full:TypesOfRisksAxis" value="ifrs-full:InterestRateRiskMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-17,311,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8149" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="8149" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.8149] ifrs-full:NumberOfShareOptionsExpiredInSharebasedPaymentArrangement has a value of -70,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:NumberOfShareOptionsExpiredInSharebasedPaymentArrangement fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : 
+Unit : shares
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 12564</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1969)" sourceLine="12564">
+  <property name="label" value="Expired (in shares)"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="NumberOfShareOptionsExpiredInSharebasedPaymentArrangement"/>
+  <property name="QName" value="ifrs-full:NumberOfShareOptionsExpiredInSharebasedPaymentArrangement"/>
+  <property name="contextRef" value="c20170101to20171231">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="U003 (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-70,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7777" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7777" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7777] ifrs-full:CreditExposure has a value of -2,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:CreditExposure fact are:
+Period :2018-06-30
+Dimensions : ifrs-full:ClassesOfContingentLiabilitiesAxis=est:ScenarioVEstimateDecreaseMember, ifrs-full:TypesOfRisksAxis=ifrs-full:InterestRateRiskMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 10998</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1186)" sourceLine="10998">
+  <property name="label" value="Credit exposure"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="CreditExposure"/>
+  <property name="QName" value="ifrs-full:CreditExposure"/>
+  <property name="contextRef" value="c20180630_ClassesOfContingentLiabilitiesAxis_ScenarioVEstimateDecreaseMember_TypesOfRisksAxis_InterestRateRiskMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-06-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="ifrs-full:ClassesOfContingentLiabilitiesAxis" value="est:ScenarioVEstimateDecreaseMember"/>
+    <property name="ifrs-full:TypesOfRisksAxis" value="ifrs-full:InterestRateRiskMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-2,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7877" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7877" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7877] ifrs-full:DisposalsPropertyPlantAndEquipment has a value of -4,410,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:DisposalsPropertyPlantAndEquipment fact are:
+Period :2017-01-01 to 2017-06-30
+Dimensions : ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis=ifrs-full:GrossCarryingAmountMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 11456</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1415)" sourceLine="11456">
+  <property name="label" value="Disposals"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="DisposalsPropertyPlantAndEquipment"/>
+  <property name="QName" value="ifrs-full:DisposalsPropertyPlantAndEquipment"/>
+  <property name="contextRef" value="c20170101to20170630_CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis_GrossCarryingAmountMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis" value="ifrs-full:GrossCarryingAmountMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-4,410,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7777" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7777" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7777] ifrs-full:CreditExposure has a value of -10,017,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:CreditExposure fact are:
+Period :2018-06-30
+Dimensions : ifrs-full:TypesOfInterestRatesAxis=est:BrazilianInterbankDepositCertificateMember, ifrs-full:ClassesOfFinancialLiabilitiesAxis=est:WorkingCapitalLiabilitiesMember, ifrs-full:TypesOfRisksAxis=ifrs-full:InterestRateRiskMember, ifrs-full:ClassesOfContingentLiabilitiesAxis=est:ScenarioIIEstimateIncreaseMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 10974</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1174)" sourceLine="10974">
+  <property name="label" value="Credit exposure"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="CreditExposure"/>
+  <property name="QName" value="ifrs-full:CreditExposure"/>
+  <property name="contextRef" value="c20180630_ClassesOfContingentLiabilitiesAxis_ScenarioIIEstimateIncreaseMember_ClassesOfFinancialLiabilitiesAxis_WorkingCapitalLiabilitiesMember_TypesOfInterestRatesAxis_BrazilianInterbankDepositCertificateMember_TypesOfRisksAxis_InterestRateRiskMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-06-30"/>
+   <property name="dimensions" value="(4)">
+    <property name="ifrs-full:ClassesOfContingentLiabilitiesAxis" value="est:ScenarioIIEstimateIncreaseMember"/>
+    <property name="ifrs-full:ClassesOfFinancialLiabilitiesAxis" value="est:WorkingCapitalLiabilitiesMember"/>
+    <property name="ifrs-full:TypesOfInterestRatesAxis" value="est:BrazilianInterbankDepositCertificateMember"/>
+    <property name="ifrs-full:TypesOfRisksAxis" value="ifrs-full:InterestRateRiskMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-10,017,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8372" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="8372" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.8372] ifrs-full:UnusedProvisionReversedOtherProvisions has a value of -1,089,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:UnusedProvisionReversedOtherProvisions fact are:
+Period :2017-01-01 to 2017-06-30
+Dimensions : ifrs-full:ClassesOfProvisionsAxis=est:TaxProceedingsProvisionMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 13834</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/2604)" sourceLine="13834">
+  <property name="label" value="Reversal"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="UnusedProvisionReversedOtherProvisions"/>
+  <property name="QName" value="ifrs-full:UnusedProvisionReversedOtherProvisions"/>
+  <property name="contextRef" value="c20170101to20170630_ClassesOfProvisionsAxis_TaxProceedingsProvisionMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ClassesOfProvisionsAxis" value="est:TaxProceedingsProvisionMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-1,089,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8372" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="8372" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.8372] ifrs-full:UnusedProvisionReversedOtherProvisions has a value of -57,626,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:UnusedProvisionReversedOtherProvisions fact are:
+Period :2017-01-01 to 2017-06-30
+Dimensions : ifrs-full:ClassesOfProvisionsAxis=est:LaborProceedingsProvisionMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 13820</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/2597)" sourceLine="13820">
+  <property name="label" value="Reversal"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="UnusedProvisionReversedOtherProvisions"/>
+  <property name="QName" value="ifrs-full:UnusedProvisionReversedOtherProvisions"/>
+  <property name="contextRef" value="c20170101to20170630_ClassesOfProvisionsAxis_LaborProceedingsProvisionMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ClassesOfProvisionsAxis" value="est:LaborProceedingsProvisionMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-57,626,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7777" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7777" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7777] ifrs-full:CreditExposure has a value of -34,622,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:CreditExposure fact are:
+Period :2018-06-30
+Dimensions : ifrs-full:TypesOfRisksAxis=ifrs-full:InterestRateRiskMember, ifrs-full:ClassesOfFinancialLiabilitiesAxis=est:DebenturesMember, ifrs-full:TypesOfInterestRatesAxis=est:BrazilianInterbankDepositCertificateMember, ifrs-full:ClassesOfContingentLiabilitiesAxis=est:ScenarioIIIEstimateIncreaseMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 10970</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1172)" sourceLine="10970">
+  <property name="label" value="Credit exposure"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="CreditExposure"/>
+  <property name="QName" value="ifrs-full:CreditExposure"/>
+  <property name="contextRef" value="c20180630_ClassesOfContingentLiabilitiesAxis_ScenarioIIIEstimateIncreaseMember_ClassesOfFinancialLiabilitiesAxis_DebenturesMember_TypesOfInterestRatesAxis_BrazilianInterbankDepositCertificateMember_TypesOfRisksAxis_InterestRateRiskMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-06-30"/>
+   <property name="dimensions" value="(4)">
+    <property name="ifrs-full:ClassesOfContingentLiabilitiesAxis" value="est:ScenarioIIIEstimateIncreaseMember"/>
+    <property name="ifrs-full:ClassesOfFinancialLiabilitiesAxis" value="est:DebenturesMember"/>
+    <property name="ifrs-full:TypesOfInterestRatesAxis" value="est:BrazilianInterbankDepositCertificateMember"/>
+    <property name="ifrs-full:TypesOfRisksAxis" value="ifrs-full:InterestRateRiskMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-34,622,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7777" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7777" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7777] ifrs-full:CreditExposure has a value of -233,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:CreditExposure fact are:
+Period :2018-06-30
+Dimensions : ifrs-full:ClassesOfContingentLiabilitiesAxis=est:ScenarioIIEstimateIncreaseMember, ifrs-full:TypesOfInterestRatesAxis=est:BrazilianInterbankDepositCertificateMember, ifrs-full:ClassesOfFinancialLiabilitiesAxis=ifrs-full:LeaseLiabilitiesMember, ifrs-full:TypesOfRisksAxis=ifrs-full:InterestRateRiskMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 11010</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1192)" sourceLine="11010">
+  <property name="label" value="Credit exposure"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="CreditExposure"/>
+  <property name="QName" value="ifrs-full:CreditExposure"/>
+  <property name="contextRef" value="c20180630_ClassesOfContingentLiabilitiesAxis_ScenarioIIEstimateIncreaseMember_ClassesOfFinancialLiabilitiesAxis_LeaseLiabilitiesMember_TypesOfInterestRatesAxis_BrazilianInterbankDepositCertificateMember_TypesOfRisksAxis_InterestRateRiskMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-06-30"/>
+   <property name="dimensions" value="(4)">
+    <property name="ifrs-full:ClassesOfContingentLiabilitiesAxis" value="est:ScenarioIIEstimateIncreaseMember"/>
+    <property name="ifrs-full:ClassesOfFinancialLiabilitiesAxis" value="ifrs-full:LeaseLiabilitiesMember"/>
+    <property name="ifrs-full:TypesOfInterestRatesAxis" value="est:BrazilianInterbankDepositCertificateMember"/>
+    <property name="ifrs-full:TypesOfRisksAxis" value="ifrs-full:InterestRateRiskMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-233,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7877" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7877" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7877] ifrs-full:DisposalsPropertyPlantAndEquipment has a value of -1,983,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:DisposalsPropertyPlantAndEquipment fact are:
+Period :2017-01-01 to 2017-06-30
+Dimensions : 
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 11454</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1414)" sourceLine="11454">
+  <property name="label" value="Disposals"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="DisposalsPropertyPlantAndEquipment"/>
+  <property name="QName" value="ifrs-full:DisposalsPropertyPlantAndEquipment"/>
+  <property name="contextRef" value="c20170101to20170630">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-06-30"/>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-1,983,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7679" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7679" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7679] ifrs-full:AdditionsOtherThanThroughBusinessCombinationsPropertyPlantAndEquipment has a value of -6,738,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:AdditionsOtherThanThroughBusinessCombinationsPropertyPlantAndEquipment fact are:
+Period :2017-01-01 to 2017-06-30
+Dimensions : 
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 10550</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/962)" sourceLine="10550">
+  <property name="label" value="Additions other than through business combinations, property, plant and equipment"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="AdditionsOtherThanThroughBusinessCombinationsPropertyPlantAndEquipment"/>
+  <property name="QName" value="ifrs-full:AdditionsOtherThanThroughBusinessCombinationsPropertyPlantAndEquipment"/>
+  <property name="contextRef" value="c20170101to20170630">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-06-30"/>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-6,738,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8637" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="8637" effectiveDate="2019-06-30" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.8637] ifrs-full:ProceedsFromSalesOfInvestmentsOtherThanInvestmentsAccountedForUsingEquityMethod has a value of -16,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:ProceedsFromSalesOfInvestmentsOtherThanInvestmentsAccountedForUsingEquityMethod fact are:
+Period :2017-01-01 to 2017-06-30
+Dimensions : 
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 12860</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/2117)" sourceLine="12860">
+  <property name="label" value="Proceeds from sales of investments other than investments accounted for using equity method"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="ProceedsFromSalesOfInvestmentsOtherThanInvestmentsAccountedForUsingEquityMethod"/>
+  <property name="QName" value="ifrs-full:ProceedsFromSalesOfInvestmentsOtherThanInvestmentsAccountedForUsingEquityMethod"/>
+  <property name="contextRef" value="c20170101to20170630">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-06-30"/>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-16,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7777" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7777" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7777] ifrs-full:CreditExposure has a value of -942,088,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:CreditExposure fact are:
+Period :2018-06-30
+Dimensions : ifrs-full:ClassesOfFinancialLiabilitiesAxis=est:DebenturesMember, ifrs-full:TypesOfInterestRatesAxis=est:BrazilianInterbankDepositCertificateMember, ifrs-full:TypesOfRisksAxis=ifrs-full:InterestRateRiskMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 10976</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1175)" sourceLine="10976">
+  <property name="label" value="Credit exposure"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="CreditExposure"/>
+  <property name="QName" value="ifrs-full:CreditExposure"/>
+  <property name="contextRef" value="c20180630_ClassesOfFinancialLiabilitiesAxis_DebenturesMember_TypesOfInterestRatesAxis_BrazilianInterbankDepositCertificateMember_TypesOfRisksAxis_InterestRateRiskMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-06-30"/>
+   <property name="dimensions" value="(3)">
+    <property name="ifrs-full:ClassesOfFinancialLiabilitiesAxis" value="est:DebenturesMember"/>
+    <property name="ifrs-full:TypesOfInterestRatesAxis" value="est:BrazilianInterbankDepositCertificateMember"/>
+    <property name="ifrs-full:TypesOfRisksAxis" value="ifrs-full:InterestRateRiskMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-942,088,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7937" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7937" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7937] ifrs-full:FinanceCosts has a value of -65,114,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:FinanceCosts fact are:
+Period :2017-01-01 to 2017-06-30
+Dimensions : ifrs-full:CategoriesOfRelatedPartiesAxis=est:DebenturesMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 11628</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1501)" sourceLine="11628">
+  <property name="label" value="Finance expenses"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="FinanceCosts"/>
+  <property name="QName" value="ifrs-full:FinanceCosts"/>
+  <property name="contextRef" value="c20170101to20170630_CategoriesOfRelatedPartiesAxis_DebenturesMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:CategoriesOfRelatedPartiesAxis" value="est:DebenturesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-65,114,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8481" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="8481" effectiveDate="2019-06-30" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.8481] ifrs-full:AcquisitionsThroughBusinessCombinationsIntangibleAssetsAndGoodwill has a value of -9,109,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:AcquisitionsThroughBusinessCombinationsIntangibleAssetsAndGoodwill fact are:
+Period :2018-01-01 to 2018-06-30
+Dimensions : 
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 10438</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/906)" sourceLine="10438">
+  <property name="label" value="Acquisitions through business combinations, intangible assets and goodwill"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="AcquisitionsThroughBusinessCombinationsIntangibleAssetsAndGoodwill"/>
+  <property name="QName" value="ifrs-full:AcquisitionsThroughBusinessCombinationsIntangibleAssetsAndGoodwill"/>
+  <property name="contextRef" value="c20180101to20180630">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-06-30"/>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-9,109,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7679" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7679" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7679] ifrs-full:AdditionsOtherThanThroughBusinessCombinationsPropertyPlantAndEquipment has a value of -5,862,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:AdditionsOtherThanThroughBusinessCombinationsPropertyPlantAndEquipment fact are:
+Period :2018-01-01 to 2018-06-30
+Dimensions : 
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 10564</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/969)" sourceLine="10564">
+  <property name="label" value="Additions other than through business combinations, property, plant and equipment"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="AdditionsOtherThanThroughBusinessCombinationsPropertyPlantAndEquipment"/>
+  <property name="QName" value="ifrs-full:AdditionsOtherThanThroughBusinessCombinationsPropertyPlantAndEquipment"/>
+  <property name="contextRef" value="c20180101to20180630">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-06-30"/>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-5,862,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8436" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="8436" effectiveDate="2019-06-30" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.8436] ifrs-full:TaxBenefitArisingFromPreviouslyUnrecognisedTaxLossTaxCreditOrTemporaryDifferenceOfPriorPeriodUsedToReduceCurrentTaxExpense has a value of -87,829,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:TaxBenefitArisingFromPreviouslyUnrecognisedTaxLossTaxCreditOrTemporaryDifferenceOfPriorPeriodUsedToReduceCurrentTaxExpense fact are:
+Period :2018-01-01 to 2018-06-30
+Dimensions : 
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 13706</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/2540)" sourceLine="13706">
+  <property name="label" value="Use of tax benefit of tax income and social contribution tax losses against PERT, PRT and REFIS &quot;COPA&quot; (see Note 14)."/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="TaxBenefitArisingFromPreviouslyUnrecognisedTaxLossTaxCreditOrTemporaryDifferenceOfPriorPeriodUsedToReduceCurrentTaxExpense"/>
+  <property name="QName" value="ifrs-full:TaxBenefitArisingFromPreviouslyUnrecognisedTaxLossTaxCreditOrTemporaryDifferenceOfPriorPeriodUsedToReduceCurrentTaxExpense"/>
+  <property name="contextRef" value="c20180101to20180630">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-06-30"/>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-87,829,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7777" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7777" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7777] ifrs-full:CreditExposure has a value of -40,068,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:CreditExposure fact are:
+Period :2018-06-30
+Dimensions : ifrs-full:TypesOfRisksAxis=ifrs-full:InterestRateRiskMember, ifrs-full:ClassesOfFinancialLiabilitiesAxis=est:WorkingCapitalLiabilitiesMember, ifrs-full:TypesOfInterestRatesAxis=est:BrazilianInterbankDepositCertificateMember, ifrs-full:ClassesOfContingentLiabilitiesAxis=est:ProbableIMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 10946</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1160)" sourceLine="10946">
+  <property name="label" value="Credit exposure"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="CreditExposure"/>
+  <property name="QName" value="ifrs-full:CreditExposure"/>
+  <property name="contextRef" value="c20180630_ClassesOfContingentLiabilitiesAxis_ProbableIMember_ClassesOfFinancialLiabilitiesAxis_WorkingCapitalLiabilitiesMember_TypesOfInterestRatesAxis_BrazilianInterbankDepositCertificateMember_TypesOfRisksAxis_InterestRateRiskMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-06-30"/>
+   <property name="dimensions" value="(4)">
+    <property name="ifrs-full:ClassesOfContingentLiabilitiesAxis" value="est:ProbableIMember"/>
+    <property name="ifrs-full:ClassesOfFinancialLiabilitiesAxis" value="est:WorkingCapitalLiabilitiesMember"/>
+    <property name="ifrs-full:TypesOfInterestRatesAxis" value="est:BrazilianInterbankDepositCertificateMember"/>
+    <property name="ifrs-full:TypesOfRisksAxis" value="ifrs-full:InterestRateRiskMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-40,068,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7877" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7877" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7877] ifrs-full:DisposalsPropertyPlantAndEquipment has a value of -908,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:DisposalsPropertyPlantAndEquipment fact are:
+Period :2017-01-01 to 2017-06-30
+Dimensions : ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis=ifrs-full:VehiclesMember, ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis=ifrs-full:GrossCarryingAmountMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 11460</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1417)" sourceLine="11460">
+  <property name="label" value="Disposals"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="DisposalsPropertyPlantAndEquipment"/>
+  <property name="QName" value="ifrs-full:DisposalsPropertyPlantAndEquipment"/>
+  <property name="contextRef" value="c20170101to20170630_CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis_GrossCarryingAmountMember_ClassesOfPropertyPlantAndEquipmentAxis_VehiclesMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-06-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis" value="ifrs-full:GrossCarryingAmountMember"/>
+    <property name="ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis" value="ifrs-full:VehiclesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-908,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7777" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7777" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7777] ifrs-full:CreditExposure has a value of -48,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:CreditExposure fact are:
+Period :2018-06-30
+Dimensions : ifrs-full:ClassesOfContingentLiabilitiesAxis=est:ScenarioIIEstimateIncreaseMember, ifrs-full:ClassesOfFinancialLiabilitiesAxis=est:EquipmentDebtMember, ifrs-full:TypesOfInterestRatesAxis=est:BrazilianLongTermInterestRateTaxaDeJurosDeLongoPrazoMember, ifrs-full:TypesOfRisksAxis=ifrs-full:InterestRateRiskMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 10988</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1181)" sourceLine="10988">
+  <property name="label" value="Credit exposure"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="CreditExposure"/>
+  <property name="QName" value="ifrs-full:CreditExposure"/>
+  <property name="contextRef" value="c20180630_ClassesOfContingentLiabilitiesAxis_ScenarioIIEstimateIncreaseMember_ClassesOfFinancialLiabilitiesAxis_EquipmentDebtMember_TypesOfInterestRatesAxis_BrazilianLongTermInterestRateTaxaDeJurosDeLongoPrazoMember_TypesOfRisksAxis_InterestRateRiskMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-06-30"/>
+   <property name="dimensions" value="(4)">
+    <property name="ifrs-full:ClassesOfContingentLiabilitiesAxis" value="est:ScenarioIIEstimateIncreaseMember"/>
+    <property name="ifrs-full:ClassesOfFinancialLiabilitiesAxis" value="est:EquipmentDebtMember"/>
+    <property name="ifrs-full:TypesOfInterestRatesAxis" value="est:BrazilianLongTermInterestRateTaxaDeJurosDeLongoPrazoMember"/>
+    <property name="ifrs-full:TypesOfRisksAxis" value="ifrs-full:InterestRateRiskMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-48,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7777" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7777" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7777] ifrs-full:CreditExposure has a value of -20,034,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:CreditExposure fact are:
+Period :2018-06-30
+Dimensions : ifrs-full:ClassesOfFinancialLiabilitiesAxis=est:WorkingCapitalLiabilitiesMember, ifrs-full:ClassesOfContingentLiabilitiesAxis=est:ScenarioIIIEstimateIncreaseMember, ifrs-full:TypesOfRisksAxis=ifrs-full:InterestRateRiskMember, ifrs-full:TypesOfInterestRatesAxis=est:BrazilianInterbankDepositCertificateMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 10954</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1164)" sourceLine="10954">
+  <property name="label" value="Credit exposure"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="CreditExposure"/>
+  <property name="QName" value="ifrs-full:CreditExposure"/>
+  <property name="contextRef" value="c20180630_ClassesOfContingentLiabilitiesAxis_ScenarioIIIEstimateIncreaseMember_ClassesOfFinancialLiabilitiesAxis_WorkingCapitalLiabilitiesMember_TypesOfInterestRatesAxis_BrazilianInterbankDepositCertificateMember_TypesOfRisksAxis_InterestRateRiskMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-06-30"/>
+   <property name="dimensions" value="(4)">
+    <property name="ifrs-full:ClassesOfContingentLiabilitiesAxis" value="est:ScenarioIIIEstimateIncreaseMember"/>
+    <property name="ifrs-full:ClassesOfFinancialLiabilitiesAxis" value="est:WorkingCapitalLiabilitiesMember"/>
+    <property name="ifrs-full:TypesOfInterestRatesAxis" value="est:BrazilianInterbankDepositCertificateMember"/>
+    <property name="ifrs-full:TypesOfRisksAxis" value="ifrs-full:InterestRateRiskMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-20,034,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7777" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7777" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7777] ifrs-full:CreditExposure has a value of -545,137,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:CreditExposure fact are:
+Period :2018-06-30
+Dimensions : ifrs-full:TypesOfRisksAxis=ifrs-full:InterestRateRiskMember, ifrs-full:ClassesOfFinancialLiabilitiesAxis=est:WorkingCapitalLiabilitiesMember, ifrs-full:TypesOfInterestRatesAxis=est:BrazilianInterbankDepositCertificateMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 10944</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1159)" sourceLine="10944">
+  <property name="label" value="Credit exposure"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="CreditExposure"/>
+  <property name="QName" value="ifrs-full:CreditExposure"/>
+  <property name="contextRef" value="c20180630_ClassesOfFinancialLiabilitiesAxis_WorkingCapitalLiabilitiesMember_TypesOfInterestRatesAxis_BrazilianInterbankDepositCertificateMember_TypesOfRisksAxis_InterestRateRiskMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-06-30"/>
+   <property name="dimensions" value="(3)">
+    <property name="ifrs-full:ClassesOfFinancialLiabilitiesAxis" value="est:WorkingCapitalLiabilitiesMember"/>
+    <property name="ifrs-full:TypesOfInterestRatesAxis" value="est:BrazilianInterbankDepositCertificateMember"/>
+    <property name="ifrs-full:TypesOfRisksAxis" value="ifrs-full:InterestRateRiskMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-545,137,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7877" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7877" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7877] ifrs-full:DisposalsPropertyPlantAndEquipment has a value of -63,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:DisposalsPropertyPlantAndEquipment fact are:
+Period :2017-01-01 to 2017-06-30
+Dimensions : ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis=ifrs-full:GrossCarryingAmountMember, ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis=ifrs-full:BuildingsMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 11468</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1421)" sourceLine="11468">
+  <property name="label" value="Disposals"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="DisposalsPropertyPlantAndEquipment"/>
+  <property name="QName" value="ifrs-full:DisposalsPropertyPlantAndEquipment"/>
+  <property name="contextRef" value="c20170101to20170630_CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis_GrossCarryingAmountMember_ClassesOfPropertyPlantAndEquipmentAxis_BuildingsMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-06-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis" value="ifrs-full:GrossCarryingAmountMember"/>
+    <property name="ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis" value="ifrs-full:BuildingsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-63,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7777" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7777" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7777] ifrs-full:CreditExposure has a value of -466,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:CreditExposure fact are:
+Period :2018-06-30
+Dimensions : ifrs-full:ClassesOfContingentLiabilitiesAxis=est:ScenarioIIIEstimateIncreaseMember, ifrs-full:TypesOfRisksAxis=ifrs-full:InterestRateRiskMember, ifrs-full:ClassesOfFinancialLiabilitiesAxis=ifrs-full:LeaseLiabilitiesMember, ifrs-full:TypesOfInterestRatesAxis=est:BrazilianInterbankDepositCertificateMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 10966</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1170)" sourceLine="10966">
+  <property name="label" value="Credit exposure"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="CreditExposure"/>
+  <property name="QName" value="ifrs-full:CreditExposure"/>
+  <property name="contextRef" value="c20180630_ClassesOfContingentLiabilitiesAxis_ScenarioIIIEstimateIncreaseMember_ClassesOfFinancialLiabilitiesAxis_LeaseLiabilitiesMember_TypesOfInterestRatesAxis_BrazilianInterbankDepositCertificateMember_TypesOfRisksAxis_InterestRateRiskMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-06-30"/>
+   <property name="dimensions" value="(4)">
+    <property name="ifrs-full:ClassesOfContingentLiabilitiesAxis" value="est:ScenarioIIIEstimateIncreaseMember"/>
+    <property name="ifrs-full:ClassesOfFinancialLiabilitiesAxis" value="ifrs-full:LeaseLiabilitiesMember"/>
+    <property name="ifrs-full:TypesOfInterestRatesAxis" value="est:BrazilianInterbankDepositCertificateMember"/>
+    <property name="ifrs-full:TypesOfRisksAxis" value="ifrs-full:InterestRateRiskMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-466,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7777" level="error">
+ <message severity="error" cid="4406653056" status="APPROVED" rule-suffix="7777" effectiveDate="2019-05-08" filing_url="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml">[DQC.IFRS.0080.7777] ifrs-full:CreditExposure has a value of -931,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:CreditExposure fact are:
+Period :2018-06-30
+Dimensions : ifrs-full:TypesOfRisksAxis=ifrs-full:InterestRateRiskMember, ifrs-full:TypesOfInterestRatesAxis=est:BrazilianInterbankDepositCertificateMember, ifrs-full:ClassesOfContingentLiabilitiesAxis=est:ProbableIMember, ifrs-full:ClassesOfFinancialLiabilitiesAxis=ifrs-full:LeaseLiabilitiesMember
+Unit : BRL
+Rule version: 9.0.0 - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml 10990</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml#element(/1/1182)" sourceLine="10990">
+  <property name="label" value="Credit exposure"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="CreditExposure"/>
+  <property name="QName" value="ifrs-full:CreditExposure"/>
+  <property name="contextRef" value="c20180630_ClassesOfContingentLiabilitiesAxis_ProbableIMember_ClassesOfFinancialLiabilitiesAxis_LeaseLiabilitiesMember_TypesOfInterestRatesAxis_BrazilianInterbankDepositCertificateMember_TypesOfRisksAxis_InterestRateRiskMember">
+   <property name="entity" value="0001716586">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-06-30"/>
+   <property name="dimensions" value="(4)">
+    <property name="ifrs-full:ClassesOfContingentLiabilitiesAxis" value="est:ProbableIMember"/>
+    <property name="ifrs-full:ClassesOfFinancialLiabilitiesAxis" value="ifrs-full:LeaseLiabilitiesMember"/>
+    <property name="ifrs-full:TypesOfInterestRatesAxis" value="est:BrazilianInterbankDepositCertificateMember"/>
+    <property name="ifrs-full:TypesOfRisksAxis" value="ifrs-full:InterestRateRiskMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-931,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 10.15 secs - http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1716586/000114036118040208/est-20181005.xml"/></entry>
+</log>

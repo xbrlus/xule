@@ -1,0 +1,1165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23221 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.20 secs at 2021-04-14T20:14:00 - https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpqewc58ip\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpqewc58ip\packages\resources.zip"/></entry>
+<entry code="DQC.US.0109.9568" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2620592583632">[DQC.US.0109.9568] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.27 should always be used with both the ConcentrationRiskByTypeAxis and the ConcentrationRiskByBenchmarkAxis.  This element has no meaning without both these axis at a minimum.  This fact only contains the denominator of ConcentrationRiskByBenchmarkAxis, and not the member used on the ConcentrationRiskByTypeAxis which represents the benchmark numerator. If this value represents the Concentration Risk, Threshold Percentage then use the extension element ConcentrationRiskThresholdPercentage.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2020-07-27 to 2020-10-25
+Dimensions : us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:SalesRevenueNetMember, srt:ProductOrServiceAxis=smtc:ProtectionMember
+Unit : pure
+
+
+Rule Element Id:9568
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm#id3VybDovL2RvY3MudjEvZG9jOjgxYTIxMjhhOTFmNTRhY2Y4MjYyOWU4Y2I1NWMwYjMwL3NlYzo4MWEyMTI4YTkxZjU0YWNmODI2MjllOGNiNTVjMGIzMF8xMDMvZnJhZzo1NzE0NDg0MjFjYWQ0ZjdkOGFkZmEyMmQyNzJkMTI5NS90YWJsZTo3Nzk2YjExYmQzYmI0YjcwYmU5N2JkZjVmYTg3OGMzOC90YWJsZXJhbmdlOjc3OTZiMTFiZDNiYjRiNzBiZTk3YmRmNWZhODc4YzM4XzQtMy0xLTEtMA_6204adb6-de65-40f4-b65b-e1d9f2c01d10" sourceLine="4">
+  <property name="file" value="smtc-20201025.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="ied2414425b6649b0ba955ee0e2a983e5_D20200727-20201025">
+   <property name="entity" value="0000088941">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-07-27"/>
+   <property name="endDate" value="2020-10-25"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ProductOrServiceAxis" value="smtc:ProtectionMember"/>
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:SalesRevenueNetMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.27"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="27"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9568" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2620592583632">[DQC.US.0109.9568] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.3 should always be used with both the ConcentrationRiskByTypeAxis and the ConcentrationRiskByBenchmarkAxis.  This element has no meaning without both these axis at a minimum.  This fact only contains the denominator of ConcentrationRiskByBenchmarkAxis, and not the member used on the ConcentrationRiskByTypeAxis which represents the benchmark numerator. If this value represents the Concentration Risk, Threshold Percentage then use the extension element ConcentrationRiskThresholdPercentage.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2019-07-29 to 2019-10-27
+Dimensions : srt:ProductOrServiceAxis=smtc:WirelessandSensingMember, us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:SalesRevenueNetMember
+Unit : pure
+
+
+Rule Element Id:9568
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm#id3VybDovL2RvY3MudjEvZG9jOjgxYTIxMjhhOTFmNTRhY2Y4MjYyOWU4Y2I1NWMwYjMwL3NlYzo4MWEyMTI4YTkxZjU0YWNmODI2MjllOGNiNTVjMGIzMF8xMDMvZnJhZzo1NzE0NDg0MjFjYWQ0ZjdkOGFkZmEyMmQyNzJkMTI5NS90YWJsZTo3Nzk2YjExYmQzYmI0YjcwYmU5N2JkZjVmYTg3OGMzOC90YWJsZXJhbmdlOjc3OTZiMTFiZDNiYjRiNzBiZTk3YmRmNWZhODc4YzM4XzMtNy0xLTEtMA_15c3e3e0-1799-4532-8677-9ae76c84ca5a" sourceLine="4">
+  <property name="file" value="smtc-20201025.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="i37aae4d625b64ec98534db5c8761e4a6_D20190729-20191027">
+   <property name="entity" value="0000088941">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-07-29"/>
+   <property name="endDate" value="2019-10-27"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ProductOrServiceAxis" value="smtc:WirelessandSensingMember"/>
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:SalesRevenueNetMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.30"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="30"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9568" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2620592583632">[DQC.US.0109.9568] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.4 should always be used with both the ConcentrationRiskByTypeAxis and the ConcentrationRiskByBenchmarkAxis.  This element has no meaning without both these axis at a minimum.  This fact only contains the denominator of ConcentrationRiskByBenchmarkAxis, and not the member used on the ConcentrationRiskByTypeAxis which represents the benchmark numerator. If this value represents the Concentration Risk, Threshold Percentage then use the extension element ConcentrationRiskThresholdPercentage.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2019-01-28 to 2019-10-27
+Dimensions : srt:ProductOrServiceAxis=smtc:SignalIntegrityMember, us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:SalesRevenueNetMember
+Unit : pure
+
+
+Rule Element Id:9568
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm#id3VybDovL2RvY3MudjEvZG9jOjgxYTIxMjhhOTFmNTRhY2Y4MjYyOWU4Y2I1NWMwYjMwL3NlYzo4MWEyMTI4YTkxZjU0YWNmODI2MjllOGNiNTVjMGIzMF8xMDMvZnJhZzo1NzE0NDg0MjFjYWQ0ZjdkOGFkZmEyMmQyNzJkMTI5NS90YWJsZTo3Nzk2YjExYmQzYmI0YjcwYmU5N2JkZjVmYTg3OGMzOC90YWJsZXJhbmdlOjc3OTZiMTFiZDNiYjRiNzBiZTk3YmRmNWZhODc4YzM4XzItMTUtMS0xLTA_a953cd6f-61ae-41a0-b931-e38f01f992d4" sourceLine="4">
+  <property name="file" value="smtc-20201025.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="i9e96b38e11af4d12b2992fd5b0f6b8b2_D20190128-20191027">
+   <property name="entity" value="0000088941">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-28"/>
+   <property name="endDate" value="2019-10-27"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ProductOrServiceAxis" value="smtc:SignalIntegrityMember"/>
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:SalesRevenueNetMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.40"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="40"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9568" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2620592583632">[DQC.US.0109.9568] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.12 should always be used with both the ConcentrationRiskByTypeAxis and the ConcentrationRiskByBenchmarkAxis.  This element has no meaning without both these axis at a minimum.  This fact only contains the denominator of ConcentrationRiskByBenchmarkAxis, and not the member used on the ConcentrationRiskByTypeAxis which represents the benchmark numerator. If this value represents the Concentration Risk, Threshold Percentage then use the extension element ConcentrationRiskThresholdPercentage.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2020-01-27 to 2020-10-25
+Dimensions : us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:SalesRevenueNetMember, srt:StatementGeographicalAxis=srt:NorthAmericaMember
+Unit : pure
+
+
+Rule Element Id:9568
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm#id3VybDovL2RvY3MudjEvZG9jOjgxYTIxMjhhOTFmNTRhY2Y4MjYyOWU4Y2I1NWMwYjMwL3NlYzo4MWEyMTI4YTkxZjU0YWNmODI2MjllOGNiNTVjMGIzMF8xMDMvZnJhZzo1NzE0NDg0MjFjYWQ0ZjdkOGFkZmEyMmQyNzJkMTI5NS90YWJsZTo0ZTJmZWNiOTk1NGE0NGZmYTc3NGFjZjU5NzdjODM1ZS90YWJsZXJhbmdlOjRlMmZlY2I5OTU0YTQ0ZmZhNzc0YWNmNTk3N2M4MzVlXzMtNS0xLTEtMA_a03b08cc-7de6-44f2-b0c8-a3a8cd26fd44" sourceLine="4">
+  <property name="file" value="smtc-20201025.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="i6b63986d89004918aa15034fcd368737_D20200127-20201025">
+   <property name="entity" value="0000088941">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-27"/>
+   <property name="endDate" value="2020-10-25"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:StatementGeographicalAxis" value="srt:NorthAmericaMember"/>
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:SalesRevenueNetMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.12"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="12"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9568" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2620592583632">[DQC.US.0109.9568] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.09 should always be used with both the ConcentrationRiskByTypeAxis and the ConcentrationRiskByBenchmarkAxis.  This element has no meaning without both these axis at a minimum.  This fact only contains the denominator of ConcentrationRiskByBenchmarkAxis, and not the member used on the ConcentrationRiskByTypeAxis which represents the benchmark numerator. If this value represents the Concentration Risk, Threshold Percentage then use the extension element ConcentrationRiskThresholdPercentage.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2019-07-29 to 2019-10-27
+Dimensions : srt:StatementGeographicalAxis=srt:EuropeMember, us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:SalesRevenueNetMember
+Unit : pure
+
+
+Rule Element Id:9568
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm#id3VybDovL2RvY3MudjEvZG9jOjgxYTIxMjhhOTFmNTRhY2Y4MjYyOWU4Y2I1NWMwYjMwL3NlYzo4MWEyMTI4YTkxZjU0YWNmODI2MjllOGNiNTVjMGIzMF8xMDMvZnJhZzo1NzE0NDg0MjFjYWQ0ZjdkOGFkZmEyMmQyNzJkMTI5NS90YWJsZTo0ZTJmZWNiOTk1NGE0NGZmYTc3NGFjZjU5NzdjODM1ZS90YWJsZXJhbmdlOjRlMmZlY2I5OTU0YTQ0ZmZhNzc0YWNmNTk3N2M4MzVlXzQtMy0xLTEtMA_d72acc97-0577-4986-9fed-0eef1f117d58" sourceLine="4">
+  <property name="file" value="smtc-20201025.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="ic39e4d02288f41228803338ea6afd7ff_D20190729-20191027">
+   <property name="entity" value="0000088941">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-07-29"/>
+   <property name="endDate" value="2019-10-27"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:StatementGeographicalAxis" value="srt:EuropeMember"/>
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:SalesRevenueNetMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.09"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="9"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9568" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2620592583632">[DQC.US.0109.9568] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.31 should always be used with both the ConcentrationRiskByTypeAxis and the ConcentrationRiskByBenchmarkAxis.  This element has no meaning without both these axis at a minimum.  This fact only contains the denominator of ConcentrationRiskByBenchmarkAxis, and not the member used on the ConcentrationRiskByTypeAxis which represents the benchmark numerator. If this value represents the Concentration Risk, Threshold Percentage then use the extension element ConcentrationRiskThresholdPercentage.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2019-01-28 to 2019-10-27
+Dimensions : us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:SalesRevenueNetMember, srt:ProductOrServiceAxis=smtc:WirelessandSensingMember
+Unit : pure
+
+
+Rule Element Id:9568
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm#id3VybDovL2RvY3MudjEvZG9jOjgxYTIxMjhhOTFmNTRhY2Y4MjYyOWU4Y2I1NWMwYjMwL3NlYzo4MWEyMTI4YTkxZjU0YWNmODI2MjllOGNiNTVjMGIzMF8xMDMvZnJhZzo1NzE0NDg0MjFjYWQ0ZjdkOGFkZmEyMmQyNzJkMTI5NS90YWJsZTo3Nzk2YjExYmQzYmI0YjcwYmU5N2JkZjVmYTg3OGMzOC90YWJsZXJhbmdlOjc3OTZiMTFiZDNiYjRiNzBiZTk3YmRmNWZhODc4YzM4XzMtMTUtMS0xLTA_9c23cb76-7513-4909-8770-0e1595a7bda4" sourceLine="4">
+  <property name="file" value="smtc-20201025.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="i90e865212841404ea4560e72c86554a9_D20190128-20191027">
+   <property name="entity" value="0000088941">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-28"/>
+   <property name="endDate" value="2019-10-27"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ProductOrServiceAxis" value="smtc:WirelessandSensingMember"/>
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:SalesRevenueNetMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.31"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="31"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9568" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2620592583632">[DQC.US.0109.9568] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.4 should always be used with both the ConcentrationRiskByTypeAxis and the ConcentrationRiskByBenchmarkAxis.  This element has no meaning without both these axis at a minimum.  This fact only contains the denominator of ConcentrationRiskByBenchmarkAxis, and not the member used on the ConcentrationRiskByTypeAxis which represents the benchmark numerator. If this value represents the Concentration Risk, Threshold Percentage then use the extension element ConcentrationRiskThresholdPercentage.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2020-07-27 to 2020-10-25
+Dimensions : us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:SalesRevenueNetMember, srt:ProductOrServiceAxis=smtc:SignalIntegrityMember
+Unit : pure
+
+
+Rule Element Id:9568
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm#id3VybDovL2RvY3MudjEvZG9jOjgxYTIxMjhhOTFmNTRhY2Y4MjYyOWU4Y2I1NWMwYjMwL3NlYzo4MWEyMTI4YTkxZjU0YWNmODI2MjllOGNiNTVjMGIzMF8xMDMvZnJhZzo1NzE0NDg0MjFjYWQ0ZjdkOGFkZmEyMmQyNzJkMTI5NS90YWJsZTo3Nzk2YjExYmQzYmI0YjcwYmU5N2JkZjVmYTg3OGMzOC90YWJsZXJhbmdlOjc3OTZiMTFiZDNiYjRiNzBiZTk3YmRmNWZhODc4YzM4XzItMy0xLTEtMA_fe61252b-4521-424d-a08f-c5f8e067897f" sourceLine="4">
+  <property name="file" value="smtc-20201025.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="id20793015e43401e92cc2edbc20130db_D20200727-20201025">
+   <property name="entity" value="0000088941">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-07-27"/>
+   <property name="endDate" value="2020-10-25"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ProductOrServiceAxis" value="smtc:SignalIntegrityMember"/>
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:SalesRevenueNetMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.40"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="40"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9568" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2620592583632">[DQC.US.0109.9568] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.12 should always be used with both the ConcentrationRiskByTypeAxis and the ConcentrationRiskByBenchmarkAxis.  This element has no meaning without both these axis at a minimum.  This fact only contains the denominator of ConcentrationRiskByBenchmarkAxis, and not the member used on the ConcentrationRiskByTypeAxis which represents the benchmark numerator. If this value represents the Concentration Risk, Threshold Percentage then use the extension element ConcentrationRiskThresholdPercentage.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2020-07-27 to 2020-10-25
+Dimensions : srt:StatementGeographicalAxis=srt:NorthAmericaMember, us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:SalesRevenueNetMember
+Unit : pure
+
+
+Rule Element Id:9568
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm#id3VybDovL2RvY3MudjEvZG9jOjgxYTIxMjhhOTFmNTRhY2Y4MjYyOWU4Y2I1NWMwYjMwL3NlYzo4MWEyMTI4YTkxZjU0YWNmODI2MjllOGNiNTVjMGIzMF8xMDMvZnJhZzo1NzE0NDg0MjFjYWQ0ZjdkOGFkZmEyMmQyNzJkMTI5NS90YWJsZTo0ZTJmZWNiOTk1NGE0NGZmYTc3NGFjZjU5NzdjODM1ZS90YWJsZXJhbmdlOjRlMmZlY2I5OTU0YTQ0ZmZhNzc0YWNmNTk3N2M4MzVlXzMtMS0xLTEtMA_4c7e2e07-a7f9-45a7-af79-ccafe1cdd130" sourceLine="4">
+  <property name="file" value="smtc-20201025.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="iaa05f94e73ba4f90a7953976db266dfa_D20200727-20201025">
+   <property name="entity" value="0000088941">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-07-27"/>
+   <property name="endDate" value="2020-10-25"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:StatementGeographicalAxis" value="srt:NorthAmericaMember"/>
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:SalesRevenueNetMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.12"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="12"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9568" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2620592583632">[DQC.US.0109.9568] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.29 should always be used with both the ConcentrationRiskByTypeAxis and the ConcentrationRiskByBenchmarkAxis.  This element has no meaning without both these axis at a minimum.  This fact only contains the denominator of ConcentrationRiskByBenchmarkAxis, and not the member used on the ConcentrationRiskByTypeAxis which represents the benchmark numerator. If this value represents the Concentration Risk, Threshold Percentage then use the extension element ConcentrationRiskThresholdPercentage.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2019-01-28 to 2019-10-27
+Dimensions : us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:SalesRevenueNetMember, srt:ProductOrServiceAxis=smtc:ProtectionMember
+Unit : pure
+
+
+Rule Element Id:9568
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm#id3VybDovL2RvY3MudjEvZG9jOjgxYTIxMjhhOTFmNTRhY2Y4MjYyOWU4Y2I1NWMwYjMwL3NlYzo4MWEyMTI4YTkxZjU0YWNmODI2MjllOGNiNTVjMGIzMF8xMDMvZnJhZzo1NzE0NDg0MjFjYWQ0ZjdkOGFkZmEyMmQyNzJkMTI5NS90YWJsZTo3Nzk2YjExYmQzYmI0YjcwYmU5N2JkZjVmYTg3OGMzOC90YWJsZXJhbmdlOjc3OTZiMTFiZDNiYjRiNzBiZTk3YmRmNWZhODc4YzM4XzQtMTUtMS0xLTA_e842f45d-0358-4a63-89c4-6821b0ef9e9d" sourceLine="4">
+  <property name="file" value="smtc-20201025.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="ie63a13616900443b83754d852509ef0e_D20190128-20191027">
+   <property name="entity" value="0000088941">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-28"/>
+   <property name="endDate" value="2019-10-27"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ProductOrServiceAxis" value="smtc:ProtectionMember"/>
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:SalesRevenueNetMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.29"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="29"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9568" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2620592583632">[DQC.US.0109.9568] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.08 should always be used with both the ConcentrationRiskByTypeAxis and the ConcentrationRiskByBenchmarkAxis.  This element has no meaning without both these axis at a minimum.  This fact only contains the denominator of ConcentrationRiskByBenchmarkAxis, and not the member used on the ConcentrationRiskByTypeAxis which represents the benchmark numerator. If this value represents the Concentration Risk, Threshold Percentage then use the extension element ConcentrationRiskThresholdPercentage.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2020-01-27 to 2020-10-25
+Dimensions : us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:SalesRevenueNetMember, srt:StatementGeographicalAxis=srt:EuropeMember
+Unit : pure
+
+
+Rule Element Id:9568
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm#id3VybDovL2RvY3MudjEvZG9jOjgxYTIxMjhhOTFmNTRhY2Y4MjYyOWU4Y2I1NWMwYjMwL3NlYzo4MWEyMTI4YTkxZjU0YWNmODI2MjllOGNiNTVjMGIzMF8xMDMvZnJhZzo1NzE0NDg0MjFjYWQ0ZjdkOGFkZmEyMmQyNzJkMTI5NS90YWJsZTo0ZTJmZWNiOTk1NGE0NGZmYTc3NGFjZjU5NzdjODM1ZS90YWJsZXJhbmdlOjRlMmZlY2I5OTU0YTQ0ZmZhNzc0YWNmNTk3N2M4MzVlXzQtNS0xLTEtMA_a62b3e6c-51ac-4e06-a41a-f8300fca8ef2" sourceLine="4">
+  <property name="file" value="smtc-20201025.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="ia5e88ba5840f4105831d8f1ff3264264_D20200127-20201025">
+   <property name="entity" value="0000088941">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-27"/>
+   <property name="endDate" value="2020-10-25"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:StatementGeographicalAxis" value="srt:EuropeMember"/>
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:SalesRevenueNetMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.08"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="8"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9568" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2620592583632">[DQC.US.0109.9568] The concept us-gaap:ConcentrationRiskPercentage1 with value 1 should always be used with both the ConcentrationRiskByTypeAxis and the ConcentrationRiskByBenchmarkAxis.  This element has no meaning without both these axis at a minimum.  This fact only contains the denominator of ConcentrationRiskByBenchmarkAxis, and not the member used on the ConcentrationRiskByTypeAxis which represents the benchmark numerator. If this value represents the Concentration Risk, Threshold Percentage then use the extension element ConcentrationRiskThresholdPercentage.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2020-01-27 to 2020-10-25
+Dimensions : us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:SalesRevenueNetMember
+Unit : pure
+
+
+Rule Element Id:9568
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm#id3VybDovL2RvY3MudjEvZG9jOjgxYTIxMjhhOTFmNTRhY2Y4MjYyOWU4Y2I1NWMwYjMwL3NlYzo4MWEyMTI4YTkxZjU0YWNmODI2MjllOGNiNTVjMGIzMF8xMDMvZnJhZzo1NzE0NDg0MjFjYWQ0ZjdkOGFkZmEyMmQyNzJkMTI5NS90YWJsZTo3Nzk2YjExYmQzYmI0YjcwYmU5N2JkZjVmYTg3OGMzOC90YWJsZXJhbmdlOjc3OTZiMTFiZDNiYjRiNzBiZTk3YmRmNWZhODc4YzM4XzUtMTEtMS0xLTA_057ebf59-3052-4f99-8d51-465a1245cf9a" sourceLine="4">
+  <property name="file" value="smtc-20201025.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="ic7cb8c4c4bcc4f2c98dae9736c934805_D20200127-20201025">
+   <property name="entity" value="0000088941">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-27"/>
+   <property name="endDate" value="2020-10-25"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:SalesRevenueNetMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="100"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9568" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2620592583632">[DQC.US.0109.9568] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.76 should always be used with both the ConcentrationRiskByTypeAxis and the ConcentrationRiskByBenchmarkAxis.  This element has no meaning without both these axis at a minimum.  This fact only contains the denominator of ConcentrationRiskByBenchmarkAxis, and not the member used on the ConcentrationRiskByTypeAxis which represents the benchmark numerator. If this value represents the Concentration Risk, Threshold Percentage then use the extension element ConcentrationRiskThresholdPercentage.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2019-01-28 to 2019-10-27
+Dimensions : us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:SalesRevenueNetMember, srt:StatementGeographicalAxis=srt:AsiaPacificMember
+Unit : pure
+
+
+Rule Element Id:9568
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm#id3VybDovL2RvY3MudjEvZG9jOjgxYTIxMjhhOTFmNTRhY2Y4MjYyOWU4Y2I1NWMwYjMwL3NlYzo4MWEyMTI4YTkxZjU0YWNmODI2MjllOGNiNTVjMGIzMF8xMDMvZnJhZzo1NzE0NDg0MjFjYWQ0ZjdkOGFkZmEyMmQyNzJkMTI5NS90YWJsZTo0ZTJmZWNiOTk1NGE0NGZmYTc3NGFjZjU5NzdjODM1ZS90YWJsZXJhbmdlOjRlMmZlY2I5OTU0YTQ0ZmZhNzc0YWNmNTk3N2M4MzVlXzItNy0xLTEtMA_0d01f0b2-e999-44f2-aad9-457909588f36" sourceLine="4">
+  <property name="file" value="smtc-20201025.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="ie64d1bb78f1342a992d85cd31a036a81_D20190128-20191027">
+   <property name="entity" value="0000088941">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-28"/>
+   <property name="endDate" value="2019-10-27"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:StatementGeographicalAxis" value="srt:AsiaPacificMember"/>
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:SalesRevenueNetMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.76"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="76"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9568" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2620592583632">[DQC.US.0109.9568] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.08 should always be used with both the ConcentrationRiskByTypeAxis and the ConcentrationRiskByBenchmarkAxis.  This element has no meaning without both these axis at a minimum.  This fact only contains the denominator of ConcentrationRiskByBenchmarkAxis, and not the member used on the ConcentrationRiskByTypeAxis which represents the benchmark numerator. If this value represents the Concentration Risk, Threshold Percentage then use the extension element ConcentrationRiskThresholdPercentage.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2020-07-27 to 2020-10-25
+Dimensions : srt:StatementGeographicalAxis=srt:EuropeMember, us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:SalesRevenueNetMember
+Unit : pure
+
+
+Rule Element Id:9568
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm#id3VybDovL2RvY3MudjEvZG9jOjgxYTIxMjhhOTFmNTRhY2Y4MjYyOWU4Y2I1NWMwYjMwL3NlYzo4MWEyMTI4YTkxZjU0YWNmODI2MjllOGNiNTVjMGIzMF8xMDMvZnJhZzo1NzE0NDg0MjFjYWQ0ZjdkOGFkZmEyMmQyNzJkMTI5NS90YWJsZTo0ZTJmZWNiOTk1NGE0NGZmYTc3NGFjZjU5NzdjODM1ZS90YWJsZXJhbmdlOjRlMmZlY2I5OTU0YTQ0ZmZhNzc0YWNmNTk3N2M4MzVlXzQtMS0xLTEtMA_2bb2a51c-c2bd-4a63-8b31-4e05dfef7b5c" sourceLine="4">
+  <property name="file" value="smtc-20201025.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="id753b2a287274671a31481df151e87f7_D20200727-20201025">
+   <property name="entity" value="0000088941">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-07-27"/>
+   <property name="endDate" value="2020-10-25"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:StatementGeographicalAxis" value="srt:EuropeMember"/>
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:SalesRevenueNetMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.08"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="8"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9568" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2620592583632">[DQC.US.0109.9568] The concept us-gaap:ConcentrationRiskPercentage1 with value 1 should always be used with both the ConcentrationRiskByTypeAxis and the ConcentrationRiskByBenchmarkAxis.  This element has no meaning without both these axis at a minimum.  This fact only contains the denominator of ConcentrationRiskByBenchmarkAxis, and not the member used on the ConcentrationRiskByTypeAxis which represents the benchmark numerator. If this value represents the Concentration Risk, Threshold Percentage then use the extension element ConcentrationRiskThresholdPercentage.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2019-07-29 to 2019-10-27
+Dimensions : us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:SalesRevenueNetMember
+Unit : pure
+
+
+Rule Element Id:9568
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm#id3VybDovL2RvY3MudjEvZG9jOjgxYTIxMjhhOTFmNTRhY2Y4MjYyOWU4Y2I1NWMwYjMwL3NlYzo4MWEyMTI4YTkxZjU0YWNmODI2MjllOGNiNTVjMGIzMF8xMDMvZnJhZzo1NzE0NDg0MjFjYWQ0ZjdkOGFkZmEyMmQyNzJkMTI5NS90YWJsZTo3Nzk2YjExYmQzYmI0YjcwYmU5N2JkZjVmYTg3OGMzOC90YWJsZXJhbmdlOjc3OTZiMTFiZDNiYjRiNzBiZTk3YmRmNWZhODc4YzM4XzUtNy0xLTEtMA_1231b0ac-7aae-4f38-9027-b9def47dfeec" sourceLine="4">
+  <property name="file" value="smtc-20201025.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="ifb859e366ff1499c96cc546126181fc8_D20190729-20191027">
+   <property name="entity" value="0000088941">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-07-29"/>
+   <property name="endDate" value="2019-10-27"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:SalesRevenueNetMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="100"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9568" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2620592583632">[DQC.US.0109.9568] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.8 should always be used with both the ConcentrationRiskByTypeAxis and the ConcentrationRiskByBenchmarkAxis.  This element has no meaning without both these axis at a minimum.  This fact only contains the denominator of ConcentrationRiskByBenchmarkAxis, and not the member used on the ConcentrationRiskByTypeAxis which represents the benchmark numerator. If this value represents the Concentration Risk, Threshold Percentage then use the extension element ConcentrationRiskThresholdPercentage.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2020-07-27 to 2020-10-25
+Dimensions : us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:SalesRevenueNetMember, srt:StatementGeographicalAxis=srt:AsiaPacificMember
+Unit : pure
+
+
+Rule Element Id:9568
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm#id3VybDovL2RvY3MudjEvZG9jOjgxYTIxMjhhOTFmNTRhY2Y4MjYyOWU4Y2I1NWMwYjMwL3NlYzo4MWEyMTI4YTkxZjU0YWNmODI2MjllOGNiNTVjMGIzMF8xMDMvZnJhZzo1NzE0NDg0MjFjYWQ0ZjdkOGFkZmEyMmQyNzJkMTI5NS90YWJsZTo0ZTJmZWNiOTk1NGE0NGZmYTc3NGFjZjU5NzdjODM1ZS90YWJsZXJhbmdlOjRlMmZlY2I5OTU0YTQ0ZmZhNzc0YWNmNTk3N2M4MzVlXzItMS0xLTEtMA_abac7716-42d2-458e-ade0-7a1bdb101bc1" sourceLine="4">
+  <property name="file" value="smtc-20201025.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="ie68d961f6da6485d87c9e10db12d2385_D20200727-20201025">
+   <property name="entity" value="0000088941">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-07-27"/>
+   <property name="endDate" value="2020-10-25"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:StatementGeographicalAxis" value="srt:AsiaPacificMember"/>
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:SalesRevenueNetMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.80"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="80"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9568" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2620592583632">[DQC.US.0109.9568] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.16 should always be used with both the ConcentrationRiskByTypeAxis and the ConcentrationRiskByBenchmarkAxis.  This element has no meaning without both these axis at a minimum.  This fact only contains the denominator of ConcentrationRiskByBenchmarkAxis, and not the member used on the ConcentrationRiskByTypeAxis which represents the benchmark numerator. If this value represents the Concentration Risk, Threshold Percentage then use the extension element ConcentrationRiskThresholdPercentage.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2019-07-29 to 2019-10-27
+Dimensions : srt:StatementGeographicalAxis=srt:NorthAmericaMember, us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:SalesRevenueNetMember
+Unit : pure
+
+
+Rule Element Id:9568
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm#id3VybDovL2RvY3MudjEvZG9jOjgxYTIxMjhhOTFmNTRhY2Y4MjYyOWU4Y2I1NWMwYjMwL3NlYzo4MWEyMTI4YTkxZjU0YWNmODI2MjllOGNiNTVjMGIzMF8xMDMvZnJhZzo1NzE0NDg0MjFjYWQ0ZjdkOGFkZmEyMmQyNzJkMTI5NS90YWJsZTo0ZTJmZWNiOTk1NGE0NGZmYTc3NGFjZjU5NzdjODM1ZS90YWJsZXJhbmdlOjRlMmZlY2I5OTU0YTQ0ZmZhNzc0YWNmNTk3N2M4MzVlXzMtMy0xLTEtMA_09b5fe95-7961-4ed8-b1bb-6553f9617fbe" sourceLine="4">
+  <property name="file" value="smtc-20201025.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="i5cdb079178814d008bd611e625cacd6e_D20190729-20191027">
+   <property name="entity" value="0000088941">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-07-29"/>
+   <property name="endDate" value="2019-10-27"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:StatementGeographicalAxis" value="srt:NorthAmericaMember"/>
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:SalesRevenueNetMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.16"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="16"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9568" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2620592583632">[DQC.US.0109.9568] The concept us-gaap:ConcentrationRiskPercentage1 with value 1 should always be used with both the ConcentrationRiskByTypeAxis and the ConcentrationRiskByBenchmarkAxis.  This element has no meaning without both these axis at a minimum.  This fact only contains the denominator of ConcentrationRiskByBenchmarkAxis, and not the member used on the ConcentrationRiskByTypeAxis which represents the benchmark numerator. If this value represents the Concentration Risk, Threshold Percentage then use the extension element ConcentrationRiskThresholdPercentage.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2020-07-27 to 2020-10-25
+Dimensions : us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:SalesRevenueNetMember
+Unit : pure
+
+
+Rule Element Id:9568
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm#id3VybDovL2RvY3MudjEvZG9jOjgxYTIxMjhhOTFmNTRhY2Y4MjYyOWU4Y2I1NWMwYjMwL3NlYzo4MWEyMTI4YTkxZjU0YWNmODI2MjllOGNiNTVjMGIzMF8xMDMvZnJhZzo1NzE0NDg0MjFjYWQ0ZjdkOGFkZmEyMmQyNzJkMTI5NS90YWJsZTo3Nzk2YjExYmQzYmI0YjcwYmU5N2JkZjVmYTg3OGMzOC90YWJsZXJhbmdlOjc3OTZiMTFiZDNiYjRiNzBiZTk3YmRmNWZhODc4YzM4XzUtMy0xLTEtMA_e81a0d94-5910-4b84-9234-091440f85f6f" sourceLine="4">
+  <property name="file" value="smtc-20201025.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="i9a06900a7e2548d59c2877497f315a5e_D20200727-20201025">
+   <property name="entity" value="0000088941">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-07-27"/>
+   <property name="endDate" value="2020-10-25"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:SalesRevenueNetMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="100"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9568" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2620592583632">[DQC.US.0109.9568] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.75 should always be used with both the ConcentrationRiskByTypeAxis and the ConcentrationRiskByBenchmarkAxis.  This element has no meaning without both these axis at a minimum.  This fact only contains the denominator of ConcentrationRiskByBenchmarkAxis, and not the member used on the ConcentrationRiskByTypeAxis which represents the benchmark numerator. If this value represents the Concentration Risk, Threshold Percentage then use the extension element ConcentrationRiskThresholdPercentage.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2019-07-29 to 2019-10-27
+Dimensions : srt:StatementGeographicalAxis=srt:AsiaPacificMember, us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:SalesRevenueNetMember
+Unit : pure
+
+
+Rule Element Id:9568
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm#id3VybDovL2RvY3MudjEvZG9jOjgxYTIxMjhhOTFmNTRhY2Y4MjYyOWU4Y2I1NWMwYjMwL3NlYzo4MWEyMTI4YTkxZjU0YWNmODI2MjllOGNiNTVjMGIzMF8xMDMvZnJhZzo1NzE0NDg0MjFjYWQ0ZjdkOGFkZmEyMmQyNzJkMTI5NS90YWJsZTo0ZTJmZWNiOTk1NGE0NGZmYTc3NGFjZjU5NzdjODM1ZS90YWJsZXJhbmdlOjRlMmZlY2I5OTU0YTQ0ZmZhNzc0YWNmNTk3N2M4MzVlXzItMy0xLTEtMA_0ef0a71c-ce9f-411b-8005-58f053e76d54" sourceLine="4">
+  <property name="file" value="smtc-20201025.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="ifc8e33f7efd2451f9337f4708608ac02_D20190729-20191027">
+   <property name="entity" value="0000088941">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-07-29"/>
+   <property name="endDate" value="2019-10-27"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:StatementGeographicalAxis" value="srt:AsiaPacificMember"/>
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:SalesRevenueNetMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.75"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="75"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9568" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2620592583632">[DQC.US.0109.9568] The concept us-gaap:ConcentrationRiskPercentage1 with value 1 should always be used with both the ConcentrationRiskByTypeAxis and the ConcentrationRiskByBenchmarkAxis.  This element has no meaning without both these axis at a minimum.  This fact only contains the denominator of ConcentrationRiskByBenchmarkAxis, and not the member used on the ConcentrationRiskByTypeAxis which represents the benchmark numerator. If this value represents the Concentration Risk, Threshold Percentage then use the extension element ConcentrationRiskThresholdPercentage.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2019-01-28 to 2019-10-27
+Dimensions : us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:SalesRevenueNetMember
+Unit : pure
+
+
+Rule Element Id:9568
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm#id3VybDovL2RvY3MudjEvZG9jOjgxYTIxMjhhOTFmNTRhY2Y4MjYyOWU4Y2I1NWMwYjMwL3NlYzo4MWEyMTI4YTkxZjU0YWNmODI2MjllOGNiNTVjMGIzMF8xMDMvZnJhZzo1NzE0NDg0MjFjYWQ0ZjdkOGFkZmEyMmQyNzJkMTI5NS90YWJsZTo0ZTJmZWNiOTk1NGE0NGZmYTc3NGFjZjU5NzdjODM1ZS90YWJsZXJhbmdlOjRlMmZlY2I5OTU0YTQ0ZmZhNzc0YWNmNTk3N2M4MzVlXzUtNy0xLTEtMA_d3ce69de-a8fa-4246-8c77-f5540b8726cc" sourceLine="4">
+  <property name="file" value="smtc-20201025.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="ibe3890d325c1484dad732ebb8ad9a3de_D20190128-20191027">
+   <property name="entity" value="0000088941">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-28"/>
+   <property name="endDate" value="2019-10-27"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:SalesRevenueNetMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="100"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9568" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2620592583632">[DQC.US.0109.9568] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.8 should always be used with both the ConcentrationRiskByTypeAxis and the ConcentrationRiskByBenchmarkAxis.  This element has no meaning without both these axis at a minimum.  This fact only contains the denominator of ConcentrationRiskByBenchmarkAxis, and not the member used on the ConcentrationRiskByTypeAxis which represents the benchmark numerator. If this value represents the Concentration Risk, Threshold Percentage then use the extension element ConcentrationRiskThresholdPercentage.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2020-01-27 to 2020-10-25
+Dimensions : srt:StatementGeographicalAxis=srt:AsiaPacificMember, us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:SalesRevenueNetMember
+Unit : pure
+
+
+Rule Element Id:9568
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm#id3VybDovL2RvY3MudjEvZG9jOjgxYTIxMjhhOTFmNTRhY2Y4MjYyOWU4Y2I1NWMwYjMwL3NlYzo4MWEyMTI4YTkxZjU0YWNmODI2MjllOGNiNTVjMGIzMF8xMDMvZnJhZzo1NzE0NDg0MjFjYWQ0ZjdkOGFkZmEyMmQyNzJkMTI5NS90YWJsZTo0ZTJmZWNiOTk1NGE0NGZmYTc3NGFjZjU5NzdjODM1ZS90YWJsZXJhbmdlOjRlMmZlY2I5OTU0YTQ0ZmZhNzc0YWNmNTk3N2M4MzVlXzItNS0xLTEtMA_c653cf7d-5d19-4fe0-bca2-1d4c3e79271b" sourceLine="4">
+  <property name="file" value="smtc-20201025.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="i19a77519c5c5448181249f4d5456511f_D20200127-20201025">
+   <property name="entity" value="0000088941">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-27"/>
+   <property name="endDate" value="2020-10-25"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:StatementGeographicalAxis" value="srt:AsiaPacificMember"/>
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:SalesRevenueNetMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.80"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="80"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9568" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2620592583632">[DQC.US.0109.9568] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.09 should always be used with both the ConcentrationRiskByTypeAxis and the ConcentrationRiskByBenchmarkAxis.  This element has no meaning without both these axis at a minimum.  This fact only contains the denominator of ConcentrationRiskByBenchmarkAxis, and not the member used on the ConcentrationRiskByTypeAxis which represents the benchmark numerator. If this value represents the Concentration Risk, Threshold Percentage then use the extension element ConcentrationRiskThresholdPercentage.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2019-01-28 to 2019-10-27
+Dimensions : srt:StatementGeographicalAxis=srt:EuropeMember, us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:SalesRevenueNetMember
+Unit : pure
+
+
+Rule Element Id:9568
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm#id3VybDovL2RvY3MudjEvZG9jOjgxYTIxMjhhOTFmNTRhY2Y4MjYyOWU4Y2I1NWMwYjMwL3NlYzo4MWEyMTI4YTkxZjU0YWNmODI2MjllOGNiNTVjMGIzMF8xMDMvZnJhZzo1NzE0NDg0MjFjYWQ0ZjdkOGFkZmEyMmQyNzJkMTI5NS90YWJsZTo0ZTJmZWNiOTk1NGE0NGZmYTc3NGFjZjU5NzdjODM1ZS90YWJsZXJhbmdlOjRlMmZlY2I5OTU0YTQ0ZmZhNzc0YWNmNTk3N2M4MzVlXzQtNy0xLTEtMA_89b8c953-c96c-47c7-8ed3-10a709e4fdd0" sourceLine="4">
+  <property name="file" value="smtc-20201025.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="i2fcb1ae872134a7d889adabd68de56c4_D20190128-20191027">
+   <property name="entity" value="0000088941">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-28"/>
+   <property name="endDate" value="2019-10-27"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:StatementGeographicalAxis" value="srt:EuropeMember"/>
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:SalesRevenueNetMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.09"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="9"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9568" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2620592583632">[DQC.US.0109.9568] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.27 should always be used with both the ConcentrationRiskByTypeAxis and the ConcentrationRiskByBenchmarkAxis.  This element has no meaning without both these axis at a minimum.  This fact only contains the denominator of ConcentrationRiskByBenchmarkAxis, and not the member used on the ConcentrationRiskByTypeAxis which represents the benchmark numerator. If this value represents the Concentration Risk, Threshold Percentage then use the extension element ConcentrationRiskThresholdPercentage.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2020-01-27 to 2020-10-25
+Dimensions : us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:SalesRevenueNetMember, srt:ProductOrServiceAxis=smtc:ProtectionMember
+Unit : pure
+
+
+Rule Element Id:9568
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm#id3VybDovL2RvY3MudjEvZG9jOjgxYTIxMjhhOTFmNTRhY2Y4MjYyOWU4Y2I1NWMwYjMwL3NlYzo4MWEyMTI4YTkxZjU0YWNmODI2MjllOGNiNTVjMGIzMF8xMDMvZnJhZzo1NzE0NDg0MjFjYWQ0ZjdkOGFkZmEyMmQyNzJkMTI5NS90YWJsZTo3Nzk2YjExYmQzYmI0YjcwYmU5N2JkZjVmYTg3OGMzOC90YWJsZXJhbmdlOjc3OTZiMTFiZDNiYjRiNzBiZTk3YmRmNWZhODc4YzM4XzQtMTEtMS0xLTA_bf6d82ae-96b8-4cd8-a532-fb0da22cf904" sourceLine="4">
+  <property name="file" value="smtc-20201025.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="i2f45f7f0d9ef40ab9a6ba1defa41c6fa_D20200127-20201025">
+   <property name="entity" value="0000088941">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-27"/>
+   <property name="endDate" value="2020-10-25"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ProductOrServiceAxis" value="smtc:ProtectionMember"/>
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:SalesRevenueNetMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.27"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="27"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9568" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2620592583632">[DQC.US.0109.9568] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.28 should always be used with both the ConcentrationRiskByTypeAxis and the ConcentrationRiskByBenchmarkAxis.  This element has no meaning without both these axis at a minimum.  This fact only contains the denominator of ConcentrationRiskByBenchmarkAxis, and not the member used on the ConcentrationRiskByTypeAxis which represents the benchmark numerator. If this value represents the Concentration Risk, Threshold Percentage then use the extension element ConcentrationRiskThresholdPercentage.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2019-07-29 to 2019-10-27
+Dimensions : us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:SalesRevenueNetMember, srt:ProductOrServiceAxis=smtc:ProtectionMember
+Unit : pure
+
+
+Rule Element Id:9568
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm#id3VybDovL2RvY3MudjEvZG9jOjgxYTIxMjhhOTFmNTRhY2Y4MjYyOWU4Y2I1NWMwYjMwL3NlYzo4MWEyMTI4YTkxZjU0YWNmODI2MjllOGNiNTVjMGIzMF8xMDMvZnJhZzo1NzE0NDg0MjFjYWQ0ZjdkOGFkZmEyMmQyNzJkMTI5NS90YWJsZTo3Nzk2YjExYmQzYmI0YjcwYmU5N2JkZjVmYTg3OGMzOC90YWJsZXJhbmdlOjc3OTZiMTFiZDNiYjRiNzBiZTk3YmRmNWZhODc4YzM4XzQtNy0xLTEtMA_df48e73a-3bf5-4ac2-8128-39af7d558cbd" sourceLine="4">
+  <property name="file" value="smtc-20201025.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="ic63de2b4c3094e55bb5193a87c133c4c_D20190729-20191027">
+   <property name="entity" value="0000088941">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-07-29"/>
+   <property name="endDate" value="2019-10-27"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ProductOrServiceAxis" value="smtc:ProtectionMember"/>
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:SalesRevenueNetMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.28"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="28"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9568" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2620592583632">[DQC.US.0109.9568] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.15 should always be used with both the ConcentrationRiskByTypeAxis and the ConcentrationRiskByBenchmarkAxis.  This element has no meaning without both these axis at a minimum.  This fact only contains the denominator of ConcentrationRiskByBenchmarkAxis, and not the member used on the ConcentrationRiskByTypeAxis which represents the benchmark numerator. If this value represents the Concentration Risk, Threshold Percentage then use the extension element ConcentrationRiskThresholdPercentage.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2019-01-28 to 2019-10-27
+Dimensions : us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:SalesRevenueNetMember, srt:StatementGeographicalAxis=srt:NorthAmericaMember
+Unit : pure
+
+
+Rule Element Id:9568
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm#id3VybDovL2RvY3MudjEvZG9jOjgxYTIxMjhhOTFmNTRhY2Y4MjYyOWU4Y2I1NWMwYjMwL3NlYzo4MWEyMTI4YTkxZjU0YWNmODI2MjllOGNiNTVjMGIzMF8xMDMvZnJhZzo1NzE0NDg0MjFjYWQ0ZjdkOGFkZmEyMmQyNzJkMTI5NS90YWJsZTo0ZTJmZWNiOTk1NGE0NGZmYTc3NGFjZjU5NzdjODM1ZS90YWJsZXJhbmdlOjRlMmZlY2I5OTU0YTQ0ZmZhNzc0YWNmNTk3N2M4MzVlXzMtNy0xLTEtMA_e8dc29d5-19af-4d73-9c7d-5653591eacde" sourceLine="4">
+  <property name="file" value="smtc-20201025.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="i71664ed521af4ebbbcf4b9bfc74b84f8_D20190128-20191027">
+   <property name="entity" value="0000088941">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-28"/>
+   <property name="endDate" value="2019-10-27"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:StatementGeographicalAxis" value="srt:NorthAmericaMember"/>
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:SalesRevenueNetMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.15"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="15"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9568" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2620592583632">[DQC.US.0109.9568] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.44 should always be used with both the ConcentrationRiskByTypeAxis and the ConcentrationRiskByBenchmarkAxis.  This element has no meaning without both these axis at a minimum.  This fact only contains the denominator of ConcentrationRiskByBenchmarkAxis, and not the member used on the ConcentrationRiskByTypeAxis which represents the benchmark numerator. If this value represents the Concentration Risk, Threshold Percentage then use the extension element ConcentrationRiskThresholdPercentage.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2020-01-27 to 2020-10-25
+Dimensions : us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:SalesRevenueNetMember, srt:ProductOrServiceAxis=smtc:SignalIntegrityMember
+Unit : pure
+
+
+Rule Element Id:9568
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm#id3VybDovL2RvY3MudjEvZG9jOjgxYTIxMjhhOTFmNTRhY2Y4MjYyOWU4Y2I1NWMwYjMwL3NlYzo4MWEyMTI4YTkxZjU0YWNmODI2MjllOGNiNTVjMGIzMF8xMDMvZnJhZzo1NzE0NDg0MjFjYWQ0ZjdkOGFkZmEyMmQyNzJkMTI5NS90YWJsZTo3Nzk2YjExYmQzYmI0YjcwYmU5N2JkZjVmYTg3OGMzOC90YWJsZXJhbmdlOjc3OTZiMTFiZDNiYjRiNzBiZTk3YmRmNWZhODc4YzM4XzItMTEtMS0xLTA_e8269d1d-f322-4cb4-b907-b53e14499dc3" sourceLine="4">
+  <property name="file" value="smtc-20201025.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="ib06a25dab23944e7b9507a5c71efb815_D20200127-20201025">
+   <property name="entity" value="0000088941">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-27"/>
+   <property name="endDate" value="2020-10-25"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ProductOrServiceAxis" value="smtc:SignalIntegrityMember"/>
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:SalesRevenueNetMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.44"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="44"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9568" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2620592583632">[DQC.US.0109.9568] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.33 should always be used with both the ConcentrationRiskByTypeAxis and the ConcentrationRiskByBenchmarkAxis.  This element has no meaning without both these axis at a minimum.  This fact only contains the denominator of ConcentrationRiskByBenchmarkAxis, and not the member used on the ConcentrationRiskByTypeAxis which represents the benchmark numerator. If this value represents the Concentration Risk, Threshold Percentage then use the extension element ConcentrationRiskThresholdPercentage.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2020-07-27 to 2020-10-25
+Dimensions : us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:SalesRevenueNetMember, srt:ProductOrServiceAxis=smtc:WirelessandSensingMember
+Unit : pure
+
+
+Rule Element Id:9568
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm#id3VybDovL2RvY3MudjEvZG9jOjgxYTIxMjhhOTFmNTRhY2Y4MjYyOWU4Y2I1NWMwYjMwL3NlYzo4MWEyMTI4YTkxZjU0YWNmODI2MjllOGNiNTVjMGIzMF8xMDMvZnJhZzo1NzE0NDg0MjFjYWQ0ZjdkOGFkZmEyMmQyNzJkMTI5NS90YWJsZTo3Nzk2YjExYmQzYmI0YjcwYmU5N2JkZjVmYTg3OGMzOC90YWJsZXJhbmdlOjc3OTZiMTFiZDNiYjRiNzBiZTk3YmRmNWZhODc4YzM4XzMtMy0xLTEtMA_91c43944-2db0-4551-8425-3748a7b6f9d0" sourceLine="4">
+  <property name="file" value="smtc-20201025.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="i019143d507104ec49cf3f18feba81b47_D20200727-20201025">
+   <property name="entity" value="0000088941">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-07-27"/>
+   <property name="endDate" value="2020-10-25"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ProductOrServiceAxis" value="smtc:WirelessandSensingMember"/>
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:SalesRevenueNetMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.33"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="33"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9568" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2620592583632">[DQC.US.0109.9568] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.42 should always be used with both the ConcentrationRiskByTypeAxis and the ConcentrationRiskByBenchmarkAxis.  This element has no meaning without both these axis at a minimum.  This fact only contains the denominator of ConcentrationRiskByBenchmarkAxis, and not the member used on the ConcentrationRiskByTypeAxis which represents the benchmark numerator. If this value represents the Concentration Risk, Threshold Percentage then use the extension element ConcentrationRiskThresholdPercentage.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2019-07-29 to 2019-10-27
+Dimensions : us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:SalesRevenueNetMember, srt:ProductOrServiceAxis=smtc:SignalIntegrityMember
+Unit : pure
+
+
+Rule Element Id:9568
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm#id3VybDovL2RvY3MudjEvZG9jOjgxYTIxMjhhOTFmNTRhY2Y4MjYyOWU4Y2I1NWMwYjMwL3NlYzo4MWEyMTI4YTkxZjU0YWNmODI2MjllOGNiNTVjMGIzMF8xMDMvZnJhZzo1NzE0NDg0MjFjYWQ0ZjdkOGFkZmEyMmQyNzJkMTI5NS90YWJsZTo3Nzk2YjExYmQzYmI0YjcwYmU5N2JkZjVmYTg3OGMzOC90YWJsZXJhbmdlOjc3OTZiMTFiZDNiYjRiNzBiZTk3YmRmNWZhODc4YzM4XzItNy0xLTEtMA_dadd7328-314c-463b-b300-004b2c4e44e4" sourceLine="4">
+  <property name="file" value="smtc-20201025.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="i94c4316079834b8d8315ba47f5f817f1_D20190729-20191027">
+   <property name="entity" value="0000088941">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-07-29"/>
+   <property name="endDate" value="2019-10-27"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ProductOrServiceAxis" value="smtc:SignalIntegrityMember"/>
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:SalesRevenueNetMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.42"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="42"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9568" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2620592583632">[DQC.US.0109.9568] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.29 should always be used with both the ConcentrationRiskByTypeAxis and the ConcentrationRiskByBenchmarkAxis.  This element has no meaning without both these axis at a minimum.  This fact only contains the denominator of ConcentrationRiskByBenchmarkAxis, and not the member used on the ConcentrationRiskByTypeAxis which represents the benchmark numerator. If this value represents the Concentration Risk, Threshold Percentage then use the extension element ConcentrationRiskThresholdPercentage.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2020-01-27 to 2020-10-25
+Dimensions : srt:ProductOrServiceAxis=smtc:WirelessandSensingMember, us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:SalesRevenueNetMember
+Unit : pure
+
+
+Rule Element Id:9568
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm#id3VybDovL2RvY3MudjEvZG9jOjgxYTIxMjhhOTFmNTRhY2Y4MjYyOWU4Y2I1NWMwYjMwL3NlYzo4MWEyMTI4YTkxZjU0YWNmODI2MjllOGNiNTVjMGIzMF8xMDMvZnJhZzo1NzE0NDg0MjFjYWQ0ZjdkOGFkZmEyMmQyNzJkMTI5NS90YWJsZTo3Nzk2YjExYmQzYmI0YjcwYmU5N2JkZjVmYTg3OGMzOC90YWJsZXJhbmdlOjc3OTZiMTFiZDNiYjRiNzBiZTk3YmRmNWZhODc4YzM4XzMtMTEtMS0xLTA_d163ee19-2e04-43b1-a74a-260a03a05f4d" sourceLine="4">
+  <property name="file" value="smtc-20201025.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="i766f0f8ea63d44769c928e0584f39a58_D20200127-20201025">
+   <property name="entity" value="0000088941">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-27"/>
+   <property name="endDate" value="2020-10-25"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ProductOrServiceAxis" value="smtc:WirelessandSensingMember"/>
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:SalesRevenueNetMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.29"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="29"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 4.28 secs - https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/88941/000008894120000013/smtc-20201025.htm"/></entry>
+</log>

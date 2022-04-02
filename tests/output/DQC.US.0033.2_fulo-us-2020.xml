@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.51 secs at 2020-07-28T15:28:19 - http://www.sec.gov/Archives/edgar/data/1092570/000137647420000123/fulo-20200331.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1092570/000137647420000123/fulo-20200331.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpj4zlmijw\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpj4zlmijw\packages\resources.zip"/></entry>
+<entry code="DQC.US.0033.2" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1092570/000137647420000123/fulo-20200331.htm" severity="error" effectiveDate="2016-01-01" cid="2126632625536">[DQC.US.0033.2] The ending date of 2020-05-15 used for Entity Listing, Par Value Per Share must be the same as the Document Period End Date,  2020-03-31. Revise either the date of the Entity Listing, Par Value Per Share or the date of the Document Period End Date.
+
+The properties of this dei:EntityListingParValuePerShare fact are:
+Period :2020-05-15 to 2020-05-15
+Dimensions : 
+Unit : USD/shares
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1092570/000137647420000123/fulo-20200331.htm 526</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1092570/000137647420000123/fulo-20200331.htm#element(/1/2/2/27/2)" sourceLine="526">
+  <property name="file" value="fulo-20200331.htm"/>
+  <property name="line" value="526"/>
+  <property name="label" value="Entity Listing, Par Value Per Share"/>
+  <property name="namespace" value="http://xbrl.sec.gov/dei/2019-01-31"/>
+  <property name="name" value="EntityListingParValuePerShare"/>
+  <property name="QName" value="dei:EntityListingParValuePerShare"/>
+  <property name="contextRef" value="D200515">
+   <property name="entity" value="0001092570">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-05-15"/>
+   <property name="endDate" value="2020-05-15"/>
+  </property>
+  <property name="unitRef" value="UsdPerShare ($ / shares)">
+   <property name="mul" value="iso4217:USD"/>
+   <property name="div" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.00001"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="0"/>
+  <property name="html value" value="0.00001"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 4.98 secs - http://www.sec.gov/Archives/edgar/data/1092570/000137647420000123/fulo-20200331.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1092570/000137647420000123/fulo-20200331.htm"/></entry>
+</log>

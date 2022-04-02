@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.67 secs at 2020-07-29T09:40:46 - http://www.sec.gov/Archives/edgar/data/894560/000155116320000061/both-20200630.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/894560/000155116320000061/both-20200630.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpl2y7y74b\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpl2y7y74b\packages\resources.zip"/></entry>
+<entry code="DQC.US.0065.7502" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/894560/000155116320000061/both-20200630.xml" severity="error" effectiveDate="2018-06-01" cid="2685462291840">[DQC.US.0065.7502] The Supplemental cash flow section has reported a value of 17,946 for the element us-gaap:InterestPaid but the element InterestPaidNet is not included in the supplemental cash flow section. Interest Paid Net of the capitalized component must be reported in this section. 
+The element us-gaap:InterestPaid includes capitalized interest. If this element has no capitalized interest component then use the element InterestPaidNet instead.
+
+The properties of this us-gaap:InterestPaid fact are:
+Period :2019-01-01 to 2019-06-30
+Dimensions : 
+Unit : USD
+
+Rule Element Id:7502
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/894560/000155116320000061/both-20200630.xml 200</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/894560/000155116320000061/both-20200630.xml#element(/1/197)" sourceLine="200">
+  <property name="label" value="Cash paid for interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="InterestPaid"/>
+  <property name="QName" value="us-gaap:InterestPaid"/>
+  <property name="contextRef" value="D190101_190630">
+   <property name="entity" value="0000894560">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="17,946"/>
+ </ref></entry>
+<entry code="DQC.US.0065.7502" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/894560/000155116320000061/both-20200630.xml" severity="error" effectiveDate="2018-06-01" cid="2685462291840">[DQC.US.0065.7502] The Supplemental cash flow section has reported a value of 5,000 for the element us-gaap:InterestPaid but the element InterestPaidNet is not included in the supplemental cash flow section. Interest Paid Net of the capitalized component must be reported in this section. 
+The element us-gaap:InterestPaid includes capitalized interest. If this element has no capitalized interest component then use the element InterestPaidNet instead.
+
+The properties of this us-gaap:InterestPaid fact are:
+Period :2020-01-01 to 2020-06-30
+Dimensions : 
+Unit : USD
+
+Rule Element Id:7502
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/894560/000155116320000061/both-20200630.xml 199</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/894560/000155116320000061/both-20200630.xml#element(/1/196)" sourceLine="199">
+  <property name="label" value="Cash paid for interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="InterestPaid"/>
+  <property name="QName" value="us-gaap:InterestPaid"/>
+  <property name="contextRef" value="D200101_200630">
+   <property name="entity" value="0000894560">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="5,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 3.07 secs - http://www.sec.gov/Archives/edgar/data/894560/000155116320000061/both-20200630.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/894560/000155116320000061/both-20200630.xml"/></entry>
+</log>

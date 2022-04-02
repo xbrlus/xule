@@ -1,0 +1,861 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.73 secs at 2018-10-16T09:49:56 - http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2016-V7-ruleset.zip - llpp-20180531.xml </message>
+ <ref href="llpp-20180531.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpsuudo97w/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpsuudo97w/packages/resources.zip"/></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message severity="error" cid="4367363768" filing_url="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml">[DQC.US.0001.61] The concept ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber with a value of 12,500 is dimensionally qualified with the RangeAxis and the unallowable member LLPP:ExercisePricesTwoMember. 
+The properties of the fact for ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber are:
+Period: 2018-05-31
+Dimensions: us-gaap:RangeAxis=LLPP:ExercisePricesTwoMember 
+Unit: shares
+
+Rule Element Id:61
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml 1476</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml#element(/1/395)" sourceLine="1476">
+  <property name="label" value="Warrants outstanding"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber"/>
+  <property name="QName" value="us-gaap:ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber"/>
+  <property name="contextRef" value="AsOf2018-05-31_custom_ExercisePricesTwoMember">
+   <property name="entity" value="0001504678">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RangeAxis" value="LLPP:ExercisePricesTwoMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="12,500"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message severity="error" cid="4367363768" filing_url="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml">[DQC.US.0001.61] The concept SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2 with a value of P0Y is dimensionally qualified with the RangeAxis and the unallowable member LLPP:ExercisePricesTwoMember. 
+The properties of the fact for SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2 are:
+Period: 2018-03-01 to 2018-05-31
+Dimensions: us-gaap:RangeAxis=LLPP:ExercisePricesTwoMember 
+Unit: None
+
+Rule Element Id:61
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml 1557</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml#element(/1/476)" sourceLine="1557">
+  <property name="label" value="Warrants outstanding, weighted average remaining life"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2"/>
+  <property name="QName" value="us-gaap:SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2"/>
+  <property name="contextRef" value="From2018-03-01to2018-05-31_custom_ExercisePricesTwoMember">
+   <property name="entity" value="0001504678">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-03-01"/>
+   <property name="endDate" value="2018-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RangeAxis" value="LLPP:ExercisePricesTwoMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="P0Y"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message severity="error" cid="4367363768" filing_url="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml">[DQC.US.0001.61] The concept ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber with a value of 75,000 is dimensionally qualified with the RangeAxis and the unallowable member LLPP:ExercisePricesTwoMember. 
+The properties of the fact for ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber are:
+Period: 2017-05-31
+Dimensions: us-gaap:RangeAxis=LLPP:ExercisePricesTwoMember 
+Unit: shares
+
+Rule Element Id:61
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml 1483</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml#element(/1/402)" sourceLine="1483">
+  <property name="label" value="Warrants outstanding"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber"/>
+  <property name="QName" value="us-gaap:ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber"/>
+  <property name="contextRef" value="AsOf2017-05-31_custom_ExercisePricesTwoMember">
+   <property name="entity" value="0001504678">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RangeAxis" value="LLPP:ExercisePricesTwoMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="75,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message severity="error" cid="4367363768" filing_url="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml">[DQC.US.0001.61] The concept SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2 with a value of P1Y0M7D is dimensionally qualified with the RangeAxis and the unallowable member LLPP:ExercisePricesTwoMember. 
+The properties of the fact for SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2 are:
+Period: 2017-03-01 to 2017-05-31
+Dimensions: us-gaap:RangeAxis=LLPP:ExercisePricesTwoMember 
+Unit: None
+
+Rule Element Id:61
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml 1564</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml#element(/1/483)" sourceLine="1564">
+  <property name="label" value="Warrants outstanding, weighted average remaining life"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2"/>
+  <property name="QName" value="us-gaap:SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2"/>
+  <property name="contextRef" value="From2017-03-01to2017-05-31_custom_ExercisePricesTwoMember">
+   <property name="entity" value="0001504678">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-03-01"/>
+   <property name="endDate" value="2017-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RangeAxis" value="LLPP:ExercisePricesTwoMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="P1Y0M7D"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message severity="error" cid="4367363768" filing_url="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml">[DQC.US.0001.61] The concept SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2 with a value of P0Y is dimensionally qualified with the RangeAxis and the unallowable member LLPP:ExercisePricesSevenMember. 
+The properties of the fact for SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2 are:
+Period: 2017-03-01 to 2017-05-31
+Dimensions: us-gaap:RangeAxis=LLPP:ExercisePricesSevenMember 
+Unit: None
+
+Rule Element Id:61
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml 1569</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml#element(/1/488)" sourceLine="1569">
+  <property name="label" value="Warrants outstanding, weighted average remaining life"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2"/>
+  <property name="QName" value="us-gaap:SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2"/>
+  <property name="contextRef" value="From2017-03-01to2017-05-31_custom_ExercisePricesSevenMember">
+   <property name="entity" value="0001504678">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-03-01"/>
+   <property name="endDate" value="2017-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RangeAxis" value="LLPP:ExercisePricesSevenMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="P0Y"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message severity="error" cid="4367363768" filing_url="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml">[DQC.US.0001.61] The concept ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber with a value of 280,000 is dimensionally qualified with the RangeAxis and the unallowable member LLPP:ExercisePricesSevenMember. 
+The properties of the fact for ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber are:
+Period: 2018-05-31
+Dimensions: us-gaap:RangeAxis=LLPP:ExercisePricesSevenMember 
+Unit: shares
+
+Rule Element Id:61
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml 1481</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml#element(/1/400)" sourceLine="1481">
+  <property name="label" value="Warrants outstanding"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber"/>
+  <property name="QName" value="us-gaap:ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber"/>
+  <property name="contextRef" value="AsOf2018-05-31_custom_ExercisePricesSevenMember">
+   <property name="entity" value="0001504678">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RangeAxis" value="LLPP:ExercisePricesSevenMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="280,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message severity="error" cid="4367363768" filing_url="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml">[DQC.US.0001.61] The concept SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2 with a value of P9Y5M9D is dimensionally qualified with the RangeAxis and the unallowable member LLPP:ExercisePricesSevenMember. 
+The properties of the fact for SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2 are:
+Period: 2018-03-01 to 2018-05-31
+Dimensions: us-gaap:RangeAxis=LLPP:ExercisePricesSevenMember 
+Unit: None
+
+Rule Element Id:61
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml 1562</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml#element(/1/481)" sourceLine="1562">
+  <property name="label" value="Warrants outstanding, weighted average remaining life"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2"/>
+  <property name="QName" value="us-gaap:SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2"/>
+  <property name="contextRef" value="From2018-03-01to2018-05-31_custom_ExercisePricesSevenMember">
+   <property name="entity" value="0001504678">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-03-01"/>
+   <property name="endDate" value="2018-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RangeAxis" value="LLPP:ExercisePricesSevenMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="P9Y5M9D"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message severity="error" cid="4367363768" filing_url="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml">[DQC.US.0001.61] The concept ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber with a value of None is dimensionally qualified with the RangeAxis and the unallowable member LLPP:ExercisePricesSevenMember. 
+The properties of the fact for ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber are:
+Period: 2017-05-31
+Dimensions: us-gaap:RangeAxis=LLPP:ExercisePricesSevenMember 
+Unit: shares
+
+Rule Element Id:61
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml 1488</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml#element(/1/407)" sourceLine="1488">
+  <property name="label" value="Warrants outstanding"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber"/>
+  <property name="QName" value="us-gaap:ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber"/>
+  <property name="contextRef" value="AsOf2017-05-31_custom_ExercisePricesSevenMember">
+   <property name="entity" value="0001504678">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RangeAxis" value="LLPP:ExercisePricesSevenMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message severity="error" cid="4367363768" filing_url="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml">[DQC.US.0001.61] The concept ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber with a value of 430,000 is dimensionally qualified with the RangeAxis and the unallowable member LLPP:ExercisePricesThreeMember. 
+The properties of the fact for ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber are:
+Period: 2018-05-31
+Dimensions: us-gaap:RangeAxis=LLPP:ExercisePricesThreeMember 
+Unit: shares
+
+Rule Element Id:61
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml 1477</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml#element(/1/396)" sourceLine="1477">
+  <property name="label" value="Warrants outstanding"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber"/>
+  <property name="QName" value="us-gaap:ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber"/>
+  <property name="contextRef" value="AsOf2018-05-31_custom_ExercisePricesThreeMember">
+   <property name="entity" value="0001504678">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RangeAxis" value="LLPP:ExercisePricesThreeMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="430,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message severity="error" cid="4367363768" filing_url="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml">[DQC.US.0001.61] The concept SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2 with a value of P8Y2M8D is dimensionally qualified with the RangeAxis and the unallowable member LLPP:ExercisePricesThreeMember. 
+The properties of the fact for SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2 are:
+Period: 2018-03-01 to 2018-05-31
+Dimensions: us-gaap:RangeAxis=LLPP:ExercisePricesThreeMember 
+Unit: None
+
+Rule Element Id:61
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml 1558</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml#element(/1/477)" sourceLine="1558">
+  <property name="label" value="Warrants outstanding, weighted average remaining life"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2"/>
+  <property name="QName" value="us-gaap:SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2"/>
+  <property name="contextRef" value="From2018-03-01to2018-05-31_custom_ExercisePricesThreeMember">
+   <property name="entity" value="0001504678">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-03-01"/>
+   <property name="endDate" value="2018-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RangeAxis" value="LLPP:ExercisePricesThreeMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="P8Y2M8D"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message severity="error" cid="4367363768" filing_url="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml">[DQC.US.0001.61] The concept ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber with a value of 550,000 is dimensionally qualified with the RangeAxis and the unallowable member LLPP:ExercisePricesThreeMember. 
+The properties of the fact for ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber are:
+Period: 2017-05-31
+Dimensions: us-gaap:RangeAxis=LLPP:ExercisePricesThreeMember 
+Unit: shares
+
+Rule Element Id:61
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml 1484</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml#element(/1/403)" sourceLine="1484">
+  <property name="label" value="Warrants outstanding"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber"/>
+  <property name="QName" value="us-gaap:ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber"/>
+  <property name="contextRef" value="AsOf2017-05-31_custom_ExercisePricesThreeMember">
+   <property name="entity" value="0001504678">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RangeAxis" value="LLPP:ExercisePricesThreeMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="550,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message severity="error" cid="4367363768" filing_url="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml">[DQC.US.0001.61] The concept SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2 with a value of P9Y11M23D is dimensionally qualified with the RangeAxis and the unallowable member LLPP:ExercisePricesThreeMember. 
+The properties of the fact for SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2 are:
+Period: 2017-03-01 to 2017-05-31
+Dimensions: us-gaap:RangeAxis=LLPP:ExercisePricesThreeMember 
+Unit: None
+
+Rule Element Id:61
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml 1565</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml#element(/1/484)" sourceLine="1565">
+  <property name="label" value="Warrants outstanding, weighted average remaining life"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2"/>
+  <property name="QName" value="us-gaap:SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2"/>
+  <property name="contextRef" value="From2017-03-01to2017-05-31_custom_ExercisePricesThreeMember">
+   <property name="entity" value="0001504678">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-03-01"/>
+   <property name="endDate" value="2017-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RangeAxis" value="LLPP:ExercisePricesThreeMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="P9Y11M23D"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message severity="error" cid="4367363768" filing_url="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml">[DQC.US.0001.61] The concept ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber with a value of 323,003 is dimensionally qualified with the RangeAxis and the unallowable member LLPP:ExercisePricesFourMember. 
+The properties of the fact for ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber are:
+Period: 2017-05-31
+Dimensions: us-gaap:RangeAxis=LLPP:ExercisePricesFourMember 
+Unit: shares
+
+Rule Element Id:61
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml 1485</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml#element(/1/404)" sourceLine="1485">
+  <property name="label" value="Warrants outstanding"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber"/>
+  <property name="QName" value="us-gaap:ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber"/>
+  <property name="contextRef" value="AsOf2017-05-31_custom_ExercisePricesFourMember">
+   <property name="entity" value="0001504678">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RangeAxis" value="LLPP:ExercisePricesFourMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="323,003"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message severity="error" cid="4367363768" filing_url="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml">[DQC.US.0001.61] The concept SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2 with a value of P0Y0M29D is dimensionally qualified with the RangeAxis and the unallowable member LLPP:ExercisePricesFourMember. 
+The properties of the fact for SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2 are:
+Period: 2017-03-01 to 2017-05-31
+Dimensions: us-gaap:RangeAxis=LLPP:ExercisePricesFourMember 
+Unit: None
+
+Rule Element Id:61
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml 1566</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml#element(/1/485)" sourceLine="1566">
+  <property name="label" value="Warrants outstanding, weighted average remaining life"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2"/>
+  <property name="QName" value="us-gaap:SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2"/>
+  <property name="contextRef" value="From2017-03-01to2017-05-31_custom_ExercisePricesFourMember">
+   <property name="entity" value="0001504678">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-03-01"/>
+   <property name="endDate" value="2017-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RangeAxis" value="LLPP:ExercisePricesFourMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="P0Y0M29D"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message severity="error" cid="4367363768" filing_url="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml">[DQC.US.0001.61] The concept ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber with a value of None is dimensionally qualified with the RangeAxis and the unallowable member LLPP:ExercisePricesFourMember. 
+The properties of the fact for ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber are:
+Period: 2018-05-31
+Dimensions: us-gaap:RangeAxis=LLPP:ExercisePricesFourMember 
+Unit: shares
+
+Rule Element Id:61
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml 1478</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml#element(/1/397)" sourceLine="1478">
+  <property name="label" value="Warrants outstanding"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber"/>
+  <property name="QName" value="us-gaap:ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber"/>
+  <property name="contextRef" value="AsOf2018-05-31_custom_ExercisePricesFourMember">
+   <property name="entity" value="0001504678">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RangeAxis" value="LLPP:ExercisePricesFourMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message severity="error" cid="4367363768" filing_url="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml">[DQC.US.0001.61] The concept SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2 with a value of P0Y is dimensionally qualified with the RangeAxis and the unallowable member LLPP:ExercisePricesFourMember. 
+The properties of the fact for SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2 are:
+Period: 2018-03-01 to 2018-05-31
+Dimensions: us-gaap:RangeAxis=LLPP:ExercisePricesFourMember 
+Unit: None
+
+Rule Element Id:61
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml 1559</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml#element(/1/478)" sourceLine="1559">
+  <property name="label" value="Warrants outstanding, weighted average remaining life"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2"/>
+  <property name="QName" value="us-gaap:SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2"/>
+  <property name="contextRef" value="From2018-03-01to2018-05-31_custom_ExercisePricesFourMember">
+   <property name="entity" value="0001504678">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-03-01"/>
+   <property name="endDate" value="2018-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RangeAxis" value="LLPP:ExercisePricesFourMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="P0Y"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message severity="error" cid="4367363768" filing_url="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml">[DQC.US.0001.61] The concept ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber with a value of 840,667 is dimensionally qualified with the RangeAxis and the unallowable member LLPP:ExercisePricesFiveMember. 
+The properties of the fact for ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber are:
+Period: 2018-05-31
+Dimensions: us-gaap:RangeAxis=LLPP:ExercisePricesFiveMember 
+Unit: shares
+
+Rule Element Id:61
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml 1479</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml#element(/1/398)" sourceLine="1479">
+  <property name="label" value="Warrants outstanding"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber"/>
+  <property name="QName" value="us-gaap:ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber"/>
+  <property name="contextRef" value="AsOf2018-05-31_custom_ExercisePricesFiveMember">
+   <property name="entity" value="0001504678">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RangeAxis" value="LLPP:ExercisePricesFiveMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="840,667"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message severity="error" cid="4367363768" filing_url="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml">[DQC.US.0001.61] The concept SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2 with a value of P7Y10M3D is dimensionally qualified with the RangeAxis and the unallowable member LLPP:ExercisePricesFiveMember. 
+The properties of the fact for SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2 are:
+Period: 2018-03-01 to 2018-05-31
+Dimensions: us-gaap:RangeAxis=LLPP:ExercisePricesFiveMember 
+Unit: None
+
+Rule Element Id:61
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml 1560</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml#element(/1/479)" sourceLine="1560">
+  <property name="label" value="Warrants outstanding, weighted average remaining life"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2"/>
+  <property name="QName" value="us-gaap:SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2"/>
+  <property name="contextRef" value="From2018-03-01to2018-05-31_custom_ExercisePricesFiveMember">
+   <property name="entity" value="0001504678">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-03-01"/>
+   <property name="endDate" value="2018-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RangeAxis" value="LLPP:ExercisePricesFiveMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="P7Y10M3D"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message severity="error" cid="4367363768" filing_url="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml">[DQC.US.0001.61] The concept ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber with a value of None is dimensionally qualified with the RangeAxis and the unallowable member LLPP:ExercisePricesFiveMember. 
+The properties of the fact for ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber are:
+Period: 2017-05-31
+Dimensions: us-gaap:RangeAxis=LLPP:ExercisePricesFiveMember 
+Unit: shares
+
+Rule Element Id:61
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml 1486</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml#element(/1/405)" sourceLine="1486">
+  <property name="label" value="Warrants outstanding"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber"/>
+  <property name="QName" value="us-gaap:ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber"/>
+  <property name="contextRef" value="AsOf2017-05-31_custom_ExercisePricesFiveMember">
+   <property name="entity" value="0001504678">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RangeAxis" value="LLPP:ExercisePricesFiveMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message severity="error" cid="4367363768" filing_url="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml">[DQC.US.0001.61] The concept SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2 with a value of P0Y is dimensionally qualified with the RangeAxis and the unallowable member LLPP:ExercisePricesFiveMember. 
+The properties of the fact for SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2 are:
+Period: 2017-03-01 to 2017-05-31
+Dimensions: us-gaap:RangeAxis=LLPP:ExercisePricesFiveMember 
+Unit: None
+
+Rule Element Id:61
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml 1567</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml#element(/1/486)" sourceLine="1567">
+  <property name="label" value="Warrants outstanding, weighted average remaining life"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2"/>
+  <property name="QName" value="us-gaap:SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2"/>
+  <property name="contextRef" value="From2017-03-01to2017-05-31_custom_ExercisePricesFiveMember">
+   <property name="entity" value="0001504678">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-03-01"/>
+   <property name="endDate" value="2017-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RangeAxis" value="LLPP:ExercisePricesFiveMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="P0Y"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message severity="error" cid="4367363768" filing_url="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml">[DQC.US.0001.61] The concept ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber with a value of 912,452 is dimensionally qualified with the RangeAxis and the unallowable member LLPP:ExercisePricesMember. 
+The properties of the fact for ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber are:
+Period: 2017-05-31
+Dimensions: us-gaap:RangeAxis=LLPP:ExercisePricesMember 
+Unit: shares
+
+Rule Element Id:61
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml 1482</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml#element(/1/401)" sourceLine="1482">
+  <property name="label" value="Warrants outstanding"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber"/>
+  <property name="QName" value="us-gaap:ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber"/>
+  <property name="contextRef" value="AsOf2017-05-31_custom_ExercisePricesMember">
+   <property name="entity" value="0001504678">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RangeAxis" value="LLPP:ExercisePricesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="912,452"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message severity="error" cid="4367363768" filing_url="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml">[DQC.US.0001.61] The concept SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2 with a value of P0Y6M3D is dimensionally qualified with the RangeAxis and the unallowable member LLPP:ExercisePricesMember. 
+The properties of the fact for SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2 are:
+Period: 2017-03-01 to 2017-05-31
+Dimensions: us-gaap:RangeAxis=LLPP:ExercisePricesMember 
+Unit: None
+
+Rule Element Id:61
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml 1563</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml#element(/1/482)" sourceLine="1563">
+  <property name="label" value="Warrants outstanding, weighted average remaining life"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2"/>
+  <property name="QName" value="us-gaap:SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2"/>
+  <property name="contextRef" value="From2017-03-01to2017-05-31_custom_ExercisePricesMember">
+   <property name="entity" value="0001504678">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-03-01"/>
+   <property name="endDate" value="2017-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RangeAxis" value="LLPP:ExercisePricesMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="P0Y6M3D"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message severity="error" cid="4367363768" filing_url="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml">[DQC.US.0001.61] The concept ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber with a value of 582,081 is dimensionally qualified with the RangeAxis and the unallowable member LLPP:ExercisePricesMember. 
+The properties of the fact for ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber are:
+Period: 2018-05-31
+Dimensions: us-gaap:RangeAxis=LLPP:ExercisePricesMember 
+Unit: shares
+
+Rule Element Id:61
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml 1475</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml#element(/1/394)" sourceLine="1475">
+  <property name="label" value="Warrants outstanding"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber"/>
+  <property name="QName" value="us-gaap:ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber"/>
+  <property name="contextRef" value="AsOf2018-05-31_custom_ExercisePricesMember">
+   <property name="entity" value="0001504678">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RangeAxis" value="LLPP:ExercisePricesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="582,081"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message severity="error" cid="4367363768" filing_url="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml">[DQC.US.0001.61] The concept SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2 with a value of P7Y6M0D is dimensionally qualified with the RangeAxis and the unallowable member LLPP:ExercisePricesMember. 
+The properties of the fact for SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2 are:
+Period: 2018-03-01 to 2018-05-31
+Dimensions: us-gaap:RangeAxis=LLPP:ExercisePricesMember 
+Unit: None
+
+Rule Element Id:61
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml 1556</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml#element(/1/475)" sourceLine="1556">
+  <property name="label" value="Warrants outstanding, weighted average remaining life"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2"/>
+  <property name="QName" value="us-gaap:SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2"/>
+  <property name="contextRef" value="From2018-03-01to2018-05-31_custom_ExercisePricesMember">
+   <property name="entity" value="0001504678">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-03-01"/>
+   <property name="endDate" value="2018-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RangeAxis" value="LLPP:ExercisePricesMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="P7Y6M0D"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message severity="error" cid="4367363768" filing_url="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml">[DQC.US.0001.61] The concept SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2 with a value of P9Y4M17D is dimensionally qualified with the RangeAxis and the unallowable member LLPP:ExercisePricesSixMember. 
+The properties of the fact for SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2 are:
+Period: 2018-03-01 to 2018-05-31
+Dimensions: us-gaap:RangeAxis=LLPP:ExercisePricesSixMember 
+Unit: None
+
+Rule Element Id:61
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml 1561</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml#element(/1/480)" sourceLine="1561">
+  <property name="label" value="Warrants outstanding, weighted average remaining life"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2"/>
+  <property name="QName" value="us-gaap:SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2"/>
+  <property name="contextRef" value="From2018-03-01to2018-05-31_custom_ExercisePricesSixMember">
+   <property name="entity" value="0001504678">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-03-01"/>
+   <property name="endDate" value="2018-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RangeAxis" value="LLPP:ExercisePricesSixMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="P9Y4M17D"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message severity="error" cid="4367363768" filing_url="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml">[DQC.US.0001.61] The concept ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber with a value of None is dimensionally qualified with the RangeAxis and the unallowable member LLPP:ExercisePricesSixMember. 
+The properties of the fact for ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber are:
+Period: 2017-05-31
+Dimensions: us-gaap:RangeAxis=LLPP:ExercisePricesSixMember 
+Unit: shares
+
+Rule Element Id:61
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml 1487</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml#element(/1/406)" sourceLine="1487">
+  <property name="label" value="Warrants outstanding"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber"/>
+  <property name="QName" value="us-gaap:ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber"/>
+  <property name="contextRef" value="AsOf2017-05-31_custom_ExercisePricesSixMember">
+   <property name="entity" value="0001504678">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RangeAxis" value="LLPP:ExercisePricesSixMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message severity="error" cid="4367363768" filing_url="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml">[DQC.US.0001.61] The concept SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2 with a value of P0Y is dimensionally qualified with the RangeAxis and the unallowable member LLPP:ExercisePricesSixMember. 
+The properties of the fact for SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2 are:
+Period: 2017-03-01 to 2017-05-31
+Dimensions: us-gaap:RangeAxis=LLPP:ExercisePricesSixMember 
+Unit: None
+
+Rule Element Id:61
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml 1568</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml#element(/1/487)" sourceLine="1568">
+  <property name="label" value="Warrants outstanding, weighted average remaining life"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2"/>
+  <property name="QName" value="us-gaap:SharebasedCompensationArrangementBySharebasedPaymentAwardOptionsOutstandingWeightedAverageRemainingContractualTerm2"/>
+  <property name="contextRef" value="From2017-03-01to2017-05-31_custom_ExercisePricesSixMember">
+   <property name="entity" value="0001504678">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-03-01"/>
+   <property name="endDate" value="2017-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RangeAxis" value="LLPP:ExercisePricesSixMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="P0Y"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message severity="error" cid="4367363768" filing_url="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml">[DQC.US.0001.61] The concept ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber with a value of 250,000 is dimensionally qualified with the RangeAxis and the unallowable member LLPP:ExercisePricesSixMember. 
+The properties of the fact for ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber are:
+Period: 2018-05-31
+Dimensions: us-gaap:RangeAxis=LLPP:ExercisePricesSixMember 
+Unit: shares
+
+Rule Element Id:61
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml 1480</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml#element(/1/399)" sourceLine="1480">
+  <property name="label" value="Warrants outstanding"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber"/>
+  <property name="QName" value="us-gaap:ShareBasedCompensationArrangementByShareBasedPaymentAwardOptionsOutstandingNumber"/>
+  <property name="contextRef" value="AsOf2018-05-31_custom_ExercisePricesSixMember">
+   <property name="entity" value="0001504678">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RangeAxis" value="LLPP:ExercisePricesSixMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="250,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 15.51 secs - http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504678/000147793218003324/llpp-20180531.xml"/></entry>
+</log>

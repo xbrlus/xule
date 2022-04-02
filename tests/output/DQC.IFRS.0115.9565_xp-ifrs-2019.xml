@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23221 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.15 secs at 2021-04-16T12:03:51 - http://www.sec.gov/Archives/edgar/data/1787425/000119312520305583/xp-20200531.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1787425/000119312520305583/xp-20200531.xml"/></entry>
+<entry code="DQC.IFRS.0115.9565" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1787425/000119312520305583/xp-20200531.xml" severity="error" status="PROPOSED" effectiveDate="None" cid="2354590675920">[DQC.IFRS.0115.9565] The concept ifrs-full:InterestIncomeOnFinancialAssetsHeldForTrading with a period duration starting on 2018-12-31 and ending on 2019-09-30 or 273 days with a reported value of 204,023,000 has a value greater than the value of the same element with a longer or equivalent period duration that starts on 2018-12-31 and ends on 2019-12-31 with a value of 199,947,000.
+The value  204,023,000 for the period of 273 days should be less or the same as the value  199,947,000 with a duration of 365 days assuming that the concept ifrs-full:InterestIncomeOnFinancialAssetsHeldForTrading cannot have a negative value.
+The properties of this ifrs-full:InterestIncomeOnFinancialAssetsHeldForTrading fact are:
+Period :2019-01-01 to 2019-09-30
+Dimensions : 
+Unit : BRL
+
+
+Rule Element Id:9565
+Rule version: 15.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1787425/000119312520305583/xp-20200531.xml 11462</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1787425/000119312520305583/xp-20200531.xml#Factid_15789506" sourceLine="11462">
+  <property name="label" value="Interest income on financial assets held for trading"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="InterestIncomeOnFinancialAssetsHeldForTrading"/>
+  <property name="QName" value="ifrs-full:InterestIncomeOnFinancialAssetsHeldForTrading"/>
+  <property name="contextRef" value="P01_01_2019To09_30_2019">
+   <property name="entity" value="0001787425">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-09-30"/>
+  </property>
+  <property name="unitRef" value="Unit_BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="204,023,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0115.9565" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1787425/000119312520305583/xp-20200531.xml" severity="error" status="PROPOSED" effectiveDate="None" cid="2354590675920">[DQC.IFRS.0115.9565] The concept ifrs-full:TaxEffectOfRevenuesExemptFromTaxation2011 with a period duration starting on 2018-12-31 and ending on 2019-09-30 or 273 days with a reported value of 27,989,000 has a value greater than the value of the same element with a longer or equivalent period duration that starts on 2018-12-31 and ends on 2019-12-31 with a value of 9,551,000.
+The value  27,989,000 for the period of 273 days should be less or the same as the value  9,551,000 with a duration of 365 days assuming that the concept ifrs-full:TaxEffectOfRevenuesExemptFromTaxation2011 cannot have a negative value.
+The properties of this ifrs-full:TaxEffectOfRevenuesExemptFromTaxation2011 fact are:
+Period :2019-01-01 to 2019-09-30
+Dimensions : 
+Unit : BRL
+
+
+Rule Element Id:9565
+Rule version: 15.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1787425/000119312520305583/xp-20200531.xml 14233</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1787425/000119312520305583/xp-20200531.xml#Factid_15793294" sourceLine="14233">
+  <property name="label" value="Tax effect of revenues exempt from taxation"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="TaxEffectOfRevenuesExemptFromTaxation2011"/>
+  <property name="QName" value="ifrs-full:TaxEffectOfRevenuesExemptFromTaxation2011"/>
+  <property name="contextRef" value="P01_01_2019To09_30_2019">
+   <property name="entity" value="0001787425">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-09-30"/>
+  </property>
+  <property name="unitRef" value="Unit_BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="27,989,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0115.9565" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1787425/000119312520305583/xp-20200531.xml" severity="error" status="PROPOSED" effectiveDate="None" cid="2354590675920">[DQC.IFRS.0115.9565] The concept ifrs-full:RepaymentsOfBorrowingsClassifiedAsFinancingActivities with a period duration starting on 2018-08-30 and ending on 2018-08-31 or 1 days with a reported value of 778,481,000 has a value greater than the value of the same element with a longer or equivalent period duration that starts on 2017-12-31 and ends on 2018-12-31 with a value of 689,634,000.
+The value  778,481,000 for the period of 1 days should be less or the same as the value  689,634,000 with a duration of 365 days assuming that the concept ifrs-full:RepaymentsOfBorrowingsClassifiedAsFinancingActivities cannot have a negative value.
+The properties of this ifrs-full:RepaymentsOfBorrowingsClassifiedAsFinancingActivities fact are:
+Period :2018-08-31 to 2018-08-31
+Dimensions : 
+Unit : BRL
+
+
+Rule Element Id:9565
+Rule version: 15.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1787425/000119312520305583/xp-20200531.xml 13124</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1787425/000119312520305583/xp-20200531.xml#Factid_15791822" sourceLine="13124">
+  <property name="label" value="Repayments of borrowings, classified as financing activities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="RepaymentsOfBorrowingsClassifiedAsFinancingActivities"/>
+  <property name="QName" value="ifrs-full:RepaymentsOfBorrowingsClassifiedAsFinancingActivities"/>
+  <property name="contextRef" value="P08_31_2018To08_31_2018">
+   <property name="entity" value="0001787425">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-08-31"/>
+   <property name="endDate" value="2018-08-31"/>
+  </property>
+  <property name="unitRef" value="Unit_BRL (R$)">
+   <property name="measure" value="iso4217:BRL"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="778,481,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 6.96 secs - http://www.sec.gov/Archives/edgar/data/1787425/000119312520305583/xp-20200531.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1787425/000119312520305583/xp-20200531.xml"/></entry>
+</log>

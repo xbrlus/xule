@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.21 secs at 2019-11-15T16:58:08 - https://www.sec.gov/Archives/edgar/data/1173420/000117184319006281/ng20190831_10q.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1173420/000117184319006281/ng20190831_10q.htm"/></entry>
+<entry code="arelle:info.preferredLabelEmpty" level="info">
+ <message linkrole="http://www.novagold.com/20190831/role/statement-condensed-consolidated-interim-statements-of-loss-and-comprehensive-loss-unaudit..." target="us-gaap:OperatingExpenses" source="us-gaap:OperatingExpensesAbstract" preferredLabel="http://www.xbrl.org/2003/role/totalLabel">[arelle:info.preferredLabelEmpty] (Info xbrl.5.2.4.2.1) Presentation relationship from us-gaap:OperatingExpensesAbstract to us-gaap:OperatingExpenses in link role http://www.novagold.com/20190831/role/statement-condensed-consolidated-interim-statements-of-loss-and-comprehensive-loss-unaudited has empty preferredLabel http://www.xbrl.org/2003/role/totalLabel - https://www.sec.gov/Archives/edgar/data/1173420/000117184319006281/ng-20190831_pre.xml 1043</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1173420/000117184319006281/ng-20190831_pre.xml#element(/1/70/36)" sourceLine="1043">
+  <property name="label" value="us-gaap_OperatingExpenses">
+   <property name="label (en-US)" value="us-gaap_OperatingExpenses"/>
+   <property name="totalLabel (en-US)" value=""/>
+  </property>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="OperatingExpenses"/>
+  <property name="QName" value="us-gaap:OperatingExpenses"/>
+  <property name="id" value="us-gaap_OperatingExpenses"/>
+  <property name="abstract" value="false"/>
+  <property name="type" value="xbrli:monetaryItemType"/>
+  <property name="subst grp" value="xbrli:item"/>
+  <property name="period type" value="duration"/>
+  <property name="balance" value="debit"/>
+  <property name="arcrole" value="http://www.xbrl.org/2003/arcrole/parent-child"/>
+  <property name="preferredLabel" value="http://www.xbrl.org/2003/role/totalLabel"/>
+  <property name="order" value="2.0"/>
+  <property name="priority" value="0"/>
+  <property name="from" value="us-gaap:OperatingExpensesAbstract"/>
+ </ref></entry>
+<entry code="arelle:info.preferredLabelEmpty" level="info">
+ <message linkrole="http://www.novagold.com/20190831/role/statement-condensed-consolidated-interim-statements-of-loss-and-comprehensive-loss-unaudit..." target="us-gaap:OtherComprehensiveIncomeLossNetOfTaxPortionAttributableToParent" source="us-gaap:OtherComprehensiveIncomeLossTaxAbstract" preferredLabel="http://www.xbrl.org/2003/role/totalLabel">[arelle:info.preferredLabelEmpty] (Info xbrl.5.2.4.2.1) Presentation relationship from us-gaap:OtherComprehensiveIncomeLossTaxAbstract to us-gaap:OtherComprehensiveIncomeLossNetOfTaxPortionAttributableToParent in link role http://www.novagold.com/20190831/role/statement-condensed-consolidated-interim-statements-of-loss-and-comprehensive-loss-unaudited has empty preferredLabel http://www.xbrl.org/2003/role/totalLabel - https://www.sec.gov/Archives/edgar/data/1173420/000117184319006281/ng-20190831_pre.xml 1055</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1173420/000117184319006281/ng-20190831_pre.xml#element(/1/70/48)" sourceLine="1055">
+  <property name="label" value="Other comprehensive loss">
+   <property name="label (en-US)" value="Other comprehensive loss"/>
+   <property name="totalLabel (en-US)" value=""/>
+  </property>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="OtherComprehensiveIncomeLossNetOfTaxPortionAttributableToParent"/>
+  <property name="QName" value="us-gaap:OtherComprehensiveIncomeLossNetOfTaxPortionAttributableToParent"/>
+  <property name="id" value="us-gaap_OtherComprehensiveIncomeLossNetOfTaxPortionAttributableToParent"/>
+  <property name="abstract" value="false"/>
+  <property name="type" value="xbrli:monetaryItemType"/>
+  <property name="subst grp" value="xbrli:item"/>
+  <property name="period type" value="duration"/>
+  <property name="balance" value="credit"/>
+  <property name="arcrole" value="http://www.xbrl.org/2003/arcrole/parent-child"/>
+  <property name="preferredLabel" value="http://www.xbrl.org/2003/role/totalLabel"/>
+  <property name="order" value="3.0"/>
+  <property name="priority" value="0"/>
+  <property name="from" value="us-gaap:OtherComprehensiveIncomeLossTaxAbstract"/>
+ </ref></entry>
+<entry code="arelle:info.preferredLabelEmpty" level="info">
+ <message linkrole="http://www.novagold.com/20190831/role/statement-note-11-other-income-expense-summary-of-other-income-expense-details" target="us-gaap:NonoperatingIncomeExpense" source="us-gaap:StatementLineItems" preferredLabel="http://www.xbrl.org/2003/role/totalLabel">[arelle:info.preferredLabelEmpty] (Info xbrl.5.2.4.2.1) Presentation relationship from us-gaap:StatementLineItems to us-gaap:NonoperatingIncomeExpense in link role http://www.novagold.com/20190831/role/statement-note-11-other-income-expense-summary-of-other-income-expense-details has empty preferredLabel http://www.xbrl.org/2003/role/totalLabel - https://www.sec.gov/Archives/edgar/data/1173420/000117184319006281/ng-20190831_pre.xml 1320</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1173420/000117184319006281/ng-20190831_pre.xml#element(/1/84/23)" sourceLine="1320">
+  <property name="label" value="Other income (expense) (Note 11)">
+   <property name="label (en-US)" value="Other income (expense) (Note 11)"/>
+   <property name="totalLabel (en-US)" value=""/>
+  </property>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="NonoperatingIncomeExpense"/>
+  <property name="QName" value="us-gaap:NonoperatingIncomeExpense"/>
+  <property name="id" value="us-gaap_NonoperatingIncomeExpense"/>
+  <property name="abstract" value="false"/>
+  <property name="type" value="xbrli:monetaryItemType"/>
+  <property name="subst grp" value="xbrli:item"/>
+  <property name="period type" value="duration"/>
+  <property name="balance" value="credit"/>
+  <property name="arcrole" value="http://www.xbrl.org/2003/arcrole/parent-child"/>
+  <property name="preferredLabel" value="http://www.xbrl.org/2003/role/totalLabel"/>
+  <property name="order" value="6.0"/>
+  <property name="priority" value="0"/>
+  <property name="from" value="us-gaap:StatementLineItems"/>
+ </ref></entry>
+<entry code="arelle:info.preferredLabelEmpty" level="info">
+ <message linkrole="http://www.novagold.com/20190831/role/statement-note-4-discontinued-operations-net-loss-from-discontinued-operations-details" target="us-gaap:IncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToReportingEntity" source="us-gaap:StatementLineItems" preferredLabel="http://www.xbrl.org/2003/role/totalLabel">[arelle:info.preferredLabelEmpty] (Info xbrl.5.2.4.2.1) Presentation relationship from us-gaap:StatementLineItems to us-gaap:IncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToReportingEntity in link role http://www.novagold.com/20190831/role/statement-note-4-discontinued-operations-net-loss-from-discontinued-operations-details has empty preferredLabel http://www.xbrl.org/2003/role/totalLabel - https://www.sec.gov/Archives/edgar/data/1173420/000117184319006281/ng-20190831_pre.xml 1173</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1173420/000117184319006281/ng-20190831_pre.xml#element(/1/74/30)" sourceLine="1173">
+  <property name="label" value="us-gaap_IncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToReportingEntity">
+   <property name="label (en-US)" value="us-gaap_IncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToReportingEntity"/>
+   <property name="negatedLabel (en-US)" value="Net loss from discontinued operations, net of tax"/>
+   <property name="totalLabel (en-US)" value=""/>
+   <property name="verboseLabel (en-US)" value="Net income (loss) from discontinued operations, net of tax (Note 4)"/>
+  </property>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="IncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToReportingEntity"/>
+  <property name="QName" value="us-gaap:IncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToReportingEntity"/>
+  <property name="id" value="us-gaap_IncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToReportingEntity"/>
+  <property name="abstract" value="false"/>
+  <property name="type" value="xbrli:monetaryItemType"/>
+  <property name="subst grp" value="xbrli:item"/>
+  <property name="period type" value="duration"/>
+  <property name="balance" value="credit"/>
+  <property name="arcrole" value="http://www.xbrl.org/2003/arcrole/parent-child"/>
+  <property name="preferredLabel" value="http://www.xbrl.org/2003/role/totalLabel"/>
+  <property name="order" value="2.0"/>
+  <property name="priority" value="0"/>
+  <property name="from" value="us-gaap:StatementLineItems"/>
+ </ref></entry>
+<entry code="arelle:info.preferredLabelEmpty" level="info">
+ <message linkrole="http://www.novagold.com/20190831/role/statement-note-4-discontinued-operations-net-loss-from-discontinued-operations-details" target="us-gaap:CashProvidedByUsedInInvestingActivitiesDiscontinuedOperations" source="us-gaap:StatementLineItems" preferredLabel="http://www.xbrl.org/2003/role/totalLabel">[arelle:info.preferredLabelEmpty] (Info xbrl.5.2.4.2.1) Presentation relationship from us-gaap:StatementLineItems to us-gaap:CashProvidedByUsedInInvestingActivitiesDiscontinuedOperations in link role http://www.novagold.com/20190831/role/statement-note-4-discontinued-operations-net-loss-from-discontinued-operations-details has empty preferredLabel http://www.xbrl.org/2003/role/totalLabel - https://www.sec.gov/Archives/edgar/data/1173420/000117184319006281/ng-20190831_pre.xml 1176</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1173420/000117184319006281/ng-20190831_pre.xml#element(/1/74/33)" sourceLine="1176">
+  <property name="label" value="Net cash provided from investing activities of discontinued operations (Note 4)">
+   <property name="label (en-US)" value="Net cash provided from investing activities of discontinued operations (Note 4)"/>
+   <property name="totalLabel (en-US)" value=""/>
+  </property>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="CashProvidedByUsedInInvestingActivitiesDiscontinuedOperations"/>
+  <property name="QName" value="us-gaap:CashProvidedByUsedInInvestingActivitiesDiscontinuedOperations"/>
+  <property name="id" value="us-gaap_CashProvidedByUsedInInvestingActivitiesDiscontinuedOperations"/>
+  <property name="abstract" value="false"/>
+  <property name="type" value="xbrli:monetaryItemType"/>
+  <property name="subst grp" value="xbrli:item"/>
+  <property name="period type" value="duration"/>
+  <property name="balance" value="debit"/>
+  <property name="arcrole" value="http://www.xbrl.org/2003/arcrole/parent-child"/>
+  <property name="preferredLabel" value="http://www.xbrl.org/2003/role/totalLabel"/>
+  <property name="order" value="5.0"/>
+  <property name="priority" value="0"/>
+  <property name="from" value="us-gaap:StatementLineItems"/>
+ </ref></entry>
+<entry code="arelle:info.preferredLabelEmpty" level="info">
+ <message linkrole="http://www.novagold.com/20190831/role/statement-note-6-investment-in-donlin-gold-summary-of-the-companys-investment-in-donlin-go..." target="us-gaap:IncomeLossFromEquityMethodInvestments" source="us-gaap:StatementLineItems" preferredLabel="http://www.xbrl.org/2003/role/totalLabel">[arelle:info.preferredLabelEmpty] (Info xbrl.5.2.4.2.1) Presentation relationship from us-gaap:StatementLineItems to us-gaap:IncomeLossFromEquityMethodInvestments in link role http://www.novagold.com/20190831/role/statement-note-6-investment-in-donlin-gold-summary-of-the-companys-investment-in-donlin-gold-llc-details has empty preferredLabel http://www.xbrl.org/2003/role/totalLabel - https://www.sec.gov/Archives/edgar/data/1173420/000117184319006281/ng-20190831_pre.xml 1210</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1173420/000117184319006281/ng-20190831_pre.xml#element(/1/76/31)" sourceLine="1210">
+  <property name="label" value="us-gaap_IncomeLossFromEquityMethodInvestments">
+   <property name="label (en-US)" value="us-gaap_IncomeLossFromEquityMethodInvestments"/>
+   <property name="negatedLabel (en-US)" value="Equity loss – Donlin Gold"/>
+   <property name="negatedTerseLabel (en-US)" value="Equity loss – Donlin Gold (Note 6)"/>
+   <property name="totalLabel (en-US)" value=""/>
+  </property>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="IncomeLossFromEquityMethodInvestments"/>
+  <property name="QName" value="us-gaap:IncomeLossFromEquityMethodInvestments"/>
+  <property name="id" value="us-gaap_IncomeLossFromEquityMethodInvestments"/>
+  <property name="abstract" value="false"/>
+  <property name="type" value="xbrli:monetaryItemType"/>
+  <property name="subst grp" value="xbrli:item"/>
+  <property name="period type" value="duration"/>
+  <property name="balance" value="credit"/>
+  <property name="arcrole" value="http://www.xbrl.org/2003/arcrole/parent-child"/>
+  <property name="preferredLabel" value="http://www.xbrl.org/2003/role/totalLabel"/>
+  <property name="order" value="3.0"/>
+  <property name="priority" value="0"/>
+  <property name="from" value="us-gaap:StatementLineItems"/>
+ </ref></entry>
+<entry code="arelle:info.preferredLabelEmpty" level="info">
+ <message linkrole="http://www.novagold.com/20190831/role/statement-note-9-general-and-administrative-expenses-summary-of-general-and-administrative..." target="us-gaap:GeneralAndAdministrativeExpense" source="us-gaap:StatementLineItems" preferredLabel="http://www.xbrl.org/2003/role/totalLabel">[arelle:info.preferredLabelEmpty] (Info xbrl.5.2.4.2.1) Presentation relationship from us-gaap:StatementLineItems to us-gaap:GeneralAndAdministrativeExpense in link role http://www.novagold.com/20190831/role/statement-note-9-general-and-administrative-expenses-summary-of-general-and-administrative-expenses-details has empty preferredLabel http://www.xbrl.org/2003/role/totalLabel - https://www.sec.gov/Archives/edgar/data/1173420/000117184319006281/ng-20190831_pre.xml 1244</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1173420/000117184319006281/ng-20190831_pre.xml#element(/1/78/23)" sourceLine="1244">
+  <property name="label" value="us-gaap_GeneralAndAdministrativeExpense">
+   <property name="label (en-US)" value="us-gaap_GeneralAndAdministrativeExpense"/>
+   <property name="totalLabel (en-US)" value=""/>
+   <property name="verboseLabel (en-US)" value="General and administrative (Note 9)"/>
+  </property>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="GeneralAndAdministrativeExpense"/>
+  <property name="QName" value="us-gaap:GeneralAndAdministrativeExpense"/>
+  <property name="id" value="us-gaap_GeneralAndAdministrativeExpense"/>
+  <property name="abstract" value="false"/>
+  <property name="type" value="xbrli:monetaryItemType"/>
+  <property name="subst grp" value="xbrli:item"/>
+  <property name="period type" value="duration"/>
+  <property name="balance" value="debit"/>
+  <property name="arcrole" value="http://www.xbrl.org/2003/arcrole/parent-child"/>
+  <property name="preferredLabel" value="http://www.xbrl.org/2003/role/totalLabel"/>
+  <property name="order" value="6.0"/>
+  <property name="priority" value="0"/>
+  <property name="from" value="us-gaap:StatementLineItems"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpbvpjg8r6\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpbvpjg8r6\packages\resources.zip"/></entry>
+<entry code="DQC.US.0086.9368" level="error">
+ <message effectiveDate="None" filing_url="https://www.sec.gov/Archives/edgar/data/1173420/000117184319006281/ng20190831_10q.htm" severity="error" cid="2176730326184">[DQC.US.0086.9368] The element us-gaap:DeferredTaxLiabilitiesNoncurrent with a value of 80,000 has been used in the filing.  This element is a transition element and is intended to be used in periods before adoption of amendments from Accounting Standards Update 2015-17. The element should no longer be used for filings with fiscal years beginning after December 15th 2016.  
+
+Period :2018-11-30
+Dimensions : 
+Unit : USD
+Decimals: -4
+
+Rule Element Id:9368
+Rule version: 11.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1173420/000117184319006281/ng20190831_10q.htm 789</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1173420/000117184319006281/ng20190831_10q.htm#c50869098" sourceLine="789">
+  <property name="file" value="ng20190831_10q.htm"/>
+  <property name="line" value="789"/>
+  <property name="label" value="Deferred income taxes"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DeferredTaxLiabilitiesNoncurrent"/>
+  <property name="QName" value="us-gaap:DeferredTaxLiabilitiesNoncurrent"/>
+  <property name="contextRef" value="i_2018-11-30">
+   <property name="entity" value="0001173420">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-11-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="80,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="80"/>
+ </ref></entry>
+<entry code="DQC.US.0086.9368" level="error">
+ <message effectiveDate="None" filing_url="https://www.sec.gov/Archives/edgar/data/1173420/000117184319006281/ng20190831_10q.htm" severity="error" cid="2176730326184">[DQC.US.0086.9368] The element us-gaap:DeferredTaxLiabilitiesNoncurrent with a value of 583,000 has been used in the filing.  This element is a transition element and is intended to be used in periods before adoption of amendments from Accounting Standards Update 2015-17. The element should no longer be used for filings with fiscal years beginning after December 15th 2016.  
+
+Period :2019-08-31
+Dimensions : 
+Unit : USD
+Decimals: -3
+
+Rule Element Id:9368
+Rule version: 11.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1173420/000117184319006281/ng20190831_10q.htm 785</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1173420/000117184319006281/ng20190831_10q.htm#c50869097" sourceLine="785">
+  <property name="file" value="ng20190831_10q.htm"/>
+  <property name="line" value="785"/>
+  <property name="label" value="Deferred income taxes"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DeferredTaxLiabilitiesNoncurrent"/>
+  <property name="QName" value="us-gaap:DeferredTaxLiabilitiesNoncurrent"/>
+  <property name="contextRef" value="i_2019-08-31">
+   <property name="entity" value="0001173420">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-08-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="583,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="583"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 69.63 secs - https://www.sec.gov/Archives/edgar/data/1173420/000117184319006281/ng20190831_10q.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1173420/000117184319006281/ng20190831_10q.htm"/></entry>
+</log>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22739 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.55 secs at 2019-04-18T10:36:15 - https://www.sec.gov/Archives/edgar/data/1522222/000118518519000507/clsh-20181130.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1522222/000118518519000507/clsh-20181130.xml"/></entry>
+<entry code="arelle:info.preferredLabelEmpty" level="info">
+ <message source="us-gaap:FiniteLivedIntangibleAssetsAmortizationExpenseYearFive" target="us-gaap:FiniteLivedIntangibleAssetsNet" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" linkrole="http://www.clsholdingsusa.com/role/ScheduleofFiniteLivedIntangibleAssetsFutureAmortizationExpenseTable">[arelle:info.preferredLabelEmpty] (Info xbrl.5.2.4.2.1) Presentation relationship from us-gaap:FiniteLivedIntangibleAssetsAmortizationExpenseYearFive to us-gaap:FiniteLivedIntangibleAssetsNet in link role http://www.clsholdingsusa.com/role/ScheduleofFiniteLivedIntangibleAssetsFutureAmortizationExpenseTable has empty preferredLabel http://www.xbrl.org/2003/role/totalLabel - https://www.sec.gov/Archives/edgar/data/1522222/000118518519000507/clsh-20181130_pre.xml 1473</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1522222/000118518519000507/clsh-20181130_pre.xml#element(/1/161/15)" sourceLine="1473">
+  <property name="label" value="Finite-Lived Intangible Assets, Net">
+   <property name="label (en-US)" value="Finite-Lived Intangible Assets, Net"/>
+   <property name="totalLabel (en-US)" value=""/>
+  </property>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="FiniteLivedIntangibleAssetsNet"/>
+  <property name="QName" value="us-gaap:FiniteLivedIntangibleAssetsNet"/>
+  <property name="id" value="us-gaap_FiniteLivedIntangibleAssetsNet"/>
+  <property name="abstract" value="false"/>
+  <property name="type" value="xbrli:monetaryItemType"/>
+  <property name="subst grp" value="xbrli:item"/>
+  <property name="period type" value="instant"/>
+  <property name="balance" value="debit"/>
+  <property name="arcrole" value="http://www.xbrl.org/2003/arcrole/parent-child"/>
+  <property name="preferredLabel" value="http://www.xbrl.org/2003/role/totalLabel"/>
+  <property name="order" value="1.0"/>
+  <property name="priority" value="0"/>
+  <property name="from" value="us-gaap:FiniteLivedIntangibleAssetsAmortizationExpenseYearFive"/>
+ </ref></entry>
+<entry code="arelle:info.preferredLabelEmpty" level="info">
+ <message source="clsh:ScheduleOfOtherAssetsAbstract" target="us-gaap:OtherAssetsNoncurrent" preferredLabel="http://www.xbrl.org/2003/role/totalLabel" linkrole="http://www.clsholdingsusa.com/role/ScheduleofOtherAssetsTable">[arelle:info.preferredLabelEmpty] (Info xbrl.5.2.4.2.1) Presentation relationship from clsh:ScheduleOfOtherAssetsAbstract to us-gaap:OtherAssetsNoncurrent in link role http://www.clsholdingsusa.com/role/ScheduleofOtherAssetsTable has empty preferredLabel http://www.xbrl.org/2003/role/totalLabel - https://www.sec.gov/Archives/edgar/data/1522222/000118518519000507/clsh-20181130_pre.xml 1480</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1522222/000118518519000507/clsh-20181130_pre.xml#element(/1/162/5)" sourceLine="1480">
+  <property name="label" value="Other assets">
+   <property name="label (en-US)" value="Other assets"/>
+   <property name="totalLabel (en-US)" value=""/>
+  </property>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="OtherAssetsNoncurrent"/>
+  <property name="QName" value="us-gaap:OtherAssetsNoncurrent"/>
+  <property name="id" value="us-gaap_OtherAssetsNoncurrent"/>
+  <property name="abstract" value="false"/>
+  <property name="type" value="xbrli:monetaryItemType"/>
+  <property name="subst grp" value="xbrli:item"/>
+  <property name="period type" value="instant"/>
+  <property name="balance" value="debit"/>
+  <property name="arcrole" value="http://www.xbrl.org/2003/arcrole/parent-child"/>
+  <property name="preferredLabel" value="http://www.xbrl.org/2003/role/totalLabel"/>
+  <property name="order" value="1.0"/>
+  <property name="priority" value="0"/>
+  <property name="from" value="clsh:ScheduleOfOtherAssetsAbstract"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv and effective_dates.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpt_npvfok/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpt_npvfok/packages/resources.zip"/></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.11 secs - https://www.sec.gov/Archives/edgar/data/1522222/000118518519000507/clsh-20181130.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1522222/000118518519000507/clsh-20181130.xml"/></entry>
+</log>

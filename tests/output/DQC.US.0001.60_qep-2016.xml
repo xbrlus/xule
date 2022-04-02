@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 5.21 secs at 2018-10-16T09:43:46 - http://www.sec.gov/Archives/edgar/data/1108827/000110882718000006/qep-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1108827/000110882718000006/qep-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2016-V7-ruleset.zip - qep-20171231.xml </message>
+ <ref href="qep-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpte6xt5c1/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpte6xt5c1/packages/resources.zip"/></entry>
+<entry code="DQC.US.0001.60" level="error">
+ <message cid="4419301048" severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1108827/000110882718000006/qep-20171231.xml">[DQC.US.0001.60] The concept DefinedContributionPlanEmployerMatchingContributionPercentOfMatch with a value of 0.08 is dimensionally qualified with the DefinedContributionPlanNameAxis and the base taxonomy member PensionPlansDefinedBenefitMember. Only extension members should be used with the axis DefinedContributionPlanNameAxis.
+The properties of the fact for DefinedContributionPlanEmployerMatchingContributionPercentOfMatch are:
+Period: 2017-01-01 to 2017-12-31
+Dimensions: us-gaap:DefinedContributionPlanNameAxis=us-gaap:PensionPlansDefinedBenefitMember 
+Unit: pure
+
+Rule Element Id:60
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1108827/000110882718000006/qep-20171231.xml 4421</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1108827/000110882718000006/qep-20171231.xml#Fact-B109A07D02F44E14CA21B3B329A803AF" sourceLine="4421">
+  <property name="label" value="Defined Contribution Plan, Employer Matching Contribution, Percent of Match"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="DefinedContributionPlanEmployerMatchingContributionPercentOfMatch"/>
+  <property name="QName" value="us-gaap:DefinedContributionPlanEmployerMatchingContributionPercentOfMatch"/>
+  <property name="contextRef" value="FD2017Q4YTD_us-gaap_DefinedContributionPlanNameAxis_us-gaap_PensionPlansDefinedBenefitMember">
+   <property name="entity" value="0001108827">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:DefinedContributionPlanNameAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.08"/>
+ </ref></entry>
+<entry code="DQC.US.0001.60" level="error">
+ <message cid="4419301048" severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1108827/000110882718000006/qep-20171231.xml">[DQC.US.0001.60] The concept DefinedContributionPlanEmployerMatchingContributionPercentOfMatch with a value of 0.08 is dimensionally qualified with the DefinedContributionPlanNameAxis and the base taxonomy member PensionPlansDefinedBenefitMember. Only extension members should be used with the axis DefinedContributionPlanNameAxis.
+The properties of the fact for DefinedContributionPlanEmployerMatchingContributionPercentOfMatch are:
+Period: 2016-01-01 to 2016-12-31
+Dimensions: us-gaap:DefinedContributionPlanNameAxis=us-gaap:PensionPlansDefinedBenefitMember 
+Unit: pure
+
+Rule Element Id:60
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1108827/000110882718000006/qep-20171231.xml 4418</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1108827/000110882718000006/qep-20171231.xml#Fact-839D392B4FF66829F2A6B3B5314BBAD5" sourceLine="4418">
+  <property name="label" value="Defined Contribution Plan, Employer Matching Contribution, Percent of Match"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="DefinedContributionPlanEmployerMatchingContributionPercentOfMatch"/>
+  <property name="QName" value="us-gaap:DefinedContributionPlanEmployerMatchingContributionPercentOfMatch"/>
+  <property name="contextRef" value="FD2016Q4YTD_us-gaap_DefinedContributionPlanNameAxis_us-gaap_PensionPlansDefinedBenefitMember">
+   <property name="entity" value="0001108827">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-01-01"/>
+   <property name="endDate" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:DefinedContributionPlanNameAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.08"/>
+ </ref></entry>
+<entry code="DQC.US.0001.60" level="error">
+ <message cid="4419301048" severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1108827/000110882718000006/qep-20171231.xml">[DQC.US.0001.60] The concept DefinedContributionPlanEmployerMatchingContributionPercentOfMatch with a value of 0.06 is dimensionally qualified with the DefinedContributionPlanNameAxis and the base taxonomy member PensionPlansDefinedBenefitMember. Only extension members should be used with the axis DefinedContributionPlanNameAxis.
+The properties of the fact for DefinedContributionPlanEmployerMatchingContributionPercentOfMatch are:
+Period: 2015-01-01 to 2015-12-31
+Dimensions: us-gaap:DefinedContributionPlanNameAxis=us-gaap:PensionPlansDefinedBenefitMember 
+Unit: pure
+
+Rule Element Id:60
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1108827/000110882718000006/qep-20171231.xml 4415</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1108827/000110882718000006/qep-20171231.xml#Fact-438720375A7FBEA18C89B3B558C0CA4F" sourceLine="4415">
+  <property name="label" value="Defined Contribution Plan, Employer Matching Contribution, Percent of Match"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="DefinedContributionPlanEmployerMatchingContributionPercentOfMatch"/>
+  <property name="QName" value="us-gaap:DefinedContributionPlanEmployerMatchingContributionPercentOfMatch"/>
+  <property name="contextRef" value="FD2015Q4YTD_us-gaap_DefinedContributionPlanNameAxis_us-gaap_PensionPlansDefinedBenefitMember">
+   <property name="entity" value="0001108827">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2015-01-01"/>
+   <property name="endDate" value="2015-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:DefinedContributionPlanNameAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.06"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 18.12 secs - http://www.sec.gov/Archives/edgar/data/1108827/000110882718000006/qep-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1108827/000110882718000006/qep-20171231.xml"/></entry>
+</log>

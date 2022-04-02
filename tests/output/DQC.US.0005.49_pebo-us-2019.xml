@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 6.17 secs at 2020-07-26T18:46:55 - http://www.sec.gov/Archives/edgar/data/318300/000031830020000188/pebo-20200331.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/318300/000031830020000188/pebo-20200331.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmprxk7by5g\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmprxk7by5g\packages\resources.zip"/></entry>
+<entry code="DQC.US.0005.49" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/318300/000031830020000188/pebo-20200331.htm" severity="error" effectiveDate="2016-01-01" cid="1989028652416">[DQC.US.0005.49] The date of 2020-03-31 used for Increase in Financing Receivable Allowance For Credit Loss Percentage and the Scenario [Axis] and srt:ScenarioForecastMember with a value of 72 is earlier than or the same as the reporting period end date of 2020-03-31. Either remove the statement scenario axis and forecast member from this value, change the end date for the value or update the Document and Entity Information document period end date.
+
+The properties of this pebo:IncreaseInFinancingReceivableAllowanceForCreditLossPercentage fact are:
+Period: 2020-03-31
+Dimensions: srt:StatementScenarioAxis=srt:ScenarioForecastMember
+Unit: pure
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/318300/000031830020000188/pebo-20200331.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/318300/000031830020000188/pebo-20200331.htm#id3VybDovL2RvY3MudjEvZG9jOjIyNjdlOTYzZGUwZDRmZDM4OTUzY2Q4ZGIyZjJiN2FjL3NlYzoyMjY3ZTk2M2RlMGQ0ZmQzODk1M2NkOGRiMmYyYjdhY181Mi9mcmFnOjBkY2M0MzYyYzMxZDQwZDVhOTEyMTdkY2JlM2Y2NDVjL3RleHRyZWdpb246MGRjYzQzNjJjMzFkNDBkNWE5MTIxN2RjYmUzZjY0NWNfNDM5ODA0NjU3NTE2Mw_f415cdcb-59bd-4b69-a885-e362f72dc302" sourceLine="4">
+  <property name="file" value="pebo-20200331.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Increase in Financing Receivable Allowance For Credit Loss Percentage"/>
+  <property name="namespace" value="http://www.peoplesbancorp.com/20200331"/>
+  <property name="name" value="IncreaseInFinancingReceivableAllowanceForCreditLossPercentage"/>
+  <property name="QName" value="pebo:IncreaseInFinancingReceivableAllowanceForCreditLossPercentage"/>
+  <property name="contextRef" value="i3658c392d4054a9aae14edd3f4275d37_I20200331">
+   <property name="entity" value="0000318300">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementScenarioAxis" value="srt:ScenarioForecastMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="72"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="None"/>
+  <property name="html value" value="72"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.29 secs - http://www.sec.gov/Archives/edgar/data/318300/000031830020000188/pebo-20200331.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/318300/000031830020000188/pebo-20200331.htm"/></entry>
+</log>

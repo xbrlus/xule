@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.77 secs at 2018-12-19T16:09:16 - http://www.sec.gov/Archives/edgar/data/1145255/000119312518336590/hnna-20180930.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1145255/000119312518336590/hnna-20180930.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2018-V8-ruleset.zip - hnna-20180930.xml </message>
+ <ref href="hnna-20180930.xml"/></entry>
+<entry code="DQC.US.0079.7657" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1145255/000119312518336590/hnna-20180930.xml" cid="4405862640">[DQC.US.0079.7657] hnna:WisconsinMember is an extension member on the axis IncomeTaxAuthorityAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing hnna:WisconsinMember with the existing taxonomy concept WI with the taxonomy namespace http://xbrl.sec.gov/stpr/2018-01-31.
+
+Rule Element Id:7657
+Rule version: 9.0.0RC1
+ - </message></entry>
+<entry code="DQC.US.0079.7657" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1145255/000119312518336590/hnna-20180930.xml" cid="4405862640">[DQC.US.0079.7657] hnna:DistrictOfColumbiaMember is an extension member on the axis IncomeTaxAuthorityAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing hnna:DistrictOfColumbiaMember with the existing taxonomy concept DC with the taxonomy namespace http://xbrl.sec.gov/stpr/2018-01-31.
+
+Rule Element Id:7657
+Rule version: 9.0.0RC1
+ - </message></entry>
+<entry code="DQC.US.0079.7657" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1145255/000119312518336590/hnna-20180930.xml" cid="4405862640">[DQC.US.0079.7657] hnna:NorthCarolinaMember is an extension member on the axis IncomeTaxAuthorityAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing hnna:NorthCarolinaMember with the existing taxonomy concept NC with the taxonomy namespace http://xbrl.sec.gov/stpr/2018-01-31.
+
+Rule Element Id:7657
+Rule version: 9.0.0RC1
+ - </message></entry>
+<entry code="DQC.US.0079.7657" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1145255/000119312518336590/hnna-20180930.xml" cid="4405862640">[DQC.US.0079.7657] hnna:UnitedStatesMember is an extension member on the axis IncomeTaxAuthorityAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing hnna:UnitedStatesMember with the existing taxonomy concept US with the taxonomy namespace http://xbrl.sec.gov/country/2017-01-31.
+
+Rule Element Id:7657
+Rule version: 9.0.0RC1
+ - </message></entry>
+<entry code="DQC.US.0079.7657" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1145255/000119312518336590/hnna-20180930.xml" cid="4405862640">[DQC.US.0079.7657] hnna:MichiganMember is an extension member on the axis IncomeTaxAuthorityAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing hnna:MichiganMember with the existing taxonomy concept MI with the taxonomy namespace http://xbrl.sec.gov/stpr/2018-01-31.
+
+Rule Element Id:7657
+Rule version: 9.0.0RC1
+ - </message></entry>
+<entry code="DQC.US.0079.7657" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1145255/000119312518336590/hnna-20180930.xml" cid="4405862640">[DQC.US.0079.7657] hnna:IllinoisMember is an extension member on the axis IncomeTaxAuthorityAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing hnna:IllinoisMember with the existing taxonomy concept IL with the taxonomy namespace http://xbrl.sec.gov/stpr/2018-01-31.
+
+Rule Element Id:7657
+Rule version: 9.0.0RC1
+ - </message></entry>
+<entry code="DQC.US.0079.7657" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1145255/000119312518336590/hnna-20180930.xml" cid="4405862640">[DQC.US.0079.7657] hnna:FloridaMember is an extension member on the axis IncomeTaxAuthorityAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing hnna:FloridaMember with the existing taxonomy concept FL with the taxonomy namespace http://xbrl.sec.gov/stpr/2018-01-31.
+
+Rule Element Id:7657
+Rule version: 9.0.0RC1
+ - </message></entry>
+<entry code="DQC.US.0079.7657" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1145255/000119312518336590/hnna-20180930.xml" cid="4405862640">[DQC.US.0079.7657] hnna:MinnesotaMember is an extension member on the axis IncomeTaxAuthorityAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing hnna:MinnesotaMember with the existing taxonomy concept MN with the taxonomy namespace http://xbrl.sec.gov/stpr/2018-01-31.
+
+Rule Element Id:7657
+Rule version: 9.0.0RC1
+ - </message></entry>
+<entry code="DQC.US.0079.7657" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1145255/000119312518336590/hnna-20180930.xml" cid="4405862640">[DQC.US.0079.7657] hnna:GeorgiaMember is an extension member on the axis IncomeTaxAuthorityAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing hnna:GeorgiaMember with the existing taxonomy concept GA with the taxonomy namespace http://xbrl.sec.gov/stpr/2018-01-31.
+
+Rule Element Id:7657
+Rule version: 9.0.0RC1
+ - </message></entry>
+<entry code="DQC.US.0079.7657" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1145255/000119312518336590/hnna-20180930.xml" cid="4405862640">[DQC.US.0079.7657] hnna:NewHampshireMember is an extension member on the axis IncomeTaxAuthorityAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing hnna:NewHampshireMember with the existing taxonomy concept NH with the taxonomy namespace http://xbrl.sec.gov/stpr/2018-01-31.
+
+Rule Element Id:7657
+Rule version: 9.0.0RC1
+ - </message></entry>
+<entry code="DQC.US.0079.7657" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1145255/000119312518336590/hnna-20180930.xml" cid="4405862640">[DQC.US.0079.7657] hnna:NewYorkMember is an extension member on the axis IncomeTaxAuthorityAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing hnna:NewYorkMember with the existing taxonomy concept NY with the taxonomy namespace http://xbrl.sec.gov/stpr/2018-01-31.
+
+Rule Element Id:7657
+Rule version: 9.0.0RC1
+ - </message></entry>
+<entry code="DQC.US.0079.7657" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1145255/000119312518336590/hnna-20180930.xml" cid="4405862640">[DQC.US.0079.7657] hnna:MassachusettsMember is an extension member on the axis IncomeTaxAuthorityAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing hnna:MassachusettsMember with the existing taxonomy concept MA with the taxonomy namespace http://xbrl.sec.gov/stpr/2018-01-31.
+
+Rule Element Id:7657
+Rule version: 9.0.0RC1
+ - </message></entry>
+<entry code="DQC.US.0079.7657" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1145255/000119312518336590/hnna-20180930.xml" cid="4405862640">[DQC.US.0079.7657] hnna:ConnecticutMember is an extension member on the axis IncomeTaxAuthorityAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing hnna:ConnecticutMember with the existing taxonomy concept CT with the taxonomy namespace http://xbrl.sec.gov/stpr/2018-01-31.
+
+Rule Element Id:7657
+Rule version: 9.0.0RC1
+ - </message></entry>
+<entry code="DQC.US.0079.7657" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1145255/000119312518336590/hnna-20180930.xml" cid="4405862640">[DQC.US.0079.7657] hnna:TexasMember is an extension member on the axis IncomeTaxAuthorityAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing hnna:TexasMember with the existing taxonomy concept TX with the taxonomy namespace http://xbrl.sec.gov/stpr/2018-01-31.
+
+Rule Element Id:7657
+Rule version: 9.0.0RC1
+ - </message></entry>
+<entry code="DQC.US.0079.7657" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1145255/000119312518336590/hnna-20180930.xml" cid="4405862640">[DQC.US.0079.7657] hnna:MarylandMember is an extension member on the axis IncomeTaxAuthorityAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing hnna:MarylandMember with the existing taxonomy concept MD with the taxonomy namespace http://xbrl.sec.gov/stpr/2018-01-31.
+
+Rule Element Id:7657
+Rule version: 9.0.0RC1
+ - </message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 38.71 secs - http://www.sec.gov/Archives/edgar/data/1145255/000119312518336590/hnna-20180930.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1145255/000119312518336590/hnna-20180930.xml"/></entry>
+</log>

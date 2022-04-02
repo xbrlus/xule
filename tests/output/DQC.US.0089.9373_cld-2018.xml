@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 6.42 secs at 2019-11-15T16:49:40 - https://www.sec.gov/Archives/edgar/data/1441849/000110465919054793/cld-20190930.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1441849/000110465919054793/cld-20190930.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpyaz6jrd7\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpyaz6jrd7\packages\resources.zip"/></entry>
+<entry code="DQC.US.0089.9373" level="error">
+ <message effectiveDate="None" severity="error" filing_url="https://www.sec.gov/Archives/edgar/data/1441849/000110465919054793/cld-20190930.xml" cid="2987481752744">[DQC.US.0089.9373] The element us-gaap:OperatingLeaseWeightedAverageRemainingLeaseTerm1 with a value of P2Y has been reported in the filing using the range axis. This element cannot be used with the range axis. To record the range of remaining lease terms use an extension element called OperatingLeaseRemainingLeaseTerm for operating leases and an extension element called FinanceLeaseRemainingLeaseTerm for finance leases.
+ 
+Period :2019-09-30
+Dimensions : srt:RangeAxis=srt:MinimumMember
+
+Rule Element Id:9373
+Rule version: 11.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1441849/000110465919054793/cld-20190930.xml 4263</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1441849/000110465919054793/cld-20190930.xml#ID_968" sourceLine="4263">
+  <property name="label" value="Operating Lease Weighted Average Remaining Lease Term 1"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="OperatingLeaseWeightedAverageRemainingLeaseTerm1"/>
+  <property name="QName" value="us-gaap:OperatingLeaseWeightedAverageRemainingLeaseTerm1"/>
+  <property name="contextRef" value="AS_OF_Sep30_2019_Entity_0001441849_srt_RangeAxis_srt_MinimumMember">
+   <property name="entity" value="0001441849">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-09-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:RangeAxis" value="srt:MinimumMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="P2Y"/>
+ </ref></entry>
+<entry code="DQC.US.0089.9373" level="error">
+ <message effectiveDate="None" severity="error" filing_url="https://www.sec.gov/Archives/edgar/data/1441849/000110465919054793/cld-20190930.xml" cid="2987481752744">[DQC.US.0089.9373] The element us-gaap:OperatingLeaseWeightedAverageRemainingLeaseTerm1 with a value of P27Y has been reported in the filing using the range axis. This element cannot be used with the range axis. To record the range of remaining lease terms use an extension element called OperatingLeaseRemainingLeaseTerm for operating leases and an extension element called FinanceLeaseRemainingLeaseTerm for finance leases.
+ 
+Period :2019-09-30
+Dimensions : srt:RangeAxis=srt:MaximumMember
+
+Rule Element Id:9373
+Rule version: 11.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1441849/000110465919054793/cld-20190930.xml 4264</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1441849/000110465919054793/cld-20190930.xml#ID_969" sourceLine="4264">
+  <property name="label" value="Operating Lease Weighted Average Remaining Lease Term 1"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="OperatingLeaseWeightedAverageRemainingLeaseTerm1"/>
+  <property name="QName" value="us-gaap:OperatingLeaseWeightedAverageRemainingLeaseTerm1"/>
+  <property name="contextRef" value="AS_OF_Sep30_2019_Entity_0001441849_srt_RangeAxis_srt_MaximumMember">
+   <property name="entity" value="0001441849">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-09-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:RangeAxis" value="srt:MaximumMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="P27Y"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 7.05 secs - https://www.sec.gov/Archives/edgar/data/1441849/000110465919054793/cld-20190930.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1441849/000110465919054793/cld-20190930.xml"/></entry>
+</log>

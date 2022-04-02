@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.20 secs at 2020-07-26T08:25:11 - http://www.sec.gov/Archives/edgar/data/1041803/000104180320000033/psmt-20200531x10q.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1041803/000104180320000033/psmt-20200531x10q.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpewnromu3\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpewnromu3\packages\resources.zip"/></entry>
+<entry code="DQC.US.0004.9284" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1041803/000104180320000033/psmt-20200531x10q.htm" severity="error" effectiveDate="2019-09-30" cid="2264959001984">[DQC.US.0004.9284] Comprehensive Income (Loss), Net of Tax, Including Portion Attributable to Noncontrolling Interest with a value of 3,037,000 is not equal to the combined total of Net Income (Loss), Including Portion Attributable to Noncontrolling Interest and Other Comprehensive Income (Loss), Net of Tax ( 14,069,000 + -11,059,000 ) with a value of 3,010,000. 
+
+These values should be equal.
+The properties of this us-gaap:ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest fact are:
+Period :2019-03-01 to 2019-05-31
+Dimensions :  
+Unit : USD
+Decimals of Comprehensive Income (Loss), Net of Tax, Including Portion Attributable to Noncontrolling Interest : -3
+Decimals of Net Income (Loss), Including Portion Attributable to Noncontrolling Interest : -3
+Decimals of Other Comprehensive Income (Loss), Net of Tax : -3
+
+Rule Element Id:9284
+Rule version: 12.0.0 - http://www.sec.gov/Archives/edgar/data/1041803/000104180320000033/psmt-20200531x10q.htm 23</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1041803/000104180320000033/psmt-20200531x10q.htm#ct-nonFraction-6d71428f-4a31-4659-9d73-2d4f5c08ea6d" sourceLine="23">
+  <property name="file" value="psmt-20200531x10q.htm"/>
+  <property name="line" value="23"/>
+  <property name="label" value="Comprehensive Income (Loss), Net of Tax, Including Portion Attributable to Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="QName" value="us-gaap:ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="contextRef" value="Duration_3_1_2019_To_5_31_2019">
+   <property name="entity" value="0001041803">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-03-01"/>
+   <property name="endDate" value="2019-05-31"/>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="3,037,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="3,037"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9284" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1041803/000104180320000033/psmt-20200531x10q.htm" severity="error" effectiveDate="2019-09-30" cid="2264959001984">[DQC.US.0004.9284] Comprehensive Income (Loss), Net of Tax, Including Portion Attributable to Noncontrolling Interest with a value of -2,741,000 is not equal to the combined total of Net Income (Loss), Including Portion Attributable to Noncontrolling Interest and Other Comprehensive Income (Loss), Net of Tax ( 12,633,000 + -15,446,000 ) with a value of -2,813,000. 
+
+These values should be equal.
+The properties of this us-gaap:ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest fact are:
+Period :2020-03-01 to 2020-05-31
+Dimensions :  
+Unit : USD
+Decimals of Comprehensive Income (Loss), Net of Tax, Including Portion Attributable to Noncontrolling Interest : -3
+Decimals of Net Income (Loss), Including Portion Attributable to Noncontrolling Interest : -3
+Decimals of Other Comprehensive Income (Loss), Net of Tax : -3
+
+Rule Element Id:9284
+Rule version: 12.0.0 - http://www.sec.gov/Archives/edgar/data/1041803/000104180320000033/psmt-20200531x10q.htm 23</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1041803/000104180320000033/psmt-20200531x10q.htm#ct-nonFraction-5f8d060e-f319-4fef-a44a-6dac1cdd7f60" sourceLine="23">
+  <property name="file" value="psmt-20200531x10q.htm"/>
+  <property name="line" value="23"/>
+  <property name="label" value="Comprehensive Income (Loss), Net of Tax, Including Portion Attributable to Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="QName" value="us-gaap:ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="contextRef" value="Duration_3_1_2020_To_5_31_2020">
+   <property name="entity" value="0001041803">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-03-01"/>
+   <property name="endDate" value="2020-05-31"/>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-2,741,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="2,741"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9284" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1041803/000104180320000033/psmt-20200531x10q.htm" severity="error" effectiveDate="2019-09-30" cid="2264959001984">[DQC.US.0004.9284] Comprehensive Income (Loss), Net of Tax, Including Portion Attributable to Noncontrolling Interest with a value of 32,566,000 is not equal to the combined total of Net Income (Loss), Including Portion Attributable to Noncontrolling Interest and Other Comprehensive Income (Loss), Net of Tax ( 52,577,000 + -19,952,000 ) with a value of 32,625,000. 
+
+These values should be equal.
+The properties of this us-gaap:ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest fact are:
+Period :2018-09-01 to 2019-05-31
+Dimensions :  
+Unit : USD
+Decimals of Comprehensive Income (Loss), Net of Tax, Including Portion Attributable to Noncontrolling Interest : -3
+Decimals of Net Income (Loss), Including Portion Attributable to Noncontrolling Interest : -3
+Decimals of Other Comprehensive Income (Loss), Net of Tax : -3
+
+Rule Element Id:9284
+Rule version: 12.0.0 - http://www.sec.gov/Archives/edgar/data/1041803/000104180320000033/psmt-20200531x10q.htm 23</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1041803/000104180320000033/psmt-20200531x10q.htm#ct-nonFraction-60e09d90-d470-4be6-8fd1-a7e21417af74" sourceLine="23">
+  <property name="file" value="psmt-20200531x10q.htm"/>
+  <property name="line" value="23"/>
+  <property name="label" value="Comprehensive Income (Loss), Net of Tax, Including Portion Attributable to Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="QName" value="us-gaap:ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="contextRef" value="Duration_9_1_2018_To_5_31_2019">
+   <property name="entity" value="0001041803">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-09-01"/>
+   <property name="endDate" value="2019-05-31"/>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="32,566,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="32,566"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9284" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1041803/000104180320000033/psmt-20200531x10q.htm" severity="error" effectiveDate="2019-09-30" cid="2264959001984">[DQC.US.0004.9284] Comprehensive Income (Loss), Net of Tax, Including Portion Attributable to Noncontrolling Interest with a value of 34,353,000 is not equal to the combined total of Net Income (Loss), Including Portion Attributable to Noncontrolling Interest and Other Comprehensive Income (Loss), Net of Tax ( 58,053,000 + -23,680,000 ) with a value of 34,373,000. 
+
+These values should be equal.
+The properties of this us-gaap:ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest fact are:
+Period :2019-09-01 to 2020-05-31
+Dimensions :  
+Unit : USD
+Decimals of Comprehensive Income (Loss), Net of Tax, Including Portion Attributable to Noncontrolling Interest : -3
+Decimals of Net Income (Loss), Including Portion Attributable to Noncontrolling Interest : -3
+Decimals of Other Comprehensive Income (Loss), Net of Tax : -3
+
+Rule Element Id:9284
+Rule version: 12.0.0 - http://www.sec.gov/Archives/edgar/data/1041803/000104180320000033/psmt-20200531x10q.htm 23</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1041803/000104180320000033/psmt-20200531x10q.htm#ct-nonFraction-09997ee7-1ffa-45b6-9d4d-4620aca2de96" sourceLine="23">
+  <property name="file" value="psmt-20200531x10q.htm"/>
+  <property name="line" value="23"/>
+  <property name="label" value="Comprehensive Income (Loss), Net of Tax, Including Portion Attributable to Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="QName" value="us-gaap:ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="contextRef" value="Duration_9_1_2019_To_5_31_2020">
+   <property name="entity" value="0001041803">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-09-01"/>
+   <property name="endDate" value="2020-05-31"/>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="34,353,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="34,353"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 4.52 secs - http://www.sec.gov/Archives/edgar/data/1041803/000104180320000033/psmt-20200531x10q.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1041803/000104180320000033/psmt-20200531x10q.htm"/></entry>
+</log>

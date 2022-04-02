@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.59 secs at 2020-07-24T23:32:22 - http://www.sec.gov/Archives/edgar/data/101829/000010182920000034/utx-20200331.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/101829/000010182920000034/utx-20200331.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpvshyowdz\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpvshyowdz\packages\resources.zip"/></entry>
+<entry code="DQC.US.0055.7493" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/101829/000010182920000034/utx-20200331.htm" severity="error" effectiveDate="2018-06-01" cid="1396239148416">[DQC.US.0055.7493] Neither the  Domestic Plan [Member] NOR Foreign Plan [Member] has been used on the Retirement Plan Sponsor Location [Axis] in the presentation linkbase  http://www.utc.com/role/EmployeeBenefitPlansDetails. The FASB requires that either one or both of these members is present on the Retirement Plan Sponsor Location [Axis]. Please review the axis and add one of these members or assess the need to use the Retirement Plan Sponsor Location [Axis].
+
+The axis RetirementPlanSponsorLocationAxis has the following members listed under it:
+us-gaap:RetirementPlanSponsorLocationDomain, 
+country:US
+
+
+Rule Element Id:7493
+Rule version: 13.0.0RC1 - </message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.73 secs - http://www.sec.gov/Archives/edgar/data/101829/000010182920000034/utx-20200331.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/101829/000010182920000034/utx-20200331.htm"/></entry>
+</log>

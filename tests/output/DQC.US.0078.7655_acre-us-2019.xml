@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 7.80 secs at 2020-07-29T11:00:30 - http://www.sec.gov/Archives/edgar/data/1762359/000176235920000017/q42019form10-k.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1762359/000176235920000017/q42019form10-k.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmprf8s6nxr\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmprf8s6nxr\packages\resources.zip"/></entry>
+<entry code="DQC.US.0078.7655" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1762359/000176235920000017/q42019form10-k.htm" severity="error" effectiveDate="2019-01-01" cid="1486732240256">[DQC.US.0078.7655] The filer has reported a value for the element us-gaap:MinorityInterestOwnershipPercentageByNoncontrollingOwners with a value of 0.2164 without using the axis OwnershipAxis. This axis must be used when reporting a value for us-gaap:MinorityInterestOwnershipPercentageByNoncontrollingOwners. Please refer to the FASB implementation guide on Dimensional Modeling for Disclosures of Consolidated and Nonconsolidated Entities on the FASB website.
+
+The properties of this us-gaap:MinorityInterestOwnershipPercentageByNoncontrollingOwners fact are:
+Period :2019-12-31
+Dimensions : acrg:SubsidiaryspecificdataAxis=acrg:HSCPLLCMember
+Unit : pure
+
+Rule Element Id:7655
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1762359/000176235920000017/q42019form10-k.htm 3056</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1762359/000176235920000017/q42019form10-k.htm#d27038958e2409-wk-Fact-DC9242CD8AF37D81E8CBC632481F005C" sourceLine="3056">
+  <property name="file" value="q42019form10-k.htm"/>
+  <property name="line" value="3056"/>
+  <property name="label" value="Noncontrolling Interest, Ownership Percentage by Noncontrolling Owners"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="MinorityInterestOwnershipPercentageByNoncontrollingOwners"/>
+  <property name="QName" value="us-gaap:MinorityInterestOwnershipPercentageByNoncontrollingOwners"/>
+  <property name="contextRef" value="FI2019Q4_acrg_SubsidiaryspecificdataAxis_acrg_HSCPLLCMember">
+   <property name="entity" value="0001762359">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="acrg:SubsidiaryspecificdataAxis" value="acrg:HSCPLLCMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.2164"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="21.64"/>
+ </ref></entry>
+<entry code="DQC.US.0078.7655" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1762359/000176235920000017/q42019form10-k.htm" severity="error" effectiveDate="2019-01-01" cid="1486732240256">[DQC.US.0078.7655] The filer has reported a value for the element us-gaap:MinorityInterestOwnershipPercentageByNoncontrollingOwners with a value of 0.2567 without using the axis OwnershipAxis. This axis must be used when reporting a value for us-gaap:MinorityInterestOwnershipPercentageByNoncontrollingOwners. Please refer to the FASB implementation guide on Dimensional Modeling for Disclosures of Consolidated and Nonconsolidated Entities on the FASB website.
+
+The properties of this us-gaap:MinorityInterestOwnershipPercentageByNoncontrollingOwners fact are:
+Period :2018-12-31
+Dimensions : acrg:SubsidiaryspecificdataAxis=acrg:HSCPLLCMember
+Unit : pure
+
+Rule Element Id:7655
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1762359/000176235920000017/q42019form10-k.htm 3056</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1762359/000176235920000017/q42019form10-k.htm#d27038958e2429-wk-Fact-7F885C95E9234CFF1573C632A7577C07" sourceLine="3056">
+  <property name="file" value="q42019form10-k.htm"/>
+  <property name="line" value="3056"/>
+  <property name="label" value="Noncontrolling Interest, Ownership Percentage by Noncontrolling Owners"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="MinorityInterestOwnershipPercentageByNoncontrollingOwners"/>
+  <property name="QName" value="us-gaap:MinorityInterestOwnershipPercentageByNoncontrollingOwners"/>
+  <property name="contextRef" value="FI2018Q4_acrg_SubsidiaryspecificdataAxis_acrg_HSCPLLCMember">
+   <property name="entity" value="0001762359">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="acrg:SubsidiaryspecificdataAxis" value="acrg:HSCPLLCMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.2567"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="25.67"/>
+ </ref></entry>
+<entry code="DQC.US.0078.7655" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1762359/000176235920000017/q42019form10-k.htm" severity="error" effectiveDate="2019-01-01" cid="1486732240256">[DQC.US.0078.7655] The filer has reported a value for the element us-gaap:MinorityInterestOwnershipPercentageByParent with a value of 0.84 without using the axis OwnershipAxis. This axis must be used when reporting a value for us-gaap:MinorityInterestOwnershipPercentageByParent. Please refer to the FASB implementation guide on Dimensional Modeling for Disclosures of Consolidated and Nonconsolidated Entities on the FASB website.
+
+The properties of this us-gaap:MinorityInterestOwnershipPercentageByParent fact are:
+Period :2018-05-31
+Dimensions : us-gaap:BusinessAcquisitionAxis=acrg:WPMCMember
+Unit : pure
+
+Rule Element Id:7655
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1762359/000176235920000017/q42019form10-k.htm 3056</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1762359/000176235920000017/q42019form10-k.htm#d27026095e8098-wk-Fact-E28E2F1FF0D48BFC42659D7D6995812F" sourceLine="3056">
+  <property name="file" value="q42019form10-k.htm"/>
+  <property name="line" value="3056"/>
+  <property name="label" value="Noncontrolling Interest, Ownership Percentage by Parent"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="MinorityInterestOwnershipPercentageByParent"/>
+  <property name="QName" value="us-gaap:MinorityInterestOwnershipPercentageByParent"/>
+  <property name="contextRef" value="I2018Q2DBWPMC_us-gaap_BusinessAcquisitionAxis_acrg_WPMCMember">
+   <property name="entity" value="0001762359">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:BusinessAcquisitionAxis" value="acrg:WPMCMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.84"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="84"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.80 secs - http://www.sec.gov/Archives/edgar/data/1762359/000176235920000017/q42019form10-k.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1762359/000176235920000017/q42019form10-k.htm"/></entry>
+</log>

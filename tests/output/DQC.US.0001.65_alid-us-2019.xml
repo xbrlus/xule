@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23202 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.41 secs at 2021-03-04T20:37:25 - https://www.sec.gov/Archives/edgar/data/1575295/000147793220004037/alid-20200531.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1575295/000147793220004037/alid-20200531.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpn3rwsgv2\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpn3rwsgv2\packages\resources.zip"/></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1575295/000147793220004037/alid-20200531.xml" severity="error" effectiveDate="2017-01-01" cid="1974461568384">[DQC.US.0001.65] The concept Cash with a value of 0 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member SignificantOtherObservableInputsLevelTwoMember.  
+The filer has defined a default member for the axis FairValueByMeasurementBasisAxis of us-gaap:FairValueDisclosureItemAmountsDomain. This member is not permitted on this axis, and given that it is the default, this causes every fact in the instance to include this member by default, and thus be an error. The default member should be changed to us-gaap:PortionAtFairValueFairValueDisclosureMember as this is the only default that can be used with this axis.
+The properties of the fact for Cash are:
+Period: 2020-05-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=alid:SignificantOtherObservableInputsLevelTwoMember 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/1575295/000147793220004037/alid-20200531.xml 2893</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1575295/000147793220004037/alid-20200531.xml#element(/1/674)" sourceLine="2893">
+  <property name="label" value="Cash"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Cash"/>
+  <property name="QName" value="us-gaap:Cash"/>
+  <property name="contextRef" value="AsOf2020-05-31_alid_SignificantOtherObservableInputsLevelTwoMember">
+   <property name="entity" value="0001575295">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="alid:SignificantOtherObservableInputsLevelTwoMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1575295/000147793220004037/alid-20200531.xml" severity="error" effectiveDate="2017-01-01" cid="1974461568384">[DQC.US.0001.65] The concept Cash with a value of 39,384 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member QuotedPricesInActiveMarketsForIdenticalInstrumentsLevelOneMember.  
+The filer has defined a default member for the axis FairValueByMeasurementBasisAxis of us-gaap:FairValueDisclosureItemAmountsDomain. This member is not permitted on this axis, and given that it is the default, this causes every fact in the instance to include this member by default, and thus be an error. The default member should be changed to us-gaap:PortionAtFairValueFairValueDisclosureMember as this is the only default that can be used with this axis.
+The properties of the fact for Cash are:
+Period: 2020-05-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=alid:QuotedPricesInActiveMarketsForIdenticalInstrumentsLevelOneMember 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/1575295/000147793220004037/alid-20200531.xml 2892</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1575295/000147793220004037/alid-20200531.xml#element(/1/673)" sourceLine="2892">
+  <property name="label" value="Cash"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Cash"/>
+  <property name="QName" value="us-gaap:Cash"/>
+  <property name="contextRef" value="AsOf2020-05-31_alid_QuotedPricesInActiveMarketsForIdenticalInstrumentsLevelOneMember">
+   <property name="entity" value="0001575295">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="alid:QuotedPricesInActiveMarketsForIdenticalInstrumentsLevelOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="39,384"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1575295/000147793220004037/alid-20200531.xml" severity="error" effectiveDate="2017-01-01" cid="1974461568384">[DQC.US.0001.65] The concept Cash with a value of 0 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member SignificantUnobservableInputsLevelThreeMember.  
+The filer has defined a default member for the axis FairValueByMeasurementBasisAxis of us-gaap:FairValueDisclosureItemAmountsDomain. This member is not permitted on this axis, and given that it is the default, this causes every fact in the instance to include this member by default, and thus be an error. The default member should be changed to us-gaap:PortionAtFairValueFairValueDisclosureMember as this is the only default that can be used with this axis.
+The properties of the fact for Cash are:
+Period: 2020-05-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=alid:SignificantUnobservableInputsLevelThreeMember 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/1575295/000147793220004037/alid-20200531.xml 2894</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1575295/000147793220004037/alid-20200531.xml#element(/1/675)" sourceLine="2894">
+  <property name="label" value="Cash"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Cash"/>
+  <property name="QName" value="us-gaap:Cash"/>
+  <property name="contextRef" value="AsOf2020-05-31_alid_SignificantUnobservableInputsLevelThreeMember">
+   <property name="entity" value="0001575295">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="alid:SignificantUnobservableInputsLevelThreeMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 20.41 secs - https://www.sec.gov/Archives/edgar/data/1575295/000147793220004037/alid-20200531.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1575295/000147793220004037/alid-20200531.xml"/></entry>
+</log>

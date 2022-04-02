@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22704 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.99 secs at 2019-01-25T15:14:19 - http://www.sec.gov/Archives/edgar/data/1336047/000133604718000042/bwp2018q110q33118.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1336047/000133604718000042/bwp2018q110q33118.htm"/></entry>
+<entry code="DQC.US.0074.7649" level="error">
+ <message cid="4304478336" severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1336047/000133604718000042/bwp2018q110q33118.htm">[DQC.US.0074.7649] The element us-gaap:RevenueRemainingPerformanceObligation with a value of 9,065,000,000 has been tagged with the axis RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis with a nil value as a member. This element should be reported without using this axis.
+
+The properties of this us-gaap:RevenueRemainingPerformanceObligation fact are:
+Period :2018-03-31
+Dimensions : us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis=None
+Unit : USD
+
+Rule Element Id:7649
+Rule version: 9.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1336047/000133604718000042/bwp2018q110q33118.htm 1343</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1336047/000133604718000042/bwp2018q110q33118.htm#d7506742e1226-wk-Fact-3EDE5252A17A87A69B1DF91E4C3DA43C" sourceLine="1343">
+  <property name="file" value="bwp2018q110q33118.htm"/>
+  <property name="line" value="1343"/>
+  <property name="label" value="Revenue, Remaining Performance Obligation"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="RevenueRemainingPerformanceObligation"/>
+  <property name="QName" value="us-gaap:RevenueRemainingPerformanceObligation"/>
+  <property name="contextRef" value="FI2018Q1_us-gaap_RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis_us-gaap_RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis.domain_nil">
+   <property name="entity" value="0001336047">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis" value="&lt;us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis.domain xsi:nil=&quot;true&quot;/>
+				
+"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="9,065,000,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="9,065.0"/>
+ </ref></entry>
+<entry code="DQC.US.0074.7649" level="error">
+ <message cid="4304478336" severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1336047/000133604718000042/bwp2018q110q33118.htm">[DQC.US.0074.7649] The element bwp:CommittedFirmAgreements with a value of 9,324,000,000 has been tagged with the axis RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis with a nil value as a member. This element should be reported without using this axis.
+
+The properties of this bwp:CommittedFirmAgreements fact are:
+Period :2018-01-01 to 2018-03-31
+Dimensions : us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis=None
+Unit : USD
+
+Rule Element Id:7649
+Rule version: 9.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1336047/000133604718000042/bwp2018q110q33118.htm 1343</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1336047/000133604718000042/bwp2018q110q33118.htm#d7506742e1398-wk-Fact-4C7A6262B6D04E3500C1F91EC98E2A53" sourceLine="1343">
+  <property name="file" value="bwp2018q110q33118.htm"/>
+  <property name="line" value="1343"/>
+  <property name="label" value="Committed Firm Agreements"/>
+  <property name="namespace" value="http://www.bwpmlp.com/20180331"/>
+  <property name="name" value="CommittedFirmAgreements"/>
+  <property name="QName" value="bwp:CommittedFirmAgreements"/>
+  <property name="contextRef" value="FD2018Q1YTD_us-gaap_RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis_us-gaap_RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis.domain_nil">
+   <property name="entity" value="0001336047">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis" value="&lt;us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis.domain xsi:nil=&quot;true&quot;/>
+				
+"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="9,324,000,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="9,324.0"/>
+ </ref></entry>
+<entry code="DQC.US.0074.7649" level="error">
+ <message cid="4304478336" severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1336047/000133604718000042/bwp2018q110q33118.htm">[DQC.US.0074.7649] The element bwp:OperatingLeasesFutureMinimumLeaseRevenues with a value of 259,000,000 has been tagged with the axis RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis with a nil value as a member. This element should be reported without using this axis.
+
+The properties of this bwp:OperatingLeasesFutureMinimumLeaseRevenues fact are:
+Period :2018-01-01 to 2018-03-31
+Dimensions : us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis=None
+Unit : USD
+
+Rule Element Id:7649
+Rule version: 9.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1336047/000133604718000042/bwp2018q110q33118.htm 1343</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1336047/000133604718000042/bwp2018q110q33118.htm#d7506742e1307-wk-Fact-25E52AD4D4420E09FACEF91EA71F261B" sourceLine="1343">
+  <property name="file" value="bwp2018q110q33118.htm"/>
+  <property name="line" value="1343"/>
+  <property name="label" value="Operating Leases, Future Minimum Lease Revenues"/>
+  <property name="namespace" value="http://www.bwpmlp.com/20180331"/>
+  <property name="name" value="OperatingLeasesFutureMinimumLeaseRevenues"/>
+  <property name="QName" value="bwp:OperatingLeasesFutureMinimumLeaseRevenues"/>
+  <property name="contextRef" value="FD2018Q1YTD_us-gaap_RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis_us-gaap_RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis.domain_nil">
+   <property name="entity" value="0001336047">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis" value="&lt;us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis.domain xsi:nil=&quot;true&quot;/>
+				
+"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="259,000,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="259.0"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 2.81 secs - http://www.sec.gov/Archives/edgar/data/1336047/000133604718000042/bwp2018q110q33118.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1336047/000133604718000042/bwp2018q110q33118.htm"/></entry>
+</log>

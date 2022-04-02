@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.94 secs at 2020-10-30T11:29:16 - https://www.sec.gov/Archives/edgar/data/752642/000149315219002992/umh-20181231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/752642/000149315219002992/umh-20181231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmp68p91q20\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmp68p91q20\packages\resources.zip"/></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/752642/000149315219002992/umh-20181231.xml" severity="error" effectiveDate="2019-09-30" cid="2364941505920">[DQC.US.0081.9277] The line item concept us-gaap:CostOfGoodsAndServicesSold with a value of 11,715,987 is represented as a child of us-gaap:OperatingExpenses with a value of 111,009,550 in the companies extension taxonomy role 00000004 - Statement - Consolidated Statements of Income (Loss). The element us-gaap:CostOfGoodsAndServicesSold however, is not represented as a component of us-gaap:OperatingExpenses in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:CostOfGoodsAndServicesSold as a sibling element (or child of that sibling) relative to us-gaap:OperatingExpenses in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:OperatingExpenses and the child element us-gaap:CostOfGoodsAndServicesSold.
+The element CostOfGoodsAndServicesSold includes those expenses which can be clearly related to production and included in cost of sales or services whereas these are excluded in Operating Expenses. Consider using the element CostsAndExpenses instead of using OperatingExpenses as the parent.  The element CostsAndExpenses includes operating expenses and CostOfRevenue.
+
+The properties of this us-gaap:CostOfGoodsAndServicesSold fact are:
+
+Period :2018-01-01 to 2018-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 14.0.0RC1
+ - https://www.sec.gov/Archives/edgar/data/752642/000149315219002992/umh-20181231.xml 9671</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/752642/000149315219002992/umh-20181231.xml#element(/1/1081)" sourceLine="9671">
+  <property name="label" value="Cost of Sales of Manufactured Homes"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="CostOfGoodsAndServicesSold"/>
+  <property name="QName" value="us-gaap:CostOfGoodsAndServicesSold"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31">
+   <property name="entity" value="0000752642">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="11,715,987"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/752642/000149315219002992/umh-20181231.xml" severity="error" effectiveDate="2019-09-30" cid="2364941505920">[DQC.US.0081.9277] The line item concept us-gaap:CostOfGoodsAndServicesSold with a value of 6,466,520 is represented as a child of us-gaap:OperatingExpenses with a value of 83,255,514 in the companies extension taxonomy role 00000004 - Statement - Consolidated Statements of Income (Loss). The element us-gaap:CostOfGoodsAndServicesSold however, is not represented as a component of us-gaap:OperatingExpenses in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:CostOfGoodsAndServicesSold as a sibling element (or child of that sibling) relative to us-gaap:OperatingExpenses in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:OperatingExpenses and the child element us-gaap:CostOfGoodsAndServicesSold.
+The element CostOfGoodsAndServicesSold includes those expenses which can be clearly related to production and included in cost of sales or services whereas these are excluded in Operating Expenses. Consider using the element CostsAndExpenses instead of using OperatingExpenses as the parent.  The element CostsAndExpenses includes operating expenses and CostOfRevenue.
+
+The properties of this us-gaap:CostOfGoodsAndServicesSold fact are:
+
+Period :2016-01-01 to 2016-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 14.0.0RC1
+ - https://www.sec.gov/Archives/edgar/data/752642/000149315219002992/umh-20181231.xml 9673</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/752642/000149315219002992/umh-20181231.xml#element(/1/1083)" sourceLine="9673">
+  <property name="label" value="Cost of Sales of Manufactured Homes"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="CostOfGoodsAndServicesSold"/>
+  <property name="QName" value="us-gaap:CostOfGoodsAndServicesSold"/>
+  <property name="contextRef" value="From2016-01-01to2016-12-31">
+   <property name="entity" value="0000752642">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-01-01"/>
+   <property name="endDate" value="2016-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="6,466,520"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/752642/000149315219002992/umh-20181231.xml" severity="error" effectiveDate="2019-09-30" cid="2364941505920">[DQC.US.0081.9277] The line item concept us-gaap:CostOfGoodsAndServicesSold with a value of 8,471,190 is represented as a child of us-gaap:OperatingExpenses with a value of 96,616,337 in the companies extension taxonomy role 00000004 - Statement - Consolidated Statements of Income (Loss). The element us-gaap:CostOfGoodsAndServicesSold however, is not represented as a component of us-gaap:OperatingExpenses in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:CostOfGoodsAndServicesSold as a sibling element (or child of that sibling) relative to us-gaap:OperatingExpenses in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:OperatingExpenses and the child element us-gaap:CostOfGoodsAndServicesSold.
+The element CostOfGoodsAndServicesSold includes those expenses which can be clearly related to production and included in cost of sales or services whereas these are excluded in Operating Expenses. Consider using the element CostsAndExpenses instead of using OperatingExpenses as the parent.  The element CostsAndExpenses includes operating expenses and CostOfRevenue.
+
+The properties of this us-gaap:CostOfGoodsAndServicesSold fact are:
+
+Period :2017-01-01 to 2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 14.0.0RC1
+ - https://www.sec.gov/Archives/edgar/data/752642/000149315219002992/umh-20181231.xml 9672</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/752642/000149315219002992/umh-20181231.xml#element(/1/1082)" sourceLine="9672">
+  <property name="label" value="Cost of Sales of Manufactured Homes"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="CostOfGoodsAndServicesSold"/>
+  <property name="QName" value="us-gaap:CostOfGoodsAndServicesSold"/>
+  <property name="contextRef" value="From2017-01-01to2017-12-31">
+   <property name="entity" value="0000752642">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="8,471,190"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 27.75 secs - https://www.sec.gov/Archives/edgar/data/752642/000149315219002992/umh-20181231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/752642/000149315219002992/umh-20181231.xml"/></entry>
+</log>

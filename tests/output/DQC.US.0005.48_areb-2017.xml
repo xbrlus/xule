@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.03 secs at 2018-10-16T09:53:03 - http://www.sec.gov/Archives/edgar/data/1648087/000107878218000657/areb-20180331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1648087/000107878218000657/areb-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - areb-20180331.xml </message>
+ <ref href="areb-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpvikvmra1/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpvikvmra1/packages/resources.zip"/></entry>
+<entry code="DQC.US.0005.48" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1648087/000107878218000657/areb-20180331.xml" cid="4355575480" severity="error">[DQC.US.0005.48] The date of 2018-03-31 used for Subsequent Event, Description and the Subsequent Event Type [Axis] with a value of Company received an additional $95,000 under the convertible debenture &amp;#150; related party is earlier than or the same as the reporting period end date of 2018-03-31. Either remove the subsequent event axis from this value, change the reporting period end date for the value or update the Document and Entity Information document period end date.
+The properties of this us-gaap:SubsequentEventDescription fact are:
+Period: 2018-01-01 to 2018-03-31
+Dimensions: us-gaap:SubsequentEventTypeAxis=fil:Event1Member
+Unit: None
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1648087/000107878218000657/areb-20180331.xml 361</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1648087/000107878218000657/areb-20180331.xml#us-gaap_SubsequentEventDescription_Y18Q1_SubsequentEventType-Event1_id" sourceLine="361">
+  <property name="label" value="Subsequent Event, Description"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="SubsequentEventDescription"/>
+  <property name="QName" value="us-gaap:SubsequentEventDescription"/>
+  <property name="contextRef" value="Y18Q1_SubsequentEventType-Event1">
+   <property name="entity" value="0001648087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:SubsequentEventTypeAxis" value="fil:Event1Member"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="Company received an additional $95,000 under the convertible debenture &amp;#150; related party"/>
+ </ref></entry>
+<entry code="DQC.US.0005.48" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1648087/000107878218000657/areb-20180331.xml" cid="4355575480" severity="error">[DQC.US.0005.48] The date of 2018-03-31 used for Subsequent Event, Description and the Subsequent Event Type [Axis] with a value of issued an additional 95,000 warrants is earlier than or the same as the reporting period end date of 2018-03-31. Either remove the subsequent event axis from this value, change the reporting period end date for the value or update the Document and Entity Information document period end date.
+The properties of this us-gaap:SubsequentEventDescription fact are:
+Period: 2018-01-01 to 2018-03-31
+Dimensions: us-gaap:SubsequentEventTypeAxis=fil:Event2Member
+Unit: None
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1648087/000107878218000657/areb-20180331.xml 362</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1648087/000107878218000657/areb-20180331.xml#us-gaap_SubsequentEventDescription_Y18Q1_SubsequentEventType-Event2_id" sourceLine="362">
+  <property name="label" value="Subsequent Event, Description"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="SubsequentEventDescription"/>
+  <property name="QName" value="us-gaap:SubsequentEventDescription"/>
+  <property name="contextRef" value="Y18Q1_SubsequentEventType-Event2">
+   <property name="entity" value="0001648087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:SubsequentEventTypeAxis" value="fil:Event2Member"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="issued an additional 95,000 warrants"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 1.30 secs - http://www.sec.gov/Archives/edgar/data/1648087/000107878218000657/areb-20180331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1648087/000107878218000657/areb-20180331.xml"/></entry>
+</log>

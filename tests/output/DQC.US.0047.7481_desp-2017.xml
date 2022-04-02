@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 4.42 secs at 2018-10-16T10:03:36 - https://www.sec.gov/Archives/edgar/data/1703141/000119312518128984/desp-20171231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1703141/000119312518128984/desp-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - desp-20171231.xml </message>
+ <ref href="desp-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpjvz_bej3/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpjvz_bej3/packages/resources.zip"/></entry>
+<entry code="DQC.US.0047.7481" level="error">
+ <message severity="error" filing_url="https://www.sec.gov/Archives/edgar/data/1703141/000119312518128984/desp-20171231.xml" cid="4339793592">[DQC.US.0047.7481] In the company's extension taxonomy the concept Net Cash Provided by (Used in) Operating Activities includes us-gaap:LossContingencyAccrualCarryingValuePeriodIncreaseDecrease as a summation-child. The concept us-gaap:LossContingencyAccrualCarryingValuePeriodIncreaseDecrease  should not appear as a child of NetCashProvidedByUsedInOperatingActivities because it does not have a balance type. Increase (Decrease) items without balance attributes are used in a roll forward and should not be used in the cash flow statement as they represent the impact on the balance sheet item which is the opposite of the impact on cash.
+
+Rule Element Id:7481
+Rule version: 9.0.0RC1 - </message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 15.55 secs - https://www.sec.gov/Archives/edgar/data/1703141/000119312518128984/desp-20171231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1703141/000119312518128984/desp-20171231.xml"/></entry>
+</log>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 7.10 secs at 2018-10-16T10:02:36 - https://www.sec.gov/Archives/edgar/data/1504461/000150446118000024/ngl-20180331.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1504461/000150446118000024/ngl-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - ngl-20180331.xml </message>
+ <ref href="ngl-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp7l9u_1kd/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp7l9u_1kd/packages/resources.zip"/></entry>
+<entry code="DQC.US.0051.7484" level="error">
+ <message severity="error" filing_url="https://www.sec.gov/Archives/edgar/data/1504461/000150446118000024/ngl-20180331.xml" cid="4410556088">[DQC.US.0051.7484] IncomeTaxExpenseBenefit should not be included in the calculation of IncomeLossIncludingPortionAttributableToNoncontrollingInterest in the group http://www.nglenergypartners.com/role/ConsolidatingGuarantorAndNonGuarantorFinancialInformationStatementOfOperationsDetails. IncomeLossIncludingPortionAttributableToNoncontrollingInterest is before the deduction of tax. Excluding the tax expense from the amount is inconsistent with the meaning of the element  because this element represents a before tax item and should not be used to represent an after tax item. If IncomeLossIncludingPortionAttributableToNoncontrollingInterest represents  the amount after tax then use NetIncomeLoss instead.
+
+Element Checked : IncomeLossIncludingPortionAttributableToNoncontrollingInterest
+
+Rule Element Id:7484
+Rule version: 9.0.0RC1 - </message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.36 secs - https://www.sec.gov/Archives/edgar/data/1504461/000150446118000024/ngl-20180331.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1504461/000150446118000024/ngl-20180331.xml"/></entry>
+</log>

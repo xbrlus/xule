@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22739 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.93 secs at 2019-04-18T10:33:04 - https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv and effective_dates.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpkd80at5t/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpkd80at5t/packages/resources.zip"/></entry>
+<entry code="DQC.US.0004.9280" level="error">
+ <message cid="4459130552" filing_url="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml" severity="error" effectiveDate="None">[DQC.US.0004.9280] Assets with a value of 10,031,000,000 is not equal to the combined total of Current Assets and Noncurrent assets ( 1,500,000,000 + 2,349,000,000 ) with a value of 3,849,000,000. These values should be equal.
+The properties of this us-gaap:Assets fact are:
+Period :2017-12-31
+Dimensions :  us-gaap:DebtInstrumentAxis=pseg:PowerSeniorNotesMember, us-gaap:ConsolidatedEntitiesAxis=us-gaap:GuarantorSubsidiariesMember
+Unit : USD
+Decimals of Assets : -6
+Decimals of Current Assets : -6
+Decimals of Non Current Assets : -6
+
+Rule Element Id:9280
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml 13023</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml#Fact-44AB18C47B885CF79C7B7D695EBA1799" sourceLine="13023">
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="FI2017Q4_us-gaap_ConsolidatedEntitiesAxis_us-gaap_GuarantorSubsidiariesMember_us-gaap_DebtInstrumentAxis_pseg_PowerSeniorNotesMember">
+   <property name="entity" value="0000788784">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:ConsolidatedEntitiesAxis" value="us-gaap:GuarantorSubsidiariesMember"/>
+    <property name="us-gaap:DebtInstrumentAxis" value="pseg:PowerSeniorNotesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="10,031,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9280" level="error">
+ <message cid="4459130552" filing_url="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml" severity="error" effectiveDate="None">[DQC.US.0004.9280] Assets with a value of 9,883,000,000 is not equal to the combined total of Current Assets and Noncurrent assets ( 4,497,000,000 + 245,000,000 ) with a value of 4,742,000,000. These values should be equal.
+The properties of this us-gaap:Assets fact are:
+Period :2018-09-30
+Dimensions :  us-gaap:DebtInstrumentAxis=pseg:PowerSeniorNotesMember, dei:LegalEntityAxis=pseg:PowerParentMember
+Unit : USD
+Decimals of Assets : -6
+Decimals of Current Assets : -6
+Decimals of Non Current Assets : -6
+
+Rule Element Id:9280
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml 13033</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml#Fact-E68E55A83F9750F2AAFB64BC09081675" sourceLine="13033">
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="FI2018Q3_dei_LegalEntityAxis_pseg_PowerParentMember_us-gaap_DebtInstrumentAxis_pseg_PowerSeniorNotesMember">
+   <property name="entity" value="0000788784">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-09-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:DebtInstrumentAxis" value="pseg:PowerSeniorNotesMember"/>
+    <property name="dei:LegalEntityAxis" value="pseg:PowerParentMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="9,883,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9280" level="error">
+ <message cid="4459130552" filing_url="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml" severity="error" effectiveDate="None">[DQC.US.0004.9280] Assets with a value of 9,853,000,000 is not equal to the combined total of Current Assets and Noncurrent assets ( 1,353,000,000 + 2,302,000,000 ) with a value of 3,655,000,000. These values should be equal.
+The properties of this us-gaap:Assets fact are:
+Period :2018-09-30
+Dimensions :  us-gaap:DebtInstrumentAxis=pseg:PowerSeniorNotesMember, us-gaap:ConsolidatedEntitiesAxis=us-gaap:GuarantorSubsidiariesMember
+Unit : USD
+Decimals of Assets : -6
+Decimals of Current Assets : -6
+Decimals of Non Current Assets : -6
+
+Rule Element Id:9280
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml 13035</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml#Fact-936D85EC624353588A566A5AEADFAADE" sourceLine="13035">
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="FI2018Q3_us-gaap_ConsolidatedEntitiesAxis_us-gaap_GuarantorSubsidiariesMember_us-gaap_DebtInstrumentAxis_pseg_PowerSeniorNotesMember">
+   <property name="entity" value="0000788784">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-09-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:ConsolidatedEntitiesAxis" value="us-gaap:GuarantorSubsidiariesMember"/>
+    <property name="us-gaap:DebtInstrumentAxis" value="pseg:PowerSeniorNotesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="9,853,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9280" level="error">
+ <message cid="4459130552" filing_url="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml" severity="error" effectiveDate="None">[DQC.US.0004.9280] Assets with a value of 42,716,000,000 is not equal to the combined total of Current Assets and Noncurrent assets ( 3,312,000,000 + 7,607,000,000 ) with a value of 10,919,000,000. These values should be equal.
+The properties of this us-gaap:Assets fact are:
+Period :2017-12-31
+Dimensions :  
+Unit : USD
+Decimals of Assets : -6
+Decimals of Current Assets : -6
+Decimals of Non Current Assets : -6
+
+Rule Element Id:9280
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml 13018</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml#Fact-028927CDF1C25DD480C75DCD7C998C8F" sourceLine="13018">
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="FI2017Q4">
+   <property name="entity" value="0000788784">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="42,716,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9280" level="error">
+ <message cid="4459130552" filing_url="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml" severity="error" effectiveDate="None">[DQC.US.0004.9280] Assets with a value of 28,554,000,000 is not equal to the combined total of Current Assets and Noncurrent assets ( 1,876,000,000 + 3,662,000,000 ) with a value of 5,538,000,000. These values should be equal.
+The properties of this us-gaap:Assets fact are:
+Period :2017-12-31
+Dimensions :  dei:LegalEntityAxis=pseg:PseAndGMember
+Unit : USD
+Decimals of Assets : -6
+Decimals of Current Assets : -6
+Decimals of Non Current Assets : -6
+
+Rule Element Id:9280
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml 13022</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml#Fact-BB1EED7B10E45471A52CBB0172A62001" sourceLine="13022">
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="FI2017Q4_dei_LegalEntityAxis_pseg_PseAndGMember">
+   <property name="entity" value="0000788784">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="dei:LegalEntityAxis" value="pseg:PseAndGMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="28,554,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9280" level="error">
+ <message cid="4459130552" filing_url="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml" severity="error" effectiveDate="None">[DQC.US.0004.9280] Assets with a value of -11,203,000,000 is not equal to the combined total of Current Assets and Noncurrent assets ( -4,776,000,000 + -217,000,000 ) with a value of -4,993,000,000. These values should be equal.
+The properties of this us-gaap:Assets fact are:
+Period :2018-09-30
+Dimensions :  us-gaap:ConsolidationItemsAxis=us-gaap:ConsolidationEliminationsMember, us-gaap:DebtInstrumentAxis=pseg:PowerSeniorNotesMember
+Unit : USD
+Decimals of Assets : -6
+Decimals of Current Assets : -6
+Decimals of Non Current Assets : -6
+
+Rule Element Id:9280
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml 13037</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml#Fact-00F9C9C1809B5C169F42749E0D29F665" sourceLine="13037">
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="FI2018Q3_us-gaap_ConsolidationItemsAxis_us-gaap_ConsolidationEliminationsMember_us-gaap_DebtInstrumentAxis_pseg_PowerSeniorNotesMember">
+   <property name="entity" value="0000788784">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-09-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:ConsolidationItemsAxis" value="us-gaap:ConsolidationEliminationsMember"/>
+    <property name="us-gaap:DebtInstrumentAxis" value="pseg:PowerSeniorNotesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-11,203,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9280" level="error">
+ <message cid="4459130552" filing_url="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml" severity="error" effectiveDate="None">[DQC.US.0004.9280] Assets with a value of 4,148,000,000 is not equal to the combined total of Current Assets and Noncurrent assets ( 302,000,000 + 106,000,000 ) with a value of 408,000,000. These values should be equal.
+The properties of this us-gaap:Assets fact are:
+Period :2018-09-30
+Dimensions :  us-gaap:DebtInstrumentAxis=pseg:PowerSeniorNotesMember, us-gaap:ConsolidatedEntitiesAxis=us-gaap:NonGuarantorSubsidiariesMember
+Unit : USD
+Decimals of Assets : -6
+Decimals of Current Assets : -6
+Decimals of Non Current Assets : -6
+
+Rule Element Id:9280
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml 13036</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml#Fact-A2768EC28C1C591BB32B1A05775AF41F" sourceLine="13036">
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="FI2018Q3_us-gaap_ConsolidatedEntitiesAxis_us-gaap_NonGuarantorSubsidiariesMember_us-gaap_DebtInstrumentAxis_pseg_PowerSeniorNotesMember">
+   <property name="entity" value="0000788784">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-09-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:ConsolidatedEntitiesAxis" value="us-gaap:NonGuarantorSubsidiariesMember"/>
+    <property name="us-gaap:DebtInstrumentAxis" value="pseg:PowerSeniorNotesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4,148,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9280" level="error">
+ <message cid="4459130552" filing_url="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml" severity="error" effectiveDate="None">[DQC.US.0004.9280] Assets with a value of 45,073,000,000 is not equal to the combined total of Current Assets and Noncurrent assets ( 3,215,000,000 + 8,077,000,000 ) with a value of 11,292,000,000. These values should be equal.
+The properties of this us-gaap:Assets fact are:
+Period :2018-09-30
+Dimensions :  
+Unit : USD
+Decimals of Assets : -6
+Decimals of Current Assets : -6
+Decimals of Non Current Assets : -6
+
+Rule Element Id:9280
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml 13030</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml#Fact-9E5B0A426F7257FBB690CD338B4705FF" sourceLine="13030">
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="FI2018Q3">
+   <property name="entity" value="0000788784">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-09-30"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="45,073,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9280" level="error">
+ <message cid="4459130552" filing_url="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml" severity="error" effectiveDate="None">[DQC.US.0004.9280] Assets with a value of -10,012,000,000 is not equal to the combined total of Current Assets and Noncurrent assets ( -4,686,000,000 + -78,000,000 ) with a value of -4,764,000,000. These values should be equal.
+The properties of this us-gaap:Assets fact are:
+Period :2017-12-31
+Dimensions :  us-gaap:ConsolidationItemsAxis=us-gaap:ConsolidationEliminationsMember, us-gaap:DebtInstrumentAxis=pseg:PowerSeniorNotesMember
+Unit : USD
+Decimals of Assets : -6
+Decimals of Current Assets : -6
+Decimals of Non Current Assets : -6
+
+Rule Element Id:9280
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml 13025</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml#Fact-756AFF5C6A5C586C9DE7915FCFFFD656" sourceLine="13025">
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="FI2017Q4_us-gaap_ConsolidationItemsAxis_us-gaap_ConsolidationEliminationsMember_us-gaap_DebtInstrumentAxis_pseg_PowerSeniorNotesMember">
+   <property name="entity" value="0000788784">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:ConsolidationItemsAxis" value="us-gaap:ConsolidationEliminationsMember"/>
+    <property name="us-gaap:DebtInstrumentAxis" value="pseg:PowerSeniorNotesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-10,012,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9280" level="error">
+ <message cid="4459130552" filing_url="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml" severity="error" effectiveDate="None">[DQC.US.0004.9280] Assets with a value of 3,074,000,000 is not equal to the combined total of Current Assets and Noncurrent assets ( 200,000,000 + 110,000,000 ) with a value of 310,000,000. These values should be equal.
+The properties of this us-gaap:Assets fact are:
+Period :2017-12-31
+Dimensions :  us-gaap:ConsolidatedEntitiesAxis=us-gaap:NonGuarantorSubsidiariesMember, us-gaap:DebtInstrumentAxis=pseg:PowerSeniorNotesMember
+Unit : USD
+Decimals of Assets : -6
+Decimals of Current Assets : -6
+Decimals of Non Current Assets : -6
+
+Rule Element Id:9280
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml 13024</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml#Fact-95A2A7EC09FC57E784ED260A2FE33169" sourceLine="13024">
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="FI2017Q4_us-gaap_ConsolidatedEntitiesAxis_us-gaap_NonGuarantorSubsidiariesMember_us-gaap_DebtInstrumentAxis_pseg_PowerSeniorNotesMember">
+   <property name="entity" value="0000788784">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:ConsolidatedEntitiesAxis" value="us-gaap:NonGuarantorSubsidiariesMember"/>
+    <property name="us-gaap:DebtInstrumentAxis" value="pseg:PowerSeniorNotesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="3,074,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9280" level="error">
+ <message cid="4459130552" filing_url="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml" severity="error" effectiveDate="None">[DQC.US.0004.9280] Assets with a value of 30,694,000,000 is not equal to the combined total of Current Assets and Noncurrent assets ( 1,737,000,000 + 4,201,000,000 ) with a value of 5,938,000,000. These values should be equal.
+The properties of this us-gaap:Assets fact are:
+Period :2018-09-30
+Dimensions :  dei:LegalEntityAxis=pseg:PseAndGMember
+Unit : USD
+Decimals of Assets : -6
+Decimals of Current Assets : -6
+Decimals of Non Current Assets : -6
+
+Rule Element Id:9280
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml 13034</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml#Fact-B3BC9CDF287F5E418F0F25031411FAC8" sourceLine="13034">
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="FI2018Q3_dei_LegalEntityAxis_pseg_PseAndGMember">
+   <property name="entity" value="0000788784">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-09-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="dei:LegalEntityAxis" value="pseg:PseAndGMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="30,694,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9280" level="error">
+ <message cid="4459130552" filing_url="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml" severity="error" effectiveDate="None">[DQC.US.0004.9280] Assets with a value of 12,418,000,000 is not equal to the combined total of Current Assets and Noncurrent assets ( 1,341,000,000 + 2,481,000,000 ) with a value of 3,822,000,000. These values should be equal.
+The properties of this us-gaap:Assets fact are:
+Period :2017-12-31
+Dimensions :  dei:LegalEntityAxis=pseg:PowerMember
+Unit : USD
+Decimals of Assets : -6
+Decimals of Current Assets : -6
+Decimals of Non Current Assets : -6
+
+Rule Element Id:9280
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml 13019</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml#Fact-C28ABEE4ED925D36B4A6C6D468AAB699" sourceLine="13019">
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="FI2017Q4_dei_LegalEntityAxis_pseg_PowerMember">
+   <property name="entity" value="0000788784">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="dei:LegalEntityAxis" value="pseg:PowerMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="12,418,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9280" level="error">
+ <message cid="4459130552" filing_url="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml" severity="error" effectiveDate="None">[DQC.US.0004.9280] Assets with a value of 12,418,000,000 is not equal to the combined total of Current Assets and Noncurrent assets ( 1,341,000,000 + 2,481,000,000 ) with a value of 3,822,000,000. These values should be equal.
+The properties of this us-gaap:Assets fact are:
+Period :2017-12-31
+Dimensions :  us-gaap:DebtInstrumentAxis=pseg:PowerSeniorNotesMember, dei:LegalEntityAxis=pseg:PowerMember
+Unit : USD
+Decimals of Assets : -6
+Decimals of Current Assets : -6
+Decimals of Non Current Assets : -6
+
+Rule Element Id:9280
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml 13020</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml#Fact-4FC0898136715B2AA1CD51978DA88327" sourceLine="13020">
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="FI2017Q4_dei_LegalEntityAxis_pseg_PowerMember_us-gaap_DebtInstrumentAxis_pseg_PowerSeniorNotesMember">
+   <property name="entity" value="0000788784">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:DebtInstrumentAxis" value="pseg:PowerSeniorNotesMember"/>
+    <property name="dei:LegalEntityAxis" value="pseg:PowerMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="12,418,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9280" level="error">
+ <message cid="4459130552" filing_url="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml" severity="error" effectiveDate="None">[DQC.US.0004.9280] Assets with a value of 12,681,000,000 is not equal to the combined total of Current Assets and Noncurrent assets ( 1,376,000,000 + 2,436,000,000 ) with a value of 3,812,000,000. These values should be equal.
+The properties of this us-gaap:Assets fact are:
+Period :2018-09-30
+Dimensions :  dei:LegalEntityAxis=pseg:PowerMember
+Unit : USD
+Decimals of Assets : -6
+Decimals of Current Assets : -6
+Decimals of Non Current Assets : -6
+
+Rule Element Id:9280
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml 13031</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml#Fact-F249E87F16BB5E178C1252CFC7AD87CF" sourceLine="13031">
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="FI2018Q3_dei_LegalEntityAxis_pseg_PowerMember">
+   <property name="entity" value="0000788784">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-09-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="dei:LegalEntityAxis" value="pseg:PowerMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="12,681,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9280" level="error">
+ <message cid="4459130552" filing_url="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml" severity="error" effectiveDate="None">[DQC.US.0004.9280] Assets with a value of 9,325,000,000 is not equal to the combined total of Current Assets and Noncurrent assets ( 4,327,000,000 + 100,000,000 ) with a value of 4,427,000,000. These values should be equal.
+The properties of this us-gaap:Assets fact are:
+Period :2017-12-31
+Dimensions :  us-gaap:DebtInstrumentAxis=pseg:PowerSeniorNotesMember, dei:LegalEntityAxis=pseg:PowerParentMember
+Unit : USD
+Decimals of Assets : -6
+Decimals of Current Assets : -6
+Decimals of Non Current Assets : -6
+
+Rule Element Id:9280
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml 13021</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml#Fact-766E84B89EF75420B21434F35C098EF2" sourceLine="13021">
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="FI2017Q4_dei_LegalEntityAxis_pseg_PowerParentMember_us-gaap_DebtInstrumentAxis_pseg_PowerSeniorNotesMember">
+   <property name="entity" value="0000788784">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:DebtInstrumentAxis" value="pseg:PowerSeniorNotesMember"/>
+    <property name="dei:LegalEntityAxis" value="pseg:PowerParentMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="9,325,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9280" level="error">
+ <message cid="4459130552" filing_url="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml" severity="error" effectiveDate="None">[DQC.US.0004.9280] Assets with a value of 12,681,000,000 is not equal to the combined total of Current Assets and Noncurrent assets ( 1,376,000,000 + 2,436,000,000 ) with a value of 3,812,000,000. These values should be equal.
+The properties of this us-gaap:Assets fact are:
+Period :2018-09-30
+Dimensions :  dei:LegalEntityAxis=pseg:PowerMember, us-gaap:DebtInstrumentAxis=pseg:PowerSeniorNotesMember
+Unit : USD
+Decimals of Assets : -6
+Decimals of Current Assets : -6
+Decimals of Non Current Assets : -6
+
+Rule Element Id:9280
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml 13032</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml#Fact-4BE711A3C7C9542F99BFCAFE2A19A657" sourceLine="13032">
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="FI2018Q3_dei_LegalEntityAxis_pseg_PowerMember_us-gaap_DebtInstrumentAxis_pseg_PowerSeniorNotesMember">
+   <property name="entity" value="0000788784">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-09-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:DebtInstrumentAxis" value="pseg:PowerSeniorNotesMember"/>
+    <property name="dei:LegalEntityAxis" value="pseg:PowerMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="12,681,000,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 8.81 secs - https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/788784/000078878418000026/pseg-20180930.xml"/></entry>
+</log>

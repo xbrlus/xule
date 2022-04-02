@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.11 secs at 2020-07-28T15:25:06 - http://www.sec.gov/Archives/edgar/data/807882/000080788220000004/jack-20200119.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/807882/000080788220000004/jack-20200119.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmplua9e1w5\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmplua9e1w5\packages\resources.zip"/></entry>
+<entry code="DQC.US.0013.2780" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/807882/000080788220000004/jack-20200119.htm" rule-suffix="2780" severity="error" effectiveDate="2017-01-01" cid="2500160169344">[DQC.US.0013.2780] It is expected that us-gaap:EffectiveIncomeTaxRateReconciliationNondeductibleExpenseLifeInsurance with a value of -0.009 will be reported with a value equal to or greater than zero if net income before tax is positive. In this case net income before tax is 11,030,000. The value reported for the tax rate reconciliation item is less than zero. The preparer should consider if the value is input correctly for this assertion and, after considering the appropriateness of the input, if incorrect, input the amount as a positive (i.e., absolute) value and provide a negated label, if desired, for rendering purposes. 
+
+The properties of this us-gaap:EffectiveIncomeTaxRateReconciliationNondeductibleExpenseLifeInsurance fact are:
+Period :2019-09-30 to 2020-01-19
+Dimensions : 
+Unit : pure
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/807882/000080788220000004/jack-20200119.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/807882/000080788220000004/jack-20200119.htm#id3VybDovL2RvY3MudjEvZG9jOjM0YzgwODRjNjQ5NTQyYmI5N2ViOWY1NjgzZDdhYjFmL3NlYzozNGM4MDg0YzY0OTU0MmJiOTdlYjlmNTY4M2Q3YWIxZl8yMi9mcmFnOjdiOWNhMTAyM2E4NzRlYmVhMGVmZTQzYzEzNTdlNWUzL3RhYmxlOmUxNDJjMDdkOWQxMTQ5ZTQ4NGE2M2MxYjQ4NjMyYWVmL3RhYmxlcmFuZ2U6ZTE0MmMwN2Q5ZDExNDllNDg0YTYzYzFiNDg2MzJhZWZfMjUtNS0xLTEtMA_0cb1be1b-6ef2-410e-bacb-f12b9f4d8d95" sourceLine="4">
+  <property name="file" value="jack-20200119.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Income (Loss) from Continuing Operations before Equity Method Investments, Income Taxes, Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments"/>
+  <property name="QName" value="us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments"/>
+  <property name="contextRef" value="ie5abbc51c600467e86dfd7593834b11e_D20190930-20200119">
+   <property name="entity" value="0000807882">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-09-30"/>
+   <property name="endDate" value="2020-01-19"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="11,030,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="11,030"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 4.19 secs - http://www.sec.gov/Archives/edgar/data/807882/000080788220000004/jack-20200119.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/807882/000080788220000004/jack-20200119.htm"/></entry>
+</log>

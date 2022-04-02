@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.93 secs at 2020-10-28T17:20:39 - https://www.sec.gov/Archives/edgar/data/1707919/000149315220008013/nakd-20200131.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1707919/000149315220008013/nakd-20200131.xml"/></entry>
+<entry code="DQC.US.0101.9538" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1707919/000149315220008013/nakd-20200131.xml" severity="error" effectiveDate="None" cid="2159745078656">[DQC.US.0101.9538] The concept ifrs-full:InterestPaidClassifiedAsOperatingActivities appears in the financing cashflows of the companies cash flow statement. ifrs-full:InterestPaidClassifiedAsOperatingActivities is an operating item and it is expected that this item would only appear in the cash flow from operating activities. Please review the calculations defined for the cash flow statement to determine that the correct element has been used for this item. 
+
+
+Rule Element Id:9538
+Rule version: 14.0.0RC1 - </message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 7.07 secs - https://www.sec.gov/Archives/edgar/data/1707919/000149315220008013/nakd-20200131.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1707919/000149315220008013/nakd-20200131.xml"/></entry>
+</log>

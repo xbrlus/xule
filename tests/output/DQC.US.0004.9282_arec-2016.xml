@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22739 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.41 secs at 2019-04-18T10:33:59 - https://www.sec.gov/Archives/edgar/data/1590715/000147793218001201/arec-20170930.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1590715/000147793218001201/arec-20170930.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv and effective_dates.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpxn7mqsm6/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpxn7mqsm6/packages/resources.zip"/></entry>
+<entry code="DQC.US.0004.9282" level="error">
+ <message effectiveDate="None" cid="4535918264" severity="error" filing_url="https://www.sec.gov/Archives/edgar/data/1590715/000147793218001201/arec-20170930.xml">[DQC.US.0004.9282] Stockholders' Equity, Including Portion Attributable to Noncontrolling Interest with a value of -35,314,476 is not equal to the combined total of Stockholders Equity Excluding NI and Noncontrolling Interest ( -34,950,301 + 364,175 ) with a value of -34,586,126. 
+
+These values should be equal.
+The properties of this us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest fact are:
+Period :2017-09-30
+Dimensions :  
+Unit : USD
+Decimals of Stockholders Equity Including Noncontrolling Interest : 0
+Decimals of Stockholders Equity Excluding NI : 0
+Decimals of Noncontrolling Interest : 0
+
+Rule Element Id:9282
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1590715/000147793218001201/arec-20170930.xml 1269</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1590715/000147793218001201/arec-20170930.xml#element(/1/341)" sourceLine="1269">
+  <property name="label" value="Stockholders' Equity, Including Portion Attributable to Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="QName" value="us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="contextRef" value="AsOf2017-09-30">
+   <property name="entity" value="0001590715">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-09-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-35,314,476"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9282" level="error">
+ <message effectiveDate="None" cid="4535918264" severity="error" filing_url="https://www.sec.gov/Archives/edgar/data/1590715/000147793218001201/arec-20170930.xml">[DQC.US.0004.9282] Stockholders' Equity, Including Portion Attributable to Noncontrolling Interest with a value of -27,562,355 is not equal to the combined total of Stockholders Equity Excluding NI and Noncontrolling Interest ( -27,507,598 + 54,757 ) with a value of -27,452,841. 
+
+These values should be equal.
+The properties of this us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest fact are:
+Period :2016-12-31
+Dimensions :  
+Unit : USD
+Decimals of Stockholders Equity Including Noncontrolling Interest : 0
+Decimals of Stockholders Equity Excluding NI : 0
+Decimals of Noncontrolling Interest : 0
+
+Rule Element Id:9282
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1590715/000147793218001201/arec-20170930.xml 1270</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1590715/000147793218001201/arec-20170930.xml#element(/1/342)" sourceLine="1270">
+  <property name="label" value="Stockholders' Equity, Including Portion Attributable to Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="QName" value="us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="contextRef" value="E16">
+   <property name="entity" value="0001590715">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-27,562,355"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.00 secs - https://www.sec.gov/Archives/edgar/data/1590715/000147793218001201/arec-20170930.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1590715/000147793218001201/arec-20170930.xml"/></entry>
+</log>

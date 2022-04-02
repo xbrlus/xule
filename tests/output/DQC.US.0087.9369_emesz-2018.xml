@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.48 secs at 2020-02-11T18:08:15 - https://www.sec.gov/Archives/edgar/data/1555177/000156459019037153/emesz-20181231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1555177/000156459019037153/emesz-20181231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpdl_itqzx\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpdl_itqzx\packages\resources.zip"/></entry>
+<entry code="DQC.US.0087.9369" level="error">
+ <message cid="2111946417264" effectiveDate="None" severity="error" filing_url="https://www.sec.gov/Archives/edgar/data/1555177/000156459019037153/emesz-20181231.xml">[DQC.US.0087.9369] The element us-gaap:OperatingLeaseLiability with a value of 159,000,000 has been used in the filing but does not appear in the financial statements of the filing. This disclosure should appear in the face financials unless it is included in another account caption. If this is the case either:
+1. The element OperatingLeaseLiabilityStatementOfFinancialPositionExtensibleList should be used to identify the account where the Operating Lease liability is included; or
+2. The Balance Sheet location axis should be used with two or more account members to identify into which financial statement captions the Operating Lease liability has been apportioned.
+ 
+Period :2019-01-01
+Dimensions : 
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9369
+Rule version: 12.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1555177/000156459019037153/emesz-20181231.xml 15365</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1555177/000156459019037153/emesz-20181231.xml#F_000476" sourceLine="15365">
+  <property name="label" value="Operating Lease Liability"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="OperatingLeaseLiability"/>
+  <property name="QName" value="us-gaap:OperatingLeaseLiability"/>
+  <property name="contextRef" value="C_0001555177_20190101">
+   <property name="entity" value="0001555177">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-01-01"/>
+  </property>
+  <property name="unitRef" value="U_iso4217USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="159,000,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 10.85 secs - https://www.sec.gov/Archives/edgar/data/1555177/000156459019037153/emesz-20181231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1555177/000156459019037153/emesz-20181231.xml"/></entry>
+</log>

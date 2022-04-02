@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 4.16 secs at 2018-10-16T09:42:08 - http://www.sec.gov/Archives/edgar/data/1043961/000114420418020539/prpo-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1043961/000114420418020539/prpo-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - prpo-20171231.xml </message>
+ <ref href="prpo-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmphf7xiwjo/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmphf7xiwjo/packages/resources.zip"/></entry>
+<entry code="DQC.US.0001.58" level="error">
+ <message severity="error" cid="4354657976" filing_url="http://www.sec.gov/Archives/edgar/data/1043961/000114420418020539/prpo-20171231.xml">[DQC.US.0001.58] The concept SalesRevenueServicesNet with a value of 103,000 is dimensionally qualified with the CounterpartyNameAxis and the base taxonomy member SelfPayMember. Only extension members should be used with the axis CounterpartyNameAxis.
+The properties of the fact for SalesRevenueServicesNet are:
+Period: 2017-01-01 to 2017-12-31
+Dimensions: us-gaap:CounterpartyNameAxis=us-gaap:SelfPayMember 
+Unit: USD
+
+Rule Element Id:58
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1043961/000114420418020539/prpo-20171231.xml 15916</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1043961/000114420418020539/prpo-20171231.xml#element(/1/1289)" sourceLine="15916">
+  <property name="label" value="Sales Revenue, Services, Net"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="SalesRevenueServicesNet"/>
+  <property name="QName" value="us-gaap:SalesRevenueServicesNet"/>
+  <property name="contextRef" value="Duration_1_1_2017_To_12_31_2017_us-gaap_CounterpartyNameAxis_us-gaap_SelfPayMember">
+   <property name="entity" value="0001043961">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:CounterpartyNameAxis" value="us-gaap:SelfPayMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="103,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.58" level="error">
+ <message severity="error" cid="4354657976" filing_url="http://www.sec.gov/Archives/edgar/data/1043961/000114420418020539/prpo-20171231.xml">[DQC.US.0001.58] The concept AccountsReceivableGross with a value of 53,000 is dimensionally qualified with the CounterpartyNameAxis and the base taxonomy member SelfPayMember. Only extension members should be used with the axis CounterpartyNameAxis.
+The properties of the fact for AccountsReceivableGross are:
+Period: 2017-12-31
+Dimensions: us-gaap:CounterpartyNameAxis=us-gaap:SelfPayMember 
+Unit: USD
+
+Rule Element Id:58
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1043961/000114420418020539/prpo-20171231.xml 6841</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1043961/000114420418020539/prpo-20171231.xml#element(/1/548)" sourceLine="6841">
+  <property name="label" value="Accounts Receivable, Gross"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="AccountsReceivableGross"/>
+  <property name="QName" value="us-gaap:AccountsReceivableGross"/>
+  <property name="contextRef" value="As_Of_12_31_2017_us-gaap_CounterpartyNameAxis_us-gaap_SelfPayMember">
+   <property name="entity" value="0001043961">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:CounterpartyNameAxis" value="us-gaap:SelfPayMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="53,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.58" level="error">
+ <message severity="error" cid="4354657976" filing_url="http://www.sec.gov/Archives/edgar/data/1043961/000114420418020539/prpo-20171231.xml">[DQC.US.0001.58] The concept SalesRevenueServicesNet with a value of 253,000 is dimensionally qualified with the CounterpartyNameAxis and the base taxonomy member SelfPayMember. Only extension members should be used with the axis CounterpartyNameAxis.
+The properties of the fact for SalesRevenueServicesNet are:
+Period: 2016-01-01 to 2016-12-31
+Dimensions: us-gaap:CounterpartyNameAxis=us-gaap:SelfPayMember 
+Unit: USD
+
+Rule Element Id:58
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1043961/000114420418020539/prpo-20171231.xml 15910</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1043961/000114420418020539/prpo-20171231.xml#element(/1/1283)" sourceLine="15910">
+  <property name="label" value="Sales Revenue, Services, Net"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="SalesRevenueServicesNet"/>
+  <property name="QName" value="us-gaap:SalesRevenueServicesNet"/>
+  <property name="contextRef" value="Duration_1_1_2016_To_12_31_2016_us-gaap_CounterpartyNameAxis_us-gaap_SelfPayMember">
+   <property name="entity" value="0001043961">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-01-01"/>
+   <property name="endDate" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:CounterpartyNameAxis" value="us-gaap:SelfPayMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="253,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.58" level="error">
+ <message severity="error" cid="4354657976" filing_url="http://www.sec.gov/Archives/edgar/data/1043961/000114420418020539/prpo-20171231.xml">[DQC.US.0001.58] The concept AccountsReceivableGross with a value of 63,000 is dimensionally qualified with the CounterpartyNameAxis and the base taxonomy member SelfPayMember. Only extension members should be used with the axis CounterpartyNameAxis.
+The properties of the fact for AccountsReceivableGross are:
+Period: 2016-12-31
+Dimensions: us-gaap:CounterpartyNameAxis=us-gaap:SelfPayMember 
+Unit: USD
+
+Rule Element Id:58
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1043961/000114420418020539/prpo-20171231.xml 6835</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1043961/000114420418020539/prpo-20171231.xml#element(/1/542)" sourceLine="6835">
+  <property name="label" value="Accounts Receivable, Gross"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="AccountsReceivableGross"/>
+  <property name="QName" value="us-gaap:AccountsReceivableGross"/>
+  <property name="contextRef" value="As_Of_12_31_2016_us-gaap_CounterpartyNameAxis_us-gaap_SelfPayMember">
+   <property name="entity" value="0001043961">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:CounterpartyNameAxis" value="us-gaap:SelfPayMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="63,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 15.94 secs - http://www.sec.gov/Archives/edgar/data/1043961/000114420418020539/prpo-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1043961/000114420418020539/prpo-20171231.xml"/></entry>
+</log>

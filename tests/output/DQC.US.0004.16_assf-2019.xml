@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.39 secs at 2020-07-26T08:24:12 - http://www.sec.gov/Archives/edgar/data/1719435/000164033420001778/assf_10q.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1719435/000164033420001778/assf_10q.htm"/></entry>
+<entry code="DQC.US.0004.16" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1719435/000164033420001778/assf_10q.htm" severity="error" effectiveDate="2016-01-01" cid="1414150137216">[DQC.US.0004.16] [Assets] with a value of 9,854 is not equal to the total of TOTAL LIABILITIES AND STOCKHOLDERS' DEFICIT with a value of 63,949. These values should be equal.
+The properties of this us-gaap:Assets fact are:
+Period :2019-11-30
+Dimensions :  
+Unit : USD
+Decimals of Assets : 0
+Decimals of Liabilities and Equity : 0
+
+Rule Element Id:16
+Rule version: 12.0.0 - http://www.sec.gov/Archives/edgar/data/1719435/000164033420001778/assf_10q.htm 1</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1719435/000164033420001778/assf_10q.htm#fid_537" sourceLine="1">
+  <property name="file" value="assf_10q.htm"/>
+  <property name="line" value="1"/>
+  <property name="label" value="[Assets]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="AsOf2019-11-30">
+   <property name="entity" value="0001719435">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-11-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="9,854"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="None"/>
+  <property name="html value" value="9,854"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 3.13 secs - http://www.sec.gov/Archives/edgar/data/1719435/000164033420001778/assf_10q.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1719435/000164033420001778/assf_10q.htm"/></entry>
+</log>

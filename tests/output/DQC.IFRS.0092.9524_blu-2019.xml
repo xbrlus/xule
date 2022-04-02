@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.72 secs at 2020-04-16T18:11:22 - http://www.sec.gov/Archives/edgar/data/1259942/000110465920026291/blu-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1259942/000110465920026291/blu-20191231.xml"/></entry>
+<entry code="DQC.IFRS.0092.9524" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1259942/000110465920026291/blu-20191231.xml" severity="error" effectiveDate="2020-05-30" cid="1492086007168">[DQC.IFRS.0092.9524] ifrs-full:RightofuseAssets has a value of 158,000 which is more than zero. This element should not have a positive value when used with the dimensions ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis=ifrs-full:AccumulatedImpairmentMember. 
+
+The properties of this ifrs-full:RightofuseAssets fact are:
+Period :2019-12-31
+Dimensions : ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis=ifrs-full:AccumulatedImpairmentMember
+Unit : CAD
+
+Rule Element Id:9524
+Rule version: 12.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1259942/000110465920026291/blu-20191231.xml 21997</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1259942/000110465920026291/blu-20191231.xml#element(/1/760)" sourceLine="21997">
+  <property name="label" value="Right-of-use assets"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="RightofuseAssets"/>
+  <property name="QName" value="ifrs-full:RightofuseAssets"/>
+  <property name="contextRef" value="As_Of_12_31_2019_ifrs-full_CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis_ifrs-full_AccumulatedImpairmentMember">
+   <property name="entity" value="0001259942">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis" value="ifrs-full:AccumulatedImpairmentMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:CAD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="158,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 2.95 secs - http://www.sec.gov/Archives/edgar/data/1259942/000110465920026291/blu-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1259942/000110465920026291/blu-20191231.xml"/></entry>
+</log>

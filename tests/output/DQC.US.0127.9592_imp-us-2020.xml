@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23303 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 9.33 secs at 2022-01-30T14:38:23 - http://www.sec.gov/Archives/edgar/data/49938/000119312521236116/d127821d10q.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/49938/000119312521236116/d127821d10q.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv, dqc_0129.csv and effective_dates.csv successful. - D:\Temp\tmp7gq3zhqp\packages\resources.zip </message>
+ <ref href="D:\Temp\tmp7gq3zhqp\packages\resources.zip"/></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.16 secs - http://www.sec.gov/Archives/edgar/data/49938/000119312521236116/d127821d10q.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/49938/000119312521236116/d127821d10q.htm"/></entry>
+</log>

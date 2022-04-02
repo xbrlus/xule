@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.66 secs at 2020-07-26T08:25:04 - http://www.sec.gov/Archives/edgar/data/922521/000162828019014320/falc-20190930.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/922521/000162828019014320/falc-20190930.xml"/></entry>
+<entry code="DQC.US.0004.9283" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/922521/000162828019014320/falc-20190930.xml" severity="error" effectiveDate="2019-09-30" cid="1473393370496">[DQC.US.0004.9283] Liabilities and Equity with a value of 14,394,188 is not equal to the combined total of Stockholders Equity, Liabilities and Temporary Equity  ( -14,713,161 + 18,177,755 + 11,966,101) with a value of 15,430,695. 
+
+These values should be equal.
+The properties of this us-gaap:LiabilitiesAndStockholdersEquity fact are:
+Period :2019-09-30
+Dimensions :  
+Unit : USD
+Decimals of Liabilities and Stockholders Equity : 0
+
+Rule Element Id:9283
+Rule version: 12.0.0 - http://www.sec.gov/Archives/edgar/data/922521/000162828019014320/falc-20190930.xml 2856</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/922521/000162828019014320/falc-20190930.xml#Fact-B5395D17981A547BB1CB74F2894EE0A1" sourceLine="2856">
+  <property name="label" value="Liabilities and Equity"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="LiabilitiesAndStockholdersEquity"/>
+  <property name="QName" value="us-gaap:LiabilitiesAndStockholdersEquity"/>
+  <property name="contextRef" value="FI2019Q3">
+   <property name="entity" value="0000922521">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-09-30"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="14,394,188"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9283" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/922521/000162828019014320/falc-20190930.xml" severity="error" effectiveDate="2019-09-30" cid="1473393370496">[DQC.US.0004.9283] Liabilities and Equity with a value of 15,972,671 is not equal to the combined total of Stockholders Equity, Liabilities and Temporary Equity  ( -11,553,796 + 17,769,761 + 11,104,923) with a value of 17,320,888. 
+
+These values should be equal.
+The properties of this us-gaap:LiabilitiesAndStockholdersEquity fact are:
+Period :2018-12-31
+Dimensions :  
+Unit : USD
+Decimals of Liabilities and Stockholders Equity : 0
+
+Rule Element Id:9283
+Rule version: 12.0.0 - http://www.sec.gov/Archives/edgar/data/922521/000162828019014320/falc-20190930.xml 2855</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/922521/000162828019014320/falc-20190930.xml#Fact-C5D577A943C65880BB485BDF39D9F347" sourceLine="2855">
+  <property name="label" value="Liabilities and Equity"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="LiabilitiesAndStockholdersEquity"/>
+  <property name="QName" value="us-gaap:LiabilitiesAndStockholdersEquity"/>
+  <property name="contextRef" value="FI2018Q4">
+   <property name="entity" value="0000922521">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="15,972,671"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 3.96 secs - http://www.sec.gov/Archives/edgar/data/922521/000162828019014320/falc-20190930.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/922521/000162828019014320/falc-20190930.xml"/></entry>
+</log>

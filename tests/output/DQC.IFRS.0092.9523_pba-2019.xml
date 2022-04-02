@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.99 secs at 2020-04-16T18:11:28 - http://www.sec.gov/Archives/edgar/data/1546066/000162828020002497/pba-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1546066/000162828020002497/pba-20191231.xml"/></entry>
+<entry code="DQC.IFRS.0092.9523" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1546066/000162828020002497/pba-20191231.xml" severity="error" effectiveDate="2020-05-30" cid="2058010797440">[DQC.IFRS.0092.9523] ifrs-full:PaymentsForDevelopmentProjectExpenditure has a value of 33,000,000 which is more than zero. This element should not have a positive value when used with the EliminationOfIntersegmentAmountsMember. 
+
+The properties of this ifrs-full:PaymentsForDevelopmentProjectExpenditure fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : ifrs-full:SegmentConsolidationItemsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember
+Unit : CAD
+
+Rule Element Id:9523
+Rule version: 12.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1546066/000162828020002497/pba-20191231.xml 10997</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1546066/000162828020002497/pba-20191231.xml#Fact-E3FD57AE5622361E0DC71F59F0755C8B" sourceLine="10997">
+  <property name="label" value="Payments for development project expenditure"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="PaymentsForDevelopmentProjectExpenditure"/>
+  <property name="QName" value="ifrs-full:PaymentsForDevelopmentProjectExpenditure"/>
+  <property name="contextRef" value="FD2018Q4YTD_ifrs-full_SegmentConsolidationItemsAxis_ifrs-full_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001546066">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="cad ($)">
+   <property name="measure" value="iso4217:CAD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="33,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0092.9523" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1546066/000162828020002497/pba-20191231.xml" severity="error" effectiveDate="2020-05-30" cid="2058010797440">[DQC.IFRS.0092.9523] ifrs-full:IntangibleAssetsAndGoodwill has a value of 31,000,000 which is more than zero. This element should not have a positive value when used with the EliminationOfIntersegmentAmountsMember. 
+
+The properties of this ifrs-full:IntangibleAssetsAndGoodwill fact are:
+Period :2019-12-31
+Dimensions : ifrs-full:SegmentConsolidationItemsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember
+Unit : CAD
+
+Rule Element Id:9523
+Rule version: 12.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1546066/000162828020002497/pba-20191231.xml 10676</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1546066/000162828020002497/pba-20191231.xml#Fact-4476231CCC4E72CD31331F59F09E553F" sourceLine="10676">
+  <property name="label" value="Intangible assets and goodwill"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="IntangibleAssetsAndGoodwill"/>
+  <property name="QName" value="ifrs-full:IntangibleAssetsAndGoodwill"/>
+  <property name="contextRef" value="FI2019Q4_ifrs-full_SegmentConsolidationItemsAxis_ifrs-full_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001546066">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="cad ($)">
+   <property name="measure" value="iso4217:CAD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="31,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0092.9523" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1546066/000162828020002497/pba-20191231.xml" severity="error" effectiveDate="2020-05-30" cid="2058010797440">[DQC.IFRS.0092.9523] ifrs-full:IntangibleAssetsOtherThanGoodwill has a value of 31,000,000 which is more than zero. This element should not have a positive value when used with the EliminationOfIntersegmentAmountsMember. 
+
+The properties of this ifrs-full:IntangibleAssetsOtherThanGoodwill fact are:
+Period :2019-12-31
+Dimensions : ifrs-full:SegmentConsolidationItemsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember
+Unit : CAD
+
+Rule Element Id:9523
+Rule version: 12.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1546066/000162828020002497/pba-20191231.xml 10686</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1546066/000162828020002497/pba-20191231.xml#Fact-F252A030F1C5B1F7CA5C1F59F0780EB3" sourceLine="10686">
+  <property name="label" value="Intangible assets other than goodwill"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="IntangibleAssetsOtherThanGoodwill"/>
+  <property name="QName" value="ifrs-full:IntangibleAssetsOtherThanGoodwill"/>
+  <property name="contextRef" value="FI2019Q4_ifrs-full_SegmentConsolidationItemsAxis_ifrs-full_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001546066">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="cad ($)">
+   <property name="measure" value="iso4217:CAD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="31,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0092.9523" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1546066/000162828020002497/pba-20191231.xml" severity="error" effectiveDate="2020-05-30" cid="2058010797440">[DQC.IFRS.0092.9523] ifrs-full:IntangibleAssetsAndGoodwill has a value of 20,000,000 which is more than zero. This element should not have a positive value when used with the EliminationOfIntersegmentAmountsMember. 
+
+The properties of this ifrs-full:IntangibleAssetsAndGoodwill fact are:
+Period :2018-12-31
+Dimensions : ifrs-full:SegmentConsolidationItemsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember
+Unit : CAD
+
+Rule Element Id:9523
+Rule version: 12.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1546066/000162828020002497/pba-20191231.xml 10654</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1546066/000162828020002497/pba-20191231.xml#Fact-F74E50E53511F935E7421F59F06DC47F" sourceLine="10654">
+  <property name="label" value="Intangible assets and goodwill"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="IntangibleAssetsAndGoodwill"/>
+  <property name="QName" value="ifrs-full:IntangibleAssetsAndGoodwill"/>
+  <property name="contextRef" value="FI2018Q4_ifrs-full_SegmentConsolidationItemsAxis_ifrs-full_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001546066">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="cad ($)">
+   <property name="measure" value="iso4217:CAD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="20,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0092.9523" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1546066/000162828020002497/pba-20191231.xml" severity="error" effectiveDate="2020-05-30" cid="2058010797440">[DQC.IFRS.0092.9523] ifrs-full:IntangibleAssetsOtherThanGoodwill has a value of 20,000,000 which is more than zero. This element should not have a positive value when used with the EliminationOfIntersegmentAmountsMember. 
+
+The properties of this ifrs-full:IntangibleAssetsOtherThanGoodwill fact are:
+Period :2018-12-31
+Dimensions : ifrs-full:SegmentConsolidationItemsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember
+Unit : CAD
+
+Rule Element Id:9523
+Rule version: 12.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1546066/000162828020002497/pba-20191231.xml 10681</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1546066/000162828020002497/pba-20191231.xml#Fact-CEE638B631EF8E1664241F59F08C5E1C" sourceLine="10681">
+  <property name="label" value="Intangible assets other than goodwill"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="IntangibleAssetsOtherThanGoodwill"/>
+  <property name="QName" value="ifrs-full:IntangibleAssetsOtherThanGoodwill"/>
+  <property name="contextRef" value="FI2018Q4_ifrs-full_SegmentConsolidationItemsAxis_ifrs-full_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001546066">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="cad ($)">
+   <property name="measure" value="iso4217:CAD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="20,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0092.9523" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1546066/000162828020002497/pba-20191231.xml" severity="error" effectiveDate="2020-05-30" cid="2058010797440">[DQC.IFRS.0092.9523] ifrs-full:PaymentsForDevelopmentProjectExpenditure has a value of 27,000,000 which is more than zero. This element should not have a positive value when used with the EliminationOfIntersegmentAmountsMember. 
+
+The properties of this ifrs-full:PaymentsForDevelopmentProjectExpenditure fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : ifrs-full:SegmentConsolidationItemsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember
+Unit : CAD
+
+Rule Element Id:9523
+Rule version: 12.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1546066/000162828020002497/pba-20191231.xml 11002</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1546066/000162828020002497/pba-20191231.xml#Fact-0346E1DB474C1A0E7E221F59F14A907C" sourceLine="11002">
+  <property name="label" value="Payments for development project expenditure"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="PaymentsForDevelopmentProjectExpenditure"/>
+  <property name="QName" value="ifrs-full:PaymentsForDevelopmentProjectExpenditure"/>
+  <property name="contextRef" value="FD2019Q4YTD_ifrs-full_SegmentConsolidationItemsAxis_ifrs-full_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001546066">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="cad ($)">
+   <property name="measure" value="iso4217:CAD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="27,000,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.96 secs - http://www.sec.gov/Archives/edgar/data/1546066/000162828020002497/pba-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1546066/000162828020002497/pba-20191231.xml"/></entry>
+</log>

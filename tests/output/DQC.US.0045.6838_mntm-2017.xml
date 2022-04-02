@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.11 secs at 2018-10-16T10:03:16 - https://www.sec.gov/Archives/edgar/data/1589361/000144586618000390/mntm-20171231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1589361/000144586618000390/mntm-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - mntm-20171231.xml </message>
+ <ref href="mntm-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp04w4er89/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp04w4er89/packages/resources.zip"/></entry>
+<entry code="DQC.US.0045.6838" level="error">
+ <message severity="error" filing_url="https://www.sec.gov/Archives/edgar/data/1589361/000144586618000390/mntm-20171231.xml" cid="4339072696">[DQC.US.0045.6838] The concept us-gaap:PaymentsForLoans appears in the financing cashflows of the companies cash flow statement. us-gaap:PaymentsForLoans is an operating item and it is expected that this item would only appear in the cash flow from operating activities. Please review the calculations defined for the cash flow statement to determine that the correct element has been used for this item. 
+
+
+Rule Element Id:6838
+Rule version: 9.0.0RC1 - </message></entry>
+<entry code="DQC.US.0045.6838" level="error">
+ <message severity="error" filing_url="https://www.sec.gov/Archives/edgar/data/1589361/000144586618000390/mntm-20171231.xml" cid="4339072696">[DQC.US.0045.6838] The concept us-gaap:ProceedsFromLoans appears in the financing cashflows of the companies cash flow statement. us-gaap:ProceedsFromLoans is an operating item and it is expected that this item would only appear in the cash flow from operating activities. Please review the calculations defined for the cash flow statement to determine that the correct element has been used for this item. 
+
+
+Rule Element Id:6838
+Rule version: 9.0.0RC1 - </message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 14.46 secs - https://www.sec.gov/Archives/edgar/data/1589361/000144586618000390/mntm-20171231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1589361/000144586618000390/mntm-20171231.xml"/></entry>
+</log>

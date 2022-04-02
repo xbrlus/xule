@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.54 secs at 2020-07-24T23:32:46 - http://www.sec.gov/Archives/edgar/data/1367083/000168316820002234/snoa-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1367083/000168316820002234/snoa-20200331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmp4404dmba\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmp4404dmba\packages\resources.zip"/></entry>
+<entry code="DQC.US.0067.7644" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1367083/000168316820002234/snoa-20200331.xml" severity="error" effectiveDate="2019-01-01" cid="1653558781312">[DQC.US.0067.7644] The filing has reported a value of &quot;&lt;p style=&quot;font: 10pt Times New Roman, Times, Serif; margin: 0&quot;>&lt;b>&lt;i>Shipping and Handling Costs&lt;/i>&lt;/b>&lt;/p>&lt;p style=&quot;font: 10pt Times New Roman, Times, Serif; margin: 0&quot;>&lt;b>&lt;i>&amp;#160;&lt;/i>&lt;/b>&lt;/p>&lt;p style=&quot;font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify&quot;>The Company class&quot; for the element us-gaap:ShippingAndHandlingCostPolicyTextBlock. This is a revenue recognition element that is not a component of FASB 606 and does not appear in disclosure group 606000. However the following elements have also been tagged in the filing that indicate that the FASB 606  revenue recognition standard has been adopted:
+DisaggregationOfRevenueTableTextBlock,
+RevenueFromContractWithCustomerExcludingAssessedTax
+
+Either the new revenue recognition elements must be used or the old revenue recognition elements should be used but they should not be combined in the same filing.  
+
+The properties of this us-gaap:ShippingAndHandlingCostPolicyTextBlock fact are:
+Period :2019-04-01 to 2020-03-31
+Dimensions : 
+Unit : None
+
+Rule Element Id:7644
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1367083/000168316820002234/snoa-20200331.xml 2088</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1367083/000168316820002234/snoa-20200331.xml#element(/1/473)" sourceLine="2088">
+  <property name="label" value="Shipping and Handling Costs"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ShippingAndHandlingCostPolicyTextBlock"/>
+  <property name="QName" value="us-gaap:ShippingAndHandlingCostPolicyTextBlock"/>
+  <property name="contextRef" value="From2019-04-01to2020-03-31">
+   <property name="entity" value="0001367083">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-04-01"/>
+   <property name="endDate" value="2020-03-31"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="&lt;p style=&quot;font: 10pt Times New Roman, Times, Serif; margin: 0&quot;>&lt;b>&lt;i>Shipping and Handling Costs&lt;/i>&lt;/b>&lt;/p>&lt;p style=&quot;font: 10pt Times New Roman, Times, Serif; margin: 0&quot;>&lt;b>&lt;i>&amp;#160;&lt;/i>&lt;/b>&lt;/p>&lt;p style=&quot;font: 10pt Times New Roman, Times, Serif; margin: 0; text-align: justify&quot;>The Company classifies amounts billed to customersrelated to shipping and handling in sale transactions as product revenues. The corresponding shipping and handling costs incurredare recorded in cost of product revenues. For the years ended March 31, 2020 and 2019, the Company recorded revenue related toshipping and handling costs of $57,000 and $55,000, respectively. These amounts are included in product revenues in the accompanyingconsolidated statements of comprehensive (loss) income.&lt;/p>"/>
+ </ref></entry>
+<entry code="DQC.US.0067.7644" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1367083/000168316820002234/snoa-20200331.xml" severity="error" effectiveDate="2019-01-01" cid="1653558781312">[DQC.US.0067.7644] The filing has reported a value of &quot;45,000&quot; for the element us-gaap:DeferredRevenueAndCreditsCurrent. This is a revenue recognition element that is not a component of FASB 606 and does not appear in disclosure group 606000. However the following elements have also been tagged in the filing that indicate that the FASB 606  revenue recognition standard has been adopted:
+DisaggregationOfRevenueTableTextBlock,
+RevenueFromContractWithCustomerExcludingAssessedTax
+
+Either the new revenue recognition elements must be used or the old revenue recognition elements should be used but they should not be combined in the same filing.  
+
+The properties of this us-gaap:DeferredRevenueAndCreditsCurrent fact are:
+Period :2020-03-31
+Dimensions : 
+Unit : USD
+
+Rule Element Id:7644
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1367083/000168316820002234/snoa-20200331.xml 2381</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1367083/000168316820002234/snoa-20200331.xml#element(/1/766)" sourceLine="2381">
+  <property name="label" value="Deferred revenue Invekra (Note 4)"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="DeferredRevenueAndCreditsCurrent"/>
+  <property name="QName" value="us-gaap:DeferredRevenueAndCreditsCurrent"/>
+  <property name="contextRef" value="AsOf2020-03-31">
+   <property name="entity" value="0001367083">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="45,000"/>
+ </ref></entry>
+<entry code="DQC.US.0067.7644" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1367083/000168316820002234/snoa-20200331.xml" severity="error" effectiveDate="2019-01-01" cid="1653558781312">[DQC.US.0067.7644] The filing has reported a value of &quot;55,000&quot; for the element us-gaap:DeferredRevenueAndCreditsCurrent. This is a revenue recognition element that is not a component of FASB 606 and does not appear in disclosure group 606000. However the following elements have also been tagged in the filing that indicate that the FASB 606  revenue recognition standard has been adopted:
+DisaggregationOfRevenueTableTextBlock,
+RevenueFromContractWithCustomerExcludingAssessedTax
+
+Either the new revenue recognition elements must be used or the old revenue recognition elements should be used but they should not be combined in the same filing.  
+
+The properties of this us-gaap:DeferredRevenueAndCreditsCurrent fact are:
+Period :2019-03-31
+Dimensions : 
+Unit : USD
+
+Rule Element Id:7644
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1367083/000168316820002234/snoa-20200331.xml 2382</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1367083/000168316820002234/snoa-20200331.xml#element(/1/767)" sourceLine="2382">
+  <property name="label" value="Deferred revenue Invekra (Note 4)"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="DeferredRevenueAndCreditsCurrent"/>
+  <property name="QName" value="us-gaap:DeferredRevenueAndCreditsCurrent"/>
+  <property name="contextRef" value="AsOf2019-03-31">
+   <property name="entity" value="0001367083">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-03-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="55,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 18.48 secs - http://www.sec.gov/Archives/edgar/data/1367083/000168316820002234/snoa-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1367083/000168316820002234/snoa-20200331.xml"/></entry>
+</log>

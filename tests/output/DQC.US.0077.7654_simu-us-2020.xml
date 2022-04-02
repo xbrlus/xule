@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.72 secs at 2020-07-29T09:42:24 - http://www.sec.gov/Archives/edgar/data/1023459/000168316820002230/simu-20200531.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1023459/000168316820002230/simu-20200531.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmp0b0oekxj\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmp0b0oekxj\packages\resources.zip"/></entry>
+<entry code="DQC.US.0077.7654" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1023459/000168316820002230/simu-20200531.xml" severity="error" effectiveDate="2019-01-01" cid="2226965226880">[DQC.US.0077.7654] The filer has reported a value for the element us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1 with a value of P2Y6M without using the axis RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis. This axis must be used when reporting a value for us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1. Please refer to the FASB implementation guide on Revenue from Contracts with Customers on the FASB website.
+
+The properties of this us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1 fact are:
+Period :2020-05-31
+Dimensions : 
+Unit : None
+
+Rule Element Id:7654
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1023459/000168316820002230/simu-20200531.xml 4226</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1023459/000168316820002230/simu-20200531.xml#element(/1/815)" sourceLine="4226">
+  <property name="label" value="Remaining performance obligations recognition period"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1"/>
+  <property name="QName" value="us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1"/>
+  <property name="contextRef" value="AsOf2020-05-31">
+   <property name="entity" value="0001023459">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-05-31"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="P2Y6M"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 3.60 secs - http://www.sec.gov/Archives/edgar/data/1023459/000168316820002230/simu-20200531.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1023459/000168316820002230/simu-20200531.xml"/></entry>
+</log>

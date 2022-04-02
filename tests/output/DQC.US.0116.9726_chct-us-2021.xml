@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23303 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.71 secs at 2021-11-15T16:32:56 - https://www.sec.gov/Archives/edgar/data/1631569/000163156921000041/chct-20210630.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1631569/000163156921000041/chct-20210630.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpzftfc1i_\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpzftfc1i_\packages\resources.zip"/></entry>
+<entry code="DQC.US.0116.9726" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1631569/000163156921000041/chct-20210630.htm" severity="error" effectiveDate="None" cid="1606092325840">[DQC.US.0116.9726] 
+The company has reported a value of  300,000 for the concept us-gaap:BusinessAcquisitionCostOfAcquiredEntityTransactionCosts. It is expected that this fact uses the BusinessAcquisitionAxis and not the AssetAcquisitionAxis as asset acquisitions should not use the element BusinessAcquisitionCostOfAcquiredEntityTransactionCosts.  Consider changing the axis used with this fact to the BusinessAcquisitionAxis.
+
+The properties of this us-gaap:BusinessAcquisitionCostOfAcquiredEntityTransactionCosts fact are:
+Period :2021-06-30
+Dimensions : us-gaap:AssetAcquisitionAxis=chct:AcquisitionOfPropertiesDuring1stQuarter2021Member
+Unit : USD
+
+
+Rule Element Id:9726
+Rule version: 17.0.0RC1  - https://www.sec.gov/Archives/edgar/data/1631569/000163156921000041/chct-20210630.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1631569/000163156921000041/chct-20210630.htm#id3VybDovL2RvY3MudjEvZG9jOmUzZDZkOGRjNTlmMDRkMjhiNjA5MjQ2NmJlZGIwOWI2L3NlYzplM2Q2ZDhkYzU5ZjA0ZDI4YjYwOTI0NjZiZWRiMDliNl80OS9mcmFnOjdlZjNmYmE5ZjMxZjRkYzE4YzBhZDhjMDYwNWQzZmRhL3RleHRyZWdpb246N2VmM2ZiYTlmMzFmNGRjMThjMGFkOGMwNjA1ZDNmZGFfNDI0_b095f328-552c-4e01-acd9-cd42fdd97204" sourceLine="4">
+  <property name="file" value="chct-20210630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Business Acquisition, Transaction Costs"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2021-01-31"/>
+  <property name="name" value="BusinessAcquisitionCostOfAcquiredEntityTransactionCosts"/>
+  <property name="QName" value="us-gaap:BusinessAcquisitionCostOfAcquiredEntityTransactionCosts"/>
+  <property name="contextRef" value="iee0ae2b226d8498f80917ebf1f7cedf6_I20210630">
+   <property name="entity" value="0001631569">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2021-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:AssetAcquisitionAxis" value="chct:AcquisitionOfPropertiesDuring1stQuarter2021Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="300,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="0.3"/>
+ </ref></entry>
+<entry code="DQC.US.0116.9726" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1631569/000163156921000041/chct-20210630.htm" severity="error" effectiveDate="None" cid="1606092325840">[DQC.US.0116.9726] 
+The company has reported a value of  200,000 for the concept us-gaap:BusinessAcquisitionCostOfAcquiredEntityTransactionCosts. It is expected that this fact uses the BusinessAcquisitionAxis and not the AssetAcquisitionAxis as asset acquisitions should not use the element BusinessAcquisitionCostOfAcquiredEntityTransactionCosts.  Consider changing the axis used with this fact to the BusinessAcquisitionAxis.
+
+The properties of this us-gaap:BusinessAcquisitionCostOfAcquiredEntityTransactionCosts fact are:
+Period :2021-06-30
+Dimensions : us-gaap:AssetAcquisitionAxis=chct:AcquisitionOfPropertiesDuring2ndQuarter2021Member
+Unit : USD
+
+
+Rule Element Id:9726
+Rule version: 17.0.0RC1  - https://www.sec.gov/Archives/edgar/data/1631569/000163156921000041/chct-20210630.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1631569/000163156921000041/chct-20210630.htm#id3VybDovL2RvY3MudjEvZG9jOmUzZDZkOGRjNTlmMDRkMjhiNjA5MjQ2NmJlZGIwOWI2L3NlYzplM2Q2ZDhkYzU5ZjA0ZDI4YjYwOTI0NjZiZWRiMDliNl80OS9mcmFnOjdlZjNmYmE5ZjMxZjRkYzE4YzBhZDhjMDYwNWQzZmRhL3RleHRyZWdpb246N2VmM2ZiYTlmMzFmNGRjMThjMGFkOGMwNjA1ZDNmZGFfMjE5OTAyMzI1NzM5Ng_5217a672-271a-4dc8-a9c0-8cb962f15c01" sourceLine="4">
+  <property name="file" value="chct-20210630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Business Acquisition, Transaction Costs"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2021-01-31"/>
+  <property name="name" value="BusinessAcquisitionCostOfAcquiredEntityTransactionCosts"/>
+  <property name="QName" value="us-gaap:BusinessAcquisitionCostOfAcquiredEntityTransactionCosts"/>
+  <property name="contextRef" value="id1d7670a3d074015aa86e223b9ccde45_I20210630">
+   <property name="entity" value="0001631569">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2021-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:AssetAcquisitionAxis" value="chct:AcquisitionOfPropertiesDuring2ndQuarter2021Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="200,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="0.2"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.50 secs - https://www.sec.gov/Archives/edgar/data/1631569/000163156921000041/chct-20210630.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1631569/000163156921000041/chct-20210630.htm"/></entry>
+</log>

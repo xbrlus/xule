@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22739 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.93 secs at 2019-04-18T10:36:02 - https://www.sec.gov/Archives/edgar/data/1309108/000130910819000020/wex-20181231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1309108/000130910819000020/wex-20181231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv and effective_dates.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmppt_d9_bh/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmppt_d9_bh/packages/resources.zip"/></entry>
+<entry code="DQC.US.0071.7646" level="error">
+ <message severity="error" cid="4375994040" effectiveDate="2019-01-01" filing_url="https://www.sec.gov/Archives/edgar/data/1309108/000130910819000020/wex-20181231.xml">[DQC.US.0071.7646] The filing has  reported a value for the element us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax with a value of 520,619,000 using the ProductOrServiceAxis in the role 1002000 - Statement - CONSOLIDATED STATEMENTS OF INCOME on the table us-gaap:StatementTable. However, the only member used to disaggregate the total for us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax was the member wex:PaymentProcessingRevenueMember. If only one member is used on this axis then the filer should either:
+
+1. Retag the filing using the element TypeOfRevenueExtensibleList/TypeOfCostGoodOrServiceExtensibleList with a value of wex:PaymentProcessingRevenueMember and the member wex:PaymentProcessingRevenueMember should be removed from the value as it represents the aggregate value of us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax.
+ 
+2. Tag the aggregate value of us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax with a value of 520,619,000 without the product of service axis. This rule will not generate an error if the aggregate value of us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax is reported.
+
+The properties of this us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax fact are:
+Period :2016-01-01 to 2016-12-31
+Dimensions : srt:ProductOrServiceAxis=wex:PaymentProcessingRevenueMember
+Unit : USD
+
+Rule Element Id:7646
+Rule version: 9.0.0RC1
+ - https://www.sec.gov/Archives/edgar/data/1309108/000130910819000020/wex-20181231.xml 7234</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1309108/000130910819000020/wex-20181231.xml#Fact-C17F307D81294CCD3E02BDC4EE482D98" sourceLine="7234">
+  <property name="label" value="Revenue from Contract with Customer, Excluding Assessed Tax"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="RevenueFromContractWithCustomerExcludingAssessedTax"/>
+  <property name="QName" value="us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"/>
+  <property name="contextRef" value="FD2016Q4YTD_srt_ProductOrServiceAxis_wex_PaymentProcessingRevenueMember">
+   <property name="entity" value="0001309108">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-01-01"/>
+   <property name="endDate" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ProductOrServiceAxis" value="wex:PaymentProcessingRevenueMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="520,619,000"/>
+ </ref></entry>
+<entry code="DQC.US.0071.7646" level="error">
+ <message severity="error" cid="4375994040" effectiveDate="2019-01-01" filing_url="https://www.sec.gov/Archives/edgar/data/1309108/000130910819000020/wex-20181231.xml">[DQC.US.0071.7646] The filing has  reported a value for the element us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax with a value of 569,166,000 using the ProductOrServiceAxis in the role 1002000 - Statement - CONSOLIDATED STATEMENTS OF INCOME on the table us-gaap:StatementTable. However, the only member used to disaggregate the total for us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax was the member wex:PaymentProcessingRevenueMember. If only one member is used on this axis then the filer should either:
+
+1. Retag the filing using the element TypeOfRevenueExtensibleList/TypeOfCostGoodOrServiceExtensibleList with a value of wex:PaymentProcessingRevenueMember and the member wex:PaymentProcessingRevenueMember should be removed from the value as it represents the aggregate value of us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax.
+ 
+2. Tag the aggregate value of us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax with a value of 569,166,000 without the product of service axis. This rule will not generate an error if the aggregate value of us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax is reported.
+
+The properties of this us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : srt:ProductOrServiceAxis=wex:PaymentProcessingRevenueMember
+Unit : USD
+
+Rule Element Id:7646
+Rule version: 9.0.0RC1
+ - https://www.sec.gov/Archives/edgar/data/1309108/000130910819000020/wex-20181231.xml 7238</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1309108/000130910819000020/wex-20181231.xml#Fact-0B611A5322322D867079BDC4EE47F025" sourceLine="7238">
+  <property name="label" value="Revenue from Contract with Customer, Excluding Assessed Tax"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="RevenueFromContractWithCustomerExcludingAssessedTax"/>
+  <property name="QName" value="us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"/>
+  <property name="contextRef" value="FD2017Q4YTD_srt_ProductOrServiceAxis_wex_PaymentProcessingRevenueMember">
+   <property name="entity" value="0001309108">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ProductOrServiceAxis" value="wex:PaymentProcessingRevenueMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="569,166,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 8.34 secs - https://www.sec.gov/Archives/edgar/data/1309108/000130910819000020/wex-20181231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1309108/000130910819000020/wex-20181231.xml"/></entry>
+</log>

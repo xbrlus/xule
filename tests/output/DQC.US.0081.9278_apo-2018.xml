@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22790 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 4.66 secs at 2019-07-10T22:21:42 - https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv and effective_dates.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp37sjboka/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp37sjboka/packages/resources.zip"/></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message status="PROPOSED" severity="error" effectiveDate="2019-06-30" filing_url="https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml" cid="4418932408">[DQC.US.0081.9278] The line item concept us-gaap:USGovernmentSecuritiesAtCarryingValue with a value of 392,932,000 and a calculation parent of us-gaap:Assets is represented as a sibling of us-gaap:CashAndCashEquivalentsAtCarryingValue with a value of 609,747,000 in the extension taxonomy role 1001000 - Statement - CONSOLIDATED STATEMENTS OF FINANCIAL CONDITION, but us-gaap:USGovernmentSecuritiesAtCarryingValue is represented as a descendent of us-gaap:CashAndCashEquivalentsAtCarryingValue in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:USGovernmentSecuritiesAtCarryingValue fact are:
+
+Period :2018-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml 10515</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml#Fact-D2C571834AF95E34AA388F7DB7653DFB" sourceLine="10515">
+  <property name="label" value="US Government Securities, at Carrying Value"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="USGovernmentSecuritiesAtCarryingValue"/>
+  <property name="QName" value="us-gaap:USGovernmentSecuritiesAtCarryingValue"/>
+  <property name="contextRef" value="FI2018Q4">
+   <property name="entity" value="0001411494">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="392,932,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message status="PROPOSED" severity="error" effectiveDate="2019-06-30" filing_url="https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml" cid="4418932408">[DQC.US.0081.9278] The line item concept us-gaap:USGovernmentSecuritiesAtCarryingValue with a value of 364,649,000 and a calculation parent of us-gaap:Assets is represented as a sibling of us-gaap:CashAndCashEquivalentsAtCarryingValue with a value of 751,273,000 in the extension taxonomy role 1001000 - Statement - CONSOLIDATED STATEMENTS OF FINANCIAL CONDITION, but us-gaap:USGovernmentSecuritiesAtCarryingValue is represented as a descendent of us-gaap:CashAndCashEquivalentsAtCarryingValue in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:USGovernmentSecuritiesAtCarryingValue fact are:
+
+Period :2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml 10511</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml#Fact-C989B4709AAE5690B291EF7B28A2EFB8" sourceLine="10511">
+  <property name="label" value="US Government Securities, at Carrying Value"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="USGovernmentSecuritiesAtCarryingValue"/>
+  <property name="QName" value="us-gaap:USGovernmentSecuritiesAtCarryingValue"/>
+  <property name="contextRef" value="FI2017Q4">
+   <property name="entity" value="0001411494">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="364,649,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message status="PROPOSED" severity="error" effectiveDate="2019-06-30" filing_url="https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml" cid="4418932408">[DQC.US.0081.9278] The line item concept us-gaap:PaymentsToAcquireMarketableSecurities with a value of 449,865,000 and a calculation parent of us-gaap:NetCashProvidedByUsedInInvestingActivities is represented as a sibling of us-gaap:PaymentsToAcquireInvestments with a value of 104,786,000 in the extension taxonomy role 1005000 - Statement - CONSOLIDATED STATEMENTS OF CASH FLOWS, but us-gaap:PaymentsToAcquireMarketableSecurities is represented as a descendent of us-gaap:PaymentsToAcquireInvestments in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:PaymentsToAcquireMarketableSecurities fact are:
+
+Period :2018-01-01 to 2018-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml 10120</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml#Fact-DFEF05385BE81FD459983047E4C76352" sourceLine="10120">
+  <property name="label" value="Payments to Acquire Marketable Securities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="PaymentsToAcquireMarketableSecurities"/>
+  <property name="QName" value="us-gaap:PaymentsToAcquireMarketableSecurities"/>
+  <property name="contextRef" value="FD2018Q4YTD">
+   <property name="entity" value="0001411494">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="449,865,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message status="PROPOSED" severity="error" effectiveDate="2019-06-30" filing_url="https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml" cid="4418932408">[DQC.US.0081.9278] The line item concept us-gaap:InvestmentIncomeInterestAndDividend with a value of 20,654,000 and a calculation parent of us-gaap:NonoperatingIncomeExpense is represented as a sibling of us-gaap:InvestmentIncomeNet with a value of -186,449,000 in the extension taxonomy role 1002000 - Statement - CONSOLIDATED STATEMENTS OF OPERATIONS, but us-gaap:InvestmentIncomeInterestAndDividend is represented as a descendent of us-gaap:InvestmentIncomeNet in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:InvestmentIncomeInterestAndDividend fact are:
+
+Period :2018-01-01 to 2018-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml 9674</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml#Fact-3D1D59113F905B9DA5B3AED884346F3A" sourceLine="9674">
+  <property name="label" value="Investment Income, Interest and Dividend"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="InvestmentIncomeInterestAndDividend"/>
+  <property name="QName" value="us-gaap:InvestmentIncomeInterestAndDividend"/>
+  <property name="contextRef" value="FD2018Q4YTD">
+   <property name="entity" value="0001411494">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="20,654,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message status="PROPOSED" severity="error" effectiveDate="2019-06-30" filing_url="https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml" cid="4418932408">[DQC.US.0081.9278] The line item concept us-gaap:PaymentsOfCapitalDistribution with a value of 31,662,000 and a calculation parent of us-gaap:NetCashProvidedByUsedInFinancingActivities is represented as a sibling of us-gaap:PaymentsOfDividends with a value of 406,863,000 in the extension taxonomy role 1005000 - Statement - CONSOLIDATED STATEMENTS OF CASH FLOWS, but us-gaap:PaymentsOfCapitalDistribution is represented as a descendent of us-gaap:PaymentsOfDividends in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:PaymentsOfCapitalDistribution fact are:
+
+Period :2018-01-01 to 2018-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml 10102</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml#Fact-D8F8880D4245DE269B523047E6A772A3" sourceLine="10102">
+  <property name="label" value="Payments of Capital Distribution"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="PaymentsOfCapitalDistribution"/>
+  <property name="QName" value="us-gaap:PaymentsOfCapitalDistribution"/>
+  <property name="contextRef" value="FD2018Q4YTD">
+   <property name="entity" value="0001411494">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="31,662,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message status="PROPOSED" severity="error" effectiveDate="2019-06-30" filing_url="https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml" cid="4418932408">[DQC.US.0081.9278] The line item concept us-gaap:PaymentsOfDividendsMinorityInterest with a value of 441,355,000 and a calculation parent of us-gaap:NetCashProvidedByUsedInFinancingActivities is represented as a sibling of us-gaap:PaymentsOfDividends with a value of 406,863,000 in the extension taxonomy role 1005000 - Statement - CONSOLIDATED STATEMENTS OF CASH FLOWS, but us-gaap:PaymentsOfDividendsMinorityInterest is represented as a descendent of us-gaap:PaymentsOfDividends in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:PaymentsOfDividendsMinorityInterest fact are:
+
+Period :2018-01-01 to 2018-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml 10108</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml#Fact-FCF13AE48BA26C8CDBBE3047E6ACE9E8" sourceLine="10108">
+  <property name="label" value="Payments of Ordinary Dividends, Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="PaymentsOfDividendsMinorityInterest"/>
+  <property name="QName" value="us-gaap:PaymentsOfDividendsMinorityInterest"/>
+  <property name="contextRef" value="FD2018Q4YTD">
+   <property name="entity" value="0001411494">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="441,355,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message status="PROPOSED" severity="error" effectiveDate="2019-06-30" filing_url="https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml" cid="4418932408">[DQC.US.0081.9278] The line item concept us-gaap:InvestmentIncomeInterestAndDividend with a value of 4,072,000 and a calculation parent of us-gaap:NonoperatingIncomeExpense is represented as a sibling of us-gaap:InvestmentIncomeNet with a value of 139,721,000 in the extension taxonomy role 1002000 - Statement - CONSOLIDATED STATEMENTS OF OPERATIONS, but us-gaap:InvestmentIncomeInterestAndDividend is represented as a descendent of us-gaap:InvestmentIncomeNet in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:InvestmentIncomeInterestAndDividend fact are:
+
+Period :2016-01-01 to 2016-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml 9672</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml#Fact-AE06C190EB9D5C8B8E5C69D4439A911A" sourceLine="9672">
+  <property name="label" value="Investment Income, Interest and Dividend"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="InvestmentIncomeInterestAndDividend"/>
+  <property name="QName" value="us-gaap:InvestmentIncomeInterestAndDividend"/>
+  <property name="contextRef" value="FD2016Q4YTD">
+   <property name="entity" value="0001411494">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-01-01"/>
+   <property name="endDate" value="2016-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4,072,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message status="PROPOSED" severity="error" effectiveDate="2019-06-30" filing_url="https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml" cid="4418932408">[DQC.US.0081.9278] The line item concept us-gaap:PaymentsOfDividendsMinorityInterest with a value of 269,781,000 and a calculation parent of us-gaap:NetCashProvidedByUsedInFinancingActivities is represented as a sibling of us-gaap:PaymentsOfDividends with a value of 239,109,000 in the extension taxonomy role 1005000 - Statement - CONSOLIDATED STATEMENTS OF CASH FLOWS, but us-gaap:PaymentsOfDividendsMinorityInterest is represented as a descendent of us-gaap:PaymentsOfDividends in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:PaymentsOfDividendsMinorityInterest fact are:
+
+Period :2016-01-01 to 2016-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml 10106</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml#Fact-D9E8787D35EC2689361C304A28885D89" sourceLine="10106">
+  <property name="label" value="Payments of Ordinary Dividends, Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="PaymentsOfDividendsMinorityInterest"/>
+  <property name="QName" value="us-gaap:PaymentsOfDividendsMinorityInterest"/>
+  <property name="contextRef" value="FD2016Q4YTD">
+   <property name="entity" value="0001411494">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-01-01"/>
+   <property name="endDate" value="2016-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="269,781,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message status="PROPOSED" severity="error" effectiveDate="2019-06-30" filing_url="https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml" cid="4418932408">[DQC.US.0081.9278] The line item concept us-gaap:PaymentsToAcquireMarketableSecurities with a value of 363,812,000 and a calculation parent of us-gaap:NetCashProvidedByUsedInInvestingActivities is represented as a sibling of us-gaap:PaymentsToAcquireInvestments with a value of 12,711,000 in the extension taxonomy role 1005000 - Statement - CONSOLIDATED STATEMENTS OF CASH FLOWS, but us-gaap:PaymentsToAcquireMarketableSecurities is represented as a descendent of us-gaap:PaymentsToAcquireInvestments in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:PaymentsToAcquireMarketableSecurities fact are:
+
+Period :2017-01-01 to 2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml 10119</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml#Fact-D38C382E9D274BECDA723047E6E0E200" sourceLine="10119">
+  <property name="label" value="Payments to Acquire Marketable Securities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="PaymentsToAcquireMarketableSecurities"/>
+  <property name="QName" value="us-gaap:PaymentsToAcquireMarketableSecurities"/>
+  <property name="contextRef" value="FD2017Q4YTD">
+   <property name="entity" value="0001411494">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="363,812,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message status="PROPOSED" severity="error" effectiveDate="2019-06-30" filing_url="https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml" cid="4418932408">[DQC.US.0081.9278] The line item concept us-gaap:InvestmentIncomeInterestAndDividend with a value of 6,421,000 and a calculation parent of us-gaap:NonoperatingIncomeExpense is represented as a sibling of us-gaap:InvestmentIncomeNet with a value of 95,104,000 in the extension taxonomy role 1002000 - Statement - CONSOLIDATED STATEMENTS OF OPERATIONS, but us-gaap:InvestmentIncomeInterestAndDividend is represented as a descendent of us-gaap:InvestmentIncomeNet in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:InvestmentIncomeInterestAndDividend fact are:
+
+Period :2017-01-01 to 2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml 9673</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml#Fact-CD66AC799C8F13750DE4303FA5055C19" sourceLine="9673">
+  <property name="label" value="Investment Income, Interest and Dividend"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="InvestmentIncomeInterestAndDividend"/>
+  <property name="QName" value="us-gaap:InvestmentIncomeInterestAndDividend"/>
+  <property name="contextRef" value="FD2017Q4YTD">
+   <property name="entity" value="0001411494">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="6,421,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message status="PROPOSED" severity="error" effectiveDate="2019-06-30" filing_url="https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml" cid="4418932408">[DQC.US.0081.9278] The line item concept us-gaap:PaymentsOfCapitalDistribution with a value of 13,538,000 and a calculation parent of us-gaap:NetCashProvidedByUsedInFinancingActivities is represented as a sibling of us-gaap:PaymentsOfDividends with a value of 366,700,000 in the extension taxonomy role 1005000 - Statement - CONSOLIDATED STATEMENTS OF CASH FLOWS, but us-gaap:PaymentsOfCapitalDistribution is represented as a descendent of us-gaap:PaymentsOfDividends in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:PaymentsOfCapitalDistribution fact are:
+
+Period :2017-01-01 to 2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml 10101</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml#Fact-7BC6A52BFEE8B68C03493047E5E26C7D" sourceLine="10101">
+  <property name="label" value="Payments of Capital Distribution"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="PaymentsOfCapitalDistribution"/>
+  <property name="QName" value="us-gaap:PaymentsOfCapitalDistribution"/>
+  <property name="contextRef" value="FD2017Q4YTD">
+   <property name="entity" value="0001411494">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="13,538,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message status="PROPOSED" severity="error" effectiveDate="2019-06-30" filing_url="https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml" cid="4418932408">[DQC.US.0081.9278] The line item concept us-gaap:PaymentsOfDividendsMinorityInterest with a value of 410,776,000 and a calculation parent of us-gaap:NetCashProvidedByUsedInFinancingActivities is represented as a sibling of us-gaap:PaymentsOfDividends with a value of 366,700,000 in the extension taxonomy role 1005000 - Statement - CONSOLIDATED STATEMENTS OF CASH FLOWS, but us-gaap:PaymentsOfDividendsMinorityInterest is represented as a descendent of us-gaap:PaymentsOfDividends in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:PaymentsOfDividendsMinorityInterest fact are:
+
+Period :2017-01-01 to 2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml 10107</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml#Fact-4708E8DAD8436460C23A3047E6FB1EE0" sourceLine="10107">
+  <property name="label" value="Payments of Ordinary Dividends, Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="PaymentsOfDividendsMinorityInterest"/>
+  <property name="QName" value="us-gaap:PaymentsOfDividendsMinorityInterest"/>
+  <property name="contextRef" value="FD2017Q4YTD">
+   <property name="entity" value="0001411494">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="410,776,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 38.15 secs - https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1411494/000141149419000016/apo-20181231.xml"/></entry>
+</log>

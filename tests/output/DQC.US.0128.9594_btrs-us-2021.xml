@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23303 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 10.47 secs at 2021-11-15T16:35:21 - https://www.sec.gov/Archives/edgar/data/1774155/000114036121022585/btrs-20210628.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1774155/000114036121022585/btrs-20210628.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpfr4djz12\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpfr4djz12\packages\resources.zip"/></entry>
+<entry code="DQC.US.0128.9594" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1774155/000114036121022585/btrs-20210628.xml" severity="error" status="PROPOSED" effectiveDate="None" cid="2637188694992">[DQC.US.0128.9594] The concept us-gaap:LettersOfCreditOutstandingAmount with a value of 3,154,000 and dimensions of us-gaap:DebtInstrumentAxis=btrs:PacWestBankCreditAgreementMember is greater than the default value for this concept of 2,854,000. Dimension values used with the dimension DebtInstrumentAxis should aggregate to a value no greater than the default value of 2,854,000. Either update the default value or the dimension value.
+Element : us-gaap:LettersOfCreditOutstandingAmount
+Period : 2020-01-17 
+Dimensions : us-gaap:DebtInstrumentAxis=btrs:PacWestBankCreditAgreementMember
+
+Rule Element Id:9594
+Rule version: 17.0.0RC1  - https://www.sec.gov/Archives/edgar/data/1774155/000114036121022585/btrs-20210628.xml 8528</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1774155/000114036121022585/btrs-20210628.xml#Fact_bdd68d067c28449dac48b990004fbcd0" sourceLine="8528">
+  <property name="label" value="Letters of Credit Outstanding, Amount"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2021-01-31"/>
+  <property name="name" value="LettersOfCreditOutstandingAmount"/>
+  <property name="QName" value="us-gaap:LettersOfCreditOutstandingAmount"/>
+  <property name="contextRef" value="c20200117_DebtInstrumentAxis_PacWestBankCreditAgreementMember">
+   <property name="entity" value="0001774155">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-01-17"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:DebtInstrumentAxis" value="btrs:PacWestBankCreditAgreementMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U001 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="3,154,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 15.90 secs - https://www.sec.gov/Archives/edgar/data/1774155/000114036121022585/btrs-20210628.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1774155/000114036121022585/btrs-20210628.xml"/></entry>
+</log>

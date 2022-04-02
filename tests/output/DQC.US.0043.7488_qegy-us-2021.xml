@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23303 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 7.50 secs at 2022-02-04T11:48:09 - https://www.sec.gov/Archives/edgar/data/1295961/000143774922001542/qegy20210831b_10qa.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1295961/000143774922001542/qegy20210831b_10qa.htm"/></entry>
+<entry code="DQC.US.0043.7488" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1295961/000143774922001542/qegy20210831b_10qa.htm" severity="error" effectiveDate="2018-06-01" cid="1970739545040">[DQC.US.0043.7488] The concept GainLossOnDerivativeInstrumentsNetPretax is included in the calculation of NetCashProvidedByUsedInOperatingActivities. This is in the role 036 - Disclosure - Note 12 - Restatement of Financial Statements - Restatement of Financial Statements (Details). GainLossOnDerivativeInstrumentsNetPretax is a credit balance type concept representing a natural cash outflow in the reconciliation of net income (loss) to NetCashProvidedByUsedInOperatingActivities.
+A credit balance type concept should always be assigned a negative one (-1) calculation weight as it is a deduction from net income (loss) to reconcile to NetCashProvidedByUsedInOperatingActivities. GainLossOnDerivativeInstrumentsNetPretax has been incorrectly provided a positive one (+1) calculation weight in the extension taxonomy. 
+Correct the calculation weight to negative one (-1) and input the value as a positive amount if it is a deduction of a non-cash income or gain, an increase in an asset, or a decrease in a liability. If the value is an add-back of a non-cash expense or loss, decrease in an asset, or an increase in a liability and GainLossOnDerivativeInstrumentsNetPretax is the correct concept, input a negative value.  In this case the company has reported the child concept GainLossOnDerivativeInstrumentsNetPretax      multiple times with alternative weights.
+
+Rule Element Id:7488
+Rule version: 17.0.0 - https://www.sec.gov/Archives/edgar/data/1295961/000143774922001542/qegy20210831b_10qa.htm 1413</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1295961/000143774922001542/qegy20210831b_10qa.htm#c80049981" sourceLine="1413">
+  <property name="file" value="qegy20210831b_10qa.htm"/>
+  <property name="line" value="1413"/>
+  <property name="label" value="us-gaap_NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2021-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="contextRef" value="d_2021-03-01_2021-08-31_RestatementAxis-ScenarioPreviouslyReportedMember">
+   <property name="entity" value="0001295961">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2021-03-01"/>
+   <property name="endDate" value="2021-08-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:RestatementAxis" value="srt:ScenarioPreviouslyReportedMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-1,729,191"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="0"/>
+  <property name="html value" value="1,729,191"/>
+ </ref></entry>
+<entry code="DQC.US.0043.7488" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1295961/000143774922001542/qegy20210831b_10qa.htm" severity="error" effectiveDate="2018-06-01" cid="1970739545040">[DQC.US.0043.7488] The concept GainLossOnDebtConversion is included in the calculation of NetCashProvidedByUsedInOperatingActivities. This is in the role 036 - Disclosure - Note 12 - Restatement of Financial Statements - Restatement of Financial Statements (Details). GainLossOnDebtConversion is a credit balance type concept representing a natural cash outflow in the reconciliation of net income (loss) to NetCashProvidedByUsedInOperatingActivities.
+A credit balance type concept should always be assigned a negative one (-1) calculation weight as it is a deduction from net income (loss) to reconcile to NetCashProvidedByUsedInOperatingActivities. GainLossOnDebtConversion has been incorrectly provided a positive one (+1) calculation weight in the extension taxonomy. 
+Correct the calculation weight to negative one (-1) and input the value as a positive amount if it is a deduction of a non-cash income or gain, an increase in an asset, or a decrease in a liability. If the value is an add-back of a non-cash expense or loss, decrease in an asset, or an increase in a liability and GainLossOnDebtConversion is the correct concept, input a negative value.  In this case the company has reported the child concept GainLossOnDebtConversion      multiple times with alternative weights.
+
+Rule Element Id:7488
+Rule version: 17.0.0 - https://www.sec.gov/Archives/edgar/data/1295961/000143774922001542/qegy20210831b_10qa.htm 1413</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1295961/000143774922001542/qegy20210831b_10qa.htm#c80049981" sourceLine="1413">
+  <property name="file" value="qegy20210831b_10qa.htm"/>
+  <property name="line" value="1413"/>
+  <property name="label" value="us-gaap_NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2021-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="contextRef" value="d_2021-03-01_2021-08-31_RestatementAxis-ScenarioPreviouslyReportedMember">
+   <property name="entity" value="0001295961">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2021-03-01"/>
+   <property name="endDate" value="2021-08-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:RestatementAxis" value="srt:ScenarioPreviouslyReportedMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-1,729,191"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="0"/>
+  <property name="html value" value="1,729,191"/>
+ </ref></entry>
+<entry code="DQC.US.0043.7488" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1295961/000143774922001542/qegy20210831b_10qa.htm" severity="error" effectiveDate="2018-06-01" cid="1970739545040">[DQC.US.0043.7488] The concept CommonStockPayableUnrealizedLoss is included in the calculation of NetCashProvidedByUsedInOperatingActivities. This is in the role 036 - Disclosure - Note 12 - Restatement of Financial Statements - Restatement of Financial Statements (Details). CommonStockPayableUnrealizedLoss is a debit balance type concept representing a natural cash inflow in the reconciliation of net income (loss) to NetCashProvidedByUsedInOperatingActivities.
+A debit balance type concept should always be assigned a positive one (+1) calculation weight as it is an addition to net income (loss) to reconcile to NetCashProvidedByUsedInOperatingActivities. CommonStockPayableUnrealizedLoss has been incorrectly provided a negative one (-1) calculation weight in the extension taxonomy. 
+Correct the calculation weight to positive one (+1) and input the value as a positive amount if it is an addition of a non-cash expense or loss, a decrease in an asset, or an increase in a liability. If the value is an increase in an asset or a decrease in a liability and CommonStockPayableUnrealizedLoss is the correct concept, input a negative value.  In this case the company has reported the child concept CommonStockPayableUnrealizedLoss multiple times with alternative weights.
+
+Rule Element Id:7488
+Rule version: 17.0.0 - https://www.sec.gov/Archives/edgar/data/1295961/000143774922001542/qegy20210831b_10qa.htm 1413</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1295961/000143774922001542/qegy20210831b_10qa.htm#c80049981" sourceLine="1413">
+  <property name="file" value="qegy20210831b_10qa.htm"/>
+  <property name="line" value="1413"/>
+  <property name="label" value="us-gaap_NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2021-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="contextRef" value="d_2021-03-01_2021-08-31_RestatementAxis-ScenarioPreviouslyReportedMember">
+   <property name="entity" value="0001295961">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2021-03-01"/>
+   <property name="endDate" value="2021-08-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:RestatementAxis" value="srt:ScenarioPreviouslyReportedMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-1,729,191"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="0"/>
+  <property name="html value" value="1,729,191"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 4.92 secs - https://www.sec.gov/Archives/edgar/data/1295961/000143774922001542/qegy20210831b_10qa.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1295961/000143774922001542/qegy20210831b_10qa.htm"/></entry>
+</log>

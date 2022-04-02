@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.12 secs at 2020-07-24T23:30:01 - http://www.sec.gov/Archives/edgar/data/1629205/000147793220004090/gmvp-20200531.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1629205/000147793220004090/gmvp-20200531.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmplo038bcf\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmplo038bcf\packages\resources.zip"/></entry>
+<entry code="DQC.US.0044.7503" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1629205/000147793220004090/gmvp-20200531.xml" severity="error" effectiveDate="2018-06-01" cid="2915220694400">[DQC.US.0044.7503] The concept us-gaap:StockRepurchasedAndRetiredDuringPeriodValue with a value of 80,000 is an accrual-based item in the US GAAP taxonomy that is included in the sum of cash provided by (used in) investing activities in the cash flows of the extension taxonomy.
+
+Accrual-based concepts do not belong and should not be included in the investing section of the cash flows statement of the extension taxonomy.  We have seen this problem occur for a couple of reasons. 
+1. The company has used an item that is an accrual item that would normally be in the income statement or shareholders equity and has used it as a replacement for a cashflow element.  These are different concepts and should not be interchanged.  This can occur for operating cashflow items where a reconciliation to net income is presented.
+2. In other cases we have seen the filer use the sum of investing cash flows to represent operating cash flows.  This is an element selection error that sometime occurs and is easily addressed by replacing either the element NetCashProvidedByUsedInInvestingActivitiesContinuingOperations or NetCashProvidedByUsedInInvestingActivities with the operating cash flow item.
+
+If case one above applies replace us-gaap:StockRepurchasedAndRetiredDuringPeriodValue with an appropriate US GAAP taxonomy cash flows item, if available or, if not, consider extending a concept. Alternatively if case two applies then replace the investing activities parent with the operating activities parent.
+
+The properties of this us-gaap:StockRepurchasedAndRetiredDuringPeriodValue fact are:
+Period :2019-09-01 to 2020-05-31
+Dimensions : 
+Unit : USD
+Entity : ('http://www.sec.gov/CIK', '0001629205')
+
+Rule Element Id:7503
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1629205/000147793220004090/gmvp-20200531.xml 2635</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1629205/000147793220004090/gmvp-20200531.xml#element(/1/553)" sourceLine="2635">
+  <property name="label" value="[Stock Repurchased and Retired During Period, Value]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="StockRepurchasedAndRetiredDuringPeriodValue"/>
+  <property name="QName" value="us-gaap:StockRepurchasedAndRetiredDuringPeriodValue"/>
+  <property name="contextRef" value="From2019-09-01to2020-05-31">
+   <property name="entity" value="0001629205">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-09-01"/>
+   <property name="endDate" value="2020-05-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="80,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 23.88 secs - http://www.sec.gov/Archives/edgar/data/1629205/000147793220004090/gmvp-20200531.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1629205/000147793220004090/gmvp-20200531.xml"/></entry>
+</log>

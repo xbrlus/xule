@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 6.61 secs at 2020-07-26T08:25:48 - http://www.sec.gov/Archives/edgar/data/101199/000010119919000116/ufcs-20190930x10q.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/101199/000010119919000116/ufcs-20190930x10q.htm"/></entry>
+<entry code="DQC.US.0004.9289" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/101199/000010119919000116/ufcs-20190930x10q.htm" severity="error" effectiveDate="2019-09-30" cid="1914881484160">[DQC.US.0004.9289] Net Cash Provided by (Used in) Operating Activities with a value of 56,165,000 is not equal to the combined total of Net Cash Provided by (Used in) Operating Activities, Continuing Operations and Cash Provided by (Used in) Operating Activities, Discontinued Operations ( 18,182,000 + 0 ) with a value of 18,182,000. 
+
+These values should be equal.
+The properties of this us-gaap:NetCashProvidedByUsedInOperatingActivities fact are:
+Period :2019-01-01 to 2019-09-30
+Dimensions :  
+Unit : USD
+Decimals of Net Cash Provided by (Used in) Operating Activities : -3
+Decimals of Net Cash Provided by (Used in) Operating Activities, Continuing Operations : -3
+Decimals of Cash Provided by (Used in) Operating Activities, Discontinued Operations : -3
+
+Rule Element Id:9289
+Rule version: 12.0.0 - http://www.sec.gov/Archives/edgar/data/101199/000010119919000116/ufcs-20190930x10q.htm 6765</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/101199/000010119919000116/ufcs-20190930x10q.htm#d39141168e1678-wk-Fact-182E467FDDF581BF6EE9768D5BB54147" sourceLine="6765">
+  <property name="file" value="ufcs-20190930x10q.htm"/>
+  <property name="line" value="6765"/>
+  <property name="label" value="Net Cash Provided by (Used in) Operating Activities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="contextRef" value="FD2019Q3YTD">
+   <property name="entity" value="0000101199">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-09-30"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="56,165,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="56,165"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9289" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/101199/000010119919000116/ufcs-20190930x10q.htm" severity="error" effectiveDate="2019-09-30" cid="1914881484160">[DQC.US.0004.9289] Net Cash Provided by (Used in) Operating Activities with a value of 69,214,000 is not equal to the combined total of Net Cash Provided by (Used in) Operating Activities, Continuing Operations and Cash Provided by (Used in) Operating Activities, Discontinued Operations ( 41,143,000 + 4,024,000 ) with a value of 45,167,000. 
+
+These values should be equal.
+The properties of this us-gaap:NetCashProvidedByUsedInOperatingActivities fact are:
+Period :2018-01-01 to 2018-09-30
+Dimensions :  
+Unit : USD
+Decimals of Net Cash Provided by (Used in) Operating Activities : -3
+Decimals of Net Cash Provided by (Used in) Operating Activities, Continuing Operations : -3
+Decimals of Cash Provided by (Used in) Operating Activities, Discontinued Operations : -3
+
+Rule Element Id:9289
+Rule version: 12.0.0 - http://www.sec.gov/Archives/edgar/data/101199/000010119919000116/ufcs-20190930x10q.htm 6765</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/101199/000010119919000116/ufcs-20190930x10q.htm#d39141168e1697-wk-Fact-69EA58A8AE144B390E5D768D5B9AC314" sourceLine="6765">
+  <property name="file" value="ufcs-20190930x10q.htm"/>
+  <property name="line" value="6765"/>
+  <property name="label" value="Net Cash Provided by (Used in) Operating Activities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="contextRef" value="FD2018Q3YTD">
+   <property name="entity" value="0000101199">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-09-30"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="69,214,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="69,214"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.44 secs - http://www.sec.gov/Archives/edgar/data/101199/000010119919000116/ufcs-20190930x10q.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/101199/000010119919000116/ufcs-20190930x10q.htm"/></entry>
+</log>

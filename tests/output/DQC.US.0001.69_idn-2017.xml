@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.72 secs at 2018-10-16T09:41:15 - http://www.sec.gov/Archives/edgar/data/1040896/000149315218006806/idn-20180331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1040896/000149315218006806/idn-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - idn-20180331.xml </message>
+ <ref href="idn-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpriy82zec/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpriy82zec/packages/resources.zip"/></entry>
+<entry code="DQC.US.0001.69" level="error">
+ <message severity="error" cid="4347932344" filing_url="http://www.sec.gov/Archives/edgar/data/1040896/000149315218006806/idn-20180331.xml">[DQC.US.0001.69] The concept Revenues with a value of 68,510 is dimensionally qualified with the ProductOrServiceAxis and the unallowable member EquipmentMember Only extension members should be used with the axis ProductOrServiceAxis other than the members predefined in the US-GAAP taxonomy. 
+The properties of the fact for Revenues are:
+Period: 2017-01-01 to 2017-03-31
+Dimensions: us-gaap:ProductOrServiceAxis=us-gaap:EquipmentMember 
+Unit: USD
+
+Rule Element Id:69
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1040896/000149315218006806/idn-20180331.xml 1043</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1040896/000149315218006806/idn-20180331.xml#element(/1/205)" sourceLine="1043">
+  <property name="label" value="REVENUES"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="Revenues"/>
+  <property name="QName" value="us-gaap:Revenues"/>
+  <property name="contextRef" value="From2017-01-01to2017-03-31_us-gaap_EquipmentMember">
+   <property name="entity" value="0001040896">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ProductOrServiceAxis" value="us-gaap:EquipmentMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="68,510"/>
+ </ref></entry>
+<entry code="DQC.US.0001.69" level="error">
+ <message severity="error" cid="4347932344" filing_url="http://www.sec.gov/Archives/edgar/data/1040896/000149315218006806/idn-20180331.xml">[DQC.US.0001.69] The concept Revenues with a value of 121,913 is dimensionally qualified with the ProductOrServiceAxis and the unallowable member EquipmentMember Only extension members should be used with the axis ProductOrServiceAxis other than the members predefined in the US-GAAP taxonomy. 
+The properties of the fact for Revenues are:
+Period: 2018-01-01 to 2018-03-31
+Dimensions: us-gaap:ProductOrServiceAxis=us-gaap:EquipmentMember 
+Unit: USD
+
+Rule Element Id:69
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1040896/000149315218006806/idn-20180331.xml 1042</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1040896/000149315218006806/idn-20180331.xml#element(/1/204)" sourceLine="1042">
+  <property name="label" value="REVENUES"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="Revenues"/>
+  <property name="QName" value="us-gaap:Revenues"/>
+  <property name="contextRef" value="From2018-01-01to2018-03-31_us-gaap_EquipmentMember">
+   <property name="entity" value="0001040896">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ProductOrServiceAxis" value="us-gaap:EquipmentMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="121,913"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 17.18 secs - http://www.sec.gov/Archives/edgar/data/1040896/000149315218006806/idn-20180331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1040896/000149315218006806/idn-20180331.xml"/></entry>
+</log>

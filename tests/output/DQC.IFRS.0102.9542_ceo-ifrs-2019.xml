@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 4.88 secs at 2020-10-28T17:28:17 - https://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml"/></entry>
+<entry code="DQC.IFRS.0102.9542" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml" severity="error" effectiveDate="None" cid="1850718459264">[DQC.IFRS.0102.9542] Equity with a value of 448,226,000,000 is not equal to the combined total of Stockholders Equity Excluding NI and Noncontrolling Interest ( 448,226,000,000 + 39,000,000 ) with a value of 448,265,000,000. 
+
+These values should be equal.
+The properties of this ifrs-full:Equity fact are:
+Period :2019-12-31
+Dimensions :  
+Unit : CNY
+Decimals of Stockholders Equity Including Noncontrolling Interest : -6
+Decimals of Stockholders Equity Excluding NI : -6
+Decimals of Noncontrolling Interest : -6
+
+Rule Element Id:9542
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml 10839</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml#element(/1/1121)" sourceLine="10839">
+  <property name="label" value="Equity"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Equity"/>
+  <property name="QName" value="ifrs-full:Equity"/>
+  <property name="contextRef" value="As_Of_12_31_2019">
+   <property name="entity" value="0001095595">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+  </property>
+  <property name="unitRef" value="Unit1 (¥)">
+   <property name="measure" value="iso4217:CNY"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="448,226,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9542" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml" severity="error" effectiveDate="None" cid="1850718459264">[DQC.IFRS.0102.9542] Equity with a value of 419,910,000,000 is not equal to the combined total of Stockholders Equity Excluding NI and Noncontrolling Interest ( 419,910,000,000 + 10,000,000 ) with a value of 419,920,000,000. 
+
+These values should be equal.
+The properties of this ifrs-full:Equity fact are:
+Period :2018-12-31
+Dimensions :  
+Unit : CNY
+Decimals of Stockholders Equity Including Noncontrolling Interest : -6
+Decimals of Stockholders Equity Excluding NI : -6
+Decimals of Noncontrolling Interest : -6
+
+Rule Element Id:9542
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml 10799</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml#element(/1/1081)" sourceLine="10799">
+  <property name="label" value="Equity"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Equity"/>
+  <property name="QName" value="ifrs-full:Equity"/>
+  <property name="contextRef" value="As_Of_12_31_2018">
+   <property name="entity" value="0001095595">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="Unit1 (¥)">
+   <property name="measure" value="iso4217:CNY"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="419,910,000,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 9.06 secs - https://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml"/></entry>
+</log>

@@ -1,0 +1,1742 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 10.58 secs at 2020-10-28T16:44:43 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml"/></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept IntraSegmentOperatingRevenues with a value of -191,728,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for IntraSegmentOperatingRevenues are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79655</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8743)" sourceLine="79655">
+  <property name="label" value="Intra Segment Operating Revenues"/>
+  <property name="namespace" value="http://www.kbfg.com/20191231"/>
+  <property name="name" value="IntraSegmentOperatingRevenues"/>
+  <property name="QName" value="kb:IntraSegmentOperatingRevenues"/>
+  <property name="contextRef" value="FY2019D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-191,728,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept ExpenseArisingFromInsuranceContracts with a value of -20,844,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for ExpenseArisingFromInsuranceContracts are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79757</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8845)" sourceLine="79757">
+  <property name="label" value="Expense Arising From Insurance Contracts"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ExpenseArisingFromInsuranceContracts"/>
+  <property name="QName" value="ifrs-full:ExpenseArisingFromInsuranceContracts"/>
+  <property name="contextRef" value="FY2019D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-20,844,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept ProfitLossAttributableToOwnersOfParent with a value of -131,762,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for ProfitLossAttributableToOwnersOfParent are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79877</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8965)" sourceLine="79877">
+  <property name="label" value="Profit Loss Attributable To Owners Of Parent"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ProfitLossAttributableToOwnersOfParent"/>
+  <property name="QName" value="ifrs-full:ProfitLossAttributableToOwnersOfParent"/>
+  <property name="contextRef" value="FY2019D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-131,762,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept Revenue with a value of -191,728,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for Revenue are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79666</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8754)" sourceLine="79666">
+  <property name="label" value="Revenue"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Revenue"/>
+  <property name="QName" value="ifrs-full:Revenue"/>
+  <property name="contextRef" value="FY2019D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-191,728,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept FeeAndCommissionIncomeExpense with a value of 4,522,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for FeeAndCommissionIncomeExpense are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79434</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8522)" sourceLine="79434">
+  <property name="label" value="Fee And Commission Income Expense"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="FeeAndCommissionIncomeExpense"/>
+  <property name="QName" value="ifrs-full:FeeAndCommissionIncomeExpense"/>
+  <property name="contextRef" value="FY2018D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4,522,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept IncomeExpenseArisingFromInsuranceContracts with a value of -9,053,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for IncomeExpenseArisingFromInsuranceContracts are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79737</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8825)" sourceLine="79737">
+  <property name="label" value="Income Expense Arising From Insurance Contracts"/>
+  <property name="namespace" value="http://www.kbfg.com/20191231"/>
+  <property name="name" value="IncomeExpenseArisingFromInsuranceContracts"/>
+  <property name="QName" value="kb:IncomeExpenseArisingFromInsuranceContracts"/>
+  <property name="contextRef" value="FY2019D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-9,053,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept OperatingRevenesFromExternalCustomers with a value of 0 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for OperatingRevenesFromExternalCustomers are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79371</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8459)" sourceLine="79371">
+  <property name="label" value="Operating Revenes From External Customers"/>
+  <property name="namespace" value="http://www.kbfg.com/20191231"/>
+  <property name="name" value="OperatingRevenesFromExternalCustomers"/>
+  <property name="QName" value="kb:OperatingRevenesFromExternalCustomers"/>
+  <property name="contextRef" value="FY2018D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept OtherNonoperatingIncomeExpense with a value of -29,211,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for OtherNonoperatingIncomeExpense are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79837</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8925)" sourceLine="79837">
+  <property name="label" value="Other Nonoperating Income Expense"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="OtherNonoperatingIncomeExpense"/>
+  <property name="QName" value="us-gaap:OtherNonoperatingIncomeExpense"/>
+  <property name="contextRef" value="FY2019D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-29,211,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept IncomeTaxExpenseContinuingOperations with a value of -6,770,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for IncomeTaxExpenseContinuingOperations are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79584</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8672)" sourceLine="79584">
+  <property name="label" value="Income Tax Expense Continuing Operations"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="IncomeTaxExpenseContinuingOperations"/>
+  <property name="QName" value="ifrs-full:IncomeTaxExpenseContinuingOperations"/>
+  <property name="contextRef" value="FY2018D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-6,770,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept ProfitLossBeforeTax with a value of -142,315,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for ProfitLossBeforeTax are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79847</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8935)" sourceLine="79847">
+  <property name="label" value="Profit Loss Before Tax"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ProfitLossBeforeTax"/>
+  <property name="QName" value="ifrs-full:ProfitLossBeforeTax"/>
+  <property name="contextRef" value="FY2019D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-142,315,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept ProvisionForCreditLosses with a value of -318,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for ProvisionForCreditLosses are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79534</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8622)" sourceLine="79534">
+  <property name="label" value="Provision For Credit Losses"/>
+  <property name="namespace" value="http://www.kbfg.com/20191231"/>
+  <property name="name" value="ProvisionForCreditLosses"/>
+  <property name="QName" value="kb:ProvisionForCreditLosses"/>
+  <property name="contextRef" value="FY2018D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-318,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept InterestRevenueExpense with a value of 1,034,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for InterestRevenueExpense are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79404</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8492)" sourceLine="79404">
+  <property name="label" value="Interest Revenue Expense"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="InterestRevenueExpense"/>
+  <property name="QName" value="ifrs-full:InterestRevenueExpense"/>
+  <property name="contextRef" value="FY2018D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,034,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept InterestExpense with a value of -26,758,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for InterestExpense are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79424</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8512)" sourceLine="79424">
+  <property name="label" value="Interest Expense"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="InterestExpense"/>
+  <property name="QName" value="ifrs-full:InterestExpense"/>
+  <property name="contextRef" value="FY2018D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-26,758,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept GainLossOnAssociatesAccountsUsingEquityMethod with a value of -20,972,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for GainLossOnAssociatesAccountsUsingEquityMethod are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79827</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8915)" sourceLine="79827">
+  <property name="label" value="Gain Loss On Associates Accounts Using Equity Method"/>
+  <property name="namespace" value="http://www.kbfg.com/20191231"/>
+  <property name="name" value="GainLossOnAssociatesAccountsUsingEquityMethod"/>
+  <property name="QName" value="kb:GainLossOnAssociatesAccountsUsingEquityMethod"/>
+  <property name="contextRef" value="FY2019D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-20,972,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept FeeAndCommissionExpense with a value of -330,434,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for FeeAndCommissionExpense are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79727</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8815)" sourceLine="79727">
+  <property name="label" value="Fee And Commission Expense"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="FeeAndCommissionExpense"/>
+  <property name="QName" value="ifrs-full:FeeAndCommissionExpense"/>
+  <property name="contextRef" value="FY2019D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-330,434,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept RevenueFromInterest with a value of -25,724,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for RevenueFromInterest are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79414</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8502)" sourceLine="79414">
+  <property name="label" value="Revenue From Interest"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="RevenueFromInterest"/>
+  <property name="QName" value="ifrs-full:RevenueFromInterest"/>
+  <property name="contextRef" value="FY2018D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-25,724,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept Revenue with a value of -157,440,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for Revenue are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79393</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8481)" sourceLine="79393">
+  <property name="label" value="Revenue"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Revenue"/>
+  <property name="QName" value="ifrs-full:Revenue"/>
+  <property name="contextRef" value="FY2018D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-157,440,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept IntraSegmentOperatingRevenues with a value of -157,440,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for IntraSegmentOperatingRevenues are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79382</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8470)" sourceLine="79382">
+  <property name="label" value="Intra Segment Operating Revenues"/>
+  <property name="namespace" value="http://www.kbfg.com/20191231"/>
+  <property name="name" value="IntraSegmentOperatingRevenues"/>
+  <property name="QName" value="kb:IntraSegmentOperatingRevenues"/>
+  <property name="contextRef" value="FY2018D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-157,440,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept ExpenseArisingFromInsuranceContracts with a value of -36,531,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for ExpenseArisingFromInsuranceContracts are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79484</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8572)" sourceLine="79484">
+  <property name="label" value="Expense Arising From Insurance Contracts"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ExpenseArisingFromInsuranceContracts"/>
+  <property name="QName" value="ifrs-full:ExpenseArisingFromInsuranceContracts"/>
+  <property name="contextRef" value="FY2018D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-36,531,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept IncomeExpenseArisingFromInsuranceContracts with a value of -148,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for IncomeExpenseArisingFromInsuranceContracts are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79464</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8552)" sourceLine="79464">
+  <property name="label" value="Income Expense Arising From Insurance Contracts"/>
+  <property name="namespace" value="http://www.kbfg.com/20191231"/>
+  <property name="name" value="IncomeExpenseArisingFromInsuranceContracts"/>
+  <property name="QName" value="kb:IncomeExpenseArisingFromInsuranceContracts"/>
+  <property name="contextRef" value="FY2018D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-148,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept ProfitLossAttributableToOwnersOfParent with a value of -66,569,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for ProfitLossAttributableToOwnersOfParent are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79604</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8692)" sourceLine="79604">
+  <property name="label" value="Profit Loss Attributable To Owners Of Parent"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ProfitLossAttributableToOwnersOfParent"/>
+  <property name="QName" value="ifrs-full:ProfitLossAttributableToOwnersOfParent"/>
+  <property name="contextRef" value="FY2018D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-66,569,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept ProfitLossAttributableToNoncontrollingInterests with a value of -1,429,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for ProfitLossAttributableToNoncontrollingInterests are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79887</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8975)" sourceLine="79887">
+  <property name="label" value="Profit (loss) attributable to non-controlling interests"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ProfitLossAttributableToNoncontrollingInterests"/>
+  <property name="QName" value="ifrs-full:ProfitLossAttributableToNoncontrollingInterests"/>
+  <property name="contextRef" value="FY2019D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-1,429,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept OtherNonoperatingIncomeExpense with a value of -38,237,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for OtherNonoperatingIncomeExpense are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79564</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8652)" sourceLine="79564">
+  <property name="label" value="Other Nonoperating Income Expense"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="OtherNonoperatingIncomeExpense"/>
+  <property name="QName" value="us-gaap:OtherNonoperatingIncomeExpense"/>
+  <property name="contextRef" value="FY2018D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-38,237,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept ProfitLossFromOperatingAcitivitiesBeforeProvisionForCreditLosses with a value of -91,896,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for ProfitLossFromOperatingAcitivitiesBeforeProvisionForCreditLosses are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79797</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8885)" sourceLine="79797">
+  <property name="label" value="Profit Loss From Operating Acitivities Before Provision For Credit Losses"/>
+  <property name="namespace" value="http://www.kbfg.com/20191231"/>
+  <property name="name" value="ProfitLossFromOperatingAcitivitiesBeforeProvisionForCreditLosses"/>
+  <property name="QName" value="kb:ProfitLossFromOperatingAcitivitiesBeforeProvisionForCreditLosses"/>
+  <property name="contextRef" value="FY2019D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-91,896,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept Assets with a value of -28,188,756,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for Assets are:
+Period: 2019-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79897</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#id_footnote_elem_12921464" sourceLine="79897">
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="ifrs-full:Assets"/>
+  <property name="contextRef" value="FY2019I_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-28,188,756,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept FeeAndCommissionIncome with a value of -322,944,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for FeeAndCommissionIncome are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79717</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8805)" sourceLine="79717">
+  <property name="label" value="Fee And Commission Income"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="FeeAndCommissionIncome"/>
+  <property name="QName" value="ifrs-full:FeeAndCommissionIncome"/>
+  <property name="contextRef" value="FY2019D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-322,944,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept OtherOperatingIncomeExpense with a value of -45,903,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for OtherOperatingIncomeExpense are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79777</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8865)" sourceLine="79777">
+  <property name="label" value="Other Operating Income Expense"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="OtherOperatingIncomeExpense"/>
+  <property name="QName" value="ifrs-full:OtherOperatingIncomeExpense"/>
+  <property name="contextRef" value="FY2019D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-45,903,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept ProfitLoss with a value of -133,191,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for ProfitLoss are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79867</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8955)" sourceLine="79867">
+  <property name="label" value="Profit (Loss)"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ProfitLoss"/>
+  <property name="QName" value="ifrs-full:ProfitLoss"/>
+  <property name="contextRef" value="FY2019D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-133,191,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept ProfitLossBeforeTax with a value of -74,217,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for ProfitLossBeforeTax are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79574</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8662)" sourceLine="79574">
+  <property name="label" value="Profit Loss Before Tax"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ProfitLossBeforeTax"/>
+  <property name="QName" value="ifrs-full:ProfitLossBeforeTax"/>
+  <property name="contextRef" value="FY2018D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-74,217,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept AdministrativeExpense with a value of -99,832,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for AdministrativeExpense are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79787</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8875)" sourceLine="79787">
+  <property name="label" value="Administrative Expense"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="AdministrativeExpense"/>
+  <property name="QName" value="ifrs-full:AdministrativeExpense"/>
+  <property name="contextRef" value="FY2019D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-99,832,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept GainLossOnAssociatesAccountsUsingEquityMethod with a value of -28,903,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for GainLossOnAssociatesAccountsUsingEquityMethod are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79554</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8642)" sourceLine="79554">
+  <property name="label" value="Gain Loss On Associates Accounts Using Equity Method"/>
+  <property name="namespace" value="http://www.kbfg.com/20191231"/>
+  <property name="name" value="GainLossOnAssociatesAccountsUsingEquityMethod"/>
+  <property name="QName" value="kb:GainLossOnAssociatesAccountsUsingEquityMethod"/>
+  <property name="contextRef" value="FY2018D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-28,903,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept IncomeArisingFromInsuranceContracts with a value of -29,897,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for IncomeArisingFromInsuranceContracts are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79747</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8835)" sourceLine="79747">
+  <property name="label" value="Income Arising From Insurance Contracts"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="IncomeArisingFromInsuranceContracts"/>
+  <property name="QName" value="ifrs-full:IncomeArisingFromInsuranceContracts"/>
+  <property name="contextRef" value="FY2019D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-29,897,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept ProfitLossFromOperatingActivities with a value of -92,132,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for ProfitLossFromOperatingActivities are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79817</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8905)" sourceLine="79817">
+  <property name="label" value="Profit Loss From Operating Activities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ProfitLossFromOperatingActivities"/>
+  <property name="QName" value="ifrs-full:ProfitLossFromOperatingActivities"/>
+  <property name="contextRef" value="FY2019D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-92,132,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept GainLossOnFinancialAssetsLiabilitiesAtFairValueThroughProfitOrLoss with a value of -144,948,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for GainLossOnFinancialAssetsLiabilitiesAtFairValueThroughProfitOrLoss are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79767</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8855)" sourceLine="79767">
+  <property name="label" value="Gain Loss On Financial Assets Liabilities At Fair Value Through Profit Or Loss"/>
+  <property name="namespace" value="http://www.kbfg.com/20191231"/>
+  <property name="name" value="GainLossOnFinancialAssetsLiabilitiesAtFairValueThroughProfitOrLoss"/>
+  <property name="QName" value="kb:GainLossOnFinancialAssetsLiabilitiesAtFairValueThroughProfitOrLoss"/>
+  <property name="contextRef" value="FY2019D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-144,948,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept Liabilities with a value of -1,610,678,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for Liabilities are:
+Period: 2019-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79907</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#id_footnote_elem_2460842" sourceLine="79907">
+  <property name="label" value="Liabilities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="FY2019I_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-1,610,678,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept FeeAndCommissionExpense with a value of -317,223,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for FeeAndCommissionExpense are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79454</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8542)" sourceLine="79454">
+  <property name="label" value="Fee And Commission Expense"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="FeeAndCommissionExpense"/>
+  <property name="QName" value="ifrs-full:FeeAndCommissionExpense"/>
+  <property name="contextRef" value="FY2018D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-317,223,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept GainLossOnFinancialAssetsLiabilitiesAtFairValueThroughProfitOrLoss with a value of -89,590,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for GainLossOnFinancialAssetsLiabilitiesAtFairValueThroughProfitOrLoss are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79494</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8582)" sourceLine="79494">
+  <property name="label" value="Gain Loss On Financial Assets Liabilities At Fair Value Through Profit Or Loss"/>
+  <property name="namespace" value="http://www.kbfg.com/20191231"/>
+  <property name="name" value="GainLossOnFinancialAssetsLiabilitiesAtFairValueThroughProfitOrLoss"/>
+  <property name="QName" value="kb:GainLossOnFinancialAssetsLiabilitiesAtFairValueThroughProfitOrLoss"/>
+  <property name="contextRef" value="FY2018D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-89,590,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept FeeAndCommissionIncomeExpense with a value of 7,490,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for FeeAndCommissionIncomeExpense are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79707</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8795)" sourceLine="79707">
+  <property name="label" value="Fee And Commission Income Expense"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="FeeAndCommissionIncomeExpense"/>
+  <property name="QName" value="ifrs-full:FeeAndCommissionIncomeExpense"/>
+  <property name="contextRef" value="FY2019D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="7,490,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept ProfitLossAttributableToNoncontrollingInterests with a value of -878,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for ProfitLossAttributableToNoncontrollingInterests are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79614</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8702)" sourceLine="79614">
+  <property name="label" value="Profit (loss) attributable to non-controlling interests"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ProfitLossAttributableToNoncontrollingInterests"/>
+  <property name="QName" value="ifrs-full:ProfitLossAttributableToNoncontrollingInterests"/>
+  <property name="contextRef" value="FY2018D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-878,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept OperatingRevenesFromExternalCustomers with a value of 0 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for OperatingRevenesFromExternalCustomers are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79644</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8732)" sourceLine="79644">
+  <property name="label" value="Operating Revenes From External Customers"/>
+  <property name="namespace" value="http://www.kbfg.com/20191231"/>
+  <property name="name" value="OperatingRevenesFromExternalCustomers"/>
+  <property name="QName" value="kb:OperatingRevenesFromExternalCustomers"/>
+  <property name="contextRef" value="FY2019D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept ProfitLossFromOperatingAcitivitiesBeforeProvisionForCreditLosses with a value of -7,395,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for ProfitLossFromOperatingAcitivitiesBeforeProvisionForCreditLosses are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79524</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8612)" sourceLine="79524">
+  <property name="label" value="Profit Loss From Operating Acitivities Before Provision For Credit Losses"/>
+  <property name="namespace" value="http://www.kbfg.com/20191231"/>
+  <property name="name" value="ProfitLossFromOperatingAcitivitiesBeforeProvisionForCreditLosses"/>
+  <property name="QName" value="kb:ProfitLossFromOperatingAcitivitiesBeforeProvisionForCreditLosses"/>
+  <property name="contextRef" value="FY2018D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-7,395,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept Assets with a value of -27,851,420,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for Assets are:
+Period: 2018-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79624</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#id_footnote_elem_6103536" sourceLine="79624">
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="ifrs-full:Assets"/>
+  <property name="contextRef" value="FY2018I_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-27,851,420,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept IncomeTaxExpenseContinuingOperations with a value of -9,124,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for IncomeTaxExpenseContinuingOperations are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79857</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8945)" sourceLine="79857">
+  <property name="label" value="Income Tax Expense Continuing Operations"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="IncomeTaxExpenseContinuingOperations"/>
+  <property name="QName" value="ifrs-full:IncomeTaxExpenseContinuingOperations"/>
+  <property name="contextRef" value="FY2019D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-9,124,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept FeeAndCommissionIncome with a value of -312,701,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for FeeAndCommissionIncome are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79444</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8532)" sourceLine="79444">
+  <property name="label" value="Fee And Commission Income"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="FeeAndCommissionIncome"/>
+  <property name="QName" value="ifrs-full:FeeAndCommissionIncome"/>
+  <property name="contextRef" value="FY2018D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-312,701,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept OtherOperatingIncomeExpense with a value of -73,258,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for OtherOperatingIncomeExpense are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79504</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8592)" sourceLine="79504">
+  <property name="label" value="Other Operating Income Expense"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="OtherOperatingIncomeExpense"/>
+  <property name="QName" value="ifrs-full:OtherOperatingIncomeExpense"/>
+  <property name="contextRef" value="FY2018D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-73,258,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept ProfitLoss with a value of -67,447,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for ProfitLoss are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79594</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8682)" sourceLine="79594">
+  <property name="label" value="Profit (Loss)"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ProfitLoss"/>
+  <property name="QName" value="ifrs-full:ProfitLoss"/>
+  <property name="contextRef" value="FY2018D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-67,447,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept ProvisionForCreditLosses with a value of 236,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for ProvisionForCreditLosses are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79807</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8895)" sourceLine="79807">
+  <property name="label" value="Provision For Credit Losses"/>
+  <property name="namespace" value="http://www.kbfg.com/20191231"/>
+  <property name="name" value="ProvisionForCreditLosses"/>
+  <property name="QName" value="kb:ProvisionForCreditLosses"/>
+  <property name="contextRef" value="FY2019D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="236,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept InterestRevenueExpense with a value of 686,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for InterestRevenueExpense are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79677</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8765)" sourceLine="79677">
+  <property name="label" value="Interest Revenue Expense"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="InterestRevenueExpense"/>
+  <property name="QName" value="ifrs-full:InterestRevenueExpense"/>
+  <property name="contextRef" value="FY2019D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="686,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept InterestExpense with a value of -39,681,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for InterestExpense are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79697</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8785)" sourceLine="79697">
+  <property name="label" value="Interest Expense"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="InterestExpense"/>
+  <property name="QName" value="ifrs-full:InterestExpense"/>
+  <property name="contextRef" value="FY2019D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-39,681,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept IncomeArisingFromInsuranceContracts with a value of -36,679,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for IncomeArisingFromInsuranceContracts are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79474</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8562)" sourceLine="79474">
+  <property name="label" value="Income Arising From Insurance Contracts"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="IncomeArisingFromInsuranceContracts"/>
+  <property name="QName" value="ifrs-full:IncomeArisingFromInsuranceContracts"/>
+  <property name="contextRef" value="FY2018D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-36,679,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept AdministrativeExpense with a value of -150,045,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for AdministrativeExpense are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79514</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8602)" sourceLine="79514">
+  <property name="label" value="Administrative Expense"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="AdministrativeExpense"/>
+  <property name="QName" value="ifrs-full:AdministrativeExpense"/>
+  <property name="contextRef" value="FY2018D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-150,045,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept ProfitLossFromOperatingActivities with a value of -7,077,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for ProfitLossFromOperatingActivities are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79544</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8632)" sourceLine="79544">
+  <property name="label" value="Profit Loss From Operating Activities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ProfitLossFromOperatingActivities"/>
+  <property name="QName" value="ifrs-full:ProfitLossFromOperatingActivities"/>
+  <property name="contextRef" value="FY2018D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-7,077,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept RevenueFromInterest with a value of -38,995,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for RevenueFromInterest are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79687</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#element(/1/8775)" sourceLine="79687">
+  <property name="label" value="Revenue From Interest"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="RevenueFromInterest"/>
+  <property name="QName" value="ifrs-full:RevenueFromInterest"/>
+  <property name="contextRef" value="FY2019D_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-38,995,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9555" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml" severity="error" effectiveDate="None" cid="1837575607680">[DQC.IFRS.0104.9555] The concept Liabilities with a value of -1,459,548,000,000 is dimensionally qualified with the SegmentsAxis and the unallowable member EliminationOfIntersegmentAmountsMember. The SegmentsAxis should only be used with extension members and the  following  IFRS members: ifrs-full:SegmentsMember, ifrs-full:AllOtherSegmentsMember, ifrs-full:ReportableSegmentsMember.
+The properties of the fact for Liabilities are:
+Period: 2018-12-31
+Dimensions: ifrs-full:SegmentsAxis=ifrs-full:EliminationOfIntersegmentAmountsMember 
+Unit: KRW
+
+Rule Element Id:9555
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml 79634</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml#id_footnote_elem_14975795" sourceLine="79634">
+  <property name="label" value="Liabilities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="FY2018I_EliminationOfIntersegmentAmountsMember">
+   <property name="entity" value="0001445930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentsAxis" value="ifrs-full:EliminationOfIntersegmentAmountsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="KRW (₩)">
+   <property name="measure" value="iso4217:KRW"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-1,459,548,000,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 18.09 secs - https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1445930/000119312520118233/kb-20191231.xml"/></entry>
+</log>

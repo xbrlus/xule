@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23221 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.93 secs at 2021-04-14T20:16:07 - https://www.sec.gov/Archives/edgar/data/1045810/000104581020000189/nvda-20201025.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1045810/000104581020000189/nvda-20201025.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpsw_pq4gg\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpsw_pq4gg\packages\resources.zip"/></entry>
+<entry code="DQC.US.0113.9562" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1045810/000104581020000189/nvda-20201025.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2188375192528">[DQC.US.0113.9562] 
+The company has reported a value of  7,049,000,000 for the concept us-gaap:PaymentsToAcquireBusinessesGross which is less than the value of us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired with a value of 7,130,000,000. It is expected that the value of us-gaap:PaymentsToAcquireBusinessesGross will always be greater than or equal to us-gaap:PaymentsToAcquireBusinessesNetOfCashAcquired 
+
+The properties of this us-gaap:PaymentsToAcquireBusinessesGross fact are:
+Period :2020-04-27 to 2020-04-27
+Dimensions : us-gaap:BusinessAcquisitionAxis=nvda:MellanoxTechnologiesLtdMember
+Unit : USD
+
+
+Rule Element Id:9562
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/1045810/000104581020000189/nvda-20201025.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1045810/000104581020000189/nvda-20201025.htm#id3VybDovL2RvY3MudjEvZG9jOmEzY2QxMGQ2NzRkMDRkOWNiZmJlZWMwZDg0ZDNjMThkL3NlYzphM2NkMTBkNjc0ZDA0ZDljYmZiZWVjMGQ4NGQzYzE4ZF80MC9mcmFnOmE4ODA1NDQxZjA5NzQ2ZDg4Y2MxZDYwYzE2M2Y3Mzk2L3RhYmxlOmJhNjdjNTFkODY0YjQ2YzZhMjE0ZDY3N2VmY2M5YTZhL3RhYmxlcmFuZ2U6YmE2N2M1MWQ4NjRiNDZjNmEyMTRkNjc3ZWZjYzlhNmFfMy0yLTEtMS0w_27ea37bc-26e4-46f6-8092-9ebb83cf7eef" sourceLine="4">
+  <property name="file" value="nvda-20201025.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Payments to Acquire Businesses, Gross"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="PaymentsToAcquireBusinessesGross"/>
+  <property name="QName" value="us-gaap:PaymentsToAcquireBusinessesGross"/>
+  <property name="contextRef" value="i6f2e297d1aa5401cbd4689d41912ce93_D20200427-20200427">
+   <property name="entity" value="0001045810">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-04-27"/>
+   <property name="endDate" value="2020-04-27"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:BusinessAcquisitionAxis" value="nvda:MellanoxTechnologiesLtdMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="7,049,000,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="7,049"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 4.26 secs - https://www.sec.gov/Archives/edgar/data/1045810/000104581020000189/nvda-20201025.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1045810/000104581020000189/nvda-20201025.htm"/></entry>
+</log>

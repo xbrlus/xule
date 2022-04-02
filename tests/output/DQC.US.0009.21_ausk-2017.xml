@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.59 secs at 2018-10-16T09:49:51 - http://www.sec.gov/Archives/edgar/data/1492091/000149209118000013/ausk-20180331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1492091/000149209118000013/ausk-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - ausk-20180331.xml </message>
+ <ref href="ausk-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp0uae15zr/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp0uae15zr/packages/resources.zip"/></entry>
+<entry code="DQC.US.0009.21" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1492091/000149209118000013/ausk-20180331.xml" cid="4393373368">[DQC.US.0009.21] The value of Common Stock, Shares Issued, 770,676,305, should be less than or equal to Common Stock, Shares Authorized, 2,000,000.
+
+The properties of this us-gaap:CommonStockSharesIssued fact are:
+
+Period: 2017-12-31
+Dimensions: 
+Unit: shares
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1492091/000149209118000013/ausk-20180331.xml 49</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1492091/000149209118000013/ausk-20180331.xml#element(/1/46)" sourceLine="49">
+  <property name="label" value="Common Stock, Shares Issued"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="CommonStockSharesIssued"/>
+  <property name="QName" value="us-gaap:CommonStockSharesIssued"/>
+  <property name="contextRef" value="E17">
+   <property name="entity" value="0001492091">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="770,676,305"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 1.19 secs - http://www.sec.gov/Archives/edgar/data/1492091/000149209118000013/ausk-20180331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1492091/000149209118000013/ausk-20180331.xml"/></entry>
+</log>

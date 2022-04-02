@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.94 secs at 2020-07-28T12:34:34 - http://www.sec.gov/Archives/edgar/data/1517130/000121390020006499/pme-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1517130/000121390020006499/pme-20191231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpegy18xt0\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpegy18xt0\packages\resources.zip"/></entry>
+<entry code="DQC.US.0011.6832" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1517130/000121390020006499/pme-20191231.xml" severity="error" rule-suffix="6832" effectiveDate="2018-01-01" cid="2204346131840">[DQC.US.0011.6832] It is expected that NetIncomeLoss with a value of 29,659,693 reported in the network role http://ptmarine.com/role/ConsolidatedIncomeStatement, http://ptmarine.com/role/ScheduleofselectedquarterlyfinancialdataTable, http://ptmarine.com/role/ScheduleofcondensedparentcompanystatementsofoperationsTable, http://ptmarine.com/role/ScheduleofreconciliationofbasicanddilutednetincomepershareTable should be equal to the dimensionally qualified concept, ProfitLoss with the dimension us-gaap:StatementEquityComponentsAxis = us-gaap:ParentMember and a reported value of 32,520,131 multiplied by 1. This value appears in the network role http://ptmarine.com/role/ScheduleofcondensedparentcompanystatementsofoperationsTable, http://ptmarine.com/role/ScheduleofcondensedparentcompanystatementsofcashflowsTable. This error occurs when the dimensionally qualified fact is not equal to the value input for the non dimensional item.
+
+The properties of this us-gaap:NetIncomeLoss fact are:
+
+Period : 2017-01-01 to 2017-12-31
+Dimensions : 
+Unit : USD
+Decimals of NetIncomeLoss : 0
+Decimals of ProfitLoss : 0
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1517130/000121390020006499/pme-20191231.xml 3199</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1517130/000121390020006499/pme-20191231.xml#element(/1/428)" sourceLine="3199">
+  <property name="label" value="Net Income (Loss) Attributable to Parent"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="NetIncomeLoss"/>
+  <property name="QName" value="us-gaap:NetIncomeLoss"/>
+  <property name="contextRef" value="c6_From1Jan2017To31Dec2017">
+   <property name="entity" value="0001517130">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="29,659,693"/>
+ </ref></entry>
+<entry code="DQC.US.0011.6829" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1517130/000121390020006499/pme-20191231.xml" severity="error" rule-suffix="6829" effectiveDate="2018-01-01" cid="2204346131840">[DQC.US.0011.6829] It is expected that StockholdersEquity with a value of 132,666,788 reported in the network role http://ptmarine.com/role/ConsolidatedBalanceSheet, http://ptmarine.com/role/ScheduleofcondensedparentcompanybalancesheetsTable should be equal to the dimensionally qualified concept, StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest with the dimension us-gaap:StatementEquityComponentsAxis = us-gaap:ParentMember and a reported value of 151,559,110 multiplied by 1. This value appears in the network role http://ptmarine.com/role/ScheduleofcondensedparentcompanybalancesheetsTable. This error occurs when the dimensionally qualified fact is not equal to the value input for the non dimensional item.
+
+The properties of this us-gaap:StockholdersEquity fact are:
+
+Period : 2018-12-31
+Dimensions : 
+Unit : USD
+Decimals of StockholdersEquity : 0
+Decimals of StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest : 0
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1517130/000121390020006499/pme-20191231.xml 3116</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1517130/000121390020006499/pme-20191231.xml#element(/1/345)" sourceLine="3116">
+  <property name="label" value="Stockholders' Equity Attributable to Parent"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="StockholdersEquity"/>
+  <property name="QName" value="us-gaap:StockholdersEquity"/>
+  <property name="contextRef" value="c4_AsOf31Dec2018">
+   <property name="entity" value="0001517130">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="132,666,788"/>
+ </ref></entry>
+<entry code="DQC.US.0011.6829" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1517130/000121390020006499/pme-20191231.xml" severity="error" rule-suffix="6829" effectiveDate="2018-01-01" cid="2204346131840">[DQC.US.0011.6829] It is expected that StockholdersEquity with a value of 135,715,951 reported in the network role http://ptmarine.com/role/ConsolidatedBalanceSheet, http://ptmarine.com/role/ScheduleofcondensedparentcompanybalancesheetsTable should be equal to the dimensionally qualified concept, StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest with the dimension us-gaap:StatementEquityComponentsAxis = us-gaap:ParentMember and a reported value of 155,077,856 multiplied by 1. This value appears in the network role http://ptmarine.com/role/ScheduleofcondensedparentcompanybalancesheetsTable. This error occurs when the dimensionally qualified fact is not equal to the value input for the non dimensional item.
+
+The properties of this us-gaap:StockholdersEquity fact are:
+
+Period : 2019-12-31
+Dimensions : 
+Unit : USD
+Decimals of StockholdersEquity : 0
+Decimals of StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest : 0
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1517130/000121390020006499/pme-20191231.xml 3115</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1517130/000121390020006499/pme-20191231.xml#element(/1/344)" sourceLine="3115">
+  <property name="label" value="Stockholders' Equity Attributable to Parent"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="StockholdersEquity"/>
+  <property name="QName" value="us-gaap:StockholdersEquity"/>
+  <property name="contextRef" value="c3_AsOf31Dec2019">
+   <property name="entity" value="0001517130">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="135,715,951"/>
+ </ref></entry>
+<entry code="DQC.US.0011.6832" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1517130/000121390020006499/pme-20191231.xml" severity="error" rule-suffix="6832" effectiveDate="2018-01-01" cid="2204346131840">[DQC.US.0011.6832] It is expected that NetIncomeLoss with a value of 5,682,024 reported in the network role http://ptmarine.com/role/ScheduleofcondensedparentcompanystatementsofoperationsTable, http://ptmarine.com/role/ScheduleofreconciliationofbasicanddilutednetincomepershareTable, http://ptmarine.com/role/ScheduleofselectedquarterlyfinancialdataTable, http://ptmarine.com/role/ConsolidatedIncomeStatement should be equal to the dimensionally qualified concept, ProfitLoss with the dimension us-gaap:StatementEquityComponentsAxis = us-gaap:ParentMember and a reported value of 6,380,065 multiplied by 1. This value appears in the network role http://ptmarine.com/role/ScheduleofcondensedparentcompanystatementsofoperationsTable, http://ptmarine.com/role/ScheduleofcondensedparentcompanystatementsofcashflowsTable. This error occurs when the dimensionally qualified fact is not equal to the value input for the non dimensional item.
+
+The properties of this us-gaap:NetIncomeLoss fact are:
+
+Period : 2019-01-01 to 2019-12-31
+Dimensions : 
+Unit : USD
+Decimals of NetIncomeLoss : 0
+Decimals of ProfitLoss : 0
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1517130/000121390020006499/pme-20191231.xml 3197</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1517130/000121390020006499/pme-20191231.xml#element(/1/426)" sourceLine="3197">
+  <property name="label" value="Net Income (Loss) Attributable to Parent"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="NetIncomeLoss"/>
+  <property name="QName" value="us-gaap:NetIncomeLoss"/>
+  <property name="contextRef" value="c0_From1Jan2019To31Dec2019">
+   <property name="entity" value="0001517130">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="5,682,024"/>
+ </ref></entry>
+<entry code="DQC.US.0011.6832" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1517130/000121390020006499/pme-20191231.xml" severity="error" rule-suffix="6832" effectiveDate="2018-01-01" cid="2204346131840">[DQC.US.0011.6832] It is expected that NetIncomeLoss with a value of 13,397,301 reported in the network role http://ptmarine.com/role/ScheduleofcondensedparentcompanystatementsofoperationsTable, http://ptmarine.com/role/ScheduleofselectedquarterlyfinancialdataTable, http://ptmarine.com/role/ConsolidatedIncomeStatement, http://ptmarine.com/role/ScheduleofreconciliationofbasicanddilutednetincomepershareTable should be equal to the dimensionally qualified concept, ProfitLoss with the dimension us-gaap:StatementEquityComponentsAxis = us-gaap:ParentMember and a reported value of 14,812,698 multiplied by 1. This value appears in the network role http://ptmarine.com/role/ScheduleofcondensedparentcompanystatementsofcashflowsTable, http://ptmarine.com/role/ScheduleofcondensedparentcompanystatementsofoperationsTable. This error occurs when the dimensionally qualified fact is not equal to the value input for the non dimensional item.
+
+The properties of this us-gaap:NetIncomeLoss fact are:
+
+Period : 2018-01-01 to 2018-12-31
+Dimensions : 
+Unit : USD
+Decimals of NetIncomeLoss : 0
+Decimals of ProfitLoss : 0
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1517130/000121390020006499/pme-20191231.xml 3198</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1517130/000121390020006499/pme-20191231.xml#element(/1/427)" sourceLine="3198">
+  <property name="label" value="Net Income (Loss) Attributable to Parent"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="NetIncomeLoss"/>
+  <property name="QName" value="us-gaap:NetIncomeLoss"/>
+  <property name="contextRef" value="c5_From1Jan2018To31Dec2018">
+   <property name="entity" value="0001517130">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="13,397,301"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.58 secs - http://www.sec.gov/Archives/edgar/data/1517130/000121390020006499/pme-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1517130/000121390020006499/pme-20191231.xml"/></entry>
+</log>

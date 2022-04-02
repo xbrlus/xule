@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 4.83 secs at 2018-10-16T09:59:21 - http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - jfgi-20170531.xml </message>
+ <ref href="jfgi-20170531.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmparcu_fs5/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmparcu_fs5/packages/resources.zip"/></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml" cid="4385406648">[DQC.US.0001.64] The concept AccountsPayableAndAccruedLiabilitiesCurrent with a value of 3,274,094 is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member CarryingAmountMember. 
+The properties of the fact for AccountsPayableAndAccruedLiabilitiesCurrent are:
+Period: 2016-05-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=JFGI:CarryingAmountMember 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml 3083</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml#element(/1/1310)" sourceLine="3083">
+  <property name="label" value="Accounts Payable and Accrued Liabilities, Current"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="AccountsPayableAndAccruedLiabilitiesCurrent"/>
+  <property name="QName" value="us-gaap:AccountsPayableAndAccruedLiabilitiesCurrent"/>
+  <property name="contextRef" value="AsOf2016-05-31_custom_CarryingAmountMember">
+   <property name="entity" value="0000857501">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="JFGI:CarryingAmountMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="3,274,094"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml" cid="4385406648">[DQC.US.0001.64] The concept CashCashEquivalentsAndShortTermInvestments with a value of 2,405,450 is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member CarryingAmountMember. 
+The properties of the fact for CashCashEquivalentsAndShortTermInvestments are:
+Period: 2017-05-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=JFGI:CarryingAmountMember 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml 3090</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml#element(/1/1317)" sourceLine="3090">
+  <property name="label" value="Cash and short-term investments"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="CashCashEquivalentsAndShortTermInvestments"/>
+  <property name="QName" value="us-gaap:CashCashEquivalentsAndShortTermInvestments"/>
+  <property name="contextRef" value="AsOf2017-05-31_custom_CarryingAmountMember">
+   <property name="entity" value="0000857501">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="JFGI:CarryingAmountMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,405,450"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml" cid="4385406648">[DQC.US.0001.64] The concept AccountsPayableAndAdvancePremiums with a value of 388,771 is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member CarryingAmountMember. 
+The properties of the fact for AccountsPayableAndAdvancePremiums are:
+Period: 2017-05-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=JFGI:CarryingAmountMember 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml 3086</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml#element(/1/1313)" sourceLine="3086">
+  <property name="label" value="Accounts payable and advance premiums"/>
+  <property name="namespace" value="http://jacobsfinancial.com/20170531"/>
+  <property name="name" value="AccountsPayableAndAdvancePremiums"/>
+  <property name="QName" value="JFGI:AccountsPayableAndAdvancePremiums"/>
+  <property name="contextRef" value="AsOf2017-05-31_custom_CarryingAmountMember">
+   <property name="entity" value="0000857501">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="JFGI:CarryingAmountMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="388,771"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml" cid="4385406648">[DQC.US.0001.64] The concept NotesPayable with a value of 6,463,439 is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member CarryingAmountMember. 
+The properties of the fact for NotesPayable are:
+Period: 2017-05-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=JFGI:CarryingAmountMember 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml 2172</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml#element(/1/399)" sourceLine="2172">
+  <property name="label" value="Notes payable"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="NotesPayable"/>
+  <property name="QName" value="us-gaap:NotesPayable"/>
+  <property name="contextRef" value="AsOf2017-05-31_custom_CarryingAmountMember">
+   <property name="entity" value="0000857501">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="JFGI:CarryingAmountMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="6,463,439"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml" cid="4385406648">[DQC.US.0001.64] The concept CashCashEquivalentsAndShortTermInvestments with a value of 663,562 is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member CarryingAmountMember. 
+The properties of the fact for CashCashEquivalentsAndShortTermInvestments are:
+Period: 2016-05-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=JFGI:CarryingAmountMember 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml 3091</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml#element(/1/1318)" sourceLine="3091">
+  <property name="label" value="Cash and short-term investments"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="CashCashEquivalentsAndShortTermInvestments"/>
+  <property name="QName" value="us-gaap:CashCashEquivalentsAndShortTermInvestments"/>
+  <property name="contextRef" value="AsOf2016-05-31_custom_CarryingAmountMember">
+   <property name="entity" value="0000857501">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="JFGI:CarryingAmountMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="663,562"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml" cid="4385406648">[DQC.US.0001.64] The concept AccountsPayableAndAccruedLiabilitiesCurrent with a value of 23,936,898 is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member CarryingAmountMember. 
+The properties of the fact for AccountsPayableAndAccruedLiabilitiesCurrent are:
+Period: 2017-05-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=JFGI:CarryingAmountMember 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml 3082</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml#element(/1/1309)" sourceLine="3082">
+  <property name="label" value="Accounts Payable and Accrued Liabilities, Current"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="AccountsPayableAndAccruedLiabilitiesCurrent"/>
+  <property name="QName" value="us-gaap:AccountsPayableAndAccruedLiabilitiesCurrent"/>
+  <property name="contextRef" value="AsOf2017-05-31_custom_CarryingAmountMember">
+   <property name="entity" value="0000857501">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="JFGI:CarryingAmountMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="23,936,898"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml" cid="4385406648">[DQC.US.0001.64] The concept AvailableForSaleDebtSecuritiesAmortizedCostBasis with a value of 33,634,402 is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member CarryingAmountMember. 
+The properties of the fact for AvailableForSaleDebtSecuritiesAmortizedCostBasis are:
+Period: 2017-05-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=JFGI:CarryingAmountMember 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml 1954</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml#element(/1/181)" sourceLine="1954">
+  <property name="label" value="Amorized cost Bonds and mortgaged-back securities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="AvailableForSaleDebtSecuritiesAmortizedCostBasis"/>
+  <property name="QName" value="us-gaap:AvailableForSaleDebtSecuritiesAmortizedCostBasis"/>
+  <property name="contextRef" value="AsOf2017-05-31_custom_CarryingAmountMember">
+   <property name="entity" value="0000857501">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="JFGI:CarryingAmountMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="33,634,402"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml" cid="4385406648">[DQC.US.0001.64] The concept AvailableForSaleEquitySecuritiesAmortizedCostBasis with a value of 2,465,221 is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member CarryingAmountMember. 
+The properties of the fact for AvailableForSaleEquitySecuritiesAmortizedCostBasis are:
+Period: 2017-05-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=JFGI:CarryingAmountMember 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml 1960</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml#element(/1/187)" sourceLine="1960">
+  <property name="label" value="Amorized cost Equity investments"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="AvailableForSaleEquitySecuritiesAmortizedCostBasis"/>
+  <property name="QName" value="us-gaap:AvailableForSaleEquitySecuritiesAmortizedCostBasis"/>
+  <property name="contextRef" value="AsOf2017-05-31_custom_CarryingAmountMember">
+   <property name="entity" value="0000857501">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="JFGI:CarryingAmountMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,465,221"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml" cid="4385406648">[DQC.US.0001.64] The concept PremiumsAndOtherReceivablesNet with a value of 513,113 is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member CarryingAmountMember. 
+The properties of the fact for PremiumsAndOtherReceivablesNet are:
+Period: 2017-05-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=JFGI:CarryingAmountMember 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml 2099</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml#element(/1/326)" sourceLine="2099">
+  <property name="label" value="Premiums and other accounts receivable, net of allowance for doubtful accounts of $15,053 and $40,658, respectively"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="PremiumsAndOtherReceivablesNet"/>
+  <property name="QName" value="us-gaap:PremiumsAndOtherReceivablesNet"/>
+  <property name="contextRef" value="AsOf2017-05-31_custom_CarryingAmountMember">
+   <property name="entity" value="0000857501">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="JFGI:CarryingAmountMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="513,113"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml" cid="4385406648">[DQC.US.0001.64] The concept NotesPayable with a value of 6,861,954 is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member CarryingAmountMember. 
+The properties of the fact for NotesPayable are:
+Period: 2016-05-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=JFGI:CarryingAmountMember 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml 2173</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml#element(/1/400)" sourceLine="2173">
+  <property name="label" value="Notes payable"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="NotesPayable"/>
+  <property name="QName" value="us-gaap:NotesPayable"/>
+  <property name="contextRef" value="AsOf2016-05-31_custom_CarryingAmountMember">
+   <property name="entity" value="0000857501">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="JFGI:CarryingAmountMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="6,861,954"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml" cid="4385406648">[DQC.US.0001.64] The concept AvailableForSaleEquitySecuritiesAmortizedCostBasis with a value of 1,550,217 is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member CarryingAmountMember. 
+The properties of the fact for AvailableForSaleEquitySecuritiesAmortizedCostBasis are:
+Period: 2016-05-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=JFGI:CarryingAmountMember 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml 1961</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml#element(/1/188)" sourceLine="1961">
+  <property name="label" value="Amorized cost Equity investments"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="AvailableForSaleEquitySecuritiesAmortizedCostBasis"/>
+  <property name="QName" value="us-gaap:AvailableForSaleEquitySecuritiesAmortizedCostBasis"/>
+  <property name="contextRef" value="AsOf2016-05-31_custom_CarryingAmountMember">
+   <property name="entity" value="0000857501">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="JFGI:CarryingAmountMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,550,217"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml" cid="4385406648">[DQC.US.0001.64] The concept AvailableForSaleDebtSecuritiesAmortizedCostBasis with a value of 7,170,789 is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member CarryingAmountMember. 
+The properties of the fact for AvailableForSaleDebtSecuritiesAmortizedCostBasis are:
+Period: 2016-05-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=JFGI:CarryingAmountMember 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml 1955</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml#element(/1/182)" sourceLine="1955">
+  <property name="label" value="Amorized cost Bonds and mortgaged-back securities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="AvailableForSaleDebtSecuritiesAmortizedCostBasis"/>
+  <property name="QName" value="us-gaap:AvailableForSaleDebtSecuritiesAmortizedCostBasis"/>
+  <property name="contextRef" value="AsOf2016-05-31_custom_CarryingAmountMember">
+   <property name="entity" value="0000857501">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="JFGI:CarryingAmountMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="7,170,789"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml" cid="4385406648">[DQC.US.0001.64] The concept AccountsPayableAndAdvancePremiums with a value of 414,787 is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member CarryingAmountMember. 
+The properties of the fact for AccountsPayableAndAdvancePremiums are:
+Period: 2016-05-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=JFGI:CarryingAmountMember 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml 3087</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml#element(/1/1314)" sourceLine="3087">
+  <property name="label" value="Accounts payable and advance premiums"/>
+  <property name="namespace" value="http://jacobsfinancial.com/20170531"/>
+  <property name="name" value="AccountsPayableAndAdvancePremiums"/>
+  <property name="QName" value="JFGI:AccountsPayableAndAdvancePremiums"/>
+  <property name="contextRef" value="AsOf2016-05-31_custom_CarryingAmountMember">
+   <property name="entity" value="0000857501">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="JFGI:CarryingAmountMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="414,787"/>
+ </ref></entry>
+<entry code="DQC.US.0001.64" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml" cid="4385406648">[DQC.US.0001.64] The concept PremiumsAndOtherReceivablesNet with a value of -76,413 is dimensionally qualified with the FairValueByMeasurementFrequencyAxis and the unallowable member CarryingAmountMember. 
+The properties of the fact for PremiumsAndOtherReceivablesNet are:
+Period: 2016-05-31
+Dimensions: us-gaap:FairValueByMeasurementFrequencyAxis=JFGI:CarryingAmountMember 
+Unit: USD
+
+Rule Element Id:64
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml 2100</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml#element(/1/327)" sourceLine="2100">
+  <property name="label" value="Premiums and other accounts receivable, net of allowance for doubtful accounts of $15,053 and $40,658, respectively"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="PremiumsAndOtherReceivablesNet"/>
+  <property name="QName" value="us-gaap:PremiumsAndOtherReceivablesNet"/>
+  <property name="contextRef" value="AsOf2016-05-31_custom_CarryingAmountMember">
+   <property name="entity" value="0000857501">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementFrequencyAxis" value="JFGI:CarryingAmountMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-76,413"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 19.92 secs - http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/857501/000106594918000083/jfgi-20170531.xml"/></entry>
+</log>

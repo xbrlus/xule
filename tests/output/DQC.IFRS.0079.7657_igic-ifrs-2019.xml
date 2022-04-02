@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.63 secs at 2020-07-24T23:36:58 - http://www.sec.gov/Archives/edgar/data/1794338/000121390020010502/igic-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1794338/000121390020010502/igic-20191231.xml"/></entry>
+<entry code="DQC.IFRS.0079.7657" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1794338/000121390020010502/igic-20191231.xml" severity="error" effectiveDate="2019-05-08" cid="2439988225408">[DQC.IFRS.0079.7657] igic:AustraliaMember is an extension member on the axis GeographicalAreasAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing igic:AustraliaMember with the existing taxonomy concept AU with the taxonomy namespace http://xbrl.sec.gov/country/2017-01-31.
+
+Rule Element Id:7657
+Rule version: 13.0.0RC1
+ - </message></entry>
+<entry code="DQC.IFRS.0079.7657" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1794338/000121390020010502/igic-20191231.xml" severity="error" effectiveDate="2019-05-08" cid="2439988225408">[DQC.IFRS.0079.7657] igic:BahrainMember is an extension member on the axis GeographicalAreasAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing igic:BahrainMember with the existing taxonomy concept BH with the taxonomy namespace http://xbrl.sec.gov/country/2017-01-31.
+
+Rule Element Id:7657
+Rule version: 13.0.0RC1
+ - </message></entry>
+<entry code="DQC.IFRS.0079.7657" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1794338/000121390020010502/igic-20191231.xml" severity="error" effectiveDate="2019-05-08" cid="2439988225408">[DQC.IFRS.0079.7657] igic:CanadaMember is an extension member on the axis GeographicalAreasAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing igic:CanadaMember with the existing taxonomy concept CA with the taxonomy namespace http://xbrl.sec.gov/country/2017-01-31.
+
+Rule Element Id:7657
+Rule version: 13.0.0RC1
+ - </message></entry>
+<entry code="DQC.IFRS.0079.7657" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1794338/000121390020010502/igic-20191231.xml" severity="error" effectiveDate="2019-05-08" cid="2439988225408">[DQC.IFRS.0079.7657] igic:ChinaMember is an extension member on the axis GeographicalAreasAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing igic:ChinaMember with the existing taxonomy concept CN with the taxonomy namespace http://xbrl.sec.gov/country/2017-01-31.
+
+Rule Element Id:7657
+Rule version: 13.0.0RC1
+ - </message></entry>
+<entry code="DQC.IFRS.0079.7657" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1794338/000121390020010502/igic-20191231.xml" severity="error" effectiveDate="2019-05-08" cid="2439988225408">[DQC.IFRS.0079.7657] igic:FinlandMember is an extension member on the axis GeographicalAreasAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing igic:FinlandMember with the existing taxonomy concept FI with the taxonomy namespace http://xbrl.sec.gov/country/2017-01-31.
+
+Rule Element Id:7657
+Rule version: 13.0.0RC1
+ - </message></entry>
+<entry code="DQC.IFRS.0079.7657" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1794338/000121390020010502/igic-20191231.xml" severity="error" effectiveDate="2019-05-08" cid="2439988225408">[DQC.IFRS.0079.7657] igic:FranceMember is an extension member on the axis GeographicalAreasAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing igic:FranceMember with the existing taxonomy concept FR with the taxonomy namespace http://xbrl.sec.gov/country/2017-01-31.
+
+Rule Element Id:7657
+Rule version: 13.0.0RC1
+ - </message></entry>
+<entry code="DQC.IFRS.0079.7657" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1794338/000121390020010502/igic-20191231.xml" severity="error" effectiveDate="2019-05-08" cid="2439988225408">[DQC.IFRS.0079.7657] igic:GermanyMember is an extension member on the axis GeographicalAreasAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing igic:GermanyMember with the existing taxonomy concept DE with the taxonomy namespace http://xbrl.sec.gov/country/2017-01-31.
+
+Rule Element Id:7657
+Rule version: 13.0.0RC1
+ - </message></entry>
+<entry code="DQC.IFRS.0079.7657" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1794338/000121390020010502/igic-20191231.xml" severity="error" effectiveDate="2019-05-08" cid="2439988225408">[DQC.IFRS.0079.7657] igic:HongKongMember is an extension member on the axis GeographicalAreasAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing igic:HongKongMember with the existing taxonomy concept HK with the taxonomy namespace http://xbrl.sec.gov/country/2017-01-31.
+
+Rule Element Id:7657
+Rule version: 13.0.0RC1
+ - </message></entry>
+<entry code="DQC.IFRS.0079.7657" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1794338/000121390020010502/igic-20191231.xml" severity="error" effectiveDate="2019-05-08" cid="2439988225408">[DQC.IFRS.0079.7657] igic:ItalyMember is an extension member on the axis GeographicalAreasAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing igic:ItalyMember with the existing taxonomy concept IT with the taxonomy namespace http://xbrl.sec.gov/country/2017-01-31.
+
+Rule Element Id:7657
+Rule version: 13.0.0RC1
+ - </message></entry>
+<entry code="DQC.IFRS.0079.7657" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1794338/000121390020010502/igic-20191231.xml" severity="error" effectiveDate="2019-05-08" cid="2439988225408">[DQC.IFRS.0079.7657] igic:JapanMember is an extension member on the axis GeographicalAreasAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing igic:JapanMember with the existing taxonomy concept JP with the taxonomy namespace http://xbrl.sec.gov/country/2017-01-31.
+
+Rule Element Id:7657
+Rule version: 13.0.0RC1
+ - </message></entry>
+<entry code="DQC.IFRS.0079.7657" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1794338/000121390020010502/igic-20191231.xml" severity="error" effectiveDate="2019-05-08" cid="2439988225408">[DQC.IFRS.0079.7657] igic:JordanMember is an extension member on the axis GeographicalAreasAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing igic:JordanMember with the existing taxonomy concept JO with the taxonomy namespace http://xbrl.sec.gov/country/2017-01-31.
+
+Rule Element Id:7657
+Rule version: 13.0.0RC1
+ - </message></entry>
+<entry code="DQC.IFRS.0079.7657" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1794338/000121390020010502/igic-20191231.xml" severity="error" effectiveDate="2019-05-08" cid="2439988225408">[DQC.IFRS.0079.7657] igic:KuwaitMember is an extension member on the axis GeographicalAreasAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing igic:KuwaitMember with the existing taxonomy concept KW with the taxonomy namespace http://xbrl.sec.gov/country/2017-01-31.
+
+Rule Element Id:7657
+Rule version: 13.0.0RC1
+ - </message></entry>
+<entry code="DQC.IFRS.0079.7657" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1794338/000121390020010502/igic-20191231.xml" severity="error" effectiveDate="2019-05-08" cid="2439988225408">[DQC.IFRS.0079.7657] igic:MexicoMember is an extension member on the axis GeographicalAreasAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing igic:MexicoMember with the existing taxonomy concept MX with the taxonomy namespace http://xbrl.sec.gov/country/2017-01-31.
+
+Rule Element Id:7657
+Rule version: 13.0.0RC1
+ - </message></entry>
+<entry code="DQC.IFRS.0079.7657" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1794338/000121390020010502/igic-20191231.xml" severity="error" effectiveDate="2019-05-08" cid="2439988225408">[DQC.IFRS.0079.7657] igic:NetherlandsMember is an extension member on the axis GeographicalAreasAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing igic:NetherlandsMember with the existing taxonomy concept NL with the taxonomy namespace http://xbrl.sec.gov/country/2017-01-31.
+
+Rule Element Id:7657
+Rule version: 13.0.0RC1
+ - </message></entry>
+<entry code="DQC.IFRS.0079.7657" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1794338/000121390020010502/igic-20191231.xml" severity="error" effectiveDate="2019-05-08" cid="2439988225408">[DQC.IFRS.0079.7657] igic:NorwayMember is an extension member on the axis GeographicalAreasAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing igic:NorwayMember with the existing taxonomy concept NO with the taxonomy namespace http://xbrl.sec.gov/country/2017-01-31.
+
+Rule Element Id:7657
+Rule version: 13.0.0RC1
+ - </message></entry>
+<entry code="DQC.IFRS.0079.7657" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1794338/000121390020010502/igic-20191231.xml" severity="error" effectiveDate="2019-05-08" cid="2439988225408">[DQC.IFRS.0079.7657] igic:QatarMember is an extension member on the axis GeographicalAreasAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing igic:QatarMember with the existing taxonomy concept QA with the taxonomy namespace http://xbrl.sec.gov/country/2017-01-31.
+
+Rule Element Id:7657
+Rule version: 13.0.0RC1
+ - </message></entry>
+<entry code="DQC.IFRS.0079.7657" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1794338/000121390020010502/igic-20191231.xml" severity="error" effectiveDate="2019-05-08" cid="2439988225408">[DQC.IFRS.0079.7657] igic:SouthKoreaMember is an extension member on the axis GeographicalAreasAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing igic:SouthKoreaMember with the existing taxonomy concept KR with the taxonomy namespace http://xbrl.sec.gov/country/2017-01-31.
+
+Rule Element Id:7657
+Rule version: 13.0.0RC1
+ - </message></entry>
+<entry code="DQC.IFRS.0079.7657" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1794338/000121390020010502/igic-20191231.xml" severity="error" effectiveDate="2019-05-08" cid="2439988225408">[DQC.IFRS.0079.7657] igic:UnitedArabEmiratesMember is an extension member on the axis GeographicalAreasAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing igic:UnitedArabEmiratesMember with the existing taxonomy concept AE with the taxonomy namespace http://xbrl.sec.gov/country/2017-01-31.
+
+Rule Element Id:7657
+Rule version: 13.0.0RC1
+ - </message></entry>
+<entry code="DQC.IFRS.0079.7657" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1794338/000121390020010502/igic-20191231.xml" severity="error" effectiveDate="2019-05-08" cid="2439988225408">[DQC.IFRS.0079.7657] igic:UnitedKingdomMember is an extension member on the axis GeographicalAreasAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing igic:UnitedKingdomMember with the existing taxonomy concept GB with the taxonomy namespace http://xbrl.sec.gov/country/2017-01-31.
+
+Rule Element Id:7657
+Rule version: 13.0.0RC1
+ - </message></entry>
+<entry code="DQC.IFRS.0079.7657" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1794338/000121390020010502/igic-20191231.xml" severity="error" effectiveDate="2019-05-08" cid="2439988225408">[DQC.IFRS.0079.7657] igic:UnitedStatesMember is an extension member on the axis GeographicalAreasAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing igic:UnitedStatesMember with the existing taxonomy concept US with the taxonomy namespace http://xbrl.sec.gov/country/2017-01-31.
+
+Rule Element Id:7657
+Rule version: 13.0.0RC1
+ - </message></entry>
+<entry code="DQC.IFRS.0079.7657" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1794338/000121390020010502/igic-20191231.xml" severity="error" effectiveDate="2019-05-08" cid="2439988225408">[DQC.IFRS.0079.7657] igic:BermudaMember is an extension member on the axis GeographicalAreasAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing igic:BermudaMember with the existing taxonomy concept BM with the taxonomy namespace http://xbrl.sec.gov/country/2017-01-31.
+
+Rule Element Id:7657
+Rule version: 13.0.0RC1
+ - </message></entry>
+<entry code="DQC.IFRS.0079.7657" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1794338/000121390020010502/igic-20191231.xml" severity="error" effectiveDate="2019-05-08" cid="2439988225408">[DQC.IFRS.0079.7657] igic:SpainMember is an extension member on the axis GeographicalAreasAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing igic:SpainMember with the existing taxonomy concept ES with the taxonomy namespace http://xbrl.sec.gov/country/2017-01-31.
+
+Rule Element Id:7657
+Rule version: 13.0.0RC1
+ - </message></entry>
+<entry code="DQC.IFRS.0079.7657" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1794338/000121390020010502/igic-20191231.xml" severity="error" effectiveDate="2019-05-08" cid="2439988225408">[DQC.IFRS.0079.7657] igic:SwitzerlandMember is an extension member on the axis GeographicalAreasAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing igic:SwitzerlandMember with the existing taxonomy concept CH with the taxonomy namespace http://xbrl.sec.gov/country/2017-01-31.
+
+Rule Element Id:7657
+Rule version: 13.0.0RC1
+ - </message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 21.45 secs - http://www.sec.gov/Archives/edgar/data/1794338/000121390020010502/igic-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1794338/000121390020010502/igic-20191231.xml"/></entry>
+</log>

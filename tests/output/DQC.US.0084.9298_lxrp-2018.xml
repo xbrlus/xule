@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22790 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.33 secs at 2019-07-21T22:09:25 - http://www.sec.gov/Archives/edgar/data/1348362/000164033419001297/lxrp-20190531.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1348362/000164033419001297/lxrp-20190531.xml"/></entry>
+<entry code="DQC.US.0084.9298" level="error">
+ <message severity="error" effectiveDate="None" filing_url="http://www.sec.gov/Archives/edgar/data/1348362/000164033419001297/lxrp-20190531.xml" cid="4544692352">[DQC.US.0084.9298] Sum of the cumulative periods of -3,037,303 for us-gaap:IncomeLossFromContinuingOperations does not match the reported total of -3,042,438, a difference of 5,135.
+
+Period values are:
+	2018-09-01 to 2018-11-30	-701,391	 Decimals: 0
+	2018-12-01 to 2019-02-28	-1,147,976	 Decimals: 0
+	2019-03-01 to 2019-05-31	-1,187,936	 Decimals: 0
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 4 which is calculated by taking the lowest decimal value used in the calculation of 0. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this us-gaap:IncomeLossFromContinuingOperations fact are:
+
+Period :2018-09-01 to 2019-05-31
+Dimensions : 
+Unit : USD
+Decimals: 0
+
+Rule Element Id:9298
+Rule version: 10.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1348362/000164033419001297/lxrp-20190531.xml 3078</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1348362/000164033419001297/lxrp-20190531.xml#element(/1/369)" sourceLine="3078">
+  <property name="label" value="Net loss"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="IncomeLossFromContinuingOperations"/>
+  <property name="QName" value="us-gaap:IncomeLossFromContinuingOperations"/>
+  <property name="contextRef" value="Context_9ME_01_Sep_2018T00_00_00_TO_31_May_2019T00_00_00">
+   <property name="entity" value="0001348362">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-09-01"/>
+   <property name="endDate" value="2019-05-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-3,042,438"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 27.45 secs - http://www.sec.gov/Archives/edgar/data/1348362/000164033419001297/lxrp-20190531.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1348362/000164033419001297/lxrp-20190531.xml"/></entry>
+</log>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22739 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.52 secs at 2019-04-18T10:34:44 - https://www.sec.gov/Archives/edgar/data/1571776/000114036119005137/chmi-20181231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1571776/000114036119005137/chmi-20181231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv and effective_dates.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmplopq8n01/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmplopq8n01/packages/resources.zip"/></entry>
+<entry code="DQC.US.0004.9285" level="error">
+ <message effectiveDate="None" cid="4367212216" filing_url="https://www.sec.gov/Archives/edgar/data/1571776/000114036119005137/chmi-20181231.xml" severity="error">[DQC.US.0004.9285] Comprehensive Income (Loss), Net of Tax, Including Portion Attributable to Noncontrolling Interest with a value of 51,465,000 is not equal to the combined total of Comprehensive Income (Loss), Net of Tax, Attributable to Noncontrolling Interest and Comprehensive Income (Loss), Net of Tax, Attributable to Parent ( 702,000 + 48,930,000 ) with a value of 49,632,000. 
+
+These values should be equal.
+The properties of this us-gaap:ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions :  
+Unit : USD
+Decimals of Comprehensive Income (Loss), Net of Tax, Including Portion Attributable to Noncontrolling Interest : -3
+Decimals of Comprehensive Income (Loss), Net of Tax, Attributable to Noncontrolling Interest : -3
+Decimals of Comprehensive Income (Loss), Net of Tax, Attributable to Parent : -3
+
+Rule Element Id:9285
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1571776/000114036119005137/chmi-20181231.xml 4433</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1571776/000114036119005137/chmi-20181231.xml#element(/1/536)" sourceLine="4433">
+  <property name="label" value="Comprehensive Income (Loss), Net of Tax, Including Portion Attributable to Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="QName" value="us-gaap:ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="contextRef" value="c20170101to20171231">
+   <property name="entity" value="0001571776">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="U001 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="51,465,000"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9285" level="error">
+ <message effectiveDate="None" cid="4367212216" filing_url="https://www.sec.gov/Archives/edgar/data/1571776/000114036119005137/chmi-20181231.xml" severity="error">[DQC.US.0004.9285] Comprehensive Income (Loss), Net of Tax, Including Portion Attributable to Noncontrolling Interest with a value of 2,315,000 is not equal to the combined total of Comprehensive Income (Loss), Net of Tax, Attributable to Noncontrolling Interest and Comprehensive Income (Loss), Net of Tax, Attributable to Parent ( 30,000 + -3,012,000 ) with a value of -2,982,000. 
+
+These values should be equal.
+The properties of this us-gaap:ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions :  
+Unit : USD
+Decimals of Comprehensive Income (Loss), Net of Tax, Including Portion Attributable to Noncontrolling Interest : -3
+Decimals of Comprehensive Income (Loss), Net of Tax, Attributable to Noncontrolling Interest : -3
+Decimals of Comprehensive Income (Loss), Net of Tax, Attributable to Parent : -3
+
+Rule Element Id:9285
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1571776/000114036119005137/chmi-20181231.xml 4437</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1571776/000114036119005137/chmi-20181231.xml#element(/1/538)" sourceLine="4437">
+  <property name="label" value="Comprehensive Income (Loss), Net of Tax, Including Portion Attributable to Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="QName" value="us-gaap:ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="contextRef" value="c20180101to20181231">
+   <property name="entity" value="0001571776">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="U001 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,315,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 6.87 secs - https://www.sec.gov/Archives/edgar/data/1571776/000114036119005137/chmi-20181231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1571776/000114036119005137/chmi-20181231.xml"/></entry>
+</log>

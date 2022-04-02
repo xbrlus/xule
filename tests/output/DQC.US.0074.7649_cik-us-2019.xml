@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.68 secs at 2020-07-24T23:36:44 - http://www.sec.gov/Archives/edgar/data/1695519/000169551920000005/cik0001695519-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1695519/000169551920000005/cik0001695519-20191231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpwldoboxd\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpwldoboxd\packages\resources.zip"/></entry>
+<entry code="DQC.US.0074.7649" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1695519/000169551920000005/cik0001695519-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2144169928064">[DQC.US.0074.7649] The element us-gaap:RevenueRemainingPerformanceObligation with a value of 1,436,600,000 has been tagged with the axis RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis with a nil value as a member. This element should be reported without using this axis.
+
+The properties of this us-gaap:RevenueRemainingPerformanceObligation fact are:
+Period :2019-12-31
+Dimensions : srt:ProductOrServiceAxis=cik0001695519:MidstreamServiceContractsMember, us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis=None
+Unit : CAD
+
+Rule Element Id:7649
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1695519/000169551920000005/cik0001695519-20191231.xml 16086</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1695519/000169551920000005/cik0001695519-20191231.xml#Fact-656E4E3E50A3B98962EC1ED5A7369222" sourceLine="16086">
+  <property name="label" value="Revenue, Remaining Performance Obligation, Amount"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="RevenueRemainingPerformanceObligation"/>
+  <property name="QName" value="us-gaap:RevenueRemainingPerformanceObligation"/>
+  <property name="contextRef" value="FI2019Q4_srt_ProductOrServiceAxis_cik0001695519_MidstreamServiceContractsMember_us-gaap_RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis_us-gaap_RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis.domain_nil">
+   <property name="entity" value="0001695519">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ProductOrServiceAxis" value="cik0001695519:MidstreamServiceContractsMember"/>
+    <property name="us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis" value="&lt;us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis.domain xsi:nil=&quot;true&quot;/>
+				
+"/>
+   </property>
+  </property>
+  <property name="unitRef" value="cad ($)">
+   <property name="measure" value="iso4217:CAD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,436,600,000"/>
+ </ref></entry>
+<entry code="DQC.US.0074.7649" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1695519/000169551920000005/cik0001695519-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2144169928064">[DQC.US.0074.7649] The element us-gaap:RevenueRemainingPerformanceObligation with a value of 286,700,000 has been tagged with the axis RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis with a nil value as a member. This element should be reported without using this axis.
+
+The properties of this us-gaap:RevenueRemainingPerformanceObligation fact are:
+Period :2019-12-31
+Dimensions : srt:ProductOrServiceAxis=cik0001695519:StorageServicesMember, us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis=None
+Unit : CAD
+
+Rule Element Id:7649
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1695519/000169551920000005/cik0001695519-20191231.xml 16100</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1695519/000169551920000005/cik0001695519-20191231.xml#Fact-B1CFA0DE7514BE84115B1ED5A73395F2" sourceLine="16100">
+  <property name="label" value="Revenue, Remaining Performance Obligation, Amount"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="RevenueRemainingPerformanceObligation"/>
+  <property name="QName" value="us-gaap:RevenueRemainingPerformanceObligation"/>
+  <property name="contextRef" value="FI2019Q4_srt_ProductOrServiceAxis_cik0001695519_StorageServicesMember_us-gaap_RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis_us-gaap_RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis.domain_nil">
+   <property name="entity" value="0001695519">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ProductOrServiceAxis" value="cik0001695519:StorageServicesMember"/>
+    <property name="us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis" value="&lt;us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis.domain xsi:nil=&quot;true&quot;/>
+				
+"/>
+   </property>
+  </property>
+  <property name="unitRef" value="cad ($)">
+   <property name="measure" value="iso4217:CAD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="286,700,000"/>
+ </ref></entry>
+<entry code="DQC.US.0074.7649" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1695519/000169551920000005/cik0001695519-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2144169928064">[DQC.US.0074.7649] The element us-gaap:RevenueRemainingPerformanceObligation with a value of 46,300,000 has been tagged with the axis RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis with a nil value as a member. This element should be reported without using this axis.
+
+The properties of this us-gaap:RevenueRemainingPerformanceObligation fact are:
+Period :2019-12-31
+Dimensions : srt:ProductOrServiceAxis=cik0001695519:OtherProductAndServicesMember, us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis=None
+Unit : CAD
+
+Rule Element Id:7649
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1695519/000169551920000005/cik0001695519-20191231.xml 16093</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1695519/000169551920000005/cik0001695519-20191231.xml#Fact-07251581D5BC43D34CB91ED5A737925B" sourceLine="16093">
+  <property name="label" value="Revenue, Remaining Performance Obligation, Amount"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="RevenueRemainingPerformanceObligation"/>
+  <property name="QName" value="us-gaap:RevenueRemainingPerformanceObligation"/>
+  <property name="contextRef" value="FI2019Q4_srt_ProductOrServiceAxis_cik0001695519_OtherProductAndServicesMember_us-gaap_RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis_us-gaap_RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis.domain_nil">
+   <property name="entity" value="0001695519">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ProductOrServiceAxis" value="cik0001695519:OtherProductAndServicesMember"/>
+    <property name="us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis" value="&lt;us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis.domain xsi:nil=&quot;true&quot;/>
+				
+"/>
+   </property>
+  </property>
+  <property name="unitRef" value="cad ($)">
+   <property name="measure" value="iso4217:CAD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="46,300,000"/>
+ </ref></entry>
+<entry code="DQC.US.0074.7649" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1695519/000169551920000005/cik0001695519-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2144169928064">[DQC.US.0074.7649] The element us-gaap:RevenueRemainingPerformanceObligation with a value of 1,769,600,000 has been tagged with the axis RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis with a nil value as a member. This element should be reported without using this axis.
+
+The properties of this us-gaap:RevenueRemainingPerformanceObligation fact are:
+Period :2019-12-31
+Dimensions : us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis=None
+Unit : CAD
+
+Rule Element Id:7649
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1695519/000169551920000005/cik0001695519-20191231.xml 16107</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1695519/000169551920000005/cik0001695519-20191231.xml#Fact-6B9AF265B58C995930DA1ED5A739768F" sourceLine="16107">
+  <property name="label" value="Revenue, Remaining Performance Obligation, Amount"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="RevenueRemainingPerformanceObligation"/>
+  <property name="QName" value="us-gaap:RevenueRemainingPerformanceObligation"/>
+  <property name="contextRef" value="FI2019Q4_us-gaap_RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis_us-gaap_RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis.domain_nil">
+   <property name="entity" value="0001695519">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis" value="&lt;us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis.domain xsi:nil=&quot;true&quot;/>
+				
+"/>
+   </property>
+  </property>
+  <property name="unitRef" value="cad ($)">
+   <property name="measure" value="iso4217:CAD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,769,600,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 8.45 secs - http://www.sec.gov/Archives/edgar/data/1695519/000169551920000005/cik0001695519-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1695519/000169551920000005/cik0001695519-20191231.xml"/></entry>
+</log>

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.06 secs at 2018-10-16T09:49:30 - http://www.sec.gov/Archives/edgar/data/1489367/000149315218007156/sqnf-20180331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1489367/000149315218007156/sqnf-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - sqnf-20180331.xml </message>
+ <ref href="sqnf-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpo4qcjf2n/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpo4qcjf2n/packages/resources.zip"/></entry>
+<entry code="DQC.US.0001.57" level="error">
+ <message severity="error" cid="4513431224" filing_url="http://www.sec.gov/Archives/edgar/data/1489367/000149315218007156/sqnf-20180331.xml">[DQC.US.0001.57] The concept SecurityDeposit with a value of 310,000 is dimensionally qualified with the ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis and the base taxonomy member LimitedLiabilityCompanyMember. Only extension members should be used with the axis ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis.
+The properties of the fact for SecurityDeposit are:
+Period: 2013-06-19
+Dimensions: us-gaap:PropertyPlantAndEquipmentByTypeAxis=SQNF:AircraftRotablesMember, us-gaap:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis=us-gaap:LimitedLiabilityCompanyMember, us-gaap:BusinessAcquisitionAxis=SQNF:SQNBravoLLCMember 
+Unit: USD
+
+Rule Element Id:57
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1489367/000149315218007156/sqnf-20180331.xml 1927</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1489367/000149315218007156/sqnf-20180331.xml#element(/1/546)" sourceLine="1927">
+  <property name="label" value="Security deposit"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="SecurityDeposit"/>
+  <property name="QName" value="us-gaap:SecurityDeposit"/>
+  <property name="contextRef" value="AsOf2013-06-19_custom_SQNBravoLLCMember_custom_AircraftRotablesMember_us-gaap_LimitedLiabilityCompanyMember1111040477">
+   <property name="entity" value="0001489367">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2013-06-19"/>
+   <property name="dimensions" value="(3)">
+    <property name="us-gaap:BusinessAcquisitionAxis" value="SQNF:SQNBravoLLCMember"/>
+    <property name="us-gaap:PropertyPlantAndEquipmentByTypeAxis" value="SQNF:AircraftRotablesMember"/>
+    <property name="us-gaap:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis" value="us-gaap:LimitedLiabilityCompanyMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="310,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.57" level="error">
+ <message severity="error" cid="4513431224" filing_url="http://www.sec.gov/Archives/edgar/data/1489367/000149315218007156/sqnf-20180331.xml">[DQC.US.0001.57] The concept LeaseAndRentalExpense with a value of 3,777 is dimensionally qualified with the ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis and the base taxonomy member LimitedLiabilityCompanyMember. Only extension members should be used with the axis ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis.
+The properties of the fact for LeaseAndRentalExpense are:
+Period: 2013-06-18 to 2013-06-19
+Dimensions: us-gaap:PropertyPlantAndEquipmentByTypeAxis=SQNF:AircraftRotablesMember, us-gaap:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis=us-gaap:LimitedLiabilityCompanyMember, us-gaap:BusinessAcquisitionAxis=SQNF:SQNBravoLLCMember 
+Unit: USD
+
+Rule Element Id:57
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1489367/000149315218007156/sqnf-20180331.xml 1788</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1489367/000149315218007156/sqnf-20180331.xml#element(/1/407)" sourceLine="1788">
+  <property name="label" value="Rental payments"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="LeaseAndRentalExpense"/>
+  <property name="QName" value="us-gaap:LeaseAndRentalExpense"/>
+  <property name="contextRef" value="From2013-06-18to2013-06-19_custom_SQNBravoLLCMember_custom_AircraftRotablesMember_us-gaap_LimitedLiabilityCompanyMember1111040477">
+   <property name="entity" value="0001489367">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2013-06-18"/>
+   <property name="endDate" value="2013-06-19"/>
+   <property name="dimensions" value="(3)">
+    <property name="us-gaap:BusinessAcquisitionAxis" value="SQNF:SQNBravoLLCMember"/>
+    <property name="us-gaap:PropertyPlantAndEquipmentByTypeAxis" value="SQNF:AircraftRotablesMember"/>
+    <property name="us-gaap:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis" value="us-gaap:LimitedLiabilityCompanyMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="3,777"/>
+ </ref></entry>
+<entry code="DQC.US.0001.57" level="error">
+ <message severity="error" cid="4513431224" filing_url="http://www.sec.gov/Archives/edgar/data/1489367/000149315218007156/sqnf-20180331.xml">[DQC.US.0001.57] The concept PercentageOfPaymentLease with a value of 0.05 is dimensionally qualified with the ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis and the base taxonomy member LimitedLiabilityCompanyMember. Only extension members should be used with the axis ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis.
+The properties of the fact for PercentageOfPaymentLease are:
+Period: 2013-06-18 to 2013-06-19
+Dimensions: us-gaap:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis=us-gaap:LimitedLiabilityCompanyMember, us-gaap:BusinessAcquisitionAxis=SQNF:SQNBravoLLCMember, us-gaap:PropertyPlantAndEquipmentByTypeAxis=SQNF:AircraftRotablesMember 
+Unit: pure
+
+Rule Element Id:57
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1489367/000149315218007156/sqnf-20180331.xml 1786</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1489367/000149315218007156/sqnf-20180331.xml#element(/1/405)" sourceLine="1786">
+  <property name="label" value="Percentage of payment lease"/>
+  <property name="namespace" value="http://sqncapital.com/20180331"/>
+  <property name="name" value="PercentageOfPaymentLease"/>
+  <property name="QName" value="SQNF:PercentageOfPaymentLease"/>
+  <property name="contextRef" value="From2013-06-18to2013-06-19_custom_SQNBravoLLCMember_custom_AircraftRotablesMember_us-gaap_LimitedLiabilityCompanyMember1111040477">
+   <property name="entity" value="0001489367">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2013-06-18"/>
+   <property name="endDate" value="2013-06-19"/>
+   <property name="dimensions" value="(3)">
+    <property name="us-gaap:BusinessAcquisitionAxis" value="SQNF:SQNBravoLLCMember"/>
+    <property name="us-gaap:PropertyPlantAndEquipmentByTypeAxis" value="SQNF:AircraftRotablesMember"/>
+    <property name="us-gaap:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis" value="us-gaap:LimitedLiabilityCompanyMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percentage (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.05"/>
+ </ref></entry>
+<entry code="DQC.US.0001.57" level="error">
+ <message severity="error" cid="4513431224" filing_url="http://www.sec.gov/Archives/edgar/data/1489367/000149315218007156/sqnf-20180331.xml">[DQC.US.0001.57] The concept PaymentsForLeaseCommissions with a value of 29,700 is dimensionally qualified with the ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis and the base taxonomy member LimitedLiabilityCompanyMember. Only extension members should be used with the axis ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis.
+The properties of the fact for PaymentsForLeaseCommissions are:
+Period: 2013-06-18 to 2013-06-19
+Dimensions: us-gaap:PropertyPlantAndEquipmentByTypeAxis=SQNF:AircraftRotablesMember, us-gaap:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis=us-gaap:LimitedLiabilityCompanyMember, us-gaap:BusinessAcquisitionAxis=SQNF:SQNBravoLLCMember 
+Unit: USD
+
+Rule Element Id:57
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1489367/000149315218007156/sqnf-20180331.xml 1785</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1489367/000149315218007156/sqnf-20180331.xml#element(/1/404)" sourceLine="1785">
+  <property name="label" value="Purchased lease"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="PaymentsForLeaseCommissions"/>
+  <property name="QName" value="us-gaap:PaymentsForLeaseCommissions"/>
+  <property name="contextRef" value="From2013-06-18to2013-06-19_custom_SQNBravoLLCMember_custom_AircraftRotablesMember_us-gaap_LimitedLiabilityCompanyMember1111040477">
+   <property name="entity" value="0001489367">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2013-06-18"/>
+   <property name="endDate" value="2013-06-19"/>
+   <property name="dimensions" value="(3)">
+    <property name="us-gaap:BusinessAcquisitionAxis" value="SQNF:SQNBravoLLCMember"/>
+    <property name="us-gaap:PropertyPlantAndEquipmentByTypeAxis" value="SQNF:AircraftRotablesMember"/>
+    <property name="us-gaap:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis" value="us-gaap:LimitedLiabilityCompanyMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="29,700"/>
+ </ref></entry>
+<entry code="DQC.US.0001.57" level="error">
+ <message severity="error" cid="4513431224" filing_url="http://www.sec.gov/Archives/edgar/data/1489367/000149315218007156/sqnf-20180331.xml">[DQC.US.0001.57] The concept EquityMethodInvestmentOwnershipPercentage with a value of 0.1 is dimensionally qualified with the ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis and the base taxonomy member LimitedLiabilityCompanyMember. Only extension members should be used with the axis ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis.
+The properties of the fact for EquityMethodInvestmentOwnershipPercentage are:
+Period: 2013-06-19
+Dimensions: us-gaap:BusinessAcquisitionAxis=SQNF:SQNBravoLLCMember, us-gaap:PropertyPlantAndEquipmentByTypeAxis=SQNF:AircraftRotablesMember, us-gaap:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis=us-gaap:LimitedLiabilityCompanyMember 
+Unit: pure
+
+Rule Element Id:57
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1489367/000149315218007156/sqnf-20180331.xml 1732</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1489367/000149315218007156/sqnf-20180331.xml#element(/1/351)" sourceLine="1732">
+  <property name="label" value="Percentage of ownership"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="EquityMethodInvestmentOwnershipPercentage"/>
+  <property name="QName" value="us-gaap:EquityMethodInvestmentOwnershipPercentage"/>
+  <property name="contextRef" value="AsOf2013-06-19_custom_SQNBravoLLCMember_custom_AircraftRotablesMember_us-gaap_LimitedLiabilityCompanyMember1111040477">
+   <property name="entity" value="0001489367">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2013-06-19"/>
+   <property name="dimensions" value="(3)">
+    <property name="us-gaap:BusinessAcquisitionAxis" value="SQNF:SQNBravoLLCMember"/>
+    <property name="us-gaap:PropertyPlantAndEquipmentByTypeAxis" value="SQNF:AircraftRotablesMember"/>
+    <property name="us-gaap:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis" value="us-gaap:LimitedLiabilityCompanyMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percentage (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.10"/>
+ </ref></entry>
+<entry code="DQC.US.0001.57" level="error">
+ <message severity="error" cid="4513431224" filing_url="http://www.sec.gov/Archives/edgar/data/1489367/000149315218007156/sqnf-20180331.xml">[DQC.US.0001.57] The concept LeaseExpirationDate1 with a value of 2015-02-15 is dimensionally qualified with the ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis and the base taxonomy member LimitedLiabilityCompanyMember. Only extension members should be used with the axis ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis.
+The properties of the fact for LeaseExpirationDate1 are:
+Period: 2013-06-18 to 2013-06-19
+Dimensions: us-gaap:PropertyPlantAndEquipmentByTypeAxis=SQNF:AircraftRotablesMember, us-gaap:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis=us-gaap:LimitedLiabilityCompanyMember, us-gaap:BusinessAcquisitionAxis=SQNF:SQNBravoLLCMember 
+Unit: None
+
+Rule Element Id:57
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1489367/000149315218007156/sqnf-20180331.xml 1787</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1489367/000149315218007156/sqnf-20180331.xml#element(/1/406)" sourceLine="1787">
+  <property name="label" value="Lease expired date"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="LeaseExpirationDate1"/>
+  <property name="QName" value="us-gaap:LeaseExpirationDate1"/>
+  <property name="contextRef" value="From2013-06-18to2013-06-19_custom_SQNBravoLLCMember_custom_AircraftRotablesMember_us-gaap_LimitedLiabilityCompanyMember1111040477">
+   <property name="entity" value="0001489367">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2013-06-18"/>
+   <property name="endDate" value="2013-06-19"/>
+   <property name="dimensions" value="(3)">
+    <property name="us-gaap:BusinessAcquisitionAxis" value="SQNF:SQNBravoLLCMember"/>
+    <property name="us-gaap:PropertyPlantAndEquipmentByTypeAxis" value="SQNF:AircraftRotablesMember"/>
+    <property name="us-gaap:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis" value="us-gaap:LimitedLiabilityCompanyMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2015-02-15"/>
+ </ref></entry>
+<entry code="DQC.US.0001.57" level="error">
+ <message severity="error" cid="4513431224" filing_url="http://www.sec.gov/Archives/edgar/data/1489367/000149315218007156/sqnf-20180331.xml">[DQC.US.0001.57] The concept LeaseExtendedDate with a value of 2019-02-15 is dimensionally qualified with the ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis and the base taxonomy member LimitedLiabilityCompanyMember. Only extension members should be used with the axis ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis.
+The properties of the fact for LeaseExtendedDate are:
+Period: 2013-06-18 to 2013-06-19
+Dimensions: us-gaap:BusinessAcquisitionAxis=SQNF:SQNBravoLLCMember, us-gaap:PropertyPlantAndEquipmentByTypeAxis=SQNF:AircraftRotablesMember, us-gaap:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis=us-gaap:LimitedLiabilityCompanyMember 
+Unit: None
+
+Rule Element Id:57
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1489367/000149315218007156/sqnf-20180331.xml 1789</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1489367/000149315218007156/sqnf-20180331.xml#element(/1/408)" sourceLine="1789">
+  <property name="label" value="Lease extended date"/>
+  <property name="namespace" value="http://sqncapital.com/20180331"/>
+  <property name="name" value="LeaseExtendedDate"/>
+  <property name="QName" value="SQNF:LeaseExtendedDate"/>
+  <property name="contextRef" value="From2013-06-18to2013-06-19_custom_SQNBravoLLCMember_custom_AircraftRotablesMember_us-gaap_LimitedLiabilityCompanyMember1111040477">
+   <property name="entity" value="0001489367">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2013-06-18"/>
+   <property name="endDate" value="2013-06-19"/>
+   <property name="dimensions" value="(3)">
+    <property name="us-gaap:BusinessAcquisitionAxis" value="SQNF:SQNBravoLLCMember"/>
+    <property name="us-gaap:PropertyPlantAndEquipmentByTypeAxis" value="SQNF:AircraftRotablesMember"/>
+    <property name="us-gaap:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis" value="us-gaap:LimitedLiabilityCompanyMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2019-02-15"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 14.54 secs - http://www.sec.gov/Archives/edgar/data/1489367/000149315218007156/sqnf-20180331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1489367/000149315218007156/sqnf-20180331.xml"/></entry>
+</log>

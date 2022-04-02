@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 4.13 secs at 2018-10-16T10:05:18 - https://www.sec.gov/Archives/edgar/data/924095/000149315218005838/wscc-20170930.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/924095/000149315218005838/wscc-20170930.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2018-V7-ruleset.zip - wscc-20170930.xml </message>
+ <ref href="wscc-20170930.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpn91kpujj/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpn91kpujj/packages/resources.zip"/></entry>
+<entry code="DQC.US.0049.7483" level="error">
+ <message severity="error" filing_url="https://www.sec.gov/Archives/edgar/data/924095/000149315218005838/wscc-20170930.xml" cid="4441099960">[DQC.US.0049.7483] The following elements NetCashProvidedByUsedInInvestingActivities, CashAndCashEquivalentsPeriodIncreaseDecrease are parent (root) elements defined in the calculation relationship for the cash flow statement using the group http://waterside.com/role/StatementsOfCashFlows. The cash flow statement should only have one calculation parent for durational concepts representing the increase or decrease in cash during the period. If the company has adopted ASU-2016-18 then the root element used to represent the aggregate change in cash should be the element CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseIncludingExchangeRateEffect.  If the company specifically excludes the exchange rate effect from the total then the element CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect should be used.
+
+Rule Element Id:7483
+Rule version: 9.0.0RC1 - </message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 20.02 secs - https://www.sec.gov/Archives/edgar/data/924095/000149315218005838/wscc-20170930.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/924095/000149315218005838/wscc-20170930.xml"/></entry>
+</log>

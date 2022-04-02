@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.59 secs at 2018-10-16T09:57:05 - http://www.sec.gov/Archives/edgar/data/741815/000074181518000027/hh-20170630.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/741815/000074181518000027/hh-20170630.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - hh-20170630.xml </message>
+ <ref href="hh-20170630.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp7tlv3c3w/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp7tlv3c3w/packages/resources.zip"/></entry>
+<entry code="DQC.US.0060.7497" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/741815/000074181518000027/hh-20170630.xml" severity="error" cid="4317298360">[DQC.US.0060.7497] This rule reflects updated guidance from the Data Quality Committee which contradicts with historical rules. This is a change based on the changes in the cashflow ASU published by FASB.
+ The element us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations  has been reported with a value of -6,681,000. However no value has been reported for either the element(s) NetCashProvidedByUsedInOperatingActivities and CashProvidedByUsedInOperatingActivitiesDiscontinuedOperations. 
+It is expected that if the element us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations  is reported then values would be reported for these corresponding elements. If the value of -6,681,000 represents the value of NetCashProvidedByUsedInOperatingActivities then this more general element should be used as it is a required disclosure.
+
+The properties of this us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations fact are:
+Period :2017-01-01 to 2017-06-30
+Dimensions : 
+Unit : USD
+
+Rule Element Id:7497
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/741815/000074181518000027/hh-20170630.xml 3275</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/741815/000074181518000027/hh-20170630.xml#Fact-A50D469F71975136BEA1E002C358E00A" sourceLine="3275">
+  <property name="label" value="Net Cash Provided by (Used in) Operating Activities, Continuing Operations"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInOperatingActivitiesContinuingOperations"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations"/>
+  <property name="contextRef" value="FD2017Q2YTD">
+   <property name="entity" value="0000741815">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-06-30"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-6,681,000"/>
+ </ref></entry>
+<entry code="DQC.US.0060.7497" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/741815/000074181518000027/hh-20170630.xml" severity="error" cid="4317298360">[DQC.US.0060.7497] This rule reflects updated guidance from the Data Quality Committee which contradicts with historical rules. This is a change based on the changes in the cashflow ASU published by FASB.
+ The element us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations  has been reported with a value of -4,848,000. However no value has been reported for either the element(s) NetCashProvidedByUsedInOperatingActivities and CashProvidedByUsedInOperatingActivitiesDiscontinuedOperations. 
+It is expected that if the element us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations  is reported then values would be reported for these corresponding elements. If the value of -4,848,000 represents the value of NetCashProvidedByUsedInOperatingActivities then this more general element should be used as it is a required disclosure.
+
+The properties of this us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations fact are:
+Period :2016-01-01 to 2016-06-30
+Dimensions : 
+Unit : USD
+
+Rule Element Id:7497
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/741815/000074181518000027/hh-20170630.xml 3273</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/741815/000074181518000027/hh-20170630.xml#Fact-B9D52F19C06A5804A9500A09BBABBAD1" sourceLine="3273">
+  <property name="label" value="Net Cash Provided by (Used in) Operating Activities, Continuing Operations"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInOperatingActivitiesContinuingOperations"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations"/>
+  <property name="contextRef" value="FD2016Q2YTD">
+   <property name="entity" value="0000741815">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-01-01"/>
+   <property name="endDate" value="2016-06-30"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-4,848,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 2.53 secs - http://www.sec.gov/Archives/edgar/data/741815/000074181518000027/hh-20170630.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/741815/000074181518000027/hh-20170630.xml"/></entry>
+</log>

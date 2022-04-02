@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22790 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 4.97 secs at 2019-07-10T22:18:35 - https://www.sec.gov/Archives/edgar/data/1175535/000117553519000012/wsr-20181231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1175535/000117553519000012/wsr-20181231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv and effective_dates.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpsz1ce0yf/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpsz1ce0yf/packages/resources.zip"/></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message status="PROPOSED" effectiveDate="2019-06-30" filing_url="https://www.sec.gov/Archives/edgar/data/1175535/000117553519000012/wsr-20181231.xml" severity="error" cid="4343815864">[DQC.US.0081.9277] The line item concept us-gaap:ProceedsFromDistributionsReceivedFromRealEstatePartnerships with a value of 505,000 is represented as a child of us-gaap:NetCashProvidedByUsedInOperatingActivities with a value of 15,975,000 in the companies extension taxonomy role 1004000 - Statement - Consolidated Statements of Cash Flows. The element us-gaap:ProceedsFromDistributionsReceivedFromRealEstatePartnerships however, is not represented as a component of us-gaap:NetCashProvidedByUsedInOperatingActivities in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:ProceedsFromDistributionsReceivedFromRealEstatePartnerships as a sibling element (or child of that sibling) relative to us-gaap:NetCashProvidedByUsedInOperatingActivities in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:NetCashProvidedByUsedInOperatingActivities and the child element us-gaap:ProceedsFromDistributionsReceivedFromRealEstatePartnerships.
+
+The properties of this us-gaap:ProceedsFromDistributionsReceivedFromRealEstatePartnerships fact are:
+
+Period :2018-01-01 to 2018-06-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1175535/000117553519000012/wsr-20181231.xml 8271</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1175535/000117553519000012/wsr-20181231.xml#Fact-3CD6767A7A9B05BDD00B77A6143221C2" sourceLine="8271">
+  <property name="label" value="Proceeds from Distributions Received from Real Estate Partnerships"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="ProceedsFromDistributionsReceivedFromRealEstatePartnerships"/>
+  <property name="QName" value="us-gaap:ProceedsFromDistributionsReceivedFromRealEstatePartnerships"/>
+  <property name="contextRef" value="FD2018Q2YTD">
+   <property name="entity" value="0001175535">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-06-30"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="505,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message status="PROPOSED" effectiveDate="2019-06-30" filing_url="https://www.sec.gov/Archives/edgar/data/1175535/000117553519000012/wsr-20181231.xml" severity="error" cid="4343815864">[DQC.US.0081.9277] The line item concept us-gaap:ProceedsFromDistributionsReceivedFromRealEstatePartnerships with a value of 505,000 is represented as a child of us-gaap:NetCashProvidedByUsedInOperatingActivities with a value of 5,101,000 in the companies extension taxonomy role 1004000 - Statement - Consolidated Statements of Cash Flows. The element us-gaap:ProceedsFromDistributionsReceivedFromRealEstatePartnerships however, is not represented as a component of us-gaap:NetCashProvidedByUsedInOperatingActivities in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:ProceedsFromDistributionsReceivedFromRealEstatePartnerships as a sibling element (or child of that sibling) relative to us-gaap:NetCashProvidedByUsedInOperatingActivities in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:NetCashProvidedByUsedInOperatingActivities and the child element us-gaap:ProceedsFromDistributionsReceivedFromRealEstatePartnerships.
+
+The properties of this us-gaap:ProceedsFromDistributionsReceivedFromRealEstatePartnerships fact are:
+
+Period :2018-01-01 to 2018-03-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1175535/000117553519000012/wsr-20181231.xml 8268</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1175535/000117553519000012/wsr-20181231.xml#Fact-18930BBD843A7F97D3AE7788E784D311" sourceLine="8268">
+  <property name="label" value="Proceeds from Distributions Received from Real Estate Partnerships"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="ProceedsFromDistributionsReceivedFromRealEstatePartnerships"/>
+  <property name="QName" value="us-gaap:ProceedsFromDistributionsReceivedFromRealEstatePartnerships"/>
+  <property name="contextRef" value="FD2018Q1QTD">
+   <property name="entity" value="0001175535">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-03-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="505,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message status="PROPOSED" effectiveDate="2019-06-30" filing_url="https://www.sec.gov/Archives/edgar/data/1175535/000117553519000012/wsr-20181231.xml" severity="error" cid="4343815864">[DQC.US.0081.9277] The line item concept us-gaap:ProceedsFromDistributionsReceivedFromRealEstatePartnerships with a value of 1,324,000 is represented as a child of us-gaap:NetCashProvidedByUsedInOperatingActivities with a value of 39,557,000 in the companies extension taxonomy role 1004000 - Statement - Consolidated Statements of Cash Flows. The element us-gaap:ProceedsFromDistributionsReceivedFromRealEstatePartnerships however, is not represented as a component of us-gaap:NetCashProvidedByUsedInOperatingActivities in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:ProceedsFromDistributionsReceivedFromRealEstatePartnerships as a sibling element (or child of that sibling) relative to us-gaap:NetCashProvidedByUsedInOperatingActivities in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:NetCashProvidedByUsedInOperatingActivities and the child element us-gaap:ProceedsFromDistributionsReceivedFromRealEstatePartnerships.
+
+The properties of this us-gaap:ProceedsFromDistributionsReceivedFromRealEstatePartnerships fact are:
+
+Period :2018-01-01 to 2018-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1175535/000117553519000012/wsr-20181231.xml 8277</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1175535/000117553519000012/wsr-20181231.xml#Fact-4E1B3AB41E1A08405D88777FB88E8545" sourceLine="8277">
+  <property name="label" value="Proceeds from Distributions Received from Real Estate Partnerships"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="ProceedsFromDistributionsReceivedFromRealEstatePartnerships"/>
+  <property name="QName" value="us-gaap:ProceedsFromDistributionsReceivedFromRealEstatePartnerships"/>
+  <property name="contextRef" value="FD2018Q4YTD">
+   <property name="entity" value="0001175535">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,324,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message status="PROPOSED" effectiveDate="2019-06-30" filing_url="https://www.sec.gov/Archives/edgar/data/1175535/000117553519000012/wsr-20181231.xml" severity="error" cid="4343815864">[DQC.US.0081.9277] The line item concept us-gaap:ProceedsFromDistributionsReceivedFromRealEstatePartnerships with a value of 505,000 is represented as a child of us-gaap:NetCashProvidedByUsedInOperatingActivities with a value of 28,760,000 in the companies extension taxonomy role 1004000 - Statement - Consolidated Statements of Cash Flows. The element us-gaap:ProceedsFromDistributionsReceivedFromRealEstatePartnerships however, is not represented as a component of us-gaap:NetCashProvidedByUsedInOperatingActivities in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:ProceedsFromDistributionsReceivedFromRealEstatePartnerships as a sibling element (or child of that sibling) relative to us-gaap:NetCashProvidedByUsedInOperatingActivities in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:NetCashProvidedByUsedInOperatingActivities and the child element us-gaap:ProceedsFromDistributionsReceivedFromRealEstatePartnerships.
+
+The properties of this us-gaap:ProceedsFromDistributionsReceivedFromRealEstatePartnerships fact are:
+
+Period :2018-01-01 to 2018-09-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1175535/000117553519000012/wsr-20181231.xml 8274</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1175535/000117553519000012/wsr-20181231.xml#Fact-6B73F3507500D844B5E677B5415835C7" sourceLine="8274">
+  <property name="label" value="Proceeds from Distributions Received from Real Estate Partnerships"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="ProceedsFromDistributionsReceivedFromRealEstatePartnerships"/>
+  <property name="QName" value="us-gaap:ProceedsFromDistributionsReceivedFromRealEstatePartnerships"/>
+  <property name="contextRef" value="FD2018Q3YTD">
+   <property name="entity" value="0001175535">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-09-30"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="505,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 31.41 secs - https://www.sec.gov/Archives/edgar/data/1175535/000117553519000012/wsr-20181231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1175535/000117553519000012/wsr-20181231.xml"/></entry>
+</log>

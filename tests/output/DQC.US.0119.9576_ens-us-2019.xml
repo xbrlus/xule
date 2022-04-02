@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23221 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 8.08 secs at 2021-07-20T10:17:34 - http://www.sec.gov/Archives/edgar/data/1289308/000128930821000027/ens-20210331.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1289308/000128930821000027/ens-20210331.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmp_alio5rd\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmp_alio5rd\packages\resources.zip"/></entry>
+<entry code="DQC.US.0119.9576" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1289308/000128930821000027/ens-20210331.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2125391594448">[DQC.US.0119.9576] The company has reported a value for the concept representing Income before income tax, Non Controlling Interest and Equity Method Investments with a value of 170,135,000. However the company has not reported a value for equity method investments. If the company has no equity method investments then the filer should use the element IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest.
+
+Element : us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments
+Value : 170,135,000 
+Period : 2020-04-01 to 2021-03-31 
+Rule Element Id:9576
+Rule version: 16.0.0RC2 - http://www.sec.gov/Archives/edgar/data/1289308/000128930821000027/ens-20210331.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1289308/000128930821000027/ens-20210331.htm#id3VybDovL2RvY3MudjEvZG9jOjhlMzI0ZTVjMTU1NDQ5NmI4MmUyZTM0YmZiZDNiZGU3L3NlYzo4ZTMyNGU1YzE1NTQ0OTZiODJlMmUzNGJmYmQzYmRlN184OC9mcmFnOmU3MGNlNjk4Mjc3MjRlNzdiNzZlMDgxYzJlMzM4ZjBmL3RhYmxlOmY0OTM4MWFhOWI3NDQwYzFhODE2YTNhNDBiMWU5OTQ0L3RhYmxlcmFuZ2U6ZjQ5MzgxYWE5Yjc0NDBjMWE4MTZhM2E0MGIxZTk5NDRfMTUtMi0xLTEtMA_0db19b7e-8610-4428-899e-c19f79988699" sourceLine="4">
+  <property name="file" value="ens-20210331.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Income (Loss) from Continuing Operations before Equity Method Investments, Income Taxes, Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments"/>
+  <property name="QName" value="us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments"/>
+  <property name="contextRef" value="id2a26b8b359a4a4881403454a8884b96_D20200401-20210331">
+   <property name="entity" value="0001289308">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-04-01"/>
+   <property name="endDate" value="2021-03-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="170,135,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="170,135"/>
+ </ref></entry>
+<entry code="DQC.US.0119.9576" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1289308/000128930821000027/ens-20210331.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2125391594448">[DQC.US.0119.9576] The company has reported a value for the concept representing Income before income tax, Non Controlling Interest and Equity Method Investments with a value of 182,211,000. However the company has not reported a value for equity method investments. If the company has no equity method investments then the filer should use the element IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest.
+
+Element : us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments
+Value : 182,211,000 
+Period : 2018-04-01 to 2019-03-31 
+Rule Element Id:9576
+Rule version: 16.0.0RC2 - http://www.sec.gov/Archives/edgar/data/1289308/000128930821000027/ens-20210331.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1289308/000128930821000027/ens-20210331.htm#id3VybDovL2RvY3MudjEvZG9jOjhlMzI0ZTVjMTU1NDQ5NmI4MmUyZTM0YmZiZDNiZGU3L3NlYzo4ZTMyNGU1YzE1NTQ0OTZiODJlMmUzNGJmYmQzYmRlN184OC9mcmFnOmU3MGNlNjk4Mjc3MjRlNzdiNzZlMDgxYzJlMzM4ZjBmL3RhYmxlOmY0OTM4MWFhOWI3NDQwYzFhODE2YTNhNDBiMWU5OTQ0L3RhYmxlcmFuZ2U6ZjQ5MzgxYWE5Yjc0NDBjMWE4MTZhM2E0MGIxZTk5NDRfMTUtNi0xLTEtMA_1dace852-11a6-46ad-a21c-91cff3ed9e5c" sourceLine="4">
+  <property name="file" value="ens-20210331.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Income (Loss) from Continuing Operations before Equity Method Investments, Income Taxes, Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments"/>
+  <property name="QName" value="us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments"/>
+  <property name="contextRef" value="iefdc7b808cb141d2841c93de14a66478_D20180401-20190331">
+   <property name="entity" value="0001289308">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-04-01"/>
+   <property name="endDate" value="2019-03-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="182,211,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="182,211"/>
+ </ref></entry>
+<entry code="DQC.US.0119.9576" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1289308/000128930821000027/ens-20210331.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2125391594448">[DQC.US.0119.9576] The company has reported a value for the concept representing Income before income tax, Non Controlling Interest and Equity Method Investments with a value of 146,937,000. However the company has not reported a value for equity method investments. If the company has no equity method investments then the filer should use the element IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest.
+
+Element : us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments
+Value : 146,937,000 
+Period : 2019-04-01 to 2020-03-31 
+Rule Element Id:9576
+Rule version: 16.0.0RC2 - http://www.sec.gov/Archives/edgar/data/1289308/000128930821000027/ens-20210331.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1289308/000128930821000027/ens-20210331.htm#id3VybDovL2RvY3MudjEvZG9jOjhlMzI0ZTVjMTU1NDQ5NmI4MmUyZTM0YmZiZDNiZGU3L3NlYzo4ZTMyNGU1YzE1NTQ0OTZiODJlMmUzNGJmYmQzYmRlN184OC9mcmFnOmU3MGNlNjk4Mjc3MjRlNzdiNzZlMDgxYzJlMzM4ZjBmL3RhYmxlOmY0OTM4MWFhOWI3NDQwYzFhODE2YTNhNDBiMWU5OTQ0L3RhYmxlcmFuZ2U6ZjQ5MzgxYWE5Yjc0NDBjMWE4MTZhM2E0MGIxZTk5NDRfMTUtNC0xLTEtMA_7d78d5b5-e294-41a2-8ec1-e3de373b2af9" sourceLine="4">
+  <property name="file" value="ens-20210331.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Income (Loss) from Continuing Operations before Equity Method Investments, Income Taxes, Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments"/>
+  <property name="QName" value="us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments"/>
+  <property name="contextRef" value="ia56267ceb3dd461ab69a2c91aaf0ac5c_D20190401-20200331">
+   <property name="entity" value="0001289308">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-04-01"/>
+   <property name="endDate" value="2020-03-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="146,937,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="146,937"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 7.15 secs - http://www.sec.gov/Archives/edgar/data/1289308/000128930821000027/ens-20210331.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1289308/000128930821000027/ens-20210331.htm"/></entry>
+</log>

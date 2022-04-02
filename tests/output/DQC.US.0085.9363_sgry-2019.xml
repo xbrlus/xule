@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.12 secs at 2020-03-03T15:25:17 - https://www.sec.gov/Archives/edgar/data/1638833/000163883319000074/sgry-20190930.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1638833/000163883319000074/sgry-20190930.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpj4m7fm37\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpj4m7fm37\packages\resources.zip"/></entry>
+<entry code="DQC.US.0085.9363" level="error">
+ <message cid="2627884213416" effectiveDate="None" severity="error" filing_url="https://www.sec.gov/Archives/edgar/data/1638833/000163883319000074/sgry-20190930.xml">[DQC.US.0085.9363] The element us-gaap:DeferredIncomeTaxLiabilitiesNet with a value 68,200,000 does not appear in a calculation defined in the filing.  This concept is a balance sheet item and should appear on the balance sheet or as a component of a balance sheet item in the footnotes.  If this value is the amount with jurisdictional netting and it is reported in the footnotes then the value of DeferredTaxLiabilities (the amount without jurisdictional netting) should also be reported. To resolve the error the element DeferredIncomeTaxLiabilitiesNet needs to either be included with the Balance Sheet Location Axis or be included in a calculation with Liabilities as an ancestor.
+
+
+Period :2019-09-30
+Dimensions : 
+Unit : USD
+Decimals: -5
+
+
+Rule Element Id:9363
+Rule version: 11.0.1 - https://www.sec.gov/Archives/edgar/data/1638833/000163883319000074/sgry-20190930.xml 3555</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1638833/000163883319000074/sgry-20190930.xml#Fact-CB32DC2CF19E5E5FA587DD70EDA60954" sourceLine="3555">
+  <property name="label" value="Deferred Income Tax Liabilities, Net"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DeferredIncomeTaxLiabilitiesNet"/>
+  <property name="QName" value="us-gaap:DeferredIncomeTaxLiabilitiesNet"/>
+  <property name="contextRef" value="FI2019Q3">
+   <property name="entity" value="0001638833">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-09-30"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="68,200,000"/>
+ </ref></entry>
+<entry code="DQC.US.0085.9363" level="error">
+ <message cid="2627884213416" effectiveDate="None" severity="error" filing_url="https://www.sec.gov/Archives/edgar/data/1638833/000163883319000074/sgry-20190930.xml">[DQC.US.0085.9363] The element us-gaap:DeferredIncomeTaxLiabilitiesNet with a value 64,600,000 does not appear in a calculation defined in the filing.  This concept is a balance sheet item and should appear on the balance sheet or as a component of a balance sheet item in the footnotes.  If this value is the amount with jurisdictional netting and it is reported in the footnotes then the value of DeferredTaxLiabilities (the amount without jurisdictional netting) should also be reported. To resolve the error the element DeferredIncomeTaxLiabilitiesNet needs to either be included with the Balance Sheet Location Axis or be included in a calculation with Liabilities as an ancestor.
+
+
+Period :2018-12-31
+Dimensions : 
+Unit : USD
+Decimals: -5
+
+
+Rule Element Id:9363
+Rule version: 11.0.1 - https://www.sec.gov/Archives/edgar/data/1638833/000163883319000074/sgry-20190930.xml 3554</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1638833/000163883319000074/sgry-20190930.xml#Fact-CBBA0CCE1F57556A8CFD84A577C74EF7" sourceLine="3554">
+  <property name="label" value="Deferred Income Tax Liabilities, Net"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DeferredIncomeTaxLiabilitiesNet"/>
+  <property name="QName" value="us-gaap:DeferredIncomeTaxLiabilitiesNet"/>
+  <property name="contextRef" value="FI2018Q4">
+   <property name="entity" value="0001638833">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="64,600,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.56 secs - https://www.sec.gov/Archives/edgar/data/1638833/000163883319000074/sgry-20190930.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1638833/000163883319000074/sgry-20190930.xml"/></entry>
+</log>

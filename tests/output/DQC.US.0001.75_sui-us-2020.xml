@@ -1,0 +1,1237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.64 secs at 2020-07-24T23:26:14 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmplx28fj16\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmplx28fj16\packages\resources.zip"/></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept VariableInterestEntityEquityInterestsIssued with a value of -708,000 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for VariableInterestEntityEquityInterestsIssued are:
+Period: 2020-04-01 to 2020-06-30
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmIxYTg2ZjM2OTFmMTQzZGM5NTI3YmYyYTI3ODNhZTRmL3RhYmxlcmFuZ2U6YjFhODZmMzY5MWYxNDNkYzk1MjdiZjJhMjc4M2FlNGZfMTktMTAtMS0xLTQ1MTE_400a2987-2bb7-49b9-8270-0311b7ccacab" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Variable Interest Entity, Equity Interests Issued"/>
+  <property name="namespace" value="http://www.suncommunities.com/20200630"/>
+  <property name="name" value="VariableInterestEntityEquityInterestsIssued"/>
+  <property name="QName" value="sui:VariableInterestEntityEquityInterestsIssued"/>
+  <property name="contextRef" value="id2b08fd4508842b8a6028fae12bcf875_D20200401-20200630">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-04-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-708,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="708"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept NetIncomeLoss with a value of -15,478,000 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for NetIncomeLoss are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmIxYTg2ZjM2OTFmMTQzZGM5NTI3YmYyYTI3ODNhZTRmL3RhYmxlcmFuZ2U6YjFhODZmMzY5MWYxNDNkYzk1MjdiZjJhMjc4M2FlNGZfMTMtMTAtMS0xLTA_f4366ac7-14d6-4af0-a15d-9608115e045a" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Net Income (Loss) Attributable to Parent"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="NetIncomeLoss"/>
+  <property name="QName" value="us-gaap:NetIncomeLoss"/>
+  <property name="contextRef" value="i0f19f4fbe56244f084e3ea4bf1b6c585_D20200101-20200331">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-15,478,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="15,478"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept NetIncomeLossIncludingPortionAttributabletoNoncontrollingInterestandReturnsfromPreferredStock with a value of 1,913,000 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for NetIncomeLossIncludingPortionAttributabletoNoncontrollingInterestandReturnsfromPreferredStock are:
+Period: 2019-04-01 to 2019-06-30
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmRmMjRiYTdlNWJiNTQ5YWNiZWFlODVjM2E3MmIwNDBlL3RhYmxlcmFuZ2U6ZGYyNGJhN2U1YmI1NDlhY2JlYWU4NWMzYTcyYjA0MGVfMjAtMTAtMS0xLTU5NzA_3af99eb3-9d11-4d1a-a580-770a8c4ff125" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Net Income (Loss), Including Portion Attributable to Noncontrolling Interest and Returns from Preferred Stock"/>
+  <property name="namespace" value="http://www.suncommunities.com/20200630"/>
+  <property name="name" value="NetIncomeLossIncludingPortionAttributabletoNoncontrollingInterestandReturnsfromPreferredStock"/>
+  <property name="QName" value="sui:NetIncomeLossIncludingPortionAttributabletoNoncontrollingInterestandReturnsfromPreferredStock"/>
+  <property name="contextRef" value="i101da72324d348878e2e169cc4fbd2c0_D20190401-20190630">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-04-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,913,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="1,913"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest with a value of 3,230,914,000 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest are:
+Period: 2018-12-31
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmRmMjRiYTdlNWJiNTQ5YWNiZWFlODVjM2E3MmIwNDBlL3RhYmxlcmFuZ2U6ZGYyNGJhN2U1YmI1NDlhY2JlYWU4NWMzYTcyYjA0MGVfMi0xMC0xLTEtMA_6a77e89d-680b-4956-894b-09d0747be5db" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Stockholders' Equity, Including Portion Attributable to Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="QName" value="us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="contextRef" value="i917a22e52c0c465eae3f6ddef3cfd302_I20181231">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="3,230,914,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="3,230,914"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept StockBasedCompensationAmortizationAndForfeitures with a value of -5,021,000 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for StockBasedCompensationAmortizationAndForfeitures are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmIxYTg2ZjM2OTFmMTQzZGM5NTI3YmYyYTI3ODNhZTRmL3RhYmxlcmFuZ2U6YjFhODZmMzY5MWYxNDNkYzk1MjdiZjJhMjc4M2FlNGZfNy0xMC0xLTEtMA_67d4a434-a5cf-451b-97fa-13c3aad14494" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Stock-Based Compensation Amortization And Forfeitures"/>
+  <property name="namespace" value="http://www.suncommunities.com/20200630"/>
+  <property name="name" value="StockBasedCompensationAmortizationAndForfeitures"/>
+  <property name="QName" value="sui:StockBasedCompensationAmortizationAndForfeitures"/>
+  <property name="contextRef" value="i0f19f4fbe56244f084e3ea4bf1b6c585_D20200101-20200331">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-5,021,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="5,021"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept StockIssuedDuringPeriodValueNewIssues with a value of 447,741,000 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for StockIssuedDuringPeriodValueNewIssues are:
+Period: 2019-04-01 to 2019-06-30
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmRmMjRiYTdlNWJiNTQ5YWNiZWFlODVjM2E3MmIwNDBlL3RhYmxlcmFuZ2U6ZGYyNGJhN2U1YmI1NDlhY2JlYWU4NWMzYTcyYjA0MGVfMTUtMTAtMS0xLTU5NjI_58218b31-61f3-465d-b90c-abaea7901800" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Stock Issued During Period, Value, New Issues"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="StockIssuedDuringPeriodValueNewIssues"/>
+  <property name="QName" value="us-gaap:StockIssuedDuringPeriodValueNewIssues"/>
+  <property name="contextRef" value="i101da72324d348878e2e169cc4fbd2c0_D20190401-20190630">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-04-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="447,741,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="447,741"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept DividendsCash with a value of 81,098,000 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for DividendsCash are:
+Period: 2020-04-01 to 2020-06-30
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmIxYTg2ZjM2OTFmMTQzZGM5NTI3YmYyYTI3ODNhZTRmL3RhYmxlcmFuZ2U6YjFhODZmMzY5MWYxNDNkYzk1MjdiZjJhMjc4M2FlNGZfMjktMTAtMS0xLTU5NTg_74ab8786-1d67-4559-b372-7d4ddf46121e" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Dividends, Cash"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="DividendsCash"/>
+  <property name="QName" value="us-gaap:DividendsCash"/>
+  <property name="contextRef" value="id2b08fd4508842b8a6028fae12bcf875_D20200401-20200630">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-04-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="81,098,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="81,098"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept MinorityInterestDecreaseFromRedemptions with a value of -8,965,000 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for MinorityInterestDecreaseFromRedemptions are:
+Period: 2020-04-01 to 2020-06-30
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmIxYTg2ZjM2OTFmMTQzZGM5NTI3YmYyYTI3ODNhZTRmL3RhYmxlcmFuZ2U6YjFhODZmMzY5MWYxNDNkYzk1MjdiZjJhMjc4M2FlNGZfMjAtMTAtMS0xLTQ1MTE_064bf7ea-feef-467a-9cc5-f8fef36480a5" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Noncontrolling Interest, Decrease from Redemptions or Purchase of Interests"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="MinorityInterestDecreaseFromRedemptions"/>
+  <property name="QName" value="us-gaap:MinorityInterestDecreaseFromRedemptions"/>
+  <property name="contextRef" value="id2b08fd4508842b8a6028fae12bcf875_D20200401-20200630">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-04-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-8,965,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="8,965"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept NetIncomeLossIncludingPortionAttributabletoNoncontrollingInterestandReturnsfromPreferredStock with a value of -7,300,000 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for NetIncomeLossIncludingPortionAttributabletoNoncontrollingInterestandReturnsfromPreferredStock are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmIxYTg2ZjM2OTFmMTQzZGM5NTI3YmYyYTI3ODNhZTRmL3RhYmxlcmFuZ2U6YjFhODZmMzY5MWYxNDNkYzk1MjdiZjJhMjc4M2FlNGZfMTEtMTAtMS0xLTA_cbd6286a-8638-4480-88fb-75fe32082946" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Net Income (Loss), Including Portion Attributable to Noncontrolling Interest and Returns from Preferred Stock"/>
+  <property name="namespace" value="http://www.suncommunities.com/20200630"/>
+  <property name="name" value="NetIncomeLossIncludingPortionAttributabletoNoncontrollingInterestandReturnsfromPreferredStock"/>
+  <property name="QName" value="sui:NetIncomeLossIncludingPortionAttributabletoNoncontrollingInterestandReturnsfromPreferredStock"/>
+  <property name="contextRef" value="i0f19f4fbe56244f084e3ea4bf1b6c585_D20200101-20200331">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-7,300,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="7,300"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept StockIssuedDuringPeriodValueConversionOfConvertibleSecurities with a value of 0 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for StockIssuedDuringPeriodValueConversionOfConvertibleSecurities are:
+Period: 2019-04-01 to 2019-06-30
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember, us-gaap:StatementClassOfStockAxis=sui:CommonOpUnitsMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmRmMjRiYTdlNWJiNTQ5YWNiZWFlODVjM2E3MmIwNDBlL3RhYmxlcmFuZ2U6ZGYyNGJhN2U1YmI1NDlhY2JlYWU4NWMzYTcyYjA0MGVfMTYtMTAtMS0xLTU5Nzg_79b6c843-cc4a-49b2-bf12-9e5389ac9102" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Stock Issued During Period, Value, Conversion of Convertible Securities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="StockIssuedDuringPeriodValueConversionOfConvertibleSecurities"/>
+  <property name="QName" value="us-gaap:StockIssuedDuringPeriodValueConversionOfConvertibleSecurities"/>
+  <property name="contextRef" value="icf5089f2cf634136aecfd1e9e606afaa_D20190401-20190630">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-04-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:StatementClassOfStockAxis" value="sui:CommonOpUnitsMember"/>
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+  <property name="format" value="ixt:zerodash"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="—"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept VariableInterestEntityEquityInterestsIssued with a value of 13,000 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for VariableInterestEntityEquityInterestsIssued are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmIxYTg2ZjM2OTFmMTQzZGM5NTI3YmYyYTI3ODNhZTRmL3RhYmxlcmFuZ2U6YjFhODZmMzY5MWYxNDNkYzk1MjdiZjJhMjc4M2FlNGZfNi0xMC0xLTEtMA_7a451fca-7762-4294-a206-ded93f1d98c4" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Variable Interest Entity, Equity Interests Issued"/>
+  <property name="namespace" value="http://www.suncommunities.com/20200630"/>
+  <property name="name" value="VariableInterestEntityEquityInterestsIssued"/>
+  <property name="QName" value="sui:VariableInterestEntityEquityInterestsIssued"/>
+  <property name="contextRef" value="i0f19f4fbe56244f084e3ea4bf1b6c585_D20200101-20200331">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="13,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="13"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept StockIssuedDuringPeriodValueNewIssues with a value of 638,669,000 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for StockIssuedDuringPeriodValueNewIssues are:
+Period: 2020-04-01 to 2020-06-30
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmIxYTg2ZjM2OTFmMTQzZGM5NTI3YmYyYTI3ODNhZTRmL3RhYmxlcmFuZ2U6YjFhODZmMzY5MWYxNDNkYzk1MjdiZjJhMjc4M2FlNGZfMTYtMTAtMS0xLTU5NTA_8dc4037c-8c13-4e22-abe5-2bf0dc3cc099" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Stock Issued During Period, Value, New Issues"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="StockIssuedDuringPeriodValueNewIssues"/>
+  <property name="QName" value="us-gaap:StockIssuedDuringPeriodValueNewIssues"/>
+  <property name="contextRef" value="id2b08fd4508842b8a6028fae12bcf875_D20200401-20200630">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-04-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="638,669,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="638,669"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept DividendsCash with a value of 68,681,000 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for DividendsCash are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmRmMjRiYTdlNWJiNTQ5YWNiZWFlODVjM2E3MmIwNDBlL3RhYmxlcmFuZ2U6ZGYyNGJhN2U1YmI1NDlhY2JlYWU4NWMzYTcyYjA0MGVfMTMtMTAtMS0xLTA_991fa9f1-c620-4e4a-9445-bea88ca1d52b" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Dividends, Cash"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="DividendsCash"/>
+  <property name="QName" value="us-gaap:DividendsCash"/>
+  <property name="contextRef" value="i539acd89c7844961908b2610a1cb5d9b_D20190101-20190331">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="68,681,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="68,681"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept StockIssuedDuringPeriodValueNewIssues with a value of -4,321,000 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for StockIssuedDuringPeriodValueNewIssues are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmRmMjRiYTdlNWJiNTQ5YWNiZWFlODVjM2E3MmIwNDBlL3RhYmxlcmFuZ2U6ZGYyNGJhN2U1YmI1NDlhY2JlYWU4NWMzYTcyYjA0MGVfMy0xMC0xLTEtMA_1a756bb1-d182-4e17-9e0d-1e6280650fd8" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Stock Issued During Period, Value, New Issues"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="StockIssuedDuringPeriodValueNewIssues"/>
+  <property name="QName" value="us-gaap:StockIssuedDuringPeriodValueNewIssues"/>
+  <property name="contextRef" value="i539acd89c7844961908b2610a1cb5d9b_D20190101-20190331">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-4,321,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="4,321"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest with a value of 3,679,896,000 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest are:
+Period: 2019-06-30
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmRmMjRiYTdlNWJiNTQ5YWNiZWFlODVjM2E3MmIwNDBlL3RhYmxlcmFuZ2U6ZGYyNGJhN2U1YmI1NDlhY2JlYWU4NWMzYTcyYjA0MGVfMjMtMTAtMS0xLTU5NzY_6a8bb19d-9835-4724-b788-9ef923a12174" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Stockholders' Equity, Including Portion Attributable to Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="QName" value="us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="contextRef" value="ic812f9ed3477476c98ed8e36a46fb945_I20190630">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="3,679,896,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="3,679,896"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept StockBasedCompensationAmortizationAndForfeitures with a value of -3,793,000 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for StockBasedCompensationAmortizationAndForfeitures are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmRmMjRiYTdlNWJiNTQ5YWNiZWFlODVjM2E3MmIwNDBlL3RhYmxlcmFuZ2U6ZGYyNGJhN2U1YmI1NDlhY2JlYWU4NWMzYTcyYjA0MGVfNy0xMC0xLTEtMA_4e9ff169-f28e-4924-8402-7dc8021426af" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Stock-Based Compensation Amortization And Forfeitures"/>
+  <property name="namespace" value="http://www.suncommunities.com/20200630"/>
+  <property name="name" value="StockBasedCompensationAmortizationAndForfeitures"/>
+  <property name="QName" value="sui:StockBasedCompensationAmortizationAndForfeitures"/>
+  <property name="contextRef" value="i539acd89c7844961908b2610a1cb5d9b_D20190101-20190331">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-3,793,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="3,793"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest with a value of 3,862,920,000 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest are:
+Period: 2020-03-31
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmIxYTg2ZjM2OTFmMTQzZGM5NTI3YmYyYTI3ODNhZTRmL3RhYmxlcmFuZ2U6YjFhODZmMzY5MWYxNDNkYzk1MjdiZjJhMjc4M2FlNGZfMTUtMTAtMS0xLTA_a625dae0-9c4d-47f4-839e-0df11ad377ec" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Stockholders' Equity, Including Portion Attributable to Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="QName" value="us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="contextRef" value="i47cc9e307d354b709e4302592b433f95_I20200331">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="3,862,920,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="3,862,920"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept StockIssuedDuringPeriodValueNewIssues with a value of -7,140,000 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for StockIssuedDuringPeriodValueNewIssues are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmIxYTg2ZjM2OTFmMTQzZGM5NTI3YmYyYTI3ODNhZTRmL3RhYmxlcmFuZ2U6YjFhODZmMzY5MWYxNDNkYzk1MjdiZjJhMjc4M2FlNGZfMy0xMC0xLTEtMA_b0d5585d-a8e5-4634-8702-13d4077de478" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Stock Issued During Period, Value, New Issues"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="StockIssuedDuringPeriodValueNewIssues"/>
+  <property name="QName" value="us-gaap:StockIssuedDuringPeriodValueNewIssues"/>
+  <property name="contextRef" value="i0f19f4fbe56244f084e3ea4bf1b6c585_D20200101-20200331">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-7,140,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="7,140"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept NetIncomeLossIncludingPortionAttributabletoNoncontrollingInterestandReturnsfromPreferredStock with a value of 3,872,000 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for NetIncomeLossIncludingPortionAttributabletoNoncontrollingInterestandReturnsfromPreferredStock are:
+Period: 2020-04-01 to 2020-06-30
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmIxYTg2ZjM2OTFmMTQzZGM5NTI3YmYyYTI3ODNhZTRmL3RhYmxlcmFuZ2U6YjFhODZmMzY5MWYxNDNkYzk1MjdiZjJhMjc4M2FlNGZfMjUtMTAtMS0xLTU5NTQ_5f70b122-bf23-4df2-91bb-b65e982e2baf" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Net Income (Loss), Including Portion Attributable to Noncontrolling Interest and Returns from Preferred Stock"/>
+  <property name="namespace" value="http://www.suncommunities.com/20200630"/>
+  <property name="name" value="NetIncomeLossIncludingPortionAttributabletoNoncontrollingInterestandReturnsfromPreferredStock"/>
+  <property name="QName" value="sui:NetIncomeLossIncludingPortionAttributabletoNoncontrollingInterestandReturnsfromPreferredStock"/>
+  <property name="contextRef" value="id2b08fd4508842b8a6028fae12bcf875_D20200401-20200630">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-04-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="3,872,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="3,872"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest with a value of 4,503,351,000 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest are:
+Period: 2020-06-30
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmIxYTg2ZjM2OTFmMTQzZGM5NTI3YmYyYTI3ODNhZTRmL3RhYmxlcmFuZ2U6YjFhODZmMzY5MWYxNDNkYzk1MjdiZjJhMjc4M2FlNGZfMzAtMTAtMS0xLTU5NjA_4069a3ae-5193-434c-9aad-a0f9e6f2d6e4" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Stockholders' Equity, Including Portion Attributable to Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="QName" value="us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="contextRef" value="i80cf5fa712bf45fc97ef4c5c82ca5561_I20200630">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4,503,351,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="4,503,351"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept NetIncomeLoss with a value of 63,355,000 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for NetIncomeLoss are:
+Period: 2020-04-01 to 2020-06-30
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmIxYTg2ZjM2OTFmMTQzZGM5NTI3YmYyYTI3ODNhZTRmL3RhYmxlcmFuZ2U6YjFhODZmMzY5MWYxNDNkYzk1MjdiZjJhMjc4M2FlNGZfMjgtMTAtMS0xLTU5NTY_fd52a0ad-919b-4df5-b200-7226563c7126" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Net Income (Loss) Attributable to Parent"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="NetIncomeLoss"/>
+  <property name="QName" value="us-gaap:NetIncomeLoss"/>
+  <property name="contextRef" value="id2b08fd4508842b8a6028fae12bcf875_D20200401-20200630">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-04-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="63,355,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="63,355"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept RemeasurementofNotesReceivableEquityMethodInvestment with a value of 1,953,000 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for RemeasurementofNotesReceivableEquityMethodInvestment are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmIxYTg2ZjM2OTFmMTQzZGM5NTI3YmYyYTI3ODNhZTRmL3RhYmxlcmFuZ2U6YjFhODZmMzY5MWYxNDNkYzk1MjdiZjJhMjc4M2FlNGZfMTItMTAtMS0xLTA_6b7edef3-5a15-4bac-a523-e3172d542319" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Remeasurement of Notes Receivable, Equity Method Investment"/>
+  <property name="namespace" value="http://www.suncommunities.com/20200630"/>
+  <property name="name" value="RemeasurementofNotesReceivableEquityMethodInvestment"/>
+  <property name="QName" value="sui:RemeasurementofNotesReceivableEquityMethodInvestment"/>
+  <property name="contextRef" value="i0f19f4fbe56244f084e3ea4bf1b6c585_D20200101-20200331">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,953,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="1,953"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept NetIncomeLossIncludingPortionAttributabletoNoncontrollingInterestandReturnsfromPreferredStock with a value of 1,575,000 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for NetIncomeLossIncludingPortionAttributabletoNoncontrollingInterestandReturnsfromPreferredStock are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmRmMjRiYTdlNWJiNTQ5YWNiZWFlODVjM2E3MmIwNDBlL3RhYmxlcmFuZ2U6ZGYyNGJhN2U1YmI1NDlhY2JlYWU4NWMzYTcyYjA0MGVfMTEtMTAtMS0xLTA_24b6ae0b-da22-4871-bd3e-11691050112f" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Net Income (Loss), Including Portion Attributable to Noncontrolling Interest and Returns from Preferred Stock"/>
+  <property name="namespace" value="http://www.suncommunities.com/20200630"/>
+  <property name="name" value="NetIncomeLossIncludingPortionAttributabletoNoncontrollingInterestandReturnsfromPreferredStock"/>
+  <property name="QName" value="sui:NetIncomeLossIncludingPortionAttributabletoNoncontrollingInterestandReturnsfromPreferredStock"/>
+  <property name="contextRef" value="i539acd89c7844961908b2610a1cb5d9b_D20190101-20190331">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,575,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="1,575"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept NetIncomeLoss with a value of 37,127,000 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for NetIncomeLoss are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmRmMjRiYTdlNWJiNTQ5YWNiZWFlODVjM2E3MmIwNDBlL3RhYmxlcmFuZ2U6ZGYyNGJhN2U1YmI1NDlhY2JlYWU4NWMzYTcyYjA0MGVfMTItMTAtMS0xLTA_d8a49cd0-6a4b-4db9-ba06-fd1d71ca6590" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Net Income (Loss) Attributable to Parent"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="NetIncomeLoss"/>
+  <property name="QName" value="us-gaap:NetIncomeLoss"/>
+  <property name="contextRef" value="i539acd89c7844961908b2610a1cb5d9b_D20190101-20190331">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="37,127,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="37,127"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept OtherComprehensiveIncomeUnrealizedGainLossOnDerivativesArisingDuringPeriodNetOfTax with a value of 9,000,000 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for OtherComprehensiveIncomeUnrealizedGainLossOnDerivativesArisingDuringPeriodNetOfTax are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmIxYTg2ZjM2OTFmMTQzZGM5NTI3YmYyYTI3ODNhZTRmL3RhYmxlcmFuZ2U6YjFhODZmMzY5MWYxNDNkYzk1MjdiZjJhMjc4M2FlNGZfMTAtMTAtMS0xLTA_94a58739-0759-4ef0-b949-feee2e82b421" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Other Comprehensive Income (Loss), Unrealized Gain (Loss) on Derivatives Arising During Period, Net of Tax"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="OtherComprehensiveIncomeUnrealizedGainLossOnDerivativesArisingDuringPeriodNetOfTax"/>
+  <property name="QName" value="us-gaap:OtherComprehensiveIncomeUnrealizedGainLossOnDerivativesArisingDuringPeriodNetOfTax"/>
+  <property name="contextRef" value="i0f19f4fbe56244f084e3ea4bf1b6c585_D20200101-20200331">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="9,000,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="9,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept DividendsCash with a value of 71,709,000 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for DividendsCash are:
+Period: 2019-04-01 to 2019-06-30
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmRmMjRiYTdlNWJiNTQ5YWNiZWFlODVjM2E3MmIwNDBlL3RhYmxlcmFuZ2U6ZGYyNGJhN2U1YmI1NDlhY2JlYWU4NWMzYTcyYjA0MGVfMjItMTAtMS0xLTU5NzQ_7116a41f-74b1-4a4c-add5-bd42367ddeff" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Dividends, Cash"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="DividendsCash"/>
+  <property name="QName" value="us-gaap:DividendsCash"/>
+  <property name="contextRef" value="i101da72324d348878e2e169cc4fbd2c0_D20190401-20190630">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-04-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="71,709,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="71,709"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept DividendsCash with a value of 77,105,000 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for DividendsCash are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmIxYTg2ZjM2OTFmMTQzZGM5NTI3YmYyYTI3ODNhZTRmL3RhYmxlcmFuZ2U6YjFhODZmMzY5MWYxNDNkYzk1MjdiZjJhMjc4M2FlNGZfMTQtMTAtMS0xLTA_5d796750-925c-4c59-8b13-02b6fc5d29f5" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Dividends, Cash"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="DividendsCash"/>
+  <property name="QName" value="us-gaap:DividendsCash"/>
+  <property name="contextRef" value="i0f19f4fbe56244f084e3ea4bf1b6c585_D20200101-20200331">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="77,105,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="77,105"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept StockBasedCompensationAmortizationAndForfeitures with a value of -7,376,000 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for StockBasedCompensationAmortizationAndForfeitures are:
+Period: 2020-04-01 to 2020-06-30
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmIxYTg2ZjM2OTFmMTQzZGM5NTI3YmYyYTI3ODNhZTRmL3RhYmxlcmFuZ2U6YjFhODZmMzY5MWYxNDNkYzk1MjdiZjJhMjc4M2FlNGZfMjEtMTAtMS0xLTU5NTI_3b288e0c-22fe-422c-aa68-477056a46c28" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Stock-Based Compensation Amortization And Forfeitures"/>
+  <property name="namespace" value="http://www.suncommunities.com/20200630"/>
+  <property name="name" value="StockBasedCompensationAmortizationAndForfeitures"/>
+  <property name="QName" value="sui:StockBasedCompensationAmortizationAndForfeitures"/>
+  <property name="contextRef" value="id2b08fd4508842b8a6028fae12bcf875_D20200401-20200630">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-04-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-7,376,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="7,376"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept OtherComprehensiveIncomeUnrealizedGainLossOnDerivativesArisingDuringPeriodNetOfTax with a value of 51,930,000 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for OtherComprehensiveIncomeUnrealizedGainLossOnDerivativesArisingDuringPeriodNetOfTax are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmRmMjRiYTdlNWJiNTQ5YWNiZWFlODVjM2E3MmIwNDBlL3RhYmxlcmFuZ2U6ZGYyNGJhN2U1YmI1NDlhY2JlYWU4NWMzYTcyYjA0MGVfMTAtMTAtMS0xLTA_6af898b7-dc89-4b34-9c06-501f29ce606f" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Other Comprehensive Income (Loss), Unrealized Gain (Loss) on Derivatives Arising During Period, Net of Tax"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="OtherComprehensiveIncomeUnrealizedGainLossOnDerivativesArisingDuringPeriodNetOfTax"/>
+  <property name="QName" value="us-gaap:OtherComprehensiveIncomeUnrealizedGainLossOnDerivativesArisingDuringPeriodNetOfTax"/>
+  <property name="contextRef" value="i539acd89c7844961908b2610a1cb5d9b_D20190101-20190331">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="51,930,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="51,930"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest with a value of 3,953,956,000 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest are:
+Period: 2019-12-31
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmIxYTg2ZjM2OTFmMTQzZGM5NTI3YmYyYTI3ODNhZTRmL3RhYmxlcmFuZ2U6YjFhODZmMzY5MWYxNDNkYzk1MjdiZjJhMjc4M2FlNGZfMi0xMC0xLTEtMA_e9b2da14-34d8-4e11-aa05-50437768a2ca" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Stockholders' Equity, Including Portion Attributable to Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="QName" value="us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="contextRef" value="i956fd452470941f397403284fc397e4d_I20191231">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="3,953,956,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="3,953,956"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept NetIncomeLoss with a value of 45,116,000 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for NetIncomeLoss are:
+Period: 2019-04-01 to 2019-06-30
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmRmMjRiYTdlNWJiNTQ5YWNiZWFlODVjM2E3MmIwNDBlL3RhYmxlcmFuZ2U6ZGYyNGJhN2U1YmI1NDlhY2JlYWU4NWMzYTcyYjA0MGVfMjEtMTAtMS0xLTU5NzI_d931f358-7532-4c38-9258-6333778c55cc" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Net Income (Loss) Attributable to Parent"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="NetIncomeLoss"/>
+  <property name="QName" value="us-gaap:NetIncomeLoss"/>
+  <property name="contextRef" value="i101da72324d348878e2e169cc4fbd2c0_D20190401-20190630">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-04-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="45,116,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="45,116"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept StockBasedCompensationAmortizationAndForfeitures with a value of -4,498,000 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for StockBasedCompensationAmortizationAndForfeitures are:
+Period: 2019-04-01 to 2019-06-30
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmRmMjRiYTdlNWJiNTQ5YWNiZWFlODVjM2E3MmIwNDBlL3RhYmxlcmFuZ2U6ZGYyNGJhN2U1YmI1NDlhY2JlYWU4NWMzYTcyYjA0MGVfMTktMTAtMS0xLTU5Njg_bb0500db-4528-45b3-881f-a3a8be457a5e" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Stock-Based Compensation Amortization And Forfeitures"/>
+  <property name="namespace" value="http://www.suncommunities.com/20200630"/>
+  <property name="name" value="StockBasedCompensationAmortizationAndForfeitures"/>
+  <property name="QName" value="sui:StockBasedCompensationAmortizationAndForfeitures"/>
+  <property name="contextRef" value="i101da72324d348878e2e169cc4fbd2c0_D20190401-20190630">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-04-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-4,498,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="4,498"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2017-03-28" cid="2230461769088">[DQC.US.0001.75] The concept StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest with a value of 3,252,337,000 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member EquityMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest are:
+Period: 2019-03-31
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:EquityMember 
+Unit: USD
+
+Rule Element Id:75
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8zNC9mcmFnOjA0MTQ2ZDJkM2E1YjRlODA4NjczYzQ2NDE0N2M3OTgzL3RhYmxlOmRmMjRiYTdlNWJiNTQ5YWNiZWFlODVjM2E3MmIwNDBlL3RhYmxlcmFuZ2U6ZGYyNGJhN2U1YmI1NDlhY2JlYWU4NWMzYTcyYjA0MGVfMTQtMTAtMS0xLTA_5694d492-c5e4-421e-be9d-075788843b14" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Stockholders' Equity, Including Portion Attributable to Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="QName" value="us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="contextRef" value="i45f541105d5a42938f3db44762ebc0cc_I20190331">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:EquityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="3,252,337,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="3,252,337"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 19.91 secs - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm"/></entry>
+</log>

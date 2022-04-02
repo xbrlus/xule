@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.40 secs at 2020-07-22T09:14:24 - https://www.sec.gov/Archives/edgar/data/912766/000104746919000767/laur-20181231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/912766/000104746919000767/laur-20181231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmp_soo452a\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmp_soo452a\packages\resources.zip"/></entry>
+<entry code="DQC.US.0004.9281" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/912766/000104746919000767/laur-20181231.xml" severity="error" effectiveDate="2019-09-30" cid="1466771936640">[DQC.US.0004.9281] Liabilities with a value of 4,704,294,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 1,190,087,000 + 3,159,914,000 ) with a value of 4,350,001,000. 
+
+These values should be equal.
+The properties of this us-gaap:Liabilities fact are:
+Period :2018-12-31
+Dimensions :  
+Unit : USD
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9281
+Rule version: 12.0.0RC5 - https://www.sec.gov/Archives/edgar/data/912766/000104746919000767/laur-20181231.xml 13454</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/912766/000104746919000767/laur-20181231.xml#Fact-AFB70F0B87B65333878E21AFE3B185A1" sourceLine="13454">
+  <property name="label" value="Liabilities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="us-gaap:Liabilities"/>
+  <property name="contextRef" value="FI2018Q4">
+   <property name="entity" value="0000912766">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4,704,294,000"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9281" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/912766/000104746919000767/laur-20181231.xml" severity="error" effectiveDate="2019-09-30" cid="1466771936640">[DQC.US.0004.9281] Liabilities with a value of 274,744,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 341,147,000 + 24,502,000 ) with a value of 365,649,000. 
+
+These values should be equal.
+The properties of this us-gaap:Liabilities fact are:
+Period :2018-12-31
+Dimensions :  us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryMember
+Unit : USD
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9281
+Rule version: 12.0.0RC5 - https://www.sec.gov/Archives/edgar/data/912766/000104746919000767/laur-20181231.xml 13455</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/912766/000104746919000767/laur-20181231.xml#Fact-9A4F3BB23EB257E19DD70808DCA0B296" sourceLine="13455">
+  <property name="label" value="Liabilities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="us-gaap:Liabilities"/>
+  <property name="contextRef" value="FI2018Q4_us-gaap_VariableInterestEntitiesByClassificationOfEntityAxis_us-gaap_VariableInterestEntityPrimaryBeneficiaryMember">
+   <property name="entity" value="0000912766">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="274,744,000"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9281" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/912766/000104746919000767/laur-20181231.xml" severity="error" effectiveDate="2019-09-30" cid="1466771936640">[DQC.US.0004.9281] Liabilities with a value of 449,561,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 341,147,000 + 23,654,000 ) with a value of 364,801,000. 
+
+These values should be equal.
+The properties of this us-gaap:Liabilities fact are:
+Period :2017-12-31
+Dimensions :  us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryMember
+Unit : USD
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9281
+Rule version: 12.0.0RC5 - https://www.sec.gov/Archives/edgar/data/912766/000104746919000767/laur-20181231.xml 13453</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/912766/000104746919000767/laur-20181231.xml#Fact-B7F457F8A1D652A0B26F49BB2757CF5D" sourceLine="13453">
+  <property name="label" value="Liabilities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="us-gaap:Liabilities"/>
+  <property name="contextRef" value="FI2017Q4_us-gaap_VariableInterestEntitiesByClassificationOfEntityAxis_us-gaap_VariableInterestEntityPrimaryBeneficiaryMember">
+   <property name="entity" value="0000912766">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="449,561,000"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9281" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/912766/000104746919000767/laur-20181231.xml" severity="error" effectiveDate="2019-09-30" cid="1466771936640">[DQC.US.0004.9281] Liabilities with a value of 5,390,006,000 is not equal to the combined total of Current Liabilities and Noncurrent Liabilites ( 1,374,589,000 + 3,609,670,000 ) with a value of 4,984,259,000. 
+
+These values should be equal.
+The properties of this us-gaap:Liabilities fact are:
+Period :2017-12-31
+Dimensions :  
+Unit : USD
+Decimals of Liabilities : -3
+Decimals of Current Liabilities : -3
+Decimals of Non Current Liabilities : -3
+
+Rule Element Id:9281
+Rule version: 12.0.0RC5 - https://www.sec.gov/Archives/edgar/data/912766/000104746919000767/laur-20181231.xml 13452</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/912766/000104746919000767/laur-20181231.xml#Fact-11508A23B1F95AA3A153D0F461FA6238" sourceLine="13452">
+  <property name="label" value="Liabilities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="us-gaap:Liabilities"/>
+  <property name="contextRef" value="FI2017Q4">
+   <property name="entity" value="0000912766">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="5,390,006,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 7.21 secs - https://www.sec.gov/Archives/edgar/data/912766/000104746919000767/laur-20181231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/912766/000104746919000767/laur-20181231.xml"/></entry>
+</log>

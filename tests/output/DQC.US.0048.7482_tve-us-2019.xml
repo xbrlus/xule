@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23303 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 10.75 secs at 2022-02-07T20:18:15 - http://www.sec.gov/Archives/edgar/data/1376986/000137698620000006/tve-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1376986/000137698620000006/tve-20191231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv, dqc_0129.csv and effective_dates.csv successful. - D:\Temp\tmprklv39ye\packages\resources.zip </message>
+ <ref href="D:\Temp\tmprklv39ye\packages\resources.zip"/></entry>
+<entry code="DQC.US.0048.7482" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1376986/000137698620000006/tve-20191231.xml" severity="error" effectiveDate="2018-06-01" cid="2918041650128">[DQC.US.0048.7482] The filing should include in the cash flow statement calculation linkbase(s) http://www.tva.gov/role/ConsolidatedStatementsOfCashFlowsUnaudited one of the following elements as the root(first element) of the calculation tree to represent the aggregate change in cash for the period:
+
+CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseIncludingExchangeRateEffect,
+CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect, 
+NetCashProvidedByUsedInContinuingOperations (As long as the element NetCashProvidedByUsedInDiscontinuedOperations is also included the reconciliation between opening and closing cash).
+
+In some cases the following extension elements can be used when the change in cash is broken up into continuing and discontinued operations:
+CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseIncludingExchangeRateEffectContinuingOperations
+CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseIncludingExchangeRateEffectDisposalGroupIncludingDiscontinuedOperations
+
+The calculation linkbase in the filing has the following root elements defined: CashAndCashEquivalentsPeriodIncreaseDecrease.
+
+Rule Element Id: 7482
+Rule version: 17.0.0 - http://www.sec.gov/Archives/edgar/data/1376986/000137698620000006/tve-20191231.xml 2486</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1376986/000137698620000006/tve-20191231.xml#Fact-DB346BE4414F5ADABA11F4224BBB45ED" sourceLine="2486">
+  <property name="label" value="Entity Emerging Growth Company"/>
+  <property name="namespace" value="http://xbrl.sec.gov/dei/2018-01-31"/>
+  <property name="name" value="EntityEmergingGrowthCompany"/>
+  <property name="QName" value="dei:EntityEmergingGrowthCompany"/>
+  <property name="contextRef" value="FD2020Q1YTD">
+   <property name="entity" value="0001376986">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-10-01"/>
+   <property name="endDate" value="2019-12-31"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="false"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 9.02 secs - http://www.sec.gov/Archives/edgar/data/1376986/000137698620000006/tve-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1376986/000137698620000006/tve-20191231.xml"/></entry>
+</log>

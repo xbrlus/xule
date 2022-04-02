@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23221 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.37 secs at 2021-04-16T11:51:55 - http://www.sec.gov/Archives/edgar/data/1579026/000106299320004827/towtf-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1579026/000106299320004827/towtf-20191231.xml"/></entry>
+<entry code="DQC.IFRS.0115.9565" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1579026/000106299320004827/towtf-20191231.xml" severity="error" status="PROPOSED" effectiveDate="None" cid="2274745742288">[DQC.IFRS.0115.9565] The concept ifrs-full:ProceedsFromSalesOfInvestmentsAccountedForUsingEquityMethod with a period duration starting on 2019-07-31 and ending on 2019-08-01 or 1 days with a reported value of 330,397 has a value greater than the value of the same element with a longer or equivalent period duration that starts on 2018-12-31 and ends on 2019-12-31 with a value of 258,001.
+The value  330,397 for the period of 1 days should be less or the same as the value  258,001 with a duration of 365 days assuming that the concept ifrs-full:ProceedsFromSalesOfInvestmentsAccountedForUsingEquityMethod cannot have a negative value.
+The properties of this ifrs-full:ProceedsFromSalesOfInvestmentsAccountedForUsingEquityMethod fact are:
+Period :2019-08-01 to 2019-08-01
+Dimensions : ifrs-full:BusinessCombinationsAxis=towtf:EnervisaUnitedStatedLimitedLiabilityCompanyMember
+Unit : CAD
+
+
+Rule Element Id:9565
+Rule version: 15.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1579026/000106299320004827/towtf-20191231.xml 12125</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1579026/000106299320004827/towtf-20191231.xml#Fxbrl_20201003000433340" sourceLine="12125">
+  <property name="label" value="Proceeds from sales of investments accounted for using equity method"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ProceedsFromSalesOfInvestmentsAccountedForUsingEquityMethod"/>
+  <property name="QName" value="ifrs-full:ProceedsFromSalesOfInvestmentsAccountedForUsingEquityMethod"/>
+  <property name="contextRef" value="C_20190801to20190801_ifrsfullBusinessCombinationsAxis_cnsxEnervisaUnitedStatedLimitedLiabilityCompanyMember">
+   <property name="entity" value="0001579026">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-08-01"/>
+   <property name="endDate" value="2019-08-01"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:BusinessCombinationsAxis" value="towtf:EnervisaUnitedStatedLimitedLiabilityCompanyMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="cad ($)">
+   <property name="measure" value="iso4217:CAD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="330,397"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.06 secs - http://www.sec.gov/Archives/edgar/data/1579026/000106299320004827/towtf-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1579026/000106299320004827/towtf-20191231.xml"/></entry>
+</log>

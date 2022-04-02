@@ -1,0 +1,1242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.49 secs at 2020-07-26T18:42:09 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmp2v0_d672\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmp2v0_d672\packages\resources.zip"/></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept Liabilities with a value of 12,200,411 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueInputsLevelTwoMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for Liabilities are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueInputsLevelTwoMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1740</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/397)" sourceLine="1740">
+  <property name="label" value="[Liabilities]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="us-gaap:Liabilities"/>
+  <property name="contextRef" value="AsOf2019-12-31_meec_FairValueInputsLevelTwoMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueInputsLevelTwoMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="12,200,411"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept ConvertibleNotesPayableCurrent with a value of 12,894,571 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueInputsLevelTwoMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for ConvertibleNotesPayableCurrent are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueInputsLevelTwoMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1736</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/393)" sourceLine="1736">
+  <property name="label" value="Current portion of convertible notes payable, net of discount and issuance costs"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="ConvertibleNotesPayableCurrent"/>
+  <property name="QName" value="us-gaap:ConvertibleNotesPayableCurrent"/>
+  <property name="contextRef" value="AsOf2020-03-31_meec_FairValueInputsLevelTwoMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueInputsLevelTwoMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="12,894,571"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept ConvertibleNotesPayableCurrent with a value of 12,200,411 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueInputsLevelTwoMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for ConvertibleNotesPayableCurrent are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueInputsLevelTwoMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1737</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/394)" sourceLine="1737">
+  <property name="label" value="Current portion of convertible notes payable, net of discount and issuance costs"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="ConvertibleNotesPayableCurrent"/>
+  <property name="QName" value="us-gaap:ConvertibleNotesPayableCurrent"/>
+  <property name="contextRef" value="AsOf2019-12-31_meec_FairValueInputsLevelTwoMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueInputsLevelTwoMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="12,200,411"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept Cash with a value of 0 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueInputsLevelTwoMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for Cash are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueInputsLevelTwoMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1733</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/390)" sourceLine="1733">
+  <property name="label" value="[Cash]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Cash"/>
+  <property name="QName" value="us-gaap:Cash"/>
+  <property name="contextRef" value="AsOf2019-12-31_meec_FairValueInputsLevelTwoMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueInputsLevelTwoMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept ProfitShareLiability with a value of 0 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueInputsLevelTwoMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for ProfitShareLiability are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueInputsLevelTwoMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1738</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/395)" sourceLine="1738">
+  <property name="label" value="Profit share liability"/>
+  <property name="namespace" value="http://midwestemissions.com/20200331"/>
+  <property name="name" value="ProfitShareLiability"/>
+  <property name="QName" value="meec:ProfitShareLiability"/>
+  <property name="contextRef" value="AsOf2019-12-31_meec_FairValueInputsLevelTwoMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueInputsLevelTwoMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept Cash with a value of 0 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueInputsLevelTwoMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for Cash are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueInputsLevelTwoMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1732</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/389)" sourceLine="1732">
+  <property name="label" value="[Cash]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Cash"/>
+  <property name="QName" value="us-gaap:Cash"/>
+  <property name="contextRef" value="AsOf2020-03-31_meec_FairValueInputsLevelTwoMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueInputsLevelTwoMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept Liabilities with a value of 12,894,571 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueInputsLevelTwoMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for Liabilities are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueInputsLevelTwoMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1739</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/396)" sourceLine="1739">
+  <property name="label" value="[Liabilities]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="us-gaap:Liabilities"/>
+  <property name="contextRef" value="AsOf2020-03-31_meec_FairValueInputsLevelTwoMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueInputsLevelTwoMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="12,894,571"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept Assets with a value of 0 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueInputsLevelTwoMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for Assets are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueInputsLevelTwoMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1734</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/391)" sourceLine="1734">
+  <property name="label" value="[Assets]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="AsOf2020-03-31_meec_FairValueInputsLevelTwoMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueInputsLevelTwoMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept Assets with a value of 0 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueInputsLevelTwoMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for Assets are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueInputsLevelTwoMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1735</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/392)" sourceLine="1735">
+  <property name="label" value="[Assets]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="AsOf2019-12-31_meec_FairValueInputsLevelTwoMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueInputsLevelTwoMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept ProfitShareLiability with a value of 2,328,845 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueInputsLevelThreeMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for ProfitShareLiability are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueInputsLevelThreeMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1748</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/405)" sourceLine="1748">
+  <property name="label" value="Profit share liability"/>
+  <property name="namespace" value="http://midwestemissions.com/20200331"/>
+  <property name="name" value="ProfitShareLiability"/>
+  <property name="QName" value="meec:ProfitShareLiability"/>
+  <property name="contextRef" value="AsOf2019-12-31_meec_FairValueInputsLevelThreeMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueInputsLevelThreeMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,328,845"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept Assets with a value of 0 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueInputsLevelThreeMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for Assets are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueInputsLevelThreeMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1743</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/400)" sourceLine="1743">
+  <property name="label" value="[Assets]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="AsOf2020-03-31_meec_FairValueInputsLevelThreeMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueInputsLevelThreeMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept Assets with a value of 0 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueInputsLevelThreeMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for Assets are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueInputsLevelThreeMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1744</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/401)" sourceLine="1744">
+  <property name="label" value="[Assets]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="AsOf2019-12-31_meec_FairValueInputsLevelThreeMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueInputsLevelThreeMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept Liabilities with a value of 2,452,495 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueInputsLevelThreeMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for Liabilities are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueInputsLevelThreeMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1749</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/406)" sourceLine="1749">
+  <property name="label" value="[Liabilities]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="us-gaap:Liabilities"/>
+  <property name="contextRef" value="AsOf2020-03-31_meec_FairValueInputsLevelThreeMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueInputsLevelThreeMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,452,495"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept ConvertibleNotesPayableCurrent with a value of 0 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueInputsLevelThreeMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for ConvertibleNotesPayableCurrent are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueInputsLevelThreeMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1745</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/402)" sourceLine="1745">
+  <property name="label" value="Current portion of convertible notes payable, net of discount and issuance costs"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="ConvertibleNotesPayableCurrent"/>
+  <property name="QName" value="us-gaap:ConvertibleNotesPayableCurrent"/>
+  <property name="contextRef" value="AsOf2020-03-31_meec_FairValueInputsLevelThreeMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueInputsLevelThreeMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept Cash with a value of 0 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueInputsLevelThreeMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for Cash are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueInputsLevelThreeMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1741</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/398)" sourceLine="1741">
+  <property name="label" value="[Cash]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Cash"/>
+  <property name="QName" value="us-gaap:Cash"/>
+  <property name="contextRef" value="AsOf2020-03-31_meec_FairValueInputsLevelThreeMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueInputsLevelThreeMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept ConvertibleNotesPayableCurrent with a value of 0 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueInputsLevelThreeMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for ConvertibleNotesPayableCurrent are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueInputsLevelThreeMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1746</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/403)" sourceLine="1746">
+  <property name="label" value="Current portion of convertible notes payable, net of discount and issuance costs"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="ConvertibleNotesPayableCurrent"/>
+  <property name="QName" value="us-gaap:ConvertibleNotesPayableCurrent"/>
+  <property name="contextRef" value="AsOf2019-12-31_meec_FairValueInputsLevelThreeMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueInputsLevelThreeMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept ProfitShareLiability with a value of 2,452,495 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueInputsLevelThreeMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for ProfitShareLiability are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueInputsLevelThreeMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1747</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/404)" sourceLine="1747">
+  <property name="label" value="Profit share liability"/>
+  <property name="namespace" value="http://midwestemissions.com/20200331"/>
+  <property name="name" value="ProfitShareLiability"/>
+  <property name="QName" value="meec:ProfitShareLiability"/>
+  <property name="contextRef" value="AsOf2020-03-31_meec_FairValueInputsLevelThreeMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueInputsLevelThreeMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,452,495"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept Cash with a value of 0 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueInputsLevelThreeMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for Cash are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueInputsLevelThreeMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1742</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/399)" sourceLine="1742">
+  <property name="label" value="[Cash]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Cash"/>
+  <property name="QName" value="us-gaap:Cash"/>
+  <property name="contextRef" value="AsOf2019-12-31_meec_FairValueInputsLevelThreeMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueInputsLevelThreeMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept Liabilities with a value of 2,328,845 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueInputsLevelThreeMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for Liabilities are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueInputsLevelThreeMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1750</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/407)" sourceLine="1750">
+  <property name="label" value="[Liabilities]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="us-gaap:Liabilities"/>
+  <property name="contextRef" value="AsOf2019-12-31_meec_FairValueInputsLevelThreeMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueInputsLevelThreeMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,328,845"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept Assets with a value of 1,499,287 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for Assets are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1754</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/411)" sourceLine="1754">
+  <property name="label" value="[Assets]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="AsOf2019-12-31_meec_FairValueMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,499,287"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept Liabilities with a value of 15,347,066 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for Liabilities are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1759</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/416)" sourceLine="1759">
+  <property name="label" value="[Liabilities]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="us-gaap:Liabilities"/>
+  <property name="contextRef" value="AsOf2020-03-31_meec_FairValueMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="15,347,066"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept ConvertibleNotesPayableCurrent with a value of 12,894,571 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for ConvertibleNotesPayableCurrent are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1755</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/412)" sourceLine="1755">
+  <property name="label" value="Current portion of convertible notes payable, net of discount and issuance costs"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="ConvertibleNotesPayableCurrent"/>
+  <property name="QName" value="us-gaap:ConvertibleNotesPayableCurrent"/>
+  <property name="contextRef" value="AsOf2020-03-31_meec_FairValueMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="12,894,571"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept Cash with a value of 461,300 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for Cash are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1751</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/408)" sourceLine="1751">
+  <property name="label" value="[Cash]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Cash"/>
+  <property name="QName" value="us-gaap:Cash"/>
+  <property name="contextRef" value="AsOf2020-03-31_meec_FairValueMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="461,300"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept ConvertibleNotesPayableCurrent with a value of 12,200,411 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for ConvertibleNotesPayableCurrent are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1756</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/413)" sourceLine="1756">
+  <property name="label" value="Current portion of convertible notes payable, net of discount and issuance costs"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="ConvertibleNotesPayableCurrent"/>
+  <property name="QName" value="us-gaap:ConvertibleNotesPayableCurrent"/>
+  <property name="contextRef" value="AsOf2019-12-31_meec_FairValueMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="12,200,411"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept ProfitShareLiability with a value of 2,452,495 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for ProfitShareLiability are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1757</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/414)" sourceLine="1757">
+  <property name="label" value="Profit share liability"/>
+  <property name="namespace" value="http://midwestemissions.com/20200331"/>
+  <property name="name" value="ProfitShareLiability"/>
+  <property name="QName" value="meec:ProfitShareLiability"/>
+  <property name="contextRef" value="AsOf2020-03-31_meec_FairValueMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,452,495"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept Cash with a value of 1,499,287 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for Cash are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1752</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/409)" sourceLine="1752">
+  <property name="label" value="[Cash]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Cash"/>
+  <property name="QName" value="us-gaap:Cash"/>
+  <property name="contextRef" value="AsOf2019-12-31_meec_FairValueMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,499,287"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept Liabilities with a value of 14,529,256 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for Liabilities are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1760</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/417)" sourceLine="1760">
+  <property name="label" value="[Liabilities]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="us-gaap:Liabilities"/>
+  <property name="contextRef" value="AsOf2019-12-31_meec_FairValueMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="14,529,256"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept ProfitShareLiability with a value of 2,328,845 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for ProfitShareLiability are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1758</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/415)" sourceLine="1758">
+  <property name="label" value="Profit share liability"/>
+  <property name="namespace" value="http://midwestemissions.com/20200331"/>
+  <property name="name" value="ProfitShareLiability"/>
+  <property name="QName" value="meec:ProfitShareLiability"/>
+  <property name="contextRef" value="AsOf2019-12-31_meec_FairValueMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,328,845"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept Assets with a value of 461,300 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for Assets are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1753</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/410)" sourceLine="1753">
+  <property name="label" value="[Assets]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="AsOf2020-03-31_meec_FairValueMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="461,300"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept ConvertibleNotesPayableCurrent with a value of 0 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueInputsLevelOneMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for ConvertibleNotesPayableCurrent are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueInputsLevelOneMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1729</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/386)" sourceLine="1729">
+  <property name="label" value="Current portion of convertible notes payable, net of discount and issuance costs"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="ConvertibleNotesPayableCurrent"/>
+  <property name="QName" value="us-gaap:ConvertibleNotesPayableCurrent"/>
+  <property name="contextRef" value="AsOf2019-12-31_meec_FairValueInputsLevelOneMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueInputsLevelOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept ConvertibleNotesPayableCurrent with a value of 0 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueInputsLevelOneMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for ConvertibleNotesPayableCurrent are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueInputsLevelOneMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1728</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/385)" sourceLine="1728">
+  <property name="label" value="Current portion of convertible notes payable, net of discount and issuance costs"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="ConvertibleNotesPayableCurrent"/>
+  <property name="QName" value="us-gaap:ConvertibleNotesPayableCurrent"/>
+  <property name="contextRef" value="AsOf2020-03-31_meec_FairValueInputsLevelOneMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueInputsLevelOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept ProfitShareLiability with a value of 0 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueInputsLevelOneMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for ProfitShareLiability are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueInputsLevelOneMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1730</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/387)" sourceLine="1730">
+  <property name="label" value="Profit share liability"/>
+  <property name="namespace" value="http://midwestemissions.com/20200331"/>
+  <property name="name" value="ProfitShareLiability"/>
+  <property name="QName" value="meec:ProfitShareLiability"/>
+  <property name="contextRef" value="AsOf2019-12-31_meec_FairValueInputsLevelOneMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueInputsLevelOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept Assets with a value of 1,499,287 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueInputsLevelOneMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for Assets are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueInputsLevelOneMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1727</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/384)" sourceLine="1727">
+  <property name="label" value="[Assets]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="AsOf2019-12-31_meec_FairValueInputsLevelOneMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueInputsLevelOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,499,287"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept Cash with a value of 1,499,287 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueInputsLevelOneMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for Cash are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueInputsLevelOneMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1725</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/382)" sourceLine="1725">
+  <property name="label" value="[Cash]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Cash"/>
+  <property name="QName" value="us-gaap:Cash"/>
+  <property name="contextRef" value="AsOf2019-12-31_meec_FairValueInputsLevelOneMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueInputsLevelOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,499,287"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept Liabilities with a value of 0 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueInputsLevelOneMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for Liabilities are:
+Period: 2019-12-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueInputsLevelOneMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1731</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/388)" sourceLine="1731">
+  <property name="label" value="[Liabilities]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="us-gaap:Liabilities"/>
+  <property name="contextRef" value="AsOf2019-12-31_meec_FairValueInputsLevelOneMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueInputsLevelOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept Assets with a value of 461,300 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueInputsLevelOneMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for Assets are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueInputsLevelOneMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1726</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/383)" sourceLine="1726">
+  <property name="label" value="[Assets]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="AsOf2020-03-31_meec_FairValueInputsLevelOneMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueInputsLevelOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="461,300"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2063421121920">[DQC.US.0001.51] The concept Cash with a value of 461,300 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member FairValueInputsLevelOneMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel1AndLevel3Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for Cash are:
+Period: 2020-03-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=meec:FairValueInputsLevelOneMember 
+Unit: USD
+
+
+Rule Element Id:51
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml 1724</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml#element(/1/381)" sourceLine="1724">
+  <property name="label" value="[Cash]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Cash"/>
+  <property name="QName" value="us-gaap:Cash"/>
+  <property name="contextRef" value="AsOf2020-03-31_meec_FairValueInputsLevelOneMember">
+   <property name="entity" value="0000728385">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="meec:FairValueInputsLevelOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="461,300"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 26.56 secs - http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/728385/000147793220003741/meec-20200331.xml"/></entry>
+</log>

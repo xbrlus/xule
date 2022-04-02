@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22716 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 4.29 secs at 2019-02-08T10:48:31 - https://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv and dqc_0080.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpfi9lk_5u/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpfi9lk_5u/packages/resources.zip"/></entry>
+<entry code="DQC.US.0067.7644" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml" severity="error" cid="4465475712">[DQC.US.0067.7644] The filing has reported a value of &quot;490,000,000&quot; for the element us-gaap:SalesRevenueNet. This is a revenue recognition element that is not a component of FASB 606 and does not appear in disclosure group 606000. However the following elements have also been tagged in the filing that indicate that the FASB 606  revenue recognition standard has been adopted:
+CapitalizedContractCostAmortization,
+CapitalizedContractCostNet,
+ContractWithCustomerLiability,
+ContractWithCustomerLiabilityRevenueRecognized,
+DisaggregationOfRevenueTableTextBlock,
+RevenueFromContractWithCustomerExcludingAssessedTax,
+RevenueFromContractWithCustomerTextBlock,
+RevenueRemainingPerformanceObligation,
+RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod
+
+
+Either the new revenue recognition elements must be used or the old revenue recognition elements should be used but they should not be combined in the same filing.  
+
+The properties of this us-gaap:SalesRevenueNet fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : us-gaap:StatementBusinessSegmentsAxis=f:AutomotiveSegmentMember, us-gaap:AdjustmentsForNewAccountingPronouncementsAxis=us-gaap:AccountingStandardsUpdate201409Member, us-gaap:ConsolidationItemsAxis=us-gaap:OperatingSegmentsMember, us-gaap:InitialApplicationPeriodCumulativeEffectTransitionAxis=us-gaap:DifferenceBetweenRevenueGuidanceInEffectBeforeAndAfterTopic606Member
+Unit : USD
+
+Rule Element Id:7644
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml 14525</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml#Fact-F297B7565128EEEDFDE0085C656F16DF" sourceLine="14525">
+  <property name="label" value="Revenue, Net"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="SalesRevenueNet"/>
+  <property name="QName" value="us-gaap:SalesRevenueNet"/>
+  <property name="contextRef" value="FD2017Q4YTD_us-gaap_AdjustmentsForNewAccountingPronouncementsAxis_us-gaap_AccountingStandardsUpdate201409Member_us-gaap_ConsolidationItemsAxis_us-gaap_OperatingSegmentsMember_us-gaap_InitialApplicationPeriodCumulativeEffectTransitionAxis_us-gaap_DifferenceBetweenRevenueGuidanceInEffectBeforeAndAfterTopic606Member_us-gaap_StatementBusinessSegmentsAxis_f_AutomotiveSegmentMember">
+   <property name="entity" value="0000037996">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(4)">
+    <property name="us-gaap:AdjustmentsForNewAccountingPronouncementsAxis" value="us-gaap:AccountingStandardsUpdate201409Member"/>
+    <property name="us-gaap:ConsolidationItemsAxis" value="us-gaap:OperatingSegmentsMember"/>
+    <property name="us-gaap:InitialApplicationPeriodCumulativeEffectTransitionAxis" value="us-gaap:DifferenceBetweenRevenueGuidanceInEffectBeforeAndAfterTopic606Member"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="f:AutomotiveSegmentMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="490,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0067.7644" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml" severity="error" cid="4465475712">[DQC.US.0067.7644] The filing has reported a value of &quot;140,566,000,000&quot; for the element us-gaap:SalesRevenueNet. This is a revenue recognition element that is not a component of FASB 606 and does not appear in disclosure group 606000. However the following elements have also been tagged in the filing that indicate that the FASB 606  revenue recognition standard has been adopted:
+CapitalizedContractCostAmortization,
+CapitalizedContractCostNet,
+ContractWithCustomerLiability,
+ContractWithCustomerLiabilityRevenueRecognized,
+DisaggregationOfRevenueTableTextBlock,
+RevenueFromContractWithCustomerExcludingAssessedTax,
+RevenueFromContractWithCustomerTextBlock,
+RevenueRemainingPerformanceObligation,
+RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod
+
+
+Either the new revenue recognition elements must be used or the old revenue recognition elements should be used but they should not be combined in the same filing.  
+
+The properties of this us-gaap:SalesRevenueNet fact are:
+Period :2015-01-01 to 2015-12-31
+Dimensions : us-gaap:StatementBusinessSegmentsAxis=f:AutomotiveSegmentMember, us-gaap:ConsolidationItemsAxis=us-gaap:OperatingSegmentsMember
+Unit : USD
+
+Rule Element Id:7644
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml 14520</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml#Fact-28E9B719BC892CA29CD9085C656FFA3D" sourceLine="14520">
+  <property name="label" value="Revenue, Net"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="SalesRevenueNet"/>
+  <property name="QName" value="us-gaap:SalesRevenueNet"/>
+  <property name="contextRef" value="FD2015Q4YTD_us-gaap_ConsolidationItemsAxis_us-gaap_OperatingSegmentsMember_us-gaap_StatementBusinessSegmentsAxis_f_AutomotiveSegmentMember">
+   <property name="entity" value="0000037996">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2015-01-01"/>
+   <property name="endDate" value="2015-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:ConsolidationItemsAxis" value="us-gaap:OperatingSegmentsMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="f:AutomotiveSegmentMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="140,566,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0067.7644" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml" severity="error" cid="4465475712">[DQC.US.0067.7644] The filing has reported a value of &quot;145,653,000,000&quot; for the element us-gaap:SalesRevenueNet. This is a revenue recognition element that is not a component of FASB 606 and does not appear in disclosure group 606000. However the following elements have also been tagged in the filing that indicate that the FASB 606  revenue recognition standard has been adopted:
+CapitalizedContractCostAmortization,
+CapitalizedContractCostNet,
+ContractWithCustomerLiability,
+ContractWithCustomerLiabilityRevenueRecognized,
+DisaggregationOfRevenueTableTextBlock,
+RevenueFromContractWithCustomerExcludingAssessedTax,
+RevenueFromContractWithCustomerTextBlock,
+RevenueRemainingPerformanceObligation,
+RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod
+
+
+Either the new revenue recognition elements must be used or the old revenue recognition elements should be used but they should not be combined in the same filing.  
+
+The properties of this us-gaap:SalesRevenueNet fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : us-gaap:StatementBusinessSegmentsAxis=f:AutomotiveSegmentMember, us-gaap:ConsolidationItemsAxis=us-gaap:OperatingSegmentsMember
+Unit : USD
+
+Rule Element Id:7644
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml 14526</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml#Fact-A782805785D82F3BD917085C655FEFCE" sourceLine="14526">
+  <property name="label" value="Revenue, Net"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="SalesRevenueNet"/>
+  <property name="QName" value="us-gaap:SalesRevenueNet"/>
+  <property name="contextRef" value="FD2017Q4YTD_us-gaap_ConsolidationItemsAxis_us-gaap_OperatingSegmentsMember_us-gaap_StatementBusinessSegmentsAxis_f_AutomotiveSegmentMember">
+   <property name="entity" value="0000037996">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:ConsolidationItemsAxis" value="us-gaap:OperatingSegmentsMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="f:AutomotiveSegmentMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="145,653,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0067.7644" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml" severity="error" cid="4465475712">[DQC.US.0067.7644] The filing has reported a value of &quot;10,000,000&quot; for the element us-gaap:SalesRevenueNet. This is a revenue recognition element that is not a component of FASB 606 and does not appear in disclosure group 606000. However the following elements have also been tagged in the filing that indicate that the FASB 606  revenue recognition standard has been adopted:
+CapitalizedContractCostAmortization,
+CapitalizedContractCostNet,
+ContractWithCustomerLiability,
+ContractWithCustomerLiabilityRevenueRecognized,
+DisaggregationOfRevenueTableTextBlock,
+RevenueFromContractWithCustomerExcludingAssessedTax,
+RevenueFromContractWithCustomerTextBlock,
+RevenueRemainingPerformanceObligation,
+RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod
+
+
+Either the new revenue recognition elements must be used or the old revenue recognition elements should be used but they should not be combined in the same filing.  
+
+The properties of this us-gaap:SalesRevenueNet fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : us-gaap:StatementBusinessSegmentsAxis=us-gaap:AllOtherSegmentsMember, us-gaap:ConsolidationItemsAxis=us-gaap:OperatingSegmentsMember
+Unit : USD
+
+Rule Element Id:7644
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml 14527</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml#Fact-B120707CDC0D4C90BB58085C656F3872" sourceLine="14527">
+  <property name="label" value="Revenue, Net"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="SalesRevenueNet"/>
+  <property name="QName" value="us-gaap:SalesRevenueNet"/>
+  <property name="contextRef" value="FD2017Q4YTD_us-gaap_ConsolidationItemsAxis_us-gaap_OperatingSegmentsMember_us-gaap_StatementBusinessSegmentsAxis_us-gaap_AllOtherSegmentsMember">
+   <property name="entity" value="0000037996">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:ConsolidationItemsAxis" value="us-gaap:OperatingSegmentsMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="us-gaap:AllOtherSegmentsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="10,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0067.7644" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml" severity="error" cid="4465475712">[DQC.US.0067.7644] The filing has reported a value of &quot;0&quot; for the element us-gaap:SalesRevenueNet. This is a revenue recognition element that is not a component of FASB 606 and does not appear in disclosure group 606000. However the following elements have also been tagged in the filing that indicate that the FASB 606  revenue recognition standard has been adopted:
+CapitalizedContractCostAmortization,
+CapitalizedContractCostNet,
+ContractWithCustomerLiability,
+ContractWithCustomerLiabilityRevenueRecognized,
+DisaggregationOfRevenueTableTextBlock,
+RevenueFromContractWithCustomerExcludingAssessedTax,
+RevenueFromContractWithCustomerTextBlock,
+RevenueRemainingPerformanceObligation,
+RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod
+
+
+Either the new revenue recognition elements must be used or the old revenue recognition elements should be used but they should not be combined in the same filing.  
+
+The properties of this us-gaap:SalesRevenueNet fact are:
+Period :2015-01-01 to 2015-12-31
+Dimensions : us-gaap:ConsolidationItemsAxis=us-gaap:OperatingSegmentsMember, us-gaap:StatementBusinessSegmentsAxis=us-gaap:AllOtherSegmentsMember
+Unit : USD
+
+Rule Element Id:7644
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml 14521</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml#Fact-A5A99A5EC040D00EDCC5085C6550A32F" sourceLine="14521">
+  <property name="label" value="Revenue, Net"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="SalesRevenueNet"/>
+  <property name="QName" value="us-gaap:SalesRevenueNet"/>
+  <property name="contextRef" value="FD2015Q4YTD_us-gaap_ConsolidationItemsAxis_us-gaap_OperatingSegmentsMember_us-gaap_StatementBusinessSegmentsAxis_us-gaap_AllOtherSegmentsMember">
+   <property name="entity" value="0000037996">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2015-01-01"/>
+   <property name="endDate" value="2015-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:ConsolidationItemsAxis" value="us-gaap:OperatingSegmentsMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="us-gaap:AllOtherSegmentsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0067.7644" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml" severity="error" cid="4465475712">[DQC.US.0067.7644] The filing has reported a value of &quot;141,546,000,000&quot; for the element us-gaap:SalesRevenueNet. This is a revenue recognition element that is not a component of FASB 606 and does not appear in disclosure group 606000. However the following elements have also been tagged in the filing that indicate that the FASB 606  revenue recognition standard has been adopted:
+CapitalizedContractCostAmortization,
+CapitalizedContractCostNet,
+ContractWithCustomerLiability,
+ContractWithCustomerLiabilityRevenueRecognized,
+DisaggregationOfRevenueTableTextBlock,
+RevenueFromContractWithCustomerExcludingAssessedTax,
+RevenueFromContractWithCustomerTextBlock,
+RevenueRemainingPerformanceObligation,
+RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod
+
+
+Either the new revenue recognition elements must be used or the old revenue recognition elements should be used but they should not be combined in the same filing.  
+
+The properties of this us-gaap:SalesRevenueNet fact are:
+Period :2016-01-01 to 2016-12-31
+Dimensions : us-gaap:StatementBusinessSegmentsAxis=f:AutomotiveSegmentMember, us-gaap:ConsolidationItemsAxis=us-gaap:OperatingSegmentsMember
+Unit : USD
+
+Rule Element Id:7644
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml 14522</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml#Fact-43607A3FAEA0532166B9085C655F0F53" sourceLine="14522">
+  <property name="label" value="Revenue, Net"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="SalesRevenueNet"/>
+  <property name="QName" value="us-gaap:SalesRevenueNet"/>
+  <property name="contextRef" value="FD2016Q4YTD_us-gaap_ConsolidationItemsAxis_us-gaap_OperatingSegmentsMember_us-gaap_StatementBusinessSegmentsAxis_f_AutomotiveSegmentMember">
+   <property name="entity" value="0000037996">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-01-01"/>
+   <property name="endDate" value="2016-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:ConsolidationItemsAxis" value="us-gaap:OperatingSegmentsMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="f:AutomotiveSegmentMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="141,546,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0067.7644" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml" severity="error" cid="4465475712">[DQC.US.0067.7644] The filing has reported a value of &quot;1,000,000&quot; for the element us-gaap:SalesRevenueNet. This is a revenue recognition element that is not a component of FASB 606 and does not appear in disclosure group 606000. However the following elements have also been tagged in the filing that indicate that the FASB 606  revenue recognition standard has been adopted:
+CapitalizedContractCostAmortization,
+CapitalizedContractCostNet,
+ContractWithCustomerLiability,
+ContractWithCustomerLiabilityRevenueRecognized,
+DisaggregationOfRevenueTableTextBlock,
+RevenueFromContractWithCustomerExcludingAssessedTax,
+RevenueFromContractWithCustomerTextBlock,
+RevenueRemainingPerformanceObligation,
+RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod
+
+
+Either the new revenue recognition elements must be used or the old revenue recognition elements should be used but they should not be combined in the same filing.  
+
+The properties of this us-gaap:SalesRevenueNet fact are:
+Period :2016-01-01 to 2016-12-31
+Dimensions : us-gaap:StatementBusinessSegmentsAxis=us-gaap:AllOtherSegmentsMember, us-gaap:ConsolidationItemsAxis=us-gaap:OperatingSegmentsMember
+Unit : USD
+
+Rule Element Id:7644
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml 14523</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml#Fact-C439F7391316FFA719D6085C655055EE" sourceLine="14523">
+  <property name="label" value="Revenue, Net"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="SalesRevenueNet"/>
+  <property name="QName" value="us-gaap:SalesRevenueNet"/>
+  <property name="contextRef" value="FD2016Q4YTD_us-gaap_ConsolidationItemsAxis_us-gaap_OperatingSegmentsMember_us-gaap_StatementBusinessSegmentsAxis_us-gaap_AllOtherSegmentsMember">
+   <property name="entity" value="0000037996">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-01-01"/>
+   <property name="endDate" value="2016-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:ConsolidationItemsAxis" value="us-gaap:OperatingSegmentsMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="us-gaap:AllOtherSegmentsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0067.7644" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml" severity="error" cid="4465475712">[DQC.US.0067.7644] The filing has reported a value of &quot;145,163,000,000&quot; for the element us-gaap:SalesRevenueNet. This is a revenue recognition element that is not a component of FASB 606 and does not appear in disclosure group 606000. However the following elements have also been tagged in the filing that indicate that the FASB 606  revenue recognition standard has been adopted:
+CapitalizedContractCostAmortization,
+CapitalizedContractCostNet,
+ContractWithCustomerLiability,
+ContractWithCustomerLiabilityRevenueRecognized,
+DisaggregationOfRevenueTableTextBlock,
+RevenueFromContractWithCustomerExcludingAssessedTax,
+RevenueFromContractWithCustomerTextBlock,
+RevenueRemainingPerformanceObligation,
+RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod
+
+
+Either the new revenue recognition elements must be used or the old revenue recognition elements should be used but they should not be combined in the same filing.  
+
+The properties of this us-gaap:SalesRevenueNet fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : us-gaap:ConsolidationItemsAxis=us-gaap:OperatingSegmentsMember, us-gaap:InitialApplicationPeriodCumulativeEffectTransitionAxis=us-gaap:CalculatedUnderRevenueGuidanceInEffectBeforeTopic606Member, us-gaap:StatementBusinessSegmentsAxis=f:AutomotiveSegmentMember, us-gaap:AdjustmentsForNewAccountingPronouncementsAxis=us-gaap:AccountingStandardsUpdate201409Member
+Unit : USD
+
+Rule Element Id:7644
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml 14524</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml#Fact-790F3ECF03A29C0C0D43085C656F1B24" sourceLine="14524">
+  <property name="label" value="Revenue, Net"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="SalesRevenueNet"/>
+  <property name="QName" value="us-gaap:SalesRevenueNet"/>
+  <property name="contextRef" value="FD2017Q4YTD_us-gaap_AdjustmentsForNewAccountingPronouncementsAxis_us-gaap_AccountingStandardsUpdate201409Member_us-gaap_ConsolidationItemsAxis_us-gaap_OperatingSegmentsMember_us-gaap_InitialApplicationPeriodCumulativeEffectTransitionAxis_us-gaap_CalculatedUnderRevenueGuidanceInEffectBeforeTopic606Member_us-gaap_StatementBusinessSegmentsAxis_f_AutomotiveSegmentMember">
+   <property name="entity" value="0000037996">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(4)">
+    <property name="us-gaap:AdjustmentsForNewAccountingPronouncementsAxis" value="us-gaap:AccountingStandardsUpdate201409Member"/>
+    <property name="us-gaap:ConsolidationItemsAxis" value="us-gaap:OperatingSegmentsMember"/>
+    <property name="us-gaap:InitialApplicationPeriodCumulativeEffectTransitionAxis" value="us-gaap:CalculatedUnderRevenueGuidanceInEffectBeforeTopic606Member"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="f:AutomotiveSegmentMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="145,163,000,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 55.42 secs - https://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/37996/000003799618000015/f-20171231.xml"/></entry>
+</log>

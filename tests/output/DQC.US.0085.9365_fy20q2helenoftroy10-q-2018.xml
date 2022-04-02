@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 8.21 secs at 2019-11-15T16:41:44 - https://www.sec.gov/Archives/edgar/data/916789/000091678919000076/fy20q2helenoftroy10-q.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/916789/000091678919000076/fy20q2helenoftroy10-q.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpwa8iilgn\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpwa8iilgn\packages\resources.zip"/></entry>
+<entry code="DQC.US.0085.9365" level="error">
+ <message effectiveDate="None" filing_url="https://www.sec.gov/Archives/edgar/data/916789/000091678919000076/fy20q2helenoftroy10-q.htm" cid="2547223094440" severity="error">[DQC.US.0085.9365] The element DeferredTaxAssetsLiabilitiesNet has been reported with a value of 7,991,000, this element is also included as a calculation descendant of Assets in the financial statements. This element is a footnote element and should not appear in the face financial statements.
+
+Period :2019-02-28
+Dimensions : 
+Unit : USD
+Decimals: -3
+
+Rule Element Id:9365
+Rule version: 11.0.0RC1
+ - https://www.sec.gov/Archives/edgar/data/916789/000091678919000076/fy20q2helenoftroy10-q.htm 4417</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/916789/000091678919000076/fy20q2helenoftroy10-q.htm#d1584050e1081-wk-Fact-BD4070445DACC34235566CC501CA1A2B" sourceLine="4417">
+  <property name="file" value="fy20q2helenoftroy10-q.htm"/>
+  <property name="line" value="4417"/>
+  <property name="label" value="Deferred Tax Assets, Net"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="DeferredTaxAssetsLiabilitiesNet"/>
+  <property name="QName" value="us-gaap:DeferredTaxAssetsLiabilitiesNet"/>
+  <property name="contextRef" value="FI2019Q4">
+   <property name="entity" value="0000916789">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-02-28"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="7,991,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="7,991"/>
+ </ref></entry>
+<entry code="DQC.US.0085.9365" level="error">
+ <message effectiveDate="None" filing_url="https://www.sec.gov/Archives/edgar/data/916789/000091678919000076/fy20q2helenoftroy10-q.htm" cid="2547223094440" severity="error">[DQC.US.0085.9365] The element DeferredTaxAssetsLiabilitiesNet has been reported with a value of 12,398,000, this element is also included as a calculation descendant of Assets in the financial statements. This element is a footnote element and should not appear in the face financial statements.
+
+Period :2019-08-31
+Dimensions : 
+Unit : USD
+Decimals: -3
+
+Rule Element Id:9365
+Rule version: 11.0.0RC1
+ - https://www.sec.gov/Archives/edgar/data/916789/000091678919000076/fy20q2helenoftroy10-q.htm 4417</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/916789/000091678919000076/fy20q2helenoftroy10-q.htm#d1584050e1062-wk-Fact-3EB920C75C9863E6B0906CC501C4E205" sourceLine="4417">
+  <property name="file" value="fy20q2helenoftroy10-q.htm"/>
+  <property name="line" value="4417"/>
+  <property name="label" value="Deferred Tax Assets, Net"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="DeferredTaxAssetsLiabilitiesNet"/>
+  <property name="QName" value="us-gaap:DeferredTaxAssetsLiabilitiesNet"/>
+  <property name="contextRef" value="FI2020Q2">
+   <property name="entity" value="0000916789">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-08-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="12,398,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="12,398"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 6.62 secs - https://www.sec.gov/Archives/edgar/data/916789/000091678919000076/fy20q2helenoftroy10-q.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/916789/000091678919000076/fy20q2helenoftroy10-q.htm"/></entry>
+</log>

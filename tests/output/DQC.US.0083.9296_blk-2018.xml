@@ -1,0 +1,846 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22790 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 4.74 secs at 2019-07-22T21:35:34 - https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm"/></entry>
+<entry code="DQC.US.0083.9296" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm" severity="error" effectiveDate="None" cid="4423573632">[DQC.US.0083.9296] The filer has used the element NetIncomeLossAttributableToNoncontrollingInterest with the axis VariableInterestEntitiesByClassificationOfEntityAxis and the member VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember to report a value of 5,000,000 in the filing. The filer should use the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the financial statement category that is applicable to consolidated VIE's.
+
+The properties of this NetIncomeLossAttributableToNoncontrollingInterest fact are:
+Period :2019-01-01 to 2019-03-31
+Dimensions : us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember
+Unit : USD
+
+Rule Element Id:9296
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm 12257</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm#F_000534" sourceLine="12257">
+  <property name="file" value="blk-10q_20190331.htm"/>
+  <property name="line" value="12257"/>
+  <property name="label" value="Net Income Loss Attributable To Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="NetIncomeLossAttributableToNoncontrollingInterest"/>
+  <property name="QName" value="us-gaap:NetIncomeLossAttributableToNoncontrollingInterest"/>
+  <property name="contextRef" value="C_0001364742_us-gaapVariableInterestEntitiesByClassificationOfEntityAxis_us-gaapVariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember_20190101_20190331">
+   <property name="entity" value="0001364742">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U_iso4217USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="5,000,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="5"/>
+ </ref></entry>
+<entry code="DQC.US.0083.9296" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm" severity="error" effectiveDate="None" cid="4423573632">[DQC.US.0083.9296] The filer has used the element GainLossOnInvestments with the axis VariableInterestEntitiesByClassificationOfEntityAxis and the member VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember to report a value of 94,000,000 in the filing. The filer should use the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the financial statement category that is applicable to consolidated VIE's.
+
+The properties of this GainLossOnInvestments fact are:
+Period :2019-01-01 to 2019-03-31
+Dimensions : us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember
+Unit : USD
+
+Rule Element Id:9296
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm 12217</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm#F_000532" sourceLine="12217">
+  <property name="file" value="blk-10q_20190331.htm"/>
+  <property name="line" value="12217"/>
+  <property name="label" value="Gain Loss On Investments"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="GainLossOnInvestments"/>
+  <property name="QName" value="us-gaap:GainLossOnInvestments"/>
+  <property name="contextRef" value="C_0001364742_us-gaapVariableInterestEntitiesByClassificationOfEntityAxis_us-gaapVariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember_20190101_20190331">
+   <property name="entity" value="0001364742">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U_iso4217USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="94,000,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="94"/>
+ </ref></entry>
+<entry code="DQC.US.0083.9296" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm" severity="error" effectiveDate="None" cid="4423573632">[DQC.US.0083.9296] The filer has used the element CashAndCashEquivalentsAtCarryingValue with the axis VariableInterestEntitiesByClassificationOfEntityAxis and the member VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember to report a value of 170,000,000 in the filing. The filer should use the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the financial statement category that is applicable to consolidated VIE's.
+
+The properties of this CashAndCashEquivalentsAtCarryingValue fact are:
+Period :2019-03-31
+Dimensions : us-gaap:FairValueByFairValueHierarchyLevelAxis=us-gaap:FairValueInputsLevel1Member, us-gaap:FairValueByMeasurementBasisAxis=us-gaap:EstimateOfFairValueFairValueDisclosureMember, us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember
+Unit : USD
+
+Rule Element Id:9296
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm 19122</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm#F_000774" sourceLine="19122">
+  <property name="file" value="blk-10q_20190331.htm"/>
+  <property name="line" value="19122"/>
+  <property name="label" value="Cash And Cash Equivalents At Carrying Value"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="CashAndCashEquivalentsAtCarryingValue"/>
+  <property name="QName" value="us-gaap:CashAndCashEquivalentsAtCarryingValue"/>
+  <property name="contextRef" value="C_0001364742_us-gaapFairValueByFairValueHierarchyLevelAxis_us-gaapFairValueInputsLevel1Member_us-gaapFairValueByMeasurementBasisAxis_us-gaapEstimateOfFairValueFairValueDisclosureMember_us-gaapVariableInterestEntitiesByClassificationOfEntityAxis_us-gaapVariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember_20190331">
+   <property name="entity" value="0001364742">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-03-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:EstimateOfFairValueFairValueDisclosureMember"/>
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U_iso4217USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="170,000,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="170"/>
+ </ref></entry>
+<entry code="DQC.US.0083.9296" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm" severity="error" effectiveDate="None" cid="4423573632">[DQC.US.0083.9296] The filer has used the element CashAndCashEquivalentsAtCarryingValue with the axis VariableInterestEntitiesByClassificationOfEntityAxis and the member VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember to report a value of 186,000,000 in the filing. The filer should use the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the financial statement category that is applicable to consolidated VIE's.
+
+The properties of this CashAndCashEquivalentsAtCarryingValue fact are:
+Period :2018-12-31
+Dimensions : us-gaap:FairValueByFairValueHierarchyLevelAxis=us-gaap:FairValueInputsLevel1Member, us-gaap:FairValueByMeasurementBasisAxis=us-gaap:CarryingReportedAmountFairValueDisclosureMember, us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember
+Unit : USD
+
+Rule Element Id:9296
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm 19130</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm#F_000775" sourceLine="19130">
+  <property name="file" value="blk-10q_20190331.htm"/>
+  <property name="line" value="19130"/>
+  <property name="label" value="Cash And Cash Equivalents At Carrying Value"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="CashAndCashEquivalentsAtCarryingValue"/>
+  <property name="QName" value="us-gaap:CashAndCashEquivalentsAtCarryingValue"/>
+  <property name="contextRef" value="C_0001364742_us-gaapFairValueByFairValueHierarchyLevelAxis_us-gaapFairValueInputsLevel1Member_us-gaapFairValueByMeasurementBasisAxis_us-gaapCarryingReportedAmountFairValueDisclosureMember_us-gaapVariableInterestEntitiesByClassificationOfEntityAxis_us-gaapVariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember_20181231">
+   <property name="entity" value="0001364742">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:CarryingReportedAmountFairValueDisclosureMember"/>
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U_iso4217USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="186,000,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="186"/>
+ </ref></entry>
+<entry code="DQC.US.0083.9296" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm" severity="error" effectiveDate="None" cid="4423573632">[DQC.US.0083.9296] The filer has used the element CashAndCashEquivalentsAtCarryingValue with the axis VariableInterestEntitiesByClassificationOfEntityAxis and the member VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember to report a value of 170,000,000 in the filing. The filer should use the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the financial statement category that is applicable to consolidated VIE's.
+
+The properties of this CashAndCashEquivalentsAtCarryingValue fact are:
+Period :2019-03-31
+Dimensions : us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember, us-gaap:FairValueByFairValueHierarchyLevelAxis=us-gaap:FairValueInputsLevel1Member, us-gaap:FairValueByMeasurementBasisAxis=us-gaap:CarryingReportedAmountFairValueDisclosureMember
+Unit : USD
+
+Rule Element Id:9296
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm 19114</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm#F_000773" sourceLine="19114">
+  <property name="file" value="blk-10q_20190331.htm"/>
+  <property name="line" value="19114"/>
+  <property name="label" value="Cash And Cash Equivalents At Carrying Value"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="CashAndCashEquivalentsAtCarryingValue"/>
+  <property name="QName" value="us-gaap:CashAndCashEquivalentsAtCarryingValue"/>
+  <property name="contextRef" value="C_0001364742_us-gaapFairValueByFairValueHierarchyLevelAxis_us-gaapFairValueInputsLevel1Member_us-gaapFairValueByMeasurementBasisAxis_us-gaapCarryingReportedAmountFairValueDisclosureMember_us-gaapVariableInterestEntitiesByClassificationOfEntityAxis_us-gaapVariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember_20190331">
+   <property name="entity" value="0001364742">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-03-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:CarryingReportedAmountFairValueDisclosureMember"/>
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U_iso4217USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="170,000,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="170"/>
+ </ref></entry>
+<entry code="DQC.US.0083.9296" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm" severity="error" effectiveDate="None" cid="4423573632">[DQC.US.0083.9296] The filer has used the element CashAndCashEquivalentsAtCarryingValue with the axis VariableInterestEntitiesByClassificationOfEntityAxis and the member VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember to report a value of 186,000,000 in the filing. The filer should use the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the financial statement category that is applicable to consolidated VIE's.
+
+The properties of this CashAndCashEquivalentsAtCarryingValue fact are:
+Period :2018-12-31
+Dimensions : us-gaap:FairValueByFairValueHierarchyLevelAxis=us-gaap:FairValueInputsLevel1Member, us-gaap:FairValueByMeasurementBasisAxis=us-gaap:EstimateOfFairValueFairValueDisclosureMember, us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember
+Unit : USD
+
+Rule Element Id:9296
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm 19138</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm#F_000776" sourceLine="19138">
+  <property name="file" value="blk-10q_20190331.htm"/>
+  <property name="line" value="19138"/>
+  <property name="label" value="Cash And Cash Equivalents At Carrying Value"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="CashAndCashEquivalentsAtCarryingValue"/>
+  <property name="QName" value="us-gaap:CashAndCashEquivalentsAtCarryingValue"/>
+  <property name="contextRef" value="C_0001364742_us-gaapFairValueByFairValueHierarchyLevelAxis_us-gaapFairValueInputsLevel1Member_us-gaapFairValueByMeasurementBasisAxis_us-gaapEstimateOfFairValueFairValueDisclosureMember_us-gaapVariableInterestEntitiesByClassificationOfEntityAxis_us-gaapVariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember_20181231">
+   <property name="entity" value="0001364742">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:EstimateOfFairValueFairValueDisclosureMember"/>
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U_iso4217USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="186,000,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="186"/>
+ </ref></entry>
+<entry code="DQC.US.0083.9296" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm" severity="error" effectiveDate="None" cid="4423573632">[DQC.US.0083.9296] The filer has used the element CashAndCashEquivalentsAtCarryingValue with the axis VariableInterestEntitiesByClassificationOfEntityAxis and the member VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember to report a value of 7,000,000 in the filing. The filer should use the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the financial statement category that is applicable to consolidated VIE's.
+
+The properties of this CashAndCashEquivalentsAtCarryingValue fact are:
+Period :2018-12-31
+Dimensions : us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember, us-gaap:FairValueByAssetClassAxis=us-gaap:MoneyMarketFundsMember
+Unit : USD
+
+Rule Element Id:9296
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm 19331</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm#F_000789" sourceLine="19331">
+  <property name="file" value="blk-10q_20190331.htm"/>
+  <property name="line" value="19331"/>
+  <property name="label" value="Cash And Cash Equivalents At Carrying Value"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="CashAndCashEquivalentsAtCarryingValue"/>
+  <property name="QName" value="us-gaap:CashAndCashEquivalentsAtCarryingValue"/>
+  <property name="contextRef" value="C_0001364742_us-gaapFairValueByAssetClassAxis_us-gaapMoneyMarketFundsMember_us-gaapVariableInterestEntitiesByClassificationOfEntityAxis_us-gaapVariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember_20181231">
+   <property name="entity" value="0001364742">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:FairValueByAssetClassAxis" value="us-gaap:MoneyMarketFundsMember"/>
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U_iso4217USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="7,000,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="7"/>
+ </ref></entry>
+<entry code="DQC.US.0083.9296" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm" severity="error" effectiveDate="None" cid="4423573632">[DQC.US.0083.9296] The filer has used the element GainLossOnInvestments with the axis VariableInterestEntitiesByClassificationOfEntityAxis and the member VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember to report a value of 2,000,000 in the filing. The filer should use the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the financial statement category that is applicable to consolidated VIE's.
+
+The properties of this GainLossOnInvestments fact are:
+Period :2018-01-01 to 2018-03-31
+Dimensions : us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember
+Unit : USD
+
+Rule Element Id:9296
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm 12225</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm#F_000533" sourceLine="12225">
+  <property name="file" value="blk-10q_20190331.htm"/>
+  <property name="line" value="12225"/>
+  <property name="label" value="Gain Loss On Investments"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="GainLossOnInvestments"/>
+  <property name="QName" value="us-gaap:GainLossOnInvestments"/>
+  <property name="contextRef" value="C_0001364742_us-gaapVariableInterestEntitiesByClassificationOfEntityAxis_us-gaapVariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember_20180101_20180331">
+   <property name="entity" value="0001364742">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U_iso4217USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,000,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="2"/>
+ </ref></entry>
+<entry code="DQC.US.0083.9296" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm" severity="error" effectiveDate="None" cid="4423573632">[DQC.US.0083.9296] The filer has used the element NetIncomeLossAttributableToNoncontrollingInterest with the axis VariableInterestEntitiesByClassificationOfEntityAxis and the member VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember to report a value of 5,000,000 in the filing. The filer should use the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the financial statement category that is applicable to consolidated VIE's.
+
+The properties of this NetIncomeLossAttributableToNoncontrollingInterest fact are:
+Period :2018-01-01 to 2018-03-31
+Dimensions : us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember
+Unit : USD
+
+Rule Element Id:9296
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm 12265</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm#F_000535" sourceLine="12265">
+  <property name="file" value="blk-10q_20190331.htm"/>
+  <property name="line" value="12265"/>
+  <property name="label" value="Net Income Loss Attributable To Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="NetIncomeLossAttributableToNoncontrollingInterest"/>
+  <property name="QName" value="us-gaap:NetIncomeLossAttributableToNoncontrollingInterest"/>
+  <property name="contextRef" value="C_0001364742_us-gaapVariableInterestEntitiesByClassificationOfEntityAxis_us-gaapVariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember_20180101_20180331">
+   <property name="entity" value="0001364742">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U_iso4217USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="5,000,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="5"/>
+ </ref></entry>
+<entry code="DQC.US.0083.9296" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm" severity="error" effectiveDate="None" cid="4423573632">[DQC.US.0083.9296] The filer has used the element OtherLiabilities with the axis VariableInterestEntitiesByClassificationOfEntityAxis and the member VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember to report a value of 479,000,000 in the filing. The filer should use the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the financial statement category that is applicable to consolidated VIE's.
+
+The properties of this OtherLiabilities fact are:
+Period :2019-03-31
+Dimensions : us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember
+Unit : USD
+
+Rule Element Id:9296
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm 6268</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm#F_000045" sourceLine="6268">
+  <property name="file" value="blk-10q_20190331.htm"/>
+  <property name="line" value="6268"/>
+  <property name="label" value="Other Liabilities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="OtherLiabilities"/>
+  <property name="QName" value="us-gaap:OtherLiabilities"/>
+  <property name="contextRef" value="C_0001364742_us-gaapVariableInterestEntitiesByClassificationOfEntityAxis_us-gaapVariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember_20190331">
+   <property name="entity" value="0001364742">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U_iso4217USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="479,000,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="479"/>
+ </ref></entry>
+<entry code="DQC.US.0083.9296" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm" severity="error" effectiveDate="None" cid="4423573632">[DQC.US.0083.9296] The filer has used the element LongTermDebt with the axis VariableInterestEntitiesByClassificationOfEntityAxis and the member VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember to report a value of 134,000,000 in the filing. The filer should use the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the financial statement category that is applicable to consolidated VIE's.
+
+The properties of this LongTermDebt fact are:
+Period :2019-03-31
+Dimensions : us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember
+Unit : USD
+
+Rule Element Id:9296
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm 12075</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm#F_000524" sourceLine="12075">
+  <property name="file" value="blk-10q_20190331.htm"/>
+  <property name="line" value="12075"/>
+  <property name="label" value="Long Term Debt"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="LongTermDebt"/>
+  <property name="QName" value="us-gaap:LongTermDebt"/>
+  <property name="contextRef" value="C_0001364742_us-gaapVariableInterestEntitiesByClassificationOfEntityAxis_us-gaapVariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember_20190331">
+   <property name="entity" value="0001364742">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U_iso4217USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="134,000,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="134"/>
+ </ref></entry>
+<entry code="DQC.US.0083.9296" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm" severity="error" effectiveDate="None" cid="4423573632">[DQC.US.0083.9296] The filer has used the element MinorityInterest with the axis VariableInterestEntitiesByClassificationOfEntityAxis and the member VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember to report a value of 1,002,000,000 in the filing. The filer should use the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the financial statement category that is applicable to consolidated VIE's.
+
+The properties of this MinorityInterest fact are:
+Period :2019-03-31
+Dimensions : us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember
+Unit : USD
+
+Rule Element Id:9296
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm 12115</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm#F_000528" sourceLine="12115">
+  <property name="file" value="blk-10q_20190331.htm"/>
+  <property name="line" value="12115"/>
+  <property name="label" value="Minority Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="MinorityInterest"/>
+  <property name="QName" value="us-gaap:MinorityInterest"/>
+  <property name="contextRef" value="C_0001364742_us-gaapVariableInterestEntitiesByClassificationOfEntityAxis_us-gaapVariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember_20190331">
+   <property name="entity" value="0001364742">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U_iso4217USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,002,000,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="1,002"/>
+ </ref></entry>
+<entry code="DQC.US.0083.9296" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm" severity="error" effectiveDate="None" cid="4423573632">[DQC.US.0083.9296] The filer has used the element CashAndCashEquivalentsAtCarryingValue with the axis VariableInterestEntitiesByClassificationOfEntityAxis and the member VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember to report a value of 170,000,000 in the filing. The filer should use the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the financial statement category that is applicable to consolidated VIE's.
+
+The properties of this CashAndCashEquivalentsAtCarryingValue fact are:
+Period :2019-03-31
+Dimensions : us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember
+Unit : USD
+
+Rule Element Id:9296
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm 5966</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm#F_000019" sourceLine="5966">
+  <property name="file" value="blk-10q_20190331.htm"/>
+  <property name="line" value="5966"/>
+  <property name="label" value="Cash And Cash Equivalents At Carrying Value"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="CashAndCashEquivalentsAtCarryingValue"/>
+  <property name="QName" value="us-gaap:CashAndCashEquivalentsAtCarryingValue"/>
+  <property name="contextRef" value="C_0001364742_us-gaapVariableInterestEntitiesByClassificationOfEntityAxis_us-gaapVariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember_20190331">
+   <property name="entity" value="0001364742">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U_iso4217USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="170,000,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="170"/>
+ </ref></entry>
+<entry code="DQC.US.0083.9296" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm" severity="error" effectiveDate="None" cid="4423573632">[DQC.US.0083.9296] The filer has used the element Investments with the axis VariableInterestEntitiesByClassificationOfEntityAxis and the member VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember to report a value of 2,592,000,000 in the filing. The filer should use the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the financial statement category that is applicable to consolidated VIE's.
+
+The properties of this Investments fact are:
+Period :2019-03-31
+Dimensions : us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember
+Unit : USD
+
+Rule Element Id:9296
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm 11995</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm#F_000518" sourceLine="11995">
+  <property name="file" value="blk-10q_20190331.htm"/>
+  <property name="line" value="11995"/>
+  <property name="label" value="Investments"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="Investments"/>
+  <property name="QName" value="us-gaap:Investments"/>
+  <property name="contextRef" value="C_0001364742_us-gaapVariableInterestEntitiesByClassificationOfEntityAxis_us-gaapVariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember_20190331">
+   <property name="entity" value="0001364742">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U_iso4217USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,592,000,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="2,592"/>
+ </ref></entry>
+<entry code="DQC.US.0083.9296" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm" severity="error" effectiveDate="None" cid="4423573632">[DQC.US.0083.9296] The filer has used the element OtherAssets with the axis VariableInterestEntitiesByClassificationOfEntityAxis and the member VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember to report a value of 69,000,000 in the filing. The filer should use the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the financial statement category that is applicable to consolidated VIE's.
+
+The properties of this OtherAssets fact are:
+Period :2019-03-31
+Dimensions : us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember
+Unit : USD
+
+Rule Element Id:9296
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm 6006</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm#F_000023" sourceLine="6006">
+  <property name="file" value="blk-10q_20190331.htm"/>
+  <property name="line" value="6006"/>
+  <property name="label" value="Other Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="OtherAssets"/>
+  <property name="QName" value="us-gaap:OtherAssets"/>
+  <property name="contextRef" value="C_0001364742_us-gaapVariableInterestEntitiesByClassificationOfEntityAxis_us-gaapVariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember_20190331">
+   <property name="entity" value="0001364742">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U_iso4217USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="69,000,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="69"/>
+ </ref></entry>
+<entry code="DQC.US.0083.9296" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm" severity="error" effectiveDate="None" cid="4423573632">[DQC.US.0083.9296] The filer has used the element CashAndCashEquivalentsAtCarryingValue with the axis VariableInterestEntitiesByClassificationOfEntityAxis and the member VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember to report a value of 69,000,000 in the filing. The filer should use the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the financial statement category that is applicable to consolidated VIE's.
+
+The properties of this CashAndCashEquivalentsAtCarryingValue fact are:
+Period :2019-03-31
+Dimensions : us-gaap:FairValueByAssetClassAxis=us-gaap:MoneyMarketFundsMember, us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember
+Unit : USD
+
+Rule Element Id:9296
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm 19331</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm#F_000788" sourceLine="19331">
+  <property name="file" value="blk-10q_20190331.htm"/>
+  <property name="line" value="19331"/>
+  <property name="label" value="Cash And Cash Equivalents At Carrying Value"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="CashAndCashEquivalentsAtCarryingValue"/>
+  <property name="QName" value="us-gaap:CashAndCashEquivalentsAtCarryingValue"/>
+  <property name="contextRef" value="C_0001364742_us-gaapFairValueByAssetClassAxis_us-gaapMoneyMarketFundsMember_us-gaapVariableInterestEntitiesByClassificationOfEntityAxis_us-gaapVariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember_20190331">
+   <property name="entity" value="0001364742">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:FairValueByAssetClassAxis" value="us-gaap:MoneyMarketFundsMember"/>
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U_iso4217USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="69,000,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="69"/>
+ </ref></entry>
+<entry code="DQC.US.0083.9296" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm" severity="error" effectiveDate="None" cid="4423573632">[DQC.US.0083.9296] The filer has used the element OtherLiabilities with the axis VariableInterestEntitiesByClassificationOfEntityAxis and the member VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember to report a value of 1,290,000,000 in the filing. The filer should use the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the financial statement category that is applicable to consolidated VIE's.
+
+The properties of this OtherLiabilities fact are:
+Period :2018-12-31
+Dimensions : us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember
+Unit : USD
+
+Rule Element Id:9296
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm 6276</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm#F_000046" sourceLine="6276">
+  <property name="file" value="blk-10q_20190331.htm"/>
+  <property name="line" value="6276"/>
+  <property name="label" value="Other Liabilities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="OtherLiabilities"/>
+  <property name="QName" value="us-gaap:OtherLiabilities"/>
+  <property name="contextRef" value="C_0001364742_us-gaapVariableInterestEntitiesByClassificationOfEntityAxis_us-gaapVariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember_20181231">
+   <property name="entity" value="0001364742">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U_iso4217USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,290,000,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="1,290"/>
+ </ref></entry>
+<entry code="DQC.US.0083.9296" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm" severity="error" effectiveDate="None" cid="4423573632">[DQC.US.0083.9296] The filer has used the element LongTermDebt with the axis VariableInterestEntitiesByClassificationOfEntityAxis and the member VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember to report a value of 84,000,000 in the filing. The filer should use the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the financial statement category that is applicable to consolidated VIE's.
+
+The properties of this LongTermDebt fact are:
+Period :2018-12-31
+Dimensions : us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember
+Unit : USD
+
+Rule Element Id:9296
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm 12083</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm#F_000525" sourceLine="12083">
+  <property name="file" value="blk-10q_20190331.htm"/>
+  <property name="line" value="12083"/>
+  <property name="label" value="Long Term Debt"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="LongTermDebt"/>
+  <property name="QName" value="us-gaap:LongTermDebt"/>
+  <property name="contextRef" value="C_0001364742_us-gaapVariableInterestEntitiesByClassificationOfEntityAxis_us-gaapVariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember_20181231">
+   <property name="entity" value="0001364742">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U_iso4217USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="84,000,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="84"/>
+ </ref></entry>
+<entry code="DQC.US.0083.9296" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm" severity="error" effectiveDate="None" cid="4423573632">[DQC.US.0083.9296] The filer has used the element CashAndCashEquivalentsAtCarryingValue with the axis VariableInterestEntitiesByClassificationOfEntityAxis and the member VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember to report a value of 186,000,000 in the filing. The filer should use the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the financial statement category that is applicable to consolidated VIE's.
+
+The properties of this CashAndCashEquivalentsAtCarryingValue fact are:
+Period :2018-12-31
+Dimensions : us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember
+Unit : USD
+
+Rule Element Id:9296
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm 5974</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm#F_000020" sourceLine="5974">
+  <property name="file" value="blk-10q_20190331.htm"/>
+  <property name="line" value="5974"/>
+  <property name="label" value="Cash And Cash Equivalents At Carrying Value"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="CashAndCashEquivalentsAtCarryingValue"/>
+  <property name="QName" value="us-gaap:CashAndCashEquivalentsAtCarryingValue"/>
+  <property name="contextRef" value="C_0001364742_us-gaapVariableInterestEntitiesByClassificationOfEntityAxis_us-gaapVariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember_20181231">
+   <property name="entity" value="0001364742">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U_iso4217USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="186,000,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="186"/>
+ </ref></entry>
+<entry code="DQC.US.0083.9296" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm" severity="error" effectiveDate="None" cid="4423573632">[DQC.US.0083.9296] The filer has used the element MinorityInterest with the axis VariableInterestEntitiesByClassificationOfEntityAxis and the member VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember to report a value of 1,076,000,000 in the filing. The filer should use the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the financial statement category that is applicable to consolidated VIE's.
+
+The properties of this MinorityInterest fact are:
+Period :2018-12-31
+Dimensions : us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember
+Unit : USD
+
+Rule Element Id:9296
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm 12123</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm#F_000529" sourceLine="12123">
+  <property name="file" value="blk-10q_20190331.htm"/>
+  <property name="line" value="12123"/>
+  <property name="label" value="Minority Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="MinorityInterest"/>
+  <property name="QName" value="us-gaap:MinorityInterest"/>
+  <property name="contextRef" value="C_0001364742_us-gaapVariableInterestEntitiesByClassificationOfEntityAxis_us-gaapVariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember_20181231">
+   <property name="entity" value="0001364742">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U_iso4217USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,076,000,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="1,076"/>
+ </ref></entry>
+<entry code="DQC.US.0083.9296" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm" severity="error" effectiveDate="None" cid="4423573632">[DQC.US.0083.9296] The filer has used the element Investments with the axis VariableInterestEntitiesByClassificationOfEntityAxis and the member VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember to report a value of 2,680,000,000 in the filing. The filer should use the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the financial statement category that is applicable to consolidated VIE's.
+
+The properties of this Investments fact are:
+Period :2018-12-31
+Dimensions : us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember
+Unit : USD
+
+Rule Element Id:9296
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm 12003</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm#F_000519" sourceLine="12003">
+  <property name="file" value="blk-10q_20190331.htm"/>
+  <property name="line" value="12003"/>
+  <property name="label" value="Investments"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="Investments"/>
+  <property name="QName" value="us-gaap:Investments"/>
+  <property name="contextRef" value="C_0001364742_us-gaapVariableInterestEntitiesByClassificationOfEntityAxis_us-gaapVariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember_20181231">
+   <property name="entity" value="0001364742">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U_iso4217USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,680,000,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="2,680"/>
+ </ref></entry>
+<entry code="DQC.US.0083.9296" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm" severity="error" effectiveDate="None" cid="4423573632">[DQC.US.0083.9296] The filer has used the element OtherAssets with the axis VariableInterestEntitiesByClassificationOfEntityAxis and the member VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember to report a value of 876,000,000 in the filing. The filer should use the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the financial statement category that is applicable to consolidated VIE's.
+
+The properties of this OtherAssets fact are:
+Period :2018-12-31
+Dimensions : us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember
+Unit : USD
+
+Rule Element Id:9296
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm 6014</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm#F_000024" sourceLine="6014">
+  <property name="file" value="blk-10q_20190331.htm"/>
+  <property name="line" value="6014"/>
+  <property name="label" value="Other Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="OtherAssets"/>
+  <property name="QName" value="us-gaap:OtherAssets"/>
+  <property name="contextRef" value="C_0001364742_us-gaapVariableInterestEntitiesByClassificationOfEntityAxis_us-gaapVariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember_20181231">
+   <property name="entity" value="0001364742">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryAggregatedDisclosureMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U_iso4217USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="876,000,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="876"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 6.17 secs - https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1364742/000156459019017793/blk-10q_20190331.htm"/></entry>
+</log>

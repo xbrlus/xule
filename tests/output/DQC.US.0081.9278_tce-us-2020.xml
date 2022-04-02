@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.07 secs at 2020-07-26T13:20:43 - http://www.sec.gov/Archives/edgar/data/1514056/000149315220013825/tce-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1514056/000149315220013825/tce-20200331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmprdxr29og\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmprdxr29og\packages\resources.zip"/></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1514056/000149315220013825/tce-20200331.xml" severity="error" effectiveDate="2019-09-30" cid="2313408980352">[DQC.US.0081.9278] The line item concept us-gaap:ConvertibleDebtCurrent with a value of 241,334 and a calculation parent of us-gaap:LiabilitiesCurrent is represented as a sibling of us-gaap:LongTermDebtCurrent with a value of 191,508 in the extension taxonomy role 00000002 - Statement - Condensed Consolidated Balance Sheets, but us-gaap:ConvertibleDebtCurrent is represented as a descendent of us-gaap:LongTermDebtCurrent in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:ConvertibleDebtCurrent fact are:
+
+Period :2019-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1514056/000149315220013825/tce-20200331.xml 2368</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1514056/000149315220013825/tce-20200331.xml#element(/1/575)" sourceLine="2368">
+  <property name="label" value="Current portion - convertible debt - long-term debt - related and unrelated parties"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConvertibleDebtCurrent"/>
+  <property name="QName" value="us-gaap:ConvertibleDebtCurrent"/>
+  <property name="contextRef" value="AsOf2019-12-31">
+   <property name="entity" value="0001514056">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="241,334"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1514056/000149315220013825/tce-20200331.xml" severity="error" effectiveDate="2019-09-30" cid="2313408980352">[DQC.US.0081.9278] The line item concept us-gaap:ConvertibleDebtCurrent with a value of 241,334 and a calculation parent of us-gaap:LiabilitiesCurrent is represented as a sibling of us-gaap:LongTermDebtCurrent with a value of 183,159 in the extension taxonomy role 00000002 - Statement - Condensed Consolidated Balance Sheets, but us-gaap:ConvertibleDebtCurrent is represented as a descendent of us-gaap:LongTermDebtCurrent in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:ConvertibleDebtCurrent fact are:
+
+Period :2020-03-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1514056/000149315220013825/tce-20200331.xml 2369</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1514056/000149315220013825/tce-20200331.xml#element(/1/576)" sourceLine="2369">
+  <property name="label" value="Current portion - convertible debt - long-term debt - related and unrelated parties"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConvertibleDebtCurrent"/>
+  <property name="QName" value="us-gaap:ConvertibleDebtCurrent"/>
+  <property name="contextRef" value="AsOf2020-03-31">
+   <property name="entity" value="0001514056">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="241,334"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1514056/000149315220013825/tce-20200331.xml" severity="error" effectiveDate="2019-09-30" cid="2313408980352">[DQC.US.0081.9278] The line item concept us-gaap:RepaymentsOfRelatedPartyDebt with a value of 8,500 and a calculation parent of us-gaap:NetCashProvidedByUsedInFinancingActivities is represented as a sibling of us-gaap:RepaymentsOfLongTermDebt with a value of 14,692 in the extension taxonomy role 00000006 - Statement - Condensed Consolidated Statements of Cash Flows (Unaudited), but us-gaap:RepaymentsOfRelatedPartyDebt is represented as a descendent of us-gaap:RepaymentsOfLongTermDebt in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:RepaymentsOfRelatedPartyDebt fact are:
+
+Period :2020-01-01 to 2020-03-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1514056/000149315220013825/tce-20200331.xml 2083</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1514056/000149315220013825/tce-20200331.xml#element(/1/290)" sourceLine="2083">
+  <property name="label" value="Repayments of Related Party Debt"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="RepaymentsOfRelatedPartyDebt"/>
+  <property name="QName" value="us-gaap:RepaymentsOfRelatedPartyDebt"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31">
+   <property name="entity" value="0001514056">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="8,500"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1514056/000149315220013825/tce-20200331.xml" severity="error" effectiveDate="2019-09-30" cid="2313408980352">[DQC.US.0081.9278] The line item concept us-gaap:ProceedsFromRelatedPartyDebt with a value of 68,878 and a calculation parent of us-gaap:NetCashProvidedByUsedInFinancingActivities is represented as a sibling of us-gaap:ProceedsFromIssuanceOfLongTermDebt with a value of 8,100 in the extension taxonomy role 00000006 - Statement - Condensed Consolidated Statements of Cash Flows (Unaudited), but us-gaap:ProceedsFromRelatedPartyDebt is represented as a descendent of us-gaap:ProceedsFromIssuanceOfLongTermDebt in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:ProceedsFromRelatedPartyDebt fact are:
+
+Period :2020-01-01 to 2020-03-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1514056/000149315220013825/tce-20200331.xml 2032</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1514056/000149315220013825/tce-20200331.xml#element(/1/239)" sourceLine="2032">
+  <property name="label" value="Proceeds from long-term debt - related parties"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ProceedsFromRelatedPartyDebt"/>
+  <property name="QName" value="us-gaap:ProceedsFromRelatedPartyDebt"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31">
+   <property name="entity" value="0001514056">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="68,878"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1514056/000149315220013825/tce-20200331.xml" severity="error" effectiveDate="2019-09-30" cid="2313408980352">[DQC.US.0081.9278] The line item concept us-gaap:RepaymentsOfRelatedPartyDebt with a value of 1,000 and a calculation parent of us-gaap:NetCashProvidedByUsedInFinancingActivities is represented as a sibling of us-gaap:RepaymentsOfLongTermDebt with a value of 25,805 in the extension taxonomy role 00000006 - Statement - Condensed Consolidated Statements of Cash Flows (Unaudited), but us-gaap:RepaymentsOfRelatedPartyDebt is represented as a descendent of us-gaap:RepaymentsOfLongTermDebt in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:RepaymentsOfRelatedPartyDebt fact are:
+
+Period :2019-01-01 to 2019-03-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1514056/000149315220013825/tce-20200331.xml 2084</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1514056/000149315220013825/tce-20200331.xml#element(/1/291)" sourceLine="2084">
+  <property name="label" value="Repayments of Related Party Debt"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="RepaymentsOfRelatedPartyDebt"/>
+  <property name="QName" value="us-gaap:RepaymentsOfRelatedPartyDebt"/>
+  <property name="contextRef" value="From2019-01-01to2019-03-31">
+   <property name="entity" value="0001514056">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1514056/000149315220013825/tce-20200331.xml" severity="error" effectiveDate="2019-09-30" cid="2313408980352">[DQC.US.0081.9278] The line item concept us-gaap:ProceedsFromRelatedPartyDebt with a value of 77,419 and a calculation parent of us-gaap:NetCashProvidedByUsedInFinancingActivities is represented as a sibling of us-gaap:ProceedsFromIssuanceOfLongTermDebt with a value of 2,200 in the extension taxonomy role 00000006 - Statement - Condensed Consolidated Statements of Cash Flows (Unaudited), but us-gaap:ProceedsFromRelatedPartyDebt is represented as a descendent of us-gaap:ProceedsFromIssuanceOfLongTermDebt in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:ProceedsFromRelatedPartyDebt fact are:
+
+Period :2019-01-01 to 2019-03-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1514056/000149315220013825/tce-20200331.xml 2033</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1514056/000149315220013825/tce-20200331.xml#element(/1/240)" sourceLine="2033">
+  <property name="label" value="Proceeds from long-term debt - related parties"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ProceedsFromRelatedPartyDebt"/>
+  <property name="QName" value="us-gaap:ProceedsFromRelatedPartyDebt"/>
+  <property name="contextRef" value="From2019-01-01to2019-03-31">
+   <property name="entity" value="0001514056">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="77,419"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 18.50 secs - http://www.sec.gov/Archives/edgar/data/1514056/000149315220013825/tce-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1514056/000149315220013825/tce-20200331.xml"/></entry>
+</log>

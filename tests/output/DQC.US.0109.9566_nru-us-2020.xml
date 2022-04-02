@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23221 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 4.20 secs at 2021-04-14T20:13:11 - https://www.sec.gov/Archives/edgar/data/70502/000007050221000009/nru-20201130.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/70502/000007050221000009/nru-20201130.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpwnjiwn66\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpwnjiwn66\packages\resources.zip"/></entry>
+<entry code="DQC.US.0109.9566" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/70502/000007050221000009/nru-20201130.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2375793472464">[DQC.US.0109.9566] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.25 should always be used with the ConcentrationRiskByTypeAxis and ConcentrationRiskByBenchmarkAxis.  This element has no meaning without these axis at a minimum.  Any data provided needs to be used in combination with an additional axis to define the actual risk as the numerator. The member used on the ConcentrationRiskByBenchmarkAxis represents the benchmark denominator. If this value represents the Concentration Risk, Threshold Percentage then use the extension element ConcentrationRiskThresholdPercentage.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2019-06-01 to 2020-05-31
+Dimensions : us-gaap:DerivativeInstrumentRiskAxis=nru:InterestRateSwapsandTreasuryLockMember
+Unit : pure
+
+
+Rule Element Id:9566
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/70502/000007050221000009/nru-20201130.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/70502/000007050221000009/nru-20201130.htm#id3VybDovL2RvY3MudjEvZG9jOjY2MmI4YmY3MzdlZDQ5MTliNjhiMDViM2Y3OGZkMmFhL3NlYzo2NjJiOGJmNzM3ZWQ0OTE5YjY4YjA1YjNmNzhmZDJhYV8xMjcvZnJhZzpjMTcyMTUzZTI0OTY0MTM2OTI0N2E0MTkzZmE3NTJmZS90ZXh0cmVnaW9uOmMxNzIxNTNlMjQ5NjQxMzY5MjQ3YTQxOTNmYTc1MmZlXzEwOTk1MTE2MzY4OTQ_1351e35b-f71f-4a80-abf9-1cc3d525e589" sourceLine="4">
+  <property name="file" value="nru-20201130.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="ia5ac01e580554bf3a1eb7c9cad1b524b_D20190601-20200531">
+   <property name="entity" value="0000070502">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-06-01"/>
+   <property name="endDate" value="2020-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:DerivativeInstrumentRiskAxis" value="nru:InterestRateSwapsandTreasuryLockMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.25"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="25"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9566" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/70502/000007050221000009/nru-20201130.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2375793472464">[DQC.US.0109.9566] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.26 should always be used with the ConcentrationRiskByTypeAxis and ConcentrationRiskByBenchmarkAxis.  This element has no meaning without these axis at a minimum.  Any data provided needs to be used in combination with an additional axis to define the actual risk as the numerator. The member used on the ConcentrationRiskByBenchmarkAxis represents the benchmark denominator. If this value represents the Concentration Risk, Threshold Percentage then use the extension element ConcentrationRiskThresholdPercentage.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2020-06-01 to 2020-11-30
+Dimensions : us-gaap:DerivativeInstrumentRiskAxis=nru:InterestRateSwapsandTreasuryLockMember
+Unit : pure
+
+
+Rule Element Id:9566
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/70502/000007050221000009/nru-20201130.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/70502/000007050221000009/nru-20201130.htm#id3VybDovL2RvY3MudjEvZG9jOjY2MmI4YmY3MzdlZDQ5MTliNjhiMDViM2Y3OGZkMmFhL3NlYzo2NjJiOGJmNzM3ZWQ0OTE5YjY4YjA1YjNmNzhmZDJhYV8xMjcvZnJhZzpjMTcyMTUzZTI0OTY0MTM2OTI0N2E0MTkzZmE3NTJmZS90ZXh0cmVnaW9uOmMxNzIxNTNlMjQ5NjQxMzY5MjQ3YTQxOTNmYTc1MmZlXzg2OTM_3fd161c8-b7e2-475b-9895-ea9da32c22a7" sourceLine="4">
+  <property name="file" value="nru-20201130.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="icd47041c927c4a5292b99c0fa43f2e59_D20200601-20201130">
+   <property name="entity" value="0000070502">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-06-01"/>
+   <property name="endDate" value="2020-11-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:DerivativeInstrumentRiskAxis" value="nru:InterestRateSwapsandTreasuryLockMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.26"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="26"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.25 secs - https://www.sec.gov/Archives/edgar/data/70502/000007050221000009/nru-20201130.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/70502/000007050221000009/nru-20201130.htm"/></entry>
+</log>

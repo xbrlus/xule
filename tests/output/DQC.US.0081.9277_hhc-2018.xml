@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22790 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 6.26 secs at 2019-07-10T22:03:18 - https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv and effective_dates.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpkyvny8_0/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpkyvny8_0/packages/resources.zip"/></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml" status="PROPOSED" cid="4373991096" severity="error" effectiveDate="2019-06-30">[DQC.US.0081.9277] The line item concept us-gaap:DevelopmentInProcess with a value of 1,196,582,000 is represented as a child of us-gaap:PropertyPlantAndEquipmentNet with a value of 5,033,527,000 in the companies extension taxonomy role 1001000 - Statement - CONSOLIDATED BALANCE SHEETS. The element us-gaap:DevelopmentInProcess however, is not represented as a component of us-gaap:PropertyPlantAndEquipmentNet in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:DevelopmentInProcess as a sibling element (or child of that sibling) relative to us-gaap:PropertyPlantAndEquipmentNet in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:PropertyPlantAndEquipmentNet and the child element us-gaap:DevelopmentInProcess.
+
+The properties of this us-gaap:DevelopmentInProcess fact are:
+
+Period :2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml 11481</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml#Fact-DEAA094A9E18523394D27922150A074E" sourceLine="11481">
+  <property name="label" value="Development in Process"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DevelopmentInProcess"/>
+  <property name="QName" value="us-gaap:DevelopmentInProcess"/>
+  <property name="contextRef" value="FI2017Q4">
+   <property name="entity" value="0001498828">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,196,582,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml" status="PROPOSED" cid="4373991096" severity="error" effectiveDate="2019-06-30">[DQC.US.0081.9277] The line item concept us-gaap:RealEstateInvestmentsOther with a value of 1,642,278,000 is represented as a child of us-gaap:PropertyPlantAndEquipmentNet with a value of 5,033,527,000 in the companies extension taxonomy role 1001000 - Statement - CONSOLIDATED BALANCE SHEETS. The element us-gaap:RealEstateInvestmentsOther however, is not represented as a component of us-gaap:PropertyPlantAndEquipmentNet in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:RealEstateInvestmentsOther as a sibling element (or child of that sibling) relative to us-gaap:PropertyPlantAndEquipmentNet in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:PropertyPlantAndEquipmentNet and the child element us-gaap:RealEstateInvestmentsOther.
+
+The properties of this us-gaap:RealEstateInvestmentsOther fact are:
+
+Period :2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml 12246</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml#Fact-45A427F586D453C08150132CA6C1CF6D" sourceLine="12246">
+  <property name="label" value="Real Estate Investments, Other"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="RealEstateInvestmentsOther"/>
+  <property name="QName" value="us-gaap:RealEstateInvestmentsOther"/>
+  <property name="contextRef" value="FI2017Q4">
+   <property name="entity" value="0001498828">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,642,278,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml" status="PROPOSED" cid="4373991096" severity="error" effectiveDate="2019-06-30">[DQC.US.0081.9277] The line item concept us-gaap:CostsOfRealEstateServicesAndLandSales with a value of 38,777,000 is represented as a child of us-gaap:OperatingExpenses with a value of 936,233,000 in the companies extension taxonomy role 1002000 - Statement - CONSOLIDATED STATEMENTS OF OPERATIONS. The element us-gaap:CostsOfRealEstateServicesAndLandSales however, is not represented as a component of us-gaap:OperatingExpenses in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:CostsOfRealEstateServicesAndLandSales as a sibling element (or child of that sibling) relative to us-gaap:OperatingExpenses in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:OperatingExpenses and the child element us-gaap:CostsOfRealEstateServicesAndLandSales.
+
+The properties of this us-gaap:CostsOfRealEstateServicesAndLandSales fact are:
+
+Period :2017-01-01 to 2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml 11093</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml#Fact-4BFA847937845F8184C1E8B9B24C84A8" sourceLine="11093">
+  <property name="label" value="Costs of Real Estate Services and Land Sales"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="CostsOfRealEstateServicesAndLandSales"/>
+  <property name="QName" value="us-gaap:CostsOfRealEstateServicesAndLandSales"/>
+  <property name="contextRef" value="FD2017Q4YTD">
+   <property name="entity" value="0001498828">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="38,777,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml" status="PROPOSED" cid="4373991096" severity="error" effectiveDate="2019-06-30">[DQC.US.0081.9277] The line item concept us-gaap:CostOfPropertyRepairsAndMaintenance with a value of 13,432,000 is represented as a child of us-gaap:OperatingExpenses with a value of 936,233,000 in the companies extension taxonomy role 1002000 - Statement - CONSOLIDATED STATEMENTS OF OPERATIONS. The element us-gaap:CostOfPropertyRepairsAndMaintenance however, is not represented as a component of us-gaap:OperatingExpenses in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:CostOfPropertyRepairsAndMaintenance as a sibling element (or child of that sibling) relative to us-gaap:OperatingExpenses in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:OperatingExpenses and the child element us-gaap:CostOfPropertyRepairsAndMaintenance.
+
+The properties of this us-gaap:CostOfPropertyRepairsAndMaintenance fact are:
+
+Period :2017-01-01 to 2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml 11087</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml#Fact-8CBFD7D78A965A998DE9805EDE13DFCA" sourceLine="11087">
+  <property name="label" value="Cost of Property Repairs and Maintenance"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="CostOfPropertyRepairsAndMaintenance"/>
+  <property name="QName" value="us-gaap:CostOfPropertyRepairsAndMaintenance"/>
+  <property name="contextRef" value="FD2017Q4YTD">
+   <property name="entity" value="0001498828">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="13,432,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml" status="PROPOSED" cid="4373991096" severity="error" effectiveDate="2019-06-30">[DQC.US.0081.9277] The line item concept us-gaap:CostOfRealEstateSales with a value of 121,116,000 is represented as a child of us-gaap:OperatingExpenses with a value of 936,233,000 in the companies extension taxonomy role 1002000 - Statement - CONSOLIDATED STATEMENTS OF OPERATIONS. The element us-gaap:CostOfRealEstateSales however, is not represented as a component of us-gaap:OperatingExpenses in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:CostOfRealEstateSales as a sibling element (or child of that sibling) relative to us-gaap:OperatingExpenses in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:OperatingExpenses and the child element us-gaap:CostOfRealEstateSales.
+
+The properties of this us-gaap:CostOfRealEstateSales fact are:
+
+Period :2017-01-01 to 2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml 11090</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml#Fact-AA54BAE0E0DA5B4699AFF908F50ED9DF" sourceLine="11090">
+  <property name="label" value="Cost of Real Estate Sales"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="CostOfRealEstateSales"/>
+  <property name="QName" value="us-gaap:CostOfRealEstateSales"/>
+  <property name="contextRef" value="FD2017Q4YTD">
+   <property name="entity" value="0001498828">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="121,116,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml" status="PROPOSED" cid="4373991096" severity="error" effectiveDate="2019-06-30">[DQC.US.0081.9277] The line item concept us-gaap:CostsOfRealEstateServicesAndLandSales with a value of 45,217,000 is represented as a child of us-gaap:OperatingExpenses with a value of 956,791,000 in the companies extension taxonomy role 1002000 - Statement - CONSOLIDATED STATEMENTS OF OPERATIONS. The element us-gaap:CostsOfRealEstateServicesAndLandSales however, is not represented as a component of us-gaap:OperatingExpenses in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:CostsOfRealEstateServicesAndLandSales as a sibling element (or child of that sibling) relative to us-gaap:OperatingExpenses in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:OperatingExpenses and the child element us-gaap:CostsOfRealEstateServicesAndLandSales.
+
+The properties of this us-gaap:CostsOfRealEstateServicesAndLandSales fact are:
+
+Period :2018-01-01 to 2018-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml 11094</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml#Fact-E2685D58F74C55C080D21A686220B32D" sourceLine="11094">
+  <property name="label" value="Costs of Real Estate Services and Land Sales"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="CostsOfRealEstateServicesAndLandSales"/>
+  <property name="QName" value="us-gaap:CostsOfRealEstateServicesAndLandSales"/>
+  <property name="contextRef" value="FD2018Q4YTD">
+   <property name="entity" value="0001498828">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="45,217,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml" status="PROPOSED" cid="4373991096" severity="error" effectiveDate="2019-06-30">[DQC.US.0081.9277] The line item concept us-gaap:CostOfPropertyRepairsAndMaintenance with a value of 15,813,000 is represented as a child of us-gaap:OperatingExpenses with a value of 956,791,000 in the companies extension taxonomy role 1002000 - Statement - CONSOLIDATED STATEMENTS OF OPERATIONS. The element us-gaap:CostOfPropertyRepairsAndMaintenance however, is not represented as a component of us-gaap:OperatingExpenses in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:CostOfPropertyRepairsAndMaintenance as a sibling element (or child of that sibling) relative to us-gaap:OperatingExpenses in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:OperatingExpenses and the child element us-gaap:CostOfPropertyRepairsAndMaintenance.
+
+The properties of this us-gaap:CostOfPropertyRepairsAndMaintenance fact are:
+
+Period :2018-01-01 to 2018-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml 11088</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml#Fact-A804CFF73D2B5B82BA14A2DE62E80718" sourceLine="11088">
+  <property name="label" value="Cost of Property Repairs and Maintenance"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="CostOfPropertyRepairsAndMaintenance"/>
+  <property name="QName" value="us-gaap:CostOfPropertyRepairsAndMaintenance"/>
+  <property name="contextRef" value="FD2018Q4YTD">
+   <property name="entity" value="0001498828">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="15,813,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml" status="PROPOSED" cid="4373991096" severity="error" effectiveDate="2019-06-30">[DQC.US.0081.9277] The line item concept us-gaap:CostOfRealEstateSales with a value of 124,214,000 is represented as a child of us-gaap:OperatingExpenses with a value of 956,791,000 in the companies extension taxonomy role 1002000 - Statement - CONSOLIDATED STATEMENTS OF OPERATIONS. The element us-gaap:CostOfRealEstateSales however, is not represented as a component of us-gaap:OperatingExpenses in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:CostOfRealEstateSales as a sibling element (or child of that sibling) relative to us-gaap:OperatingExpenses in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:OperatingExpenses and the child element us-gaap:CostOfRealEstateSales.
+
+The properties of this us-gaap:CostOfRealEstateSales fact are:
+
+Period :2018-01-01 to 2018-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml 11091</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml#Fact-45E25942AF635F5FB0B748FD0253A7CD" sourceLine="11091">
+  <property name="label" value="Cost of Real Estate Sales"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="CostOfRealEstateSales"/>
+  <property name="QName" value="us-gaap:CostOfRealEstateSales"/>
+  <property name="contextRef" value="FD2018Q4YTD">
+   <property name="entity" value="0001498828">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="124,214,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml" status="PROPOSED" cid="4373991096" severity="error" effectiveDate="2019-06-30">[DQC.US.0081.9277] The line item concept us-gaap:DevelopmentInProcess with a value of 1,290,068,000 is represented as a child of us-gaap:PropertyPlantAndEquipmentNet with a value of 5,782,395,000 in the companies extension taxonomy role 1001000 - Statement - CONSOLIDATED BALANCE SHEETS. The element us-gaap:DevelopmentInProcess however, is not represented as a component of us-gaap:PropertyPlantAndEquipmentNet in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:DevelopmentInProcess as a sibling element (or child of that sibling) relative to us-gaap:PropertyPlantAndEquipmentNet in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:PropertyPlantAndEquipmentNet and the child element us-gaap:DevelopmentInProcess.
+
+The properties of this us-gaap:DevelopmentInProcess fact are:
+
+Period :2018-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml 11482</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml#Fact-E3B7D93F04A05F23AF91A50D35286C67" sourceLine="11482">
+  <property name="label" value="Development in Process"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DevelopmentInProcess"/>
+  <property name="QName" value="us-gaap:DevelopmentInProcess"/>
+  <property name="contextRef" value="FI2018Q4">
+   <property name="entity" value="0001498828">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,290,068,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml" status="PROPOSED" cid="4373991096" severity="error" effectiveDate="2019-06-30">[DQC.US.0081.9277] The line item concept us-gaap:RealEstateInvestmentsOther with a value of 1,642,660,000 is represented as a child of us-gaap:PropertyPlantAndEquipmentNet with a value of 5,782,395,000 in the companies extension taxonomy role 1001000 - Statement - CONSOLIDATED BALANCE SHEETS. The element us-gaap:RealEstateInvestmentsOther however, is not represented as a component of us-gaap:PropertyPlantAndEquipmentNet in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:RealEstateInvestmentsOther as a sibling element (or child of that sibling) relative to us-gaap:PropertyPlantAndEquipmentNet in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:PropertyPlantAndEquipmentNet and the child element us-gaap:RealEstateInvestmentsOther.
+
+The properties of this us-gaap:RealEstateInvestmentsOther fact are:
+
+Period :2018-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml 12247</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml#Fact-0792F853A0845C70A18AA60B78631FBB" sourceLine="12247">
+  <property name="label" value="Real Estate Investments, Other"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="RealEstateInvestmentsOther"/>
+  <property name="QName" value="us-gaap:RealEstateInvestmentsOther"/>
+  <property name="contextRef" value="FI2018Q4">
+   <property name="entity" value="0001498828">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,642,660,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml" status="PROPOSED" cid="4373991096" severity="error" effectiveDate="2019-06-30">[DQC.US.0081.9277] The line item concept us-gaap:CostsOfRealEstateServicesAndLandSales with a value of 42,371,000 is represented as a child of us-gaap:OperatingExpenses with a value of 824,511,000 in the companies extension taxonomy role 1002000 - Statement - CONSOLIDATED STATEMENTS OF OPERATIONS. The element us-gaap:CostsOfRealEstateServicesAndLandSales however, is not represented as a component of us-gaap:OperatingExpenses in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:CostsOfRealEstateServicesAndLandSales as a sibling element (or child of that sibling) relative to us-gaap:OperatingExpenses in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:OperatingExpenses and the child element us-gaap:CostsOfRealEstateServicesAndLandSales.
+
+The properties of this us-gaap:CostsOfRealEstateServicesAndLandSales fact are:
+
+Period :2016-01-01 to 2016-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml 11092</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml#Fact-807C432E9047520B83224CD090F5891E" sourceLine="11092">
+  <property name="label" value="Costs of Real Estate Services and Land Sales"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="CostsOfRealEstateServicesAndLandSales"/>
+  <property name="QName" value="us-gaap:CostsOfRealEstateServicesAndLandSales"/>
+  <property name="contextRef" value="FD2016Q4YTD">
+   <property name="entity" value="0001498828">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-01-01"/>
+   <property name="endDate" value="2016-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="42,371,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml" status="PROPOSED" cid="4373991096" severity="error" effectiveDate="2019-06-30">[DQC.US.0081.9277] The line item concept us-gaap:CostOfPropertyRepairsAndMaintenance with a value of 12,392,000 is represented as a child of us-gaap:OperatingExpenses with a value of 824,511,000 in the companies extension taxonomy role 1002000 - Statement - CONSOLIDATED STATEMENTS OF OPERATIONS. The element us-gaap:CostOfPropertyRepairsAndMaintenance however, is not represented as a component of us-gaap:OperatingExpenses in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:CostOfPropertyRepairsAndMaintenance as a sibling element (or child of that sibling) relative to us-gaap:OperatingExpenses in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:OperatingExpenses and the child element us-gaap:CostOfPropertyRepairsAndMaintenance.
+
+The properties of this us-gaap:CostOfPropertyRepairsAndMaintenance fact are:
+
+Period :2016-01-01 to 2016-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml 11086</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml#Fact-A1603D3EC23956878A0180628ECB687D" sourceLine="11086">
+  <property name="label" value="Cost of Property Repairs and Maintenance"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="CostOfPropertyRepairsAndMaintenance"/>
+  <property name="QName" value="us-gaap:CostOfPropertyRepairsAndMaintenance"/>
+  <property name="contextRef" value="FD2016Q4YTD">
+   <property name="entity" value="0001498828">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-01-01"/>
+   <property name="endDate" value="2016-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="12,392,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml" status="PROPOSED" cid="4373991096" severity="error" effectiveDate="2019-06-30">[DQC.US.0081.9277] The line item concept us-gaap:CostOfRealEstateSales with a value of 95,727,000 is represented as a child of us-gaap:OperatingExpenses with a value of 824,511,000 in the companies extension taxonomy role 1002000 - Statement - CONSOLIDATED STATEMENTS OF OPERATIONS. The element us-gaap:CostOfRealEstateSales however, is not represented as a component of us-gaap:OperatingExpenses in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:CostOfRealEstateSales as a sibling element (or child of that sibling) relative to us-gaap:OperatingExpenses in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:OperatingExpenses and the child element us-gaap:CostOfRealEstateSales.
+
+The properties of this us-gaap:CostOfRealEstateSales fact are:
+
+Period :2016-01-01 to 2016-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml 11089</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml#Fact-38732F945A5653DBBD5C71C77DC69591" sourceLine="11089">
+  <property name="label" value="Cost of Real Estate Sales"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="CostOfRealEstateSales"/>
+  <property name="QName" value="us-gaap:CostOfRealEstateSales"/>
+  <property name="contextRef" value="FD2016Q4YTD">
+   <property name="entity" value="0001498828">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-01-01"/>
+   <property name="endDate" value="2016-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="95,727,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 80.96 secs - https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1498828/000162828019002143/hhc-20181231.xml"/></entry>
+</log>

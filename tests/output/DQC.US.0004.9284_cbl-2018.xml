@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22739 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.84 secs at 2019-04-18T10:34:29 - https://www.sec.gov/Archives/edgar/data/910612/000091061219000023/cbl-20181231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/910612/000091061219000023/cbl-20181231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv and effective_dates.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpqe_w1cz9/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpqe_w1cz9/packages/resources.zip"/></entry>
+<entry code="DQC.US.0004.9284" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/910612/000091061219000023/cbl-20181231.xml" severity="error" cid="4449095352" effectiveDate="None">[DQC.US.0004.9284] Comprehensive Income (Loss), Net of Tax, Including Portion Attributable to Noncontrolling Interest with a value of 195,965,000 is not equal to the combined total of Net Income (Loss), Including Portion Attributable to Noncontrolling Interest and Other Comprehensive Income (Loss), Net of Tax ( 195,531,000 + 431,000 ) with a value of 195,962,000. 
+
+These values should be equal.
+The properties of this us-gaap:ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest fact are:
+Period :2016-01-01 to 2016-12-31
+Dimensions :  dei:LegalEntityAxis=cbl:CBLAssociatesLimitedPartnershipMember
+Unit : USD
+Decimals of Comprehensive Income (Loss), Net of Tax, Including Portion Attributable to Noncontrolling Interest : -3
+Decimals of Net Income (Loss), Including Portion Attributable to Noncontrolling Interest : -3
+Decimals of Other Comprehensive Income (Loss), Net of Tax : -3
+
+Rule Element Id:9284
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/910612/000091061219000023/cbl-20181231.xml 14181</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/910612/000091061219000023/cbl-20181231.xml#Fact-F2F7ED4174526B71FE01EBB9CDD08C92" sourceLine="14181">
+  <property name="label" value="Comprehensive Income (Loss), Net of Tax, Including Portion Attributable to Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="QName" value="us-gaap:ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="contextRef" value="FD2016Q4YTD_dei_LegalEntityAxis_cbl_CBLAssociatesLimitedPartnershipMember">
+   <property name="entity" value="0000910612">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-01-01"/>
+   <property name="endDate" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="dei:LegalEntityAxis" value="cbl:CBLAssociatesLimitedPartnershipMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="195,965,000"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9284" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/910612/000091061219000023/cbl-20181231.xml" severity="error" cid="4449095352" effectiveDate="None">[DQC.US.0004.9284] Comprehensive Income (Loss), Net of Tax, Including Portion Attributable to Noncontrolling Interest with a value of 195,965,000 is not equal to the combined total of Net Income (Loss), Including Portion Attributable to Noncontrolling Interest and Other Comprehensive Income (Loss), Net of Tax ( 195,531,000 + 431,000 ) with a value of 195,962,000. 
+
+These values should be equal.
+The properties of this us-gaap:ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest fact are:
+Period :2016-01-01 to 2016-12-31
+Dimensions :  dei:LegalEntityAxis=cbl:CBLAssociatesPropertiesInc.Member
+Unit : USD
+Decimals of Comprehensive Income (Loss), Net of Tax, Including Portion Attributable to Noncontrolling Interest : -3
+Decimals of Net Income (Loss), Including Portion Attributable to Noncontrolling Interest : -3
+Decimals of Other Comprehensive Income (Loss), Net of Tax : -3
+
+Rule Element Id:9284
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/910612/000091061219000023/cbl-20181231.xml 14182</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/910612/000091061219000023/cbl-20181231.xml#Fact-FA5AD93DBB906683AAA4EBB9CD10CC99" sourceLine="14182">
+  <property name="label" value="Comprehensive Income (Loss), Net of Tax, Including Portion Attributable to Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="QName" value="us-gaap:ComprehensiveIncomeNetOfTaxIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="contextRef" value="FD2016Q4YTD_dei_LegalEntityAxis_cbl_CBLAssociatesPropertiesInc.Member">
+   <property name="entity" value="0000910612">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-01-01"/>
+   <property name="endDate" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="dei:LegalEntityAxis" value="cbl:CBLAssociatesPropertiesInc.Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="195,965,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 9.45 secs - https://www.sec.gov/Archives/edgar/data/910612/000091061219000023/cbl-20181231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/910612/000091061219000023/cbl-20181231.xml"/></entry>
+</log>

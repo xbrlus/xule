@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23303 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.50 secs at 2021-11-16T10:18:18 - https://www.sec.gov/Archives/edgar/data/1721741/000149315221015375/lazy-20210331.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1721741/000149315221015375/lazy-20210331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpj1l57qrk\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpj1l57qrk\packages\resources.zip"/></entry>
+<entry code="DQC.US.0126.9590" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1721741/000149315221015375/lazy-20210331.xml" severity="error" status="PROPOSED" effectiveDate="None" cid="2069596013520">[DQC.US.0126.9590] The statement 00000007 - Statement - Condensed Consolidated Statements of Cash Flows (Unaudited) includes an inconsistent calculation. The value of the concept us-gaap:NetCashProvidedByUsedInFinancingActivities of -2,699,000  should be equal to the sum of its child components defined in the calculation linkbase. The sum of these child components is -3,177,000. The values of the addends is determined by adding the values of the child concepts.  The values reported in the financial statement in the current reporting period of 2021-01-01 to 2021-03-31 should be complete if the financial statement is to be mathematically accurate and complete. The components of us-gaap:NetCashProvidedByUsedInFinancingActivities that should add to -2,699,000 are comprised of the following:
+
+-  	FinanceLeasePrincipalPayments                                                                                                                  344,000 
+-  	PaymentsOfDividends                                                                                                                          1,210,000 
+-  	PaymentsOfLoanCosts                                                                                                                             28,000 
++  	ProceedsFromStockOptionsExercised                                                                                                              244,000 
++  	ProceedsFromWarrantExercises                                                                                                                11,582,000 
+-  	RepaymentsOfBankDebt                                                                                                                        15,028,000 
+-  	RepaymentsOfLongTermDebt                                                                                                                       802,000 
+-  	RepaymentsOfNotesPayable                                                                                                                       801,000 
++  	PPPLoanForgiveness                                                                                                                            -478,000 
++  	ProceedsFromFinancingLiability                                                                                                               3,688,000 
+
+
+The addends are calculated based on the calculation linkbase defined for 00000007 - Statement - Condensed Consolidated Statements of Cash Flows (Unaudited). If addends are missing then the calculation tree should be amended. The rule will not add dimension components as the financial statement does not include a table. If dimensions are used on the statement then add a table to ensure that the dimensions are defined correctly. 
+
+
+Total Element : us-gaap:NetCashProvidedByUsedInFinancingActivities
+Total Value : -2,699,000 
+Total period : 2021-01-01 to 2021-03-31 
+Dimensions : 
+Decimals of Total: -3
+Unit of Total: USD
+Rule Element Id:9590
+Rule version: 17.0.0RC1  - https://www.sec.gov/Archives/edgar/data/1721741/000149315221015375/lazy-20210331.xml 2863</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1721741/000149315221015375/lazy-20210331.xml#element(/1/325)" sourceLine="2863">
+  <property name="label" value="Net cash used in financing activities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2021-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInFinancingActivities"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInFinancingActivities"/>
+  <property name="contextRef" value="From2021-01-01to2021-03-31">
+   <property name="entity" value="0001721741">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2021-01-01"/>
+   <property name="endDate" value="2021-03-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-2,699,000"/>
+ </ref></entry>
+<entry code="DQC.US.0126.9590" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1721741/000149315221015375/lazy-20210331.xml" severity="error" status="PROPOSED" effectiveDate="None" cid="2069596013520">[DQC.US.0126.9590] The statement 00000007 - Statement - Condensed Consolidated Statements of Cash Flows (Unaudited) includes an inconsistent calculation. The value of the concept us-gaap:AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities of 15,979,000  should be equal to the sum of its child components defined in the calculation linkbase. The sum of these child components is 3,521,000. The values of the addends is determined by adding the values of the child concepts.  The values reported in the financial statement in the current reporting period of 2021-01-01 to 2021-03-31 should be complete if the financial statement is to be mathematically accurate and complete. The components of us-gaap:AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities that should add to 15,979,000 are comprised of the following:
+
++  	AmortizationOfDebtDiscountPremium                                                                                                               43,000 
++  	AmortizationOfIntangibleAssets                                                                                                               1,281,000 
++  	DepreciationAndAmortization                                                                                                                  1,944,000 
++  	FairValueAdjustmentOfWarrants                                                                                                               -6,468,000 
+-  	GainLossOnSaleOfPropertyPlantEquipment                                                                                                           3,000 
++  	IncreaseDecreaseInAccountsPayableAndAccruedLiabilities                                                                                       4,799,000 
++  	IncreaseDecreaseInIncomeTaxesPayableNetOfIncomeTaxesReceivable                                                                               5,477,000 
+-  	IncreaseDecreaseInInventories                                                                                                               -6,946,000 
+-  	IncreaseDecreaseInOtherOperatingAssets                                                                                                          49,000 
+-  	IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets                                                                                         737,000 
+-  	IncreaseDecreaseInReceivables                                                                                                               10,343,000 
++  	ProvisionForDoubtfulAccounts                                                                                                                     2,000 
++  	ShareBasedCompensation                                                                                                                         372,000 
++  	InducementLossOnWarrantConversion                                                                                                              246,000 
+-  	NoncashLeaseExpenses                                                                                                                           -11,000 
+
+
+The addends are calculated based on the calculation linkbase defined for 00000007 - Statement - Condensed Consolidated Statements of Cash Flows (Unaudited). If addends are missing then the calculation tree should be amended. The rule will not add dimension components as the financial statement does not include a table. If dimensions are used on the statement then add a table to ensure that the dimensions are defined correctly. 
+
+
+Total Element : us-gaap:AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities
+Total Value : 15,979,000 
+Total period : 2021-01-01 to 2021-03-31 
+Dimensions : 
+Decimals of Total: -3
+Unit of Total: USD
+Rule Element Id:9590
+Rule version: 17.0.0RC1  - https://www.sec.gov/Archives/edgar/data/1721741/000149315221015375/lazy-20210331.xml 2835</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1721741/000149315221015375/lazy-20210331.xml#element(/1/297)" sourceLine="2835">
+  <property name="label" value="Adjustments to Reconcile Net Income (Loss) to Cash Provided by (Used in) Operating Activities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2021-01-31"/>
+  <property name="name" value="AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities"/>
+  <property name="QName" value="us-gaap:AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities"/>
+  <property name="contextRef" value="From2021-01-01to2021-03-31">
+   <property name="entity" value="0001721741">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2021-01-01"/>
+   <property name="endDate" value="2021-03-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="15,979,000"/>
+ </ref></entry>
+<entry code="DQC.US.0126.9590" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1721741/000149315221015375/lazy-20210331.xml" severity="error" status="PROPOSED" effectiveDate="None" cid="2069596013520">[DQC.US.0126.9590] The statement 00000004 - Statement - Condensed Consolidated Statements of Income (Unaudited) includes an inconsistent calculation. The value of the concept us-gaap:NonoperatingIncomeExpense of -8,102,000  should be equal to the sum of its child components defined in the calculation linkbase. The sum of these child components is 4,834,000. The values of the addends is determined by adding the values of the child concepts.  The values reported in the financial statement in the current reporting period of 2021-01-01 to 2021-03-31 should be complete if the financial statement is to be mathematically accurate and complete. The components of us-gaap:NonoperatingIncomeExpense that should add to -8,102,000 are comprised of the following:
+
+-  	FairValueAdjustmentOfWarrants                                                                                                               -6,468,000 
+-  	InterestExpense                                                                                                                              1,866,000 
+-  	InducementLossOnWarrantConversion                                                                                                              246,000 
+-  	PPPLoanForgiveness                                                                                                                            -478,000 
+
+
+The addends are calculated based on the calculation linkbase defined for 00000004 - Statement - Condensed Consolidated Statements of Income (Unaudited). If addends are missing then the calculation tree should be amended. The rule will not add dimension components as the financial statement does not include a table. If dimensions are used on the statement then add a table to ensure that the dimensions are defined correctly. 
+
+
+Total Element : us-gaap:NonoperatingIncomeExpense
+Total Value : -8,102,000 
+Total period : 2021-01-01 to 2021-03-31 
+Dimensions : 
+Decimals of Total: -3
+Unit of Total: USD
+Rule Element Id:9590
+Rule version: 17.0.0RC1  - https://www.sec.gov/Archives/edgar/data/1721741/000149315221015375/lazy-20210331.xml 2811</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1721741/000149315221015375/lazy-20210331.xml#element(/1/273)" sourceLine="2811">
+  <property name="label" value="Total other expense"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2021-01-31"/>
+  <property name="name" value="NonoperatingIncomeExpense"/>
+  <property name="QName" value="us-gaap:NonoperatingIncomeExpense"/>
+  <property name="contextRef" value="From2021-01-01to2021-03-31">
+   <property name="entity" value="0001721741">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2021-01-01"/>
+   <property name="endDate" value="2021-03-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-8,102,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 10.05 secs - https://www.sec.gov/Archives/edgar/data/1721741/000149315221015375/lazy-20210331.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1721741/000149315221015375/lazy-20210331.xml"/></entry>
+</log>

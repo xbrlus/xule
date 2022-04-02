@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 4.80 secs at 2020-07-29T15:32:27 - http://www.sec.gov/Archives/edgar/data/1528930/000152893020000033/frg-20200328.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1528930/000152893020000033/frg-20200328.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpfqo9bczm\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpfqo9bczm\packages\resources.zip"/></entry>
+<entry code="DQC.US.0076.7653" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1528930/000152893020000033/frg-20200328.xml" severity="error" effectiveDate="2019-01-01" cid="2849396925824">[DQC.US.0076.7653] The filer has reported a value for us-gaap:RevenueRemainingPerformanceObligation with a value of 1,607,000 using the dimension member 2021-12-25 The filer has not reported a duration value for the corresponding elements of either RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod (2017 taxonomy) or RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1 (2018 and later).
+
+The properties of this us-gaap:RevenueRemainingPerformanceObligation fact are:
+Period :2020-03-28
+Dimensions : us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis=2021-12-25
+Unit : USD
+
+Rule Element Id:7653
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1528930/000152893020000033/frg-20200328.xml 4373</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1528930/000152893020000033/frg-20200328.xml#Fact-F4A50967E4FA5A37BA63BECAEFE24E60" sourceLine="4373">
+  <property name="label" value="Revenue, Remaining Performance Obligation, Amount"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="RevenueRemainingPerformanceObligation"/>
+  <property name="QName" value="us-gaap:RevenueRemainingPerformanceObligation"/>
+  <property name="contextRef" value="I2020Q1CalendarYear_us-gaap_RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis_us-gaap_RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis.domain_2021-12-25">
+   <property name="entity" value="0001528930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-28"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis" value="&lt;us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis.domain>2021-12-25&lt;/us-gaap:RevenueRemain..."/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,607,000"/>
+ </ref></entry>
+<entry code="DQC.US.0076.7653" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1528930/000152893020000033/frg-20200328.xml" severity="error" effectiveDate="2019-01-01" cid="2849396925824">[DQC.US.0076.7653] The filer has reported a value for us-gaap:RevenueRemainingPerformanceObligation with a value of 19,719,000 using the dimension member 2020-12-26 The filer has not reported a duration value for the corresponding elements of either RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod (2017 taxonomy) or RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1 (2018 and later).
+
+The properties of this us-gaap:RevenueRemainingPerformanceObligation fact are:
+Period :2020-03-28
+Dimensions : us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis=2020-12-26
+Unit : USD
+
+Rule Element Id:7653
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1528930/000152893020000033/frg-20200328.xml 4372</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1528930/000152893020000033/frg-20200328.xml#Fact-FB85C2FBE3BE5D2EB716BC608A96ED3C" sourceLine="4372">
+  <property name="label" value="Revenue, Remaining Performance Obligation, Amount"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="RevenueRemainingPerformanceObligation"/>
+  <property name="QName" value="us-gaap:RevenueRemainingPerformanceObligation"/>
+  <property name="contextRef" value="I2020Q1CalendarYear_us-gaap_RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis_us-gaap_RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis.domain_2020-12-26">
+   <property name="entity" value="0001528930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-28"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis" value="&lt;us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis.domain>2020-12-26&lt;/us-gaap:RevenueRemain..."/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="19,719,000"/>
+ </ref></entry>
+<entry code="DQC.US.0076.7653" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1528930/000152893020000033/frg-20200328.xml" severity="error" effectiveDate="2019-01-01" cid="2849396925824">[DQC.US.0076.7653] The filer has reported a value for us-gaap:RevenueRemainingPerformanceObligation with a value of 1,010,000 using the dimension member 2022-12-24 The filer has not reported a duration value for the corresponding elements of either RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod (2017 taxonomy) or RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1 (2018 and later).
+
+The properties of this us-gaap:RevenueRemainingPerformanceObligation fact are:
+Period :2020-03-28
+Dimensions : us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis=2022-12-24
+Unit : USD
+
+Rule Element Id:7653
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1528930/000152893020000033/frg-20200328.xml 4374</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1528930/000152893020000033/frg-20200328.xml#Fact-87BF24819ADA5F9DB8E6642F2C140FB3" sourceLine="4374">
+  <property name="label" value="Revenue, Remaining Performance Obligation, Amount"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="RevenueRemainingPerformanceObligation"/>
+  <property name="QName" value="us-gaap:RevenueRemainingPerformanceObligation"/>
+  <property name="contextRef" value="I2020Q1CalendarYear_us-gaap_RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis_us-gaap_RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis.domain_2022-12-24">
+   <property name="entity" value="0001528930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-28"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis" value="&lt;us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis.domain>2022-12-24&lt;/us-gaap:RevenueRemain..."/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,010,000"/>
+ </ref></entry>
+<entry code="DQC.US.0076.7653" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1528930/000152893020000033/frg-20200328.xml" severity="error" effectiveDate="2019-01-01" cid="2849396925824">[DQC.US.0076.7653] The filer has reported a value for us-gaap:RevenueRemainingPerformanceObligation with a value of 188,000 using the dimension member 2024-12-28 The filer has not reported a duration value for the corresponding elements of either RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod (2017 taxonomy) or RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1 (2018 and later).
+
+The properties of this us-gaap:RevenueRemainingPerformanceObligation fact are:
+Period :2020-03-28
+Dimensions : us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis=2024-12-28
+Unit : USD
+
+Rule Element Id:7653
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1528930/000152893020000033/frg-20200328.xml 4376</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1528930/000152893020000033/frg-20200328.xml#Fact-EF2B166F1DA45A9C81EC6DE4C4CD649A" sourceLine="4376">
+  <property name="label" value="Revenue, Remaining Performance Obligation, Amount"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="RevenueRemainingPerformanceObligation"/>
+  <property name="QName" value="us-gaap:RevenueRemainingPerformanceObligation"/>
+  <property name="contextRef" value="I2020Q1CalendarYear_us-gaap_RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis_us-gaap_RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis.domain_2024-12-28">
+   <property name="entity" value="0001528930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-28"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis" value="&lt;us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis.domain>2024-12-28&lt;/us-gaap:RevenueRemain..."/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="188,000"/>
+ </ref></entry>
+<entry code="DQC.US.0076.7653" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1528930/000152893020000033/frg-20200328.xml" severity="error" effectiveDate="2019-01-01" cid="2849396925824">[DQC.US.0076.7653] The filer has reported a value for us-gaap:RevenueRemainingPerformanceObligation with a value of 868,000 using the dimension member 2025-12-27 The filer has not reported a duration value for the corresponding elements of either RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod (2017 taxonomy) or RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1 (2018 and later).
+
+The properties of this us-gaap:RevenueRemainingPerformanceObligation fact are:
+Period :2020-03-28
+Dimensions : us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis=2025-12-27
+Unit : USD
+
+Rule Element Id:7653
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1528930/000152893020000033/frg-20200328.xml 4377</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1528930/000152893020000033/frg-20200328.xml#Fact-0A493261CAE050D8B077FC27C5179981" sourceLine="4377">
+  <property name="label" value="Revenue, Remaining Performance Obligation, Amount"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="RevenueRemainingPerformanceObligation"/>
+  <property name="QName" value="us-gaap:RevenueRemainingPerformanceObligation"/>
+  <property name="contextRef" value="I2020Q1CalendarYear_us-gaap_RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis_us-gaap_RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis.domain_2025-12-27">
+   <property name="entity" value="0001528930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-28"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis" value="&lt;us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis.domain>2025-12-27&lt;/us-gaap:RevenueRemain..."/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="868,000"/>
+ </ref></entry>
+<entry code="DQC.US.0076.7653" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1528930/000152893020000033/frg-20200328.xml" severity="error" effectiveDate="2019-01-01" cid="2849396925824">[DQC.US.0076.7653] The filer has reported a value for us-gaap:RevenueRemainingPerformanceObligation with a value of 446,000 using the dimension member 2023-12-30 The filer has not reported a duration value for the corresponding elements of either RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod (2017 taxonomy) or RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1 (2018 and later).
+
+The properties of this us-gaap:RevenueRemainingPerformanceObligation fact are:
+Period :2020-03-28
+Dimensions : us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis=2023-12-30
+Unit : USD
+
+Rule Element Id:7653
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1528930/000152893020000033/frg-20200328.xml 4375</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1528930/000152893020000033/frg-20200328.xml#Fact-2E3AB1360F1956548BE27A2EB925C17F" sourceLine="4375">
+  <property name="label" value="Revenue, Remaining Performance Obligation, Amount"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="RevenueRemainingPerformanceObligation"/>
+  <property name="QName" value="us-gaap:RevenueRemainingPerformanceObligation"/>
+  <property name="contextRef" value="I2020Q1CalendarYear_us-gaap_RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis_us-gaap_RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis.domain_2023-12-30">
+   <property name="entity" value="0001528930">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-28"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis" value="&lt;us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis.domain>2023-12-30&lt;/us-gaap:RevenueRemain..."/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="446,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.51 secs - http://www.sec.gov/Archives/edgar/data/1528930/000152893020000033/frg-20200328.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1528930/000152893020000033/frg-20200328.xml"/></entry>
+</log>

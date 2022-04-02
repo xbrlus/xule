@@ -1,0 +1,699 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23202 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 5.80 secs at 2021-03-05T09:39:57 - https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpaggdbncq\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpaggdbncq\packages\resources.zip"/></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm" severity="error" effectiveDate="2021-03-01" cid="3098225513856">[DQC.US.0001.81] The concept RestructuringCharges with a value of 0 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member EMEAMember. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember, us-gaap:CorporateMember.
+The properties of the fact for RestructuringCharges are:
+Period: 2020-01-01 to 2020-06-30
+Dimensions: us-gaap:RestructuringCostAndReserveAxis=us-gaap:ContractTerminationMember, us-gaap:StatementBusinessSegmentsAxis=us-gaap:EMEAMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjU4NjkxZWU4NWMzMTRjMWNiMTVjN2I5NTQ5YzFlNWU4L3NlYzo1ODY5MWVlODVjMzE0YzFjYjE1YzdiOTU0OWMxZTVlOF83My9mcmFnOmYwNTNlMjM3MGExYzRlMmE5YTRjYjRjMjFiYThiYTUxL3RhYmxlOjM1NWE0OWYxOTE1NzRhNDM5ODFlNThkOWRhMDI2YjA2L3RhYmxlcmFuZ2U6MzU1YTQ5ZjE5MTU3NGE0Mzk4MWU1OGQ5ZGEwMjZiMDZfNC0yLTEtMS0w_211c8dd5-1ebd-42be-880e-b092476f589c" sourceLine="4">
+  <property name="file" value="cwk-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Restructuring Charges"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="RestructuringCharges"/>
+  <property name="QName" value="us-gaap:RestructuringCharges"/>
+  <property name="contextRef" value="i31335b2161c14456974b10393b13d3d1_D20200101-20200630">
+   <property name="entity" value="0001628369">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RestructuringCostAndReserveAxis" value="us-gaap:ContractTerminationMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="us-gaap:EMEAMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+  <property name="format" value="ixt:zerodash"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="—"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm" severity="error" effectiveDate="2021-03-01" cid="3098225513856">[DQC.US.0001.81] The concept PaymentsForRestructuring with a value of 5,000,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member EMEAMember. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember, us-gaap:CorporateMember.
+The properties of the fact for PaymentsForRestructuring are:
+Period: 2020-01-01 to 2020-06-30
+Dimensions: us-gaap:RestructuringCostAndReserveAxis=us-gaap:EmployeeSeveranceMember, us-gaap:StatementBusinessSegmentsAxis=us-gaap:EMEAMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjU4NjkxZWU4NWMzMTRjMWNiMTVjN2I5NTQ5YzFlNWU4L3NlYzo1ODY5MWVlODVjMzE0YzFjYjE1YzdiOTU0OWMxZTVlOF83My9mcmFnOmYwNTNlMjM3MGExYzRlMmE5YTRjYjRjMjFiYThiYTUxL3RhYmxlOjM1NWE0OWYxOTE1NzRhNDM5ODFlNThkOWRhMDI2YjA2L3RhYmxlcmFuZ2U6MzU1YTQ5ZjE5MTU3NGE0Mzk4MWU1OGQ5ZGEwMjZiMDZfOS0xLTEtMS0w_75f7a661-a38e-45fd-af70-fb99e2479566" sourceLine="4">
+  <property name="file" value="cwk-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Payments for Restructuring"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="PaymentsForRestructuring"/>
+  <property name="QName" value="us-gaap:PaymentsForRestructuring"/>
+  <property name="contextRef" value="i2ae18f9780214c67aa40fe5de02b20c8_D20200101-20200630">
+   <property name="entity" value="0001628369">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RestructuringCostAndReserveAxis" value="us-gaap:EmployeeSeveranceMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="us-gaap:EMEAMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="5,000,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="5.0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm" severity="error" effectiveDate="2021-03-01" cid="3098225513856">[DQC.US.0001.81] The concept PaymentsForRestructuring with a value of 0 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member EMEAMember. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember, us-gaap:CorporateMember.
+The properties of the fact for PaymentsForRestructuring are:
+Period: 2020-01-01 to 2020-06-30
+Dimensions: us-gaap:RestructuringCostAndReserveAxis=us-gaap:ContractTerminationMember, us-gaap:StatementBusinessSegmentsAxis=us-gaap:EMEAMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjU4NjkxZWU4NWMzMTRjMWNiMTVjN2I5NTQ5YzFlNWU4L3NlYzo1ODY5MWVlODVjMzE0YzFjYjE1YzdiOTU0OWMxZTVlOF83My9mcmFnOmYwNTNlMjM3MGExYzRlMmE5YTRjYjRjMjFiYThiYTUxL3RhYmxlOjM1NWE0OWYxOTE1NzRhNDM5ODFlNThkOWRhMDI2YjA2L3RhYmxlcmFuZ2U6MzU1YTQ5ZjE5MTU3NGE0Mzk4MWU1OGQ5ZGEwMjZiMDZfOS0yLTEtMS0w_f4efd69b-fa28-48eb-8177-bfa31ba37376" sourceLine="4">
+  <property name="file" value="cwk-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Payments for Restructuring"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="PaymentsForRestructuring"/>
+  <property name="QName" value="us-gaap:PaymentsForRestructuring"/>
+  <property name="contextRef" value="i31335b2161c14456974b10393b13d3d1_D20200101-20200630">
+   <property name="entity" value="0001628369">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RestructuringCostAndReserveAxis" value="us-gaap:ContractTerminationMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="us-gaap:EMEAMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+  <property name="format" value="ixt:zerodash"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="—"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm" severity="error" effectiveDate="2021-03-01" cid="3098225513856">[DQC.US.0001.81] The concept PaymentsForRestructuring with a value of 5,000,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member EMEAMember. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember, us-gaap:CorporateMember.
+The properties of the fact for PaymentsForRestructuring are:
+Period: 2020-01-01 to 2020-06-30
+Dimensions: us-gaap:StatementBusinessSegmentsAxis=us-gaap:EMEAMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjU4NjkxZWU4NWMzMTRjMWNiMTVjN2I5NTQ5YzFlNWU4L3NlYzo1ODY5MWVlODVjMzE0YzFjYjE1YzdiOTU0OWMxZTVlOF83My9mcmFnOmYwNTNlMjM3MGExYzRlMmE5YTRjYjRjMjFiYThiYTUxL3RhYmxlOjM1NWE0OWYxOTE1NzRhNDM5ODFlNThkOWRhMDI2YjA2L3RhYmxlcmFuZ2U6MzU1YTQ5ZjE5MTU3NGE0Mzk4MWU1OGQ5ZGEwMjZiMDZfOS0zLTEtMS0w_190969ff-b2c0-4187-96ce-a307297b0c90" sourceLine="4">
+  <property name="file" value="cwk-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Payments for Restructuring"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="PaymentsForRestructuring"/>
+  <property name="QName" value="us-gaap:PaymentsForRestructuring"/>
+  <property name="contextRef" value="ic3d0c52e0b5b48eea21b31834c72358a_D20200101-20200630">
+   <property name="entity" value="0001628369">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="us-gaap:EMEAMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="5,000,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="5.0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm" severity="error" effectiveDate="2021-03-01" cid="3098225513856">[DQC.US.0001.81] The concept RestructuringCharges with a value of 7,300,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member EMEAMember. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember, us-gaap:CorporateMember.
+The properties of the fact for RestructuringCharges are:
+Period: 2020-01-01 to 2020-06-30
+Dimensions: us-gaap:StatementBusinessSegmentsAxis=us-gaap:EMEAMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjU4NjkxZWU4NWMzMTRjMWNiMTVjN2I5NTQ5YzFlNWU4L3NlYzo1ODY5MWVlODVjMzE0YzFjYjE1YzdiOTU0OWMxZTVlOF83My9mcmFnOmYwNTNlMjM3MGExYzRlMmE5YTRjYjRjMjFiYThiYTUxL3RhYmxlOjM1NWE0OWYxOTE1NzRhNDM5ODFlNThkOWRhMDI2YjA2L3RhYmxlcmFuZ2U6MzU1YTQ5ZjE5MTU3NGE0Mzk4MWU1OGQ5ZGEwMjZiMDZfNC0zLTEtMS0w_2447549a-efe6-4765-8026-04663d146245" sourceLine="4">
+  <property name="file" value="cwk-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Restructuring Charges"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="RestructuringCharges"/>
+  <property name="QName" value="us-gaap:RestructuringCharges"/>
+  <property name="contextRef" value="ic3d0c52e0b5b48eea21b31834c72358a_D20200101-20200630">
+   <property name="entity" value="0001628369">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="us-gaap:EMEAMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="7,300,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="7.3"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm" severity="error" effectiveDate="2021-03-01" cid="3098225513856">[DQC.US.0001.81] The concept RestructuringCharges with a value of 7,300,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member EMEAMember. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember, us-gaap:CorporateMember.
+The properties of the fact for RestructuringCharges are:
+Period: 2020-01-01 to 2020-06-30
+Dimensions: us-gaap:RestructuringCostAndReserveAxis=us-gaap:EmployeeSeveranceMember, us-gaap:StatementBusinessSegmentsAxis=us-gaap:EMEAMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjU4NjkxZWU4NWMzMTRjMWNiMTVjN2I5NTQ5YzFlNWU4L3NlYzo1ODY5MWVlODVjMzE0YzFjYjE1YzdiOTU0OWMxZTVlOF83My9mcmFnOmYwNTNlMjM3MGExYzRlMmE5YTRjYjRjMjFiYThiYTUxL3RhYmxlOjM1NWE0OWYxOTE1NzRhNDM5ODFlNThkOWRhMDI2YjA2L3RhYmxlcmFuZ2U6MzU1YTQ5ZjE5MTU3NGE0Mzk4MWU1OGQ5ZGEwMjZiMDZfNC0xLTEtMS0w_8c802ad1-9735-44ed-9116-fbf3beff2381" sourceLine="4">
+  <property name="file" value="cwk-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Restructuring Charges"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="RestructuringCharges"/>
+  <property name="QName" value="us-gaap:RestructuringCharges"/>
+  <property name="contextRef" value="i2ae18f9780214c67aa40fe5de02b20c8_D20200101-20200630">
+   <property name="entity" value="0001628369">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RestructuringCostAndReserveAxis" value="us-gaap:EmployeeSeveranceMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="us-gaap:EMEAMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="7,300,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="7.3"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm" severity="error" effectiveDate="2021-03-01" cid="3098225513856">[DQC.US.0001.81] The concept RestructuringCharges with a value of 0 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member AsiaPacificMember. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember, us-gaap:CorporateMember.
+The properties of the fact for RestructuringCharges are:
+Period: 2020-01-01 to 2020-06-30
+Dimensions: us-gaap:StatementBusinessSegmentsAxis=srt:AsiaPacificMember, us-gaap:RestructuringCostAndReserveAxis=us-gaap:ContractTerminationMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjU4NjkxZWU4NWMzMTRjMWNiMTVjN2I5NTQ5YzFlNWU4L3NlYzo1ODY5MWVlODVjMzE0YzFjYjE1YzdiOTU0OWMxZTVlOF83My9mcmFnOmYwNTNlMjM3MGExYzRlMmE5YTRjYjRjMjFiYThiYTUxL3RhYmxlOjM1NWE0OWYxOTE1NzRhNDM5ODFlNThkOWRhMDI2YjA2L3RhYmxlcmFuZ2U6MzU1YTQ5ZjE5MTU3NGE0Mzk4MWU1OGQ5ZGEwMjZiMDZfNS0yLTEtMS0w_0b083884-5d0e-47d2-9abf-23f239837794" sourceLine="4">
+  <property name="file" value="cwk-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Restructuring Charges"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="RestructuringCharges"/>
+  <property name="QName" value="us-gaap:RestructuringCharges"/>
+  <property name="contextRef" value="i0fe8f41727ca410397d77005f8efa71e_D20200101-20200630">
+   <property name="entity" value="0001628369">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RestructuringCostAndReserveAxis" value="us-gaap:ContractTerminationMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="srt:AsiaPacificMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+  <property name="format" value="ixt:zerodash"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="—"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm" severity="error" effectiveDate="2021-03-01" cid="3098225513856">[DQC.US.0001.81] The concept RestructuringCharges with a value of 1,000,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member AsiaPacificMember. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember, us-gaap:CorporateMember.
+The properties of the fact for RestructuringCharges are:
+Period: 2020-01-01 to 2020-06-30
+Dimensions: us-gaap:StatementBusinessSegmentsAxis=srt:AsiaPacificMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjU4NjkxZWU4NWMzMTRjMWNiMTVjN2I5NTQ5YzFlNWU4L3NlYzo1ODY5MWVlODVjMzE0YzFjYjE1YzdiOTU0OWMxZTVlOF83My9mcmFnOmYwNTNlMjM3MGExYzRlMmE5YTRjYjRjMjFiYThiYTUxL3RhYmxlOjM1NWE0OWYxOTE1NzRhNDM5ODFlNThkOWRhMDI2YjA2L3RhYmxlcmFuZ2U6MzU1YTQ5ZjE5MTU3NGE0Mzk4MWU1OGQ5ZGEwMjZiMDZfNS0zLTEtMS0w_18691c16-f8b2-4014-8b9d-da952a86419e" sourceLine="4">
+  <property name="file" value="cwk-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Restructuring Charges"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="RestructuringCharges"/>
+  <property name="QName" value="us-gaap:RestructuringCharges"/>
+  <property name="contextRef" value="i7534de276f59441987605017287bd654_D20200101-20200630">
+   <property name="entity" value="0001628369">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="srt:AsiaPacificMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,000,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="1.0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm" severity="error" effectiveDate="2021-03-01" cid="3098225513856">[DQC.US.0001.81] The concept PaymentsForRestructuring with a value of 1,000,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member AsiaPacificMember. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember, us-gaap:CorporateMember.
+The properties of the fact for PaymentsForRestructuring are:
+Period: 2020-01-01 to 2020-06-30
+Dimensions: us-gaap:StatementBusinessSegmentsAxis=srt:AsiaPacificMember, us-gaap:RestructuringCostAndReserveAxis=us-gaap:EmployeeSeveranceMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjU4NjkxZWU4NWMzMTRjMWNiMTVjN2I5NTQ5YzFlNWU4L3NlYzo1ODY5MWVlODVjMzE0YzFjYjE1YzdiOTU0OWMxZTVlOF83My9mcmFnOmYwNTNlMjM3MGExYzRlMmE5YTRjYjRjMjFiYThiYTUxL3RhYmxlOjM1NWE0OWYxOTE1NzRhNDM5ODFlNThkOWRhMDI2YjA2L3RhYmxlcmFuZ2U6MzU1YTQ5ZjE5MTU3NGE0Mzk4MWU1OGQ5ZGEwMjZiMDZfMTAtMS0xLTEtMA_c6cd4839-2f94-4597-87da-f55aa48c7da8" sourceLine="4">
+  <property name="file" value="cwk-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Payments for Restructuring"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="PaymentsForRestructuring"/>
+  <property name="QName" value="us-gaap:PaymentsForRestructuring"/>
+  <property name="contextRef" value="ia7807d8ed6cf48f88ea69193874bafa1_D20200101-20200630">
+   <property name="entity" value="0001628369">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RestructuringCostAndReserveAxis" value="us-gaap:EmployeeSeveranceMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="srt:AsiaPacificMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,000,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="1.0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm" severity="error" effectiveDate="2021-03-01" cid="3098225513856">[DQC.US.0001.81] The concept PaymentsForRestructuring with a value of 0 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member AsiaPacificMember. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember, us-gaap:CorporateMember.
+The properties of the fact for PaymentsForRestructuring are:
+Period: 2020-01-01 to 2020-06-30
+Dimensions: us-gaap:StatementBusinessSegmentsAxis=srt:AsiaPacificMember, us-gaap:RestructuringCostAndReserveAxis=us-gaap:ContractTerminationMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjU4NjkxZWU4NWMzMTRjMWNiMTVjN2I5NTQ5YzFlNWU4L3NlYzo1ODY5MWVlODVjMzE0YzFjYjE1YzdiOTU0OWMxZTVlOF83My9mcmFnOmYwNTNlMjM3MGExYzRlMmE5YTRjYjRjMjFiYThiYTUxL3RhYmxlOjM1NWE0OWYxOTE1NzRhNDM5ODFlNThkOWRhMDI2YjA2L3RhYmxlcmFuZ2U6MzU1YTQ5ZjE5MTU3NGE0Mzk4MWU1OGQ5ZGEwMjZiMDZfMTAtMi0xLTEtMA_eb88cf86-5bc5-4639-8b0d-dd578b3672f2" sourceLine="4">
+  <property name="file" value="cwk-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Payments for Restructuring"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="PaymentsForRestructuring"/>
+  <property name="QName" value="us-gaap:PaymentsForRestructuring"/>
+  <property name="contextRef" value="i0fe8f41727ca410397d77005f8efa71e_D20200101-20200630">
+   <property name="entity" value="0001628369">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RestructuringCostAndReserveAxis" value="us-gaap:ContractTerminationMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="srt:AsiaPacificMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+  <property name="format" value="ixt:zerodash"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="—"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm" severity="error" effectiveDate="2021-03-01" cid="3098225513856">[DQC.US.0001.81] The concept PaymentsForRestructuring with a value of 1,000,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member AsiaPacificMember. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember, us-gaap:CorporateMember.
+The properties of the fact for PaymentsForRestructuring are:
+Period: 2020-01-01 to 2020-06-30
+Dimensions: us-gaap:StatementBusinessSegmentsAxis=srt:AsiaPacificMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjU4NjkxZWU4NWMzMTRjMWNiMTVjN2I5NTQ5YzFlNWU4L3NlYzo1ODY5MWVlODVjMzE0YzFjYjE1YzdiOTU0OWMxZTVlOF83My9mcmFnOmYwNTNlMjM3MGExYzRlMmE5YTRjYjRjMjFiYThiYTUxL3RhYmxlOjM1NWE0OWYxOTE1NzRhNDM5ODFlNThkOWRhMDI2YjA2L3RhYmxlcmFuZ2U6MzU1YTQ5ZjE5MTU3NGE0Mzk4MWU1OGQ5ZGEwMjZiMDZfMTAtMy0xLTEtMA_f29c20a5-b30f-4aee-9e83-7f9a5e8c2bae" sourceLine="4">
+  <property name="file" value="cwk-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Payments for Restructuring"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="PaymentsForRestructuring"/>
+  <property name="QName" value="us-gaap:PaymentsForRestructuring"/>
+  <property name="contextRef" value="i7534de276f59441987605017287bd654_D20200101-20200630">
+   <property name="entity" value="0001628369">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="srt:AsiaPacificMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,000,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="1.0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm" severity="error" effectiveDate="2021-03-01" cid="3098225513856">[DQC.US.0001.81] The concept RestructuringCharges with a value of 1,000,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member AsiaPacificMember. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember, us-gaap:CorporateMember.
+The properties of the fact for RestructuringCharges are:
+Period: 2020-01-01 to 2020-06-30
+Dimensions: us-gaap:StatementBusinessSegmentsAxis=srt:AsiaPacificMember, us-gaap:RestructuringCostAndReserveAxis=us-gaap:EmployeeSeveranceMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjU4NjkxZWU4NWMzMTRjMWNiMTVjN2I5NTQ5YzFlNWU4L3NlYzo1ODY5MWVlODVjMzE0YzFjYjE1YzdiOTU0OWMxZTVlOF83My9mcmFnOmYwNTNlMjM3MGExYzRlMmE5YTRjYjRjMjFiYThiYTUxL3RhYmxlOjM1NWE0OWYxOTE1NzRhNDM5ODFlNThkOWRhMDI2YjA2L3RhYmxlcmFuZ2U6MzU1YTQ5ZjE5MTU3NGE0Mzk4MWU1OGQ5ZGEwMjZiMDZfNS0xLTEtMS0w_98a00868-68a1-4e46-b856-525e0bee5ba1" sourceLine="4">
+  <property name="file" value="cwk-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Restructuring Charges"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="RestructuringCharges"/>
+  <property name="QName" value="us-gaap:RestructuringCharges"/>
+  <property name="contextRef" value="ia7807d8ed6cf48f88ea69193874bafa1_D20200101-20200630">
+   <property name="entity" value="0001628369">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RestructuringCostAndReserveAxis" value="us-gaap:EmployeeSeveranceMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="srt:AsiaPacificMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,000,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="1.0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm" severity="error" effectiveDate="2021-03-01" cid="3098225513856">[DQC.US.0001.81] The concept PaymentsForRestructuring with a value of 6,900,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member AmericasMember. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember, us-gaap:CorporateMember.
+The properties of the fact for PaymentsForRestructuring are:
+Period: 2020-01-01 to 2020-06-30
+Dimensions: us-gaap:RestructuringCostAndReserveAxis=us-gaap:ContractTerminationMember, us-gaap:StatementBusinessSegmentsAxis=srt:AmericasMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjU4NjkxZWU4NWMzMTRjMWNiMTVjN2I5NTQ5YzFlNWU4L3NlYzo1ODY5MWVlODVjMzE0YzFjYjE1YzdiOTU0OWMxZTVlOF83My9mcmFnOmYwNTNlMjM3MGExYzRlMmE5YTRjYjRjMjFiYThiYTUxL3RhYmxlOjM1NWE0OWYxOTE1NzRhNDM5ODFlNThkOWRhMDI2YjA2L3RhYmxlcmFuZ2U6MzU1YTQ5ZjE5MTU3NGE0Mzk4MWU1OGQ5ZGEwMjZiMDZfOC0yLTEtMS0w_7eeb8383-f89f-4eac-84b5-76a6e750a5d3" sourceLine="4">
+  <property name="file" value="cwk-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Payments for Restructuring"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="PaymentsForRestructuring"/>
+  <property name="QName" value="us-gaap:PaymentsForRestructuring"/>
+  <property name="contextRef" value="i6540d50eef4a4d8b9c18bc2f3ee953f1_D20200101-20200630">
+   <property name="entity" value="0001628369">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RestructuringCostAndReserveAxis" value="us-gaap:ContractTerminationMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="srt:AmericasMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="6,900,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="6.9"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm" severity="error" effectiveDate="2021-03-01" cid="3098225513856">[DQC.US.0001.81] The concept PaymentsForRestructuring with a value of 17,800,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member AmericasMember. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember, us-gaap:CorporateMember.
+The properties of the fact for PaymentsForRestructuring are:
+Period: 2020-01-01 to 2020-06-30
+Dimensions: us-gaap:StatementBusinessSegmentsAxis=srt:AmericasMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjU4NjkxZWU4NWMzMTRjMWNiMTVjN2I5NTQ5YzFlNWU4L3NlYzo1ODY5MWVlODVjMzE0YzFjYjE1YzdiOTU0OWMxZTVlOF83My9mcmFnOmYwNTNlMjM3MGExYzRlMmE5YTRjYjRjMjFiYThiYTUxL3RhYmxlOjM1NWE0OWYxOTE1NzRhNDM5ODFlNThkOWRhMDI2YjA2L3RhYmxlcmFuZ2U6MzU1YTQ5ZjE5MTU3NGE0Mzk4MWU1OGQ5ZGEwMjZiMDZfOC0zLTEtMS0w_fcece533-9002-4376-b0c6-a7baeb56df63" sourceLine="4">
+  <property name="file" value="cwk-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Payments for Restructuring"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="PaymentsForRestructuring"/>
+  <property name="QName" value="us-gaap:PaymentsForRestructuring"/>
+  <property name="contextRef" value="i946637fb26414913abf1fb0e8be5f7ee_D20200101-20200630">
+   <property name="entity" value="0001628369">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="srt:AmericasMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="17,800,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="17.8"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm" severity="error" effectiveDate="2021-03-01" cid="3098225513856">[DQC.US.0001.81] The concept RestructuringCharges with a value of 20,900,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member AmericasMember. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember, us-gaap:CorporateMember.
+The properties of the fact for RestructuringCharges are:
+Period: 2020-01-01 to 2020-06-30
+Dimensions: us-gaap:StatementBusinessSegmentsAxis=srt:AmericasMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjU4NjkxZWU4NWMzMTRjMWNiMTVjN2I5NTQ5YzFlNWU4L3NlYzo1ODY5MWVlODVjMzE0YzFjYjE1YzdiOTU0OWMxZTVlOF83My9mcmFnOmYwNTNlMjM3MGExYzRlMmE5YTRjYjRjMjFiYThiYTUxL3RhYmxlOjM1NWE0OWYxOTE1NzRhNDM5ODFlNThkOWRhMDI2YjA2L3RhYmxlcmFuZ2U6MzU1YTQ5ZjE5MTU3NGE0Mzk4MWU1OGQ5ZGEwMjZiMDZfMy0zLTEtMS0w_f3e0d6b0-2ded-437e-b0f1-2659041e31c6" sourceLine="4">
+  <property name="file" value="cwk-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Restructuring Charges"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="RestructuringCharges"/>
+  <property name="QName" value="us-gaap:RestructuringCharges"/>
+  <property name="contextRef" value="i946637fb26414913abf1fb0e8be5f7ee_D20200101-20200630">
+   <property name="entity" value="0001628369">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="srt:AmericasMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="20,900,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="20.9"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm" severity="error" effectiveDate="2021-03-01" cid="3098225513856">[DQC.US.0001.81] The concept RestructuringCharges with a value of 13,800,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member AmericasMember. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember, us-gaap:CorporateMember.
+The properties of the fact for RestructuringCharges are:
+Period: 2020-01-01 to 2020-06-30
+Dimensions: us-gaap:StatementBusinessSegmentsAxis=srt:AmericasMember, us-gaap:RestructuringCostAndReserveAxis=us-gaap:EmployeeSeveranceMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjU4NjkxZWU4NWMzMTRjMWNiMTVjN2I5NTQ5YzFlNWU4L3NlYzo1ODY5MWVlODVjMzE0YzFjYjE1YzdiOTU0OWMxZTVlOF83My9mcmFnOmYwNTNlMjM3MGExYzRlMmE5YTRjYjRjMjFiYThiYTUxL3RhYmxlOjM1NWE0OWYxOTE1NzRhNDM5ODFlNThkOWRhMDI2YjA2L3RhYmxlcmFuZ2U6MzU1YTQ5ZjE5MTU3NGE0Mzk4MWU1OGQ5ZGEwMjZiMDZfMy0xLTEtMS0w_1dc3560a-4d12-43f2-a717-5a9407104883" sourceLine="4">
+  <property name="file" value="cwk-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Restructuring Charges"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="RestructuringCharges"/>
+  <property name="QName" value="us-gaap:RestructuringCharges"/>
+  <property name="contextRef" value="i0939546c525745a38ffe3f27617e564a_D20200101-20200630">
+   <property name="entity" value="0001628369">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RestructuringCostAndReserveAxis" value="us-gaap:EmployeeSeveranceMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="srt:AmericasMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="13,800,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="13.8"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm" severity="error" effectiveDate="2021-03-01" cid="3098225513856">[DQC.US.0001.81] The concept RestructuringCharges with a value of 7,100,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member AmericasMember. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember, us-gaap:CorporateMember.
+The properties of the fact for RestructuringCharges are:
+Period: 2020-01-01 to 2020-06-30
+Dimensions: us-gaap:StatementBusinessSegmentsAxis=srt:AmericasMember, us-gaap:RestructuringCostAndReserveAxis=us-gaap:ContractTerminationMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjU4NjkxZWU4NWMzMTRjMWNiMTVjN2I5NTQ5YzFlNWU4L3NlYzo1ODY5MWVlODVjMzE0YzFjYjE1YzdiOTU0OWMxZTVlOF83My9mcmFnOmYwNTNlMjM3MGExYzRlMmE5YTRjYjRjMjFiYThiYTUxL3RhYmxlOjM1NWE0OWYxOTE1NzRhNDM5ODFlNThkOWRhMDI2YjA2L3RhYmxlcmFuZ2U6MzU1YTQ5ZjE5MTU3NGE0Mzk4MWU1OGQ5ZGEwMjZiMDZfMy0yLTEtMS0w_5629d33c-6b75-436d-a33d-2efa5fd712dd" sourceLine="4">
+  <property name="file" value="cwk-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Restructuring Charges"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="RestructuringCharges"/>
+  <property name="QName" value="us-gaap:RestructuringCharges"/>
+  <property name="contextRef" value="i6540d50eef4a4d8b9c18bc2f3ee953f1_D20200101-20200630">
+   <property name="entity" value="0001628369">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RestructuringCostAndReserveAxis" value="us-gaap:ContractTerminationMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="srt:AmericasMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="7,100,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="7.1"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm" severity="error" effectiveDate="2021-03-01" cid="3098225513856">[DQC.US.0001.81] The concept PaymentsForRestructuring with a value of 10,900,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member AmericasMember. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember, us-gaap:CorporateMember.
+The properties of the fact for PaymentsForRestructuring are:
+Period: 2020-01-01 to 2020-06-30
+Dimensions: us-gaap:StatementBusinessSegmentsAxis=srt:AmericasMember, us-gaap:RestructuringCostAndReserveAxis=us-gaap:EmployeeSeveranceMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjU4NjkxZWU4NWMzMTRjMWNiMTVjN2I5NTQ5YzFlNWU4L3NlYzo1ODY5MWVlODVjMzE0YzFjYjE1YzdiOTU0OWMxZTVlOF83My9mcmFnOmYwNTNlMjM3MGExYzRlMmE5YTRjYjRjMjFiYThiYTUxL3RhYmxlOjM1NWE0OWYxOTE1NzRhNDM5ODFlNThkOWRhMDI2YjA2L3RhYmxlcmFuZ2U6MzU1YTQ5ZjE5MTU3NGE0Mzk4MWU1OGQ5ZGEwMjZiMDZfOC0xLTEtMS0w_8a4cae69-dd0b-4076-b9c6-9b4257c727f7" sourceLine="4">
+  <property name="file" value="cwk-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Payments for Restructuring"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="PaymentsForRestructuring"/>
+  <property name="QName" value="us-gaap:PaymentsForRestructuring"/>
+  <property name="contextRef" value="i0939546c525745a38ffe3f27617e564a_D20200101-20200630">
+   <property name="entity" value="0001628369">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RestructuringCostAndReserveAxis" value="us-gaap:EmployeeSeveranceMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="srt:AmericasMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="10,900,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="10.9"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 61.88 secs - https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1628369/000162836920000035/cwk-20200630.htm"/></entry>
+</log>

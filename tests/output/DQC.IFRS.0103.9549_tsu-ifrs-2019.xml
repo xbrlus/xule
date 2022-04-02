@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.68 secs at 2020-10-28T16:43:44 - https://www.sec.gov/Archives/edgar/data/1066116/000129281420001580/tsu-20191231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1066116/000129281420001580/tsu-20191231.xml"/></entry>
+<entry code="DQC.IFRS.0103.9549" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1066116/000129281420001580/tsu-20191231.xml" severity="error" status="PROPOSED" effectiveDate="None" cid="2057000228224">[DQC.IFRS.0103.9549] The element ifrs-full:BorrowingsInterestRate with a value of 155 has a value greater than a 1,000 percent.  Percentage items should have a value that are generally between 0 and 1. In XBRL a value of 1 is equal to 100%. Please review the value of the element to ensure that it is scaled correctly.  For example 200 basis points should be reported as 0.02.
+ 
+Period :2020-04-07
+Dimensions : ifrs-full:NonadjustingEventsAfterReportingPeriodAxis=tsu:EventsAfterReportingPeriodMember, tsu:TypeOfAgeementAxis=tsu:CreditAgreementMember
+Unit : pure
+Decimals: inf
+
+Rule Element Id:9549
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1066116/000129281420001580/tsu-20191231.xml 12136</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1066116/000129281420001580/tsu-20191231.xml#element(/1/2353)" sourceLine="12136">
+  <property name="label" value="Interest rate"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="BorrowingsInterestRate"/>
+  <property name="QName" value="ifrs-full:BorrowingsInterestRate"/>
+  <property name="contextRef" value="AsOf2020-04-07_custom_EventsAfterReportingPeriodMember_custom_CreditAgreementMember">
+   <property name="entity" value="0001066116">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-04-07"/>
+   <property name="dimensions" value="(2)">
+    <property name="tsu:TypeOfAgeementAxis" value="tsu:CreditAgreementMember"/>
+    <property name="ifrs-full:NonadjustingEventsAfterReportingPeriodAxis" value="tsu:EventsAfterReportingPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Pure (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="155"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 8.26 secs - https://www.sec.gov/Archives/edgar/data/1066116/000129281420001580/tsu-20191231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1066116/000129281420001580/tsu-20191231.xml"/></entry>
+</log>

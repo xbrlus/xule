@@ -1,0 +1,1506 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.13 secs at 2020-07-24T23:33:41 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpa439jqai\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpa439jqai\packages\resources.zip"/></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets with a value of 0.02 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : srt:RangeAxis=srt:MaximumMember, srt:StatementGeographicalAxis=WKEY:SwitzerlandMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 9006</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1906)" sourceLine="9006">
+  <property name="label" value="Expected rate of return on plan assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="contextRef" value="From2017-01-01to2017-12-31_custom_SwitzerlandMember_srt_MaximumMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:RangeAxis" value="srt:MaximumMember"/>
+    <property name="srt:StatementGeographicalAxis" value="WKEY:SwitzerlandMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0200"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease with a value of 0.015 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:SwitzerlandMember, srt:RangeAxis=srt:MaximumMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 9017</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1917)" sourceLine="9017">
+  <property name="label" value="Salary increases"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="contextRef" value="From2017-01-01to2017-12-31_custom_SwitzerlandMember_srt_MaximumMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:RangeAxis" value="srt:MaximumMember"/>
+    <property name="srt:StatementGeographicalAxis" value="WKEY:SwitzerlandMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0150"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate with a value of 0.007 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:SwitzerlandMember, srt:RangeAxis=srt:MaximumMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 8995</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1895)" sourceLine="8995">
+  <property name="label" value="Discount rate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="contextRef" value="From2017-01-01to2017-12-31_custom_SwitzerlandMember_srt_MaximumMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:RangeAxis" value="srt:MaximumMember"/>
+    <property name="srt:StatementGeographicalAxis" value="WKEY:SwitzerlandMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0070"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear with a value of 0 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear fact are:
+Period :2021-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:FranceMember
+Unit : USD
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 9019</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1919)" sourceLine="9019">
+  <property name="label" value="Defined Benefit Plan, Expected Future Employer Contributions, Next Fiscal Year"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear"/>
+  <property name="contextRef" value="AsOf2021-12-31_custom_FranceMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2021-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:FranceMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear with a value of 348,000 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear fact are:
+Period :2021-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:SwitzerlandMember
+Unit : USD
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 9025</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1925)" sourceLine="9025">
+  <property name="label" value="Defined Benefit Plan, Expected Future Employer Contributions, Next Fiscal Year"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear"/>
+  <property name="contextRef" value="AsOf2021-12-31_custom_SwitzerlandMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2021-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:SwitzerlandMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="348,000"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear with a value of 0 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear fact are:
+Period :2023-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:FranceMember
+Unit : USD
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 9021</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1921)" sourceLine="9021">
+  <property name="label" value="Defined Benefit Plan, Expected Future Employer Contributions, Next Fiscal Year"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear"/>
+  <property name="contextRef" value="AsOf2023-12-31_custom_FranceMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2023-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:FranceMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear with a value of 366,000 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear fact are:
+Period :2023-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:SwitzerlandMember
+Unit : USD
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 9027</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1927)" sourceLine="9027">
+  <property name="label" value="Defined Benefit Plan, Expected Future Employer Contributions, Next Fiscal Year"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear"/>
+  <property name="contextRef" value="AsOf2023-12-31_custom_SwitzerlandMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2023-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:SwitzerlandMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="366,000"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease with a value of 0.015 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : srt:RangeAxis=srt:MaximumMember, srt:StatementGeographicalAxis=WKEY:SwitzerlandMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 9016</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1916)" sourceLine="9016">
+  <property name="label" value="Salary increases"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_custom_SwitzerlandMember_srt_MaximumMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:RangeAxis" value="srt:MaximumMember"/>
+    <property name="srt:StatementGeographicalAxis" value="WKEY:SwitzerlandMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0150"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate with a value of 0.009 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : srt:RangeAxis=srt:MaximumMember, srt:StatementGeographicalAxis=WKEY:SwitzerlandMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 8994</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1894)" sourceLine="8994">
+  <property name="label" value="Discount rate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_custom_SwitzerlandMember_srt_MaximumMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:RangeAxis" value="srt:MaximumMember"/>
+    <property name="srt:StatementGeographicalAxis" value="WKEY:SwitzerlandMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0090"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets with a value of 0.02 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : srt:RangeAxis=srt:MaximumMember, srt:StatementGeographicalAxis=WKEY:SwitzerlandMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 9005</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1905)" sourceLine="9005">
+  <property name="label" value="Expected rate of return on plan assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_custom_SwitzerlandMember_srt_MaximumMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:RangeAxis" value="srt:MaximumMember"/>
+    <property name="srt:StatementGeographicalAxis" value="WKEY:SwitzerlandMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0200"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease with a value of 0.005 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:SwitzerlandMember, srt:RangeAxis=srt:MinimumMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 9014</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1914)" sourceLine="9014">
+  <property name="label" value="Salary increases"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_custom_SwitzerlandMember_srt_MinimumMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:RangeAxis" value="srt:MinimumMember"/>
+    <property name="srt:StatementGeographicalAxis" value="WKEY:SwitzerlandMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0050"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate with a value of 0.008 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:SwitzerlandMember, srt:RangeAxis=srt:MinimumMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 8992</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1892)" sourceLine="8992">
+  <property name="label" value="Discount rate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_custom_SwitzerlandMember_srt_MinimumMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:RangeAxis" value="srt:MinimumMember"/>
+    <property name="srt:StatementGeographicalAxis" value="WKEY:SwitzerlandMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0080"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets with a value of 0.015 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : srt:RangeAxis=srt:MinimumMember, srt:StatementGeographicalAxis=WKEY:SwitzerlandMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 9003</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1903)" sourceLine="9003">
+  <property name="label" value="Expected rate of return on plan assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_custom_SwitzerlandMember_srt_MinimumMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:RangeAxis" value="srt:MinimumMember"/>
+    <property name="srt:StatementGeographicalAxis" value="WKEY:SwitzerlandMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0150"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease with a value of 0.03 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:FranceMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 9008</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1908)" sourceLine="9008">
+  <property name="label" value="Salary increases"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_custom_FranceMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:FranceMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0300"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate with a value of 0.015 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:FranceMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 8986</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1886)" sourceLine="8986">
+  <property name="label" value="Discount rate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_custom_FranceMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:FranceMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0150"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease with a value of 0.09 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:IndiaMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 9012</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1912)" sourceLine="9012">
+  <property name="label" value="Salary increases"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_custom_IndiaMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:IndiaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0900"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate with a value of 0.0772 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:IndiaMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 8990</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1890)" sourceLine="8990">
+  <property name="label" value="Discount rate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_custom_IndiaMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:IndiaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0772"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets with a value of None in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:FranceMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 8997</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1897)" sourceLine="8997">
+  <property name="label" value="Expected rate of return on plan assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_custom_FranceMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:FranceMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets with a value of None in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:IndiaMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 9001</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1901)" sourceLine="9001">
+  <property name="label" value="Expected rate of return on plan assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_custom_IndiaMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:IndiaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear with a value of 142,000 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear fact are:
+Period :2022-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:FranceMember
+Unit : USD
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 9020</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1920)" sourceLine="9020">
+  <property name="label" value="Defined Benefit Plan, Expected Future Employer Contributions, Next Fiscal Year"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear"/>
+  <property name="contextRef" value="AsOf2022-12-31_custom_FranceMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2022-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:FranceMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="142,000"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear with a value of 344,000 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear fact are:
+Period :2022-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:SwitzerlandMember
+Unit : USD
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 9026</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1926)" sourceLine="9026">
+  <property name="label" value="Defined Benefit Plan, Expected Future Employer Contributions, Next Fiscal Year"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear"/>
+  <property name="contextRef" value="AsOf2022-12-31_custom_SwitzerlandMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2022-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:SwitzerlandMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="344,000"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease with a value of 0.03 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:FranceMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 9009</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1909)" sourceLine="9009">
+  <property name="label" value="Salary increases"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="contextRef" value="From2017-01-01to2017-12-31_custom_FranceMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:FranceMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0300"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate with a value of 0.0131 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:FranceMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 8987</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1887)" sourceLine="8987">
+  <property name="label" value="Discount rate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="contextRef" value="From2017-01-01to2017-12-31_custom_FranceMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:FranceMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0131"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease with a value of 0.03 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:IndiaMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 9013</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1913)" sourceLine="9013">
+  <property name="label" value="Salary increases"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="contextRef" value="From2017-01-01to2017-12-31_custom_IndiaMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:IndiaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0300"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate with a value of 0.069 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:IndiaMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 8991</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1891)" sourceLine="8991">
+  <property name="label" value="Discount rate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="contextRef" value="From2017-01-01to2017-12-31_custom_IndiaMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:IndiaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0690"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets with a value of None in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:FranceMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 8998</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1898)" sourceLine="8998">
+  <property name="label" value="Expected rate of return on plan assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="contextRef" value="From2017-01-01to2017-12-31_custom_FranceMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:FranceMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets with a value of None in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:IndiaMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 9002</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1902)" sourceLine="9002">
+  <property name="label" value="Expected rate of return on plan assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="contextRef" value="From2017-01-01to2017-12-31_custom_IndiaMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:IndiaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease with a value of 0.005 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : srt:RangeAxis=srt:MinimumMember, srt:StatementGeographicalAxis=WKEY:SwitzerlandMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 9015</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1915)" sourceLine="9015">
+  <property name="label" value="Salary increases"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="contextRef" value="From2017-01-01to2017-12-31_custom_SwitzerlandMember_srt_MinimumMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:RangeAxis" value="srt:MinimumMember"/>
+    <property name="srt:StatementGeographicalAxis" value="WKEY:SwitzerlandMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0050"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate with a value of 0.006 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:SwitzerlandMember, srt:RangeAxis=srt:MinimumMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 8993</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1893)" sourceLine="8993">
+  <property name="label" value="Discount rate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="contextRef" value="From2017-01-01to2017-12-31_custom_SwitzerlandMember_srt_MinimumMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:RangeAxis" value="srt:MinimumMember"/>
+    <property name="srt:StatementGeographicalAxis" value="WKEY:SwitzerlandMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0060"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets with a value of 0.015 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:SwitzerlandMember, srt:RangeAxis=srt:MinimumMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 9004</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1904)" sourceLine="9004">
+  <property name="label" value="Expected rate of return on plan assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="contextRef" value="From2017-01-01to2017-12-31_custom_SwitzerlandMember_srt_MinimumMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:RangeAxis" value="srt:MinimumMember"/>
+    <property name="srt:StatementGeographicalAxis" value="WKEY:SwitzerlandMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0150"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear with a value of 202,000 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear fact are:
+Period :2025-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:FranceMember
+Unit : USD
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 9023</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1923)" sourceLine="9023">
+  <property name="label" value="Defined Benefit Plan, Expected Future Employer Contributions, Next Fiscal Year"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear"/>
+  <property name="contextRef" value="AsOf2025-12-31_custom_FranceMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2025-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:FranceMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="202,000"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear with a value of 2,955,000 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear fact are:
+Period :2025-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:SwitzerlandMember
+Unit : USD
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 9029</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1929)" sourceLine="9029">
+  <property name="label" value="Defined Benefit Plan, Expected Future Employer Contributions, Next Fiscal Year"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear"/>
+  <property name="contextRef" value="AsOf2025-12-31_custom_SwitzerlandMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2025-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:SwitzerlandMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,955,000"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease with a value of 0.03 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:FranceMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 9007</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1907)" sourceLine="9007">
+  <property name="label" value="Salary increases"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_custom_FranceMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:FranceMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0300"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate with a value of 0.007 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:FranceMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 8985</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1885)" sourceLine="8985">
+  <property name="label" value="Discount rate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_custom_FranceMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:FranceMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0070"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease with a value of 0.015 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:SwitzerlandMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 9010</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1910)" sourceLine="9010">
+  <property name="label" value="Salary increases"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_custom_SwitzerlandMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:SwitzerlandMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0150"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease with a value of 0.09 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:IndiaMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 9011</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1911)" sourceLine="9011">
+  <property name="label" value="Salary increases"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_custom_IndiaMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:IndiaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0900"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate with a value of 0.0025 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:SwitzerlandMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 8988</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1888)" sourceLine="8988">
+  <property name="label" value="Discount rate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_custom_SwitzerlandMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:SwitzerlandMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0025"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate with a value of 0.073 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:IndiaMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 8989</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1889)" sourceLine="8989">
+  <property name="label" value="Discount rate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_custom_IndiaMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:IndiaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0730"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets with a value of None in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:FranceMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 8996</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1896)" sourceLine="8996">
+  <property name="label" value="Expected rate of return on plan assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_custom_FranceMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:FranceMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets with a value of 0.015 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:SwitzerlandMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 8999</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1899)" sourceLine="8999">
+  <property name="label" value="Expected rate of return on plan assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_custom_SwitzerlandMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:SwitzerlandMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0150"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets with a value of None in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:IndiaMember
+Unit : pure
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 9000</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1900)" sourceLine="9000">
+  <property name="label" value="Expected rate of return on plan assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_custom_IndiaMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:IndiaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear with a value of 7,000 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear fact are:
+Period :2024-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:FranceMember
+Unit : USD
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 9022</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1922)" sourceLine="9022">
+  <property name="label" value="Defined Benefit Plan, Expected Future Employer Contributions, Next Fiscal Year"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear"/>
+  <property name="contextRef" value="AsOf2024-12-31_custom_FranceMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2024-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:FranceMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="7,000"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear with a value of 1,958,000 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear fact are:
+Period :2024-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:SwitzerlandMember
+Unit : USD
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 9028</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1928)" sourceLine="9028">
+  <property name="label" value="Defined Benefit Plan, Expected Future Employer Contributions, Next Fiscal Year"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear"/>
+  <property name="contextRef" value="AsOf2024-12-31_custom_SwitzerlandMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2024-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:SwitzerlandMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,958,000"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear with a value of 19,000 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear fact are:
+Period :2020-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:FranceMember
+Unit : USD
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 9018</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1918)" sourceLine="9018">
+  <property name="label" value="Defined Benefit Plan, Expected Future Employer Contributions, Next Fiscal Year"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear"/>
+  <property name="contextRef" value="AsOf2020-12-31_custom_FranceMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:FranceMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="19,000"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml" severity="error" effectiveDate="2019-01-01" cid="2338459264384">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear with a value of 1,337,000 in the Compensation Related Costs  and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear fact are:
+Period :2020-12-31
+Dimensions : srt:StatementGeographicalAxis=WKEY:SwitzerlandMember
+Unit : USD
+
+Rule Element Id:7641
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml 9024</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml#element(/1/1924)" sourceLine="9024">
+  <property name="label" value="Defined Benefit Plan, Expected Future Employer Contributions, Next Fiscal Year"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanExpectedFutureEmployerContributionsNextFiscalYear"/>
+  <property name="contextRef" value="AsOf2020-12-31_custom_SwitzerlandMember">
+   <property name="entity" value="0001738699">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:StatementGeographicalAxis" value="WKEY:SwitzerlandMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,337,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 23.41 secs - http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1738699/000119380520000462/wkey-20191231.xml"/></entry>
+</log>

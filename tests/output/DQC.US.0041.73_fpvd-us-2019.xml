@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.72 secs at 2020-07-24T23:29:21 - http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpibnzq6gx\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpibnzq6gx\packages\resources.zip"/></entry>
+<entry code="DQC.US.0041.73" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml" severity="error" effectiveDate="2017-01-01" cid="2084969096576">[DQC.US.0041.73] The dimension default defined for the axis in the US GAAP Taxonomy should not be changed in a company extension taxonomy. The default for the us-gaap:TypeOfArrangementAxis in the base taxonomy is us-gaap:ArrangementsAndNonarrangementTransactionsMember, but the default has been replaced with us-gaap:IncomeStatementLocationDomain in the extension taxonomy role 000032 - Disclosure - CONVERTIBLE PROMISSORY NOTES (Details Narrative).  This issue is addressed in Question E.16 (Updated 02/05/2013) (formerly Question 38) of the SEC Staff Interpretations and FAQs Related to Interactive Data Disclosure.
+Rule version: 13.0.0RC1 - </message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 21.77 secs - http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml"/></entry>
+</log>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 4.22 secs at 2020-07-26T18:43:11 - http://www.sec.gov/Archives/edgar/data/821002/000155837020007395/giii-20200609x10q.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/821002/000155837020007395/giii-20200609x10q.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpsrgf4ji8\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpsrgf4ji8\packages\resources.zip"/></entry>
+<entry code="DQC.US.0001.54" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/821002/000155837020007395/giii-20200609x10q.htm" severity="error" effectiveDate="2017-01-01" cid="1943259948416">[DQC.US.0001.54]  The member ParentCompanyMember is inappropriately used on the axis LegalEntityAxis. The only members allowed on this axis are extensions or legal entities defined in the US GAAP taxonomy. There are no facts associated with this member and axis.
+
+Rule Element Id:54
+Rule version: 13.0.0RC1 - </message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 22.51 secs - http://www.sec.gov/Archives/edgar/data/821002/000155837020007395/giii-20200609x10q.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/821002/000155837020007395/giii-20200609x10q.htm"/></entry>
+</log>

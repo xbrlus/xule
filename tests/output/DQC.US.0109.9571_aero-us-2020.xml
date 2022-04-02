@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23221 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.18 secs at 2021-04-14T20:15:05 - https://www.sec.gov/Archives/edgar/data/1316644/000118518520001620/aero-20200930.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1316644/000118518520001620/aero-20200930.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpu1jdl6op\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpu1jdl6op\packages\resources.zip"/></entry>
+<entry code="DQC.US.0109.9571" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1316644/000118518520001620/aero-20200930.xml" severity="error" status="PROPOSED" effectiveDate="None" cid="2408598827984">[DQC.US.0109.9571] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.117 is used with the ConcentrationRiskByBenchmarkAxis with a benchmark of us-gaap:CustomerConcentrationRiskMember.  This is an invalid benchmark as it is an actual type of risk and not a benchmark. The benchmark should reflect the accounting concept that the risk applies to such as revenues, receivables, loans etc.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2020-04-01 to 2020-09-30
+Dimensions : srt:MajorCustomersAxis=aero:WootMember, us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:CustomerConcentrationRiskMember, us-gaap:ConcentrationRiskByTypeAxis=us-gaap:AccountsReceivableMember
+Unit : pure
+
+
+Rule Element Id:9571
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/1316644/000118518520001620/aero-20200930.xml 1937</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1316644/000118518520001620/aero-20200930.xml#element(/1/383)" sourceLine="1937">
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="c48_From1Apr2020To30Sep2020_WootMember_CustomerConcentrationRiskMember_AccountsReceivableMember">
+   <property name="entity" value="0001316644">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-04-01"/>
+   <property name="endDate" value="2020-09-30"/>
+   <property name="dimensions" value="(3)">
+    <property name="srt:MajorCustomersAxis" value="aero:WootMember"/>
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:CustomerConcentrationRiskMember"/>
+    <property name="us-gaap:ConcentrationRiskByTypeAxis" value="us-gaap:AccountsReceivableMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="pure (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.117"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9571" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1316644/000118518520001620/aero-20200930.xml" severity="error" status="PROPOSED" effectiveDate="None" cid="2408598827984">[DQC.US.0109.9571] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.236 is used with the ConcentrationRiskByBenchmarkAxis with a benchmark of us-gaap:CustomerConcentrationRiskMember.  This is an invalid benchmark as it is an actual type of risk and not a benchmark. The benchmark should reflect the accounting concept that the risk applies to such as revenues, receivables, loans etc.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2020-04-01 to 2020-09-30
+Dimensions : srt:MajorCustomersAxis=aero:BestBuyMember, us-gaap:ConcentrationRiskByTypeAxis=us-gaap:AccountsReceivableMember, us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:CustomerConcentrationRiskMember
+Unit : pure
+
+
+Rule Element Id:9571
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/1316644/000118518520001620/aero-20200930.xml 1936</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1316644/000118518520001620/aero-20200930.xml#element(/1/382)" sourceLine="1936">
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="c47_From1Apr2020To30Sep2020_BestBuyMember_CustomerConcentrationRiskMember_AccountsReceivableMember">
+   <property name="entity" value="0001316644">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-04-01"/>
+   <property name="endDate" value="2020-09-30"/>
+   <property name="dimensions" value="(3)">
+    <property name="srt:MajorCustomersAxis" value="aero:BestBuyMember"/>
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:CustomerConcentrationRiskMember"/>
+    <property name="us-gaap:ConcentrationRiskByTypeAxis" value="us-gaap:AccountsReceivableMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="pure (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.236"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9571" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1316644/000118518520001620/aero-20200930.xml" severity="error" status="PROPOSED" effectiveDate="None" cid="2408598827984">[DQC.US.0109.9571] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.102 is used with the ConcentrationRiskByBenchmarkAxis with a benchmark of us-gaap:CustomerConcentrationRiskMember.  This is an invalid benchmark as it is an actual type of risk and not a benchmark. The benchmark should reflect the accounting concept that the risk applies to such as revenues, receivables, loans etc.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2020-04-01 to 2020-09-30
+Dimensions : srt:MajorCustomersAxis=aero:MacysMember, us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:CustomerConcentrationRiskMember, us-gaap:ConcentrationRiskByTypeAxis=us-gaap:AccountsReceivableMember
+Unit : pure
+
+
+Rule Element Id:9571
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/1316644/000118518520001620/aero-20200930.xml 1938</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1316644/000118518520001620/aero-20200930.xml#element(/1/384)" sourceLine="1938">
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="c49_From1Apr2020To30Sep2020_MacysMember_CustomerConcentrationRiskMember_AccountsReceivableMember">
+   <property name="entity" value="0001316644">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-04-01"/>
+   <property name="endDate" value="2020-09-30"/>
+   <property name="dimensions" value="(3)">
+    <property name="srt:MajorCustomersAxis" value="aero:MacysMember"/>
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:CustomerConcentrationRiskMember"/>
+    <property name="us-gaap:ConcentrationRiskByTypeAxis" value="us-gaap:AccountsReceivableMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="pure (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.102"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 15.28 secs - https://www.sec.gov/Archives/edgar/data/1316644/000118518520001620/aero-20200930.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1316644/000118518520001620/aero-20200930.xml"/></entry>
+</log>

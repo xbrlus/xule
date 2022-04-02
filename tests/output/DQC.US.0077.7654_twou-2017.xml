@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.99 secs at 2018-10-16T10:02:23 - https://www.sec.gov/Archives/edgar/data/1459417/000110465918030256/twou-20180331.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1459417/000110465918030256/twou-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - twou-20180331.xml </message>
+ <ref href="twou-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmplt8qp5sn/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmplt8qp5sn/packages/resources.zip"/></entry>
+<entry code="DQC.US.0077.7654" level="error">
+ <message cid="4565978808" severity="error" filing_url="https://www.sec.gov/Archives/edgar/data/1459417/000110465918030256/twou-20180331.xml">[DQC.US.0077.7654] The filer has reported a value for the element us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod with a value of P42D without using the axis RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis. This axis must be used when reporting a value for us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod. Please refer to the FASB implementation guide on Revenue from Contracts with Customers on the FASB website.
+
+The properties of this us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod fact are:
+Period :2018-01-01 to 2018-03-31
+Dimensions : us-gaap:StatementBusinessSegmentsAxis=twou:ShortCourseSegmentMember, us-gaap:RangeAxis=us-gaap:MinimumMember
+Unit : None
+
+Rule Element Id:7654
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1459417/000110465918030256/twou-20180331.xml 6388</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1459417/000110465918030256/twou-20180331.xml#element(/1/488)" sourceLine="6388">
+  <property name="label" value="Revenue, Remaining Performance Obligation, Expected Timing of Satisfaction, Period"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod"/>
+  <property name="QName" value="us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod"/>
+  <property name="contextRef" value="Duration_1_1_2018_To_3_31_2018_us-gaap_RangeAxis_us-gaap_MinimumMember_us-gaap_StatementBusinessSegmentsAxis_twou_ShortCourseSegmentMember">
+   <property name="entity" value="0001459417">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RangeAxis" value="us-gaap:MinimumMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="twou:ShortCourseSegmentMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="P42D"/>
+ </ref></entry>
+<entry code="DQC.US.0077.7654" level="error">
+ <message cid="4565978808" severity="error" filing_url="https://www.sec.gov/Archives/edgar/data/1459417/000110465918030256/twou-20180331.xml">[DQC.US.0077.7654] The filer has reported a value for the element us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod with a value of P112D without using the axis RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis. This axis must be used when reporting a value for us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod. Please refer to the FASB implementation guide on Revenue from Contracts with Customers on the FASB website.
+
+The properties of this us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod fact are:
+Period :2018-01-01 to 2018-03-31
+Dimensions : us-gaap:RangeAxis=us-gaap:MaximumMember, us-gaap:StatementBusinessSegmentsAxis=twou:ShortCourseSegmentMember
+Unit : None
+
+Rule Element Id:7654
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1459417/000110465918030256/twou-20180331.xml 6386</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1459417/000110465918030256/twou-20180331.xml#element(/1/486)" sourceLine="6386">
+  <property name="label" value="Revenue, Remaining Performance Obligation, Expected Timing of Satisfaction, Period"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod"/>
+  <property name="QName" value="us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod"/>
+  <property name="contextRef" value="Duration_1_1_2018_To_3_31_2018_us-gaap_RangeAxis_us-gaap_MaximumMember_us-gaap_StatementBusinessSegmentsAxis_twou_ShortCourseSegmentMember">
+   <property name="entity" value="0001459417">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RangeAxis" value="us-gaap:MaximumMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="twou:ShortCourseSegmentMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="P112D"/>
+ </ref></entry>
+<entry code="DQC.US.0077.7654" level="error">
+ <message cid="4565978808" severity="error" filing_url="https://www.sec.gov/Archives/edgar/data/1459417/000110465918030256/twou-20180331.xml">[DQC.US.0077.7654] The filer has reported a value for the element us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod with a value of P10Y without using the axis RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis. This axis must be used when reporting a value for us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod. Please refer to the FASB implementation guide on Revenue from Contracts with Customers on the FASB website.
+
+The properties of this us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod fact are:
+Period :2018-01-01 to 2018-03-31
+Dimensions : us-gaap:StatementBusinessSegmentsAxis=twou:GraduateProgramSegmentMember, us-gaap:RangeAxis=us-gaap:MinimumMember
+Unit : None
+
+Rule Element Id:7654
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1459417/000110465918030256/twou-20180331.xml 6387</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1459417/000110465918030256/twou-20180331.xml#element(/1/487)" sourceLine="6387">
+  <property name="label" value="Revenue, Remaining Performance Obligation, Expected Timing of Satisfaction, Period"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod"/>
+  <property name="QName" value="us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod"/>
+  <property name="contextRef" value="Duration_1_1_2018_To_3_31_2018_us-gaap_RangeAxis_us-gaap_MinimumMember_us-gaap_StatementBusinessSegmentsAxis_twou_GraduateProgramSegmentMember">
+   <property name="entity" value="0001459417">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RangeAxis" value="us-gaap:MinimumMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="twou:GraduateProgramSegmentMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="P10Y"/>
+ </ref></entry>
+<entry code="DQC.US.0077.7654" level="error">
+ <message cid="4565978808" severity="error" filing_url="https://www.sec.gov/Archives/edgar/data/1459417/000110465918030256/twou-20180331.xml">[DQC.US.0077.7654] The filer has reported a value for the element us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod with a value of P15Y without using the axis RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis. This axis must be used when reporting a value for us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod. Please refer to the FASB implementation guide on Revenue from Contracts with Customers on the FASB website.
+
+The properties of this us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod fact are:
+Period :2018-01-01 to 2018-03-31
+Dimensions : us-gaap:StatementBusinessSegmentsAxis=twou:GraduateProgramSegmentMember, us-gaap:RangeAxis=us-gaap:MaximumMember
+Unit : None
+
+Rule Element Id:7654
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1459417/000110465918030256/twou-20180331.xml 6385</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1459417/000110465918030256/twou-20180331.xml#element(/1/485)" sourceLine="6385">
+  <property name="label" value="Revenue, Remaining Performance Obligation, Expected Timing of Satisfaction, Period"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod"/>
+  <property name="QName" value="us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod"/>
+  <property name="contextRef" value="Duration_1_1_2018_To_3_31_2018_us-gaap_RangeAxis_us-gaap_MaximumMember_us-gaap_StatementBusinessSegmentsAxis_twou_GraduateProgramSegmentMember">
+   <property name="entity" value="0001459417">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RangeAxis" value="us-gaap:MaximumMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="twou:GraduateProgramSegmentMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="P15Y"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 1.90 secs - https://www.sec.gov/Archives/edgar/data/1459417/000110465918030256/twou-20180331.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1459417/000110465918030256/twou-20180331.xml"/></entry>
+</log>

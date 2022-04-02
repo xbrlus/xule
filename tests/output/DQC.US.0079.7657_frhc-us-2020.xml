@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.53 secs at 2020-07-29T09:42:47 - http://www.sec.gov/Archives/edgar/data/924805/000165495420007646/frhc-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/924805/000165495420007646/frhc-20200331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmp1_i5hpr6\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmp1_i5hpr6\packages\resources.zip"/></entry>
+<entry code="DQC.US.0079.7657" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/924805/000165495420007646/frhc-20200331.xml" severity="error" effectiveDate="2019-05-08" cid="2311856891264">[DQC.US.0079.7657] FRHC:UnitedStatesMember is an extension member on the axis StatementGeographicalAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing FRHC:UnitedStatesMember with the existing taxonomy concept US with the taxonomy namespace http://xbrl.sec.gov/country/2020-01-31.
+
+Rule Element Id:7657
+Rule version: 13.0.0RC1
+ - </message></entry>
+<entry code="DQC.US.0079.7657" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/924805/000165495420007646/frhc-20200331.xml" severity="error" effectiveDate="2019-05-08" cid="2311856891264">[DQC.US.0079.7657] FRHC:CyprusMember is an extension member on the axis StatementGeographicalAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing FRHC:CyprusMember with the existing taxonomy concept CY with the taxonomy namespace http://xbrl.sec.gov/country/2020-01-31.
+
+Rule Element Id:7657
+Rule version: 13.0.0RC1
+ - </message></entry>
+<entry code="DQC.US.0079.7657" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/924805/000165495420007646/frhc-20200331.xml" severity="error" effectiveDate="2019-05-08" cid="2311856891264">[DQC.US.0079.7657] FRHC:RussianFederationMember is an extension member on the axis StatementGeographicalAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing FRHC:RussianFederationMember with the existing taxonomy concept RU with the taxonomy namespace http://xbrl.sec.gov/country/2020-01-31.
+
+Rule Element Id:7657
+Rule version: 13.0.0RC1
+ - </message></entry>
+<entry code="DQC.US.0079.7657" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/924805/000165495420007646/frhc-20200331.xml" severity="error" effectiveDate="2019-05-08" cid="2311856891264">[DQC.US.0079.7657] FRHC:UkraineMember is an extension member on the axis StatementGeographicalAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing FRHC:UkraineMember with the existing taxonomy concept UA with the taxonomy namespace http://xbrl.sec.gov/country/2020-01-31.
+
+Rule Element Id:7657
+Rule version: 13.0.0RC1
+ - </message></entry>
+<entry code="DQC.US.0079.7657" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/924805/000165495420007646/frhc-20200331.xml" severity="error" effectiveDate="2019-05-08" cid="2311856891264">[DQC.US.0079.7657] FRHC:UzbekistanMember is an extension member on the axis StatementGeographicalAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing FRHC:UzbekistanMember with the existing taxonomy concept UZ with the taxonomy namespace http://xbrl.sec.gov/country/2020-01-31.
+
+Rule Element Id:7657
+Rule version: 13.0.0RC1
+ - </message></entry>
+<entry code="DQC.US.0079.7657" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/924805/000165495420007646/frhc-20200331.xml" severity="error" effectiveDate="2019-05-08" cid="2311856891264">[DQC.US.0079.7657] FRHC:GermanyMember is an extension member on the axis StatementGeographicalAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing FRHC:GermanyMember with the existing taxonomy concept DE with the taxonomy namespace http://xbrl.sec.gov/country/2020-01-31.
+
+Rule Element Id:7657
+Rule version: 13.0.0RC1
+ - </message></entry>
+<entry code="DQC.US.0079.7657" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/924805/000165495420007646/frhc-20200331.xml" severity="error" effectiveDate="2019-05-08" cid="2311856891264">[DQC.US.0079.7657] FRHC:KazakhstanMember is an extension member on the axis StatementGeographicalAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing FRHC:KazakhstanMember with the existing taxonomy concept KZ with the taxonomy namespace http://xbrl.sec.gov/country/2020-01-31.
+
+Rule Element Id:7657
+Rule version: 13.0.0RC1
+ - </message></entry>
+<entry code="DQC.US.0079.7657" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/924805/000165495420007646/frhc-20200331.xml" severity="error" effectiveDate="2019-05-08" cid="2311856891264">[DQC.US.0079.7657] FRHC:KyrgyzstanMember is an extension member on the axis StatementGeographicalAxis that was reported in the extension taxonomy, but duplicates a concept that exists in the SEC Non-GAAP taxonomies. Consider replacing FRHC:KyrgyzstanMember with the existing taxonomy concept KG with the taxonomy namespace http://xbrl.sec.gov/country/2020-01-31.
+
+Rule Element Id:7657
+Rule version: 13.0.0RC1
+ - </message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 6.56 secs - http://www.sec.gov/Archives/edgar/data/924805/000165495420007646/frhc-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/924805/000165495420007646/frhc-20200331.xml"/></entry>
+</log>

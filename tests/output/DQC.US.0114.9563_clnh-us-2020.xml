@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23221 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.33 secs at 2021-04-14T20:16:31 - https://www.sec.gov/Archives/edgar/data/1479681/000160706220000329/clnh-20200930.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1479681/000160706220000329/clnh-20200930.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpor46virn\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpor46virn\packages\resources.zip"/></entry>
+<entry code="DQC.US.0114.9563" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1479681/000160706220000329/clnh-20200930.xml" severity="error" status="PROPOSED" effectiveDate="None" cid="2493240275920">[DQC.US.0114.9563] Net liabilities assumed with a value of 1,467,897 is not equal to the combined total of Assets and Liabilities acquired excluding Goodwill and Goodwill ( 2,304,860 + 2,257,058 ) with a value of 4,561,918. 
+
+These values should be equal.
+The properties of this us-gaap:BusinessCombinationRecognizedIdentifiableAssetsAcquiredGoodwillAndLiabilitiesAssumedNet fact are:
+Period :2020-09-30
+Dimensions :  us-gaap:BusinessAcquisitionAxis=clnh:IGambitMember
+Unit : USD
+Decimals of Net Value Acquired : 0
+Decimals of Net Assets and Net Liabilities : 0
+Decimals of Goodwill : 0
+
+Rule Element Id:9563
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/1479681/000160706220000329/clnh-20200930.xml 2765</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1479681/000160706220000329/clnh-20200930.xml#element(/1/706)" sourceLine="2765">
+  <property name="label" value="Net liabilities assumed"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="BusinessCombinationRecognizedIdentifiableAssetsAcquiredGoodwillAndLiabilitiesAssumedNet"/>
+  <property name="QName" value="us-gaap:BusinessCombinationRecognizedIdentifiableAssetsAcquiredGoodwillAndLiabilitiesAssumedNet"/>
+  <property name="contextRef" value="AsOf2020-09-30_custom_IGambitMember">
+   <property name="entity" value="0001479681">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-09-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:BusinessAcquisitionAxis" value="clnh:IGambitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,467,897"/>
+ </ref></entry>
+<entry code="DQC.US.0114.9563" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1479681/000160706220000329/clnh-20200930.xml" severity="error" status="PROPOSED" effectiveDate="None" cid="2493240275920">[DQC.US.0114.9563] Net liabilities assumed with a value of 989,805 is not equal to the combined total of Assets and Liabilities acquired excluding Goodwill and Goodwill ( 5,158,024 + 3,471,508 ) with a value of 8,629,532. 
+
+These values should be equal.
+The properties of this us-gaap:BusinessCombinationRecognizedIdentifiableAssetsAcquiredGoodwillAndLiabilitiesAssumedNet fact are:
+Period :2019-03-01
+Dimensions :  us-gaap:BusinessAcquisitionAxis=clnh:QualMetrixMember
+Unit : USD
+Decimals of Net Value Acquired : 0
+Decimals of Net Assets and Net Liabilities : 0
+Decimals of Goodwill : 0
+
+Rule Element Id:9563
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/1479681/000160706220000329/clnh-20200930.xml 2766</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1479681/000160706220000329/clnh-20200930.xml#element(/1/707)" sourceLine="2766">
+  <property name="label" value="Net liabilities assumed"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="BusinessCombinationRecognizedIdentifiableAssetsAcquiredGoodwillAndLiabilitiesAssumedNet"/>
+  <property name="QName" value="us-gaap:BusinessCombinationRecognizedIdentifiableAssetsAcquiredGoodwillAndLiabilitiesAssumedNet"/>
+  <property name="contextRef" value="AsOf2019-03-01_custom_QualMetrixMember">
+   <property name="entity" value="0001479681">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-03-01"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:BusinessAcquisitionAxis" value="clnh:QualMetrixMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="989,805"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 3.76 secs - https://www.sec.gov/Archives/edgar/data/1479681/000160706220000329/clnh-20200930.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1479681/000160706220000329/clnh-20200930.xml"/></entry>
+</log>

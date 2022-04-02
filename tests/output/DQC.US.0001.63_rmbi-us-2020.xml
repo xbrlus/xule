@@ -1,0 +1,1197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.62 secs at 2020-07-24T23:24:06 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmp5yd9r87l\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmp5yd9r87l\packages\resources.zip"/></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment with a value of 138 is dimensionally qualified with the PositionAxis and the unallowable member EndOfPeriodMember. 
+The properties of the fact for FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment are:
+Period: 2019-12-31
+Dimensions: us-gaap:FinancialInstrumentAxis=us-gaap:ConsumerLoanMember, us-gaap:PositionAxis=fil:EndOfPeriodMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 668</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/665)" sourceLine="668">
+  <property name="label" value="Financing Receivable Allowance for Credit Losses Individuall and Collectively Evaluated for Impairment"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment"/>
+  <property name="QName" value="fil:FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment"/>
+  <property name="contextRef" value="E19_FinancialInstr-ConsumerLoan_Position-EndOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:FinancialInstrumentAxis" value="us-gaap:ConsumerLoanMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:EndOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="138"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment with a value of 583 is dimensionally qualified with the PositionAxis and the unallowable member EndOfPeriodMember. 
+The properties of the fact for FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment are:
+Period: 2020-03-31
+Dimensions: us-gaap:FinancialInstrumentAxis=fil:DirectFinancingLeasesMember, us-gaap:PositionAxis=fil:EndOfPeriodMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 631</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/628)" sourceLine="631">
+  <property name="label" value="Financing Receivable Allowance for Credit Losses Individuall and Collectively Evaluated for Impairment"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment"/>
+  <property name="QName" value="fil:FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment"/>
+  <property name="contextRef" value="E20Q1_FinancialInstr-DirectFinancingLeases_Position-EndOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:FinancialInstrumentAxis" value="fil:DirectFinancingLeasesMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:EndOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="583"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment with a value of 7,089 is dimensionally qualified with the PositionAxis and the unallowable member EndOfPeriodMember. 
+The properties of the fact for FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment are:
+Period: 2019-12-31
+Dimensions: us-gaap:AccountsNotesLoansAndFinancingReceivableByReceivableTypeAxis=fil:LoansReceivableGrossMember, us-gaap:PositionAxis=fil:EndOfPeriodMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 669</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/666)" sourceLine="669">
+  <property name="label" value="Financing Receivable Allowance for Credit Losses Individuall and Collectively Evaluated for Impairment"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment"/>
+  <property name="QName" value="fil:FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment"/>
+  <property name="contextRef" value="E19_AcctNotesLoansAndFinancingRecvByRecvType-LoansRecvGross_Position-EndOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:AccountsNotesLoansAndFinancingReceivableByReceivableTypeAxis" value="fil:LoansReceivableGrossMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:EndOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="7,089"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment with a value of 148 is dimensionally qualified with the PositionAxis and the unallowable member EndOfPeriodMember. 
+The properties of the fact for FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment are:
+Period: 2020-03-31
+Dimensions: us-gaap:PositionAxis=fil:EndOfPeriodMember, us-gaap:CollateralAxis=us-gaap:ResidentialRealEstateMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 630</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/627)" sourceLine="630">
+  <property name="label" value="Financing Receivable Allowance for Credit Losses Individuall and Collectively Evaluated for Impairment"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment"/>
+  <property name="QName" value="fil:FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment"/>
+  <property name="contextRef" value="E20Q1_Collateral-ResRealEst_Position-EndOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:CollateralAxis" value="us-gaap:ResidentialRealEstateMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:EndOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="148"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept AllowanceForCreditLossesOnFinancingReceivables with a value of 7,306 is dimensionally qualified with the PositionAxis and the unallowable member EndOfPeriodMember. 
+The properties of the fact for AllowanceForCreditLossesOnFinancingReceivables are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: us-gaap:PositionAxis=fil:EndOfPeriodMember, us-gaap:AccountsNotesLoansAndFinancingReceivableByReceivableTypeAxis=fil:LoansReceivableGrossMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 585</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/582)" sourceLine="585">
+  <property name="label" value="Allowance for Credit Losses on Financing Receivables"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="QName" value="fil:AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="contextRef" value="Y20Q1_AcctNotesLoansAndFinancingRecvByRecvType-LoansRecvGross_Position-EndOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:AccountsNotesLoansAndFinancingReceivableByReceivableTypeAxis" value="fil:LoansReceivableGrossMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:EndOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="7,306"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment with a value of 135 is dimensionally qualified with the PositionAxis and the unallowable member EndOfPeriodMember. 
+The properties of the fact for FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment are:
+Period: 2020-03-31
+Dimensions: us-gaap:PositionAxis=fil:EndOfPeriodMember, us-gaap:FinancialInstrumentAxis=us-gaap:ConsumerLoanMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 632</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/629)" sourceLine="632">
+  <property name="label" value="Financing Receivable Allowance for Credit Losses Individuall and Collectively Evaluated for Impairment"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment"/>
+  <property name="QName" value="fil:FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment"/>
+  <property name="contextRef" value="E20Q1_FinancialInstr-ConsumerLoan_Position-EndOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:FinancialInstrumentAxis" value="us-gaap:ConsumerLoanMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:EndOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="135"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment with a value of 7,306 is dimensionally qualified with the PositionAxis and the unallowable member EndOfPeriodMember. 
+The properties of the fact for FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment are:
+Period: 2020-03-31
+Dimensions: us-gaap:AccountsNotesLoansAndFinancingReceivableByReceivableTypeAxis=fil:LoansReceivableGrossMember, us-gaap:PositionAxis=fil:EndOfPeriodMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 633</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/630)" sourceLine="633">
+  <property name="label" value="Financing Receivable Allowance for Credit Losses Individuall and Collectively Evaluated for Impairment"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment"/>
+  <property name="QName" value="fil:FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment"/>
+  <property name="contextRef" value="E20Q1_AcctNotesLoansAndFinancingRecvByRecvType-LoansRecvGross_Position-EndOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:AccountsNotesLoansAndFinancingReceivableByReceivableTypeAxis" value="fil:LoansReceivableGrossMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:EndOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="7,306"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept AllowanceForCreditLossesOnFinancingReceivables with a value of 3,420 is dimensionally qualified with the PositionAxis and the unallowable member EndOfPeriodMember. 
+The properties of the fact for AllowanceForCreditLossesOnFinancingReceivables are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: us-gaap:CollateralAxis=us-gaap:CommercialRealEstateMember, us-gaap:PositionAxis=fil:EndOfPeriodMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 610</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/607)" sourceLine="610">
+  <property name="label" value="Allowance for Credit Losses on Financing Receivables"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="QName" value="fil:AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="contextRef" value="Y19Q1_Collateral-CmrcRealEst_Position-EndOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:CollateralAxis" value="us-gaap:CommercialRealEstateMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:EndOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="3,420"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept AllowanceForCreditLossesOnFinancingReceivables with a value of 1,790 is dimensionally qualified with the PositionAxis and the unallowable member EndOfPeriodMember. 
+The properties of the fact for AllowanceForCreditLossesOnFinancingReceivables are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: us-gaap:FinancialInstrumentAxis=us-gaap:CommercialLoanMember, us-gaap:PositionAxis=fil:EndOfPeriodMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 611</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/608)" sourceLine="611">
+  <property name="label" value="Allowance for Credit Losses on Financing Receivables"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="QName" value="fil:AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="contextRef" value="Y19Q1_FinancialInstr-CmrcLoan_Position-EndOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:FinancialInstrumentAxis" value="us-gaap:CommercialLoanMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:EndOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,790"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept AllowanceForCreditLossesOnFinancingReceivables with a value of 4,668 is dimensionally qualified with the PositionAxis and the unallowable member EndOfPeriodMember. 
+The properties of the fact for AllowanceForCreditLossesOnFinancingReceivables are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: us-gaap:PositionAxis=fil:EndOfPeriodMember, us-gaap:CollateralAxis=us-gaap:CommercialRealEstateMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 580</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/577)" sourceLine="580">
+  <property name="label" value="Allowance for Credit Losses on Financing Receivables"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="QName" value="fil:AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="contextRef" value="Y20Q1_Collateral-CmrcRealEst_Position-EndOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:CollateralAxis" value="us-gaap:CommercialRealEstateMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:EndOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4,668"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept AllowanceForCreditLossesOnFinancingReceivables with a value of 117 is dimensionally qualified with the PositionAxis and the unallowable member EndOfPeriodMember. 
+The properties of the fact for AllowanceForCreditLossesOnFinancingReceivables are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: us-gaap:PositionAxis=fil:EndOfPeriodMember, us-gaap:CollateralAxis=us-gaap:ResidentialRealEstateMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 612</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/609)" sourceLine="612">
+  <property name="label" value="Allowance for Credit Losses on Financing Receivables"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="QName" value="fil:AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="contextRef" value="Y19Q1_Collateral-ResRealEst_Position-EndOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:CollateralAxis" value="us-gaap:ResidentialRealEstateMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:EndOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="117"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept AllowanceForCreditLossesOnFinancingReceivables with a value of 1,772 is dimensionally qualified with the PositionAxis and the unallowable member EndOfPeriodMember. 
+The properties of the fact for AllowanceForCreditLossesOnFinancingReceivables are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: us-gaap:FinancialInstrumentAxis=us-gaap:CommercialLoanMember, us-gaap:PositionAxis=fil:EndOfPeriodMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 581</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/578)" sourceLine="581">
+  <property name="label" value="Allowance for Credit Losses on Financing Receivables"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="QName" value="fil:AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="contextRef" value="Y20Q1_FinancialInstr-CmrcLoan_Position-EndOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:FinancialInstrumentAxis" value="us-gaap:CommercialLoanMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:EndOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,772"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept AllowanceForCreditLossesOnFinancingReceivables with a value of 392 is dimensionally qualified with the PositionAxis and the unallowable member EndOfPeriodMember. 
+The properties of the fact for AllowanceForCreditLossesOnFinancingReceivables are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: us-gaap:PositionAxis=fil:EndOfPeriodMember, us-gaap:FinancialInstrumentAxis=fil:DirectFinancingLeasesMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 613</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/610)" sourceLine="613">
+  <property name="label" value="Allowance for Credit Losses on Financing Receivables"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="QName" value="fil:AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="contextRef" value="Y19Q1_FinancialInstr-DirectFinancingLeases_Position-EndOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:FinancialInstrumentAxis" value="fil:DirectFinancingLeasesMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:EndOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="392"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept AllowanceForCreditLossesOnFinancingReceivables with a value of 148 is dimensionally qualified with the PositionAxis and the unallowable member EndOfPeriodMember. 
+The properties of the fact for AllowanceForCreditLossesOnFinancingReceivables are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: us-gaap:PositionAxis=fil:EndOfPeriodMember, us-gaap:CollateralAxis=us-gaap:ResidentialRealEstateMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 582</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/579)" sourceLine="582">
+  <property name="label" value="Allowance for Credit Losses on Financing Receivables"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="QName" value="fil:AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="contextRef" value="Y20Q1_Collateral-ResRealEst_Position-EndOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:CollateralAxis" value="us-gaap:ResidentialRealEstateMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:EndOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="148"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment with a value of 4,564 is dimensionally qualified with the PositionAxis and the unallowable member EndOfPeriodMember. 
+The properties of the fact for FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment are:
+Period: 2019-12-31
+Dimensions: us-gaap:PositionAxis=fil:EndOfPeriodMember, us-gaap:CollateralAxis=us-gaap:CommercialRealEstateMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 664</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/661)" sourceLine="664">
+  <property name="label" value="Financing Receivable Allowance for Credit Losses Individuall and Collectively Evaluated for Impairment"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment"/>
+  <property name="QName" value="fil:FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment"/>
+  <property name="contextRef" value="E19_Collateral-CmrcRealEst_Position-EndOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:CollateralAxis" value="us-gaap:CommercialRealEstateMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:EndOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4,564"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept AllowanceForCreditLossesOnFinancingReceivables with a value of 117 is dimensionally qualified with the PositionAxis and the unallowable member EndOfPeriodMember. 
+The properties of the fact for AllowanceForCreditLossesOnFinancingReceivables are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: us-gaap:PositionAxis=fil:EndOfPeriodMember, us-gaap:FinancialInstrumentAxis=us-gaap:ConsumerLoanMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 614</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/611)" sourceLine="614">
+  <property name="label" value="Allowance for Credit Losses on Financing Receivables"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="QName" value="fil:AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="contextRef" value="Y19Q1_FinancialInstr-ConsumerLoan_Position-EndOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:FinancialInstrumentAxis" value="us-gaap:ConsumerLoanMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:EndOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="117"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept AllowanceForCreditLossesOnFinancingReceivables with a value of 583 is dimensionally qualified with the PositionAxis and the unallowable member EndOfPeriodMember. 
+The properties of the fact for AllowanceForCreditLossesOnFinancingReceivables are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: us-gaap:PositionAxis=fil:EndOfPeriodMember, us-gaap:FinancialInstrumentAxis=fil:DirectFinancingLeasesMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 583</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/580)" sourceLine="583">
+  <property name="label" value="Allowance for Credit Losses on Financing Receivables"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="QName" value="fil:AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="contextRef" value="Y20Q1_FinancialInstr-DirectFinancingLeases_Position-EndOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:FinancialInstrumentAxis" value="fil:DirectFinancingLeasesMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:EndOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="583"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment with a value of 1,852 is dimensionally qualified with the PositionAxis and the unallowable member EndOfPeriodMember. 
+The properties of the fact for FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment are:
+Period: 2019-12-31
+Dimensions: us-gaap:PositionAxis=fil:EndOfPeriodMember, us-gaap:FinancialInstrumentAxis=us-gaap:CommercialLoanMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 665</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/662)" sourceLine="665">
+  <property name="label" value="Financing Receivable Allowance for Credit Losses Individuall and Collectively Evaluated for Impairment"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment"/>
+  <property name="QName" value="fil:FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment"/>
+  <property name="contextRef" value="E19_FinancialInstr-CmrcLoan_Position-EndOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:FinancialInstrumentAxis" value="us-gaap:CommercialLoanMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:EndOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,852"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept AllowanceForCreditLossesOnFinancingReceivables with a value of 5,836 is dimensionally qualified with the PositionAxis and the unallowable member EndOfPeriodMember. 
+The properties of the fact for AllowanceForCreditLossesOnFinancingReceivables are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: us-gaap:PositionAxis=fil:EndOfPeriodMember, us-gaap:AccountsNotesLoansAndFinancingReceivableByReceivableTypeAxis=fil:LoansReceivableGrossMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 615</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/612)" sourceLine="615">
+  <property name="label" value="Allowance for Credit Losses on Financing Receivables"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="QName" value="fil:AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="contextRef" value="Y19Q1_AcctNotesLoansAndFinancingRecvByRecvType-LoansRecvGross_Position-EndOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:AccountsNotesLoansAndFinancingReceivableByReceivableTypeAxis" value="fil:LoansReceivableGrossMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:EndOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="5,836"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept AllowanceForCreditLossesOnFinancingReceivables with a value of 135 is dimensionally qualified with the PositionAxis and the unallowable member EndOfPeriodMember. 
+The properties of the fact for AllowanceForCreditLossesOnFinancingReceivables are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: us-gaap:FinancialInstrumentAxis=us-gaap:ConsumerLoanMember, us-gaap:PositionAxis=fil:EndOfPeriodMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 584</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/581)" sourceLine="584">
+  <property name="label" value="Allowance for Credit Losses on Financing Receivables"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="QName" value="fil:AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="contextRef" value="Y20Q1_FinancialInstr-ConsumerLoan_Position-EndOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:FinancialInstrumentAxis" value="us-gaap:ConsumerLoanMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:EndOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="135"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment with a value of 4,668 is dimensionally qualified with the PositionAxis and the unallowable member EndOfPeriodMember. 
+The properties of the fact for FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment are:
+Period: 2020-03-31
+Dimensions: us-gaap:CollateralAxis=us-gaap:CommercialRealEstateMember, us-gaap:PositionAxis=fil:EndOfPeriodMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 628</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/625)" sourceLine="628">
+  <property name="label" value="Financing Receivable Allowance for Credit Losses Individuall and Collectively Evaluated for Impairment"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment"/>
+  <property name="QName" value="fil:FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment"/>
+  <property name="contextRef" value="E20Q1_Collateral-CmrcRealEst_Position-EndOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:CollateralAxis" value="us-gaap:CommercialRealEstateMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:EndOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4,668"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment with a value of 109 is dimensionally qualified with the PositionAxis and the unallowable member EndOfPeriodMember. 
+The properties of the fact for FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment are:
+Period: 2019-12-31
+Dimensions: us-gaap:PositionAxis=fil:EndOfPeriodMember, us-gaap:CollateralAxis=us-gaap:ResidentialRealEstateMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 666</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/663)" sourceLine="666">
+  <property name="label" value="Financing Receivable Allowance for Credit Losses Individuall and Collectively Evaluated for Impairment"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment"/>
+  <property name="QName" value="fil:FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment"/>
+  <property name="contextRef" value="E19_Collateral-ResRealEst_Position-EndOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:CollateralAxis" value="us-gaap:ResidentialRealEstateMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:EndOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="109"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment with a value of 1,772 is dimensionally qualified with the PositionAxis and the unallowable member EndOfPeriodMember. 
+The properties of the fact for FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment are:
+Period: 2020-03-31
+Dimensions: us-gaap:FinancialInstrumentAxis=us-gaap:CommercialLoanMember, us-gaap:PositionAxis=fil:EndOfPeriodMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 629</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/626)" sourceLine="629">
+  <property name="label" value="Financing Receivable Allowance for Credit Losses Individuall and Collectively Evaluated for Impairment"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment"/>
+  <property name="QName" value="fil:FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment"/>
+  <property name="contextRef" value="E20Q1_FinancialInstr-CmrcLoan_Position-EndOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:FinancialInstrumentAxis" value="us-gaap:CommercialLoanMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:EndOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,772"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment with a value of 426 is dimensionally qualified with the PositionAxis and the unallowable member EndOfPeriodMember. 
+The properties of the fact for FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment are:
+Period: 2019-12-31
+Dimensions: us-gaap:PositionAxis=fil:EndOfPeriodMember, us-gaap:FinancialInstrumentAxis=fil:DirectFinancingLeasesMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 667</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/664)" sourceLine="667">
+  <property name="label" value="Financing Receivable Allowance for Credit Losses Individuall and Collectively Evaluated for Impairment"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment"/>
+  <property name="QName" value="fil:FinancingReceivableAllowanceForCreditLossesIndividuallAndCollectivelyEvaluatedForImpairment"/>
+  <property name="contextRef" value="E19_FinancialInstr-DirectFinancingLeases_Position-EndOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:FinancialInstrumentAxis" value="fil:DirectFinancingLeasesMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:EndOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="426"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept AllowanceForCreditLossesOnFinancingReceivables with a value of 7,089 is dimensionally qualified with the PositionAxis and the unallowable member BeginningOfPeriodMember. 
+The properties of the fact for AllowanceForCreditLossesOnFinancingReceivables are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: us-gaap:AccountsNotesLoansAndFinancingReceivableByReceivableTypeAxis=fil:LoansReceivableGrossMember, us-gaap:PositionAxis=fil:BeginningOfPeriodMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 561</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/558)" sourceLine="561">
+  <property name="label" value="Allowance for Credit Losses on Financing Receivables"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="QName" value="fil:AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="contextRef" value="Y20Q1_AcctNotesLoansAndFinancingRecvByRecvType-LoansRecvGross_Position-BeginningOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:AccountsNotesLoansAndFinancingReceivableByReceivableTypeAxis" value="fil:LoansReceivableGrossMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:BeginningOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="7,089"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept AllowanceForCreditLossesOnFinancingReceivables with a value of 3,147 is dimensionally qualified with the PositionAxis and the unallowable member BeginningOfPeriodMember. 
+The properties of the fact for AllowanceForCreditLossesOnFinancingReceivables are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: us-gaap:PositionAxis=fil:BeginningOfPeriodMember, us-gaap:CollateralAxis=us-gaap:CommercialRealEstateMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 586</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/583)" sourceLine="586">
+  <property name="label" value="Allowance for Credit Losses on Financing Receivables"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="QName" value="fil:AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="contextRef" value="Y19Q1_Collateral-CmrcRealEst_Position-BeginningOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:CollateralAxis" value="us-gaap:CommercialRealEstateMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:BeginningOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="3,147"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept AllowanceForCreditLossesOnFinancingReceivables with a value of 1,817 is dimensionally qualified with the PositionAxis and the unallowable member BeginningOfPeriodMember. 
+The properties of the fact for AllowanceForCreditLossesOnFinancingReceivables are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: us-gaap:FinancialInstrumentAxis=us-gaap:CommercialLoanMember, us-gaap:PositionAxis=fil:BeginningOfPeriodMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 587</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/584)" sourceLine="587">
+  <property name="label" value="Allowance for Credit Losses on Financing Receivables"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="QName" value="fil:AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="contextRef" value="Y19Q1_FinancialInstr-CmrcLoan_Position-BeginningOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:FinancialInstrumentAxis" value="us-gaap:CommercialLoanMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:BeginningOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,817"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept AllowanceForCreditLossesOnFinancingReceivables with a value of 4,564 is dimensionally qualified with the PositionAxis and the unallowable member BeginningOfPeriodMember. 
+The properties of the fact for AllowanceForCreditLossesOnFinancingReceivables are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: us-gaap:CollateralAxis=us-gaap:CommercialRealEstateMember, us-gaap:PositionAxis=fil:BeginningOfPeriodMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 556</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/553)" sourceLine="556">
+  <property name="label" value="Allowance for Credit Losses on Financing Receivables"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="QName" value="fil:AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="contextRef" value="Y20Q1_Collateral-CmrcRealEst_Position-BeginningOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:CollateralAxis" value="us-gaap:CommercialRealEstateMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:BeginningOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4,564"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept AllowanceForCreditLossesOnFinancingReceivables with a value of 139 is dimensionally qualified with the PositionAxis and the unallowable member BeginningOfPeriodMember. 
+The properties of the fact for AllowanceForCreditLossesOnFinancingReceivables are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: us-gaap:CollateralAxis=us-gaap:ResidentialRealEstateMember, us-gaap:PositionAxis=fil:BeginningOfPeriodMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 588</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/585)" sourceLine="588">
+  <property name="label" value="Allowance for Credit Losses on Financing Receivables"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="QName" value="fil:AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="contextRef" value="Y19Q1_Collateral-ResRealEst_Position-BeginningOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:CollateralAxis" value="us-gaap:ResidentialRealEstateMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:BeginningOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="139"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept AllowanceForCreditLossesOnFinancingReceivables with a value of 426 is dimensionally qualified with the PositionAxis and the unallowable member BeginningOfPeriodMember. 
+The properties of the fact for AllowanceForCreditLossesOnFinancingReceivables are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: us-gaap:PositionAxis=fil:BeginningOfPeriodMember, us-gaap:FinancialInstrumentAxis=fil:DirectFinancingLeasesMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 559</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/556)" sourceLine="559">
+  <property name="label" value="Allowance for Credit Losses on Financing Receivables"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="QName" value="fil:AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="contextRef" value="Y20Q1_FinancialInstr-DirectFinancingLeases_Position-BeginningOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:FinancialInstrumentAxis" value="fil:DirectFinancingLeasesMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:BeginningOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="426"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept AllowanceForCreditLossesOnFinancingReceivables with a value of 389 is dimensionally qualified with the PositionAxis and the unallowable member BeginningOfPeriodMember. 
+The properties of the fact for AllowanceForCreditLossesOnFinancingReceivables are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: us-gaap:PositionAxis=fil:BeginningOfPeriodMember, us-gaap:FinancialInstrumentAxis=fil:DirectFinancingLeasesMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 589</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/586)" sourceLine="589">
+  <property name="label" value="Allowance for Credit Losses on Financing Receivables"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="QName" value="fil:AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="contextRef" value="Y19Q1_FinancialInstr-DirectFinancingLeases_Position-BeginningOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:FinancialInstrumentAxis" value="fil:DirectFinancingLeasesMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:BeginningOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="389"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept AllowanceForCreditLossesOnFinancingReceivables with a value of 109 is dimensionally qualified with the PositionAxis and the unallowable member BeginningOfPeriodMember. 
+The properties of the fact for AllowanceForCreditLossesOnFinancingReceivables are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: us-gaap:CollateralAxis=us-gaap:ResidentialRealEstateMember, us-gaap:PositionAxis=fil:BeginningOfPeriodMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 558</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/555)" sourceLine="558">
+  <property name="label" value="Allowance for Credit Losses on Financing Receivables"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="QName" value="fil:AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="contextRef" value="Y20Q1_Collateral-ResRealEst_Position-BeginningOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:CollateralAxis" value="us-gaap:ResidentialRealEstateMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:BeginningOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="109"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept AllowanceForCreditLossesOnFinancingReceivables with a value of 108 is dimensionally qualified with the PositionAxis and the unallowable member BeginningOfPeriodMember. 
+The properties of the fact for AllowanceForCreditLossesOnFinancingReceivables are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: us-gaap:FinancialInstrumentAxis=us-gaap:ConsumerLoanMember, us-gaap:PositionAxis=fil:BeginningOfPeriodMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 590</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/587)" sourceLine="590">
+  <property name="label" value="Allowance for Credit Losses on Financing Receivables"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="QName" value="fil:AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="contextRef" value="Y19Q1_FinancialInstr-ConsumerLoan_Position-BeginningOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:FinancialInstrumentAxis" value="us-gaap:ConsumerLoanMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:BeginningOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="108"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept AllowanceForCreditLossesOnFinancingReceivables with a value of 1,852 is dimensionally qualified with the PositionAxis and the unallowable member BeginningOfPeriodMember. 
+The properties of the fact for AllowanceForCreditLossesOnFinancingReceivables are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: us-gaap:PositionAxis=fil:BeginningOfPeriodMember, us-gaap:FinancialInstrumentAxis=us-gaap:CommercialLoanMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 557</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/554)" sourceLine="557">
+  <property name="label" value="Allowance for Credit Losses on Financing Receivables"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="QName" value="fil:AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="contextRef" value="Y20Q1_FinancialInstr-CmrcLoan_Position-BeginningOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:FinancialInstrumentAxis" value="us-gaap:CommercialLoanMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:BeginningOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,852"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept AllowanceForCreditLossesOnFinancingReceivables with a value of 5,600 is dimensionally qualified with the PositionAxis and the unallowable member BeginningOfPeriodMember. 
+The properties of the fact for AllowanceForCreditLossesOnFinancingReceivables are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: us-gaap:AccountsNotesLoansAndFinancingReceivableByReceivableTypeAxis=fil:LoansReceivableGrossMember, us-gaap:PositionAxis=fil:BeginningOfPeriodMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 591</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/588)" sourceLine="591">
+  <property name="label" value="Allowance for Credit Losses on Financing Receivables"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="QName" value="fil:AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="contextRef" value="Y19Q1_AcctNotesLoansAndFinancingRecvByRecvType-LoansRecvGross_Position-BeginningOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:AccountsNotesLoansAndFinancingReceivableByReceivableTypeAxis" value="fil:LoansReceivableGrossMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:BeginningOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="5,600"/>
+ </ref></entry>
+<entry code="DQC.US.0001.63" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2898875229568">[DQC.US.0001.63] The concept AllowanceForCreditLossesOnFinancingReceivables with a value of 138 is dimensionally qualified with the PositionAxis and the unallowable member BeginningOfPeriodMember. 
+The properties of the fact for AllowanceForCreditLossesOnFinancingReceivables are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: us-gaap:FinancialInstrumentAxis=us-gaap:ConsumerLoanMember, us-gaap:PositionAxis=fil:BeginningOfPeriodMember 
+Unit: USD
+
+Rule Element Id:63
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml 560</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml#element(/1/557)" sourceLine="560">
+  <property name="label" value="Allowance for Credit Losses on Financing Receivables"/>
+  <property name="namespace" value="http://www.firstbankrichmond.com/20200331"/>
+  <property name="name" value="AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="QName" value="fil:AllowanceForCreditLossesOnFinancingReceivables"/>
+  <property name="contextRef" value="Y20Q1_FinancialInstr-ConsumerLoan_Position-BeginningOfPeriod">
+   <property name="entity" value="0001767837">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:FinancialInstrumentAxis" value="us-gaap:ConsumerLoanMember"/>
+    <property name="us-gaap:PositionAxis" value="fil:BeginningOfPeriodMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="138"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 19.62 secs - http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1767837/000092708920000320/rmbi-20200331.xml"/></entry>
+</log>

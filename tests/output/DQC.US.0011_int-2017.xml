@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 4.80 secs at 2018-10-16T09:57:55 - http://www.sec.gov/Archives/edgar/data/789460/000162828018005281/a2018q110qdoc.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/789460/000162828018005281/a2018q110qdoc.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - a2018q110qdoc.htm </message>
+ <ref href="a2018q110qdoc.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp9gxgcfx6/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp9gxgcfx6/packages/resources.zip"/></entry>
+<entry code="DQC.US.0011.6829" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/789460/000162828018005281/a2018q110qdoc.htm" cid="4437475000" rule-suffix="6829" severity="error">[DQC.US.0011.6829] It is expected that StockholdersEquity with a value of 1,755,200,000 reported in the network role http://www.wfscorp.com/role/ConsolidatedBalanceSheets should be equal to the dimensionally qualified concept, StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest with the dimension us-gaap:StatementEquityComponentsAxis = us-gaap:ParentMember and a reported value of 1,755,100,000 multiplied by 1. This value appears in the network role http://www.wfscorp.com/role/ConsolidatedStatementsOfShareholdersEquity. This error occurs when the dimensionally qualified fact is not equal to the value input for the non dimensional item.
+
+The properties of this us-gaap:StockholdersEquity fact are:
+
+Period : 2018-03-31
+Dimensions : 
+Unit : USD
+Decimals of StockholdersEquity : -5
+Decimals of StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest : -5
+Rule version: 9.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/789460/000162828018005281/a2018q110qdoc.htm 2632</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/789460/000162828018005281/a2018q110qdoc.htm#d84069410e1891-wk-Fact-C38B66E4CAEA56259C1F1C6A680FE165" sourceLine="2632">
+  <property name="file" value="a2018q110qdoc.htm"/>
+  <property name="line" value="2632"/>
+  <property name="label" value="Stockholders' Equity Attributable to Parent"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="StockholdersEquity"/>
+  <property name="QName" value="us-gaap:StockholdersEquity"/>
+  <property name="contextRef" value="FI2018Q1">
+   <property name="entity" value="0000789460">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-03-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,755,200,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="1,755.2"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 2.97 secs - http://www.sec.gov/Archives/edgar/data/789460/000162828018005281/a2018q110qdoc.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/789460/000162828018005281/a2018q110qdoc.htm"/></entry>
+</log>

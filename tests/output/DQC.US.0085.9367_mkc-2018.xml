@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 5.49 secs at 2019-11-15T16:42:02 - https://www.sec.gov/Archives/edgar/data/63754/000006375419000170/mkc-8312019xq3.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/63754/000006375419000170/mkc-8312019xq3.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpj3lxw22n\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpj3lxw22n\packages\resources.zip"/></entry>
+<entry code="DQC.US.0085.9367" level="error">
+ <message effectiveDate="None" cid="2026987644072" severity="error" filing_url="https://www.sec.gov/Archives/edgar/data/63754/000006375419000170/mkc-8312019xq3.htm">[DQC.US.0085.9367] The element DeferredTaxLiabilities has been reported with a value of 706,500,000, this element is also included as a calculation descendant of Liabilities or  LiabilitiesAndStockholdersEquity  in the financial statements. This element is a footnote element and should not appear in the face financial statements.
+
+Period :2018-11-30
+Dimensions : 
+Unit : USD
+Decimals: -5
+
+Rule Element Id:9367
+Rule version: 11.0.0RC1 - https://www.sec.gov/Archives/edgar/data/63754/000006375419000170/mkc-8312019xq3.htm 3364</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/63754/000006375419000170/mkc-8312019xq3.htm#d32932669e2101-wk-Fact-95BCE82888DFC7F5E6D9DD61B817A07D" sourceLine="3364">
+  <property name="file" value="mkc-8312019xq3.htm"/>
+  <property name="line" value="3364"/>
+  <property name="label" value="Deferred Tax Liabilities, Net"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="DeferredTaxLiabilities"/>
+  <property name="QName" value="us-gaap:DeferredTaxLiabilities"/>
+  <property name="contextRef" value="FI2018Q4">
+   <property name="entity" value="0000063754">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-11-30"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="706,500,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="706.5"/>
+ </ref></entry>
+<entry code="DQC.US.0085.9367" level="error">
+ <message effectiveDate="None" cid="2026987644072" severity="error" filing_url="https://www.sec.gov/Archives/edgar/data/63754/000006375419000170/mkc-8312019xq3.htm">[DQC.US.0085.9367] The element DeferredTaxLiabilities has been reported with a value of 667,700,000, this element is also included as a calculation descendant of Liabilities or  LiabilitiesAndStockholdersEquity  in the financial statements. This element is a footnote element and should not appear in the face financial statements.
+
+Period :2018-08-31
+Dimensions : 
+Unit : USD
+Decimals: -5
+
+Rule Element Id:9367
+Rule version: 11.0.0RC1 - https://www.sec.gov/Archives/edgar/data/63754/000006375419000170/mkc-8312019xq3.htm 3364</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/63754/000006375419000170/mkc-8312019xq3.htm#d32932669e2082-wk-Fact-91FD772E59BD0DAF1A29DD61B826BA76" sourceLine="3364">
+  <property name="file" value="mkc-8312019xq3.htm"/>
+  <property name="line" value="3364"/>
+  <property name="label" value="Deferred Tax Liabilities, Net"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="DeferredTaxLiabilities"/>
+  <property name="QName" value="us-gaap:DeferredTaxLiabilities"/>
+  <property name="contextRef" value="FI2018Q3">
+   <property name="entity" value="0000063754">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-08-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="667,700,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="667.7"/>
+ </ref></entry>
+<entry code="DQC.US.0085.9367" level="error">
+ <message effectiveDate="None" cid="2026987644072" severity="error" filing_url="https://www.sec.gov/Archives/edgar/data/63754/000006375419000170/mkc-8312019xq3.htm">[DQC.US.0085.9367] The element DeferredTaxLiabilities has been reported with a value of 701,200,000, this element is also included as a calculation descendant of Liabilities or  LiabilitiesAndStockholdersEquity  in the financial statements. This element is a footnote element and should not appear in the face financial statements.
+
+Period :2019-08-31
+Dimensions : 
+Unit : USD
+Decimals: -5
+
+Rule Element Id:9367
+Rule version: 11.0.0RC1 - https://www.sec.gov/Archives/edgar/data/63754/000006375419000170/mkc-8312019xq3.htm 3364</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/63754/000006375419000170/mkc-8312019xq3.htm#d32932669e2063-wk-Fact-52FF264169BE739CF495DD61B80C4242" sourceLine="3364">
+  <property name="file" value="mkc-8312019xq3.htm"/>
+  <property name="line" value="3364"/>
+  <property name="label" value="Deferred Tax Liabilities, Net"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="DeferredTaxLiabilities"/>
+  <property name="QName" value="us-gaap:DeferredTaxLiabilities"/>
+  <property name="contextRef" value="FI2019Q3">
+   <property name="entity" value="0000063754">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-08-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="701,200,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="701.2"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 6.40 secs - https://www.sec.gov/Archives/edgar/data/63754/000006375419000170/mkc-8312019xq3.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/63754/000006375419000170/mkc-8312019xq3.htm"/></entry>
+</log>

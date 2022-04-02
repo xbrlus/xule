@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 4.48 secs at 2018-10-16T09:51:08 - http://www.sec.gov/Archives/edgar/data/1597846/000149315217013111/grnq-20170930.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1597846/000149315217013111/grnq-20170930.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - grnq-20170930.xml </message>
+ <ref href="grnq-20170930.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp3z0bn10v/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp3z0bn10v/packages/resources.zip"/></entry>
+<entry code="DQC.US.0014.2807" level="error">
+ <message severity="error" rule-suffix="2807" filing_url="http://www.sec.gov/Archives/edgar/data/1597846/000149315217013111/grnq-20170930.xml" cid="4517969592">[DQC.US.0014.2807] Goodwill has a value of -1,213,921 which is less than zero. This element should not have a negative value. The preparer should consider if the value is input correctly for this assertion and, after considering the appropriateness of the input, if incorrect, input the amount as a positive (i.e., absolute) value and provide a negated label. 
+
+The properties of this us-gaap:Goodwill fact are:
+Period :2017-04-28
+Unit : USD
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1597846/000149315217013111/grnq-20170930.xml 3202</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1597846/000149315217013111/grnq-20170930.xml#element(/1/302)" sourceLine="3202">
+  <property name="label" value="Goodwill"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="Goodwill"/>
+  <property name="QName" value="us-gaap:Goodwill"/>
+  <property name="contextRef" value="AsOf2017-04-28">
+   <property name="entity" value="0001597846">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-04-28"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-1,213,921"/>
+ </ref></entry>
+<entry code="DQC.US.0014.2807" level="error">
+ <message severity="error" rule-suffix="2807" filing_url="http://www.sec.gov/Archives/edgar/data/1597846/000149315217013111/grnq-20170930.xml" cid="4517969592">[DQC.US.0014.2807] Goodwill has a value of -1,472,729 which is less than zero. This element should not have a negative value. The preparer should consider if the value is input correctly for this assertion and, after considering the appropriateness of the input, if incorrect, input the amount as a positive (i.e., absolute) value and provide a negated label. 
+
+The properties of this us-gaap:Goodwill fact are:
+Period :2015-09-30
+Unit : USD
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1597846/000149315217013111/grnq-20170930.xml 3196</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1597846/000149315217013111/grnq-20170930.xml#Foot-00-0" sourceLine="3196">
+  <property name="label" value="Goodwill"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="Goodwill"/>
+  <property name="QName" value="us-gaap:Goodwill"/>
+  <property name="contextRef" value="AsOf2015-09-30">
+   <property name="entity" value="0001597846">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2015-09-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-1,472,729"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 2.25 secs - http://www.sec.gov/Archives/edgar/data/1597846/000149315217013111/grnq-20170930.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1597846/000149315217013111/grnq-20170930.xml"/></entry>
+</log>

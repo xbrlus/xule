@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.73 secs at 2018-10-16T10:05:03 - https://www.sec.gov/Archives/edgar/data/8063/000000806318000010/atro-20180331.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/8063/000000806318000010/atro-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - atro-20180331.xml </message>
+ <ref href="atro-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp66dh4iv6/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp66dh4iv6/packages/resources.zip"/></entry>
+<entry code="DQC.US.0076.7653" level="error">
+ <message severity="error" cid="4342820536" filing_url="https://www.sec.gov/Archives/edgar/data/8063/000000806318000010/atro-20180331.xml">[DQC.US.0076.7653] The filer has reported a value for us-gaap:RevenueRemainingPerformanceObligation with a value of 356,100,000 using the dimension member 2018-04-01 The filer has not reported a duration value for the corresponding elements of either RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod (2017 taxonomy) or RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionPeriod1 (2018 and later).
+
+The properties of this us-gaap:RevenueRemainingPerformanceObligation fact are:
+Period :2018-03-31
+Dimensions : us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis=2018-04-01
+Unit : USD
+
+Rule Element Id:7653
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/8063/000000806318000010/atro-20180331.xml 2371</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/8063/000000806318000010/atro-20180331.xml#Fact-00087CBC8D553A4FD1C43B8387092B77" sourceLine="2371">
+  <property name="label" value="Revenue, Remaining Performance Obligation"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="RevenueRemainingPerformanceObligation"/>
+  <property name="QName" value="us-gaap:RevenueRemainingPerformanceObligation"/>
+  <property name="contextRef" value="FI2018Q1_us-gaap_RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis_us-gaap_RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis.domain_2018-04-01">
+   <property name="entity" value="0000008063">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis" value="&lt;us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis.domain>2018-04-01&lt;/us-gaap:RevenueRemain..."/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="356,100,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 2.17 secs - https://www.sec.gov/Archives/edgar/data/8063/000000806318000010/atro-20180331.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/8063/000000806318000010/atro-20180331.xml"/></entry>
+</log>

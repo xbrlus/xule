@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23221 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.09 secs at 2021-04-14T20:15:51 - https://www.sec.gov/Archives/edgar/data/1346655/000101738620000468/cmgo-20200930.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1346655/000101738620000468/cmgo-20200930.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmp5mo9yeu5\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmp5mo9yeu5\packages\resources.zip"/></entry>
+<entry code="DQC.US.0112.9561" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1346655/000101738620000468/cmgo-20200930.xml" severity="error" status="PROPOSED" effectiveDate="None" cid="2075621225424">[DQC.US.0112.9561] 
+The company has reported a value of  100,000,000 for the concept us-gaap:BusinessAcquisitionEquityInterestsIssuedOrIssuableNumberOfSharesIssued. It is expected that this fact also uses the BusinessAcquisitionAxis with a member indicating the business acquisition that the fact was related to.  This fact must include the business acquisition axis (BusinessAcquisitionAxis).
+
+The properties of this us-gaap:BusinessAcquisitionEquityInterestsIssuedOrIssuableNumberOfSharesIssued fact are:
+Period :2016-02-01 to 2016-02-18
+Dimensions : 
+Unit : shares
+
+
+Rule Element Id:9561
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/1346655/000101738620000468/cmgo-20200930.xml 1129</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1346655/000101738620000468/cmgo-20200930.xml#element(/1/323)" sourceLine="1129">
+  <property name="label" value="Shares received in acquisition"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="BusinessAcquisitionEquityInterestsIssuedOrIssuableNumberOfSharesIssued"/>
+  <property name="QName" value="us-gaap:BusinessAcquisitionEquityInterestsIssuedOrIssuableNumberOfSharesIssued"/>
+  <property name="contextRef" value="From2016-02-01to2016-02-18">
+   <property name="entity" value="0001346655">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-02-01"/>
+   <property name="endDate" value="2016-02-18"/>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="100,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0112.9561" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1346655/000101738620000468/cmgo-20200930.xml" severity="error" status="PROPOSED" effectiveDate="None" cid="2075621225424">[DQC.US.0112.9561] 
+The company has reported a value of  0.926 for the concept us-gaap:BusinessAcquisitionPercentageOfVotingInterestsAcquired. It is expected that this fact also uses the BusinessAcquisitionAxis with a member indicating the business acquisition that the fact was related to.  This fact must include the business acquisition axis (BusinessAcquisitionAxis).
+
+The properties of this us-gaap:BusinessAcquisitionPercentageOfVotingInterestsAcquired fact are:
+Period :2008-02-20
+Dimensions : 
+Unit : pure
+
+
+Rule Element Id:9561
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/1346655/000101738620000468/cmgo-20200930.xml 1127</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1346655/000101738620000468/cmgo-20200930.xml#element(/1/321)" sourceLine="1127">
+  <property name="label" value="Ownership"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="BusinessAcquisitionPercentageOfVotingInterestsAcquired"/>
+  <property name="QName" value="us-gaap:BusinessAcquisitionPercentageOfVotingInterestsAcquired"/>
+  <property name="contextRef" value="AsOf2008-02-20">
+   <property name="entity" value="0001346655">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2008-02-20"/>
+  </property>
+  <property name="unitRef" value="Pure (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.926"/>
+ </ref></entry>
+<entry code="DQC.US.0112.9561" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1346655/000101738620000468/cmgo-20200930.xml" severity="error" status="PROPOSED" effectiveDate="None" cid="2075621225424">[DQC.US.0112.9561] 
+The company has reported a value of  22,135,148 for the concept us-gaap:BusinessAcquisitionEquityInterestsIssuedOrIssuableNumberOfSharesIssued. It is expected that this fact also uses the BusinessAcquisitionAxis with a member indicating the business acquisition that the fact was related to.  This fact must include the business acquisition axis (BusinessAcquisitionAxis).
+
+The properties of this us-gaap:BusinessAcquisitionEquityInterestsIssuedOrIssuableNumberOfSharesIssued fact are:
+Period :2008-02-01 to 2008-02-20
+Dimensions : 
+Unit : shares
+
+
+Rule Element Id:9561
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/1346655/000101738620000468/cmgo-20200930.xml 1128</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1346655/000101738620000468/cmgo-20200930.xml#element(/1/322)" sourceLine="1128">
+  <property name="label" value="Shares received in acquisition"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="BusinessAcquisitionEquityInterestsIssuedOrIssuableNumberOfSharesIssued"/>
+  <property name="QName" value="us-gaap:BusinessAcquisitionEquityInterestsIssuedOrIssuableNumberOfSharesIssued"/>
+  <property name="contextRef" value="From2008-02-01to2008-02-20">
+   <property name="entity" value="0001346655">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2008-02-01"/>
+   <property name="endDate" value="2008-02-20"/>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="22,135,148"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 3.23 secs - https://www.sec.gov/Archives/edgar/data/1346655/000101738620000468/cmgo-20200930.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1346655/000101738620000468/cmgo-20200930.xml"/></entry>
+</log>

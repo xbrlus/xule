@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22790 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.26 secs at 2019-07-21T22:09:16 - http://www.sec.gov/Archives/edgar/data/723603/000115752319001520/culp-20190429.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/723603/000115752319001520/culp-20190429.xml"/></entry>
+<entry code="DQC.US.0084.9298" level="error">
+ <message cid="4419240064" severity="error" effectiveDate="None" filing_url="http://www.sec.gov/Archives/edgar/data/723603/000115752319001520/culp-20190429.xml">[DQC.US.0084.9298] Sum of the cumulative periods of 114,000 for us-gaap:IncomeLossFromEquityMethodInvestments does not match the reported total of -114,000, a difference of 228,000.
+
+Period values are:
+	2018-04-30 to 2018-07-29	77,000	 Decimals: -3
+	2018-07-30 to 2018-10-28	55,000	 Decimals: -3
+	2018-10-29 to 2019-01-27	-23,000	 Decimals: -3
+	2019-01-28 to 2019-04-28	5,000	 Decimals: -3
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 6,000 which is calculated by taking the lowest decimal value used in the calculation of -3. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this us-gaap:IncomeLossFromEquityMethodInvestments fact are:
+
+Period :2018-04-30 to 2019-04-28
+Dimensions : 
+Unit : USD
+Decimals: -3
+
+Rule Element Id:9298
+Rule version: 10.0.0RC1 - http://www.sec.gov/Archives/edgar/data/723603/000115752319001520/culp-20190429.xml 5748</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/723603/000115752319001520/culp-20190429.xml#Factid_5926397" sourceLine="5748">
+  <property name="label" value="Income (Loss) from Equity Method Investments"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="IncomeLossFromEquityMethodInvestments"/>
+  <property name="QName" value="us-gaap:IncomeLossFromEquityMethodInvestments"/>
+  <property name="contextRef" value="P04_30_2018To04_28_2019">
+   <property name="entity" value="0000723603">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-04-30"/>
+   <property name="endDate" value="2019-04-28"/>
+  </property>
+  <property name="unitRef" value="Unit_USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-114,000"/>
+ </ref></entry>
+<entry code="DQC.US.0084.9298" level="error">
+ <message cid="4419240064" severity="error" effectiveDate="None" filing_url="http://www.sec.gov/Archives/edgar/data/723603/000115752319001520/culp-20190429.xml">[DQC.US.0084.9298] Sum of the cumulative periods of 266,000 for us-gaap:IncomeLossFromEquityMethodInvestments does not match the reported total of -266,000, a difference of 532,000.
+
+Period values are:
+	2017-05-01 to 2017-07-30	118,000	 Decimals: -3
+	2017-07-31 to 2017-10-29	75,000	 Decimals: -3
+	2017-10-30 to 2018-01-28	56,000	 Decimals: -3
+	2018-01-29 to 2018-04-29	17,000	 Decimals: -3
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 6,000 which is calculated by taking the lowest decimal value used in the calculation of -3. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this us-gaap:IncomeLossFromEquityMethodInvestments fact are:
+
+Period :2017-05-01 to 2018-04-29
+Dimensions : 
+Unit : USD
+Decimals: -3
+
+Rule Element Id:9298
+Rule version: 10.0.0RC1 - http://www.sec.gov/Archives/edgar/data/723603/000115752319001520/culp-20190429.xml 5749</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/723603/000115752319001520/culp-20190429.xml#Factid_5926398" sourceLine="5749">
+  <property name="label" value="Income (Loss) from Equity Method Investments"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="IncomeLossFromEquityMethodInvestments"/>
+  <property name="QName" value="us-gaap:IncomeLossFromEquityMethodInvestments"/>
+  <property name="contextRef" value="P05_01_2017To04_29_2018">
+   <property name="entity" value="0000723603">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-05-01"/>
+   <property name="endDate" value="2018-04-29"/>
+  </property>
+  <property name="unitRef" value="Unit_USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-266,000"/>
+ </ref></entry>
+<entry code="DQC.US.0084.9298" level="error">
+ <message cid="4419240064" severity="error" effectiveDate="None" filing_url="http://www.sec.gov/Archives/edgar/data/723603/000115752319001520/culp-20190429.xml">[DQC.US.0084.9298] Sum of the cumulative periods of 1,345,000 for us-gaap:OtherNonoperatingIncomeExpense does not match the reported total of -1,346,000, a difference of 2,691,000.
+
+Period values are:
+	2018-04-30 to 2018-07-29	257,000	 Decimals: -3
+	2018-07-30 to 2018-10-28	142,000	 Decimals: -3
+	2018-10-29 to 2019-01-27	288,000	 Decimals: -3
+	2019-01-28 to 2019-04-28	658,000	 Decimals: -3
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 6,000 which is calculated by taking the lowest decimal value used in the calculation of -3. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this us-gaap:OtherNonoperatingIncomeExpense fact are:
+
+Period :2018-04-30 to 2019-04-28
+Dimensions : 
+Unit : USD
+Decimals: -3
+
+Rule Element Id:9298
+Rule version: 10.0.0RC1 - http://www.sec.gov/Archives/edgar/data/723603/000115752319001520/culp-20190429.xml 6647</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/723603/000115752319001520/culp-20190429.xml#Factid_5930657" sourceLine="6647">
+  <property name="label" value="Other Nonoperating Income (Expense)"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="OtherNonoperatingIncomeExpense"/>
+  <property name="QName" value="us-gaap:OtherNonoperatingIncomeExpense"/>
+  <property name="contextRef" value="P04_30_2018To04_28_2019">
+   <property name="entity" value="0000723603">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-04-30"/>
+   <property name="endDate" value="2019-04-28"/>
+  </property>
+  <property name="unitRef" value="Unit_USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-1,346,000"/>
+ </ref></entry>
+<entry code="DQC.US.0084.9298" level="error">
+ <message cid="4419240064" severity="error" effectiveDate="None" filing_url="http://www.sec.gov/Archives/edgar/data/723603/000115752319001520/culp-20190429.xml">[DQC.US.0084.9298] Sum of the cumulative periods of 1,018,000 for us-gaap:OtherNonoperatingIncomeExpense does not match the reported total of -1,018,000, a difference of 2,036,000.
+
+Period values are:
+	2017-05-01 to 2017-07-30	353,000	 Decimals: -3
+	2017-07-31 to 2017-10-29	321,000	 Decimals: -3
+	2017-10-30 to 2018-01-28	229,000	 Decimals: -3
+	2018-01-29 to 2018-04-29	115,000	 Decimals: -3
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 6,000 which is calculated by taking the lowest decimal value used in the calculation of -3. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this us-gaap:OtherNonoperatingIncomeExpense fact are:
+
+Period :2017-05-01 to 2018-04-29
+Dimensions : 
+Unit : USD
+Decimals: -3
+
+Rule Element Id:9298
+Rule version: 10.0.0RC1 - http://www.sec.gov/Archives/edgar/data/723603/000115752319001520/culp-20190429.xml 6648</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/723603/000115752319001520/culp-20190429.xml#Factid_5930658" sourceLine="6648">
+  <property name="label" value="Other Nonoperating Income (Expense)"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="OtherNonoperatingIncomeExpense"/>
+  <property name="QName" value="us-gaap:OtherNonoperatingIncomeExpense"/>
+  <property name="contextRef" value="P05_01_2017To04_29_2018">
+   <property name="entity" value="0000723603">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-05-01"/>
+   <property name="endDate" value="2018-04-29"/>
+  </property>
+  <property name="unitRef" value="Unit_USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-1,018,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 37.36 secs - http://www.sec.gov/Archives/edgar/data/723603/000115752319001520/culp-20190429.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/723603/000115752319001520/culp-20190429.xml"/></entry>
+</log>

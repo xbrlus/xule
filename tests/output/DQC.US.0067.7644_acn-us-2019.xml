@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 4.01 secs at 2020-07-24T23:33:10 - http://www.sec.gov/Archives/edgar/data/1467373/000146737320000251/acn531202010-q.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1467373/000146737320000251/acn531202010-q.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpwg2yc135\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpwg2yc135\packages\resources.zip"/></entry>
+<entry code="DQC.US.0067.7644" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1467373/000146737320000251/acn531202010-q.htm" severity="error" effectiveDate="2019-01-01" cid="1675719845248">[DQC.US.0067.7644] The filing has reported a value of &quot;704,282,000&quot; for the element us-gaap:DeferredSetUpCostsNoncurrent. This is a revenue recognition element that is not a component of FASB 606 and does not appear in disclosure group 606000. However the following elements have also been tagged in the filing that indicate that the FASB 606  revenue recognition standard has been adopted:
+ContractWithCustomerAssetAndLiabilityTableTextBlock,
+ContractWithCustomerAssetNetCurrent,
+ContractWithCustomerAssetNetNoncurrent,
+ContractWithCustomerLiabilityRevenueRecognized,
+RevenueFromContractWithCustomerTextBlock,
+RevenueRemainingPerformanceObligation
+
+Either the new revenue recognition elements must be used or the old revenue recognition elements should be used but they should not be combined in the same filing.  
+
+The properties of this us-gaap:DeferredSetUpCostsNoncurrent fact are:
+Period :2020-05-31
+Dimensions : 
+Unit : USD
+
+Rule Element Id:7644
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1467373/000146737320000251/acn531202010-q.htm 2359</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1467373/000146737320000251/acn531202010-q.htm#d1998394e607-wk-Fact-6C382A29F7DA51E38AFED5149CB7D499" sourceLine="2359">
+  <property name="file" value="acn531202010-q.htm"/>
+  <property name="line" value="2359"/>
+  <property name="label" value="Deferred Set-up Costs, Noncurrent"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DeferredSetUpCostsNoncurrent"/>
+  <property name="QName" value="us-gaap:DeferredSetUpCostsNoncurrent"/>
+  <property name="contextRef" value="FI2020Q3">
+   <property name="entity" value="0001467373">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-05-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="704,282,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="704,282"/>
+ </ref></entry>
+<entry code="DQC.US.0067.7644" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1467373/000146737320000251/acn531202010-q.htm" severity="error" effectiveDate="2019-01-01" cid="1675719845248">[DQC.US.0067.7644] The filing has reported a value of &quot;681,492,000&quot; for the element us-gaap:DeferredSetUpCostsNoncurrent. This is a revenue recognition element that is not a component of FASB 606 and does not appear in disclosure group 606000. However the following elements have also been tagged in the filing that indicate that the FASB 606  revenue recognition standard has been adopted:
+ContractWithCustomerAssetAndLiabilityTableTextBlock,
+ContractWithCustomerAssetNetCurrent,
+ContractWithCustomerAssetNetNoncurrent,
+ContractWithCustomerLiabilityRevenueRecognized,
+RevenueFromContractWithCustomerTextBlock,
+RevenueRemainingPerformanceObligation
+
+Either the new revenue recognition elements must be used or the old revenue recognition elements should be used but they should not be combined in the same filing.  
+
+The properties of this us-gaap:DeferredSetUpCostsNoncurrent fact are:
+Period :2019-08-31
+Dimensions : 
+Unit : USD
+
+Rule Element Id:7644
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1467373/000146737320000251/acn531202010-q.htm 2359</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1467373/000146737320000251/acn531202010-q.htm#d1998394e612-wk-Fact-D3E64B17A81A5D569059B36BDCBA94BC" sourceLine="2359">
+  <property name="file" value="acn531202010-q.htm"/>
+  <property name="line" value="2359"/>
+  <property name="label" value="Deferred Set-up Costs, Noncurrent"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DeferredSetUpCostsNoncurrent"/>
+  <property name="QName" value="us-gaap:DeferredSetUpCostsNoncurrent"/>
+  <property name="contextRef" value="FI2019Q4">
+   <property name="entity" value="0001467373">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-08-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="681,492,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="681,492"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 22.34 secs - http://www.sec.gov/Archives/edgar/data/1467373/000146737320000251/acn531202010-q.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1467373/000146737320000251/acn531202010-q.htm"/></entry>
+</log>

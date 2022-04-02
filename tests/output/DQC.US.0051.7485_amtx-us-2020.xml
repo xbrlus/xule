@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.61 secs at 2020-07-28T15:28:46 - http://www.sec.gov/Archives/edgar/data/738214/000165495420005416/amtx-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/738214/000165495420005416/amtx-20200331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmp01o4l3oa\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmp01o4l3oa\packages\resources.zip"/></entry>
+<entry code="DQC.US.0051.7485" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/738214/000165495420005416/amtx-20200331.xml" severity="error" effectiveDate="2018-06-01" cid="2350094919040">[DQC.US.0051.7485] IncomeTaxExpenseBenefit should not be included in the calculation of IncomeLossAttributableToParent in the group http://aemetis.com/role/ConsolidatedCondensedStatementsOfOperationsAndComprehensiveLoss. IncomeLossAttributableToParent  is before the deduction of tax. Excluding the tax expense from the amount is inconsistent with the meaning of the element  because this element represents a before tax item and should not be used to represent an after tax item. If IncomeLossAttributableToParent represents  the amount after tax then use NetIncomeLoss instead.
+
+Element Checked : IncomeLossAttributableToParent
+
+Rule Element Id:7485
+Rule version: 13.0.0RC1 - </message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 3.25 secs - http://www.sec.gov/Archives/edgar/data/738214/000165495420005416/amtx-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/738214/000165495420005416/amtx-20200331.xml"/></entry>
+</log>

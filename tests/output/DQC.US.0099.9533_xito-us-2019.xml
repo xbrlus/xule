@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 0.95 secs at 2021-01-25T16:05:28 - http://www.sec.gov/Archives/edgar/data/1651932/000164033420000384/xito-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1651932/000164033420000384/xito-20191231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset D:/DJT/Documents/GitHub/dqc/dqc_us_rules/dqc_us_rules/dqc-us-2019-V14-ruleset.zip - xito-20191231.xml </message>
+ <ref href="xito-20191231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmp3ek9olji\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmp3ek9olji\packages\resources.zip"/></entry>
+<entry code="DQC.US.0099.9533" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1651932/000164033420000384/xito-20191231.xml" severity="error" status="APPROVED" effectiveDate="2021-01-01" cid="3209979729280">[DQC.US.0099.9533] 
+The following elements are in the presentation linkbase of 0000006 - Statement - Statements of Cash Flows (Unaudited) but are not included in any calculation relationship in the filing.
+us-gaap:IncreaseDecreaseInAccruedLiabilities, 
+us-gaap:IncreaseDecreaseInPrepaidExpense, 
+us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities, 
+us-gaap:NetCashProvidedByUsedInOperatingActivities, 
+us-gaap:ProceedsFromRelatedPartyDebt, 
+us-gaap:NetCashProvidedByUsedInFinancingActivities, 
+us-gaap:CashAndCashEquivalentsPeriodIncreaseDecrease, 
+us-gaap:NetIncomeLoss
+All elements appearing in the face of the financial statements should be included in a calculation relationship somewhere in the filing. Items not included in the financial statement calculations but included in the presentation are referred to as parenthetical items. These usualy appear as a referenced item, or as a value in parenthesis describing that the value reported includes another specific amount.  These values should be reported in a seperate link role for parenthetical items.
+
+This rule will produce an error irrespective of a fact value being entered for the item(s) listed above.
+
+If the item is an additional disclosure in the cash flow statement then make sure that is included as a child of one of the following abstract items:
+NoncashInvestingAndFinancingItemsAbstract, NonCashOperatingAndInvestingActivitiesAbstract, us-gaap:IncomeTaxesPaidNetAbstract, NonCashOperatingAndFinancingActivitiesAbstract, us-gaap:NoncashOrPartNoncashAcquisitionNetNonmonetaryAssetsAcquiredLiabilitiesAssumedAbstract, us-gaap:NoncashOrPartNoncashAcquisitionValueOfAssetsAcquiredAbstract, us-gaap:NoncashOrPartNoncashAcquisitionValueOfLiabilitiesAssumedAbstract, SupplementalCashFlowInformationAbstract, us-gaap:OtherNoncashInvestingAndFinancingItemsAbstract, AdditionalCashFlowElementsAndSupplementalCashFlowInformationAbstract, SupplementalCashFlowElementsAbstract, NoncashFinancingItemsAbstract, NoncashInvestingItemsAbstract, CashFlowNoncashInvestingAndFinancingActivitiesDisclosureAbstract, us-gaap:InterestPaidAbstract
+
+Rule Element Id:9533
+Rule version: 14.0.0 - </message></entry>
+<entry code="DQC.US.0099.9533" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1651932/000164033420000384/xito-20191231.xml" severity="error" status="APPROVED" effectiveDate="2021-01-01" cid="3209979729280">[DQC.US.0099.9533] 
+The following elements are in the presentation linkbase of 0000002 - Statement - Balance Sheets but are not included in any calculation relationship in the filing.
+us-gaap:ConvertibleNotesPayableCurrent, 
+us-gaap:DueToRelatedPartiesCurrent, 
+us-gaap:AccruedLiabilitiesCurrent, 
+us-gaap:CommonStockValue, 
+us-gaap:Liabilities, 
+us-gaap:LiabilitiesCurrent, 
+us-gaap:StockholdersEquity, 
+us-gaap:AccountsPayableAndAccruedLiabilitiesCurrent, 
+us-gaap:RetainedEarningsAccumulatedDeficit, 
+xito:CapitalDeficiency, 
+us-gaap:PreferredStockValue, 
+us-gaap:LiabilitiesAndStockholdersEquity
+All elements appearing in the face of the financial statements should be included in a calculation relationship somewhere in the filing. Items not included in the financial statement calculations but included in the presentation are referred to as parenthetical items. These usualy appear as a referenced item, or as a value in parenthesis describing that the value reported includes another specific amount.  These values should be reported in a seperate link role for parenthetical items.
+
+This rule will produce an error irrespective of a fact value being entered for the item(s) listed above.
+If the item is an additional disclosure in the income statement statement then make sure that is included as a child of one of the following abstract items:
+ShareBasedCompensationAllocationAndClassificationInFinancialStatementsAbstract, 
+SupplementalIncomeStatementElementsAbstract
+
+Rule Element Id:9533
+Rule version: 14.0.0 - </message></entry>
+<entry code="DQC.US.0099.9533" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1651932/000164033420000384/xito-20191231.xml" severity="error" status="APPROVED" effectiveDate="2021-01-01" cid="3209979729280">[DQC.US.0099.9533] 
+The following elements are in the presentation linkbase of 0000004 - Statement - Statements of Operations (Unaudited) but are not included in any calculation relationship in the filing.
+us-gaap:OtherExpenses, 
+us-gaap:OperatingIncomeLoss, 
+us-gaap:Revenues, 
+us-gaap:InterestExpense, 
+us-gaap:NetIncomeLoss, 
+us-gaap:GeneralAndAdministrativeExpense, 
+us-gaap:ProfessionalFees, 
+us-gaap:OperatingExpenses
+All elements appearing in the face of the financial statements should be included in a calculation relationship somewhere in the filing. Items not included in the financial statement calculations but included in the presentation are referred to as parenthetical items. These usualy appear as a referenced item, or as a value in parenthesis describing that the value reported includes another specific amount.  These values should be reported in a seperate link role for parenthetical items.
+
+This rule will produce an error irrespective of a fact value being entered for the item(s) listed above.
+If the item is an additional disclosure in the income statement statement then make sure that is included as a child of one of the following abstract items:
+ShareBasedCompensationAllocationAndClassificationInFinancialStatementsAbstract, 
+SupplementalIncomeStatementElementsAbstract
+
+Rule Element Id:9533
+Rule version: 14.0.0 - </message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 19.51 secs - http://www.sec.gov/Archives/edgar/data/1651932/000164033420000384/xito-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1651932/000164033420000384/xito-20191231.xml"/></entry>
+</log>

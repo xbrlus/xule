@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 11.87 secs at 2019-11-15T16:39:28 - https://www.sec.gov/Archives/edgar/data/1528396/000152839619000036/gwre-7312019x10ka.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1528396/000152839619000036/gwre-7312019x10ka.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmp1mus5wme\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmp1mus5wme\packages\resources.zip"/></entry>
+<entry code="DQC.US.0085.9361" level="error">
+ <message effectiveDate="None" severity="error" filing_url="https://www.sec.gov/Archives/edgar/data/1528396/000152839619000036/gwre-7312019x10ka.htm" cid="2531602785448">[DQC.US.0085.9361] The element DeferredTaxAssetsLiabilitiesNet appears in the face financial statements of the filing.  This element is a footnote concept that should only be used in a footnote disclosure.  To report the value of deferred taxes on the balance sheet either the element DeferredIncomeTaxAssetsNet or DeferredIncomeTaxLiabilitiesNet should be used depending if it is a liability or an asset. If the value of DeferredTaxAssetsLiabilitiesNet is the same as the value for DeferredIncomeTaxAssetsNet or DeferredIncomeTaxLiabilitiesNet, then one of these balance sheet elements should be used on the balance sheet and not the footnote element DeferredTaxAssetsLiabilitiesNet.
+
+Rule Element Id:9361
+Rule version: 11.0.0RC1 - </message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 7.82 secs - https://www.sec.gov/Archives/edgar/data/1528396/000152839619000036/gwre-7312019x10ka.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1528396/000152839619000036/gwre-7312019x10ka.htm"/></entry>
+</log>

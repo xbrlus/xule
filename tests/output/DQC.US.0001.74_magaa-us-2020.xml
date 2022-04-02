@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.91 secs at 2020-07-26T18:46:16 - http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpm4ade34d\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpm4ade34d\packages\resources.zip"/></entry>
+<entry code="DQC.US.0001.74" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml" severity="error" effectiveDate="2017-01-01" cid="1375634957696">[DQC.US.0001.74] The concept LiabilitiesAndStockholdersEquity with a value of 0 is dimensionally qualified with the SubsequentEventTypeAxis and the unallowable member SubsequentActivityMember. 
+The properties of the fact for LiabilitiesAndStockholdersEquity are:
+Period: 2020-05-31
+Dimensions: us-gaap:SubsequentEventTypeAxis=MAGAA:SubsequentActivityMember 
+Unit: USD
+
+Rule Element Id:74
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml 484</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml#element(/1/98)" sourceLine="484">
+  <property name="label" value="Total liabilities and equity"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="LiabilitiesAndStockholdersEquity"/>
+  <property name="QName" value="us-gaap:LiabilitiesAndStockholdersEquity"/>
+  <property name="contextRef" value="AsOf2020-05-31_custom_SubsequentActivityMember">
+   <property name="entity" value="0000895464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:SubsequentEventTypeAxis" value="MAGAA:SubsequentActivityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.74" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml" severity="error" effectiveDate="2017-01-01" cid="1375634957696">[DQC.US.0001.74] The concept Assets with a value of 0 is dimensionally qualified with the SubsequentEventTypeAxis and the unallowable member SubsequentActivityMember. 
+The properties of the fact for Assets are:
+Period: 2020-05-31
+Dimensions: us-gaap:SubsequentEventTypeAxis=MAGAA:SubsequentActivityMember 
+Unit: USD
+
+Rule Element Id:74
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml 458</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml#element(/1/72)" sourceLine="458">
+  <property name="label" value="Total assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="AsOf2020-05-31_custom_SubsequentActivityMember">
+   <property name="entity" value="0000895464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:SubsequentEventTypeAxis" value="MAGAA:SubsequentActivityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.74" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml" severity="error" effectiveDate="2017-01-01" cid="1375634957696">[DQC.US.0001.74] The concept AccountsPayableCurrent with a value of 12,000 is dimensionally qualified with the SubsequentEventTypeAxis and the unallowable member SubsequentActivityMember. 
+The properties of the fact for AccountsPayableCurrent are:
+Period: 2020-05-31
+Dimensions: us-gaap:SubsequentEventTypeAxis=MAGAA:SubsequentActivityMember 
+Unit: USD
+
+Rule Element Id:74
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml 470</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml#element(/1/84)" sourceLine="470">
+  <property name="label" value="Accounts payable"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="AccountsPayableCurrent"/>
+  <property name="QName" value="us-gaap:AccountsPayableCurrent"/>
+  <property name="contextRef" value="AsOf2020-05-31_custom_SubsequentActivityMember">
+   <property name="entity" value="0000895464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:SubsequentEventTypeAxis" value="MAGAA:SubsequentActivityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="12,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.74" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml" severity="error" effectiveDate="2017-01-01" cid="1375634957696">[DQC.US.0001.74] The concept NotesPayableCurrent with a value of 19,000 is dimensionally qualified with the SubsequentEventTypeAxis and the unallowable member SubsequentActivityMember. 
+The properties of the fact for NotesPayableCurrent are:
+Period: 2020-05-31
+Dimensions: us-gaap:SubsequentEventTypeAxis=MAGAA:SubsequentActivityMember 
+Unit: USD
+
+Rule Element Id:74
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml 613</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml#element(/1/227)" sourceLine="613">
+  <property name="label" value="Notes payable and accrued interest payable to related parties"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="NotesPayableCurrent"/>
+  <property name="QName" value="us-gaap:NotesPayableCurrent"/>
+  <property name="contextRef" value="AsOf2020-05-31_custom_SubsequentActivityMember">
+   <property name="entity" value="0000895464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:SubsequentEventTypeAxis" value="MAGAA:SubsequentActivityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="19,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.74" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml" severity="error" effectiveDate="2017-01-01" cid="1375634957696">[DQC.US.0001.74] The concept StockholdersEquity with a value of -21,000 is dimensionally qualified with the SubsequentEventTypeAxis and the unallowable member SubsequentActivityMember. 
+The properties of the fact for StockholdersEquity are:
+Period: 2020-05-31
+Dimensions: us-gaap:SubsequentEventTypeAxis=MAGAA:SubsequentActivityMember 
+Unit: USD
+
+Rule Element Id:74
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml 507</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml#element(/1/121)" sourceLine="507">
+  <property name="label" value="Stockholders' deficit"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="StockholdersEquity"/>
+  <property name="QName" value="us-gaap:StockholdersEquity"/>
+  <property name="contextRef" value="AsOf2020-05-31_custom_SubsequentActivityMember">
+   <property name="entity" value="0000895464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:SubsequentEventTypeAxis" value="MAGAA:SubsequentActivityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-21,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.74" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml" severity="error" effectiveDate="2017-01-01" cid="1375634957696">[DQC.US.0001.74] The concept Cash with a value of 0 is dimensionally qualified with the SubsequentEventTypeAxis and the unallowable member SubsequentActivityMember. 
+The properties of the fact for Cash are:
+Period: 2020-05-31
+Dimensions: us-gaap:SubsequentEventTypeAxis=MAGAA:SubsequentActivityMember 
+Unit: USD
+
+Rule Element Id:74
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml 451</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml#element(/1/65)" sourceLine="451">
+  <property name="label" value="Cash"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="Cash"/>
+  <property name="QName" value="us-gaap:Cash"/>
+  <property name="contextRef" value="AsOf2020-05-31_custom_SubsequentActivityMember">
+   <property name="entity" value="0000895464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:SubsequentEventTypeAxis" value="MAGAA:SubsequentActivityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.74" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml" severity="error" effectiveDate="2017-01-01" cid="1375634957696">[DQC.US.0001.74] The concept Liabilities with a value of 21,000 is dimensionally qualified with the SubsequentEventTypeAxis and the unallowable member SubsequentActivityMember. 
+The properties of the fact for Liabilities are:
+Period: 2020-05-31
+Dimensions: us-gaap:SubsequentEventTypeAxis=MAGAA:SubsequentActivityMember 
+Unit: USD
+
+Rule Element Id:74
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml 475</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml#element(/1/89)" sourceLine="475">
+  <property name="label" value="Total liabilities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="us-gaap:Liabilities"/>
+  <property name="contextRef" value="AsOf2020-05-31_custom_SubsequentActivityMember">
+   <property name="entity" value="0000895464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:SubsequentEventTypeAxis" value="MAGAA:SubsequentActivityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="21,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.74" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml" severity="error" effectiveDate="2017-01-01" cid="1375634957696">[DQC.US.0001.74] The concept RetainedEarningsAccumulatedDeficit with a value of -12,000 is dimensionally qualified with the SubsequentEventTypeAxis and the unallowable member SubsequentActivityMember. 
+The properties of the fact for RetainedEarningsAccumulatedDeficit are:
+Period: 2020-05-31
+Dimensions: us-gaap:SubsequentEventTypeAxis=MAGAA:SubsequentActivityMember 
+Unit: USD
+
+Rule Element Id:74
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml 512</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml#element(/1/126)" sourceLine="512">
+  <property name="label" value="Retained earnings (deficit)"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="RetainedEarningsAccumulatedDeficit"/>
+  <property name="QName" value="us-gaap:RetainedEarningsAccumulatedDeficit"/>
+  <property name="contextRef" value="AsOf2020-05-31_custom_SubsequentActivityMember">
+   <property name="entity" value="0000895464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:SubsequentEventTypeAxis" value="MAGAA:SubsequentActivityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-12,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.74" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml" severity="error" effectiveDate="2017-01-01" cid="1375634957696">[DQC.US.0001.74] The concept AccruedLiabilitiesCurrent with a value of -10,000 is dimensionally qualified with the SubsequentEventTypeAxis and the unallowable member SubsequentActivityMember. 
+The properties of the fact for AccruedLiabilitiesCurrent are:
+Period: 2020-05-31
+Dimensions: us-gaap:SubsequentEventTypeAxis=MAGAA:SubsequentActivityMember 
+Unit: USD
+
+Rule Element Id:74
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml 465</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml#element(/1/79)" sourceLine="465">
+  <property name="label" value="Accrued expenses and other current liabilities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="AccruedLiabilitiesCurrent"/>
+  <property name="QName" value="us-gaap:AccruedLiabilitiesCurrent"/>
+  <property name="contextRef" value="AsOf2020-05-31_custom_SubsequentActivityMember">
+   <property name="entity" value="0000895464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:SubsequentEventTypeAxis" value="MAGAA:SubsequentActivityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-10,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.74" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml" severity="error" effectiveDate="2017-01-01" cid="1375634957696">[DQC.US.0001.74] The concept AdditionalPaidInCapital with a value of -9,000 is dimensionally qualified with the SubsequentEventTypeAxis and the unallowable member SubsequentActivityMember. 
+The properties of the fact for AdditionalPaidInCapital are:
+Period: 2020-05-31
+Dimensions: us-gaap:SubsequentEventTypeAxis=MAGAA:SubsequentActivityMember 
+Unit: USD
+
+Rule Element Id:74
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml 517</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml#element(/1/131)" sourceLine="517">
+  <property name="label" value="Additional paid-in capital"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="AdditionalPaidInCapital"/>
+  <property name="QName" value="us-gaap:AdditionalPaidInCapital"/>
+  <property name="contextRef" value="AsOf2020-05-31_custom_SubsequentActivityMember">
+   <property name="entity" value="0000895464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:SubsequentEventTypeAxis" value="MAGAA:SubsequentActivityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-9,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.74" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml" severity="error" effectiveDate="2017-01-01" cid="1375634957696">[DQC.US.0001.74] The concept Liabilities with a value of -394,000 is dimensionally qualified with the SubsequentEventTypeAxis and the unallowable member TransactionEffectsMember. 
+The properties of the fact for Liabilities are:
+Period: 2020-05-31
+Dimensions: us-gaap:SubsequentEventTypeAxis=MAGAA:TransactionEffectsMember 
+Unit: USD
+
+Rule Element Id:74
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml 476</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml#element(/1/90)" sourceLine="476">
+  <property name="label" value="Total liabilities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="us-gaap:Liabilities"/>
+  <property name="contextRef" value="AsOf2020-05-31_custom_TransactionEffectsMember">
+   <property name="entity" value="0000895464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:SubsequentEventTypeAxis" value="MAGAA:TransactionEffectsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-394,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.74" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml" severity="error" effectiveDate="2017-01-01" cid="1375634957696">[DQC.US.0001.74] The concept AdditionalPaidInCapital with a value of 186,000 is dimensionally qualified with the SubsequentEventTypeAxis and the unallowable member TransactionEffectsMember. 
+The properties of the fact for AdditionalPaidInCapital are:
+Period: 2020-05-31
+Dimensions: us-gaap:SubsequentEventTypeAxis=MAGAA:TransactionEffectsMember 
+Unit: USD
+
+Rule Element Id:74
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml 518</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml#element(/1/132)" sourceLine="518">
+  <property name="label" value="Additional paid-in capital"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="AdditionalPaidInCapital"/>
+  <property name="QName" value="us-gaap:AdditionalPaidInCapital"/>
+  <property name="contextRef" value="AsOf2020-05-31_custom_TransactionEffectsMember">
+   <property name="entity" value="0000895464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:SubsequentEventTypeAxis" value="MAGAA:TransactionEffectsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="186,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.74" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml" severity="error" effectiveDate="2017-01-01" cid="1375634957696">[DQC.US.0001.74] The concept AccruedLiabilitiesCurrent with a value of -30,000 is dimensionally qualified with the SubsequentEventTypeAxis and the unallowable member TransactionEffectsMember. 
+The properties of the fact for AccruedLiabilitiesCurrent are:
+Period: 2020-05-31
+Dimensions: us-gaap:SubsequentEventTypeAxis=MAGAA:TransactionEffectsMember 
+Unit: USD
+
+Rule Element Id:74
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml 466</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml#element(/1/80)" sourceLine="466">
+  <property name="label" value="Accrued expenses and other current liabilities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="AccruedLiabilitiesCurrent"/>
+  <property name="QName" value="us-gaap:AccruedLiabilitiesCurrent"/>
+  <property name="contextRef" value="AsOf2020-05-31_custom_TransactionEffectsMember">
+   <property name="entity" value="0000895464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:SubsequentEventTypeAxis" value="MAGAA:TransactionEffectsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-30,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.74" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml" severity="error" effectiveDate="2017-01-01" cid="1375634957696">[DQC.US.0001.74] The concept NotesPayableCurrent with a value of 0 is dimensionally qualified with the SubsequentEventTypeAxis and the unallowable member TransactionEffectsMember. 
+The properties of the fact for NotesPayableCurrent are:
+Period: 2020-05-31
+Dimensions: us-gaap:SubsequentEventTypeAxis=MAGAA:TransactionEffectsMember 
+Unit: USD
+
+Rule Element Id:74
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml 614</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml#element(/1/228)" sourceLine="614">
+  <property name="label" value="Notes payable and accrued interest payable to related parties"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="NotesPayableCurrent"/>
+  <property name="QName" value="us-gaap:NotesPayableCurrent"/>
+  <property name="contextRef" value="AsOf2020-05-31_custom_TransactionEffectsMember">
+   <property name="entity" value="0000895464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:SubsequentEventTypeAxis" value="MAGAA:TransactionEffectsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.74" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml" severity="error" effectiveDate="2017-01-01" cid="1375634957696">[DQC.US.0001.74] The concept LiabilitiesAndStockholdersEquity with a value of 0 is dimensionally qualified with the SubsequentEventTypeAxis and the unallowable member TransactionEffectsMember. 
+The properties of the fact for LiabilitiesAndStockholdersEquity are:
+Period: 2020-05-31
+Dimensions: us-gaap:SubsequentEventTypeAxis=MAGAA:TransactionEffectsMember 
+Unit: USD
+
+Rule Element Id:74
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml 485</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml#element(/1/99)" sourceLine="485">
+  <property name="label" value="Total liabilities and equity"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="LiabilitiesAndStockholdersEquity"/>
+  <property name="QName" value="us-gaap:LiabilitiesAndStockholdersEquity"/>
+  <property name="contextRef" value="AsOf2020-05-31_custom_TransactionEffectsMember">
+   <property name="entity" value="0000895464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:SubsequentEventTypeAxis" value="MAGAA:TransactionEffectsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.74" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml" severity="error" effectiveDate="2017-01-01" cid="1375634957696">[DQC.US.0001.74] The concept Assets with a value of 0 is dimensionally qualified with the SubsequentEventTypeAxis and the unallowable member TransactionEffectsMember. 
+The properties of the fact for Assets are:
+Period: 2020-05-31
+Dimensions: us-gaap:SubsequentEventTypeAxis=MAGAA:TransactionEffectsMember 
+Unit: USD
+
+Rule Element Id:74
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml 459</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml#element(/1/73)" sourceLine="459">
+  <property name="label" value="Total assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="AsOf2020-05-31_custom_TransactionEffectsMember">
+   <property name="entity" value="0000895464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:SubsequentEventTypeAxis" value="MAGAA:TransactionEffectsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.74" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml" severity="error" effectiveDate="2017-01-01" cid="1375634957696">[DQC.US.0001.74] The concept Cash with a value of 0 is dimensionally qualified with the SubsequentEventTypeAxis and the unallowable member TransactionEffectsMember. 
+The properties of the fact for Cash are:
+Period: 2020-05-31
+Dimensions: us-gaap:SubsequentEventTypeAxis=MAGAA:TransactionEffectsMember 
+Unit: USD
+
+Rule Element Id:74
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml 452</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml#element(/1/66)" sourceLine="452">
+  <property name="label" value="Cash"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="Cash"/>
+  <property name="QName" value="us-gaap:Cash"/>
+  <property name="contextRef" value="AsOf2020-05-31_custom_TransactionEffectsMember">
+   <property name="entity" value="0000895464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:SubsequentEventTypeAxis" value="MAGAA:TransactionEffectsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.74" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml" severity="error" effectiveDate="2017-01-01" cid="1375634957696">[DQC.US.0001.74] The concept AccountsPayableCurrent with a value of -364,000 is dimensionally qualified with the SubsequentEventTypeAxis and the unallowable member TransactionEffectsMember. 
+The properties of the fact for AccountsPayableCurrent are:
+Period: 2020-05-31
+Dimensions: us-gaap:SubsequentEventTypeAxis=MAGAA:TransactionEffectsMember 
+Unit: USD
+
+Rule Element Id:74
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml 471</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml#element(/1/85)" sourceLine="471">
+  <property name="label" value="Accounts payable"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="AccountsPayableCurrent"/>
+  <property name="QName" value="us-gaap:AccountsPayableCurrent"/>
+  <property name="contextRef" value="AsOf2020-05-31_custom_TransactionEffectsMember">
+   <property name="entity" value="0000895464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:SubsequentEventTypeAxis" value="MAGAA:TransactionEffectsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-364,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.74" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml" severity="error" effectiveDate="2017-01-01" cid="1375634957696">[DQC.US.0001.74] The concept StockholdersEquity with a value of 394,000 is dimensionally qualified with the SubsequentEventTypeAxis and the unallowable member TransactionEffectsMember. 
+The properties of the fact for StockholdersEquity are:
+Period: 2020-05-31
+Dimensions: us-gaap:SubsequentEventTypeAxis=MAGAA:TransactionEffectsMember 
+Unit: USD
+
+Rule Element Id:74
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml 508</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml#element(/1/122)" sourceLine="508">
+  <property name="label" value="Stockholders' deficit"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="StockholdersEquity"/>
+  <property name="QName" value="us-gaap:StockholdersEquity"/>
+  <property name="contextRef" value="AsOf2020-05-31_custom_TransactionEffectsMember">
+   <property name="entity" value="0000895464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:SubsequentEventTypeAxis" value="MAGAA:TransactionEffectsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="394,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.74" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml" severity="error" effectiveDate="2017-01-01" cid="1375634957696">[DQC.US.0001.74] The concept RetainedEarningsAccumulatedDeficit with a value of 208,000 is dimensionally qualified with the SubsequentEventTypeAxis and the unallowable member TransactionEffectsMember. 
+The properties of the fact for RetainedEarningsAccumulatedDeficit are:
+Period: 2020-05-31
+Dimensions: us-gaap:SubsequentEventTypeAxis=MAGAA:TransactionEffectsMember 
+Unit: USD
+
+Rule Element Id:74
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml 513</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml#element(/1/127)" sourceLine="513">
+  <property name="label" value="Retained earnings (deficit)"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="RetainedEarningsAccumulatedDeficit"/>
+  <property name="QName" value="us-gaap:RetainedEarningsAccumulatedDeficit"/>
+  <property name="contextRef" value="AsOf2020-05-31_custom_TransactionEffectsMember">
+   <property name="entity" value="0000895464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-05-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:SubsequentEventTypeAxis" value="MAGAA:TransactionEffectsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="208,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 15.69 secs - http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/895464/000119380520000864/magaa-20200531.xml"/></entry>
+</log>

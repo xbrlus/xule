@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.81 secs at 2018-10-16T09:58:31 - http://www.sec.gov/Archives/edgar/data/811222/000168316818001824/cdif-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/811222/000168316818001824/cdif-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - cdif-20171231.xml </message>
+ <ref href="cdif-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp7jajantb/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp7jajantb/packages/resources.zip"/></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/811222/000168316818001824/cdif-20171231.xml" severity="error" cid="4507967160">[DQC.US.0001.75] The concept SharesOutstanding with a value of 1 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member SeriesAPreferredStockMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for SharesOutstanding are:
+Period: 2015-12-31
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:SeriesAPreferredStockMember 
+Unit: shares
+
+Rule Element Id:75
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/811222/000168316818001824/cdif-20171231.xml 3549</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/811222/000168316818001824/cdif-20171231.xml#element(/1/1106)" sourceLine="3549">
+  <property name="label" value="Shares, Outstanding"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="SharesOutstanding"/>
+  <property name="QName" value="us-gaap:SharesOutstanding"/>
+  <property name="contextRef" value="AsOf2015-12-31_us-gaap_SeriesAPreferredStockMember">
+   <property name="entity" value="0000811222">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2015-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:SeriesAPreferredStockMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/811222/000168316818001824/cdif-20171231.xml" severity="error" cid="4507967160">[DQC.US.0001.75] The concept SharesOutstanding with a value of 1 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member SeriesAPreferredStockMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for SharesOutstanding are:
+Period: 2017-12-31
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:SeriesAPreferredStockMember 
+Unit: shares
+
+Rule Element Id:75
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/811222/000168316818001824/cdif-20171231.xml 3553</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/811222/000168316818001824/cdif-20171231.xml#element(/1/1110)" sourceLine="3553">
+  <property name="label" value="Shares, Outstanding"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="SharesOutstanding"/>
+  <property name="QName" value="us-gaap:SharesOutstanding"/>
+  <property name="contextRef" value="AsOf2017-12-31_us-gaap_SeriesAPreferredStockMember487879508">
+   <property name="entity" value="0000811222">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:SeriesAPreferredStockMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/811222/000168316818001824/cdif-20171231.xml" severity="error" cid="4507967160">[DQC.US.0001.75] The concept SharesOutstanding with a value of 1 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member SeriesAPreferredStockMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for SharesOutstanding are:
+Period: 2016-12-31
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:SeriesAPreferredStockMember 
+Unit: shares
+
+Rule Element Id:75
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/811222/000168316818001824/cdif-20171231.xml 3551</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/811222/000168316818001824/cdif-20171231.xml#element(/1/1108)" sourceLine="3551">
+  <property name="label" value="Shares, Outstanding"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="SharesOutstanding"/>
+  <property name="QName" value="us-gaap:SharesOutstanding"/>
+  <property name="contextRef" value="AsOf2016-12-31_us-gaap_SeriesAPreferredStockMember487879508">
+   <property name="entity" value="0000811222">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:SeriesAPreferredStockMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/811222/000168316818001824/cdif-20171231.xml" severity="error" cid="4507967160">[DQC.US.0001.75] The concept SharesOutstanding with a value of 117 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member SeriesCPreferredStockMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for SharesOutstanding are:
+Period: 2017-12-31
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:SeriesCPreferredStockMember 
+Unit: shares
+
+Rule Element Id:75
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/811222/000168316818001824/cdif-20171231.xml 3554</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/811222/000168316818001824/cdif-20171231.xml#element(/1/1111)" sourceLine="3554">
+  <property name="label" value="Shares, Outstanding"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="SharesOutstanding"/>
+  <property name="QName" value="us-gaap:SharesOutstanding"/>
+  <property name="contextRef" value="AsOf2017-12-31_us-gaap_SeriesCPreferredStockMember487879539">
+   <property name="entity" value="0000811222">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:SeriesCPreferredStockMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="117"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/811222/000168316818001824/cdif-20171231.xml" severity="error" cid="4507967160">[DQC.US.0001.75] The concept StockIssuedDuringPeriodSharesConversionOfConvertibleSecurities8 with a value of -1 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member SeriesCPreferredStockMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for StockIssuedDuringPeriodSharesConversionOfConvertibleSecurities8 are:
+Period: 2017-01-01 to 2017-12-31
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:SeriesCPreferredStockMember 
+Unit: shares
+
+Rule Element Id:75
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/811222/000168316818001824/cdif-20171231.xml 3675</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/811222/000168316818001824/cdif-20171231.xml#element(/1/1232)" sourceLine="3675">
+  <property name="label" value="Conversion of Series C Preferred Stock, share"/>
+  <property name="namespace" value="http://cardifflexington.com/20171231"/>
+  <property name="name" value="StockIssuedDuringPeriodSharesConversionOfConvertibleSecurities8"/>
+  <property name="QName" value="CDIF:StockIssuedDuringPeriodSharesConversionOfConvertibleSecurities8"/>
+  <property name="contextRef" value="From2017-01-01to2017-12-31_us-gaap_SeriesCPreferredStockMember">
+   <property name="entity" value="0000811222">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:SeriesCPreferredStockMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-1"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/811222/000168316818001824/cdif-20171231.xml" severity="error" cid="4507967160">[DQC.US.0001.75] The concept SharesOutstanding with a value of 118 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member SeriesCPreferredStockMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for SharesOutstanding are:
+Period: 2015-12-31
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:SeriesCPreferredStockMember 
+Unit: shares
+
+Rule Element Id:75
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/811222/000168316818001824/cdif-20171231.xml 3550</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/811222/000168316818001824/cdif-20171231.xml#element(/1/1107)" sourceLine="3550">
+  <property name="label" value="Shares, Outstanding"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="SharesOutstanding"/>
+  <property name="QName" value="us-gaap:SharesOutstanding"/>
+  <property name="contextRef" value="AsOf2015-12-31_us-gaap_SeriesCPreferredStockMember">
+   <property name="entity" value="0000811222">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2015-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:SeriesCPreferredStockMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="118"/>
+ </ref></entry>
+<entry code="DQC.US.0001.75" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/811222/000168316818001824/cdif-20171231.xml" severity="error" cid="4507967160">[DQC.US.0001.75] The concept SharesOutstanding with a value of 118 is dimensionally qualified with the StatementEquityComponentsAxis and the base taxonomy member SeriesCPreferredStockMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementEquityComponentsAxis.
+The properties of the fact for SharesOutstanding are:
+Period: 2016-12-31
+Dimensions: us-gaap:StatementEquityComponentsAxis=us-gaap:SeriesCPreferredStockMember 
+Unit: shares
+
+Rule Element Id:75
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/811222/000168316818001824/cdif-20171231.xml 3552</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/811222/000168316818001824/cdif-20171231.xml#element(/1/1109)" sourceLine="3552">
+  <property name="label" value="Shares, Outstanding"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="SharesOutstanding"/>
+  <property name="QName" value="us-gaap:SharesOutstanding"/>
+  <property name="contextRef" value="AsOf2016-12-31_us-gaap_SeriesCPreferredStockMember487879539">
+   <property name="entity" value="0000811222">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:SeriesCPreferredStockMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="118"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 22.40 secs - http://www.sec.gov/Archives/edgar/data/811222/000168316818001824/cdif-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/811222/000168316818001824/cdif-20171231.xml"/></entry>
+</log>

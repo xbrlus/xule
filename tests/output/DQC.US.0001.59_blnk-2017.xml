@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.38 secs at 2018-10-16T09:47:44 - http://www.sec.gov/Archives/edgar/data/1429764/000149315218007154/blnk-20180331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1429764/000149315218007154/blnk-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - blnk-20180331.xml </message>
+ <ref href="blnk-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpf9dmq35q/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpf9dmq35q/packages/resources.zip"/></entry>
+<entry code="DQC.US.0001.59" level="error">
+ <message cid="4404838072" filing_url="http://www.sec.gov/Archives/edgar/data/1429764/000149315218007154/blnk-20180331.xml" severity="error">[DQC.US.0001.59] The concept ClassOfWarrantOrRightNumberOfSecuritiesCalledByWarrantsOrRights with a value of 406,956 is dimensionally qualified with the PlanNameAxis and the base taxonomy member OverAllotmentOptionMember. Only extension members should be used with the axis PlanNameAxis.
+The properties of the fact for ClassOfWarrantOrRightNumberOfSecuritiesCalledByWarrantsOrRights are:
+Period: 2018-02-16
+Dimensions: us-gaap:PlanNameAxis=us-gaap:OverAllotmentOptionMember 
+Unit: shares
+
+Rule Element Id:59
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1429764/000149315218007154/blnk-20180331.xml 2186</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1429764/000149315218007154/blnk-20180331.xml#element(/1/515)" sourceLine="2186">
+  <property name="label" value="Warrants to purchase shares of common stock"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="ClassOfWarrantOrRightNumberOfSecuritiesCalledByWarrantsOrRights"/>
+  <property name="QName" value="us-gaap:ClassOfWarrantOrRightNumberOfSecuritiesCalledByWarrantsOrRights"/>
+  <property name="contextRef" value="AsOf2018-02-16_us-gaap_OverAllotmentOptionMember">
+   <property name="entity" value="0001429764">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-02-16"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:PlanNameAxis" value="us-gaap:OverAllotmentOptionMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="406,956"/>
+ </ref></entry>
+<entry code="DQC.US.0001.59" level="error">
+ <message cid="4404838072" filing_url="http://www.sec.gov/Archives/edgar/data/1429764/000149315218007154/blnk-20180331.xml" severity="error">[DQC.US.0001.59] The concept ProceedsFromIssuanceOfWarrants with a value of 4,070 is dimensionally qualified with the PlanNameAxis and the base taxonomy member OverAllotmentOptionMember. Only extension members should be used with the axis PlanNameAxis.
+The properties of the fact for ProceedsFromIssuanceOfWarrants are:
+Period: 2018-02-12 to 2018-02-16
+Dimensions: us-gaap:PlanNameAxis=us-gaap:OverAllotmentOptionMember 
+Unit: USD
+
+Rule Element Id:59
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1429764/000149315218007154/blnk-20180331.xml 2510</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1429764/000149315218007154/blnk-20180331.xml#element(/1/839)" sourceLine="2510">
+  <property name="label" value="Gross proceeds from warrants"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="ProceedsFromIssuanceOfWarrants"/>
+  <property name="QName" value="us-gaap:ProceedsFromIssuanceOfWarrants"/>
+  <property name="contextRef" value="From2018-02-12to2018-02-16_us-gaap_OverAllotmentOptionMember">
+   <property name="entity" value="0001429764">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-02-12"/>
+   <property name="endDate" value="2018-02-16"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:PlanNameAxis" value="us-gaap:OverAllotmentOptionMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4,070"/>
+ </ref></entry>
+<entry code="DQC.US.0001.59" level="error">
+ <message cid="4404838072" filing_url="http://www.sec.gov/Archives/edgar/data/1429764/000149315218007154/blnk-20180331.xml" severity="error">[DQC.US.0001.59] The concept ClassOfWarrantOrRightNumberOfSecuritiesCalledByWarrantsOrRights with a value of 1,305,900 is dimensionally qualified with the PlanNameAxis and the base taxonomy member OverAllotmentOptionMember. Only extension members should be used with the axis PlanNameAxis.
+The properties of the fact for ClassOfWarrantOrRightNumberOfSecuritiesCalledByWarrantsOrRights are:
+Period: 2018-02-16
+Dimensions: us-gaap:PlanNameAxis=us-gaap:OverAllotmentOptionMember, us-gaap:SubsidiarySaleOfStockAxis=BLNK:PublicOfferingMember 
+Unit: shares
+
+Rule Element Id:59
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1429764/000149315218007154/blnk-20180331.xml 2185</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1429764/000149315218007154/blnk-20180331.xml#element(/1/514)" sourceLine="2185">
+  <property name="label" value="Warrants to purchase shares of common stock"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="ClassOfWarrantOrRightNumberOfSecuritiesCalledByWarrantsOrRights"/>
+  <property name="QName" value="us-gaap:ClassOfWarrantOrRightNumberOfSecuritiesCalledByWarrantsOrRights"/>
+  <property name="contextRef" value="AsOf2018-02-16_custom_PublicOfferingMember_us-gaap_OverAllotmentOptionMember">
+   <property name="entity" value="0001429764">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-02-16"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:PlanNameAxis" value="us-gaap:OverAllotmentOptionMember"/>
+    <property name="us-gaap:SubsidiarySaleOfStockAxis" value="BLNK:PublicOfferingMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,305,900"/>
+ </ref></entry>
+<entry code="DQC.US.0001.59" level="error">
+ <message cid="4404838072" filing_url="http://www.sec.gov/Archives/edgar/data/1429764/000149315218007154/blnk-20180331.xml" severity="error">[DQC.US.0001.59] The concept ClassOfWarrantOrRightExercisePriceOfWarrantsOrRights1 with a value of 4.25 is dimensionally qualified with the PlanNameAxis and the base taxonomy member OverAllotmentOptionMember. Only extension members should be used with the axis PlanNameAxis.
+The properties of the fact for ClassOfWarrantOrRightExercisePriceOfWarrantsOrRights1 are:
+Period: 2018-02-16
+Dimensions: us-gaap:PlanNameAxis=us-gaap:OverAllotmentOptionMember 
+Unit: USD/shares
+
+Rule Element Id:59
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1429764/000149315218007154/blnk-20180331.xml 2234</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1429764/000149315218007154/blnk-20180331.xml#element(/1/563)" sourceLine="2234">
+  <property name="label" value="Warrant exercise price"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="ClassOfWarrantOrRightExercisePriceOfWarrantsOrRights1"/>
+  <property name="QName" value="us-gaap:ClassOfWarrantOrRightExercisePriceOfWarrantsOrRights1"/>
+  <property name="contextRef" value="AsOf2018-02-16_us-gaap_OverAllotmentOptionMember">
+   <property name="entity" value="0001429764">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-02-16"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:PlanNameAxis" value="us-gaap:OverAllotmentOptionMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USDPShares ($ / shares)">
+   <property name="mul" value="iso4217:USD"/>
+   <property name="div" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4.25"/>
+ </ref></entry>
+<entry code="DQC.US.0001.59" level="error">
+ <message cid="4404838072" filing_url="http://www.sec.gov/Archives/edgar/data/1429764/000149315218007154/blnk-20180331.xml" severity="error">[DQC.US.0001.59] The concept GrossProceedsPerWarrant with a value of 0.01 is dimensionally qualified with the PlanNameAxis and the base taxonomy member OverAllotmentOptionMember. Only extension members should be used with the axis PlanNameAxis.
+The properties of the fact for GrossProceedsPerWarrant are:
+Period: 2018-02-16
+Dimensions: us-gaap:PlanNameAxis=us-gaap:OverAllotmentOptionMember 
+Unit: USD/shares
+
+Rule Element Id:59
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1429764/000149315218007154/blnk-20180331.xml 2590</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1429764/000149315218007154/blnk-20180331.xml#element(/1/919)" sourceLine="2590">
+  <property name="label" value="Gross proceeds per warrant"/>
+  <property name="namespace" value="http://carcharging.com/20180331"/>
+  <property name="name" value="GrossProceedsPerWarrant"/>
+  <property name="QName" value="BLNK:GrossProceedsPerWarrant"/>
+  <property name="contextRef" value="AsOf2018-02-16_us-gaap_OverAllotmentOptionMember">
+   <property name="entity" value="0001429764">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-02-16"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:PlanNameAxis" value="us-gaap:OverAllotmentOptionMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USDPShares ($ / shares)">
+   <property name="mul" value="iso4217:USD"/>
+   <property name="div" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.01"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 17.78 secs - http://www.sec.gov/Archives/edgar/data/1429764/000149315218007154/blnk-20180331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1429764/000149315218007154/blnk-20180331.xml"/></entry>
+</log>

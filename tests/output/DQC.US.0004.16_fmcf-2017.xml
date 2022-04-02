@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22739 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 4.28 secs at 2019-04-18T12:58:17 - http://www.sec.gov/Archives/edgar/data/1635965/000163596518000027/fmcf-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1635965/000163596518000027/fmcf-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv and effective_dates.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp51kbzj96/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp51kbzj96/packages/resources.zip"/></entry>
+<entry code="DQC.US.0004.16" level="error">
+ <message severity="error" cid="4303031992" effectiveDate="2016-01-01" filing_url="http://www.sec.gov/Archives/edgar/data/1635965/000163596518000027/fmcf-20171231.xml">[DQC.US.0004.16] Total assets with a value of 2,153,750 is not equal to the total of Total liabilities and stockholders' deficit with a value of 2,143,750. These values should be equal.
+The properties of this us-gaap:Assets fact are:
+Period :2017-12-31
+Dimensions :  
+Unit : USD
+Decimals of Assets : inf
+Decimals of Liabilities and Equity : inf
+
+Rule Element Id:16
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1635965/000163596518000027/fmcf-20171231.xml 25</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1635965/000163596518000027/fmcf-20171231.xml#element(/1/22)" sourceLine="25">
+  <property name="label" value="Total assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="E17">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,153,750"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 4.69 secs - http://www.sec.gov/Archives/edgar/data/1635965/000163596518000027/fmcf-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1635965/000163596518000027/fmcf-20171231.xml"/></entry>
+</log>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23221 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.64 secs at 2021-06-24T17:40:02 - http://www.sec.gov/Archives/edgar/data/1319947/000131994721000025/dsw-20210501.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1319947/000131994721000025/dsw-20210501.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpbkkwc49f\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpbkkwc49f\packages\resources.zip"/></entry>
+<entry code="DQC.US.0119.9577" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1319947/000131994721000025/dsw-20210501.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="1914004767696">[DQC.US.0119.9577] The company has included IncomeLossFromEquityMethodInvestments as a component of the concept &quot;Income Loss From Continuing Operations Before Income Taxes Minority Interest And Income Loss From Equity Method Investments&quot;. The element IncomeLossFromEquityMethodInvestments cannot be included as a component of &quot;Income Loss From Continuing Operations Before Income Taxes Minority Interest And Income Loss From Equity Method Investments&quot; as this element excludes equity method investments.  The filer should use the concept IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest instead.
+
+Element : IncomeLossFromEquityMethodInvestments
+Rule Element Id:9577
+Rule version: 16.0.0RC1 - http://xbrl.fasb.org/us-gaap/2020/elts/us-gaap-2020-01-31.xsd 7618</message>
+ <ref href="http://xbrl.fasb.org/us-gaap/2020/elts/us-gaap-2020-01-31.xsd#us-gaap_IncomeLossFromEquityMethodInvestments" sourceLine="7618">
+  <property name="label" value="Income (Loss) from Equity Method Investments">
+   <property name="label (en-US)" value="Income (Loss) from Equity Method Investments"/>
+   <property name="negatedTerseLabel (en-US)" value="Income from equity investment"/>
+   <property name="terseLabel (en-US)" value="Income from equity investment"/>
+   <property name="verboseLabel (en-US)" value="Income from equity investment"/>
+  </property>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="IncomeLossFromEquityMethodInvestments"/>
+  <property name="QName" value="us-gaap:IncomeLossFromEquityMethodInvestments"/>
+  <property name="id" value="us-gaap_IncomeLossFromEquityMethodInvestments"/>
+  <property name="abstract" value="false"/>
+  <property name="type" value="xbrli:monetaryItemType"/>
+  <property name="subst grp" value="xbrli:item"/>
+  <property name="period type" value="duration"/>
+  <property name="balance" value="credit"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 3.85 secs - http://www.sec.gov/Archives/edgar/data/1319947/000131994721000025/dsw-20210501.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1319947/000131994721000025/dsw-20210501.htm"/></entry>
+</log>

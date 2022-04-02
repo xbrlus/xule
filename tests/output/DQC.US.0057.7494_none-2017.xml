@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.06 secs at 2018-10-16T10:01:16 - https://www.sec.gov/Archives/edgar/data/1011452/000101145218000009/none-20180331.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1011452/000101145218000009/none-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - none-20180331.xml </message>
+ <ref href="none-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpydmzq3gy/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpydmzq3gy/packages/resources.zip"/></entry>
+<entry code="DQC.US.0057.7494" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1011452/000101145218000009/none-20180331.xml" severity="error" cid="4492443320">[DQC.US.0057.7494] One of the following elements Cash, CashAndCashEquivalentsAtCarryingValue, CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsIncludingDisposalGroupAndDiscontinuedOperations, CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents, CashCashEquivalentsAndFederalFundsSold, CashAndDueFromBanks, CashEquivalentsAtCarryingValue, CashAndCashEquivalentsAtCarryingValueIncludingDiscontinuedOperations should appear as the opening and closing balance in the cash flow statement using the group http://www.meditech.com/role/StatementOfCashFlows5.
+ Instead the following balance items have been used in this statement PreconfirmationCashAndCashEquivalents, PostconfirmationCashAndCashEquivalents. Depending if ASU-2016-18 has been adopted at least one of the opening and closing balance items listed must be used in the cash flow statement. 
+
+Rule Element Id:7494
+Rule version: 9.0.0RC1 - </message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 1.02 secs - https://www.sec.gov/Archives/edgar/data/1011452/000101145218000009/none-20180331.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1011452/000101145218000009/none-20180331.xml"/></entry>
+</log>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23221 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.40 secs at 2021-04-14T20:12:58 - https://www.sec.gov/Archives/edgar/data/1626556/000110465920125690/amct-20200930.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1626556/000110465920125690/amct-20200930.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpfu3dh4p_\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpfu3dh4p_\packages\resources.zip"/></entry>
+<entry code="DQC.US.0109.9565" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1626556/000110465920125690/amct-20200930.xml" severity="error" status="PROPOSED" effectiveDate="None" cid="2081918645200">[DQC.US.0109.9565] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.1 should always be used with the ConcentrationRiskByTypeAxis and ConcentrationRiskByBenchmarkAxis.  This element has no meaning without these axis at a minimum.  Any data provided needs to be used in combination with an additional axis to define the actual risk as the numerator. The member used on the ConcentrationRiskByBenchmarkAxis represents the benchmark denominator. If this value represents the Concentration Risk, Threshold Percentage then use the extension element ConcentrationRiskThresholdPercentage. 
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2019-01-01 to 2019-09-30
+Dimensions : 
+Unit : pure
+
+
+Rule Element Id:9565
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/1626556/000110465920125690/amct-20200930.xml 8239</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1626556/000110465920125690/amct-20200930.xml#element(/1/556)" sourceLine="8239">
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_9_30_2019">
+   <property name="entity" value="0001626556">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-09-30"/>
+  </property>
+  <property name="unitRef" value="Unit13 (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.10"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9565" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1626556/000110465920125690/amct-20200930.xml" severity="error" status="PROPOSED" effectiveDate="None" cid="2081918645200">[DQC.US.0109.9565] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.1 should always be used with the ConcentrationRiskByTypeAxis and ConcentrationRiskByBenchmarkAxis.  This element has no meaning without these axis at a minimum.  Any data provided needs to be used in combination with an additional axis to define the actual risk as the numerator. The member used on the ConcentrationRiskByBenchmarkAxis represents the benchmark denominator. If this value represents the Concentration Risk, Threshold Percentage then use the extension element ConcentrationRiskThresholdPercentage. 
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2020-01-01 to 2020-09-30
+Dimensions : 
+Unit : pure
+
+
+Rule Element Id:9565
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/1626556/000110465920125690/amct-20200930.xml 8244</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1626556/000110465920125690/amct-20200930.xml#element(/1/561)" sourceLine="8244">
+  <property name="label" value="Concentration Risk, Percentage"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="Duration_1_1_2020_To_9_30_2020">
+   <property name="entity" value="0001626556">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-09-30"/>
+  </property>
+  <property name="unitRef" value="Unit13 (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.10"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 4.35 secs - https://www.sec.gov/Archives/edgar/data/1626556/000110465920125690/amct-20200930.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1626556/000110465920125690/amct-20200930.xml"/></entry>
+</log>

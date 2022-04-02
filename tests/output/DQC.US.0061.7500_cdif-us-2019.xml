@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 4.67 secs at 2020-07-29T09:40:36 - http://www.sec.gov/Archives/edgar/data/811222/000168316820001209/cdif-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/811222/000168316820001209/cdif-20191231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmph072vjz8\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmph072vjz8\packages\resources.zip"/></entry>
+<entry code="DQC.US.0061.7500" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/811222/000168316820001209/cdif-20191231.xml" severity="error" effectiveDate="2018-06-01" cid="2555218863488">[DQC.US.0061.7500] The taxonomy extension includes NetCashProvidedByUsedInFinancingActivities and CashProvidedByUsedInFinancingActivitiesDiscontinuedOperations in the calculation of us-gaap:CashAndCashEquivalentsPeriodIncreaseDecrease. But CashProvidedByUsedInFinancingActivitiesDiscontinuedOperations is not a direct child of NetCashProvidedByUsedInFinancingActivities. NetCashProvidedByUsedInFinancingActivities is intended to represent the total of cash provided by or used in continuing and discontinued operations. Cash flows from both Discontinued operations and financing activities cannot add into the total of us-gaap:CashAndCashEquivalentsPeriodIncreaseDecrease as this implies that discontinued operations is being double counted, once in financing activities and once as discontinued operations.
+
+CashProvidedByUsedInFinancingActivitiesDiscontinuedOperations
+
+Rule Element Id: 7500
+Rule version: 13.0.0RC1 - </message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 3.92 secs - http://www.sec.gov/Archives/edgar/data/811222/000168316820001209/cdif-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/811222/000168316820001209/cdif-20191231.xml"/></entry>
+</log>

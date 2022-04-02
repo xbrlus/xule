@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22739 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.67 secs at 2019-04-18T10:25:19 - https://www.sec.gov/Archives/edgar/data/755001/000119312518028247/utl-20171231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/755001/000119312518028247/utl-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv and effective_dates.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpzxipp0z0/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpzxipp0z0/packages/resources.zip"/></entry>
+<entry code="DQC.US.0070.7645" level="error">
+ <message cid="4525510328" severity="error" filing_url="https://www.sec.gov/Archives/edgar/data/755001/000119312518028247/utl-20171231.xml" effectiveDate="2019-01-01">[DQC.US.0070.7645] The concept DefinedBenefitPlanFairValueOfPlanAssets with a defaulted value of 20,234,000 is not equal to the aggregated value of the dimensionally qualified components on the axis DefinedBenefitPlanByPlanAssetCategoriesAxis which has an aggregate value of 400,000 based on the data in the filing. 
+The aggregated value is calculated by adding the members in the network 172 - Disclosure - Assets Measured at Fair Value on Recurring Basis for PBOP Plan (Detail) with the uri http://www.unitil.com/taxonomy/role/DisclosureAssetsMeasuredAtFairValueOnRecurringBasisForPBOPPlan. The values of the calculation components are as follows:
+	CashAndCashEquivalentsMember --> 400,000 --> us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember, us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:CashAndCashEquivalentsMember 
+
+
+The value of a concept broken down by its components along the DefinedBenefitPlanByPlanAssetCategoriesAxis axis should  be equal to its component pieces. An error could occur for one of the following reasons:
+
+1. The values of the plan assets by category have been further disaggregated by additional dimensions such as geography. Plan Asset categories should not be dimensionally disaggregated and members should be defined for each security class reported. i.e. Equity Securities in the US should be represented as a single member.
+
+2. The  default value of 20,234,000 is incorrectly totaled for DefinedBenefitPlanFairValueOfPlanAssets 
+
+3. Not all dimension members or additional dimensions have been defined on the category axis DefinedBenefitPlanByPlanAssetCategoriesAxis. 
+
+4. The filer has reported a sub component of plan assets that does not represent a complete breakdown of the total. In these cases the element DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount should be used instead of the element DefinedBenefitPlanFairValueOfPlanAssets.
+
+This rule aggregates the value of member components located on the axis at the highest level of aggregation to avoid double counting in the event that the company uses a hierarchy of members.
+
+The properties of this us-gaap:DefinedBenefitPlanFairValueOfPlanAssets fact are:
+Period :2017-12-31
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember
+Unit : USD
+
+Rule Element Id:7645
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/755001/000119312518028247/utl-20171231.xml 556</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/755001/000119312518028247/utl-20171231.xml#id_9852277_D305594F-97A1-4029-9504-F753D15043F9_1003_6" sourceLine="556">
+  <property name="label" value="Defined Benefit Plan, Fair Value of Plan Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="contextRef" value="eol_PE1985----1710-K0013_STD_0_20171231_0_1556283x1559249">
+   <property name="entity" value="0000755001">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="iso4217_USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="20,234,000"/>
+ </ref></entry>
+<entry code="DQC.US.0070.7645" level="error">
+ <message cid="4525510328" severity="error" filing_url="https://www.sec.gov/Archives/edgar/data/755001/000119312518028247/utl-20171231.xml" effectiveDate="2019-01-01">[DQC.US.0070.7645] The concept DefinedBenefitPlanFairValueOfPlanAssets with a defaulted value of 20,234,000 is not equal to the aggregated value of the dimensionally qualified components on the axis DefinedBenefitPlanByPlanAssetCategoriesAxis which has an aggregate value of 400,000 based on the data in the filing. 
+The aggregated value is calculated by adding the members in the network 172 - Disclosure - Assets Measured at Fair Value on Recurring Basis for PBOP Plan (Detail) with the uri http://www.unitil.com/taxonomy/role/DisclosureAssetsMeasuredAtFairValueOnRecurringBasisForPBOPPlan. The values of the calculation components are as follows:
+	CashAndCashEquivalentsMember --> 400,000 --> us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:CashAndCashEquivalentsMember, us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember, us-gaap:FairValueByFairValueHierarchyLevelAxis=us-gaap:FairValueInputsLevel1Member 
+
+
+The value of a concept broken down by its components along the DefinedBenefitPlanByPlanAssetCategoriesAxis axis should  be equal to its component pieces. An error could occur for one of the following reasons:
+
+1. The values of the plan assets by category have been further disaggregated by additional dimensions such as geography. Plan Asset categories should not be dimensionally disaggregated and members should be defined for each security class reported. i.e. Equity Securities in the US should be represented as a single member.
+
+2. The  default value of 20,234,000 is incorrectly totaled for DefinedBenefitPlanFairValueOfPlanAssets 
+
+3. Not all dimension members or additional dimensions have been defined on the category axis DefinedBenefitPlanByPlanAssetCategoriesAxis. 
+
+4. The filer has reported a sub component of plan assets that does not represent a complete breakdown of the total. In these cases the element DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount should be used instead of the element DefinedBenefitPlanFairValueOfPlanAssets.
+
+This rule aggregates the value of member components located on the axis at the highest level of aggregation to avoid double counting in the event that the company uses a hierarchy of members.
+
+The properties of this us-gaap:DefinedBenefitPlanFairValueOfPlanAssets fact are:
+Period :2017-12-31
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember, us-gaap:FairValueByFairValueHierarchyLevelAxis=us-gaap:FairValueInputsLevel1Member
+Unit : USD
+
+Rule Element Id:7645
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/755001/000119312518028247/utl-20171231.xml 457</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/755001/000119312518028247/utl-20171231.xml#id_9852277_BAD7DC58-1750-44BC-8702-5F948A48F744_16002_7" sourceLine="457">
+  <property name="label" value="Defined Benefit Plan, Fair Value of Plan Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="contextRef" value="eol_PE1985----1710-K0013_STD_0_20171231_0_1548402x1551627_1556283x1559249">
+   <property name="entity" value="0000755001">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="iso4217_USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="20,234,000"/>
+ </ref></entry>
+<entry code="DQC.US.0070.7645" level="error">
+ <message cid="4525510328" severity="error" filing_url="https://www.sec.gov/Archives/edgar/data/755001/000119312518028247/utl-20171231.xml" effectiveDate="2019-01-01">[DQC.US.0070.7645] The concept DefinedBenefitPlanFairValueOfPlanAssets with a defaulted value of 16,606,000 is not equal to the aggregated value of the dimensionally qualified components on the axis DefinedBenefitPlanByPlanAssetCategoriesAxis which has an aggregate value of 400,000 based on the data in the filing. 
+The aggregated value is calculated by adding the members in the network 172 - Disclosure - Assets Measured at Fair Value on Recurring Basis for PBOP Plan (Detail) with the uri http://www.unitil.com/taxonomy/role/DisclosureAssetsMeasuredAtFairValueOnRecurringBasisForPBOPPlan. The values of the calculation components are as follows:
+	CashAndCashEquivalentsMember --> 400,000 --> us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:CashAndCashEquivalentsMember, us-gaap:FairValueByFairValueHierarchyLevelAxis=us-gaap:FairValueInputsLevel1Member, us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember 
+
+
+The value of a concept broken down by its components along the DefinedBenefitPlanByPlanAssetCategoriesAxis axis should  be equal to its component pieces. An error could occur for one of the following reasons:
+
+1. The values of the plan assets by category have been further disaggregated by additional dimensions such as geography. Plan Asset categories should not be dimensionally disaggregated and members should be defined for each security class reported. i.e. Equity Securities in the US should be represented as a single member.
+
+2. The  default value of 16,606,000 is incorrectly totaled for DefinedBenefitPlanFairValueOfPlanAssets 
+
+3. Not all dimension members or additional dimensions have been defined on the category axis DefinedBenefitPlanByPlanAssetCategoriesAxis. 
+
+4. The filer has reported a sub component of plan assets that does not represent a complete breakdown of the total. In these cases the element DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount should be used instead of the element DefinedBenefitPlanFairValueOfPlanAssets.
+
+This rule aggregates the value of member components located on the axis at the highest level of aggregation to avoid double counting in the event that the company uses a hierarchy of members.
+
+The properties of this us-gaap:DefinedBenefitPlanFairValueOfPlanAssets fact are:
+Period :2016-12-31
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember, us-gaap:FairValueByFairValueHierarchyLevelAxis=us-gaap:FairValueInputsLevel1Member
+Unit : USD
+
+Rule Element Id:7645
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/755001/000119312518028247/utl-20171231.xml 210</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/755001/000119312518028247/utl-20171231.xml#id_9852277_BAD7DC58-1750-44BC-8702-5F948A48F744_5002_15" sourceLine="210">
+  <property name="label" value="Defined Benefit Plan, Fair Value of Plan Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="contextRef" value="eol_PE1985----1710-K0013_STD_0_20161231_0_1548402x1551627_1556283x1559249">
+   <property name="entity" value="0000755001">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="iso4217_USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="16,606,000"/>
+ </ref></entry>
+<entry code="DQC.US.0070.7645" level="error">
+ <message cid="4525510328" severity="error" filing_url="https://www.sec.gov/Archives/edgar/data/755001/000119312518028247/utl-20171231.xml" effectiveDate="2019-01-01">[DQC.US.0070.7645] The concept DefinedBenefitPlanFairValueOfPlanAssets with a defaulted value of 16,606,000 is not equal to the aggregated value of the dimensionally qualified components on the axis DefinedBenefitPlanByPlanAssetCategoriesAxis which has an aggregate value of 400,000 based on the data in the filing. 
+The aggregated value is calculated by adding the members in the network 172 - Disclosure - Assets Measured at Fair Value on Recurring Basis for PBOP Plan (Detail) with the uri http://www.unitil.com/taxonomy/role/DisclosureAssetsMeasuredAtFairValueOnRecurringBasisForPBOPPlan. The values of the calculation components are as follows:
+	CashAndCashEquivalentsMember --> 400,000 --> us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember, us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:CashAndCashEquivalentsMember 
+
+
+The value of a concept broken down by its components along the DefinedBenefitPlanByPlanAssetCategoriesAxis axis should  be equal to its component pieces. An error could occur for one of the following reasons:
+
+1. The values of the plan assets by category have been further disaggregated by additional dimensions such as geography. Plan Asset categories should not be dimensionally disaggregated and members should be defined for each security class reported. i.e. Equity Securities in the US should be represented as a single member.
+
+2. The  default value of 16,606,000 is incorrectly totaled for DefinedBenefitPlanFairValueOfPlanAssets 
+
+3. Not all dimension members or additional dimensions have been defined on the category axis DefinedBenefitPlanByPlanAssetCategoriesAxis. 
+
+4. The filer has reported a sub component of plan assets that does not represent a complete breakdown of the total. In these cases the element DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount should be used instead of the element DefinedBenefitPlanFairValueOfPlanAssets.
+
+This rule aggregates the value of member components located on the axis at the highest level of aggregation to avoid double counting in the event that the company uses a hierarchy of members.
+
+The properties of this us-gaap:DefinedBenefitPlanFairValueOfPlanAssets fact are:
+Period :2016-12-31
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember
+Unit : USD
+
+Rule Element Id:7645
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/755001/000119312518028247/utl-20171231.xml 274</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/755001/000119312518028247/utl-20171231.xml#id_9852277_D305594F-97A1-4029-9504-F753D15043F9_1004_1" sourceLine="274">
+  <property name="label" value="Defined Benefit Plan, Fair Value of Plan Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="contextRef" value="eol_PE1985----1710-K0013_STD_0_20161231_0_1556283x1559249">
+   <property name="entity" value="0000755001">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="iso4217_USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="16,606,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 7.38 secs - https://www.sec.gov/Archives/edgar/data/755001/000119312518028247/utl-20171231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/755001/000119312518028247/utl-20171231.xml"/></entry>
+</log>

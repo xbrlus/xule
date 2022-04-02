@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 4.25 secs at 2018-10-16T10:02:49 - https://www.sec.gov/Archives/edgar/data/1507605/000149315218005254/mara-20171231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1507605/000149315218005254/mara-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - mara-20171231.xml </message>
+ <ref href="mara-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp9unawmuk/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp9unawmuk/packages/resources.zip"/></entry>
+<entry code="DQC.US.0044.7503" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1507605/000149315218005254/mara-20171231.xml" severity="error" cid="4563939000">[DQC.US.0044.7503] The concept us-gaap:LitigationSettlementExpense with a value of 2,150,000 is an accrual-based item in the US GAAP taxonomy that is included in the sum of cash provided by (used in) investing activities in the cash flows of the extension taxonomy.
+
+Accrual-based concepts do not belong and should not be included in the investing section of the cash flows statement of the extension taxonomy.  We have seen this problem occur for a couple of reasons. 
+1. The company has used an item that is an accrual item that would normally be in the income statement or shareholders equity and has used it as a replacement for a cashflow element.  These are different concepts and should not be interchanged.  This can occur for operating cashflow items where a reconciliation to net income is presented.
+2. In other cases we have seen the filer use the sum of investing cash flows to represent operating cash flows.  This is an element selection error that sometime occurs and is easily addressed by replacing either the element NetCashProvidedByUsedInInvestingActivitiesContinuingOperations or NetCashProvidedByUsedInInvestingActivities with the operating cash flow item.
+
+If case one above applies replace us-gaap:LitigationSettlementExpense with an appropriate US GAAP taxonomy cash flows item, if available or, if not, consider extending a concept. Alternatively if case two applies then replace the investing activities parent with the operating activities parent.
+
+The properties of this us-gaap:LitigationSettlementExpense fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : 
+Unit : USD
+Entity : ('http://www.sec.gov/CIK', '0001507605')
+
+Rule Element Id:7503
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1507605/000149315218005254/mara-20171231.xml 3860</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1507605/000149315218005254/mara-20171231.xml#element(/1/721)" sourceLine="3860">
+  <property name="label" value="Litigation Settlement, Expense"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="LitigationSettlementExpense"/>
+  <property name="QName" value="us-gaap:LitigationSettlementExpense"/>
+  <property name="contextRef" value="From2017-01-01to2017-12-31">
+   <property name="entity" value="0001507605">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,150,000"/>
+ </ref></entry>
+<entry code="DQC.US.0044.7503" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1507605/000149315218005254/mara-20171231.xml" severity="error" cid="4563939000">[DQC.US.0044.7503] The concept us-gaap:LitigationSettlementExpense with a value of None is an accrual-based item in the US GAAP taxonomy that is included in the sum of cash provided by (used in) investing activities in the cash flows of the extension taxonomy.
+
+Accrual-based concepts do not belong and should not be included in the investing section of the cash flows statement of the extension taxonomy.  We have seen this problem occur for a couple of reasons. 
+1. The company has used an item that is an accrual item that would normally be in the income statement or shareholders equity and has used it as a replacement for a cashflow element.  These are different concepts and should not be interchanged.  This can occur for operating cashflow items where a reconciliation to net income is presented.
+2. In other cases we have seen the filer use the sum of investing cash flows to represent operating cash flows.  This is an element selection error that sometime occurs and is easily addressed by replacing either the element NetCashProvidedByUsedInInvestingActivitiesContinuingOperations or NetCashProvidedByUsedInInvestingActivities with the operating cash flow item.
+
+If case one above applies replace us-gaap:LitigationSettlementExpense with an appropriate US GAAP taxonomy cash flows item, if available or, if not, consider extending a concept. Alternatively if case two applies then replace the investing activities parent with the operating activities parent.
+
+The properties of this us-gaap:LitigationSettlementExpense fact are:
+Period :2016-01-01 to 2016-12-31
+Dimensions : 
+Unit : USD
+Entity : ('http://www.sec.gov/CIK', '0001507605')
+
+Rule Element Id:7503
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1507605/000149315218005254/mara-20171231.xml 3861</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1507605/000149315218005254/mara-20171231.xml#element(/1/722)" sourceLine="3861">
+  <property name="label" value="Litigation Settlement, Expense"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="LitigationSettlementExpense"/>
+  <property name="QName" value="us-gaap:LitigationSettlementExpense"/>
+  <property name="contextRef" value="From2016-01-01to2016-12-31">
+   <property name="entity" value="0001507605">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-01-01"/>
+   <property name="endDate" value="2016-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 18.44 secs - https://www.sec.gov/Archives/edgar/data/1507605/000149315218005254/mara-20171231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1507605/000149315218005254/mara-20171231.xml"/></entry>
+</log>

@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23303 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 8.20 secs at 2021-12-08T09:35:50 - https://www.sec.gov/Archives/edgar/data/932782/000119312521348640/d231607d6k.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/932782/000119312521348640/d231607d6k.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv, dqc_0129.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpknostwku\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpknostwku\packages\resources.zip"/></entry>
+<entry code="DQC.IFRS.0115.9565" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/932782/000119312521348640/d231607d6k.htm" severity="error" effectiveDate="None" cid="1517134808016">[DQC.IFRS.0115.9565] The concept ifrs-full:AdditionsFromAcquisitionsInvestmentProperty with a period duration starting on 2019-12-31 and ending on 2020-09-30 or 274 days with a reported value of 20,527,095,000 has a value greater than the value of the same element with a longer or equivalent period duration that starts on 2019-12-31 and ends on 2020-12-31 with a value of 15,602,539,000.
+The value  20,527,095,000 for the period of 274 days should be less or the same as the value  15,602,539,000 with a duration of 366 days assuming that the concept ifrs-full:AdditionsFromAcquisitionsInvestmentProperty cannot have a negative value.
+The properties of this ifrs-full:AdditionsFromAcquisitionsInvestmentProperty fact are:
+Period :2020-01-01 to 2020-09-30
+Dimensions : ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis=ck0000932782:WellsMember, ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis=ifrs-full:GrossCarryingAmountMember
+Unit : MXN
+
+
+Rule Element Id:9565
+Rule version: 17.0.0RC4  - https://www.sec.gov/Archives/edgar/data/932782/000119312521348640/d231607d6k.htm 17104</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/932782/000119312521348640/d231607d6k.htm#element(/1/2/169/1/1/2/2/5/16/1)" sourceLine="17104">
+  <property name="file" value="d231607d6k.htm"/>
+  <property name="line" value="17104"/>
+  <property name="label" value="Additions from acquisitions, investment property"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2021-03-24/ifrs-full"/>
+  <property name="name" value="AdditionsFromAcquisitionsInvestmentProperty"/>
+  <property name="QName" value="ifrs-full:AdditionsFromAcquisitionsInvestmentProperty"/>
+  <property name="contextRef" value="P01_01_2020To09_30_2020_GrossCarryingAmountMemberifrsfullCarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis_WellsMemberifrsfullClassesOfPropertyPlantAndEquipmentAxis">
+   <property name="entity" value="0000932782">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-09-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis" value="ifrs-full:GrossCarryingAmountMember"/>
+    <property name="ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis" value="ck0000932782:WellsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_MXN ($)">
+   <property name="measure" value="iso4217:MXN"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="20,527,095,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="20,527,095"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0115.9565" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/932782/000119312521348640/d231607d6k.htm" severity="error" effectiveDate="None" cid="1517134808016">[DQC.IFRS.0115.9565] The concept ifrs-full:AdditionsFromAcquisitionsInvestmentProperty with a period duration starting on 2019-12-31 and ending on 2020-09-30 or 274 days with a reported value of 746,526,000 has a value greater than the value of the same element with a longer or equivalent period duration that starts on 2019-12-31 and ends on 2020-12-31 with a value of 543,472,000.
+The value  746,526,000 for the period of 274 days should be less or the same as the value  543,472,000 with a duration of 366 days assuming that the concept ifrs-full:AdditionsFromAcquisitionsInvestmentProperty cannot have a negative value.
+The properties of this ifrs-full:AdditionsFromAcquisitionsInvestmentProperty fact are:
+Period :2020-01-01 to 2020-09-30
+Dimensions : ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis=ifrs-full:LandMember, ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis=ifrs-full:GrossCarryingAmountMember
+Unit : MXN
+
+
+Rule Element Id:9565
+Rule version: 17.0.0RC4  - https://www.sec.gov/Archives/edgar/data/932782/000119312521348640/d231607d6k.htm 17128</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/932782/000119312521348640/d231607d6k.htm#element(/1/2/169/1/1/2/2/5/40/1)" sourceLine="17128">
+  <property name="file" value="d231607d6k.htm"/>
+  <property name="line" value="17128"/>
+  <property name="label" value="Additions from acquisitions, investment property"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2021-03-24/ifrs-full"/>
+  <property name="name" value="AdditionsFromAcquisitionsInvestmentProperty"/>
+  <property name="QName" value="ifrs-full:AdditionsFromAcquisitionsInvestmentProperty"/>
+  <property name="contextRef" value="P01_01_2020To09_30_2020_GrossCarryingAmountMemberifrsfullCarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis_LandMemberifrsfullClassesOfPropertyPlantAndEquipmentAxis">
+   <property name="entity" value="0000932782">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-09-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis" value="ifrs-full:GrossCarryingAmountMember"/>
+    <property name="ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis" value="ifrs-full:LandMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_MXN ($)">
+   <property name="measure" value="iso4217:MXN"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="746,526,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="746,526"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0115.9565" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/932782/000119312521348640/d231607d6k.htm" severity="error" effectiveDate="None" cid="1517134808016">[DQC.IFRS.0115.9565] The concept ifrs-full:AdditionsFromAcquisitionsInvestmentProperty with a period duration starting on 2019-12-31 and ending on 2020-09-30 or 274 days with a reported value of 867,498,000 has a value greater than the value of the same element with a longer or equivalent period duration that starts on 2019-12-31 and ends on 2020-12-31 with a value of 552,865,000.
+The value  867,498,000 for the period of 274 days should be less or the same as the value  552,865,000 with a duration of 366 days assuming that the concept ifrs-full:AdditionsFromAcquisitionsInvestmentProperty cannot have a negative value.
+The properties of this ifrs-full:AdditionsFromAcquisitionsInvestmentProperty fact are:
+Period :2020-01-01 to 2020-09-30
+Dimensions : ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis=ck0000932782:TransportationEquipment1Member, ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis=ifrs-full:GrossCarryingAmountMember
+Unit : MXN
+
+
+Rule Element Id:9565
+Rule version: 17.0.0RC4  - https://www.sec.gov/Archives/edgar/data/932782/000119312521348640/d231607d6k.htm 17120</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/932782/000119312521348640/d231607d6k.htm#element(/1/2/169/1/1/2/2/5/32/1)" sourceLine="17120">
+  <property name="file" value="d231607d6k.htm"/>
+  <property name="line" value="17120"/>
+  <property name="label" value="Additions from acquisitions, investment property"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2021-03-24/ifrs-full"/>
+  <property name="name" value="AdditionsFromAcquisitionsInvestmentProperty"/>
+  <property name="QName" value="ifrs-full:AdditionsFromAcquisitionsInvestmentProperty"/>
+  <property name="contextRef" value="P01_01_2020To09_30_2020_GrossCarryingAmountMemberifrsfullCarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis_TransportationEquipment1MemberifrsfullClassesOfPropertyPlantAndEquipmentAxis">
+   <property name="entity" value="0000932782">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-09-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis" value="ifrs-full:GrossCarryingAmountMember"/>
+    <property name="ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis" value="ck0000932782:TransportationEquipment1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_MXN ($)">
+   <property name="measure" value="iso4217:MXN"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="867,498,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="867,498"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0115.9565" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/932782/000119312521348640/d231607d6k.htm" severity="error" effectiveDate="None" cid="1517134808016">[DQC.IFRS.0115.9565] The concept ifrs-full:InterestIncomeOnDebtInstrumentsHeld with a period duration starting on 2020-12-31 and ending on 2021-09-30 or 273 days with a reported value of 5,859,565,000 has a value greater than the value of the same element with a longer or equivalent period duration that starts on 2020-12-31 and ends on 2021-12-31 with a value of 817,270,000.
+The value  5,859,565,000 for the period of 273 days should be less or the same as the value  817,270,000 with a duration of 365 days assuming that the concept ifrs-full:InterestIncomeOnDebtInstrumentsHeld cannot have a negative value.
+The properties of this ifrs-full:InterestIncomeOnDebtInstrumentsHeld fact are:
+Period :2021-01-01 to 2021-09-30
+Dimensions : ifrs-full:CategoriesOfRelatedPartiesAxis=ck0000932782:MexicanGovernmentMember
+Unit : MXN
+
+
+Rule Element Id:9565
+Rule version: 17.0.0RC4  - https://www.sec.gov/Archives/edgar/data/932782/000119312521348640/d231607d6k.htm 21665</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/932782/000119312521348640/d231607d6k.htm#element(TextSelectionAppend_31101886_1/5/1/2)" sourceLine="21665">
+  <property name="file" value="d231607d6k.htm"/>
+  <property name="line" value="21665"/>
+  <property name="label" value="Interest income on debt instruments held"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2021-03-24/ifrs-full"/>
+  <property name="name" value="InterestIncomeOnDebtInstrumentsHeld"/>
+  <property name="QName" value="ifrs-full:InterestIncomeOnDebtInstrumentsHeld"/>
+  <property name="contextRef" value="P01_01_2021To09_30_2021_MexicanGovernmentMemberifrsfullCategoriesOfRelatedPartiesAxis">
+   <property name="entity" value="0000932782">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2021-01-01"/>
+   <property name="endDate" value="2021-09-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:CategoriesOfRelatedPartiesAxis" value="ck0000932782:MexicanGovernmentMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_MXN ($)">
+   <property name="measure" value="iso4217:MXN"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="5,859,565,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="5,859,565"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0115.9565" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/932782/000119312521348640/d231607d6k.htm" severity="error" effectiveDate="None" cid="1517134808016">[DQC.IFRS.0115.9565] The concept ifrs-full:AdditionsFromAcquisitionsInvestmentProperty with a period duration starting on 2019-12-31 and ending on 2020-09-30 or 274 days with a reported value of 1,192,275,000 has a value greater than the value of the same element with a longer or equivalent period duration that starts on 2019-12-31 and ends on 2020-12-31 with a value of 1,118,794,000.
+The value  1,192,275,000 for the period of 274 days should be less or the same as the value  1,118,794,000 with a duration of 366 days assuming that the concept ifrs-full:AdditionsFromAcquisitionsInvestmentProperty cannot have a negative value.
+The properties of this ifrs-full:AdditionsFromAcquisitionsInvestmentProperty fact are:
+Period :2020-01-01 to 2020-09-30
+Dimensions : ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis=ifrs-full:BuildingsMember, ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis=ifrs-full:GrossCarryingAmountMember
+Unit : MXN
+
+
+Rule Element Id:9565
+Rule version: 17.0.0RC4  - https://www.sec.gov/Archives/edgar/data/932782/000119312521348640/d231607d6k.htm 17108</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/932782/000119312521348640/d231607d6k.htm#element(/1/2/169/1/1/2/2/5/20/1)" sourceLine="17108">
+  <property name="file" value="d231607d6k.htm"/>
+  <property name="line" value="17108"/>
+  <property name="label" value="Additions from acquisitions, investment property"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2021-03-24/ifrs-full"/>
+  <property name="name" value="AdditionsFromAcquisitionsInvestmentProperty"/>
+  <property name="QName" value="ifrs-full:AdditionsFromAcquisitionsInvestmentProperty"/>
+  <property name="contextRef" value="P01_01_2020To09_30_2020_BuildingsMemberifrsfullClassesOfPropertyPlantAndEquipmentAxis_GrossCarryingAmountMemberifrsfullCarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis">
+   <property name="entity" value="0000932782">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-09-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis" value="ifrs-full:GrossCarryingAmountMember"/>
+    <property name="ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis" value="ifrs-full:BuildingsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_MXN ($)">
+   <property name="measure" value="iso4217:MXN"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,192,275,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="1,192,275"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0115.9565" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/932782/000119312521348640/d231607d6k.htm" severity="error" effectiveDate="None" cid="1517134808016">[DQC.IFRS.0115.9565] The concept ifrs-full:ReversalOfImpairmentLossRecognisedInProfitOrLossPropertyPlantAndEquipment with a period duration starting on 2019-12-31 and ending on 2020-09-30 or 274 days with a reported value of 12,660,669,000 has a value greater than the value of the same element with a longer or equivalent period duration that starts on 2019-12-31 and ends on 2020-12-31 with a value of 9,797,281,000.
+The value  12,660,669,000 for the period of 274 days should be less or the same as the value  9,797,281,000 with a duration of 366 days assuming that the concept ifrs-full:ReversalOfImpairmentLossRecognisedInProfitOrLossPropertyPlantAndEquipment cannot have a negative value.
+The properties of this ifrs-full:ReversalOfImpairmentLossRecognisedInProfitOrLossPropertyPlantAndEquipment fact are:
+Period :2020-01-01 to 2020-09-30
+Dimensions : ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis=ifrs-full:PlantsMember, ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis=ifrs-full:GrossCarryingAmountMember
+Unit : MXN
+
+
+Rule Element Id:9565
+Rule version: 17.0.0RC4  - https://www.sec.gov/Archives/edgar/data/932782/000119312521348640/d231607d6k.htm 17292</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/932782/000119312521348640/d231607d6k.htm#element(/1/2/169/1/1/2/2/9/4/1)" sourceLine="17292">
+  <property name="file" value="d231607d6k.htm"/>
+  <property name="line" value="17292"/>
+  <property name="label" value="Reversal of impairment loss recognised in profit or loss, property, plant and equipment"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2021-03-24/ifrs-full"/>
+  <property name="name" value="ReversalOfImpairmentLossRecognisedInProfitOrLossPropertyPlantAndEquipment"/>
+  <property name="QName" value="ifrs-full:ReversalOfImpairmentLossRecognisedInProfitOrLossPropertyPlantAndEquipment"/>
+  <property name="contextRef" value="P01_01_2020To09_30_2020_GrossCarryingAmountMemberifrsfullCarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis_PlantsMemberifrsfullClassesOfPropertyPlantAndEquipmentAxis">
+   <property name="entity" value="0000932782">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-09-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis" value="ifrs-full:GrossCarryingAmountMember"/>
+    <property name="ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis" value="ifrs-full:PlantsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_MXN ($)">
+   <property name="measure" value="iso4217:MXN"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="12,660,669,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="12,660,669"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 9.33 secs - https://www.sec.gov/Archives/edgar/data/932782/000119312521348640/d231607d6k.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/932782/000119312521348640/d231607d6k.htm"/></entry>
+</log>

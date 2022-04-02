@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 5.41 secs at 2020-07-27T09:21:51 - http://www.sec.gov/Archives/edgar/data/67887/000006788720000011/a10-qdocumentxfy20xq1.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/67887/000006788720000011/a10-qdocumentxfy20xq1.htm"/></entry>
+<entry code="exception:FileNotFoundError" level="error">
+ <message instance="a10-qdocumentxfy20xq1.htm" error="[Errno 2] No such file or directory: 'D:/DJT/Documents/GitHub/davidtauriello/dqc_us_rules/dqc_us_rules/dqc-2019-V13-ruleset.zip'">[exception:FileNotFoundError] Instance validation exception: [Errno 2] No such file or directory: 'D:/DJT/Documents/GitHub/davidtauriello/dqc_us_rules/dqc_us_rules/dqc-2019-V13-ruleset.zip', instance: a10-qdocumentxfy20xq1.htm - http://www.sec.gov/Archives/edgar/data/67887/000006788720000011/a10-qdocumentxfy20xq1.htm 
+Traceback (most recent call last):
+  File &quot;Z:\Users\arelle\hfdev\arelle\Validate.py&quot;, line 113, in validate
+  File &quot;Z:\Users\arelle\hfdev\arelle\ValidateXbrl.py&quot;, line 521, in validate
+  File &quot;C:\Program Files\Arelle\plugin\xule\__init__.py&quot;, line 870, in xuleValidate
+    runXule(_cntlr, _options, val.modelXbrl, xule_validator['map_name'])
+  File &quot;C:\Program Files\Arelle\plugin\xule\__init__.py&quot;, line 799, in runXule
+    rule_set.open(rule_set_location, open_packages=not getattr(options, 'xule_bypass_packages', False))
+  File &quot;C:\Program Files\Arelle\plugin\xule\XuleRuleSet.py&quot;, line 105, in open
+    file_object = self._get_rule_set_file_object()
+  File &quot;C:\Program Files\Arelle\plugin\xule\XuleRuleSet.py&quot;, line 147, in _get_rule_set_file_object
+    file_object = file_source.file(self.location, binary=True)[0]
+  File &quot;Z:\Users\arelle\hfdev\arelle\FileSource.py&quot;, line 493, in file
+  File &quot;Z:\Users\arelle\hfdev\arelle\FileSource.py&quot;, line 653, in openFileStream
+FileNotFoundError: [Errno 2] No such file or directory: 'D:/DJT/Documents/GitHub/davidtauriello/dqc_us_rules/dqc_us_rules/dqc-2019-V13-ruleset.zip'</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/67887/000006788720000011/a10-qdocumentxfy20xq1.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 2.16 secs - http://www.sec.gov/Archives/edgar/data/67887/000006788720000011/a10-qdocumentxfy20xq1.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/67887/000006788720000011/a10-qdocumentxfy20xq1.htm"/></entry>
+</log>

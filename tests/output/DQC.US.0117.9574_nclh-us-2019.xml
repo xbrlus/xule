@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23303 - </message>
+ <ref href=""/></entry>
+<entry code="xmlSchema:syntax" level="error">
+ <message fileName="nclh-20210331x10q.htm" error="Specification mandates value for attribute defer" line="9" column="1088">[xmlSchema:syntax] Specification mandates value for attribute defer, nclh-20210331x10q.htm, line 9, column 1088 - ../../../../../../../nclh-20210331x10q.htm , http://www.sec.gov/Archives/edgar/data/1513761/000155837021006631/nclh-20210331x10q.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1513761/000155837021006631/nclh-20210331x10q.htm"/>
+ 
+ <ref href="../../../../../../../nclh-20210331x10q.htm"/></entry>
+<entry code="html:syntaxError" level="error">
+ <message element="Html" error="Element script does not carry attribute type line 9, at path /html/head/script[1], Element noscript content does not follow the ...">[html:syntaxError] Html error Element script does not carry attribute type line 9, at path /html/head/script[1], Element noscript content does not follow the DTD, expecting (p | h1 | h2 | h3 | h4 | h5 | h6 | div | ul | ol | dl | pre | hr | blockquote | address | fieldset | table | form | noscript | ins | del | script | ix:footnote | ix:nonNumeric | ix:fraction | ix:numerator | ix:denominator | ix:nonFraction | ix:continuation | ix:exclude)*, got (img) line 57, at path /html/body/noscript, Element img does not carry attribute alt line 57, at path /html/body/noscript/img - http://www.sec.gov/Archives/edgar/data/1513761/000155837021006631/nclh-20210331x10q.htm 9, 57</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1513761/000155837021006631/nclh-20210331x10q.htm#element(/1/1/3)" sourceLine="9">
+  <property name="QName" value="script"/>
+ </ref>
+ 
+ <ref href="http://www.sec.gov/Archives/edgar/data/1513761/000155837021006631/nclh-20210331x10q.htm#element(/1/2/99)" sourceLine="57">
+  <property name="QName" value="noscript"/>
+ </ref>
+ 
+ <ref href="http://www.sec.gov/Archives/edgar/data/1513761/000155837021006631/nclh-20210331x10q.htm#element(/1/2/99/1)" sourceLine="57">
+  <property name="QName" value="img"/>
+  <property name="src" value="https://www.sec.gov/akam/11/pixel_6a3045da?a=dD0zYWM5Mjk4NmJmYTJhNTk3YzBlOGYxMWEyNjhlZjE4MjJkN2U1ZmI3JmpzPW9mZg=="/>
+  <property name="style" value="visibility: hidden; position: absolute; left: -999px; top: -999px;"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 9.15 secs at 2022-02-18T09:35:03 - http://www.sec.gov/Archives/edgar/data/1513761/000155837021006631/nclh-20210331x10q.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1513761/000155837021006631/nclh-20210331x10q.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - D:\Temp\tmp16475e1z\packages\resources.zip </message>
+ <ref href="D:\Temp\tmp16475e1z\packages\resources.zip"/></entry>
+<entry code="DQC.US.0117.9574" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1513761/000155837021006631/nclh-20210331x10q.htm" severity="error" effectiveDate="2021-12-01" cid="1956762158032">[DQC.US.0117.9574] In the statement 00100 - Statement - Consolidated Statements of Operations the concept us-gaap:DirectOperatingCosts with a value of 200,855,000 is not equal to the dimensional breakdown of 76,114,000 which is comprised of the members:
+	OnboardAndOtherMember 	 --> 1,259,000 	 --> srt:ProductOrServiceAxis=nclh:OnboardAndOtherMember 
+	ServiceOtherMember 	 --> 59,514,000 	 --> srt:ProductOrServiceAxis=us-gaap:ServiceOtherMember 
+	FoodAndBeverageMember 	 --> 6,308,000 	 --> srt:ProductOrServiceAxis=us-gaap:FoodAndBeverageMember 
+	CommissionsTransportationAndOtherMember 	 --> 9,033,000 	 --> srt:ProductOrServiceAxis=nclh:CommissionsTransportationAndOtherMember 
+
+
+On the face financial statements it is expected that values reported are dimensionally complete for a given line item. If you added up the values of the dimensions the resulting sum should represent the actual aggregate value.  This rule takes the dimensional values of an axis reported on the face financial statements and adds them up and compares them to the actual aggregate value reported anywhere in the filing. If they are different the rule reports an error.
+
+The properties of this us-gaap:DirectOperatingCosts fact are:
+Period :2021-01-01 to 2021-03-31
+Unit : USD
+Dimensions : 
+Rule Element Id:9574
+Rule version: 16.0.12 - http://www.sec.gov/Archives/edgar/data/1513761/000155837021006631/nclh-20210331x10q.htm 11</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1513761/000155837021006631/nclh-20210331x10q.htm#Tc_tQJjvBilpUmQxU4ZJkA9sA_15_3" sourceLine="11">
+  <property name="file" value="nclh-20210331x10q.htm"/>
+  <property name="line" value="11"/>
+  <property name="label" value="Direct Operating Costs, Total"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DirectOperatingCosts"/>
+  <property name="QName" value="us-gaap:DirectOperatingCosts"/>
+  <property name="contextRef" value="Duration_1_1_2021_To_3_31_2021_vDcKAgTdXUWQj8nLSYzSTA">
+   <property name="entity" value="0001513761">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2021-01-01"/>
+   <property name="endDate" value="2021-03-31"/>
+  </property>
+  <property name="unitRef" value="Unit_Standard_USD_a4n2VmOInUyq67SH33U1rw ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="200,855,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="200,855"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 4.88 secs - http://www.sec.gov/Archives/edgar/data/1513761/000155837021006631/nclh-20210331x10q.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1513761/000155837021006631/nclh-20210331x10q.htm"/></entry>
+</log>

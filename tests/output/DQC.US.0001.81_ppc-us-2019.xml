@@ -1,0 +1,915 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23202 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 5.17 secs at 2021-03-05T09:41:07 - https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmp2dzyn71f\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmp2dzyn71f\packages\resources.zip"/></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm" severity="error" effectiveDate="2021-03-01" cid="2437485401472">[DQC.US.0001.81] The concept RevenueFromContractWithCustomerExcludingAssessedTax with a value of 325,786,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member MX. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateMember, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember.
+The properties of the fact for RevenueFromContractWithCustomerExcludingAssessedTax are:
+Period: 2019-12-30 to 2020-03-29
+Dimensions: us-gaap:StatementBusinessSegmentsAxis=country:MX 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm#id3VybDovL2RvY3MudjEvZG9jOjZkYWMzNGE2NmFkOTQyNDZhNDEzMzk3YjYwNTIzOWVhL3NlYzo2ZGFjMzRhNjZhZDk0MjQ2YTQxMzM5N2I2MDUyMzllYV8xMTIvZnJhZzpkY2ExMDE4ZGM5Zjc0ODg2YmI4MWU0YWU1ZDE3NDI0OS90YWJsZTowNjE2OWYyNTdjZjg0MDJkOTYyMDIxOGRhMWY5YmUwMy90YWJsZXJhbmdlOjA2MTY5ZjI1N2NmODQwMmQ5NjIwMjE4ZGExZjliZTAzXzUtMS0xLTEtMA_8d3ce104-2cec-4470-85e0-b3230a072c3b" sourceLine="4">
+  <property name="file" value="ppc-20200329.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Revenue from Contract with Customer, Excluding Assessed Tax"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="RevenueFromContractWithCustomerExcludingAssessedTax"/>
+  <property name="QName" value="us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"/>
+  <property name="contextRef" value="id3b88e583b564c35a9322cf7903714d2_D20191230-20200329">
+   <property name="entity" value="0000802481">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-12-30"/>
+   <property name="endDate" value="2020-03-29"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="country:MX"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="325,786,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="325,786"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm" severity="error" effectiveDate="2021-03-01" cid="2437485401472">[DQC.US.0001.81] The concept OperatingIncomeLoss with a value of 9,464,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member MX. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateMember, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember.
+The properties of the fact for OperatingIncomeLoss are:
+Period: 2018-12-31 to 2019-03-31
+Dimensions: us-gaap:StatementBusinessSegmentsAxis=country:MX, srt:ConsolidationItemsAxis=us-gaap:OperatingSegmentsMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm#id3VybDovL2RvY3MudjEvZG9jOjZkYWMzNGE2NmFkOTQyNDZhNDEzMzk3YjYwNTIzOWVhL3NlYzo2ZGFjMzRhNjZhZDk0MjQ2YTQxMzM5N2I2MDUyMzllYV8xMTIvZnJhZzpkY2ExMDE4ZGM5Zjc0ODg2YmI4MWU0YWU1ZDE3NDI0OS90YWJsZTo1MDA4Y2FhYWQ0MjY0NmExYTM5Mjk2YTM2MGQ0NTQ3Zi90YWJsZXJhbmdlOjUwMDhjYWFhZDQyNjQ2YTFhMzkyOTZhMzYwZDQ1NDdmXzUtMy0xLTEtMA_7a026da6-324d-45e3-b041-ef487178ec12" sourceLine="4">
+  <property name="file" value="ppc-20200329.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Operating Income (Loss)"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="OperatingIncomeLoss"/>
+  <property name="QName" value="us-gaap:OperatingIncomeLoss"/>
+  <property name="contextRef" value="i39d93eeaf69740fdafe9e33842be57ee_D20181231-20190331">
+   <property name="entity" value="0000802481">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-12-31"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ConsolidationItemsAxis" value="us-gaap:OperatingSegmentsMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="country:MX"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="9,464,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="9,464"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm" severity="error" effectiveDate="2021-03-01" cid="2437485401472">[DQC.US.0001.81] The concept Assets with a value of 1,020,331,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member MX. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateMember, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember.
+The properties of the fact for Assets are:
+Period: 2019-12-29
+Dimensions: srt:ConsolidationItemsAxis=us-gaap:OperatingSegmentsMember, us-gaap:StatementBusinessSegmentsAxis=country:MX 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm#id3VybDovL2RvY3MudjEvZG9jOjZkYWMzNGE2NmFkOTQyNDZhNDEzMzk3YjYwNTIzOWVhL3NlYzo2ZGFjMzRhNjZhZDk0MjQ2YTQxMzM5N2I2MDUyMzllYV8xMTIvZnJhZzpkY2ExMDE4ZGM5Zjc0ODg2YmI4MWU0YWU1ZDE3NDI0OS90YWJsZToyZGM5YmMyNjcwYjc0YmVhODQyZmUyNGQ1ZTdhNzFiMS90YWJsZXJhbmdlOjJkYzliYzI2NzBiNzRiZWE4NDJmZTI0ZDVlN2E3MWIxXzUtMy0xLTEtOTAx_8b7cdc12-1678-40d2-ae34-b54d2a746d1d" sourceLine="4">
+  <property name="file" value="ppc-20200329.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="ie969ebf090d24a77887dfbee3aa4d3f7_I20191229">
+   <property name="entity" value="0000802481">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-29"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ConsolidationItemsAxis" value="us-gaap:OperatingSegmentsMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="country:MX"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,020,331,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="1,020,331"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm" severity="error" effectiveDate="2021-03-01" cid="2437485401472">[DQC.US.0001.81] The concept NoncurrentAssets with a value of 306,413,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member MX. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateMember, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember.
+The properties of the fact for NoncurrentAssets are:
+Period: 2019-12-29
+Dimensions: srt:ConsolidationItemsAxis=us-gaap:OperatingSegmentsMember, us-gaap:StatementBusinessSegmentsAxis=country:MX 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm#id3VybDovL2RvY3MudjEvZG9jOjZkYWMzNGE2NmFkOTQyNDZhNDEzMzk3YjYwNTIzOWVhL3NlYzo2ZGFjMzRhNjZhZDk0MjQ2YTQxMzM5N2I2MDUyMzllYV8xMTIvZnJhZzpkY2ExMDE4ZGM5Zjc0ODg2YmI4MWU0YWU1ZDE3NDI0OS90YWJsZTpjN2U5ZWI5ZGMwYjY0ZTFhODIxODJlNjE2Nzc2YTcwYS90YWJsZXJhbmdlOmM3ZTllYjlkYzBiNjRlMWE4MjE4MmU2MTY3NzZhNzBhXzQtMy0xLTEtNDU4MQ_90c2f327-b6e5-422d-8030-fa4d7dbde972" sourceLine="4">
+  <property name="file" value="ppc-20200329.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Long-Lived Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="NoncurrentAssets"/>
+  <property name="QName" value="us-gaap:NoncurrentAssets"/>
+  <property name="contextRef" value="ie969ebf090d24a77887dfbee3aa4d3f7_I20191229">
+   <property name="entity" value="0000802481">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-29"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ConsolidationItemsAxis" value="us-gaap:OperatingSegmentsMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="country:MX"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="306,413,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="306,413"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm" severity="error" effectiveDate="2021-03-01" cid="2437485401472">[DQC.US.0001.81] The concept RevenueFromContractWithCustomerExcludingAssessedTax with a value of 326,122,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member MX. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateMember, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember.
+The properties of the fact for RevenueFromContractWithCustomerExcludingAssessedTax are:
+Period: 2018-12-31 to 2019-03-31
+Dimensions: us-gaap:StatementBusinessSegmentsAxis=country:MX 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm#id3VybDovL2RvY3MudjEvZG9jOjZkYWMzNGE2NmFkOTQyNDZhNDEzMzk3YjYwNTIzOWVhL3NlYzo2ZGFjMzRhNjZhZDk0MjQ2YTQxMzM5N2I2MDUyMzllYV8xMTIvZnJhZzpkY2ExMDE4ZGM5Zjc0ODg2YmI4MWU0YWU1ZDE3NDI0OS90YWJsZTowNjE2OWYyNTdjZjg0MDJkOTYyMDIxOGRhMWY5YmUwMy90YWJsZXJhbmdlOjA2MTY5ZjI1N2NmODQwMmQ5NjIwMjE4ZGExZjliZTAzXzUtMy0xLTEtMA_2e6fe0a6-5d39-46f2-848c-848394f8cd17" sourceLine="4">
+  <property name="file" value="ppc-20200329.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Revenue from Contract with Customer, Excluding Assessed Tax"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="RevenueFromContractWithCustomerExcludingAssessedTax"/>
+  <property name="QName" value="us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"/>
+  <property name="contextRef" value="i12d3888ab5524fb2ac25acefc9d50ec4_D20181231-20190331">
+   <property name="entity" value="0000802481">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-12-31"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="country:MX"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="326,122,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="326,122"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm" severity="error" effectiveDate="2021-03-01" cid="2437485401472">[DQC.US.0001.81] The concept Assets with a value of 978,970,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member MX. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateMember, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember.
+The properties of the fact for Assets are:
+Period: 2020-03-29
+Dimensions: us-gaap:StatementBusinessSegmentsAxis=country:MX, srt:ConsolidationItemsAxis=us-gaap:OperatingSegmentsMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm#id3VybDovL2RvY3MudjEvZG9jOjZkYWMzNGE2NmFkOTQyNDZhNDEzMzk3YjYwNTIzOWVhL3NlYzo2ZGFjMzRhNjZhZDk0MjQ2YTQxMzM5N2I2MDUyMzllYV8xMTIvZnJhZzpkY2ExMDE4ZGM5Zjc0ODg2YmI4MWU0YWU1ZDE3NDI0OS90YWJsZToyZGM5YmMyNjcwYjc0YmVhODQyZmUyNGQ1ZTdhNzFiMS90YWJsZXJhbmdlOjJkYzliYzI2NzBiNzRiZWE4NDJmZTI0ZDVlN2E3MWIxXzUtMS0xLTEtOTAx_6d6153af-7efb-4ca2-aeba-451a8515f243" sourceLine="4">
+  <property name="file" value="ppc-20200329.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="ibefba29bd5374e498e1362dedfa166e2_I20200329">
+   <property name="entity" value="0000802481">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-29"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ConsolidationItemsAxis" value="us-gaap:OperatingSegmentsMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="country:MX"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="978,970,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="978,970"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm" severity="error" effectiveDate="2021-03-01" cid="2437485401472">[DQC.US.0001.81] The concept NoncurrentAssets with a value of 302,118,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member MX. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateMember, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember.
+The properties of the fact for NoncurrentAssets are:
+Period: 2020-03-29
+Dimensions: us-gaap:StatementBusinessSegmentsAxis=country:MX, srt:ConsolidationItemsAxis=us-gaap:OperatingSegmentsMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm#id3VybDovL2RvY3MudjEvZG9jOjZkYWMzNGE2NmFkOTQyNDZhNDEzMzk3YjYwNTIzOWVhL3NlYzo2ZGFjMzRhNjZhZDk0MjQ2YTQxMzM5N2I2MDUyMzllYV8xMTIvZnJhZzpkY2ExMDE4ZGM5Zjc0ODg2YmI4MWU0YWU1ZDE3NDI0OS90YWJsZTpjN2U5ZWI5ZGMwYjY0ZTFhODIxODJlNjE2Nzc2YTcwYS90YWJsZXJhbmdlOmM3ZTllYjlkYzBiNjRlMWE4MjE4MmU2MTY3NzZhNzBhXzQtMS0xLTEtNDYwMQ_b0dc76a6-789b-4bfc-8d6b-4dd51ff6b807" sourceLine="4">
+  <property name="file" value="ppc-20200329.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Long-Lived Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="NoncurrentAssets"/>
+  <property name="QName" value="us-gaap:NoncurrentAssets"/>
+  <property name="contextRef" value="ibefba29bd5374e498e1362dedfa166e2_I20200329">
+   <property name="entity" value="0000802481">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-29"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ConsolidationItemsAxis" value="us-gaap:OperatingSegmentsMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="country:MX"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="302,118,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="302,118"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm" severity="error" effectiveDate="2021-03-01" cid="2437485401472">[DQC.US.0001.81] The concept OperatingIncomeLoss with a value of -23,880,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member MX. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateMember, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember.
+The properties of the fact for OperatingIncomeLoss are:
+Period: 2019-12-30 to 2020-03-29
+Dimensions: us-gaap:StatementBusinessSegmentsAxis=country:MX, srt:ConsolidationItemsAxis=us-gaap:OperatingSegmentsMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm#id3VybDovL2RvY3MudjEvZG9jOjZkYWMzNGE2NmFkOTQyNDZhNDEzMzk3YjYwNTIzOWVhL3NlYzo2ZGFjMzRhNjZhZDk0MjQ2YTQxMzM5N2I2MDUyMzllYV8xMTIvZnJhZzpkY2ExMDE4ZGM5Zjc0ODg2YmI4MWU0YWU1ZDE3NDI0OS90YWJsZTo1MDA4Y2FhYWQ0MjY0NmExYTM5Mjk2YTM2MGQ0NTQ3Zi90YWJsZXJhbmdlOjUwMDhjYWFhZDQyNjQ2YTFhMzkyOTZhMzYwZDQ1NDdmXzUtMS0xLTEtMA_5600ceb1-1085-44e4-9a98-ac573aa19d04" sourceLine="4">
+  <property name="file" value="ppc-20200329.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Operating Income (Loss)"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="OperatingIncomeLoss"/>
+  <property name="QName" value="us-gaap:OperatingIncomeLoss"/>
+  <property name="contextRef" value="ice9112eae4c4496f99b003beaa65ce33_D20191230-20200329">
+   <property name="entity" value="0000802481">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-12-30"/>
+   <property name="endDate" value="2020-03-29"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ConsolidationItemsAxis" value="us-gaap:OperatingSegmentsMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="country:MX"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-23,880,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="23,880"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm" severity="error" effectiveDate="2021-03-01" cid="2437485401472">[DQC.US.0001.81] The concept RevenueFromContractWithCustomerExcludingAssessedTax with a value of 1,926,880,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member US. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateMember, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember.
+The properties of the fact for RevenueFromContractWithCustomerExcludingAssessedTax are:
+Period: 2019-12-30 to 2020-03-29
+Dimensions: us-gaap:StatementBusinessSegmentsAxis=country:US 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm#id3VybDovL2RvY3MudjEvZG9jOjZkYWMzNGE2NmFkOTQyNDZhNDEzMzk3YjYwNTIzOWVhL3NlYzo2ZGFjMzRhNjZhZDk0MjQ2YTQxMzM5N2I2MDUyMzllYV8xMTIvZnJhZzpkY2ExMDE4ZGM5Zjc0ODg2YmI4MWU0YWU1ZDE3NDI0OS90YWJsZTowNjE2OWYyNTdjZjg0MDJkOTYyMDIxOGRhMWY5YmUwMy90YWJsZXJhbmdlOjA2MTY5ZjI1N2NmODQwMmQ5NjIwMjE4ZGExZjliZTAzXzMtMS0xLTEtMA_0c0ad939-6d90-443a-b845-c46f8aa8f113" sourceLine="4">
+  <property name="file" value="ppc-20200329.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Revenue from Contract with Customer, Excluding Assessed Tax"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="RevenueFromContractWithCustomerExcludingAssessedTax"/>
+  <property name="QName" value="us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"/>
+  <property name="contextRef" value="i6f4776ce09e7464cb28f32c95bbcb3d5_D20191230-20200329">
+   <property name="entity" value="0000802481">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-12-30"/>
+   <property name="endDate" value="2020-03-29"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="country:US"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,926,880,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="1,926,880"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm" severity="error" effectiveDate="2021-03-01" cid="2437485401472">[DQC.US.0001.81] The concept Assets with a value of 5,207,282,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member US. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateMember, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember.
+The properties of the fact for Assets are:
+Period: 2019-12-29
+Dimensions: us-gaap:StatementBusinessSegmentsAxis=country:US, srt:ConsolidationItemsAxis=us-gaap:OperatingSegmentsMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm#id3VybDovL2RvY3MudjEvZG9jOjZkYWMzNGE2NmFkOTQyNDZhNDEzMzk3YjYwNTIzOWVhL3NlYzo2ZGFjMzRhNjZhZDk0MjQ2YTQxMzM5N2I2MDUyMzllYV8xMTIvZnJhZzpkY2ExMDE4ZGM5Zjc0ODg2YmI4MWU0YWU1ZDE3NDI0OS90YWJsZToyZGM5YmMyNjcwYjc0YmVhODQyZmUyNGQ1ZTdhNzFiMS90YWJsZXJhbmdlOjJkYzliYzI2NzBiNzRiZWE4NDJmZTI0ZDVlN2E3MWIxXzMtMy0xLTEtOTAx_78573f2b-9404-46de-86e3-c3397fc1491c" sourceLine="4">
+  <property name="file" value="ppc-20200329.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="i9439f043efe44bd0a5f9ff3fda3d5cb5_I20191229">
+   <property name="entity" value="0000802481">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-29"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ConsolidationItemsAxis" value="us-gaap:OperatingSegmentsMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="country:US"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="5,207,282,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="5,207,282"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm" severity="error" effectiveDate="2021-03-01" cid="2437485401472">[DQC.US.0001.81] The concept OperatingIncomeLoss with a value of 114,840,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member US. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateMember, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember.
+The properties of the fact for OperatingIncomeLoss are:
+Period: 2018-12-31 to 2019-03-31
+Dimensions: srt:ConsolidationItemsAxis=us-gaap:OperatingSegmentsMember, us-gaap:StatementBusinessSegmentsAxis=country:US 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm#id3VybDovL2RvY3MudjEvZG9jOjZkYWMzNGE2NmFkOTQyNDZhNDEzMzk3YjYwNTIzOWVhL3NlYzo2ZGFjMzRhNjZhZDk0MjQ2YTQxMzM5N2I2MDUyMzllYV8xMTIvZnJhZzpkY2ExMDE4ZGM5Zjc0ODg2YmI4MWU0YWU1ZDE3NDI0OS90YWJsZTo1MDA4Y2FhYWQ0MjY0NmExYTM5Mjk2YTM2MGQ0NTQ3Zi90YWJsZXJhbmdlOjUwMDhjYWFhZDQyNjQ2YTFhMzkyOTZhMzYwZDQ1NDdmXzMtMy0xLTEtMA_cf32ef1c-30b1-4849-9356-11347367bbfc" sourceLine="4">
+  <property name="file" value="ppc-20200329.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Operating Income (Loss)"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="OperatingIncomeLoss"/>
+  <property name="QName" value="us-gaap:OperatingIncomeLoss"/>
+  <property name="contextRef" value="i849108c491df45c48f847464d5704f97_D20181231-20190331">
+   <property name="entity" value="0000802481">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-12-31"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ConsolidationItemsAxis" value="us-gaap:OperatingSegmentsMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="country:US"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="114,840,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="114,840"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm" severity="error" effectiveDate="2021-03-01" cid="2437485401472">[DQC.US.0001.81] The concept RevenueFromContractWithCustomerExcludingAssessedTax with a value of 1,883,591,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member US. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateMember, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember.
+The properties of the fact for RevenueFromContractWithCustomerExcludingAssessedTax are:
+Period: 2018-12-31 to 2019-03-31
+Dimensions: us-gaap:StatementBusinessSegmentsAxis=country:US 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm#id3VybDovL2RvY3MudjEvZG9jOjZkYWMzNGE2NmFkOTQyNDZhNDEzMzk3YjYwNTIzOWVhL3NlYzo2ZGFjMzRhNjZhZDk0MjQ2YTQxMzM5N2I2MDUyMzllYV8xMTIvZnJhZzpkY2ExMDE4ZGM5Zjc0ODg2YmI4MWU0YWU1ZDE3NDI0OS90YWJsZTowNjE2OWYyNTdjZjg0MDJkOTYyMDIxOGRhMWY5YmUwMy90YWJsZXJhbmdlOjA2MTY5ZjI1N2NmODQwMmQ5NjIwMjE4ZGExZjliZTAzXzMtMy0xLTEtMA_8ee88684-4344-4791-a56f-495bad5bb6f0" sourceLine="4">
+  <property name="file" value="ppc-20200329.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Revenue from Contract with Customer, Excluding Assessed Tax"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="RevenueFromContractWithCustomerExcludingAssessedTax"/>
+  <property name="QName" value="us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"/>
+  <property name="contextRef" value="ic83e01ce06154774b9e3bb91c66ad376_D20181231-20190331">
+   <property name="entity" value="0000802481">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-12-31"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="country:US"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,883,591,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="1,883,591"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm" severity="error" effectiveDate="2021-03-01" cid="2437485401472">[DQC.US.0001.81] The concept Assets with a value of 5,539,187,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member US. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateMember, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember.
+The properties of the fact for Assets are:
+Period: 2020-03-29
+Dimensions: srt:ConsolidationItemsAxis=us-gaap:OperatingSegmentsMember, us-gaap:StatementBusinessSegmentsAxis=country:US 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm#id3VybDovL2RvY3MudjEvZG9jOjZkYWMzNGE2NmFkOTQyNDZhNDEzMzk3YjYwNTIzOWVhL3NlYzo2ZGFjMzRhNjZhZDk0MjQ2YTQxMzM5N2I2MDUyMzllYV8xMTIvZnJhZzpkY2ExMDE4ZGM5Zjc0ODg2YmI4MWU0YWU1ZDE3NDI0OS90YWJsZToyZGM5YmMyNjcwYjc0YmVhODQyZmUyNGQ1ZTdhNzFiMS90YWJsZXJhbmdlOjJkYzliYzI2NzBiNzRiZWE4NDJmZTI0ZDVlN2E3MWIxXzMtMS0xLTEtOTAx_fb1ff81e-f4c7-45de-bef8-44da6200e0f3" sourceLine="4">
+  <property name="file" value="ppc-20200329.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="ia172dd5fc53e4fae9c050c8c54208fec_I20200329">
+   <property name="entity" value="0000802481">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-29"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ConsolidationItemsAxis" value="us-gaap:OperatingSegmentsMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="country:US"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="5,539,187,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="5,539,187"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm" severity="error" effectiveDate="2021-03-01" cid="2437485401472">[DQC.US.0001.81] The concept NoncurrentAssets with a value of 1,789,530,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member US. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateMember, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember.
+The properties of the fact for NoncurrentAssets are:
+Period: 2019-12-29
+Dimensions: srt:ConsolidationItemsAxis=us-gaap:OperatingSegmentsMember, us-gaap:StatementBusinessSegmentsAxis=country:US 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm#id3VybDovL2RvY3MudjEvZG9jOjZkYWMzNGE2NmFkOTQyNDZhNDEzMzk3YjYwNTIzOWVhL3NlYzo2ZGFjMzRhNjZhZDk0MjQ2YTQxMzM5N2I2MDUyMzllYV8xMTIvZnJhZzpkY2ExMDE4ZGM5Zjc0ODg2YmI4MWU0YWU1ZDE3NDI0OS90YWJsZTpjN2U5ZWI5ZGMwYjY0ZTFhODIxODJlNjE2Nzc2YTcwYS90YWJsZXJhbmdlOmM3ZTllYjlkYzBiNjRlMWE4MjE4MmU2MTY3NzZhNzBhXzMtMy0xLTEtODQx_20cda52c-38ac-43ca-a6ba-2c0ebbdb89ca" sourceLine="4">
+  <property name="file" value="ppc-20200329.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Long-Lived Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="NoncurrentAssets"/>
+  <property name="QName" value="us-gaap:NoncurrentAssets"/>
+  <property name="contextRef" value="i9439f043efe44bd0a5f9ff3fda3d5cb5_I20191229">
+   <property name="entity" value="0000802481">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-29"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ConsolidationItemsAxis" value="us-gaap:OperatingSegmentsMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="country:US"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,789,530,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="1,789,530"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm" severity="error" effectiveDate="2021-03-01" cid="2437485401472">[DQC.US.0001.81] The concept NoncurrentAssets with a value of 1,791,303,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member US. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateMember, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember.
+The properties of the fact for NoncurrentAssets are:
+Period: 2020-03-29
+Dimensions: us-gaap:StatementBusinessSegmentsAxis=country:US, srt:ConsolidationItemsAxis=us-gaap:OperatingSegmentsMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm#id3VybDovL2RvY3MudjEvZG9jOjZkYWMzNGE2NmFkOTQyNDZhNDEzMzk3YjYwNTIzOWVhL3NlYzo2ZGFjMzRhNjZhZDk0MjQ2YTQxMzM5N2I2MDUyMzllYV8xMTIvZnJhZzpkY2ExMDE4ZGM5Zjc0ODg2YmI4MWU0YWU1ZDE3NDI0OS90YWJsZTpjN2U5ZWI5ZGMwYjY0ZTFhODIxODJlNjE2Nzc2YTcwYS90YWJsZXJhbmdlOmM3ZTllYjlkYzBiNjRlMWE4MjE4MmU2MTY3NzZhNzBhXzMtMS0xLTEtODk4_8d93a12e-7e6c-498d-8606-4e06462ea650" sourceLine="4">
+  <property name="file" value="ppc-20200329.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Long-Lived Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="NoncurrentAssets"/>
+  <property name="QName" value="us-gaap:NoncurrentAssets"/>
+  <property name="contextRef" value="ia172dd5fc53e4fae9c050c8c54208fec_I20200329">
+   <property name="entity" value="0000802481">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-29"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ConsolidationItemsAxis" value="us-gaap:OperatingSegmentsMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="country:US"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,791,303,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="1,791,303"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm" severity="error" effectiveDate="2021-03-01" cid="2437485401472">[DQC.US.0001.81] The concept OperatingIncomeLoss with a value of 85,052,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member US. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateMember, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember.
+The properties of the fact for OperatingIncomeLoss are:
+Period: 2019-12-30 to 2020-03-29
+Dimensions: us-gaap:StatementBusinessSegmentsAxis=country:US, srt:ConsolidationItemsAxis=us-gaap:OperatingSegmentsMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm#id3VybDovL2RvY3MudjEvZG9jOjZkYWMzNGE2NmFkOTQyNDZhNDEzMzk3YjYwNTIzOWVhL3NlYzo2ZGFjMzRhNjZhZDk0MjQ2YTQxMzM5N2I2MDUyMzllYV8xMTIvZnJhZzpkY2ExMDE4ZGM5Zjc0ODg2YmI4MWU0YWU1ZDE3NDI0OS90YWJsZTo1MDA4Y2FhYWQ0MjY0NmExYTM5Mjk2YTM2MGQ0NTQ3Zi90YWJsZXJhbmdlOjUwMDhjYWFhZDQyNjQ2YTFhMzkyOTZhMzYwZDQ1NDdmXzMtMS0xLTEtMA_1babc36a-64f7-42ad-9ccf-872a77479415" sourceLine="4">
+  <property name="file" value="ppc-20200329.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Operating Income (Loss)"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="OperatingIncomeLoss"/>
+  <property name="QName" value="us-gaap:OperatingIncomeLoss"/>
+  <property name="contextRef" value="id5443147458c47bab583408803ca6a7b_D20191230-20200329">
+   <property name="entity" value="0000802481">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-12-30"/>
+   <property name="endDate" value="2020-03-29"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ConsolidationItemsAxis" value="us-gaap:OperatingSegmentsMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="country:US"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="85,052,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="85,052"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm" severity="error" effectiveDate="2021-03-01" cid="2437485401472">[DQC.US.0001.81] The concept RevenueFromContractWithCustomerExcludingAssessedTax with a value of 822,262,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member EuropeMember. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateMember, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember.
+The properties of the fact for RevenueFromContractWithCustomerExcludingAssessedTax are:
+Period: 2019-12-30 to 2020-03-29
+Dimensions: us-gaap:StatementBusinessSegmentsAxis=srt:EuropeMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm#id3VybDovL2RvY3MudjEvZG9jOjZkYWMzNGE2NmFkOTQyNDZhNDEzMzk3YjYwNTIzOWVhL3NlYzo2ZGFjMzRhNjZhZDk0MjQ2YTQxMzM5N2I2MDUyMzllYV8xMTIvZnJhZzpkY2ExMDE4ZGM5Zjc0ODg2YmI4MWU0YWU1ZDE3NDI0OS90YWJsZTowNjE2OWYyNTdjZjg0MDJkOTYyMDIxOGRhMWY5YmUwMy90YWJsZXJhbmdlOjA2MTY5ZjI1N2NmODQwMmQ5NjIwMjE4ZGExZjliZTAzXzQtMS0xLTEtMA_7d2a34da-dcfd-4331-a796-7661425e9a29" sourceLine="4">
+  <property name="file" value="ppc-20200329.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Revenue from Contract with Customer, Excluding Assessed Tax"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="RevenueFromContractWithCustomerExcludingAssessedTax"/>
+  <property name="QName" value="us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"/>
+  <property name="contextRef" value="i3efe7a13b33649b08867483f86354a31_D20191230-20200329">
+   <property name="entity" value="0000802481">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-12-30"/>
+   <property name="endDate" value="2020-03-29"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="srt:EuropeMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="822,262,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="822,262"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm" severity="error" effectiveDate="2021-03-01" cid="2437485401472">[DQC.US.0001.81] The concept Assets with a value of 2,824,382,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member EuropeMember. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateMember, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember.
+The properties of the fact for Assets are:
+Period: 2019-12-29
+Dimensions: us-gaap:StatementBusinessSegmentsAxis=srt:EuropeMember, srt:ConsolidationItemsAxis=us-gaap:OperatingSegmentsMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm#id3VybDovL2RvY3MudjEvZG9jOjZkYWMzNGE2NmFkOTQyNDZhNDEzMzk3YjYwNTIzOWVhL3NlYzo2ZGFjMzRhNjZhZDk0MjQ2YTQxMzM5N2I2MDUyMzllYV8xMTIvZnJhZzpkY2ExMDE4ZGM5Zjc0ODg2YmI4MWU0YWU1ZDE3NDI0OS90YWJsZToyZGM5YmMyNjcwYjc0YmVhODQyZmUyNGQ1ZTdhNzFiMS90YWJsZXJhbmdlOjJkYzliYzI2NzBiNzRiZWE4NDJmZTI0ZDVlN2E3MWIxXzQtMy0xLTEtOTAx_4964d473-89d4-4421-8970-faea67e50757" sourceLine="4">
+  <property name="file" value="ppc-20200329.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="i4dd5ae6d130e4166ad39d318c8e42a77_I20191229">
+   <property name="entity" value="0000802481">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-29"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ConsolidationItemsAxis" value="us-gaap:OperatingSegmentsMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="srt:EuropeMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,824,382,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="2,824,382"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm" severity="error" effectiveDate="2021-03-01" cid="2437485401472">[DQC.US.0001.81] The concept OperatingIncomeLoss with a value of 12,714,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member EuropeMember. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateMember, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember.
+The properties of the fact for OperatingIncomeLoss are:
+Period: 2018-12-31 to 2019-03-31
+Dimensions: us-gaap:StatementBusinessSegmentsAxis=srt:EuropeMember, srt:ConsolidationItemsAxis=us-gaap:OperatingSegmentsMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm#id3VybDovL2RvY3MudjEvZG9jOjZkYWMzNGE2NmFkOTQyNDZhNDEzMzk3YjYwNTIzOWVhL3NlYzo2ZGFjMzRhNjZhZDk0MjQ2YTQxMzM5N2I2MDUyMzllYV8xMTIvZnJhZzpkY2ExMDE4ZGM5Zjc0ODg2YmI4MWU0YWU1ZDE3NDI0OS90YWJsZTo1MDA4Y2FhYWQ0MjY0NmExYTM5Mjk2YTM2MGQ0NTQ3Zi90YWJsZXJhbmdlOjUwMDhjYWFhZDQyNjQ2YTFhMzkyOTZhMzYwZDQ1NDdmXzQtMy0xLTEtMA_645734ab-f5f3-445f-8531-2ec7d84dcdb5" sourceLine="4">
+  <property name="file" value="ppc-20200329.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Operating Income (Loss)"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="OperatingIncomeLoss"/>
+  <property name="QName" value="us-gaap:OperatingIncomeLoss"/>
+  <property name="contextRef" value="iacfb055c656b4f6fb960b3948d671823_D20181231-20190331">
+   <property name="entity" value="0000802481">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-12-31"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ConsolidationItemsAxis" value="us-gaap:OperatingSegmentsMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="srt:EuropeMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="12,714,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="12,714"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm" severity="error" effectiveDate="2021-03-01" cid="2437485401472">[DQC.US.0001.81] The concept NoncurrentAssets with a value of 801,887,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member EuropeMember. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateMember, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember.
+The properties of the fact for NoncurrentAssets are:
+Period: 2019-12-29
+Dimensions: us-gaap:StatementBusinessSegmentsAxis=srt:EuropeMember, srt:ConsolidationItemsAxis=us-gaap:OperatingSegmentsMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm#id3VybDovL2RvY3MudjEvZG9jOjZkYWMzNGE2NmFkOTQyNDZhNDEzMzk3YjYwNTIzOWVhL3NlYzo2ZGFjMzRhNjZhZDk0MjQ2YTQxMzM5N2I2MDUyMzllYV8xMTIvZnJhZzpkY2ExMDE4ZGM5Zjc0ODg2YmI4MWU0YWU1ZDE3NDI0OS90YWJsZTpjN2U5ZWI5ZGMwYjY0ZTFhODIxODJlNjE2Nzc2YTcwYS90YWJsZXJhbmdlOmM3ZTllYjlkYzBiNjRlMWE4MjE4MmU2MTY3NzZhNzBhXzQtMy0xLTEtODQx_f13d4e79-ed1e-453a-97ed-f0d5e4f2d0b9" sourceLine="4">
+  <property name="file" value="ppc-20200329.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Long-Lived Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="NoncurrentAssets"/>
+  <property name="QName" value="us-gaap:NoncurrentAssets"/>
+  <property name="contextRef" value="i4dd5ae6d130e4166ad39d318c8e42a77_I20191229">
+   <property name="entity" value="0000802481">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-29"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ConsolidationItemsAxis" value="us-gaap:OperatingSegmentsMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="srt:EuropeMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="801,887,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="801,887"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm" severity="error" effectiveDate="2021-03-01" cid="2437485401472">[DQC.US.0001.81] The concept OperatingIncomeLoss with a value of 23,190,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member EuropeMember. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateMember, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember.
+The properties of the fact for OperatingIncomeLoss are:
+Period: 2019-12-30 to 2020-03-29
+Dimensions: us-gaap:StatementBusinessSegmentsAxis=srt:EuropeMember, srt:ConsolidationItemsAxis=us-gaap:OperatingSegmentsMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm#id3VybDovL2RvY3MudjEvZG9jOjZkYWMzNGE2NmFkOTQyNDZhNDEzMzk3YjYwNTIzOWVhL3NlYzo2ZGFjMzRhNjZhZDk0MjQ2YTQxMzM5N2I2MDUyMzllYV8xMTIvZnJhZzpkY2ExMDE4ZGM5Zjc0ODg2YmI4MWU0YWU1ZDE3NDI0OS90YWJsZTo1MDA4Y2FhYWQ0MjY0NmExYTM5Mjk2YTM2MGQ0NTQ3Zi90YWJsZXJhbmdlOjUwMDhjYWFhZDQyNjQ2YTFhMzkyOTZhMzYwZDQ1NDdmXzQtMS0xLTEtMA_49d137c2-8f57-4d67-90ad-540407608577" sourceLine="4">
+  <property name="file" value="ppc-20200329.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Operating Income (Loss)"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="OperatingIncomeLoss"/>
+  <property name="QName" value="us-gaap:OperatingIncomeLoss"/>
+  <property name="contextRef" value="ied46f264ce204d91a56c5e359ac03151_D20191230-20200329">
+   <property name="entity" value="0000802481">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-12-30"/>
+   <property name="endDate" value="2020-03-29"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ConsolidationItemsAxis" value="us-gaap:OperatingSegmentsMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="srt:EuropeMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="23,190,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="23,190"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm" severity="error" effectiveDate="2021-03-01" cid="2437485401472">[DQC.US.0001.81] The concept RevenueFromContractWithCustomerExcludingAssessedTax with a value of 514,962,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member EuropeMember. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateMember, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember.
+The properties of the fact for RevenueFromContractWithCustomerExcludingAssessedTax are:
+Period: 2018-12-31 to 2019-03-31
+Dimensions: us-gaap:StatementBusinessSegmentsAxis=srt:EuropeMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm#id3VybDovL2RvY3MudjEvZG9jOjZkYWMzNGE2NmFkOTQyNDZhNDEzMzk3YjYwNTIzOWVhL3NlYzo2ZGFjMzRhNjZhZDk0MjQ2YTQxMzM5N2I2MDUyMzllYV8xMTIvZnJhZzpkY2ExMDE4ZGM5Zjc0ODg2YmI4MWU0YWU1ZDE3NDI0OS90YWJsZTowNjE2OWYyNTdjZjg0MDJkOTYyMDIxOGRhMWY5YmUwMy90YWJsZXJhbmdlOjA2MTY5ZjI1N2NmODQwMmQ5NjIwMjE4ZGExZjliZTAzXzQtMy0xLTEtMA_0aea0443-f675-4edc-bc6e-a0c72c64d1cf" sourceLine="4">
+  <property name="file" value="ppc-20200329.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Revenue from Contract with Customer, Excluding Assessed Tax"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="RevenueFromContractWithCustomerExcludingAssessedTax"/>
+  <property name="QName" value="us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"/>
+  <property name="contextRef" value="ife9eb3978c544219b6f12a942ef545e0_D20181231-20190331">
+   <property name="entity" value="0000802481">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-12-31"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="srt:EuropeMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="514,962,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="514,962"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm" severity="error" effectiveDate="2021-03-01" cid="2437485401472">[DQC.US.0001.81] The concept NoncurrentAssets with a value of 760,211,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member EuropeMember. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateMember, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember.
+The properties of the fact for NoncurrentAssets are:
+Period: 2020-03-29
+Dimensions: srt:ConsolidationItemsAxis=us-gaap:OperatingSegmentsMember, us-gaap:StatementBusinessSegmentsAxis=srt:EuropeMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm#id3VybDovL2RvY3MudjEvZG9jOjZkYWMzNGE2NmFkOTQyNDZhNDEzMzk3YjYwNTIzOWVhL3NlYzo2ZGFjMzRhNjZhZDk0MjQ2YTQxMzM5N2I2MDUyMzllYV8xMTIvZnJhZzpkY2ExMDE4ZGM5Zjc0ODg2YmI4MWU0YWU1ZDE3NDI0OS90YWJsZTpjN2U5ZWI5ZGMwYjY0ZTFhODIxODJlNjE2Nzc2YTcwYS90YWJsZXJhbmdlOmM3ZTllYjlkYzBiNjRlMWE4MjE4MmU2MTY3NzZhNzBhXzQtMS0xLTEtODk4_adea7b98-5c4a-46ac-8669-2c69db0f7dff" sourceLine="4">
+  <property name="file" value="ppc-20200329.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Long-Lived Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="NoncurrentAssets"/>
+  <property name="QName" value="us-gaap:NoncurrentAssets"/>
+  <property name="contextRef" value="i71e7eb13dab84cb2bff2514e2f9df4ad_I20200329">
+   <property name="entity" value="0000802481">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-29"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ConsolidationItemsAxis" value="us-gaap:OperatingSegmentsMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="srt:EuropeMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="760,211,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="760,211"/>
+ </ref></entry>
+<entry code="DQC.US.0001.81" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm" severity="error" effectiveDate="2021-03-01" cid="2437485401472">[DQC.US.0001.81] The concept Assets with a value of 2,694,024,000 is dimensionally qualified with the StatementBusinessSegmentsAxis and the unallowable member EuropeMember. The StatementBusinessSegmentsAxis should only be used with extension members and the  following  US-GAAP  members: us-gaap:SegmentDomain, us-gaap:CorporateMember, us-gaap:CorporateAndOtherMember, us-gaap:AllOtherSegmentsMember.
+The properties of the fact for Assets are:
+Period: 2020-03-29
+Dimensions: srt:ConsolidationItemsAxis=us-gaap:OperatingSegmentsMember, us-gaap:StatementBusinessSegmentsAxis=srt:EuropeMember 
+Unit: USD
+
+Rule Element Id:81
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm#id3VybDovL2RvY3MudjEvZG9jOjZkYWMzNGE2NmFkOTQyNDZhNDEzMzk3YjYwNTIzOWVhL3NlYzo2ZGFjMzRhNjZhZDk0MjQ2YTQxMzM5N2I2MDUyMzllYV8xMTIvZnJhZzpkY2ExMDE4ZGM5Zjc0ODg2YmI4MWU0YWU1ZDE3NDI0OS90YWJsZToyZGM5YmMyNjcwYjc0YmVhODQyZmUyNGQ1ZTdhNzFiMS90YWJsZXJhbmdlOjJkYzliYzI2NzBiNzRiZWE4NDJmZTI0ZDVlN2E3MWIxXzQtMS0xLTEtOTAx_2f1f2864-fa16-4b25-be10-abc4f4655fbe" sourceLine="4">
+  <property name="file" value="ppc-20200329.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="i71e7eb13dab84cb2bff2514e2f9df4ad_I20200329">
+   <property name="entity" value="0000802481">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-29"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ConsolidationItemsAxis" value="us-gaap:OperatingSegmentsMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="srt:EuropeMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,694,024,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="2,694,024"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 21.69 secs - https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/802481/000080248120000041/ppc-20200329.htm"/></entry>
+</log>

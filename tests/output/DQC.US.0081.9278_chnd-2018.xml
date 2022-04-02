@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22790 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.55 secs at 2019-07-10T22:22:01 - https://www.sec.gov/Archives/edgar/data/1434674/000154972718000038/chnd-20180930.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1434674/000154972718000038/chnd-20180930.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv and effective_dates.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp6xowxg1_/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp6xowxg1_/packages/resources.zip"/></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message cid="4529290936" filing_url="https://www.sec.gov/Archives/edgar/data/1434674/000154972718000038/chnd-20180930.xml" status="PROPOSED" effectiveDate="2019-06-30" severity="error">[DQC.US.0081.9278] The line item concept us-gaap:NetCashProvidedByUsedInFinancingActivities with a value of 41,224 and a calculation parent of us-gaap:CashAndCashEquivalentsPeriodIncreaseDecrease is represented as a sibling of us-gaap:CashPeriodIncreaseDecreaseExcludingExchangeRateEffect with a value of 232 in the extension taxonomy role 00000005 - Statement - Consoldiated Statements of Cash Flows, but us-gaap:NetCashProvidedByUsedInFinancingActivities is represented as a descendent of us-gaap:CashPeriodIncreaseDecreaseExcludingExchangeRateEffect in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:NetCashProvidedByUsedInFinancingActivities fact are:
+
+Period :2017-07-01 to 2017-09-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1434674/000154972718000038/chnd-20180930.xml 243</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1434674/000154972718000038/chnd-20180930.xml#element(/1/107)" sourceLine="243">
+  <property name="label" value="Net Cash Provided by (Used in) Financing Activities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInFinancingActivities"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInFinancingActivities"/>
+  <property name="contextRef" value="Y12Q3">
+   <property name="entity" value="0001434674">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-07-01"/>
+   <property name="endDate" value="2017-09-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="41,224"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message cid="4529290936" filing_url="https://www.sec.gov/Archives/edgar/data/1434674/000154972718000038/chnd-20180930.xml" status="PROPOSED" effectiveDate="2019-06-30" severity="error">[DQC.US.0081.9278] The line item concept us-gaap:NetCashProvidedByUsedInOperatingActivities with a value of -46,243 and a calculation parent of us-gaap:CashAndCashEquivalentsPeriodIncreaseDecrease is represented as a sibling of us-gaap:CashPeriodIncreaseDecreaseExcludingExchangeRateEffect with a value of 232 in the extension taxonomy role 00000005 - Statement - Consoldiated Statements of Cash Flows, but us-gaap:NetCashProvidedByUsedInOperatingActivities is represented as a descendent of us-gaap:CashPeriodIncreaseDecreaseExcludingExchangeRateEffect in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:NetCashProvidedByUsedInOperatingActivities fact are:
+
+Period :2017-07-01 to 2017-09-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1434674/000154972718000038/chnd-20180930.xml 239</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1434674/000154972718000038/chnd-20180930.xml#element(/1/103)" sourceLine="239">
+  <property name="label" value="Net cash provided by (used in) operating activities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="contextRef" value="Y12Q3">
+   <property name="entity" value="0001434674">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-07-01"/>
+   <property name="endDate" value="2017-09-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-46,243"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message cid="4529290936" filing_url="https://www.sec.gov/Archives/edgar/data/1434674/000154972718000038/chnd-20180930.xml" status="PROPOSED" effectiveDate="2019-06-30" severity="error">[DQC.US.0081.9278] The line item concept us-gaap:NetCashProvidedByUsedInFinancingActivities with a value of 27,487 and a calculation parent of us-gaap:CashAndCashEquivalentsPeriodIncreaseDecrease is represented as a sibling of us-gaap:CashPeriodIncreaseDecreaseExcludingExchangeRateEffect with a value of -210 in the extension taxonomy role 00000005 - Statement - Consoldiated Statements of Cash Flows, but us-gaap:NetCashProvidedByUsedInFinancingActivities is represented as a descendent of us-gaap:CashPeriodIncreaseDecreaseExcludingExchangeRateEffect in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:NetCashProvidedByUsedInFinancingActivities fact are:
+
+Period :2018-07-01 to 2018-09-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1434674/000154972718000038/chnd-20180930.xml 242</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1434674/000154972718000038/chnd-20180930.xml#element(/1/106)" sourceLine="242">
+  <property name="label" value="Net Cash Provided by (Used in) Financing Activities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInFinancingActivities"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInFinancingActivities"/>
+  <property name="contextRef" value="From2018-07-01to2018-09-30">
+   <property name="entity" value="0001434674">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-07-01"/>
+   <property name="endDate" value="2018-09-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="27,487"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message cid="4529290936" filing_url="https://www.sec.gov/Archives/edgar/data/1434674/000154972718000038/chnd-20180930.xml" status="PROPOSED" effectiveDate="2019-06-30" severity="error">[DQC.US.0081.9278] The line item concept us-gaap:NetCashProvidedByUsedInOperatingActivities with a value of -32,660 and a calculation parent of us-gaap:CashAndCashEquivalentsPeriodIncreaseDecrease is represented as a sibling of us-gaap:CashPeriodIncreaseDecreaseExcludingExchangeRateEffect with a value of -210 in the extension taxonomy role 00000005 - Statement - Consoldiated Statements of Cash Flows, but us-gaap:NetCashProvidedByUsedInOperatingActivities is represented as a descendent of us-gaap:CashPeriodIncreaseDecreaseExcludingExchangeRateEffect in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:NetCashProvidedByUsedInOperatingActivities fact are:
+
+Period :2018-07-01 to 2018-09-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1434674/000154972718000038/chnd-20180930.xml 238</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1434674/000154972718000038/chnd-20180930.xml#element(/1/102)" sourceLine="238">
+  <property name="label" value="Net cash provided by (used in) operating activities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="contextRef" value="From2018-07-01to2018-09-30">
+   <property name="entity" value="0001434674">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-07-01"/>
+   <property name="endDate" value="2018-09-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-32,660"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 22.37 secs - https://www.sec.gov/Archives/edgar/data/1434674/000154972718000038/chnd-20180930.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1434674/000154972718000038/chnd-20180930.xml"/></entry>
+</log>

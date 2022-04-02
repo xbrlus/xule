@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23221 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.13 secs at 2021-04-15T23:18:22 - https://www.sec.gov/Archives/edgar/data/1487843/000121390019014723/f10q0619ix_yangtze_htm.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1487843/000121390019014723/f10q0619ix_yangtze_htm.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpl5oyy2rg\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpl5oyy2rg\packages\resources.zip"/></entry>
+<entry code="DQC.US.0046.6842" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1487843/000121390019014723/f10q0619ix_yangtze_htm.xml" severity="error" effectiveDate="2018-06-01" cid="1923432084432">[DQC.US.0046.6842] The element CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect (Cash and Cash Equivalents, Period Increase (Decrease), Excluding Exchange Rate Effect) does not include EffectOfExchangeRateOnCashAndCashEquivalents (Effect of Exchange Rate on Cash and Cash Equivalents) as defined in the US GAAP Taxonomy.
+
+However, in the companies extension taxonomy CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect includes EffectOfExchangeRateOnCashAndCashEquivalents as a summation-child. Consider using either CashAndCashEquivalentsPeriodIncreaseDecrease or CashPeriodIncreaseDecrease,  instead of CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect.
+
+Rule Element Id:6842
+Rule version: 15.0.0RC1 - </message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 3.59 secs - https://www.sec.gov/Archives/edgar/data/1487843/000121390019014723/f10q0619ix_yangtze_htm.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1487843/000121390019014723/f10q0619ix_yangtze_htm.xml"/></entry>
+</log>

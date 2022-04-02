@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.26 secs at 2018-10-16T09:40:01 - http://www.sec.gov/Archives/edgar/data/1014111/000101411118000002/imn-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1014111/000101411118000002/imn-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - imn-20171231.xml </message>
+ <ref href="imn-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp9v3_o1sa/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp9v3_o1sa/packages/resources.zip"/></entry>
+<entry code="DQC.US.0011.6822" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1014111/000101411118000002/imn-20171231.xml" cid="4357357240" rule-suffix="6822" severity="error">[DQC.US.0011.6822] It is expected that AccumulatedOtherComprehensiveIncomeLossForeignCurrencyTranslationAdjustmentNetOfTax with a value of -800,000 reported in the network role http://www.imation.com/role/ShareholdersEquityAccumulatedOtherComprehensiveLossDetails should be equal to the dimensionally qualified concept, StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest with the dimension us-gaap:StatementEquityComponentsAxis = us-gaap:AccumulatedTranslationAdjustmentMember and a reported value of -700,000 multiplied by 1. This value appears in the network role http://www.imation.com/role/ShareholdersEquityAccumulatedOtherComprehensiveLossDetails. This error occurs when the dimensionally qualified fact is not equal to the value input for the non dimensional item.
+
+The properties of this us-gaap:AccumulatedOtherComprehensiveIncomeLossForeignCurrencyTranslationAdjustmentNetOfTax fact are:
+
+Period : 2017-12-31
+Dimensions : 
+Unit : USD
+Decimals of AccumulatedOtherComprehensiveIncomeLossForeignCurrencyTranslationAdjustmentNetOfTax : -5
+Decimals of StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest : -5
+Rule version: 9.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1014111/000101411118000002/imn-20171231.xml 4154</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1014111/000101411118000002/imn-20171231.xml#Fact-7261A720AB0FD2E43715E219E02B4A2B" sourceLine="4154">
+  <property name="label" value="Accumulated Other Comprehensive Income (Loss), Foreign Currency Translation Adjustment, Net of Tax"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="AccumulatedOtherComprehensiveIncomeLossForeignCurrencyTranslationAdjustmentNetOfTax"/>
+  <property name="QName" value="us-gaap:AccumulatedOtherComprehensiveIncomeLossForeignCurrencyTranslationAdjustmentNetOfTax"/>
+  <property name="contextRef" value="FI2017Q4">
+   <property name="entity" value="0001014111">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-800,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 4.89 secs - http://www.sec.gov/Archives/edgar/data/1014111/000101411118000002/imn-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1014111/000101411118000002/imn-20171231.xml"/></entry>
+</log>

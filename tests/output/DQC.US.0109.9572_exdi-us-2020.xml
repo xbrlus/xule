@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23221 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.09 secs at 2021-06-15T12:01:15 - http://www.sec.gov/Archives/edgar/data/1552189/000165495421006233/exdi-20210331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1552189/000165495421006233/exdi-20210331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmp08ief7uy\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmp08ief7uy\packages\resources.zip"/></entry>
+<entry code="DQC.US.0109.9572" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1552189/000165495421006233/exdi-20210331.xml" severity="error" status="PROPOSED" effectiveDate="None" cid="2815126209488">[DQC.US.0109.9572] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.38 is used with the ConcentrationRiskByTypeAxis with a risk of EXDI:Customer2Member.  This is an invalid risk as it is an actual benchmark and not a type of risk. The type of risk should reflect the risk associated with a benchmark.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2020-01-01 to 2020-03-31
+Dimensions : us-gaap:ConcentrationRiskByTypeAxis=us-gaap:SalesRevenueNetMember, us-gaap:ConcentrationRiskByBenchmarkAxis=EXDI:Customer2Member
+Unit : pure
+
+
+Rule Element Id:9572
+Rule version: 16.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1552189/000165495421006233/exdi-20210331.xml 1810</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1552189/000165495421006233/exdi-20210331.xml#element(/1/684)" sourceLine="1810">
+  <property name="label" value="Concentration risk"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_custom_Customer2Member_us-gaap_SalesRevenueNetMember">
+   <property name="entity" value="0001552189">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="EXDI:Customer2Member"/>
+    <property name="us-gaap:ConcentrationRiskByTypeAxis" value="us-gaap:SalesRevenueNetMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.3800"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9572" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1552189/000165495421006233/exdi-20210331.xml" severity="error" status="PROPOSED" effectiveDate="None" cid="2815126209488">[DQC.US.0109.9572] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.51 is used with the ConcentrationRiskByTypeAxis with a risk of EXDI:Customer1Member.  This is an invalid risk as it is an actual benchmark and not a type of risk. The type of risk should reflect the risk associated with a benchmark.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2020-01-01 to 2020-03-31
+Dimensions : us-gaap:ConcentrationRiskByTypeAxis=us-gaap:SalesRevenueNetMember, us-gaap:ConcentrationRiskByBenchmarkAxis=EXDI:Customer1Member
+Unit : pure
+
+
+Rule Element Id:9572
+Rule version: 16.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1552189/000165495421006233/exdi-20210331.xml 1809</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1552189/000165495421006233/exdi-20210331.xml#element(/1/683)" sourceLine="1809">
+  <property name="label" value="Concentration risk"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_custom_Customer1Member_us-gaap_SalesRevenueNetMember">
+   <property name="entity" value="0001552189">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="EXDI:Customer1Member"/>
+    <property name="us-gaap:ConcentrationRiskByTypeAxis" value="us-gaap:SalesRevenueNetMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.5100"/>
+ </ref></entry>
+<entry code="DQC.US.0109.9572" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1552189/000165495421006233/exdi-20210331.xml" severity="error" status="PROPOSED" effectiveDate="None" cid="2815126209488">[DQC.US.0109.9572] The concept us-gaap:ConcentrationRiskPercentage1 with value 0.89 is used with the ConcentrationRiskByTypeAxis with a risk of None.  This is an invalid risk as it is an actual benchmark and not a type of risk. The type of risk should reflect the risk associated with a benchmark.
+
+The properties of this us-gaap:ConcentrationRiskPercentage1 fact are:
+
+Period :2020-01-01 to 2020-03-31
+Dimensions : us-gaap:ConcentrationRiskByTypeAxis=us-gaap:SalesRevenueNetMember
+Unit : pure
+
+
+Rule Element Id:9572
+Rule version: 16.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1552189/000165495421006233/exdi-20210331.xml 1811</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1552189/000165495421006233/exdi-20210331.xml#element(/1/685)" sourceLine="1811">
+  <property name="label" value="Concentration risk"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ConcentrationRiskPercentage1"/>
+  <property name="QName" value="us-gaap:ConcentrationRiskPercentage1"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_us-gaap_SalesRevenueNetMember">
+   <property name="entity" value="0001552189">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ConcentrationRiskByTypeAxis" value="us-gaap:SalesRevenueNetMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.8900"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 62.75 secs - http://www.sec.gov/Archives/edgar/data/1552189/000165495421006233/exdi-20210331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1552189/000165495421006233/exdi-20210331.xml"/></entry>
+</log>

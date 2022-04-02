@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.25 secs at 2020-07-24T23:38:09 - http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml"/></entry>
+<entry code="DQC.IFRS.0080.8041" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml" rule-suffix="8041" severity="error" effectiveDate="2019-05-08" cid="1450165577088">[DQC.IFRS.0080.8041] ifrs-full:Liabilities has a value of -124,794,000,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:Liabilities fact are:
+Period :2017-12-31
+Dimensions : ifrs-full:SegmentConsolidationItemsAxis=ceo:CorporateSegmentMember
+Unit : CNY
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml 11536</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml#element(/1/1818)" sourceLine="11536">
+  <property name="label" value="Liabilities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="As_Of_12_31_2017_SegmentConsolidationItemsAxis_CorporateSegmentMember">
+   <property name="entity" value="0001095595">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="ceo:CorporateSegmentMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 (¥)">
+   <property name="measure" value="iso4217:CNY"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-124,794,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8803" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml" rule-suffix="8803" severity="error" effectiveDate="2019-09-30" cid="1450165577088">[DQC.IFRS.0080.8803] ifrs-full:OtherShorttermProvisions has a value of -674,000,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:OtherShorttermProvisions fact are:
+Period :2018-12-31
+Dimensions : ifrs-full:ClassesOfProvisionsAxis=ifrs-full:ProvisionForDecommissioningRestorationAndRehabilitationCostsMember
+Unit : CNY
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml 12766</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml#element(/1/3048)" sourceLine="12766">
+  <property name="label" value="Other current provisions"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="OtherShorttermProvisions"/>
+  <property name="QName" value="ifrs-full:OtherShorttermProvisions"/>
+  <property name="contextRef" value="As_Of_12_31_2018_ClassesOfProvisionsAxis_ProvisionForDecommissioningRestorationAndRehabilitationCostsMember">
+   <property name="entity" value="0001095595">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ClassesOfProvisionsAxis" value="ifrs-full:ProvisionForDecommissioningRestorationAndRehabilitationCostsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 (¥)">
+   <property name="measure" value="iso4217:CNY"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-674,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8041" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml" rule-suffix="8041" severity="error" effectiveDate="2019-05-08" cid="1450165577088">[DQC.IFRS.0080.8041] ifrs-full:Liabilities has a value of -152,870,000,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:Liabilities fact are:
+Period :2019-12-31
+Dimensions : ifrs-full:SegmentConsolidationItemsAxis=ceo:CorporateSegmentMember
+Unit : CNY
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml 11702</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml#element(/1/1984)" sourceLine="11702">
+  <property name="label" value="Liabilities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="As_Of_12_31_2019_SegmentConsolidationItemsAxis_CorporateSegmentMember">
+   <property name="entity" value="0001095595">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="ceo:CorporateSegmentMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 (¥)">
+   <property name="measure" value="iso4217:CNY"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-152,870,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8041" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml" rule-suffix="8041" severity="error" effectiveDate="2019-05-08" cid="1450165577088">[DQC.IFRS.0080.8041] ifrs-full:Liabilities has a value of -138,232,000,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:Liabilities fact are:
+Period :2018-12-31
+Dimensions : ifrs-full:SegmentConsolidationItemsAxis=ceo:CorporateSegmentMember
+Unit : CNY
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml 11623</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml#element(/1/1905)" sourceLine="11623">
+  <property name="label" value="Liabilities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="As_Of_12_31_2018_SegmentConsolidationItemsAxis_CorporateSegmentMember">
+   <property name="entity" value="0001095595">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="ceo:CorporateSegmentMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 (¥)">
+   <property name="measure" value="iso4217:CNY"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-138,232,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8041" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml" rule-suffix="8041" severity="error" effectiveDate="2019-05-08" cid="1450165577088">[DQC.IFRS.0080.8041] ifrs-full:Liabilities has a value of -241,518,000,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:Liabilities fact are:
+Period :2017-12-31
+Dimensions : 
+Unit : CNY
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml 11546</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml#element(/1/1828)" sourceLine="11546">
+  <property name="label" value="Liabilities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="As_Of_12_31_2017">
+   <property name="entity" value="0001095595">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="Unit1 (¥)">
+   <property name="measure" value="iso4217:CNY"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-241,518,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7811" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml" rule-suffix="7811" severity="error" effectiveDate="2019-05-08" cid="1450165577088">[DQC.IFRS.0080.7811] ifrs-full:CurrentLiabilities has a value of -7,616,000,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:CurrentLiabilities fact are:
+Period :2019-12-31
+Dimensions : ifrs-full:JointVenturesAxis=ifrs-full:JointVenturesMember
+Unit : CNY
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml 12440</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml#element(/1/2722)" sourceLine="12440">
+  <property name="label" value="Current liabilities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="CurrentLiabilities"/>
+  <property name="QName" value="ifrs-full:CurrentLiabilities"/>
+  <property name="contextRef" value="As_Of_12_31_2019_JointVenturesAxis_JointVenturesMember">
+   <property name="entity" value="0001095595">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:JointVenturesAxis" value="ifrs-full:JointVenturesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 (¥)">
+   <property name="measure" value="iso4217:CNY"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-7,616,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8110" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml" rule-suffix="8110" severity="error" effectiveDate="2019-05-08" cid="1450165577088">[DQC.IFRS.0080.8110] ifrs-full:NoncurrentLiabilities has a value of -10,589,000,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:NoncurrentLiabilities fact are:
+Period :2019-12-31
+Dimensions : ifrs-full:JointVenturesAxis=ifrs-full:JointVenturesMember
+Unit : CNY
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml 12441</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml#element(/1/2723)" sourceLine="12441">
+  <property name="label" value="Non-current liabilities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="NoncurrentLiabilities"/>
+  <property name="QName" value="ifrs-full:NoncurrentLiabilities"/>
+  <property name="contextRef" value="As_Of_12_31_2019_JointVenturesAxis_JointVenturesMember">
+   <property name="entity" value="0001095595">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:JointVenturesAxis" value="ifrs-full:JointVenturesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 (¥)">
+   <property name="measure" value="iso4217:CNY"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-10,589,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8041" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml" rule-suffix="8041" severity="error" effectiveDate="2019-05-08" cid="1450165577088">[DQC.IFRS.0080.8041] ifrs-full:Liabilities has a value of -336,370,000,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:Liabilities fact are:
+Period :2018-12-31
+Dimensions : ifrs-full:SegmentConsolidationItemsAxis=ceo:ExplorationAndProductionSegmentMember
+Unit : CNY
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml 11613</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml#element(/1/1895)" sourceLine="11613">
+  <property name="label" value="Liabilities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="As_Of_12_31_2018_SegmentConsolidationItemsAxis_ExplorationAndProductionSegmentMember">
+   <property name="entity" value="0001095595">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="ceo:ExplorationAndProductionSegmentMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 (¥)">
+   <property name="measure" value="iso4217:CNY"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-336,370,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8041" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml" rule-suffix="8041" severity="error" effectiveDate="2019-05-08" cid="1450165577088">[DQC.IFRS.0080.8041] ifrs-full:Liabilities has a value of -2,375,000,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:Liabilities fact are:
+Period :2017-12-31
+Dimensions : ifrs-full:SegmentConsolidationItemsAxis=ceo:TradingBusinessSegmentMember
+Unit : CNY
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml 11531</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml#element(/1/1813)" sourceLine="11531">
+  <property name="label" value="Liabilities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="As_Of_12_31_2017_SegmentConsolidationItemsAxis_TradingBusinessSegmentMember">
+   <property name="entity" value="0001095595">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="ceo:TradingBusinessSegmentMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 (¥)">
+   <property name="measure" value="iso4217:CNY"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-2,375,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8041" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml" rule-suffix="8041" severity="error" effectiveDate="2019-05-08" cid="1450165577088">[DQC.IFRS.0080.8041] ifrs-full:Liabilities has a value of -305,441,000,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:Liabilities fact are:
+Period :2017-12-31
+Dimensions : ifrs-full:SegmentConsolidationItemsAxis=ceo:ExplorationAndProductionSegmentMember
+Unit : CNY
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml 11526</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml#element(/1/1808)" sourceLine="11526">
+  <property name="label" value="Liabilities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="As_Of_12_31_2017_SegmentConsolidationItemsAxis_ExplorationAndProductionSegmentMember">
+   <property name="entity" value="0001095595">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="ceo:ExplorationAndProductionSegmentMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 (¥)">
+   <property name="measure" value="iso4217:CNY"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-305,441,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8041" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml" rule-suffix="8041" severity="error" effectiveDate="2019-05-08" cid="1450165577088">[DQC.IFRS.0080.8041] ifrs-full:Liabilities has a value of -384,359,000,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:Liabilities fact are:
+Period :2019-12-31
+Dimensions : ifrs-full:SegmentConsolidationItemsAxis=ceo:ExplorationAndProductionSegmentMember
+Unit : CNY
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml 11692</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml#element(/1/1974)" sourceLine="11692">
+  <property name="label" value="Liabilities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="As_Of_12_31_2019_SegmentConsolidationItemsAxis_ExplorationAndProductionSegmentMember">
+   <property name="entity" value="0001095595">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="ceo:ExplorationAndProductionSegmentMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 (¥)">
+   <property name="measure" value="iso4217:CNY"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-384,359,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7811" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml" rule-suffix="7811" severity="error" effectiveDate="2019-05-08" cid="1450165577088">[DQC.IFRS.0080.7811] ifrs-full:CurrentLiabilities has a value of -6,851,000,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:CurrentLiabilities fact are:
+Period :2018-12-31
+Dimensions : ifrs-full:JointVenturesAxis=ifrs-full:JointVenturesMember
+Unit : CNY
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml 12444</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml#element(/1/2726)" sourceLine="12444">
+  <property name="label" value="Current liabilities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="CurrentLiabilities"/>
+  <property name="QName" value="ifrs-full:CurrentLiabilities"/>
+  <property name="contextRef" value="As_Of_12_31_2018_JointVenturesAxis_JointVenturesMember">
+   <property name="entity" value="0001095595">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:JointVenturesAxis" value="ifrs-full:JointVenturesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 (¥)">
+   <property name="measure" value="iso4217:CNY"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-6,851,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8110" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml" rule-suffix="8110" severity="error" effectiveDate="2019-05-08" cid="1450165577088">[DQC.IFRS.0080.8110] ifrs-full:NoncurrentLiabilities has a value of -11,783,000,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:NoncurrentLiabilities fact are:
+Period :2018-12-31
+Dimensions : ifrs-full:JointVenturesAxis=ifrs-full:JointVenturesMember
+Unit : CNY
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml 12445</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml#element(/1/2727)" sourceLine="12445">
+  <property name="label" value="Non-current liabilities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="NoncurrentLiabilities"/>
+  <property name="QName" value="ifrs-full:NoncurrentLiabilities"/>
+  <property name="contextRef" value="As_Of_12_31_2018_JointVenturesAxis_JointVenturesMember">
+   <property name="entity" value="0001095595">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:JointVenturesAxis" value="ifrs-full:JointVenturesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 (¥)">
+   <property name="measure" value="iso4217:CNY"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-11,783,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8041" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml" rule-suffix="8041" severity="error" effectiveDate="2019-05-08" cid="1450165577088">[DQC.IFRS.0080.8041] ifrs-full:Liabilities has a value of -4,535,000,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:Liabilities fact are:
+Period :2019-12-31
+Dimensions : ifrs-full:SegmentConsolidationItemsAxis=ceo:TradingBusinessSegmentMember
+Unit : CNY
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml 11697</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml#element(/1/1979)" sourceLine="11697">
+  <property name="label" value="Liabilities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="As_Of_12_31_2019_SegmentConsolidationItemsAxis_TradingBusinessSegmentMember">
+   <property name="entity" value="0001095595">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="ceo:TradingBusinessSegmentMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 (¥)">
+   <property name="measure" value="iso4217:CNY"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-4,535,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8803" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml" rule-suffix="8803" severity="error" effectiveDate="2019-09-30" cid="1450165577088">[DQC.IFRS.0080.8803] ifrs-full:OtherShorttermProvisions has a value of -1,439,000,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:OtherShorttermProvisions fact are:
+Period :2019-12-31
+Dimensions : ifrs-full:ClassesOfProvisionsAxis=ifrs-full:ProvisionForDecommissioningRestorationAndRehabilitationCostsMember
+Unit : CNY
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml 12755</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml#element(/1/3037)" sourceLine="12755">
+  <property name="label" value="Other current provisions"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="OtherShorttermProvisions"/>
+  <property name="QName" value="ifrs-full:OtherShorttermProvisions"/>
+  <property name="contextRef" value="As_Of_12_31_2019_ClassesOfProvisionsAxis_ProvisionForDecommissioningRestorationAndRehabilitationCostsMember">
+   <property name="entity" value="0001095595">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ClassesOfProvisionsAxis" value="ifrs-full:ProvisionForDecommissioningRestorationAndRehabilitationCostsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 (¥)">
+   <property name="measure" value="iso4217:CNY"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-1,439,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8041" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml" rule-suffix="8041" severity="error" effectiveDate="2019-05-08" cid="1450165577088">[DQC.IFRS.0080.8041] ifrs-full:Liabilities has a value of -2,125,000,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:Liabilities fact are:
+Period :2018-12-31
+Dimensions : ifrs-full:SegmentConsolidationItemsAxis=ceo:TradingBusinessSegmentMember
+Unit : CNY
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml 11618</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml#element(/1/1900)" sourceLine="11618">
+  <property name="label" value="Liabilities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="As_Of_12_31_2018_SegmentConsolidationItemsAxis_TradingBusinessSegmentMember">
+   <property name="entity" value="0001095595">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="ceo:TradingBusinessSegmentMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 (¥)">
+   <property name="measure" value="iso4217:CNY"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-2,125,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8041" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml" rule-suffix="8041" severity="error" effectiveDate="2019-05-08" cid="1450165577088">[DQC.IFRS.0080.8041] ifrs-full:Liabilities has a value of -309,505,000,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:Liabilities fact are:
+Period :2019-12-31
+Dimensions : 
+Unit : CNY
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml 11712</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml#element(/1/1994)" sourceLine="11712">
+  <property name="label" value="Liabilities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="As_Of_12_31_2019">
+   <property name="entity" value="0001095595">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+  </property>
+  <property name="unitRef" value="Unit1 (¥)">
+   <property name="measure" value="iso4217:CNY"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-309,505,000,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 7.50 secs - http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1095595/000095010320007907/ceo-20191231.xml"/></entry>
+</log>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.82 secs at 2020-10-28T16:42:00 - https://www.sec.gov/Archives/edgar/data/1301713/000156459020033911/sam-20200430.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1301713/000156459020033911/sam-20200430.xml"/></entry>
+<entry code="DQC.IFRS.0101.9536" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1301713/000156459020033911/sam-20200430.xml" severity="error" effectiveDate="None" cid="2377148831104">[DQC.IFRS.0101.9536] The concept ifrs-full:CashFlowsFromUsedInFinancingActivities appears in the investing cashflows of the companies cash flow statement. ifrs-full:CashFlowsFromUsedInFinancingActivities is a financing item and it is expected that this item would only appear in the cash flow generated from financing activities. Please review the calculations defined for the cash flow statement to determine that the correct element has been used for this item. 
+ 
+
+Rule Element Id:9536
+Rule version: 14.0.0RC1 - </message></entry>
+<entry code="DQC.IFRS.0101.9536" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1301713/000156459020033911/sam-20200430.xml" severity="error" effectiveDate="None" cid="2377148831104">[DQC.IFRS.0101.9536] The concept ifrs-full:ProceedsFromIssuingShares appears in the investing cashflows of the companies cash flow statement. ifrs-full:ProceedsFromIssuingShares is a financing item and it is expected that this item would only appear in the cash flow generated from financing activities. Please review the calculations defined for the cash flow statement to determine that the correct element has been used for this item. 
+ 
+
+Rule Element Id:9536
+Rule version: 14.0.0RC1 - </message></entry>
+<entry code="DQC.IFRS.0101.9536" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1301713/000156459020033911/sam-20200430.xml" severity="error" effectiveDate="None" cid="2377148831104">[DQC.IFRS.0101.9536] The concept ifrs-full:ProceedsFromBorrowingsClassifiedAsFinancingActivities appears in the investing cashflows of the companies cash flow statement. ifrs-full:ProceedsFromBorrowingsClassifiedAsFinancingActivities is a financing item and it is expected that this item would only appear in the cash flow generated from financing activities. Please review the calculations defined for the cash flow statement to determine that the correct element has been used for this item. 
+ 
+
+Rule Element Id:9536
+Rule version: 14.0.0RC1 - </message></entry>
+<entry code="DQC.IFRS.0101.9536" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1301713/000156459020033911/sam-20200430.xml" severity="error" effectiveDate="None" cid="2377148831104">[DQC.IFRS.0101.9536] The concept ifrs-full:RepaymentsOfBorrowingsClassifiedAsFinancingActivities appears in the investing cashflows of the companies cash flow statement. ifrs-full:RepaymentsOfBorrowingsClassifiedAsFinancingActivities is a financing item and it is expected that this item would only appear in the cash flow generated from financing activities. Please review the calculations defined for the cash flow statement to determine that the correct element has been used for this item. 
+ 
+
+Rule Element Id:9536
+Rule version: 14.0.0RC1 - </message></entry>
+<entry code="DQC.IFRS.0101.9536" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1301713/000156459020033911/sam-20200430.xml" severity="error" effectiveDate="None" cid="2377148831104">[DQC.IFRS.0101.9536] The concept ifrs-full:InterestPaidClassifiedAsFinancingActivities appears in the investing cashflows of the companies cash flow statement. ifrs-full:InterestPaidClassifiedAsFinancingActivities is a financing item and it is expected that this item would only appear in the cash flow generated from financing activities. Please review the calculations defined for the cash flow statement to determine that the correct element has been used for this item. 
+ 
+
+Rule Element Id:9536
+Rule version: 14.0.0RC1 - </message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 6.67 secs - https://www.sec.gov/Archives/edgar/data/1301713/000156459020033911/sam-20200430.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1301713/000156459020033911/sam-20200430.xml"/></entry>
+</log>

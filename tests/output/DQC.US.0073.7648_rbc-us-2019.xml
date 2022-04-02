@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.26 secs at 2020-07-29T10:54:14 - http://www.sec.gov/Archives/edgar/data/1324948/000121390020013096/f10k2020_rbcbearings.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1324948/000121390020013096/f10k2020_rbcbearings.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpach5gxyl\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpach5gxyl\packages\resources.zip"/></entry>
+<entry code="DQC.US.0073.7648" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1324948/000121390020013096/f10k2020_rbcbearings.htm" severity="error" effectiveDate="2019-01-01" cid="2113623336320">[DQC.US.0073.7648] The concept us-gaap:DefinedBenefitPlanAssetsForPlanBenefitsNoncurrent with a value of 1,876,000 is used with the DefinedBenefitPlanByPlanAssetCategoriesAxis. This element cannot be used with this axis. The allowable list of elements that can be used are as follows:
+- DefinedBenefitPlanActualReturnOnPlanAssetsSoldDuringPeriod, 
+ - DefinedBenefitPlanActualReturnOnPlanAssetsStillHeld, 
+ - DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanAssetsExpectedToBeReturnedToEmployerAmount, 
+ - DefinedBenefitPlanChangeInFairValueOfPlanAssetsLevel3ReconciliationPeriodIncreaseDecrease, 
+ - DefinedBenefitPlanFairValueOfPlanAssets, 
+ - DefinedBenefitPlanInvestmentPoliciesAndStrategiesNarrativeDescription, 
+ - DefinedBenefitPlanNarrativeDescriptionOfBasisUsedToDetermineOverallExpectedLongTermRateOfReturnOnAssetsAssumption, 
+ - DefinedBenefitPlanNumberOfSharesOfEquitySecuritiesIssuedByEmployerAndRelatedPartiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanPlanAssetsAtFairValueValuationTechniquesAndInputsChanges, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTransactionTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsFairValueByHierarchyAndNavExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryPercentage, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSale, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSettlement, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationIncreaseForPurchase, 
+ - DefinedBenefitPlanPlanAssetsMeasurementInputExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsTargetAllocationPercentage, 
+ - DefinedBenefitPlanPlanAssetsValuationTechniqueExtensibleList, 
+ - DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets, 
+ - DefinedBenefitPlanPurchasesSalesAndSettlements, 
+ - DefinedBenefitPlanTargetAllocationPercentage, 
+ - DefinedBenefitPlanTransfersBetweenMeasurementLevels, 
+ - DefinedBenefitPlanPlanAssetsForeignCurrencyTranslationGainLoss, 
+ - DefinedBenefitPlanWeightedAverageAssetAllocations, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareUnfundedCommittments, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareInvestmentRedemptionNoticePeriod1, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareInvestmentRedemptionFrequency, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareInvestmentRedemptionDescription, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareRedemptionRestrictionPeriodInEffect1
+
+
+The properties of this us-gaap:DefinedBenefitPlanAssetsForPlanBenefitsNoncurrent fact are:
+Period :2019-03-30
+Dimensions : us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=roll:InternationalEquityMutualFundsMember
+Unit : USD
+
+Rule Element Id:7648
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1324948/000121390020013096/f10k2020_rbcbearings.htm 8017</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1324948/000121390020013096/f10k2020_rbcbearings.htm#element(_PensionAndOtherPostretirementBenefitsDisclosureTextBlock-c0_cont_3/1/1/4/8/1)" sourceLine="8017">
+  <property name="file" value="f10k2020_rbcbearings.htm"/>
+  <property name="line" value="8017"/>
+  <property name="label" value="Assets for Plan Benefits, Defined Benefit Plan"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssetsForPlanBenefitsNoncurrent"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssetsForPlanBenefitsNoncurrent"/>
+  <property name="contextRef" value="c181">
+   <property name="entity" value="0001324948">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-03-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="roll:InternationalEquityMutualFundsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,876,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="1,876"/>
+ </ref></entry>
+<entry code="DQC.US.0073.7648" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1324948/000121390020013096/f10k2020_rbcbearings.htm" severity="error" effectiveDate="2019-01-01" cid="2113623336320">[DQC.US.0073.7648] The concept us-gaap:DefinedBenefitPlanAssetsForPlanBenefitsNoncurrent with a value of 20,310,000 is used with the DefinedBenefitPlanByPlanAssetCategoriesAxis. This element cannot be used with this axis. The allowable list of elements that can be used are as follows:
+- DefinedBenefitPlanActualReturnOnPlanAssetsSoldDuringPeriod, 
+ - DefinedBenefitPlanActualReturnOnPlanAssetsStillHeld, 
+ - DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanAssetsExpectedToBeReturnedToEmployerAmount, 
+ - DefinedBenefitPlanChangeInFairValueOfPlanAssetsLevel3ReconciliationPeriodIncreaseDecrease, 
+ - DefinedBenefitPlanFairValueOfPlanAssets, 
+ - DefinedBenefitPlanInvestmentPoliciesAndStrategiesNarrativeDescription, 
+ - DefinedBenefitPlanNarrativeDescriptionOfBasisUsedToDetermineOverallExpectedLongTermRateOfReturnOnAssetsAssumption, 
+ - DefinedBenefitPlanNumberOfSharesOfEquitySecuritiesIssuedByEmployerAndRelatedPartiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanPlanAssetsAtFairValueValuationTechniquesAndInputsChanges, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTransactionTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsFairValueByHierarchyAndNavExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryPercentage, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSale, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSettlement, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationIncreaseForPurchase, 
+ - DefinedBenefitPlanPlanAssetsMeasurementInputExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsTargetAllocationPercentage, 
+ - DefinedBenefitPlanPlanAssetsValuationTechniqueExtensibleList, 
+ - DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets, 
+ - DefinedBenefitPlanPurchasesSalesAndSettlements, 
+ - DefinedBenefitPlanTargetAllocationPercentage, 
+ - DefinedBenefitPlanTransfersBetweenMeasurementLevels, 
+ - DefinedBenefitPlanPlanAssetsForeignCurrencyTranslationGainLoss, 
+ - DefinedBenefitPlanWeightedAverageAssetAllocations, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareUnfundedCommittments, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareInvestmentRedemptionNoticePeriod1, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareInvestmentRedemptionFrequency, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareInvestmentRedemptionDescription, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareRedemptionRestrictionPeriodInEffect1
+
+
+The properties of this us-gaap:DefinedBenefitPlanAssetsForPlanBenefitsNoncurrent fact are:
+Period :2019-03-30
+Dimensions : us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=roll:USEquityMutualFundsMember
+Unit : USD
+
+Rule Element Id:7648
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1324948/000121390020013096/f10k2020_rbcbearings.htm 8013</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1324948/000121390020013096/f10k2020_rbcbearings.htm#element(_PensionAndOtherPostretirementBenefitsDisclosureTextBlock-c0_cont_3/1/1/3/8/1)" sourceLine="8013">
+  <property name="file" value="f10k2020_rbcbearings.htm"/>
+  <property name="line" value="8013"/>
+  <property name="label" value="Assets for Plan Benefits, Defined Benefit Plan"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssetsForPlanBenefitsNoncurrent"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssetsForPlanBenefitsNoncurrent"/>
+  <property name="contextRef" value="c179">
+   <property name="entity" value="0001324948">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-03-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="roll:USEquityMutualFundsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="20,310,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="20,310"/>
+ </ref></entry>
+<entry code="DQC.US.0073.7648" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1324948/000121390020013096/f10k2020_rbcbearings.htm" severity="error" effectiveDate="2019-01-01" cid="2113623336320">[DQC.US.0073.7648] The concept us-gaap:DefinedBenefitPlanAssetsForPlanBenefitsNoncurrent with a value of 925,000 is used with the DefinedBenefitPlanByPlanAssetCategoriesAxis. This element cannot be used with this axis. The allowable list of elements that can be used are as follows:
+- DefinedBenefitPlanActualReturnOnPlanAssetsSoldDuringPeriod, 
+ - DefinedBenefitPlanActualReturnOnPlanAssetsStillHeld, 
+ - DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanAssetsExpectedToBeReturnedToEmployerAmount, 
+ - DefinedBenefitPlanChangeInFairValueOfPlanAssetsLevel3ReconciliationPeriodIncreaseDecrease, 
+ - DefinedBenefitPlanFairValueOfPlanAssets, 
+ - DefinedBenefitPlanInvestmentPoliciesAndStrategiesNarrativeDescription, 
+ - DefinedBenefitPlanNarrativeDescriptionOfBasisUsedToDetermineOverallExpectedLongTermRateOfReturnOnAssetsAssumption, 
+ - DefinedBenefitPlanNumberOfSharesOfEquitySecuritiesIssuedByEmployerAndRelatedPartiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanPlanAssetsAtFairValueValuationTechniquesAndInputsChanges, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTransactionTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsFairValueByHierarchyAndNavExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryPercentage, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSale, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSettlement, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationIncreaseForPurchase, 
+ - DefinedBenefitPlanPlanAssetsMeasurementInputExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsTargetAllocationPercentage, 
+ - DefinedBenefitPlanPlanAssetsValuationTechniqueExtensibleList, 
+ - DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets, 
+ - DefinedBenefitPlanPurchasesSalesAndSettlements, 
+ - DefinedBenefitPlanTargetAllocationPercentage, 
+ - DefinedBenefitPlanTransfersBetweenMeasurementLevels, 
+ - DefinedBenefitPlanPlanAssetsForeignCurrencyTranslationGainLoss, 
+ - DefinedBenefitPlanWeightedAverageAssetAllocations, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareUnfundedCommittments, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareInvestmentRedemptionNoticePeriod1, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareInvestmentRedemptionFrequency, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareInvestmentRedemptionDescription, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareRedemptionRestrictionPeriodInEffect1
+
+
+The properties of this us-gaap:DefinedBenefitPlanAssetsForPlanBenefitsNoncurrent fact are:
+Period :2019-03-30
+Dimensions : us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:CashAndCashEquivalentsMember
+Unit : USD
+
+Rule Element Id:7648
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1324948/000121390020013096/f10k2020_rbcbearings.htm 8009</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1324948/000121390020013096/f10k2020_rbcbearings.htm#element(_PensionAndOtherPostretirementBenefitsDisclosureTextBlock-c0_cont_3/1/1/2/8/1)" sourceLine="8009">
+  <property name="file" value="f10k2020_rbcbearings.htm"/>
+  <property name="line" value="8009"/>
+  <property name="label" value="Assets for Plan Benefits, Defined Benefit Plan"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssetsForPlanBenefitsNoncurrent"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssetsForPlanBenefitsNoncurrent"/>
+  <property name="contextRef" value="c177">
+   <property name="entity" value="0001324948">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-03-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="us-gaap:CashAndCashEquivalentsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="925,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="925"/>
+ </ref></entry>
+<entry code="DQC.US.0073.7648" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1324948/000121390020013096/f10k2020_rbcbearings.htm" severity="error" effectiveDate="2019-01-01" cid="2113623336320">[DQC.US.0073.7648] The concept us-gaap:DefinedBenefitPlanAssetsForPlanBenefitsNoncurrent with a value of 3,052,000 is used with the DefinedBenefitPlanByPlanAssetCategoriesAxis. This element cannot be used with this axis. The allowable list of elements that can be used are as follows:
+- DefinedBenefitPlanActualReturnOnPlanAssetsSoldDuringPeriod, 
+ - DefinedBenefitPlanActualReturnOnPlanAssetsStillHeld, 
+ - DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanAssetsExpectedToBeReturnedToEmployerAmount, 
+ - DefinedBenefitPlanChangeInFairValueOfPlanAssetsLevel3ReconciliationPeriodIncreaseDecrease, 
+ - DefinedBenefitPlanFairValueOfPlanAssets, 
+ - DefinedBenefitPlanInvestmentPoliciesAndStrategiesNarrativeDescription, 
+ - DefinedBenefitPlanNarrativeDescriptionOfBasisUsedToDetermineOverallExpectedLongTermRateOfReturnOnAssetsAssumption, 
+ - DefinedBenefitPlanNumberOfSharesOfEquitySecuritiesIssuedByEmployerAndRelatedPartiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanPlanAssetsAtFairValueValuationTechniquesAndInputsChanges, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTransactionTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsFairValueByHierarchyAndNavExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryPercentage, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSale, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSettlement, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationIncreaseForPurchase, 
+ - DefinedBenefitPlanPlanAssetsMeasurementInputExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsTargetAllocationPercentage, 
+ - DefinedBenefitPlanPlanAssetsValuationTechniqueExtensibleList, 
+ - DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets, 
+ - DefinedBenefitPlanPurchasesSalesAndSettlements, 
+ - DefinedBenefitPlanTargetAllocationPercentage, 
+ - DefinedBenefitPlanTransfersBetweenMeasurementLevels, 
+ - DefinedBenefitPlanPlanAssetsForeignCurrencyTranslationGainLoss, 
+ - DefinedBenefitPlanWeightedAverageAssetAllocations, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareUnfundedCommittments, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareInvestmentRedemptionNoticePeriod1, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareInvestmentRedemptionFrequency, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareInvestmentRedemptionDescription, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareRedemptionRestrictionPeriodInEffect1
+
+
+The properties of this us-gaap:DefinedBenefitPlanAssetsForPlanBenefitsNoncurrent fact are:
+Period :2019-03-30
+Dimensions : us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=roll:FixedIncomeMutualFundsMember
+Unit : USD
+
+Rule Element Id:7648
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1324948/000121390020013096/f10k2020_rbcbearings.htm 8021</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1324948/000121390020013096/f10k2020_rbcbearings.htm#element(_PensionAndOtherPostretirementBenefitsDisclosureTextBlock-c0_cont_3/1/1/5/8/1)" sourceLine="8021">
+  <property name="file" value="f10k2020_rbcbearings.htm"/>
+  <property name="line" value="8021"/>
+  <property name="label" value="Assets for Plan Benefits, Defined Benefit Plan"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssetsForPlanBenefitsNoncurrent"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssetsForPlanBenefitsNoncurrent"/>
+  <property name="contextRef" value="c183">
+   <property name="entity" value="0001324948">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-03-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="roll:FixedIncomeMutualFundsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="3,052,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="3,052"/>
+ </ref></entry>
+<entry code="DQC.US.0073.7648" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1324948/000121390020013096/f10k2020_rbcbearings.htm" severity="error" effectiveDate="2019-01-01" cid="2113623336320">[DQC.US.0073.7648] The concept us-gaap:DefinedBenefitPlanAssetsForPlanBenefitsNoncurrent with a value of None is used with the DefinedBenefitPlanByPlanAssetCategoriesAxis. This element cannot be used with this axis. The allowable list of elements that can be used are as follows:
+- DefinedBenefitPlanActualReturnOnPlanAssetsSoldDuringPeriod, 
+ - DefinedBenefitPlanActualReturnOnPlanAssetsStillHeld, 
+ - DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanAssetsExpectedToBeReturnedToEmployerAmount, 
+ - DefinedBenefitPlanChangeInFairValueOfPlanAssetsLevel3ReconciliationPeriodIncreaseDecrease, 
+ - DefinedBenefitPlanFairValueOfPlanAssets, 
+ - DefinedBenefitPlanInvestmentPoliciesAndStrategiesNarrativeDescription, 
+ - DefinedBenefitPlanNarrativeDescriptionOfBasisUsedToDetermineOverallExpectedLongTermRateOfReturnOnAssetsAssumption, 
+ - DefinedBenefitPlanNumberOfSharesOfEquitySecuritiesIssuedByEmployerAndRelatedPartiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanPlanAssetsAtFairValueValuationTechniquesAndInputsChanges, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTransactionTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsFairValueByHierarchyAndNavExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryPercentage, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSale, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSettlement, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationIncreaseForPurchase, 
+ - DefinedBenefitPlanPlanAssetsMeasurementInputExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsTargetAllocationPercentage, 
+ - DefinedBenefitPlanPlanAssetsValuationTechniqueExtensibleList, 
+ - DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets, 
+ - DefinedBenefitPlanPurchasesSalesAndSettlements, 
+ - DefinedBenefitPlanTargetAllocationPercentage, 
+ - DefinedBenefitPlanTransfersBetweenMeasurementLevels, 
+ - DefinedBenefitPlanPlanAssetsForeignCurrencyTranslationGainLoss, 
+ - DefinedBenefitPlanWeightedAverageAssetAllocations, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareUnfundedCommittments, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareInvestmentRedemptionNoticePeriod1, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareInvestmentRedemptionFrequency, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareInvestmentRedemptionDescription, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareRedemptionRestrictionPeriodInEffect1
+
+
+The properties of this us-gaap:DefinedBenefitPlanAssetsForPlanBenefitsNoncurrent fact are:
+Period :2020-03-28
+Dimensions : us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=roll:InternationalEquityMutualFundsMember
+Unit : USD
+
+Rule Element Id:7648
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1324948/000121390020013096/f10k2020_rbcbearings.htm 10899</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1324948/000121390020013096/f10k2020_rbcbearings.htm#hidden-fact-22" sourceLine="10899">
+  <property name="file" value="f10k2020_rbcbearings.htm"/>
+  <property name="line" value="10899"/>
+  <property name="label" value="Assets for Plan Benefits, Defined Benefit Plan"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssetsForPlanBenefitsNoncurrent"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssetsForPlanBenefitsNoncurrent"/>
+  <property name="contextRef" value="c180">
+   <property name="entity" value="0001324948">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-28"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="roll:InternationalEquityMutualFundsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="true"/>
+  <property name="value" value="(nil)"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="None"/>
+  <property name="html value" value=""/>
+ </ref></entry>
+<entry code="DQC.US.0073.7648" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1324948/000121390020013096/f10k2020_rbcbearings.htm" severity="error" effectiveDate="2019-01-01" cid="2113623336320">[DQC.US.0073.7648] The concept us-gaap:DefinedBenefitPlanAssetsForPlanBenefitsNoncurrent with a value of 15,752,000 is used with the DefinedBenefitPlanByPlanAssetCategoriesAxis. This element cannot be used with this axis. The allowable list of elements that can be used are as follows:
+- DefinedBenefitPlanActualReturnOnPlanAssetsSoldDuringPeriod, 
+ - DefinedBenefitPlanActualReturnOnPlanAssetsStillHeld, 
+ - DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanAssetsExpectedToBeReturnedToEmployerAmount, 
+ - DefinedBenefitPlanChangeInFairValueOfPlanAssetsLevel3ReconciliationPeriodIncreaseDecrease, 
+ - DefinedBenefitPlanFairValueOfPlanAssets, 
+ - DefinedBenefitPlanInvestmentPoliciesAndStrategiesNarrativeDescription, 
+ - DefinedBenefitPlanNarrativeDescriptionOfBasisUsedToDetermineOverallExpectedLongTermRateOfReturnOnAssetsAssumption, 
+ - DefinedBenefitPlanNumberOfSharesOfEquitySecuritiesIssuedByEmployerAndRelatedPartiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanPlanAssetsAtFairValueValuationTechniquesAndInputsChanges, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTransactionTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsFairValueByHierarchyAndNavExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryPercentage, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSale, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSettlement, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationIncreaseForPurchase, 
+ - DefinedBenefitPlanPlanAssetsMeasurementInputExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsTargetAllocationPercentage, 
+ - DefinedBenefitPlanPlanAssetsValuationTechniqueExtensibleList, 
+ - DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets, 
+ - DefinedBenefitPlanPurchasesSalesAndSettlements, 
+ - DefinedBenefitPlanTargetAllocationPercentage, 
+ - DefinedBenefitPlanTransfersBetweenMeasurementLevels, 
+ - DefinedBenefitPlanPlanAssetsForeignCurrencyTranslationGainLoss, 
+ - DefinedBenefitPlanWeightedAverageAssetAllocations, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareUnfundedCommittments, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareInvestmentRedemptionNoticePeriod1, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareInvestmentRedemptionFrequency, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareInvestmentRedemptionDescription, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareRedemptionRestrictionPeriodInEffect1
+
+
+The properties of this us-gaap:DefinedBenefitPlanAssetsForPlanBenefitsNoncurrent fact are:
+Period :2020-03-28
+Dimensions : us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:CashAndCashEquivalentsMember
+Unit : USD
+
+Rule Element Id:7648
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1324948/000121390020013096/f10k2020_rbcbearings.htm 8008</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1324948/000121390020013096/f10k2020_rbcbearings.htm#element(_PensionAndOtherPostretirementBenefitsDisclosureTextBlock-c0_cont_3/1/1/2/4/1)" sourceLine="8008">
+  <property name="file" value="f10k2020_rbcbearings.htm"/>
+  <property name="line" value="8008"/>
+  <property name="label" value="Assets for Plan Benefits, Defined Benefit Plan"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssetsForPlanBenefitsNoncurrent"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssetsForPlanBenefitsNoncurrent"/>
+  <property name="contextRef" value="c176">
+   <property name="entity" value="0001324948">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-28"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="us-gaap:CashAndCashEquivalentsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="15,752,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="15,752"/>
+ </ref></entry>
+<entry code="DQC.US.0073.7648" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1324948/000121390020013096/f10k2020_rbcbearings.htm" severity="error" effectiveDate="2019-01-01" cid="2113623336320">[DQC.US.0073.7648] The concept us-gaap:DefinedBenefitPlanAssetsForPlanBenefitsNoncurrent with a value of 7,182,000 is used with the DefinedBenefitPlanByPlanAssetCategoriesAxis. This element cannot be used with this axis. The allowable list of elements that can be used are as follows:
+- DefinedBenefitPlanActualReturnOnPlanAssetsSoldDuringPeriod, 
+ - DefinedBenefitPlanActualReturnOnPlanAssetsStillHeld, 
+ - DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanAssetsExpectedToBeReturnedToEmployerAmount, 
+ - DefinedBenefitPlanChangeInFairValueOfPlanAssetsLevel3ReconciliationPeriodIncreaseDecrease, 
+ - DefinedBenefitPlanFairValueOfPlanAssets, 
+ - DefinedBenefitPlanInvestmentPoliciesAndStrategiesNarrativeDescription, 
+ - DefinedBenefitPlanNarrativeDescriptionOfBasisUsedToDetermineOverallExpectedLongTermRateOfReturnOnAssetsAssumption, 
+ - DefinedBenefitPlanNumberOfSharesOfEquitySecuritiesIssuedByEmployerAndRelatedPartiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanPlanAssetsAtFairValueValuationTechniquesAndInputsChanges, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTransactionTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsFairValueByHierarchyAndNavExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryPercentage, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSale, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSettlement, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationIncreaseForPurchase, 
+ - DefinedBenefitPlanPlanAssetsMeasurementInputExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsTargetAllocationPercentage, 
+ - DefinedBenefitPlanPlanAssetsValuationTechniqueExtensibleList, 
+ - DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets, 
+ - DefinedBenefitPlanPurchasesSalesAndSettlements, 
+ - DefinedBenefitPlanTargetAllocationPercentage, 
+ - DefinedBenefitPlanTransfersBetweenMeasurementLevels, 
+ - DefinedBenefitPlanPlanAssetsForeignCurrencyTranslationGainLoss, 
+ - DefinedBenefitPlanWeightedAverageAssetAllocations, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareUnfundedCommittments, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareInvestmentRedemptionNoticePeriod1, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareInvestmentRedemptionFrequency, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareInvestmentRedemptionDescription, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareRedemptionRestrictionPeriodInEffect1
+
+
+The properties of this us-gaap:DefinedBenefitPlanAssetsForPlanBenefitsNoncurrent fact are:
+Period :2020-03-28
+Dimensions : us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=roll:FixedIncomeMutualFundsMember
+Unit : USD
+
+Rule Element Id:7648
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1324948/000121390020013096/f10k2020_rbcbearings.htm 8020</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1324948/000121390020013096/f10k2020_rbcbearings.htm#element(_PensionAndOtherPostretirementBenefitsDisclosureTextBlock-c0_cont_3/1/1/5/4/1)" sourceLine="8020">
+  <property name="file" value="f10k2020_rbcbearings.htm"/>
+  <property name="line" value="8020"/>
+  <property name="label" value="Assets for Plan Benefits, Defined Benefit Plan"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssetsForPlanBenefitsNoncurrent"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssetsForPlanBenefitsNoncurrent"/>
+  <property name="contextRef" value="c182">
+   <property name="entity" value="0001324948">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-28"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="roll:FixedIncomeMutualFundsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="7,182,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="7,182"/>
+ </ref></entry>
+<entry code="DQC.US.0073.7648" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1324948/000121390020013096/f10k2020_rbcbearings.htm" severity="error" effectiveDate="2019-01-01" cid="2113623336320">[DQC.US.0073.7648] The concept us-gaap:DefinedBenefitPlanAssetsForPlanBenefitsNoncurrent with a value of 3,447,000 is used with the DefinedBenefitPlanByPlanAssetCategoriesAxis. This element cannot be used with this axis. The allowable list of elements that can be used are as follows:
+- DefinedBenefitPlanActualReturnOnPlanAssetsSoldDuringPeriod, 
+ - DefinedBenefitPlanActualReturnOnPlanAssetsStillHeld, 
+ - DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanAssetsExpectedToBeReturnedToEmployerAmount, 
+ - DefinedBenefitPlanChangeInFairValueOfPlanAssetsLevel3ReconciliationPeriodIncreaseDecrease, 
+ - DefinedBenefitPlanFairValueOfPlanAssets, 
+ - DefinedBenefitPlanInvestmentPoliciesAndStrategiesNarrativeDescription, 
+ - DefinedBenefitPlanNarrativeDescriptionOfBasisUsedToDetermineOverallExpectedLongTermRateOfReturnOnAssetsAssumption, 
+ - DefinedBenefitPlanNumberOfSharesOfEquitySecuritiesIssuedByEmployerAndRelatedPartiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanPlanAssetsAtFairValueValuationTechniquesAndInputsChanges, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTransactionTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsFairValueByHierarchyAndNavExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryPercentage, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSale, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSettlement, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationIncreaseForPurchase, 
+ - DefinedBenefitPlanPlanAssetsMeasurementInputExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsTargetAllocationPercentage, 
+ - DefinedBenefitPlanPlanAssetsValuationTechniqueExtensibleList, 
+ - DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets, 
+ - DefinedBenefitPlanPurchasesSalesAndSettlements, 
+ - DefinedBenefitPlanTargetAllocationPercentage, 
+ - DefinedBenefitPlanTransfersBetweenMeasurementLevels, 
+ - DefinedBenefitPlanPlanAssetsForeignCurrencyTranslationGainLoss, 
+ - DefinedBenefitPlanWeightedAverageAssetAllocations, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareUnfundedCommittments, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareInvestmentRedemptionNoticePeriod1, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareInvestmentRedemptionFrequency, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareInvestmentRedemptionDescription, 
+ - FairValueInvestmentsEntitiesThatCalculateNetAssetValuePerShareRedemptionRestrictionPeriodInEffect1
+
+
+The properties of this us-gaap:DefinedBenefitPlanAssetsForPlanBenefitsNoncurrent fact are:
+Period :2020-03-28
+Dimensions : us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=roll:USEquityMutualFundsMember
+Unit : USD
+
+Rule Element Id:7648
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1324948/000121390020013096/f10k2020_rbcbearings.htm 8012</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1324948/000121390020013096/f10k2020_rbcbearings.htm#element(_PensionAndOtherPostretirementBenefitsDisclosureTextBlock-c0_cont_3/1/1/3/4/1)" sourceLine="8012">
+  <property name="file" value="f10k2020_rbcbearings.htm"/>
+  <property name="line" value="8012"/>
+  <property name="label" value="Assets for Plan Benefits, Defined Benefit Plan"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssetsForPlanBenefitsNoncurrent"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssetsForPlanBenefitsNoncurrent"/>
+  <property name="contextRef" value="c178">
+   <property name="entity" value="0001324948">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-28"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="roll:USEquityMutualFundsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="3,447,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="3,447"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 19.66 secs - http://www.sec.gov/Archives/edgar/data/1324948/000121390020013096/f10k2020_rbcbearings.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1324948/000121390020013096/f10k2020_rbcbearings.htm"/></entry>
+</log>

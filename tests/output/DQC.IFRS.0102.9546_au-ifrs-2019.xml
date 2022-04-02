@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23202 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 7.09 secs at 2021-03-05T09:42:28 - https://www.sec.gov/Archives/edgar/data/1067428/000162828020012085/au-20200630.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1067428/000162828020012085/au-20200630.htm"/></entry>
+<entry code="DQC.IFRS.0102.9546" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1067428/000162828020012085/au-20200630.htm" severity="error" effectiveDate="2021-05-01" cid="2290063480192">[DQC.IFRS.0102.9546] Cash flows from (used in) investing activities with a value of -743,000,000 is not equal to the combined total of Cash flows from (used in) investing activities, continuing operations and Cash flows from (used in) investing activities, discontinued operations ( -683,000,000 + -54,000,000 ) with a value of -737,000,000. 
+
+These values should be equal.
+The properties of this ifrs-full:CashFlowsFromUsedInInvestingActivities fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions :  
+Unit : USD
+Decimals of Cash flows from (used in) investing activities : -6
+Decimals of Cash flows from (used in) investing activities, continuing operations : -6
+Decimals of Cash flows from (used in) investing activities, discontinued operations : -6
+
+Rule Element Id:9546
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/1067428/000162828020012085/au-20200630.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1067428/000162828020012085/au-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOmFhNWYwNDgxODI1MTRjZmRhMjgwOTMzODJhMmQ3YjBjL3NlYzphYTVmMDQ4MTgyNTE0Y2ZkYTI4MDkzMzgyYTJkN2IwY18xMjQvZnJhZzoxYmZmYjU0YmQwZmE0ZWVkYjdjOTk5OTcyNzMxYzU5OS90YWJsZTphYWIwOTY1MGRjMmY0ZjdlYjljMDRlNDU1ZTAxZGJhZS90YWJsZXJhbmdlOmFhYjA5NjUwZGMyZjRmN2ViOWMwNGU0NTVlMDFkYmFlXzI5LTEzLTEtMS0w_edb7a0f7-3de5-473e-bf5d-b60a1c202e9a" sourceLine="4">
+  <property name="file" value="au-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Cash flows from (used in) investing activities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="CashFlowsFromUsedInInvestingActivities"/>
+  <property name="QName" value="ifrs-full:CashFlowsFromUsedInInvestingActivities"/>
+  <property name="contextRef" value="i56ddf087f0914bbf9336b2c6165779ad_D20190101-20191231">
+   <property name="entity" value="0001067428">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-743,000,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="743"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9546" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1067428/000162828020012085/au-20200630.htm" severity="error" effectiveDate="2021-05-01" cid="2290063480192">[DQC.IFRS.0102.9546] Cash flows from (used in) investing activities with a value of -712,000,000 is not equal to the combined total of Cash flows from (used in) investing activities, continuing operations and Cash flows from (used in) investing activities, discontinued operations ( -698,000,000 + -8,000,000 ) with a value of -706,000,000. 
+
+These values should be equal.
+The properties of this ifrs-full:CashFlowsFromUsedInInvestingActivities fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions :  ifrs-full:ConsolidatedAndSeparateFinancialStatementsAxis=au:NonGuarantorSubsidiaries1Member, srt:ConsolidationItemsAxis=srt:ReportableLegalEntitiesMember
+Unit : USD
+Decimals of Cash flows from (used in) investing activities : -6
+Decimals of Cash flows from (used in) investing activities, continuing operations : -6
+Decimals of Cash flows from (used in) investing activities, discontinued operations : -6
+
+Rule Element Id:9546
+Rule version: 14.1 - https://www.sec.gov/Archives/edgar/data/1067428/000162828020012085/au-20200630.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1067428/000162828020012085/au-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOmFhNWYwNDgxODI1MTRjZmRhMjgwOTMzODJhMmQ3YjBjL3NlYzphYTVmMDQ4MTgyNTE0Y2ZkYTI4MDkzMzgyYTJkN2IwY18xMjQvZnJhZzoxYmZmYjU0YmQwZmE0ZWVkYjdjOTk5OTcyNzMxYzU5OS90YWJsZTphYWIwOTY1MGRjMmY0ZjdlYjljMDRlNDU1ZTAxZGJhZS90YWJsZXJhbmdlOmFhYjA5NjUwZGMyZjRmN2ViOWMwNGU0NTVlMDFkYmFlXzI5LTktMS0xLTA_fb90e54d-ebd7-4877-80be-5516e37a712f" sourceLine="4">
+  <property name="file" value="au-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Cash flows from (used in) investing activities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="CashFlowsFromUsedInInvestingActivities"/>
+  <property name="QName" value="ifrs-full:CashFlowsFromUsedInInvestingActivities"/>
+  <property name="contextRef" value="i311c964cdbb64101994fd268a2682f83_D20190101-20191231">
+   <property name="entity" value="0001067428">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ConsolidationItemsAxis" value="srt:ReportableLegalEntitiesMember"/>
+    <property name="ifrs-full:ConsolidatedAndSeparateFinancialStatementsAxis" value="au:NonGuarantorSubsidiaries1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-712,000,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="712"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 3.09 secs - https://www.sec.gov/Archives/edgar/data/1067428/000162828020012085/au-20200630.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1067428/000162828020012085/au-20200630.htm"/></entry>
+</log>

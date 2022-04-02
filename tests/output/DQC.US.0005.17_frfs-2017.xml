@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.81 secs at 2018-10-16T09:48:40 - http://www.sec.gov/Archives/edgar/data/1445883/000109690618000327/frfs-20150930.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1445883/000109690618000327/frfs-20150930.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - frfs-20150930.xml </message>
+ <ref href="frfs-20150930.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpcul61azp/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpcul61azp/packages/resources.zip"/></entry>
+<entry code="DQC.US.0005.17" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1445883/000109690618000327/frfs-20150930.xml" cid="4347186872">[DQC.US.0005.17] The element Entity Common Stock Shares Outstanding with a value of 160,931,844 is used to report the Entity Common Stock Shares Outstanding as stated on the cover sheet of the entity's filing. However, the value reported is not as of the latest practicable date, as required. In this case, dei:EntityCommonStockSharesOutstanding with a value of 160,931,844 is reported as of 2015-05-30. This is earlier than the actual reporting date of the filing.
+
+Update the date context on this fact, so that the date is at least later than 2015-09-30, which is the reporting [end] date of the filing based on the defined dates of the Document Type element.
+
+The properties of this dei:EntityCommonStockSharesOutstanding fact are:
+Period: 2015-05-30
+Dimensions: 
+Unit: shares
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1445883/000109690618000327/frfs-20150930.xml 146</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1445883/000109690618000327/frfs-20150930.xml#element(/1/143)" sourceLine="146">
+  <property name="label" value="Entity Common Stock, Shares Outstanding"/>
+  <property name="namespace" value="http://xbrl.sec.gov/dei/2014-01-31"/>
+  <property name="name" value="EntityCommonStockSharesOutstanding"/>
+  <property name="QName" value="dei:EntityCommonStockSharesOutstanding"/>
+  <property name="contextRef" value="I150530">
+   <property name="entity" value="0001445883">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2015-05-30"/>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="160,931,844"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 1.10 secs - http://www.sec.gov/Archives/edgar/data/1445883/000109690618000327/frfs-20150930.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1445883/000109690618000327/frfs-20150930.xml"/></entry>
+</log>

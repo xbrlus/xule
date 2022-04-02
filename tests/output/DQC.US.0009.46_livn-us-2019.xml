@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 8.40 secs at 2020-07-24T23:29:02 - http://www.sec.gov/Archives/edgar/data/1639691/000163969120000018/livn-20191231x10xk.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1639691/000163969120000018/livn-20191231x10xk.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpzpec9b61\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpzpec9b61\packages\resources.zip"/></entry>
+<entry code="DQC.US.0009.46" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1639691/000163969120000018/livn-20191231x10xk.htm" severity="error" effectiveDate="2016-01-01" cid="2268403705216">[DQC.US.0009.46] The value of Defined Benefit Plan, Accumulated Benefit Obligation, 23,785,000, should be less than or equal to Defined Benefit Plan, Benefit Obligation, 21,548,000. Defined Benefit Plan, Accumulated Benefit Obligation must be less than or equal to Defined Benefit Plan, Benefit Obligation, as it does not include assumptions about future compensation levels.
+
+The properties of this us-gaap:DefinedBenefitPlanAccumulatedBenefitObligation fact are:
+
+Period: 2017-12-31
+Dimensions: us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:ForeignPlanMember
+Unit: USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1639691/000163969120000018/livn-20191231x10xk.htm 7106</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1639691/000163969120000018/livn-20191231x10xk.htm#d39585190e2866-wk-Fact-59131F0E4FDB99BE7EC4D1B530B7D65A" sourceLine="7106">
+  <property name="file" value="livn-20191231x10xk.htm"/>
+  <property name="line" value="7106"/>
+  <property name="label" value="Defined Benefit Plan, Accumulated Benefit Obligation"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAccumulatedBenefitObligation"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAccumulatedBenefitObligation"/>
+  <property name="contextRef" value="FI2017Q4_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_ForeignPlanMember">
+   <property name="entity" value="0001639691">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:ForeignPlanMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="23,785,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="23,785"/>
+ </ref></entry>
+<entry code="DQC.US.0009.46" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1639691/000163969120000018/livn-20191231x10xk.htm" severity="error" effectiveDate="2016-01-01" cid="2268403705216">[DQC.US.0009.46] The value of Defined Benefit Plan, Accumulated Benefit Obligation, 11,191,000, should be less than or equal to Defined Benefit Plan, Benefit Obligation, 11,001,000. Defined Benefit Plan, Accumulated Benefit Obligation must be less than or equal to Defined Benefit Plan, Benefit Obligation, as it does not include assumptions about future compensation levels.
+
+The properties of this us-gaap:DefinedBenefitPlanAccumulatedBenefitObligation fact are:
+
+Period: 2017-12-31
+Dimensions: us-gaap:RetirementPlanSponsorLocationAxis=country:US
+Unit: USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1639691/000163969120000018/livn-20191231x10xk.htm 7106</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1639691/000163969120000018/livn-20191231x10xk.htm#d39585190e1146-wk-Fact-2E0C559A1AE3FC70296DD1B4D49070B2" sourceLine="7106">
+  <property name="file" value="livn-20191231x10xk.htm"/>
+  <property name="line" value="7106"/>
+  <property name="label" value="Defined Benefit Plan, Accumulated Benefit Obligation"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAccumulatedBenefitObligation"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAccumulatedBenefitObligation"/>
+  <property name="contextRef" value="FI2017Q4_us-gaap_RetirementPlanSponsorLocationAxis_country_US">
+   <property name="entity" value="0001639691">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="country:US"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="11,191,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="11,191"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 7.77 secs - http://www.sec.gov/Archives/edgar/data/1639691/000163969120000018/livn-20191231x10xk.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1639691/000163969120000018/livn-20191231x10xk.htm"/></entry>
+</log>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 5.31 secs at 2020-10-28T17:18:02 - https://www.sec.gov/Archives/edgar/data/888746/000129281420001470/ccu-20191231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/888746/000129281420001470/ccu-20191231.xml"/></entry>
+<entry code="DQC.US.0101.9537" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/888746/000129281420001470/ccu-20191231.xml" severity="error" effectiveDate="None" cid="2255196951936">[DQC.US.0101.9537] The concept ifrs-full:CashAdvancesAndLoansMadeToRelatedParties appears in the financing cashflows of the companies cash flow statement. ifrs-full:CashAdvancesAndLoansMadeToRelatedParties is an investing item and it is expected that this item would only appear in the cash flow generated from investing activities. Please review the calculations defined for the cash flow statement to determine that the correct element has been used for this item. 
+ 
+
+Rule Element Id:9537
+Rule version: 14.0.0RC1 - </message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 12.08 secs - https://www.sec.gov/Archives/edgar/data/888746/000129281420001470/ccu-20191231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/888746/000129281420001470/ccu-20191231.xml"/></entry>
+</log>

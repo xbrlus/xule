@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23221 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.97 secs at 2021-08-31T16:44:21 - https://www.sec.gov/Archives/edgar/data/6845/000000684521000003/apog-20201128.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/6845/000000684521000003/apog-20201128.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpwukn7a8a\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpwukn7a8a\packages\resources.zip"/></entry>
+<entry code="DQC.US.0108.9564" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/6845/000000684521000003/apog-20201128.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2753139704784">[DQC.US.0108.9564] The concept us-gaap:ProceedsFromSaleOfPropertyPlantAndEquipment with a period duration starting on 2020-08-29 and ending on 2020-09-20 or 22 days with a reported value of 25,100,000 has a value greater than the value of the same element with a longer or equivalent period duration that starts on 2020-02-29 and ends on 2020-11-28 with a value of 23,724,000.
+The value  25,100,000 for the period of 22 days should be less or the same as the value  23,724,000 with a duration of 273 days assuming that the concept us-gaap:ProceedsFromSaleOfPropertyPlantAndEquipment cannot have a negative value. If the difference between the two numbers is insignificant, check that the decimals of the two values are appropriate. The decimal value of 25,100,000 is -5, and the decimals of 23,724,000 is -3.
+
+The properties of this us-gaap:ProceedsFromSaleOfPropertyPlantAndEquipment fact are:
+Period :2020-08-30 to 2020-09-20
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9564
+Rule version: 16.0.0RC5 - https://www.sec.gov/Archives/edgar/data/6845/000000684521000003/apog-20201128.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/6845/000000684521000003/apog-20201128.htm#id3VybDovL2RvY3MudjEvZG9jOmYxYzY5ZTQ4ZTBmMjRkMjI4ODgxMzhlOTlkNTJlZDIyL3NlYzpmMWM2OWU0OGUwZjI0ZDIyODg4MTM4ZTk5ZDUyZWQyMl81Mi9mcmFnOjFkMzJlM2NiYzQxZTQzZDlhMGUzNTNjY2RjZTRmMzdkL3RleHRyZWdpb246MWQzMmUzY2JjNDFlNDNkOWEwZTM1M2NjZGNlNGYzN2RfMjE4NQ_f4405b16-af31-450a-b5ff-ebefe7185a80" sourceLine="4">
+  <property name="file" value="apog-20201128.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Proceeds from Sale of Property, Plant, and Equipment"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ProceedsFromSaleOfPropertyPlantAndEquipment"/>
+  <property name="QName" value="us-gaap:ProceedsFromSaleOfPropertyPlantAndEquipment"/>
+  <property name="contextRef" value="i0ac3ab4f6c0c470aa4b1d5d9ce1d2812_D20200830-20200920">
+   <property name="entity" value="0000006845">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-08-30"/>
+   <property name="endDate" value="2020-09-20"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="25,100,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="25.1"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 15.79 secs - https://www.sec.gov/Archives/edgar/data/6845/000000684521000003/apog-20201128.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/6845/000000684521000003/apog-20201128.htm"/></entry>
+</log>

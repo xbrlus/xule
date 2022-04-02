@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.85 secs at 2018-10-16T10:02:15 - https://www.sec.gov/Archives/edgar/data/1347858/000114420418025088/xxii-20180331.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1347858/000114420418025088/xxii-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - xxii-20180331.xml </message>
+ <ref href="xxii-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp7g3nx1bb/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp7g3nx1bb/packages/resources.zip"/></entry>
+<entry code="DQC.US.0078.7655" level="error">
+ <message cid="4474592952" filing_url="https://www.sec.gov/Archives/edgar/data/1347858/000114420418025088/xxii-20180331.xml" severity="error">[DQC.US.0078.7655] The filer has reported a value for the element us-gaap:MinorityInterestOwnershipPercentageByParent with a value of 0.2 without using the axis OwnershipAxis. This axis must be used when reporting a value for us-gaap:MinorityInterestOwnershipPercentageByParent. Please refer to the FASB implementation guide on Dimensional Modeling for Disclosures of Consolidated and Nonconsolidated Entities on the FASB website.
+
+The properties of this us-gaap:MinorityInterestOwnershipPercentageByParent fact are:
+Period :2017-03-31
+Dimensions : us-gaap:ConsolidatedEntitiesAxis=xxii:AnandiaMember
+Unit : pure
+
+Rule Element Id:7655
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1347858/000114420418025088/xxii-20180331.xml 4270</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1347858/000114420418025088/xxii-20180331.xml#Factid_417" sourceLine="4270">
+  <property name="label" value="Noncontrolling Interest, Ownership Percentage by Parent"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="MinorityInterestOwnershipPercentageByParent"/>
+  <property name="QName" value="us-gaap:MinorityInterestOwnershipPercentageByParent"/>
+  <property name="contextRef" value="PAsOn03_31_2017_AnandiaMemberusgaapConsolidatedEntitiesAxis">
+   <property name="entity" value="0001347858">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ConsolidatedEntitiesAxis" value="xxii:AnandiaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="pure (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="1"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.2"/>
+ </ref></entry>
+<entry code="DQC.US.0078.7655" level="error">
+ <message cid="4474592952" filing_url="https://www.sec.gov/Archives/edgar/data/1347858/000114420418025088/xxii-20180331.xml" severity="error">[DQC.US.0078.7655] The filer has reported a value for the element us-gaap:MinorityInterestOwnershipPercentageByParent with a value of 0.148 without using the axis OwnershipAxis. This axis must be used when reporting a value for us-gaap:MinorityInterestOwnershipPercentageByParent. Please refer to the FASB implementation guide on Dimensional Modeling for Disclosures of Consolidated and Nonconsolidated Entities on the FASB website.
+
+The properties of this us-gaap:MinorityInterestOwnershipPercentageByParent fact are:
+Period :2018-03-31
+Dimensions : us-gaap:RelatedPartyTransactionsByRelatedPartyAxis=xxii:AnandiaLaboratoriesIncMember
+Unit : pure
+
+Rule Element Id:7655
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1347858/000114420418025088/xxii-20180331.xml 4274</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1347858/000114420418025088/xxii-20180331.xml#Factid_419" sourceLine="4274">
+  <property name="label" value="Noncontrolling Interest, Ownership Percentage by Parent"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="MinorityInterestOwnershipPercentageByParent"/>
+  <property name="QName" value="us-gaap:MinorityInterestOwnershipPercentageByParent"/>
+  <property name="contextRef" value="PAsOn03_31_2018_AnandiaLaboratoriesIncMemberusgaapRelatedPartyTransactionsByRelatedPartyAxis">
+   <property name="entity" value="0001347858">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RelatedPartyTransactionsByRelatedPartyAxis" value="xxii:AnandiaLaboratoriesIncMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="pure (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.148"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 2.57 secs - https://www.sec.gov/Archives/edgar/data/1347858/000114420418025088/xxii-20180331.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1347858/000114420418025088/xxii-20180331.xml"/></entry>
+</log>

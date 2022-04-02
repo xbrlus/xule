@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 4.51 secs at 2018-10-16T09:44:17 - http://www.sec.gov/Archives/edgar/data/1128725/000121390018006655/icld-20180331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1128725/000121390018006655/icld-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - icld-20180331.xml </message>
+ <ref href="icld-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpavvdue9x/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpavvdue9x/packages/resources.zip"/></entry>
+<entry code="DQC.US.0011.6827" level="error">
+ <message rule-suffix="6827" filing_url="http://www.sec.gov/Archives/edgar/data/1128725/000121390018006655/icld-20180331.xml" severity="error" cid="4323901112">[DQC.US.0011.6827] It is expected that TreasuryStockValue with a value of -2,000 reported in the network role http://www.InterCloudsys.com/role/CondensedConsolidatedBalanceSheets should be equal to the dimensionally qualified concept, StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest with the dimension us-gaap:StatementEquityComponentsAxis = us-gaap:TreasuryStockMember and a reported value of -2,000 multiplied by -1. This value appears in the network role http://www.InterCloudsys.com/role/CondensedConsolidatedStatementOfStockholdersDeficitUnaudited. This error occurs when the dimensionally qualified fact is not equal to the value input for the non dimensional item.
+
+The properties of this us-gaap:TreasuryStockValue fact are:
+
+Period : 2017-12-31
+Dimensions : 
+Unit : USD
+Decimals of TreasuryStockValue : -3
+Decimals of StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest : -3
+Rule version: 9.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1128725/000121390018006655/icld-20180331.xml 10541</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1128725/000121390018006655/icld-20180331.xml#element(/1/844)" sourceLine="10541">
+  <property name="label" value="Treasury Stock, Value"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="TreasuryStockValue"/>
+  <property name="QName" value="us-gaap:TreasuryStockValue"/>
+  <property name="contextRef" value="Context_As_Of_31_Dec_2017T00_00_00_TO_31_Dec_2017T00_00_00">
+   <property name="entity" value="0001128725">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-2,000"/>
+ </ref></entry>
+<entry code="DQC.US.0011.6827" level="error">
+ <message rule-suffix="6827" filing_url="http://www.sec.gov/Archives/edgar/data/1128725/000121390018006655/icld-20180331.xml" severity="error" cid="4323901112">[DQC.US.0011.6827] It is expected that TreasuryStockValue with a value of -2,000 reported in the network role http://www.InterCloudsys.com/role/CondensedConsolidatedBalanceSheets should be equal to the dimensionally qualified concept, StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest with the dimension us-gaap:StatementEquityComponentsAxis = us-gaap:TreasuryStockMember and a reported value of -2,000 multiplied by -1. This value appears in the network role http://www.InterCloudsys.com/role/CondensedConsolidatedStatementOfStockholdersDeficitUnaudited. This error occurs when the dimensionally qualified fact is not equal to the value input for the non dimensional item.
+
+The properties of this us-gaap:TreasuryStockValue fact are:
+
+Period : 2018-03-31
+Dimensions : 
+Unit : USD
+Decimals of TreasuryStockValue : -3
+Decimals of StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest : -3
+Rule version: 9.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1128725/000121390018006655/icld-20180331.xml 10542</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1128725/000121390018006655/icld-20180331.xml#element(/1/845)" sourceLine="10542">
+  <property name="label" value="Treasury Stock, Value"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="TreasuryStockValue"/>
+  <property name="QName" value="us-gaap:TreasuryStockValue"/>
+  <property name="contextRef" value="Context_As_Of_31_Mar_2018T00_00_00_TO_31_Mar_2018T00_00_00">
+   <property name="entity" value="0001128725">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-03-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-2,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 4.28 secs - http://www.sec.gov/Archives/edgar/data/1128725/000121390018006655/icld-20180331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1128725/000121390018006655/icld-20180331.xml"/></entry>
+</log>

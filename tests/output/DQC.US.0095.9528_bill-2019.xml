@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.56 secs at 2020-11-05T11:14:05 - http://www.sec.gov/Archives/edgar/data/1786352/000156459020004233/bill-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1786352/000156459020004233/bill-20191231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpz74zlmo1\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpz74zlmo1\packages\resources.zip"/></entry>
+<entry code="DQC.US.0095.9528" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1786352/000156459020004233/bill-20191231.xml" severity="error" status="PROPOSED" effectiveDate="2020-09-01" cid="2289366308224">[DQC.US.0095.9528] The element dei:EntityCommonStockSharesOutstanding with a value of 72,333,573 is different than the value reported for the concept us-gaap:CommonStockSharesOutstanding with a value of 72,267 by a factor of greater than 100 times. 
+
+Period :2020-01-31
+Unit : shares
+Dimensions:
+Decimals: inf
+
+Rule Element Id:9528
+Rule version: 14.0.0RC2 - http://www.sec.gov/Archives/edgar/data/1786352/000156459020004233/bill-20191231.xml 2313</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1786352/000156459020004233/bill-20191231.xml#F_000012" sourceLine="2313">
+  <property name="label" value="Entity Common Stock Shares Outstanding"/>
+  <property name="namespace" value="http://xbrl.sec.gov/dei/2019-01-31"/>
+  <property name="name" value="EntityCommonStockSharesOutstanding"/>
+  <property name="QName" value="dei:EntityCommonStockSharesOutstanding"/>
+  <property name="contextRef" value="C_0001786352_20200131">
+   <property name="entity" value="0001786352">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-01-31"/>
+  </property>
+  <property name="unitRef" value="U_xbrlishares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="72,333,573"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 4.47 secs - http://www.sec.gov/Archives/edgar/data/1786352/000156459020004233/bill-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1786352/000156459020004233/bill-20191231.xml"/></entry>
+</log>

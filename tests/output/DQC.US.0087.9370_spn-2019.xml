@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23221 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 4.03 secs at 2021-04-15T23:18:46 - https://www.sec.gov/Archives/edgar/data/886835/000088683520000004/spn-20191231x10k_htm.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/886835/000088683520000004/spn-20191231x10k_htm.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmps6zsheyy\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmps6zsheyy\packages\resources.zip"/></entry>
+<entry code="DQC.US.0087.9370" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/886835/000088683520000004/spn-20191231x10k_htm.xml" severity="error" effectiveDate="2020-05-30" cid="1984599126992">[DQC.US.0087.9370] The element OperatingLeaseLiabilityCurrent with a value of 21,072,000 has been used in the filing but does not appear in the financial statements of the filing. This disclosure should appear in the face financials unless it is included in another account caption. If this is the case either:
+1. The element OperatingLeaseLiabilityCurrentStatementOfFinancialPositionExtensibleList should be used to identify the account where the Operating Lease liability Current is included; or
+2. The Balance Sheet location axis should be used with two or more account members to identify into which financial statement captions the Operating Lease liability Current has been apportioned.
+ 
+Period :2019-12-31
+Dimensions : 
+Unit : USD
+Decimals: -3
+
+Rule Element Id:9370
+Rule version: 15.0.0RC1 - https://www.sec.gov/Archives/edgar/data/886835/000088683520000004/spn-20191231x10k_htm.xml 6458</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/886835/000088683520000004/spn-20191231x10k_htm.xml#ct-nonFraction-435c640a-68ee-492b-b4f3-bdb8764ae29a" sourceLine="6458">
+  <property name="label" value="Operating lease liabilities, current"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="OperatingLeaseLiabilityCurrent"/>
+  <property name="QName" value="us-gaap:OperatingLeaseLiabilityCurrent"/>
+  <property name="contextRef" value="As_Of_12_31_2019">
+   <property name="entity" value="0000886835">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="21,072,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 4.42 secs - https://www.sec.gov/Archives/edgar/data/886835/000088683520000004/spn-20191231x10k_htm.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/886835/000088683520000004/spn-20191231x10k_htm.xml"/></entry>
+</log>

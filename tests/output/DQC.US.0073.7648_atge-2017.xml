@@ -1,0 +1,1025 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.47 secs at 2018-10-16T10:04:39 - https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - atge-20180331.xml </message>
+ <ref href="atge-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpqoas4lx1/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpqoas4lx1/packages/resources.zip"/></entry>
+<entry code="DQC.US.0073.7648" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml" cid="4478697144" severity="error">[DQC.US.0073.7648] The concept us-gaap:RestructuringCharges with a value of 137,000 is used with the DefinedBenefitPlanByPlanAssetCategoriesAxis. This element cannot be used with this axis. The allowable list of elements that can be used are as follows:
+- DefinedBenefitPlanActualReturnOnPlanAssetsSoldDuringPeriod, 
+ - DefinedBenefitPlanActualReturnOnPlanAssetsStillHeld, 
+ - DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanAssetsExpectedToBeReturnedToEmployerAmount, 
+ - DefinedBenefitPlanChangeInFairValueOfPlanAssetsLevel3ReconciliationPeriodIncreaseDecrease, 
+ - DefinedBenefitPlanFairValueOfPlanAssets, 
+ - DefinedBenefitPlanInvestmentPoliciesAndStrategiesNarrativeDescription, 
+ - DefinedBenefitPlanNarrativeDescriptionOfBasisUsedToDetermineOverallExpectedLongTermRateOfReturnOnAssetsAssumption, 
+ - DefinedBenefitPlanNumberOfSharesOfEquitySecuritiesIssuedByEmployerAndRelatedPartiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanPlanAssetsAtFairValueValuationTechniquesAndInputsChanges, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTransactionTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsFairValueByHierarchyAndNavExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryPercentage, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSale, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSettlement, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationIncreaseForPurchase, 
+ - DefinedBenefitPlanPlanAssetsMeasurementInputExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsTargetAllocationPercentage, 
+ - DefinedBenefitPlanPlanAssetsValuationTechniqueExtensibleList, 
+ - DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets, 
+ - DefinedBenefitPlanPurchasesSalesAndSettlements, 
+ - DefinedBenefitPlanTargetAllocationPercentage, 
+ - DefinedBenefitPlanTransfersBetweenMeasurementLevels, 
+ - DefinedBenefitPlanPlanAssetsForeignCurrencyTranslationGainLoss, 
+ - AlternativeInvestmentsFairValueDisclosure, 
+ - DefinedBenefitPlanWeightedAverageAssetAllocations
+
+
+The properties of this us-gaap:RestructuringCharges fact are:
+Period :2016-07-01 to 2017-03-31
+Dimensions : us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:RealEstateMember, us-gaap:StatementBusinessSegmentsAxis=atge:MedicalAndHealthcareMember
+Unit : USD
+
+Rule Element Id:7648
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml 7994</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml#Factid_1293" sourceLine="7994">
+  <property name="label" value="Restructuring Charges, Total"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="RestructuringCharges"/>
+  <property name="QName" value="us-gaap:RestructuringCharges"/>
+  <property name="contextRef" value="P07_01_2016To03_31_2017_MedicalAndHealthcareMemberusgaapStatementBusinessSegmentsAxis_RealEstateMemberusgaapDefinedBenefitPlanByPlanAssetCategoriesAxis">
+   <property name="entity" value="0000730464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-07-01"/>
+   <property name="endDate" value="2017-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="us-gaap:RealEstateMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="atge:MedicalAndHealthcareMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="137,000"/>
+ </ref></entry>
+<entry code="DQC.US.0073.7648" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml" cid="4478697144" severity="error">[DQC.US.0073.7648] The concept us-gaap:RestructuringCharges with a value of -507,000 is used with the DefinedBenefitPlanByPlanAssetCategoriesAxis. This element cannot be used with this axis. The allowable list of elements that can be used are as follows:
+- DefinedBenefitPlanActualReturnOnPlanAssetsSoldDuringPeriod, 
+ - DefinedBenefitPlanActualReturnOnPlanAssetsStillHeld, 
+ - DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanAssetsExpectedToBeReturnedToEmployerAmount, 
+ - DefinedBenefitPlanChangeInFairValueOfPlanAssetsLevel3ReconciliationPeriodIncreaseDecrease, 
+ - DefinedBenefitPlanFairValueOfPlanAssets, 
+ - DefinedBenefitPlanInvestmentPoliciesAndStrategiesNarrativeDescription, 
+ - DefinedBenefitPlanNarrativeDescriptionOfBasisUsedToDetermineOverallExpectedLongTermRateOfReturnOnAssetsAssumption, 
+ - DefinedBenefitPlanNumberOfSharesOfEquitySecuritiesIssuedByEmployerAndRelatedPartiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanPlanAssetsAtFairValueValuationTechniquesAndInputsChanges, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTransactionTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsFairValueByHierarchyAndNavExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryPercentage, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSale, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSettlement, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationIncreaseForPurchase, 
+ - DefinedBenefitPlanPlanAssetsMeasurementInputExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsTargetAllocationPercentage, 
+ - DefinedBenefitPlanPlanAssetsValuationTechniqueExtensibleList, 
+ - DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets, 
+ - DefinedBenefitPlanPurchasesSalesAndSettlements, 
+ - DefinedBenefitPlanTargetAllocationPercentage, 
+ - DefinedBenefitPlanTransfersBetweenMeasurementLevels, 
+ - DefinedBenefitPlanPlanAssetsForeignCurrencyTranslationGainLoss, 
+ - AlternativeInvestmentsFairValueDisclosure, 
+ - DefinedBenefitPlanWeightedAverageAssetAllocations
+
+
+The properties of this us-gaap:RestructuringCharges fact are:
+Period :2017-01-01 to 2017-03-31
+Dimensions : us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:RealEstateMember
+Unit : USD
+
+Rule Element Id:7648
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml 6738</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml#Factid_665" sourceLine="6738">
+  <property name="label" value="Restructuring Charges, Total"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="RestructuringCharges"/>
+  <property name="QName" value="us-gaap:RestructuringCharges"/>
+  <property name="contextRef" value="P01_01_2017To03_31_2017_RealEstateMemberusgaapDefinedBenefitPlanByPlanAssetCategoriesAxis">
+   <property name="entity" value="0000730464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="us-gaap:RealEstateMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-507,000"/>
+ </ref></entry>
+<entry code="DQC.US.0073.7648" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml" cid="4478697144" severity="error">[DQC.US.0073.7648] The concept us-gaap:RestructuringCharges with a value of -422,000 is used with the DefinedBenefitPlanByPlanAssetCategoriesAxis. This element cannot be used with this axis. The allowable list of elements that can be used are as follows:
+- DefinedBenefitPlanActualReturnOnPlanAssetsSoldDuringPeriod, 
+ - DefinedBenefitPlanActualReturnOnPlanAssetsStillHeld, 
+ - DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanAssetsExpectedToBeReturnedToEmployerAmount, 
+ - DefinedBenefitPlanChangeInFairValueOfPlanAssetsLevel3ReconciliationPeriodIncreaseDecrease, 
+ - DefinedBenefitPlanFairValueOfPlanAssets, 
+ - DefinedBenefitPlanInvestmentPoliciesAndStrategiesNarrativeDescription, 
+ - DefinedBenefitPlanNarrativeDescriptionOfBasisUsedToDetermineOverallExpectedLongTermRateOfReturnOnAssetsAssumption, 
+ - DefinedBenefitPlanNumberOfSharesOfEquitySecuritiesIssuedByEmployerAndRelatedPartiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanPlanAssetsAtFairValueValuationTechniquesAndInputsChanges, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTransactionTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsFairValueByHierarchyAndNavExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryPercentage, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSale, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSettlement, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationIncreaseForPurchase, 
+ - DefinedBenefitPlanPlanAssetsMeasurementInputExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsTargetAllocationPercentage, 
+ - DefinedBenefitPlanPlanAssetsValuationTechniqueExtensibleList, 
+ - DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets, 
+ - DefinedBenefitPlanPurchasesSalesAndSettlements, 
+ - DefinedBenefitPlanTargetAllocationPercentage, 
+ - DefinedBenefitPlanTransfersBetweenMeasurementLevels, 
+ - DefinedBenefitPlanPlanAssetsForeignCurrencyTranslationGainLoss, 
+ - AlternativeInvestmentsFairValueDisclosure, 
+ - DefinedBenefitPlanWeightedAverageAssetAllocations
+
+
+The properties of this us-gaap:RestructuringCharges fact are:
+Period :2017-01-01 to 2017-03-31
+Dimensions : us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:RealEstateMember, us-gaap:StatementBusinessSegmentsAxis=atge:UsTraditionalPostsecondaryMember
+Unit : USD
+
+Rule Element Id:7648
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml 6734</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml#Factid_663" sourceLine="6734">
+  <property name="label" value="Restructuring Charges, Total"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="RestructuringCharges"/>
+  <property name="QName" value="us-gaap:RestructuringCharges"/>
+  <property name="contextRef" value="P01_01_2017To03_31_2017_RealEstateMemberusgaapDefinedBenefitPlanByPlanAssetCategoriesAxis_UsTraditionalPostsecondaryMemberusgaapStatementBusinessSegmentsAxis">
+   <property name="entity" value="0000730464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="us-gaap:RealEstateMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="atge:UsTraditionalPostsecondaryMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-422,000"/>
+ </ref></entry>
+<entry code="DQC.US.0073.7648" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml" cid="4478697144" severity="error">[DQC.US.0073.7648] The concept us-gaap:RestructuringCharges with a value of -222,000 is used with the DefinedBenefitPlanByPlanAssetCategoriesAxis. This element cannot be used with this axis. The allowable list of elements that can be used are as follows:
+- DefinedBenefitPlanActualReturnOnPlanAssetsSoldDuringPeriod, 
+ - DefinedBenefitPlanActualReturnOnPlanAssetsStillHeld, 
+ - DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanAssetsExpectedToBeReturnedToEmployerAmount, 
+ - DefinedBenefitPlanChangeInFairValueOfPlanAssetsLevel3ReconciliationPeriodIncreaseDecrease, 
+ - DefinedBenefitPlanFairValueOfPlanAssets, 
+ - DefinedBenefitPlanInvestmentPoliciesAndStrategiesNarrativeDescription, 
+ - DefinedBenefitPlanNarrativeDescriptionOfBasisUsedToDetermineOverallExpectedLongTermRateOfReturnOnAssetsAssumption, 
+ - DefinedBenefitPlanNumberOfSharesOfEquitySecuritiesIssuedByEmployerAndRelatedPartiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanPlanAssetsAtFairValueValuationTechniquesAndInputsChanges, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTransactionTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsFairValueByHierarchyAndNavExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryPercentage, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSale, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSettlement, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationIncreaseForPurchase, 
+ - DefinedBenefitPlanPlanAssetsMeasurementInputExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsTargetAllocationPercentage, 
+ - DefinedBenefitPlanPlanAssetsValuationTechniqueExtensibleList, 
+ - DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets, 
+ - DefinedBenefitPlanPurchasesSalesAndSettlements, 
+ - DefinedBenefitPlanTargetAllocationPercentage, 
+ - DefinedBenefitPlanTransfersBetweenMeasurementLevels, 
+ - DefinedBenefitPlanPlanAssetsForeignCurrencyTranslationGainLoss, 
+ - AlternativeInvestmentsFairValueDisclosure, 
+ - DefinedBenefitPlanWeightedAverageAssetAllocations
+
+
+The properties of this us-gaap:RestructuringCharges fact are:
+Period :2017-01-01 to 2017-03-31
+Dimensions : us-gaap:StatementBusinessSegmentsAxis=atge:HomeOfficeAndOtherMember, us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:RealEstateMember
+Unit : USD
+
+Rule Element Id:7648
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml 6736</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml#Factid_664" sourceLine="6736">
+  <property name="label" value="Restructuring Charges, Total"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="RestructuringCharges"/>
+  <property name="QName" value="us-gaap:RestructuringCharges"/>
+  <property name="contextRef" value="P01_01_2017To03_31_2017_HomeOfficeAndOtherMemberusgaapStatementBusinessSegmentsAxis_RealEstateMemberusgaapDefinedBenefitPlanByPlanAssetCategoriesAxis">
+   <property name="entity" value="0000730464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="us-gaap:RealEstateMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="atge:HomeOfficeAndOtherMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-222,000"/>
+ </ref></entry>
+<entry code="DQC.US.0073.7648" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml" cid="4478697144" severity="error">[DQC.US.0073.7648] The concept us-gaap:RestructuringCharges with a value of 1,722,000 is used with the DefinedBenefitPlanByPlanAssetCategoriesAxis. This element cannot be used with this axis. The allowable list of elements that can be used are as follows:
+- DefinedBenefitPlanActualReturnOnPlanAssetsSoldDuringPeriod, 
+ - DefinedBenefitPlanActualReturnOnPlanAssetsStillHeld, 
+ - DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanAssetsExpectedToBeReturnedToEmployerAmount, 
+ - DefinedBenefitPlanChangeInFairValueOfPlanAssetsLevel3ReconciliationPeriodIncreaseDecrease, 
+ - DefinedBenefitPlanFairValueOfPlanAssets, 
+ - DefinedBenefitPlanInvestmentPoliciesAndStrategiesNarrativeDescription, 
+ - DefinedBenefitPlanNarrativeDescriptionOfBasisUsedToDetermineOverallExpectedLongTermRateOfReturnOnAssetsAssumption, 
+ - DefinedBenefitPlanNumberOfSharesOfEquitySecuritiesIssuedByEmployerAndRelatedPartiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanPlanAssetsAtFairValueValuationTechniquesAndInputsChanges, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTransactionTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsFairValueByHierarchyAndNavExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryPercentage, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSale, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSettlement, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationIncreaseForPurchase, 
+ - DefinedBenefitPlanPlanAssetsMeasurementInputExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsTargetAllocationPercentage, 
+ - DefinedBenefitPlanPlanAssetsValuationTechniqueExtensibleList, 
+ - DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets, 
+ - DefinedBenefitPlanPurchasesSalesAndSettlements, 
+ - DefinedBenefitPlanTargetAllocationPercentage, 
+ - DefinedBenefitPlanTransfersBetweenMeasurementLevels, 
+ - DefinedBenefitPlanPlanAssetsForeignCurrencyTranslationGainLoss, 
+ - AlternativeInvestmentsFairValueDisclosure, 
+ - DefinedBenefitPlanWeightedAverageAssetAllocations
+
+
+The properties of this us-gaap:RestructuringCharges fact are:
+Period :2017-07-01 to 2018-03-31
+Dimensions : us-gaap:StatementBusinessSegmentsAxis=atge:UsTraditionalPostsecondaryMember, us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:RealEstateMember
+Unit : USD
+
+Rule Element Id:7648
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml 6714</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml#Factid_653" sourceLine="6714">
+  <property name="label" value="Restructuring Charges, Total"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="RestructuringCharges"/>
+  <property name="QName" value="us-gaap:RestructuringCharges"/>
+  <property name="contextRef" value="P07_01_2017To03_31_2018_RealEstateMemberusgaapDefinedBenefitPlanByPlanAssetCategoriesAxis_UsTraditionalPostsecondaryMemberusgaapStatementBusinessSegmentsAxis">
+   <property name="entity" value="0000730464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-07-01"/>
+   <property name="endDate" value="2018-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="us-gaap:RealEstateMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="atge:UsTraditionalPostsecondaryMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,722,000"/>
+ </ref></entry>
+<entry code="DQC.US.0073.7648" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml" cid="4478697144" severity="error">[DQC.US.0073.7648] The concept us-gaap:RestructuringCharges with a value of 5,125,000 is used with the DefinedBenefitPlanByPlanAssetCategoriesAxis. This element cannot be used with this axis. The allowable list of elements that can be used are as follows:
+- DefinedBenefitPlanActualReturnOnPlanAssetsSoldDuringPeriod, 
+ - DefinedBenefitPlanActualReturnOnPlanAssetsStillHeld, 
+ - DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanAssetsExpectedToBeReturnedToEmployerAmount, 
+ - DefinedBenefitPlanChangeInFairValueOfPlanAssetsLevel3ReconciliationPeriodIncreaseDecrease, 
+ - DefinedBenefitPlanFairValueOfPlanAssets, 
+ - DefinedBenefitPlanInvestmentPoliciesAndStrategiesNarrativeDescription, 
+ - DefinedBenefitPlanNarrativeDescriptionOfBasisUsedToDetermineOverallExpectedLongTermRateOfReturnOnAssetsAssumption, 
+ - DefinedBenefitPlanNumberOfSharesOfEquitySecuritiesIssuedByEmployerAndRelatedPartiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanPlanAssetsAtFairValueValuationTechniquesAndInputsChanges, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTransactionTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsFairValueByHierarchyAndNavExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryPercentage, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSale, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSettlement, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationIncreaseForPurchase, 
+ - DefinedBenefitPlanPlanAssetsMeasurementInputExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsTargetAllocationPercentage, 
+ - DefinedBenefitPlanPlanAssetsValuationTechniqueExtensibleList, 
+ - DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets, 
+ - DefinedBenefitPlanPurchasesSalesAndSettlements, 
+ - DefinedBenefitPlanTargetAllocationPercentage, 
+ - DefinedBenefitPlanTransfersBetweenMeasurementLevels, 
+ - DefinedBenefitPlanPlanAssetsForeignCurrencyTranslationGainLoss, 
+ - AlternativeInvestmentsFairValueDisclosure, 
+ - DefinedBenefitPlanWeightedAverageAssetAllocations
+
+
+The properties of this us-gaap:RestructuringCharges fact are:
+Period :2016-07-01 to 2017-03-31
+Dimensions : us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:RealEstateMember
+Unit : USD
+
+Rule Element Id:7648
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml 6754</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml#Factid_673" sourceLine="6754">
+  <property name="label" value="Restructuring Charges, Total"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="RestructuringCharges"/>
+  <property name="QName" value="us-gaap:RestructuringCharges"/>
+  <property name="contextRef" value="P07_01_2016To03_31_2017_RealEstateMemberusgaapDefinedBenefitPlanByPlanAssetCategoriesAxis">
+   <property name="entity" value="0000730464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-07-01"/>
+   <property name="endDate" value="2017-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="us-gaap:RealEstateMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="5,125,000"/>
+ </ref></entry>
+<entry code="DQC.US.0073.7648" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml" cid="4478697144" severity="error">[DQC.US.0073.7648] The concept us-gaap:RestructuringCharges with a value of -419,000 is used with the DefinedBenefitPlanByPlanAssetCategoriesAxis. This element cannot be used with this axis. The allowable list of elements that can be used are as follows:
+- DefinedBenefitPlanActualReturnOnPlanAssetsSoldDuringPeriod, 
+ - DefinedBenefitPlanActualReturnOnPlanAssetsStillHeld, 
+ - DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanAssetsExpectedToBeReturnedToEmployerAmount, 
+ - DefinedBenefitPlanChangeInFairValueOfPlanAssetsLevel3ReconciliationPeriodIncreaseDecrease, 
+ - DefinedBenefitPlanFairValueOfPlanAssets, 
+ - DefinedBenefitPlanInvestmentPoliciesAndStrategiesNarrativeDescription, 
+ - DefinedBenefitPlanNarrativeDescriptionOfBasisUsedToDetermineOverallExpectedLongTermRateOfReturnOnAssetsAssumption, 
+ - DefinedBenefitPlanNumberOfSharesOfEquitySecuritiesIssuedByEmployerAndRelatedPartiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanPlanAssetsAtFairValueValuationTechniquesAndInputsChanges, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTransactionTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsFairValueByHierarchyAndNavExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryPercentage, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSale, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSettlement, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationIncreaseForPurchase, 
+ - DefinedBenefitPlanPlanAssetsMeasurementInputExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsTargetAllocationPercentage, 
+ - DefinedBenefitPlanPlanAssetsValuationTechniqueExtensibleList, 
+ - DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets, 
+ - DefinedBenefitPlanPurchasesSalesAndSettlements, 
+ - DefinedBenefitPlanTargetAllocationPercentage, 
+ - DefinedBenefitPlanTransfersBetweenMeasurementLevels, 
+ - DefinedBenefitPlanPlanAssetsForeignCurrencyTranslationGainLoss, 
+ - AlternativeInvestmentsFairValueDisclosure, 
+ - DefinedBenefitPlanWeightedAverageAssetAllocations
+
+
+The properties of this us-gaap:RestructuringCharges fact are:
+Period :2017-07-01 to 2018-03-31
+Dimensions : us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:RealEstateMember, us-gaap:StatementBusinessSegmentsAxis=atge:HomeOfficeAndOtherMember
+Unit : USD
+
+Rule Element Id:7648
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml 6716</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml#Factid_654" sourceLine="6716">
+  <property name="label" value="Restructuring Charges, Total"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="RestructuringCharges"/>
+  <property name="QName" value="us-gaap:RestructuringCharges"/>
+  <property name="contextRef" value="P07_01_2017To03_31_2018_HomeOfficeAndOtherMemberusgaapStatementBusinessSegmentsAxis_RealEstateMemberusgaapDefinedBenefitPlanByPlanAssetCategoriesAxis">
+   <property name="entity" value="0000730464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-07-01"/>
+   <property name="endDate" value="2018-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="us-gaap:RealEstateMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="atge:HomeOfficeAndOtherMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-419,000"/>
+ </ref></entry>
+<entry code="DQC.US.0073.7648" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml" cid="4478697144" severity="error">[DQC.US.0073.7648] The concept us-gaap:RestructuringCharges with a value of 0 is used with the DefinedBenefitPlanByPlanAssetCategoriesAxis. This element cannot be used with this axis. The allowable list of elements that can be used are as follows:
+- DefinedBenefitPlanActualReturnOnPlanAssetsSoldDuringPeriod, 
+ - DefinedBenefitPlanActualReturnOnPlanAssetsStillHeld, 
+ - DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanAssetsExpectedToBeReturnedToEmployerAmount, 
+ - DefinedBenefitPlanChangeInFairValueOfPlanAssetsLevel3ReconciliationPeriodIncreaseDecrease, 
+ - DefinedBenefitPlanFairValueOfPlanAssets, 
+ - DefinedBenefitPlanInvestmentPoliciesAndStrategiesNarrativeDescription, 
+ - DefinedBenefitPlanNarrativeDescriptionOfBasisUsedToDetermineOverallExpectedLongTermRateOfReturnOnAssetsAssumption, 
+ - DefinedBenefitPlanNumberOfSharesOfEquitySecuritiesIssuedByEmployerAndRelatedPartiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanPlanAssetsAtFairValueValuationTechniquesAndInputsChanges, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTransactionTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsFairValueByHierarchyAndNavExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryPercentage, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSale, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSettlement, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationIncreaseForPurchase, 
+ - DefinedBenefitPlanPlanAssetsMeasurementInputExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsTargetAllocationPercentage, 
+ - DefinedBenefitPlanPlanAssetsValuationTechniqueExtensibleList, 
+ - DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets, 
+ - DefinedBenefitPlanPurchasesSalesAndSettlements, 
+ - DefinedBenefitPlanTargetAllocationPercentage, 
+ - DefinedBenefitPlanTransfersBetweenMeasurementLevels, 
+ - DefinedBenefitPlanPlanAssetsForeignCurrencyTranslationGainLoss, 
+ - AlternativeInvestmentsFairValueDisclosure, 
+ - DefinedBenefitPlanWeightedAverageAssetAllocations
+
+
+The properties of this us-gaap:RestructuringCharges fact are:
+Period :2018-01-01 to 2018-03-31
+Dimensions : us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:RealEstateMember, us-gaap:StatementBusinessSegmentsAxis=atge:UsTraditionalPostsecondaryMember
+Unit : USD
+
+Rule Element Id:7648
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml 6692</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml#Factid_642" sourceLine="6692">
+  <property name="label" value="Restructuring Charges, Total"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="RestructuringCharges"/>
+  <property name="QName" value="us-gaap:RestructuringCharges"/>
+  <property name="contextRef" value="P01_01_2018To03_31_2018_RealEstateMemberusgaapDefinedBenefitPlanByPlanAssetCategoriesAxis_UsTraditionalPostsecondaryMemberusgaapStatementBusinessSegmentsAxis">
+   <property name="entity" value="0000730464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="us-gaap:RealEstateMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="atge:UsTraditionalPostsecondaryMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0073.7648" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml" cid="4478697144" severity="error">[DQC.US.0073.7648] The concept us-gaap:RestructuringCharges with a value of 137,000 is used with the DefinedBenefitPlanByPlanAssetCategoriesAxis. This element cannot be used with this axis. The allowable list of elements that can be used are as follows:
+- DefinedBenefitPlanActualReturnOnPlanAssetsSoldDuringPeriod, 
+ - DefinedBenefitPlanActualReturnOnPlanAssetsStillHeld, 
+ - DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanAssetsExpectedToBeReturnedToEmployerAmount, 
+ - DefinedBenefitPlanChangeInFairValueOfPlanAssetsLevel3ReconciliationPeriodIncreaseDecrease, 
+ - DefinedBenefitPlanFairValueOfPlanAssets, 
+ - DefinedBenefitPlanInvestmentPoliciesAndStrategiesNarrativeDescription, 
+ - DefinedBenefitPlanNarrativeDescriptionOfBasisUsedToDetermineOverallExpectedLongTermRateOfReturnOnAssetsAssumption, 
+ - DefinedBenefitPlanNumberOfSharesOfEquitySecuritiesIssuedByEmployerAndRelatedPartiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanPlanAssetsAtFairValueValuationTechniquesAndInputsChanges, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTransactionTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsFairValueByHierarchyAndNavExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryPercentage, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSale, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSettlement, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationIncreaseForPurchase, 
+ - DefinedBenefitPlanPlanAssetsMeasurementInputExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsTargetAllocationPercentage, 
+ - DefinedBenefitPlanPlanAssetsValuationTechniqueExtensibleList, 
+ - DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets, 
+ - DefinedBenefitPlanPurchasesSalesAndSettlements, 
+ - DefinedBenefitPlanTargetAllocationPercentage, 
+ - DefinedBenefitPlanTransfersBetweenMeasurementLevels, 
+ - DefinedBenefitPlanPlanAssetsForeignCurrencyTranslationGainLoss, 
+ - AlternativeInvestmentsFairValueDisclosure, 
+ - DefinedBenefitPlanWeightedAverageAssetAllocations
+
+
+The properties of this us-gaap:RestructuringCharges fact are:
+Period :2017-01-01 to 2017-03-31
+Dimensions : us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:RealEstateMember, us-gaap:StatementBusinessSegmentsAxis=atge:MedicalAndHealthcareMember
+Unit : USD
+
+Rule Element Id:7648
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml 7988</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml#Factid_1290" sourceLine="7988">
+  <property name="label" value="Restructuring Charges, Total"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="RestructuringCharges"/>
+  <property name="QName" value="us-gaap:RestructuringCharges"/>
+  <property name="contextRef" value="P01_01_2017To03_31_2017_MedicalAndHealthcareMemberusgaapStatementBusinessSegmentsAxis_RealEstateMemberusgaapDefinedBenefitPlanByPlanAssetCategoriesAxis">
+   <property name="entity" value="0000730464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="us-gaap:RealEstateMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="atge:MedicalAndHealthcareMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="137,000"/>
+ </ref></entry>
+<entry code="DQC.US.0073.7648" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml" cid="4478697144" severity="error">[DQC.US.0073.7648] The concept us-gaap:RestructuringCharges with a value of 46,000 is used with the DefinedBenefitPlanByPlanAssetCategoriesAxis. This element cannot be used with this axis. The allowable list of elements that can be used are as follows:
+- DefinedBenefitPlanActualReturnOnPlanAssetsSoldDuringPeriod, 
+ - DefinedBenefitPlanActualReturnOnPlanAssetsStillHeld, 
+ - DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanAssetsExpectedToBeReturnedToEmployerAmount, 
+ - DefinedBenefitPlanChangeInFairValueOfPlanAssetsLevel3ReconciliationPeriodIncreaseDecrease, 
+ - DefinedBenefitPlanFairValueOfPlanAssets, 
+ - DefinedBenefitPlanInvestmentPoliciesAndStrategiesNarrativeDescription, 
+ - DefinedBenefitPlanNarrativeDescriptionOfBasisUsedToDetermineOverallExpectedLongTermRateOfReturnOnAssetsAssumption, 
+ - DefinedBenefitPlanNumberOfSharesOfEquitySecuritiesIssuedByEmployerAndRelatedPartiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanPlanAssetsAtFairValueValuationTechniquesAndInputsChanges, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTransactionTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsFairValueByHierarchyAndNavExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryPercentage, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSale, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSettlement, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationIncreaseForPurchase, 
+ - DefinedBenefitPlanPlanAssetsMeasurementInputExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsTargetAllocationPercentage, 
+ - DefinedBenefitPlanPlanAssetsValuationTechniqueExtensibleList, 
+ - DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets, 
+ - DefinedBenefitPlanPurchasesSalesAndSettlements, 
+ - DefinedBenefitPlanTargetAllocationPercentage, 
+ - DefinedBenefitPlanTransfersBetweenMeasurementLevels, 
+ - DefinedBenefitPlanPlanAssetsForeignCurrencyTranslationGainLoss, 
+ - AlternativeInvestmentsFairValueDisclosure, 
+ - DefinedBenefitPlanWeightedAverageAssetAllocations
+
+
+The properties of this us-gaap:RestructuringCharges fact are:
+Period :2018-01-01 to 2018-03-31
+Dimensions : us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:RealEstateMember, us-gaap:StatementBusinessSegmentsAxis=atge:HomeOfficeAndOtherMember
+Unit : USD
+
+Rule Element Id:7648
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml 6694</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml#Factid_643" sourceLine="6694">
+  <property name="label" value="Restructuring Charges, Total"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="RestructuringCharges"/>
+  <property name="QName" value="us-gaap:RestructuringCharges"/>
+  <property name="contextRef" value="P01_01_2018To03_31_2018_HomeOfficeAndOtherMemberusgaapStatementBusinessSegmentsAxis_RealEstateMemberusgaapDefinedBenefitPlanByPlanAssetCategoriesAxis">
+   <property name="entity" value="0000730464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="us-gaap:RealEstateMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="atge:HomeOfficeAndOtherMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="46,000"/>
+ </ref></entry>
+<entry code="DQC.US.0073.7648" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml" cid="4478697144" severity="error">[DQC.US.0073.7648] The concept us-gaap:RestructuringCharges with a value of 46,000 is used with the DefinedBenefitPlanByPlanAssetCategoriesAxis. This element cannot be used with this axis. The allowable list of elements that can be used are as follows:
+- DefinedBenefitPlanActualReturnOnPlanAssetsSoldDuringPeriod, 
+ - DefinedBenefitPlanActualReturnOnPlanAssetsStillHeld, 
+ - DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanAssetsExpectedToBeReturnedToEmployerAmount, 
+ - DefinedBenefitPlanChangeInFairValueOfPlanAssetsLevel3ReconciliationPeriodIncreaseDecrease, 
+ - DefinedBenefitPlanFairValueOfPlanAssets, 
+ - DefinedBenefitPlanInvestmentPoliciesAndStrategiesNarrativeDescription, 
+ - DefinedBenefitPlanNarrativeDescriptionOfBasisUsedToDetermineOverallExpectedLongTermRateOfReturnOnAssetsAssumption, 
+ - DefinedBenefitPlanNumberOfSharesOfEquitySecuritiesIssuedByEmployerAndRelatedPartiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanPlanAssetsAtFairValueValuationTechniquesAndInputsChanges, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTransactionTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsFairValueByHierarchyAndNavExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryPercentage, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSale, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSettlement, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationIncreaseForPurchase, 
+ - DefinedBenefitPlanPlanAssetsMeasurementInputExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsTargetAllocationPercentage, 
+ - DefinedBenefitPlanPlanAssetsValuationTechniqueExtensibleList, 
+ - DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets, 
+ - DefinedBenefitPlanPurchasesSalesAndSettlements, 
+ - DefinedBenefitPlanTargetAllocationPercentage, 
+ - DefinedBenefitPlanTransfersBetweenMeasurementLevels, 
+ - DefinedBenefitPlanPlanAssetsForeignCurrencyTranslationGainLoss, 
+ - AlternativeInvestmentsFairValueDisclosure, 
+ - DefinedBenefitPlanWeightedAverageAssetAllocations
+
+
+The properties of this us-gaap:RestructuringCharges fact are:
+Period :2018-01-01 to 2018-03-31
+Dimensions : us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:RealEstateMember
+Unit : USD
+
+Rule Element Id:7648
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml 6696</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml#Factid_644" sourceLine="6696">
+  <property name="label" value="Restructuring Charges, Total"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="RestructuringCharges"/>
+  <property name="QName" value="us-gaap:RestructuringCharges"/>
+  <property name="contextRef" value="P01_01_2018To03_31_2018_RealEstateMemberusgaapDefinedBenefitPlanByPlanAssetCategoriesAxis">
+   <property name="entity" value="0000730464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="us-gaap:RealEstateMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="46,000"/>
+ </ref></entry>
+<entry code="DQC.US.0073.7648" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml" cid="4478697144" severity="error">[DQC.US.0073.7648] The concept us-gaap:RestructuringCharges with a value of 1,706,000 is used with the DefinedBenefitPlanByPlanAssetCategoriesAxis. This element cannot be used with this axis. The allowable list of elements that can be used are as follows:
+- DefinedBenefitPlanActualReturnOnPlanAssetsSoldDuringPeriod, 
+ - DefinedBenefitPlanActualReturnOnPlanAssetsStillHeld, 
+ - DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanAssetsExpectedToBeReturnedToEmployerAmount, 
+ - DefinedBenefitPlanChangeInFairValueOfPlanAssetsLevel3ReconciliationPeriodIncreaseDecrease, 
+ - DefinedBenefitPlanFairValueOfPlanAssets, 
+ - DefinedBenefitPlanInvestmentPoliciesAndStrategiesNarrativeDescription, 
+ - DefinedBenefitPlanNarrativeDescriptionOfBasisUsedToDetermineOverallExpectedLongTermRateOfReturnOnAssetsAssumption, 
+ - DefinedBenefitPlanNumberOfSharesOfEquitySecuritiesIssuedByEmployerAndRelatedPartiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanPlanAssetsAtFairValueValuationTechniquesAndInputsChanges, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTransactionTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsFairValueByHierarchyAndNavExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryPercentage, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSale, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSettlement, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationIncreaseForPurchase, 
+ - DefinedBenefitPlanPlanAssetsMeasurementInputExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsTargetAllocationPercentage, 
+ - DefinedBenefitPlanPlanAssetsValuationTechniqueExtensibleList, 
+ - DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets, 
+ - DefinedBenefitPlanPurchasesSalesAndSettlements, 
+ - DefinedBenefitPlanTargetAllocationPercentage, 
+ - DefinedBenefitPlanTransfersBetweenMeasurementLevels, 
+ - DefinedBenefitPlanPlanAssetsForeignCurrencyTranslationGainLoss, 
+ - AlternativeInvestmentsFairValueDisclosure, 
+ - DefinedBenefitPlanWeightedAverageAssetAllocations
+
+
+The properties of this us-gaap:RestructuringCharges fact are:
+Period :2016-07-01 to 2017-03-31
+Dimensions : us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:RealEstateMember, us-gaap:StatementBusinessSegmentsAxis=atge:HomeOfficeAndOtherMember
+Unit : USD
+
+Rule Element Id:7648
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml 6752</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml#Factid_672" sourceLine="6752">
+  <property name="label" value="Restructuring Charges, Total"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="RestructuringCharges"/>
+  <property name="QName" value="us-gaap:RestructuringCharges"/>
+  <property name="contextRef" value="P07_01_2016To03_31_2017_HomeOfficeAndOtherMemberusgaapStatementBusinessSegmentsAxis_RealEstateMemberusgaapDefinedBenefitPlanByPlanAssetCategoriesAxis">
+   <property name="entity" value="0000730464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-07-01"/>
+   <property name="endDate" value="2017-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="us-gaap:RealEstateMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="atge:HomeOfficeAndOtherMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,706,000"/>
+ </ref></entry>
+<entry code="DQC.US.0073.7648" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml" cid="4478697144" severity="error">[DQC.US.0073.7648] The concept us-gaap:RestructuringCharges with a value of 0 is used with the DefinedBenefitPlanByPlanAssetCategoriesAxis. This element cannot be used with this axis. The allowable list of elements that can be used are as follows:
+- DefinedBenefitPlanActualReturnOnPlanAssetsSoldDuringPeriod, 
+ - DefinedBenefitPlanActualReturnOnPlanAssetsStillHeld, 
+ - DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanAssetsExpectedToBeReturnedToEmployerAmount, 
+ - DefinedBenefitPlanChangeInFairValueOfPlanAssetsLevel3ReconciliationPeriodIncreaseDecrease, 
+ - DefinedBenefitPlanFairValueOfPlanAssets, 
+ - DefinedBenefitPlanInvestmentPoliciesAndStrategiesNarrativeDescription, 
+ - DefinedBenefitPlanNarrativeDescriptionOfBasisUsedToDetermineOverallExpectedLongTermRateOfReturnOnAssetsAssumption, 
+ - DefinedBenefitPlanNumberOfSharesOfEquitySecuritiesIssuedByEmployerAndRelatedPartiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanPlanAssetsAtFairValueValuationTechniquesAndInputsChanges, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTransactionTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsFairValueByHierarchyAndNavExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryPercentage, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSale, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSettlement, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationIncreaseForPurchase, 
+ - DefinedBenefitPlanPlanAssetsMeasurementInputExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsTargetAllocationPercentage, 
+ - DefinedBenefitPlanPlanAssetsValuationTechniqueExtensibleList, 
+ - DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets, 
+ - DefinedBenefitPlanPurchasesSalesAndSettlements, 
+ - DefinedBenefitPlanTargetAllocationPercentage, 
+ - DefinedBenefitPlanTransfersBetweenMeasurementLevels, 
+ - DefinedBenefitPlanPlanAssetsForeignCurrencyTranslationGainLoss, 
+ - AlternativeInvestmentsFairValueDisclosure, 
+ - DefinedBenefitPlanWeightedAverageAssetAllocations
+
+
+The properties of this us-gaap:RestructuringCharges fact are:
+Period :2018-01-01 to 2018-03-31
+Dimensions : us-gaap:StatementBusinessSegmentsAxis=atge:MedicalAndHealthcareMember, us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:RealEstateMember
+Unit : USD
+
+Rule Element Id:7648
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml 6690</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml#Factid_641" sourceLine="6690">
+  <property name="label" value="Restructuring Charges, Total"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="RestructuringCharges"/>
+  <property name="QName" value="us-gaap:RestructuringCharges"/>
+  <property name="contextRef" value="P01_01_2018To03_31_2018_MedicalAndHealthcareMemberusgaapStatementBusinessSegmentsAxis_RealEstateMemberusgaapDefinedBenefitPlanByPlanAssetCategoriesAxis">
+   <property name="entity" value="0000730464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="us-gaap:RealEstateMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="atge:MedicalAndHealthcareMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0073.7648" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml" cid="4478697144" severity="error">[DQC.US.0073.7648] The concept us-gaap:RestructuringCharges with a value of 3,282,000 is used with the DefinedBenefitPlanByPlanAssetCategoriesAxis. This element cannot be used with this axis. The allowable list of elements that can be used are as follows:
+- DefinedBenefitPlanActualReturnOnPlanAssetsSoldDuringPeriod, 
+ - DefinedBenefitPlanActualReturnOnPlanAssetsStillHeld, 
+ - DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanAssetsExpectedToBeReturnedToEmployerAmount, 
+ - DefinedBenefitPlanChangeInFairValueOfPlanAssetsLevel3ReconciliationPeriodIncreaseDecrease, 
+ - DefinedBenefitPlanFairValueOfPlanAssets, 
+ - DefinedBenefitPlanInvestmentPoliciesAndStrategiesNarrativeDescription, 
+ - DefinedBenefitPlanNarrativeDescriptionOfBasisUsedToDetermineOverallExpectedLongTermRateOfReturnOnAssetsAssumption, 
+ - DefinedBenefitPlanNumberOfSharesOfEquitySecuritiesIssuedByEmployerAndRelatedPartiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanPlanAssetsAtFairValueValuationTechniquesAndInputsChanges, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTransactionTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsFairValueByHierarchyAndNavExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryPercentage, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSale, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSettlement, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationIncreaseForPurchase, 
+ - DefinedBenefitPlanPlanAssetsMeasurementInputExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsTargetAllocationPercentage, 
+ - DefinedBenefitPlanPlanAssetsValuationTechniqueExtensibleList, 
+ - DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets, 
+ - DefinedBenefitPlanPurchasesSalesAndSettlements, 
+ - DefinedBenefitPlanTargetAllocationPercentage, 
+ - DefinedBenefitPlanTransfersBetweenMeasurementLevels, 
+ - DefinedBenefitPlanPlanAssetsForeignCurrencyTranslationGainLoss, 
+ - AlternativeInvestmentsFairValueDisclosure, 
+ - DefinedBenefitPlanWeightedAverageAssetAllocations
+
+
+The properties of this us-gaap:RestructuringCharges fact are:
+Period :2016-07-01 to 2017-03-31
+Dimensions : us-gaap:StatementBusinessSegmentsAxis=atge:UsTraditionalPostsecondaryMember, us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:RealEstateMember
+Unit : USD
+
+Rule Element Id:7648
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml 6750</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml#Factid_671" sourceLine="6750">
+  <property name="label" value="Restructuring Charges, Total"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="RestructuringCharges"/>
+  <property name="QName" value="us-gaap:RestructuringCharges"/>
+  <property name="contextRef" value="P07_01_2016To03_31_2017_RealEstateMemberusgaapDefinedBenefitPlanByPlanAssetCategoriesAxis_UsTraditionalPostsecondaryMemberusgaapStatementBusinessSegmentsAxis">
+   <property name="entity" value="0000730464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-07-01"/>
+   <property name="endDate" value="2017-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="us-gaap:RealEstateMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="atge:UsTraditionalPostsecondaryMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="3,282,000"/>
+ </ref></entry>
+<entry code="DQC.US.0073.7648" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml" cid="4478697144" severity="error">[DQC.US.0073.7648] The concept us-gaap:RestructuringCharges with a value of 1,329,000 is used with the DefinedBenefitPlanByPlanAssetCategoriesAxis. This element cannot be used with this axis. The allowable list of elements that can be used are as follows:
+- DefinedBenefitPlanActualReturnOnPlanAssetsSoldDuringPeriod, 
+ - DefinedBenefitPlanActualReturnOnPlanAssetsStillHeld, 
+ - DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanAssetsExpectedToBeReturnedToEmployerAmount, 
+ - DefinedBenefitPlanChangeInFairValueOfPlanAssetsLevel3ReconciliationPeriodIncreaseDecrease, 
+ - DefinedBenefitPlanFairValueOfPlanAssets, 
+ - DefinedBenefitPlanInvestmentPoliciesAndStrategiesNarrativeDescription, 
+ - DefinedBenefitPlanNarrativeDescriptionOfBasisUsedToDetermineOverallExpectedLongTermRateOfReturnOnAssetsAssumption, 
+ - DefinedBenefitPlanNumberOfSharesOfEquitySecuritiesIssuedByEmployerAndRelatedPartiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanPlanAssetsAtFairValueValuationTechniquesAndInputsChanges, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTransactionTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsFairValueByHierarchyAndNavExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryPercentage, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSale, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSettlement, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationIncreaseForPurchase, 
+ - DefinedBenefitPlanPlanAssetsMeasurementInputExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsTargetAllocationPercentage, 
+ - DefinedBenefitPlanPlanAssetsValuationTechniqueExtensibleList, 
+ - DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets, 
+ - DefinedBenefitPlanPurchasesSalesAndSettlements, 
+ - DefinedBenefitPlanTargetAllocationPercentage, 
+ - DefinedBenefitPlanTransfersBetweenMeasurementLevels, 
+ - DefinedBenefitPlanPlanAssetsForeignCurrencyTranslationGainLoss, 
+ - AlternativeInvestmentsFairValueDisclosure, 
+ - DefinedBenefitPlanWeightedAverageAssetAllocations
+
+
+The properties of this us-gaap:RestructuringCharges fact are:
+Period :2017-07-01 to 2018-03-31
+Dimensions : us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:RealEstateMember
+Unit : USD
+
+Rule Element Id:7648
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml 6718</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml#Factid_655" sourceLine="6718">
+  <property name="label" value="Restructuring Charges, Total"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="RestructuringCharges"/>
+  <property name="QName" value="us-gaap:RestructuringCharges"/>
+  <property name="contextRef" value="P07_01_2017To03_31_2018_RealEstateMemberusgaapDefinedBenefitPlanByPlanAssetCategoriesAxis">
+   <property name="entity" value="0000730464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-07-01"/>
+   <property name="endDate" value="2018-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="us-gaap:RealEstateMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,329,000"/>
+ </ref></entry>
+<entry code="DQC.US.0073.7648" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml" cid="4478697144" severity="error">[DQC.US.0073.7648] The concept us-gaap:RestructuringCharges with a value of 26,000 is used with the DefinedBenefitPlanByPlanAssetCategoriesAxis. This element cannot be used with this axis. The allowable list of elements that can be used are as follows:
+- DefinedBenefitPlanActualReturnOnPlanAssetsSoldDuringPeriod, 
+ - DefinedBenefitPlanActualReturnOnPlanAssetsStillHeld, 
+ - DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanAssetsExpectedToBeReturnedToEmployerAmount, 
+ - DefinedBenefitPlanChangeInFairValueOfPlanAssetsLevel3ReconciliationPeriodIncreaseDecrease, 
+ - DefinedBenefitPlanFairValueOfPlanAssets, 
+ - DefinedBenefitPlanInvestmentPoliciesAndStrategiesNarrativeDescription, 
+ - DefinedBenefitPlanNarrativeDescriptionOfBasisUsedToDetermineOverallExpectedLongTermRateOfReturnOnAssetsAssumption, 
+ - DefinedBenefitPlanNumberOfSharesOfEquitySecuritiesIssuedByEmployerAndRelatedPartiesIncludedInPlanAssets, 
+ - DefinedBenefitPlanPlanAssetsAtFairValueValuationTechniquesAndInputsChanges, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTransactionTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsEmployerRelatedPartyTypeExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsFairValueByHierarchyAndNavExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount, 
+ - DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryPercentage, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSale, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationDecreaseForSettlement, 
+ - DefinedBenefitPlanPlanAssetsLevel3ReconciliationIncreaseForPurchase, 
+ - DefinedBenefitPlanPlanAssetsMeasurementInputExtensibleList, 
+ - DefinedBenefitPlanPlanAssetsTargetAllocationPercentage, 
+ - DefinedBenefitPlanPlanAssetsValuationTechniqueExtensibleList, 
+ - DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets, 
+ - DefinedBenefitPlanPurchasesSalesAndSettlements, 
+ - DefinedBenefitPlanTargetAllocationPercentage, 
+ - DefinedBenefitPlanTransfersBetweenMeasurementLevels, 
+ - DefinedBenefitPlanPlanAssetsForeignCurrencyTranslationGainLoss, 
+ - AlternativeInvestmentsFairValueDisclosure, 
+ - DefinedBenefitPlanWeightedAverageAssetAllocations
+
+
+The properties of this us-gaap:RestructuringCharges fact are:
+Period :2017-07-01 to 2018-03-31
+Dimensions : us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:RealEstateMember, us-gaap:StatementBusinessSegmentsAxis=atge:MedicalAndHealthcareMember
+Unit : USD
+
+Rule Element Id:7648
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml 6712</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml#Factid_652" sourceLine="6712">
+  <property name="label" value="Restructuring Charges, Total"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="RestructuringCharges"/>
+  <property name="QName" value="us-gaap:RestructuringCharges"/>
+  <property name="contextRef" value="P07_01_2017To03_31_2018_MedicalAndHealthcareMemberusgaapStatementBusinessSegmentsAxis_RealEstateMemberusgaapDefinedBenefitPlanByPlanAssetCategoriesAxis">
+   <property name="entity" value="0000730464">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-07-01"/>
+   <property name="endDate" value="2018-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="us-gaap:RealEstateMember"/>
+    <property name="us-gaap:StatementBusinessSegmentsAxis" value="atge:MedicalAndHealthcareMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="26,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 16.64 secs - https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/730464/000114420418025084/atge-20180331.xml"/></entry>
+</log>

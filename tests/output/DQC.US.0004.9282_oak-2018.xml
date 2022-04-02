@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.57 secs at 2020-07-26T08:24:51 - http://www.sec.gov/Archives/edgar/data/1713407/000171340720000033/oak-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1713407/000171340720000033/oak-20200331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpay12jjjw\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpay12jjjw\packages\resources.zip"/></entry>
+<entry code="DQC.US.0004.9282" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1713407/000171340720000033/oak-20200331.xml" severity="error" effectiveDate="2019-09-30" cid="1565831112064">[DQC.US.0004.9282] Stockholders' Equity, Including Portion Attributable to Noncontrolling Interest with a value of 172,376,209 is not equal to the combined total of Stockholders Equity Excluding NI and Noncontrolling Interest ( 166,077,163 + -6,299,046 ) with a value of 159,778,117. 
+
+These values should be equal.
+The properties of this us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest fact are:
+Period :2020-03-31
+Dimensions :  
+Unit : USD
+Decimals of Stockholders Equity Including Noncontrolling Interest : 0
+Decimals of Stockholders Equity Excluding NI : 0
+Decimals of Noncontrolling Interest : 0
+
+Rule Element Id:9282
+Rule version: 12.0.0 - http://www.sec.gov/Archives/edgar/data/1713407/000171340720000033/oak-20200331.xml 3088</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1713407/000171340720000033/oak-20200331.xml#Fact-FEE26DD2517554359AE1804DBF3474A1" sourceLine="3088">
+  <property name="label" value="Stockholders' Equity, Including Portion Attributable to Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="QName" value="us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="contextRef" value="FI2020Q1">
+   <property name="entity" value="0001713407">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="172,376,209"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 4.46 secs - http://www.sec.gov/Archives/edgar/data/1713407/000171340720000033/oak-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1713407/000171340720000033/oak-20200331.xml"/></entry>
+</log>

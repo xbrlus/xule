@@ -1,0 +1,1167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.46 secs at 2020-07-26T18:45:53 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmp0wdmco3t\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmp0wdmco3t\packages\resources.zip"/></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept OperatingIncomeLoss with a value of -1,643,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member ProfessionalSalesServicesMember. 
+The properties of the fact for OperatingIncomeLoss are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:ProfessionalSalesServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 1931</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/401)" sourceLine="1931">
+  <property name="label" value="Operating loss"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="OperatingIncomeLoss"/>
+  <property name="QName" value="us-gaap:OperatingIncomeLoss"/>
+  <property name="contextRef" value="From2019-01-01to2019-03-31_custom_ProfessionalSalesServicesMember6889799">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:ProfessionalSalesServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-1,643,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept Assets with a value of 7,362,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member ProfessionalSalesServicesMember. 
+The properties of the fact for Assets are:
+Period: 2020-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:ProfessionalSalesServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 1713</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/183)" sourceLine="1713">
+  <property name="label" value="Identifiable assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="AsOf2020-03-31_custom_ProfessionalSalesServicesMember">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:ProfessionalSalesServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="7,362,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept DepreciationDepletionAndAmortization with a value of 41,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member ProfessionalSalesServicesMember. 
+The properties of the fact for DepreciationDepletionAndAmortization are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:ProfessionalSalesServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 1996</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/466)" sourceLine="1996">
+  <property name="label" value="Depreciation and amortization"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="DepreciationDepletionAndAmortization"/>
+  <property name="QName" value="us-gaap:DepreciationDepletionAndAmortization"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_custom_ProfessionalSalesServicesMember6866774">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:ProfessionalSalesServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="41,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept PaymentsToAcquirePropertyPlantAndEquipment with a value of 0 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member ProfessionalSalesServicesMember. 
+The properties of the fact for PaymentsToAcquirePropertyPlantAndEquipment are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:ProfessionalSalesServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 2037</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/507)" sourceLine="2037">
+  <property name="label" value="Total cash capital expenditures"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="PaymentsToAcquirePropertyPlantAndEquipment"/>
+  <property name="QName" value="us-gaap:PaymentsToAcquirePropertyPlantAndEquipment"/>
+  <property name="contextRef" value="From2019-01-01to2019-03-31_custom_ProfessionalSalesServicesMember6889799">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:ProfessionalSalesServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept GrossProfit with a value of 2,685,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member ProfessionalSalesServicesMember. 
+The properties of the fact for GrossProfit are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:ProfessionalSalesServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 1921</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/391)" sourceLine="1921">
+  <property name="label" value="Gross profit"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="GrossProfit"/>
+  <property name="QName" value="us-gaap:GrossProfit"/>
+  <property name="contextRef" value="From2019-01-01to2019-03-31_custom_ProfessionalSalesServicesMember6889799">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:ProfessionalSalesServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,685,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept OperatingIncomeLoss with a value of -433,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member ProfessionalSalesServicesMember. 
+The properties of the fact for OperatingIncomeLoss are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:ProfessionalSalesServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 1928</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/398)" sourceLine="1928">
+  <property name="label" value="Operating loss"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="OperatingIncomeLoss"/>
+  <property name="QName" value="us-gaap:OperatingIncomeLoss"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_custom_ProfessionalSalesServicesMember6866774">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:ProfessionalSalesServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-433,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept DepreciationDepletionAndAmortization with a value of 45,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member ProfessionalSalesServicesMember. 
+The properties of the fact for DepreciationDepletionAndAmortization are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:ProfessionalSalesServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 1999</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/469)" sourceLine="1999">
+  <property name="label" value="Depreciation and amortization"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="DepreciationDepletionAndAmortization"/>
+  <property name="QName" value="us-gaap:DepreciationDepletionAndAmortization"/>
+  <property name="contextRef" value="From2019-01-01to2019-03-31_custom_ProfessionalSalesServicesMember6889799">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:ProfessionalSalesServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="45,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept Assets with a value of 16,257,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member ProfessionalSalesServicesMember. 
+The properties of the fact for Assets are:
+Period: 2019-12-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:ProfessionalSalesServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 1717</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/187)" sourceLine="1717">
+  <property name="label" value="Identifiable assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="AsOf2019-12-31_custom_ProfessionalSalesServicesMember">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:ProfessionalSalesServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="16,257,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept Revenues with a value of 3,415,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member ProfessionalSalesServicesMember. 
+The properties of the fact for Revenues are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:ProfessionalSalesServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 2107</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/577)" sourceLine="2107">
+  <property name="label" value="Revenues [Default Label]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="Revenues"/>
+  <property name="QName" value="us-gaap:Revenues"/>
+  <property name="contextRef" value="From2019-01-01to2019-03-31_custom_ProfessionalSalesServicesMember6889799">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:ProfessionalSalesServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="3,415,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept Revenues with a value of 5,166,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member ProfessionalSalesServicesMember. 
+The properties of the fact for Revenues are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:ProfessionalSalesServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 2104</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/574)" sourceLine="2104">
+  <property name="label" value="Revenues [Default Label]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="Revenues"/>
+  <property name="QName" value="us-gaap:Revenues"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_custom_ProfessionalSalesServicesMember6866774">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:ProfessionalSalesServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="5,166,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept GrossProfit with a value of 4,146,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member ProfessionalSalesServicesMember. 
+The properties of the fact for GrossProfit are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:ProfessionalSalesServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 1918</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/388)" sourceLine="1918">
+  <property name="label" value="Gross profit"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="GrossProfit"/>
+  <property name="QName" value="us-gaap:GrossProfit"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_custom_ProfessionalSalesServicesMember6866774">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:ProfessionalSalesServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4,146,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept PaymentsToAcquirePropertyPlantAndEquipment with a value of 0 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member ProfessionalSalesServicesMember. 
+The properties of the fact for PaymentsToAcquirePropertyPlantAndEquipment are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:ProfessionalSalesServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 2034</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/504)" sourceLine="2034">
+  <property name="label" value="Total cash capital expenditures"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="PaymentsToAcquirePropertyPlantAndEquipment"/>
+  <property name="QName" value="us-gaap:PaymentsToAcquirePropertyPlantAndEquipment"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_custom_ProfessionalSalesServicesMember6866774">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:ProfessionalSalesServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept Revenues with a value of 782,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member EquipmentSalesAndServicesMember. 
+The properties of the fact for Revenues are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:EquipmentSalesAndServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 2108</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/578)" sourceLine="2108">
+  <property name="label" value="Revenues [Default Label]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="Revenues"/>
+  <property name="QName" value="us-gaap:Revenues"/>
+  <property name="contextRef" value="From2019-01-01to2019-03-31_custom_EquipmentSalesAndServicesMember6894635">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:EquipmentSalesAndServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="782,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept PaymentsToAcquirePropertyPlantAndEquipment with a value of 13,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member EquipmentSalesAndServicesMember. 
+The properties of the fact for PaymentsToAcquirePropertyPlantAndEquipment are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:EquipmentSalesAndServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 2035</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/505)" sourceLine="2035">
+  <property name="label" value="Total cash capital expenditures"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="PaymentsToAcquirePropertyPlantAndEquipment"/>
+  <property name="QName" value="us-gaap:PaymentsToAcquirePropertyPlantAndEquipment"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_custom_EquipmentSalesAndServicesMember6871251">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:EquipmentSalesAndServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="13,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept Revenues with a value of 778,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member EquipmentSalesAndServicesMember. 
+The properties of the fact for Revenues are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:EquipmentSalesAndServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 2105</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/575)" sourceLine="2105">
+  <property name="label" value="Revenues [Default Label]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="Revenues"/>
+  <property name="QName" value="us-gaap:Revenues"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_custom_EquipmentSalesAndServicesMember6871251">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:EquipmentSalesAndServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="778,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept OperatingIncomeLoss with a value of -49,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member EquipmentSalesAndServicesMember. 
+The properties of the fact for OperatingIncomeLoss are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:EquipmentSalesAndServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 1929</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/399)" sourceLine="1929">
+  <property name="label" value="Operating loss"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="OperatingIncomeLoss"/>
+  <property name="QName" value="us-gaap:OperatingIncomeLoss"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_custom_EquipmentSalesAndServicesMember6871251">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:EquipmentSalesAndServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-49,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept GrossProfit with a value of 521,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member EquipmentSalesAndServicesMember. 
+The properties of the fact for GrossProfit are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:EquipmentSalesAndServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 1919</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/389)" sourceLine="1919">
+  <property name="label" value="Gross profit"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="GrossProfit"/>
+  <property name="QName" value="us-gaap:GrossProfit"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_custom_EquipmentSalesAndServicesMember6871251">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:EquipmentSalesAndServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="521,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept Assets with a value of 6,488,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member EquipmentSalesAndServicesMember. 
+The properties of the fact for Assets are:
+Period: 2020-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:EquipmentSalesAndServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 1714</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/184)" sourceLine="1714">
+  <property name="label" value="Identifiable assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="AsOf2020-03-31_custom_EquipmentSalesAndServicesMember">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:EquipmentSalesAndServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="6,488,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept GrossProfit with a value of 475,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member EquipmentSalesAndServicesMember. 
+The properties of the fact for GrossProfit are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:EquipmentSalesAndServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 1922</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/392)" sourceLine="1922">
+  <property name="label" value="Gross profit"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="GrossProfit"/>
+  <property name="QName" value="us-gaap:GrossProfit"/>
+  <property name="contextRef" value="From2019-01-01to2019-03-31_custom_EquipmentSalesAndServicesMember6894635">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:EquipmentSalesAndServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="475,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept DepreciationDepletionAndAmortization with a value of 75,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member EquipmentSalesAndServicesMember. 
+The properties of the fact for DepreciationDepletionAndAmortization are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:EquipmentSalesAndServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 1997</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/467)" sourceLine="1997">
+  <property name="label" value="Depreciation and amortization"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="DepreciationDepletionAndAmortization"/>
+  <property name="QName" value="us-gaap:DepreciationDepletionAndAmortization"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_custom_EquipmentSalesAndServicesMember6871251">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:EquipmentSalesAndServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="75,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept OperatingIncomeLoss with a value of -308,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member EquipmentSalesAndServicesMember. 
+The properties of the fact for OperatingIncomeLoss are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:EquipmentSalesAndServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 1932</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/402)" sourceLine="1932">
+  <property name="label" value="Operating loss"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="OperatingIncomeLoss"/>
+  <property name="QName" value="us-gaap:OperatingIncomeLoss"/>
+  <property name="contextRef" value="From2019-01-01to2019-03-31_custom_EquipmentSalesAndServicesMember6894635">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:EquipmentSalesAndServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-308,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept PaymentsToAcquirePropertyPlantAndEquipment with a value of 19,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member EquipmentSalesAndServicesMember. 
+The properties of the fact for PaymentsToAcquirePropertyPlantAndEquipment are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:EquipmentSalesAndServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 2038</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/508)" sourceLine="2038">
+  <property name="label" value="Total cash capital expenditures"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="PaymentsToAcquirePropertyPlantAndEquipment"/>
+  <property name="QName" value="us-gaap:PaymentsToAcquirePropertyPlantAndEquipment"/>
+  <property name="contextRef" value="From2019-01-01to2019-03-31_custom_EquipmentSalesAndServicesMember6894635">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:EquipmentSalesAndServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="19,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept DepreciationDepletionAndAmortization with a value of 71,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member EquipmentSalesAndServicesMember. 
+The properties of the fact for DepreciationDepletionAndAmortization are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:EquipmentSalesAndServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 2000</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/470)" sourceLine="2000">
+  <property name="label" value="Depreciation and amortization"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="DepreciationDepletionAndAmortization"/>
+  <property name="QName" value="us-gaap:DepreciationDepletionAndAmortization"/>
+  <property name="contextRef" value="From2019-01-01to2019-03-31_custom_EquipmentSalesAndServicesMember6894635">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:EquipmentSalesAndServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="71,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept Assets with a value of 6,370,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member EquipmentSalesAndServicesMember. 
+The properties of the fact for Assets are:
+Period: 2019-12-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:EquipmentSalesAndServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 1718</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/188)" sourceLine="1718">
+  <property name="label" value="Identifiable assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="AsOf2019-12-31_custom_EquipmentSalesAndServicesMember">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:EquipmentSalesAndServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="6,370,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept DepreciationDepletionAndAmortization with a value of 507,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member ManagedITSystemsAndServicesMember. 
+The properties of the fact for DepreciationDepletionAndAmortization are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:ManagedITSystemsAndServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 1995</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/465)" sourceLine="1995">
+  <property name="label" value="Depreciation and amortization"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="DepreciationDepletionAndAmortization"/>
+  <property name="QName" value="us-gaap:DepreciationDepletionAndAmortization"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_custom_ManagedITSystemsAndServicesMember6862468">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:ManagedITSystemsAndServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="507,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept OperatingIncomeLoss with a value of -484,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member ManagedITSystemsAndServicesMember. 
+The properties of the fact for OperatingIncomeLoss are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:ManagedITSystemsAndServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 1927</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/397)" sourceLine="1927">
+  <property name="label" value="Operating loss"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="OperatingIncomeLoss"/>
+  <property name="QName" value="us-gaap:OperatingIncomeLoss"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_custom_ManagedITSystemsAndServicesMember6862468">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:ManagedITSystemsAndServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-484,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept PaymentsToAcquirePropertyPlantAndEquipment with a value of 391,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member ManagedITSystemsAndServicesMember. 
+The properties of the fact for PaymentsToAcquirePropertyPlantAndEquipment are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:ManagedITSystemsAndServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 2036</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/506)" sourceLine="2036">
+  <property name="label" value="Total cash capital expenditures"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="PaymentsToAcquirePropertyPlantAndEquipment"/>
+  <property name="QName" value="us-gaap:PaymentsToAcquirePropertyPlantAndEquipment"/>
+  <property name="contextRef" value="From2019-01-01to2019-03-31_custom_ManagedITSystemsAndServicesMember6885322">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:ManagedITSystemsAndServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="391,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept Revenues with a value of 11,327,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member ManagedITSystemsAndServicesMember. 
+The properties of the fact for Revenues are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:ManagedITSystemsAndServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 2106</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/576)" sourceLine="2106">
+  <property name="label" value="Revenues [Default Label]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="Revenues"/>
+  <property name="QName" value="us-gaap:Revenues"/>
+  <property name="contextRef" value="From2019-01-01to2019-03-31_custom_ManagedITSystemsAndServicesMember6885322">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:ManagedITSystemsAndServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="11,327,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept Revenues with a value of 11,339,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member ManagedITSystemsAndServicesMember. 
+The properties of the fact for Revenues are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:ManagedITSystemsAndServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 2103</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/573)" sourceLine="2103">
+  <property name="label" value="Revenues [Default Label]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="Revenues"/>
+  <property name="QName" value="us-gaap:Revenues"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_custom_ManagedITSystemsAndServicesMember6862468">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:ManagedITSystemsAndServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="11,339,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept GrossProfit with a value of 4,726,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member ManagedITSystemsAndServicesMember. 
+The properties of the fact for GrossProfit are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:ManagedITSystemsAndServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 1920</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/390)" sourceLine="1920">
+  <property name="label" value="Gross profit"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="GrossProfit"/>
+  <property name="QName" value="us-gaap:GrossProfit"/>
+  <property name="contextRef" value="From2019-01-01to2019-03-31_custom_ManagedITSystemsAndServicesMember6885322">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:ManagedITSystemsAndServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4,726,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept Assets with a value of 30,079,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member ManagedITSystemsAndServicesMember. 
+The properties of the fact for Assets are:
+Period: 2019-12-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:ManagedITSystemsAndServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 1716</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/186)" sourceLine="1716">
+  <property name="label" value="Identifiable assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="AsOf2019-12-31_custom_ManagedITSystemsAndServicesMember">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:ManagedITSystemsAndServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="30,079,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept OperatingIncomeLoss with a value of -343,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member ManagedITSystemsAndServicesMember. 
+The properties of the fact for OperatingIncomeLoss are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:ManagedITSystemsAndServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 1930</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/400)" sourceLine="1930">
+  <property name="label" value="Operating loss"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="OperatingIncomeLoss"/>
+  <property name="QName" value="us-gaap:OperatingIncomeLoss"/>
+  <property name="contextRef" value="From2019-01-01to2019-03-31_custom_ManagedITSystemsAndServicesMember6885322">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:ManagedITSystemsAndServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-343,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept GrossProfit with a value of 4,528,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member ManagedITSystemsAndServicesMember. 
+The properties of the fact for GrossProfit are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:ManagedITSystemsAndServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 1917</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/387)" sourceLine="1917">
+  <property name="label" value="Gross profit"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="GrossProfit"/>
+  <property name="QName" value="us-gaap:GrossProfit"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_custom_ManagedITSystemsAndServicesMember6862468">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:ManagedITSystemsAndServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4,528,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept DepreciationDepletionAndAmortization with a value of 559,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member ManagedITSystemsAndServicesMember. 
+The properties of the fact for DepreciationDepletionAndAmortization are:
+Period: 2019-01-01 to 2019-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:ManagedITSystemsAndServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 1998</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/468)" sourceLine="1998">
+  <property name="label" value="Depreciation and amortization"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="DepreciationDepletionAndAmortization"/>
+  <property name="QName" value="us-gaap:DepreciationDepletionAndAmortization"/>
+  <property name="contextRef" value="From2019-01-01to2019-03-31_custom_ManagedITSystemsAndServicesMember6885322">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:ManagedITSystemsAndServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="559,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept Assets with a value of 29,526,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member ManagedITSystemsAndServicesMember. 
+The properties of the fact for Assets are:
+Period: 2020-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:ManagedITSystemsAndServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 1712</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/182)" sourceLine="1712">
+  <property name="label" value="Identifiable assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="AsOf2020-03-31_custom_ManagedITSystemsAndServicesMember">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:ManagedITSystemsAndServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="29,526,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.70" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2046671103360">[DQC.US.0001.70] The concept PaymentsToAcquirePropertyPlantAndEquipment with a value of 157,000 is dimensionally qualified with the ConsolidationItemsAxis and the unallowable member ManagedITSystemsAndServicesMember. 
+The properties of the fact for PaymentsToAcquirePropertyPlantAndEquipment are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: srt:ConsolidationItemsAxis=VASO:ManagedITSystemsAndServicesMember 
+Unit: USD
+
+Rule Element Id:70
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml 2033</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml#element(/1/503)" sourceLine="2033">
+  <property name="label" value="Total cash capital expenditures"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="PaymentsToAcquirePropertyPlantAndEquipment"/>
+  <property name="QName" value="us-gaap:PaymentsToAcquirePropertyPlantAndEquipment"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_custom_ManagedITSystemsAndServicesMember6862468">
+   <property name="entity" value="0000839087">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidationItemsAxis" value="VASO:ManagedITSystemsAndServicesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="157,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 15.94 secs - http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/839087/000165495420006323/vaso-20200331.xml"/></entry>
+</log>

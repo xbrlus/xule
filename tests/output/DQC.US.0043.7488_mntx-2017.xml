@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 6.24 secs at 2018-10-16T10:02:03 - https://www.sec.gov/Archives/edgar/data/1302028/000156459018007546/mntx-20170630.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1302028/000156459018007546/mntx-20170630.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - mntx-20170630.xml </message>
+ <ref href="mntx-20170630.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp8za44ugl/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp8za44ugl/packages/resources.zip"/></entry>
+<entry code="DQC.US.0043.7488" level="error">
+ <message cid="4546506424" filing_url="https://www.sec.gov/Archives/edgar/data/1302028/000156459018007546/mntx-20170630.xml" severity="error">[DQC.US.0043.7488] The concept IncomeLossFromEquityMethodInvestments is included in the calculation of NetCashProvidedByUsedInOperatingActivities. IncomeLossFromEquityMethodInvestments is a credit balance type concept representing a natural cash outflow in the reconciliation of net income (loss) to NetCashProvidedByUsedInOperatingActivities.
+A credit balance type concept should always be assigned a negative one (-1) calculation weight as it is a deduction from net income (loss) to reconcile to NetCashProvidedByUsedInOperatingActivities. IncomeLossFromEquityMethodInvestments has been incorrectly provided a positive one (+1) calculation weight in the extension taxonomy. 
+Correct the calculation weight to negative one (-1) and input the value as a positive amount if it is a deduction of a non-cash income or gain, an increase in an asset, or a decrease in a liability. If the value is an add-back of a non-cash expense or loss, decrease in an asset, or an increase in a liability and IncomeLossFromEquityMethodInvestments is the correct concept, input a negative value.
+
+Rule Element Id:7488
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1302028/000156459018007546/mntx-20170630.xml 65453</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1302028/000156459018007546/mntx-20170630.xml#F_000974" sourceLine="65453">
+  <property name="label" value="Net Cash Provided By Used In Operating Activities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInOperatingActivities"/>
+  <property name="contextRef" value="C_0001302028_us-gaapStatementScenarioAxis_mntxImpactOfSVWRelatedCorrectionsMember_20160101_20160630">
+   <property name="entity" value="0001302028">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-01-01"/>
+   <property name="endDate" value="2016-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementScenarioAxis" value="mntx:ImpactOfSVWRelatedCorrectionsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U_iso4217USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-2,994,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 4.96 secs - https://www.sec.gov/Archives/edgar/data/1302028/000156459018007546/mntx-20170630.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1302028/000156459018007546/mntx-20170630.xml"/></entry>
+</log>

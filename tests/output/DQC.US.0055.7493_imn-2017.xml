@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 4.61 secs at 2018-10-16T09:39:52 - http://www.sec.gov/Archives/edgar/data/1014111/000101411118000002/imn-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1014111/000101411118000002/imn-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - imn-20171231.xml </message>
+ <ref href="imn-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpk8z2crg3/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpk8z2crg3/packages/resources.zip"/></entry>
+<entry code="DQC.US.0055.7493" level="error">
+ <message cid="4432273080" filing_url="http://www.sec.gov/Archives/edgar/data/1014111/000101411118000002/imn-20171231.xml" severity="error">[DQC.US.0055.7493] Neither the  Domestic Plan [Member] NOR Foreign Plan [Member] has been used on the Retirement Plan Sponsor Location [Axis] in the presentation linkbase  http://www.imation.com/role/RetirementPlansNetPeriodicBenefitCostDetails. The FASB requires that either one or both of these members is present on the Retirement Plan Sponsor Location [Axis]. Please review the axis and add one of these members or assess the need to use the Retirement Plan Sponsor Location [Axis].
+
+The axis RetirementPlanSponsorLocationAxis has the following members listed under it:
+country:US, 
+country:DE, 
+us-gaap:RetirementPlanSponsorLocationDomain
+
+Rule Element Id:7493
+Rule version: 9.0.0RC1 - </message></entry>
+<entry code="DQC.US.0055.7493" level="error">
+ <message cid="4432273080" filing_url="http://www.sec.gov/Archives/edgar/data/1014111/000101411118000002/imn-20171231.xml" severity="error">[DQC.US.0055.7493] Neither the  Domestic Plan [Member] NOR Foreign Plan [Member] has been used on the Retirement Plan Sponsor Location [Axis] in the presentation linkbase  http://www.imation.com/role/RetirementPlansExpectedFutureBenefitPaymentsDetails. The FASB requires that either one or both of these members is present on the Retirement Plan Sponsor Location [Axis]. Please review the axis and add one of these members or assess the need to use the Retirement Plan Sponsor Location [Axis].
+
+The axis RetirementPlanSponsorLocationAxis has the following members listed under it:
+country:US, 
+country:DE, 
+us-gaap:RetirementPlanSponsorLocationDomain
+
+Rule Element Id:7493
+Rule version: 9.0.0RC1 - </message></entry>
+<entry code="DQC.US.0055.7493" level="error">
+ <message cid="4432273080" filing_url="http://www.sec.gov/Archives/edgar/data/1014111/000101411118000002/imn-20171231.xml" severity="error">[DQC.US.0055.7493] Neither the  Domestic Plan [Member] NOR Foreign Plan [Member] has been used on the Retirement Plan Sponsor Location [Axis] in the presentation linkbase  http://www.imation.com/role/RetirementPlansFairValueOfPlanAssetsDetails. The FASB requires that either one or both of these members is present on the Retirement Plan Sponsor Location [Axis]. Please review the axis and add one of these members or assess the need to use the Retirement Plan Sponsor Location [Axis].
+
+The axis RetirementPlanSponsorLocationAxis has the following members listed under it:
+country:DE, 
+us-gaap:RetirementPlanSponsorLocationDomain, 
+country:US
+
+Rule Element Id:7493
+Rule version: 9.0.0RC1 - </message></entry>
+<entry code="DQC.US.0055.7493" level="error">
+ <message cid="4432273080" filing_url="http://www.sec.gov/Archives/edgar/data/1014111/000101411118000002/imn-20171231.xml" severity="error">[DQC.US.0055.7493] Neither the  Domestic Plan [Member] NOR Foreign Plan [Member] has been used on the Retirement Plan Sponsor Location [Axis] in the presentation linkbase  http://www.imation.com/role/RetirementPlansAmountsRecognizedInOtherComprehensiveLossDetails. The FASB requires that either one or both of these members is present on the Retirement Plan Sponsor Location [Axis]. Please review the axis and add one of these members or assess the need to use the Retirement Plan Sponsor Location [Axis].
+
+The axis RetirementPlanSponsorLocationAxis has the following members listed under it:
+country:DE, 
+country:US, 
+us-gaap:RetirementPlanSponsorLocationDomain
+
+Rule Element Id:7493
+Rule version: 9.0.0RC1 - </message></entry>
+<entry code="DQC.US.0055.7493" level="error">
+ <message cid="4432273080" filing_url="http://www.sec.gov/Archives/edgar/data/1014111/000101411118000002/imn-20171231.xml" severity="error">[DQC.US.0055.7493] Neither the  Domestic Plan [Member] NOR Foreign Plan [Member] has been used on the Retirement Plan Sponsor Location [Axis] in the presentation linkbase  http://www.imation.com/role/RetirementPlansWeightedAverageAssumptionsUsedInCalculatingNetPeriodicBenefitCostDetails. The FASB requires that either one or both of these members is present on the Retirement Plan Sponsor Location [Axis]. Please review the axis and add one of these members or assess the need to use the Retirement Plan Sponsor Location [Axis].
+
+The axis RetirementPlanSponsorLocationAxis has the following members listed under it:
+us-gaap:RetirementPlanSponsorLocationDomain, 
+country:US, 
+country:DE
+
+Rule Element Id:7493
+Rule version: 9.0.0RC1 - </message></entry>
+<entry code="DQC.US.0055.7493" level="error">
+ <message cid="4432273080" filing_url="http://www.sec.gov/Archives/edgar/data/1014111/000101411118000002/imn-20171231.xml" severity="error">[DQC.US.0055.7493] Neither the  Domestic Plan [Member] NOR Foreign Plan [Member] has been used on the Retirement Plan Sponsor Location [Axis] in the presentation linkbase  http://www.imation.com/role/RetirementPlansAmountsRecognizedInBalanceSheetDetails. The FASB requires that either one or both of these members is present on the Retirement Plan Sponsor Location [Axis]. Please review the axis and add one of these members or assess the need to use the Retirement Plan Sponsor Location [Axis].
+
+The axis RetirementPlanSponsorLocationAxis has the following members listed under it:
+country:DE, 
+us-gaap:RetirementPlanSponsorLocationDomain, 
+country:US
+
+Rule Element Id:7493
+Rule version: 9.0.0RC1 - </message></entry>
+<entry code="DQC.US.0055.7493" level="error">
+ <message cid="4432273080" filing_url="http://www.sec.gov/Archives/edgar/data/1014111/000101411118000002/imn-20171231.xml" severity="error">[DQC.US.0055.7493] Neither the  Domestic Plan [Member] NOR Foreign Plan [Member] has been used on the Retirement Plan Sponsor Location [Axis] in the presentation linkbase  http://www.imation.com/role/RetirementPlansScheduleOfChangesInProjectedBenefitObligationAndPlanAssetsAndNetFundedStatusDetails. The FASB requires that either one or both of these members is present on the Retirement Plan Sponsor Location [Axis]. Please review the axis and add one of these members or assess the need to use the Retirement Plan Sponsor Location [Axis].
+
+The axis RetirementPlanSponsorLocationAxis has the following members listed under it:
+country:DE, 
+country:US, 
+us-gaap:RetirementPlanSponsorLocationDomain
+
+Rule Element Id:7493
+Rule version: 9.0.0RC1 - </message></entry>
+<entry code="DQC.US.0055.7493" level="error">
+ <message cid="4432273080" filing_url="http://www.sec.gov/Archives/edgar/data/1014111/000101411118000002/imn-20171231.xml" severity="error">[DQC.US.0055.7493] Neither the  Domestic Plan [Member] NOR Foreign Plan [Member] has been used on the Retirement Plan Sponsor Location [Axis] in the presentation linkbase  http://www.imation.com/role/RetirementPlansInformationAboutPlanAssetsDetails. The FASB requires that either one or both of these members is present on the Retirement Plan Sponsor Location [Axis]. Please review the axis and add one of these members or assess the need to use the Retirement Plan Sponsor Location [Axis].
+
+The axis RetirementPlanSponsorLocationAxis has the following members listed under it:
+country:US, 
+country:DE, 
+us-gaap:RetirementPlanSponsorLocationDomain
+
+Rule Element Id:7493
+Rule version: 9.0.0RC1 - </message></entry>
+<entry code="DQC.US.0055.7493" level="error">
+ <message cid="4432273080" filing_url="http://www.sec.gov/Archives/edgar/data/1014111/000101411118000002/imn-20171231.xml" severity="error">[DQC.US.0055.7493] Neither the  Domestic Plan [Member] NOR Foreign Plan [Member] has been used on the Retirement Plan Sponsor Location [Axis] in the presentation linkbase  http://www.imation.com/role/RetirementPlansAdditionalInformationDetails. The FASB requires that either one or both of these members is present on the Retirement Plan Sponsor Location [Axis]. Please review the axis and add one of these members or assess the need to use the Retirement Plan Sponsor Location [Axis].
+
+The axis RetirementPlanSponsorLocationAxis has the following members listed under it:
+us-gaap:RetirementPlanSponsorLocationDomain, 
+country:DE, 
+country:US
+
+Rule Element Id:7493
+Rule version: 9.0.0RC1 - </message></entry>
+<entry code="DQC.US.0055.7493" level="error">
+ <message cid="4432273080" filing_url="http://www.sec.gov/Archives/edgar/data/1014111/000101411118000002/imn-20171231.xml" severity="error">[DQC.US.0055.7493] Neither the  Domestic Plan [Member] NOR Foreign Plan [Member] has been used on the Retirement Plan Sponsor Location [Axis] in the presentation linkbase  http://www.imation.com/role/RetirementPlansPensionPlansWithAccumulatedBenefitObligationsInExcessOfPlanAssetsDetails. The FASB requires that either one or both of these members is present on the Retirement Plan Sponsor Location [Axis]. Please review the axis and add one of these members or assess the need to use the Retirement Plan Sponsor Location [Axis].
+
+The axis RetirementPlanSponsorLocationAxis has the following members listed under it:
+country:US, 
+us-gaap:RetirementPlanSponsorLocationDomain, 
+country:DE
+
+Rule Element Id:7493
+Rule version: 9.0.0RC1 - </message></entry>
+<entry code="DQC.US.0055.7493" level="error">
+ <message cid="4432273080" filing_url="http://www.sec.gov/Archives/edgar/data/1014111/000101411118000002/imn-20171231.xml" severity="error">[DQC.US.0055.7493] Neither the  Domestic Plan [Member] NOR Foreign Plan [Member] has been used on the Retirement Plan Sponsor Location [Axis] in the presentation linkbase  http://www.imation.com/role/RetirementPlansWeightedAverageAssumptionsUsedInCalculatingBenefitObligationDetails. The FASB requires that either one or both of these members is present on the Retirement Plan Sponsor Location [Axis]. Please review the axis and add one of these members or assess the need to use the Retirement Plan Sponsor Location [Axis].
+
+The axis RetirementPlanSponsorLocationAxis has the following members listed under it:
+us-gaap:RetirementPlanSponsorLocationDomain, 
+country:DE, 
+country:US
+
+Rule Element Id:7493
+Rule version: 9.0.0RC1 - </message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 3.49 secs - http://www.sec.gov/Archives/edgar/data/1014111/000101411118000002/imn-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1014111/000101411118000002/imn-20171231.xml"/></entry>
+</log>

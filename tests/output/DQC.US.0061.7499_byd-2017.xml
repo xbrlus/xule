@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.10 secs at 2018-10-16T10:00:13 - http://www.sec.gov/Archives/edgar/data/906553/000090655318000036/byd-20180628.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/906553/000090655318000036/byd-20180628.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - byd-20180628.xml </message>
+ <ref href="byd-20180628.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp7hldpx8l/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp7hldpx8l/packages/resources.zip"/></entry>
+<entry code="DQC.US.0061.7499" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/906553/000090655318000036/byd-20180628.xml" severity="error" cid="4554309304">[DQC.US.0061.7499] The taxonomy extension includes NetCashProvidedByUsedInOperatingActivities and CashProvidedByUsedInOperatingActivitiesDiscontinuedOperations in the calculation of us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseIncludingExchangeRateEffect. But CashProvidedByUsedInOperatingActivitiesDiscontinuedOperations is not a direct child of NetCashProvidedByUsedInOperatingActivities. NetCashProvidedByUsedInOperatingActivities is intended to represent the total of cash provided by or used in continuing and discontinued operations. Cash flows from both Discontinued operations and Operating activities cannot add into the total of us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseIncludingExchangeRateEffect as this implies that discontinued operations is being double counted, once in operating activities and once as discontinued operations.
+
+CashProvidedByUsedInOperatingActivitiesDiscontinuedOperations
+
+Rule Element Id:7499
+Rule version: 9.0.0RC1 - </message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 3.07 secs - http://www.sec.gov/Archives/edgar/data/906553/000090655318000036/byd-20180628.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/906553/000090655318000036/byd-20180628.xml"/></entry>
+</log>

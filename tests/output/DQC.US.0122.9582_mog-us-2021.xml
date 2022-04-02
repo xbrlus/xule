@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23221 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.09 secs at 2021-06-24T17:40:08 - http://www.sec.gov/Archives/edgar/data/67887/000006788721000029/mog-20210403.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/67887/000006788721000029/mog-20210403.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmp3ecd4uul\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmp3ecd4uul\packages\resources.zip"/></entry>
+<entry code="DQC.US.0122.9582" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/67887/000006788721000029/mog-20210403.htm" severity="error" effectiveDate="None" cid="2164986348496">[DQC.US.0122.9582] The dimension StatementEquityComponentsAxis has been defined as part of the Balance Sheet (Statement of Financial Position) structure in the companies filing. The dimension is included in the financial statement  1003004 - Statement - Consolidated Condensed Balance Sheets.  The inclusion of the dimension StatementEquityComponentsAxis in the Balance Sheet structure implies that these values comprise the numbers reported on the Balance Sheet.  This will cause facts that are reported on the Statement of Shareholders Equity or Capital to also appear on the Balance Sheet. (These can also be seen on the SEC renderer view of the Balance Sheet). There are 16 facts reported in the filing using the axis StatementEquityComponentsAxis that end up being included in the Balance Sheet using the line items:
+        us-gaap:CommonStockIssuedEmployeeStockTrust,
+        us-gaap:StockholdersEquity
+
+To correct the issue the dimension StatementEquityComponentsAxis should be removed from the the financial statement  1003004 - Statement - Consolidated Condensed Balance Sheets and the values using the dimension StatementEquityComponentsAxis on the Balance Sheet should either have the dimension removed and potentially be updated with a specific line item that reflects the nature of the member that was removed.
+
+Rule Element Id:9582
+Rule version: 16.0.0RC1 - https://xbrl.fasb.org/us-gaap/2021/elts/us-gaap-2021-01-31.xsd 16933</message>
+ <ref href="https://xbrl.fasb.org/us-gaap/2021/elts/us-gaap-2021-01-31.xsd#us-gaap_StatementEquityComponentsAxis" sourceLine="16933">
+  <property name="label" value="Equity Components [Axis]">
+   <property name="label (en-US)" value="Equity Components [Axis]"/>
+   <property name="terseLabel (en-US)" value="Equity Components [Axis]"/>
+  </property>
+  <property name="namespace" value="http://fasb.org/us-gaap/2021-01-31"/>
+  <property name="name" value="StatementEquityComponentsAxis"/>
+  <property name="QName" value="us-gaap:StatementEquityComponentsAxis"/>
+  <property name="id" value="us-gaap_StatementEquityComponentsAxis"/>
+  <property name="abstract" value="true"/>
+  <property name="type" value="xbrli:stringItemType"/>
+  <property name="subst grp" value="xbrldt:dimensionItem"/>
+  <property name="period type" value="duration"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 4.75 secs - http://www.sec.gov/Archives/edgar/data/67887/000006788721000029/mog-20210403.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/67887/000006788721000029/mog-20210403.htm"/></entry>
+</log>

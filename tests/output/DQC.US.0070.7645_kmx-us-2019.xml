@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 7.64 secs at 2020-07-26T13:19:47 - http://www.sec.gov/Archives/edgar/data/1170010/000117001020000033/kmxfy2010-k.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1170010/000117001020000033/kmxfy2010-k.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpqqcmb_88\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpqqcmb_88\packages\resources.zip"/></entry>
+<entry code="DQC.US.0070.7645" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1170010/000117001020000033/kmxfy2010-k.htm" severity="error" effectiveDate="2019-01-01" cid="2134057592192">[DQC.US.0070.7645] The concept DefinedBenefitPlanFairValueOfPlanAssets with a defaulted value of 166,020,000 is not equal to the aggregated value of the dimensionally qualified components on the axis DefinedBenefitPlanByPlanAssetCategoriesAxis which has an aggregate value of -85,000 based on the data in the filing. 
+The aggregated value is calculated by adding the members in the network 2411407 - Disclosure - Benefit Plans (Schedule Of Fair Value Of Plan Assets) (Details) with the uri http://www.carmax.com/role/BenefitPlansScheduleOfFairValueOfPlanAssetsDetails. The values of the calculation components are as follows:
+	InvestmentReceivablesNetMember --> -85,000 --> us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=kmx:InvestmentReceivablesNetMember 
+
+
+The value of a concept broken down by its components along the DefinedBenefitPlanByPlanAssetCategoriesAxis axis should  be equal to its component pieces. An error could occur for one of the following reasons:
+
+1. The values of the plan assets by category have been further disaggregated by additional dimensions such as geography. Plan Asset categories should not be dimensionally disaggregated and members should be defined for each security class reported. i.e. Equity Securities in the US should be represented as a single member.
+
+2. The  default value of 166,020,000 is incorrectly totaled for DefinedBenefitPlanFairValueOfPlanAssets 
+
+3. Not all dimension members or additional dimensions have been defined on the category axis DefinedBenefitPlanByPlanAssetCategoriesAxis. 
+
+4. The filer has reported a sub component of plan assets that does not represent a complete breakdown of the total. In these cases the element DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount should be used instead of the element DefinedBenefitPlanFairValueOfPlanAssets.
+
+This rule aggregates the value of member components located on the axis at the highest level of aggregation to avoid double counting in the event that the company uses a hierarchy of members.
+
+The properties of this us-gaap:DefinedBenefitPlanFairValueOfPlanAssets fact are:
+Period :2019-02-28
+Dimensions : 
+Unit : USD
+
+Rule Element Id:7645
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1170010/000117001020000033/kmxfy2010-k.htm 3825</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1170010/000117001020000033/kmxfy2010-k.htm#d5052865e3997-wk-Fact-4A7494CA3D1370CC835B7FAC096BAA60" sourceLine="3825">
+  <property name="file" value="kmxfy2010-k.htm"/>
+  <property name="line" value="3825"/>
+  <property name="label" value="Defined Benefit Plan, Plan Assets, Amount"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="contextRef" value="FI2019Q4">
+   <property name="entity" value="0001170010">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-02-28"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="166,020,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="166,020"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.92 secs - http://www.sec.gov/Archives/edgar/data/1170010/000117001020000033/kmxfy2010-k.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1170010/000117001020000033/kmxfy2010-k.htm"/></entry>
+</log>

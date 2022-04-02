@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xbrl
+  xmlns="http://www.xbrl.org/2003/instance"
+  xmlns:iso4217="http://www.xbrl.org/2003/iso4217"
+  xmlns:link="http://www.xbrl.org/2003/linkbase"
+  xmlns:us-gaap="http://fasb.org/us-gaap/2020-01-31"
+  xmlns:utreg="http://www.xbrl.org/2009/utr"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+    <link:schemaRef
+      xlink:href="http://xbrl.fasb.org/us-gaap/2020/entire/us-gaap-entryPoint-std-2020-01-31.xsd"
+      xlink:type="simple"/>
+    <context id="c-01">
+        <entity>
+            <identifier scheme="http://xbrl.org/entity/identification/scheme">In-progress</identifier>
+        </entity>
+        <period>
+            <instant>2020-12-31</instant>
+        </period>
+    </context>
+    <context id="c-02">
+        <entity>
+            <identifier scheme="http://xbrl.org/entity/identification/scheme">In-progress</identifier>
+        </entity>
+    </context>
+    <unit id="u-01">
+        <measure>iso4217:USD</measure>
+    </unit>
+    <us-gaap:Cash contextRef="c-01" decimals="0">1000000</us-gaap:Cash>
+    <us-gaap:Assets contextRef="c-02" decimals="0" unitRef="u-01">1000000</us-gaap:Assets>
+    <us-gaap:AssetsCurrent decimals="0" unitRef="u-01">1000000</us-gaap:AssetsCurrent>
+    <us-gaap:PropertyPlantAndEquipmentCollectionsNotCapitalized contextRef="c-01" decimals="0" unitRef="u-01">-1000000</us-gaap:PropertyPlantAndEquipmentCollectionsNotCapitalized>
+</xbrl>

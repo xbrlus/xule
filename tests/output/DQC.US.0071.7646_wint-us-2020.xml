@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 4.86 secs at 2020-07-29T09:41:04 - http://www.sec.gov/Archives/edgar/data/946486/000143774920011216/wint-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/946486/000143774920011216/wint-20200331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmp_evr9okq\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmp_evr9okq\packages\resources.zip"/></entry>
+<entry code="DQC.US.0071.7646" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/946486/000143774920011216/wint-20200331.xml" severity="error" effectiveDate="2019-01-01" cid="2028656829824">[DQC.US.0071.7646] The filing has  reported a value for the element us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax with a value of 304,000 using the ProductOrServiceAxis in the role 008 - Statement - Condensed Consolidated Statements of Operations (Unaudited) on the table us-gaap:StatementTable. However, the only member used to disaggregate the total for us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax was the member us-gaap:LicenseMember. If only one member is used on this axis then the filer should either:
+
+1. Retag the filing using the element TypeOfRevenueExtensibleList/TypeOfCostGoodOrServiceExtensibleList with a value of us-gaap:LicenseMember and the member us-gaap:LicenseMember should be removed from the value as it represents the aggregate value of us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax.
+ 
+2. Tag the aggregate value of us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax with a value of 304,000 without the product of service axis. This rule will not generate an error if the aggregate value of us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax is reported.
+
+The properties of this us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax fact are:
+Period :2018-10-01 to 2018-12-31
+Dimensions : srt:ProductOrServiceAxis=us-gaap:LicenseMember
+Unit : USD
+
+Rule Element Id:7646
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/946486/000143774920011216/wint-20200331.xml 747</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/946486/000143774920011216/wint-20200331.xml#c61588058" sourceLine="747">
+  <property name="label" value="License revenue with affiliate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="RevenueFromContractWithCustomerIncludingAssessedTax"/>
+  <property name="QName" value="us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax"/>
+  <property name="contextRef" value="d_2018-10-01_2018-12-31_ProductOrServiceAxis-LicenseMember">
+   <property name="entity" value="0000946486">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-10-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ProductOrServiceAxis" value="us-gaap:LicenseMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="iso4217-usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="304,000"/>
+ </ref></entry>
+<entry code="DQC.US.0071.7646" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/946486/000143774920011216/wint-20200331.xml" severity="error" effectiveDate="2019-01-01" cid="2028656829824">[DQC.US.0071.7646] The filing has  reported a value for the element us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax with a value of 356,000 using the ProductOrServiceAxis in the role 008 - Statement - Condensed Consolidated Statements of Operations (Unaudited) on the table us-gaap:StatementTable. However, the only member used to disaggregate the total for us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax was the member us-gaap:LicenseMember. If only one member is used on this axis then the filer should either:
+
+1. Retag the filing using the element TypeOfRevenueExtensibleList/TypeOfCostGoodOrServiceExtensibleList with a value of us-gaap:LicenseMember and the member us-gaap:LicenseMember should be removed from the value as it represents the aggregate value of us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax.
+ 
+2. Tag the aggregate value of us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax with a value of 356,000 without the product of service axis. This rule will not generate an error if the aggregate value of us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax is reported.
+
+The properties of this us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax fact are:
+Period :2018-04-01 to 2018-06-30
+Dimensions : srt:ProductOrServiceAxis=us-gaap:LicenseMember
+Unit : USD
+
+Rule Element Id:7646
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/946486/000143774920011216/wint-20200331.xml 745</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/946486/000143774920011216/wint-20200331.xml#c61588056" sourceLine="745">
+  <property name="label" value="License revenue with affiliate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="RevenueFromContractWithCustomerIncludingAssessedTax"/>
+  <property name="QName" value="us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax"/>
+  <property name="contextRef" value="d_2018-04-01_2018-06-30_ProductOrServiceAxis-LicenseMember">
+   <property name="entity" value="0000946486">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-04-01"/>
+   <property name="endDate" value="2018-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ProductOrServiceAxis" value="us-gaap:LicenseMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="iso4217-usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="356,000"/>
+ </ref></entry>
+<entry code="DQC.US.0071.7646" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/946486/000143774920011216/wint-20200331.xml" severity="error" effectiveDate="2019-01-01" cid="2028656829824">[DQC.US.0071.7646] The filing has  reported a value for the element us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax with a value of 198,000 using the ProductOrServiceAxis in the role 008 - Statement - Condensed Consolidated Statements of Operations (Unaudited) on the table us-gaap:StatementTable. However, the only member used to disaggregate the total for us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax was the member us-gaap:LicenseMember. If only one member is used on this axis then the filer should either:
+
+1. Retag the filing using the element TypeOfRevenueExtensibleList/TypeOfCostGoodOrServiceExtensibleList with a value of us-gaap:LicenseMember and the member us-gaap:LicenseMember should be removed from the value as it represents the aggregate value of us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax.
+ 
+2. Tag the aggregate value of us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax with a value of 198,000 without the product of service axis. This rule will not generate an error if the aggregate value of us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax is reported.
+
+The properties of this us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : srt:ProductOrServiceAxis=us-gaap:LicenseMember
+Unit : USD
+
+Rule Element Id:7646
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/946486/000143774920011216/wint-20200331.xml 738</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/946486/000143774920011216/wint-20200331.xml#c61587771" sourceLine="738">
+  <property name="label" value="License revenue with affiliate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="RevenueFromContractWithCustomerIncludingAssessedTax"/>
+  <property name="QName" value="us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax"/>
+  <property name="contextRef" value="d_2019-01-01_2019-12-31_ProductOrServiceAxis-LicenseMember">
+   <property name="entity" value="0000946486">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ProductOrServiceAxis" value="us-gaap:LicenseMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="iso4217-usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="198,000"/>
+ </ref></entry>
+<entry code="DQC.US.0071.7646" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/946486/000143774920011216/wint-20200331.xml" severity="error" effectiveDate="2019-01-01" cid="2028656829824">[DQC.US.0071.7646] The filing has  reported a value for the element us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax with a value of 1,023,000 using the ProductOrServiceAxis in the role 008 - Statement - Condensed Consolidated Statements of Operations (Unaudited) on the table us-gaap:StatementTable. However, the only member used to disaggregate the total for us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax was the member us-gaap:LicenseMember. If only one member is used on this axis then the filer should either:
+
+1. Retag the filing using the element TypeOfRevenueExtensibleList/TypeOfCostGoodOrServiceExtensibleList with a value of us-gaap:LicenseMember and the member us-gaap:LicenseMember should be removed from the value as it represents the aggregate value of us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax.
+ 
+2. Tag the aggregate value of us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax with a value of 1,023,000 without the product of service axis. This rule will not generate an error if the aggregate value of us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax is reported.
+
+The properties of this us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : srt:ProductOrServiceAxis=us-gaap:LicenseMember
+Unit : USD
+
+Rule Element Id:7646
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/946486/000143774920011216/wint-20200331.xml 739</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/946486/000143774920011216/wint-20200331.xml#c61587772" sourceLine="739">
+  <property name="label" value="License revenue with affiliate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="RevenueFromContractWithCustomerIncludingAssessedTax"/>
+  <property name="QName" value="us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax"/>
+  <property name="contextRef" value="d_2018-01-01_2018-12-31_ProductOrServiceAxis-LicenseMember">
+   <property name="entity" value="0000946486">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ProductOrServiceAxis" value="us-gaap:LicenseMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="iso4217-usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,023,000"/>
+ </ref></entry>
+<entry code="DQC.US.0071.7646" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/946486/000143774920011216/wint-20200331.xml" severity="error" effectiveDate="2019-01-01" cid="2028656829824">[DQC.US.0071.7646] The filing has  reported a value for the element us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax with a value of 159,000 using the ProductOrServiceAxis in the role 008 - Statement - Condensed Consolidated Statements of Operations (Unaudited) on the table us-gaap:StatementTable. However, the only member used to disaggregate the total for us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax was the member us-gaap:LicenseMember. If only one member is used on this axis then the filer should either:
+
+1. Retag the filing using the element TypeOfRevenueExtensibleList/TypeOfCostGoodOrServiceExtensibleList with a value of us-gaap:LicenseMember and the member us-gaap:LicenseMember should be removed from the value as it represents the aggregate value of us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax.
+ 
+2. Tag the aggregate value of us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax with a value of 159,000 without the product of service axis. This rule will not generate an error if the aggregate value of us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax is reported.
+
+The properties of this us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax fact are:
+Period :2018-07-01 to 2018-09-30
+Dimensions : srt:ProductOrServiceAxis=us-gaap:LicenseMember
+Unit : USD
+
+Rule Element Id:7646
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/946486/000143774920011216/wint-20200331.xml 746</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/946486/000143774920011216/wint-20200331.xml#c61588057" sourceLine="746">
+  <property name="label" value="License revenue with affiliate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="RevenueFromContractWithCustomerIncludingAssessedTax"/>
+  <property name="QName" value="us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax"/>
+  <property name="contextRef" value="d_2018-07-01_2018-09-30_ProductOrServiceAxis-LicenseMember">
+   <property name="entity" value="0000946486">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-07-01"/>
+   <property name="endDate" value="2018-09-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ProductOrServiceAxis" value="us-gaap:LicenseMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="iso4217-usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="159,000"/>
+ </ref></entry>
+<entry code="DQC.US.0071.7646" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/946486/000143774920011216/wint-20200331.xml" severity="error" effectiveDate="2019-01-01" cid="2028656829824">[DQC.US.0071.7646] The filing has  reported a value for the element us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax with a value of 204,000 using the ProductOrServiceAxis in the role 008 - Statement - Condensed Consolidated Statements of Operations (Unaudited) on the table us-gaap:StatementTable. However, the only member used to disaggregate the total for us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax was the member us-gaap:LicenseMember. If only one member is used on this axis then the filer should either:
+
+1. Retag the filing using the element TypeOfRevenueExtensibleList/TypeOfCostGoodOrServiceExtensibleList with a value of us-gaap:LicenseMember and the member us-gaap:LicenseMember should be removed from the value as it represents the aggregate value of us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax.
+ 
+2. Tag the aggregate value of us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax with a value of 204,000 without the product of service axis. This rule will not generate an error if the aggregate value of us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax is reported.
+
+The properties of this us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax fact are:
+Period :2018-01-01 to 2018-03-31
+Dimensions : srt:ProductOrServiceAxis=us-gaap:LicenseMember
+Unit : USD
+
+Rule Element Id:7646
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/946486/000143774920011216/wint-20200331.xml 744</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/946486/000143774920011216/wint-20200331.xml#c61588055" sourceLine="744">
+  <property name="label" value="License revenue with affiliate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="RevenueFromContractWithCustomerIncludingAssessedTax"/>
+  <property name="QName" value="us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax"/>
+  <property name="contextRef" value="d_2018-01-01_2018-03-31_ProductOrServiceAxis-LicenseMember">
+   <property name="entity" value="0000946486">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ProductOrServiceAxis" value="us-gaap:LicenseMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="iso4217-usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="204,000"/>
+ </ref></entry>
+<entry code="DQC.US.0071.7646" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/946486/000143774920011216/wint-20200331.xml" severity="error" effectiveDate="2019-01-01" cid="2028656829824">[DQC.US.0071.7646] The filing has  reported a value for the element us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax with a value of 158,000 using the ProductOrServiceAxis in the role 008 - Statement - Condensed Consolidated Statements of Operations (Unaudited) on the table us-gaap:StatementTable. However, the only member used to disaggregate the total for us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax was the member us-gaap:LicenseMember. If only one member is used on this axis then the filer should either:
+
+1. Retag the filing using the element TypeOfRevenueExtensibleList/TypeOfCostGoodOrServiceExtensibleList with a value of us-gaap:LicenseMember and the member us-gaap:LicenseMember should be removed from the value as it represents the aggregate value of us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax.
+ 
+2. Tag the aggregate value of us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax with a value of 158,000 without the product of service axis. This rule will not generate an error if the aggregate value of us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax is reported.
+
+The properties of this us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax fact are:
+Period :2019-04-01 to 2019-06-30
+Dimensions : srt:ProductOrServiceAxis=us-gaap:LicenseMember
+Unit : USD
+
+Rule Element Id:7646
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/946486/000143774920011216/wint-20200331.xml 743</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/946486/000143774920011216/wint-20200331.xml#c61587999" sourceLine="743">
+  <property name="label" value="License revenue with affiliate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="RevenueFromContractWithCustomerIncludingAssessedTax"/>
+  <property name="QName" value="us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax"/>
+  <property name="contextRef" value="d_2019-04-01_2019-06-30_ProductOrServiceAxis-LicenseMember">
+   <property name="entity" value="0000946486">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-04-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ProductOrServiceAxis" value="us-gaap:LicenseMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="iso4217-usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="158,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 6.20 secs - http://www.sec.gov/Archives/edgar/data/946486/000143774920011216/wint-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/946486/000143774920011216/wint-20200331.xml"/></entry>
+</log>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22739 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.01 secs at 2019-04-18T10:34:55 - https://www.sec.gov/Archives/edgar/data/1289945/000128994519000011/spok-20181231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1289945/000128994519000011/spok-20181231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv and effective_dates.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpeztwo5ly/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpeztwo5ly/packages/resources.zip"/></entry>
+<entry code="DQC.US.0004.9286" level="error">
+ <message severity="error" effectiveDate="None" filing_url="https://www.sec.gov/Archives/edgar/data/1289945/000128994519000011/spok-20181231.xml" cid="4326391480">[DQC.US.0004.9286] Cash and Cash Equivalents, Period Increase (Decrease), Excluding Exchange Rate Effect with a value of 12,490,000 is not equal to the combined total of Net Cash Provided by (Used in) Operating Activities, Net Cash Provided by (Used in) Investing Activities and Net Cash Provided by (Used in) Financing Activities ( 37,551,000 + -8,229,000 + -16,723,000 ) with a value of 12,599,000. 
+
+These values should be equal.
+The properties of this us-gaap:CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect fact are:
+Period :2016-01-01 to 2016-12-31
+Dimensions :  
+Unit : USD
+Decimals of Cash and Cash Equivalents, Period Increase (Decrease), Excluding Exchange Rate Effect : -3
+Decimals of Net Cash Provided by (Used in) Operating Activities : -3
+Decimals of Net Cash Provided by (Used in) Investing Activities : -3
+Decimals of Net Cash Provided by (Used in) Financing Activities : -3
+
+Rule Element Id:9286
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1289945/000128994519000011/spok-20181231.xml 2642</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1289945/000128994519000011/spok-20181231.xml#Fact-885C91674B939CCF7821C2F761266916" sourceLine="2642">
+  <property name="label" value="Cash and Cash Equivalents, Period Increase (Decrease), Excluding Exchange Rate Effect"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect"/>
+  <property name="QName" value="us-gaap:CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect"/>
+  <property name="contextRef" value="FD2016Q4YTD">
+   <property name="entity" value="0001289945">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-01-01"/>
+   <property name="endDate" value="2016-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="12,490,000"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9286" level="error">
+ <message severity="error" effectiveDate="None" filing_url="https://www.sec.gov/Archives/edgar/data/1289945/000128994519000011/spok-20181231.xml" cid="4326391480">[DQC.US.0004.9286] Cash and Cash Equivalents, Period Increase (Decrease), Excluding Exchange Rate Effect with a value of -18,646,000 is not equal to the combined total of Net Cash Provided by (Used in) Operating Activities, Net Cash Provided by (Used in) Investing Activities and Net Cash Provided by (Used in) Financing Activities ( 15,515,000 + -9,171,000 + -25,001,000 ) with a value of -18,657,000. 
+
+These values should be equal.
+The properties of this us-gaap:CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions :  
+Unit : USD
+Decimals of Cash and Cash Equivalents, Period Increase (Decrease), Excluding Exchange Rate Effect : -3
+Decimals of Net Cash Provided by (Used in) Operating Activities : -3
+Decimals of Net Cash Provided by (Used in) Investing Activities : -3
+Decimals of Net Cash Provided by (Used in) Financing Activities : -3
+
+Rule Element Id:9286
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1289945/000128994519000011/spok-20181231.xml 2643</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1289945/000128994519000011/spok-20181231.xml#Fact-0F35B92594F4C4799711C2F761535D91" sourceLine="2643">
+  <property name="label" value="Cash and Cash Equivalents, Period Increase (Decrease), Excluding Exchange Rate Effect"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect"/>
+  <property name="QName" value="us-gaap:CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect"/>
+  <property name="contextRef" value="FD2017Q4YTD">
+   <property name="entity" value="0001289945">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-18,646,000"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9286" level="error">
+ <message severity="error" effectiveDate="None" filing_url="https://www.sec.gov/Archives/edgar/data/1289945/000128994519000011/spok-20181231.xml" cid="4326391480">[DQC.US.0004.9286] Cash and Cash Equivalents, Period Increase (Decrease), Excluding Exchange Rate Effect with a value of -19,836,000 is not equal to the combined total of Net Cash Provided by (Used in) Operating Activities, Net Cash Provided by (Used in) Investing Activities and Net Cash Provided by (Used in) Financing Activities ( 10,315,000 + -5,826,000 + -24,276,000 ) with a value of -19,787,000. 
+
+These values should be equal.
+The properties of this us-gaap:CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions :  
+Unit : USD
+Decimals of Cash and Cash Equivalents, Period Increase (Decrease), Excluding Exchange Rate Effect : -3
+Decimals of Net Cash Provided by (Used in) Operating Activities : -3
+Decimals of Net Cash Provided by (Used in) Investing Activities : -3
+Decimals of Net Cash Provided by (Used in) Financing Activities : -3
+
+Rule Element Id:9286
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1289945/000128994519000011/spok-20181231.xml 2644</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1289945/000128994519000011/spok-20181231.xml#Fact-E94FF573408E5B4A3591C2F760E8A073" sourceLine="2644">
+  <property name="label" value="Cash and Cash Equivalents, Period Increase (Decrease), Excluding Exchange Rate Effect"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect"/>
+  <property name="QName" value="us-gaap:CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect"/>
+  <property name="contextRef" value="FD2018Q4YTD">
+   <property name="entity" value="0001289945">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-19,836,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.74 secs - https://www.sec.gov/Archives/edgar/data/1289945/000128994519000011/spok-20181231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1289945/000128994519000011/spok-20181231.xml"/></entry>
+</log>

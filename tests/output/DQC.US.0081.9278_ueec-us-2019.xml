@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.85 secs at 2020-07-26T13:21:40 - http://www.sec.gov/Archives/edgar/data/1096938/000147793220004083/ueec-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1096938/000147793220004083/ueec-20200331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmptblzpt75\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmptblzpt75\packages\resources.zip"/></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1096938/000147793220004083/ueec-20200331.xml" severity="error" effectiveDate="2019-09-30" cid="2503478715776">[DQC.US.0081.9278] The line item concept us-gaap:IncreaseDecreaseInAccruedLiabilities with a value of 45,000 and a calculation parent of us-gaap:NetCashProvidedByUsedInOperatingActivities is represented as a sibling of us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities with a value of -3,566 in the extension taxonomy role 0000006 - Statement - Condensed Statements of Cash Flows (Unaudited), but us-gaap:IncreaseDecreaseInAccruedLiabilities is represented as a descendent of us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:IncreaseDecreaseInAccruedLiabilities fact are:
+
+Period :2019-01-01 to 2019-03-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1096938/000147793220004083/ueec-20200331.xml 783</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1096938/000147793220004083/ueec-20200331.xml#element(/1/211)" sourceLine="783">
+  <property name="label" value="Accrued liabilities - related party"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="IncreaseDecreaseInAccruedLiabilities"/>
+  <property name="QName" value="us-gaap:IncreaseDecreaseInAccruedLiabilities"/>
+  <property name="contextRef" value="From2019-01-01to2019-03-31">
+   <property name="entity" value="0001096938">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="45,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1096938/000147793220004083/ueec-20200331.xml" severity="error" effectiveDate="2019-09-30" cid="2503478715776">[DQC.US.0081.9278] The line item concept us-gaap:IncreaseDecreaseInAccruedLiabilities with a value of 91,678 and a calculation parent of us-gaap:NetCashProvidedByUsedInOperatingActivities is represented as a sibling of us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities with a value of 25,839 in the extension taxonomy role 0000006 - Statement - Condensed Statements of Cash Flows (Unaudited), but us-gaap:IncreaseDecreaseInAccruedLiabilities is represented as a descendent of us-gaap:IncreaseDecreaseInAccountsPayableAndAccruedLiabilities in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:IncreaseDecreaseInAccruedLiabilities fact are:
+
+Period :2020-01-01 to 2020-03-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1096938/000147793220004083/ueec-20200331.xml 782</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1096938/000147793220004083/ueec-20200331.xml#element(/1/210)" sourceLine="782">
+  <property name="label" value="Accrued liabilities - related party"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="IncreaseDecreaseInAccruedLiabilities"/>
+  <property name="QName" value="us-gaap:IncreaseDecreaseInAccruedLiabilities"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31">
+   <property name="entity" value="0001096938">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="91,678"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1096938/000147793220004083/ueec-20200331.xml" severity="error" effectiveDate="2019-09-30" cid="2503478715776">[DQC.US.0081.9278] The line item concept us-gaap:AccruedLiabilitiesCurrent with a value of 210,694 and a calculation parent of us-gaap:LiabilitiesCurrent is represented as a sibling of us-gaap:AccountsPayableAndAccruedLiabilitiesCurrent with a value of 538,315 in the extension taxonomy role 0000002 - Statement - Condensed Balance Sheets, but us-gaap:AccruedLiabilitiesCurrent is represented as a descendent of us-gaap:AccountsPayableAndAccruedLiabilitiesCurrent in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:AccruedLiabilitiesCurrent fact are:
+
+Period :2020-03-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1096938/000147793220004083/ueec-20200331.xml 663</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1096938/000147793220004083/ueec-20200331.xml#element(/1/91)" sourceLine="663">
+  <property name="label" value="Accrued liabilities - related parties"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="AccruedLiabilitiesCurrent"/>
+  <property name="QName" value="us-gaap:AccruedLiabilitiesCurrent"/>
+  <property name="contextRef" value="AsOf2020-03-31">
+   <property name="entity" value="0001096938">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="210,694"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1096938/000147793220004083/ueec-20200331.xml" severity="error" effectiveDate="2019-09-30" cid="2503478715776">[DQC.US.0081.9278] The line item concept us-gaap:AccruedLiabilitiesCurrent with a value of 119,016 and a calculation parent of us-gaap:LiabilitiesCurrent is represented as a sibling of us-gaap:AccountsPayableAndAccruedLiabilitiesCurrent with a value of 512,476 in the extension taxonomy role 0000002 - Statement - Condensed Balance Sheets, but us-gaap:AccruedLiabilitiesCurrent is represented as a descendent of us-gaap:AccountsPayableAndAccruedLiabilitiesCurrent in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:AccruedLiabilitiesCurrent fact are:
+
+Period :2019-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1096938/000147793220004083/ueec-20200331.xml 664</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1096938/000147793220004083/ueec-20200331.xml#element(/1/92)" sourceLine="664">
+  <property name="label" value="Accrued liabilities - related parties"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="AccruedLiabilitiesCurrent"/>
+  <property name="QName" value="us-gaap:AccruedLiabilitiesCurrent"/>
+  <property name="contextRef" value="AsOf2019-12-31">
+   <property name="entity" value="0001096938">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="119,016"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 19.57 secs - http://www.sec.gov/Archives/edgar/data/1096938/000147793220004083/ueec-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1096938/000147793220004083/ueec-20200331.xml"/></entry>
+</log>

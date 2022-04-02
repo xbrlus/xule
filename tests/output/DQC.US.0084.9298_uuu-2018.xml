@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22790 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.84 secs at 2019-07-21T22:09:09 - http://www.sec.gov/Archives/edgar/data/102109/000114420419034727/uuu-20190331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/102109/000114420419034727/uuu-20190331.xml"/></entry>
+<entry code="DQC.US.0084.9298" level="error">
+ <message effectiveDate="None" severity="error" cid="4429648000" filing_url="http://www.sec.gov/Archives/edgar/data/102109/000114420419034727/uuu-20190331.xml">[DQC.US.0084.9298] Sum of the cumulative periods of 5,004,086 for us-gaap:GrossProfit does not match the reported total of 5,554,231, a difference of 550,145.
+
+Period values are:
+	2018-04-01 to 2018-06-30	981,533	 Decimals: 0
+	2018-07-01 to 2018-09-30	1,158,788	 Decimals: 0
+	2018-10-01 to 2018-12-31	1,067,548	 Decimals: 0
+	2019-01-01 to 2019-03-31	1,796,217	 Decimals: 0
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 6 which is calculated by taking the lowest decimal value used in the calculation of 0. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this us-gaap:GrossProfit fact are:
+
+Period :2018-04-01 to 2019-03-31
+Dimensions : 
+Unit : USD
+Decimals: 0
+
+Rule Element Id:9298
+Rule version: 10.0.0RC1 - http://www.sec.gov/Archives/edgar/data/102109/000114420419034727/uuu-20190331.xml 962</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/102109/000114420419034727/uuu-20190331.xml#Factid_6093911" sourceLine="962">
+  <property name="label" value="Gross Profit"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="GrossProfit"/>
+  <property name="QName" value="us-gaap:GrossProfit"/>
+  <property name="contextRef" value="P04_01_2018To03_31_2019">
+   <property name="entity" value="0000102109">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-04-01"/>
+   <property name="endDate" value="2019-03-31"/>
+  </property>
+  <property name="unitRef" value="Unit_USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="5,554,231"/>
+ </ref></entry>
+<entry code="DQC.US.0084.9298" level="error">
+ <message effectiveDate="None" severity="error" cid="4429648000" filing_url="http://www.sec.gov/Archives/edgar/data/102109/000114420419034727/uuu-20190331.xml">[DQC.US.0084.9298] Sum of the cumulative periods of 14,980,414 for us-gaap:Revenues does not match the reported total of 17,588,040, a difference of 2,607,626.
+
+Period values are:
+	2018-04-01 to 2018-06-30	3,318,237	 Decimals: 0
+	2018-07-01 to 2018-09-30	3,582,816	 Decimals: 0
+	2018-10-01 to 2018-12-31	3,555,431	 Decimals: 0
+	2019-01-01 to 2019-03-31	4,523,930	 Decimals: 0
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 6 which is calculated by taking the lowest decimal value used in the calculation of 0. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this us-gaap:Revenues fact are:
+
+Period :2018-04-01 to 2019-03-31
+Dimensions : 
+Unit : USD
+Decimals: 0
+
+Rule Element Id:9298
+Rule version: 10.0.0RC1 - http://www.sec.gov/Archives/edgar/data/102109/000114420419034727/uuu-20190331.xml 938</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/102109/000114420419034727/uuu-20190331.xml#Factid_6093883" sourceLine="938">
+  <property name="label" value="Revenues"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="Revenues"/>
+  <property name="QName" value="us-gaap:Revenues"/>
+  <property name="contextRef" value="P04_01_2018To03_31_2019">
+   <property name="entity" value="0000102109">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-04-01"/>
+   <property name="endDate" value="2019-03-31"/>
+  </property>
+  <property name="unitRef" value="Unit_USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="17,588,040"/>
+ </ref></entry>
+<entry code="DQC.US.0084.9298" level="error">
+ <message effectiveDate="None" severity="error" cid="4429648000" filing_url="http://www.sec.gov/Archives/edgar/data/102109/000114420419034727/uuu-20190331.xml">[DQC.US.0084.9298] Sum of the cumulative periods of -1,997,220 for us-gaap:NetIncomeLoss does not match the reported total of -1,347,986, a difference of 649,234.
+
+Period values are:
+	2018-04-01 to 2018-06-30	-543,663	 Decimals: 0
+	2018-07-01 to 2018-09-30	-167,925	 Decimals: 0
+	2018-10-01 to 2018-12-31	-1,014,796	 Decimals: 0
+	2019-01-01 to 2019-03-31	-270,836	 Decimals: 0
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 6 which is calculated by taking the lowest decimal value used in the calculation of 0. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this us-gaap:NetIncomeLoss fact are:
+
+Period :2018-04-01 to 2019-03-31
+Dimensions : 
+Unit : USD
+Decimals: 0
+
+Rule Element Id:9298
+Rule version: 10.0.0RC1 - http://www.sec.gov/Archives/edgar/data/102109/000114420419034727/uuu-20190331.xml 974</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/102109/000114420419034727/uuu-20190331.xml#Factid_6093927" sourceLine="974">
+  <property name="label" value="Net Income (Loss) Attributable to Parent"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="NetIncomeLoss"/>
+  <property name="QName" value="us-gaap:NetIncomeLoss"/>
+  <property name="contextRef" value="P04_01_2018To03_31_2019">
+   <property name="entity" value="0000102109">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-04-01"/>
+   <property name="endDate" value="2019-03-31"/>
+  </property>
+  <property name="unitRef" value="Unit_USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-1,347,986"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 28.02 secs - http://www.sec.gov/Archives/edgar/data/102109/000114420419034727/uuu-20190331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/102109/000114420419034727/uuu-20190331.xml"/></entry>
+</log>

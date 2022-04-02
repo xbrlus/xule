@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 4.88 secs at 2020-07-26T13:21:08 - http://www.sec.gov/Archives/edgar/data/750004/000075000420000123/sgms-20200630.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/750004/000075000420000123/sgms-20200630.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpuqah0l9q\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpuqah0l9q\packages\resources.zip"/></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/750004/000075000420000123/sgms-20200630.htm" severity="error" effectiveDate="2019-09-30" cid="2167822394752">[DQC.US.0081.9278] The line item concept us-gaap:IncreaseDecreaseInDeferredIncomeTaxes with a value of -8,000,000 and a calculation parent of us-gaap:NetCashProvidedByUsedInOperatingActivities is represented as a sibling of us-gaap:IncreaseDecreaseInOperatingCapital with a value of -57,000,000 in the extension taxonomy role 1006007 - Statement - CONDENSED CONSOLIDATED STATEMENTS OF CASH FLOWS, but us-gaap:IncreaseDecreaseInDeferredIncomeTaxes is represented as a descendent of us-gaap:IncreaseDecreaseInOperatingCapital in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:IncreaseDecreaseInDeferredIncomeTaxes fact are:
+
+Period :2020-01-01 to 2020-06-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/750004/000075000420000123/sgms-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/750004/000075000420000123/sgms-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjJmZTI0NGEwMGRmMjQ4ZjE5N2UxODFiNjc3M2M4ZjBlL3NlYzoyZmUyNDRhMDBkZjI0OGYxOTdlMTgxYjY3NzNjOGYwZV8zNy9mcmFnOjgzODU4NTNmYmI2YTRiMjZhMGRiMmNhNTlkYzI2ZDNmL3RhYmxlOjM4MWU5ZTAzYThhYzRiZDQ5OGZmNDA5OWFmNGMxMjNkL3RhYmxlcmFuZ2U6MzgxZTllMDNhOGFjNGJkNDk4ZmY0MDk5YWY0YzEyM2RfNy0xLTEtMS0w_fdd0c15a-571d-4f9a-93af-80b983e8f244" sourceLine="4">
+  <property name="file" value="sgms-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Increase (Decrease) in Deferred Income Taxes"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="IncreaseDecreaseInDeferredIncomeTaxes"/>
+  <property name="QName" value="us-gaap:IncreaseDecreaseInDeferredIncomeTaxes"/>
+  <property name="contextRef" value="i04030fd927954e6b898b787e509481d4_D20200101-20200630">
+   <property name="entity" value="0000750004">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-8,000,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="8"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/750004/000075000420000123/sgms-20200630.htm" severity="error" effectiveDate="2019-09-30" cid="2167822394752">[DQC.US.0081.9278] The line item concept us-gaap:IncreaseDecreaseInOperatingCapital with a value of -57,000,000 and a calculation parent of us-gaap:NetCashProvidedByUsedInOperatingActivities is represented as a sibling of us-gaap:AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities with a value of 460,000,000 in the extension taxonomy role 1006007 - Statement - CONDENSED CONSOLIDATED STATEMENTS OF CASH FLOWS, but us-gaap:IncreaseDecreaseInOperatingCapital is represented as a descendent of us-gaap:AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:IncreaseDecreaseInOperatingCapital fact are:
+
+Period :2020-01-01 to 2020-06-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/750004/000075000420000123/sgms-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/750004/000075000420000123/sgms-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjJmZTI0NGEwMGRmMjQ4ZjE5N2UxODFiNjc3M2M4ZjBlL3NlYzoyZmUyNDRhMDBkZjI0OGYxOTdlMTgxYjY3NzNjOGYwZV8zNy9mcmFnOjgzODU4NTNmYmI2YTRiMjZhMGRiMmNhNTlkYzI2ZDNmL3RhYmxlOjM4MWU5ZTAzYThhYzRiZDQ5OGZmNDA5OWFmNGMxMjNkL3RhYmxlcmFuZ2U6MzgxZTllMDNhOGFjNGJkNDk4ZmY0MDk5YWY0YzEyM2RfNi0xLTEtMS0w_e515257f-15af-42f8-b864-f17d4c8caa61" sourceLine="4">
+  <property name="file" value="sgms-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Increase (Decrease) in Operating Capital"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="IncreaseDecreaseInOperatingCapital"/>
+  <property name="QName" value="us-gaap:IncreaseDecreaseInOperatingCapital"/>
+  <property name="contextRef" value="i04030fd927954e6b898b787e509481d4_D20200101-20200630">
+   <property name="entity" value="0000750004">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-57,000,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="57"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/750004/000075000420000123/sgms-20200630.htm" severity="error" effectiveDate="2019-09-30" cid="2167822394752">[DQC.US.0081.9278] The line item concept us-gaap:IncreaseDecreaseInDeferredIncomeTaxes with a value of -8,000,000 and a calculation parent of us-gaap:NetCashProvidedByUsedInOperatingActivities is represented as a sibling of us-gaap:AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities with a value of 460,000,000 in the extension taxonomy role 1006007 - Statement - CONDENSED CONSOLIDATED STATEMENTS OF CASH FLOWS, but us-gaap:IncreaseDecreaseInDeferredIncomeTaxes is represented as a descendent of us-gaap:AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:IncreaseDecreaseInDeferredIncomeTaxes fact are:
+
+Period :2020-01-01 to 2020-06-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/750004/000075000420000123/sgms-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/750004/000075000420000123/sgms-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjJmZTI0NGEwMGRmMjQ4ZjE5N2UxODFiNjc3M2M4ZjBlL3NlYzoyZmUyNDRhMDBkZjI0OGYxOTdlMTgxYjY3NzNjOGYwZV8zNy9mcmFnOjgzODU4NTNmYmI2YTRiMjZhMGRiMmNhNTlkYzI2ZDNmL3RhYmxlOjM4MWU5ZTAzYThhYzRiZDQ5OGZmNDA5OWFmNGMxMjNkL3RhYmxlcmFuZ2U6MzgxZTllMDNhOGFjNGJkNDk4ZmY0MDk5YWY0YzEyM2RfNy0xLTEtMS0w_fdd0c15a-571d-4f9a-93af-80b983e8f244" sourceLine="4">
+  <property name="file" value="sgms-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Increase (Decrease) in Deferred Income Taxes"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="IncreaseDecreaseInDeferredIncomeTaxes"/>
+  <property name="QName" value="us-gaap:IncreaseDecreaseInDeferredIncomeTaxes"/>
+  <property name="contextRef" value="i04030fd927954e6b898b787e509481d4_D20200101-20200630">
+   <property name="entity" value="0000750004">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-8,000,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="8"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/750004/000075000420000123/sgms-20200630.htm" severity="error" effectiveDate="2019-09-30" cid="2167822394752">[DQC.US.0081.9278] The line item concept us-gaap:RepaymentsOfSeniorDebt with a value of 1,050,000,000 and a calculation parent of us-gaap:NetCashProvidedByUsedInFinancingActivities is represented as a sibling of us-gaap:RepaymentsOfLongTermDebt with a value of 23,000,000 in the extension taxonomy role 1006007 - Statement - CONDENSED CONSOLIDATED STATEMENTS OF CASH FLOWS, but us-gaap:RepaymentsOfSeniorDebt is represented as a descendent of us-gaap:RepaymentsOfLongTermDebt in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:RepaymentsOfSeniorDebt fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/750004/000075000420000123/sgms-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/750004/000075000420000123/sgms-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjJmZTI0NGEwMGRmMjQ4ZjE5N2UxODFiNjc3M2M4ZjBlL3NlYzoyZmUyNDRhMDBkZjI0OGYxOTdlMTgxYjY3NzNjOGYwZV8zNy9mcmFnOjgzODU4NTNmYmI2YTRiMjZhMGRiMmNhNTlkYzI2ZDNmL3RhYmxlOjM4MWU5ZTAzYThhYzRiZDQ5OGZmNDA5OWFmNGMxMjNkL3RhYmxlcmFuZ2U6MzgxZTllMDNhOGFjNGJkNDk4ZmY0MDk5YWY0YzEyM2RfNDAtMy0xLTEtMA_b9310942-713c-470f-9bd2-d3e2165efedb" sourceLine="4">
+  <property name="file" value="sgms-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Repayments of Senior Debt"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="RepaymentsOfSeniorDebt"/>
+  <property name="QName" value="us-gaap:RepaymentsOfSeniorDebt"/>
+  <property name="contextRef" value="i8b7917cfd87c41acbdf33908d4cb81a4_D20190101-20190630">
+   <property name="entity" value="0000750004">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,050,000,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="1,050"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/750004/000075000420000123/sgms-20200630.htm" severity="error" effectiveDate="2019-09-30" cid="2167822394752">[DQC.US.0081.9278] The line item concept us-gaap:IncreaseDecreaseInDeferredIncomeTaxes with a value of -7,000,000 and a calculation parent of us-gaap:NetCashProvidedByUsedInOperatingActivities is represented as a sibling of us-gaap:IncreaseDecreaseInOperatingCapital with a value of 86,000,000 in the extension taxonomy role 1006007 - Statement - CONDENSED CONSOLIDATED STATEMENTS OF CASH FLOWS, but us-gaap:IncreaseDecreaseInDeferredIncomeTaxes is represented as a descendent of us-gaap:IncreaseDecreaseInOperatingCapital in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:IncreaseDecreaseInDeferredIncomeTaxes fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/750004/000075000420000123/sgms-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/750004/000075000420000123/sgms-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjJmZTI0NGEwMGRmMjQ4ZjE5N2UxODFiNjc3M2M4ZjBlL3NlYzoyZmUyNDRhMDBkZjI0OGYxOTdlMTgxYjY3NzNjOGYwZV8zNy9mcmFnOjgzODU4NTNmYmI2YTRiMjZhMGRiMmNhNTlkYzI2ZDNmL3RhYmxlOjM4MWU5ZTAzYThhYzRiZDQ5OGZmNDA5OWFmNGMxMjNkL3RhYmxlcmFuZ2U6MzgxZTllMDNhOGFjNGJkNDk4ZmY0MDk5YWY0YzEyM2RfNy0zLTEtMS0w_a3ae89d9-4be3-43f8-b7f3-36a9703d26d5" sourceLine="4">
+  <property name="file" value="sgms-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Increase (Decrease) in Deferred Income Taxes"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="IncreaseDecreaseInDeferredIncomeTaxes"/>
+  <property name="QName" value="us-gaap:IncreaseDecreaseInDeferredIncomeTaxes"/>
+  <property name="contextRef" value="i8b7917cfd87c41acbdf33908d4cb81a4_D20190101-20190630">
+   <property name="entity" value="0000750004">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-7,000,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="7"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/750004/000075000420000123/sgms-20200630.htm" severity="error" effectiveDate="2019-09-30" cid="2167822394752">[DQC.US.0081.9278] The line item concept us-gaap:IncreaseDecreaseInOperatingCapital with a value of 86,000,000 and a calculation parent of us-gaap:NetCashProvidedByUsedInOperatingActivities is represented as a sibling of us-gaap:AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities with a value of 440,000,000 in the extension taxonomy role 1006007 - Statement - CONDENSED CONSOLIDATED STATEMENTS OF CASH FLOWS, but us-gaap:IncreaseDecreaseInOperatingCapital is represented as a descendent of us-gaap:AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:IncreaseDecreaseInOperatingCapital fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/750004/000075000420000123/sgms-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/750004/000075000420000123/sgms-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjJmZTI0NGEwMGRmMjQ4ZjE5N2UxODFiNjc3M2M4ZjBlL3NlYzoyZmUyNDRhMDBkZjI0OGYxOTdlMTgxYjY3NzNjOGYwZV8zNy9mcmFnOjgzODU4NTNmYmI2YTRiMjZhMGRiMmNhNTlkYzI2ZDNmL3RhYmxlOjM4MWU5ZTAzYThhYzRiZDQ5OGZmNDA5OWFmNGMxMjNkL3RhYmxlcmFuZ2U6MzgxZTllMDNhOGFjNGJkNDk4ZmY0MDk5YWY0YzEyM2RfNi0zLTEtMS0w_a21cec52-7263-48d2-a776-ba7a5cd15f3d" sourceLine="4">
+  <property name="file" value="sgms-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Increase (Decrease) in Operating Capital"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="IncreaseDecreaseInOperatingCapital"/>
+  <property name="QName" value="us-gaap:IncreaseDecreaseInOperatingCapital"/>
+  <property name="contextRef" value="i8b7917cfd87c41acbdf33908d4cb81a4_D20190101-20190630">
+   <property name="entity" value="0000750004">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="86,000,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="86"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/750004/000075000420000123/sgms-20200630.htm" severity="error" effectiveDate="2019-09-30" cid="2167822394752">[DQC.US.0081.9278] The line item concept us-gaap:IncreaseDecreaseInDeferredIncomeTaxes with a value of -7,000,000 and a calculation parent of us-gaap:NetCashProvidedByUsedInOperatingActivities is represented as a sibling of us-gaap:AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities with a value of 440,000,000 in the extension taxonomy role 1006007 - Statement - CONDENSED CONSOLIDATED STATEMENTS OF CASH FLOWS, but us-gaap:IncreaseDecreaseInDeferredIncomeTaxes is represented as a descendent of us-gaap:AdjustmentsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:IncreaseDecreaseInDeferredIncomeTaxes fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/750004/000075000420000123/sgms-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/750004/000075000420000123/sgms-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjJmZTI0NGEwMGRmMjQ4ZjE5N2UxODFiNjc3M2M4ZjBlL3NlYzoyZmUyNDRhMDBkZjI0OGYxOTdlMTgxYjY3NzNjOGYwZV8zNy9mcmFnOjgzODU4NTNmYmI2YTRiMjZhMGRiMmNhNTlkYzI2ZDNmL3RhYmxlOjM4MWU5ZTAzYThhYzRiZDQ5OGZmNDA5OWFmNGMxMjNkL3RhYmxlcmFuZ2U6MzgxZTllMDNhOGFjNGJkNDk4ZmY0MDk5YWY0YzEyM2RfNy0zLTEtMS0w_a3ae89d9-4be3-43f8-b7f3-36a9703d26d5" sourceLine="4">
+  <property name="file" value="sgms-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Increase (Decrease) in Deferred Income Taxes"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="IncreaseDecreaseInDeferredIncomeTaxes"/>
+  <property name="QName" value="us-gaap:IncreaseDecreaseInDeferredIncomeTaxes"/>
+  <property name="contextRef" value="i8b7917cfd87c41acbdf33908d4cb81a4_D20190101-20190630">
+   <property name="entity" value="0000750004">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-7,000,000"/>
+  <property name="format" value="None"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="7"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 22.99 secs - http://www.sec.gov/Archives/edgar/data/750004/000075000420000123/sgms-20200630.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/750004/000075000420000123/sgms-20200630.htm"/></entry>
+</log>

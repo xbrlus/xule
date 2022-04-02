@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.30 secs at 2018-10-16T09:54:03 - http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - cts-20171231.xml </message>
+ <ref href="cts-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp6ztygkds/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp6ztygkds/packages/resources.zip"/></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml" cid="4545781432" severity="error">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanFairValueOfPlanAssets with a value of 43,708,000 in the Compensation Related Costs and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanFairValueOfPlanAssets fact are:
+Period :2016-12-31
+Dimensions : us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:EquitySecuritiesMember, us-gaap:FairValueByFairValueHierarchyLevelAxis=us-gaap:FairValueInputsLevel1Member, us-gaap:StatementGeographicalAxis=country:US
+Unit : USD
+
+Rule Element Id:7641
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml 5467</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml#Fact-C31712A6BF7090C147B8472CE1B323DE" sourceLine="5467">
+  <property name="label" value="Defined Benefit Plan, Fair Value of Plan Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="contextRef" value="FI2016Q4_us-gaap_DefinedBenefitPlanByPlanAssetCategoriesAxis_us-gaap_EquitySecuritiesMember_us-gaap_FairValueByFairValueHierarchyLevelAxis_us-gaap_FairValueInputsLevel1Member_us-gaap_StatementGeographicalAxis_country_US">
+   <property name="entity" value="0000026058">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="us-gaap:EquitySecuritiesMember"/>
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+    <property name="us-gaap:StatementGeographicalAxis" value="country:US"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="43,708,000"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml" cid="4545781432" severity="error">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanFairValueOfPlanAssets with a value of 819,000 in the Compensation Related Costs and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanFairValueOfPlanAssets fact are:
+Period :2016-12-31
+Dimensions : us-gaap:FairValueByFairValueHierarchyLevelAxis=us-gaap:FairValueInputsLevel1Member, us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:EquitySecuritiesMember, us-gaap:StatementGeographicalAxis=cts:OutsideUnitedStatesOfAmericaMember
+Unit : USD
+
+Rule Element Id:7641
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml 5468</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml#Fact-465813D2D3E5F7FD9913472CE1B2C79E" sourceLine="5468">
+  <property name="label" value="Defined Benefit Plan, Fair Value of Plan Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="contextRef" value="FI2016Q4_us-gaap_DefinedBenefitPlanByPlanAssetCategoriesAxis_us-gaap_EquitySecuritiesMember_us-gaap_FairValueByFairValueHierarchyLevelAxis_us-gaap_FairValueInputsLevel1Member_us-gaap_StatementGeographicalAxis_cts_OutsideUnitedStatesOfAmericaMember">
+   <property name="entity" value="0000026058">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="us-gaap:EquitySecuritiesMember"/>
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+    <property name="us-gaap:StatementGeographicalAxis" value="cts:OutsideUnitedStatesOfAmericaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="819,000"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml" cid="4545781432" severity="error">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanFairValueOfPlanAssets with a value of 19,487,000 in the Compensation Related Costs and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanFairValueOfPlanAssets fact are:
+Period :2017-12-31
+Dimensions : us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:EquitySecuritiesMember, us-gaap:FairValueByFairValueHierarchyLevelAxis=us-gaap:FairValueInputsLevel1Member, us-gaap:StatementGeographicalAxis=country:US
+Unit : USD
+
+Rule Element Id:7641
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml 5493</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml#Fact-27F1351BFA739D497C0E472CE1A8E399" sourceLine="5493">
+  <property name="label" value="Defined Benefit Plan, Fair Value of Plan Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="contextRef" value="FI2017Q4_us-gaap_DefinedBenefitPlanByPlanAssetCategoriesAxis_us-gaap_EquitySecuritiesMember_us-gaap_FairValueByFairValueHierarchyLevelAxis_us-gaap_FairValueInputsLevel1Member_us-gaap_StatementGeographicalAxis_country_US">
+   <property name="entity" value="0000026058">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="us-gaap:EquitySecuritiesMember"/>
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+    <property name="us-gaap:StatementGeographicalAxis" value="country:US"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="19,487,000"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml" cid="4545781432" severity="error">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanFairValueOfPlanAssets with a value of 1,131,000 in the Compensation Related Costs and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanFairValueOfPlanAssets fact are:
+Period :2017-12-31
+Dimensions : us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:EquitySecuritiesMember, us-gaap:FairValueByFairValueHierarchyLevelAxis=us-gaap:FairValueInputsLevel1Member, us-gaap:StatementGeographicalAxis=cts:OutsideUnitedStatesOfAmericaMember
+Unit : USD
+
+Rule Element Id:7641
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml 5494</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml#Fact-B1F149A1C6144CEC187C472CE1AD0164" sourceLine="5494">
+  <property name="label" value="Defined Benefit Plan, Fair Value of Plan Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="contextRef" value="FI2017Q4_us-gaap_DefinedBenefitPlanByPlanAssetCategoriesAxis_us-gaap_EquitySecuritiesMember_us-gaap_FairValueByFairValueHierarchyLevelAxis_us-gaap_FairValueInputsLevel1Member_us-gaap_StatementGeographicalAxis_cts_OutsideUnitedStatesOfAmericaMember">
+   <property name="entity" value="0000026058">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="us-gaap:EquitySecuritiesMember"/>
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+    <property name="us-gaap:StatementGeographicalAxis" value="cts:OutsideUnitedStatesOfAmericaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,131,000"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml" cid="4545781432" severity="error">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanFairValueOfPlanAssets with a value of 28,052,000 in the Compensation Related Costs and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanFairValueOfPlanAssets fact are:
+Period :2016-12-31
+Dimensions : us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:EquityFundsMember, us-gaap:FairValueByFairValueHierarchyLevelAxis=us-gaap:FairValueInputsLevel2Member, us-gaap:StatementGeographicalAxis=cts:InternationalMember
+Unit : USD
+
+Rule Element Id:7641
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml 5465</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml#Fact-B3097A15C620D6E81410472CE1B2AAD7" sourceLine="5465">
+  <property name="label" value="Defined Benefit Plan, Fair Value of Plan Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="contextRef" value="FI2016Q4_us-gaap_DefinedBenefitPlanByPlanAssetCategoriesAxis_us-gaap_EquityFundsMember_us-gaap_FairValueByFairValueHierarchyLevelAxis_us-gaap_FairValueInputsLevel2Member_us-gaap_StatementGeographicalAxis_cts_InternationalMember">
+   <property name="entity" value="0000026058">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="us-gaap:EquityFundsMember"/>
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="us-gaap:FairValueInputsLevel2Member"/>
+    <property name="us-gaap:StatementGeographicalAxis" value="cts:InternationalMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="28,052,000"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml" cid="4545781432" severity="error">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanFairValueOfPlanAssets with a value of 19,487,000 in the Compensation Related Costs and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanFairValueOfPlanAssets fact are:
+Period :2017-12-31
+Dimensions : us-gaap:StatementGeographicalAxis=country:US, us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:EquitySecuritiesMember
+Unit : USD
+
+Rule Element Id:7641
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml 5496</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml#Fact-8E55E0E4A894F36E6CAE472CE1B177BC" sourceLine="5496">
+  <property name="label" value="Defined Benefit Plan, Fair Value of Plan Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="contextRef" value="FI2017Q4_us-gaap_DefinedBenefitPlanByPlanAssetCategoriesAxis_us-gaap_EquitySecuritiesMember_us-gaap_StatementGeographicalAxis_country_US">
+   <property name="entity" value="0000026058">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="us-gaap:EquitySecuritiesMember"/>
+    <property name="us-gaap:StatementGeographicalAxis" value="country:US"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="19,487,000"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml" cid="4545781432" severity="error">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanFairValueOfPlanAssets with a value of 1,131,000 in the Compensation Related Costs and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanFairValueOfPlanAssets fact are:
+Period :2017-12-31
+Dimensions : us-gaap:StatementGeographicalAxis=cts:OutsideUnitedStatesOfAmericaMember, us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:EquitySecuritiesMember
+Unit : USD
+
+Rule Element Id:7641
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml 5497</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml#Fact-8C51ABF250E48CAE1948472CE1B1AC96" sourceLine="5497">
+  <property name="label" value="Defined Benefit Plan, Fair Value of Plan Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="contextRef" value="FI2017Q4_us-gaap_DefinedBenefitPlanByPlanAssetCategoriesAxis_us-gaap_EquitySecuritiesMember_us-gaap_StatementGeographicalAxis_cts_OutsideUnitedStatesOfAmericaMember">
+   <property name="entity" value="0000026058">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="us-gaap:EquitySecuritiesMember"/>
+    <property name="us-gaap:StatementGeographicalAxis" value="cts:OutsideUnitedStatesOfAmericaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,131,000"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml" cid="4545781432" severity="error">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanFairValueOfPlanAssets with a value of 0 in the Compensation Related Costs and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanFairValueOfPlanAssets fact are:
+Period :2017-12-31
+Dimensions : us-gaap:StatementGeographicalAxis=cts:OutsideUnitedStatesOfAmericaMember, us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:EquitySecuritiesMember, us-gaap:FairValueByFairValueHierarchyLevelAxis=us-gaap:FairValueInputsLevel2Member
+Unit : USD
+
+Rule Element Id:7641
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml 5495</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml#Fact-FBEA22E527AFD5E9F8D9472CE1A8763D" sourceLine="5495">
+  <property name="label" value="Defined Benefit Plan, Fair Value of Plan Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="contextRef" value="FI2017Q4_us-gaap_DefinedBenefitPlanByPlanAssetCategoriesAxis_us-gaap_EquitySecuritiesMember_us-gaap_FairValueByFairValueHierarchyLevelAxis_us-gaap_FairValueInputsLevel2Member_us-gaap_StatementGeographicalAxis_cts_OutsideUnitedStatesOfAmericaMember">
+   <property name="entity" value="0000026058">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="us-gaap:EquitySecuritiesMember"/>
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="us-gaap:FairValueInputsLevel2Member"/>
+    <property name="us-gaap:StatementGeographicalAxis" value="cts:OutsideUnitedStatesOfAmericaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml" cid="4545781432" severity="error">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanFairValueOfPlanAssets with a value of 28,052,000 in the Compensation Related Costs and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanFairValueOfPlanAssets fact are:
+Period :2016-12-31
+Dimensions : us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:EquityFundsMember, us-gaap:StatementGeographicalAxis=cts:InternationalMember
+Unit : USD
+
+Rule Element Id:7641
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml 5466</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml#Fact-4A2F0CDFCB76728B96EB472CE1B2A0FB" sourceLine="5466">
+  <property name="label" value="Defined Benefit Plan, Fair Value of Plan Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="contextRef" value="FI2016Q4_us-gaap_DefinedBenefitPlanByPlanAssetCategoriesAxis_us-gaap_EquityFundsMember_us-gaap_StatementGeographicalAxis_cts_InternationalMember">
+   <property name="entity" value="0000026058">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="us-gaap:EquityFundsMember"/>
+    <property name="us-gaap:StatementGeographicalAxis" value="cts:InternationalMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="28,052,000"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml" cid="4545781432" severity="error">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanFairValueOfPlanAssets with a value of 0 in the Compensation Related Costs and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanFairValueOfPlanAssets fact are:
+Period :2016-12-31
+Dimensions : us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:EquitySecuritiesMember, us-gaap:FairValueByFairValueHierarchyLevelAxis=us-gaap:FairValueInputsLevel2Member, us-gaap:StatementGeographicalAxis=cts:OutsideUnitedStatesOfAmericaMember
+Unit : USD
+
+Rule Element Id:7641
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml 5469</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml#Fact-2A9C6EE8DB520112A69C472CE1B35550" sourceLine="5469">
+  <property name="label" value="Defined Benefit Plan, Fair Value of Plan Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="contextRef" value="FI2016Q4_us-gaap_DefinedBenefitPlanByPlanAssetCategoriesAxis_us-gaap_EquitySecuritiesMember_us-gaap_FairValueByFairValueHierarchyLevelAxis_us-gaap_FairValueInputsLevel2Member_us-gaap_StatementGeographicalAxis_cts_OutsideUnitedStatesOfAmericaMember">
+   <property name="entity" value="0000026058">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="us-gaap:EquitySecuritiesMember"/>
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="us-gaap:FairValueInputsLevel2Member"/>
+    <property name="us-gaap:StatementGeographicalAxis" value="cts:OutsideUnitedStatesOfAmericaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml" cid="4545781432" severity="error">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanFairValueOfPlanAssets with a value of 43,708,000 in the Compensation Related Costs and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanFairValueOfPlanAssets fact are:
+Period :2016-12-31
+Dimensions : us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:EquitySecuritiesMember, us-gaap:StatementGeographicalAxis=country:US
+Unit : USD
+
+Rule Element Id:7641
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml 5470</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml#Fact-7DFF534CAC57734A1662472CE1B1807A" sourceLine="5470">
+  <property name="label" value="Defined Benefit Plan, Fair Value of Plan Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="contextRef" value="FI2016Q4_us-gaap_DefinedBenefitPlanByPlanAssetCategoriesAxis_us-gaap_EquitySecuritiesMember_us-gaap_StatementGeographicalAxis_country_US">
+   <property name="entity" value="0000026058">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="us-gaap:EquitySecuritiesMember"/>
+    <property name="us-gaap:StatementGeographicalAxis" value="country:US"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="43,708,000"/>
+ </ref></entry>
+<entry code="DQC.US.0068.7641" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml" cid="4545781432" severity="error">[DQC.US.0068.7641] The filing has used the StatementGeographicalAxis in conjunction with the line item us-gaap:DefinedBenefitPlanFairValueOfPlanAssets with a value of 819,000 in the Compensation Related Costs and Retirement Benefits section of the taxonomy. These line items should not use the StatementGeographicalAxis to report a fact. To identify the physical location of the securities a member should be created that indicates both the type of security and its issuance location.  i.e. EquityUSMmember
+
+The properties of this us-gaap:DefinedBenefitPlanFairValueOfPlanAssets fact are:
+Period :2016-12-31
+Dimensions : us-gaap:StatementGeographicalAxis=cts:OutsideUnitedStatesOfAmericaMember, us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:EquitySecuritiesMember
+Unit : USD
+
+Rule Element Id:7641
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml 5471</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml#Fact-76CE50C5ADB464AB9CE9472CE1B0BCDC" sourceLine="5471">
+  <property name="label" value="Defined Benefit Plan, Fair Value of Plan Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="contextRef" value="FI2016Q4_us-gaap_DefinedBenefitPlanByPlanAssetCategoriesAxis_us-gaap_EquitySecuritiesMember_us-gaap_StatementGeographicalAxis_cts_OutsideUnitedStatesOfAmericaMember">
+   <property name="entity" value="0000026058">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis" value="us-gaap:EquitySecuritiesMember"/>
+    <property name="us-gaap:StatementGeographicalAxis" value="cts:OutsideUnitedStatesOfAmericaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="819,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 17.63 secs - http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/26058/000002605818000020/cts-20171231.xml"/></entry>
+</log>

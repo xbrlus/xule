@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22739 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.63 secs at 2019-04-18T10:25:11 - https://www.sec.gov/Archives/edgar/data/1048477/000156459018025196/bmrn-20180930.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1048477/000156459018025196/bmrn-20180930.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv and effective_dates.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpbo_meque/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpbo_meque/packages/resources.zip"/></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 2.95 secs - https://www.sec.gov/Archives/edgar/data/1048477/000156459018025196/bmrn-20180930.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1048477/000156459018025196/bmrn-20180930.xml"/></entry>
+</log>

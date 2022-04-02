@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23221 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.93 secs at 2021-04-14T20:15:56 - https://www.sec.gov/Archives/edgar/data/1029800/000102980021000016/form10k2020.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1029800/000102980021000016/form10k2020.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpsnqkz54y\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpsnqkz54y\packages\resources.zip"/></entry>
+<entry code="DQC.US.0112.9561" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1029800/000102980021000016/form10k2020.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2242583098320">[DQC.US.0112.9561] 
+The company has reported a value of  0.25 for the concept us-gaap:BusinessAcquisitionPercentageOfVotingInterestsAcquired. It is expected that this fact also uses the BusinessAcquisitionAxis with a member indicating the business acquisition that the fact was related to.  This fact must include the business acquisition axis (BusinessAcquisitionAxis).
+
+The properties of this us-gaap:BusinessAcquisitionPercentageOfVotingInterestsAcquired fact are:
+Period :2020-10-31
+Dimensions : srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis=uba:MidwayShoppingCenterLPMember
+Unit : pure
+
+
+Rule Element Id:9561
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/1029800/000102980021000016/form10k2020.htm 14410</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1029800/000102980021000016/form10k2020.htm#Fact_0184868387f14383bc065a38b5ad8fea" sourceLine="14410">
+  <property name="file" value="form10k2020.htm"/>
+  <property name="line" value="14410"/>
+  <property name="label" value="Business Acquisition, Percentage of Voting Interests Acquired"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="BusinessAcquisitionPercentageOfVotingInterestsAcquired"/>
+  <property name="QName" value="us-gaap:BusinessAcquisitionPercentageOfVotingInterestsAcquired"/>
+  <property name="contextRef" value="c20201031_ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis_MidwayShoppingCenterLPMember">
+   <property name="entity" value="0001029800">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-10-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis" value="uba:MidwayShoppingCenterLPMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U003 (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.25"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="25"/>
+ </ref></entry>
+<entry code="DQC.US.0112.9561" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1029800/000102980021000016/form10k2020.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2242583098320">[DQC.US.0112.9561] 
+The company has reported a value of  0.5 for the concept us-gaap:BusinessAcquisitionPercentageOfVotingInterestsAcquired. It is expected that this fact also uses the BusinessAcquisitionAxis with a member indicating the business acquisition that the fact was related to.  This fact must include the business acquisition axis (BusinessAcquisitionAxis).
+
+The properties of this us-gaap:BusinessAcquisitionPercentageOfVotingInterestsAcquired fact are:
+Period :2020-10-31
+Dimensions : srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis=uba:GatewayPlazaAndApplebeeSAtRiverheadMember
+Unit : pure
+
+
+Rule Element Id:9561
+Rule version: 15.0.0RC5 - https://www.sec.gov/Archives/edgar/data/1029800/000102980021000016/form10k2020.htm 14386</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1029800/000102980021000016/form10k2020.htm#Fact_63dae1a68f854e7b9af3c438649f5a42" sourceLine="14386">
+  <property name="file" value="form10k2020.htm"/>
+  <property name="line" value="14386"/>
+  <property name="label" value="Business Acquisition, Percentage of Voting Interests Acquired"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="BusinessAcquisitionPercentageOfVotingInterestsAcquired"/>
+  <property name="QName" value="us-gaap:BusinessAcquisitionPercentageOfVotingInterestsAcquired"/>
+  <property name="contextRef" value="c20201031_ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis_GatewayPlazaAndApplebeeSAtRiverheadMember">
+   <property name="entity" value="0001029800">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-10-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis" value="uba:GatewayPlazaAndApplebeeSAtRiverheadMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="U003 (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="2"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.50"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="-2"/>
+  <property name="html value" value="50"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.61 secs - https://www.sec.gov/Archives/edgar/data/1029800/000102980021000016/form10k2020.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1029800/000102980021000016/form10k2020.htm"/></entry>
+</log>

@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23303 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 7.42 secs at 2021-11-16T16:48:58 - http://www.sec.gov/Archives/edgar/data/1177609/000117760921000018/five-20210501.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1177609/000117760921000018/five-20210501.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv, dqc_0129.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmp4c2inaci\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmp4c2inaci\packages\resources.zip"/></entry>
+<entry code="DQC.US.0121.9581" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1177609/000117760921000018/five-20210501.htm" severity="error" effectiveDate="2021-12-01" cid="2347918164944">[DQC.US.0121.9581] The element us-gaap:OperatingLeasesFutureMinimumPaymentsDueCurrent with a value of 159,764,000 has been used in the filing.  This element is a transition element and is intended to be used in periods before adoption of amendments from Accounting Standards Update 2016-02,  Accounting Standards Update 2017-12, or Accounting Standards Update 2018-07. The element should no longer be used for filings with fiscal years beginning after:
+
+December 15, 2018 for ASU 2016-02 - Leases
+December 15, 2018 for ASU 2017-12 - Derivatives and Hedging
+December 15, 2019 for ASU 2018-07 - Compensation - Stock Compensation  
+
+Period :2021-05-01
+Dimensions : 
+Unit : USD
+Decimals: -3
+
+Rule Element Id:9581
+Rule version: 17.0.0RC1  - http://www.sec.gov/Archives/edgar/data/1177609/000117760921000018/five-20210501.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1177609/000117760921000018/five-20210501.htm#id3VybDovL2RvY3MudjEvZG9jOjJiMGMyYTU0MjY4NDQxYTNhOGE5Y2U1ZDNiNGVmOGQyL3NlYzoyYjBjMmE1NDI2ODQ0MWEzYThhOWNlNWQzYjRlZjhkMl82Ny9mcmFnOjNkZWYyNzBmYzk1MDQ4NWM4OTVkYjQ4MjE5MTU0Mjk5L3RhYmxlOjQ2ZTAxZDQ3Yjk5NTRkZmQ4OTE4NDFmYTE5NjhmZDMwL3RhYmxlcmFuZ2U6NDZlMDFkNDdiOTk1NGRmZDg5MTg0MWZhMTk2OGZkMzBfMS0yLTEtMS0w_0aadef59-0a13-4312-94e2-2f153197b910" sourceLine="4">
+  <property name="file" value="five-20210501.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Operating Leases, Future Minimum Payments Due, Next Twelve Months"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="OperatingLeasesFutureMinimumPaymentsDueCurrent"/>
+  <property name="QName" value="us-gaap:OperatingLeasesFutureMinimumPaymentsDueCurrent"/>
+  <property name="contextRef" value="i518f94359a5640ec90677df1fb3bf0bd_I20210501">
+   <property name="entity" value="0001177609">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2021-05-01"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="159,764,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="159,764"/>
+ </ref></entry>
+<entry code="DQC.US.0121.9581" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1177609/000117760921000018/five-20210501.htm" severity="error" effectiveDate="2021-12-01" cid="2347918164944">[DQC.US.0121.9581] The element us-gaap:OperatingLeasesFutureMinimumPaymentsDueInTwoYears with a value of 198,544,000 has been used in the filing.  This element is a transition element and is intended to be used in periods before adoption of amendments from Accounting Standards Update 2016-02,  Accounting Standards Update 2017-12, or Accounting Standards Update 2018-07. The element should no longer be used for filings with fiscal years beginning after:
+
+December 15, 2018 for ASU 2016-02 - Leases
+December 15, 2018 for ASU 2017-12 - Derivatives and Hedging
+December 15, 2019 for ASU 2018-07 - Compensation - Stock Compensation  
+
+Period :2021-05-01
+Dimensions : 
+Unit : USD
+Decimals: -3
+
+Rule Element Id:9581
+Rule version: 17.0.0RC1  - http://www.sec.gov/Archives/edgar/data/1177609/000117760921000018/five-20210501.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1177609/000117760921000018/five-20210501.htm#id3VybDovL2RvY3MudjEvZG9jOjJiMGMyYTU0MjY4NDQxYTNhOGE5Y2U1ZDNiNGVmOGQyL3NlYzoyYjBjMmE1NDI2ODQ0MWEzYThhOWNlNWQzYjRlZjhkMl82Ny9mcmFnOjNkZWYyNzBmYzk1MDQ4NWM4OTVkYjQ4MjE5MTU0Mjk5L3RhYmxlOjQ2ZTAxZDQ3Yjk5NTRkZmQ4OTE4NDFmYTE5NjhmZDMwL3RhYmxlcmFuZ2U6NDZlMDFkNDdiOTk1NGRmZDg5MTg0MWZhMTk2OGZkMzBfMi0yLTEtMS0w_069cfeea-0df1-4902-9507-ae73dbf9e13f" sourceLine="4">
+  <property name="file" value="five-20210501.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Operating Leases, Future Minimum Payments, Due in Two Years"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="OperatingLeasesFutureMinimumPaymentsDueInTwoYears"/>
+  <property name="QName" value="us-gaap:OperatingLeasesFutureMinimumPaymentsDueInTwoYears"/>
+  <property name="contextRef" value="i518f94359a5640ec90677df1fb3bf0bd_I20210501">
+   <property name="entity" value="0001177609">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2021-05-01"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="198,544,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="198,544"/>
+ </ref></entry>
+<entry code="DQC.US.0121.9581" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1177609/000117760921000018/five-20210501.htm" severity="error" effectiveDate="2021-12-01" cid="2347918164944">[DQC.US.0121.9581] The element us-gaap:OperatingLeasesFutureMinimumPaymentsDueInThreeYears with a value of 191,360,000 has been used in the filing.  This element is a transition element and is intended to be used in periods before adoption of amendments from Accounting Standards Update 2016-02,  Accounting Standards Update 2017-12, or Accounting Standards Update 2018-07. The element should no longer be used for filings with fiscal years beginning after:
+
+December 15, 2018 for ASU 2016-02 - Leases
+December 15, 2018 for ASU 2017-12 - Derivatives and Hedging
+December 15, 2019 for ASU 2018-07 - Compensation - Stock Compensation  
+
+Period :2021-05-01
+Dimensions : 
+Unit : USD
+Decimals: -3
+
+Rule Element Id:9581
+Rule version: 17.0.0RC1  - http://www.sec.gov/Archives/edgar/data/1177609/000117760921000018/five-20210501.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1177609/000117760921000018/five-20210501.htm#id3VybDovL2RvY3MudjEvZG9jOjJiMGMyYTU0MjY4NDQxYTNhOGE5Y2U1ZDNiNGVmOGQyL3NlYzoyYjBjMmE1NDI2ODQ0MWEzYThhOWNlNWQzYjRlZjhkMl82Ny9mcmFnOjNkZWYyNzBmYzk1MDQ4NWM4OTVkYjQ4MjE5MTU0Mjk5L3RhYmxlOjQ2ZTAxZDQ3Yjk5NTRkZmQ4OTE4NDFmYTE5NjhmZDMwL3RhYmxlcmFuZ2U6NDZlMDFkNDdiOTk1NGRmZDg5MTg0MWZhMTk2OGZkMzBfMy0yLTEtMS0w_6cfabc9e-31f8-4ede-a9d3-be4c314c6dd7" sourceLine="4">
+  <property name="file" value="five-20210501.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Operating Leases, Future Minimum Payments, Due in Three Years"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="OperatingLeasesFutureMinimumPaymentsDueInThreeYears"/>
+  <property name="QName" value="us-gaap:OperatingLeasesFutureMinimumPaymentsDueInThreeYears"/>
+  <property name="contextRef" value="i518f94359a5640ec90677df1fb3bf0bd_I20210501">
+   <property name="entity" value="0001177609">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2021-05-01"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="191,360,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="191,360"/>
+ </ref></entry>
+<entry code="DQC.US.0121.9581" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1177609/000117760921000018/five-20210501.htm" severity="error" effectiveDate="2021-12-01" cid="2347918164944">[DQC.US.0121.9581] The element us-gaap:OperatingLeasesFutureMinimumPaymentsDueInFourYears with a value of 180,156,000 has been used in the filing.  This element is a transition element and is intended to be used in periods before adoption of amendments from Accounting Standards Update 2016-02,  Accounting Standards Update 2017-12, or Accounting Standards Update 2018-07. The element should no longer be used for filings with fiscal years beginning after:
+
+December 15, 2018 for ASU 2016-02 - Leases
+December 15, 2018 for ASU 2017-12 - Derivatives and Hedging
+December 15, 2019 for ASU 2018-07 - Compensation - Stock Compensation  
+
+Period :2021-05-01
+Dimensions : 
+Unit : USD
+Decimals: -3
+
+Rule Element Id:9581
+Rule version: 17.0.0RC1  - http://www.sec.gov/Archives/edgar/data/1177609/000117760921000018/five-20210501.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1177609/000117760921000018/five-20210501.htm#id3VybDovL2RvY3MudjEvZG9jOjJiMGMyYTU0MjY4NDQxYTNhOGE5Y2U1ZDNiNGVmOGQyL3NlYzoyYjBjMmE1NDI2ODQ0MWEzYThhOWNlNWQzYjRlZjhkMl82Ny9mcmFnOjNkZWYyNzBmYzk1MDQ4NWM4OTVkYjQ4MjE5MTU0Mjk5L3RhYmxlOjQ2ZTAxZDQ3Yjk5NTRkZmQ4OTE4NDFmYTE5NjhmZDMwL3RhYmxlcmFuZ2U6NDZlMDFkNDdiOTk1NGRmZDg5MTg0MWZhMTk2OGZkMzBfNC0yLTEtMS0w_f10e039c-f06f-48ee-9104-429701f229ff" sourceLine="4">
+  <property name="file" value="five-20210501.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Operating Leases, Future Minimum Payments, Due in Four Years"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="OperatingLeasesFutureMinimumPaymentsDueInFourYears"/>
+  <property name="QName" value="us-gaap:OperatingLeasesFutureMinimumPaymentsDueInFourYears"/>
+  <property name="contextRef" value="i518f94359a5640ec90677df1fb3bf0bd_I20210501">
+   <property name="entity" value="0001177609">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2021-05-01"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="180,156,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="180,156"/>
+ </ref></entry>
+<entry code="DQC.US.0121.9581" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1177609/000117760921000018/five-20210501.htm" severity="error" effectiveDate="2021-12-01" cid="2347918164944">[DQC.US.0121.9581] The element us-gaap:OperatingLeasesFutureMinimumPaymentsDueInFiveYears with a value of 165,338,000 has been used in the filing.  This element is a transition element and is intended to be used in periods before adoption of amendments from Accounting Standards Update 2016-02,  Accounting Standards Update 2017-12, or Accounting Standards Update 2018-07. The element should no longer be used for filings with fiscal years beginning after:
+
+December 15, 2018 for ASU 2016-02 - Leases
+December 15, 2018 for ASU 2017-12 - Derivatives and Hedging
+December 15, 2019 for ASU 2018-07 - Compensation - Stock Compensation  
+
+Period :2021-05-01
+Dimensions : 
+Unit : USD
+Decimals: -3
+
+Rule Element Id:9581
+Rule version: 17.0.0RC1  - http://www.sec.gov/Archives/edgar/data/1177609/000117760921000018/five-20210501.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1177609/000117760921000018/five-20210501.htm#id3VybDovL2RvY3MudjEvZG9jOjJiMGMyYTU0MjY4NDQxYTNhOGE5Y2U1ZDNiNGVmOGQyL3NlYzoyYjBjMmE1NDI2ODQ0MWEzYThhOWNlNWQzYjRlZjhkMl82Ny9mcmFnOjNkZWYyNzBmYzk1MDQ4NWM4OTVkYjQ4MjE5MTU0Mjk5L3RhYmxlOjQ2ZTAxZDQ3Yjk5NTRkZmQ4OTE4NDFmYTE5NjhmZDMwL3RhYmxlcmFuZ2U6NDZlMDFkNDdiOTk1NGRmZDg5MTg0MWZhMTk2OGZkMzBfNS0yLTEtMS0w_599431c0-5918-46a7-9e08-e64f29d3f5a0" sourceLine="4">
+  <property name="file" value="five-20210501.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Operating Leases, Future Minimum Payments, Due in Five Years"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="OperatingLeasesFutureMinimumPaymentsDueInFiveYears"/>
+  <property name="QName" value="us-gaap:OperatingLeasesFutureMinimumPaymentsDueInFiveYears"/>
+  <property name="contextRef" value="i518f94359a5640ec90677df1fb3bf0bd_I20210501">
+   <property name="entity" value="0001177609">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2021-05-01"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="165,338,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="165,338"/>
+ </ref></entry>
+<entry code="DQC.US.0121.9581" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1177609/000117760921000018/five-20210501.htm" severity="error" effectiveDate="2021-12-01" cid="2347918164944">[DQC.US.0121.9581] The element us-gaap:OperatingLeasesFutureMinimumPaymentsDueThereafter with a value of 545,477,000 has been used in the filing.  This element is a transition element and is intended to be used in periods before adoption of amendments from Accounting Standards Update 2016-02,  Accounting Standards Update 2017-12, or Accounting Standards Update 2018-07. The element should no longer be used for filings with fiscal years beginning after:
+
+December 15, 2018 for ASU 2016-02 - Leases
+December 15, 2018 for ASU 2017-12 - Derivatives and Hedging
+December 15, 2019 for ASU 2018-07 - Compensation - Stock Compensation  
+
+Period :2021-05-01
+Dimensions : 
+Unit : USD
+Decimals: -3
+
+Rule Element Id:9581
+Rule version: 17.0.0RC1  - http://www.sec.gov/Archives/edgar/data/1177609/000117760921000018/five-20210501.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1177609/000117760921000018/five-20210501.htm#id3VybDovL2RvY3MudjEvZG9jOjJiMGMyYTU0MjY4NDQxYTNhOGE5Y2U1ZDNiNGVmOGQyL3NlYzoyYjBjMmE1NDI2ODQ0MWEzYThhOWNlNWQzYjRlZjhkMl82Ny9mcmFnOjNkZWYyNzBmYzk1MDQ4NWM4OTVkYjQ4MjE5MTU0Mjk5L3RhYmxlOjQ2ZTAxZDQ3Yjk5NTRkZmQ4OTE4NDFmYTE5NjhmZDMwL3RhYmxlcmFuZ2U6NDZlMDFkNDdiOTk1NGRmZDg5MTg0MWZhMTk2OGZkMzBfNi0yLTEtMS0w_4be71d52-0c1c-4f4b-90ca-ff4401589c4d" sourceLine="4">
+  <property name="file" value="five-20210501.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Operating Leases, Future Minimum Payments, Due Thereafter"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="OperatingLeasesFutureMinimumPaymentsDueThereafter"/>
+  <property name="QName" value="us-gaap:OperatingLeasesFutureMinimumPaymentsDueThereafter"/>
+  <property name="contextRef" value="i518f94359a5640ec90677df1fb3bf0bd_I20210501">
+   <property name="entity" value="0001177609">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2021-05-01"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="545,477,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="545,477"/>
+ </ref></entry>
+<entry code="DQC.US.0121.9581" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1177609/000117760921000018/five-20210501.htm" severity="error" effectiveDate="2021-12-01" cid="2347918164944">[DQC.US.0121.9581] The element us-gaap:OperatingLeasesFutureMinimumPaymentsDue with a value of 1,440,639,000 has been used in the filing.  This element is a transition element and is intended to be used in periods before adoption of amendments from Accounting Standards Update 2016-02,  Accounting Standards Update 2017-12, or Accounting Standards Update 2018-07. The element should no longer be used for filings with fiscal years beginning after:
+
+December 15, 2018 for ASU 2016-02 - Leases
+December 15, 2018 for ASU 2017-12 - Derivatives and Hedging
+December 15, 2019 for ASU 2018-07 - Compensation - Stock Compensation  
+
+Period :2021-05-01
+Dimensions : 
+Unit : USD
+Decimals: -3
+
+Rule Element Id:9581
+Rule version: 17.0.0RC1  - http://www.sec.gov/Archives/edgar/data/1177609/000117760921000018/five-20210501.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1177609/000117760921000018/five-20210501.htm#id3VybDovL2RvY3MudjEvZG9jOjJiMGMyYTU0MjY4NDQxYTNhOGE5Y2U1ZDNiNGVmOGQyL3NlYzoyYjBjMmE1NDI2ODQ0MWEzYThhOWNlNWQzYjRlZjhkMl82Ny9mcmFnOjNkZWYyNzBmYzk1MDQ4NWM4OTVkYjQ4MjE5MTU0Mjk5L3RhYmxlOjQ2ZTAxZDQ3Yjk5NTRkZmQ4OTE4NDFmYTE5NjhmZDMwL3RhYmxlcmFuZ2U6NDZlMDFkNDdiOTk1NGRmZDg5MTg0MWZhMTk2OGZkMzBfNy0yLTEtMS0w_e1e25cd3-be3b-423d-b4d9-1f383f730d91" sourceLine="4">
+  <property name="file" value="five-20210501.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Operating Leases, Future Minimum Payments Due"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="OperatingLeasesFutureMinimumPaymentsDue"/>
+  <property name="QName" value="us-gaap:OperatingLeasesFutureMinimumPaymentsDue"/>
+  <property name="contextRef" value="i518f94359a5640ec90677df1fb3bf0bd_I20210501">
+   <property name="entity" value="0001177609">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2021-05-01"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,440,639,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="1,440,639"/>
+ </ref></entry>
+<entry code="DQC.US.0121.9581" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1177609/000117760921000018/five-20210501.htm" severity="error" effectiveDate="2021-12-01" cid="2347918164944">[DQC.US.0121.9581] The element us-gaap:ScheduleOfFutureMinimumRentalPaymentsForOperatingLeasesTableTextBlock with a value of &lt;div style=&quot;text-indent:22.5pt&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:120%&quot;>The following table summarizes the maturity of leas.... has been used in the filing.  This element is a transition element and is intended to be used in periods before adoption of amendments from Accounting Standards Update 2016-02,  Accounting Standards Update 2017-12, or Accounting Standards Update 2018-07. The element should no longer be used for filings with fiscal years beginning after:
+
+December 15, 2018 for ASU 2016-02 - Leases
+December 15, 2018 for ASU 2017-12 - Derivatives and Hedging
+December 15, 2019 for ASU 2018-07 - Compensation - Stock Compensation  
+
+Period :2021-01-31 to 2021-05-01
+Dimensions : 
+Unit : None
+Decimals: None
+
+Rule Element Id:9581
+Rule version: 17.0.0RC1  - http://www.sec.gov/Archives/edgar/data/1177609/000117760921000018/five-20210501.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1177609/000117760921000018/five-20210501.htm#id3VybDovL2RvY3MudjEvZG9jOjJiMGMyYTU0MjY4NDQxYTNhOGE5Y2U1ZDNiNGVmOGQyL3NlYzoyYjBjMmE1NDI2ODQ0MWEzYThhOWNlNWQzYjRlZjhkMl82Ny9mcmFnOjNkZWYyNzBmYzk1MDQ4NWM4OTVkYjQ4MjE5MTU0Mjk5L3RleHRyZWdpb246M2RlZjI3MGZjOTUwNDg1Yzg5NWRiNDgyMTkxNTQyOTlfNTQzNA_f679bb84-33e5-42ce-8e93-5d2279dac7d6" sourceLine="4">
+  <property name="file" value="five-20210501.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Schedule of Future Minimum Rental Payments for Operating Leases [Table Text Block]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ScheduleOfFutureMinimumRentalPaymentsForOperatingLeasesTableTextBlock"/>
+  <property name="QName" value="us-gaap:ScheduleOfFutureMinimumRentalPaymentsForOperatingLeasesTableTextBlock"/>
+  <property name="contextRef" value="ie31bddde9d10410187a5c7b1a2bac9d2_D20210131-20210501">
+   <property name="entity" value="0001177609">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2021-01-31"/>
+   <property name="endDate" value="2021-05-01"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="&lt;div style=&quot;text-indent:22.5pt&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:120%&quot;>The following table summarizes the maturity of lease liabilities under operating leases as of May 1, 2021 (in thousands):&lt;/span>&lt;/div>&lt;div style=&quot;margin-top:5pt;text-align:center;text-indent:22.5pt&quot;>&lt;table style=&quot;border-collapse:collapse;display:inline-table;margin-bottom:5pt;vertical-align:text-bottom;width:95.175%&quot;>&lt;tr>&lt;td style=&quot;width:1.0%&quot;/>&lt;td style=&quot;width:69.714%&quot;/>&lt;td style=&quot;width:0.1%&quot;/>&lt;td style=&quot;width:0.1%&quot;/>&lt;td style=&quot;width:0.568%&quot;/>&lt;td style=&quot;width:0.1%&quot;/>&lt;td style=&quot;width:1.0%&quot;/>&lt;td style=&quot;width:27.318%&quot;/>&lt;td style=&quot;width:0.1%&quot;/>&lt;/tr>&lt;tr>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#ffffff;padding:2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:700;line-height:100%&quot;>Maturity of Lease Liabilities&lt;/span>&lt;/td>&lt;td colspan=&quot;3&quot; style=&quot;padding:0 1pt&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;padding:2px 1pt;text-align:center;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:8pt;font-weight:700;line-height:100%&quot;>Operating Leases&lt;/span>&lt;/td>&lt;/tr>&lt;tr>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;padding:2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>2021&lt;/span>&lt;/td>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;padding:0 1pt&quot;/>&lt;td style=&quot;background-color:#cceeff;border-top:1pt solid #000000;padding:2px 0 2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>$&lt;/span>&lt;/td>&lt;td style=&quot;background-color:#cceeff;border-top:1pt solid #000000;padding:2px 0;text-align:right;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>159,764 &lt;/span>&lt;/td>&lt;td style=&quot;background-color:#cceeff;border-top:1pt solid #000000;padding:2px 1pt 2px 0;text-align:right;vertical-align:bottom&quot;/>&lt;/tr>&lt;tr>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#ffffff;padding:2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>2022&lt;/span>&lt;/td>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#ffffff;padding:0 1pt&quot;/>&lt;td colspan=&quot;2&quot; style=&quot;background-color:#ffffff;padding:2px 0 2px 1pt;text-align:right;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>198,544 &lt;/span>&lt;/td>&lt;td style=&quot;background-color:#ffffff;padding:2px 1pt 2px 0;text-align:right;vertical-align:bottom&quot;/>&lt;/tr>&lt;tr>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;padding:2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>2023&lt;/span>&lt;/td>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;padding:0 1pt&quot;/>&lt;td colspan=&quot;2&quot; style=&quot;background-color:#cceeff;padding:2px 0 2px 1pt;text-align:right;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>191,360 &lt;/span>&lt;/td>&lt;td style=&quot;background-color:#cceeff;padding:2px 1pt 2px 0;text-align:right;vertical-align:bottom&quot;/>&lt;/tr>&lt;tr>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#ffffff;padding:2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>2024&lt;/span>&lt;/td>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#ffffff;padding:0 1pt&quot;/>&lt;td colspan=&quot;2&quot; style=&quot;background-color:#ffffff;padding:2px 0 2px 1pt;text-align:right;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>180,156 &lt;/span>&lt;/td>&lt;td style=&quot;background-color:#ffffff;padding:2px 1pt 2px 0;text-align:right;vertical-align:bottom&quot;/>&lt;/tr>&lt;tr>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;padding:2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>2025&lt;/span>&lt;/td>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;padding:0 1pt&quot;/>&lt;td colspan=&quot;2&quot; style=&quot;background-color:#cceeff;padding:2px 0 2px 1pt;text-align:right;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>165,338 &lt;/span>&lt;/td>&lt;td style=&quot;background-color:#cceeff;padding:2px 1pt 2px 0;text-align:right;vertical-align:bottom&quot;/>&lt;/tr>&lt;tr>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#ffffff;padding:2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>After 2025&lt;/span>&lt;/td>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#ffffff;padding:0 1pt&quot;/>&lt;td colspan=&quot;2&quot; style=&quot;background-color:#ffffff;padding:2px 0 2px 1pt;text-align:right;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>545,477 &lt;/span>&lt;/td>&lt;td style=&quot;background-color:#ffffff;padding:2px 1pt 2px 0;text-align:right;vertical-align:bottom&quot;/>&lt;/tr>&lt;tr>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;padding:2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>Total lease payments&lt;/span>&lt;/td>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;padding:0 1pt&quot;/>&lt;td colspan=&quot;2&quot; style=&quot;background-color:#cceeff;border-top:1pt solid #000000;padding:2px 0 2px 1pt;text-align:right;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>1,440,639 &lt;/span>&lt;/td>&lt;td style=&quot;background-color:#cceeff;border-top:1pt solid #000000;padding:2px 1pt 2px 0;text-align:right;vertical-align:bottom&quot;/>&lt;/tr>&lt;tr>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#ffffff;padding:2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>Less: imputed interest&lt;/span>&lt;/td>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#ffffff;padding:0 1pt&quot;/>&lt;td colspan=&quot;2&quot; style=&quot;background-color:#ffffff;padding:2px 0 2px 1pt;text-align:right;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>278,695 &lt;/span>&lt;/td>&lt;td style=&quot;background-color:#ffffff;padding:2px 1pt 2px 0;text-align:right;vertical-align:bottom&quot;/>&lt;/tr>&lt;tr>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;padding:2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>Present value of lease liabilities&lt;/span>&lt;/td>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;padding:0 1pt&quot;/>&lt;td style=&quot;background-color:#cceeff;border-bottom:3pt double #000000;border-top:1pt solid #000000;padding:2px 0 2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>$&lt;/span>&lt;/td>&lt;td style=&quot;background-color:#cceeff;border-bottom:3pt double #000000;border-top:1pt solid #000000;padding:2px 0;text-align:right;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>1,161,944 &lt;/span>&lt;/td>&lt;td style=&quot;background-color:#cceeff;border-bottom:3pt double #000000;border-top:1pt solid #000000;padding:2px 1pt 2px 0;text-align:right;vertical-align:bottom&quot;/>&lt;/tr>&lt;/table>&lt;/div>"/>
+ </ref></entry>
+<entry code="DQC.US.0121.9581" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1177609/000117760921000018/five-20210501.htm" severity="error" effectiveDate="2021-12-01" cid="2347918164944">[DQC.US.0121.9581] The element us-gaap:LeasesOfLesseeDisclosureTextBlock with a value of Leases&lt;div style=&quot;margin-bottom:5pt;margin-top:5pt;text-indent:22.5pt&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:120%&quot;>The Company .... has been used in the filing.  This element is a transition element and is intended to be used in periods before adoption of amendments from Accounting Standards Update 2016-02,  Accounting Standards Update 2017-12, or Accounting Standards Update 2018-07. The element should no longer be used for filings with fiscal years beginning after:
+
+December 15, 2018 for ASU 2016-02 - Leases
+December 15, 2018 for ASU 2017-12 - Derivatives and Hedging
+December 15, 2019 for ASU 2018-07 - Compensation - Stock Compensation  
+
+Period :2021-01-31 to 2021-05-01
+Dimensions : 
+Unit : None
+Decimals: None
+
+Rule Element Id:9581
+Rule version: 17.0.0RC1  - http://www.sec.gov/Archives/edgar/data/1177609/000117760921000018/five-20210501.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1177609/000117760921000018/five-20210501.htm#id3VybDovL2RvY3MudjEvZG9jOjJiMGMyYTU0MjY4NDQxYTNhOGE5Y2U1ZDNiNGVmOGQyL3NlYzoyYjBjMmE1NDI2ODQ0MWEzYThhOWNlNWQzYjRlZjhkMl82Ny9mcmFnOjNkZWYyNzBmYzk1MDQ4NWM4OTVkYjQ4MjE5MTU0Mjk5L3RleHRyZWdpb246M2RlZjI3MGZjOTUwNDg1Yzg5NWRiNDgyMTkxNTQyOTlfNTQzMQ_e9a346b4-9146-466e-a52c-53e0264a5522" sourceLine="4">
+  <property name="file" value="five-20210501.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Leases of Lessee Disclosure [Text Block]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="LeasesOfLesseeDisclosureTextBlock"/>
+  <property name="QName" value="us-gaap:LeasesOfLesseeDisclosureTextBlock"/>
+  <property name="contextRef" value="ie31bddde9d10410187a5c7b1a2bac9d2_D20210131-20210501">
+   <property name="entity" value="0001177609">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2021-01-31"/>
+   <property name="endDate" value="2021-05-01"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="Leases&lt;div style=&quot;margin-bottom:5pt;margin-top:5pt;text-indent:22.5pt&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:120%&quot;>The Company determines if an arrangement contains a lease at the inception of a contract. Operating lease assets represent the Company’s right to use an underlying asset for the lease term and operating lease liabilities represent the Company’s obligation to make lease payments arising from the lease. Operating lease assets and operating lease liabilities are recognized at the commencement date based on the present value of the remaining future minimum lease payments. As the rate implicit in the lease is not readily determinable for the Company's leases, the Company utilizes its incremental borrowing rate to determine the present value of future lease payments. The incremental borrowing rate represents a significant judgment and is determined based on an analysis of the Company's synthetic credit rating, prevailing financial market conditions, corporate bond yields, treasury bond yields, and the effect of collateralization. The operating lease assets also include lease payments made before commencement and exclude lease incentives.&lt;/span>&lt;/div>&lt;div style=&quot;margin-bottom:5pt;margin-top:5pt;text-indent:22.5pt&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:120%&quot;>The Company’s real estate leases typically contain options that permit renewals for additional periods of up to five years. For real estate leases, except for renewals that generally take the lease to a ten-year term, the options to renew are not considered reasonably certain at lease commencement because the Company reevaluates each lease on a regular basis to consider the economic and strategic benefits of exercising the renewal options, and regularly opens, relocates or closes stores to align with its operating strategy. Therefore, generally, except for renewals that take the lease to a ten-year term, the renewal option periods are not included within the lease term and the associated payments are not included in the measurement of the operating lease asset and operating lease liability as the exercise of such options is not reasonably certain. The Company’s operating lease agreements, including assumed renewals, which are generally those that take the lease to a ten-year term, expire through fiscal 2034. Similarly, renewal options are not included in the lease term for non-real estate leases because they are not considered reasonably certain of being exercised at lease commencement. Leases with an initial term of 12 months or less are not recorded on the balance sheets and lease expense is recognized on a straight-line basis over the term of the short-term lease.&lt;/span>&lt;/div>&lt;div style=&quot;margin-bottom:5pt;margin-top:5pt;text-indent:22.5pt&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:120%&quot;>For certain real estate leases, the Company accounts for lease components and nonlease components as a single lease component. Certain real estate leases require additional payments for reimbursement of real estate taxes, common area maintenance and insurance as well as payments based on sales volume, all of which are expensed as incurred as variable lease costs. Other real estate leases contain one fixed lease payment that includes real estate taxes, common area maintenance and insurance. These fixed payments are considered part of the lease payment and included in the operating lease assets and operating lease liabilities.&lt;/span>&lt;/div>&lt;div style=&quot;margin-bottom:5pt;margin-top:5pt;text-indent:22.5pt&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:120%&quot;>In response to the COVID-19 pandemic, certain of the Company's landlords agreed to temporary rent concessions. These rent concessions generally related to deferrals and abatements of certain rent payments due between April 2020 through October 2020 into future periods. &lt;/span>&lt;/div>&lt;div style=&quot;margin-bottom:5pt;margin-top:5pt;text-indent:22.5pt&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:120%&quot;>In accordance with the Financial Accounting Standards Board's staff guidance regarding rent concessions related to the effects of the COVID-19 pandemic, the Company has elected to account for the concessions agreed to by landlords that do not result in a substantial increase in the obligations of the lessee as if the enforceable rights and obligations for those concessions existed in the original lease agreements and the Company has elected to not remeasure the related lease liabilities and right-of-use assets. For qualifying rent abatement concessions, the Company has recorded negative variable lease expense for the amount of the concession during the period of relief, and for qualifying deferrals of rental payments, the Company has recognized a non-interest bearing payable in lieu of recognizing a decrease in cash for the lease payment that would have been made based on the original terms of the lease agreement, which will be reduced when the deferred payment is made in the future. &lt;/span>&lt;/div>&lt;div style=&quot;margin-bottom:5pt;margin-top:5pt;text-indent:22.5pt&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:120%&quot;>During the thirteen weeks ended May 1, 2021, the Company committed to 59 new store leases with average terms of approximately 10 years that have future minimum lease payments of approximately $120.4 million.&lt;/span>&lt;/div>&lt;div style=&quot;margin-bottom:5pt;margin-top:5pt;text-indent:22.5pt&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:120%&quot;>All of the Company's leases are classified as operating leases and the associated assets and liabilities are presented as separate captions in the consolidated balance sheets. As of May 1, 2021 and May 2, 2020, the weighted average remaining lease term for the Company's operating leases was 7.9 years and 8.1 years, respectively, and the weighted average discount rate was 6.0% and 6.5%, respectively.  &lt;/span>&lt;/div>&lt;div style=&quot;text-indent:22.5pt&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:120%&quot;>The following table is a summary of the Company's components for net lease costs (in thousands):&lt;/span>&lt;/div>&lt;div style=&quot;margin-top:5pt;text-align:center;text-indent:22.5pt&quot;>&lt;table style=&quot;border-collapse:collapse;display:inline-table;margin-bottom:5pt;vertical-align:text-bottom;width:56.432%&quot;>&lt;tr>&lt;td style=&quot;width:1.0%&quot;/>&lt;td style=&quot;width:38.019%&quot;/>&lt;td style=&quot;width:0.1%&quot;/>&lt;td style=&quot;width:1.0%&quot;/>&lt;td style=&quot;width:28.692%&quot;/>&lt;td style=&quot;width:0.1%&quot;/>&lt;td style=&quot;width:0.1%&quot;/>&lt;td style=&quot;width:1.095%&quot;/>&lt;td style=&quot;width:0.1%&quot;/>&lt;td style=&quot;width:1.0%&quot;/>&lt;td style=&quot;width:28.694%&quot;/>&lt;td style=&quot;width:0.1%&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;display:none&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;display:none&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;display:none&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;display:none&quot;/>&lt;/tr>&lt;tr>&lt;td colspan=&quot;3&quot; style=&quot;padding:0 1pt&quot;/>&lt;td colspan=&quot;9&quot; style=&quot;padding:2px 1pt;text-align:center;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:8pt;font-weight:700;line-height:100%&quot;>Thirteen Weeks Ended&lt;/span>&lt;/td>&lt;td colspan=&quot;3&quot; style=&quot;display:none&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;display:none&quot;/>&lt;/tr>&lt;tr>&lt;td colspan=&quot;3&quot; style=&quot;padding:2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:700;line-height:100%&quot;>Lease Cost&lt;/span>&lt;/td>&lt;td colspan=&quot;3&quot; style=&quot;border-top:1pt solid #000000;padding:2px 1pt;text-align:center;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:8pt;font-weight:700;line-height:100%&quot;>May 1, 2021&lt;/span>&lt;/td>&lt;td colspan=&quot;3&quot; style=&quot;border-top:1pt solid #000000;padding:0 1pt&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;border-top:1pt solid #000000;padding:2px 1pt;text-align:center;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:8pt;font-weight:700;line-height:100%&quot;>May 2, 2020&lt;/span>&lt;/td>&lt;td colspan=&quot;3&quot; style=&quot;display:none&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;display:none&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;display:none&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;display:none&quot;/>&lt;/tr>&lt;tr>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;padding:2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>Operating lease cost&lt;/span>&lt;/td>&lt;td style=&quot;background-color:#cceeff;border-top:1pt solid #000000;padding:2px 0 2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>$&lt;/span>&lt;/td>&lt;td style=&quot;background-color:#cceeff;border-top:1pt solid #000000;padding:2px 0;text-align:right;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>47,529 &lt;/span>&lt;/td>&lt;td style=&quot;background-color:#cceeff;border-top:1pt solid #000000;padding:2px 1pt 2px 0;text-align:right;vertical-align:bottom&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;padding:0 1pt&quot;/>&lt;td style=&quot;background-color:#cceeff;border-top:1pt solid #000000;padding:2px 0 2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>$&lt;/span>&lt;/td>&lt;td style=&quot;background-color:#cceeff;border-top:1pt solid #000000;padding:2px 0;text-align:right;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>40,348 &lt;/span>&lt;/td>&lt;td style=&quot;background-color:#cceeff;border-top:1pt solid #000000;padding:2px 1pt 2px 0;text-align:right;vertical-align:bottom&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;display:none&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;display:none&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;display:none&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;display:none&quot;/>&lt;/tr>&lt;tr>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#ffffff;padding:2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>Variable lease cost&lt;/span>&lt;/td>&lt;td colspan=&quot;2&quot; style=&quot;background-color:#ffffff;padding:2px 0 2px 1pt;text-align:right;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>13,631 &lt;/span>&lt;/td>&lt;td style=&quot;background-color:#ffffff;padding:2px 1pt 2px 0;text-align:right;vertical-align:bottom&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#ffffff;padding:0 1pt&quot;/>&lt;td colspan=&quot;2&quot; style=&quot;background-color:#ffffff;padding:2px 0 2px 1pt;text-align:right;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>11,343 &lt;/span>&lt;/td>&lt;td style=&quot;background-color:#ffffff;padding:2px 1pt 2px 0;text-align:right;vertical-align:bottom&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;display:none&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;display:none&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;display:none&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;display:none&quot;/>&lt;/tr>&lt;tr>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;padding:2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>Net lease cost*&lt;/span>&lt;/td>&lt;td style=&quot;background-color:#cceeff;border-bottom:3pt double #000000;border-top:1pt solid #000000;padding:2px 0 2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>$&lt;/span>&lt;/td>&lt;td style=&quot;background-color:#cceeff;border-bottom:3pt double #000000;border-top:1pt solid #000000;padding:2px 0;text-align:right;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>61,160 &lt;/span>&lt;/td>&lt;td style=&quot;background-color:#cceeff;border-bottom:3pt double #000000;border-top:1pt solid #000000;padding:2px 1pt 2px 0;text-align:right;vertical-align:bottom&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;padding:0 1pt&quot;/>&lt;td style=&quot;background-color:#cceeff;border-bottom:3pt double #000000;border-top:1pt solid #000000;padding:2px 0 2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>$&lt;/span>&lt;/td>&lt;td style=&quot;background-color:#cceeff;border-bottom:3pt double #000000;border-top:1pt solid #000000;padding:2px 0;text-align:right;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>51,691 &lt;/span>&lt;/td>&lt;td style=&quot;background-color:#cceeff;border-bottom:3pt double #000000;border-top:1pt solid #000000;padding:2px 1pt 2px 0;text-align:right;vertical-align:bottom&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;display:none&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;display:none&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;display:none&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;display:none&quot;/>&lt;/tr>&lt;/table>&lt;/div>&lt;div style=&quot;padding-left:36pt&quot;>&lt;span>&lt;br/>&lt;/span>&lt;/div>&lt;div style=&quot;padding-left:31.5pt&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:6pt;font-weight:400;line-height:120%&quot;>* Excludes short-term lease cost, which is immaterial.&lt;/span>&lt;/div>&lt;div>&lt;span>&lt;br/>&lt;/span>&lt;/div>&lt;div>&lt;span>&lt;br/>&lt;/span>&lt;/div>&lt;div style=&quot;text-indent:22.5pt&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:120%&quot;>The following table summarizes the maturity of lease liabilities under operating leases as of May 1, 2021 (in thousands):&lt;/span>&lt;/div>&lt;div style=&quot;margin-top:5pt;text-align:center;text-indent:22.5pt&quot;>&lt;table style=&quot;border-collapse:collapse;display:inline-table;margin-bottom:5pt;vertical-align:text-bottom;width:95.175%&quot;>&lt;tr>&lt;td style=&quot;width:1.0%&quot;/>&lt;td style=&quot;width:69.714%&quot;/>&lt;td style=&quot;width:0.1%&quot;/>&lt;td style=&quot;width:0.1%&quot;/>&lt;td style=&quot;width:0.568%&quot;/>&lt;td style=&quot;width:0.1%&quot;/>&lt;td style=&quot;width:1.0%&quot;/>&lt;td style=&quot;width:27.318%&quot;/>&lt;td style=&quot;width:0.1%&quot;/>&lt;/tr>&lt;tr>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#ffffff;padding:2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:700;line-height:100%&quot;>Maturity of Lease Liabilities&lt;/span>&lt;/td>&lt;td colspan=&quot;3&quot; style=&quot;padding:0 1pt&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;padding:2px 1pt;text-align:center;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:8pt;font-weight:700;line-height:100%&quot;>Operating Leases&lt;/span>&lt;/td>&lt;/tr>&lt;tr>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;padding:2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>2021&lt;/span>&lt;/td>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;padding:0 1pt&quot;/>&lt;td style=&quot;background-color:#cceeff;border-top:1pt solid #000000;padding:2px 0 2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>$&lt;/span>&lt;/td>&lt;td style=&quot;background-color:#cceeff;border-top:1pt solid #000000;padding:2px 0;text-align:right;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>159,764 &lt;/span>&lt;/td>&lt;td style=&quot;background-color:#cceeff;border-top:1pt solid #000000;padding:2px 1pt 2px 0;text-align:right;vertical-align:bottom&quot;/>&lt;/tr>&lt;tr>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#ffffff;padding:2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>2022&lt;/span>&lt;/td>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#ffffff;padding:0 1pt&quot;/>&lt;td colspan=&quot;2&quot; style=&quot;background-color:#ffffff;padding:2px 0 2px 1pt;text-align:right;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>198,544 &lt;/span>&lt;/td>&lt;td style=&quot;background-color:#ffffff;padding:2px 1pt 2px 0;text-align:right;vertical-align:bottom&quot;/>&lt;/tr>&lt;tr>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;padding:2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>2023&lt;/span>&lt;/td>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;padding:0 1pt&quot;/>&lt;td colspan=&quot;2&quot; style=&quot;background-color:#cceeff;padding:2px 0 2px 1pt;text-align:right;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>191,360 &lt;/span>&lt;/td>&lt;td style=&quot;background-color:#cceeff;padding:2px 1pt 2px 0;text-align:right;vertical-align:bottom&quot;/>&lt;/tr>&lt;tr>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#ffffff;padding:2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>2024&lt;/span>&lt;/td>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#ffffff;padding:0 1pt&quot;/>&lt;td colspan=&quot;2&quot; style=&quot;background-color:#ffffff;padding:2px 0 2px 1pt;text-align:right;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>180,156 &lt;/span>&lt;/td>&lt;td style=&quot;background-color:#ffffff;padding:2px 1pt 2px 0;text-align:right;vertical-align:bottom&quot;/>&lt;/tr>&lt;tr>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;padding:2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>2025&lt;/span>&lt;/td>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;padding:0 1pt&quot;/>&lt;td colspan=&quot;2&quot; style=&quot;background-color:#cceeff;padding:2px 0 2px 1pt;text-align:right;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>165,338 &lt;/span>&lt;/td>&lt;td style=&quot;background-color:#cceeff;padding:2px 1pt 2px 0;text-align:right;vertical-align:bottom&quot;/>&lt;/tr>&lt;tr>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#ffffff;padding:2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>After 2025&lt;/span>&lt;/td>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#ffffff;padding:0 1pt&quot;/>&lt;td colspan=&quot;2&quot; style=&quot;background-color:#ffffff;padding:2px 0 2px 1pt;text-align:right;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>545,477 &lt;/span>&lt;/td>&lt;td style=&quot;background-color:#ffffff;padding:2px 1pt 2px 0;text-align:right;vertical-align:bottom&quot;/>&lt;/tr>&lt;tr>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;padding:2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>Total lease payments&lt;/span>&lt;/td>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;padding:0 1pt&quot;/>&lt;td colspan=&quot;2&quot; style=&quot;background-color:#cceeff;border-top:1pt solid #000000;padding:2px 0 2px 1pt;text-align:right;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>1,440,639 &lt;/span>&lt;/td>&lt;td style=&quot;background-color:#cceeff;border-top:1pt solid #000000;padding:2px 1pt 2px 0;text-align:right;vertical-align:bottom&quot;/>&lt;/tr>&lt;tr>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#ffffff;padding:2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>Less: imputed interest&lt;/span>&lt;/td>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#ffffff;padding:0 1pt&quot;/>&lt;td colspan=&quot;2&quot; style=&quot;background-color:#ffffff;padding:2px 0 2px 1pt;text-align:right;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>278,695 &lt;/span>&lt;/td>&lt;td style=&quot;background-color:#ffffff;padding:2px 1pt 2px 0;text-align:right;vertical-align:bottom&quot;/>&lt;/tr>&lt;tr>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;padding:2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>Present value of lease liabilities&lt;/span>&lt;/td>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;padding:0 1pt&quot;/>&lt;td style=&quot;background-color:#cceeff;border-bottom:3pt double #000000;border-top:1pt solid #000000;padding:2px 0 2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>$&lt;/span>&lt;/td>&lt;td style=&quot;background-color:#cceeff;border-bottom:3pt double #000000;border-top:1pt solid #000000;padding:2px 0;text-align:right;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>1,161,944 &lt;/span>&lt;/td>&lt;td style=&quot;background-color:#cceeff;border-bottom:3pt double #000000;border-top:1pt solid #000000;padding:2px 1pt 2px 0;text-align:right;vertical-align:bottom&quot;/>&lt;/tr>&lt;/table>&lt;/div>&lt;div style=&quot;text-align:center;text-indent:22.5pt&quot;>&lt;span>&lt;br/>&lt;/span>&lt;/div>&lt;div style=&quot;text-indent:22.5pt&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:120%&quot;>The following table summarizes the supplemental cash flow disclosures related to leases (in thousands):&lt;/span>&lt;/div>&lt;div style=&quot;margin-top:5pt;text-align:center;text-indent:22.5pt&quot;>&lt;table style=&quot;border-collapse:collapse;display:inline-table;margin-bottom:5pt;vertical-align:text-bottom;width:92.836%&quot;>&lt;tr>&lt;td style=&quot;width:1.0%&quot;/>&lt;td style=&quot;width:61.104%&quot;/>&lt;td style=&quot;width:0.1%&quot;/>&lt;td style=&quot;width:0.1%&quot;/>&lt;td style=&quot;width:0.587%&quot;/>&lt;td style=&quot;width:0.1%&quot;/>&lt;td style=&quot;width:1.0%&quot;/>&lt;td style=&quot;width:17.010%&quot;/>&lt;td style=&quot;width:0.1%&quot;/>&lt;td style=&quot;width:0.1%&quot;/>&lt;td style=&quot;width:0.587%&quot;/>&lt;td style=&quot;width:0.1%&quot;/>&lt;td style=&quot;width:1.0%&quot;/>&lt;td style=&quot;width:17.012%&quot;/>&lt;td style=&quot;width:0.1%&quot;/>&lt;/tr>&lt;tr>&lt;td colspan=&quot;3&quot; style=&quot;padding:0 1pt&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;padding:0 1pt&quot;/>&lt;td colspan=&quot;9&quot; style=&quot;padding:2px 1pt;text-align:center;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:8pt;font-weight:700;line-height:100%&quot;>Thirteen Weeks Ended&lt;/span>&lt;/td>&lt;/tr>&lt;tr>&lt;td colspan=&quot;3&quot; style=&quot;padding:0 1pt&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;padding:0 1pt&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;border-top:1pt solid #000000;padding:2px 1pt;text-align:center;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:8pt;font-weight:700;line-height:100%&quot;>May 1, 2021&lt;/span>&lt;/td>&lt;td colspan=&quot;3&quot; style=&quot;border-top:1pt solid #000000;padding:0 1pt&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;border-top:1pt solid #000000;padding:2px 1pt;text-align:center;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:8pt;font-weight:700;line-height:100%&quot;>May 2, 2020&lt;/span>&lt;/td>&lt;/tr>&lt;tr>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;padding:2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>Cash paid for amounts included in the measurement of lease liabilities:&lt;/span>&lt;/td>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;padding:0 1pt&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;border-top:1pt solid #000000;padding:0 1pt&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;padding:0 1pt&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;border-top:1pt solid #000000;padding:0 1pt&quot;/>&lt;/tr>&lt;tr>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#ffffff;padding:2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;div style=&quot;padding-left:6.75pt&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>Cash payments arising from operating lease liabilities&lt;/span>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:6.5pt;font-weight:400;line-height:100%;position:relative;top:-3.5pt;vertical-align:baseline&quot;> (1)&lt;/span>&lt;/div>&lt;/td>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#ffffff;padding:0 1pt&quot;/>&lt;td style=&quot;background-color:#ffffff;padding:2px 0 2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>$&lt;/span>&lt;/td>&lt;td style=&quot;background-color:#ffffff;padding:2px 0;text-align:right;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>50,911 &lt;/span>&lt;/td>&lt;td style=&quot;background-color:#ffffff;padding:2px 1pt 2px 0;text-align:right;vertical-align:bottom&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#ffffff;padding:0 1pt&quot;/>&lt;td style=&quot;background-color:#ffffff;padding:2px 0 2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>$&lt;/span>&lt;/td>&lt;td style=&quot;background-color:#ffffff;padding:2px 0;text-align:right;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>10,322 &lt;/span>&lt;/td>&lt;td style=&quot;background-color:#ffffff;padding:2px 1pt 2px 0;text-align:right;vertical-align:bottom&quot;/>&lt;/tr>&lt;tr>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;padding:2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>Supplemental non-cash information:&lt;/span>&lt;/td>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;padding:0 1pt&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;padding:0 1pt&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;padding:0 1pt&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#cceeff;padding:0 1pt&quot;/>&lt;/tr>&lt;tr>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#ffffff;padding:2px 1pt 2px 7.75pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>Operating lease liabilities arising from obtaining right-of-use assets&lt;/span>&lt;/td>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#ffffff;padding:0 1pt&quot;/>&lt;td style=&quot;background-color:#ffffff;padding:2px 0 2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>$&lt;/span>&lt;/td>&lt;td style=&quot;background-color:#ffffff;padding:2px 0;text-align:right;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>77,208 &lt;/span>&lt;/td>&lt;td style=&quot;background-color:#ffffff;padding:2px 1pt 2px 0;text-align:right;vertical-align:bottom&quot;/>&lt;td colspan=&quot;3&quot; style=&quot;background-color:#ffffff;padding:0 1pt&quot;/>&lt;td style=&quot;background-color:#ffffff;padding:2px 0 2px 1pt;text-align:left;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>$&lt;/span>&lt;/td>&lt;td style=&quot;background-color:#ffffff;padding:2px 0;text-align:right;vertical-align:bottom&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:10pt;font-weight:400;line-height:100%&quot;>60,928 &lt;/span>&lt;/td>&lt;td style=&quot;background-color:#ffffff;padding:2px 1pt 2px 0;text-align:right;vertical-align:bottom&quot;/>&lt;/tr>&lt;/table>&lt;/div>&lt;div style=&quot;padding-left:31.5pt&quot;>&lt;span>&lt;br/>&lt;/span>&lt;/div>&lt;div style=&quot;padding-left:31.5pt&quot;>&lt;span style=&quot;color:#000000;font-family:'Times New Roman',sans-serif;font-size:6pt;font-weight:400;line-height:120%&quot;>(1) Included within operating activities in the Company's Consolidated Statements of Cash Flows.&lt;/span>&lt;/div>"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 25.06 secs - http://www.sec.gov/Archives/edgar/data/1177609/000117760921000018/five-20210501.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1177609/000117760921000018/five-20210501.htm"/></entry>
+</log>

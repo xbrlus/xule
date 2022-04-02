@@ -1,0 +1,1323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.76 secs at 2018-10-16T09:55:43 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - aexc-20171231.xml </message>
+ <ref href="aexc-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpi47767xx/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpi47767xx/packages/resources.zip"/></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept FinancialInstrumentsLiabilitiesWhichCarryingValuesEqualOrApproximateFairValue with a value of 0 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel3Member. 
+The properties of the fact for FinancialInstrumentsLiabilitiesWhichCarryingValuesEqualOrApproximateFairValue are:
+Period: 2017-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel3Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3682</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_781" sourceLine="3682">
+  <property name="label" value="Financial Instruments Liabilities Which Carrying Values Equal Or Approximate Fair Value"/>
+  <property name="namespace" value="http://americanexpresscreditcorp.com/20171231"/>
+  <property name="name" value="FinancialInstrumentsLiabilitiesWhichCarryingValuesEqualOrApproximateFairValue"/>
+  <property name="QName" value="aexc:FinancialInstrumentsLiabilitiesWhichCarryingValuesEqualOrApproximateFairValue"/>
+  <property name="contextRef" value="AS_OF_Dec31_2017_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel3Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel3Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept LongTermDebt with a value of 0 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel3Member. 
+The properties of the fact for LongTermDebt are:
+Period: 2016-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel3Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3513</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_612" sourceLine="3513">
+  <property name="label" value="Total Long-term Debt"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="LongTermDebt"/>
+  <property name="QName" value="us-gaap:LongTermDebt"/>
+  <property name="contextRef" value="AS_OF_Dec31_2016_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel3Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel3Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-9"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept FinancialInstrumentsLiabilitiesWhichCarryingValuesEqualOrApproximateFairValue with a value of 0 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel3Member. 
+The properties of the fact for FinancialInstrumentsLiabilitiesWhichCarryingValuesEqualOrApproximateFairValue are:
+Period: 2016-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel3Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3243</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_343" sourceLine="3243">
+  <property name="label" value="Financial Instruments Liabilities Which Carrying Values Equal Or Approximate Fair Value"/>
+  <property name="namespace" value="http://americanexpresscreditcorp.com/20171231"/>
+  <property name="name" value="FinancialInstrumentsLiabilitiesWhichCarryingValuesEqualOrApproximateFairValue"/>
+  <property name="QName" value="aexc:FinancialInstrumentsLiabilitiesWhichCarryingValuesEqualOrApproximateFairValue"/>
+  <property name="contextRef" value="AS_OF_Dec31_2016_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel3Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel3Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept LoansAndLeasesReceivableRelatedParties with a value of 4,400,000,000 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel3Member. 
+The properties of the fact for LoansAndLeasesReceivableRelatedParties are:
+Period: 2017-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel3Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3220</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_320" sourceLine="3220">
+  <property name="label" value="Loans and Leases Receivable, Related Parties"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="LoansAndLeasesReceivableRelatedParties"/>
+  <property name="QName" value="us-gaap:LoansAndLeasesReceivableRelatedParties"/>
+  <property name="contextRef" value="AS_OF_Dec31_2017_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel3Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel3Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4,400,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept CashCashEquivalentsAndFederalFundsSold with a value of 0 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel3Member. 
+The properties of the fact for CashCashEquivalentsAndFederalFundsSold are:
+Period: 2017-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel3Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3604</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_703" sourceLine="3604">
+  <property name="label" value="Cash Cash Equivalents And Federal Funds Sold"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="CashCashEquivalentsAndFederalFundsSold"/>
+  <property name="QName" value="us-gaap:CashCashEquivalentsAndFederalFundsSold"/>
+  <property name="contextRef" value="AS_OF_Dec31_2017_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel3Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel3Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept Longtermdebtwithaffiliates with a value of 0 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel3Member. 
+The properties of the fact for Longtermdebtwithaffiliates are:
+Period: 2017-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel3Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3159</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_259" sourceLine="3159">
+  <property name="label" value="Long Term Debt with Affiliates"/>
+  <property name="namespace" value="http://americanexpresscreditcorp.com/20171231"/>
+  <property name="name" value="Longtermdebtwithaffiliates"/>
+  <property name="QName" value="aexc:Longtermdebtwithaffiliates"/>
+  <property name="contextRef" value="AS_OF_Dec31_2017_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel3Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel3Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept LoansAndLeasesReceivableNetReportedAmount with a value of 600,000,000 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel3Member. 
+The properties of the fact for LoansAndLeasesReceivableNetReportedAmount are:
+Period: 2017-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel3Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3013</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_113" sourceLine="3013">
+  <property name="label" value="Loans and Leases Receivable, Net Reported Amount"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="LoansAndLeasesReceivableNetReportedAmount"/>
+  <property name="QName" value="us-gaap:LoansAndLeasesReceivableNetReportedAmount"/>
+  <property name="contextRef" value="AS_OF_Dec31_2017_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel3Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel3Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="600,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept OtherAssetsFairValueDisclosure with a value of 0 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel3Member. 
+The properties of the fact for OtherAssetsFairValueDisclosure are:
+Period: 2016-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel3Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3645</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_744" sourceLine="3645">
+  <property name="label" value="Other Assets Fair Value Disclosure"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="OtherAssetsFairValueDisclosure"/>
+  <property name="QName" value="us-gaap:OtherAssetsFairValueDisclosure"/>
+  <property name="contextRef" value="AS_OF_Dec31_2016_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel3Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel3Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-9"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept Longtermdebtwithaffiliates with a value of 0 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel3Member. 
+The properties of the fact for Longtermdebtwithaffiliates are:
+Period: 2016-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel3Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3536</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_635" sourceLine="3536">
+  <property name="label" value="Long Term Debt with Affiliates"/>
+  <property name="namespace" value="http://americanexpresscreditcorp.com/20171231"/>
+  <property name="name" value="Longtermdebtwithaffiliates"/>
+  <property name="QName" value="aexc:Longtermdebtwithaffiliates"/>
+  <property name="contextRef" value="AS_OF_Dec31_2016_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel3Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel3Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept LongTermDebt with a value of 0 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel3Member. 
+The properties of the fact for LongTermDebt are:
+Period: 2017-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel3Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3532</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_631" sourceLine="3532">
+  <property name="label" value="Total Long-term Debt"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="LongTermDebt"/>
+  <property name="QName" value="us-gaap:LongTermDebt"/>
+  <property name="contextRef" value="AS_OF_Dec31_2017_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel3Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel3Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept LoansAndLeasesReceivableNetReportedAmount with a value of 500,000,000 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel3Member. 
+The properties of the fact for LoansAndLeasesReceivableNetReportedAmount are:
+Period: 2016-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel3Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3339</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_439" sourceLine="3339">
+  <property name="label" value="Loans and Leases Receivable, Net Reported Amount"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="LoansAndLeasesReceivableNetReportedAmount"/>
+  <property name="QName" value="us-gaap:LoansAndLeasesReceivableNetReportedAmount"/>
+  <property name="contextRef" value="AS_OF_Dec31_2016_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel3Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel3Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="500,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept OtherAssetsFairValueDisclosure with a value of 0 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel3Member. 
+The properties of the fact for OtherAssetsFairValueDisclosure are:
+Period: 2017-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel3Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 2941</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_41" sourceLine="2941">
+  <property name="label" value="Other Assets Fair Value Disclosure"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="OtherAssetsFairValueDisclosure"/>
+  <property name="QName" value="us-gaap:OtherAssetsFairValueDisclosure"/>
+  <property name="contextRef" value="AS_OF_Dec31_2017_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel3Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel3Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept CashCashEquivalentsAndFederalFundsSold with a value of 0 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel3Member. 
+The properties of the fact for CashCashEquivalentsAndFederalFundsSold are:
+Period: 2016-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel3Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3328</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_428" sourceLine="3328">
+  <property name="label" value="Cash Cash Equivalents And Federal Funds Sold"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="CashCashEquivalentsAndFederalFundsSold"/>
+  <property name="QName" value="us-gaap:CashCashEquivalentsAndFederalFundsSold"/>
+  <property name="contextRef" value="AS_OF_Dec31_2016_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel3Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel3Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept LoansAndLeasesReceivableRelatedParties with a value of 2,800,000,000 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel3Member. 
+The properties of the fact for LoansAndLeasesReceivableRelatedParties are:
+Period: 2016-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel3Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3598</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_697" sourceLine="3598">
+  <property name="label" value="Loans and Leases Receivable, Related Parties"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="LoansAndLeasesReceivableRelatedParties"/>
+  <property name="QName" value="us-gaap:LoansAndLeasesReceivableRelatedParties"/>
+  <property name="contextRef" value="AS_OF_Dec31_2016_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel3Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel3Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,800,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept Longtermdebtwithaffiliates with a value of 0 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel1Member. 
+The properties of the fact for Longtermdebtwithaffiliates are:
+Period: 2016-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel1Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3193</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_293" sourceLine="3193">
+  <property name="label" value="Long Term Debt with Affiliates"/>
+  <property name="namespace" value="http://americanexpresscreditcorp.com/20171231"/>
+  <property name="name" value="Longtermdebtwithaffiliates"/>
+  <property name="QName" value="aexc:Longtermdebtwithaffiliates"/>
+  <property name="contextRef" value="AS_OF_Dec31_2016_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel1Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept CashCashEquivalentsAndFederalFundsSold with a value of 200,000,000 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel1Member. 
+The properties of the fact for CashCashEquivalentsAndFederalFundsSold are:
+Period: 2016-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel1Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3530</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_629" sourceLine="3530">
+  <property name="label" value="Cash Cash Equivalents And Federal Funds Sold"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="CashCashEquivalentsAndFederalFundsSold"/>
+  <property name="QName" value="us-gaap:CashCashEquivalentsAndFederalFundsSold"/>
+  <property name="contextRef" value="AS_OF_Dec31_2016_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel1Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="200,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept LoansAndLeasesReceivableNetReportedAmount with a value of 0 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel1Member. 
+The properties of the fact for LoansAndLeasesReceivableNetReportedAmount are:
+Period: 2017-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel1Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3711</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_810" sourceLine="3711">
+  <property name="label" value="Loans and Leases Receivable, Net Reported Amount"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="LoansAndLeasesReceivableNetReportedAmount"/>
+  <property name="QName" value="us-gaap:LoansAndLeasesReceivableNetReportedAmount"/>
+  <property name="contextRef" value="AS_OF_Dec31_2017_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel1Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept Longtermdebtwithaffiliates with a value of 0 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel1Member. 
+The properties of the fact for Longtermdebtwithaffiliates are:
+Period: 2017-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel1Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3720</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_819" sourceLine="3720">
+  <property name="label" value="Long Term Debt with Affiliates"/>
+  <property name="namespace" value="http://americanexpresscreditcorp.com/20171231"/>
+  <property name="name" value="Longtermdebtwithaffiliates"/>
+  <property name="QName" value="aexc:Longtermdebtwithaffiliates"/>
+  <property name="contextRef" value="AS_OF_Dec31_2017_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel1Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept OtherAssetsFairValueDisclosure with a value of 100,000,000 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel1Member. 
+The properties of the fact for OtherAssetsFairValueDisclosure are:
+Period: 2017-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel1Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 2991</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_91" sourceLine="2991">
+  <property name="label" value="Other Assets Fair Value Disclosure"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="OtherAssetsFairValueDisclosure"/>
+  <property name="QName" value="us-gaap:OtherAssetsFairValueDisclosure"/>
+  <property name="contextRef" value="AS_OF_Dec31_2017_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel1Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="100,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept LoansAndLeasesReceivableRelatedParties with a value of 0 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel1Member. 
+The properties of the fact for LoansAndLeasesReceivableRelatedParties are:
+Period: 2017-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel1Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3619</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_718" sourceLine="3619">
+  <property name="label" value="Loans and Leases Receivable, Related Parties"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="LoansAndLeasesReceivableRelatedParties"/>
+  <property name="QName" value="us-gaap:LoansAndLeasesReceivableRelatedParties"/>
+  <property name="contextRef" value="AS_OF_Dec31_2017_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel1Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept LongTermDebt with a value of 0 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel1Member. 
+The properties of the fact for LongTermDebt are:
+Period: 2017-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel1Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3155</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_255" sourceLine="3155">
+  <property name="label" value="Total Long-term Debt"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="LongTermDebt"/>
+  <property name="QName" value="us-gaap:LongTermDebt"/>
+  <property name="contextRef" value="AS_OF_Dec31_2017_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel1Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept CashCashEquivalentsAndFederalFundsSold with a value of 200,000,000 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel1Member. 
+The properties of the fact for CashCashEquivalentsAndFederalFundsSold are:
+Period: 2017-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel1Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3313</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_413" sourceLine="3313">
+  <property name="label" value="Cash Cash Equivalents And Federal Funds Sold"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="CashCashEquivalentsAndFederalFundsSold"/>
+  <property name="QName" value="us-gaap:CashCashEquivalentsAndFederalFundsSold"/>
+  <property name="contextRef" value="AS_OF_Dec31_2017_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel1Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="200,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept LongTermDebt with a value of 0 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel1Member. 
+The properties of the fact for LongTermDebt are:
+Period: 2016-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel1Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3446</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_545" sourceLine="3446">
+  <property name="label" value="Total Long-term Debt"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="LongTermDebt"/>
+  <property name="QName" value="us-gaap:LongTermDebt"/>
+  <property name="contextRef" value="AS_OF_Dec31_2016_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel1Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-9"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept LoansAndLeasesReceivableRelatedParties with a value of 0 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel1Member. 
+The properties of the fact for LoansAndLeasesReceivableRelatedParties are:
+Period: 2016-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel1Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 2997</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_97" sourceLine="2997">
+  <property name="label" value="Loans and Leases Receivable, Related Parties"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="LoansAndLeasesReceivableRelatedParties"/>
+  <property name="QName" value="us-gaap:LoansAndLeasesReceivableRelatedParties"/>
+  <property name="contextRef" value="AS_OF_Dec31_2016_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel1Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-9"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept OtherAssetsFairValueDisclosure with a value of 0 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel1Member. 
+The properties of the fact for OtherAssetsFairValueDisclosure are:
+Period: 2016-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel1Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3597</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_696" sourceLine="3597">
+  <property name="label" value="Other Assets Fair Value Disclosure"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="OtherAssetsFairValueDisclosure"/>
+  <property name="QName" value="us-gaap:OtherAssetsFairValueDisclosure"/>
+  <property name="contextRef" value="AS_OF_Dec31_2016_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel1Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-9"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept LoansAndLeasesReceivableNetReportedAmount with a value of 0 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel1Member. 
+The properties of the fact for LoansAndLeasesReceivableNetReportedAmount are:
+Period: 2016-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel1Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3390</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_489" sourceLine="3390">
+  <property name="label" value="Loans and Leases Receivable, Net Reported Amount"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="LoansAndLeasesReceivableNetReportedAmount"/>
+  <property name="QName" value="us-gaap:LoansAndLeasesReceivableNetReportedAmount"/>
+  <property name="contextRef" value="AS_OF_Dec31_2016_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel1Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-9"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept FinancialInstrumentsLiabilitiesWhichCarryingValuesEqualOrApproximateFairValue with a value of 0 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel1Member. 
+The properties of the fact for FinancialInstrumentsLiabilitiesWhichCarryingValuesEqualOrApproximateFairValue are:
+Period: 2017-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel1Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3589</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_688" sourceLine="3589">
+  <property name="label" value="Financial Instruments Liabilities Which Carrying Values Equal Or Approximate Fair Value"/>
+  <property name="namespace" value="http://americanexpresscreditcorp.com/20171231"/>
+  <property name="name" value="FinancialInstrumentsLiabilitiesWhichCarryingValuesEqualOrApproximateFairValue"/>
+  <property name="QName" value="aexc:FinancialInstrumentsLiabilitiesWhichCarryingValuesEqualOrApproximateFairValue"/>
+  <property name="contextRef" value="AS_OF_Dec31_2017_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel1Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept FinancialInstrumentsLiabilitiesWhichCarryingValuesEqualOrApproximateFairValue with a value of 0 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel1Member. 
+The properties of the fact for FinancialInstrumentsLiabilitiesWhichCarryingValuesEqualOrApproximateFairValue are:
+Period: 2016-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel1Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3391</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_490" sourceLine="3391">
+  <property name="label" value="Financial Instruments Liabilities Which Carrying Values Equal Or Approximate Fair Value"/>
+  <property name="namespace" value="http://americanexpresscreditcorp.com/20171231"/>
+  <property name="name" value="FinancialInstrumentsLiabilitiesWhichCarryingValuesEqualOrApproximateFairValue"/>
+  <property name="QName" value="aexc:FinancialInstrumentsLiabilitiesWhichCarryingValuesEqualOrApproximateFairValue"/>
+  <property name="contextRef" value="AS_OF_Dec31_2016_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel1Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-9"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept FinancialInstrumentsLiabilitiesWhichCarryingValuesEqualOrApproximateFairValue with a value of 9,100,000,000 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel2Member. 
+The properties of the fact for FinancialInstrumentsLiabilitiesWhichCarryingValuesEqualOrApproximateFairValue are:
+Period: 2016-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel2Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3704</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_803" sourceLine="3704">
+  <property name="label" value="Financial Instruments Liabilities Which Carrying Values Equal Or Approximate Fair Value"/>
+  <property name="namespace" value="http://americanexpresscreditcorp.com/20171231"/>
+  <property name="name" value="FinancialInstrumentsLiabilitiesWhichCarryingValuesEqualOrApproximateFairValue"/>
+  <property name="QName" value="aexc:FinancialInstrumentsLiabilitiesWhichCarryingValuesEqualOrApproximateFairValue"/>
+  <property name="contextRef" value="AS_OF_Dec31_2016_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel2Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel2Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="9,100,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept OtherAssetsFairValueDisclosure with a value of 20,500,000,000 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel2Member. 
+The properties of the fact for OtherAssetsFairValueDisclosure are:
+Period: 2017-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel2Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3012</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_112" sourceLine="3012">
+  <property name="label" value="Other Assets Fair Value Disclosure"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="OtherAssetsFairValueDisclosure"/>
+  <property name="QName" value="us-gaap:OtherAssetsFairValueDisclosure"/>
+  <property name="contextRef" value="AS_OF_Dec31_2017_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel2Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel2Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="20,500,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept LongTermDebt with a value of 20,700,000,000 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel2Member. 
+The properties of the fact for LongTermDebt are:
+Period: 2016-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel2Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3372</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_471" sourceLine="3372">
+  <property name="label" value="Total Long-term Debt"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="LongTermDebt"/>
+  <property name="QName" value="us-gaap:LongTermDebt"/>
+  <property name="contextRef" value="AS_OF_Dec31_2016_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel2Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel2Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="20,700,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept LongTermDebt with a value of 24,500,000,000 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel2Member. 
+The properties of the fact for LongTermDebt are:
+Period: 2017-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel2Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3555</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_654" sourceLine="3555">
+  <property name="label" value="Total Long-term Debt"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="LongTermDebt"/>
+  <property name="QName" value="us-gaap:LongTermDebt"/>
+  <property name="contextRef" value="AS_OF_Dec31_2017_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel2Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel2Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="24,500,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept LoansAndLeasesReceivableRelatedParties with a value of 7,900,000,000 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel2Member. 
+The properties of the fact for LoansAndLeasesReceivableRelatedParties are:
+Period: 2016-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel2Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3628</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_727" sourceLine="3628">
+  <property name="label" value="Loans and Leases Receivable, Related Parties"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="LoansAndLeasesReceivableRelatedParties"/>
+  <property name="QName" value="us-gaap:LoansAndLeasesReceivableRelatedParties"/>
+  <property name="contextRef" value="AS_OF_Dec31_2016_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel2Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel2Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="7,900,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept CashCashEquivalentsAndFederalFundsSold with a value of 0 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel2Member. 
+The properties of the fact for CashCashEquivalentsAndFederalFundsSold are:
+Period: 2017-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel2Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3500</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_599" sourceLine="3500">
+  <property name="label" value="Cash Cash Equivalents And Federal Funds Sold"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="CashCashEquivalentsAndFederalFundsSold"/>
+  <property name="QName" value="us-gaap:CashCashEquivalentsAndFederalFundsSold"/>
+  <property name="contextRef" value="AS_OF_Dec31_2017_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel2Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel2Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept FinancialInstrumentsLiabilitiesWhichCarryingValuesEqualOrApproximateFairValue with a value of 8,600,000,000 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel2Member. 
+The properties of the fact for FinancialInstrumentsLiabilitiesWhichCarryingValuesEqualOrApproximateFairValue are:
+Period: 2017-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel2Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3116</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_216" sourceLine="3116">
+  <property name="label" value="Financial Instruments Liabilities Which Carrying Values Equal Or Approximate Fair Value"/>
+  <property name="namespace" value="http://americanexpresscreditcorp.com/20171231"/>
+  <property name="name" value="FinancialInstrumentsLiabilitiesWhichCarryingValuesEqualOrApproximateFairValue"/>
+  <property name="QName" value="aexc:FinancialInstrumentsLiabilitiesWhichCarryingValuesEqualOrApproximateFairValue"/>
+  <property name="contextRef" value="AS_OF_Dec31_2017_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel2Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel2Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="8,600,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept Longtermdebtwithaffiliates with a value of 300,000,000 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel2Member. 
+The properties of the fact for Longtermdebtwithaffiliates are:
+Period: 2017-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel2Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3592</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_691" sourceLine="3592">
+  <property name="label" value="Long Term Debt with Affiliates"/>
+  <property name="namespace" value="http://americanexpresscreditcorp.com/20171231"/>
+  <property name="name" value="Longtermdebtwithaffiliates"/>
+  <property name="QName" value="aexc:Longtermdebtwithaffiliates"/>
+  <property name="contextRef" value="AS_OF_Dec31_2017_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel2Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel2Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="300,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept LoansAndLeasesReceivableNetReportedAmount with a value of 0 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel2Member. 
+The properties of the fact for LoansAndLeasesReceivableNetReportedAmount are:
+Period: 2016-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel2Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 2986</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_86" sourceLine="2986">
+  <property name="label" value="Loans and Leases Receivable, Net Reported Amount"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="LoansAndLeasesReceivableNetReportedAmount"/>
+  <property name="QName" value="us-gaap:LoansAndLeasesReceivableNetReportedAmount"/>
+  <property name="contextRef" value="AS_OF_Dec31_2016_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel2Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel2Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-9"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept OtherAssetsFairValueDisclosure with a value of 19,300,000,000 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel2Member. 
+The properties of the fact for OtherAssetsFairValueDisclosure are:
+Period: 2016-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel2Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3281</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_381" sourceLine="3281">
+  <property name="label" value="Other Assets Fair Value Disclosure"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="OtherAssetsFairValueDisclosure"/>
+  <property name="QName" value="us-gaap:OtherAssetsFairValueDisclosure"/>
+  <property name="contextRef" value="AS_OF_Dec31_2016_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel2Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel2Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="19,300,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept LoansAndLeasesReceivableNetReportedAmount with a value of 0 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel2Member. 
+The properties of the fact for LoansAndLeasesReceivableNetReportedAmount are:
+Period: 2017-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel2Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3062</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_162" sourceLine="3062">
+  <property name="label" value="Loans and Leases Receivable, Net Reported Amount"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="LoansAndLeasesReceivableNetReportedAmount"/>
+  <property name="QName" value="us-gaap:LoansAndLeasesReceivableNetReportedAmount"/>
+  <property name="contextRef" value="AS_OF_Dec31_2017_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel2Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel2Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept Longtermdebtwithaffiliates with a value of 0 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel2Member. 
+The properties of the fact for Longtermdebtwithaffiliates are:
+Period: 2016-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel2Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3350</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_450" sourceLine="3350">
+  <property name="label" value="Long Term Debt with Affiliates"/>
+  <property name="namespace" value="http://americanexpresscreditcorp.com/20171231"/>
+  <property name="name" value="Longtermdebtwithaffiliates"/>
+  <property name="QName" value="aexc:Longtermdebtwithaffiliates"/>
+  <property name="contextRef" value="AS_OF_Dec31_2016_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel2Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel2Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept LoansAndLeasesReceivableRelatedParties with a value of 10,000,000,000 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel2Member. 
+The properties of the fact for LoansAndLeasesReceivableRelatedParties are:
+Period: 2017-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel2Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3651</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_750" sourceLine="3651">
+  <property name="label" value="Loans and Leases Receivable, Related Parties"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="LoansAndLeasesReceivableRelatedParties"/>
+  <property name="QName" value="us-gaap:LoansAndLeasesReceivableRelatedParties"/>
+  <property name="contextRef" value="AS_OF_Dec31_2017_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel2Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel2Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-8"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="10,000,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.65" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml" severity="error" cid="4424666808">[DQC.US.0001.65] The concept CashCashEquivalentsAndFederalFundsSold with a value of 1,000,000,000 is dimensionally qualified with the FairValueByMeasurementBasisAxis and the unallowable member FairValueInputsLevel2Member. 
+The properties of the fact for CashCashEquivalentsAndFederalFundsSold are:
+Period: 2016-12-31
+Dimensions: us-gaap:FairValueByMeasurementBasisAxis=us-gaap:FairValueInputsLevel2Member 
+Unit: USD
+
+Rule Element Id:65
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml 3351</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml#ID_451" sourceLine="3351">
+  <property name="label" value="Cash Cash Equivalents And Federal Funds Sold"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="CashCashEquivalentsAndFederalFundsSold"/>
+  <property name="QName" value="us-gaap:CashCashEquivalentsAndFederalFundsSold"/>
+  <property name="contextRef" value="AS_OF_Dec31_2016_Entity_0000004969_us-gaap_FairValueByMeasurementBasisAxis_us-gaap_FairValueInputsLevel2Member">
+   <property name="entity" value="0000004969">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByMeasurementBasisAxis" value="us-gaap:FairValueInputsLevel2Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-9"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,000,000,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 17.53 secs - http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/4969/000000496918000015/aexc-20171231.xml"/></entry>
+</log>

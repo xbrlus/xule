@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23221 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 4.30 secs at 2021-06-15T12:03:17 - http://www.sec.gov/Archives/edgar/data/1624794/000162479421000031/cswi-20210331.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1624794/000162479421000031/cswi-20210331.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmplo6xmv0t\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmplo6xmv0t\packages\resources.zip"/></entry>
+<entry code="DQC.US.0120.9578" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1624794/000162479421000031/cswi-20210331.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2732821382096">[DQC.US.0120.9578] The extensible list item OperatingLeaseLiabilityCurrentStatementOfFinancialPositionExtensibleList has a local value of AccountsPayableAndAccruedLiabilitiesCurrent. This item refers to the location of this item in the financial statements.  However, the concept us-gaap:AccountsPayableAndAccruedLiabilitiesCurrent does not appear in the calculation role 100010002 - Statement - Consolidated Balance Sheets. Either update the value of the extensible list item OperatingLeaseLiabilityCurrentStatementOfFinancialPositionExtensibleList with the correct balance sheet element or add the balance sheet line item us-gaap:AccountsPayableAndAccruedLiabilitiesCurrent to the calculation linkbase in the balance sheet role.
+
+Rule Element Id:9578
+Rule version: 16.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1624794/000162479421000031/cswi-20210331.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1624794/000162479421000031/cswi-20210331.htm#id3VybDovL2RvY3MudjEvZG9jOjEyMTViMWI5MjE3ZTQyNDI5ODU4OWJhMGRlMDYyYmQ1L3NlYzoxMjE1YjFiOTIxN2U0MjQyOTg1ODliYTBkZTA2MmJkNV85NC9mcmFnOjYzYzAyNmZkZDE5MTQzNjRhODliYTYzYmZlOGY4YmVkL3RhYmxlOmZmMDA4Y2JiNDg3ZTQzM2FiNDYxNjA0MzNhYzJiODlhL3RhYmxlcmFuZ2U6ZmYwMDhjYmI0ODdlNDMzYWI0NjE2MDQzM2FjMmI4OWFfMTEtMC0xLTEtMA_f3c9b794-04ac-4a2f-892d-944dc8d76c73" sourceLine="4">
+  <property name="file" value="cswi-20210331.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Operating Lease, Liability, Current, Statement of Financial Position [Extensible List]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="OperatingLeaseLiabilityCurrentStatementOfFinancialPositionExtensibleList"/>
+  <property name="QName" value="us-gaap:OperatingLeaseLiabilityCurrentStatementOfFinancialPositionExtensibleList"/>
+  <property name="contextRef" value="i92d2fc51dc384d0894ab7f02b7699311_I20200331">
+   <property name="entity" value="0001624794">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="us-gaap:AccountsPayableAndAccruedLiabilitiesCurrent"/>
+ </ref></entry>
+<entry code="DQC.US.0120.9578" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1624794/000162479421000031/cswi-20210331.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2732821382096">[DQC.US.0120.9578] The extensible list item OperatingLeaseRightOfUseAssetStatementOfFinancialPositionExtensibleList has a local value of OtherAssets. This item refers to the location of this item in the financial statements.  However, the concept us-gaap:OtherAssets does not appear in the calculation role 100010002 - Statement - Consolidated Balance Sheets. Either update the value of the extensible list item OperatingLeaseRightOfUseAssetStatementOfFinancialPositionExtensibleList with the correct balance sheet element or add the balance sheet line item us-gaap:OtherAssets to the calculation linkbase in the balance sheet role.
+
+Rule Element Id:9578
+Rule version: 16.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1624794/000162479421000031/cswi-20210331.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1624794/000162479421000031/cswi-20210331.htm#id3VybDovL2RvY3MudjEvZG9jOjEyMTViMWI5MjE3ZTQyNDI5ODU4OWJhMGRlMDYyYmQ1L3NlYzoxMjE1YjFiOTIxN2U0MjQyOTg1ODliYTBkZTA2MmJkNV85NC9mcmFnOjYzYzAyNmZkZDE5MTQzNjRhODliYTYzYmZlOGY4YmVkL3RhYmxlOmZmMDA4Y2JiNDg3ZTQzM2FiNDYxNjA0MzNhYzJiODlhL3RhYmxlcmFuZ2U6ZmYwMDhjYmI0ODdlNDMzYWI0NjE2MDQzM2FjMmI4OWFfOS0wLTEtMS0w_d333ed5f-830c-4a2a-9508-0c472523670f" sourceLine="4">
+  <property name="file" value="cswi-20210331.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Operating Lease, Right-of-Use Asset, Statement of Financial Position [Extensible List]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="OperatingLeaseRightOfUseAssetStatementOfFinancialPositionExtensibleList"/>
+  <property name="QName" value="us-gaap:OperatingLeaseRightOfUseAssetStatementOfFinancialPositionExtensibleList"/>
+  <property name="contextRef" value="i92d2fc51dc384d0894ab7f02b7699311_I20200331">
+   <property name="entity" value="0001624794">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="us-gaap:OtherAssets"/>
+ </ref></entry>
+<entry code="DQC.US.0120.9578" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1624794/000162479421000031/cswi-20210331.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2732821382096">[DQC.US.0120.9578] The extensible list item OperatingLeaseLiabilityCurrentStatementOfFinancialPositionExtensibleList has a local value of AccountsPayableAndAccruedLiabilitiesCurrent. This item refers to the location of this item in the financial statements.  However, the concept us-gaap:AccountsPayableAndAccruedLiabilitiesCurrent does not appear in the calculation role 100010002 - Statement - Consolidated Balance Sheets. Either update the value of the extensible list item OperatingLeaseLiabilityCurrentStatementOfFinancialPositionExtensibleList with the correct balance sheet element or add the balance sheet line item us-gaap:AccountsPayableAndAccruedLiabilitiesCurrent to the calculation linkbase in the balance sheet role.
+
+Rule Element Id:9578
+Rule version: 16.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1624794/000162479421000031/cswi-20210331.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1624794/000162479421000031/cswi-20210331.htm#id3VybDovL2RvY3MudjEvZG9jOjEyMTViMWI5MjE3ZTQyNDI5ODU4OWJhMGRlMDYyYmQ1L3NlYzoxMjE1YjFiOTIxN2U0MjQyOTg1ODliYTBkZTA2MmJkNV85NC9mcmFnOjYzYzAyNmZkZDE5MTQzNjRhODliYTYzYmZlOGY4YmVkL3RhYmxlOmZmMDA4Y2JiNDg3ZTQzM2FiNDYxNjA0MzNhYzJiODlhL3RhYmxlcmFuZ2U6ZmYwMDhjYmI0ODdlNDMzYWI0NjE2MDQzM2FjMmI4OWFfMTEtMC0xLTEtMA_20494f7c-cbf9-4429-b622-a20fa1946d22" sourceLine="4">
+  <property name="file" value="cswi-20210331.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Operating Lease, Liability, Current, Statement of Financial Position [Extensible List]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="OperatingLeaseLiabilityCurrentStatementOfFinancialPositionExtensibleList"/>
+  <property name="QName" value="us-gaap:OperatingLeaseLiabilityCurrentStatementOfFinancialPositionExtensibleList"/>
+  <property name="contextRef" value="i653f4cfd2a8e41c895400800be4a34c5_I20210331">
+   <property name="entity" value="0001624794">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2021-03-31"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="us-gaap:AccountsPayableAndAccruedLiabilitiesCurrent"/>
+ </ref></entry>
+<entry code="DQC.US.0120.9578" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1624794/000162479421000031/cswi-20210331.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2732821382096">[DQC.US.0120.9578] The extensible list item OperatingLeaseRightOfUseAssetStatementOfFinancialPositionExtensibleList has a local value of OtherAssets. This item refers to the location of this item in the financial statements.  However, the concept us-gaap:OtherAssets does not appear in the calculation role 100010002 - Statement - Consolidated Balance Sheets. Either update the value of the extensible list item OperatingLeaseRightOfUseAssetStatementOfFinancialPositionExtensibleList with the correct balance sheet element or add the balance sheet line item us-gaap:OtherAssets to the calculation linkbase in the balance sheet role.
+
+Rule Element Id:9578
+Rule version: 16.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1624794/000162479421000031/cswi-20210331.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1624794/000162479421000031/cswi-20210331.htm#id3VybDovL2RvY3MudjEvZG9jOjEyMTViMWI5MjE3ZTQyNDI5ODU4OWJhMGRlMDYyYmQ1L3NlYzoxMjE1YjFiOTIxN2U0MjQyOTg1ODliYTBkZTA2MmJkNV85NC9mcmFnOjYzYzAyNmZkZDE5MTQzNjRhODliYTYzYmZlOGY4YmVkL3RhYmxlOmZmMDA4Y2JiNDg3ZTQzM2FiNDYxNjA0MzNhYzJiODlhL3RhYmxlcmFuZ2U6ZmYwMDhjYmI0ODdlNDMzYWI0NjE2MDQzM2FjMmI4OWFfOS0wLTEtMS0w_5c6ad9e9-fb3d-42fc-90df-0cac1acf6b5d" sourceLine="4">
+  <property name="file" value="cswi-20210331.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Operating Lease, Right-of-Use Asset, Statement of Financial Position [Extensible List]"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="OperatingLeaseRightOfUseAssetStatementOfFinancialPositionExtensibleList"/>
+  <property name="QName" value="us-gaap:OperatingLeaseRightOfUseAssetStatementOfFinancialPositionExtensibleList"/>
+  <property name="contextRef" value="i653f4cfd2a8e41c895400800be4a34c5_I20210331">
+   <property name="entity" value="0001624794">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2021-03-31"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="us-gaap:OtherAssets"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.48 secs - http://www.sec.gov/Archives/edgar/data/1624794/000162479421000031/cswi-20210331.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1624794/000162479421000031/cswi-20210331.htm"/></entry>
+</log>

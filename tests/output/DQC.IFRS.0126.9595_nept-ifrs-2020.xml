@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23303 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.27 secs at 2021-11-15T17:36:38 - https://www.sec.gov/Archives/edgar/data/1401395/000156459021036805/nept-20210331.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1401395/000156459021036805/nept-20210331.xml"/></entry>
+<entry code="DQC.IFRS.0126.9595" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1401395/000156459021036805/nept-20210331.xml" severity="error" status="PROPOSED" effectiveDate="None" cid="2440895595472">[DQC.IFRS.0126.9595] The statement 100010 - Statement - Consolidated Statements of Financial Position includes an inconsistent calculation. The value of the concept ifrs-full:EquityAndLiabilities of 234,744,571  should be equal to the sum of its child components defined in the calculation linkbase. The sum of these child components is 174,183,147. The values of the addends is determined by adding the values of the child concepts with a decimal value of 0. All values in the financial statements should use the same decimal value. The values reported in the financial statement in the current reporting period of 2021-03-31 should be complete if the financial statement is to be mathematically accurate and complete. The components of ifrs-full:EquityAndLiabilities that should add to 234,744,571 are comprised of the following:
+
++  	Equity                                                                                                       174,183,147
+
+
+The addends are calculated based on the calculation linkbase defined for 100010 - Statement - Consolidated Statements of Financial Position. If addends are missing then the calculation tree should be amended. The rule will not add dimension components as the financial statement does not include a table. If dimensions are used on the statement then add a table to ensure that the dimensions are defined correctly. 
+
+
+Total Element : ifrs-full:EquityAndLiabilities
+Total Value : 234,744,571 
+Total period : 2021-03-31 
+Dimensions : 
+Decimals : 0 
+Rule Element Id:9595
+Rule version: 17.0.0RC1  - https://www.sec.gov/Archives/edgar/data/1401395/000156459021036805/nept-20210331.xml 7638</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1401395/000156459021036805/nept-20210331.xml#F_000101" sourceLine="7638">
+  <property name="label" value="Equity And Liabilities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2020-03-16/ifrs-full"/>
+  <property name="name" value="EquityAndLiabilities"/>
+  <property name="QName" value="ifrs-full:EquityAndLiabilities"/>
+  <property name="contextRef" value="C_0001401395_20210331">
+   <property name="entity" value="0001401395">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2021-03-31"/>
+  </property>
+  <property name="unitRef" value="U_iso4217CAD ($)">
+   <property name="measure" value="iso4217:CAD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="234,744,571"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0126.9595" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1401395/000156459021036805/nept-20210331.xml" severity="error" status="PROPOSED" effectiveDate="None" cid="2440895595472">[DQC.IFRS.0126.9595] The statement 100010 - Statement - Consolidated Statements of Financial Position includes an inconsistent calculation. The value of the concept ifrs-full:EquityAttributableToOwnersOfParent of 146,103,143  should be equal to the sum of its child components defined in the calculation linkbase. The sum of these child components is 206,664,567. The values of the addends is determined by adding the values of the child concepts with a decimal value of 0. All values in the financial statements should use the same decimal value. The values reported in the financial statement in the current reporting period of 2021-03-31 should be complete if the financial statement is to be mathematically accurate and complete. The components of ifrs-full:EquityAttributableToOwnersOfParent that should add to 146,103,143 are comprised of the following:
+
++  	Warrants                                                                                                      23,947,111
++  	AccumulatedOtherComprehensiveIncome                                                                            1,202,409
++  	AdditionalPaidinCapital                                                                                       71,991,328
++  	IssuedCapital                                                                                                379,643,670
++  	Liabilities                                                                                                   60,561,424
++  	RetainedEarnings                                                                                            -330,681,375
+
+
+The addends are calculated based on the calculation linkbase defined for 100010 - Statement - Consolidated Statements of Financial Position. If addends are missing then the calculation tree should be amended. The rule will not add dimension components as the financial statement does not include a table. If dimensions are used on the statement then add a table to ensure that the dimensions are defined correctly. 
+
+
+Total Element : ifrs-full:EquityAttributableToOwnersOfParent
+Total Value : 146,103,143 
+Total period : 2021-03-31 
+Dimensions : 
+Decimals : 0 
+Rule Element Id:9595
+Rule version: 17.0.0RC1  - https://www.sec.gov/Archives/edgar/data/1401395/000156459021036805/nept-20210331.xml 7631</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1401395/000156459021036805/nept-20210331.xml#F_000094" sourceLine="7631">
+  <property name="label" value="Equity Attributable To Owners Of Parent"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2020-03-16/ifrs-full"/>
+  <property name="name" value="EquityAttributableToOwnersOfParent"/>
+  <property name="QName" value="ifrs-full:EquityAttributableToOwnersOfParent"/>
+  <property name="contextRef" value="C_0001401395_20210331">
+   <property name="entity" value="0001401395">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2021-03-31"/>
+  </property>
+  <property name="unitRef" value="U_iso4217CAD ($)">
+   <property name="measure" value="iso4217:CAD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="146,103,143"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 6.12 secs - https://www.sec.gov/Archives/edgar/data/1401395/000156459021036805/nept-20210331.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1401395/000156459021036805/nept-20210331.xml"/></entry>
+</log>

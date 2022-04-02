@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22825 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.86 secs at 2019-09-10T14:35:38 - http://www.sec.gov/Archives/edgar/data/1517492/000114420418023535/ehic-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1517492/000114420418023535/ehic-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv and effective_dates.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpeea8vf_t/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpeea8vf_t/packages/resources.zip"/></entry>
+<entry code="DQC.US.0013.2871" level="error">
+ <message cid="4452454072" severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1517492/000114420418023535/ehic-20171231.xml" effectiveDate="None" rule-suffix="2871">[DQC.US.0013.2871] It is expected that us-gaap:EffectiveIncomeTaxRateReconciliationTaxHolidays with a value of -0.002 will be reported with a value equal to or greater than zero if net income before tax is positive. In this case net income before tax is 26,065,704. The value reported for the tax rate reconciliation item is less than zero. The preparer should consider if the value is input correctly for this assertion and, after considering the appropriateness of the input, if incorrect, input the amount as a positive (i.e., absolute) value and provide a negated label, if desired, for rendering purposes. 
+
+The properties of this us-gaap:EffectiveIncomeTaxRateReconciliationTaxHolidays fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : 
+Unit : pure
+Rule version: 10.0.0RC2 - http://www.sec.gov/Archives/edgar/data/1517492/000114420418023535/ehic-20171231.xml 5540</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1517492/000114420418023535/ehic-20171231.xml#Factid_158" sourceLine="5540">
+  <property name="label" value="Income (Loss) from Continuing Operations before Equity Method Investments, Income Taxes, Extraordinary Items, Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments"/>
+  <property name="QName" value="us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments"/>
+  <property name="contextRef" value="P01_01_2017To12_31_2017">
+   <property name="entity" value="0001517492">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="26,065,704"/>
+ </ref></entry>
+<entry code="DQC.US.0013.2871" level="error">
+ <message cid="4452454072" severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1517492/000114420418023535/ehic-20171231.xml" effectiveDate="None" rule-suffix="2871">[DQC.US.0013.2871] It is expected that us-gaap:EffectiveIncomeTaxRateReconciliationTaxHolidays with a value of -0.002 will be reported with a value equal to or greater than zero if net income before tax is positive. In this case net income before tax is 169,591,289. The value reported for the tax rate reconciliation item is less than zero. The preparer should consider if the value is input correctly for this assertion and, after considering the appropriateness of the input, if incorrect, input the amount as a positive (i.e., absolute) value and provide a negated label, if desired, for rendering purposes. 
+
+The properties of this us-gaap:EffectiveIncomeTaxRateReconciliationTaxHolidays fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : 
+Unit : pure
+Rule version: 10.0.0RC2 - http://www.sec.gov/Archives/edgar/data/1517492/000114420418023535/ehic-20171231.xml 5538</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1517492/000114420418023535/ehic-20171231.xml#Factid_157" sourceLine="5538">
+  <property name="label" value="Income (Loss) from Continuing Operations before Equity Method Investments, Income Taxes, Extraordinary Items, Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments"/>
+  <property name="QName" value="us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments"/>
+  <property name="contextRef" value="P01_01_2017To12_31_2017">
+   <property name="entity" value="0001517492">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="CNY (¥)">
+   <property name="measure" value="iso4217:CNY"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="169,591,289"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 7.11 secs - http://www.sec.gov/Archives/edgar/data/1517492/000114420418023535/ehic-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1517492/000114420418023535/ehic-20171231.xml"/></entry>
+</log>

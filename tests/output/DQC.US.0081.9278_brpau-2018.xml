@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22790 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.01 secs at 2019-07-10T22:21:05 - https://www.sec.gov/Archives/edgar/data/1719406/000165495419002833/brpau-20181231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1719406/000165495419002833/brpau-20181231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv and effective_dates.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp1iwd_q9q/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp1iwd_q9q/packages/resources.zip"/></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1719406/000165495419002833/brpau-20181231.xml" cid="4504764088" effectiveDate="2019-06-30" status="PROPOSED" severity="error">[DQC.US.0081.9278] The line item concept us-gaap:AccruedLiabilitiesCurrent with a value of 7,500 and a calculation parent of us-gaap:LiabilitiesCurrent is represented as a sibling of us-gaap:AccountsPayableAndAccruedLiabilitiesCurrent with a value of 85,671 in the extension taxonomy role 00000002 - Statement - BALANCE SHEET, but us-gaap:AccruedLiabilitiesCurrent is represented as a descendent of us-gaap:AccountsPayableAndAccruedLiabilitiesCurrent in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:AccruedLiabilitiesCurrent fact are:
+
+Period :2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1719406/000165495419002833/brpau-20181231.xml 292</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1719406/000165495419002833/brpau-20181231.xml#element(/1/45)" sourceLine="292">
+  <property name="label" value="Accrued offering costs"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="AccruedLiabilitiesCurrent"/>
+  <property name="QName" value="us-gaap:AccruedLiabilitiesCurrent"/>
+  <property name="contextRef" value="AsOf2017-12-31">
+   <property name="entity" value="0001719406">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="7,500"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1719406/000165495419002833/brpau-20181231.xml" cid="4504764088" effectiveDate="2019-06-30" status="PROPOSED" severity="error">[DQC.US.0081.9278] The line item concept us-gaap:ProceedsFromIssuanceOfCommonStock with a value of 25,000 and a calculation parent of us-gaap:NetCashProvidedByUsedInFinancingActivities is represented as a sibling of us-gaap:ProceedsFromIssuanceOrSaleOfEquity with a value of 67,275,000 in the extension taxonomy role 00000006 - Statement - STATEMENT OF CASH FLOWS, but us-gaap:ProceedsFromIssuanceOfCommonStock is represented as a descendent of us-gaap:ProceedsFromIssuanceOrSaleOfEquity in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:ProceedsFromIssuanceOfCommonStock fact are:
+
+Period :2017-09-18 to 2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1719406/000165495419002833/brpau-20181231.xml 397</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1719406/000165495419002833/brpau-20181231.xml#element(/1/150)" sourceLine="397">
+  <property name="label" value="Proceeds from issuance of common stock to Sponsor"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="ProceedsFromIssuanceOfCommonStock"/>
+  <property name="QName" value="us-gaap:ProceedsFromIssuanceOfCommonStock"/>
+  <property name="contextRef" value="From2017-09-18to2017-12-31">
+   <property name="entity" value="0001719406">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-09-18"/>
+   <property name="endDate" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="25,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1719406/000165495419002833/brpau-20181231.xml" cid="4504764088" effectiveDate="2019-06-30" status="PROPOSED" severity="error">[DQC.US.0081.9278] The line item concept us-gaap:ProceedsFromOtherEquity with a value of 100 and a calculation parent of us-gaap:NetCashProvidedByUsedInFinancingActivities is represented as a sibling of us-gaap:ProceedsFromIssuanceOrSaleOfEquity with a value of 67,275,000 in the extension taxonomy role 00000006 - Statement - STATEMENT OF CASH FLOWS, but us-gaap:ProceedsFromOtherEquity is represented as a descendent of us-gaap:ProceedsFromIssuanceOrSaleOfEquity in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:ProceedsFromOtherEquity fact are:
+
+Period :2017-09-18 to 2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1719406/000165495419002833/brpau-20181231.xml 407</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1719406/000165495419002833/brpau-20181231.xml#element(/1/160)" sourceLine="407">
+  <property name="label" value="Proceeds from unit purchase option"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="ProceedsFromOtherEquity"/>
+  <property name="QName" value="us-gaap:ProceedsFromOtherEquity"/>
+  <property name="contextRef" value="From2017-09-18to2017-12-31">
+   <property name="entity" value="0001719406">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-09-18"/>
+   <property name="endDate" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="100"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1719406/000165495419002833/brpau-20181231.xml" cid="4504764088" effectiveDate="2019-06-30" status="PROPOSED" severity="error">[DQC.US.0081.9278] The line item concept us-gaap:MarketableSecuritiesUnrealizedGainLoss with a value of -4,740 and a calculation parent of us-gaap:NetCashProvidedByUsedInOperatingActivities is represented as a sibling of us-gaap:MarketableSecuritiesGainLoss with a value of 34,183 in the extension taxonomy role 00000006 - Statement - STATEMENT OF CASH FLOWS, but us-gaap:MarketableSecuritiesUnrealizedGainLoss is represented as a descendent of us-gaap:MarketableSecuritiesGainLoss in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:MarketableSecuritiesUnrealizedGainLoss fact are:
+
+Period :2017-09-18 to 2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1719406/000165495419002833/brpau-20181231.xml 344</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1719406/000165495419002833/brpau-20181231.xml#element(/1/97)" sourceLine="344">
+  <property name="label" value="Unrealized loss on marketable securities held in Trust Account"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="MarketableSecuritiesUnrealizedGainLoss"/>
+  <property name="QName" value="us-gaap:MarketableSecuritiesUnrealizedGainLoss"/>
+  <property name="contextRef" value="From2017-09-18to2017-12-31">
+   <property name="entity" value="0001719406">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-09-18"/>
+   <property name="endDate" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-4,740"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 25.47 secs - https://www.sec.gov/Archives/edgar/data/1719406/000165495419002833/brpau-20181231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1719406/000165495419002833/brpau-20181231.xml"/></entry>
+</log>

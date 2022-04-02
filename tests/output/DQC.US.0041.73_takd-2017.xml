@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.87 secs at 2018-10-16T10:01:42 - https://www.sec.gov/Archives/edgar/data/1263872/000106299318001585/takd-20171231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1263872/000106299318001585/takd-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - takd-20171231.xml </message>
+ <ref href="takd-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpn9s0qj1e/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpn9s0qj1e/packages/resources.zip"/></entry>
+<entry code="DQC.US.0041.73" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1263872/000106299318001585/takd-20171231.xml" cid="4443303608" severity="error">[DQC.US.0041.73] The dimension default defined for the axis in the US GAAP Taxonomy should not be changed in a company extension taxonomy. The default for the us-gaap:RelatedPartyTransactionsByRelatedPartyAxis in the base taxonomy is us-gaap:RelatedPartyDomain, but the default has been replaced with us-gaap:RelatedPartyTransactionDomain in the extension taxonomy role 156 - Disclosure - RELATED PARTY TRANSACTIONS (Narrative) (Details).  This issue is addressed in Question E.16 (Updated 02/05/2013) (formerly Question 38) of the SEC Staff Interpretations and FAQs Related to Interactive Data Disclosure.
+Rule version: 9.0.0RC1 - </message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 15.45 secs - https://www.sec.gov/Archives/edgar/data/1263872/000106299318001585/takd-20171231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1263872/000106299318001585/takd-20171231.xml"/></entry>
+</log>

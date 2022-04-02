@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 4.39 secs at 2020-07-26T18:44:58 - http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpsn20ou9t\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpsn20ou9t\packages\resources.zip"/></entry>
+<entry code="DQC.US.0001.66" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2943508063616">[DQC.US.0001.66] The concept DerivativeAssetNotionalAmount with a value of 77,462,000 is dimensionally qualified with the HedgingDesignationAxis and the unallowable member IRLCsMember. 
+The properties of the fact for DerivativeAssetNotionalAmount are:
+Period: 2020-03-31
+Dimensions: us-gaap:HedgingDesignationAxis=sbfg:IRLCsMember 
+Unit: USD
+
+Rule Element Id:66
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml 9621</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml#element(/1/1456)" sourceLine="9621">
+  <property name="label" value="Derivative Asset, Notional Amount"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DerivativeAssetNotionalAmount"/>
+  <property name="QName" value="us-gaap:DerivativeAssetNotionalAmount"/>
+  <property name="contextRef" value="c241_AsOf31Mar2020_IRLCsMember">
+   <property name="entity" value="0000767405">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:HedgingDesignationAxis" value="sbfg:IRLCsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="77,462,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.66" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2943508063616">[DQC.US.0001.66] The concept DerivativeInstrumentsNotDesignatedAsHedgingInstrumentsAssetAtFairValue with a value of 55,000 is dimensionally qualified with the HedgingDesignationAxis and the unallowable member IRLCsMember. 
+The properties of the fact for DerivativeInstrumentsNotDesignatedAsHedgingInstrumentsAssetAtFairValue are:
+Period: 2019-12-31
+Dimensions: us-gaap:HedgingDesignationAxis=sbfg:IRLCsMember 
+Unit: USD
+
+Rule Element Id:66
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml 9624</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml#element(/1/1459)" sourceLine="9624">
+  <property name="label" value="Derivative Instruments Not Designated as Hedging Instruments, Asset, at Fair Value"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DerivativeInstrumentsNotDesignatedAsHedgingInstrumentsAssetAtFairValue"/>
+  <property name="QName" value="us-gaap:DerivativeInstrumentsNotDesignatedAsHedgingInstrumentsAssetAtFairValue"/>
+  <property name="contextRef" value="c242_AsOf31Dec2019_IRLCsMember">
+   <property name="entity" value="0000767405">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:HedgingDesignationAxis" value="sbfg:IRLCsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="55,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.66" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2943508063616">[DQC.US.0001.66] The concept DerivativeInstrumentsNotDesignatedAsHedgingInstrumentsAssetAtFairValue with a value of 726,000 is dimensionally qualified with the HedgingDesignationAxis and the unallowable member IRLCsMember. 
+The properties of the fact for DerivativeInstrumentsNotDesignatedAsHedgingInstrumentsAssetAtFairValue are:
+Period: 2020-03-31
+Dimensions: us-gaap:HedgingDesignationAxis=sbfg:IRLCsMember 
+Unit: USD
+
+Rule Element Id:66
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml 9622</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml#element(/1/1457)" sourceLine="9622">
+  <property name="label" value="Derivative Instruments Not Designated as Hedging Instruments, Asset, at Fair Value"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DerivativeInstrumentsNotDesignatedAsHedgingInstrumentsAssetAtFairValue"/>
+  <property name="QName" value="us-gaap:DerivativeInstrumentsNotDesignatedAsHedgingInstrumentsAssetAtFairValue"/>
+  <property name="contextRef" value="c241_AsOf31Mar2020_IRLCsMember">
+   <property name="entity" value="0000767405">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:HedgingDesignationAxis" value="sbfg:IRLCsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="726,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.66" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2943508063616">[DQC.US.0001.66] The concept DerivativeAssetNotionalAmount with a value of 16,347,000 is dimensionally qualified with the HedgingDesignationAxis and the unallowable member IRLCsMember. 
+The properties of the fact for DerivativeAssetNotionalAmount are:
+Period: 2019-12-31
+Dimensions: us-gaap:HedgingDesignationAxis=sbfg:IRLCsMember 
+Unit: USD
+
+Rule Element Id:66
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml 9623</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml#element(/1/1458)" sourceLine="9623">
+  <property name="label" value="Derivative Asset, Notional Amount"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DerivativeAssetNotionalAmount"/>
+  <property name="QName" value="us-gaap:DerivativeAssetNotionalAmount"/>
+  <property name="contextRef" value="c242_AsOf31Dec2019_IRLCsMember">
+   <property name="entity" value="0000767405">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:HedgingDesignationAxis" value="sbfg:IRLCsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="16,347,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.66" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2943508063616">[DQC.US.0001.66] The concept DerivativeLiabilityNotionalAmount with a value of 91,506,000 is dimensionally qualified with the HedgingDesignationAxis and the unallowable member InterestRateSwapsAssociatedWithLoansMember. 
+The properties of the fact for DerivativeLiabilityNotionalAmount are:
+Period: 2020-03-31
+Dimensions: us-gaap:HedgingDesignationAxis=sbfg:InterestRateSwapsAssociatedWithLoansMember 
+Unit: USD
+
+Rule Element Id:66
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml 9629</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml#element(/1/1464)" sourceLine="9629">
+  <property name="label" value="Derivative Liability, Notional Amount"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DerivativeLiabilityNotionalAmount"/>
+  <property name="QName" value="us-gaap:DerivativeLiabilityNotionalAmount"/>
+  <property name="contextRef" value="c239_AsOf31Mar2020_InterestRateSwapsAssociatedWithLoansMember">
+   <property name="entity" value="0000767405">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:HedgingDesignationAxis" value="sbfg:InterestRateSwapsAssociatedWithLoansMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="91,506,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.66" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2943508063616">[DQC.US.0001.66] The concept DerivativeInstrumentsNotDesignatedAsHedgingInstrumentsAssetAtFairValue with a value of 9,155,000 is dimensionally qualified with the HedgingDesignationAxis and the unallowable member InterestRateSwapsAssociatedWithLoansMember. 
+The properties of the fact for DerivativeInstrumentsNotDesignatedAsHedgingInstrumentsAssetAtFairValue are:
+Period: 2020-03-31
+Dimensions: us-gaap:HedgingDesignationAxis=sbfg:InterestRateSwapsAssociatedWithLoansMember 
+Unit: USD
+
+Rule Element Id:66
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml 9618</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml#element(/1/1453)" sourceLine="9618">
+  <property name="label" value="Derivative Instruments Not Designated as Hedging Instruments, Asset, at Fair Value"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DerivativeInstrumentsNotDesignatedAsHedgingInstrumentsAssetAtFairValue"/>
+  <property name="QName" value="us-gaap:DerivativeInstrumentsNotDesignatedAsHedgingInstrumentsAssetAtFairValue"/>
+  <property name="contextRef" value="c239_AsOf31Mar2020_InterestRateSwapsAssociatedWithLoansMember">
+   <property name="entity" value="0000767405">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:HedgingDesignationAxis" value="sbfg:InterestRateSwapsAssociatedWithLoansMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="9,155,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.66" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2943508063616">[DQC.US.0001.66] The concept DerivativeInstrumentsNotDesignatedAsHedgingInstrumentsLiabilityAtFairValue with a value of -2,846,000 is dimensionally qualified with the HedgingDesignationAxis and the unallowable member InterestRateSwapsAssociatedWithLoansMember. 
+The properties of the fact for DerivativeInstrumentsNotDesignatedAsHedgingInstrumentsLiabilityAtFairValue are:
+Period: 2019-12-31
+Dimensions: us-gaap:HedgingDesignationAxis=sbfg:InterestRateSwapsAssociatedWithLoansMember 
+Unit: USD
+
+Rule Element Id:66
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml 9632</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml#element(/1/1467)" sourceLine="9632">
+  <property name="label" value="Derivative Instruments Not Designated as Hedging Instruments, Liability, at Fair Value"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DerivativeInstrumentsNotDesignatedAsHedgingInstrumentsLiabilityAtFairValue"/>
+  <property name="QName" value="us-gaap:DerivativeInstrumentsNotDesignatedAsHedgingInstrumentsLiabilityAtFairValue"/>
+  <property name="contextRef" value="c240_AsOf31Dec2019_InterestRateSwapsAssociatedWithLoansMember">
+   <property name="entity" value="0000767405">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:HedgingDesignationAxis" value="sbfg:InterestRateSwapsAssociatedWithLoansMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-2,846,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.66" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2943508063616">[DQC.US.0001.66] The concept DerivativeAssetNotionalAmount with a value of 91,506,000 is dimensionally qualified with the HedgingDesignationAxis and the unallowable member InterestRateSwapsAssociatedWithLoansMember. 
+The properties of the fact for DerivativeAssetNotionalAmount are:
+Period: 2020-03-31
+Dimensions: us-gaap:HedgingDesignationAxis=sbfg:InterestRateSwapsAssociatedWithLoansMember 
+Unit: USD
+
+Rule Element Id:66
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml 9617</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml#element(/1/1452)" sourceLine="9617">
+  <property name="label" value="Derivative Asset, Notional Amount"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DerivativeAssetNotionalAmount"/>
+  <property name="QName" value="us-gaap:DerivativeAssetNotionalAmount"/>
+  <property name="contextRef" value="c239_AsOf31Mar2020_InterestRateSwapsAssociatedWithLoansMember">
+   <property name="entity" value="0000767405">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:HedgingDesignationAxis" value="sbfg:InterestRateSwapsAssociatedWithLoansMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="91,506,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.66" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2943508063616">[DQC.US.0001.66] The concept DerivativeInstrumentsNotDesignatedAsHedgingInstrumentsLiabilityAtFairValue with a value of -9,155,000 is dimensionally qualified with the HedgingDesignationAxis and the unallowable member InterestRateSwapsAssociatedWithLoansMember. 
+The properties of the fact for DerivativeInstrumentsNotDesignatedAsHedgingInstrumentsLiabilityAtFairValue are:
+Period: 2020-03-31
+Dimensions: us-gaap:HedgingDesignationAxis=sbfg:InterestRateSwapsAssociatedWithLoansMember 
+Unit: USD
+
+Rule Element Id:66
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml 9630</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml#element(/1/1465)" sourceLine="9630">
+  <property name="label" value="Derivative Instruments Not Designated as Hedging Instruments, Liability, at Fair Value"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DerivativeInstrumentsNotDesignatedAsHedgingInstrumentsLiabilityAtFairValue"/>
+  <property name="QName" value="us-gaap:DerivativeInstrumentsNotDesignatedAsHedgingInstrumentsLiabilityAtFairValue"/>
+  <property name="contextRef" value="c239_AsOf31Mar2020_InterestRateSwapsAssociatedWithLoansMember">
+   <property name="entity" value="0000767405">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:HedgingDesignationAxis" value="sbfg:InterestRateSwapsAssociatedWithLoansMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-9,155,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.66" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2943508063616">[DQC.US.0001.66] The concept DerivativeAssetNotionalAmount with a value of 82,826,000 is dimensionally qualified with the HedgingDesignationAxis and the unallowable member InterestRateSwapsAssociatedWithLoansMember. 
+The properties of the fact for DerivativeAssetNotionalAmount are:
+Period: 2019-12-31
+Dimensions: us-gaap:HedgingDesignationAxis=sbfg:InterestRateSwapsAssociatedWithLoansMember 
+Unit: USD
+
+Rule Element Id:66
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml 9619</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml#element(/1/1454)" sourceLine="9619">
+  <property name="label" value="Derivative Asset, Notional Amount"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DerivativeAssetNotionalAmount"/>
+  <property name="QName" value="us-gaap:DerivativeAssetNotionalAmount"/>
+  <property name="contextRef" value="c240_AsOf31Dec2019_InterestRateSwapsAssociatedWithLoansMember">
+   <property name="entity" value="0000767405">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:HedgingDesignationAxis" value="sbfg:InterestRateSwapsAssociatedWithLoansMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="82,826,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.66" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2943508063616">[DQC.US.0001.66] The concept DerivativeLiabilityNotionalAmount with a value of 82,826,000 is dimensionally qualified with the HedgingDesignationAxis and the unallowable member InterestRateSwapsAssociatedWithLoansMember. 
+The properties of the fact for DerivativeLiabilityNotionalAmount are:
+Period: 2019-12-31
+Dimensions: us-gaap:HedgingDesignationAxis=sbfg:InterestRateSwapsAssociatedWithLoansMember 
+Unit: USD
+
+Rule Element Id:66
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml 9631</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml#element(/1/1466)" sourceLine="9631">
+  <property name="label" value="Derivative Liability, Notional Amount"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DerivativeLiabilityNotionalAmount"/>
+  <property name="QName" value="us-gaap:DerivativeLiabilityNotionalAmount"/>
+  <property name="contextRef" value="c240_AsOf31Dec2019_InterestRateSwapsAssociatedWithLoansMember">
+   <property name="entity" value="0000767405">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:HedgingDesignationAxis" value="sbfg:InterestRateSwapsAssociatedWithLoansMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="82,826,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.66" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="2943508063616">[DQC.US.0001.66] The concept DerivativeInstrumentsNotDesignatedAsHedgingInstrumentsAssetAtFairValue with a value of 2,846,000 is dimensionally qualified with the HedgingDesignationAxis and the unallowable member InterestRateSwapsAssociatedWithLoansMember. 
+The properties of the fact for DerivativeInstrumentsNotDesignatedAsHedgingInstrumentsAssetAtFairValue are:
+Period: 2019-12-31
+Dimensions: us-gaap:HedgingDesignationAxis=sbfg:InterestRateSwapsAssociatedWithLoansMember 
+Unit: USD
+
+Rule Element Id:66
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml 9620</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml#element(/1/1455)" sourceLine="9620">
+  <property name="label" value="Derivative Instruments Not Designated as Hedging Instruments, Asset, at Fair Value"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DerivativeInstrumentsNotDesignatedAsHedgingInstrumentsAssetAtFairValue"/>
+  <property name="QName" value="us-gaap:DerivativeInstrumentsNotDesignatedAsHedgingInstrumentsAssetAtFairValue"/>
+  <property name="contextRef" value="c240_AsOf31Dec2019_InterestRateSwapsAssociatedWithLoansMember">
+   <property name="entity" value="0000767405">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:HedgingDesignationAxis" value="sbfg:InterestRateSwapsAssociatedWithLoansMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,846,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 20.83 secs - http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/767405/000121390020011323/sbfg-20200331.xml"/></entry>
+</log>

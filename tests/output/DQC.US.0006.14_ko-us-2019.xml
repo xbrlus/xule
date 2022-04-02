@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.14 secs at 2020-07-24T23:27:11 - http://www.sec.gov/Archives/edgar/data/21344/000002134420000037/ko-20200721.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/21344/000002134420000037/ko-20200721.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpsqt43t98\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpsqt43t98\packages\resources.zip"/></entry>
+<entry code="DQC.US.0006.14" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/21344/000002134420000037/ko-20200721.htm" severity="error" effectiveDate="2016-01-01" cid="3027641345408">[DQC.US.0006.14] The number of days, 1 in the date range reported for Document Period End Date, 2020-07-21 to 2020-07-21 is not consistent with the Document Fiscal Period Focus with a value of Q2. This period focus expects text block items and dei elements to have at least a period duration between 155 days and 205 days.
+
+If this filing is for a Foreign Private Issuer and is a transitional report then create a boolean extension element called TransitionReport with a value of true. (This extension element is needed as the dei taxonomy does not include an element that indicates if the report is for a transitional period).
+
+If the company has a shorter operating period because the period of inception of the company is later than the start of the reporting period then the extension element called TransitionReport should also be used, to indicate that the Fiscal Period Focus is longer than the actual period of operations.
+
+The properties of this dei:DocumentPeriodEndDate fact are:
+Period :2020-07-21 to 2020-07-21
+Dimensions : 
+Unit : None
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/21344/000002134420000037/ko-20200721.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/21344/000002134420000037/ko-20200721.htm#id3VybDovL2RvY3MudjEvZG9jOjc4ODczOWI3NWZjZjQ1YThhM2ZmMGZmMGRkYjE5ZWYwL3NlYzo3ODg3MzliNzVmY2Y0NWE4YTNmZjBmZjBkZGIxOWVmMF8xL2ZyYWc6ZTY1YThiYjY2NGE2NDNjYWE5M2RmNmIxOTVmYzdlMjUvdGV4dHJlZ2lvbjplNjVhOGJiNjY0YTY0M2NhYTkzZGY2YjE5NWZjN2UyNV8yMzE_386b58ba-ce1f-4c4e-a8a4-005bbf0e36cc" sourceLine="4">
+  <property name="file" value="ko-20200721.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Document Period End Date"/>
+  <property name="namespace" value="http://xbrl.sec.gov/dei/2019-01-31"/>
+  <property name="name" value="DocumentPeriodEndDate"/>
+  <property name="QName" value="dei:DocumentPeriodEndDate"/>
+  <property name="contextRef" value="i16f4815e5895472f9b66d90cdf7417f9_D20200721-20200721">
+   <property name="entity" value="0000021344">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-07-21"/>
+   <property name="endDate" value="2020-07-21"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2020-07-21"/>
+ </ref></entry>
+<entry code="DQC.US.0006.14" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/21344/000002134420000037/ko-20200721.htm" severity="error" effectiveDate="2016-01-01" cid="3027641345408">[DQC.US.0006.14] The number of days, 1 in the date range reported for Amendment Flag, 2020-07-21 to 2020-07-21 is not consistent with the Document Fiscal Period Focus with a value of Q2. This period focus expects text block items and dei elements to have at least a period duration between 155 days and 205 days.
+
+If this filing is for a Foreign Private Issuer and is a transitional report then create a boolean extension element called TransitionReport with a value of true. (This extension element is needed as the dei taxonomy does not include an element that indicates if the report is for a transitional period).
+
+If the company has a shorter operating period because the period of inception of the company is later than the start of the reporting period then the extension element called TransitionReport should also be used, to indicate that the Fiscal Period Focus is longer than the actual period of operations.
+
+The properties of this dei:AmendmentFlag fact are:
+Period :2020-07-21 to 2020-07-21
+Dimensions : 
+Unit : None
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/21344/000002134420000037/ko-20200721.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/21344/000002134420000037/ko-20200721.htm#id3VybDovL2RvY3MudjEvZG9jOjc4ODczOWI3NWZjZjQ1YThhM2ZmMGZmMGRkYjE5ZWYwL3NlYzo3ODg3MzliNzVmY2Y0NWE4YTNmZjBmZjBkZGIxOWVmMF80L2ZyYWc6YzQ5N2FhY2RhNjc1NGI2MjkxZTIwZGRiMjY1ZWM0MGMvdGFibGU6OGZmNTdhY2NhNTk0NDgxMmE2YjZhZWY1YmE2ZmViZmYvdGFibGVyYW5nZTo4ZmY1N2FjY2E1OTQ0ODEyYTZiNmFlZjViYTZmZWJmZl81LTEtMS0xLTA_3fef211d-5410-4f48-8fc8-9dacc7530979" sourceLine="4">
+  <property name="file" value="ko-20200721.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Amendment Flag"/>
+  <property name="namespace" value="http://xbrl.sec.gov/dei/2019-01-31"/>
+  <property name="name" value="AmendmentFlag"/>
+  <property name="QName" value="dei:AmendmentFlag"/>
+  <property name="contextRef" value="i16f4815e5895472f9b66d90cdf7417f9_D20200721-20200721">
+   <property name="entity" value="0000021344">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-07-21"/>
+   <property name="endDate" value="2020-07-21"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="false"/>
+ </ref></entry>
+<entry code="DQC.US.0006.14" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/21344/000002134420000037/ko-20200721.htm" severity="error" effectiveDate="2016-01-01" cid="3027641345408">[DQC.US.0006.14] The number of days, 1 in the date range reported for Document Fiscal Period Focus, 2020-07-21 to 2020-07-21 is not consistent with the Document Fiscal Period Focus with a value of Q2. This period focus expects text block items and dei elements to have at least a period duration between 155 days and 205 days.
+
+If this filing is for a Foreign Private Issuer and is a transitional report then create a boolean extension element called TransitionReport with a value of true. (This extension element is needed as the dei taxonomy does not include an element that indicates if the report is for a transitional period).
+
+If the company has a shorter operating period because the period of inception of the company is later than the start of the reporting period then the extension element called TransitionReport should also be used, to indicate that the Fiscal Period Focus is longer than the actual period of operations.
+
+The properties of this dei:DocumentFiscalPeriodFocus fact are:
+Period :2020-07-21 to 2020-07-21
+Dimensions : 
+Unit : None
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/21344/000002134420000037/ko-20200721.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/21344/000002134420000037/ko-20200721.htm#id3VybDovL2RvY3MudjEvZG9jOjc4ODczOWI3NWZjZjQ1YThhM2ZmMGZmMGRkYjE5ZWYwL3NlYzo3ODg3MzliNzVmY2Y0NWE4YTNmZjBmZjBkZGIxOWVmMF80L2ZyYWc6YzQ5N2FhY2RhNjc1NGI2MjkxZTIwZGRiMjY1ZWM0MGMvdGFibGU6OGZmNTdhY2NhNTk0NDgxMmE2YjZhZWY1YmE2ZmViZmYvdGFibGVyYW5nZTo4ZmY1N2FjY2E1OTQ0ODEyYTZiNmFlZjViYTZmZWJmZl82LTEtMS0xLTA_22e64ae1-9aea-48e4-bfb5-a2620aae8d33" sourceLine="4">
+  <property name="file" value="ko-20200721.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Document Fiscal Period Focus"/>
+  <property name="namespace" value="http://xbrl.sec.gov/dei/2019-01-31"/>
+  <property name="name" value="DocumentFiscalPeriodFocus"/>
+  <property name="QName" value="dei:DocumentFiscalPeriodFocus"/>
+  <property name="contextRef" value="i16f4815e5895472f9b66d90cdf7417f9_D20200721-20200721">
+   <property name="entity" value="0000021344">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-07-21"/>
+   <property name="endDate" value="2020-07-21"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="Q2"/>
+ </ref></entry>
+<entry code="DQC.US.0006.14" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/21344/000002134420000037/ko-20200721.htm" severity="error" effectiveDate="2016-01-01" cid="3027641345408">[DQC.US.0006.14] The number of days, 1 in the date range reported for Entity Central Index Key, 2020-07-21 to 2020-07-21 is not consistent with the Document Fiscal Period Focus with a value of Q2. This period focus expects text block items and dei elements to have at least a period duration between 155 days and 205 days.
+
+If this filing is for a Foreign Private Issuer and is a transitional report then create a boolean extension element called TransitionReport with a value of true. (This extension element is needed as the dei taxonomy does not include an element that indicates if the report is for a transitional period).
+
+If the company has a shorter operating period because the period of inception of the company is later than the start of the reporting period then the extension element called TransitionReport should also be used, to indicate that the Fiscal Period Focus is longer than the actual period of operations.
+
+The properties of this dei:EntityCentralIndexKey fact are:
+Period :2020-07-21 to 2020-07-21
+Dimensions : 
+Unit : None
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/21344/000002134420000037/ko-20200721.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/21344/000002134420000037/ko-20200721.htm#id3VybDovL2RvY3MudjEvZG9jOjc4ODczOWI3NWZjZjQ1YThhM2ZmMGZmMGRkYjE5ZWYwL3NlYzo3ODg3MzliNzVmY2Y0NWE4YTNmZjBmZjBkZGIxOWVmMF80L2ZyYWc6YzQ5N2FhY2RhNjc1NGI2MjkxZTIwZGRiMjY1ZWM0MGMvdGFibGU6OGZmNTdhY2NhNTk0NDgxMmE2YjZhZWY1YmE2ZmViZmYvdGFibGVyYW5nZTo4ZmY1N2FjY2E1OTQ0ODEyYTZiNmFlZjViYTZmZWJmZl85LTEtMS0xLTA_c97f0006-b507-43fe-b7ce-6b6cb20abe9f" sourceLine="4">
+  <property name="file" value="ko-20200721.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Entity Central Index Key"/>
+  <property name="namespace" value="http://xbrl.sec.gov/dei/2019-01-31"/>
+  <property name="name" value="EntityCentralIndexKey"/>
+  <property name="QName" value="dei:EntityCentralIndexKey"/>
+  <property name="contextRef" value="i16f4815e5895472f9b66d90cdf7417f9_D20200721-20200721">
+   <property name="entity" value="0000021344">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-07-21"/>
+   <property name="endDate" value="2020-07-21"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0000021344"/>
+ </ref></entry>
+<entry code="DQC.US.0006.14" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/21344/000002134420000037/ko-20200721.htm" severity="error" effectiveDate="2016-01-01" cid="3027641345408">[DQC.US.0006.14] The number of days, 1 in the date range reported for Document Type, 2020-07-21 to 2020-07-21 is not consistent with the Document Fiscal Period Focus with a value of Q2. This period focus expects text block items and dei elements to have at least a period duration between 155 days and 205 days.
+
+If this filing is for a Foreign Private Issuer and is a transitional report then create a boolean extension element called TransitionReport with a value of true. (This extension element is needed as the dei taxonomy does not include an element that indicates if the report is for a transitional period).
+
+If the company has a shorter operating period because the period of inception of the company is later than the start of the reporting period then the extension element called TransitionReport should also be used, to indicate that the Fiscal Period Focus is longer than the actual period of operations.
+
+The properties of this dei:DocumentType fact are:
+Period :2020-07-21 to 2020-07-21
+Dimensions : 
+Unit : None
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/21344/000002134420000037/ko-20200721.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/21344/000002134420000037/ko-20200721.htm#id3VybDovL2RvY3MudjEvZG9jOjc4ODczOWI3NWZjZjQ1YThhM2ZmMGZmMGRkYjE5ZWYwL3NlYzo3ODg3MzliNzVmY2Y0NWE4YTNmZjBmZjBkZGIxOWVmMF8xL2ZyYWc6ZTY1YThiYjY2NGE2NDNjYWE5M2RmNmIxOTVmYzdlMjUvdGV4dHJlZ2lvbjplNjVhOGJiNjY0YTY0M2NhYTkzZGY2YjE5NWZjN2UyNV8xMTU4_c55dc7f5-8604-4321-a1c5-05144e469ff7" sourceLine="4">
+  <property name="file" value="ko-20200721.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Document Type"/>
+  <property name="namespace" value="http://xbrl.sec.gov/dei/2019-01-31"/>
+  <property name="name" value="DocumentType"/>
+  <property name="QName" value="dei:DocumentType"/>
+  <property name="contextRef" value="i16f4815e5895472f9b66d90cdf7417f9_D20200721-20200721">
+   <property name="entity" value="0000021344">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-07-21"/>
+   <property name="endDate" value="2020-07-21"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="8-K"/>
+ </ref></entry>
+<entry code="DQC.US.0006.14" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/21344/000002134420000037/ko-20200721.htm" severity="error" effectiveDate="2016-01-01" cid="3027641345408">[DQC.US.0006.14] The number of days, 1 in the date range reported for Document Fiscal Year Focus, 2020-07-21 to 2020-07-21 is not consistent with the Document Fiscal Period Focus with a value of Q2. This period focus expects text block items and dei elements to have at least a period duration between 155 days and 205 days.
+
+If this filing is for a Foreign Private Issuer and is a transitional report then create a boolean extension element called TransitionReport with a value of true. (This extension element is needed as the dei taxonomy does not include an element that indicates if the report is for a transitional period).
+
+If the company has a shorter operating period because the period of inception of the company is later than the start of the reporting period then the extension element called TransitionReport should also be used, to indicate that the Fiscal Period Focus is longer than the actual period of operations.
+
+The properties of this dei:DocumentFiscalYearFocus fact are:
+Period :2020-07-21 to 2020-07-21
+Dimensions : 
+Unit : None
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/21344/000002134420000037/ko-20200721.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/21344/000002134420000037/ko-20200721.htm#id3VybDovL2RvY3MudjEvZG9jOjc4ODczOWI3NWZjZjQ1YThhM2ZmMGZmMGRkYjE5ZWYwL3NlYzo3ODg3MzliNzVmY2Y0NWE4YTNmZjBmZjBkZGIxOWVmMF80L2ZyYWc6YzQ5N2FhY2RhNjc1NGI2MjkxZTIwZGRiMjY1ZWM0MGMvdGFibGU6OGZmNTdhY2NhNTk0NDgxMmE2YjZhZWY1YmE2ZmViZmYvdGFibGVyYW5nZTo4ZmY1N2FjY2E1OTQ0ODEyYTZiNmFlZjViYTZmZWJmZl83LTEtMS0xLTA_ca218d1c-121d-4bef-892b-48573dd108cc" sourceLine="4">
+  <property name="file" value="ko-20200721.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Document Fiscal Year Focus"/>
+  <property name="namespace" value="http://xbrl.sec.gov/dei/2019-01-31"/>
+  <property name="name" value="DocumentFiscalYearFocus"/>
+  <property name="QName" value="dei:DocumentFiscalYearFocus"/>
+  <property name="contextRef" value="i16f4815e5895472f9b66d90cdf7417f9_D20200721-20200721">
+   <property name="entity" value="0000021344">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-07-21"/>
+   <property name="endDate" value="2020-07-21"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2020"/>
+ </ref></entry>
+<entry code="DQC.US.0006.14" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/21344/000002134420000037/ko-20200721.htm" severity="error" effectiveDate="2016-01-01" cid="3027641345408">[DQC.US.0006.14] The number of days, 1 in the date range reported for Entity Registrant Name, 2020-07-21 to 2020-07-21 is not consistent with the Document Fiscal Period Focus with a value of Q2. This period focus expects text block items and dei elements to have at least a period duration between 155 days and 205 days.
+
+If this filing is for a Foreign Private Issuer and is a transitional report then create a boolean extension element called TransitionReport with a value of true. (This extension element is needed as the dei taxonomy does not include an element that indicates if the report is for a transitional period).
+
+If the company has a shorter operating period because the period of inception of the company is later than the start of the reporting period then the extension element called TransitionReport should also be used, to indicate that the Fiscal Period Focus is longer than the actual period of operations.
+
+The properties of this dei:EntityRegistrantName fact are:
+Period :2020-07-21 to 2020-07-21
+Dimensions : 
+Unit : None
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/21344/000002134420000037/ko-20200721.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/21344/000002134420000037/ko-20200721.htm#id3VybDovL2RvY3MudjEvZG9jOjc4ODczOWI3NWZjZjQ1YThhM2ZmMGZmMGRkYjE5ZWYwL3NlYzo3ODg3MzliNzVmY2Y0NWE4YTNmZjBmZjBkZGIxOWVmMF8xL2ZyYWc6ZTY1YThiYjY2NGE2NDNjYWE5M2RmNmIxOTVmYzdlMjUvdGV4dHJlZ2lvbjplNjVhOGJiNjY0YTY0M2NhYTkzZGY2YjE5NWZjN2UyNV8xMTU5_e65f3fbc-3b09-40ce-a5b5-38c2a94b2540" sourceLine="4">
+  <property name="file" value="ko-20200721.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Entity Registrant Name"/>
+  <property name="namespace" value="http://xbrl.sec.gov/dei/2019-01-31"/>
+  <property name="name" value="EntityRegistrantName"/>
+  <property name="QName" value="dei:EntityRegistrantName"/>
+  <property name="contextRef" value="i16f4815e5895472f9b66d90cdf7417f9_D20200721-20200721">
+   <property name="entity" value="0000021344">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-07-21"/>
+   <property name="endDate" value="2020-07-21"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="COCA COLA CO"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.78 secs - http://www.sec.gov/Archives/edgar/data/21344/000002134420000037/ko-20200721.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/21344/000002134420000037/ko-20200721.htm"/></entry>
+</log>

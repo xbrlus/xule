@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23217 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 6.53 secs at 2021-03-17T21:40:23 - http://www.sec.gov/Archives/edgar/data/1421182/000142118220000006/vrs12312019-10k.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1421182/000142118220000006/vrs12312019-10k.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpsj7s02qx\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpsj7s02qx\packages\resources.zip"/></entry>
+<entry code="DQC.US.0070.7645" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1421182/000142118220000006/vrs12312019-10k.htm" severity="error" effectiveDate="2019-01-01" cid="2139702171008">[DQC.US.0070.7645] The concept DefinedBenefitPlanFairValueOfPlanAssets with a defaulted value of 1,162,000,000 is not equal to the aggregated value of the dimensionally qualified components on the axis DefinedBenefitPlanByPlanAssetCategoriesAxis which has an aggregate value of 339,000,000 based on the data in the filing. 
+The aggregated value is calculated by adding the members in the network 2414411 - Disclosure - RETIREMENT BENEFITS - NAV Investments (Details) with the uri http://versopaper.com/role/RetirementBenefitsNavInvestmentsDetails. The values of the calculation components are as follows:
+	DefinedBenefitPlanEquitySecuritiesUsLargeCapMember --> 339,000,000 --> us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:DefinedBenefitPlanEquitySecuritiesUsLargeCapMember 
+
+
+The value of a concept broken down by its components along the DefinedBenefitPlanByPlanAssetCategoriesAxis axis should  be equal to its component pieces. An error could occur for one of the following reasons:
+
+1. The values of the plan assets by category have been further disaggregated by additional dimensions such as geography. Plan Asset categories should not be dimensionally disaggregated and members should be defined for each security class reported. i.e. Equity Securities in the US should be represented as a single member.
+
+2. The  default value of 1,162,000,000 is incorrectly totaled for DefinedBenefitPlanFairValueOfPlanAssets 
+
+3. Not all dimension members or additional dimensions have been defined on the category axis DefinedBenefitPlanByPlanAssetCategoriesAxis. 
+
+4. The filer has reported a sub component of plan assets that does not represent a complete breakdown of the total. In these cases the element DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount should be used instead of the element DefinedBenefitPlanFairValueOfPlanAssets.
+
+This rule aggregates the value of member components located on the axis at the highest level of aggregation to avoid double counting in the event that the company uses a hierarchy of members.
+
+The properties of this us-gaap:DefinedBenefitPlanFairValueOfPlanAssets fact are:
+Period :2018-12-31
+Dimensions : 
+Unit : USD
+
+Rule Element Id:7645
+Rule version: 14.1.1 - http://www.sec.gov/Archives/edgar/data/1421182/000142118220000006/vrs12312019-10k.htm 4074</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1421182/000142118220000006/vrs12312019-10k.htm#d1400281e5216-wk-Fact-4C3F555B2791FE648A79F8031DAF767A" sourceLine="4074">
+  <property name="file" value="vrs12312019-10k.htm"/>
+  <property name="line" value="4074"/>
+  <property name="label" value="Defined Benefit Plan, Plan Assets, Amount"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="contextRef" value="FI2018Q4">
+   <property name="entity" value="0001421182">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,162,000,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="1,162"/>
+ </ref></entry>
+<entry code="DQC.US.0070.7645" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1421182/000142118220000006/vrs12312019-10k.htm" severity="error" effectiveDate="2019-01-01" cid="2139702171008">[DQC.US.0070.7645] The concept DefinedBenefitPlanFairValueOfPlanAssets with a defaulted value of 674,000,000 is not equal to the aggregated value of the dimensionally qualified components on the axis DefinedBenefitPlanByPlanAssetCategoriesAxis which has an aggregate value of 318,000,000 based on the data in the filing. 
+The aggregated value is calculated by adding the members in the network 2414411 - Disclosure - RETIREMENT BENEFITS - NAV Investments (Details) with the uri http://versopaper.com/role/RetirementBenefitsNavInvestmentsDetails. The values of the calculation components are as follows:
+	DefinedBenefitPlanEquitySecuritiesUsLargeCapMember --> 318,000,000 --> us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:DefinedBenefitPlanEquitySecuritiesUsLargeCapMember, us-gaap:FairValueByFairValueHierarchyLevelAxis=us-gaap:FairValueMeasuredAtNetAssetValuePerShareMember 
+
+
+The value of a concept broken down by its components along the DefinedBenefitPlanByPlanAssetCategoriesAxis axis should  be equal to its component pieces. An error could occur for one of the following reasons:
+
+1. The values of the plan assets by category have been further disaggregated by additional dimensions such as geography. Plan Asset categories should not be dimensionally disaggregated and members should be defined for each security class reported. i.e. Equity Securities in the US should be represented as a single member.
+
+2. The  default value of 674,000,000 is incorrectly totaled for DefinedBenefitPlanFairValueOfPlanAssets 
+
+3. Not all dimension members or additional dimensions have been defined on the category axis DefinedBenefitPlanByPlanAssetCategoriesAxis. 
+
+4. The filer has reported a sub component of plan assets that does not represent a complete breakdown of the total. In these cases the element DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount should be used instead of the element DefinedBenefitPlanFairValueOfPlanAssets.
+
+This rule aggregates the value of member components located on the axis at the highest level of aggregation to avoid double counting in the event that the company uses a hierarchy of members.
+
+The properties of this us-gaap:DefinedBenefitPlanFairValueOfPlanAssets fact are:
+Period :2018-12-31
+Dimensions : us-gaap:FairValueByFairValueHierarchyLevelAxis=us-gaap:FairValueMeasuredAtNetAssetValuePerShareMember
+Unit : USD
+
+Rule Element Id:7645
+Rule version: 14.1.1 - http://www.sec.gov/Archives/edgar/data/1421182/000142118220000006/vrs12312019-10k.htm 4074</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1421182/000142118220000006/vrs12312019-10k.htm#d1400281e5293-wk-Fact-71888DBBF2FA264892EFF8031DA9B492" sourceLine="4074">
+  <property name="file" value="vrs12312019-10k.htm"/>
+  <property name="line" value="4074"/>
+  <property name="label" value="Defined Benefit Plan, Plan Assets, Amount"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="contextRef" value="FI2018Q4_us-gaap_FairValueByFairValueHierarchyLevelAxis_us-gaap_FairValueMeasuredAtNetAssetValuePerShareMember">
+   <property name="entity" value="0001421182">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="us-gaap:FairValueMeasuredAtNetAssetValuePerShareMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="674,000,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="674"/>
+ </ref></entry>
+<entry code="DQC.US.0070.7645" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1421182/000142118220000006/vrs12312019-10k.htm" severity="error" effectiveDate="2019-01-01" cid="2139702171008">[DQC.US.0070.7645] The concept DefinedBenefitPlanFairValueOfPlanAssets with a defaulted value of 680,000,000 is not equal to the aggregated value of the dimensionally qualified components on the axis DefinedBenefitPlanByPlanAssetCategoriesAxis which has an aggregate value of 393,000,000 based on the data in the filing. 
+The aggregated value is calculated by adding the members in the network 2414411 - Disclosure - RETIREMENT BENEFITS - NAV Investments (Details) with the uri http://versopaper.com/role/RetirementBenefitsNavInvestmentsDetails. The values of the calculation components are as follows:
+	DefinedBenefitPlanEquitySecuritiesUsLargeCapMember --> 393,000,000 --> us-gaap:FairValueByFairValueHierarchyLevelAxis=us-gaap:FairValueMeasuredAtNetAssetValuePerShareMember, us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:DefinedBenefitPlanEquitySecuritiesUsLargeCapMember 
+
+
+The value of a concept broken down by its components along the DefinedBenefitPlanByPlanAssetCategoriesAxis axis should  be equal to its component pieces. An error could occur for one of the following reasons:
+
+1. The values of the plan assets by category have been further disaggregated by additional dimensions such as geography. Plan Asset categories should not be dimensionally disaggregated and members should be defined for each security class reported. i.e. Equity Securities in the US should be represented as a single member.
+
+2. The  default value of 680,000,000 is incorrectly totaled for DefinedBenefitPlanFairValueOfPlanAssets 
+
+3. Not all dimension members or additional dimensions have been defined on the category axis DefinedBenefitPlanByPlanAssetCategoriesAxis. 
+
+4. The filer has reported a sub component of plan assets that does not represent a complete breakdown of the total. In these cases the element DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount should be used instead of the element DefinedBenefitPlanFairValueOfPlanAssets.
+
+This rule aggregates the value of member components located on the axis at the highest level of aggregation to avoid double counting in the event that the company uses a hierarchy of members.
+
+The properties of this us-gaap:DefinedBenefitPlanFairValueOfPlanAssets fact are:
+Period :2019-12-31
+Dimensions : us-gaap:FairValueByFairValueHierarchyLevelAxis=us-gaap:FairValueMeasuredAtNetAssetValuePerShareMember
+Unit : USD
+
+Rule Element Id:7645
+Rule version: 14.1.1 - http://www.sec.gov/Archives/edgar/data/1421182/000142118220000006/vrs12312019-10k.htm 4074</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1421182/000142118220000006/vrs12312019-10k.htm#d1400281e4414-wk-Fact-E82FCEFEAC3A5C68ACE553074FA0260A" sourceLine="4074">
+  <property name="file" value="vrs12312019-10k.htm"/>
+  <property name="line" value="4074"/>
+  <property name="label" value="Defined Benefit Plan, Plan Assets, Amount"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="contextRef" value="FI2019Q4_us-gaap_FairValueByFairValueHierarchyLevelAxis_us-gaap_FairValueMeasuredAtNetAssetValuePerShareMember">
+   <property name="entity" value="0001421182">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="us-gaap:FairValueMeasuredAtNetAssetValuePerShareMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="680,000,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="680"/>
+ </ref></entry>
+<entry code="DQC.US.0070.7645" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1421182/000142118220000006/vrs12312019-10k.htm" severity="error" effectiveDate="2019-01-01" cid="2139702171008">[DQC.US.0070.7645] The concept DefinedBenefitPlanFairValueOfPlanAssets with a defaulted value of 1,173,000,000 is not equal to the aggregated value of the dimensionally qualified components on the axis DefinedBenefitPlanByPlanAssetCategoriesAxis which has an aggregate value of 394,000,000 based on the data in the filing. 
+The aggregated value is calculated by adding the members in the network 2414411 - Disclosure - RETIREMENT BENEFITS - NAV Investments (Details) with the uri http://versopaper.com/role/RetirementBenefitsNavInvestmentsDetails. The values of the calculation components are as follows:
+	DefinedBenefitPlanEquitySecuritiesUsLargeCapMember --> 394,000,000 --> us-gaap:DefinedBenefitPlanByPlanAssetCategoriesAxis=us-gaap:DefinedBenefitPlanEquitySecuritiesUsLargeCapMember 
+
+
+The value of a concept broken down by its components along the DefinedBenefitPlanByPlanAssetCategoriesAxis axis should  be equal to its component pieces. An error could occur for one of the following reasons:
+
+1. The values of the plan assets by category have been further disaggregated by additional dimensions such as geography. Plan Asset categories should not be dimensionally disaggregated and members should be defined for each security class reported. i.e. Equity Securities in the US should be represented as a single member.
+
+2. The  default value of 1,173,000,000 is incorrectly totaled for DefinedBenefitPlanFairValueOfPlanAssets 
+
+3. Not all dimension members or additional dimensions have been defined on the category axis DefinedBenefitPlanByPlanAssetCategoriesAxis. 
+
+4. The filer has reported a sub component of plan assets that does not represent a complete breakdown of the total. In these cases the element DefinedBenefitPlanPlanAssetsInvestmentWithinPlanAssetCategoryAmount should be used instead of the element DefinedBenefitPlanFairValueOfPlanAssets.
+
+This rule aggregates the value of member components located on the axis at the highest level of aggregation to avoid double counting in the event that the company uses a hierarchy of members.
+
+The properties of this us-gaap:DefinedBenefitPlanFairValueOfPlanAssets fact are:
+Period :2019-12-31
+Dimensions : 
+Unit : USD
+
+Rule Element Id:7645
+Rule version: 14.1.1 - http://www.sec.gov/Archives/edgar/data/1421182/000142118220000006/vrs12312019-10k.htm 4074</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1421182/000142118220000006/vrs12312019-10k.htm#d1400281e4337-wk-Fact-60BC20553CA55AC482769043D19BBADF" sourceLine="4074">
+  <property name="file" value="vrs12312019-10k.htm"/>
+  <property name="line" value="4074"/>
+  <property name="label" value="Defined Benefit Plan, Plan Assets, Amount"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanFairValueOfPlanAssets"/>
+  <property name="contextRef" value="FI2019Q4">
+   <property name="entity" value="0001421182">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,173,000,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="1,173"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.32 secs - http://www.sec.gov/Archives/edgar/data/1421182/000142118220000006/vrs12312019-10k.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1421182/000142118220000006/vrs12312019-10k.htm"/></entry>
+</log>

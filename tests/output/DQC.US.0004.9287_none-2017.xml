@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22739 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.25 secs at 2019-04-18T10:35:04 - https://www.sec.gov/Archives/edgar/data/1699709/000169970918000039/none-20181031.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1699709/000169970918000039/none-20181031.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv and effective_dates.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpm46avn4r/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpm46avn4r/packages/resources.zip"/></entry>
+<entry code="DQC.US.0004.9287" level="error">
+ <message effectiveDate="None" severity="error" cid="4443811512" filing_url="https://www.sec.gov/Archives/edgar/data/1699709/000169970918000039/none-20181031.xml">[DQC.US.0004.9287] Net Cash Provided by (Used in) Financing Activities with a value of 0 is not equal to the combined total of Net Cash Provided by (Used in) Financing Activities, Continuing Operations and Cash Provided by (Used in) Financing Activities, Discontinued Operations ( -5,600 + -5,600 ) with a value of -11,200. 
+
+These values should be equal.
+The properties of this us-gaap:NetCashProvidedByUsedInFinancingActivities fact are:
+Period :2018-05-01 to 2018-10-31
+Dimensions :  
+Unit : USD
+Decimals of Net Cash Provided by (Used in) Financing Activities : 0
+Decimals of Net Cash Provided by (Used in) Financing Activities, Continuing Operations : 0
+Decimals of Cash Provided by (Used in) Financing Activities, Discontinued Operations : 0
+
+Rule Element Id:9287
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1699709/000169970918000039/none-20181031.xml 279</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1699709/000169970918000039/none-20181031.xml#element(/1/134)" sourceLine="279">
+  <property name="label" value="Net Cash Provided by (Used in) Financing Activities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInFinancingActivities"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInFinancingActivities"/>
+  <property name="contextRef" value="Context1">
+   <property name="entity" value="0001699709">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-05-01"/>
+   <property name="endDate" value="2018-10-31"/>
+  </property>
+  <property name="unitRef" value="Unit2 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 3.90 secs - https://www.sec.gov/Archives/edgar/data/1699709/000169970918000039/none-20181031.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1699709/000169970918000039/none-20181031.xml"/></entry>
+</log>

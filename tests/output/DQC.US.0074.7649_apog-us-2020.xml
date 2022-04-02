@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.11 secs at 2020-07-24T23:36:34 - http://www.sec.gov/Archives/edgar/data/6845/000000684520000019/apog-202053010xq.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/6845/000000684520000019/apog-202053010xq.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpt9p7vti7\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpt9p7vti7\packages\resources.zip"/></entry>
+<entry code="DQC.US.0074.7649" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/6845/000000684520000019/apog-202053010xq.htm" severity="error" effectiveDate="2019-01-01" cid="2012731712896">[DQC.US.0074.7649] The element apog:RevenueRemainingPerformanceObligationAmount with a value of 995,859,000 has been tagged with the axis RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis with a nil value as a member. This element should be reported without using this axis.
+
+The properties of this apog:RevenueRemainingPerformanceObligationAmount fact are:
+Period :2020-05-30
+Dimensions : us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis=None
+Unit : USD
+
+Rule Element Id:7649
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/6845/000000684520000019/apog-202053010xq.htm 1191</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/6845/000000684520000019/apog-202053010xq.htm#d5181539e1722-wk-Fact-0A7093C189DFA17DC9DC0B5174D46F4A" sourceLine="1191">
+  <property name="file" value="apog-202053010xq.htm"/>
+  <property name="line" value="1191"/>
+  <property name="label" value="Revenue, Remaining Performance Obligation, Amount"/>
+  <property name="namespace" value="http://www.apog.com/20200530"/>
+  <property name="name" value="RevenueRemainingPerformanceObligationAmount"/>
+  <property name="QName" value="apog:RevenueRemainingPerformanceObligationAmount"/>
+  <property name="contextRef" value="FI2021Q1_us-gaap_RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis_us-gaap_RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis.domain_nil">
+   <property name="entity" value="0000006845">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-05-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis" value="&lt;us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis.domain xsi:nil=&quot;true&quot;/>
+				
+"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="995,859,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="995,859"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 4.55 secs - http://www.sec.gov/Archives/edgar/data/6845/000000684520000019/apog-202053010xq.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/6845/000000684520000019/apog-202053010xq.htm"/></entry>
+</log>

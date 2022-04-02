@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 7.83 secs at 2018-10-16T09:39:36 - http://www.sec.gov/Archives/edgar/data/1011659/000162828018002667/ub-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1011659/000162828018002667/ub-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - ub-20171231.xml </message>
+ <ref href="ub-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpilwwn_pf/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpilwwn_pf/packages/resources.zip"/></entry>
+<entry code="DQC.US.0069.7643" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1011659/000162828018002667/ub-20171231.xml" cid="4457623224" severity="error">[DQC.US.0069.7643] The element us-gaap:DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets with a value of 1,493,000,000 must be used with the dimension DefinedBenefitPlanByPlanAssetCategoriesAxis.
+
+The properties of this us-gaap:DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets fact are:
+Period :2016-12-31
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:PensionPlansDefinedBenefitMember
+Unit : USD
+
+Rule Element Id:7643
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1011659/000162828018002667/ub-20171231.xml 13885</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1011659/000162828018002667/ub-20171231.xml#Fact-91474C06606E138FAA8ADA8D8AF3BB97" sourceLine="13885">
+  <property name="label" value="Defined Benefit Plan, Amount of Employer and Related Party Securities Included in Plan Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets"/>
+  <property name="contextRef" value="FI2016Q4_us-gaap_RetirementPlanTypeAxis_us-gaap_PensionPlansDefinedBenefitMember">
+   <property name="entity" value="0001011659">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,493,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0069.7643" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1011659/000162828018002667/ub-20171231.xml" cid="4457623224" severity="error">[DQC.US.0069.7643] The element us-gaap:DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets with a value of 1,704,000,000 must be used with the dimension DefinedBenefitPlanByPlanAssetCategoriesAxis.
+
+The properties of this us-gaap:DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets fact are:
+Period :2017-12-31
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:PensionPlansDefinedBenefitMember
+Unit : USD
+
+Rule Element Id:7643
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1011659/000162828018002667/ub-20171231.xml 13895</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1011659/000162828018002667/ub-20171231.xml#Fact-996826E0B449BA1969C6DA8D8AF15C1C" sourceLine="13895">
+  <property name="label" value="Defined Benefit Plan, Amount of Employer and Related Party Securities Included in Plan Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets"/>
+  <property name="contextRef" value="FI2017Q4_us-gaap_RetirementPlanTypeAxis_us-gaap_PensionPlansDefinedBenefitMember">
+   <property name="entity" value="0001011659">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,704,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0069.7643" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1011659/000162828018002667/ub-20171231.xml" cid="4457623224" severity="error">[DQC.US.0069.7643] The element us-gaap:DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets with a value of 72,000,000 must be used with the dimension DefinedBenefitPlanByPlanAssetCategoriesAxis.
+
+The properties of this us-gaap:DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets fact are:
+Period :2016-12-31
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember
+Unit : USD
+
+Rule Element Id:7643
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1011659/000162828018002667/ub-20171231.xml 13884</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1011659/000162828018002667/ub-20171231.xml#Fact-2CE8FD0202658877F226DA8D8B4E4824" sourceLine="13884">
+  <property name="label" value="Defined Benefit Plan, Amount of Employer and Related Party Securities Included in Plan Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets"/>
+  <property name="contextRef" value="FI2016Q4_us-gaap_RetirementPlanTypeAxis_us-gaap_OtherPostretirementBenefitPlansDefinedBenefitMember">
+   <property name="entity" value="0001011659">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="72,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0069.7643" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1011659/000162828018002667/ub-20171231.xml" cid="4457623224" severity="error">[DQC.US.0069.7643] The element us-gaap:DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets with a value of 157,000,000 must be used with the dimension DefinedBenefitPlanByPlanAssetCategoriesAxis.
+
+The properties of this us-gaap:DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets fact are:
+Period :2017-12-31
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember
+Unit : USD
+
+Rule Element Id:7643
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1011659/000162828018002667/ub-20171231.xml 13894</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1011659/000162828018002667/ub-20171231.xml#Fact-99536102CF20953695E6DA8D8B6CFCDC" sourceLine="13894">
+  <property name="label" value="Defined Benefit Plan, Amount of Employer and Related Party Securities Included in Plan Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets"/>
+  <property name="contextRef" value="FI2017Q4_us-gaap_RetirementPlanTypeAxis_us-gaap_OtherPostretirementBenefitPlansDefinedBenefitMember">
+   <property name="entity" value="0001011659">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="157,000,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.80 secs - http://www.sec.gov/Archives/edgar/data/1011659/000162828018002667/ub-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1011659/000162828018002667/ub-20171231.xml"/></entry>
+</log>

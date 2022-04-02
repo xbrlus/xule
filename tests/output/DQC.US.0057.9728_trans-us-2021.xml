@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23303 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 4.61 secs at 2021-11-15T19:47:03 - http://www.sec.gov/Archives/edgar/data/99302/000120677421001956/transcat3937691-10q.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/99302/000120677421001956/transcat3937691-10q.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpg39bj19s\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpg39bj19s\packages\resources.zip"/></entry>
+<entry code="DQC.US.0057.9728" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/99302/000120677421001956/transcat3937691-10q.htm" severity="error" effectiveDate="None" cid="2154278355920">[DQC.US.0057.9728] One of the following elements CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents, CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsIncludingDisposalGroupAndDiscontinuedOperations should appear as the opening and closing balance in the cash flow statement using the group http://transcat.com/role/Statement-CONSOLIDATEDSTATEMENTSOFCASHFLOWS.
+ Instead the following balance items have been used in this statement CashAndCashEquivalentsAtCarryingValue. Due to the implementaion of ASU-2016-18 at least one of the opening and closing balance items listed must be used in the cash flow statement. 
+
+Rule Element Id:9728
+Rule version: 17.0.0RC1  - </message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.90 secs - http://www.sec.gov/Archives/edgar/data/99302/000120677421001956/transcat3937691-10q.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/99302/000120677421001956/transcat3937691-10q.htm"/></entry>
+</log>

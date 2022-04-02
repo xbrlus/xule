@@ -1,0 +1,2587 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.59 secs at 2020-07-24T23:38:21 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml"/></entry>
+<entry code="DQC.IFRS.0080.8557" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8557" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8557] ifrs-full:DividendsRecognisedAsDistributionsToOwnersOfParent has a value of -184,600,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:DividendsRecognisedAsDistributionsToOwnersOfParent fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : 
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9430</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1243)" sourceLine="9430">
+  <property name="label" value="Total transactions with or distributions to owners"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="DividendsRecognisedAsDistributionsToOwnersOfParent"/>
+  <property name="QName" value="ifrs-full:DividendsRecognisedAsDistributionsToOwnersOfParent"/>
+  <property name="contextRef" value="From2017-01-01to2017-12-31">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-184,600,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8551" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8551" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8551] ifrs-full:RepaymentsOfCurrentBorrowings has a value of -28,000,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:RepaymentsOfCurrentBorrowings fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : 
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10179</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1992)" sourceLine="10179">
+  <property name="label" value="Repayments of financial debt"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="RepaymentsOfCurrentBorrowings"/>
+  <property name="QName" value="ifrs-full:RepaymentsOfCurrentBorrowings"/>
+  <property name="contextRef" value="From2017-01-01to2017-12-31">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-28,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8396" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8396" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8396] ifrs-full:DividendsRecognisedAsDistributionsToNoncontrollingInterests has a value of -34,300,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:DividendsRecognisedAsDistributionsToNoncontrollingInterests fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : 
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9399</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1212)" sourceLine="9399">
+  <property name="label" value="Dividends to non-controlling interests"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="DividendsRecognisedAsDistributionsToNoncontrollingInterests"/>
+  <property name="QName" value="ifrs-full:DividendsRecognisedAsDistributionsToNoncontrollingInterests"/>
+  <property name="contextRef" value="From2017-01-01to2017-12-31">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-34,300,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8348" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8348" severity="error" effectiveDate="2019-05-08" cid="2338276156800">[DQC.IFRS.0080.8348] ifrs-full:TaxEffectOfExpenseNotDeductibleInDeterminingTaxableProfitTaxLoss has a value of -300,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:TaxEffectOfExpenseNotDeductibleInDeterminingTaxableProfitTaxLoss fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : 
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9709</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1522)" sourceLine="9709">
+  <property name="label" value="Tax effect of expense not deductible in determining taxable profit (tax loss)"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="TaxEffectOfExpenseNotDeductibleInDeterminingTaxableProfitTaxLoss"/>
+  <property name="QName" value="ifrs-full:TaxEffectOfExpenseNotDeductibleInDeterminingTaxableProfitTaxLoss"/>
+  <property name="contextRef" value="From2017-01-01to2017-12-31">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-300,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8506" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8506" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8506] ifrs-full:InventoryWritedown2011 has a value of -7,700,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:InventoryWritedown2011 fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : 
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10065</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1878)" sourceLine="10065">
+  <property name="label" value="Inventory allowance"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="InventoryWritedown2011"/>
+  <property name="QName" value="ifrs-full:InventoryWritedown2011"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-7,700,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7876" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="7876" severity="error" effectiveDate="2019-05-08" cid="2338276156800">[DQC.IFRS.0080.7876] ifrs-full:DisposalsIntangibleAssetsOtherThanGoodwill has a value of -200,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:DisposalsIntangibleAssetsOtherThanGoodwill fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : 
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9951</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1764)" sourceLine="9951">
+  <property name="label" value="Disposals, intangible assets other than goodwill"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="DisposalsIntangibleAssetsOtherThanGoodwill"/>
+  <property name="QName" value="ifrs-full:DisposalsIntangibleAssetsOtherThanGoodwill"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-200,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7877" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="7877" severity="error" effectiveDate="2019-05-08" cid="2338276156800">[DQC.IFRS.0080.7877] ifrs-full:DisposalsPropertyPlantAndEquipment has a value of -20,000,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:DisposalsPropertyPlantAndEquipment fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : 
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9802</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1615)" sourceLine="9802">
+  <property name="label" value="Disposals"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="DisposalsPropertyPlantAndEquipment"/>
+  <property name="QName" value="ifrs-full:DisposalsPropertyPlantAndEquipment"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-20,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8551" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8551" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8551] ifrs-full:RepaymentsOfCurrentBorrowings has a value of -48,300,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:RepaymentsOfCurrentBorrowings fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : 
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10178</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1991)" sourceLine="10178">
+  <property name="label" value="Repayments of financial debt"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="RepaymentsOfCurrentBorrowings"/>
+  <property name="QName" value="ifrs-full:RepaymentsOfCurrentBorrowings"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-48,300,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8396" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8396" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8396] ifrs-full:DividendsRecognisedAsDistributionsToNoncontrollingInterests has a value of -45,700,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:DividendsRecognisedAsDistributionsToNoncontrollingInterests fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : 
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9398</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1211)" sourceLine="9398">
+  <property name="label" value="Dividends to non-controlling interests"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="DividendsRecognisedAsDistributionsToNoncontrollingInterests"/>
+  <property name="QName" value="ifrs-full:DividendsRecognisedAsDistributionsToNoncontrollingInterests"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-45,700,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8434" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8434" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8434] ifrs-full:PurchaseOfTreasuryShares has a value of -2,000,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:PurchaseOfTreasuryShares fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : 
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9406</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1219)" sourceLine="9406">
+  <property name="label" value="Purchase of treasury shares"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="PurchaseOfTreasuryShares"/>
+  <property name="QName" value="ifrs-full:PurchaseOfTreasuryShares"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-2,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8839" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8839" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8839] ifrs-full:ReversalOfProvisionsForCostOfRestructuring has a value of -60,100,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:ReversalOfProvisionsForCostOfRestructuring fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : 
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9509</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1322)" sourceLine="9509">
+  <property name="label" value="Reversal of provisions for cost of restructuring"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ReversalOfProvisionsForCostOfRestructuring"/>
+  <property name="QName" value="ifrs-full:ReversalOfProvisionsForCostOfRestructuring"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-60,100,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8418" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8418" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8418] ifrs-full:ShareIssueRelatedCost has a value of -6,300,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:ShareIssueRelatedCost fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : 
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9515</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1328)" sourceLine="9515">
+  <property name="label" value="Transaction costs paid for the listing of equity instruments"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ShareIssueRelatedCost"/>
+  <property name="QName" value="ifrs-full:ShareIssueRelatedCost"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-6,300,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8813" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8813" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8813] ifrs-full:InterestExpenseOnFinancialLiabilitiesDesignatedAtFairValueThroughProfitOrLoss has a value of -30,600,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:InterestExpenseOnFinancialLiabilitiesDesignatedAtFairValueThroughProfitOrLoss fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : 
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10515</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/2328)" sourceLine="10515">
+  <property name="label" value="Interest expense on financial liabilities designated at fair value through profit or loss"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="InterestExpenseOnFinancialLiabilitiesDesignatedAtFairValueThroughProfitOrLoss"/>
+  <property name="QName" value="ifrs-full:InterestExpenseOnFinancialLiabilitiesDesignatedAtFairValueThroughProfitOrLoss"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-30,600,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8511" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8511" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8511] ifrs-full:ServicesReceivedRelatedPartyTransactions has a value of -2,000,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:ServicesReceivedRelatedPartyTransactions fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : ifrs-full:CategoriesOfRelatedPartiesAxis=HUD:DufryFinancialServicesBVInterestExpensesMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10717</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/2530)" sourceLine="10717">
+  <property name="label" value="Purchase of services"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ServicesReceivedRelatedPartyTransactions"/>
+  <property name="QName" value="ifrs-full:ServicesReceivedRelatedPartyTransactions"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_custom_DufryFinancialServicesBVInterestExpensesMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:CategoriesOfRelatedPartiesAxis" value="HUD:DufryFinancialServicesBVInterestExpensesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-2,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7877" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="7877" severity="error" effectiveDate="2019-05-08" cid="2338276156800">[DQC.IFRS.0080.7877] ifrs-full:DisposalsPropertyPlantAndEquipment has a value of -21,800,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:DisposalsPropertyPlantAndEquipment fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis=ifrs-full:FixturesAndFittingsMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9803</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1616)" sourceLine="9803">
+  <property name="label" value="Disposals"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="DisposalsPropertyPlantAndEquipment"/>
+  <property name="QName" value="ifrs-full:DisposalsPropertyPlantAndEquipment"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_ifrs-full_FixturesAndFittingsMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis" value="ifrs-full:FixturesAndFittingsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-21,800,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7876" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="7876" severity="error" effectiveDate="2019-05-08" cid="2338276156800">[DQC.IFRS.0080.7876] ifrs-full:DisposalsIntangibleAssetsOtherThanGoodwill has a value of -100,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:DisposalsIntangibleAssetsOtherThanGoodwill fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : ifrs-full:ClassesOfIntangibleAssetsAndGoodwillAxis=ifrs-full:OtherIntangibleAssetsMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9957</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1770)" sourceLine="9957">
+  <property name="label" value="Disposals, intangible assets other than goodwill"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="DisposalsIntangibleAssetsOtherThanGoodwill"/>
+  <property name="QName" value="ifrs-full:DisposalsIntangibleAssetsOtherThanGoodwill"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_ifrs-full_OtherIntangibleAssetsMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ClassesOfIntangibleAssetsAndGoodwillAxis" value="ifrs-full:OtherIntangibleAssetsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-100,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7702" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="7702" severity="error" effectiveDate="2019-05-08" cid="2338276156800">[DQC.IFRS.0080.7702] ifrs-full:Assets has a value of -400,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:Assets fact are:
+Period :2019-12-31
+Dimensions : ifrs-full:SignificantInvestmentsInAssociatesAxis=HUD:OtherMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9272</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1085)" sourceLine="9272">
+  <property name="label" value="Total assets"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="ifrs-full:Assets"/>
+  <property name="contextRef" value="AsOf2019-12-31_custom_OtherMember-275754842">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SignificantInvestmentsInAssociatesAxis" value="HUD:OtherMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-400,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8511" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8511" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8511] ifrs-full:ServicesReceivedRelatedPartyTransactions has a value of -50,600,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:ServicesReceivedRelatedPartyTransactions fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : ifrs-full:CategoriesOfRelatedPartiesAxis=HUD:DufryInternationalAGFranchiseFeesExpenseMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10710</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/2523)" sourceLine="10710">
+  <property name="label" value="Purchase of services"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ServicesReceivedRelatedPartyTransactions"/>
+  <property name="QName" value="ifrs-full:ServicesReceivedRelatedPartyTransactions"/>
+  <property name="contextRef" value="From2017-01-01to2017-12-31_custom_DufryInternationalAGFranchiseFeesExpenseMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:CategoriesOfRelatedPartiesAxis" value="HUD:DufryInternationalAGFranchiseFeesExpenseMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-50,600,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7877" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="7877" severity="error" effectiveDate="2019-05-08" cid="2338276156800">[DQC.IFRS.0080.7877] ifrs-full:DisposalsPropertyPlantAndEquipment has a value of -1,800,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:DisposalsPropertyPlantAndEquipment fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis=ifrs-full:ComputerEquipmentMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9804</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1617)" sourceLine="9804">
+  <property name="label" value="Disposals"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="DisposalsPropertyPlantAndEquipment"/>
+  <property name="QName" value="ifrs-full:DisposalsPropertyPlantAndEquipment"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_ifrs-full_ComputerEquipmentMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis" value="ifrs-full:ComputerEquipmentMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-1,800,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8666" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8666" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8666] ifrs-full:IntangibleAssetFairValueUsedAsDeemedCost has a value of -261,900,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:IntangibleAssetFairValueUsedAsDeemedCost fact are:
+Period :2019-12-31
+Dimensions : ifrs-full:ClassesOfIntangibleAssetsAndGoodwillAxis=ifrs-full:ServiceConcessionRightsMember, ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis=HUD:AccumulatedAmortisationMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9925</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#Foot-02-6" sourceLine="9925">
+  <property name="label" value="Intangible asset fair value used as deemed cost"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="IntangibleAssetFairValueUsedAsDeemedCost"/>
+  <property name="QName" value="ifrs-full:IntangibleAssetFairValueUsedAsDeemedCost"/>
+  <property name="contextRef" value="AsOf2019-12-31_ifrs-full_ServiceConcessionRightsMember_custom_AccumulatedAmortisationMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis" value="HUD:AccumulatedAmortisationMember"/>
+    <property name="ifrs-full:ClassesOfIntangibleAssetsAndGoodwillAxis" value="ifrs-full:ServiceConcessionRightsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-261,900,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8511" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8511" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8511] ifrs-full:ServicesReceivedRelatedPartyTransactions has a value of -1,900,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:ServicesReceivedRelatedPartyTransactions fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : ifrs-full:CategoriesOfRelatedPartiesAxis=HUD:DufryManagementAGITExpensesMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10715</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/2528)" sourceLine="10715">
+  <property name="label" value="Purchase of services"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ServicesReceivedRelatedPartyTransactions"/>
+  <property name="QName" value="ifrs-full:ServicesReceivedRelatedPartyTransactions"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_custom_DufryManagementAGITExpensesMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:CategoriesOfRelatedPartiesAxis" value="HUD:DufryManagementAGITExpensesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-1,900,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8061" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8061" severity="error" effectiveDate="2019-05-08" cid="2338276156800">[DQC.IFRS.0080.8061] ifrs-full:MaximumExposureToCreditRisk has a value of -600,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:MaximumExposureToCreditRisk fact are:
+Period :2019-12-31
+Dimensions : srt:CurrencyAxis=HUD:CADMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10564</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/2377)" sourceLine="10564">
+  <property name="label" value="Maximum exposure to credit risk"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="MaximumExposureToCreditRisk"/>
+  <property name="QName" value="ifrs-full:MaximumExposureToCreditRisk"/>
+  <property name="contextRef" value="AsOf2019-12-31_custom_CADMember8894568">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:CurrencyAxis" value="HUD:CADMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-600,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8551" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8551" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8551] ifrs-full:RepaymentsOfCurrentBorrowings has a value of -21,500,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:RepaymentsOfCurrentBorrowings fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : ifrs-full:CategoriesOfFinancialLiabilitiesAxis=HUD:FinancialDebtCurrentMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10181</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1994)" sourceLine="10181">
+  <property name="label" value="Repayments of financial debt"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="RepaymentsOfCurrentBorrowings"/>
+  <property name="QName" value="ifrs-full:RepaymentsOfCurrentBorrowings"/>
+  <property name="contextRef" value="From2017-01-01to2017-12-31_custom_FinancialDebtCurrentMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:CategoriesOfFinancialLiabilitiesAxis" value="HUD:FinancialDebtCurrentMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-21,500,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8551" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8551" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8551] ifrs-full:RepaymentsOfCurrentBorrowings has a value of -23,700,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:RepaymentsOfCurrentBorrowings fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : ifrs-full:CategoriesOfFinancialLiabilitiesAxis=HUD:FinancialDebtNoncurrentMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10182</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1995)" sourceLine="10182">
+  <property name="label" value="Repayments of financial debt"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="RepaymentsOfCurrentBorrowings"/>
+  <property name="QName" value="ifrs-full:RepaymentsOfCurrentBorrowings"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_custom_FinancialDebtNoncurrentMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:CategoriesOfFinancialLiabilitiesAxis" value="HUD:FinancialDebtNoncurrentMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-23,700,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8511" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8511" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8511] ifrs-full:ServicesReceivedRelatedPartyTransactions has a value of -15,100,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:ServicesReceivedRelatedPartyTransactions fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : ifrs-full:CategoriesOfRelatedPartiesAxis=HUD:DufryInternationalAGFranchiseFeesExpenseMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10708</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/2521)" sourceLine="10708">
+  <property name="label" value="Purchase of services"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ServicesReceivedRelatedPartyTransactions"/>
+  <property name="QName" value="ifrs-full:ServicesReceivedRelatedPartyTransactions"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_custom_DufryInternationalAGFranchiseFeesExpenseMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:CategoriesOfRelatedPartiesAxis" value="HUD:DufryInternationalAGFranchiseFeesExpenseMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-15,100,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8813" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8813" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8813] ifrs-full:InterestExpenseOnFinancialLiabilitiesDesignatedAtFairValueThroughProfitOrLoss has a value of -85,900,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:InterestExpenseOnFinancialLiabilitiesDesignatedAtFairValueThroughProfitOrLoss fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : ifrs-full:CategoriesOfFinancialLiabilitiesAxis=ifrs-full:FinancialLiabilitiesAtAmortisedCostCategoryMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10517</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/2330)" sourceLine="10517">
+  <property name="label" value="Interest expense on financial liabilities designated at fair value through profit or loss"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="InterestExpenseOnFinancialLiabilitiesDesignatedAtFairValueThroughProfitOrLoss"/>
+  <property name="QName" value="ifrs-full:InterestExpenseOnFinancialLiabilitiesDesignatedAtFairValueThroughProfitOrLoss"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_ifrs-full_FinancialLiabilitiesAtAmortisedCostCategoryMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:CategoriesOfFinancialLiabilitiesAxis" value="ifrs-full:FinancialLiabilitiesAtAmortisedCostCategoryMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-85,900,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7967" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="7967" severity="error" effectiveDate="2019-05-08" cid="2338276156800">[DQC.IFRS.0080.7967] ifrs-full:ImpairmentLoss has a value of -1,400,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:ImpairmentLoss fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : ifrs-full:SignificantInvestmentsInAssociatesAxis=ifrs-full:AssociatesMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 11235</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/3048)" sourceLine="11235">
+  <property name="label" value="Impairment of investment"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ImpairmentLoss"/>
+  <property name="QName" value="ifrs-full:ImpairmentLoss"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_ifrs-full_AssociatesMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SignificantInvestmentsInAssociatesAxis" value="ifrs-full:AssociatesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-1,400,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7678" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="7678" severity="error" effectiveDate="2019-05-08" cid="2338276156800">[DQC.IFRS.0080.7678] ifrs-full:AdditionsOtherThanThroughBusinessCombinationsIntangibleAssetsOtherThanGoodwill has a value of -42,900,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:AdditionsOtherThanThroughBusinessCombinationsIntangibleAssetsOtherThanGoodwill fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis=HUD:AccumulatedAmortisationMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9945</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1758)" sourceLine="9945">
+  <property name="label" value="Additions other than through business combinations, intangible assets other than goodwill"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="AdditionsOtherThanThroughBusinessCombinationsIntangibleAssetsOtherThanGoodwill"/>
+  <property name="QName" value="ifrs-full:AdditionsOtherThanThroughBusinessCombinationsIntangibleAssetsOtherThanGoodwill"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_custom_AccumulatedAmortisationMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis" value="HUD:AccumulatedAmortisationMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-42,900,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8690" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8690" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8690] ifrs-full:TreasuryShares has a value of -1,100,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:TreasuryShares fact are:
+Period :2019-12-31
+Dimensions : 
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 11005</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/2818)" sourceLine="11005">
+  <property name="label" value="Treasury shares [Default Label]"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="TreasuryShares"/>
+  <property name="QName" value="ifrs-full:TreasuryShares"/>
+  <property name="contextRef" value="AsOf2019-12-31">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-1,100,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8736" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8736" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8736] ifrs-full:PayablesForPurchaseOfNoncurrentAssets has a value of -15,200,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:PayablesForPurchaseOfNoncurrentAssets fact are:
+Period :2019-12-31
+Dimensions : 
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9903</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1716)" sourceLine="9903">
+  <property name="label" value="Payables for purchase of non-current assets"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="PayablesForPurchaseOfNoncurrentAssets"/>
+  <property name="QName" value="ifrs-full:PayablesForPurchaseOfNoncurrentAssets"/>
+  <property name="contextRef" value="AsOf2019-12-31">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-15,200,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8435" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8435" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8435] ifrs-full:OtherProvisions has a value of -600,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:OtherProvisions fact are:
+Period :2019-12-31
+Dimensions : 
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10094</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1907)" sourceLine="10094">
+  <property name="label" value="Other provisions"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="OtherProvisions"/>
+  <property name="QName" value="ifrs-full:OtherProvisions"/>
+  <property name="contextRef" value="AsOf2019-12-31">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-600,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8666" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8666" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8666] ifrs-full:IntangibleAssetFairValueUsedAsDeemedCost has a value of -260,500,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:IntangibleAssetFairValueUsedAsDeemedCost fact are:
+Period :2018-12-31
+Dimensions : ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis=HUD:AccumulatedAmortisationMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9932</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1745)" sourceLine="9932">
+  <property name="label" value="Intangible asset fair value used as deemed cost"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="IntangibleAssetFairValueUsedAsDeemedCost"/>
+  <property name="QName" value="ifrs-full:IntangibleAssetFairValueUsedAsDeemedCost"/>
+  <property name="contextRef" value="AsOf2018-12-31_custom_AccumulatedAmortisationMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis" value="HUD:AccumulatedAmortisationMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-260,500,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8511" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8511" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8511] ifrs-full:ServicesReceivedRelatedPartyTransactions has a value of -2,300,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:ServicesReceivedRelatedPartyTransactions fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : ifrs-full:CategoriesOfRelatedPartiesAxis=HUD:DufryFinancialServicesBVInterestExpensesMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10714</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/2527)" sourceLine="10714">
+  <property name="label" value="Purchase of services"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ServicesReceivedRelatedPartyTransactions"/>
+  <property name="QName" value="ifrs-full:ServicesReceivedRelatedPartyTransactions"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_custom_DufryFinancialServicesBVInterestExpensesMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:CategoriesOfRelatedPartiesAxis" value="HUD:DufryFinancialServicesBVInterestExpensesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-2,300,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8666" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8666" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8666] ifrs-full:IntangibleAssetFairValueUsedAsDeemedCost has a value of -36,800,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:IntangibleAssetFairValueUsedAsDeemedCost fact are:
+Period :2018-12-31
+Dimensions : ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis=HUD:AccumulatedAmortisationMember, ifrs-full:ClassesOfIntangibleAssetsAndGoodwillAxis=ifrs-full:OtherIntangibleAssetsMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9922</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1735)" sourceLine="9922">
+  <property name="label" value="Intangible asset fair value used as deemed cost"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="IntangibleAssetFairValueUsedAsDeemedCost"/>
+  <property name="QName" value="ifrs-full:IntangibleAssetFairValueUsedAsDeemedCost"/>
+  <property name="contextRef" value="AsOf2018-12-31_ifrs-full_OtherIntangibleAssetsMember_custom_AccumulatedAmortisationMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis" value="HUD:AccumulatedAmortisationMember"/>
+    <property name="ifrs-full:ClassesOfIntangibleAssetsAndGoodwillAxis" value="ifrs-full:OtherIntangibleAssetsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-36,800,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7877" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="7877" severity="error" effectiveDate="2019-05-08" cid="2338276156800">[DQC.IFRS.0080.7877] ifrs-full:DisposalsPropertyPlantAndEquipment has a value of -700,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:DisposalsPropertyPlantAndEquipment fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis=ifrs-full:ComputerEquipmentMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9808</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1621)" sourceLine="9808">
+  <property name="label" value="Disposals"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="DisposalsPropertyPlantAndEquipment"/>
+  <property name="QName" value="ifrs-full:DisposalsPropertyPlantAndEquipment"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_ifrs-full_ComputerEquipmentMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis" value="ifrs-full:ComputerEquipmentMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-700,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8511" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8511" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8511] ifrs-full:ServicesReceivedRelatedPartyTransactions has a value of -1,800,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:ServicesReceivedRelatedPartyTransactions fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : ifrs-full:CategoriesOfRelatedPartiesAxis=HUD:DufryManagementAGITExpensesMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10718</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/2531)" sourceLine="10718">
+  <property name="label" value="Purchase of services"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ServicesReceivedRelatedPartyTransactions"/>
+  <property name="QName" value="ifrs-full:ServicesReceivedRelatedPartyTransactions"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_custom_DufryManagementAGITExpensesMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:CategoriesOfRelatedPartiesAxis" value="HUD:DufryManagementAGITExpensesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-1,800,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8666" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8666" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8666] ifrs-full:IntangibleAssetFairValueUsedAsDeemedCost has a value of -31,100,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:IntangibleAssetFairValueUsedAsDeemedCost fact are:
+Period :2017-12-31
+Dimensions : ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis=HUD:AccumulatedAmortisationMember, ifrs-full:ClassesOfIntangibleAssetsAndGoodwillAxis=ifrs-full:OtherIntangibleAssetsMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9930</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1743)" sourceLine="9930">
+  <property name="label" value="Intangible asset fair value used as deemed cost"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="IntangibleAssetFairValueUsedAsDeemedCost"/>
+  <property name="QName" value="ifrs-full:IntangibleAssetFairValueUsedAsDeemedCost"/>
+  <property name="contextRef" value="AsOf2017-12-31_ifrs-full_OtherIntangibleAssetsMember_custom_AccumulatedAmortisationMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis" value="HUD:AccumulatedAmortisationMember"/>
+    <property name="ifrs-full:ClassesOfIntangibleAssetsAndGoodwillAxis" value="ifrs-full:OtherIntangibleAssetsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-31,100,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8666" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8666" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8666] ifrs-full:IntangibleAssetFairValueUsedAsDeemedCost has a value of -220,000,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:IntangibleAssetFairValueUsedAsDeemedCost fact are:
+Period :2017-12-31
+Dimensions : ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis=HUD:AccumulatedAmortisationMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9931</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1744)" sourceLine="9931">
+  <property name="label" value="Intangible asset fair value used as deemed cost"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="IntangibleAssetFairValueUsedAsDeemedCost"/>
+  <property name="QName" value="ifrs-full:IntangibleAssetFairValueUsedAsDeemedCost"/>
+  <property name="contextRef" value="AsOf2017-12-31_custom_AccumulatedAmortisationMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis" value="HUD:AccumulatedAmortisationMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-220,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8511" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8511" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8511] ifrs-full:ServicesReceivedRelatedPartyTransactions has a value of -100,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:ServicesReceivedRelatedPartyTransactions fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : ifrs-full:CategoriesOfRelatedPartiesAxis=HUD:WorldDutyFreeGroupSAServiceITExpensesMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10721</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#Foot-16-4" sourceLine="10721">
+  <property name="label" value="Purchase of services"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ServicesReceivedRelatedPartyTransactions"/>
+  <property name="QName" value="ifrs-full:ServicesReceivedRelatedPartyTransactions"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_custom_WorldDutyFreeGroupSAServiceITExpensesMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:CategoriesOfRelatedPartiesAxis" value="HUD:WorldDutyFreeGroupSAServiceITExpensesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-100,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8511" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8511" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8511] ifrs-full:ServicesReceivedRelatedPartyTransactions has a value of -900,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:ServicesReceivedRelatedPartyTransactions fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : ifrs-full:CategoriesOfRelatedPartiesAxis=HUD:DufryFinancialServicesBVInterestExpensesMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10719</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/2532)" sourceLine="10719">
+  <property name="label" value="Purchase of services"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ServicesReceivedRelatedPartyTransactions"/>
+  <property name="QName" value="ifrs-full:ServicesReceivedRelatedPartyTransactions"/>
+  <property name="contextRef" value="From2017-01-01to2017-12-31_custom_DufryFinancialServicesBVInterestExpensesMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:CategoriesOfRelatedPartiesAxis" value="HUD:DufryFinancialServicesBVInterestExpensesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-900,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8813" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8813" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8813] ifrs-full:InterestExpenseOnFinancialLiabilitiesDesignatedAtFairValueThroughProfitOrLoss has a value of -30,600,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:InterestExpenseOnFinancialLiabilitiesDesignatedAtFairValueThroughProfitOrLoss fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : ifrs-full:CategoriesOfFinancialLiabilitiesAxis=ifrs-full:FinancialLiabilitiesAtAmortisedCostCategoryMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10518</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/2331)" sourceLine="10518">
+  <property name="label" value="Interest expense on financial liabilities designated at fair value through profit or loss"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="InterestExpenseOnFinancialLiabilitiesDesignatedAtFairValueThroughProfitOrLoss"/>
+  <property name="QName" value="ifrs-full:InterestExpenseOnFinancialLiabilitiesDesignatedAtFairValueThroughProfitOrLoss"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_ifrs-full_FinancialLiabilitiesAtAmortisedCostCategoryMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:CategoriesOfFinancialLiabilitiesAxis" value="ifrs-full:FinancialLiabilitiesAtAmortisedCostCategoryMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-30,600,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7678" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="7678" severity="error" effectiveDate="2019-05-08" cid="2338276156800">[DQC.IFRS.0080.7678] ifrs-full:AdditionsOtherThanThroughBusinessCombinationsIntangibleAssetsOtherThanGoodwill has a value of -45,100,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:AdditionsOtherThanThroughBusinessCombinationsIntangibleAssetsOtherThanGoodwill fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis=HUD:AccumulatedAmortisationMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9949</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1762)" sourceLine="9949">
+  <property name="label" value="Additions other than through business combinations, intangible assets other than goodwill"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="AdditionsOtherThanThroughBusinessCombinationsIntangibleAssetsOtherThanGoodwill"/>
+  <property name="QName" value="ifrs-full:AdditionsOtherThanThroughBusinessCombinationsIntangibleAssetsOtherThanGoodwill"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_custom_AccumulatedAmortisationMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis" value="HUD:AccumulatedAmortisationMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-45,100,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8511" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8511" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8511] ifrs-full:ServicesReceivedRelatedPartyTransactions has a value of -200,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:ServicesReceivedRelatedPartyTransactions fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : ifrs-full:CategoriesOfRelatedPartiesAxis=HUD:WorldDutyFreeGroupSAServiceITExpensesMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10722</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#Foot-16-5" sourceLine="10722">
+  <property name="label" value="Purchase of services"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ServicesReceivedRelatedPartyTransactions"/>
+  <property name="QName" value="ifrs-full:ServicesReceivedRelatedPartyTransactions"/>
+  <property name="contextRef" value="From2017-01-01to2017-12-31_custom_WorldDutyFreeGroupSAServiceITExpensesMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:CategoriesOfRelatedPartiesAxis" value="HUD:WorldDutyFreeGroupSAServiceITExpensesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-200,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8511" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8511" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8511] ifrs-full:ServicesReceivedRelatedPartyTransactions has a value of -26,800,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:ServicesReceivedRelatedPartyTransactions fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : ifrs-full:CategoriesOfRelatedPartiesAxis=HUD:DufryInternationalAGInterestExpensesMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10711</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/2524)" sourceLine="10711">
+  <property name="label" value="Purchase of services"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ServicesReceivedRelatedPartyTransactions"/>
+  <property name="QName" value="ifrs-full:ServicesReceivedRelatedPartyTransactions"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_custom_DufryInternationalAGInterestExpensesMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:CategoriesOfRelatedPartiesAxis" value="HUD:DufryInternationalAGInterestExpensesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-26,800,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8736" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8736" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8736] ifrs-full:PayablesForPurchaseOfNoncurrentAssets has a value of -11,100,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:PayablesForPurchaseOfNoncurrentAssets fact are:
+Period :2017-12-31
+Dimensions : 
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9905</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1718)" sourceLine="9905">
+  <property name="label" value="Payables for purchase of non-current assets"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="PayablesForPurchaseOfNoncurrentAssets"/>
+  <property name="QName" value="ifrs-full:PayablesForPurchaseOfNoncurrentAssets"/>
+  <property name="contextRef" value="AsOf2017-12-31">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-11,100,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7678" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="7678" severity="error" effectiveDate="2019-05-08" cid="2338276156800">[DQC.IFRS.0080.7678] ifrs-full:AdditionsOtherThanThroughBusinessCombinationsIntangibleAssetsOtherThanGoodwill has a value of -39,300,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:AdditionsOtherThanThroughBusinessCombinationsIntangibleAssetsOtherThanGoodwill fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : ifrs-full:ClassesOfIntangibleAssetsAndGoodwillAxis=ifrs-full:ServiceConcessionRightsMember, ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis=HUD:AccumulatedAmortisationMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9946</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#Foot-02-11" sourceLine="9946">
+  <property name="label" value="Additions other than through business combinations, intangible assets other than goodwill"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="AdditionsOtherThanThroughBusinessCombinationsIntangibleAssetsOtherThanGoodwill"/>
+  <property name="QName" value="ifrs-full:AdditionsOtherThanThroughBusinessCombinationsIntangibleAssetsOtherThanGoodwill"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_ifrs-full_ServiceConcessionRightsMember_custom_AccumulatedAmortisationMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis" value="HUD:AccumulatedAmortisationMember"/>
+    <property name="ifrs-full:ClassesOfIntangibleAssetsAndGoodwillAxis" value="ifrs-full:ServiceConcessionRightsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-39,300,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8511" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8511" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8511] ifrs-full:ServicesReceivedRelatedPartyTransactions has a value of -1,300,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:ServicesReceivedRelatedPartyTransactions fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : ifrs-full:CategoriesOfRelatedPartiesAxis=HUD:DufryManagementAGITExpensesMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10720</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/2533)" sourceLine="10720">
+  <property name="label" value="Purchase of services"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ServicesReceivedRelatedPartyTransactions"/>
+  <property name="QName" value="ifrs-full:ServicesReceivedRelatedPartyTransactions"/>
+  <property name="contextRef" value="From2017-01-01to2017-12-31_custom_DufryManagementAGITExpensesMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:CategoriesOfRelatedPartiesAxis" value="HUD:DufryManagementAGITExpensesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-1,300,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8402" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8402" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8402] ifrs-full:AdditionalProvisionsOtherProvisions has a value of -2,700,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:AdditionalProvisionsOtherProvisions fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : ifrs-full:ClassesOfAssetsAxis=HUD:NoncurrentAssetsOtherMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10054</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1867)" sourceLine="10054">
+  <property name="label" value="Creation"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="AdditionalProvisionsOtherProvisions"/>
+  <property name="QName" value="ifrs-full:AdditionalProvisionsOtherProvisions"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_custom_NoncurrentAssetsOtherMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ClassesOfAssetsAxis" value="HUD:NoncurrentAssetsOtherMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-2,700,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8547" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8547" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8547] ifrs-full:OtherCurrentLiabilities has a value of -3,500,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:OtherCurrentLiabilities fact are:
+Period :2017-12-31
+Dimensions : ifrs-full:SignificantInvestmentsInSubsidiariesAxis=HUD:HudsonLasVegasJVMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9377</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1190)" sourceLine="9377">
+  <property name="label" value="Other current liabilities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="OtherCurrentLiabilities"/>
+  <property name="QName" value="ifrs-full:OtherCurrentLiabilities"/>
+  <property name="contextRef" value="AsOf2017-12-31_custom_HudsonLasVegasJVMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SignificantInvestmentsInSubsidiariesAxis" value="HUD:HudsonLasVegasJVMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-3,500,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7876" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="7876" severity="error" effectiveDate="2019-05-08" cid="2338276156800">[DQC.IFRS.0080.7876] ifrs-full:DisposalsIntangibleAssetsOtherThanGoodwill has a value of -100,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:DisposalsIntangibleAssetsOtherThanGoodwill fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : ifrs-full:ClassesOfIntangibleAssetsAndGoodwillAxis=ifrs-full:ServiceConcessionRightsMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9953</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#Foot-02-13" sourceLine="9953">
+  <property name="label" value="Disposals, intangible assets other than goodwill"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="DisposalsIntangibleAssetsOtherThanGoodwill"/>
+  <property name="QName" value="ifrs-full:DisposalsIntangibleAssetsOtherThanGoodwill"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_ifrs-full_ServiceConcessionRightsMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ClassesOfIntangibleAssetsAndGoodwillAxis" value="ifrs-full:ServiceConcessionRightsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-100,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8666" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8666" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8666] ifrs-full:IntangibleAssetFairValueUsedAsDeemedCost has a value of -41,400,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:IntangibleAssetFairValueUsedAsDeemedCost fact are:
+Period :2019-12-31
+Dimensions : ifrs-full:ClassesOfIntangibleAssetsAndGoodwillAxis=ifrs-full:OtherIntangibleAssetsMember, ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis=HUD:AccumulatedAmortisationMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9923</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1736)" sourceLine="9923">
+  <property name="label" value="Intangible asset fair value used as deemed cost"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="IntangibleAssetFairValueUsedAsDeemedCost"/>
+  <property name="QName" value="ifrs-full:IntangibleAssetFairValueUsedAsDeemedCost"/>
+  <property name="contextRef" value="AsOf2019-12-31_ifrs-full_OtherIntangibleAssetsMember_custom_AccumulatedAmortisationMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis" value="HUD:AccumulatedAmortisationMember"/>
+    <property name="ifrs-full:ClassesOfIntangibleAssetsAndGoodwillAxis" value="ifrs-full:OtherIntangibleAssetsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-41,400,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8666" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8666" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8666] ifrs-full:IntangibleAssetFairValueUsedAsDeemedCost has a value of -303,300,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:IntangibleAssetFairValueUsedAsDeemedCost fact are:
+Period :2019-12-31
+Dimensions : ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis=HUD:AccumulatedAmortisationMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9933</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1746)" sourceLine="9933">
+  <property name="label" value="Intangible asset fair value used as deemed cost"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="IntangibleAssetFairValueUsedAsDeemedCost"/>
+  <property name="QName" value="ifrs-full:IntangibleAssetFairValueUsedAsDeemedCost"/>
+  <property name="contextRef" value="AsOf2019-12-31_custom_AccumulatedAmortisationMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis" value="HUD:AccumulatedAmortisationMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-303,300,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7877" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="7877" severity="error" effectiveDate="2019-05-08" cid="2338276156800">[DQC.IFRS.0080.7877] ifrs-full:DisposalsPropertyPlantAndEquipment has a value of -24,600,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:DisposalsPropertyPlantAndEquipment fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis=HUD:BuildingsAndLeaseholdImprovementsMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9805</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1618)" sourceLine="9805">
+  <property name="label" value="Disposals"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="DisposalsPropertyPlantAndEquipment"/>
+  <property name="QName" value="ifrs-full:DisposalsPropertyPlantAndEquipment"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_custom_BuildingsAndLeaseholdImprovementsMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis" value="HUD:BuildingsAndLeaseholdImprovementsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-24,600,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8511" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8511" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8511] ifrs-full:ServicesReceivedRelatedPartyTransactions has a value of -28,200,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:ServicesReceivedRelatedPartyTransactions fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : ifrs-full:CategoriesOfRelatedPartiesAxis=HUD:DufryInternationalAGInterestExpensesMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10712</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/2525)" sourceLine="10712">
+  <property name="label" value="Purchase of services"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ServicesReceivedRelatedPartyTransactions"/>
+  <property name="QName" value="ifrs-full:ServicesReceivedRelatedPartyTransactions"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_custom_DufryInternationalAGInterestExpensesMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:CategoriesOfRelatedPartiesAxis" value="HUD:DufryInternationalAGInterestExpensesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-28,200,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7877" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="7877" severity="error" effectiveDate="2019-05-08" cid="2338276156800">[DQC.IFRS.0080.7877] ifrs-full:DisposalsPropertyPlantAndEquipment has a value of -200,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:DisposalsPropertyPlantAndEquipment fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis=ifrs-full:VehiclesMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9809</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1622)" sourceLine="9809">
+  <property name="label" value="Disposals"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="DisposalsPropertyPlantAndEquipment"/>
+  <property name="QName" value="ifrs-full:DisposalsPropertyPlantAndEquipment"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_ifrs-full_VehiclesMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis" value="ifrs-full:VehiclesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-200,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7678" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="7678" severity="error" effectiveDate="2019-05-08" cid="2338276156800">[DQC.IFRS.0080.7678] ifrs-full:AdditionsOtherThanThroughBusinessCombinationsIntangibleAssetsOtherThanGoodwill has a value of -38,100,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:AdditionsOtherThanThroughBusinessCombinationsIntangibleAssetsOtherThanGoodwill fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : ifrs-full:ClassesOfIntangibleAssetsAndGoodwillAxis=ifrs-full:ServiceConcessionRightsMember, ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis=HUD:AccumulatedAmortisationMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9942</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#Foot-02-10" sourceLine="9942">
+  <property name="label" value="Additions other than through business combinations, intangible assets other than goodwill"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="AdditionsOtherThanThroughBusinessCombinationsIntangibleAssetsOtherThanGoodwill"/>
+  <property name="QName" value="ifrs-full:AdditionsOtherThanThroughBusinessCombinationsIntangibleAssetsOtherThanGoodwill"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_ifrs-full_ServiceConcessionRightsMember_custom_AccumulatedAmortisationMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis" value="HUD:AccumulatedAmortisationMember"/>
+    <property name="ifrs-full:ClassesOfIntangibleAssetsAndGoodwillAxis" value="ifrs-full:ServiceConcessionRightsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-38,100,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7967" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="7967" severity="error" effectiveDate="2019-05-08" cid="2338276156800">[DQC.IFRS.0080.7967] ifrs-full:ImpairmentLoss has a value of -1,400,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:ImpairmentLoss fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : ifrs-full:SignificantInvestmentsInAssociatesAxis=HUD:NuanceGroupChicagoLlcMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 11233</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/3046)" sourceLine="11233">
+  <property name="label" value="Impairment of investment"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ImpairmentLoss"/>
+  <property name="QName" value="ifrs-full:ImpairmentLoss"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_custom_NuanceGroupChicagoLlcMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SignificantInvestmentsInAssociatesAxis" value="HUD:NuanceGroupChicagoLlcMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-1,400,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8402" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8402" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8402] ifrs-full:AdditionalProvisionsOtherProvisions has a value of -400,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:AdditionalProvisionsOtherProvisions fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : ifrs-full:ClassesOfAssetsAxis=HUD:OtherAccountsReceivableMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10056</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1869)" sourceLine="10056">
+  <property name="label" value="Creation"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="AdditionalProvisionsOtherProvisions"/>
+  <property name="QName" value="ifrs-full:AdditionalProvisionsOtherProvisions"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_custom_OtherAccountsReceivableMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ClassesOfAssetsAxis" value="HUD:OtherAccountsReceivableMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-400,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8402" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8402" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8402] ifrs-full:AdditionalProvisionsOtherProvisions has a value of -2,800,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:AdditionalProvisionsOtherProvisions fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : ifrs-full:ClassesOfAssetsAxis=HUD:NoncurrentAssetsOtherMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10055</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1868)" sourceLine="10055">
+  <property name="label" value="Creation"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="AdditionalProvisionsOtherProvisions"/>
+  <property name="QName" value="ifrs-full:AdditionalProvisionsOtherProvisions"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_custom_NoncurrentAssetsOtherMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ClassesOfAssetsAxis" value="HUD:NoncurrentAssetsOtherMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-2,800,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8666" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8666" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8666] ifrs-full:IntangibleAssetFairValueUsedAsDeemedCost has a value of -223,700,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:IntangibleAssetFairValueUsedAsDeemedCost fact are:
+Period :2018-12-31
+Dimensions : ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis=HUD:AccumulatedAmortisationMember, ifrs-full:ClassesOfIntangibleAssetsAndGoodwillAxis=ifrs-full:ServiceConcessionRightsMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9924</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#Foot-02-5" sourceLine="9924">
+  <property name="label" value="Intangible asset fair value used as deemed cost"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="IntangibleAssetFairValueUsedAsDeemedCost"/>
+  <property name="QName" value="ifrs-full:IntangibleAssetFairValueUsedAsDeemedCost"/>
+  <property name="contextRef" value="AsOf2018-12-31_ifrs-full_ServiceConcessionRightsMember_custom_AccumulatedAmortisationMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis" value="HUD:AccumulatedAmortisationMember"/>
+    <property name="ifrs-full:ClassesOfIntangibleAssetsAndGoodwillAxis" value="ifrs-full:ServiceConcessionRightsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-223,700,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8110" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8110" severity="error" effectiveDate="2019-05-08" cid="2338276156800">[DQC.IFRS.0080.8110] ifrs-full:NoncurrentLiabilities has a value of -44,300,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:NoncurrentLiabilities fact are:
+Period :2019-12-31
+Dimensions : ifrs-full:SignificantInvestmentsInSubsidiariesAxis=HUD:HudsonLasVegasJVMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9344</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1157)" sourceLine="9344">
+  <property name="label" value="Non-current liabilities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="NoncurrentLiabilities"/>
+  <property name="QName" value="ifrs-full:NoncurrentLiabilities"/>
+  <property name="contextRef" value="AsOf2019-12-31_custom_HudsonLasVegasJVMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SignificantInvestmentsInSubsidiariesAxis" value="HUD:HudsonLasVegasJVMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-44,300,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8547" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8547" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8547] ifrs-full:OtherCurrentLiabilities has a value of -11,000,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:OtherCurrentLiabilities fact are:
+Period :2019-12-31
+Dimensions : ifrs-full:SignificantInvestmentsInSubsidiariesAxis=HUD:HudsonLasVegasJVMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9375</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1188)" sourceLine="9375">
+  <property name="label" value="Other current liabilities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="OtherCurrentLiabilities"/>
+  <property name="QName" value="ifrs-full:OtherCurrentLiabilities"/>
+  <property name="contextRef" value="AsOf2019-12-31_custom_HudsonLasVegasJVMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SignificantInvestmentsInSubsidiariesAxis" value="HUD:HudsonLasVegasJVMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-11,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7678" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="7678" severity="error" effectiveDate="2019-05-08" cid="2338276156800">[DQC.IFRS.0080.7678] ifrs-full:AdditionsOtherThanThroughBusinessCombinationsIntangibleAssetsOtherThanGoodwill has a value of -5,800,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:AdditionsOtherThanThroughBusinessCombinationsIntangibleAssetsOtherThanGoodwill fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : ifrs-full:ClassesOfIntangibleAssetsAndGoodwillAxis=ifrs-full:OtherIntangibleAssetsMember, ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis=HUD:AccumulatedAmortisationMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9948</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1761)" sourceLine="9948">
+  <property name="label" value="Additions other than through business combinations, intangible assets other than goodwill"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="AdditionsOtherThanThroughBusinessCombinationsIntangibleAssetsOtherThanGoodwill"/>
+  <property name="QName" value="ifrs-full:AdditionsOtherThanThroughBusinessCombinationsIntangibleAssetsOtherThanGoodwill"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_ifrs-full_OtherIntangibleAssetsMember_custom_AccumulatedAmortisationMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis" value="HUD:AccumulatedAmortisationMember"/>
+    <property name="ifrs-full:ClassesOfIntangibleAssetsAndGoodwillAxis" value="ifrs-full:OtherIntangibleAssetsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-5,800,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8736" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8736" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8736] ifrs-full:PayablesForPurchaseOfNoncurrentAssets has a value of -14,400,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:PayablesForPurchaseOfNoncurrentAssets fact are:
+Period :2016-12-31
+Dimensions : 
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9906</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1719)" sourceLine="9906">
+  <property name="label" value="Payables for purchase of non-current assets"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="PayablesForPurchaseOfNoncurrentAssets"/>
+  <property name="QName" value="ifrs-full:PayablesForPurchaseOfNoncurrentAssets"/>
+  <property name="contextRef" value="AsOf2016-12-31">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-14,400,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8511" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8511" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8511] ifrs-full:ServicesReceivedRelatedPartyTransactions has a value of -28,600,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:ServicesReceivedRelatedPartyTransactions fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : ifrs-full:CategoriesOfRelatedPartiesAxis=HUD:DufryInternationalAGInterestExpensesMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10713</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/2526)" sourceLine="10713">
+  <property name="label" value="Purchase of services"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ServicesReceivedRelatedPartyTransactions"/>
+  <property name="QName" value="ifrs-full:ServicesReceivedRelatedPartyTransactions"/>
+  <property name="contextRef" value="From2017-01-01to2017-12-31_custom_DufryInternationalAGInterestExpensesMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:CategoriesOfRelatedPartiesAxis" value="HUD:DufryInternationalAGInterestExpensesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-28,600,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7877" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="7877" severity="error" effectiveDate="2019-05-08" cid="2338276156800">[DQC.IFRS.0080.7877] ifrs-full:DisposalsPropertyPlantAndEquipment has a value of -10,300,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:DisposalsPropertyPlantAndEquipment fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis=HUD:BuildingsAndLeaseholdImprovementsMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9806</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1619)" sourceLine="9806">
+  <property name="label" value="Disposals"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="DisposalsPropertyPlantAndEquipment"/>
+  <property name="QName" value="ifrs-full:DisposalsPropertyPlantAndEquipment"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_custom_BuildingsAndLeaseholdImprovementsMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis" value="HUD:BuildingsAndLeaseholdImprovementsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-10,300,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8690" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8690" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8690] ifrs-full:TreasuryShares has a value of -2,000,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:TreasuryShares fact are:
+Period :2018-12-31
+Dimensions : 
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 11006</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/2819)" sourceLine="11006">
+  <property name="label" value="Treasury shares [Default Label]"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="TreasuryShares"/>
+  <property name="QName" value="ifrs-full:TreasuryShares"/>
+  <property name="contextRef" value="AsOf2018-12-31">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-2,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8736" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8736" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8736] ifrs-full:PayablesForPurchaseOfNoncurrentAssets has a value of -13,600,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:PayablesForPurchaseOfNoncurrentAssets fact are:
+Period :2018-12-31
+Dimensions : 
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9904</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1717)" sourceLine="9904">
+  <property name="label" value="Payables for purchase of non-current assets"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="PayablesForPurchaseOfNoncurrentAssets"/>
+  <property name="QName" value="ifrs-full:PayablesForPurchaseOfNoncurrentAssets"/>
+  <property name="contextRef" value="AsOf2018-12-31">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-13,600,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8435" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8435" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8435] ifrs-full:OtherProvisions has a value of -600,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:OtherProvisions fact are:
+Period :2018-12-31
+Dimensions : 
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10095</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1908)" sourceLine="10095">
+  <property name="label" value="Other provisions"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="OtherProvisions"/>
+  <property name="QName" value="ifrs-full:OtherProvisions"/>
+  <property name="contextRef" value="AsOf2018-12-31">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-600,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8506" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8506" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8506] ifrs-full:InventoryWritedown2011 has a value of -8,000,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:InventoryWritedown2011 fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : 
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10064</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1877)" sourceLine="10064">
+  <property name="label" value="Inventory allowance"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="InventoryWritedown2011"/>
+  <property name="QName" value="ifrs-full:InventoryWritedown2011"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-8,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7876" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="7876" severity="error" effectiveDate="2019-05-08" cid="2338276156800">[DQC.IFRS.0080.7876] ifrs-full:DisposalsIntangibleAssetsOtherThanGoodwill has a value of -600,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:DisposalsIntangibleAssetsOtherThanGoodwill fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : 
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9950</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1763)" sourceLine="9950">
+  <property name="label" value="Disposals, intangible assets other than goodwill"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="DisposalsIntangibleAssetsOtherThanGoodwill"/>
+  <property name="QName" value="ifrs-full:DisposalsIntangibleAssetsOtherThanGoodwill"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-600,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7877" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="7877" severity="error" effectiveDate="2019-05-08" cid="2338276156800">[DQC.IFRS.0080.7877] ifrs-full:DisposalsPropertyPlantAndEquipment has a value of -48,400,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:DisposalsPropertyPlantAndEquipment fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : 
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9801</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1614)" sourceLine="9801">
+  <property name="label" value="Disposals"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="DisposalsPropertyPlantAndEquipment"/>
+  <property name="QName" value="ifrs-full:DisposalsPropertyPlantAndEquipment"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-48,400,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8434" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8434" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8434] ifrs-full:PurchaseOfTreasuryShares has a value of -2,700,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:PurchaseOfTreasuryShares fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : 
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9405</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1218)" sourceLine="9405">
+  <property name="label" value="Purchase of treasury shares"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="PurchaseOfTreasuryShares"/>
+  <property name="QName" value="ifrs-full:PurchaseOfTreasuryShares"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-2,700,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8396" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8396" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8396] ifrs-full:DividendsRecognisedAsDistributionsToNoncontrollingInterests has a value of -43,300,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:DividendsRecognisedAsDistributionsToNoncontrollingInterests fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : 
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9397</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1210)" sourceLine="9397">
+  <property name="label" value="Dividends to non-controlling interests"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="DividendsRecognisedAsDistributionsToNoncontrollingInterests"/>
+  <property name="QName" value="ifrs-full:DividendsRecognisedAsDistributionsToNoncontrollingInterests"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-43,300,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8557" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8557" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8557] ifrs-full:DividendsRecognisedAsDistributionsToOwnersOfParent has a value of -43,100,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:DividendsRecognisedAsDistributionsToOwnersOfParent fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : 
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9428</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1241)" sourceLine="9428">
+  <property name="label" value="Total transactions with or distributions to owners"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="DividendsRecognisedAsDistributionsToOwnersOfParent"/>
+  <property name="QName" value="ifrs-full:DividendsRecognisedAsDistributionsToOwnersOfParent"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-43,100,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8813" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8813" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8813] ifrs-full:InterestExpenseOnFinancialLiabilitiesDesignatedAtFairValueThroughProfitOrLoss has a value of -85,900,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:InterestExpenseOnFinancialLiabilitiesDesignatedAtFairValueThroughProfitOrLoss fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : 
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10514</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/2327)" sourceLine="10514">
+  <property name="label" value="Interest expense on financial liabilities designated at fair value through profit or loss"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="InterestExpenseOnFinancialLiabilitiesDesignatedAtFairValueThroughProfitOrLoss"/>
+  <property name="QName" value="ifrs-full:InterestExpenseOnFinancialLiabilitiesDesignatedAtFairValueThroughProfitOrLoss"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-85,900,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7877" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="7877" severity="error" effectiveDate="2019-05-08" cid="2338276156800">[DQC.IFRS.0080.7877] ifrs-full:DisposalsPropertyPlantAndEquipment has a value of -8,800,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:DisposalsPropertyPlantAndEquipment fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis=ifrs-full:FixturesAndFittingsMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9807</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1620)" sourceLine="9807">
+  <property name="label" value="Disposals"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="DisposalsPropertyPlantAndEquipment"/>
+  <property name="QName" value="ifrs-full:DisposalsPropertyPlantAndEquipment"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_ifrs-full_FixturesAndFittingsMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis" value="ifrs-full:FixturesAndFittingsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-8,800,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8547" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8547" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8547] ifrs-full:OtherCurrentLiabilities has a value of -4,000,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:OtherCurrentLiabilities fact are:
+Period :2018-12-31
+Dimensions : ifrs-full:SignificantInvestmentsInSubsidiariesAxis=HUD:HudsonLasVegasJVMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9376</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1189)" sourceLine="9376">
+  <property name="label" value="Other current liabilities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="OtherCurrentLiabilities"/>
+  <property name="QName" value="ifrs-full:OtherCurrentLiabilities"/>
+  <property name="contextRef" value="AsOf2018-12-31_custom_HudsonLasVegasJVMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SignificantInvestmentsInSubsidiariesAxis" value="HUD:HudsonLasVegasJVMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-4,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8666" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8666" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8666] ifrs-full:IntangibleAssetFairValueUsedAsDeemedCost has a value of -188,900,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:IntangibleAssetFairValueUsedAsDeemedCost fact are:
+Period :2017-12-31
+Dimensions : ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis=HUD:AccumulatedAmortisationMember, ifrs-full:ClassesOfIntangibleAssetsAndGoodwillAxis=ifrs-full:ServiceConcessionRightsMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9928</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#Foot-02-7" sourceLine="9928">
+  <property name="label" value="Intangible asset fair value used as deemed cost"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="IntangibleAssetFairValueUsedAsDeemedCost"/>
+  <property name="QName" value="ifrs-full:IntangibleAssetFairValueUsedAsDeemedCost"/>
+  <property name="contextRef" value="AsOf2017-12-31_ifrs-full_ServiceConcessionRightsMember_custom_AccumulatedAmortisationMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis" value="HUD:AccumulatedAmortisationMember"/>
+    <property name="ifrs-full:ClassesOfIntangibleAssetsAndGoodwillAxis" value="ifrs-full:ServiceConcessionRightsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-188,900,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7876" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="7876" severity="error" effectiveDate="2019-05-08" cid="2338276156800">[DQC.IFRS.0080.7876] ifrs-full:DisposalsIntangibleAssetsOtherThanGoodwill has a value of -600,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:DisposalsIntangibleAssetsOtherThanGoodwill fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : ifrs-full:ClassesOfIntangibleAssetsAndGoodwillAxis=ifrs-full:OtherIntangibleAssetsMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9956</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1769)" sourceLine="9956">
+  <property name="label" value="Disposals, intangible assets other than goodwill"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="DisposalsIntangibleAssetsOtherThanGoodwill"/>
+  <property name="QName" value="ifrs-full:DisposalsIntangibleAssetsOtherThanGoodwill"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_ifrs-full_OtherIntangibleAssetsMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ClassesOfIntangibleAssetsAndGoodwillAxis" value="ifrs-full:OtherIntangibleAssetsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-600,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7877" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="7877" severity="error" effectiveDate="2019-05-08" cid="2338276156800">[DQC.IFRS.0080.7877] ifrs-full:DisposalsPropertyPlantAndEquipment has a value of -200,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:DisposalsPropertyPlantAndEquipment fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis=ifrs-full:VehiclesMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9810</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1623)" sourceLine="9810">
+  <property name="label" value="Disposals"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="DisposalsPropertyPlantAndEquipment"/>
+  <property name="QName" value="ifrs-full:DisposalsPropertyPlantAndEquipment"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_ifrs-full_VehiclesMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis" value="ifrs-full:VehiclesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-200,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8551" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8551" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8551] ifrs-full:RepaymentsOfCurrentBorrowings has a value of -24,600,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:RepaymentsOfCurrentBorrowings fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : ifrs-full:CategoriesOfFinancialLiabilitiesAxis=HUD:FinancialDebtCurrentMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10180</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1993)" sourceLine="10180">
+  <property name="label" value="Repayments of financial debt"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="RepaymentsOfCurrentBorrowings"/>
+  <property name="QName" value="ifrs-full:RepaymentsOfCurrentBorrowings"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_custom_FinancialDebtCurrentMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:CategoriesOfFinancialLiabilitiesAxis" value="HUD:FinancialDebtCurrentMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-24,600,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8551" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8551" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8551] ifrs-full:RepaymentsOfCurrentBorrowings has a value of -6,500,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:RepaymentsOfCurrentBorrowings fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : ifrs-full:CategoriesOfFinancialLiabilitiesAxis=HUD:FinancialDebtNoncurrentMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10183</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1996)" sourceLine="10183">
+  <property name="label" value="Repayments of financial debt"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="RepaymentsOfCurrentBorrowings"/>
+  <property name="QName" value="ifrs-full:RepaymentsOfCurrentBorrowings"/>
+  <property name="contextRef" value="From2017-01-01to2017-12-31_custom_FinancialDebtNoncurrentMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:CategoriesOfFinancialLiabilitiesAxis" value="HUD:FinancialDebtNoncurrentMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-6,500,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8402" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8402" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8402] ifrs-full:AdditionalProvisionsOtherProvisions has a value of -600,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:AdditionalProvisionsOtherProvisions fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : ifrs-full:ClassesOfAssetsAxis=HUD:OtherAccountsReceivableMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10057</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1870)" sourceLine="10057">
+  <property name="label" value="Creation"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="AdditionalProvisionsOtherProvisions"/>
+  <property name="QName" value="ifrs-full:AdditionalProvisionsOtherProvisions"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_custom_OtherAccountsReceivableMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ClassesOfAssetsAxis" value="HUD:OtherAccountsReceivableMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-600,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.8511" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="8511" severity="error" effectiveDate="2019-09-30" cid="2338276156800">[DQC.IFRS.0080.8511] ifrs-full:ServicesReceivedRelatedPartyTransactions has a value of -15,200,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:ServicesReceivedRelatedPartyTransactions fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : ifrs-full:CategoriesOfRelatedPartiesAxis=HUD:DufryInternationalAGFranchiseFeesExpenseMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 10709</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/2522)" sourceLine="10709">
+  <property name="label" value="Purchase of services"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ServicesReceivedRelatedPartyTransactions"/>
+  <property name="QName" value="ifrs-full:ServicesReceivedRelatedPartyTransactions"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_custom_DufryInternationalAGFranchiseFeesExpenseMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:CategoriesOfRelatedPartiesAxis" value="HUD:DufryInternationalAGFranchiseFeesExpenseMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-15,200,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0080.7678" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml" rule-suffix="7678" severity="error" effectiveDate="2019-05-08" cid="2338276156800">[DQC.IFRS.0080.7678] ifrs-full:AdditionsOtherThanThroughBusinessCombinationsIntangibleAssetsOtherThanGoodwill has a value of -4,800,000 which is less than zero. This element should not have a negative value. 
+
+The properties of this ifrs-full:AdditionsOtherThanThroughBusinessCombinationsIntangibleAssetsOtherThanGoodwill fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : ifrs-full:ClassesOfIntangibleAssetsAndGoodwillAxis=ifrs-full:OtherIntangibleAssetsMember, ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis=HUD:AccumulatedAmortisationMember
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml 9944</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml#element(/1/1757)" sourceLine="9944">
+  <property name="label" value="Additions other than through business combinations, intangible assets other than goodwill"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="AdditionsOtherThanThroughBusinessCombinationsIntangibleAssetsOtherThanGoodwill"/>
+  <property name="QName" value="ifrs-full:AdditionsOtherThanThroughBusinessCombinationsIntangibleAssetsOtherThanGoodwill"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_ifrs-full_OtherIntangibleAssetsMember_custom_AccumulatedAmortisationMember">
+   <property name="entity" value="0001714368">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="ifrs-full:CarryingAmountAccumulatedDepreciationAmortisationAndImpairmentAndGrossCarryingAmountAxis" value="HUD:AccumulatedAmortisationMember"/>
+    <property name="ifrs-full:ClassesOfIntangibleAssetsAndGoodwillAxis" value="ifrs-full:OtherIntangibleAssetsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-4,800,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.02 secs - http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1714368/000165495420002505/hud-20191231.xml"/></entry>
+</log>

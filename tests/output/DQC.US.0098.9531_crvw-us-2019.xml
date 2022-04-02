@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23221 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.16 secs at 2021-06-23T11:10:39 - http://www.sec.gov/Archives/edgar/data/1377149/000138713120003439/crvw-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1377149/000138713120003439/crvw-20191231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpdoj6r7l4\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpdoj6r7l4\packages\resources.zip"/></entry>
+<entry code="DQC.US.0098.9531" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1377149/000138713120003439/crvw-20191231.xml" severity="error" effectiveDate="2021-01-01" cid="1676080710608">[DQC.US.0098.9531] The element ContractWithCustomerLiabilityRevenueRecognized with a value of 192,997 is greater than the opening balance of ContractWithCustomerLiability with an opening balance of 58,559 on 2018-12-31. The element ContractWithCustomerLiabilityRevenueRecognized represents the amount from the opening balance that was recognized during the period. For this reason it cannot be greater than the opening balance.
+
+If representing the revenue recognized during the period as part of a rollforward including the revenue recognized from the opening balance use the extension concept ContractWithCustomerLiabilityRevenueRecognizedIncludingOpeningBalance. If reporting the revenue recognized during the period that excludes the opening balance use the extension element ContractWithCustomerLiabilityRevenueRecognizedExcludingOpeningBalance.
+
+The properties of this us-gaap:ContractWithCustomerLiabilityRevenueRecognized fact are:
+Period :2019-01-01 to 2019-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9531
+Rule version: 15.0.0RC4 - http://www.sec.gov/Archives/edgar/data/1377149/000138713120003439/crvw-20191231.xml 2495</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1377149/000138713120003439/crvw-20191231.xml#element(/1/248)" sourceLine="2495">
+  <property name="label" value="Contract with Customer, Liability, Revenue Recognized"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="ContractWithCustomerLiabilityRevenueRecognized"/>
+  <property name="QName" value="us-gaap:ContractWithCustomerLiabilityRevenueRecognized"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31">
+   <property name="entity" value="0001377149">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="192,997"/>
+ </ref></entry>
+<entry code="DQC.US.0098.9531" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1377149/000138713120003439/crvw-20191231.xml" severity="error" effectiveDate="2021-01-01" cid="1676080710608">[DQC.US.0098.9531] The element ContractWithCustomerLiabilityRevenueRecognized with a value of 151,377 is greater than the opening balance of ContractWithCustomerLiability with an opening balance of 17,430 on 2017-12-31. The element ContractWithCustomerLiabilityRevenueRecognized represents the amount from the opening balance that was recognized during the period. For this reason it cannot be greater than the opening balance.
+
+If representing the revenue recognized during the period as part of a rollforward including the revenue recognized from the opening balance use the extension concept ContractWithCustomerLiabilityRevenueRecognizedIncludingOpeningBalance. If reporting the revenue recognized during the period that excludes the opening balance use the extension element ContractWithCustomerLiabilityRevenueRecognizedExcludingOpeningBalance.
+
+The properties of this us-gaap:ContractWithCustomerLiabilityRevenueRecognized fact are:
+Period :2018-01-01 to 2018-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9531
+Rule version: 15.0.0RC4 - http://www.sec.gov/Archives/edgar/data/1377149/000138713120003439/crvw-20191231.xml 2496</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1377149/000138713120003439/crvw-20191231.xml#element(/1/249)" sourceLine="2496">
+  <property name="label" value="Contract with Customer, Liability, Revenue Recognized"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="ContractWithCustomerLiabilityRevenueRecognized"/>
+  <property name="QName" value="us-gaap:ContractWithCustomerLiabilityRevenueRecognized"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31">
+   <property name="entity" value="0001377149">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="151,377"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 4.58 secs - http://www.sec.gov/Archives/edgar/data/1377149/000138713120003439/crvw-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1377149/000138713120003439/crvw-20191231.xml"/></entry>
+</log>

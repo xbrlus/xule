@@ -1,0 +1,1109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22790 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 4.97 secs at 2019-07-10T22:22:45 - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv and effective_dates.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpgrzg6iw9/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpgrzg6iw9/packages/resources.zip"/></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:RetainedEarningsAccumulatedDeficit with a value of -4,949,678 and a calculation parent of us-gaap:LiabilitiesAndStockholdersEquity is represented as a sibling of us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest with a value of 742,620 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:RetainedEarningsAccumulatedDeficit is represented as a descendent of us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:RetainedEarningsAccumulatedDeficit fact are:
+
+Period :2018-09-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 55</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/52)" sourceLine="55">
+  <property name="label" value="Retained earnings"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="RetainedEarningsAccumulatedDeficit"/>
+  <property name="QName" value="us-gaap:RetainedEarningsAccumulatedDeficit"/>
+  <property name="contextRef" value="E18Q3">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-09-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-4,949,678"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:CommonStockValue with a value of 7,736 and a calculation parent of us-gaap:LiabilitiesAndStockholdersEquity is represented as a sibling of us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest with a value of 742,620 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:CommonStockValue is represented as a descendent of us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:CommonStockValue fact are:
+
+Period :2018-09-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 46</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/43)" sourceLine="46">
+  <property name="label" value="Common stock, $0.0001 par value, Authorized 250,000,000 shares, 77,362,782 and 72,793,709 shares issued and outstanding at December 31, 2017 and 2016, respectively"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="CommonStockValue"/>
+  <property name="QName" value="us-gaap:CommonStockValue"/>
+  <property name="contextRef" value="E18Q3">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-09-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="7,736"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:AdditionalPaidInCapital with a value of 5,888,962 and a calculation parent of us-gaap:LiabilitiesAndStockholdersEquity is represented as a sibling of us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest with a value of 742,620 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:AdditionalPaidInCapital is represented as a descendent of us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:AdditionalPaidInCapital fact are:
+
+Period :2018-09-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 48</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/45)" sourceLine="48">
+  <property name="label" value="Additional paid-in capital"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="AdditionalPaidInCapital"/>
+  <property name="QName" value="us-gaap:AdditionalPaidInCapital"/>
+  <property name="contextRef" value="E18Q3">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-09-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="5,888,962"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:StockholdersEquityNoteSubscriptionsReceivable with a value of -104,400 and a calculation parent of us-gaap:LiabilitiesAndStockholdersEquity is represented as a sibling of us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest with a value of 742,620 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:StockholdersEquityNoteSubscriptionsReceivable is represented as a descendent of us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:StockholdersEquityNoteSubscriptionsReceivable fact are:
+
+Period :2018-09-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 51</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/48)" sourceLine="51">
+  <property name="label" value="Subscriptions receivable"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="StockholdersEquityNoteSubscriptionsReceivable"/>
+  <property name="QName" value="us-gaap:StockholdersEquityNoteSubscriptionsReceivable"/>
+  <property name="contextRef" value="E18Q3">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-09-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-104,400"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:TreasuryStockCommonValue with a value of -100,000 and a calculation parent of us-gaap:LiabilitiesAndStockholdersEquity is represented as a sibling of us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest with a value of 742,620 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:TreasuryStockCommonValue is represented as a descendent of us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:TreasuryStockCommonValue fact are:
+
+Period :2018-09-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 53</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/50)" sourceLine="53">
+  <property name="label" value="Treasury Stock, at cost, 3,664,641 and 3,664,641 shares respectively"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="TreasuryStockCommonValue"/>
+  <property name="QName" value="us-gaap:TreasuryStockCommonValue"/>
+  <property name="contextRef" value="E18Q3">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-09-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-100,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:Cash with a value of 1,312,152 and a calculation parent of us-gaap:Assets is represented as a sibling of us-gaap:AssetsCurrent with a value of 1,476,660 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:Cash is represented as a descendent of us-gaap:AssetsCurrent in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:Cash fact are:
+
+Period :2018-09-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 136</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/133)" sourceLine="136">
+  <property name="label" value="Cash"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="Cash"/>
+  <property name="QName" value="us-gaap:Cash"/>
+  <property name="contextRef" value="E18Q3">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-09-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,312,152"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:PrepaidExpenseCurrent with a value of 150,000 and a calculation parent of us-gaap:Assets is represented as a sibling of us-gaap:AssetsCurrent with a value of 1,476,660 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:PrepaidExpenseCurrent is represented as a descendent of us-gaap:AssetsCurrent in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:PrepaidExpenseCurrent fact are:
+
+Period :2018-09-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 8</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/5)" sourceLine="8">
+  <property name="label" value="Prepaid Expense, Current"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="PrepaidExpenseCurrent"/>
+  <property name="QName" value="us-gaap:PrepaidExpenseCurrent"/>
+  <property name="contextRef" value="E18Q3">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-09-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="150,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:LeaseholdImprovementsGross with a value of 96,605 and a calculation parent of us-gaap:Assets is represented as a sibling of us-gaap:PropertyPlantAndEquipmentNet with a value of 631,399 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:LeaseholdImprovementsGross is represented as a descendent of us-gaap:PropertyPlantAndEquipmentNet in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:LeaseholdImprovementsGross fact are:
+
+Period :2018-09-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 18</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/15)" sourceLine="18">
+  <property name="label" value="Leasehold improvments"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="LeaseholdImprovementsGross"/>
+  <property name="QName" value="us-gaap:LeaseholdImprovementsGross"/>
+  <property name="contextRef" value="E18Q3">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-09-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="96,605"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:PropertyPlantAndEquipmentGross with a value of 807,787 and a calculation parent of us-gaap:Assets is represented as a sibling of us-gaap:PropertyPlantAndEquipmentNet with a value of 631,399 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:PropertyPlantAndEquipmentGross is represented as a descendent of us-gaap:PropertyPlantAndEquipmentNet in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:PropertyPlantAndEquipmentGross fact are:
+
+Period :2018-09-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 20</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/17)" sourceLine="20">
+  <property name="label" value="Total fixed assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="PropertyPlantAndEquipmentGross"/>
+  <property name="QName" value="us-gaap:PropertyPlantAndEquipmentGross"/>
+  <property name="contextRef" value="E18Q3">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-09-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="807,787"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:AccumulatedDepreciationDepletionAndAmortizationPropertyPlantAndEquipmentExcludingCapitalLeasedAssets with a value of -176,388 and a calculation parent of us-gaap:Assets is represented as a sibling of us-gaap:PropertyPlantAndEquipmentNet with a value of 631,399 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:AccumulatedDepreciationDepletionAndAmortizationPropertyPlantAndEquipmentExcludingCapitalLeasedAssets is represented as a descendent of us-gaap:PropertyPlantAndEquipmentNet in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:AccumulatedDepreciationDepletionAndAmortizationPropertyPlantAndEquipmentExcludingCapitalLeasedAssets fact are:
+
+Period :2018-09-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 22</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/19)" sourceLine="22">
+  <property name="label" value="Accumulated depreciation and amortization"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="AccumulatedDepreciationDepletionAndAmortizationPropertyPlantAndEquipmentExcludingCapitalLeasedAssets"/>
+  <property name="QName" value="us-gaap:AccumulatedDepreciationDepletionAndAmortizationPropertyPlantAndEquipmentExcludingCapitalLeasedAssets"/>
+  <property name="contextRef" value="E18Q3">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-09-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-176,388"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:PropertyPlantAndEquipmentOther with a value of 2,332 and a calculation parent of us-gaap:Assets is represented as a sibling of us-gaap:PropertyPlantAndEquipmentNet with a value of 631,399 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:PropertyPlantAndEquipmentOther is represented as a descendent of us-gaap:PropertyPlantAndEquipmentNet in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:PropertyPlantAndEquipmentOther fact are:
+
+Period :2018-09-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 12</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/9)" sourceLine="12">
+  <property name="label" value="Computer Hardware"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="PropertyPlantAndEquipmentOther"/>
+  <property name="QName" value="us-gaap:PropertyPlantAndEquipmentOther"/>
+  <property name="contextRef" value="E18Q3">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-09-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,332"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:MachineryAndEquipmentGross with a value of 696,025 and a calculation parent of us-gaap:Assets is represented as a sibling of us-gaap:PropertyPlantAndEquipmentNet with a value of 631,399 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:MachineryAndEquipmentGross is represented as a descendent of us-gaap:PropertyPlantAndEquipmentNet in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:MachineryAndEquipmentGross fact are:
+
+Period :2018-09-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 14</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/11)" sourceLine="14">
+  <property name="label" value="Equipment"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="MachineryAndEquipmentGross"/>
+  <property name="QName" value="us-gaap:MachineryAndEquipmentGross"/>
+  <property name="contextRef" value="E18Q3">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-09-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="696,025"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:CapitalizedComputerSoftwareGross with a value of 12,825 and a calculation parent of us-gaap:Assets is represented as a sibling of us-gaap:PropertyPlantAndEquipmentNet with a value of 631,399 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:CapitalizedComputerSoftwareGross is represented as a descendent of us-gaap:PropertyPlantAndEquipmentNet in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:CapitalizedComputerSoftwareGross fact are:
+
+Period :2018-09-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 16</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/13)" sourceLine="16">
+  <property name="label" value="Website and presentation templates"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="CapitalizedComputerSoftwareGross"/>
+  <property name="QName" value="us-gaap:CapitalizedComputerSoftwareGross"/>
+  <property name="contextRef" value="E18Q3">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-09-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="12,825"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:CapitalizedComputerSoftwareGross with a value of 12,825 and a calculation parent of us-gaap:Assets is represented as a sibling of us-gaap:PropertyPlantAndEquipmentGross with a value of 807,787 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:CapitalizedComputerSoftwareGross is represented as a descendent of us-gaap:PropertyPlantAndEquipmentGross in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:CapitalizedComputerSoftwareGross fact are:
+
+Period :2018-09-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 16</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/13)" sourceLine="16">
+  <property name="label" value="Website and presentation templates"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="CapitalizedComputerSoftwareGross"/>
+  <property name="QName" value="us-gaap:CapitalizedComputerSoftwareGross"/>
+  <property name="contextRef" value="E18Q3">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-09-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="12,825"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:LeaseholdImprovementsGross with a value of 96,605 and a calculation parent of us-gaap:Assets is represented as a sibling of us-gaap:PropertyPlantAndEquipmentGross with a value of 807,787 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:LeaseholdImprovementsGross is represented as a descendent of us-gaap:PropertyPlantAndEquipmentGross in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:LeaseholdImprovementsGross fact are:
+
+Period :2018-09-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 18</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/15)" sourceLine="18">
+  <property name="label" value="Leasehold improvments"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="LeaseholdImprovementsGross"/>
+  <property name="QName" value="us-gaap:LeaseholdImprovementsGross"/>
+  <property name="contextRef" value="E18Q3">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-09-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="96,605"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:PropertyPlantAndEquipmentOther with a value of 2,332 and a calculation parent of us-gaap:Assets is represented as a sibling of us-gaap:PropertyPlantAndEquipmentGross with a value of 807,787 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:PropertyPlantAndEquipmentOther is represented as a descendent of us-gaap:PropertyPlantAndEquipmentGross in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:PropertyPlantAndEquipmentOther fact are:
+
+Period :2018-09-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 12</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/9)" sourceLine="12">
+  <property name="label" value="Computer Hardware"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="PropertyPlantAndEquipmentOther"/>
+  <property name="QName" value="us-gaap:PropertyPlantAndEquipmentOther"/>
+  <property name="contextRef" value="E18Q3">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-09-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,332"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:MachineryAndEquipmentGross with a value of 696,025 and a calculation parent of us-gaap:Assets is represented as a sibling of us-gaap:PropertyPlantAndEquipmentGross with a value of 807,787 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:MachineryAndEquipmentGross is represented as a descendent of us-gaap:PropertyPlantAndEquipmentGross in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:MachineryAndEquipmentGross fact are:
+
+Period :2018-09-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 14</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/11)" sourceLine="14">
+  <property name="label" value="Equipment"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="MachineryAndEquipmentGross"/>
+  <property name="QName" value="us-gaap:MachineryAndEquipmentGross"/>
+  <property name="contextRef" value="E18Q3">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-09-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="696,025"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:RetainedEarningsAccumulatedDeficit with a value of -2,022,859 and a calculation parent of us-gaap:LiabilitiesAndStockholdersEquity is represented as a sibling of us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest with a value of 939,422 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:RetainedEarningsAccumulatedDeficit is represented as a descendent of us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:RetainedEarningsAccumulatedDeficit fact are:
+
+Period :2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 56</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/53)" sourceLine="56">
+  <property name="label" value="Retained earnings"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="RetainedEarningsAccumulatedDeficit"/>
+  <property name="QName" value="us-gaap:RetainedEarningsAccumulatedDeficit"/>
+  <property name="contextRef" value="E17">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-2,022,859"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:CommonStockValue with a value of 7,279 and a calculation parent of us-gaap:LiabilitiesAndStockholdersEquity is represented as a sibling of us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest with a value of 939,422 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:CommonStockValue is represented as a descendent of us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:CommonStockValue fact are:
+
+Period :2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 47</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/44)" sourceLine="47">
+  <property name="label" value="Common stock, $0.0001 par value, Authorized 250,000,000 shares, 77,362,782 and 72,793,709 shares issued and outstanding at December 31, 2017 and 2016, respectively"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="CommonStockValue"/>
+  <property name="QName" value="us-gaap:CommonStockValue"/>
+  <property name="contextRef" value="E17">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="7,279"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:AdditionalPaidInCapital with a value of 2,636,902 and a calculation parent of us-gaap:LiabilitiesAndStockholdersEquity is represented as a sibling of us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest with a value of 939,422 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:AdditionalPaidInCapital is represented as a descendent of us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:AdditionalPaidInCapital fact are:
+
+Period :2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 49</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/46)" sourceLine="49">
+  <property name="label" value="Additional paid-in capital"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="AdditionalPaidInCapital"/>
+  <property name="QName" value="us-gaap:AdditionalPaidInCapital"/>
+  <property name="contextRef" value="E17">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,636,902"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:StockholdersEquityNoteSubscriptionsReceivable with a value of -104,400 and a calculation parent of us-gaap:LiabilitiesAndStockholdersEquity is represented as a sibling of us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest with a value of 939,422 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:StockholdersEquityNoteSubscriptionsReceivable is represented as a descendent of us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:StockholdersEquityNoteSubscriptionsReceivable fact are:
+
+Period :2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 52</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/49)" sourceLine="52">
+  <property name="label" value="Subscriptions receivable"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="StockholdersEquityNoteSubscriptionsReceivable"/>
+  <property name="QName" value="us-gaap:StockholdersEquityNoteSubscriptionsReceivable"/>
+  <property name="contextRef" value="E17">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-104,400"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:TreasuryStockCommonValue with a value of -100,000 and a calculation parent of us-gaap:LiabilitiesAndStockholdersEquity is represented as a sibling of us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest with a value of 939,422 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:TreasuryStockCommonValue is represented as a descendent of us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:TreasuryStockCommonValue fact are:
+
+Period :2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 54</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/51)" sourceLine="54">
+  <property name="label" value="Treasury Stock, at cost, 3,664,641 and 3,664,641 shares respectively"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="TreasuryStockCommonValue"/>
+  <property name="QName" value="us-gaap:TreasuryStockCommonValue"/>
+  <property name="contextRef" value="E17">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-100,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:Cash with a value of 1,309,573 and a calculation parent of us-gaap:Assets is represented as a sibling of us-gaap:AssetsCurrent with a value of 1,460,139 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:Cash is represented as a descendent of us-gaap:AssetsCurrent in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:Cash fact are:
+
+Period :2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 134</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/131)" sourceLine="134">
+  <property name="label" value="Cash"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="Cash"/>
+  <property name="QName" value="us-gaap:Cash"/>
+  <property name="contextRef" value="E17">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,309,573"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:PrepaidExpenseCurrent with a value of 150,000 and a calculation parent of us-gaap:Assets is represented as a sibling of us-gaap:AssetsCurrent with a value of 1,460,139 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:PrepaidExpenseCurrent is represented as a descendent of us-gaap:AssetsCurrent in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:PrepaidExpenseCurrent fact are:
+
+Period :2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 9</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/6)" sourceLine="9">
+  <property name="label" value="Prepaid Expense, Current"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="PrepaidExpenseCurrent"/>
+  <property name="QName" value="us-gaap:PrepaidExpenseCurrent"/>
+  <property name="contextRef" value="E17">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="150,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:LeaseholdImprovementsGross with a value of 96,605 and a calculation parent of us-gaap:Assets is represented as a sibling of us-gaap:PropertyPlantAndEquipmentNet with a value of 683,611 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:LeaseholdImprovementsGross is represented as a descendent of us-gaap:PropertyPlantAndEquipmentNet in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:LeaseholdImprovementsGross fact are:
+
+Period :2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 19</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/16)" sourceLine="19">
+  <property name="label" value="Leasehold improvments"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="LeaseholdImprovementsGross"/>
+  <property name="QName" value="us-gaap:LeaseholdImprovementsGross"/>
+  <property name="contextRef" value="E17">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="96,605"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:PropertyPlantAndEquipmentGross with a value of 807,787 and a calculation parent of us-gaap:Assets is represented as a sibling of us-gaap:PropertyPlantAndEquipmentNet with a value of 683,611 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:PropertyPlantAndEquipmentGross is represented as a descendent of us-gaap:PropertyPlantAndEquipmentNet in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:PropertyPlantAndEquipmentGross fact are:
+
+Period :2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 21</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/18)" sourceLine="21">
+  <property name="label" value="Total fixed assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="PropertyPlantAndEquipmentGross"/>
+  <property name="QName" value="us-gaap:PropertyPlantAndEquipmentGross"/>
+  <property name="contextRef" value="E17">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="807,787"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:AccumulatedDepreciationDepletionAndAmortizationPropertyPlantAndEquipmentExcludingCapitalLeasedAssets with a value of -124,176 and a calculation parent of us-gaap:Assets is represented as a sibling of us-gaap:PropertyPlantAndEquipmentNet with a value of 683,611 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:AccumulatedDepreciationDepletionAndAmortizationPropertyPlantAndEquipmentExcludingCapitalLeasedAssets is represented as a descendent of us-gaap:PropertyPlantAndEquipmentNet in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:AccumulatedDepreciationDepletionAndAmortizationPropertyPlantAndEquipmentExcludingCapitalLeasedAssets fact are:
+
+Period :2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 23</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/20)" sourceLine="23">
+  <property name="label" value="Accumulated depreciation and amortization"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="AccumulatedDepreciationDepletionAndAmortizationPropertyPlantAndEquipmentExcludingCapitalLeasedAssets"/>
+  <property name="QName" value="us-gaap:AccumulatedDepreciationDepletionAndAmortizationPropertyPlantAndEquipmentExcludingCapitalLeasedAssets"/>
+  <property name="contextRef" value="E17">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-124,176"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:PropertyPlantAndEquipmentOther with a value of 2,332 and a calculation parent of us-gaap:Assets is represented as a sibling of us-gaap:PropertyPlantAndEquipmentNet with a value of 683,611 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:PropertyPlantAndEquipmentOther is represented as a descendent of us-gaap:PropertyPlantAndEquipmentNet in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:PropertyPlantAndEquipmentOther fact are:
+
+Period :2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 13</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/10)" sourceLine="13">
+  <property name="label" value="Computer Hardware"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="PropertyPlantAndEquipmentOther"/>
+  <property name="QName" value="us-gaap:PropertyPlantAndEquipmentOther"/>
+  <property name="contextRef" value="E17">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,332"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:MachineryAndEquipmentGross with a value of 696,025 and a calculation parent of us-gaap:Assets is represented as a sibling of us-gaap:PropertyPlantAndEquipmentNet with a value of 683,611 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:MachineryAndEquipmentGross is represented as a descendent of us-gaap:PropertyPlantAndEquipmentNet in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:MachineryAndEquipmentGross fact are:
+
+Period :2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 15</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/12)" sourceLine="15">
+  <property name="label" value="Equipment"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="MachineryAndEquipmentGross"/>
+  <property name="QName" value="us-gaap:MachineryAndEquipmentGross"/>
+  <property name="contextRef" value="E17">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="696,025"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:CapitalizedComputerSoftwareGross with a value of 12,825 and a calculation parent of us-gaap:Assets is represented as a sibling of us-gaap:PropertyPlantAndEquipmentNet with a value of 683,611 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:CapitalizedComputerSoftwareGross is represented as a descendent of us-gaap:PropertyPlantAndEquipmentNet in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:CapitalizedComputerSoftwareGross fact are:
+
+Period :2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 17</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/14)" sourceLine="17">
+  <property name="label" value="Website and presentation templates"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="CapitalizedComputerSoftwareGross"/>
+  <property name="QName" value="us-gaap:CapitalizedComputerSoftwareGross"/>
+  <property name="contextRef" value="E17">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="12,825"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:CapitalizedComputerSoftwareGross with a value of 12,825 and a calculation parent of us-gaap:Assets is represented as a sibling of us-gaap:PropertyPlantAndEquipmentGross with a value of 807,787 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:CapitalizedComputerSoftwareGross is represented as a descendent of us-gaap:PropertyPlantAndEquipmentGross in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:CapitalizedComputerSoftwareGross fact are:
+
+Period :2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 17</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/14)" sourceLine="17">
+  <property name="label" value="Website and presentation templates"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="CapitalizedComputerSoftwareGross"/>
+  <property name="QName" value="us-gaap:CapitalizedComputerSoftwareGross"/>
+  <property name="contextRef" value="E17">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="12,825"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:LeaseholdImprovementsGross with a value of 96,605 and a calculation parent of us-gaap:Assets is represented as a sibling of us-gaap:PropertyPlantAndEquipmentGross with a value of 807,787 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:LeaseholdImprovementsGross is represented as a descendent of us-gaap:PropertyPlantAndEquipmentGross in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:LeaseholdImprovementsGross fact are:
+
+Period :2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 19</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/16)" sourceLine="19">
+  <property name="label" value="Leasehold improvments"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="LeaseholdImprovementsGross"/>
+  <property name="QName" value="us-gaap:LeaseholdImprovementsGross"/>
+  <property name="contextRef" value="E17">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="96,605"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:PropertyPlantAndEquipmentOther with a value of 2,332 and a calculation parent of us-gaap:Assets is represented as a sibling of us-gaap:PropertyPlantAndEquipmentGross with a value of 807,787 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:PropertyPlantAndEquipmentOther is represented as a descendent of us-gaap:PropertyPlantAndEquipmentGross in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:PropertyPlantAndEquipmentOther fact are:
+
+Period :2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 13</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/10)" sourceLine="13">
+  <property name="label" value="Computer Hardware"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="PropertyPlantAndEquipmentOther"/>
+  <property name="QName" value="us-gaap:PropertyPlantAndEquipmentOther"/>
+  <property name="contextRef" value="E17">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,332"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4410470072" severity="error" status="PROPOSED" filing_url="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml">[DQC.US.0081.9278] The line item concept us-gaap:MachineryAndEquipmentGross with a value of 696,025 and a calculation parent of us-gaap:Assets is represented as a sibling of us-gaap:PropertyPlantAndEquipmentGross with a value of 807,787 in the extension taxonomy role 000020 - Statement - Consolidated Balance Sheets, but us-gaap:MachineryAndEquipmentGross is represented as a descendent of us-gaap:PropertyPlantAndEquipmentGross in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:MachineryAndEquipmentGross fact are:
+
+Period :2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml 15</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml#element(/1/12)" sourceLine="15">
+  <property name="label" value="Equipment"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="MachineryAndEquipmentGross"/>
+  <property name="QName" value="us-gaap:MachineryAndEquipmentGross"/>
+  <property name="contextRef" value="E17">
+   <property name="entity" value="0001635965">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="696,025"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 19.87 secs - https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1635965/000163596518000042/fmcf-20180930.xml"/></entry>
+</log>

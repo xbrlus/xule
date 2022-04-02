@@ -1,0 +1,1477 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.55 secs at 2020-04-16T18:10:27 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml"/></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 726,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 72,000,000, a difference of 654,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	349,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	377,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:FarxigaMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70885</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/2980)" sourceLine="70885">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_FarxigaMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:FarxigaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="72,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 52,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 5,000,000, a difference of 47,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	22,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	30,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:OtherProductsOthersMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70900</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/2995)" sourceLine="70900">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_OtherProductsOthersMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:OtherProductsOthersMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="5,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 520,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 68,000,000, a difference of 452,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	237,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	283,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:LynparzaMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70893</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/2988)" sourceLine="70893">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_LynparzaMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:LynparzaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="68,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 143,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 10,000,000, a difference of 133,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	75,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	68,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:OtherCardiovascularRenalAndMetabolismProductsMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70897</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/2992)" sourceLine="70897">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_OtherCardiovascularRenalAndMetabolismProductsMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:OtherCardiovascularRenalAndMetabolismProductsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="10,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 716,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 40,000,000, a difference of 676,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	383,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	333,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:PulmicortMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70902</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/2997)" sourceLine="70902">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_PulmicortMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:PulmicortMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="40,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 391,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 87,000,000, a difference of 304,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	194,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	197,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:ZoladexMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70910</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/3005)" sourceLine="70910">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_ZoladexMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:ZoladexMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="87,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 106,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 9,000,000, a difference of 97,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	50,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	56,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:AtacandMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70875</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/2970)" sourceLine="70875">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_AtacandMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:AtacandMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="9,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 756,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 236,000,000, a difference of 520,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	363,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	393,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:NexiumMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70894</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/2989)" sourceLine="70894">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_NexiumMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:NexiumMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="236,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 111,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 24,000,000, a difference of 87,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	51,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	60,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:ArimidexMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70874</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/2969)" sourceLine="70874">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_ArimidexMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:ArimidexMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="24,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 269,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 26,000,000, a difference of 243,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	153,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	116,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:OnglyzaMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70896</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/2991)" sourceLine="70896">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_OnglyzaMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:OnglyzaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="26,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 737,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 28,000,000, a difference of 709,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	348,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	389,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:BrilintaMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70876</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/2971)" sourceLine="70876">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_BrilintaMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:BrilintaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="28,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 1,170,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 171,000,000, a difference of 999,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	585,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	585,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:SymbicortMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70906</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/3001)" sourceLine="70906">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_SymbicortMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:SymbicortMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="171,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 3,372,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 273,000,000, a difference of 3,099,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	1,714,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	1,658,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:CardiovascularRenalAndMetabolismProductsMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70879</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/2974)" sourceLine="70879">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_CardiovascularRenalAndMetabolismProductsMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:CardiovascularRenalAndMetabolismProductsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="273,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 521,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 64,000,000, a difference of 457,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	254,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	267,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:FaslodexMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70887</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/2982)" sourceLine="70887">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_FaslodexMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:FaslodexMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="64,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 69,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 11,000,000, a difference of 58,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	37,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	32,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:SeroquelXrIrMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70905</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/3000)" sourceLine="70905">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_SeroquelXrIrMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:SeroquelXrIrMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="11,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 1,217,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 265,000,000, a difference of 952,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	576,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	641,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:OtherProductsMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70899</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/2994)" sourceLine="70899">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_OtherProductsMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:OtherProductsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="265,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 104,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 1,000,000, a difference of 103,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	48,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	56,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:DalirespDaxasMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70882</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/2977)" sourceLine="70882">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_DalirespDaxasMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:DalirespDaxasMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 296,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 42,000,000, a difference of 254,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	129,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	167,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:FasenraMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70886</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/2981)" sourceLine="70886">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_FasenraMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:FasenraMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="42,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 144,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 13,000,000, a difference of 131,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	76,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	68,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:LosecPrilosecMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70892</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/2987)" sourceLine="70892">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_LosecPrilosecMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:LosecPrilosecMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="13,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 159,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 4,000,000, a difference of 155,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	88,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	71,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:OtherRespiratoryProductsMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70901</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/2996)" sourceLine="70901">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_OtherRespiratoryProductsMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:OtherRespiratoryProductsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 1,414,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 314,000,000, a difference of 1,100,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	630,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	784,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:TagrissoMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70907</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/3002)" sourceLine="70907">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_TagrissoMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:TagrissoMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="314,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 645,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 109,000,000, a difference of 536,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	335,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	310,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:CrestorMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70881</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/2976)" sourceLine="70881">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_CrestorMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:CrestorMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="109,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 2,535,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 262,000,000, a difference of 2,273,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	1,283,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	1,252,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:RespiratoryProductsMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70903</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/2998)" sourceLine="70903">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_RespiratoryProductsMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:RespiratoryProductsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="262,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 55,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 6,000,000, a difference of 49,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	30,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	25,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:ByettaMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70878</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/2973)" sourceLine="70878">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_ByettaMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:ByettaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="6,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 48,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 29,000,000, a difference of 19,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	20,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	28,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:OtherOncologyProductsMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70898</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/2993)" sourceLine="70898">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_OtherOncologyProductsMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:OtherOncologyProductsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="29,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 105,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 32,000,000, a difference of 73,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	48,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	57,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:CasodexMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70880</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/2975)" sourceLine="70880">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_CasodexMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:CasodexMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="32,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 633,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 88,000,000, a difference of 545,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	295,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	338,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:ImfinziMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70890</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/2985)" sourceLine="70890">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_ImfinziMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:ImfinziMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="88,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 393,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 5,000,000, a difference of 388,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	225,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	168,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:SelokenToprolXlMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70904</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/2999)" sourceLine="70904">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_SelokenToprolXlMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:SelokenToprolXlMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="5,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 252,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 34,000,000, a difference of 218,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	134,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	118,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:IressaMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70891</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/2986)" sourceLine="70891">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_IressaMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:IressaMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="34,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 33,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 3,000,000, a difference of 30,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	20,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	13,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:TudorzaEkliraMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70908</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/3003)" sourceLine="70908">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_TudorzaEkliraMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:TudorzaEkliraMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="3,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 37,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 1,000,000, a difference of 36,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	20,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	17,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:DuaklirMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70883</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/2978)" sourceLine="70883">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_DuaklirMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:DuaklirMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 11,183,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 1,540,000,000, a difference of 9,643,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	5,465,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	5,718,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : 
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70873</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/2968)" sourceLine="70873">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,540,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 4,059,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 740,000,000, a difference of 3,319,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	1,892,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	2,167,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:OncologyProductsMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70895</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/2990)" sourceLine="70895">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_OncologyProductsMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:OncologyProductsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="740,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0093.9525" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml" severity="error" effectiveDate="2020-05-30" cid="1453986129280">[DQC.IFRS.0093.9525] Sum of the cumulative periods of 283,000,000 for ifrs-full:RevenueFromContractsWithCustomers does not match the reported total of 8,000,000, a difference of 275,000,000.
+
+Period values are:
+	2019-01-01 to 2019-03-31	142,000,000	 Decimals: -6
+	2019-04-01 to 2019-06-30	141,000,000	 Decimals: -6
+
+This rule takes into account possible rounding of values across periods and the decimals associated with each fact. This rule used a tolerance of 2,000,000 which is calculated by taking the lowest decimal value used in the calculation of -6. If there is a difference between the sum of the periods and the aggregate value reported the difference may be due to incorrect decimals associated with the individual fact values. The filer should check that the fact values do not have a decimal value that implies a higher level of accuracy than intended.
+
+The rule excludes elements in the base taxonomy that cannot be aggregated such as an average, maximum or minimum value.
+
+The properties of this ifrs-full:RevenueFromContractsWithCustomers fact are:
+
+Period :2019-01-01 to 2019-06-30
+Dimensions : ifrs-full:ProductsAndServicesAxis=azn:BydureonMember
+Unit : USD
+Decimals: -6
+
+Rule Element Id:9525
+Rule version: 12.0.0RC1 - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml 70877</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml#element(/1/2972)" sourceLine="70877">
+  <property name="label" value="Revenue from contracts with customers"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2018-03-16/ifrs-full"/>
+  <property name="name" value="RevenueFromContractsWithCustomers"/>
+  <property name="QName" value="ifrs-full:RevenueFromContractsWithCustomers"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_6_30_2019_ifrs-full_ProductsAndServicesAxis_azn_BydureonMember">
+   <property name="entity" value="0000901832">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ProductsAndServicesAxis" value="azn:BydureonMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit1 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="8,000,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 19.85 secs - http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/901832/000110465919041809/azn-20190630.xml"/></entry>
+</log>

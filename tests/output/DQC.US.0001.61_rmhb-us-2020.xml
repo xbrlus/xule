@@ -1,0 +1,573 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.77 secs at 2020-07-26T18:44:34 - http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpswby74n_\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpswby74n_\packages\resources.zip"/></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml" severity="error" effectiveDate="2017-03-28" cid="2596824327552">[DQC.US.0001.61] The concept DerivativeTermOfContract with a value of P3Y3M1D is dimensionally qualified with the RangeAxis and the unallowable member RMHB:TermMaximumMember. 
+The properties of the fact for DerivativeTermOfContract are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: srt:RangeAxis=RMHB:TermMaximumMember 
+Unit: None
+
+Rule Element Id:61
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml 2231</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml#element(/1/313)" sourceLine="2231">
+  <property name="label" value="Expected term"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="DerivativeTermOfContract"/>
+  <property name="QName" value="us-gaap:DerivativeTermOfContract"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_custom_TermMaximumMember">
+   <property name="entity" value="0001670869">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:RangeAxis" value="RMHB:TermMaximumMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="P3Y3M1D"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml" severity="error" effectiveDate="2017-03-28" cid="2596824327552">[DQC.US.0001.61] The concept DerivativeTermOfContract with a value of P4Y is dimensionally qualified with the RangeAxis and the unallowable member RMHB:TermMaximumMember. 
+The properties of the fact for DerivativeTermOfContract are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: srt:RangeAxis=RMHB:TermMaximumMember 
+Unit: None
+
+Rule Element Id:61
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml 2232</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml#element(/1/314)" sourceLine="2232">
+  <property name="label" value="Expected term"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="DerivativeTermOfContract"/>
+  <property name="QName" value="us-gaap:DerivativeTermOfContract"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_custom_TermMaximumMember">
+   <property name="entity" value="0001670869">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:RangeAxis" value="RMHB:TermMaximumMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="P4Y"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml" severity="error" effectiveDate="2017-03-28" cid="2596824327552">[DQC.US.0001.61] The concept LongTermDebtPercentageBearingFixedInterestRate with a value of 0 is dimensionally qualified with the RangeAxis and the unallowable member RMHB:MinimumInterestMember. 
+The properties of the fact for LongTermDebtPercentageBearingFixedInterestRate are:
+Period: 2018-12-31
+Dimensions: srt:RangeAxis=RMHB:MinimumInterestMember 
+Unit: pure
+
+Rule Element Id:61
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml 2181</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml#element(/1/263)" sourceLine="2181">
+  <property name="label" value="Interest Rate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="LongTermDebtPercentageBearingFixedInterestRate"/>
+  <property name="QName" value="us-gaap:LongTermDebtPercentageBearingFixedInterestRate"/>
+  <property name="contextRef" value="AsOf2018-12-31_custom_MinimumInterestMember">
+   <property name="entity" value="0001670869">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:RangeAxis" value="RMHB:MinimumInterestMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Pure (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.00"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml" severity="error" effectiveDate="2017-03-28" cid="2596824327552">[DQC.US.0001.61] The concept LongTermDebtPercentageBearingFixedInterestRate with a value of 0 is dimensionally qualified with the RangeAxis and the unallowable member RMHB:MinimumInterestMember. 
+The properties of the fact for LongTermDebtPercentageBearingFixedInterestRate are:
+Period: 2019-12-31
+Dimensions: srt:RangeAxis=RMHB:MinimumInterestMember 
+Unit: pure
+
+Rule Element Id:61
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml 2179</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml#element(/1/261)" sourceLine="2179">
+  <property name="label" value="Interest Rate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="LongTermDebtPercentageBearingFixedInterestRate"/>
+  <property name="QName" value="us-gaap:LongTermDebtPercentageBearingFixedInterestRate"/>
+  <property name="contextRef" value="AsOf2019-12-31_custom_MinimumInterestMember">
+   <property name="entity" value="0001670869">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:RangeAxis" value="RMHB:MinimumInterestMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Pure (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.00"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml" severity="error" effectiveDate="2017-03-28" cid="2596824327552">[DQC.US.0001.61] The concept LongTermDebtPercentageBearingFixedInterestRate with a value of 0.06 is dimensionally qualified with the RangeAxis and the unallowable member RMHB:MiaximumInterestMember. 
+The properties of the fact for LongTermDebtPercentageBearingFixedInterestRate are:
+Period: 2019-12-31
+Dimensions: srt:RangeAxis=RMHB:MiaximumInterestMember 
+Unit: pure
+
+Rule Element Id:61
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml 2180</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml#element(/1/262)" sourceLine="2180">
+  <property name="label" value="Interest Rate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="LongTermDebtPercentageBearingFixedInterestRate"/>
+  <property name="QName" value="us-gaap:LongTermDebtPercentageBearingFixedInterestRate"/>
+  <property name="contextRef" value="AsOf2019-12-31_custom_MiaximumInterestMember">
+   <property name="entity" value="0001670869">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:RangeAxis" value="RMHB:MiaximumInterestMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Pure (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.06"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml" severity="error" effectiveDate="2017-03-28" cid="2596824327552">[DQC.US.0001.61] The concept LongTermDebtPercentageBearingFixedInterestRate with a value of 0.06 is dimensionally qualified with the RangeAxis and the unallowable member RMHB:MiaximumInterestMember. 
+The properties of the fact for LongTermDebtPercentageBearingFixedInterestRate are:
+Period: 2018-12-31
+Dimensions: srt:RangeAxis=RMHB:MiaximumInterestMember 
+Unit: pure
+
+Rule Element Id:61
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml 2182</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml#element(/1/264)" sourceLine="2182">
+  <property name="label" value="Interest Rate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="LongTermDebtPercentageBearingFixedInterestRate"/>
+  <property name="QName" value="us-gaap:LongTermDebtPercentageBearingFixedInterestRate"/>
+  <property name="contextRef" value="AsOf2018-12-31_custom_MiaximumInterestMember">
+   <property name="entity" value="0001670869">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:RangeAxis" value="RMHB:MiaximumInterestMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Pure (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.06"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml" severity="error" effectiveDate="2017-03-28" cid="2596824327552">[DQC.US.0001.61] The concept DebtInstrumentTerm with a value of P1M6D is dimensionally qualified with the RangeAxis and the unallowable member RMHB:MinimumTermMember. 
+The properties of the fact for DebtInstrumentTerm are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: srt:RangeAxis=RMHB:MinimumTermMember 
+Unit: None
+
+Rule Element Id:61
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml 2186</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml#element(/1/268)" sourceLine="2186">
+  <property name="label" value="Convertible notes, term"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="DebtInstrumentTerm"/>
+  <property name="QName" value="us-gaap:DebtInstrumentTerm"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_custom_MinimumTermMember">
+   <property name="entity" value="0001670869">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:RangeAxis" value="RMHB:MinimumTermMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="P1M6D"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml" severity="error" effectiveDate="2017-03-28" cid="2596824327552">[DQC.US.0001.61] The concept DebtInstrumentTerm with a value of P9M is dimensionally qualified with the RangeAxis and the unallowable member RMHB:MaximumTermMember. 
+The properties of the fact for DebtInstrumentTerm are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: srt:RangeAxis=RMHB:MaximumTermMember 
+Unit: None
+
+Rule Element Id:61
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml 2187</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml#element(/1/269)" sourceLine="2187">
+  <property name="label" value="Convertible notes, term"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="DebtInstrumentTerm"/>
+  <property name="QName" value="us-gaap:DebtInstrumentTerm"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_custom_MaximumTermMember">
+   <property name="entity" value="0001670869">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:RangeAxis" value="RMHB:MaximumTermMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="P9M"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml" severity="error" effectiveDate="2017-03-28" cid="2596824327552">[DQC.US.0001.61] The concept DebtConversionConvertedInstrumentRate with a value of 0.02 is dimensionally qualified with the RangeAxis and the unallowable member RMHB:MinimumConversionRateMember. 
+The properties of the fact for DebtConversionConvertedInstrumentRate are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: srt:RangeAxis=RMHB:MinimumConversionRateMember 
+Unit: pure
+
+Rule Element Id:61
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml 2377</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml#element(/1/459)" sourceLine="2377">
+  <property name="label" value="Conversion rate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="DebtConversionConvertedInstrumentRate"/>
+  <property name="QName" value="us-gaap:DebtConversionConvertedInstrumentRate"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_custom_MinimumConversionRateMember">
+   <property name="entity" value="0001670869">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:RangeAxis" value="RMHB:MinimumConversionRateMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Pure (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.02"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml" severity="error" effectiveDate="2017-03-28" cid="2596824327552">[DQC.US.0001.61] The concept ClassOfWarrantOrRightExercisePriceOfWarrantsOrRights1 with a value of 0.001 is dimensionally qualified with the RangeAxis and the unallowable member RMHB:MinimumExercisePriceMember. 
+The properties of the fact for ClassOfWarrantOrRightExercisePriceOfWarrantsOrRights1 are:
+Period: 2019-12-31
+Dimensions: us-gaap:StatementEquityComponentsAxis=RMHB:WarrantsMember, srt:RangeAxis=RMHB:MinimumExercisePriceMember 
+Unit: USD/shares
+
+Rule Element Id:61
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml 2547</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml#element(/1/629)" sourceLine="2547">
+  <property name="label" value="Common stock warrants, exercise price"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ClassOfWarrantOrRightExercisePriceOfWarrantsOrRights1"/>
+  <property name="QName" value="us-gaap:ClassOfWarrantOrRightExercisePriceOfWarrantsOrRights1"/>
+  <property name="contextRef" value="AsOf2019-12-31_custom_WarrantsMember_custom_MinimumExercisePriceMember">
+   <property name="entity" value="0001670869">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:RangeAxis" value="RMHB:MinimumExercisePriceMember"/>
+    <property name="us-gaap:StatementEquityComponentsAxis" value="RMHB:WarrantsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USDPShares ($ / shares)">
+   <property name="mul" value="iso4217:USD"/>
+   <property name="div" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.001"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml" severity="error" effectiveDate="2017-03-28" cid="2596824327552">[DQC.US.0001.61] The concept ClassOfWarrantOrRightExercisePriceOfWarrantsOrRights1 with a value of 0.001 is dimensionally qualified with the RangeAxis and the unallowable member RMHB:MinimumExercisePriceMember. 
+The properties of the fact for ClassOfWarrantOrRightExercisePriceOfWarrantsOrRights1 are:
+Period: 2018-12-31
+Dimensions: us-gaap:StatementEquityComponentsAxis=RMHB:WarrantsMember, srt:RangeAxis=RMHB:MinimumExercisePriceMember 
+Unit: USD/shares
+
+Rule Element Id:61
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml 2549</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml#element(/1/631)" sourceLine="2549">
+  <property name="label" value="Common stock warrants, exercise price"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ClassOfWarrantOrRightExercisePriceOfWarrantsOrRights1"/>
+  <property name="QName" value="us-gaap:ClassOfWarrantOrRightExercisePriceOfWarrantsOrRights1"/>
+  <property name="contextRef" value="AsOf2018-12-31_custom_WarrantsMember_custom_MinimumExercisePriceMember">
+   <property name="entity" value="0001670869">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:RangeAxis" value="RMHB:MinimumExercisePriceMember"/>
+    <property name="us-gaap:StatementEquityComponentsAxis" value="RMHB:WarrantsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USDPShares ($ / shares)">
+   <property name="mul" value="iso4217:USD"/>
+   <property name="div" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.001"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml" severity="error" effectiveDate="2017-03-28" cid="2596824327552">[DQC.US.0001.61] The concept DebtConversionConvertedInstrumentRate with a value of 0.03 is dimensionally qualified with the RangeAxis and the unallowable member RMHB:MaximumConversionRateMember. 
+The properties of the fact for DebtConversionConvertedInstrumentRate are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: srt:RangeAxis=RMHB:MaximumConversionRateMember 
+Unit: pure
+
+Rule Element Id:61
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml 2378</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml#element(/1/460)" sourceLine="2378">
+  <property name="label" value="Conversion rate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="DebtConversionConvertedInstrumentRate"/>
+  <property name="QName" value="us-gaap:DebtConversionConvertedInstrumentRate"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_custom_MaximumConversionRateMember">
+   <property name="entity" value="0001670869">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:RangeAxis" value="RMHB:MaximumConversionRateMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Pure (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.03"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml" severity="error" effectiveDate="2017-03-28" cid="2596824327552">[DQC.US.0001.61] The concept ClassOfWarrantOrRightExercisePriceOfWarrantsOrRights1 with a value of 0.02 is dimensionally qualified with the RangeAxis and the unallowable member RMHB:MaximumExercisePriceMember. 
+The properties of the fact for ClassOfWarrantOrRightExercisePriceOfWarrantsOrRights1 are:
+Period: 2019-12-31
+Dimensions: us-gaap:StatementEquityComponentsAxis=RMHB:WarrantsMember, srt:RangeAxis=RMHB:MaximumExercisePriceMember 
+Unit: USD/shares
+
+Rule Element Id:61
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml 2548</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml#element(/1/630)" sourceLine="2548">
+  <property name="label" value="Common stock warrants, exercise price"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ClassOfWarrantOrRightExercisePriceOfWarrantsOrRights1"/>
+  <property name="QName" value="us-gaap:ClassOfWarrantOrRightExercisePriceOfWarrantsOrRights1"/>
+  <property name="contextRef" value="AsOf2019-12-31_custom_WarrantsMember_custom_MaximumExercisePriceMember">
+   <property name="entity" value="0001670869">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:RangeAxis" value="RMHB:MaximumExercisePriceMember"/>
+    <property name="us-gaap:StatementEquityComponentsAxis" value="RMHB:WarrantsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USDPShares ($ / shares)">
+   <property name="mul" value="iso4217:USD"/>
+   <property name="div" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.02"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml" severity="error" effectiveDate="2017-03-28" cid="2596824327552">[DQC.US.0001.61] The concept ClassOfWarrantOrRightExercisePriceOfWarrantsOrRights1 with a value of 0.02 is dimensionally qualified with the RangeAxis and the unallowable member RMHB:MaximumExercisePriceMember. 
+The properties of the fact for ClassOfWarrantOrRightExercisePriceOfWarrantsOrRights1 are:
+Period: 2018-12-31
+Dimensions: us-gaap:StatementEquityComponentsAxis=RMHB:WarrantsMember, srt:RangeAxis=RMHB:MaximumExercisePriceMember 
+Unit: USD/shares
+
+Rule Element Id:61
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml 2550</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml#element(/1/632)" sourceLine="2550">
+  <property name="label" value="Common stock warrants, exercise price"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="ClassOfWarrantOrRightExercisePriceOfWarrantsOrRights1"/>
+  <property name="QName" value="us-gaap:ClassOfWarrantOrRightExercisePriceOfWarrantsOrRights1"/>
+  <property name="contextRef" value="AsOf2018-12-31_custom_WarrantsMember_custom_MaximumExercisePriceMember">
+   <property name="entity" value="0001670869">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:RangeAxis" value="RMHB:MaximumExercisePriceMember"/>
+    <property name="us-gaap:StatementEquityComponentsAxis" value="RMHB:WarrantsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USDPShares ($ / shares)">
+   <property name="mul" value="iso4217:USD"/>
+   <property name="div" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.02"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml" severity="error" effectiveDate="2017-03-28" cid="2596824327552">[DQC.US.0001.61] The concept DerivativeTermOfContract with a value of P1M7D is dimensionally qualified with the RangeAxis and the unallowable member RMHB:TermMinimumMember. 
+The properties of the fact for DerivativeTermOfContract are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: srt:RangeAxis=RMHB:TermMinimumMember 
+Unit: None
+
+Rule Element Id:61
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml 2229</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml#element(/1/311)" sourceLine="2229">
+  <property name="label" value="Expected term"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="DerivativeTermOfContract"/>
+  <property name="QName" value="us-gaap:DerivativeTermOfContract"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_custom_TermMinimumMember">
+   <property name="entity" value="0001670869">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:RangeAxis" value="RMHB:TermMinimumMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="P1M7D"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml" severity="error" effectiveDate="2017-03-28" cid="2596824327552">[DQC.US.0001.61] The concept PropertyPlantAndEquipmentUsefulLife with a value of P5Y is dimensionally qualified with the RangeAxis and the unallowable member RMHB:TermMinimumMember. 
+The properties of the fact for PropertyPlantAndEquipmentUsefulLife are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: srt:RangeAxis=RMHB:TermMinimumMember 
+Unit: None
+
+Rule Element Id:61
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml 2560</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml#element(/1/642)" sourceLine="2560">
+  <property name="label" value="Property plant and equipement useful life"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="PropertyPlantAndEquipmentUsefulLife"/>
+  <property name="QName" value="us-gaap:PropertyPlantAndEquipmentUsefulLife"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_custom_TermMinimumMember">
+   <property name="entity" value="0001670869">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:RangeAxis" value="RMHB:TermMinimumMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="P5Y"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml" severity="error" effectiveDate="2017-03-28" cid="2596824327552">[DQC.US.0001.61] The concept PropertyPlantAndEquipmentUsefulLife with a value of P3Y is dimensionally qualified with the RangeAxis and the unallowable member RMHB:TermMinimumMember. 
+The properties of the fact for PropertyPlantAndEquipmentUsefulLife are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: srt:RangeAxis=RMHB:TermMinimumMember 
+Unit: None
+
+Rule Element Id:61
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml 2559</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml#element(/1/641)" sourceLine="2559">
+  <property name="label" value="Property plant and equipement useful life"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="PropertyPlantAndEquipmentUsefulLife"/>
+  <property name="QName" value="us-gaap:PropertyPlantAndEquipmentUsefulLife"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_custom_TermMinimumMember">
+   <property name="entity" value="0001670869">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:RangeAxis" value="RMHB:TermMinimumMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="P3Y"/>
+ </ref></entry>
+<entry code="DQC.US.0001.61" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml" severity="error" effectiveDate="2017-03-28" cid="2596824327552">[DQC.US.0001.61] The concept DerivativeTermOfContract with a value of P1Y is dimensionally qualified with the RangeAxis and the unallowable member RMHB:TermMinimumMember. 
+The properties of the fact for DerivativeTermOfContract are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: srt:RangeAxis=RMHB:TermMinimumMember 
+Unit: None
+
+Rule Element Id:61
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml 2230</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml#element(/1/312)" sourceLine="2230">
+  <property name="label" value="Expected term"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="DerivativeTermOfContract"/>
+  <property name="QName" value="us-gaap:DerivativeTermOfContract"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_custom_TermMinimumMember">
+   <property name="entity" value="0001670869">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:RangeAxis" value="RMHB:TermMinimumMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="P1Y"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 16.75 secs - http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1670869/000166357720000201/rmhb-20191231.xml"/></entry>
+</log>

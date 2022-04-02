@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 7.29 secs at 2020-07-24T23:34:11 - http://www.sec.gov/Archives/edgar/data/899751/000089975120000005/twi1231201910-k.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/899751/000089975120000005/twi1231201910-k.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpvv9nw05k\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpvv9nw05k\packages\resources.zip"/></entry>
+<entry code="DQC.US.0069.7643" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/899751/000089975120000005/twi1231201910-k.htm" severity="error" effectiveDate="2019-01-01" cid="1417039619456">[DQC.US.0069.7643] The element us-gaap:DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets with a value of 600,000 must be used with the dimension DefinedBenefitPlanByPlanAssetCategoriesAxis.
+
+The properties of this us-gaap:DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets fact are:
+Period :2019-12-31
+Dimensions : 
+Unit : USD
+
+Rule Element Id:7643
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/899751/000089975120000005/twi1231201910-k.htm 3114</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/899751/000089975120000005/twi1231201910-k.htm#d14160013e4808-wk-Fact-D8949D96171D84190E79CAA1A401CB73" sourceLine="3114">
+  <property name="file" value="twi1231201910-k.htm"/>
+  <property name="line" value="3114"/>
+  <property name="label" value="Defined Benefit Plan, Plan Assets, Employer, Related Party, Amount"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets"/>
+  <property name="contextRef" value="FI2019Q4">
+   <property name="entity" value="0000899751">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="600,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="0.6"/>
+ </ref></entry>
+<entry code="DQC.US.0069.7643" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/899751/000089975120000005/twi1231201910-k.htm" severity="error" effectiveDate="2019-01-01" cid="1417039619456">[DQC.US.0069.7643] The element us-gaap:DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets with a value of 800,000 must be used with the dimension DefinedBenefitPlanByPlanAssetCategoriesAxis.
+
+The properties of this us-gaap:DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets fact are:
+Period :2018-12-31
+Dimensions : 
+Unit : USD
+
+Rule Element Id:7643
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/899751/000089975120000005/twi1231201910-k.htm 3114</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/899751/000089975120000005/twi1231201910-k.htm#d14160013e4816-wk-Fact-855786534D29C3E74BE6CAA1A4DDAC7D" sourceLine="3114">
+  <property name="file" value="twi1231201910-k.htm"/>
+  <property name="line" value="3114"/>
+  <property name="label" value="Defined Benefit Plan, Plan Assets, Employer, Related Party, Amount"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAmountOfEmployerAndRelatedPartySecuritiesIncludedInPlanAssets"/>
+  <property name="contextRef" value="FI2018Q4">
+   <property name="entity" value="0000899751">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="800,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="6"/>
+  <property name="html value" value="0.8"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 6.15 secs - http://www.sec.gov/Archives/edgar/data/899751/000089975120000005/twi1231201910-k.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/899751/000089975120000005/twi1231201910-k.htm"/></entry>
+</log>

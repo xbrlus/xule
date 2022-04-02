@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 5.32 secs at 2018-10-16T09:53:09 - http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - brqs-20180331.xml </message>
+ <ref href="brqs-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp1elhfoc0/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp1elhfoc0/packages/resources.zip"/></entry>
+<entry code="DQC.US.0033.2" level="error">
+ <message cid="4565671608" filing_url="http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml" severity="error">[DQC.US.0033.2] The ending date of 2017-12-31 used for Entity Incorporation, Date of Incorporation must be the same as the Document Period End Date,  2018-03-31. Revise either the date of the Entity Incorporation, Date of Incorporation or the date of the Document Period End Date.
+
+The properties of this dei:EntityIncorporationDateOfIncorporation fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : us-gaap:ConsolidatedEntitiesAxis=brqs:YuantelBeijingInvestmentManagementCoLtdMember
+Unit : None
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml 8362</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml#Footnote-4_1" sourceLine="8362">
+  <property name="label" value="Entity Incorporation, Date of Incorporation"/>
+  <property name="namespace" value="http://xbrl.sec.gov/dei/2014-01-31"/>
+  <property name="name" value="EntityIncorporationDateOfIncorporation"/>
+  <property name="QName" value="dei:EntityIncorporationDateOfIncorporation"/>
+  <property name="contextRef" value="Context_FYE_01_Jan_2017T00_00_00_TO_31_Dec_2017T00_00_00_ConsolidatedEntitiesAxis_YuantelBeijingInvestmentManagementCoLtdMember">
+   <property name="entity" value="0001650575">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ConsolidatedEntitiesAxis" value="brqs:YuantelBeijingInvestmentManagementCoLtdMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2014-07-11"/>
+ </ref></entry>
+<entry code="DQC.US.0033.2" level="error">
+ <message cid="4565671608" filing_url="http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml" severity="error">[DQC.US.0033.2] The ending date of 2017-12-31 used for Entity Incorporation, State Country Name must be the same as the Document Period End Date,  2018-03-31. Revise either the date of the Entity Incorporation, State Country Name or the date of the Document Period End Date.
+
+The properties of this dei:EntityIncorporationStateCountryName fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : us-gaap:ConsolidatedEntitiesAxis=brqs:YuantelBeijingInvestmentManagementCoLtdMember
+Unit : None
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml 8369</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml#Footnote-4_3" sourceLine="8369">
+  <property name="label" value="Entity Incorporation, State Country Name"/>
+  <property name="namespace" value="http://xbrl.sec.gov/dei/2014-01-31"/>
+  <property name="name" value="EntityIncorporationStateCountryName"/>
+  <property name="QName" value="dei:EntityIncorporationStateCountryName"/>
+  <property name="contextRef" value="Context_FYE_01_Jan_2017T00_00_00_TO_31_Dec_2017T00_00_00_ConsolidatedEntitiesAxis_YuantelBeijingInvestmentManagementCoLtdMember">
+   <property name="entity" value="0001650575">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ConsolidatedEntitiesAxis" value="brqs:YuantelBeijingInvestmentManagementCoLtdMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="PRC"/>
+ </ref></entry>
+<entry code="DQC.US.0033.2" level="error">
+ <message cid="4565671608" filing_url="http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml" severity="error">[DQC.US.0033.2] The ending date of 2017-12-31 used for Entity Incorporation, State Country Name must be the same as the Document Period End Date,  2018-03-31. Revise either the date of the Entity Incorporation, State Country Name or the date of the Document Period End Date.
+
+The properties of this dei:EntityIncorporationStateCountryName fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : us-gaap:ConsolidatedEntitiesAxis=brqs:BorqsSoftwareSolutionsPrivateLimitedMember
+Unit : None
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml 8367</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml#element(/1/1619)" sourceLine="8367">
+  <property name="label" value="Entity Incorporation, State Country Name"/>
+  <property name="namespace" value="http://xbrl.sec.gov/dei/2014-01-31"/>
+  <property name="name" value="EntityIncorporationStateCountryName"/>
+  <property name="QName" value="dei:EntityIncorporationStateCountryName"/>
+  <property name="contextRef" value="Context_FYE_01_Jan_2017T00_00_00_TO_31_Dec_2017T00_00_00_ConsolidatedEntitiesAxis_BorqsSoftwareSolutionsPrivateLimitedMember">
+   <property name="entity" value="0001650575">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ConsolidatedEntitiesAxis" value="brqs:BorqsSoftwareSolutionsPrivateLimitedMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="India"/>
+ </ref></entry>
+<entry code="DQC.US.0033.2" level="error">
+ <message cid="4565671608" filing_url="http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml" severity="error">[DQC.US.0033.2] The ending date of 2017-12-31 used for Entity Incorporation, Date of Incorporation must be the same as the Document Period End Date,  2018-03-31. Revise either the date of the Entity Incorporation, Date of Incorporation or the date of the Document Period End Date.
+
+The properties of this dei:EntityIncorporationDateOfIncorporation fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : us-gaap:ConsolidatedEntitiesAxis=brqs:BorqsSoftwareSolutionsPrivateLimitedMember
+Unit : None
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml 8360</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml#element(/1/1612)" sourceLine="8360">
+  <property name="label" value="Entity Incorporation, Date of Incorporation"/>
+  <property name="namespace" value="http://xbrl.sec.gov/dei/2014-01-31"/>
+  <property name="name" value="EntityIncorporationDateOfIncorporation"/>
+  <property name="QName" value="dei:EntityIncorporationDateOfIncorporation"/>
+  <property name="contextRef" value="Context_FYE_01_Jan_2017T00_00_00_TO_31_Dec_2017T00_00_00_ConsolidatedEntitiesAxis_BorqsSoftwareSolutionsPrivateLimitedMember">
+   <property name="entity" value="0001650575">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ConsolidatedEntitiesAxis" value="brqs:BorqsSoftwareSolutionsPrivateLimitedMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2009-07-17"/>
+ </ref></entry>
+<entry code="DQC.US.0033.2" level="error">
+ <message cid="4565671608" filing_url="http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml" severity="error">[DQC.US.0033.2] The ending date of 2017-12-31 used for Entity Incorporation, State Country Name must be the same as the Document Period End Date,  2018-03-31. Revise either the date of the Entity Incorporation, State Country Name or the date of the Document Period End Date.
+
+The properties of this dei:EntityIncorporationStateCountryName fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : us-gaap:ConsolidatedEntitiesAxis=brqs:BorqsBeijingLtdMember
+Unit : None
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml 8365</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml#Footnote-2_3" sourceLine="8365">
+  <property name="label" value="Entity Incorporation, State Country Name"/>
+  <property name="namespace" value="http://xbrl.sec.gov/dei/2014-01-31"/>
+  <property name="name" value="EntityIncorporationStateCountryName"/>
+  <property name="QName" value="dei:EntityIncorporationStateCountryName"/>
+  <property name="contextRef" value="Context_FYE_01_Jan_2017T00_00_00_TO_31_Dec_2017T00_00_00_ConsolidatedEntitiesAxis_BorqsBeijingLtdMember">
+   <property name="entity" value="0001650575">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ConsolidatedEntitiesAxis" value="brqs:BorqsBeijingLtdMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="PRC"/>
+ </ref></entry>
+<entry code="DQC.US.0033.2" level="error">
+ <message cid="4565671608" filing_url="http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml" severity="error">[DQC.US.0033.2] The ending date of 2017-12-31 used for Entity Incorporation, Date of Incorporation must be the same as the Document Period End Date,  2018-03-31. Revise either the date of the Entity Incorporation, Date of Incorporation or the date of the Document Period End Date.
+
+The properties of this dei:EntityIncorporationDateOfIncorporation fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : us-gaap:ConsolidatedEntitiesAxis=brqs:BorqsBeijingLtdMember
+Unit : None
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml 8358</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml#Footnote-2_1" sourceLine="8358">
+  <property name="label" value="Entity Incorporation, Date of Incorporation"/>
+  <property name="namespace" value="http://xbrl.sec.gov/dei/2014-01-31"/>
+  <property name="name" value="EntityIncorporationDateOfIncorporation"/>
+  <property name="QName" value="dei:EntityIncorporationDateOfIncorporation"/>
+  <property name="contextRef" value="Context_FYE_01_Jan_2017T00_00_00_TO_31_Dec_2017T00_00_00_ConsolidatedEntitiesAxis_BorqsBeijingLtdMember">
+   <property name="entity" value="0001650575">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ConsolidatedEntitiesAxis" value="brqs:BorqsBeijingLtdMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2007-09-04"/>
+ </ref></entry>
+<entry code="DQC.US.0033.2" level="error">
+ <message cid="4565671608" filing_url="http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml" severity="error">[DQC.US.0033.2] The ending date of 2017-12-31 used for Entity Incorporation, Date of Incorporation must be the same as the Document Period End Date,  2018-03-31. Revise either the date of the Entity Incorporation, Date of Incorporation or the date of the Document Period End Date.
+
+The properties of this dei:EntityIncorporationDateOfIncorporation fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : us-gaap:ConsolidatedEntitiesAxis=brqs:YuantelBeijingTelecommunicationsTechnologyCoLtdMember
+Unit : None
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml 8363</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml#Footnote-4_2" sourceLine="8363">
+  <property name="label" value="Entity Incorporation, Date of Incorporation"/>
+  <property name="namespace" value="http://xbrl.sec.gov/dei/2014-01-31"/>
+  <property name="name" value="EntityIncorporationDateOfIncorporation"/>
+  <property name="QName" value="dei:EntityIncorporationDateOfIncorporation"/>
+  <property name="contextRef" value="Context_FYE_01_Jan_2017T00_00_00_TO_31_Dec_2017T00_00_00_ConsolidatedEntitiesAxis_YuantelBeijingTelecommunicationsTechnologyCoLtdMember">
+   <property name="entity" value="0001650575">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ConsolidatedEntitiesAxis" value="brqs:YuantelBeijingTelecommunicationsTechnologyCoLtdMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2014-07-11"/>
+ </ref></entry>
+<entry code="DQC.US.0033.2" level="error">
+ <message cid="4565671608" filing_url="http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml" severity="error">[DQC.US.0033.2] The ending date of 2017-12-31 used for Entity Incorporation, State Country Name must be the same as the Document Period End Date,  2018-03-31. Revise either the date of the Entity Incorporation, State Country Name or the date of the Document Period End Date.
+
+The properties of this dei:EntityIncorporationStateCountryName fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : us-gaap:ConsolidatedEntitiesAxis=brqs:YuantelBeijingTelecommunicationsTechnologyCoLtdMember
+Unit : None
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml 8370</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml#Footnote-4_4" sourceLine="8370">
+  <property name="label" value="Entity Incorporation, State Country Name"/>
+  <property name="namespace" value="http://xbrl.sec.gov/dei/2014-01-31"/>
+  <property name="name" value="EntityIncorporationStateCountryName"/>
+  <property name="QName" value="dei:EntityIncorporationStateCountryName"/>
+  <property name="contextRef" value="Context_FYE_01_Jan_2017T00_00_00_TO_31_Dec_2017T00_00_00_ConsolidatedEntitiesAxis_YuantelBeijingTelecommunicationsTechnologyCoLtdMember">
+   <property name="entity" value="0001650575">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ConsolidatedEntitiesAxis" value="brqs:YuantelBeijingTelecommunicationsTechnologyCoLtdMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="PRC"/>
+ </ref></entry>
+<entry code="DQC.US.0033.2" level="error">
+ <message cid="4565671608" filing_url="http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml" severity="error">[DQC.US.0033.2] The ending date of 2017-12-31 used for Entity Incorporation, Date of Incorporation must be the same as the Document Period End Date,  2018-03-31. Revise either the date of the Entity Incorporation, Date of Incorporation or the date of the Document Period End Date.
+
+The properties of this dei:EntityIncorporationDateOfIncorporation fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : us-gaap:ConsolidatedEntitiesAxis=brqs:BorqsInternationalMember
+Unit : None
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml 8364</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml#element(/1/1616)" sourceLine="8364">
+  <property name="label" value="Entity Incorporation, Date of Incorporation"/>
+  <property name="namespace" value="http://xbrl.sec.gov/dei/2014-01-31"/>
+  <property name="name" value="EntityIncorporationDateOfIncorporation"/>
+  <property name="QName" value="dei:EntityIncorporationDateOfIncorporation"/>
+  <property name="contextRef" value="Context_FYE_01_Jan_2017T00_00_00_TO_31_Dec_2017T00_00_00_ConsolidatedEntitiesAxis_BorqsInternationalMember">
+   <property name="entity" value="0001650575">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ConsolidatedEntitiesAxis" value="brqs:BorqsInternationalMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2007-07-27"/>
+ </ref></entry>
+<entry code="DQC.US.0033.2" level="error">
+ <message cid="4565671608" filing_url="http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml" severity="error">[DQC.US.0033.2] The ending date of 2017-12-31 used for Entity Incorporation, State Country Name must be the same as the Document Period End Date,  2018-03-31. Revise either the date of the Entity Incorporation, State Country Name or the date of the Document Period End Date.
+
+The properties of this dei:EntityIncorporationStateCountryName fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : us-gaap:ConsolidatedEntitiesAxis=brqs:BorqsInternationalMember
+Unit : None
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml 8371</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml#element(/1/1623)" sourceLine="8371">
+  <property name="label" value="Entity Incorporation, State Country Name"/>
+  <property name="namespace" value="http://xbrl.sec.gov/dei/2014-01-31"/>
+  <property name="name" value="EntityIncorporationStateCountryName"/>
+  <property name="QName" value="dei:EntityIncorporationStateCountryName"/>
+  <property name="contextRef" value="Context_FYE_01_Jan_2017T00_00_00_TO_31_Dec_2017T00_00_00_ConsolidatedEntitiesAxis_BorqsInternationalMember">
+   <property name="entity" value="0001650575">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ConsolidatedEntitiesAxis" value="brqs:BorqsInternationalMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="Cayman"/>
+ </ref></entry>
+<entry code="DQC.US.0033.2" level="error">
+ <message cid="4565671608" filing_url="http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml" severity="error">[DQC.US.0033.2] The ending date of 2017-12-31 used for Entity Incorporation, State Country Name must be the same as the Document Period End Date,  2018-03-31. Revise either the date of the Entity Incorporation, State Country Name or the date of the Document Period End Date.
+
+The properties of this dei:EntityIncorporationStateCountryName fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : us-gaap:ConsolidatedEntitiesAxis=brqs:BorqsHongKongLimitedMember
+Unit : None
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml 8366</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml#element(/1/1618)" sourceLine="8366">
+  <property name="label" value="Entity Incorporation, State Country Name"/>
+  <property name="namespace" value="http://xbrl.sec.gov/dei/2014-01-31"/>
+  <property name="name" value="EntityIncorporationStateCountryName"/>
+  <property name="QName" value="dei:EntityIncorporationStateCountryName"/>
+  <property name="contextRef" value="Context_FYE_01_Jan_2017T00_00_00_TO_31_Dec_2017T00_00_00_ConsolidatedEntitiesAxis_BorqsHongKongLimitedMember">
+   <property name="entity" value="0001650575">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ConsolidatedEntitiesAxis" value="brqs:BorqsHongKongLimitedMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="Hong Kong"/>
+ </ref></entry>
+<entry code="DQC.US.0033.2" level="error">
+ <message cid="4565671608" filing_url="http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml" severity="error">[DQC.US.0033.2] The ending date of 2017-12-31 used for Entity Incorporation, Date of Incorporation must be the same as the Document Period End Date,  2018-03-31. Revise either the date of the Entity Incorporation, Date of Incorporation or the date of the Document Period End Date.
+
+The properties of this dei:EntityIncorporationDateOfIncorporation fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : us-gaap:ConsolidatedEntitiesAxis=brqs:BorqsHongKongLimitedMember
+Unit : None
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml 8359</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml#element(/1/1611)" sourceLine="8359">
+  <property name="label" value="Entity Incorporation, Date of Incorporation"/>
+  <property name="namespace" value="http://xbrl.sec.gov/dei/2014-01-31"/>
+  <property name="name" value="EntityIncorporationDateOfIncorporation"/>
+  <property name="QName" value="dei:EntityIncorporationDateOfIncorporation"/>
+  <property name="contextRef" value="Context_FYE_01_Jan_2017T00_00_00_TO_31_Dec_2017T00_00_00_ConsolidatedEntitiesAxis_BorqsHongKongLimitedMember">
+   <property name="entity" value="0001650575">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ConsolidatedEntitiesAxis" value="brqs:BorqsHongKongLimitedMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2007-07-19"/>
+ </ref></entry>
+<entry code="DQC.US.0033.2" level="error">
+ <message cid="4565671608" filing_url="http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml" severity="error">[DQC.US.0033.2] The ending date of 2017-12-31 used for Entity Incorporation, State Country Name must be the same as the Document Period End Date,  2018-03-31. Revise either the date of the Entity Incorporation, State Country Name or the date of the Document Period End Date.
+
+The properties of this dei:EntityIncorporationStateCountryName fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : us-gaap:ConsolidatedEntitiesAxis=brqs:BeijingBigCloudCenturyNetworkTechnologyCoLtdMember
+Unit : None
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml 8368</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml#Footnote-3_4" sourceLine="8368">
+  <property name="label" value="Entity Incorporation, State Country Name"/>
+  <property name="namespace" value="http://xbrl.sec.gov/dei/2014-01-31"/>
+  <property name="name" value="EntityIncorporationStateCountryName"/>
+  <property name="QName" value="dei:EntityIncorporationStateCountryName"/>
+  <property name="contextRef" value="Context_FYE_01_Jan_2017T00_00_00_TO_31_Dec_2017T00_00_00_ConsolidatedEntitiesAxis_BeijingBigCloudCenturyNetworkTechnologyCoLtdMember">
+   <property name="entity" value="0001650575">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ConsolidatedEntitiesAxis" value="brqs:BeijingBigCloudCenturyNetworkTechnologyCoLtdMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="PRC"/>
+ </ref></entry>
+<entry code="DQC.US.0033.2" level="error">
+ <message cid="4565671608" filing_url="http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml" severity="error">[DQC.US.0033.2] The ending date of 2017-12-31 used for Entity Incorporation, Date of Incorporation must be the same as the Document Period End Date,  2018-03-31. Revise either the date of the Entity Incorporation, Date of Incorporation or the date of the Document Period End Date.
+
+The properties of this dei:EntityIncorporationDateOfIncorporation fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : us-gaap:ConsolidatedEntitiesAxis=brqs:BeijingBigCloudCenturyNetworkTechnologyCoLtdMember
+Unit : None
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml 8361</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml#Footnote-3_1" sourceLine="8361">
+  <property name="label" value="Entity Incorporation, Date of Incorporation"/>
+  <property name="namespace" value="http://xbrl.sec.gov/dei/2014-01-31"/>
+  <property name="name" value="EntityIncorporationDateOfIncorporation"/>
+  <property name="QName" value="dei:EntityIncorporationDateOfIncorporation"/>
+  <property name="contextRef" value="Context_FYE_01_Jan_2017T00_00_00_TO_31_Dec_2017T00_00_00_ConsolidatedEntitiesAxis_BeijingBigCloudCenturyNetworkTechnologyCoLtdMember">
+   <property name="entity" value="0001650575">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ConsolidatedEntitiesAxis" value="brqs:BeijingBigCloudCenturyNetworkTechnologyCoLtdMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2014-04-18"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 4.04 secs - http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1650575/000121390018008637/brqs-20180331.xml"/></entry>
+</log>

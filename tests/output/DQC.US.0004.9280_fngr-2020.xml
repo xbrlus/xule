@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.59 secs at 2020-07-29T11:50:04 - http://www.sec.gov/Archives/edgar/data/1602409/000152013820000312/fngr-20200229.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1602409/000152013820000312/fngr-20200229.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmps1uow9b9\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmps1uow9b9\packages\resources.zip"/></entry>
+<entry code="DQC.US.0004.9280" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1602409/000152013820000312/fngr-20200229.xml" severity="error" effectiveDate="2019-09-30" cid="2404893697408">[DQC.US.0004.9280] Total assets with a value of 2,109,439 is not equal to the combined total of Current Assets and Noncurrent assets ( 1,966,067 + 143,362 ) with a value of 2,109,429. These values should be equal.
+The properties of this us-gaap:Assets fact are:
+Period :2020-02-29
+Dimensions :  us-gaap:InvestmentsByConsolidatedAndNonconsolidatedEntitiesAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryMember
+Unit : USD
+Decimals of Assets : 0
+Decimals of Current Assets : 0
+Decimals of Non Current Assets : 0
+
+Rule Element Id:9280
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1602409/000152013820000312/fngr-20200229.xml 953</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1602409/000152013820000312/fngr-20200229.xml#element(/1/137)" sourceLine="953">
+  <property name="label" value="Total assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="AsOf2020-02-29_us-gaap_VariableInterestEntityPrimaryBeneficiaryMember">
+   <property name="entity" value="0001602409">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-02-29"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:InvestmentsByConsolidatedAndNonconsolidatedEntitiesAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,109,439"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 3.88 secs - http://www.sec.gov/Archives/edgar/data/1602409/000152013820000312/fngr-20200229.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1602409/000152013820000312/fngr-20200229.xml"/></entry>
+</log>

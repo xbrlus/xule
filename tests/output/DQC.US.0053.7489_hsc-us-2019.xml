@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.75 secs at 2020-07-24T23:31:37 - http://www.sec.gov/Archives/edgar/data/13239/000001323920000006/hsc-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/13239/000001323920000006/hsc-20191231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpsqd5cj6e\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpsqd5cj6e\packages\resources.zip"/></entry>
+<entry code="DQC.US.0053.7489" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/13239/000001323920000006/hsc-20191231.xml" severity="error" effectiveDate="2018-06-01" cid="1934120822144">[DQC.US.0053.7489] The member, NonUs [Member] is used on the Retirement Plan Sponsor Location [Axis] with the element OtherAssetsNoncurrent with a value of $8,000,000. The  NonUs [Member] member should not be used with the Retirement Plan Sponsor Location [Axis].
+
+The properties of this us-gaap:OtherAssetsNoncurrent fact are:
+Period : 2019-07-01
+Dimensions : us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:NonUsMember, us-gaap:RetirementPlanTypeAxis=us-gaap:PensionPlansDefinedBenefitMember
+Unit : USD
+
+Rule Element Id:7489
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/13239/000001323920000006/hsc-20191231.xml 6837</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/13239/000001323920000006/hsc-20191231.xml#Fact-07B544F42F5825AACE027850E933DA2B" sourceLine="6837">
+  <property name="label" value="Other Assets, Noncurrent"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="OtherAssetsNoncurrent"/>
+  <property name="QName" value="us-gaap:OtherAssetsNoncurrent"/>
+  <property name="contextRef" value="I2019Q2EmergenceDate_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_NonUsMember_us-gaap_RetirementPlanTypeAxis_us-gaap_PensionPlansDefinedBenefitMember">
+   <property name="entity" value="0000013239">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-07-01"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:NonUsMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="8,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0053.7489" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/13239/000001323920000006/hsc-20191231.xml" severity="error" effectiveDate="2018-06-01" cid="1934120822144">[DQC.US.0053.7489] The member, NonUs [Member] is used on the Retirement Plan Sponsor Location [Axis] with the element OtherAssetsNoncurrent with a value of $8,000,000. The  NonUs [Member] member should not be used with the Retirement Plan Sponsor Location [Axis].
+
+The properties of this us-gaap:OtherAssetsNoncurrent fact are:
+Period : 2019-12-31
+Dimensions : us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:NonUsMember, us-gaap:RetirementPlanTypeAxis=us-gaap:PensionPlansDefinedBenefitMember
+Unit : USD
+
+Rule Element Id:7489
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/13239/000001323920000006/hsc-20191231.xml 6833</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/13239/000001323920000006/hsc-20191231.xml#Fact-D7B9C4C214E236941AD8D90865227C4E" sourceLine="6833">
+  <property name="label" value="Other Assets, Noncurrent"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="OtherAssetsNoncurrent"/>
+  <property name="QName" value="us-gaap:OtherAssetsNoncurrent"/>
+  <property name="contextRef" value="FI2019Q4_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_NonUsMember_us-gaap_RetirementPlanTypeAxis_us-gaap_PensionPlansDefinedBenefitMember">
+   <property name="entity" value="0000013239">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:NonUsMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="8,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0053.7489" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/13239/000001323920000006/hsc-20191231.xml" severity="error" effectiveDate="2018-06-01" cid="1934120822144">[DQC.US.0053.7489] The member, NonUs [Member] is used on the Retirement Plan Sponsor Location [Axis] with the element OtherAssetsNoncurrent with a value of $0. The  NonUs [Member] member should not be used with the Retirement Plan Sponsor Location [Axis].
+
+The properties of this us-gaap:OtherAssetsNoncurrent fact are:
+Period : 2018-12-31
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember, us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:NonUsMember
+Unit : USD
+
+Rule Element Id:7489
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/13239/000001323920000006/hsc-20191231.xml 6827</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/13239/000001323920000006/hsc-20191231.xml#Fact-D66BB240AB10024A95BF7852EE6595DF" sourceLine="6827">
+  <property name="label" value="Other Assets, Noncurrent"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="OtherAssetsNoncurrent"/>
+  <property name="QName" value="us-gaap:OtherAssetsNoncurrent"/>
+  <property name="contextRef" value="FI2018Q4_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_NonUsMember_us-gaap_RetirementPlanTypeAxis_us-gaap_OtherPostretirementBenefitPlansDefinedBenefitMember">
+   <property name="entity" value="0000013239">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:NonUsMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0053.7489" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/13239/000001323920000006/hsc-20191231.xml" severity="error" effectiveDate="2018-06-01" cid="1934120822144">[DQC.US.0053.7489] The member, NonUs [Member] is used on the Retirement Plan Sponsor Location [Axis] with the element OtherAssetsNoncurrent with a value of $0. The  NonUs [Member] member should not be used with the Retirement Plan Sponsor Location [Axis].
+
+The properties of this us-gaap:OtherAssetsNoncurrent fact are:
+Period : 2019-12-31
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember, us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:NonUsMember
+Unit : USD
+
+Rule Element Id:7489
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/13239/000001323920000006/hsc-20191231.xml 6832</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/13239/000001323920000006/hsc-20191231.xml#Fact-46DDC832A6376664F82D7852D5FA24F8" sourceLine="6832">
+  <property name="label" value="Other Assets, Noncurrent"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="OtherAssetsNoncurrent"/>
+  <property name="QName" value="us-gaap:OtherAssetsNoncurrent"/>
+  <property name="contextRef" value="FI2019Q4_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_NonUsMember_us-gaap_RetirementPlanTypeAxis_us-gaap_OtherPostretirementBenefitPlansDefinedBenefitMember">
+   <property name="entity" value="0000013239">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:NonUsMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0053.7489" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/13239/000001323920000006/hsc-20191231.xml" severity="error" effectiveDate="2018-06-01" cid="1934120822144">[DQC.US.0053.7489] The member, NonUs [Member] is used on the Retirement Plan Sponsor Location [Axis] with the element OtherAssetsNoncurrent with a value of $0. The  NonUs [Member] member should not be used with the Retirement Plan Sponsor Location [Axis].
+
+The properties of this us-gaap:OtherAssetsNoncurrent fact are:
+Period : 2019-07-01
+Dimensions : us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:NonUsMember, us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember
+Unit : USD
+
+Rule Element Id:7489
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/13239/000001323920000006/hsc-20191231.xml 6836</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/13239/000001323920000006/hsc-20191231.xml#Fact-4DD5D492D6A5C9F40AF27852E2066723" sourceLine="6836">
+  <property name="label" value="Other Assets, Noncurrent"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="OtherAssetsNoncurrent"/>
+  <property name="QName" value="us-gaap:OtherAssetsNoncurrent"/>
+  <property name="contextRef" value="I2019Q2EmergenceDate_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_NonUsMember_us-gaap_RetirementPlanTypeAxis_us-gaap_OtherPostretirementBenefitPlansDefinedBenefitMember">
+   <property name="entity" value="0000013239">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-07-01"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:NonUsMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0053.7489" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/13239/000001323920000006/hsc-20191231.xml" severity="error" effectiveDate="2018-06-01" cid="1934120822144">[DQC.US.0053.7489] The member, NonUs [Member] is used on the Retirement Plan Sponsor Location [Axis] with the element OtherAssetsNoncurrent with a value of $0. The  NonUs [Member] member should not be used with the Retirement Plan Sponsor Location [Axis].
+
+The properties of this us-gaap:OtherAssetsNoncurrent fact are:
+Period : 2018-12-31
+Dimensions : us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:NonUsMember, us-gaap:RetirementPlanTypeAxis=us-gaap:PensionPlansDefinedBenefitMember
+Unit : USD
+
+Rule Element Id:7489
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/13239/000001323920000006/hsc-20191231.xml 6828</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/13239/000001323920000006/hsc-20191231.xml#Fact-528C96FBC27C80E5F79ED90865207D95" sourceLine="6828">
+  <property name="label" value="Other Assets, Noncurrent"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="OtherAssetsNoncurrent"/>
+  <property name="QName" value="us-gaap:OtherAssetsNoncurrent"/>
+  <property name="contextRef" value="FI2018Q4_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_NonUsMember_us-gaap_RetirementPlanTypeAxis_us-gaap_PensionPlansDefinedBenefitMember">
+   <property name="entity" value="0000013239">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:NonUsMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 7.53 secs - http://www.sec.gov/Archives/edgar/data/13239/000001323920000006/hsc-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/13239/000001323920000006/hsc-20191231.xml"/></entry>
+</log>

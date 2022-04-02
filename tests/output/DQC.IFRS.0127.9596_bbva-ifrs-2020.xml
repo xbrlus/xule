@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23303 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 4.77 secs at 2021-11-15T17:36:48 - https://www.sec.gov/Archives/edgar/data/842180/000084218021000019/bbva-20210630.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/842180/000084218021000019/bbva-20210630.htm"/></entry>
+<entry code="DQC.IFRS.0127.9596" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/842180/000084218021000019/bbva-20210630.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="2248691024848">[DQC.IFRS.0127.9596] The statement 100010002 - Statement - Statement of financial position, order of liquidity (Statement) includes the concept ifrs-full:FinancialAssetsAtFairValueThroughProfitOrLoss in the presentation tree. The filing does not include a dimensional structure for this statement.  The filing  does not include a  default value for this presentation item ifrs-full:FinancialAssetsAtFairValueThroughProfitOrLoss but does include dimensionalized values for this element of the following:
+
+1,107,000,000,   1,107,000,000
+
+If the dimensionalized value appears in the financial statements, then a dimension needs to be added to the report. If the item has no value on the financial statements, then the presentation item should be removed from the financial statements.
+
+Total Element : ifrs-full:FinancialAssetsAtFairValueThroughProfitOrLoss
+Total period : 2021-06-30 
+Dimensions : bbva:FairValueAndCarryingValueAxis=ifrs-full:CarryingAmountMember
+
+Rule Element Id:9596
+Rule version: 17.0.0RC1  - http://xbrl.ifrs.org/taxonomy/2020-03-16/full_ifrs/full_ifrs-cor_2020-03-16.xsd 2638</message>
+ <ref href="http://xbrl.ifrs.org/taxonomy/2020-03-16/full_ifrs/full_ifrs-cor_2020-03-16.xsd#ifrs-full_FinancialAssetsAtFairValueThroughProfitOrLoss" sourceLine="2638">
+  <property name="label" value="Financial assets at fair value through profit or loss">
+   <property name="label (en-US)" value="Financial assets at fair value through profit or loss"/>
+   <property name="terseLabel (en-US)" value="Financial assets at fair value through profit or loss"/>
+   <property name="totalLabel (en-US)" value="Financial assets at fair value through profit or loss"/>
+  </property>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2020-03-16/ifrs-full"/>
+  <property name="name" value="FinancialAssetsAtFairValueThroughProfitOrLoss"/>
+  <property name="QName" value="ifrs-full:FinancialAssetsAtFairValueThroughProfitOrLoss"/>
+  <property name="id" value="ifrs-full_FinancialAssetsAtFairValueThroughProfitOrLoss"/>
+  <property name="abstract" value="false"/>
+  <property name="type" value="xbrli:monetaryItemType"/>
+  <property name="subst grp" value="xbrli:item"/>
+  <property name="period type" value="instant"/>
+  <property name="balance" value="debit"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.33 secs - https://www.sec.gov/Archives/edgar/data/842180/000084218021000019/bbva-20210630.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/842180/000084218021000019/bbva-20210630.htm"/></entry>
+</log>

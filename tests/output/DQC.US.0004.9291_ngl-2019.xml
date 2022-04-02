@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 10.95 secs at 2020-07-26T08:26:33 - http://www.sec.gov/Archives/edgar/data/1504461/000150446120000022/ngl03312010k.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504461/000150446120000022/ngl03312010k.htm"/></entry>
+<entry code="DQC.US.0004.9291" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1504461/000150446120000022/ngl03312010k.htm" severity="error" effectiveDate="2019-09-30" cid="2321116800384">[DQC.US.0004.9291] Net Cash Provided by (Used in) Continuing Operations with a value of 4,132,000 is not equal to the combined total of Net Cash Provided by (Used in) Operating Activities, Continuing Operations, Net Cash Provided by (Used in) Investing Activities, Continuing Operations and Net Cash Provided by (Used in) Financing Activities, Continuing Operations ( 382,426,000 + -1,737,620,000 + 978,833,000 ) with a value of -376,361,000. 
+
+These values should be equal.
+The properties of this us-gaap:NetCashProvidedByUsedInContinuingOperations fact are:
+Period :2019-04-01 to 2020-03-31
+Dimensions :  
+Unit : USD
+Decimals of Net Cash Provided by (Used in) Continuing Operations : -3
+Decimals of Net Cash Provided by (Used in) Operating Activities, Continuing Operations : -3
+Decimals of Net Cash Provided by (Used in) Investing Activities, Continuing Operations : -3
+Decimals of Net Cash Provided by (Used in) Financing Activities, Continuing Operations : -3
+
+Rule Element Id:9291
+Rule version: 12.0.0 - http://www.sec.gov/Archives/edgar/data/1504461/000150446120000022/ngl03312010k.htm 7482</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504461/000150446120000022/ngl03312010k.htm#d5506652e26627-wk-Fact-439012F9F20B51F69E215C2B9EAF699A" sourceLine="7482">
+  <property name="file" value="ngl03312010k.htm"/>
+  <property name="line" value="7482"/>
+  <property name="label" value="Net Cash Provided by (Used in) Continuing Operations"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInContinuingOperations"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInContinuingOperations"/>
+  <property name="contextRef" value="FD2020Q4YTD">
+   <property name="entity" value="0001504461">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-04-01"/>
+   <property name="endDate" value="2020-03-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4,132,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="4,132"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9291" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1504461/000150446120000022/ngl03312010k.htm" severity="error" effectiveDate="2019-09-30" cid="2321116800384">[DQC.US.0004.9291] Net Cash Provided by (Used in) Continuing Operations with a value of 399,000 is not equal to the combined total of Net Cash Provided by (Used in) Operating Activities, Continuing Operations, Net Cash Provided by (Used in) Investing Activities, Continuing Operations and Net Cash Provided by (Used in) Financing Activities, Continuing Operations ( 295,293,000 + -359,524,000 + -968,587,000 ) with a value of -1,032,818,000. 
+
+These values should be equal.
+The properties of this us-gaap:NetCashProvidedByUsedInContinuingOperations fact are:
+Period :2018-04-01 to 2019-03-31
+Dimensions :  srt:ConsolidatedEntitiesAxis=srt:GuarantorSubsidiariesMember, srt:ConsolidationItemsAxis=srt:ReportableLegalEntitiesMember
+Unit : USD
+Decimals of Net Cash Provided by (Used in) Continuing Operations : -3
+Decimals of Net Cash Provided by (Used in) Operating Activities, Continuing Operations : -3
+Decimals of Net Cash Provided by (Used in) Investing Activities, Continuing Operations : -3
+Decimals of Net Cash Provided by (Used in) Financing Activities, Continuing Operations : -3
+
+Rule Element Id:9291
+Rule version: 12.0.0 - http://www.sec.gov/Archives/edgar/data/1504461/000150446120000022/ngl03312010k.htm 7482</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504461/000150446120000022/ngl03312010k.htm#d5506652e31169-wk-Fact-417ADE2D0CD250988126FD1B6D2B67BA" sourceLine="7482">
+  <property name="file" value="ngl03312010k.htm"/>
+  <property name="line" value="7482"/>
+  <property name="label" value="Net Cash Provided by (Used in) Continuing Operations"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInContinuingOperations"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInContinuingOperations"/>
+  <property name="contextRef" value="FD2019Q4YTD_srt_ConsolidatedEntitiesAxis_srt_GuarantorSubsidiariesMember_srt_ConsolidationItemsAxis_srt_ReportableLegalEntitiesMember">
+   <property name="entity" value="0001504461">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-04-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ConsolidatedEntitiesAxis" value="srt:GuarantorSubsidiariesMember"/>
+    <property name="srt:ConsolidationItemsAxis" value="srt:ReportableLegalEntitiesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="399,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="399"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9291" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1504461/000150446120000022/ngl03312010k.htm" severity="error" effectiveDate="2019-09-30" cid="2321116800384">[DQC.US.0004.9291] Net Cash Provided by (Used in) Continuing Operations with a value of -3,522,000 is not equal to the combined total of Net Cash Provided by (Used in) Operating Activities, Continuing Operations, Net Cash Provided by (Used in) Investing Activities, Continuing Operations and Net Cash Provided by (Used in) Financing Activities, Continuing Operations ( 151,523,000 + -404,515,000 + -793,920,000 ) with a value of -1,046,912,000. 
+
+These values should be equal.
+The properties of this us-gaap:NetCashProvidedByUsedInContinuingOperations fact are:
+Period :2018-04-01 to 2019-03-31
+Dimensions :  
+Unit : USD
+Decimals of Net Cash Provided by (Used in) Continuing Operations : -3
+Decimals of Net Cash Provided by (Used in) Operating Activities, Continuing Operations : -3
+Decimals of Net Cash Provided by (Used in) Investing Activities, Continuing Operations : -3
+Decimals of Net Cash Provided by (Used in) Financing Activities, Continuing Operations : -3
+
+Rule Element Id:9291
+Rule version: 12.0.0 - http://www.sec.gov/Archives/edgar/data/1504461/000150446120000022/ngl03312010k.htm 7482</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504461/000150446120000022/ngl03312010k.htm#d5506652e31228-wk-Fact-6A21243595A95479B9A136E659630541" sourceLine="7482">
+  <property name="file" value="ngl03312010k.htm"/>
+  <property name="line" value="7482"/>
+  <property name="label" value="Net Cash Provided by (Used in) Continuing Operations"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInContinuingOperations"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInContinuingOperations"/>
+  <property name="contextRef" value="FD2019Q4YTD">
+   <property name="entity" value="0001504461">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-04-01"/>
+   <property name="endDate" value="2019-03-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-3,522,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="3,522"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9291" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1504461/000150446120000022/ngl03312010k.htm" severity="error" effectiveDate="2019-09-30" cid="2321116800384">[DQC.US.0004.9291] Net Cash Provided by (Used in) Continuing Operations with a value of 354,000 is not equal to the combined total of Net Cash Provided by (Used in) Operating Activities, Continuing Operations, Net Cash Provided by (Used in) Investing Activities, Continuing Operations and Net Cash Provided by (Used in) Financing Activities, Continuing Operations ( 9,411,000 + 11,670,000 + -23,099,000 ) with a value of -2,018,000. 
+
+These values should be equal.
+The properties of this us-gaap:NetCashProvidedByUsedInContinuingOperations fact are:
+Period :2017-04-01 to 2018-03-31
+Dimensions :  srt:ConsolidationItemsAxis=srt:ReportableLegalEntitiesMember, srt:ConsolidatedEntitiesAxis=srt:NonGuarantorSubsidiariesMember
+Unit : USD
+Decimals of Net Cash Provided by (Used in) Continuing Operations : -3
+Decimals of Net Cash Provided by (Used in) Operating Activities, Continuing Operations : -3
+Decimals of Net Cash Provided by (Used in) Investing Activities, Continuing Operations : -3
+Decimals of Net Cash Provided by (Used in) Financing Activities, Continuing Operations : -3
+
+Rule Element Id:9291
+Rule version: 12.0.0 - http://www.sec.gov/Archives/edgar/data/1504461/000150446120000022/ngl03312010k.htm 7482</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504461/000150446120000022/ngl03312010k.htm#d5506652e36319-wk-Fact-C06483C3A6CD5BBFBCB118D1264B4F74" sourceLine="7482">
+  <property name="file" value="ngl03312010k.htm"/>
+  <property name="line" value="7482"/>
+  <property name="label" value="Net Cash Provided by (Used in) Continuing Operations"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInContinuingOperations"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInContinuingOperations"/>
+  <property name="contextRef" value="FD2018Q4YTD_srt_ConsolidatedEntitiesAxis_srt_NonGuarantorSubsidiariesMember_srt_ConsolidationItemsAxis_srt_ReportableLegalEntitiesMember">
+   <property name="entity" value="0001504461">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-04-01"/>
+   <property name="endDate" value="2018-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ConsolidatedEntitiesAxis" value="srt:NonGuarantorSubsidiariesMember"/>
+    <property name="srt:ConsolidationItemsAxis" value="srt:ReportableLegalEntitiesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="354,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="354"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9291" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1504461/000150446120000022/ngl03312010k.htm" severity="error" effectiveDate="2019-09-30" cid="2321116800384">[DQC.US.0004.9291] Net Cash Provided by (Used in) Continuing Operations with a value of 3,256,000 is not equal to the combined total of Net Cash Provided by (Used in) Operating Activities, Continuing Operations, Net Cash Provided by (Used in) Investing Activities, Continuing Operations and Net Cash Provided by (Used in) Financing Activities, Continuing Operations ( 433,678,000 + 154,965,000 + -520,745,000 ) with a value of 67,898,000. 
+
+These values should be equal.
+The properties of this us-gaap:NetCashProvidedByUsedInContinuingOperations fact are:
+Period :2017-04-01 to 2018-03-31
+Dimensions :  srt:ConsolidationItemsAxis=srt:ReportableLegalEntitiesMember, srt:ConsolidatedEntitiesAxis=srt:GuarantorSubsidiariesMember
+Unit : USD
+Decimals of Net Cash Provided by (Used in) Continuing Operations : -3
+Decimals of Net Cash Provided by (Used in) Operating Activities, Continuing Operations : -3
+Decimals of Net Cash Provided by (Used in) Investing Activities, Continuing Operations : -3
+Decimals of Net Cash Provided by (Used in) Financing Activities, Continuing Operations : -3
+
+Rule Element Id:9291
+Rule version: 12.0.0 - http://www.sec.gov/Archives/edgar/data/1504461/000150446120000022/ngl03312010k.htm 7482</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504461/000150446120000022/ngl03312010k.htm#d5506652e36299-wk-Fact-14A0BC023DE55F1AA7C52C9132D1B69A" sourceLine="7482">
+  <property name="file" value="ngl03312010k.htm"/>
+  <property name="line" value="7482"/>
+  <property name="label" value="Net Cash Provided by (Used in) Continuing Operations"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInContinuingOperations"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInContinuingOperations"/>
+  <property name="contextRef" value="FD2018Q4YTD_srt_ConsolidatedEntitiesAxis_srt_GuarantorSubsidiariesMember_srt_ConsolidationItemsAxis_srt_ReportableLegalEntitiesMember">
+   <property name="entity" value="0001504461">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-04-01"/>
+   <property name="endDate" value="2018-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ConsolidatedEntitiesAxis" value="srt:GuarantorSubsidiariesMember"/>
+    <property name="srt:ConsolidationItemsAxis" value="srt:ReportableLegalEntitiesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="3,256,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="3,256"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9291" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1504461/000150446120000022/ngl03312010k.htm" severity="error" effectiveDate="2019-09-30" cid="2321116800384">[DQC.US.0004.9291] Net Cash Provided by (Used in) Continuing Operations with a value of 196,000 is not equal to the combined total of Net Cash Provided by (Used in) Operating Activities, Continuing Operations, Net Cash Provided by (Used in) Investing Activities, Continuing Operations and Net Cash Provided by (Used in) Financing Activities, Continuing Operations ( -27,551,000 + -44,991,000 + 62,565,000 ) with a value of -9,977,000. 
+
+These values should be equal.
+The properties of this us-gaap:NetCashProvidedByUsedInContinuingOperations fact are:
+Period :2018-04-01 to 2019-03-31
+Dimensions :  srt:ConsolidationItemsAxis=srt:ReportableLegalEntitiesMember, srt:ConsolidatedEntitiesAxis=srt:NonGuarantorSubsidiariesMember
+Unit : USD
+Decimals of Net Cash Provided by (Used in) Continuing Operations : -3
+Decimals of Net Cash Provided by (Used in) Operating Activities, Continuing Operations : -3
+Decimals of Net Cash Provided by (Used in) Investing Activities, Continuing Operations : -3
+Decimals of Net Cash Provided by (Used in) Financing Activities, Continuing Operations : -3
+
+Rule Element Id:9291
+Rule version: 12.0.0 - http://www.sec.gov/Archives/edgar/data/1504461/000150446120000022/ngl03312010k.htm 7482</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504461/000150446120000022/ngl03312010k.htm#d5506652e31189-wk-Fact-580E80050ADD5764B7B3B536A6A54C6B" sourceLine="7482">
+  <property name="file" value="ngl03312010k.htm"/>
+  <property name="line" value="7482"/>
+  <property name="label" value="Net Cash Provided by (Used in) Continuing Operations"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInContinuingOperations"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInContinuingOperations"/>
+  <property name="contextRef" value="FD2019Q4YTD_srt_ConsolidatedEntitiesAxis_srt_NonGuarantorSubsidiariesMember_srt_ConsolidationItemsAxis_srt_ReportableLegalEntitiesMember">
+   <property name="entity" value="0001504461">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-04-01"/>
+   <property name="endDate" value="2019-03-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="srt:ConsolidatedEntitiesAxis" value="srt:NonGuarantorSubsidiariesMember"/>
+    <property name="srt:ConsolidationItemsAxis" value="srt:ReportableLegalEntitiesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="196,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="196"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9291" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1504461/000150446120000022/ngl03312010k.htm" severity="error" effectiveDate="2019-09-30" cid="2321116800384">[DQC.US.0004.9291] Net Cash Provided by (Used in) Continuing Operations with a value of 14,268,000 is not equal to the combined total of Net Cash Provided by (Used in) Operating Activities, Continuing Operations, Net Cash Provided by (Used in) Investing Activities, Continuing Operations and Net Cash Provided by (Used in) Financing Activities, Continuing Operations ( 300,348,000 + 166,635,000 + -390,445,000 ) with a value of 76,538,000. 
+
+These values should be equal.
+The properties of this us-gaap:NetCashProvidedByUsedInContinuingOperations fact are:
+Period :2017-04-01 to 2018-03-31
+Dimensions :  
+Unit : USD
+Decimals of Net Cash Provided by (Used in) Continuing Operations : -3
+Decimals of Net Cash Provided by (Used in) Operating Activities, Continuing Operations : -3
+Decimals of Net Cash Provided by (Used in) Investing Activities, Continuing Operations : -3
+Decimals of Net Cash Provided by (Used in) Financing Activities, Continuing Operations : -3
+
+Rule Element Id:9291
+Rule version: 12.0.0 - http://www.sec.gov/Archives/edgar/data/1504461/000150446120000022/ngl03312010k.htm 7482</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504461/000150446120000022/ngl03312010k.htm#d5405913e4920-wk-Fact-CCDFCDF3DB715A589F28E0CC3DE87DB6" sourceLine="7482">
+  <property name="file" value="ngl03312010k.htm"/>
+  <property name="line" value="7482"/>
+  <property name="label" value="Net Cash Provided by (Used in) Continuing Operations"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInContinuingOperations"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInContinuingOperations"/>
+  <property name="contextRef" value="FD2018Q4YTD">
+   <property name="entity" value="0001504461">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-04-01"/>
+   <property name="endDate" value="2018-03-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="14,268,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="14,268"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 9.56 secs - http://www.sec.gov/Archives/edgar/data/1504461/000150446120000022/ngl03312010k.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1504461/000150446120000022/ngl03312010k.htm"/></entry>
+</log>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.68 secs at 2018-10-16T09:44:40 - http://www.sec.gov/Archives/edgar/data/1142129/000149315218008419/fnec-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1142129/000149315218008419/fnec-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - fnec-20171231.xml </message>
+ <ref href="fnec-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp2qam5mfw/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp2qam5mfw/packages/resources.zip"/></entry>
+<entry code="DQC.US.0008.6819" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1142129/000149315218008419/fnec-20171231.xml" cid="4332039864">[DQC.US.0008.6819] The calculation in the extension taxonomy from NetIncomeLossAvailableToCommonStockholdersBasic to NetIncomeLoss in 00000003 - Statement - Consolidated Statements of Operations and Other Comprehensive Loss is the opposite of a calculation defined in the base US GAAP taxonomy. Check that the calculation is correct or that you have used the correct tag for the two elements identified in the calculation It is possible that the calculation is correct in the case of a reconciliation calculation.
+NetIncomeLoss
+
+Rule version: 9.0.0RC1 - </message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 19.76 secs - http://www.sec.gov/Archives/edgar/data/1142129/000149315218008419/fnec-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1142129/000149315218008419/fnec-20171231.xml"/></entry>
+</log>

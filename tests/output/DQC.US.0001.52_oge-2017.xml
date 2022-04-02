@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 5.81 secs at 2018-10-16T09:40:16 - http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - oge-20180517.xml </message>
+ <ref href="oge-20180517.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpqgp_v75y/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpqgp_v75y/packages/resources.zip"/></entry>
+<entry code="DQC.US.0001.52" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml" cid="4386832056">[DQC.US.0001.52] The concept ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax with a value of 0 is dimensionally qualified with the ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis and the unallowable member SettlementCostMember. 
+The properties of the fact for ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax are:
+Period: 2017-01-01 to 2017-12-31
+Dimensions: us-gaap:ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis=oge:SettlementCostMember, us-gaap:StatementEquityComponentsAxis=us-gaap:AccumulatedDefinedBenefitPlansAdjustmentNetPriorServiceCostCreditMember, us-gaap:RetirementPlanTypeAxis=us-gaap:PensionPlansDefinedBenefitMember 
+Unit: USD
+
+Rule Element Id:52
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml 8212</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml#Fact-19A1F9FAF1FC56A6A859678F85E576E0" sourceLine="8212">
+  <property name="label" value="Reclassification from Accumulated Other Comprehensive Income, Current Period, Net of Tax"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax"/>
+  <property name="QName" value="us-gaap:ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax"/>
+  <property name="contextRef" value="FD2017Q4YTD_us-gaap_ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis_oge_SettlementCostMember_us-gaap_RetirementPlanTypeAxis_us-gaap_PensionPlansDefinedBenefitMember_us-gaap_StatementEquityComponentsAxis_us-gaap_AccumulatedDefinedBenefitPlansAdjustmentNetPriorServiceCostCreditMember">
+   <property name="entity" value="0001021635">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="us-gaap:ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis" value="oge:SettlementCostMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:AccumulatedDefinedBenefitPlansAdjustmentNetPriorServiceCostCreditMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.52" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml" cid="4386832056">[DQC.US.0001.52] The concept ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax with a value of 0 is dimensionally qualified with the ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis and the unallowable member SettlementCostMember. 
+The properties of the fact for ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax are:
+Period: 2016-01-01 to 2016-12-31
+Dimensions: us-gaap:ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis=oge:SettlementCostMember, us-gaap:StatementEquityComponentsAxis=us-gaap:AccumulatedDefinedBenefitPlansAdjustmentNetPriorServiceCostCreditMember, us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember 
+Unit: USD
+
+Rule Element Id:52
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml 8200</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml#Fact-F6CE4257C25C5C889C66BA754FE4EDD9" sourceLine="8200">
+  <property name="label" value="Reclassification from Accumulated Other Comprehensive Income, Current Period, Net of Tax"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax"/>
+  <property name="QName" value="us-gaap:ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax"/>
+  <property name="contextRef" value="FD2016Q4YTD_us-gaap_ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis_oge_SettlementCostMember_us-gaap_RetirementPlanTypeAxis_us-gaap_OtherPostretirementBenefitPlansDefinedBenefitMember_us-gaap_StatementEquityComponentsAxis_us-gaap_AccumulatedDefinedBenefitPlansAdjustmentNetPriorServiceCostCreditMember">
+   <property name="entity" value="0001021635">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-01-01"/>
+   <property name="endDate" value="2016-12-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="us-gaap:ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis" value="oge:SettlementCostMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:AccumulatedDefinedBenefitPlansAdjustmentNetPriorServiceCostCreditMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.52" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml" cid="4386832056">[DQC.US.0001.52] The concept ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax with a value of 2,200,000 is dimensionally qualified with the ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis and the unallowable member SettlementCostMember. 
+The properties of the fact for ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax are:
+Period: 2017-01-01 to 2017-12-31
+Dimensions: us-gaap:ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis=oge:SettlementCostMember, us-gaap:StatementEquityComponentsAxis=us-gaap:AccumulatedDefinedBenefitPlansAdjustmentNetUnamortizedGainLossMember, us-gaap:RetirementPlanTypeAxis=us-gaap:PensionPlansDefinedBenefitMember 
+Unit: USD
+
+Rule Element Id:52
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml 8213</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml#Fact-595BA3FA9BE55A72AAE63843233FD228" sourceLine="8213">
+  <property name="label" value="Reclassification from Accumulated Other Comprehensive Income, Current Period, Net of Tax"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax"/>
+  <property name="QName" value="us-gaap:ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax"/>
+  <property name="contextRef" value="FD2017Q4YTD_us-gaap_ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis_oge_SettlementCostMember_us-gaap_RetirementPlanTypeAxis_us-gaap_PensionPlansDefinedBenefitMember_us-gaap_StatementEquityComponentsAxis_us-gaap_AccumulatedDefinedBenefitPlansAdjustmentNetUnamortizedGainLossMember">
+   <property name="entity" value="0001021635">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="us-gaap:ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis" value="oge:SettlementCostMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:AccumulatedDefinedBenefitPlansAdjustmentNetUnamortizedGainLossMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,200,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.52" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml" cid="4386832056">[DQC.US.0001.52] The concept ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax with a value of 0 is dimensionally qualified with the ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis and the unallowable member SettlementCostMember. 
+The properties of the fact for ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax are:
+Period: 2016-01-01 to 2016-12-31
+Dimensions: us-gaap:ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis=oge:SettlementCostMember, us-gaap:StatementEquityComponentsAxis=us-gaap:AccumulatedDefinedBenefitPlansAdjustmentNetUnamortizedGainLossMember, us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember 
+Unit: USD
+
+Rule Element Id:52
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml 8201</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml#Fact-3DFB3EE4ADC15170B0976E773FF39392" sourceLine="8201">
+  <property name="label" value="Reclassification from Accumulated Other Comprehensive Income, Current Period, Net of Tax"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax"/>
+  <property name="QName" value="us-gaap:ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax"/>
+  <property name="contextRef" value="FD2016Q4YTD_us-gaap_ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis_oge_SettlementCostMember_us-gaap_RetirementPlanTypeAxis_us-gaap_OtherPostretirementBenefitPlansDefinedBenefitMember_us-gaap_StatementEquityComponentsAxis_us-gaap_AccumulatedDefinedBenefitPlansAdjustmentNetUnamortizedGainLossMember">
+   <property name="entity" value="0001021635">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-01-01"/>
+   <property name="endDate" value="2016-12-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="us-gaap:ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis" value="oge:SettlementCostMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:AccumulatedDefinedBenefitPlansAdjustmentNetUnamortizedGainLossMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.52" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml" cid="4386832056">[DQC.US.0001.52] The concept ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax with a value of 0 is dimensionally qualified with the ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis and the unallowable member SettlementCostMember. 
+The properties of the fact for ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax are:
+Period: 2016-01-01 to 2016-12-31
+Dimensions: us-gaap:RetirementPlanTypeAxis=us-gaap:PensionPlansDefinedBenefitMember, us-gaap:ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis=oge:SettlementCostMember, us-gaap:StatementEquityComponentsAxis=us-gaap:AccumulatedDefinedBenefitPlansAdjustmentNetPriorServiceCostCreditMember 
+Unit: USD
+
+Rule Element Id:52
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml 8202</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml#Fact-C08F95F5078A5AFCB4413E5A9AA1AA48" sourceLine="8202">
+  <property name="label" value="Reclassification from Accumulated Other Comprehensive Income, Current Period, Net of Tax"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax"/>
+  <property name="QName" value="us-gaap:ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax"/>
+  <property name="contextRef" value="FD2016Q4YTD_us-gaap_ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis_oge_SettlementCostMember_us-gaap_RetirementPlanTypeAxis_us-gaap_PensionPlansDefinedBenefitMember_us-gaap_StatementEquityComponentsAxis_us-gaap_AccumulatedDefinedBenefitPlansAdjustmentNetPriorServiceCostCreditMember">
+   <property name="entity" value="0001021635">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-01-01"/>
+   <property name="endDate" value="2016-12-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="us-gaap:ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis" value="oge:SettlementCostMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:AccumulatedDefinedBenefitPlansAdjustmentNetPriorServiceCostCreditMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.52" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml" cid="4386832056">[DQC.US.0001.52] The concept ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax with a value of 2,700,000 is dimensionally qualified with the ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis and the unallowable member SettlementCostMember. 
+The properties of the fact for ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax are:
+Period: 2017-01-01 to 2017-12-31
+Dimensions: us-gaap:ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis=oge:SettlementCostMember 
+Unit: USD
+
+Rule Element Id:52
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml 8209</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml#Fact-314B83C796DA58E399D31068B5DC667C" sourceLine="8209">
+  <property name="label" value="Reclassification from Accumulated Other Comprehensive Income, Current Period, Net of Tax"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax"/>
+  <property name="QName" value="us-gaap:ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax"/>
+  <property name="contextRef" value="FD2017Q4YTD_us-gaap_ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis_oge_SettlementCostMember">
+   <property name="entity" value="0001021635">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis" value="oge:SettlementCostMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,700,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.52" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml" cid="4386832056">[DQC.US.0001.52] The concept ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax with a value of 5,000,000 is dimensionally qualified with the ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis and the unallowable member SettlementCostMember. 
+The properties of the fact for ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax are:
+Period: 2016-01-01 to 2016-12-31
+Dimensions: us-gaap:RetirementPlanTypeAxis=us-gaap:PensionPlansDefinedBenefitMember, us-gaap:StatementEquityComponentsAxis=us-gaap:AccumulatedDefinedBenefitPlansAdjustmentNetUnamortizedGainLossMember, us-gaap:ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis=oge:SettlementCostMember 
+Unit: USD
+
+Rule Element Id:52
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml 8203</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml#Fact-D4F4A45E09F7516592D63BD6F5691427" sourceLine="8203">
+  <property name="label" value="Reclassification from Accumulated Other Comprehensive Income, Current Period, Net of Tax"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax"/>
+  <property name="QName" value="us-gaap:ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax"/>
+  <property name="contextRef" value="FD2016Q4YTD_us-gaap_ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis_oge_SettlementCostMember_us-gaap_RetirementPlanTypeAxis_us-gaap_PensionPlansDefinedBenefitMember_us-gaap_StatementEquityComponentsAxis_us-gaap_AccumulatedDefinedBenefitPlansAdjustmentNetUnamortizedGainLossMember">
+   <property name="entity" value="0001021635">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-01-01"/>
+   <property name="endDate" value="2016-12-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="us-gaap:ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis" value="oge:SettlementCostMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:AccumulatedDefinedBenefitPlansAdjustmentNetUnamortizedGainLossMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="5,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.52" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml" cid="4386832056">[DQC.US.0001.52] The concept ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax with a value of 0 is dimensionally qualified with the ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis and the unallowable member SettlementCostMember. 
+The properties of the fact for ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax are:
+Period: 2017-01-01 to 2017-12-31
+Dimensions: us-gaap:ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis=oge:SettlementCostMember, us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember, us-gaap:StatementEquityComponentsAxis=us-gaap:AccumulatedDefinedBenefitPlansAdjustmentNetPriorServiceCostCreditMember 
+Unit: USD
+
+Rule Element Id:52
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml 8210</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml#Fact-45AE53A104DD59D8ADFD3196C3D1D1E3" sourceLine="8210">
+  <property name="label" value="Reclassification from Accumulated Other Comprehensive Income, Current Period, Net of Tax"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax"/>
+  <property name="QName" value="us-gaap:ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax"/>
+  <property name="contextRef" value="FD2017Q4YTD_us-gaap_ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis_oge_SettlementCostMember_us-gaap_RetirementPlanTypeAxis_us-gaap_OtherPostretirementBenefitPlansDefinedBenefitMember_us-gaap_StatementEquityComponentsAxis_us-gaap_AccumulatedDefinedBenefitPlansAdjustmentNetPriorServiceCostCreditMember">
+   <property name="entity" value="0001021635">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="us-gaap:ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis" value="oge:SettlementCostMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:AccumulatedDefinedBenefitPlansAdjustmentNetPriorServiceCostCreditMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0001.52" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml" cid="4386832056">[DQC.US.0001.52] The concept ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax with a value of 500,000 is dimensionally qualified with the ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis and the unallowable member SettlementCostMember. 
+The properties of the fact for ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax are:
+Period: 2017-01-01 to 2017-12-31
+Dimensions: us-gaap:ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis=oge:SettlementCostMember, us-gaap:StatementEquityComponentsAxis=us-gaap:AccumulatedDefinedBenefitPlansAdjustmentNetUnamortizedGainLossMember, us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember 
+Unit: USD
+
+Rule Element Id:52
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml 8211</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml#Fact-BE6084D45DFF5A1A99DB0279FB92312E" sourceLine="8211">
+  <property name="label" value="Reclassification from Accumulated Other Comprehensive Income, Current Period, Net of Tax"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax"/>
+  <property name="QName" value="us-gaap:ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax"/>
+  <property name="contextRef" value="FD2017Q4YTD_us-gaap_ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis_oge_SettlementCostMember_us-gaap_RetirementPlanTypeAxis_us-gaap_OtherPostretirementBenefitPlansDefinedBenefitMember_us-gaap_StatementEquityComponentsAxis_us-gaap_AccumulatedDefinedBenefitPlansAdjustmentNetUnamortizedGainLossMember">
+   <property name="entity" value="0001021635">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="us-gaap:ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis" value="oge:SettlementCostMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+    <property name="us-gaap:StatementEquityComponentsAxis" value="us-gaap:AccumulatedDefinedBenefitPlansAdjustmentNetUnamortizedGainLossMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="500,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.52" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml" cid="4386832056">[DQC.US.0001.52] The concept ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax with a value of 5,000,000 is dimensionally qualified with the ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis and the unallowable member SettlementCostMember. 
+The properties of the fact for ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax are:
+Period: 2016-01-01 to 2016-12-31
+Dimensions: us-gaap:ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis=oge:SettlementCostMember 
+Unit: USD
+
+Rule Element Id:52
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml 8199</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml#Fact-5E680DE949005A30837C6F4A513D59B1" sourceLine="8199">
+  <property name="label" value="Reclassification from Accumulated Other Comprehensive Income, Current Period, Net of Tax"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax"/>
+  <property name="QName" value="us-gaap:ReclassificationFromAccumulatedOtherComprehensiveIncomeCurrentPeriodNetOfTax"/>
+  <property name="contextRef" value="FD2016Q4YTD_us-gaap_ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis_oge_SettlementCostMember">
+   <property name="entity" value="0001021635">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-01-01"/>
+   <property name="endDate" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ReclassificationOutOfAccumulatedOtherComprehensiveIncomeAxis" value="oge:SettlementCostMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="5,000,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 20.66 secs - http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1021635/000102163518000067/oge-20180517.xml"/></entry>
+</log>

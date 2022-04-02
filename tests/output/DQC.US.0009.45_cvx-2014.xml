@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 4.99 secs at 2018-10-16T10:00:59 - http://www.sec.gov/Archives/edgar/data/93410/000009341014000049/cvx-20140930.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/93410/000009341014000049/cvx-20140930.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2014-V5-ruleset.zip - cvx-20140930.xml </message>
+ <ref href="cvx-20140930.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp6rzt029x/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp6rzt029x/packages/resources.zip"/></entry>
+<entry code="DQC.US.0009.45" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/93410/000009341014000049/cvx-20140930.xml" cid="4331409080">[DQC.US.0009.45] The value of Defined Benefit Plans, Estimated Future Employer Contributions in Current Fiscal Year, 400,000,000, should be less than or equal to Defined Benefit Plan, Expected Contributions in Current Fiscal Year, 63,000,000. The value of the remaining contribution for the year should be less than or equal to the expected contributions for the entire year.
+
+The properties of this us-gaap:DefinedBenefitPlansEstimatedFutureEmployerContributionsInCurrentFiscalYear fact are:
+
+Period: 2014-01-01 to 2014-09-30
+Dimensions: 
+Unit: USD
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/93410/000009341014000049/cvx-20140930.xml 3218</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/93410/000009341014000049/cvx-20140930.xml#Fact-7716383C8EAF63E30EBBA39F5C32870B" sourceLine="3218">
+  <property name="label" value="Defined Benefit Plans, Estimated Future Employer Contributions in Current Fiscal Year"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2014-01-31"/>
+  <property name="name" value="DefinedBenefitPlansEstimatedFutureEmployerContributionsInCurrentFiscalYear"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlansEstimatedFutureEmployerContributionsInCurrentFiscalYear"/>
+  <property name="contextRef" value="FD2014Q3YTD">
+   <property name="entity" value="0000093410">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2014-01-01"/>
+   <property name="endDate" value="2014-09-30"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="400,000,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 2.39 secs - http://www.sec.gov/Archives/edgar/data/93410/000009341014000049/cvx-20140930.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/93410/000009341014000049/cvx-20140930.xml"/></entry>
+</log>

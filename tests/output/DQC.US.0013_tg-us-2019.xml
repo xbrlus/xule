@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.25 secs at 2020-07-28T15:25:34 - http://www.sec.gov/Archives/edgar/data/850429/000085042920000036/tg-20200331.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/850429/000085042920000036/tg-20200331.htm"/></entry>
+<entry code="arelle:info.preferredLabelEmpty" level="info">
+ <message source="us-gaap:RestructuringReserveRollForward" target="tg:RestructuringReserveChargedAgainstAssets" linkrole="http://www.tredegar.com/role/PlantsShutdownsAssetImpairmentsRestructuringsAndOtherScheduleOfAccruedExpensesAssociatedWithAssetIm..." preferredLabel="http://www.xbrl.org/2003/role/terseLabel">[arelle:info.preferredLabelEmpty] (Info xbrl.5.2.4.2.1) Presentation relationship from us-gaap:RestructuringReserveRollForward to tg:RestructuringReserveChargedAgainstAssets in link role http://www.tredegar.com/role/PlantsShutdownsAssetImpairmentsRestructuringsAndOtherScheduleOfAccruedExpensesAssociatedWithAssetImpairmentsAndExitAndDisposalActivitiesDetails has empty preferredLabel http://www.xbrl.org/2003/role/terseLabel - http://www.sec.gov/Archives/edgar/data/850429/000085042920000036/tg-20200331_pre.xml 868</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/850429/000085042920000036/tg-20200331_pre.xml#element(/1/40/67)" sourceLine="868">
+  <property name="label" value="Restructuring Reserve Charged Against Assets">
+   <property name="documentation (en-US)" value="Restructuring reserve charged against assets"/>
+   <property name="label (en-US)" value="Restructuring Reserve Charged Against Assets"/>
+   <property name="terseLabel (en-US)" value=""/>
+  </property>
+  <property name="namespace" value="http://www.tredegar.com/20200331"/>
+  <property name="name" value="RestructuringReserveChargedAgainstAssets"/>
+  <property name="QName" value="tg:RestructuringReserveChargedAgainstAssets"/>
+  <property name="id" value="tg_RestructuringReserveChargedAgainstAssets"/>
+  <property name="abstract" value="false"/>
+  <property name="type" value="xbrli:monetaryItemType"/>
+  <property name="subst grp" value="xbrli:item"/>
+  <property name="period type" value="duration"/>
+  <property name="balance" value="credit"/>
+  <property name="arcrole" value="http://www.xbrl.org/2003/arcrole/parent-child"/>
+  <property name="preferredLabel" value="http://www.xbrl.org/2003/role/terseLabel"/>
+  <property name="order" value="3.0"/>
+  <property name="priority" value="0"/>
+  <property name="from" value="us-gaap:RestructuringReserveRollForward"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpobthl14s\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpobthl14s\packages\resources.zip"/></entry>
+<entry code="DQC.US.0013.2778" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/850429/000085042920000036/tg-20200331.htm" rule-suffix="2778" severity="error" effectiveDate="2017-01-01" cid="2252386968960">[DQC.US.0013.2778] It is expected that us-gaap:EffectiveIncomeTaxRateReconciliationTaxCreditsResearch with a value of -0.004 will be reported with a value equal to or greater than zero if net income before tax is positive. In this case net income before tax is 23,811,000. The value reported for the tax rate reconciliation item is less than zero. The preparer should consider if the value is input correctly for this assertion and, after considering the appropriateness of the input, if incorrect, input the amount as a positive (i.e., absolute) value and provide a negated label, if desired, for rendering purposes. 
+
+The properties of this us-gaap:EffectiveIncomeTaxRateReconciliationTaxCreditsResearch fact are:
+Period :2019-01-01 to 2019-03-31
+Dimensions : 
+Unit : pure
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/850429/000085042920000036/tg-20200331.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/850429/000085042920000036/tg-20200331.htm#id3VybDovL2RvY3MudjEvZG9jOjUzYThmZGE1NDhhNjRhMDZhZDRhYzU3YzU0NjZmNzM3L3NlYzo1M2E4ZmRhNTQ4YTY0YTA2YWQ0YWM1N2M1NDY2ZjczN184NS9mcmFnOjQ2ODljMDY3NDBmMTQwZTA4MmRiY2VkMzM0MGQzNzczL3RhYmxlOmRmZmI4ODUwNDYwMTRiYmU4MWVkNDdlYmUyNTY0MjM2L3RhYmxlcmFuZ2U6ZGZmYjg4NTA0NjAxNGJiZTgxZWQ0N2ViZTI1NjQyMzZfMzAtMy0xLTEtMA_7cbb73be-6706-45f5-b853-76a276881f1f" sourceLine="4">
+  <property name="file" value="tg-20200331.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Income (Loss) from Continuing Operations before Income Taxes, Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest"/>
+  <property name="QName" value="us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest"/>
+  <property name="contextRef" value="i6e9addffa103466787f4b794c0e109d3_D20190101-20190331">
+   <property name="entity" value="0000850429">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="23,811,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="23,811"/>
+ </ref></entry>
+<entry code="DQC.US.0013.2783" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/850429/000085042920000036/tg-20200331.htm" rule-suffix="2783" severity="error" effectiveDate="2017-01-01" cid="2252386968960">[DQC.US.0013.2783] It is expected that us-gaap:EffectiveIncomeTaxRateReconciliationTaxCreditsForeign with a value of -0.018 will be reported with a value equal to or greater than zero if net income before tax is positive. In this case net income before tax is 23,811,000. The value reported for the tax rate reconciliation item is less than zero. The preparer should consider if the value is input correctly for this assertion and, after considering the appropriateness of the input, if incorrect, input the amount as a positive (i.e., absolute) value and provide a negated label, if desired, for rendering purposes. 
+
+The properties of this us-gaap:EffectiveIncomeTaxRateReconciliationTaxCreditsForeign fact are:
+Period :2019-01-01 to 2019-03-31
+Dimensions : 
+Unit : pure
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/850429/000085042920000036/tg-20200331.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/850429/000085042920000036/tg-20200331.htm#id3VybDovL2RvY3MudjEvZG9jOjUzYThmZGE1NDhhNjRhMDZhZDRhYzU3YzU0NjZmNzM3L3NlYzo1M2E4ZmRhNTQ4YTY0YTA2YWQ0YWM1N2M1NDY2ZjczN184NS9mcmFnOjQ2ODljMDY3NDBmMTQwZTA4MmRiY2VkMzM0MGQzNzczL3RhYmxlOmRmZmI4ODUwNDYwMTRiYmU4MWVkNDdlYmUyNTY0MjM2L3RhYmxlcmFuZ2U6ZGZmYjg4NTA0NjAxNGJiZTgxZWQ0N2ViZTI1NjQyMzZfMzAtMy0xLTEtMA_7cbb73be-6706-45f5-b853-76a276881f1f" sourceLine="4">
+  <property name="file" value="tg-20200331.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Income (Loss) from Continuing Operations before Income Taxes, Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest"/>
+  <property name="QName" value="us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest"/>
+  <property name="contextRef" value="i6e9addffa103466787f4b794c0e109d3_D20190101-20190331">
+   <property name="entity" value="0000850429">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="23,811,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="23,811"/>
+ </ref></entry>
+<entry code="DQC.US.0013.2784" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/850429/000085042920000036/tg-20200331.htm" rule-suffix="2784" severity="error" effectiveDate="2017-01-01" cid="2252386968960">[DQC.US.0013.2784] It is expected that us-gaap:EffectiveIncomeTaxRateReconciliationDeductionsDividends with a value of -0.039 will be reported with a value equal to or greater than zero if net income before tax is positive. In this case net income before tax is 23,811,000. The value reported for the tax rate reconciliation item is less than zero. The preparer should consider if the value is input correctly for this assertion and, after considering the appropriateness of the input, if incorrect, input the amount as a positive (i.e., absolute) value and provide a negated label, if desired, for rendering purposes. 
+
+The properties of this us-gaap:EffectiveIncomeTaxRateReconciliationDeductionsDividends fact are:
+Period :2019-01-01 to 2019-03-31
+Dimensions : 
+Unit : pure
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/850429/000085042920000036/tg-20200331.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/850429/000085042920000036/tg-20200331.htm#id3VybDovL2RvY3MudjEvZG9jOjUzYThmZGE1NDhhNjRhMDZhZDRhYzU3YzU0NjZmNzM3L3NlYzo1M2E4ZmRhNTQ4YTY0YTA2YWQ0YWM1N2M1NDY2ZjczN184NS9mcmFnOjQ2ODljMDY3NDBmMTQwZTA4MmRiY2VkMzM0MGQzNzczL3RhYmxlOmRmZmI4ODUwNDYwMTRiYmU4MWVkNDdlYmUyNTY0MjM2L3RhYmxlcmFuZ2U6ZGZmYjg4NTA0NjAxNGJiZTgxZWQ0N2ViZTI1NjQyMzZfMzAtMy0xLTEtMA_7cbb73be-6706-45f5-b853-76a276881f1f" sourceLine="4">
+  <property name="file" value="tg-20200331.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Income (Loss) from Continuing Operations before Income Taxes, Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest"/>
+  <property name="QName" value="us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest"/>
+  <property name="contextRef" value="i6e9addffa103466787f4b794c0e109d3_D20190101-20190331">
+   <property name="entity" value="0000850429">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-03-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="23,811,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="23,811"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 4.85 secs - http://www.sec.gov/Archives/edgar/data/850429/000085042920000036/tg-20200331.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/850429/000085042920000036/tg-20200331.htm"/></entry>
+</log>

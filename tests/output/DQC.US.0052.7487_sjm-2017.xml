@@ -1,0 +1,1402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 5.65 secs at 2018-10-16T10:00:48 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - sjm-20180430.xml </message>
+ <ref href="sjm-20180430.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpdgh96tlr/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpdgh96tlr/packages/resources.zip"/></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineInterestCost with a value of 0.0338 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineInterestCost fact are:
+Period :2017-05-01 to 2018-04-30
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:PensionPlansDefinedBenefitMember, us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6462</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-8DA4CD00F70548400EF0F469C27740FC" sourceLine="6462">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Net Periodic Benefit Cost, Discount Rate Used to Determine Interest Cost"/>
+  <property name="namespace" value="http://smuckers.com/20180430"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineInterestCost"/>
+  <property name="QName" value="sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineInterestCost"/>
+  <property name="contextRef" value="FD2018Q4YTD_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_PensionPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-05-01"/>
+   <property name="endDate" value="2018-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0338"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate with a value of 0.0395 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate fact are:
+Period :2017-05-01 to 2018-04-30
+Dimensions : us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember, us-gaap:RetirementPlanTypeAxis=us-gaap:PensionPlansDefinedBenefitMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6969</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-4D1B62B7F3E5AB791F11F7D8B7910303" sourceLine="6969">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Net Periodic Benefit Cost, Discount Rate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="contextRef" value="FD2018Q4YTD_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_PensionPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-05-01"/>
+   <property name="endDate" value="2018-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0395"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease with a value of 0 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease fact are:
+Period :2015-05-01 to 2016-04-30
+Dimensions : us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember, us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6984</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-1DC2FDCC36085354CD57F7D8B791597D" sourceLine="6984">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Net Periodic Benefit Cost, Rate of Compensation Increase"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="contextRef" value="FD2016Q4YTD_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_OtherPostretirementBenefitPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2015-05-01"/>
+   <property name="endDate" value="2016-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0000"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease with a value of 0.0396 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease fact are:
+Period :2016-05-01 to 2017-04-30
+Dimensions : us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember, us-gaap:RetirementPlanTypeAxis=us-gaap:PensionPlansDefinedBenefitMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6989</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-D75BE6C0EFCDD9979E05F7D8B7911096" sourceLine="6989">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Net Periodic Benefit Cost, Rate of Compensation Increase"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="contextRef" value="FD2017Q4YTD_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_PensionPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-05-01"/>
+   <property name="endDate" value="2017-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0396"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineServiceCost with a value of 0.0406 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineServiceCost fact are:
+Period :2015-05-01 to 2016-04-30
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:PensionPlansDefinedBenefitMember, us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6466</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-D6F532A976D9338D1E91F466806F2FD1" sourceLine="6466">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Net Periodic Benefit Cost, Discount Rate Used to Determine Service Cost"/>
+  <property name="namespace" value="http://smuckers.com/20180430"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineServiceCost"/>
+  <property name="QName" value="sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineServiceCost"/>
+  <property name="contextRef" value="FD2016Q4YTD_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_PensionPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2015-05-01"/>
+   <property name="endDate" value="2016-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0406"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingBenefitObligationDiscountRate with a value of 0.0395 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingBenefitObligationDiscountRate fact are:
+Period :2017-04-30
+Dimensions : us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember, us-gaap:RetirementPlanTypeAxis=us-gaap:PensionPlansDefinedBenefitMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6945</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-1B3B8CCA70B929747B9BF7D8B782BB57" sourceLine="6945">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Benefit Obligation, Discount Rate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingBenefitObligationDiscountRate"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingBenefitObligationDiscountRate"/>
+  <property name="contextRef" value="FI2017Q4_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_PensionPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0395"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingBenefitObligationRateOfCompensationIncrease with a value of 0 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingBenefitObligationRateOfCompensationIncrease fact are:
+Period :2017-04-30
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember, us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6952</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-EE90A3DC5F7C08A121DBF7D8B78258C3" sourceLine="6952">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Benefit Obligation, Rate of Compensation Increase"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingBenefitObligationRateOfCompensationIncrease"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingBenefitObligationRateOfCompensationIncrease"/>
+  <property name="contextRef" value="FI2017Q4_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_OtherPostretirementBenefitPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0000"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  us-gaap:DefinedBenefitPlanHealthCareCostTrendRateAssumedNextFiscalYear with a value of 0.068 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this us-gaap:DefinedBenefitPlanHealthCareCostTrendRateAssumedNextFiscalYear fact are:
+Period :2018-04-30
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember, us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 7118</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-A21D1F01EF0D5109BC90F7D8B79130FF" sourceLine="7118">
+  <property name="label" value="Defined Benefit Plan, Health Care Cost Trend Rate Assumed, Next Fiscal Year"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanHealthCareCostTrendRateAssumedNextFiscalYear"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanHealthCareCostTrendRateAssumedNextFiscalYear"/>
+  <property name="contextRef" value="FI2018Q4_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_OtherPostretirementBenefitPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.068"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease with a value of 0.0406 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease fact are:
+Period :2015-05-01 to 2016-04-30
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:PensionPlansDefinedBenefitMember, us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6985</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-DD482ED2343FF359DBB5F7D8B7911F55" sourceLine="6985">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Net Periodic Benefit Cost, Rate of Compensation Increase"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="contextRef" value="FD2016Q4YTD_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_PensionPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2015-05-01"/>
+   <property name="endDate" value="2016-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0406"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineServiceCost with a value of 0.0404 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineServiceCost fact are:
+Period :2015-05-01 to 2016-04-30
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember, us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6465</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-3198D51EE41BC574CBE0F4678BFC9671" sourceLine="6465">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Net Periodic Benefit Cost, Discount Rate Used to Determine Service Cost"/>
+  <property name="namespace" value="http://smuckers.com/20180430"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineServiceCost"/>
+  <property name="QName" value="sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineServiceCost"/>
+  <property name="contextRef" value="FD2016Q4YTD_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_OtherPostretirementBenefitPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2015-05-01"/>
+   <property name="endDate" value="2016-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0404"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineInterestCost with a value of 0.0385 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineInterestCost fact are:
+Period :2016-05-01 to 2017-04-30
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:PensionPlansDefinedBenefitMember, us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6458</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-A5B732D625E12BEB08D4F46A0D26E63E" sourceLine="6458">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Net Periodic Benefit Cost, Discount Rate Used to Determine Interest Cost"/>
+  <property name="namespace" value="http://smuckers.com/20180430"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineInterestCost"/>
+  <property name="QName" value="sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineInterestCost"/>
+  <property name="contextRef" value="FD2017Q4YTD_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_PensionPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-05-01"/>
+   <property name="endDate" value="2017-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0385"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate with a value of 0.0404 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate fact are:
+Period :2015-05-01 to 2016-04-30
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember, us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6960</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-0CC47D3BC812623CA9A9F7D8B7915C85" sourceLine="6960">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Net Periodic Benefit Cost, Discount Rate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="contextRef" value="FD2016Q4YTD_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_OtherPostretirementBenefitPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2015-05-01"/>
+   <property name="endDate" value="2016-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0404"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets with a value of 0.0627 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets fact are:
+Period :2016-05-01 to 2017-04-30
+Dimensions : us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember, us-gaap:RetirementPlanTypeAxis=us-gaap:PensionPlansDefinedBenefitMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6977</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-47BB6FDD8749BCF98D46F7D8B791258D" sourceLine="6977">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Net Periodic Benefit Cost, Expected Long-term Rate of Return on Plan Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="contextRef" value="FD2017Q4YTD_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_PensionPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-05-01"/>
+   <property name="endDate" value="2017-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0627"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineServiceCost with a value of 0.038 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineServiceCost fact are:
+Period :2016-05-01 to 2017-04-30
+Dimensions : us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember, us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6469</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-3D319EB03549EFA9DF07F4674C2632CE" sourceLine="6469">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Net Periodic Benefit Cost, Discount Rate Used to Determine Service Cost"/>
+  <property name="namespace" value="http://smuckers.com/20180430"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineServiceCost"/>
+  <property name="QName" value="sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineServiceCost"/>
+  <property name="contextRef" value="FD2017Q4YTD_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_OtherPostretirementBenefitPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-05-01"/>
+   <property name="endDate" value="2017-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0380"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineInterestCost with a value of 0.038 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineInterestCost fact are:
+Period :2016-05-01 to 2017-04-30
+Dimensions : us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember, us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6457</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-C80855C38C250CC0FC9BF46AEB4DAC03" sourceLine="6457">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Net Periodic Benefit Cost, Discount Rate Used to Determine Interest Cost"/>
+  <property name="namespace" value="http://smuckers.com/20180430"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineInterestCost"/>
+  <property name="QName" value="sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineInterestCost"/>
+  <property name="contextRef" value="FD2017Q4YTD_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_OtherPostretirementBenefitPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-05-01"/>
+   <property name="endDate" value="2017-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0380"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease with a value of 0 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease fact are:
+Period :2016-05-01 to 2017-04-30
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember, us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6988</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-9D817224924253959F10F7D8B791C8B4" sourceLine="6988">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Net Periodic Benefit Cost, Rate of Compensation Increase"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="contextRef" value="FD2017Q4YTD_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_OtherPostretirementBenefitPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-05-01"/>
+   <property name="endDate" value="2017-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0000"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease with a value of 0 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease fact are:
+Period :2017-05-01 to 2018-04-30
+Dimensions : us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember, us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6992</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-25E34CDBEFBBCC3DCD65F7D8B791353C" sourceLine="6992">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Net Periodic Benefit Cost, Rate of Compensation Increase"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="contextRef" value="FD2018Q4YTD_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_OtherPostretirementBenefitPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-05-01"/>
+   <property name="endDate" value="2018-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0000"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingBenefitObligationDiscountRate with a value of 0.0386 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingBenefitObligationDiscountRate fact are:
+Period :2017-04-30
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember, us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6944</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-6B77F2EB85FD2F1F825DF7D8B78290D1" sourceLine="6944">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Benefit Obligation, Discount Rate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingBenefitObligationDiscountRate"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingBenefitObligationDiscountRate"/>
+  <property name="contextRef" value="FI2017Q4_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_OtherPostretirementBenefitPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0386"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets with a value of 0.0658 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets fact are:
+Period :2015-05-01 to 2016-04-30
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:PensionPlansDefinedBenefitMember, us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6973</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-9935357E1B2748EF3DCDF7D8B7913E24" sourceLine="6973">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Net Periodic Benefit Cost, Expected Long-term Rate of Return on Plan Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="contextRef" value="FD2016Q4YTD_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_PensionPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2015-05-01"/>
+   <property name="endDate" value="2016-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0658"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingBenefitObligationRateOfCompensationIncrease with a value of 0.0415 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingBenefitObligationRateOfCompensationIncrease fact are:
+Period :2017-04-30
+Dimensions : us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember, us-gaap:RetirementPlanTypeAxis=us-gaap:PensionPlansDefinedBenefitMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6953</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-47EB67A0A151C803AEFFF7D8B78219B8" sourceLine="6953">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Benefit Obligation, Rate of Compensation Increase"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingBenefitObligationRateOfCompensationIncrease"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingBenefitObligationRateOfCompensationIncrease"/>
+  <property name="contextRef" value="FI2017Q4_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_PensionPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0415"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineInterestCost with a value of 0.0404 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineInterestCost fact are:
+Period :2015-05-01 to 2016-04-30
+Dimensions : us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember, us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6453</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-DDD80D5D9D6B8870C579F46B125BD936" sourceLine="6453">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Net Periodic Benefit Cost, Discount Rate Used to Determine Interest Cost"/>
+  <property name="namespace" value="http://smuckers.com/20180430"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineInterestCost"/>
+  <property name="QName" value="sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineInterestCost"/>
+  <property name="contextRef" value="FD2016Q4YTD_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_OtherPostretirementBenefitPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2015-05-01"/>
+   <property name="endDate" value="2016-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0404"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingBenefitObligationDiscountRate with a value of 0.0417 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingBenefitObligationDiscountRate fact are:
+Period :2018-04-30
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:PensionPlansDefinedBenefitMember, us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6949</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-42FD53C421E64B0BA380F7D8B7823683" sourceLine="6949">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Benefit Obligation, Discount Rate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingBenefitObligationDiscountRate"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingBenefitObligationDiscountRate"/>
+  <property name="contextRef" value="FI2018Q4_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_PensionPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0417"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingBenefitObligationRateOfCompensationIncrease with a value of 0 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingBenefitObligationRateOfCompensationIncrease fact are:
+Period :2018-04-30
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember, us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6956</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-DF6B4BF7FF661F90BD1FF7D8B782906F" sourceLine="6956">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Benefit Obligation, Rate of Compensation Increase"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingBenefitObligationRateOfCompensationIncrease"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingBenefitObligationRateOfCompensationIncrease"/>
+  <property name="contextRef" value="FI2018Q4_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_OtherPostretirementBenefitPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0000"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets with a value of 0 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets fact are:
+Period :2015-05-01 to 2016-04-30
+Dimensions : us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember, us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6972</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-5081DF5221EB3EFC2976F7D8B791324F" sourceLine="6972">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Net Periodic Benefit Cost, Expected Long-term Rate of Return on Plan Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="contextRef" value="FD2016Q4YTD_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_OtherPostretirementBenefitPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2015-05-01"/>
+   <property name="endDate" value="2016-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0000"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate with a value of 0.0406 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate fact are:
+Period :2015-05-01 to 2016-04-30
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:PensionPlansDefinedBenefitMember, us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6961</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-81DC907A7B4A288610C1F7D8B79132B8" sourceLine="6961">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Net Periodic Benefit Cost, Discount Rate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="contextRef" value="FD2016Q4YTD_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_PensionPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2015-05-01"/>
+   <property name="endDate" value="2016-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0406"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingBenefitObligationDiscountRate with a value of 0.0413 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingBenefitObligationDiscountRate fact are:
+Period :2018-04-30
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember, us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6948</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-CA8A2AA339DAF3073830F7D8B78256B7" sourceLine="6948">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Benefit Obligation, Discount Rate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingBenefitObligationDiscountRate"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingBenefitObligationDiscountRate"/>
+  <property name="contextRef" value="FI2018Q4_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_OtherPostretirementBenefitPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0413"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingBenefitObligationRateOfCompensationIncrease with a value of 0.0359 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingBenefitObligationRateOfCompensationIncrease fact are:
+Period :2018-04-30
+Dimensions : us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember, us-gaap:RetirementPlanTypeAxis=us-gaap:PensionPlansDefinedBenefitMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6957</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-DABDF369B9E81EEFAD74F7D8B782018D" sourceLine="6957">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Benefit Obligation, Rate of Compensation Increase"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingBenefitObligationRateOfCompensationIncrease"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingBenefitObligationRateOfCompensationIncrease"/>
+  <property name="contextRef" value="FI2018Q4_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_PensionPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0359"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineServiceCost with a value of 0.0385 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineServiceCost fact are:
+Period :2016-05-01 to 2017-04-30
+Dimensions : us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember, us-gaap:RetirementPlanTypeAxis=us-gaap:PensionPlansDefinedBenefitMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6470</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-6C5AC745F3F82844E64EF46614D4C9C7" sourceLine="6470">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Net Periodic Benefit Cost, Discount Rate Used to Determine Service Cost"/>
+  <property name="namespace" value="http://smuckers.com/20180430"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineServiceCost"/>
+  <property name="QName" value="sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineServiceCost"/>
+  <property name="contextRef" value="FD2017Q4YTD_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_PensionPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-05-01"/>
+   <property name="endDate" value="2017-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0385"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineServiceCost with a value of 0.042 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineServiceCost fact are:
+Period :2017-05-01 to 2018-04-30
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:PensionPlansDefinedBenefitMember, us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6474</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-60C8708ED4A72334C612F464FD591422" sourceLine="6474">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Net Periodic Benefit Cost, Discount Rate Used to Determine Service Cost"/>
+  <property name="namespace" value="http://smuckers.com/20180430"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineServiceCost"/>
+  <property name="QName" value="sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineServiceCost"/>
+  <property name="contextRef" value="FD2018Q4YTD_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_PensionPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-05-01"/>
+   <property name="endDate" value="2018-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0420"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  us-gaap:DefinedBenefitPlanUltimateHealthCareCostTrendRate1 with a value of 0.05 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this us-gaap:DefinedBenefitPlanUltimateHealthCareCostTrendRate1 fact are:
+Period :2018-04-30
+Dimensions : us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember, us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 7200</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-4ED75643B32F4100EC02F7D8B7910481" sourceLine="7200">
+  <property name="label" value="Defined Benefit Plan, Ultimate Health Care Cost Trend Rate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanUltimateHealthCareCostTrendRate1"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanUltimateHealthCareCostTrendRate1"/>
+  <property name="contextRef" value="FI2018Q4_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_OtherPostretirementBenefitPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.050"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate with a value of 0.0385 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate fact are:
+Period :2016-05-01 to 2017-04-30
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:PensionPlansDefinedBenefitMember, us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6965</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-55DE7E043CC7C2FB9A58F7D8B7911661" sourceLine="6965">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Net Periodic Benefit Cost, Discount Rate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="contextRef" value="FD2017Q4YTD_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_PensionPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-05-01"/>
+   <property name="endDate" value="2017-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0385"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease with a value of 0.0378 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease fact are:
+Period :2017-05-01 to 2018-04-30
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:PensionPlansDefinedBenefitMember, us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6993</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-9A3696C8FF0969FFC66DF7D8B7915D6A" sourceLine="6993">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Net Periodic Benefit Cost, Rate of Compensation Increase"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostRateOfCompensationIncrease"/>
+  <property name="contextRef" value="FD2018Q4YTD_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_PensionPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-05-01"/>
+   <property name="endDate" value="2018-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0378"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets with a value of 0.0627 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets fact are:
+Period :2017-05-01 to 2018-04-30
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:PensionPlansDefinedBenefitMember, us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6981</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-CD76AC3E4CED42DD2823F7D8B79128F6" sourceLine="6981">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Net Periodic Benefit Cost, Expected Long-term Rate of Return on Plan Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="contextRef" value="FD2018Q4YTD_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_PensionPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-05-01"/>
+   <property name="endDate" value="2018-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0627"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineInterestCost with a value of 0.0406 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineInterestCost fact are:
+Period :2015-05-01 to 2016-04-30
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:PensionPlansDefinedBenefitMember, us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6454</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-6C4932ECED211C992490F46A5A2FFB11" sourceLine="6454">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Net Periodic Benefit Cost, Discount Rate Used to Determine Interest Cost"/>
+  <property name="namespace" value="http://smuckers.com/20180430"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineInterestCost"/>
+  <property name="QName" value="sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineInterestCost"/>
+  <property name="contextRef" value="FD2016Q4YTD_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_PensionPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2015-05-01"/>
+   <property name="endDate" value="2016-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0406"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate with a value of 0.038 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate fact are:
+Period :2016-05-01 to 2017-04-30
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember, us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6964</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-8074A0083AA6968496A0F7D8B791A076" sourceLine="6964">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Net Periodic Benefit Cost, Discount Rate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="contextRef" value="FD2017Q4YTD_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_OtherPostretirementBenefitPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-05-01"/>
+   <property name="endDate" value="2017-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0380"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  us-gaap:DefinedBenefitPlanYearHealthCareCostTrendRateReachesUltimateTrendRate with a value of 2026 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this us-gaap:DefinedBenefitPlanYearHealthCareCostTrendRateReachesUltimateTrendRate fact are:
+Period :2017-05-01 to 2018-04-30
+Dimensions : us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember, us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember
+Unit : None
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 7202</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-CD53172217C54FC3A070F7D8B7918F28" sourceLine="7202">
+  <property name="label" value="Defined Benefit Plan, Year Health Care Cost Trend Rate Reaches Ultimate Trend Rate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanYearHealthCareCostTrendRateReachesUltimateTrendRate"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanYearHealthCareCostTrendRateReachesUltimateTrendRate"/>
+  <property name="contextRef" value="FD2018Q4YTD_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_OtherPostretirementBenefitPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-05-01"/>
+   <property name="endDate" value="2018-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2026"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineServiceCost with a value of 0.0406 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineServiceCost fact are:
+Period :2017-05-01 to 2018-04-30
+Dimensions : us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember, us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6473</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-6B50EAF639AE0AF11551F466EF7C3AA7" sourceLine="6473">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Net Periodic Benefit Cost, Discount Rate Used to Determine Service Cost"/>
+  <property name="namespace" value="http://smuckers.com/20180430"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineServiceCost"/>
+  <property name="QName" value="sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineServiceCost"/>
+  <property name="contextRef" value="FD2018Q4YTD_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_OtherPostretirementBenefitPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-05-01"/>
+   <property name="endDate" value="2018-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0406"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineInterestCost with a value of 0.0324 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineInterestCost fact are:
+Period :2017-05-01 to 2018-04-30
+Dimensions : us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember, us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6461</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-5C3B3B7CE7B7EAED03D0F46A9C479C13" sourceLine="6461">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Net Periodic Benefit Cost, Discount Rate Used to Determine Interest Cost"/>
+  <property name="namespace" value="http://smuckers.com/20180430"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineInterestCost"/>
+  <property name="QName" value="sjm:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRateUsedtoDetermineInterestCost"/>
+  <property name="contextRef" value="FD2018Q4YTD_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_OtherPostretirementBenefitPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-05-01"/>
+   <property name="endDate" value="2018-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0324"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate with a value of 0.0386 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate fact are:
+Period :2017-05-01 to 2018-04-30
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember, us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6968</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-3046BA592F6F02397734F7D8B791BA1E" sourceLine="6968">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Net Periodic Benefit Cost, Discount Rate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostDiscountRate"/>
+  <property name="contextRef" value="FD2018Q4YTD_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_OtherPostretirementBenefitPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-05-01"/>
+   <property name="endDate" value="2018-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0386"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets with a value of 0 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets fact are:
+Period :2017-05-01 to 2018-04-30
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember, us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6980</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-DB457E729BBA314A16A9F7D8B7912B1F" sourceLine="6980">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Net Periodic Benefit Cost, Expected Long-term Rate of Return on Plan Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="contextRef" value="FD2018Q4YTD_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_OtherPostretirementBenefitPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-05-01"/>
+   <property name="endDate" value="2018-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0000"/>
+ </ref></entry>
+<entry code="DQC.US.0052.7487" level="error">
+ <message cid="4543606456" filing_url="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml" severity="error">[DQC.US.0052.7487] The element  us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets with a value of 0 has been used with the axis RetirementPlanSponsorLocationAxis and the member DomesticPlanMember. The DomesticPlanMember element is not intended to be used in the instance document, instead the specific country from the SEC's Country Taxonomy is intended to tag the information. 
+
+The properties of this us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets fact are:
+Period :2016-05-01 to 2017-04-30
+Dimensions : us-gaap:RetirementPlanTypeAxis=us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember, us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:DomesticPlanMember
+Unit : pure
+
+Rule Element Id:7487
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml 6976</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml#Fact-402D547B66321ED70639F7D8B791ED07" sourceLine="6976">
+  <property name="label" value="Defined Benefit Plan, Assumptions Used Calculating Net Periodic Benefit Cost, Expected Long-term Rate of Return on Plan Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanAssumptionsUsedCalculatingNetPeriodicBenefitCostExpectedLongTermReturnOnAssets"/>
+  <property name="contextRef" value="FD2017Q4YTD_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_DomesticPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_OtherPostretirementBenefitPlansDefinedBenefitMember">
+   <property name="entity" value="0000091419">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-05-01"/>
+   <property name="endDate" value="2017-04-30"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:DomesticPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:OtherPostretirementBenefitPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="number (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="4"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 3.72 secs - http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/91419/000009141918000005/sjm-20180430.xml"/></entry>
+</log>

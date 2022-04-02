@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.47 secs at 2020-07-26T18:43:40 - http://www.sec.gov/Archives/edgar/data/1080319/000101738620000223/nwgi-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1080319/000101738620000223/nwgi-20200331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmp0exx0ws7\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmp0exx0ws7\packages\resources.zip"/></entry>
+<entry code="DQC.US.0001.57" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1080319/000101738620000223/nwgi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="1838683301248">[DQC.US.0001.57] The concept StockIssuedDuringPeriodSharesConversionOfConvertibleSecurities with a value of 1,866,528 is dimensionally qualified with the ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis and the base taxonomy member DebenturesSubjectToMandatoryRedemptionMember. Only extension members should be used with the axis ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis.
+The properties of the fact for StockIssuedDuringPeriodSharesConversionOfConvertibleSecurities are:
+Period: 2020-01-01 to 2020-12-31
+Dimensions: srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis=us-gaap:DebenturesSubjectToMandatoryRedemptionMember 
+Unit: shares
+
+Rule Element Id:57
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1080319/000101738620000223/nwgi-20200331.xml 2847</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1080319/000101738620000223/nwgi-20200331.xml#element(/1/592)" sourceLine="2847">
+  <property name="label" value="Common stock issued with debentures, shares"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="StockIssuedDuringPeriodSharesConversionOfConvertibleSecurities"/>
+  <property name="QName" value="us-gaap:StockIssuedDuringPeriodSharesConversionOfConvertibleSecurities"/>
+  <property name="contextRef" value="From2020-01-01to2020-12-31_us-gaap_DebenturesSubjectToMandatoryRedemptionMember">
+   <property name="entity" value="0001080319">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis" value="us-gaap:DebenturesSubjectToMandatoryRedemptionMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,866,528"/>
+ </ref></entry>
+<entry code="DQC.US.0001.57" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1080319/000101738620000223/nwgi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="1838683301248">[DQC.US.0001.57] The concept StockIssuedDuringPeriodValueConversionOfConvertibleSecurities with a value of 45,066 is dimensionally qualified with the ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis and the base taxonomy member DebenturesSubjectToMandatoryRedemptionMember. Only extension members should be used with the axis ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis.
+The properties of the fact for StockIssuedDuringPeriodValueConversionOfConvertibleSecurities are:
+Period: 2019-01-01 to 2019-04-22
+Dimensions: srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis=us-gaap:DebenturesSubjectToMandatoryRedemptionMember 
+Unit: USD
+
+Rule Element Id:57
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1080319/000101738620000223/nwgi-20200331.xml 2857</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1080319/000101738620000223/nwgi-20200331.xml#element(/1/602)" sourceLine="2857">
+  <property name="label" value="Common stock issued with debentures"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="StockIssuedDuringPeriodValueConversionOfConvertibleSecurities"/>
+  <property name="QName" value="us-gaap:StockIssuedDuringPeriodValueConversionOfConvertibleSecurities"/>
+  <property name="contextRef" value="From2019-01-01to2019-04-22_us-gaap_DebenturesSubjectToMandatoryRedemptionMember">
+   <property name="entity" value="0001080319">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-04-22"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis" value="us-gaap:DebenturesSubjectToMandatoryRedemptionMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="45,066"/>
+ </ref></entry>
+<entry code="DQC.US.0001.57" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1080319/000101738620000223/nwgi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="1838683301248">[DQC.US.0001.57] The concept StockIssuedDuringPeriodSharesConversionOfConvertibleSecurities with a value of 14,083 is dimensionally qualified with the ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis and the base taxonomy member DebenturesSubjectToMandatoryRedemptionMember. Only extension members should be used with the axis ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis.
+The properties of the fact for StockIssuedDuringPeriodSharesConversionOfConvertibleSecurities are:
+Period: 2019-01-01 to 2019-04-22
+Dimensions: srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis=us-gaap:DebenturesSubjectToMandatoryRedemptionMember 
+Unit: shares
+
+Rule Element Id:57
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1080319/000101738620000223/nwgi-20200331.xml 2848</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1080319/000101738620000223/nwgi-20200331.xml#element(/1/593)" sourceLine="2848">
+  <property name="label" value="Common stock issued with debentures, shares"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="StockIssuedDuringPeriodSharesConversionOfConvertibleSecurities"/>
+  <property name="QName" value="us-gaap:StockIssuedDuringPeriodSharesConversionOfConvertibleSecurities"/>
+  <property name="contextRef" value="From2019-01-01to2019-04-22_us-gaap_DebenturesSubjectToMandatoryRedemptionMember">
+   <property name="entity" value="0001080319">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-04-22"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis" value="us-gaap:DebenturesSubjectToMandatoryRedemptionMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="14,083"/>
+ </ref></entry>
+<entry code="DQC.US.0001.57" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1080319/000101738620000223/nwgi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="1838683301248">[DQC.US.0001.57] The concept StockIssuedDuringPeriodValueConversionOfConvertibleSecurities with a value of 395,868 is dimensionally qualified with the ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis and the base taxonomy member DebenturesSubjectToMandatoryRedemptionMember. Only extension members should be used with the axis ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis.
+The properties of the fact for StockIssuedDuringPeriodValueConversionOfConvertibleSecurities are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis=us-gaap:DebenturesSubjectToMandatoryRedemptionMember 
+Unit: USD
+
+Rule Element Id:57
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1080319/000101738620000223/nwgi-20200331.xml 2855</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1080319/000101738620000223/nwgi-20200331.xml#element(/1/600)" sourceLine="2855">
+  <property name="label" value="Common stock issued with debentures"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="StockIssuedDuringPeriodValueConversionOfConvertibleSecurities"/>
+  <property name="QName" value="us-gaap:StockIssuedDuringPeriodValueConversionOfConvertibleSecurities"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_us-gaap_DebenturesSubjectToMandatoryRedemptionMember">
+   <property name="entity" value="0001080319">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis" value="us-gaap:DebenturesSubjectToMandatoryRedemptionMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="395,868"/>
+ </ref></entry>
+<entry code="DQC.US.0001.57" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1080319/000101738620000223/nwgi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="1838683301248">[DQC.US.0001.57] The concept StockIssuedDuringPeriodSharesConversionOfConvertibleSecurities with a value of 123,591 is dimensionally qualified with the ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis and the base taxonomy member DebenturesSubjectToMandatoryRedemptionMember. Only extension members should be used with the axis ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis.
+The properties of the fact for StockIssuedDuringPeriodSharesConversionOfConvertibleSecurities are:
+Period: 2020-01-01 to 2020-03-31
+Dimensions: srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis=us-gaap:DebenturesSubjectToMandatoryRedemptionMember 
+Unit: shares
+
+Rule Element Id:57
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1080319/000101738620000223/nwgi-20200331.xml 2846</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1080319/000101738620000223/nwgi-20200331.xml#element(/1/591)" sourceLine="2846">
+  <property name="label" value="Common stock issued with debentures, shares"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="StockIssuedDuringPeriodSharesConversionOfConvertibleSecurities"/>
+  <property name="QName" value="us-gaap:StockIssuedDuringPeriodSharesConversionOfConvertibleSecurities"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31_us-gaap_DebenturesSubjectToMandatoryRedemptionMember">
+   <property name="entity" value="0001080319">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis" value="us-gaap:DebenturesSubjectToMandatoryRedemptionMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="123,591"/>
+ </ref></entry>
+<entry code="DQC.US.0001.57" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1080319/000101738620000223/nwgi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="1838683301248">[DQC.US.0001.57] The concept StockIssuedDuringPeriodValueConversionOfConvertibleSecurities with a value of 5,972,507 is dimensionally qualified with the ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis and the base taxonomy member DebenturesSubjectToMandatoryRedemptionMember. Only extension members should be used with the axis ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis.
+The properties of the fact for StockIssuedDuringPeriodValueConversionOfConvertibleSecurities are:
+Period: 2020-01-01 to 2020-12-31
+Dimensions: srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis=us-gaap:DebenturesSubjectToMandatoryRedemptionMember 
+Unit: USD
+
+Rule Element Id:57
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1080319/000101738620000223/nwgi-20200331.xml 2856</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1080319/000101738620000223/nwgi-20200331.xml#element(/1/601)" sourceLine="2856">
+  <property name="label" value="Common stock issued with debentures"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="StockIssuedDuringPeriodValueConversionOfConvertibleSecurities"/>
+  <property name="QName" value="us-gaap:StockIssuedDuringPeriodValueConversionOfConvertibleSecurities"/>
+  <property name="contextRef" value="From2020-01-01to2020-12-31_us-gaap_DebenturesSubjectToMandatoryRedemptionMember">
+   <property name="entity" value="0001080319">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis" value="us-gaap:DebenturesSubjectToMandatoryRedemptionMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="5,972,507"/>
+ </ref></entry>
+<entry code="DQC.US.0001.57" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1080319/000101738620000223/nwgi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="1838683301248">[DQC.US.0001.57] The concept CommonStockIssuedToSettleLiabilities with a value of 553,525 is dimensionally qualified with the ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis and the base taxonomy member LiabilityMember. Only extension members should be used with the axis ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis.
+The properties of the fact for CommonStockIssuedToSettleLiabilities are:
+Period: 2019-09-01 to 2019-09-17
+Dimensions: srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis=us-gaap:LiabilityMember 
+Unit: USD
+
+Rule Element Id:57
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1080319/000101738620000223/nwgi-20200331.xml 3286</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1080319/000101738620000223/nwgi-20200331.xml#element(/1/1031)" sourceLine="3286">
+  <property name="label" value="Common stock issued to settle liabilities"/>
+  <property name="namespace" value="http://newgiocogroup.com/20200331"/>
+  <property name="name" value="CommonStockIssuedToSettleLiabilities"/>
+  <property name="QName" value="NWGI:CommonStockIssuedToSettleLiabilities"/>
+  <property name="contextRef" value="From2019-09-01to2019-09-17_us-gaap_LiabilityMember">
+   <property name="entity" value="0001080319">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-09-01"/>
+   <property name="endDate" value="2019-09-17"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis" value="us-gaap:LiabilityMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="553,525"/>
+ </ref></entry>
+<entry code="DQC.US.0001.57" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1080319/000101738620000223/nwgi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="1838683301248">[DQC.US.0001.57] The concept StockIssuedDuringPeriodValueOther with a value of 457,461 is dimensionally qualified with the ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis and the base taxonomy member CommercialPaperMember. Only extension members should be used with the axis ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis.
+The properties of the fact for StockIssuedDuringPeriodValueOther are:
+Period: 2019-09-01 to 2019-09-17
+Dimensions: srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis=us-gaap:CommercialPaperMember 
+Unit: USD
+
+Rule Element Id:57
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1080319/000101738620000223/nwgi-20200331.xml 3305</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1080319/000101738620000223/nwgi-20200331.xml#element(/1/1050)" sourceLine="3305">
+  <property name="label" value="Common stock issued for debt"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="StockIssuedDuringPeriodValueOther"/>
+  <property name="QName" value="us-gaap:StockIssuedDuringPeriodValueOther"/>
+  <property name="contextRef" value="From2019-09-01to2019-09-17_us-gaap_CommercialPaperMember">
+   <property name="entity" value="0001080319">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-09-01"/>
+   <property name="endDate" value="2019-09-17"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis" value="us-gaap:CommercialPaperMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="457,461"/>
+ </ref></entry>
+<entry code="DQC.US.0001.57" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1080319/000101738620000223/nwgi-20200331.xml" severity="error" effectiveDate="2017-01-01" cid="1838683301248">[DQC.US.0001.57] The concept StockIssuedDuringPeriodSharesOther with a value of 284,721 is dimensionally qualified with the ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis and the base taxonomy member CommercialPaperMember. Only extension members should be used with the axis ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis.
+The properties of the fact for StockIssuedDuringPeriodSharesOther are:
+Period: 2019-09-01 to 2019-09-17
+Dimensions: srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis=us-gaap:CommercialPaperMember 
+Unit: shares
+
+Rule Element Id:57
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1080319/000101738620000223/nwgi-20200331.xml 3306</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1080319/000101738620000223/nwgi-20200331.xml#element(/1/1051)" sourceLine="3306">
+  <property name="label" value="Common stock issued for debt, shares"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="StockIssuedDuringPeriodSharesOther"/>
+  <property name="QName" value="us-gaap:StockIssuedDuringPeriodSharesOther"/>
+  <property name="contextRef" value="From2019-09-01to2019-09-17_us-gaap_CommercialPaperMember">
+   <property name="entity" value="0001080319">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-09-01"/>
+   <property name="endDate" value="2019-09-17"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis" value="us-gaap:CommercialPaperMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="284,721"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 18.66 secs - http://www.sec.gov/Archives/edgar/data/1080319/000101738620000223/nwgi-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1080319/000101738620000223/nwgi-20200331.xml"/></entry>
+</log>

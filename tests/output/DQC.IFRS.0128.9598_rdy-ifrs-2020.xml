@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23303 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.68 secs at 2021-11-15T17:37:00 - https://www.sec.gov/Archives/edgar/data/1135951/000157587221000138/rdy-20210331.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1135951/000157587221000138/rdy-20210331.xml"/></entry>
+<entry code="DQC.IFRS.0128.9598" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1135951/000157587221000138/rdy-20210331.xml" severity="error" status="PROPOSED" effectiveDate="None" cid="1866128950224">[DQC.IFRS.0128.9598] The concept ifrs-full:PurchaseOfIntangibleAssetsClassifiedAsInvestingActivities with a value of 3,291,000,000 and dimensions of ifrs-full:ClassesOfIntangibleAssetsOtherThanGoodwillAxis=ifrs-full:IntangibleAssetsUnderDevelopmentMember is greater than the default value for this concept of 2,820,000,000. Dimension values used with the dimension ClassesOfIntangibleAssetsOtherThanGoodwillAxis should aggregate to a value no greater than the default value of 2,820,000,000. Either update the default value or the dimension value.
+Element : ifrs-full:PurchaseOfIntangibleAssetsClassifiedAsInvestingActivities
+Period : 2020-04-01 to 2021-03-31 
+Dimensions : ifrs-full:ClassesOfIntangibleAssetsOtherThanGoodwillAxis=ifrs-full:IntangibleAssetsUnderDevelopmentMember
+
+Rule Element Id:9598
+Rule version: 17.0.0RC1  - https://www.sec.gov/Archives/edgar/data/1135951/000157587221000138/rdy-20210331.xml 17842</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1135951/000157587221000138/rdy-20210331.xml#Factid_23063089" sourceLine="17842">
+  <property name="label" value="Purchase of intangible assets, classified as investing activities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2020-03-16/ifrs-full"/>
+  <property name="name" value="PurchaseOfIntangibleAssetsClassifiedAsInvestingActivities"/>
+  <property name="QName" value="ifrs-full:PurchaseOfIntangibleAssetsClassifiedAsInvestingActivities"/>
+  <property name="contextRef" value="P04_01_2020To03_31_2021_IntangibleAssetsUnderDevelopmentMemberifrsfullClassesOfIntangibleAssetsOtherThanGoodwillAxis">
+   <property name="entity" value="0001135951">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-04-01"/>
+   <property name="endDate" value="2021-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ClassesOfIntangibleAssetsOtherThanGoodwillAxis" value="ifrs-full:IntangibleAssetsUnderDevelopmentMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_INR (₨)">
+   <property name="measure" value="iso4217:INR"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="3,291,000,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 8.28 secs - https://www.sec.gov/Archives/edgar/data/1135951/000157587221000138/rdy-20210331.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1135951/000157587221000138/rdy-20210331.xml"/></entry>
+</log>

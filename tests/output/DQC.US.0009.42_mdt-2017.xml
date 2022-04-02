@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 8.98 secs at 2018-10-16T09:51:36 - http://www.sec.gov/Archives/edgar/data/1613103/000161310317000018/mdt-20170428.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1613103/000161310317000018/mdt-20170428.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - mdt-20170428.xml </message>
+ <ref href="mdt-20170428.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpu00ydcy3/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpu00ydcy3/packages/resources.zip"/></entry>
+<entry code="DQC.US.0009.42" level="error">
+ <message cid="4529741496" filing_url="http://www.sec.gov/Archives/edgar/data/1613103/000161310317000018/mdt-20170428.xml" severity="error">[DQC.US.0009.42] The value of Defined Benefit Plan, Pension Plan with Accumulated Benefit Obligation in Excess of Plan Assets, Projected Benefit Obligation, 4,333,000,000, should be less than or equal to Defined Benefit Plan, Benefit Obligation, 1,535,000,000. Defined Benefit Plan, Pension Plan with Accumulated Benefit Obligation in Excess of Plan Assets, Projected Benefit Obligation is a subset of Defined Benefit Plan, Benefit Obligation.
+
+The properties of this us-gaap:DefinedBenefitPlanPensionPlansWithAccumulatedBenefitObligationsInExcessOfPlanAssetsAggregateProjectedBenefitObligation fact are:
+
+Period: 2016-04-29
+Dimensions: us-gaap:RetirementPlanTypeAxis=us-gaap:PensionPlansDefinedBenefitMember
+Unit: USD
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1613103/000161310317000018/mdt-20170428.xml 13164</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1613103/000161310317000018/mdt-20170428.xml#Fact-631A67110AA8C24B16D4CB757A5AD2ED" sourceLine="13164">
+  <property name="label" value="Defined Benefit Plan, Pension Plan with Accumulated Benefit Obligation in Excess of Plan Assets, Projected Benefit Obligation"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanPensionPlansWithAccumulatedBenefitObligationsInExcessOfPlanAssetsAggregateProjectedBenefitObligation"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanPensionPlansWithAccumulatedBenefitObligationsInExcessOfPlanAssetsAggregateProjectedBenefitObligation"/>
+  <property name="contextRef" value="FI2016Q4_us-gaap_RetirementPlanTypeAxis_us-gaap_PensionPlansDefinedBenefitMember">
+   <property name="entity" value="0001613103">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-04-29"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4,333,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0009.42" level="error">
+ <message cid="4529741496" filing_url="http://www.sec.gov/Archives/edgar/data/1613103/000161310317000018/mdt-20170428.xml" severity="error">[DQC.US.0009.42] The value of Defined Benefit Plan, Pension Plan with Accumulated Benefit Obligation in Excess of Plan Assets, Projected Benefit Obligation, 4,677,000,000, should be less than or equal to Defined Benefit Plan, Benefit Obligation, 1,734,000,000. Defined Benefit Plan, Pension Plan with Accumulated Benefit Obligation in Excess of Plan Assets, Projected Benefit Obligation is a subset of Defined Benefit Plan, Benefit Obligation.
+
+The properties of this us-gaap:DefinedBenefitPlanPensionPlansWithAccumulatedBenefitObligationsInExcessOfPlanAssetsAggregateProjectedBenefitObligation fact are:
+
+Period: 2017-04-28
+Dimensions: us-gaap:RetirementPlanTypeAxis=us-gaap:PensionPlansDefinedBenefitMember
+Unit: USD
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1613103/000161310317000018/mdt-20170428.xml 13165</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1613103/000161310317000018/mdt-20170428.xml#Fact-BDDB1DE524D7387B9AFDCB757A5D9C42" sourceLine="13165">
+  <property name="label" value="Defined Benefit Plan, Pension Plan with Accumulated Benefit Obligation in Excess of Plan Assets, Projected Benefit Obligation"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanPensionPlansWithAccumulatedBenefitObligationsInExcessOfPlanAssetsAggregateProjectedBenefitObligation"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanPensionPlansWithAccumulatedBenefitObligationsInExcessOfPlanAssetsAggregateProjectedBenefitObligation"/>
+  <property name="contextRef" value="FI2017Q4_us-gaap_RetirementPlanTypeAxis_us-gaap_PensionPlansDefinedBenefitMember">
+   <property name="entity" value="0001613103">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-04-28"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4,677,000,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.46 secs - http://www.sec.gov/Archives/edgar/data/1613103/000161310317000018/mdt-20170428.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1613103/000161310317000018/mdt-20170428.xml"/></entry>
+</log>

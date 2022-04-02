@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22739 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.62 secs at 2019-04-18T10:35:11 - https://www.sec.gov/Archives/edgar/data/1657853/000165785319000005/htz-20181231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1657853/000165785319000005/htz-20181231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv and effective_dates.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpf3uv3l4n/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpf3uv3l4n/packages/resources.zip"/></entry>
+<entry code="DQC.US.0004.9288" level="error">
+ <message effectiveDate="None" cid="4548333240" filing_url="https://www.sec.gov/Archives/edgar/data/1657853/000165785319000005/htz-20181231.xml" severity="error">[DQC.US.0004.9288] Net Cash Provided by (Used in) Investing Activities with a value of -2,048,000,000 is not equal to the combined total of Net Cash Provided by (Used in) Investing Activities, Continuing Operations and Cash Provided by (Used in) Investing Activities, Discontinued Operations ( -2,048,000,000 + -77,000,000 ) with a value of -2,125,000,000. 
+
+These values should be equal.
+The properties of this us-gaap:NetCashProvidedByUsedInInvestingActivities fact are:
+Period :2016-01-01 to 2016-12-31
+Dimensions :  
+Unit : USD
+Decimals of Net Cash Provided by (Used in) Investing Activities : -6
+Decimals of Net Cash Provided by (Used in) Investing Activities, Continuing Operations : -6
+Decimals of Cash Provided by (Used in) Investing Activities, Discontinued Operations : -6
+
+Rule Element Id:9288
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1657853/000165785319000005/htz-20181231.xml 14012</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1657853/000165785319000005/htz-20181231.xml#Fact-FA72ACAD055FC096C172E399A8735285" sourceLine="14012">
+  <property name="label" value="Net Cash Provided by (Used in) Investing Activities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInInvestingActivities"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInInvestingActivities"/>
+  <property name="contextRef" value="FD2016Q4YTD">
+   <property name="entity" value="0001657853">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-01-01"/>
+   <property name="endDate" value="2016-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-2,048,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9288" level="error">
+ <message effectiveDate="None" cid="4548333240" filing_url="https://www.sec.gov/Archives/edgar/data/1657853/000165785319000005/htz-20181231.xml" severity="error">[DQC.US.0004.9288] Net Cash Provided by (Used in) Investing Activities with a value of -2,048,000,000 is not equal to the combined total of Net Cash Provided by (Used in) Investing Activities, Continuing Operations and Cash Provided by (Used in) Investing Activities, Discontinued Operations ( -2,048,000,000 + -77,000,000 ) with a value of -2,125,000,000. 
+
+These values should be equal.
+The properties of this us-gaap:NetCashProvidedByUsedInInvestingActivities fact are:
+Period :2016-01-01 to 2016-12-31
+Dimensions :  dei:LegalEntityAxis=htz:TheHertzCorporationMember
+Unit : USD
+Decimals of Net Cash Provided by (Used in) Investing Activities : -6
+Decimals of Net Cash Provided by (Used in) Investing Activities, Continuing Operations : -6
+Decimals of Cash Provided by (Used in) Investing Activities, Discontinued Operations : -6
+
+Rule Element Id:9288
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1657853/000165785319000005/htz-20181231.xml 14013</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1657853/000165785319000005/htz-20181231.xml#Fact-5F9B4BEFDB37D9C50FEDE39D9A8BBF8D" sourceLine="14013">
+  <property name="label" value="Net Cash Provided by (Used in) Investing Activities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInInvestingActivities"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInInvestingActivities"/>
+  <property name="contextRef" value="FD2016Q4YTD_dei_LegalEntityAxis_htz_TheHertzCorporationMember">
+   <property name="entity" value="0001657853">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-01-01"/>
+   <property name="endDate" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="dei:LegalEntityAxis" value="htz:TheHertzCorporationMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-2,048,000,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 9.38 secs - https://www.sec.gov/Archives/edgar/data/1657853/000165785319000005/htz-20181231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1657853/000165785319000005/htz-20181231.xml"/></entry>
+</log>

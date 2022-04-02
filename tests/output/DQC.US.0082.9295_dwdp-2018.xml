@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22790 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 22.20 secs at 2019-07-22T17:47:56 - https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml"/></entry>
+<entry code="DQC.US.0082.9295" level="error">
+ <message cid="4562567296" filing_url="https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml" severity="error" effectiveDate="None">[DQC.US.0082.9295] The filer has used the element VariableInterestEntityConsolidatedLiabilitiesCurrent to report a value of 334,000,000 in the filing. The filer should use the element LiabilitiesCurrent with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to consolidated VIE's.
+
+The properties of this VariableInterestEntityConsolidatedLiabilitiesCurrent fact are:
+Period :2018-12-31
+Dimensions : us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryMember, us-gaap:BalanceSheetLocationAxis=dwdp:CurrentLiabilitiesMember
+Unit : USD
+
+Rule Element Id:9295
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml 25232</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml#Fact-105D8DF416D4CC61436C9EE69462EC6A" sourceLine="25232">
+  <property name="label" value="Variable Interest Entity, Consolidated, Liabilities, Current"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedLiabilitiesCurrent"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedLiabilitiesCurrent"/>
+  <property name="contextRef" value="FI2018Q4_us-gaap_BalanceSheetLocationAxis_dwdp_CurrentLiabilitiesMember_us-gaap_VariableInterestEntitiesByClassificationOfEntityAxis_us-gaap_VariableInterestEntityPrimaryBeneficiaryMember">
+   <property name="entity" value="0001666700">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:BalanceSheetLocationAxis" value="dwdp:CurrentLiabilitiesMember"/>
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="334,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0082.9295" level="error">
+ <message cid="4562567296" filing_url="https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml" severity="error" effectiveDate="None">[DQC.US.0082.9295] The filer has used the element VariableInterestEntityConsolidatedCarryingAmountLiabilities to report a value of 593,000,000 in the filing. The filer should use the element Liabilities with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to consolidated VIE's.
+
+The properties of this VariableInterestEntityConsolidatedCarryingAmountLiabilities fact are:
+Period :2017-12-31
+Dimensions : us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryMember
+Unit : USD
+
+Rule Element Id:9295
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml 25227</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml#Fact-51A3098C7D0846C2871E9EE6945F3772" sourceLine="25227">
+  <property name="label" value="Variable Interest Entity, Consolidated, Carrying Amount, Liabilities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedCarryingAmountLiabilities"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedCarryingAmountLiabilities"/>
+  <property name="contextRef" value="FI2017Q4_us-gaap_VariableInterestEntitiesByClassificationOfEntityAxis_us-gaap_VariableInterestEntityPrimaryBeneficiaryMember">
+   <property name="entity" value="0001666700">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="593,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0082.9295" level="error">
+ <message cid="4562567296" filing_url="https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml" severity="error" effectiveDate="None">[DQC.US.0082.9295] The filer has used the element VariableInterestEntityConsolidatedLiabilitiesNoncurrent to report a value of 41,000,000 in the filing. The filer should use the element LiabilitiesNoncurrent with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to consolidated VIE's.
+
+The properties of this VariableInterestEntityConsolidatedLiabilitiesNoncurrent fact are:
+Period :2017-12-31
+Dimensions : us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryMember, us-gaap:BalanceSheetLocationAxis=us-gaap:OtherNoncurrentLiabilitiesMember
+Unit : USD
+
+Rule Element Id:9295
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml 25236</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml#Fact-1C73F4684CABA4C4F11E9EE6945CD8AB" sourceLine="25236">
+  <property name="label" value="Variable Interest Entity, Consolidated, Liabilities, Noncurrent"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedLiabilitiesNoncurrent"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedLiabilitiesNoncurrent"/>
+  <property name="contextRef" value="FI2017Q4_us-gaap_BalanceSheetLocationAxis_us-gaap_OtherNoncurrentLiabilitiesMember_us-gaap_VariableInterestEntitiesByClassificationOfEntityAxis_us-gaap_VariableInterestEntityPrimaryBeneficiaryMember">
+   <property name="entity" value="0001666700">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:BalanceSheetLocationAxis" value="us-gaap:OtherNoncurrentLiabilitiesMember"/>
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="41,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0082.9295" level="error">
+ <message cid="4562567296" filing_url="https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml" severity="error" effectiveDate="None">[DQC.US.0082.9295] The filer has used the element VariableInterestEntityConsolidatedAssetsCurrent to report a value of 671,000,000 in the filing. The filer should use the element AssetsCurrent with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to consolidated VIE's.
+
+The properties of this VariableInterestEntityConsolidatedAssetsCurrent fact are:
+Period :2017-12-31
+Dimensions : srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis=dwdp:MonetizingAccountsReceivableVIEMember, us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryMember, us-gaap:BalanceSheetLocationAxis=dwdp:CurrentAssetsMember
+Unit : USD
+
+Rule Element Id:9295
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml 25213</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml#Fact-F7C397AF45B15532B55A9EE6956E35ED" sourceLine="25213">
+  <property name="label" value="Variable Interest Entity, Consolidated, Assets, Current"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedAssetsCurrent"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedAssetsCurrent"/>
+  <property name="contextRef" value="FI2017Q4_srt_ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis_dwdp_MonetizingAccountsReceivableVIEMember_us-gaap_BalanceSheetLocationAxis_dwdp_CurrentAssetsMember_us-gaap_VariableInterestEntitiesByClassificationOfEntityAxis_us-gaap_VariableInterestEntityPrimaryBeneficiaryMember">
+   <property name="entity" value="0001666700">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis" value="dwdp:MonetizingAccountsReceivableVIEMember"/>
+    <property name="us-gaap:BalanceSheetLocationAxis" value="dwdp:CurrentAssetsMember"/>
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="671,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0082.9295" level="error">
+ <message cid="4562567296" filing_url="https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml" severity="error" effectiveDate="None">[DQC.US.0082.9295] The filer has used the element VariableInterestEntityConsolidatedLiabilitiesCurrent to report a value of 303,000,000 in the filing. The filer should use the element LiabilitiesCurrent with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to consolidated VIE's.
+
+The properties of this VariableInterestEntityConsolidatedLiabilitiesCurrent fact are:
+Period :2017-12-31
+Dimensions : us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryMember, us-gaap:BalanceSheetLocationAxis=dwdp:CurrentLiabilitiesMember
+Unit : USD
+
+Rule Element Id:9295
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml 25230</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml#Fact-8242D75862E420F657FC9EE69460D4C3" sourceLine="25230">
+  <property name="label" value="Variable Interest Entity, Consolidated, Liabilities, Current"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedLiabilitiesCurrent"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedLiabilitiesCurrent"/>
+  <property name="contextRef" value="FI2017Q4_us-gaap_BalanceSheetLocationAxis_dwdp_CurrentLiabilitiesMember_us-gaap_VariableInterestEntitiesByClassificationOfEntityAxis_us-gaap_VariableInterestEntityPrimaryBeneficiaryMember">
+   <property name="entity" value="0001666700">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:BalanceSheetLocationAxis" value="dwdp:CurrentLiabilitiesMember"/>
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="303,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0082.9295" level="error">
+ <message cid="4562567296" filing_url="https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml" severity="error" effectiveDate="None">[DQC.US.0082.9295] The filer has used the element VariableInterestEntityConsolidatedLiabilitiesCurrent to report a value of 0 in the filing. The filer should use the element LiabilitiesCurrent with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to consolidated VIE's.
+
+The properties of this VariableInterestEntityConsolidatedLiabilitiesCurrent fact are:
+Period :2018-12-31
+Dimensions : srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis=dwdp:MonetizingAccountsReceivableVIEMember, us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryMember, us-gaap:BalanceSheetLocationAxis=dwdp:CurrentLiabilitiesMember
+Unit : USD
+
+Rule Element Id:9295
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml 25231</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml#Fact-FF21B68E0953F4100FD79EE695780288" sourceLine="25231">
+  <property name="label" value="Variable Interest Entity, Consolidated, Liabilities, Current"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedLiabilitiesCurrent"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedLiabilitiesCurrent"/>
+  <property name="contextRef" value="FI2018Q4_srt_ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis_dwdp_MonetizingAccountsReceivableVIEMember_us-gaap_BalanceSheetLocationAxis_dwdp_CurrentLiabilitiesMember_us-gaap_VariableInterestEntitiesByClassificationOfEntityAxis_us-gaap_VariableInterestEntityPrimaryBeneficiaryMember">
+   <property name="entity" value="0001666700">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis" value="dwdp:MonetizingAccountsReceivableVIEMember"/>
+    <property name="us-gaap:BalanceSheetLocationAxis" value="dwdp:CurrentLiabilitiesMember"/>
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="DQC.US.0082.9295" level="error">
+ <message cid="4562567296" filing_url="https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml" severity="error" effectiveDate="None">[DQC.US.0082.9295] The filer has used the element VariableInterestEntityConsolidatedLiabilitiesNoncurrent to report a value of 75,000,000 in the filing. The filer should use the element LiabilitiesNoncurrent with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to consolidated VIE's.
+
+The properties of this VariableInterestEntityConsolidatedLiabilitiesNoncurrent fact are:
+Period :2018-12-31
+Dimensions : us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryMember, us-gaap:BalanceSheetLocationAxis=us-gaap:LongTermDebtMember
+Unit : USD
+
+Rule Element Id:9295
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml 25237</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml#Fact-49B05E69BCFA5FDD36A89EE69461B7A1" sourceLine="25237">
+  <property name="label" value="Variable Interest Entity, Consolidated, Liabilities, Noncurrent"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedLiabilitiesNoncurrent"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedLiabilitiesNoncurrent"/>
+  <property name="contextRef" value="FI2018Q4_us-gaap_BalanceSheetLocationAxis_us-gaap_LongTermDebtMember_us-gaap_VariableInterestEntitiesByClassificationOfEntityAxis_us-gaap_VariableInterestEntityPrimaryBeneficiaryMember">
+   <property name="entity" value="0001666700">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:BalanceSheetLocationAxis" value="us-gaap:LongTermDebtMember"/>
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="75,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0082.9295" level="error">
+ <message cid="4562567296" filing_url="https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml" severity="error" effectiveDate="None">[DQC.US.0082.9295] The filer has used the element VariableInterestEntityConsolidatedLiabilitiesNoncurrent to report a value of 249,000,000 in the filing. The filer should use the element LiabilitiesNoncurrent with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to consolidated VIE's.
+
+The properties of this VariableInterestEntityConsolidatedLiabilitiesNoncurrent fact are:
+Period :2017-12-31
+Dimensions : us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryMember, us-gaap:BalanceSheetLocationAxis=us-gaap:LongTermDebtMember
+Unit : USD
+
+Rule Element Id:9295
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml 25235</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml#Fact-6E748A83F461732428D49EE6945D4778" sourceLine="25235">
+  <property name="label" value="Variable Interest Entity, Consolidated, Liabilities, Noncurrent"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedLiabilitiesNoncurrent"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedLiabilitiesNoncurrent"/>
+  <property name="contextRef" value="FI2017Q4_us-gaap_BalanceSheetLocationAxis_us-gaap_LongTermDebtMember_us-gaap_VariableInterestEntitiesByClassificationOfEntityAxis_us-gaap_VariableInterestEntityPrimaryBeneficiaryMember">
+   <property name="entity" value="0001666700">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:BalanceSheetLocationAxis" value="us-gaap:LongTermDebtMember"/>
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="249,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0082.9295" level="error">
+ <message cid="4562567296" filing_url="https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml" severity="error" effectiveDate="None">[DQC.US.0082.9295] The filer has used the element VariableInterestEntityConsolidatedCarryingAmountLiabilities to report a value of 440,000,000 in the filing. The filer should use the element Liabilities with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to consolidated VIE's.
+
+The properties of this VariableInterestEntityConsolidatedCarryingAmountLiabilities fact are:
+Period :2018-12-31
+Dimensions : us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryMember
+Unit : USD
+
+Rule Element Id:9295
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml 25228</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml#Fact-7AC0271A25F9A2D35B9D9EE6945B77E2" sourceLine="25228">
+  <property name="label" value="Variable Interest Entity, Consolidated, Carrying Amount, Liabilities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedCarryingAmountLiabilities"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedCarryingAmountLiabilities"/>
+  <property name="contextRef" value="FI2018Q4_us-gaap_VariableInterestEntitiesByClassificationOfEntityAxis_us-gaap_VariableInterestEntityPrimaryBeneficiaryMember">
+   <property name="entity" value="0001666700">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="440,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0082.9295" level="error">
+ <message cid="4562567296" filing_url="https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml" severity="error" effectiveDate="None">[DQC.US.0082.9295] The filer has used the element VariableInterestEntityConsolidatedLiabilitiesCurrent to report a value of 1,000,000 in the filing. The filer should use the element LiabilitiesCurrent with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to consolidated VIE's.
+
+The properties of this VariableInterestEntityConsolidatedLiabilitiesCurrent fact are:
+Period :2017-12-31
+Dimensions : us-gaap:BalanceSheetLocationAxis=dwdp:CurrentLiabilitiesMember, us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryMember, srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis=dwdp:MonetizingAccountsReceivableVIEMember
+Unit : USD
+
+Rule Element Id:9295
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml 25229</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml#Fact-2BC5CDCEE7D1AD50BC169EE6956EEE71" sourceLine="25229">
+  <property name="label" value="Variable Interest Entity, Consolidated, Liabilities, Current"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedLiabilitiesCurrent"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedLiabilitiesCurrent"/>
+  <property name="contextRef" value="FI2017Q4_srt_ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis_dwdp_MonetizingAccountsReceivableVIEMember_us-gaap_BalanceSheetLocationAxis_dwdp_CurrentLiabilitiesMember_us-gaap_VariableInterestEntitiesByClassificationOfEntityAxis_us-gaap_VariableInterestEntityPrimaryBeneficiaryMember">
+   <property name="entity" value="0001666700">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis" value="dwdp:MonetizingAccountsReceivableVIEMember"/>
+    <property name="us-gaap:BalanceSheetLocationAxis" value="dwdp:CurrentLiabilitiesMember"/>
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0082.9295" level="error">
+ <message cid="4562567296" filing_url="https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml" severity="error" effectiveDate="None">[DQC.US.0082.9295] The filer has used the element VariableInterestEntityConsolidatedLiabilitiesNoncurrent to report a value of 31,000,000 in the filing. The filer should use the element LiabilitiesNoncurrent with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to consolidated VIE's.
+
+The properties of this VariableInterestEntityConsolidatedLiabilitiesNoncurrent fact are:
+Period :2018-12-31
+Dimensions : us-gaap:BalanceSheetLocationAxis=us-gaap:OtherNoncurrentLiabilitiesMember, us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryMember
+Unit : USD
+
+Rule Element Id:9295
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml 25238</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml#Fact-934A4B92334455C942449EE6945E5B1E" sourceLine="25238">
+  <property name="label" value="Variable Interest Entity, Consolidated, Liabilities, Noncurrent"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedLiabilitiesNoncurrent"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedLiabilitiesNoncurrent"/>
+  <property name="contextRef" value="FI2018Q4_us-gaap_BalanceSheetLocationAxis_us-gaap_OtherNoncurrentLiabilitiesMember_us-gaap_VariableInterestEntitiesByClassificationOfEntityAxis_us-gaap_VariableInterestEntityPrimaryBeneficiaryMember">
+   <property name="entity" value="0001666700">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:BalanceSheetLocationAxis" value="us-gaap:OtherNoncurrentLiabilitiesMember"/>
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="31,000,000"/>
+ </ref></entry>
+<entry code="DQC.US.0082.9295" level="error">
+ <message cid="4562567296" filing_url="https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml" severity="error" effectiveDate="None">[DQC.US.0082.9295] The filer has used the element VariableInterestEntityConsolidatedAssetsCurrent to report a value of 0 in the filing. The filer should use the element AssetsCurrent with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to consolidated VIE's.
+
+The properties of this VariableInterestEntityConsolidatedAssetsCurrent fact are:
+Period :2018-12-31
+Dimensions : srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis=dwdp:MonetizingAccountsReceivableVIEMember, us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=us-gaap:VariableInterestEntityPrimaryBeneficiaryMember, us-gaap:BalanceSheetLocationAxis=dwdp:CurrentAssetsMember
+Unit : USD
+
+Rule Element Id:9295
+Rule version: 10.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml 25214</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml#Fact-4DD76536EB2D6B9C72409EE6957811CF" sourceLine="25214">
+  <property name="label" value="Variable Interest Entity, Consolidated, Assets, Current"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedAssetsCurrent"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedAssetsCurrent"/>
+  <property name="contextRef" value="FI2018Q4_srt_ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis_dwdp_MonetizingAccountsReceivableVIEMember_us-gaap_BalanceSheetLocationAxis_dwdp_CurrentAssetsMember_us-gaap_VariableInterestEntitiesByClassificationOfEntityAxis_us-gaap_VariableInterestEntityPrimaryBeneficiaryMember">
+   <property name="entity" value="0001666700">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(3)">
+    <property name="srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis" value="dwdp:MonetizingAccountsReceivableVIEMember"/>
+    <property name="us-gaap:BalanceSheetLocationAxis" value="dwdp:CurrentAssetsMember"/>
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="us-gaap:VariableInterestEntityPrimaryBeneficiaryMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 11.28 secs - https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1666700/000166670019000006/dwdp-20181231.xml"/></entry>
+</log>

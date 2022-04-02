@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 6.13 secs at 2019-11-15T16:41:28 - https://www.sec.gov/Archives/edgar/data/1528396/000152839619000036/gwre-7312019x10ka.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1528396/000152839619000036/gwre-7312019x10ka.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmps2n34ezl\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmps2n34ezl\packages\resources.zip"/></entry>
+<entry code="DQC.US.0085.9365" level="error">
+ <message effectiveDate="None" severity="error" cid="2779359143080" filing_url="https://www.sec.gov/Archives/edgar/data/1528396/000152839619000036/gwre-7312019x10ka.htm">[DQC.US.0085.9365] The element DeferredTaxAssetsLiabilitiesNet has been reported with a value of 90,308,000, this element is also included as a calculation descendant of Assets  in the financial statements. This element is a footnote element and should not appear in the face financial statements.
+
+Period :2019-07-31
+Dimensions : 
+Unit : USD
+Decimals: -3
+
+Rule Element Id:9365
+Rule version: 11.0.0RC1
+ - https://www.sec.gov/Archives/edgar/data/1528396/000152839619000036/gwre-7312019x10ka.htm 3015</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1528396/000152839619000036/gwre-7312019x10ka.htm#d25883002e872-wk-Fact-5DE56F9CE58955068B2D3AB1A405B533" sourceLine="3015">
+  <property name="file" value="gwre-7312019x10ka.htm"/>
+  <property name="line" value="3015"/>
+  <property name="label" value="Deferred Tax Assets, Net"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DeferredTaxAssetsLiabilitiesNet"/>
+  <property name="QName" value="us-gaap:DeferredTaxAssetsLiabilitiesNet"/>
+  <property name="contextRef" value="FI2019Q4">
+   <property name="entity" value="0001528396">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-07-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="90,308,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="90,308"/>
+ </ref></entry>
+<entry code="DQC.US.0085.9365" level="error">
+ <message effectiveDate="None" severity="error" cid="2779359143080" filing_url="https://www.sec.gov/Archives/edgar/data/1528396/000152839619000036/gwre-7312019x10ka.htm">[DQC.US.0085.9365] The element DeferredTaxAssetsLiabilitiesNet has been reported with a value of 142,295,000, this element is also included as a calculation descendant of Assets  in the financial statements. This element is a footnote element and should not appear in the face financial statements.
+
+Period :2019-07-31
+Dimensions : us-gaap:InitialApplicationPeriodCumulativeEffectTransitionAxis=us-gaap:CalculatedUnderRevenueGuidanceInEffectBeforeTopic606Member
+Unit : USD
+Decimals: -3
+
+Rule Element Id:9365
+Rule version: 11.0.0RC1
+ - https://www.sec.gov/Archives/edgar/data/1528396/000152839619000036/gwre-7312019x10ka.htm 3015</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1528396/000152839619000036/gwre-7312019x10ka.htm#d25890879e2117-wk-Fact-432D26A01A7E56628079CECA5504D136" sourceLine="3015">
+  <property name="file" value="gwre-7312019x10ka.htm"/>
+  <property name="line" value="3015"/>
+  <property name="label" value="Deferred Tax Assets, Net"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DeferredTaxAssetsLiabilitiesNet"/>
+  <property name="QName" value="us-gaap:DeferredTaxAssetsLiabilitiesNet"/>
+  <property name="contextRef" value="FI2019Q4_us-gaap_InitialApplicationPeriodCumulativeEffectTransitionAxis_us-gaap_CalculatedUnderRevenueGuidanceInEffectBeforeTopic606Member">
+   <property name="entity" value="0001528396">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-07-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:InitialApplicationPeriodCumulativeEffectTransitionAxis" value="us-gaap:CalculatedUnderRevenueGuidanceInEffectBeforeTopic606Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="142,295,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="142,295"/>
+ </ref></entry>
+<entry code="DQC.US.0085.9365" level="error">
+ <message effectiveDate="None" severity="error" cid="2779359143080" filing_url="https://www.sec.gov/Archives/edgar/data/1528396/000152839619000036/gwre-7312019x10ka.htm">[DQC.US.0085.9365] The element DeferredTaxAssetsLiabilitiesNet has been reported with a value of 51,987,000, this element is also included as a calculation descendant of Assets  in the financial statements. This element is a footnote element and should not appear in the face financial statements.
+
+Period :2019-07-31
+Dimensions : us-gaap:InitialApplicationPeriodCumulativeEffectTransitionAxis=us-gaap:DifferenceBetweenRevenueGuidanceInEffectBeforeAndAfterTopic606Member, us-gaap:AdjustmentsForNewAccountingPronouncementsAxis=us-gaap:AccountingStandardsUpdate201409Member
+Unit : USD
+Decimals: -3
+
+Rule Element Id:9365
+Rule version: 11.0.0RC1
+ - https://www.sec.gov/Archives/edgar/data/1528396/000152839619000036/gwre-7312019x10ka.htm 3015</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1528396/000152839619000036/gwre-7312019x10ka.htm#d25890879e2098-wk-Fact-FA1390AC7626544D86607100BD032001" sourceLine="3015">
+  <property name="file" value="gwre-7312019x10ka.htm"/>
+  <property name="line" value="3015"/>
+  <property name="label" value="Deferred Tax Assets, Net"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DeferredTaxAssetsLiabilitiesNet"/>
+  <property name="QName" value="us-gaap:DeferredTaxAssetsLiabilitiesNet"/>
+  <property name="contextRef" value="FI2019Q4_us-gaap_AdjustmentsForNewAccountingPronouncementsAxis_us-gaap_AccountingStandardsUpdate201409Member_us-gaap_InitialApplicationPeriodCumulativeEffectTransitionAxis_us-gaap_DifferenceBetweenRevenueGuidanceInEffectBeforeAndAfterTopic606Member">
+   <property name="entity" value="0001528396">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-07-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:AdjustmentsForNewAccountingPronouncementsAxis" value="us-gaap:AccountingStandardsUpdate201409Member"/>
+    <property name="us-gaap:InitialApplicationPeriodCumulativeEffectTransitionAxis" value="us-gaap:DifferenceBetweenRevenueGuidanceInEffectBeforeAndAfterTopic606Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="51,987,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="51,987"/>
+ </ref></entry>
+<entry code="DQC.US.0085.9365" level="error">
+ <message effectiveDate="None" severity="error" cid="2779359143080" filing_url="https://www.sec.gov/Archives/edgar/data/1528396/000152839619000036/gwre-7312019x10ka.htm">[DQC.US.0085.9365] The element DeferredTaxAssetsLiabilitiesNet has been reported with a value of -13,351,000, this element is also included as a calculation descendant of Assets  in the financial statements. This element is a footnote element and should not appear in the face financial statements.
+
+Period :2018-07-31
+Dimensions : us-gaap:InitialApplicationPeriodCumulativeEffectTransitionAxis=us-gaap:DifferenceBetweenRevenueGuidanceInEffectBeforeAndAfterTopic606Member, us-gaap:AdjustmentsForNewAccountingPronouncementsAxis=us-gaap:AccountingStandardsUpdate201409Member
+Unit : USD
+Decimals: -3
+
+Rule Element Id:9365
+Rule version: 11.0.0RC1
+ - https://www.sec.gov/Archives/edgar/data/1528396/000152839619000036/gwre-7312019x10ka.htm 3015</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1528396/000152839619000036/gwre-7312019x10ka.htm#d25890879e1511-wk-Fact-69B693F920495B74A21D2A43EF62E09A" sourceLine="3015">
+  <property name="file" value="gwre-7312019x10ka.htm"/>
+  <property name="line" value="3015"/>
+  <property name="label" value="Deferred Tax Assets, Net"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DeferredTaxAssetsLiabilitiesNet"/>
+  <property name="QName" value="us-gaap:DeferredTaxAssetsLiabilitiesNet"/>
+  <property name="contextRef" value="FI2018Q4_us-gaap_AdjustmentsForNewAccountingPronouncementsAxis_us-gaap_AccountingStandardsUpdate201409Member_us-gaap_InitialApplicationPeriodCumulativeEffectTransitionAxis_us-gaap_DifferenceBetweenRevenueGuidanceInEffectBeforeAndAfterTopic606Member">
+   <property name="entity" value="0001528396">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-07-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:AdjustmentsForNewAccountingPronouncementsAxis" value="us-gaap:AccountingStandardsUpdate201409Member"/>
+    <property name="us-gaap:InitialApplicationPeriodCumulativeEffectTransitionAxis" value="us-gaap:DifferenceBetweenRevenueGuidanceInEffectBeforeAndAfterTopic606Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-13,351,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="13,351"/>
+ </ref></entry>
+<entry code="DQC.US.0085.9365" level="error">
+ <message effectiveDate="None" severity="error" cid="2779359143080" filing_url="https://www.sec.gov/Archives/edgar/data/1528396/000152839619000036/gwre-7312019x10ka.htm">[DQC.US.0085.9365] The element DeferredTaxAssetsLiabilitiesNet has been reported with a value of 90,369,000, this element is also included as a calculation descendant of Assets  in the financial statements. This element is a footnote element and should not appear in the face financial statements.
+
+Period :2018-07-31
+Dimensions : us-gaap:InitialApplicationPeriodCumulativeEffectTransitionAxis=us-gaap:CalculatedUnderRevenueGuidanceInEffectBeforeTopic606Member, us-gaap:AdjustmentsForNewAccountingPronouncementsAxis=us-gaap:AccountingStandardsUpdate201409Member
+Unit : USD
+Decimals: -3
+
+Rule Element Id:9365
+Rule version: 11.0.0RC1
+ - https://www.sec.gov/Archives/edgar/data/1528396/000152839619000036/gwre-7312019x10ka.htm 3015</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1528396/000152839619000036/gwre-7312019x10ka.htm#d25890879e1492-wk-Fact-AEC81C1B44EC51E09FF9C04012A5ABC9" sourceLine="3015">
+  <property name="file" value="gwre-7312019x10ka.htm"/>
+  <property name="line" value="3015"/>
+  <property name="label" value="Deferred Tax Assets, Net"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DeferredTaxAssetsLiabilitiesNet"/>
+  <property name="QName" value="us-gaap:DeferredTaxAssetsLiabilitiesNet"/>
+  <property name="contextRef" value="FI2018Q4_us-gaap_AdjustmentsForNewAccountingPronouncementsAxis_us-gaap_AccountingStandardsUpdate201409Member_us-gaap_InitialApplicationPeriodCumulativeEffectTransitionAxis_us-gaap_CalculatedUnderRevenueGuidanceInEffectBeforeTopic606Member">
+   <property name="entity" value="0001528396">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-07-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:AdjustmentsForNewAccountingPronouncementsAxis" value="us-gaap:AccountingStandardsUpdate201409Member"/>
+    <property name="us-gaap:InitialApplicationPeriodCumulativeEffectTransitionAxis" value="us-gaap:CalculatedUnderRevenueGuidanceInEffectBeforeTopic606Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="90,369,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="90,369"/>
+ </ref></entry>
+<entry code="DQC.US.0085.9365" level="error">
+ <message effectiveDate="None" severity="error" cid="2779359143080" filing_url="https://www.sec.gov/Archives/edgar/data/1528396/000152839619000036/gwre-7312019x10ka.htm">[DQC.US.0085.9365] The element DeferredTaxAssetsLiabilitiesNet has been reported with a value of 77,018,000, this element is also included as a calculation descendant of Assets  in the financial statements. This element is a footnote element and should not appear in the face financial statements.
+
+Period :2018-08-01
+Dimensions : 
+Unit : USD
+Decimals: -3
+
+Rule Element Id:9365
+Rule version: 11.0.0RC1
+ - https://www.sec.gov/Archives/edgar/data/1528396/000152839619000036/gwre-7312019x10ka.htm 3015</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1528396/000152839619000036/gwre-7312019x10ka.htm#d25890879e1531-wk-Fact-57BEF233545150C883A39ACB06C7D0AE" sourceLine="3015">
+  <property name="file" value="gwre-7312019x10ka.htm"/>
+  <property name="line" value="3015"/>
+  <property name="label" value="Deferred Tax Assets, Net"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DeferredTaxAssetsLiabilitiesNet"/>
+  <property name="QName" value="us-gaap:DeferredTaxAssetsLiabilitiesNet"/>
+  <property name="contextRef" value="I2019Q1Aug01">
+   <property name="entity" value="0001528396">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-08-01"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="77,018,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="77,018"/>
+ </ref></entry>
+<entry code="DQC.US.0085.9365" level="error">
+ <message effectiveDate="None" severity="error" cid="2779359143080" filing_url="https://www.sec.gov/Archives/edgar/data/1528396/000152839619000036/gwre-7312019x10ka.htm">[DQC.US.0085.9365] The element DeferredTaxAssetsLiabilitiesNet has been reported with a value of 90,369,000, this element is also included as a calculation descendant of Assets  in the financial statements. This element is a footnote element and should not appear in the face financial statements.
+
+Period :2018-07-31
+Dimensions : 
+Unit : USD
+Decimals: -3
+
+Rule Element Id:9365
+Rule version: 11.0.0RC1
+ - https://www.sec.gov/Archives/edgar/data/1528396/000152839619000036/gwre-7312019x10ka.htm 3015</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1528396/000152839619000036/gwre-7312019x10ka.htm#d25883002e891-wk-Fact-12115025D4E45F15B6B718CE01E22B5A" sourceLine="3015">
+  <property name="file" value="gwre-7312019x10ka.htm"/>
+  <property name="line" value="3015"/>
+  <property name="label" value="Deferred Tax Assets, Net"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DeferredTaxAssetsLiabilitiesNet"/>
+  <property name="QName" value="us-gaap:DeferredTaxAssetsLiabilitiesNet"/>
+  <property name="contextRef" value="FI2018Q4">
+   <property name="entity" value="0001528396">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-07-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="90,369,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="90,369"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 7.18 secs - https://www.sec.gov/Archives/edgar/data/1528396/000152839619000036/gwre-7312019x10ka.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1528396/000152839619000036/gwre-7312019x10ka.htm"/></entry>
+</log>

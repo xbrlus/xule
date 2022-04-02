@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 6.34 secs at 2019-11-15T16:39:50 - https://www.sec.gov/Archives/edgar/data/6955/000000695519000033/atu-20190831.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/6955/000000695519000033/atu-20190831.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpezy0vivi\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpezy0vivi\packages\resources.zip"/></entry>
+<entry code="DQC.US.0085.9362" level="error">
+ <message severity="error" filing_url="https://www.sec.gov/Archives/edgar/data/6955/000000695519000033/atu-20190831.xml" cid="1548694906024" effectiveDate="None">[DQC.US.0085.9362] The element us-gaap:DeferredIncomeTaxAssetsNet with a value 21,300,000 does not appear in a calculation defined in the filing.  This concept is a balance sheet item and should appear on the balance sheet or as a component of a balance sheet item in the footnotes.  If this value is the amount with jurisdictional netting and it is reported in the footnotes then the value of DeferredTaxAssetsNet (the amount without jurisdictional netting) should also be reported. To resolve the error the element DeferredIncomeTaxAssetsNet needs to either be included with the Balance Sheet Location Axis or be included in a calculation with Assets as an ancestor.
+
+Period :2018-08-31
+Dimensions : 
+Unit : USD
+Decimals: -5
+
+Rule Element Id:9362
+Rule version: 11.0.0RC1 - https://www.sec.gov/Archives/edgar/data/6955/000000695519000033/atu-20190831.xml 4915</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/6955/000000695519000033/atu-20190831.xml#Fact-B065D06E375D23ADFB468CE97F00C40F" sourceLine="4915">
+  <property name="label" value="Deferred Income Tax Assets, Net"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="DeferredIncomeTaxAssetsNet"/>
+  <property name="QName" value="us-gaap:DeferredIncomeTaxAssetsNet"/>
+  <property name="contextRef" value="FI2018Q4">
+   <property name="entity" value="0000006955">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-08-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="21,300,000"/>
+ </ref></entry>
+<entry code="DQC.US.0085.9362" level="error">
+ <message severity="error" filing_url="https://www.sec.gov/Archives/edgar/data/6955/000000695519000033/atu-20190831.xml" cid="1548694906024" effectiveDate="None">[DQC.US.0085.9362] The element us-gaap:DeferredIncomeTaxAssetsNet with a value 18,400,000 does not appear in a calculation defined in the filing.  This concept is a balance sheet item and should appear on the balance sheet or as a component of a balance sheet item in the footnotes.  If this value is the amount with jurisdictional netting and it is reported in the footnotes then the value of DeferredTaxAssetsNet (the amount without jurisdictional netting) should also be reported. To resolve the error the element DeferredIncomeTaxAssetsNet needs to either be included with the Balance Sheet Location Axis or be included in a calculation with Assets as an ancestor.
+
+Period :2019-08-31
+Dimensions : 
+Unit : USD
+Decimals: -5
+
+Rule Element Id:9362
+Rule version: 11.0.0RC1 - https://www.sec.gov/Archives/edgar/data/6955/000000695519000033/atu-20190831.xml 4916</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/6955/000000695519000033/atu-20190831.xml#Fact-A5B941924FCFDDCED1F58CE97E160313" sourceLine="4916">
+  <property name="label" value="Deferred Income Tax Assets, Net"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="DeferredIncomeTaxAssetsNet"/>
+  <property name="QName" value="us-gaap:DeferredIncomeTaxAssetsNet"/>
+  <property name="contextRef" value="FI2019Q4">
+   <property name="entity" value="0000006955">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-08-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="18,400,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 8.14 secs - https://www.sec.gov/Archives/edgar/data/6955/000000695519000033/atu-20190831.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/6955/000000695519000033/atu-20190831.xml"/></entry>
+</log>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.34 secs at 2020-07-26T16:01:38 - http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmphwzagxvr\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmphwzagxvr\packages\resources.zip"/></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml" severity="error" effectiveDate="2019-09-30" cid="2707065709952">[DQC.US.0081.9278] The line item concept us-gaap:ConvertibleNotesPayableCurrent with a value of 459,398 and a calculation parent of us-gaap:LiabilitiesCurrent is represented as a sibling of us-gaap:NotesAndLoansPayableCurrent with a value of 0 in the extension taxonomy role 0000002 - Statement - Consolidated Balance Sheets, but us-gaap:ConvertibleNotesPayableCurrent is represented as a descendent of us-gaap:NotesAndLoansPayableCurrent in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:ConvertibleNotesPayableCurrent fact are:
+
+Period :2018-04-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml 2129</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml#element(/1/217)" sourceLine="2129">
+  <property name="label" value="Convertible promissory notes, net of discount of $0 and $21,225, respectively"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="ConvertibleNotesPayableCurrent"/>
+  <property name="QName" value="us-gaap:ConvertibleNotesPayableCurrent"/>
+  <property name="contextRef" value="AsOf2018-04-30">
+   <property name="entity" value="0001518720">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-04-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="459,398"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml" severity="error" effectiveDate="2019-09-30" cid="2707065709952">[DQC.US.0081.9278] The line item concept us-gaap:ConvertibleNotesPayableCurrent with a value of 439,465 and a calculation parent of us-gaap:LiabilitiesCurrent is represented as a sibling of us-gaap:NotesAndLoansPayableCurrent with a value of 17,966 in the extension taxonomy role 0000002 - Statement - Consolidated Balance Sheets, but us-gaap:ConvertibleNotesPayableCurrent is represented as a descendent of us-gaap:NotesAndLoansPayableCurrent in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:ConvertibleNotesPayableCurrent fact are:
+
+Period :2019-04-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml 2128</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml#element(/1/216)" sourceLine="2128">
+  <property name="label" value="Convertible promissory notes, net of discount of $0 and $21,225, respectively"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="ConvertibleNotesPayableCurrent"/>
+  <property name="QName" value="us-gaap:ConvertibleNotesPayableCurrent"/>
+  <property name="contextRef" value="AsOf2019-04-30">
+   <property name="entity" value="0001518720">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-04-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="439,465"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 21.75 secs - http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1518720/000164033420001843/fpvd-20190430.xml"/></entry>
+</log>

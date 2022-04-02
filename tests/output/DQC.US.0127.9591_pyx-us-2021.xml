@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23303 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 9.93 secs at 2021-11-15T16:34:29 - https://www.sec.gov/Archives/edgar/data/939930/000093993021000034/pyx-20210331.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/939930/000093993021000034/pyx-20210331.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmp51g9rg__\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmp51g9rg__\packages\resources.zip"/></entry>
+<entry code="DQC.US.0127.9591" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/939930/000093993021000034/pyx-20210331.htm" severity="error" status="PROPOSED" effectiveDate="None" cid="1727314920400">[DQC.US.0127.9591] The statement 100010002 - Statement - Consolidated Statements of Operations includes the concept us-gaap:DeconsolidationGainOrLossAmount in the presentation tree. The filing does not include a dimensional structure for this statement.  The filing  does not include a  default value for this presentation item us-gaap:DeconsolidationGainOrLossAmount but does include dimensionalized values for this element of the following:
+
+-70,242,000
+
+If the dimensionalized value appears in the financial statements, then a dimension needs to be added to the report. If the item has no value on the financial statements, then the presentation item should be removed from the financial statements.
+
+Total Element : us-gaap:DeconsolidationGainOrLossAmount
+Total period : 2020-04-01 to 2021-03-31 
+Dimensions : us-gaap:IncomeStatementBalanceSheetAndAdditionalDisclosuresByDisposalGroupsIncludingDiscontinuedOperationsAxis=pyx:CanadianCannabisSubsidiariesMember
+
+Rule Element Id:9591
+Rule version: 17.0.0RC1  - http://xbrl.fasb.org/us-gaap/2020/elts/us-gaap-2020-01-31.xsd 10946</message>
+ <ref href="http://xbrl.fasb.org/us-gaap/2020/elts/us-gaap-2020-01-31.xsd#us-gaap_DeconsolidationGainOrLossAmount" sourceLine="10946">
+  <property name="label" value="Deconsolidation, Gain (Loss), Amount">
+   <property name="label (en-US)" value="Deconsolidation, Gain (Loss), Amount"/>
+   <property name="negatedTerseLabel (en-US)" value="Loss on deconsolidation of subsidiaries"/>
+   <property name="totalLabel (en-US)" value="Loss on deconsolidation"/>
+  </property>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="DeconsolidationGainOrLossAmount"/>
+  <property name="QName" value="us-gaap:DeconsolidationGainOrLossAmount"/>
+  <property name="id" value="us-gaap_DeconsolidationGainOrLossAmount"/>
+  <property name="abstract" value="false"/>
+  <property name="type" value="xbrli:monetaryItemType"/>
+  <property name="subst grp" value="xbrli:item"/>
+  <property name="period type" value="duration"/>
+  <property name="balance" value="credit"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 8.64 secs - https://www.sec.gov/Archives/edgar/data/939930/000093993021000034/pyx-20210331.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/939930/000093993021000034/pyx-20210331.htm"/></entry>
+</log>

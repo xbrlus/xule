@@ -1,0 +1,1368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.35 secs at 2020-10-28T16:44:06 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml"/></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept BasicEarningsLossPerShare with a value of 0.215 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for BasicEarningsLossPerShare are:
+Period: 2019-01-01 to 2019-06-30
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: GBP/shares
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4347</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698411" sourceLine="4347">
+  <property name="label" value="Basic earnings (loss) per share"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="BasicEarningsLossPerShare"/>
+  <property name="QName" value="ifrs-full:BasicEarningsLossPerShare"/>
+  <property name="contextRef" value="P01_01_2019To06_30_2019_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP_per_Share (£ / shares)">
+   <property name="mul" value="iso4217:GBP"/>
+   <property name="div" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.215"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept ProfitLossAttributableToOrdinaryEquityHoldersOfParentEntityIncludingDilutiveEffects with a value of 627,900,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for ProfitLossAttributableToOrdinaryEquityHoldersOfParentEntityIncludingDilutiveEffects are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: GBP
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4330</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698394" sourceLine="4330">
+  <property name="label" value="Profit (loss), attributable to ordinary equity holders of parent entity including dilutive effects"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ProfitLossAttributableToOrdinaryEquityHoldersOfParentEntityIncludingDilutiveEffects"/>
+  <property name="QName" value="ifrs-full:ProfitLossAttributableToOrdinaryEquityHoldersOfParentEntityIncludingDilutiveEffects"/>
+  <property name="contextRef" value="P01_01_2019To12_31_2019_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP (£)">
+   <property name="measure" value="iso4217:GBP"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="627,900,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept AdjustedWeightedAverageShares with a value of 1,224,700,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for AdjustedWeightedAverageShares are:
+Period: 2020-01-01 to 2020-06-30
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: shares
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4331</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698395" sourceLine="4331">
+  <property name="label" value="Adjusted weighted average number of ordinary shares outstanding"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="AdjustedWeightedAverageShares"/>
+  <property name="QName" value="ifrs-full:AdjustedWeightedAverageShares"/>
+  <property name="contextRef" value="P01_01_2020To06_30_2020_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,224,700,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept BasicEarningsLossPerShare with a value of 0.502 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for BasicEarningsLossPerShare are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: GBP/shares
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4348</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698412" sourceLine="4348">
+  <property name="label" value="Basic earnings (loss) per share"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="BasicEarningsLossPerShare"/>
+  <property name="QName" value="ifrs-full:BasicEarningsLossPerShare"/>
+  <property name="contextRef" value="P01_01_2019To12_31_2019_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP_per_Share (£ / shares)">
+   <property name="mul" value="iso4217:GBP"/>
+   <property name="div" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.502"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept AdjustedWeightedAverageShares with a value of 1,257,300,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for AdjustedWeightedAverageShares are:
+Period: 2019-01-01 to 2019-06-30
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: shares
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4332</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698396" sourceLine="4332">
+  <property name="label" value="Adjusted weighted average number of ordinary shares outstanding"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="AdjustedWeightedAverageShares"/>
+  <property name="QName" value="ifrs-full:AdjustedWeightedAverageShares"/>
+  <property name="contextRef" value="P01_01_2019To06_30_2019_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,257,300,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept ShareOfTaxationOfAssociates with a value of 3,100,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for ShareOfTaxationOfAssociates are:
+Period: 2019-01-01 to 2019-06-30
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: GBP
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4106</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698029" sourceLine="4106">
+  <property name="label" value="Share of taxation of associates"/>
+  <property name="namespace" value="http://www.wpp.com/20200630"/>
+  <property name="name" value="ShareOfTaxationOfAssociates"/>
+  <property name="QName" value="wpp:ShareOfTaxationOfAssociates"/>
+  <property name="contextRef" value="P01_01_2019To06_30_2019_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP (£)">
+   <property name="measure" value="iso4217:GBP"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="3,100,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept AdjustedWeightedAverageShares with a value of 1,260,600,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for AdjustedWeightedAverageShares are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: shares
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4333</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698397" sourceLine="4333">
+  <property name="label" value="Adjusted weighted average number of ordinary shares outstanding"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="AdjustedWeightedAverageShares"/>
+  <property name="QName" value="ifrs-full:AdjustedWeightedAverageShares"/>
+  <property name="contextRef" value="P01_01_2019To12_31_2019_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,260,600,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept ShareOfProfitBeforeInterestAndTaxationOfAssociates with a value of 26,200,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for ShareOfProfitBeforeInterestAndTaxationOfAssociates are:
+Period: 2019-01-01 to 2019-06-30
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: GBP
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4096</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698019" sourceLine="4096">
+  <property name="label" value="Share of profit before interest and taxation of associates"/>
+  <property name="namespace" value="http://www.wpp.com/20200630"/>
+  <property name="name" value="ShareOfProfitBeforeInterestAndTaxationOfAssociates"/>
+  <property name="QName" value="wpp:ShareOfProfitBeforeInterestAndTaxationOfAssociates"/>
+  <property name="contextRef" value="P01_01_2019To06_30_2019_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP (£)">
+   <property name="measure" value="iso4217:GBP"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="26,200,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept ShareOfProfitBeforeInterestAndTaxationOfAssociates with a value of 46,200,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for ShareOfProfitBeforeInterestAndTaxationOfAssociates are:
+Period: 2020-01-01 to 2020-06-30
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: GBP
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4095</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698018" sourceLine="4095">
+  <property name="label" value="Share of profit before interest and taxation of associates"/>
+  <property name="namespace" value="http://www.wpp.com/20200630"/>
+  <property name="name" value="ShareOfProfitBeforeInterestAndTaxationOfAssociates"/>
+  <property name="QName" value="wpp:ShareOfProfitBeforeInterestAndTaxationOfAssociates"/>
+  <property name="contextRef" value="P01_01_2020To06_30_2020_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP (£)">
+   <property name="measure" value="iso4217:GBP"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="46,200,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept ShareOfProfitBeforeInterestAndTaxationOfAssociates with a value of 99,200,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for ShareOfProfitBeforeInterestAndTaxationOfAssociates are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: GBP
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4097</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698020" sourceLine="4097">
+  <property name="label" value="Share of profit before interest and taxation of associates"/>
+  <property name="namespace" value="http://www.wpp.com/20200630"/>
+  <property name="name" value="ShareOfProfitBeforeInterestAndTaxationOfAssociates"/>
+  <property name="QName" value="wpp:ShareOfProfitBeforeInterestAndTaxationOfAssociates"/>
+  <property name="contextRef" value="P01_01_2019To12_31_2019_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP (£)">
+   <property name="measure" value="iso4217:GBP"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="99,200,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept ShareOfExceptionalGainsLossesOfAssociates with a value of -51,400,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for ShareOfExceptionalGainsLossesOfAssociates are:
+Period: 2020-01-01 to 2020-06-30
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: GBP
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 5189</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14699941" sourceLine="5189">
+  <property name="label" value="Share of exceptional gains (losses) of associates"/>
+  <property name="namespace" value="http://www.wpp.com/20200630"/>
+  <property name="name" value="ShareOfExceptionalGainsLossesOfAssociates"/>
+  <property name="QName" value="wpp:ShareOfExceptionalGainsLossesOfAssociates"/>
+  <property name="contextRef" value="P01_01_2020To06_30_2020_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP (£)">
+   <property name="measure" value="iso4217:GBP"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-51,400,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept ProfitLossAttributableToOrdinaryEquityHoldersOfParentEntity with a value of -2,626,500,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for ProfitLossAttributableToOrdinaryEquityHoldersOfParentEntity are:
+Period: 2020-01-01 to 2020-06-30
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: GBP
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4310</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698374" sourceLine="4310">
+  <property name="label" value="Profit (loss), attributable to ordinary equity holders of parent entity"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ProfitLossAttributableToOrdinaryEquityHoldersOfParentEntity"/>
+  <property name="QName" value="ifrs-full:ProfitLossAttributableToOrdinaryEquityHoldersOfParentEntity"/>
+  <property name="contextRef" value="P01_01_2020To06_30_2020_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP (£)">
+   <property name="measure" value="iso4217:GBP"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-2,626,500,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept ShareOfInterestAndNoncontrollingInterestsOfAssociates with a value of 19,400,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for ShareOfInterestAndNoncontrollingInterestsOfAssociates are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: GBP
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4102</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698025" sourceLine="4102">
+  <property name="label" value="Share of interest and non-controlling interests of associates"/>
+  <property name="namespace" value="http://www.wpp.com/20200630"/>
+  <property name="name" value="ShareOfInterestAndNoncontrollingInterestsOfAssociates"/>
+  <property name="QName" value="wpp:ShareOfInterestAndNoncontrollingInterestsOfAssociates"/>
+  <property name="contextRef" value="P01_01_2019To12_31_2019_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP (£)">
+   <property name="measure" value="iso4217:GBP"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="19,400,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept WeightedAverageShares with a value of 1,249,100,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for WeightedAverageShares are:
+Period: 2019-01-01 to 2019-06-30
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: shares
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4314</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698378" sourceLine="4314">
+  <property name="label" value="Weighted average number of ordinary shares outstanding"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="WeightedAverageShares"/>
+  <property name="QName" value="ifrs-full:WeightedAverageShares"/>
+  <property name="contextRef" value="P01_01_2019To06_30_2019_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,249,100,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept WeightedAverageShares with a value of 1,224,700,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for WeightedAverageShares are:
+Period: 2020-01-01 to 2020-06-30
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: shares
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4313</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698377" sourceLine="4313">
+  <property name="label" value="Weighted average number of ordinary shares outstanding"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="WeightedAverageShares"/>
+  <property name="QName" value="ifrs-full:WeightedAverageShares"/>
+  <property name="contextRef" value="P01_01_2020To06_30_2020_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,224,700,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept ShareOfInterestAndNoncontrollingInterestsOfAssociates with a value of 40,400,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for ShareOfInterestAndNoncontrollingInterestsOfAssociates are:
+Period: 2020-01-01 to 2020-06-30
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: GBP
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4101</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698024" sourceLine="4101">
+  <property name="label" value="Share of interest and non-controlling interests of associates"/>
+  <property name="namespace" value="http://www.wpp.com/20200630"/>
+  <property name="name" value="ShareOfInterestAndNoncontrollingInterestsOfAssociates"/>
+  <property name="QName" value="wpp:ShareOfInterestAndNoncontrollingInterestsOfAssociates"/>
+  <property name="contextRef" value="P01_01_2020To06_30_2020_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP (£)">
+   <property name="measure" value="iso4217:GBP"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="40,400,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept DilutedEarningsLossPerShare with a value of -2.145 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for DilutedEarningsLossPerShare are:
+Period: 2020-01-01 to 2020-06-30
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: GBP/shares
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4354</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698418" sourceLine="4354">
+  <property name="label" value="Diluted earnings (loss) per share"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="DilutedEarningsLossPerShare"/>
+  <property name="QName" value="ifrs-full:DilutedEarningsLossPerShare"/>
+  <property name="contextRef" value="P01_01_2020To06_30_2020_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP_per_Share (£ / shares)">
+   <property name="mul" value="iso4217:GBP"/>
+   <property name="div" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-2.145"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept ProfitLossAttributableToOrdinaryEquityHoldersOfParentEntity with a value of 627,900,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for ProfitLossAttributableToOrdinaryEquityHoldersOfParentEntity are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: GBP
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4312</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698376" sourceLine="4312">
+  <property name="label" value="Profit (loss), attributable to ordinary equity holders of parent entity"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ProfitLossAttributableToOrdinaryEquityHoldersOfParentEntity"/>
+  <property name="QName" value="ifrs-full:ProfitLossAttributableToOrdinaryEquityHoldersOfParentEntity"/>
+  <property name="contextRef" value="P01_01_2019To12_31_2019_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP (£)">
+   <property name="measure" value="iso4217:GBP"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="627,900,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept ShareOfExceptionalGainsLossesOfAssociates with a value of -47,800,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for ShareOfExceptionalGainsLossesOfAssociates are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: GBP
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 5191</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14699943" sourceLine="5191">
+  <property name="label" value="Share of exceptional gains (losses) of associates"/>
+  <property name="namespace" value="http://www.wpp.com/20200630"/>
+  <property name="name" value="ShareOfExceptionalGainsLossesOfAssociates"/>
+  <property name="QName" value="wpp:ShareOfExceptionalGainsLossesOfAssociates"/>
+  <property name="contextRef" value="P01_01_2019To12_31_2019_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP (£)">
+   <property name="measure" value="iso4217:GBP"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-47,800,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept ShareOfProfitLossOfAssociatesAccountedForUsingEquityMethod with a value of -51,900,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for ShareOfProfitLossOfAssociatesAccountedForUsingEquityMethod are:
+Period: 2020-01-01 to 2020-06-30
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: GBP
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4269</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698294" sourceLine="4269">
+  <property name="label" value="Share of profit (loss) of associates accounted for using equity method"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ShareOfProfitLossOfAssociatesAccountedForUsingEquityMethod"/>
+  <property name="QName" value="ifrs-full:ShareOfProfitLossOfAssociatesAccountedForUsingEquityMethod"/>
+  <property name="contextRef" value="P01_01_2020To06_30_2020_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP (£)">
+   <property name="measure" value="iso4217:GBP"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-51,900,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept ProfitLossAttributableToOrdinaryEquityHoldersOfParentEntity with a value of 269,200,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for ProfitLossAttributableToOrdinaryEquityHoldersOfParentEntity are:
+Period: 2019-01-01 to 2019-06-30
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: GBP
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4311</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698375" sourceLine="4311">
+  <property name="label" value="Profit (loss), attributable to ordinary equity holders of parent entity"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ProfitLossAttributableToOrdinaryEquityHoldersOfParentEntity"/>
+  <property name="QName" value="ifrs-full:ProfitLossAttributableToOrdinaryEquityHoldersOfParentEntity"/>
+  <property name="contextRef" value="P01_01_2019To06_30_2019_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP (£)">
+   <property name="measure" value="iso4217:GBP"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="269,200,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept ShareOfExceptionalGainsLossesOfAssociates with a value of -13,600,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for ShareOfExceptionalGainsLossesOfAssociates are:
+Period: 2019-01-01 to 2019-06-30
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: GBP
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 5190</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14699942" sourceLine="5190">
+  <property name="label" value="Share of exceptional gains (losses) of associates"/>
+  <property name="namespace" value="http://www.wpp.com/20200630"/>
+  <property name="name" value="ShareOfExceptionalGainsLossesOfAssociates"/>
+  <property name="QName" value="wpp:ShareOfExceptionalGainsLossesOfAssociates"/>
+  <property name="contextRef" value="P01_01_2019To06_30_2019_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP (£)">
+   <property name="measure" value="iso4217:GBP"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-13,600,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept WeightedAverageShares with a value of 1,250,000,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for WeightedAverageShares are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: shares
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4315</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698379" sourceLine="4315">
+  <property name="label" value="Weighted average number of ordinary shares outstanding"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="WeightedAverageShares"/>
+  <property name="QName" value="ifrs-full:WeightedAverageShares"/>
+  <property name="contextRef" value="P01_01_2019To12_31_2019_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,250,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept ShareOfTaxationOfAssociates with a value of 17,300,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for ShareOfTaxationOfAssociates are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: GBP
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4104</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698027" sourceLine="4104">
+  <property name="label" value="Share of taxation of associates"/>
+  <property name="namespace" value="http://www.wpp.com/20200630"/>
+  <property name="name" value="ShareOfTaxationOfAssociates"/>
+  <property name="QName" value="wpp:ShareOfTaxationOfAssociates"/>
+  <property name="contextRef" value="P01_01_2019To12_31_2019_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP (£)">
+   <property name="measure" value="iso4217:GBP"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="17,300,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept DilutedEarningsLossPerShare with a value of 0.214 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for DilutedEarningsLossPerShare are:
+Period: 2019-01-01 to 2019-06-30
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: GBP/shares
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4356</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698420" sourceLine="4356">
+  <property name="label" value="Diluted earnings (loss) per share"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="DilutedEarningsLossPerShare"/>
+  <property name="QName" value="ifrs-full:DilutedEarningsLossPerShare"/>
+  <property name="contextRef" value="P01_01_2019To06_30_2019_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP_per_Share (£ / shares)">
+   <property name="mul" value="iso4217:GBP"/>
+   <property name="div" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.214"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept ShareOfProfitLossOfAssociatesAccountedForUsingEquityMethod with a value of 14,700,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for ShareOfProfitLossOfAssociatesAccountedForUsingEquityMethod are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: GBP
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4271</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698296" sourceLine="4271">
+  <property name="label" value="Share of profit (loss) of associates accounted for using equity method"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ShareOfProfitLossOfAssociatesAccountedForUsingEquityMethod"/>
+  <property name="QName" value="ifrs-full:ShareOfProfitLossOfAssociatesAccountedForUsingEquityMethod"/>
+  <property name="contextRef" value="P01_01_2019To12_31_2019_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP (£)">
+   <property name="measure" value="iso4217:GBP"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="14,700,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept ProfitLossAttributableToOrdinaryEquityHoldersOfParentEntityIncludingDilutiveEffects with a value of -2,626,500,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for ProfitLossAttributableToOrdinaryEquityHoldersOfParentEntityIncludingDilutiveEffects are:
+Period: 2020-01-01 to 2020-06-30
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: GBP
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4328</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698392" sourceLine="4328">
+  <property name="label" value="Profit (loss), attributable to ordinary equity holders of parent entity including dilutive effects"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ProfitLossAttributableToOrdinaryEquityHoldersOfParentEntityIncludingDilutiveEffects"/>
+  <property name="QName" value="ifrs-full:ProfitLossAttributableToOrdinaryEquityHoldersOfParentEntityIncludingDilutiveEffects"/>
+  <property name="contextRef" value="P01_01_2020To06_30_2020_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP (£)">
+   <property name="measure" value="iso4217:GBP"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-2,626,500,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept ShareOfTaxationOfAssociates with a value of 6,300,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for ShareOfTaxationOfAssociates are:
+Period: 2020-01-01 to 2020-06-30
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: GBP
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4103</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698026" sourceLine="4103">
+  <property name="label" value="Share of taxation of associates"/>
+  <property name="namespace" value="http://www.wpp.com/20200630"/>
+  <property name="name" value="ShareOfTaxationOfAssociates"/>
+  <property name="QName" value="wpp:ShareOfTaxationOfAssociates"/>
+  <property name="contextRef" value="P01_01_2020To06_30_2020_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP (£)">
+   <property name="measure" value="iso4217:GBP"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="6,300,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept DilutedEarningsLossPerShare with a value of 0.498 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for DilutedEarningsLossPerShare are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: GBP/shares
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4357</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698421" sourceLine="4357">
+  <property name="label" value="Diluted earnings (loss) per share"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="DilutedEarningsLossPerShare"/>
+  <property name="QName" value="ifrs-full:DilutedEarningsLossPerShare"/>
+  <property name="contextRef" value="P01_01_2019To12_31_2019_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP_per_Share (£ / shares)">
+   <property name="mul" value="iso4217:GBP"/>
+   <property name="div" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.498"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept ShareOfInterestAndNoncontrollingInterestsOfAssociates with a value of 8,000,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for ShareOfInterestAndNoncontrollingInterestsOfAssociates are:
+Period: 2019-01-01 to 2019-06-30
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: GBP
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4105</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698028" sourceLine="4105">
+  <property name="label" value="Share of interest and non-controlling interests of associates"/>
+  <property name="namespace" value="http://www.wpp.com/20200630"/>
+  <property name="name" value="ShareOfInterestAndNoncontrollingInterestsOfAssociates"/>
+  <property name="QName" value="wpp:ShareOfInterestAndNoncontrollingInterestsOfAssociates"/>
+  <property name="contextRef" value="P01_01_2019To06_30_2019_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP (£)">
+   <property name="measure" value="iso4217:GBP"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="8,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept ProfitLossAttributableToOrdinaryEquityHoldersOfParentEntityIncludingDilutiveEffects with a value of 269,200,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for ProfitLossAttributableToOrdinaryEquityHoldersOfParentEntityIncludingDilutiveEffects are:
+Period: 2019-01-01 to 2019-06-30
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: GBP
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4329</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698393" sourceLine="4329">
+  <property name="label" value="Profit (loss), attributable to ordinary equity holders of parent entity including dilutive effects"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ProfitLossAttributableToOrdinaryEquityHoldersOfParentEntityIncludingDilutiveEffects"/>
+  <property name="QName" value="ifrs-full:ProfitLossAttributableToOrdinaryEquityHoldersOfParentEntityIncludingDilutiveEffects"/>
+  <property name="contextRef" value="P01_01_2019To06_30_2019_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP (£)">
+   <property name="measure" value="iso4217:GBP"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="269,200,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept ShareOfProfitLossOfAssociatesAccountedForUsingEquityMethod with a value of 1,500,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for ShareOfProfitLossOfAssociatesAccountedForUsingEquityMethod are:
+Period: 2019-01-01 to 2019-06-30
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: GBP
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4270</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698295" sourceLine="4270">
+  <property name="label" value="Share of profit (loss) of associates accounted for using equity method"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ShareOfProfitLossOfAssociatesAccountedForUsingEquityMethod"/>
+  <property name="QName" value="ifrs-full:ShareOfProfitLossOfAssociatesAccountedForUsingEquityMethod"/>
+  <property name="contextRef" value="P01_01_2019To06_30_2019_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP (£)">
+   <property name="measure" value="iso4217:GBP"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,500,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept BasicEarningsLossPerShare with a value of -2.145 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member ContinuingOperationOneMember. 
+The properties of the fact for BasicEarningsLossPerShare are:
+Period: 2020-01-01 to 2020-06-30
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:ContinuingOperationOneMember 
+Unit: GBP/shares
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4346</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698410" sourceLine="4346">
+  <property name="label" value="Basic earnings (loss) per share"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="BasicEarningsLossPerShare"/>
+  <property name="QName" value="ifrs-full:BasicEarningsLossPerShare"/>
+  <property name="contextRef" value="P01_01_2020To06_30_2020_ContinuingOperationOneMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:ContinuingOperationOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP_per_Share (£ / shares)">
+   <property name="mul" value="iso4217:GBP"/>
+   <property name="div" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-2.145"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept CashFlowsFromUsedInFinancingActivities with a value of 900,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member KantarMember. 
+The properties of the fact for CashFlowsFromUsedInFinancingActivities are:
+Period: 2020-01-01 to 2020-06-30
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:KantarMember 
+Unit: GBP
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4903</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14699404" sourceLine="4903">
+  <property name="label" value="Cash flows from (used in) financing activities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="CashFlowsFromUsedInFinancingActivities"/>
+  <property name="QName" value="ifrs-full:CashFlowsFromUsedInFinancingActivities"/>
+  <property name="contextRef" value="P01_01_2020To06_30_2020_KantarMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:KantarMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP (£)">
+   <property name="measure" value="iso4217:GBP"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="900,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept CashFlowsFromUsedInInvestingActivities with a value of 53,200,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member KantarMember. 
+The properties of the fact for CashFlowsFromUsedInInvestingActivities are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:KantarMember 
+Unit: GBP
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4680</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698953" sourceLine="4680">
+  <property name="label" value="Cash flows from (used in) investing activities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="CashFlowsFromUsedInInvestingActivities"/>
+  <property name="QName" value="ifrs-full:CashFlowsFromUsedInInvestingActivities"/>
+  <property name="contextRef" value="P01_01_2019To12_31_2019_KantarMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:KantarMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP (£)">
+   <property name="measure" value="iso4217:GBP"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="53,200,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept CashFlowsFromUsedInFinancingActivities with a value of 18,800,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member KantarMember. 
+The properties of the fact for CashFlowsFromUsedInFinancingActivities are:
+Period: 2019-01-01 to 2019-06-30
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:KantarMember 
+Unit: GBP
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4681</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698954" sourceLine="4681">
+  <property name="label" value="Cash flows from (used in) financing activities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="CashFlowsFromUsedInFinancingActivities"/>
+  <property name="QName" value="ifrs-full:CashFlowsFromUsedInFinancingActivities"/>
+  <property name="contextRef" value="P01_01_2019To06_30_2019_KantarMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:KantarMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP (£)">
+   <property name="measure" value="iso4217:GBP"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="18,800,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept CashFlowsFromUsedInOperatingActivities with a value of 26,800,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member KantarMember. 
+The properties of the fact for CashFlowsFromUsedInOperatingActivities are:
+Period: 2020-01-01 to 2020-06-30
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:KantarMember 
+Unit: GBP
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4879</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14699367" sourceLine="4879">
+  <property name="label" value="Cash flows from (used in) operating activities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="CashFlowsFromUsedInOperatingActivities"/>
+  <property name="QName" value="ifrs-full:CashFlowsFromUsedInOperatingActivities"/>
+  <property name="contextRef" value="P01_01_2020To06_30_2020_KantarMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:KantarMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP (£)">
+   <property name="measure" value="iso4217:GBP"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="26,800,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept CashFlowsFromUsedInFinancingActivities with a value of 27,200,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member KantarMember. 
+The properties of the fact for CashFlowsFromUsedInFinancingActivities are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:KantarMember 
+Unit: GBP
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4682</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698955" sourceLine="4682">
+  <property name="label" value="Cash flows from (used in) financing activities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="CashFlowsFromUsedInFinancingActivities"/>
+  <property name="QName" value="ifrs-full:CashFlowsFromUsedInFinancingActivities"/>
+  <property name="contextRef" value="P01_01_2019To12_31_2019_KantarMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:KantarMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP (£)">
+   <property name="measure" value="iso4217:GBP"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="27,200,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept CashFlowsFromUsedInOperatingActivities with a value of 135,200,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member KantarMember. 
+The properties of the fact for CashFlowsFromUsedInOperatingActivities are:
+Period: 2019-01-01 to 2019-06-30
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:KantarMember 
+Unit: GBP
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4678</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698951" sourceLine="4678">
+  <property name="label" value="Cash flows from (used in) operating activities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="CashFlowsFromUsedInOperatingActivities"/>
+  <property name="QName" value="ifrs-full:CashFlowsFromUsedInOperatingActivities"/>
+  <property name="contextRef" value="P01_01_2019To06_30_2019_KantarMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:KantarMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP (£)">
+   <property name="measure" value="iso4217:GBP"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="135,200,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept CashFlowsFromUsedInInvestingActivities with a value of 26,500,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member KantarMember. 
+The properties of the fact for CashFlowsFromUsedInInvestingActivities are:
+Period: 2019-01-01 to 2019-06-30
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:KantarMember 
+Unit: GBP
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4683</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698956" sourceLine="4683">
+  <property name="label" value="Cash flows from (used in) investing activities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="CashFlowsFromUsedInInvestingActivities"/>
+  <property name="QName" value="ifrs-full:CashFlowsFromUsedInInvestingActivities"/>
+  <property name="contextRef" value="P01_01_2019To06_30_2019_KantarMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:KantarMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP (£)">
+   <property name="measure" value="iso4217:GBP"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="26,500,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept CashFlowsFromUsedInOperatingActivities with a value of 322,900,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member KantarMember. 
+The properties of the fact for CashFlowsFromUsedInOperatingActivities are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:KantarMember 
+Unit: GBP
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4679</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14698952" sourceLine="4679">
+  <property name="label" value="Cash flows from (used in) operating activities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="CashFlowsFromUsedInOperatingActivities"/>
+  <property name="QName" value="ifrs-full:CashFlowsFromUsedInOperatingActivities"/>
+  <property name="contextRef" value="P01_01_2019To12_31_2019_KantarMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:KantarMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP (£)">
+   <property name="measure" value="iso4217:GBP"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="322,900,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9552" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml" severity="error" effectiveDate="None" cid="2836910216576">[DQC.IFRS.0104.9552] The concept CashFlowsFromUsedInInvestingActivities with a value of 1,100,000 is dimensionally qualified with the ContinuingAndDiscontinuedOperationsAxis and the unallowable member KantarMember. 
+The properties of the fact for CashFlowsFromUsedInInvestingActivities are:
+Period: 2020-01-01 to 2020-06-30
+Dimensions: ifrs-full:ContinuingAndDiscontinuedOperationsAxis=wpp:KantarMember 
+Unit: GBP
+
+Rule Element Id:9552
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml 4880</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml#Factid_14699368" sourceLine="4880">
+  <property name="label" value="Cash flows from (used in) investing activities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="CashFlowsFromUsedInInvestingActivities"/>
+  <property name="QName" value="ifrs-full:CashFlowsFromUsedInInvestingActivities"/>
+  <property name="contextRef" value="P01_01_2020To06_30_2020_KantarMemberifrsfullContinuingAndDiscontinuedOperationsAxis">
+   <property name="entity" value="0000806968">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:ContinuingAndDiscontinuedOperationsAxis" value="wpp:KantarMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_GBP (£)">
+   <property name="measure" value="iso4217:GBP"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,100,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 6.80 secs - https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/806968/000119312520238995/wpp-20200630.xml"/></entry>
+</log>

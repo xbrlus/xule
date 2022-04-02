@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.70 secs at 2020-07-22T09:12:35 - https://www.sec.gov/Archives/edgar/data/778164/000161577419004168/peix-20181231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/778164/000161577419004168/peix-20181231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpdyk7elfm\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpdyk7elfm\packages\resources.zip"/></entry>
+<entry code="DQC.US.0004.9280" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/778164/000161577419004168/peix-20181231.xml" severity="error" effectiveDate="2019-09-30" cid="1939219584384">[DQC.US.0004.9280] Total Assets with a value of 372,965,000 is not equal to the combined total of Current Assets and Noncurrent assets ( 25,574,000 + 346,869,000 ) with a value of 372,443,000. These values should be equal.
+The properties of this us-gaap:Assets fact are:
+Period :2018-12-31
+Dimensions :  srt:ConsolidatedEntitiesAxis=srt:ParentCompanyMember
+Unit : USD
+Decimals of Assets : -3
+Decimals of Current Assets : -3
+Decimals of Non Current Assets : -3
+
+Rule Element Id:9280
+Rule version: 12.0.0RC5 - https://www.sec.gov/Archives/edgar/data/778164/000161577419004168/peix-20181231.xml 5271</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/778164/000161577419004168/peix-20181231.xml#element(/1/1029)" sourceLine="5271">
+  <property name="label" value="Total Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="AsOf2018-12-31_srt_ParentCompanyMember">
+   <property name="entity" value="0000778164">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidatedEntitiesAxis" value="srt:ParentCompanyMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="372,965,000"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9280" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/778164/000161577419004168/peix-20181231.xml" severity="error" effectiveDate="2019-09-30" cid="1939219584384">[DQC.US.0004.9280] Total Assets with a value of 431,165,000 is not equal to the combined total of Current Assets and Noncurrent assets ( 10,083,000 + 420,011,000 ) with a value of 430,094,000. These values should be equal.
+The properties of this us-gaap:Assets fact are:
+Period :2017-12-31
+Dimensions :  srt:ConsolidatedEntitiesAxis=srt:ParentCompanyMember
+Unit : USD
+Decimals of Assets : -3
+Decimals of Current Assets : -3
+Decimals of Non Current Assets : -3
+
+Rule Element Id:9280
+Rule version: 12.0.0RC5 - https://www.sec.gov/Archives/edgar/data/778164/000161577419004168/peix-20181231.xml 5270</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/778164/000161577419004168/peix-20181231.xml#element(/1/1028)" sourceLine="5270">
+  <property name="label" value="Total Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="us-gaap:Assets"/>
+  <property name="contextRef" value="AsOf2017-12-31_us-gaap_ParentCompanyMember">
+   <property name="entity" value="0000778164">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ConsolidatedEntitiesAxis" value="srt:ParentCompanyMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="431,165,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 4.66 secs - https://www.sec.gov/Archives/edgar/data/778164/000161577419004168/peix-20181231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/778164/000161577419004168/peix-20181231.xml"/></entry>
+</log>

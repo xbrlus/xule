@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 6.28 secs at 2018-10-16T09:56:07 - http://www.sec.gov/Archives/edgar/data/50725/000005072517000060/gff-20170930.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/50725/000005072517000060/gff-20170930.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - gff-20170930.xml </message>
+ <ref href="gff-20170930.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp9xp_jhv2/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp9xp_jhv2/packages/resources.zip"/></entry>
+<entry code="DQC.US.0013.2776" level="error">
+ <message severity="error" rule-suffix="2776" filing_url="http://www.sec.gov/Archives/edgar/data/50725/000005072517000060/gff-20170930.xml" cid="4354956984">[DQC.US.0013.2776] It is expected that us-gaap:EffectiveIncomeTaxRateReconciliationDeductionsQualifiedProductionActivities with a value of -0.058 will be reported with a value equal to or greater than zero if net income before tax is positive. In this case net income before tax is 16,698,000. The value reported for the tax rate reconciliation item is less than zero. The preparer should consider if the value is input correctly for this assertion and, after considering the appropriateness of the input, if incorrect, input the amount as a positive (i.e., absolute) value and provide a negated label, if desired, for rendering purposes. 
+
+The properties of this us-gaap:EffectiveIncomeTaxRateReconciliationDeductionsQualifiedProductionActivities fact are:
+Period :2016-10-01 to 2017-09-30
+Dimensions : 
+Unit : pure
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/50725/000005072517000060/gff-20170930.xml 7803</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/50725/000005072517000060/gff-20170930.xml#Fact-17D800A4053BC4A1EAF9C08223C65F94" sourceLine="7803">
+  <property name="label" value="Income (Loss) from Continuing Operations before Income Taxes, Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest"/>
+  <property name="QName" value="us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest"/>
+  <property name="contextRef" value="FD2017Q4YTD">
+   <property name="entity" value="0000050725">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-10-01"/>
+   <property name="endDate" value="2017-09-30"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="16,698,000"/>
+ </ref></entry>
+<entry code="DQC.US.0013.2778" level="error">
+ <message severity="error" rule-suffix="2778" filing_url="http://www.sec.gov/Archives/edgar/data/50725/000005072517000060/gff-20170930.xml" cid="4354956984">[DQC.US.0013.2778] It is expected that us-gaap:EffectiveIncomeTaxRateReconciliationTaxCreditsResearch with a value of -0.088 will be reported with a value equal to or greater than zero if net income before tax is positive. In this case net income before tax is 32,213,000. The value reported for the tax rate reconciliation item is less than zero. The preparer should consider if the value is input correctly for this assertion and, after considering the appropriateness of the input, if incorrect, input the amount as a positive (i.e., absolute) value and provide a negated label, if desired, for rendering purposes. 
+
+The properties of this us-gaap:EffectiveIncomeTaxRateReconciliationTaxCreditsResearch fact are:
+Period :2015-10-01 to 2016-09-30
+Dimensions : 
+Unit : pure
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/50725/000005072517000060/gff-20170930.xml 7802</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/50725/000005072517000060/gff-20170930.xml#Fact-F0C2ABC68639EFBEC498C08223C6F27D" sourceLine="7802">
+  <property name="label" value="Income (Loss) from Continuing Operations before Income Taxes, Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest"/>
+  <property name="QName" value="us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest"/>
+  <property name="contextRef" value="FD2016Q4YTD">
+   <property name="entity" value="0000050725">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2015-10-01"/>
+   <property name="endDate" value="2016-09-30"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="32,213,000"/>
+ </ref></entry>
+<entry code="DQC.US.0013.3002" level="error">
+ <message severity="error" rule-suffix="3002" filing_url="http://www.sec.gov/Archives/edgar/data/50725/000005072517000060/gff-20170930.xml" cid="4354956984">[DQC.US.0013.3002] It is expected that us-gaap:EffectiveIncomeTaxRateReconciliationNondeductibleExpenseMealsAndEntertainment with a value of -0.023 will be reported with a value equal to or greater than zero if net income before tax is positive. In this case net income before tax is 19,066,000. The value reported for the tax rate reconciliation item is less than zero. The preparer should consider if the value is input correctly for this assertion and, after considering the appropriateness of the input, if incorrect, input the amount as a positive (i.e., absolute) value and provide a negated label, if desired, for rendering purposes. 
+
+The properties of this us-gaap:EffectiveIncomeTaxRateReconciliationNondeductibleExpenseMealsAndEntertainment fact are:
+Period :2014-10-01 to 2015-09-30
+Dimensions : 
+Unit : pure
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/50725/000005072517000060/gff-20170930.xml 7801</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/50725/000005072517000060/gff-20170930.xml#Fact-0FAF0DA46241560B1423C08223BFC008" sourceLine="7801">
+  <property name="label" value="Income (Loss) from Continuing Operations before Income Taxes, Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest"/>
+  <property name="QName" value="us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest"/>
+  <property name="contextRef" value="FD2015Q4YTD">
+   <property name="entity" value="0000050725">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2014-10-01"/>
+   <property name="endDate" value="2015-09-30"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="19,066,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 4.59 secs - http://www.sec.gov/Archives/edgar/data/50725/000005072517000060/gff-20170930.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/50725/000005072517000060/gff-20170930.xml"/></entry>
+</log>

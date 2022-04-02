@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 4.24 secs at 2019-11-16T07:40:57 - https://www.sec.gov/Archives/edgar/data/94845/000009484519000039/lvis-20190825.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/94845/000009484519000039/lvis-20190825.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpppaj0aay\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpppaj0aay\packages\resources.zip"/></entry>
+<entry code="DQC.US.0085.9361" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/94845/000009484519000039/lvis-20190825.xml" cid="2713698034856" severity="error" effectiveDate="None">[DQC.US.0085.9361] The element DeferredTaxAssetsNet appears in the face financial statements of the filing.  This element is a footnote concept that should only be used in a footnote disclosure.  To report the value of deferred taxes on the balance sheet either the element DeferredIncomeTaxAssetsNet or DeferredIncomeTaxLiabilitiesNet should be used depending if it is a liability or an asset. If the value of DeferredTaxAssetsNet is the same as the value for DeferredIncomeTaxAssetsNet or DeferredIncomeTaxLiabilitiesNet, then one of these balance sheet elements should be used on the balance sheet and not the footnote element DeferredTaxAssetsNet.
+
+Rule Element Id:9361
+Rule version: 11.0.0RC1 - </message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 4.84 secs - https://www.sec.gov/Archives/edgar/data/94845/000009484519000039/lvis-20190825.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/94845/000009484519000039/lvis-20190825.xml"/></entry>
+</log>

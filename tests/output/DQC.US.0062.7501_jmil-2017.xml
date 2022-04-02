@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.85 secs at 2018-10-16T09:53:38 - http://www.sec.gov/Archives/edgar/data/1735664/000149315218009668/jmil-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1735664/000149315218009668/jmil-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - jmil-20171231.xml </message>
+ <ref href="jmil-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpkbd73ln9/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpkbd73ln9/packages/resources.zip"/></entry>
+<entry code="DQC.US.0062.7501" level="error">
+ <message severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1735664/000149315218009668/jmil-20171231.xml" cid="4373515960">[DQC.US.0062.7501] The filing includes a cash flow statement but does not report a value for the change in cash using any of the following elements:
+
+CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseIncludingExchangeRateEffect (After adoption of ASU-2016-18)  
+CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect (After adoption of ASU-2016-18)  
+CashPeriodIncreaseDecrease (Prior to adoption of ASU-2016-18)
+CashPeriodIncreaseDecreaseExcludingExchangeRateEffect (Prior to adoption of ASU-2016-18)
+CashAndCashEquivalentsPeriodIncreaseDecrease  (Prior to adoption of ASU-2016-18)
+CashAndCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect (Prior to adoption of ASU-2016-18) or 
+NetCashProvidedByUsedInContinuingOperations (As long as the element NetCashProvidedByUsedInDiscontinuedOperations is also included the reconciliation between opening and closing cash)
+
+If you have disclosed a change in cash for the period, one of the above elements should be used.  Please update your filing if one of the following has occurred:
+
+1. The change in cash has not been represented with a value, in this case the element should be tagged with a value of zero. 
+2. The change in cash flow is dimensionally qualified with an inappropriate dimension. The instance should have a value reported with no dimensions. The rule will identify where the successor member has been used or an extension member. The value for change in cash should not have a dimension.
+3. The change in cash has been represented with an extension element. There is no reason the change in cash needs to be identified using an extension element.
+
+Rule Element Id:7501
+Rule version: 9.0.0RC1 - </message></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 1.90 secs - http://www.sec.gov/Archives/edgar/data/1735664/000149315218009668/jmil-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1735664/000149315218009668/jmil-20171231.xml"/></entry>
+</log>

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.19 secs at 2018-12-17T18:39:04 - http://www.sec.gov/Archives/edgar/data/1464300/000149473318000050/ptpro-20170930.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1464300/000149473318000050/ptpro-20170930.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V8-ruleset.zip - ptpro-20170930.xml </message>
+ <ref href="ptpro-20170930.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv and dqc_0080.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpg03fqpha/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpg03fqpha/packages/resources.zip"/></entry>
+<entry code="DQC.US.0006.14" level="error">
+ <message cid="4419178736" severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1464300/000149473318000050/ptpro-20170930.xml">[DQC.US.0006.14] The number of days, 92 in the date range reported for Note 1 - Condensed Financial Statements, 2017-07-01 to 2017-09-30 is not consistent with the Document Fiscal Period Focus with a value of Q3. This period focus expects text block items and dei elements to have at least a period duration between 245 days and 295 days. 
+
+If this filing is for a Foreign Private Issuer and is a transitional report then create a boolean extension element called TransitionReport with a value of true. (This extension element is needed as the dei taxonomy does not include an element that indicates if the report is for a transitional period).
+
+The properties of this us-gaap:CondensedFinancialStatementsTextBlock fact are:
+Period :2017-07-01 to 2017-09-30
+Dimensions : 
+Unit : None
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1464300/000149473318000050/ptpro-20170930.xml 110</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1464300/000149473318000050/ptpro-20170930.xml#element(/1/107)" sourceLine="110">
+  <property name="label" value="Note 1 - Condensed Financial Statements"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="CondensedFinancialStatementsTextBlock"/>
+  <property name="QName" value="us-gaap:CondensedFinancialStatementsTextBlock"/>
+  <property name="contextRef" value="Y17Q3">
+   <property name="entity" value="0001464300">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-07-01"/>
+   <property name="endDate" value="2017-09-30"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="&lt;!--egx-->&lt;p style='margin-top:0cm;margin-right:0cm;margin-bottom:10.0pt;margin-left:0cm;line-height:115%;margin-bottom:0cm;margin-bottom:.0001pt;text-align:justify;line-height:normal'>&lt;b>&lt;u>&lt;font lang=&quot;EN-US&quot;>NOTE 1 &amp;#150; CONDENSED FINANCIAL STATEMENTS&lt;/font>&lt;/u>&lt;/b>&lt;/p> &lt;p style='margin-top:0cm;margin-right:0cm;margin-bottom:10.0pt;margin-left:0cm;line-height:115%;margin-bottom:0cm;margin-bottom:.0001pt;text-align:justify;line-height:normal'>&amp;nbsp;&lt;/p> &lt;p style='margin:0cm;margin-bottom:.0001pt;text-align:justify'>&lt;font lang=&quot;EN-US&quot;>The accompanying financial statements have been prepared by the Company without audit.&amp;#160; In the opinion of management, all adjustments (which include only normal recurring adjustments) necessary to present fairly the financial position, results of operations, and cash flows at September 30, 2017, and for all periods presented herein, have been made.&lt;/font>&lt;/p> &lt;p style='margin:0cm;margin-bottom:.0001pt;text-align:justify'>&amp;nbsp;&lt;/p> &lt;p style='margin:0cm;margin-bottom:.0001pt;text-align:justify'>&lt;font lang=&quot;EN-US&quot;>Certain information and footnote disclosures normally included in financial statements prepared in accordance with accounting principles generally accepted in the United States of America have been condensed or omitted.&amp;#160; It is suggested that these condensed financial statements be read in conjunction with the financial statements and notes thereto included in the Company&amp;#146;s December 31, 2016 audited financial statements.&amp;#160; The results of operations for the periods ended September 30, 2017 and the same period last year are not necessarily indicative of the operating results for the full years.&lt;/font>&lt;/p> &lt;p style='margin-top:0cm;margin-right:0cm;margin-bottom:10.0pt;margin-left:0cm;line-height:115%;margin-bottom:0cm;margin-bottom:.0001pt;text-align:justify;line-height:normal'>&amp;nbsp;&lt;/p>"/>
+ </ref></entry>
+<entry code="DQC.US.0006.14" level="error">
+ <message cid="4419178736" severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1464300/000149473318000050/ptpro-20170930.xml">[DQC.US.0006.14] The number of days, 92 in the date range reported for Note 6 - Subsequent Events, 2017-07-01 to 2017-09-30 is not consistent with the Document Fiscal Period Focus with a value of Q3. This period focus expects text block items and dei elements to have at least a period duration between 245 days and 295 days. 
+
+If this filing is for a Foreign Private Issuer and is a transitional report then create a boolean extension element called TransitionReport with a value of true. (This extension element is needed as the dei taxonomy does not include an element that indicates if the report is for a transitional period).
+
+The properties of this us-gaap:SubsequentEventsTextBlock fact are:
+Period :2017-07-01 to 2017-09-30
+Dimensions : 
+Unit : None
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1464300/000149473318000050/ptpro-20170930.xml 115</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1464300/000149473318000050/ptpro-20170930.xml#element(/1/112)" sourceLine="115">
+  <property name="label" value="Note 6 - Subsequent Events"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="SubsequentEventsTextBlock"/>
+  <property name="QName" value="us-gaap:SubsequentEventsTextBlock"/>
+  <property name="contextRef" value="Y17Q3">
+   <property name="entity" value="0001464300">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-07-01"/>
+   <property name="endDate" value="2017-09-30"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="&lt;!--egx-->&lt;p style='margin-top:0cm;margin-right:0cm;margin-bottom:10.0pt;margin-left:0cm;line-height:115%;margin-bottom:0cm;margin-bottom:.0001pt;text-align:justify;line-height:normal'>&lt;b>&lt;u>&lt;font lang=&quot;EN-US&quot;>NOTE 6 - SUBSEQUENT EVENTS&lt;/font>&lt;/u>&lt;/b>&lt;/p> &lt;p style='margin-top:0cm;margin-right:0cm;margin-bottom:10.0pt;margin-left:0cm;line-height:115%;margin-bottom:0cm;margin-bottom:.0001pt;text-align:justify;line-height:normal'>&amp;nbsp;&lt;/p> &lt;p style='margin-top:0cm;margin-right:0cm;margin-bottom:10.0pt;margin-left:0cm;line-height:115%;margin-bottom:0cm;margin-bottom:.0001pt;text-align:justify;line-height:normal'>&lt;font lang=&quot;EN-US&quot;>The Company has evaluated subsequent events from the balance sheet date through the date the financial statements were issued and has determined that there are no further events to disclose.&lt;/font>&lt;/p>"/>
+ </ref></entry>
+<entry code="DQC.US.0006.14" level="error">
+ <message cid="4419178736" severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1464300/000149473318000050/ptpro-20170930.xml">[DQC.US.0006.14] The number of days, 92 in the date range reported for Note 3 - Capital Stock, 2017-07-01 to 2017-09-30 is not consistent with the Document Fiscal Period Focus with a value of Q3. This period focus expects text block items and dei elements to have at least a period duration between 245 days and 295 days. 
+
+If this filing is for a Foreign Private Issuer and is a transitional report then create a boolean extension element called TransitionReport with a value of true. (This extension element is needed as the dei taxonomy does not include an element that indicates if the report is for a transitional period).
+
+The properties of this us-gaap:StockholdersEquityNoteDisclosureTextBlock fact are:
+Period :2017-07-01 to 2017-09-30
+Dimensions : 
+Unit : None
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1464300/000149473318000050/ptpro-20170930.xml 112</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1464300/000149473318000050/ptpro-20170930.xml#element(/1/109)" sourceLine="112">
+  <property name="label" value="Note 3 - Capital Stock"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="StockholdersEquityNoteDisclosureTextBlock"/>
+  <property name="QName" value="us-gaap:StockholdersEquityNoteDisclosureTextBlock"/>
+  <property name="contextRef" value="Y17Q3">
+   <property name="entity" value="0001464300">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-07-01"/>
+   <property name="endDate" value="2017-09-30"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="&lt;!--egx-->&lt;p style='margin-top:0cm;margin-right:0cm;margin-bottom:10.0pt;margin-left:0cm;line-height:115%'>&lt;b>&lt;font lang=&quot;EN-US&quot;>NOTE 3 &amp;#150; CAPITAL STOCK&lt;/font>&lt;/b>&lt;/p> &lt;p style='margin-top:0cm;margin-right:0cm;margin-bottom:10.0pt;margin-left:0cm;line-height:115%'>&lt;font lang=&quot;EN-US&quot;>The Company&amp;#146;s capitalization is &lt;/font>&lt;font lang=&quot;EN-US&quot;>200,000,000&lt;/font>&lt;font lang=&quot;EN-US&quot;> common shares with a par value of &lt;/font>&lt;font lang=&quot;EN-US&quot;>$0.001 &lt;/font>&lt;font lang=&quot;EN-US&quot;>per share.&amp;#160; No preferred shares have been authorized or issued.&lt;/font>&lt;/p> &lt;p style='margin:0cm;margin-bottom:.0001pt;text-align:justify'>&lt;font lang=&quot;EN-US&quot;>As of September 30, 2017, the Company has not granted any stock options and has not recorded any stock-based compensation.&lt;/font>&lt;/p> &lt;p style='margin-top:0cm;margin-right:0cm;margin-bottom:10.0pt;margin-left:0cm;line-height:115%;margin-bottom:0cm;margin-bottom:.0001pt;line-height:normal'>&amp;nbsp;&lt;/p> &lt;p style='margin-top:0cm;margin-right:0cm;margin-bottom:10.0pt;margin-left:0cm;line-height:115%;margin-bottom:0cm;margin-bottom:.0001pt;line-height:normal'>&lt;font lang=&quot;EN-US&quot;>As of &amp;#160;September 30, 2017, &amp;#160;&lt;/font>&lt;font lang=&quot;EN-US&quot;>104,710,000&lt;/font>&lt;font lang=&quot;EN-US&quot;> (104,710,000 as of December 31, 2016) common shares were issued and outstanding.&lt;/font>&lt;/p> &lt;p style='margin-top:0cm;margin-right:0cm;margin-bottom:10.0pt;margin-left:0cm;line-height:115%;margin-bottom:0cm;margin-bottom:.0001pt;line-height:normal'>&amp;nbsp;&lt;/p> &lt;p style='margin-top:0cm;margin-right:0cm;margin-bottom:10.0pt;margin-left:0cm;line-height:115%;margin-bottom:0cm;margin-bottom:.0001pt;line-height:normal'>&amp;nbsp;&lt;/p>"/>
+ </ref></entry>
+<entry code="DQC.US.0006.14" level="error">
+ <message cid="4419178736" severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1464300/000149473318000050/ptpro-20170930.xml">[DQC.US.0006.14] The number of days, 92 in the date range reported for Note 5 - Recent Accounting Pronouncements, 2017-07-01 to 2017-09-30 is not consistent with the Document Fiscal Period Focus with a value of Q3. This period focus expects text block items and dei elements to have at least a period duration between 245 days and 295 days. 
+
+If this filing is for a Foreign Private Issuer and is a transitional report then create a boolean extension element called TransitionReport with a value of true. (This extension element is needed as the dei taxonomy does not include an element that indicates if the report is for a transitional period).
+
+The properties of this us-gaap:NewAccountingPronouncementsPolicyPolicyTextBlock fact are:
+Period :2017-07-01 to 2017-09-30
+Dimensions : 
+Unit : None
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1464300/000149473318000050/ptpro-20170930.xml 114</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1464300/000149473318000050/ptpro-20170930.xml#element(/1/111)" sourceLine="114">
+  <property name="label" value="Note 5 - Recent Accounting Pronouncements"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="NewAccountingPronouncementsPolicyPolicyTextBlock"/>
+  <property name="QName" value="us-gaap:NewAccountingPronouncementsPolicyPolicyTextBlock"/>
+  <property name="contextRef" value="Y17Q3">
+   <property name="entity" value="0001464300">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-07-01"/>
+   <property name="endDate" value="2017-09-30"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="&lt;!--egx-->&lt;p style='margin-top:0cm;margin-right:0cm;margin-bottom:10.0pt;margin-left:0cm;line-height:115%;margin-bottom:0cm;margin-bottom:.0001pt;text-align:justify;line-height:normal'>&lt;b>&lt;u>&lt;font lang=&quot;EN-US&quot;>NOTE 5 - RECENT ACCOUNTING PRONOUNCEMENTS&lt;/font>&lt;/u>&lt;/b>&lt;/p> &lt;p style='margin-top:0cm;margin-right:0cm;margin-bottom:10.0pt;margin-left:0cm;line-height:115%;margin-bottom:0cm;margin-bottom:.0001pt;text-align:justify;line-height:normal'>&amp;nbsp;&lt;/p> &lt;p style='margin-top:0cm;margin-right:0cm;margin-bottom:10.0pt;margin-left:0cm;line-height:115%;margin-bottom:0cm;margin-bottom:.0001pt;text-align:justify;line-height:normal'>&lt;font lang=&quot;EN-US&quot;>The company has evaluated all the recent accounting pronouncements and believes that none of them will have a material effect on the company&amp;#146;s financial statement.&lt;/font>&lt;/p> &lt;p style='margin-top:0cm;margin-right:0cm;margin-bottom:10.0pt;margin-left:0cm;line-height:115%;margin-bottom:0cm;margin-bottom:.0001pt;text-align:justify;line-height:normal'>&amp;nbsp;&lt;/p>"/>
+ </ref></entry>
+<entry code="DQC.US.0006.14" level="error">
+ <message cid="4419178736" severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1464300/000149473318000050/ptpro-20170930.xml">[DQC.US.0006.14] The number of days, 92 in the date range reported for Note 4 - Loan Payable - Related Party Loans, 2017-07-01 to 2017-09-30 is not consistent with the Document Fiscal Period Focus with a value of Q3. This period focus expects text block items and dei elements to have at least a period duration between 245 days and 295 days. 
+
+If this filing is for a Foreign Private Issuer and is a transitional report then create a boolean extension element called TransitionReport with a value of true. (This extension element is needed as the dei taxonomy does not include an element that indicates if the report is for a transitional period).
+
+The properties of this us-gaap:RelatedPartyTransactionsDisclosureTextBlock fact are:
+Period :2017-07-01 to 2017-09-30
+Dimensions : 
+Unit : None
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1464300/000149473318000050/ptpro-20170930.xml 113</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1464300/000149473318000050/ptpro-20170930.xml#element(/1/110)" sourceLine="113">
+  <property name="label" value="Note 4 - Loan Payable - Related Party Loans"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="RelatedPartyTransactionsDisclosureTextBlock"/>
+  <property name="QName" value="us-gaap:RelatedPartyTransactionsDisclosureTextBlock"/>
+  <property name="contextRef" value="Y17Q3">
+   <property name="entity" value="0001464300">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-07-01"/>
+   <property name="endDate" value="2017-09-30"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="&lt;!--egx-->&lt;p style='margin-top:0cm;margin-right:0cm;margin-bottom:10.0pt;margin-left:0cm;line-height:115%'>&lt;b>&lt;font lang=&quot;EN-US&quot;>NOTE 4 &amp;#150; LOAN PAYABLE - RELATED PARTY LOANS&lt;/font>&lt;/b>&lt;/p> &lt;p style='margin:0cm;margin-bottom:.0001pt'>&lt;font lang=&quot;EN-US&quot;>As of &amp;#160;September 30, 2017 the Company received a loan from related parties totaling &lt;/font>&lt;font lang=&quot;EN-US&quot;>$117,435&lt;/font>&lt;font lang=&quot;EN-US&quot;> ($117,435 at December 31, 2016). These loans are payable on demand and without interest. &lt;/font>&lt;font lang=&quot;EN-US&quot;>$34,650&lt;/font>&lt;font lang=&quot;EN-US&quot;>,($34,650 at December 31, 2016) &amp;#160;of expenses were paid by two related parties and are recorded as account payable &amp;#150; related party on the balance sheet as accounts payable &amp;#150; related party. &lt;/font>&lt;/p>"/>
+ </ref></entry>
+<entry code="DQC.US.0006.14" level="error">
+ <message cid="4419178736" severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1464300/000149473318000050/ptpro-20170930.xml">[DQC.US.0006.14] The number of days, 92 in the date range reported for Note 2 - Going Concern, 2017-07-01 to 2017-09-30 is not consistent with the Document Fiscal Period Focus with a value of Q3. This period focus expects text block items and dei elements to have at least a period duration between 245 days and 295 days. 
+
+If this filing is for a Foreign Private Issuer and is a transitional report then create a boolean extension element called TransitionReport with a value of true. (This extension element is needed as the dei taxonomy does not include an element that indicates if the report is for a transitional period).
+
+The properties of this us-gaap:SubstantialDoubtAboutGoingConcernTextBlock fact are:
+Period :2017-07-01 to 2017-09-30
+Dimensions : 
+Unit : None
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1464300/000149473318000050/ptpro-20170930.xml 111</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1464300/000149473318000050/ptpro-20170930.xml#element(/1/108)" sourceLine="111">
+  <property name="label" value="Note 2 - Going Concern"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="SubstantialDoubtAboutGoingConcernTextBlock"/>
+  <property name="QName" value="us-gaap:SubstantialDoubtAboutGoingConcernTextBlock"/>
+  <property name="contextRef" value="Y17Q3">
+   <property name="entity" value="0001464300">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-07-01"/>
+   <property name="endDate" value="2017-09-30"/>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="&lt;!--egx-->&lt;p style='margin-top:0cm;margin-right:0cm;margin-bottom:10.0pt;margin-left:0cm;line-height:115%'>&lt;b>&lt;font lang=&quot;EN-US&quot;>NOTE 2 &amp;#150; GOING CONCERN&lt;/font>&lt;/b>&lt;/p> &lt;p style='margin-top:0cm;margin-right:0cm;margin-bottom:10.0pt;margin-left:0cm;line-height:115%;text-align:justify'>&lt;font lang=&quot;EN-US&quot;>The Company&amp;#146;s financial statements are prepared in accordance with generally accepted accounting principles applicable to a going concern.&amp;#160; This contemplates the realization of assets and the liquidation of liabilities in the normal course of business. Currently, the Company has a working capital deficit of &lt;/font>&lt;font lang=&quot;EN-US&quot;>$322,750&lt;/font>&lt;font lang=&quot;EN-US&quot;>, an accumulated deficit of &lt;/font>&lt;font lang=&quot;EN-US&quot;>$1,388,070&lt;/font>&lt;font lang=&quot;EN-US&quot;>. The Company does not have a source of revenue sufficient to cover its operation costs giving substantial doubt for it to continue as a going concern. The Company will be dependent upon the raising of additional capital through placement of our common stock in order to implement its business plan, or merge with an operating company.&amp;#160; There can be no assurance that the Company will be successful in either situation in order to continue as a going concern.&amp;#160; The Company funded its initial operations by way of issuing Founder&amp;#146;s shares.&lt;/font>&lt;/p> &lt;p style='margin:0cm;margin-bottom:.0001pt;text-align:justify'>&lt;font lang=&quot;EN-US&quot;>In order to continue as a going concern, the Company will need, among other things, additional capital resources. Management&amp;#146;s plan is to obtain such resources for the Company by obtaining capital from management and significant shareholders sufficient to meet its minimal operating expenses and seeking equity and/or debt financing. However management cannot provide any assurances that the Company will be successful in accomplishing any of its plans.&lt;/font>&lt;/p> &lt;p style='margin:0cm;margin-bottom:.0001pt;text-align:justify'>&amp;nbsp;&lt;/p> &lt;p style='margin-top:0cm;margin-right:0cm;margin-bottom:10.0pt;margin-left:0cm;line-height:115%;text-align:justify'>&lt;font lang=&quot;EN-US&quot;>The ability of the Company to continue as a going concern is dependent upon its ability to successfully accomplish the plans described in the preceding paragraph and eventually secure other sources of financing and attain profitable operations. The accompanying financial statements do not include any adjustments that might be necessary if the Company is unable to continue as a going concern.&lt;/font>&lt;/p> &lt;p style='margin-top:0cm;margin-right:0cm;margin-bottom:10.0pt;margin-left:0cm;line-height:115%'>&amp;nbsp;&lt;/p>"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 1.14 secs - http://www.sec.gov/Archives/edgar/data/1464300/000149473318000050/ptpro-20170930.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1464300/000149473318000050/ptpro-20170930.xml"/></entry>
+</log>

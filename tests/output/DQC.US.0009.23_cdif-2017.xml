@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.62 secs at 2018-10-16T09:58:18 - http://www.sec.gov/Archives/edgar/data/811222/000168316818001824/cdif-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/811222/000168316818001824/cdif-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - cdif-20171231.xml </message>
+ <ref href="cdif-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpelxfow3y/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpelxfow3y/packages/resources.zip"/></entry>
+<entry code="DQC.US.0009.23" level="error">
+ <message cid="4502421176" severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/811222/000168316818001824/cdif-20171231.xml">[DQC.US.0009.23] The value of Preferred stock, shares outstanding, 4,836,031, should be less than or equal to Preferred stock, shares authorized, 3,000,000.
+
+The properties of this us-gaap:PreferredStockSharesOutstanding fact are:
+
+Period: 2016-12-31
+Dimensions: us-gaap:StatementClassOfStockAxis=us-gaap:SeriesBPreferredStockMember
+Unit: shares
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/811222/000168316818001824/cdif-20171231.xml 2834</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/811222/000168316818001824/cdif-20171231.xml#element(/1/391)" sourceLine="2834">
+  <property name="label" value="Preferred stock, shares outstanding"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="PreferredStockSharesOutstanding"/>
+  <property name="QName" value="us-gaap:PreferredStockSharesOutstanding"/>
+  <property name="contextRef" value="AsOf2016-12-31_us-gaap_SeriesBPreferredStockMember">
+   <property name="entity" value="0000811222">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementClassOfStockAxis" value="us-gaap:SeriesBPreferredStockMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4,836,031"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 2.63 secs - http://www.sec.gov/Archives/edgar/data/811222/000168316818001824/cdif-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/811222/000168316818001824/cdif-20171231.xml"/></entry>
+</log>

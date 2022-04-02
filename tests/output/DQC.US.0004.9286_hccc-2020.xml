@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.49 secs at 2020-07-26T08:25:28 - http://www.sec.gov/Archives/edgar/data/1676580/000149315220009097/hccc-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1676580/000149315220009097/hccc-20200331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmp541qhe5j\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmp541qhe5j\packages\resources.zip"/></entry>
+<entry code="DQC.US.0004.9286" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1676580/000149315220009097/hccc-20200331.xml" severity="error" effectiveDate="2019-09-30" cid="2121450825088">[DQC.US.0004.9286] Cash, Cash Equivalents, Restricted Cash and Restricted Cash Equivalents, Period Increase (Decrease), Excluding Exchange Rate Effect with a value of -67,500 is not equal to the combined total of Net cash used in operations, Net Cash Provided by (Used in) Investing Activities and Net Cash Provided by (Used in) Financing Activities ( -22,348 + -10,783 + -28,793 ) with a value of -61,924. 
+
+These values should be equal.
+The properties of this us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect fact are:
+Period :2020-01-01 to 2020-03-31
+Dimensions :  
+Unit : USD
+Decimals of Cash, Cash Equivalents, Restricted Cash and Restricted Cash Equivalents, Period Increase (Decrease), Excluding Exchange Rate Effect : 0
+Decimals of Net cash used in operations : 0
+Decimals of Net Cash Provided by (Used in) Investing Activities : 0
+Decimals of Net Cash Provided by (Used in) Financing Activities : 0
+
+Rule Element Id:9286
+Rule version: 12.0.0 - http://www.sec.gov/Archives/edgar/data/1676580/000149315220009097/hccc-20200331.xml 2621</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1676580/000149315220009097/hccc-20200331.xml#element(/1/565)" sourceLine="2621">
+  <property name="label" value="Cash, Cash Equivalents, Restricted Cash and Restricted Cash Equivalents, Period Increase (Decrease), Excluding Exchange Rate Effect"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect"/>
+  <property name="QName" value="us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseExcludingExchangeRateEffect"/>
+  <property name="contextRef" value="From2020-01-01to2020-03-31">
+   <property name="entity" value="0001676580">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-67,500"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 3.76 secs - http://www.sec.gov/Archives/edgar/data/1676580/000149315220009097/hccc-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1676580/000149315220009097/hccc-20200331.xml"/></entry>
+</log>

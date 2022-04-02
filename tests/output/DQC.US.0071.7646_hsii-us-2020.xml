@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.94 secs at 2020-07-29T09:40:54 - http://www.sec.gov/Archives/edgar/data/1066605/000106660520000023/hsii-20200630.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1066605/000106660520000023/hsii-20200630.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpi1ldbzqb\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpi1ldbzqb\packages\resources.zip"/></entry>
+<entry code="DQC.US.0071.7646" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1066605/000106660520000023/hsii-20200630.htm" severity="error" effectiveDate="2019-01-01" cid="2732716959104">[DQC.US.0071.7646] The filing has  reported a value for the element us-gaap:CostOfGoodsAndServicesSold with a value of 2,232,000 using the ProductOrServiceAxis in the role 1002003 - Statement - Statement of Income (Statement) on the table us-gaap:StatementTable. However, the only member used to disaggregate the total for us-gaap:CostOfGoodsAndServicesSold was the member hsii:ReimbursementsMember. If only one member is used on this axis then the filer should either:
+
+1. Retag the filing using the element TypeOfRevenueExtensibleList/TypeOfCostGoodOrServiceExtensibleList with a value of hsii:ReimbursementsMember and the member hsii:ReimbursementsMember should be removed from the value as it represents the aggregate value of us-gaap:CostOfGoodsAndServicesSold.
+ 
+2. Tag the aggregate value of us-gaap:CostOfGoodsAndServicesSold with a value of 2,232,000 without the product of service axis. This rule will not generate an error if the aggregate value of us-gaap:CostOfGoodsAndServicesSold is reported.
+
+The properties of this us-gaap:CostOfGoodsAndServicesSold fact are:
+Period :2020-04-01 to 2020-06-30
+Dimensions : srt:ProductOrServiceAxis=hsii:ReimbursementsMember
+Unit : USD
+
+Rule Element Id:7646
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1066605/000106660520000023/hsii-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1066605/000106660520000023/hsii-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOmUxNjdiZWJkODRmZDQ2MzI4MDY0ZDg5ZGMxZjhhMTMwL3NlYzplMTY3YmViZDg0ZmQ0NjMyODA2NGQ4OWRjMWY4YTEzMF8yMi9mcmFnOjkxM2YxYjhiMjgyZDRjYzc5YjdlMjI2MTk0YmI5NDAzL3RhYmxlOjI1YzE5ZDQ2MzUxNTQxNjdhYjU0MWZiYTVmZmM2NWMxL3RhYmxlcmFuZ2U6MjVjMTlkNDYzNTE1NDE2N2FiNTQxZmJhNWZmYzY1YzFfMTEtMS0xLTEtMA_baa85b57-5ee5-4aee-a3c9-ce85e23e0d4b" sourceLine="4">
+  <property name="file" value="hsii-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Cost of Goods and Services Sold"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="CostOfGoodsAndServicesSold"/>
+  <property name="QName" value="us-gaap:CostOfGoodsAndServicesSold"/>
+  <property name="contextRef" value="i16c507815381475a9c21523a8c583c35_D20200401-20200630">
+   <property name="entity" value="0001066605">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-04-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ProductOrServiceAxis" value="hsii:ReimbursementsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,232,000.00000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="2,232"/>
+ </ref></entry>
+<entry code="DQC.US.0071.7646" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1066605/000106660520000023/hsii-20200630.htm" severity="error" effectiveDate="2019-01-01" cid="2732716959104">[DQC.US.0071.7646] The filing has  reported a value for the element us-gaap:CostOfGoodsAndServicesSold with a value of 5,051,000 using the ProductOrServiceAxis in the role 1002003 - Statement - Statement of Income (Statement) on the table us-gaap:StatementTable. However, the only member used to disaggregate the total for us-gaap:CostOfGoodsAndServicesSold was the member hsii:ReimbursementsMember. If only one member is used on this axis then the filer should either:
+
+1. Retag the filing using the element TypeOfRevenueExtensibleList/TypeOfCostGoodOrServiceExtensibleList with a value of hsii:ReimbursementsMember and the member hsii:ReimbursementsMember should be removed from the value as it represents the aggregate value of us-gaap:CostOfGoodsAndServicesSold.
+ 
+2. Tag the aggregate value of us-gaap:CostOfGoodsAndServicesSold with a value of 5,051,000 without the product of service axis. This rule will not generate an error if the aggregate value of us-gaap:CostOfGoodsAndServicesSold is reported.
+
+The properties of this us-gaap:CostOfGoodsAndServicesSold fact are:
+Period :2019-04-01 to 2019-06-30
+Dimensions : srt:ProductOrServiceAxis=hsii:ReimbursementsMember
+Unit : USD
+
+Rule Element Id:7646
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1066605/000106660520000023/hsii-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1066605/000106660520000023/hsii-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOmUxNjdiZWJkODRmZDQ2MzI4MDY0ZDg5ZGMxZjhhMTMwL3NlYzplMTY3YmViZDg0ZmQ0NjMyODA2NGQ4OWRjMWY4YTEzMF8yMi9mcmFnOjkxM2YxYjhiMjgyZDRjYzc5YjdlMjI2MTk0YmI5NDAzL3RhYmxlOjI1YzE5ZDQ2MzUxNTQxNjdhYjU0MWZiYTVmZmM2NWMxL3RhYmxlcmFuZ2U6MjVjMTlkNDYzNTE1NDE2N2FiNTQxZmJhNWZmYzY1YzFfMTEtMy0xLTEtMA_31f75f8e-008e-46b5-a7ae-6d20917eee3f" sourceLine="4">
+  <property name="file" value="hsii-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Cost of Goods and Services Sold"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="CostOfGoodsAndServicesSold"/>
+  <property name="QName" value="us-gaap:CostOfGoodsAndServicesSold"/>
+  <property name="contextRef" value="i66a2335f13804e05b53786ecb7f18bb0_D20190401-20190630">
+   <property name="entity" value="0001066605">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-04-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ProductOrServiceAxis" value="hsii:ReimbursementsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="5,051,000.00000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="5,051"/>
+ </ref></entry>
+<entry code="DQC.US.0071.7646" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1066605/000106660520000023/hsii-20200630.htm" severity="error" effectiveDate="2019-01-01" cid="2732716959104">[DQC.US.0071.7646] The filing has  reported a value for the element us-gaap:CostOfGoodsAndServicesSold with a value of 5,598,000 using the ProductOrServiceAxis in the role 1002003 - Statement - Statement of Income (Statement) on the table us-gaap:StatementTable. However, the only member used to disaggregate the total for us-gaap:CostOfGoodsAndServicesSold was the member hsii:ReimbursementsMember. If only one member is used on this axis then the filer should either:
+
+1. Retag the filing using the element TypeOfRevenueExtensibleList/TypeOfCostGoodOrServiceExtensibleList with a value of hsii:ReimbursementsMember and the member hsii:ReimbursementsMember should be removed from the value as it represents the aggregate value of us-gaap:CostOfGoodsAndServicesSold.
+ 
+2. Tag the aggregate value of us-gaap:CostOfGoodsAndServicesSold with a value of 5,598,000 without the product of service axis. This rule will not generate an error if the aggregate value of us-gaap:CostOfGoodsAndServicesSold is reported.
+
+The properties of this us-gaap:CostOfGoodsAndServicesSold fact are:
+Period :2020-01-01 to 2020-06-30
+Dimensions : srt:ProductOrServiceAxis=hsii:ReimbursementsMember
+Unit : USD
+
+Rule Element Id:7646
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1066605/000106660520000023/hsii-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1066605/000106660520000023/hsii-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOmUxNjdiZWJkODRmZDQ2MzI4MDY0ZDg5ZGMxZjhhMTMwL3NlYzplMTY3YmViZDg0ZmQ0NjMyODA2NGQ4OWRjMWY4YTEzMF8yMi9mcmFnOjkxM2YxYjhiMjgyZDRjYzc5YjdlMjI2MTk0YmI5NDAzL3RhYmxlOjI1YzE5ZDQ2MzUxNTQxNjdhYjU0MWZiYTVmZmM2NWMxL3RhYmxlcmFuZ2U6MjVjMTlkNDYzNTE1NDE2N2FiNTQxZmJhNWZmYzY1YzFfMTEtNS0xLTEtMA_053a5e31-0e9a-4167-aa3f-43d68984dcc5" sourceLine="4">
+  <property name="file" value="hsii-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Cost of Goods and Services Sold"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="CostOfGoodsAndServicesSold"/>
+  <property name="QName" value="us-gaap:CostOfGoodsAndServicesSold"/>
+  <property name="contextRef" value="i56b71359cc69467ea852f52dee5f2123_D20200101-20200630">
+   <property name="entity" value="0001066605">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ProductOrServiceAxis" value="hsii:ReimbursementsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="5,598,000.00000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="5,598"/>
+ </ref></entry>
+<entry code="DQC.US.0071.7646" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1066605/000106660520000023/hsii-20200630.htm" severity="error" effectiveDate="2019-01-01" cid="2732716959104">[DQC.US.0071.7646] The filing has  reported a value for the element us-gaap:CostOfGoodsAndServicesSold with a value of 9,731,000 using the ProductOrServiceAxis in the role 1002003 - Statement - Statement of Income (Statement) on the table us-gaap:StatementTable. However, the only member used to disaggregate the total for us-gaap:CostOfGoodsAndServicesSold was the member hsii:ReimbursementsMember. If only one member is used on this axis then the filer should either:
+
+1. Retag the filing using the element TypeOfRevenueExtensibleList/TypeOfCostGoodOrServiceExtensibleList with a value of hsii:ReimbursementsMember and the member hsii:ReimbursementsMember should be removed from the value as it represents the aggregate value of us-gaap:CostOfGoodsAndServicesSold.
+ 
+2. Tag the aggregate value of us-gaap:CostOfGoodsAndServicesSold with a value of 9,731,000 without the product of service axis. This rule will not generate an error if the aggregate value of us-gaap:CostOfGoodsAndServicesSold is reported.
+
+The properties of this us-gaap:CostOfGoodsAndServicesSold fact are:
+Period :2019-01-01 to 2019-06-30
+Dimensions : srt:ProductOrServiceAxis=hsii:ReimbursementsMember
+Unit : USD
+
+Rule Element Id:7646
+Rule version: 13.0.0RC1
+ - http://www.sec.gov/Archives/edgar/data/1066605/000106660520000023/hsii-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1066605/000106660520000023/hsii-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOmUxNjdiZWJkODRmZDQ2MzI4MDY0ZDg5ZGMxZjhhMTMwL3NlYzplMTY3YmViZDg0ZmQ0NjMyODA2NGQ4OWRjMWY4YTEzMF8yMi9mcmFnOjkxM2YxYjhiMjgyZDRjYzc5YjdlMjI2MTk0YmI5NDAzL3RhYmxlOjI1YzE5ZDQ2MzUxNTQxNjdhYjU0MWZiYTVmZmM2NWMxL3RhYmxlcmFuZ2U6MjVjMTlkNDYzNTE1NDE2N2FiNTQxZmJhNWZmYzY1YzFfMTEtNy0xLTEtMA_8abca392-267c-4d9a-bb73-91f51755bac3" sourceLine="4">
+  <property name="file" value="hsii-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Cost of Goods and Services Sold"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="CostOfGoodsAndServicesSold"/>
+  <property name="QName" value="us-gaap:CostOfGoodsAndServicesSold"/>
+  <property name="contextRef" value="i9e43f2e9c62a4bf9ab17a6aa54e24a62_D20190101-20190630">
+   <property name="entity" value="0001066605">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="srt:ProductOrServiceAxis" value="hsii:ReimbursementsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="9,731,000.00000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="9,731"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 4.31 secs - http://www.sec.gov/Archives/edgar/data/1066605/000106660520000023/hsii-20200630.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1066605/000106660520000023/hsii-20200630.htm"/></entry>
+</log>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 5.80 secs at 2018-10-16T09:58:59 - http://www.sec.gov/Archives/edgar/data/81362/000008136218000003/kwr-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/81362/000008136218000003/kwr-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - kwr-20171231.xml </message>
+ <ref href="kwr-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp9wzfjbu5/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp9wzfjbu5/packages/resources.zip"/></entry>
+<entry code="DQC.US.0009.40" level="error">
+ <message cid="4468321976" filing_url="http://www.sec.gov/Archives/edgar/data/81362/000008136218000003/kwr-20171231.xml" severity="error">[DQC.US.0009.40] The value of Defined Benefit Plan, Pension Plans with Accumulated Benefit Obligations in Excess of Plan Assets, Aggregate Accumulated Benefit Obligation, 100,463,000, should be less than or equal to Defined Benefit Plan, Accumulated Benefit Obligation, 100,400,000. Defined Benefit Plan, Pension Plans with Accumulated Benefit Obligations in Excess of Plan Assets, Aggregate Accumulated Benefit Obligation is a subset of Defined Benefit Plan, Accumulated Benefit Obligation.
+
+The properties of this us-gaap:DefinedBenefitPlanPensionPlansWithAccumulatedBenefitObligationsInExcessOfPlanAssetsAggregateAccumulatedBenefitObligation fact are:
+
+Period: 2016-12-31
+Dimensions: us-gaap:RetirementPlanTypeAxis=us-gaap:PensionPlansDefinedBenefitMember, us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:ForeignPlanMember
+Unit: USD
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/81362/000008136218000003/kwr-20171231.xml 7501</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/81362/000008136218000003/kwr-20171231.xml#ID_1842" sourceLine="7501">
+  <property name="label" value="Defined Benefit Plan, Pension Plans with Accumulated Benefit Obligations in Excess of Plan Assets, Aggregate Accumulated Benefit Obligation"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="DefinedBenefitPlanPensionPlansWithAccumulatedBenefitObligationsInExcessOfPlanAssetsAggregateAccumulatedBenefitObligation"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanPensionPlansWithAccumulatedBenefitObligationsInExcessOfPlanAssetsAggregateAccumulatedBenefitObligation"/>
+  <property name="contextRef" value="AS_OF_Dec31_2016_Entity_0000081362_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_ForeignPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_PensionPlansDefinedBenefitMember">
+   <property name="entity" value="0000081362">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:ForeignPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="100,463,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 4.69 secs - http://www.sec.gov/Archives/edgar/data/81362/000008136218000003/kwr-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/81362/000008136218000003/kwr-20171231.xml"/></entry>
+</log>

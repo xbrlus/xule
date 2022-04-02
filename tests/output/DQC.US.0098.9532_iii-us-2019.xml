@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23221 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 0.99 secs at 2021-06-23T11:10:46 - http://www.sec.gov/Archives/edgar/data/1371489/000155837020006318/iii-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1371489/000155837020006318/iii-20200331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmp1jiy31j5\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmp1jiy31j5\packages\resources.zip"/></entry>
+<entry code="DQC.US.0098.9532" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1371489/000155837020006318/iii-20200331.xml" severity="error" effectiveDate="2021-01-01" cid="2146326873040">[DQC.US.0098.9532] The element ContractWithCustomerLiabilityRevenueRecognized with a value of 6,100,000 is greater than the opening balances of ContractWithCustomerLiabilityCurrent and ContractWithCustomerLiabilityNoncurrent combined which have an aggregate opening balance of 4,935,000 on 2019-12-31. The element ContractWithCustomerLiabilityRevenueRecognized represents the amount from the opening balance that was recognized during the period. For this reason it cannot be greater than the opening balance.
+
+The properties of this us-gaap:ContractWithCustomerLiabilityRevenueRecognized fact are:
+Period :2020-01-01 to 2020-03-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9532
+Rule version: 15.0.0RC4 - http://www.sec.gov/Archives/edgar/data/1371489/000155837020006318/iii-20200331.xml 1063</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1371489/000155837020006318/iii-20200331.xml#element(/1/173)" sourceLine="1063">
+  <property name="label" value="Contract with Customer, Liability, Revenue Recognized"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="ContractWithCustomerLiabilityRevenueRecognized"/>
+  <property name="QName" value="us-gaap:ContractWithCustomerLiabilityRevenueRecognized"/>
+  <property name="contextRef" value="Duration_1_1_2020_To_3_31_2020">
+   <property name="entity" value="0001371489">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-03-31"/>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-5"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="6,100,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 3.66 secs - http://www.sec.gov/Archives/edgar/data/1371489/000155837020006318/iii-20200331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1371489/000155837020006318/iii-20200331.xml"/></entry>
+</log>

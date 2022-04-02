@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.20 secs at 2018-10-16T09:51:16 - http://www.sec.gov/Archives/edgar/data/1597929/000166225218000067/sply-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1597929/000166225218000067/sply-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - sply-20171231.xml </message>
+ <ref href="sply-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpzeiatmkn/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpzeiatmkn/packages/resources.zip"/></entry>
+<entry code="DQC.US.0001.76" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1597929/000166225218000067/sply-20171231.xml" cid="4474617528" severity="error">[DQC.US.0001.76] The concept StockIssuedDuringPeriodSharesChangeInControl with a value of 7,082,000 is dimensionally qualified with the StatementScenarioAxis and the base taxonomy member MajorityShareholderMember. Only extension members and the elements defined as children of this axis in the US GAAP taxonomy should be used with the axis StatementScenarioAxis.
+The properties of the fact for StockIssuedDuringPeriodSharesChangeInControl are:
+Period: 2017-01-01 to 2017-12-31
+Dimensions: us-gaap:StatementScenarioAxis=us-gaap:MajorityShareholderMember 
+Unit: shares
+
+Rule Element Id:76
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1597929/000166225218000067/sply-20171231.xml 1567</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1597929/000166225218000067/sply-20171231.xml#element(/1/397)" sourceLine="1567">
+  <property name="label" value="Shares Issued, Change in Control"/>
+  <property name="namespace" value="http://SPLY/20171231"/>
+  <property name="name" value="StockIssuedDuringPeriodSharesChangeInControl"/>
+  <property name="QName" value="SPLY:StockIssuedDuringPeriodSharesChangeInControl"/>
+  <property name="contextRef" value="From2017-01-01to2017-12-31_us-gaap_MajorityShareholderMember">
+   <property name="entity" value="0001597929">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:StatementScenarioAxis" value="us-gaap:MajorityShareholderMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="7,082,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 14.76 secs - http://www.sec.gov/Archives/edgar/data/1597929/000166225218000067/sply-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1597929/000166225218000067/sply-20171231.xml"/></entry>
+</log>

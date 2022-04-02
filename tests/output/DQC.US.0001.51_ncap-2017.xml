@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.47 secs at 2018-12-17T18:40:34 - http://www.sec.gov/Archives/edgar/data/1439397/000107878218000637/ncap-20180331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1439397/000107878218000637/ncap-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V8-ruleset.zip - ncap-20180331.xml </message>
+ <ref href="ncap-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv and dqc_0080.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp66yv2_vz/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmp66yv2_vz/packages/resources.zip"/></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message cid="4372037872" severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1439397/000107878218000637/ncap-20180331.xml">[DQC.US.0001.51] The concept FairValueAssumptionsExpectedTerm with a value of P2Y5M23D is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member ReMeasurementDateMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel3Member, FairValueMeasuredAtNetAssetValuePerShareMember, FairValueInputsLevel12And3Member, FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for FairValueAssumptionsExpectedTerm are:
+Period: 2018-01-01 to 2018-03-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=fil:ReMeasurementDateMember 
+Unit: None
+
+
+Rule Element Id:51
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1439397/000107878218000637/ncap-20180331.xml 300</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1439397/000107878218000637/ncap-20180331.xml#element(/1/297)" sourceLine="300">
+  <property name="label" value="Expected term:"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="FairValueAssumptionsExpectedTerm"/>
+  <property name="QName" value="us-gaap:FairValueAssumptionsExpectedTerm"/>
+  <property name="contextRef" value="Y18Q1_FvByFvHierarchyLevel-ReMeasurementDate">
+   <property name="entity" value="0001439397">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="fil:ReMeasurementDateMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="P2Y5M23D"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message cid="4372037872" severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1439397/000107878218000637/ncap-20180331.xml">[DQC.US.0001.51] The concept FairValueAssumptionsRiskFreeInterestRate with a value of 0.0239 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member ReMeasurementDateMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel3Member, FairValueMeasuredAtNetAssetValuePerShareMember, FairValueInputsLevel12And3Member, FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for FairValueAssumptionsRiskFreeInterestRate are:
+Period: 2018-01-01 to 2018-03-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=fil:ReMeasurementDateMember 
+Unit: pure
+
+
+Rule Element Id:51
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1439397/000107878218000637/ncap-20180331.xml 302</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1439397/000107878218000637/ncap-20180331.xml#element(/1/299)" sourceLine="302">
+  <property name="label" value="Risk free interest rate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="FairValueAssumptionsRiskFreeInterestRate"/>
+  <property name="QName" value="us-gaap:FairValueAssumptionsRiskFreeInterestRate"/>
+  <property name="contextRef" value="Y18Q1_FvByFvHierarchyLevel-ReMeasurementDate">
+   <property name="entity" value="0001439397">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="fil:ReMeasurementDateMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Pure (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0239"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message cid="4372037872" severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1439397/000107878218000637/ncap-20180331.xml">[DQC.US.0001.51] The concept FairValueAssumptionsExpectedDividendRate with a value of 0 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member ReMeasurementDateMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel3Member, FairValueMeasuredAtNetAssetValuePerShareMember, FairValueInputsLevel12And3Member, FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for FairValueAssumptionsExpectedDividendRate are:
+Period: 2018-01-01 to 2018-03-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=fil:ReMeasurementDateMember 
+Unit: pure
+
+
+Rule Element Id:51
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1439397/000107878218000637/ncap-20180331.xml 298</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1439397/000107878218000637/ncap-20180331.xml#element(/1/295)" sourceLine="298">
+  <property name="label" value="Expected dividends"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="FairValueAssumptionsExpectedDividendRate"/>
+  <property name="QName" value="us-gaap:FairValueAssumptionsExpectedDividendRate"/>
+  <property name="contextRef" value="Y18Q1_FvByFvHierarchyLevel-ReMeasurementDate">
+   <property name="entity" value="0001439397">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="fil:ReMeasurementDateMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Pure (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message cid="4372037872" severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1439397/000107878218000637/ncap-20180331.xml">[DQC.US.0001.51] The concept FairValueAssumptionsExpectedDividendRate with a value of 0 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member CommitmentDateMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel3Member, FairValueMeasuredAtNetAssetValuePerShareMember, FairValueInputsLevel12And3Member, FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for FairValueAssumptionsExpectedDividendRate are:
+Period: 2018-01-01 to 2018-03-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=fil:CommitmentDateMember 
+Unit: pure
+
+
+Rule Element Id:51
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1439397/000107878218000637/ncap-20180331.xml 297</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1439397/000107878218000637/ncap-20180331.xml#element(/1/294)" sourceLine="297">
+  <property name="label" value="Expected dividends"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="FairValueAssumptionsExpectedDividendRate"/>
+  <property name="QName" value="us-gaap:FairValueAssumptionsExpectedDividendRate"/>
+  <property name="contextRef" value="Y18Q1_FvByFvHierarchyLevel-CommitmentDate">
+   <property name="entity" value="0001439397">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="fil:CommitmentDateMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Pure (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message cid="4372037872" severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1439397/000107878218000637/ncap-20180331.xml">[DQC.US.0001.51] The concept FairValueAssumptionsExpectedTerm with a value of P3Y is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member CommitmentDateMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel3Member, FairValueMeasuredAtNetAssetValuePerShareMember, FairValueInputsLevel12And3Member, FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for FairValueAssumptionsExpectedTerm are:
+Period: 2018-01-01 to 2018-03-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=fil:CommitmentDateMember 
+Unit: None
+
+
+Rule Element Id:51
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1439397/000107878218000637/ncap-20180331.xml 299</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1439397/000107878218000637/ncap-20180331.xml#element(/1/296)" sourceLine="299">
+  <property name="label" value="Expected term:"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="FairValueAssumptionsExpectedTerm"/>
+  <property name="QName" value="us-gaap:FairValueAssumptionsExpectedTerm"/>
+  <property name="contextRef" value="Y18Q1_FvByFvHierarchyLevel-CommitmentDate">
+   <property name="entity" value="0001439397">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="fil:CommitmentDateMember"/>
+   </property>
+  </property>
+  <property name="decimals" value="None"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="P3Y"/>
+ </ref></entry>
+<entry code="DQC.US.0001.51" level="error">
+ <message cid="4372037872" severity="error" filing_url="http://www.sec.gov/Archives/edgar/data/1439397/000107878218000637/ncap-20180331.xml">[DQC.US.0001.51] The concept FairValueAssumptionsRiskFreeInterestRate with a value of 0.0207 is dimensionally qualified with the FairValueByFairValueHierarchyLevelAxis and the unallowable member CommitmentDateMember. The filer should use members from the US GAAP taxonomy that are children of the FairValueByFairValueHierarchyLevelAxis axis or the allowable extensions of : FairValueInputsLevel1AndLevel3Member, FairValueMeasuredAtNetAssetValuePerShareMember, FairValueInputsLevel12And3Member, FairValueInputsLevel1AndLevel2Member, FairValueInputsLevel2AndLevel3Member.
+
+The properties of the fact for FairValueAssumptionsRiskFreeInterestRate are:
+Period: 2018-01-01 to 2018-03-31
+Dimensions: us-gaap:FairValueByFairValueHierarchyLevelAxis=fil:CommitmentDateMember 
+Unit: pure
+
+
+Rule Element Id:51
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1439397/000107878218000637/ncap-20180331.xml 301</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1439397/000107878218000637/ncap-20180331.xml#element(/1/298)" sourceLine="301">
+  <property name="label" value="Risk free interest rate"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="FairValueAssumptionsRiskFreeInterestRate"/>
+  <property name="QName" value="us-gaap:FairValueAssumptionsRiskFreeInterestRate"/>
+  <property name="contextRef" value="Y18Q1_FvByFvHierarchyLevel-CommitmentDate">
+   <property name="entity" value="0001439397">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:FairValueByFairValueHierarchyLevelAxis" value="fil:CommitmentDateMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Pure (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.0207"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 18.14 secs - http://www.sec.gov/Archives/edgar/data/1439397/000107878218000637/ncap-20180331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1439397/000107878218000637/ncap-20180331.xml"/></entry>
+</log>

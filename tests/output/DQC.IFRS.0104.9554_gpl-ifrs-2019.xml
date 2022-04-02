@@ -1,0 +1,1004 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.23221 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.18 secs at 2021-04-21T09:27:01 - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml"/></entry>
+<entry code="DQC.IFRS.0104.9554" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml" severity="error" effectiveDate="2021-05-01" cid="2110887916496">[DQC.IFRS.0104.9554] The concept ProfitLossBeforeTax with a value of -4,226,000 is dimensionally qualified with the SegmentConsolidationItemsAxis and the unallowable member CorporateOneMember. The SegmentConsolidationItemsAxis should only be used with the  following  members: CorporateAndEliminationsMember, CorporateAndReconcilingItemsMember, CorporateNonSegmentMember, CorporateReconcilingItemsAndEliminationsMember, EliminationsAndReconcilingItemsMember, GeographyEliminationsMember, OperatingSegmentsAndCorporateNonSegmentMember, OperatingSegmentsAndUnallocatedMember, OperatingSegmentsExcludingIntersegmentEliminationMember, OtherNonSegmentMember, ifrs-full:EliminationOfIntersegmentAmountsMember, ifrs-full:EntitysTotalForSegmentConsolidationItemsMember, ifrs-full:MaterialReconcilingItemsMember, ifrs-full:OperatingSegmentsMember, ifrs-full:UnallocatedAmountsMember.
+The properties of the fact for ProfitLossBeforeTax are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentConsolidationItemsAxis=gpl:CorporateOneMember 
+Unit: USD
+
+Rule Element Id:9554
+Rule version: 14.1.3 - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml 59193</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml#element(/1/1742)" sourceLine="59193">
+  <property name="label" value="Profit (loss) before tax"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ProfitLossBeforeTax"/>
+  <property name="QName" value="ifrs-full:ProfitLossBeforeTax"/>
+  <property name="contextRef" value="Duration_1_1_2018_To_12_31_2018_ifrs-full_SegmentConsolidationItemsAxis_gpl_CorporateOneMember">
+   <property name="entity" value="0001300050">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="gpl:CorporateOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-4,226,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9554" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml" severity="error" effectiveDate="2021-05-01" cid="2110887916496">[DQC.IFRS.0104.9554] The concept Revenue with a value of 53,825,000 is dimensionally qualified with the SegmentConsolidationItemsAxis and the unallowable member CorporateOneMember. The SegmentConsolidationItemsAxis should only be used with the  following  members: CorporateAndEliminationsMember, CorporateAndReconcilingItemsMember, CorporateNonSegmentMember, CorporateReconcilingItemsAndEliminationsMember, EliminationsAndReconcilingItemsMember, GeographyEliminationsMember, OperatingSegmentsAndCorporateNonSegmentMember, OperatingSegmentsAndUnallocatedMember, OperatingSegmentsExcludingIntersegmentEliminationMember, OtherNonSegmentMember, ifrs-full:EliminationOfIntersegmentAmountsMember, ifrs-full:EntitysTotalForSegmentConsolidationItemsMember, ifrs-full:MaterialReconcilingItemsMember, ifrs-full:OperatingSegmentsMember, ifrs-full:UnallocatedAmountsMember.
+The properties of the fact for Revenue are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentConsolidationItemsAxis=gpl:CorporateOneMember 
+Unit: USD
+
+Rule Element Id:9554
+Rule version: 14.1.3 - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml 59333</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml#element(/1/1882)" sourceLine="59333">
+  <property name="label" value="Revenue"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Revenue"/>
+  <property name="QName" value="ifrs-full:Revenue"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_12_31_2019_ifrs-full_SegmentConsolidationItemsAxis_gpl_CorporateOneMember">
+   <property name="entity" value="0001300050">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="gpl:CorporateOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="53,825,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9554" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml" severity="error" effectiveDate="2021-05-01" cid="2110887916496">[DQC.IFRS.0104.9554] The concept IncomeTaxExpenseContinuingOperations with a value of 531,000 is dimensionally qualified with the SegmentConsolidationItemsAxis and the unallowable member CorporateOneMember. The SegmentConsolidationItemsAxis should only be used with the  following  members: CorporateAndEliminationsMember, CorporateAndReconcilingItemsMember, CorporateNonSegmentMember, CorporateReconcilingItemsAndEliminationsMember, EliminationsAndReconcilingItemsMember, GeographyEliminationsMember, OperatingSegmentsAndCorporateNonSegmentMember, OperatingSegmentsAndUnallocatedMember, OperatingSegmentsExcludingIntersegmentEliminationMember, OtherNonSegmentMember, ifrs-full:EliminationOfIntersegmentAmountsMember, ifrs-full:EntitysTotalForSegmentConsolidationItemsMember, ifrs-full:MaterialReconcilingItemsMember, ifrs-full:OperatingSegmentsMember, ifrs-full:UnallocatedAmountsMember.
+The properties of the fact for IncomeTaxExpenseContinuingOperations are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentConsolidationItemsAxis=gpl:CorporateOneMember 
+Unit: USD
+
+Rule Element Id:9554
+Rule version: 14.1.3 - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml 58987</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml#element(/1/1536)" sourceLine="58987">
+  <property name="label" value="Tax expense (income)"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="IncomeTaxExpenseContinuingOperations"/>
+  <property name="QName" value="ifrs-full:IncomeTaxExpenseContinuingOperations"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_12_31_2019_ifrs-full_SegmentConsolidationItemsAxis_gpl_CorporateOneMember">
+   <property name="entity" value="0001300050">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="gpl:CorporateOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="531,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9554" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml" severity="error" effectiveDate="2021-05-01" cid="2110887916496">[DQC.IFRS.0104.9554] The concept AdjustmentsForDepreciationAndAmortisationExpense with a value of 33,000 is dimensionally qualified with the SegmentConsolidationItemsAxis and the unallowable member CorporateOneMember. The SegmentConsolidationItemsAxis should only be used with the  following  members: CorporateAndEliminationsMember, CorporateAndReconcilingItemsMember, CorporateNonSegmentMember, CorporateReconcilingItemsAndEliminationsMember, EliminationsAndReconcilingItemsMember, GeographyEliminationsMember, OperatingSegmentsAndCorporateNonSegmentMember, OperatingSegmentsAndUnallocatedMember, OperatingSegmentsExcludingIntersegmentEliminationMember, OtherNonSegmentMember, ifrs-full:EliminationOfIntersegmentAmountsMember, ifrs-full:EntitysTotalForSegmentConsolidationItemsMember, ifrs-full:MaterialReconcilingItemsMember, ifrs-full:OperatingSegmentsMember, ifrs-full:UnallocatedAmountsMember.
+The properties of the fact for AdjustmentsForDepreciationAndAmortisationExpense are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentConsolidationItemsAxis=gpl:CorporateOneMember 
+Unit: USD
+
+Rule Element Id:9554
+Rule version: 14.1.3 - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml 19155</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml#element(/1/1059)" sourceLine="19155">
+  <property name="label" value="Adjustments for depreciation and amortisation expense"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="AdjustmentsForDepreciationAndAmortisationExpense"/>
+  <property name="QName" value="ifrs-full:AdjustmentsForDepreciationAndAmortisationExpense"/>
+  <property name="contextRef" value="Duration_1_1_2018_To_12_31_2018_ifrs-full_SegmentConsolidationItemsAxis_gpl_CorporateOneMember">
+   <property name="entity" value="0001300050">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="gpl:CorporateOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="33,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9554" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml" severity="error" effectiveDate="2021-05-01" cid="2110887916496">[DQC.IFRS.0104.9554] The concept ExplorationAndEvaluationExpenses with a value of 886,000 is dimensionally qualified with the SegmentConsolidationItemsAxis and the unallowable member CorporateOneMember. The SegmentConsolidationItemsAxis should only be used with the  following  members: CorporateAndEliminationsMember, CorporateAndReconcilingItemsMember, CorporateNonSegmentMember, CorporateReconcilingItemsAndEliminationsMember, EliminationsAndReconcilingItemsMember, GeographyEliminationsMember, OperatingSegmentsAndCorporateNonSegmentMember, OperatingSegmentsAndUnallocatedMember, OperatingSegmentsExcludingIntersegmentEliminationMember, OtherNonSegmentMember, ifrs-full:EliminationOfIntersegmentAmountsMember, ifrs-full:EntitysTotalForSegmentConsolidationItemsMember, ifrs-full:MaterialReconcilingItemsMember, ifrs-full:OperatingSegmentsMember, ifrs-full:UnallocatedAmountsMember.
+The properties of the fact for ExplorationAndEvaluationExpenses are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentConsolidationItemsAxis=gpl:CorporateOneMember 
+Unit: USD
+
+Rule Element Id:9554
+Rule version: 14.1.3 - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml 18082</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml#element(/1/652)" sourceLine="18082">
+  <property name="label" value="Exploration and evaluation expenses"/>
+  <property name="namespace" value="http://www.greatpanther.com/20191231"/>
+  <property name="name" value="ExplorationAndEvaluationExpenses"/>
+  <property name="QName" value="gpl:ExplorationAndEvaluationExpenses"/>
+  <property name="contextRef" value="Duration_1_1_2018_To_12_31_2018_ifrs-full_SegmentConsolidationItemsAxis_gpl_CorporateOneMember">
+   <property name="entity" value="0001300050">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="gpl:CorporateOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="886,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9554" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml" severity="error" effectiveDate="2021-05-01" cid="2110887916496">[DQC.IFRS.0104.9554] The concept IncomeTaxExpenseContinuingOperations with a value of 803,000 is dimensionally qualified with the SegmentConsolidationItemsAxis and the unallowable member CorporateOneMember. The SegmentConsolidationItemsAxis should only be used with the  following  members: CorporateAndEliminationsMember, CorporateAndReconcilingItemsMember, CorporateNonSegmentMember, CorporateReconcilingItemsAndEliminationsMember, EliminationsAndReconcilingItemsMember, GeographyEliminationsMember, OperatingSegmentsAndCorporateNonSegmentMember, OperatingSegmentsAndUnallocatedMember, OperatingSegmentsExcludingIntersegmentEliminationMember, OtherNonSegmentMember, ifrs-full:EliminationOfIntersegmentAmountsMember, ifrs-full:EntitysTotalForSegmentConsolidationItemsMember, ifrs-full:MaterialReconcilingItemsMember, ifrs-full:OperatingSegmentsMember, ifrs-full:UnallocatedAmountsMember.
+The properties of the fact for IncomeTaxExpenseContinuingOperations are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentConsolidationItemsAxis=gpl:CorporateOneMember 
+Unit: USD
+
+Rule Element Id:9554
+Rule version: 14.1.3 - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml 58977</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml#element(/1/1526)" sourceLine="58977">
+  <property name="label" value="Tax expense (income)"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="IncomeTaxExpenseContinuingOperations"/>
+  <property name="QName" value="ifrs-full:IncomeTaxExpenseContinuingOperations"/>
+  <property name="contextRef" value="Duration_1_1_2018_To_12_31_2018_ifrs-full_SegmentConsolidationItemsAxis_gpl_CorporateOneMember">
+   <property name="entity" value="0001300050">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="gpl:CorporateOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="803,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9554" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml" severity="error" effectiveDate="2021-05-01" cid="2110887916496">[DQC.IFRS.0104.9554] The concept ProfitLossBeforeTax with a value of -3,785,000 is dimensionally qualified with the SegmentConsolidationItemsAxis and the unallowable member CorporateOneMember. The SegmentConsolidationItemsAxis should only be used with the  following  members: CorporateAndEliminationsMember, CorporateAndReconcilingItemsMember, CorporateNonSegmentMember, CorporateReconcilingItemsAndEliminationsMember, EliminationsAndReconcilingItemsMember, GeographyEliminationsMember, OperatingSegmentsAndCorporateNonSegmentMember, OperatingSegmentsAndUnallocatedMember, OperatingSegmentsExcludingIntersegmentEliminationMember, OtherNonSegmentMember, ifrs-full:EliminationOfIntersegmentAmountsMember, ifrs-full:EntitysTotalForSegmentConsolidationItemsMember, ifrs-full:MaterialReconcilingItemsMember, ifrs-full:OperatingSegmentsMember, ifrs-full:UnallocatedAmountsMember.
+The properties of the fact for ProfitLossBeforeTax are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentConsolidationItemsAxis=gpl:CorporateOneMember 
+Unit: USD
+
+Rule Element Id:9554
+Rule version: 14.1.3 - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml 59203</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml#element(/1/1752)" sourceLine="59203">
+  <property name="label" value="Profit (loss) before tax"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ProfitLossBeforeTax"/>
+  <property name="QName" value="ifrs-full:ProfitLossBeforeTax"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_12_31_2019_ifrs-full_SegmentConsolidationItemsAxis_gpl_CorporateOneMember">
+   <property name="entity" value="0001300050">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="gpl:CorporateOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-3,785,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9554" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml" severity="error" effectiveDate="2021-05-01" cid="2110887916496">[DQC.IFRS.0104.9554] The concept Liabilities with a value of 15,116,000 is dimensionally qualified with the SegmentConsolidationItemsAxis and the unallowable member CorporateOneMember. The SegmentConsolidationItemsAxis should only be used with the  following  members: CorporateAndEliminationsMember, CorporateAndReconcilingItemsMember, CorporateNonSegmentMember, CorporateReconcilingItemsAndEliminationsMember, EliminationsAndReconcilingItemsMember, GeographyEliminationsMember, OperatingSegmentsAndCorporateNonSegmentMember, OperatingSegmentsAndUnallocatedMember, OperatingSegmentsExcludingIntersegmentEliminationMember, OtherNonSegmentMember, ifrs-full:EliminationOfIntersegmentAmountsMember, ifrs-full:EntitysTotalForSegmentConsolidationItemsMember, ifrs-full:MaterialReconcilingItemsMember, ifrs-full:OperatingSegmentsMember, ifrs-full:UnallocatedAmountsMember.
+The properties of the fact for Liabilities are:
+Period: 2019-12-31
+Dimensions: ifrs-full:SegmentConsolidationItemsAxis=gpl:CorporateOneMember 
+Unit: USD
+
+Rule Element Id:9554
+Rule version: 14.1.3 - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml 59059</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml#element(/1/1608)" sourceLine="59059">
+  <property name="label" value="Liabilities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="As_Of_12_31_2019_ifrs-full_SegmentConsolidationItemsAxis_gpl_CorporateOneMember">
+   <property name="entity" value="0001300050">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="gpl:CorporateOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="15,116,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9554" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml" severity="error" effectiveDate="2021-05-01" cid="2110887916496">[DQC.IFRS.0104.9554] The concept RevenueFromInterest with a value of 1,251,000 is dimensionally qualified with the SegmentConsolidationItemsAxis and the unallowable member CorporateOneMember. The SegmentConsolidationItemsAxis should only be used with the  following  members: CorporateAndEliminationsMember, CorporateAndReconcilingItemsMember, CorporateNonSegmentMember, CorporateReconcilingItemsAndEliminationsMember, EliminationsAndReconcilingItemsMember, GeographyEliminationsMember, OperatingSegmentsAndCorporateNonSegmentMember, OperatingSegmentsAndUnallocatedMember, OperatingSegmentsExcludingIntersegmentEliminationMember, OtherNonSegmentMember, ifrs-full:EliminationOfIntersegmentAmountsMember, ifrs-full:EntitysTotalForSegmentConsolidationItemsMember, ifrs-full:MaterialReconcilingItemsMember, ifrs-full:OperatingSegmentsMember, ifrs-full:UnallocatedAmountsMember.
+The properties of the fact for RevenueFromInterest are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentConsolidationItemsAxis=gpl:CorporateOneMember 
+Unit: USD
+
+Rule Element Id:9554
+Rule version: 14.1.3 - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml 59378</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml#element(/1/1927)" sourceLine="59378">
+  <property name="label" value="Interest income"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="RevenueFromInterest"/>
+  <property name="QName" value="ifrs-full:RevenueFromInterest"/>
+  <property name="contextRef" value="Duration_1_1_2018_To_12_31_2018_ifrs-full_SegmentConsolidationItemsAxis_gpl_CorporateOneMember">
+   <property name="entity" value="0001300050">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="gpl:CorporateOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,251,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9554" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml" severity="error" effectiveDate="2021-05-01" cid="2110887916496">[DQC.IFRS.0104.9554] The concept ProfitLoss with a value of -5,029,000 is dimensionally qualified with the SegmentConsolidationItemsAxis and the unallowable member CorporateOneMember. The SegmentConsolidationItemsAxis should only be used with the  following  members: CorporateAndEliminationsMember, CorporateAndReconcilingItemsMember, CorporateNonSegmentMember, CorporateReconcilingItemsAndEliminationsMember, EliminationsAndReconcilingItemsMember, GeographyEliminationsMember, OperatingSegmentsAndCorporateNonSegmentMember, OperatingSegmentsAndUnallocatedMember, OperatingSegmentsExcludingIntersegmentEliminationMember, OtherNonSegmentMember, ifrs-full:EliminationOfIntersegmentAmountsMember, ifrs-full:EntitysTotalForSegmentConsolidationItemsMember, ifrs-full:MaterialReconcilingItemsMember, ifrs-full:OperatingSegmentsMember, ifrs-full:UnallocatedAmountsMember.
+The properties of the fact for ProfitLoss are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentConsolidationItemsAxis=gpl:CorporateOneMember 
+Unit: USD
+
+Rule Element Id:9554
+Rule version: 14.1.3 - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml 59171</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml#element(/1/1720)" sourceLine="59171">
+  <property name="label" value="Profit (loss)"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ProfitLoss"/>
+  <property name="QName" value="ifrs-full:ProfitLoss"/>
+  <property name="contextRef" value="Duration_1_1_2018_To_12_31_2018_ifrs-full_SegmentConsolidationItemsAxis_gpl_CorporateOneMember">
+   <property name="entity" value="0001300050">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="gpl:CorporateOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-5,029,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9554" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml" severity="error" effectiveDate="2021-05-01" cid="2110887916496">[DQC.IFRS.0104.9554] The concept Assets with a value of 62,008,000 is dimensionally qualified with the SegmentConsolidationItemsAxis and the unallowable member CorporateOneMember. The SegmentConsolidationItemsAxis should only be used with the  following  members: CorporateAndEliminationsMember, CorporateAndReconcilingItemsMember, CorporateNonSegmentMember, CorporateReconcilingItemsAndEliminationsMember, EliminationsAndReconcilingItemsMember, GeographyEliminationsMember, OperatingSegmentsAndCorporateNonSegmentMember, OperatingSegmentsAndUnallocatedMember, OperatingSegmentsExcludingIntersegmentEliminationMember, OtherNonSegmentMember, ifrs-full:EliminationOfIntersegmentAmountsMember, ifrs-full:EntitysTotalForSegmentConsolidationItemsMember, ifrs-full:MaterialReconcilingItemsMember, ifrs-full:OperatingSegmentsMember, ifrs-full:UnallocatedAmountsMember.
+The properties of the fact for Assets are:
+Period: 2018-12-31
+Dimensions: ifrs-full:SegmentConsolidationItemsAxis=gpl:CorporateOneMember 
+Unit: USD
+
+Rule Element Id:9554
+Rule version: 14.1.3 - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml 19184</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml#element(/1/1088)" sourceLine="19184">
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="ifrs-full:Assets"/>
+  <property name="contextRef" value="As_Of_12_31_2018_ifrs-full_SegmentConsolidationItemsAxis_gpl_CorporateOneMember">
+   <property name="entity" value="0001300050">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="gpl:CorporateOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="62,008,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9554" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml" severity="error" effectiveDate="2021-05-01" cid="2110887916496">[DQC.IFRS.0104.9554] The concept Liabilities with a value of 4,452,000 is dimensionally qualified with the SegmentConsolidationItemsAxis and the unallowable member CorporateOneMember. The SegmentConsolidationItemsAxis should only be used with the  following  members: CorporateAndEliminationsMember, CorporateAndReconcilingItemsMember, CorporateNonSegmentMember, CorporateReconcilingItemsAndEliminationsMember, EliminationsAndReconcilingItemsMember, GeographyEliminationsMember, OperatingSegmentsAndCorporateNonSegmentMember, OperatingSegmentsAndUnallocatedMember, OperatingSegmentsExcludingIntersegmentEliminationMember, OtherNonSegmentMember, ifrs-full:EliminationOfIntersegmentAmountsMember, ifrs-full:EntitysTotalForSegmentConsolidationItemsMember, ifrs-full:MaterialReconcilingItemsMember, ifrs-full:OperatingSegmentsMember, ifrs-full:UnallocatedAmountsMember.
+The properties of the fact for Liabilities are:
+Period: 2018-12-31
+Dimensions: ifrs-full:SegmentConsolidationItemsAxis=gpl:CorporateOneMember 
+Unit: USD
+
+Rule Element Id:9554
+Rule version: 14.1.3 - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml 59053</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml#element(/1/1602)" sourceLine="59053">
+  <property name="label" value="Liabilities"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Liabilities"/>
+  <property name="QName" value="ifrs-full:Liabilities"/>
+  <property name="contextRef" value="As_Of_12_31_2018_ifrs-full_SegmentConsolidationItemsAxis_gpl_CorporateOneMember">
+   <property name="entity" value="0001300050">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="gpl:CorporateOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4,452,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9554" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml" severity="error" effectiveDate="2021-05-01" cid="2110887916496">[DQC.IFRS.0104.9554] The concept FinanceCosts with a value of 9,000 is dimensionally qualified with the SegmentConsolidationItemsAxis and the unallowable member CorporateOneMember. The SegmentConsolidationItemsAxis should only be used with the  following  members: CorporateAndEliminationsMember, CorporateAndReconcilingItemsMember, CorporateNonSegmentMember, CorporateReconcilingItemsAndEliminationsMember, EliminationsAndReconcilingItemsMember, GeographyEliminationsMember, OperatingSegmentsAndCorporateNonSegmentMember, OperatingSegmentsAndUnallocatedMember, OperatingSegmentsExcludingIntersegmentEliminationMember, OtherNonSegmentMember, ifrs-full:EliminationOfIntersegmentAmountsMember, ifrs-full:EntitysTotalForSegmentConsolidationItemsMember, ifrs-full:MaterialReconcilingItemsMember, ifrs-full:OperatingSegmentsMember, ifrs-full:UnallocatedAmountsMember.
+The properties of the fact for FinanceCosts are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentConsolidationItemsAxis=gpl:CorporateOneMember 
+Unit: USD
+
+Rule Element Id:9554
+Rule version: 14.1.3 - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml 58934</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml#element(/1/1483)" sourceLine="58934">
+  <property name="label" value="Finance costs"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="FinanceCosts"/>
+  <property name="QName" value="ifrs-full:FinanceCosts"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_12_31_2019_ifrs-full_SegmentConsolidationItemsAxis_gpl_CorporateOneMember">
+   <property name="entity" value="0001300050">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="gpl:CorporateOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="9,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9554" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml" severity="error" effectiveDate="2021-05-01" cid="2110887916496">[DQC.IFRS.0104.9554] The concept RevenueFromInterest with a value of 708,000 is dimensionally qualified with the SegmentConsolidationItemsAxis and the unallowable member CorporateOneMember. The SegmentConsolidationItemsAxis should only be used with the  following  members: CorporateAndEliminationsMember, CorporateAndReconcilingItemsMember, CorporateNonSegmentMember, CorporateReconcilingItemsAndEliminationsMember, EliminationsAndReconcilingItemsMember, GeographyEliminationsMember, OperatingSegmentsAndCorporateNonSegmentMember, OperatingSegmentsAndUnallocatedMember, OperatingSegmentsExcludingIntersegmentEliminationMember, OtherNonSegmentMember, ifrs-full:EliminationOfIntersegmentAmountsMember, ifrs-full:EntitysTotalForSegmentConsolidationItemsMember, ifrs-full:MaterialReconcilingItemsMember, ifrs-full:OperatingSegmentsMember, ifrs-full:UnallocatedAmountsMember.
+The properties of the fact for RevenueFromInterest are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentConsolidationItemsAxis=gpl:CorporateOneMember 
+Unit: USD
+
+Rule Element Id:9554
+Rule version: 14.1.3 - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml 59383</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml#element(/1/1932)" sourceLine="59383">
+  <property name="label" value="Interest income"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="RevenueFromInterest"/>
+  <property name="QName" value="ifrs-full:RevenueFromInterest"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_12_31_2019_ifrs-full_SegmentConsolidationItemsAxis_gpl_CorporateOneMember">
+   <property name="entity" value="0001300050">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="gpl:CorporateOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="708,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9554" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml" severity="error" effectiveDate="2021-05-01" cid="2110887916496">[DQC.IFRS.0104.9554] The concept ProfitLoss with a value of -4,316,000 is dimensionally qualified with the SegmentConsolidationItemsAxis and the unallowable member CorporateOneMember. The SegmentConsolidationItemsAxis should only be used with the  following  members: CorporateAndEliminationsMember, CorporateAndReconcilingItemsMember, CorporateNonSegmentMember, CorporateReconcilingItemsAndEliminationsMember, EliminationsAndReconcilingItemsMember, GeographyEliminationsMember, OperatingSegmentsAndCorporateNonSegmentMember, OperatingSegmentsAndUnallocatedMember, OperatingSegmentsExcludingIntersegmentEliminationMember, OtherNonSegmentMember, ifrs-full:EliminationOfIntersegmentAmountsMember, ifrs-full:EntitysTotalForSegmentConsolidationItemsMember, ifrs-full:MaterialReconcilingItemsMember, ifrs-full:OperatingSegmentsMember, ifrs-full:UnallocatedAmountsMember.
+The properties of the fact for ProfitLoss are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentConsolidationItemsAxis=gpl:CorporateOneMember 
+Unit: USD
+
+Rule Element Id:9554
+Rule version: 14.1.3 - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml 59185</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml#element(/1/1734)" sourceLine="59185">
+  <property name="label" value="Profit (loss)"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ProfitLoss"/>
+  <property name="QName" value="ifrs-full:ProfitLoss"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_12_31_2019_ifrs-full_SegmentConsolidationItemsAxis_gpl_CorporateOneMember">
+   <property name="entity" value="0001300050">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="gpl:CorporateOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-4,316,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9554" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml" severity="error" effectiveDate="2021-05-01" cid="2110887916496">[DQC.IFRS.0104.9554] The concept AdditionsReductionsToNonCurrentAssets with a value of 821,000 is dimensionally qualified with the SegmentConsolidationItemsAxis and the unallowable member CorporateOneMember. The SegmentConsolidationItemsAxis should only be used with the  following  members: CorporateAndEliminationsMember, CorporateAndReconcilingItemsMember, CorporateNonSegmentMember, CorporateReconcilingItemsAndEliminationsMember, EliminationsAndReconcilingItemsMember, GeographyEliminationsMember, OperatingSegmentsAndCorporateNonSegmentMember, OperatingSegmentsAndUnallocatedMember, OperatingSegmentsExcludingIntersegmentEliminationMember, OtherNonSegmentMember, ifrs-full:EliminationOfIntersegmentAmountsMember, ifrs-full:EntitysTotalForSegmentConsolidationItemsMember, ifrs-full:MaterialReconcilingItemsMember, ifrs-full:OperatingSegmentsMember, ifrs-full:UnallocatedAmountsMember.
+The properties of the fact for AdditionsReductionsToNonCurrentAssets are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentConsolidationItemsAxis=gpl:CorporateOneMember 
+Unit: USD
+
+Rule Element Id:9554
+Rule version: 14.1.3 - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml 5343</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml#element(/1/498)" sourceLine="5343">
+  <property name="label" value="Additions Reductions To Non Current Assets"/>
+  <property name="namespace" value="http://www.greatpanther.com/20191231"/>
+  <property name="name" value="AdditionsReductionsToNonCurrentAssets"/>
+  <property name="QName" value="gpl:AdditionsReductionsToNonCurrentAssets"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_12_31_2019_ifrs-full_SegmentConsolidationItemsAxis_gpl_CorporateOneMember">
+   <property name="entity" value="0001300050">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="gpl:CorporateOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="821,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9554" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml" severity="error" effectiveDate="2021-05-01" cid="2110887916496">[DQC.IFRS.0104.9554] The concept Assets with a value of 40,122,000 is dimensionally qualified with the SegmentConsolidationItemsAxis and the unallowable member CorporateOneMember. The SegmentConsolidationItemsAxis should only be used with the  following  members: CorporateAndEliminationsMember, CorporateAndReconcilingItemsMember, CorporateNonSegmentMember, CorporateReconcilingItemsAndEliminationsMember, EliminationsAndReconcilingItemsMember, GeographyEliminationsMember, OperatingSegmentsAndCorporateNonSegmentMember, OperatingSegmentsAndUnallocatedMember, OperatingSegmentsExcludingIntersegmentEliminationMember, OtherNonSegmentMember, ifrs-full:EliminationOfIntersegmentAmountsMember, ifrs-full:EntitysTotalForSegmentConsolidationItemsMember, ifrs-full:MaterialReconcilingItemsMember, ifrs-full:OperatingSegmentsMember, ifrs-full:UnallocatedAmountsMember.
+The properties of the fact for Assets are:
+Period: 2019-12-31
+Dimensions: ifrs-full:SegmentConsolidationItemsAxis=gpl:CorporateOneMember 
+Unit: USD
+
+Rule Element Id:9554
+Rule version: 14.1.3 - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml 19191</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml#element(/1/1095)" sourceLine="19191">
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="ifrs-full:Assets"/>
+  <property name="contextRef" value="As_Of_12_31_2019_ifrs-full_SegmentConsolidationItemsAxis_gpl_CorporateOneMember">
+   <property name="entity" value="0001300050">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="gpl:CorporateOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="40,122,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9554" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml" severity="error" effectiveDate="2021-05-01" cid="2110887916496">[DQC.IFRS.0104.9554] The concept ExplorationAndEvaluationExpenses with a value of 10,000 is dimensionally qualified with the SegmentConsolidationItemsAxis and the unallowable member CorporateOneMember. The SegmentConsolidationItemsAxis should only be used with the  following  members: CorporateAndEliminationsMember, CorporateAndReconcilingItemsMember, CorporateNonSegmentMember, CorporateReconcilingItemsAndEliminationsMember, EliminationsAndReconcilingItemsMember, GeographyEliminationsMember, OperatingSegmentsAndCorporateNonSegmentMember, OperatingSegmentsAndUnallocatedMember, OperatingSegmentsExcludingIntersegmentEliminationMember, OtherNonSegmentMember, ifrs-full:EliminationOfIntersegmentAmountsMember, ifrs-full:EntitysTotalForSegmentConsolidationItemsMember, ifrs-full:MaterialReconcilingItemsMember, ifrs-full:OperatingSegmentsMember, ifrs-full:UnallocatedAmountsMember.
+The properties of the fact for ExplorationAndEvaluationExpenses are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentConsolidationItemsAxis=gpl:CorporateOneMember 
+Unit: USD
+
+Rule Element Id:9554
+Rule version: 14.1.3 - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml 18089</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml#element(/1/659)" sourceLine="18089">
+  <property name="label" value="Exploration and evaluation expenses"/>
+  <property name="namespace" value="http://www.greatpanther.com/20191231"/>
+  <property name="name" value="ExplorationAndEvaluationExpenses"/>
+  <property name="QName" value="gpl:ExplorationAndEvaluationExpenses"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_12_31_2019_ifrs-full_SegmentConsolidationItemsAxis_gpl_CorporateOneMember">
+   <property name="entity" value="0001300050">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="gpl:CorporateOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="10,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9554" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml" severity="error" effectiveDate="2021-05-01" cid="2110887916496">[DQC.IFRS.0104.9554] The concept AdjustmentsForDepreciationAndAmortisationExpense with a value of 245,000 is dimensionally qualified with the SegmentConsolidationItemsAxis and the unallowable member CorporateOneMember. The SegmentConsolidationItemsAxis should only be used with the  following  members: CorporateAndEliminationsMember, CorporateAndReconcilingItemsMember, CorporateNonSegmentMember, CorporateReconcilingItemsAndEliminationsMember, EliminationsAndReconcilingItemsMember, GeographyEliminationsMember, OperatingSegmentsAndCorporateNonSegmentMember, OperatingSegmentsAndUnallocatedMember, OperatingSegmentsExcludingIntersegmentEliminationMember, OtherNonSegmentMember, ifrs-full:EliminationOfIntersegmentAmountsMember, ifrs-full:EntitysTotalForSegmentConsolidationItemsMember, ifrs-full:MaterialReconcilingItemsMember, ifrs-full:OperatingSegmentsMember, ifrs-full:UnallocatedAmountsMember.
+The properties of the fact for AdjustmentsForDepreciationAndAmortisationExpense are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentConsolidationItemsAxis=gpl:CorporateOneMember 
+Unit: USD
+
+Rule Element Id:9554
+Rule version: 14.1.3 - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml 19162</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml#element(/1/1066)" sourceLine="19162">
+  <property name="label" value="Adjustments for depreciation and amortisation expense"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="AdjustmentsForDepreciationAndAmortisationExpense"/>
+  <property name="QName" value="ifrs-full:AdjustmentsForDepreciationAndAmortisationExpense"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_12_31_2019_ifrs-full_SegmentConsolidationItemsAxis_gpl_CorporateOneMember">
+   <property name="entity" value="0001300050">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="gpl:CorporateOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="245,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9554" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml" severity="error" effectiveDate="2021-05-01" cid="2110887916496">[DQC.IFRS.0104.9554] The concept FinanceCosts with a value of 19,000 is dimensionally qualified with the SegmentConsolidationItemsAxis and the unallowable member CorporateOneMember. The SegmentConsolidationItemsAxis should only be used with the  following  members: CorporateAndEliminationsMember, CorporateAndReconcilingItemsMember, CorporateNonSegmentMember, CorporateReconcilingItemsAndEliminationsMember, EliminationsAndReconcilingItemsMember, GeographyEliminationsMember, OperatingSegmentsAndCorporateNonSegmentMember, OperatingSegmentsAndUnallocatedMember, OperatingSegmentsExcludingIntersegmentEliminationMember, OtherNonSegmentMember, ifrs-full:EliminationOfIntersegmentAmountsMember, ifrs-full:EntitysTotalForSegmentConsolidationItemsMember, ifrs-full:MaterialReconcilingItemsMember, ifrs-full:OperatingSegmentsMember, ifrs-full:UnallocatedAmountsMember.
+The properties of the fact for FinanceCosts are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentConsolidationItemsAxis=gpl:CorporateOneMember 
+Unit: USD
+
+Rule Element Id:9554
+Rule version: 14.1.3 - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml 58929</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml#element(/1/1478)" sourceLine="58929">
+  <property name="label" value="Finance costs"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="FinanceCosts"/>
+  <property name="QName" value="ifrs-full:FinanceCosts"/>
+  <property name="contextRef" value="Duration_1_1_2018_To_12_31_2018_ifrs-full_SegmentConsolidationItemsAxis_gpl_CorporateOneMember">
+   <property name="entity" value="0001300050">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="gpl:CorporateOneMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="19,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9554" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml" severity="error" effectiveDate="2021-05-01" cid="2110887916496">[DQC.IFRS.0104.9554] The concept ExplorationAndEvaluationExpenses with a value of 243,000 is dimensionally qualified with the SegmentConsolidationItemsAxis and the unallowable member ExplorationMember. The SegmentConsolidationItemsAxis should only be used with the  following  members: CorporateAndEliminationsMember, CorporateAndReconcilingItemsMember, CorporateNonSegmentMember, CorporateReconcilingItemsAndEliminationsMember, EliminationsAndReconcilingItemsMember, GeographyEliminationsMember, OperatingSegmentsAndCorporateNonSegmentMember, OperatingSegmentsAndUnallocatedMember, OperatingSegmentsExcludingIntersegmentEliminationMember, OtherNonSegmentMember, ifrs-full:EliminationOfIntersegmentAmountsMember, ifrs-full:EntitysTotalForSegmentConsolidationItemsMember, ifrs-full:MaterialReconcilingItemsMember, ifrs-full:OperatingSegmentsMember, ifrs-full:UnallocatedAmountsMember.
+The properties of the fact for ExplorationAndEvaluationExpenses are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentConsolidationItemsAxis=gpl:ExplorationMember 
+Unit: USD
+
+Rule Element Id:9554
+Rule version: 14.1.3 - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml 18084</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml#element(/1/654)" sourceLine="18084">
+  <property name="label" value="Exploration and evaluation expenses"/>
+  <property name="namespace" value="http://www.greatpanther.com/20191231"/>
+  <property name="name" value="ExplorationAndEvaluationExpenses"/>
+  <property name="QName" value="gpl:ExplorationAndEvaluationExpenses"/>
+  <property name="contextRef" value="Duration_1_1_2018_To_12_31_2018_ifrs-full_SegmentConsolidationItemsAxis_gpl_ExplorationMember">
+   <property name="entity" value="0001300050">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="gpl:ExplorationMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="243,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9554" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml" severity="error" effectiveDate="2021-05-01" cid="2110887916496">[DQC.IFRS.0104.9554] The concept ProfitLoss with a value of -3,032,000 is dimensionally qualified with the SegmentConsolidationItemsAxis and the unallowable member ExplorationMember. The SegmentConsolidationItemsAxis should only be used with the  following  members: CorporateAndEliminationsMember, CorporateAndReconcilingItemsMember, CorporateNonSegmentMember, CorporateReconcilingItemsAndEliminationsMember, EliminationsAndReconcilingItemsMember, GeographyEliminationsMember, OperatingSegmentsAndCorporateNonSegmentMember, OperatingSegmentsAndUnallocatedMember, OperatingSegmentsExcludingIntersegmentEliminationMember, OtherNonSegmentMember, ifrs-full:EliminationOfIntersegmentAmountsMember, ifrs-full:EntitysTotalForSegmentConsolidationItemsMember, ifrs-full:MaterialReconcilingItemsMember, ifrs-full:OperatingSegmentsMember, ifrs-full:UnallocatedAmountsMember.
+The properties of the fact for ProfitLoss are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentConsolidationItemsAxis=gpl:ExplorationMember 
+Unit: USD
+
+Rule Element Id:9554
+Rule version: 14.1.3 - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml 59172</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml#element(/1/1721)" sourceLine="59172">
+  <property name="label" value="Profit (loss)"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ProfitLoss"/>
+  <property name="QName" value="ifrs-full:ProfitLoss"/>
+  <property name="contextRef" value="Duration_1_1_2018_To_12_31_2018_ifrs-full_SegmentConsolidationItemsAxis_gpl_ExplorationMember">
+   <property name="entity" value="0001300050">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="gpl:ExplorationMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-3,032,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9554" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml" severity="error" effectiveDate="2021-05-01" cid="2110887916496">[DQC.IFRS.0104.9554] The concept ProfitLossBeforeTax with a value of -264,000 is dimensionally qualified with the SegmentConsolidationItemsAxis and the unallowable member ExplorationMember. The SegmentConsolidationItemsAxis should only be used with the  following  members: CorporateAndEliminationsMember, CorporateAndReconcilingItemsMember, CorporateNonSegmentMember, CorporateReconcilingItemsAndEliminationsMember, EliminationsAndReconcilingItemsMember, GeographyEliminationsMember, OperatingSegmentsAndCorporateNonSegmentMember, OperatingSegmentsAndUnallocatedMember, OperatingSegmentsExcludingIntersegmentEliminationMember, OtherNonSegmentMember, ifrs-full:EliminationOfIntersegmentAmountsMember, ifrs-full:EntitysTotalForSegmentConsolidationItemsMember, ifrs-full:MaterialReconcilingItemsMember, ifrs-full:OperatingSegmentsMember, ifrs-full:UnallocatedAmountsMember.
+The properties of the fact for ProfitLossBeforeTax are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentConsolidationItemsAxis=gpl:ExplorationMember 
+Unit: USD
+
+Rule Element Id:9554
+Rule version: 14.1.3 - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml 59204</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml#element(/1/1753)" sourceLine="59204">
+  <property name="label" value="Profit (loss) before tax"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ProfitLossBeforeTax"/>
+  <property name="QName" value="ifrs-full:ProfitLossBeforeTax"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_12_31_2019_ifrs-full_SegmentConsolidationItemsAxis_gpl_ExplorationMember">
+   <property name="entity" value="0001300050">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="gpl:ExplorationMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-264,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9554" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml" severity="error" effectiveDate="2021-05-01" cid="2110887916496">[DQC.IFRS.0104.9554] The concept Assets with a value of 2,427,000 is dimensionally qualified with the SegmentConsolidationItemsAxis and the unallowable member ExplorationMember. The SegmentConsolidationItemsAxis should only be used with the  following  members: CorporateAndEliminationsMember, CorporateAndReconcilingItemsMember, CorporateNonSegmentMember, CorporateReconcilingItemsAndEliminationsMember, EliminationsAndReconcilingItemsMember, GeographyEliminationsMember, OperatingSegmentsAndCorporateNonSegmentMember, OperatingSegmentsAndUnallocatedMember, OperatingSegmentsExcludingIntersegmentEliminationMember, OtherNonSegmentMember, ifrs-full:EliminationOfIntersegmentAmountsMember, ifrs-full:EntitysTotalForSegmentConsolidationItemsMember, ifrs-full:MaterialReconcilingItemsMember, ifrs-full:OperatingSegmentsMember, ifrs-full:UnallocatedAmountsMember.
+The properties of the fact for Assets are:
+Period: 2018-12-31
+Dimensions: ifrs-full:SegmentConsolidationItemsAxis=gpl:ExplorationMember 
+Unit: USD
+
+Rule Element Id:9554
+Rule version: 14.1.3 - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml 19185</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml#element(/1/1089)" sourceLine="19185">
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="ifrs-full:Assets"/>
+  <property name="contextRef" value="As_Of_12_31_2018_ifrs-full_SegmentConsolidationItemsAxis_gpl_ExplorationMember">
+   <property name="entity" value="0001300050">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="gpl:ExplorationMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,427,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9554" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml" severity="error" effectiveDate="2021-05-01" cid="2110887916496">[DQC.IFRS.0104.9554] The concept RevenueFromInterest with a value of 7,000 is dimensionally qualified with the SegmentConsolidationItemsAxis and the unallowable member ExplorationMember. The SegmentConsolidationItemsAxis should only be used with the  following  members: CorporateAndEliminationsMember, CorporateAndReconcilingItemsMember, CorporateNonSegmentMember, CorporateReconcilingItemsAndEliminationsMember, EliminationsAndReconcilingItemsMember, GeographyEliminationsMember, OperatingSegmentsAndCorporateNonSegmentMember, OperatingSegmentsAndUnallocatedMember, OperatingSegmentsExcludingIntersegmentEliminationMember, OtherNonSegmentMember, ifrs-full:EliminationOfIntersegmentAmountsMember, ifrs-full:EntitysTotalForSegmentConsolidationItemsMember, ifrs-full:MaterialReconcilingItemsMember, ifrs-full:OperatingSegmentsMember, ifrs-full:UnallocatedAmountsMember.
+The properties of the fact for RevenueFromInterest are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentConsolidationItemsAxis=gpl:ExplorationMember 
+Unit: USD
+
+Rule Element Id:9554
+Rule version: 14.1.3 - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml 59379</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml#element(/1/1928)" sourceLine="59379">
+  <property name="label" value="Interest income"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="RevenueFromInterest"/>
+  <property name="QName" value="ifrs-full:RevenueFromInterest"/>
+  <property name="contextRef" value="Duration_1_1_2018_To_12_31_2018_ifrs-full_SegmentConsolidationItemsAxis_gpl_ExplorationMember">
+   <property name="entity" value="0001300050">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="gpl:ExplorationMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="7,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9554" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml" severity="error" effectiveDate="2021-05-01" cid="2110887916496">[DQC.IFRS.0104.9554] The concept AdjustmentsForDepreciationAndAmortisationExpense with a value of 4,000 is dimensionally qualified with the SegmentConsolidationItemsAxis and the unallowable member ExplorationMember. The SegmentConsolidationItemsAxis should only be used with the  following  members: CorporateAndEliminationsMember, CorporateAndReconcilingItemsMember, CorporateNonSegmentMember, CorporateReconcilingItemsAndEliminationsMember, EliminationsAndReconcilingItemsMember, GeographyEliminationsMember, OperatingSegmentsAndCorporateNonSegmentMember, OperatingSegmentsAndUnallocatedMember, OperatingSegmentsExcludingIntersegmentEliminationMember, OtherNonSegmentMember, ifrs-full:EliminationOfIntersegmentAmountsMember, ifrs-full:EntitysTotalForSegmentConsolidationItemsMember, ifrs-full:MaterialReconcilingItemsMember, ifrs-full:OperatingSegmentsMember, ifrs-full:UnallocatedAmountsMember.
+The properties of the fact for AdjustmentsForDepreciationAndAmortisationExpense are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentConsolidationItemsAxis=gpl:ExplorationMember 
+Unit: USD
+
+Rule Element Id:9554
+Rule version: 14.1.3 - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml 19156</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml#element(/1/1060)" sourceLine="19156">
+  <property name="label" value="Adjustments for depreciation and amortisation expense"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="AdjustmentsForDepreciationAndAmortisationExpense"/>
+  <property name="QName" value="ifrs-full:AdjustmentsForDepreciationAndAmortisationExpense"/>
+  <property name="contextRef" value="Duration_1_1_2018_To_12_31_2018_ifrs-full_SegmentConsolidationItemsAxis_gpl_ExplorationMember">
+   <property name="entity" value="0001300050">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="gpl:ExplorationMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9554" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml" severity="error" effectiveDate="2021-05-01" cid="2110887916496">[DQC.IFRS.0104.9554] The concept ProfitLossBeforeTax with a value of -3,032,000 is dimensionally qualified with the SegmentConsolidationItemsAxis and the unallowable member ExplorationMember. The SegmentConsolidationItemsAxis should only be used with the  following  members: CorporateAndEliminationsMember, CorporateAndReconcilingItemsMember, CorporateNonSegmentMember, CorporateReconcilingItemsAndEliminationsMember, EliminationsAndReconcilingItemsMember, GeographyEliminationsMember, OperatingSegmentsAndCorporateNonSegmentMember, OperatingSegmentsAndUnallocatedMember, OperatingSegmentsExcludingIntersegmentEliminationMember, OtherNonSegmentMember, ifrs-full:EliminationOfIntersegmentAmountsMember, ifrs-full:EntitysTotalForSegmentConsolidationItemsMember, ifrs-full:MaterialReconcilingItemsMember, ifrs-full:OperatingSegmentsMember, ifrs-full:UnallocatedAmountsMember.
+The properties of the fact for ProfitLossBeforeTax are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: ifrs-full:SegmentConsolidationItemsAxis=gpl:ExplorationMember 
+Unit: USD
+
+Rule Element Id:9554
+Rule version: 14.1.3 - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml 59194</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml#element(/1/1743)" sourceLine="59194">
+  <property name="label" value="Profit (loss) before tax"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ProfitLossBeforeTax"/>
+  <property name="QName" value="ifrs-full:ProfitLossBeforeTax"/>
+  <property name="contextRef" value="Duration_1_1_2018_To_12_31_2018_ifrs-full_SegmentConsolidationItemsAxis_gpl_ExplorationMember">
+   <property name="entity" value="0001300050">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="gpl:ExplorationMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-3,032,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9554" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml" severity="error" effectiveDate="2021-05-01" cid="2110887916496">[DQC.IFRS.0104.9554] The concept ProfitLoss with a value of -264,000 is dimensionally qualified with the SegmentConsolidationItemsAxis and the unallowable member ExplorationMember. The SegmentConsolidationItemsAxis should only be used with the  following  members: CorporateAndEliminationsMember, CorporateAndReconcilingItemsMember, CorporateNonSegmentMember, CorporateReconcilingItemsAndEliminationsMember, EliminationsAndReconcilingItemsMember, GeographyEliminationsMember, OperatingSegmentsAndCorporateNonSegmentMember, OperatingSegmentsAndUnallocatedMember, OperatingSegmentsExcludingIntersegmentEliminationMember, OtherNonSegmentMember, ifrs-full:EliminationOfIntersegmentAmountsMember, ifrs-full:EntitysTotalForSegmentConsolidationItemsMember, ifrs-full:MaterialReconcilingItemsMember, ifrs-full:OperatingSegmentsMember, ifrs-full:UnallocatedAmountsMember.
+The properties of the fact for ProfitLoss are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentConsolidationItemsAxis=gpl:ExplorationMember 
+Unit: USD
+
+Rule Element Id:9554
+Rule version: 14.1.3 - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml 59186</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml#element(/1/1735)" sourceLine="59186">
+  <property name="label" value="Profit (loss)"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ProfitLoss"/>
+  <property name="QName" value="ifrs-full:ProfitLoss"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_12_31_2019_ifrs-full_SegmentConsolidationItemsAxis_gpl_ExplorationMember">
+   <property name="entity" value="0001300050">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="gpl:ExplorationMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-264,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9554" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml" severity="error" effectiveDate="2021-05-01" cid="2110887916496">[DQC.IFRS.0104.9554] The concept AdjustmentsForDepreciationAndAmortisationExpense with a value of 4,000 is dimensionally qualified with the SegmentConsolidationItemsAxis and the unallowable member ExplorationMember. The SegmentConsolidationItemsAxis should only be used with the  following  members: CorporateAndEliminationsMember, CorporateAndReconcilingItemsMember, CorporateNonSegmentMember, CorporateReconcilingItemsAndEliminationsMember, EliminationsAndReconcilingItemsMember, GeographyEliminationsMember, OperatingSegmentsAndCorporateNonSegmentMember, OperatingSegmentsAndUnallocatedMember, OperatingSegmentsExcludingIntersegmentEliminationMember, OtherNonSegmentMember, ifrs-full:EliminationOfIntersegmentAmountsMember, ifrs-full:EntitysTotalForSegmentConsolidationItemsMember, ifrs-full:MaterialReconcilingItemsMember, ifrs-full:OperatingSegmentsMember, ifrs-full:UnallocatedAmountsMember.
+The properties of the fact for AdjustmentsForDepreciationAndAmortisationExpense are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentConsolidationItemsAxis=gpl:ExplorationMember 
+Unit: USD
+
+Rule Element Id:9554
+Rule version: 14.1.3 - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml 19163</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml#element(/1/1067)" sourceLine="19163">
+  <property name="label" value="Adjustments for depreciation and amortisation expense"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="AdjustmentsForDepreciationAndAmortisationExpense"/>
+  <property name="QName" value="ifrs-full:AdjustmentsForDepreciationAndAmortisationExpense"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_12_31_2019_ifrs-full_SegmentConsolidationItemsAxis_gpl_ExplorationMember">
+   <property name="entity" value="0001300050">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="gpl:ExplorationMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9554" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml" severity="error" effectiveDate="2021-05-01" cid="2110887916496">[DQC.IFRS.0104.9554] The concept ExplorationAndEvaluationExpenses with a value of 176,000 is dimensionally qualified with the SegmentConsolidationItemsAxis and the unallowable member ExplorationMember. The SegmentConsolidationItemsAxis should only be used with the  following  members: CorporateAndEliminationsMember, CorporateAndReconcilingItemsMember, CorporateNonSegmentMember, CorporateReconcilingItemsAndEliminationsMember, EliminationsAndReconcilingItemsMember, GeographyEliminationsMember, OperatingSegmentsAndCorporateNonSegmentMember, OperatingSegmentsAndUnallocatedMember, OperatingSegmentsExcludingIntersegmentEliminationMember, OtherNonSegmentMember, ifrs-full:EliminationOfIntersegmentAmountsMember, ifrs-full:EntitysTotalForSegmentConsolidationItemsMember, ifrs-full:MaterialReconcilingItemsMember, ifrs-full:OperatingSegmentsMember, ifrs-full:UnallocatedAmountsMember.
+The properties of the fact for ExplorationAndEvaluationExpenses are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: ifrs-full:SegmentConsolidationItemsAxis=gpl:ExplorationMember 
+Unit: USD
+
+Rule Element Id:9554
+Rule version: 14.1.3 - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml 18091</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml#element(/1/661)" sourceLine="18091">
+  <property name="label" value="Exploration and evaluation expenses"/>
+  <property name="namespace" value="http://www.greatpanther.com/20191231"/>
+  <property name="name" value="ExplorationAndEvaluationExpenses"/>
+  <property name="QName" value="gpl:ExplorationAndEvaluationExpenses"/>
+  <property name="contextRef" value="Duration_1_1_2019_To_12_31_2019_ifrs-full_SegmentConsolidationItemsAxis_gpl_ExplorationMember">
+   <property name="entity" value="0001300050">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="gpl:ExplorationMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="176,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0104.9554" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml" severity="error" effectiveDate="2021-05-01" cid="2110887916496">[DQC.IFRS.0104.9554] The concept Assets with a value of 2,159,000 is dimensionally qualified with the SegmentConsolidationItemsAxis and the unallowable member ExplorationMember. The SegmentConsolidationItemsAxis should only be used with the  following  members: CorporateAndEliminationsMember, CorporateAndReconcilingItemsMember, CorporateNonSegmentMember, CorporateReconcilingItemsAndEliminationsMember, EliminationsAndReconcilingItemsMember, GeographyEliminationsMember, OperatingSegmentsAndCorporateNonSegmentMember, OperatingSegmentsAndUnallocatedMember, OperatingSegmentsExcludingIntersegmentEliminationMember, OtherNonSegmentMember, ifrs-full:EliminationOfIntersegmentAmountsMember, ifrs-full:EntitysTotalForSegmentConsolidationItemsMember, ifrs-full:MaterialReconcilingItemsMember, ifrs-full:OperatingSegmentsMember, ifrs-full:UnallocatedAmountsMember.
+The properties of the fact for Assets are:
+Period: 2019-12-31
+Dimensions: ifrs-full:SegmentConsolidationItemsAxis=gpl:ExplorationMember 
+Unit: USD
+
+Rule Element Id:9554
+Rule version: 14.1.3 - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml 19192</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml#element(/1/1096)" sourceLine="19192">
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="ifrs-full:Assets"/>
+  <property name="contextRef" value="As_Of_12_31_2019_ifrs-full_SegmentConsolidationItemsAxis_gpl_ExplorationMember">
+   <property name="entity" value="0001300050">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:SegmentConsolidationItemsAxis" value="gpl:ExplorationMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="2,159,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 9.93 secs - https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1300050/000110465920040795/gpl-20191231.xml"/></entry>
+</log>

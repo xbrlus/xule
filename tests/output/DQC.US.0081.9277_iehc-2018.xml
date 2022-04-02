@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22790 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.28 secs at 2019-07-10T22:04:51 - https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv and effective_dates.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpluj0vk1d/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpluj0vk1d/packages/resources.zip"/></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml" effectiveDate="2019-06-30" severity="error" status="PROPOSED" cid="4409003704">[DQC.US.0081.9277] The line item concept us-gaap:AccountsPayableRelatedPartiesNoncurrent with a value of 228,757 is represented as a child of us-gaap:LiabilitiesCurrent with a value of 2,791,360 in the companies extension taxonomy role 00000002 - Statement - BALANCE SHEETS. The element us-gaap:AccountsPayableRelatedPartiesNoncurrent however, is not represented as a component of us-gaap:LiabilitiesCurrent in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:AccountsPayableRelatedPartiesNoncurrent as a sibling element (or child of that sibling) relative to us-gaap:LiabilitiesCurrent in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:LiabilitiesCurrent and the child element us-gaap:AccountsPayableRelatedPartiesNoncurrent.
+
+The properties of this us-gaap:AccountsPayableRelatedPartiesNoncurrent fact are:
+
+Period :2018-12-28
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml 1480</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml#element(/1/500)" sourceLine="1480">
+  <property name="label" value="Due to commercial finance company (Note 6)"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="AccountsPayableRelatedPartiesNoncurrent"/>
+  <property name="QName" value="us-gaap:AccountsPayableRelatedPartiesNoncurrent"/>
+  <property name="contextRef" value="AsOf2018-12-28">
+   <property name="entity" value="0000050292">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-28"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="228,757"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml" effectiveDate="2019-06-30" severity="error" status="PROPOSED" cid="4409003704">[DQC.US.0081.9277] The line item concept us-gaap:IncreaseDecreaseInOtherCurrentLiabilities with a value of 206,100 is represented as a child of us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities with a value of -272,197 in the companies extension taxonomy role 00000005 - Statement - STATEMENTS OF CASH FLOWS. The element us-gaap:IncreaseDecreaseInOtherCurrentLiabilities however, is not represented as a component of us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:IncreaseDecreaseInOtherCurrentLiabilities as a sibling element (or child of that sibling) relative to us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities and the child element us-gaap:IncreaseDecreaseInOtherCurrentLiabilities.
+
+The properties of this us-gaap:IncreaseDecreaseInOtherCurrentLiabilities fact are:
+
+Period :2017-04-01 to 2017-12-29
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml 1121</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml#element(/1/141)" sourceLine="1121">
+  <property name="label" value="Increase in other current liabilities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="IncreaseDecreaseInOtherCurrentLiabilities"/>
+  <property name="QName" value="us-gaap:IncreaseDecreaseInOtherCurrentLiabilities"/>
+  <property name="contextRef" value="From2017-04-01to2017-12-29">
+   <property name="entity" value="0000050292">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-04-01"/>
+   <property name="endDate" value="2017-12-29"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="206,100"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml" effectiveDate="2019-06-30" severity="error" status="PROPOSED" cid="4409003704">[DQC.US.0081.9277] The line item concept us-gaap:IncreaseDecreaseInAccruedIncomeTaxesPayable with a value of -71,712 is represented as a child of us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities with a value of -272,197 in the companies extension taxonomy role 00000005 - Statement - STATEMENTS OF CASH FLOWS. The element us-gaap:IncreaseDecreaseInAccruedIncomeTaxesPayable however, is not represented as a component of us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:IncreaseDecreaseInAccruedIncomeTaxesPayable as a sibling element (or child of that sibling) relative to us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities and the child element us-gaap:IncreaseDecreaseInAccruedIncomeTaxesPayable.
+
+The properties of this us-gaap:IncreaseDecreaseInAccruedIncomeTaxesPayable fact are:
+
+Period :2017-04-01 to 2017-12-29
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml 1119</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml#element(/1/139)" sourceLine="1119">
+  <property name="label" value="Increase (decrease) in accrued corporate taxes"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="IncreaseDecreaseInAccruedIncomeTaxesPayable"/>
+  <property name="QName" value="us-gaap:IncreaseDecreaseInAccruedIncomeTaxesPayable"/>
+  <property name="contextRef" value="From2017-04-01to2017-12-29">
+   <property name="entity" value="0000050292">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-04-01"/>
+   <property name="endDate" value="2017-12-29"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-71,712"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml" effectiveDate="2019-06-30" severity="error" status="PROPOSED" cid="4409003704">[DQC.US.0081.9277] The line item concept us-gaap:IncreaseDecreaseInAccountsReceivable with a value of 196,350 is represented as a child of us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities with a value of -272,197 in the companies extension taxonomy role 00000005 - Statement - STATEMENTS OF CASH FLOWS. The element us-gaap:IncreaseDecreaseInAccountsReceivable however, is not represented as a component of us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:IncreaseDecreaseInAccountsReceivable as a sibling element (or child of that sibling) relative to us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities and the child element us-gaap:IncreaseDecreaseInAccountsReceivable.
+
+The properties of this us-gaap:IncreaseDecreaseInAccountsReceivable fact are:
+
+Period :2017-04-01 to 2017-12-29
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml 1131</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml#element(/1/151)" sourceLine="1131">
+  <property name="label" value="Increase (Decrease) in Accounts Receivable"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="IncreaseDecreaseInAccountsReceivable"/>
+  <property name="QName" value="us-gaap:IncreaseDecreaseInAccountsReceivable"/>
+  <property name="contextRef" value="From2017-04-01to2017-12-29">
+   <property name="entity" value="0000050292">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-04-01"/>
+   <property name="endDate" value="2017-12-29"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="196,350"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml" effectiveDate="2019-06-30" severity="error" status="PROPOSED" cid="4409003704">[DQC.US.0081.9277] The line item concept us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets with a value of -890,205 is represented as a child of us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities with a value of -272,197 in the companies extension taxonomy role 00000005 - Statement - STATEMENTS OF CASH FLOWS. The element us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets however, is not represented as a component of us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets as a sibling element (or child of that sibling) relative to us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities and the child element us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets.
+
+The properties of this us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets fact are:
+
+Period :2017-04-01 to 2017-12-29
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml 1125</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml#element(/1/145)" sourceLine="1125">
+  <property name="label" value="Increase (Decrease) in Prepaid Expense and Other Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets"/>
+  <property name="QName" value="us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets"/>
+  <property name="contextRef" value="From2017-04-01to2017-12-29">
+   <property name="entity" value="0000050292">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-04-01"/>
+   <property name="endDate" value="2017-12-29"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-890,205"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml" effectiveDate="2019-06-30" severity="error" status="PROPOSED" cid="4409003704">[DQC.US.0081.9277] The line item concept us-gaap:IncreaseDecreaseInInventories with a value of 1,721,414 is represented as a child of us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities with a value of -272,197 in the companies extension taxonomy role 00000005 - Statement - STATEMENTS OF CASH FLOWS. The element us-gaap:IncreaseDecreaseInInventories however, is not represented as a component of us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:IncreaseDecreaseInInventories as a sibling element (or child of that sibling) relative to us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities and the child element us-gaap:IncreaseDecreaseInInventories.
+
+The properties of this us-gaap:IncreaseDecreaseInInventories fact are:
+
+Period :2017-04-01 to 2017-12-29
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml 1129</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml#element(/1/149)" sourceLine="1129">
+  <property name="label" value="Increase (Decrease) in Inventories"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="IncreaseDecreaseInInventories"/>
+  <property name="QName" value="us-gaap:IncreaseDecreaseInInventories"/>
+  <property name="contextRef" value="From2017-04-01to2017-12-29">
+   <property name="entity" value="0000050292">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-04-01"/>
+   <property name="endDate" value="2017-12-29"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,721,414"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml" effectiveDate="2019-06-30" severity="error" status="PROPOSED" cid="4409003704">[DQC.US.0081.9277] The line item concept us-gaap:IncreaseDecreaseInAccountsPayable with a value of 86,462 is represented as a child of us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities with a value of -272,197 in the companies extension taxonomy role 00000005 - Statement - STATEMENTS OF CASH FLOWS. The element us-gaap:IncreaseDecreaseInAccountsPayable however, is not represented as a component of us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:IncreaseDecreaseInAccountsPayable as a sibling element (or child of that sibling) relative to us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities and the child element us-gaap:IncreaseDecreaseInAccountsPayable.
+
+The properties of this us-gaap:IncreaseDecreaseInAccountsPayable fact are:
+
+Period :2017-04-01 to 2017-12-29
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml 1123</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml#element(/1/143)" sourceLine="1123">
+  <property name="label" value="Increase (decrease) in accounts payable"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="IncreaseDecreaseInAccountsPayable"/>
+  <property name="QName" value="us-gaap:IncreaseDecreaseInAccountsPayable"/>
+  <property name="contextRef" value="From2017-04-01to2017-12-29">
+   <property name="entity" value="0000050292">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-04-01"/>
+   <property name="endDate" value="2017-12-29"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="86,462"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml" effectiveDate="2019-06-30" severity="error" status="PROPOSED" cid="4409003704">[DQC.US.0081.9277] The line item concept us-gaap:IncreaseDecreaseInAccountsReceivableFromSecuritization with a value of -191,430 is represented as a child of us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities with a value of -272,197 in the companies extension taxonomy role 00000005 - Statement - STATEMENTS OF CASH FLOWS. The element us-gaap:IncreaseDecreaseInAccountsReceivableFromSecuritization however, is not represented as a component of us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:IncreaseDecreaseInAccountsReceivableFromSecuritization as a sibling element (or child of that sibling) relative to us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities and the child element us-gaap:IncreaseDecreaseInAccountsReceivableFromSecuritization.
+
+The properties of this us-gaap:IncreaseDecreaseInAccountsReceivableFromSecuritization fact are:
+
+Period :2017-04-01 to 2017-12-29
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml 1127</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml#element(/1/147)" sourceLine="1127">
+  <property name="label" value="Increase (Decrease) in Accounts Receivable from Securitization"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="IncreaseDecreaseInAccountsReceivableFromSecuritization"/>
+  <property name="QName" value="us-gaap:IncreaseDecreaseInAccountsReceivableFromSecuritization"/>
+  <property name="contextRef" value="From2017-04-01to2017-12-29">
+   <property name="entity" value="0000050292">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-04-01"/>
+   <property name="endDate" value="2017-12-29"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-191,430"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml" effectiveDate="2019-06-30" severity="error" status="PROPOSED" cid="4409003704">[DQC.US.0081.9277] The line item concept us-gaap:IncreaseDecreaseInOtherCurrentLiabilities with a value of 331,196 is represented as a child of us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities with a value of 1,986,814 in the companies extension taxonomy role 00000005 - Statement - STATEMENTS OF CASH FLOWS. The element us-gaap:IncreaseDecreaseInOtherCurrentLiabilities however, is not represented as a component of us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:IncreaseDecreaseInOtherCurrentLiabilities as a sibling element (or child of that sibling) relative to us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities and the child element us-gaap:IncreaseDecreaseInOtherCurrentLiabilities.
+
+The properties of this us-gaap:IncreaseDecreaseInOtherCurrentLiabilities fact are:
+
+Period :2018-03-31 to 2018-12-28
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml 1120</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml#element(/1/140)" sourceLine="1120">
+  <property name="label" value="Increase in other current liabilities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="IncreaseDecreaseInOtherCurrentLiabilities"/>
+  <property name="QName" value="us-gaap:IncreaseDecreaseInOtherCurrentLiabilities"/>
+  <property name="contextRef" value="From2018-03-31to2018-12-28">
+   <property name="entity" value="0000050292">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-03-31"/>
+   <property name="endDate" value="2018-12-28"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="331,196"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml" effectiveDate="2019-06-30" severity="error" status="PROPOSED" cid="4409003704">[DQC.US.0081.9277] The line item concept us-gaap:IncreaseDecreaseInAccruedIncomeTaxesPayable with a value of 486,330 is represented as a child of us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities with a value of 1,986,814 in the companies extension taxonomy role 00000005 - Statement - STATEMENTS OF CASH FLOWS. The element us-gaap:IncreaseDecreaseInAccruedIncomeTaxesPayable however, is not represented as a component of us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:IncreaseDecreaseInAccruedIncomeTaxesPayable as a sibling element (or child of that sibling) relative to us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities and the child element us-gaap:IncreaseDecreaseInAccruedIncomeTaxesPayable.
+
+The properties of this us-gaap:IncreaseDecreaseInAccruedIncomeTaxesPayable fact are:
+
+Period :2018-03-31 to 2018-12-28
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml 1118</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml#element(/1/138)" sourceLine="1118">
+  <property name="label" value="Increase (decrease) in accrued corporate taxes"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="IncreaseDecreaseInAccruedIncomeTaxesPayable"/>
+  <property name="QName" value="us-gaap:IncreaseDecreaseInAccruedIncomeTaxesPayable"/>
+  <property name="contextRef" value="From2018-03-31to2018-12-28">
+   <property name="entity" value="0000050292">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-03-31"/>
+   <property name="endDate" value="2018-12-28"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="486,330"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml" effectiveDate="2019-06-30" severity="error" status="PROPOSED" cid="4409003704">[DQC.US.0081.9277] The line item concept us-gaap:IncreaseDecreaseInAccountsReceivable with a value of -1,517,791 is represented as a child of us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities with a value of 1,986,814 in the companies extension taxonomy role 00000005 - Statement - STATEMENTS OF CASH FLOWS. The element us-gaap:IncreaseDecreaseInAccountsReceivable however, is not represented as a component of us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:IncreaseDecreaseInAccountsReceivable as a sibling element (or child of that sibling) relative to us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities and the child element us-gaap:IncreaseDecreaseInAccountsReceivable.
+
+The properties of this us-gaap:IncreaseDecreaseInAccountsReceivable fact are:
+
+Period :2018-03-31 to 2018-12-28
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml 1130</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml#element(/1/150)" sourceLine="1130">
+  <property name="label" value="Increase (Decrease) in Accounts Receivable"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="IncreaseDecreaseInAccountsReceivable"/>
+  <property name="QName" value="us-gaap:IncreaseDecreaseInAccountsReceivable"/>
+  <property name="contextRef" value="From2018-03-31to2018-12-28">
+   <property name="entity" value="0000050292">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-03-31"/>
+   <property name="endDate" value="2018-12-28"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-1,517,791"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml" effectiveDate="2019-06-30" severity="error" status="PROPOSED" cid="4409003704">[DQC.US.0081.9277] The line item concept us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets with a value of -373,711 is represented as a child of us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities with a value of 1,986,814 in the companies extension taxonomy role 00000005 - Statement - STATEMENTS OF CASH FLOWS. The element us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets however, is not represented as a component of us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets as a sibling element (or child of that sibling) relative to us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities and the child element us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets.
+
+The properties of this us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets fact are:
+
+Period :2018-03-31 to 2018-12-28
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml 1124</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml#element(/1/144)" sourceLine="1124">
+  <property name="label" value="Increase (Decrease) in Prepaid Expense and Other Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets"/>
+  <property name="QName" value="us-gaap:IncreaseDecreaseInPrepaidDeferredExpenseAndOtherAssets"/>
+  <property name="contextRef" value="From2018-03-31to2018-12-28">
+   <property name="entity" value="0000050292">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-03-31"/>
+   <property name="endDate" value="2018-12-28"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-373,711"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml" effectiveDate="2019-06-30" severity="error" status="PROPOSED" cid="4409003704">[DQC.US.0081.9277] The line item concept us-gaap:IncreaseDecreaseInInventories with a value of 677,892 is represented as a child of us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities with a value of 1,986,814 in the companies extension taxonomy role 00000005 - Statement - STATEMENTS OF CASH FLOWS. The element us-gaap:IncreaseDecreaseInInventories however, is not represented as a component of us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:IncreaseDecreaseInInventories as a sibling element (or child of that sibling) relative to us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities and the child element us-gaap:IncreaseDecreaseInInventories.
+
+The properties of this us-gaap:IncreaseDecreaseInInventories fact are:
+
+Period :2018-03-31 to 2018-12-28
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml 1128</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml#element(/1/148)" sourceLine="1128">
+  <property name="label" value="Increase (Decrease) in Inventories"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="IncreaseDecreaseInInventories"/>
+  <property name="QName" value="us-gaap:IncreaseDecreaseInInventories"/>
+  <property name="contextRef" value="From2018-03-31to2018-12-28">
+   <property name="entity" value="0000050292">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-03-31"/>
+   <property name="endDate" value="2018-12-28"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="677,892"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml" effectiveDate="2019-06-30" severity="error" status="PROPOSED" cid="4409003704">[DQC.US.0081.9277] The line item concept us-gaap:IncreaseDecreaseInAccountsPayable with a value of -535,684 is represented as a child of us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities with a value of 1,986,814 in the companies extension taxonomy role 00000005 - Statement - STATEMENTS OF CASH FLOWS. The element us-gaap:IncreaseDecreaseInAccountsPayable however, is not represented as a component of us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:IncreaseDecreaseInAccountsPayable as a sibling element (or child of that sibling) relative to us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities and the child element us-gaap:IncreaseDecreaseInAccountsPayable.
+
+The properties of this us-gaap:IncreaseDecreaseInAccountsPayable fact are:
+
+Period :2018-03-31 to 2018-12-28
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml 1122</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml#element(/1/142)" sourceLine="1122">
+  <property name="label" value="Increase (decrease) in accounts payable"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="IncreaseDecreaseInAccountsPayable"/>
+  <property name="QName" value="us-gaap:IncreaseDecreaseInAccountsPayable"/>
+  <property name="contextRef" value="From2018-03-31to2018-12-28">
+   <property name="entity" value="0000050292">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-03-31"/>
+   <property name="endDate" value="2018-12-28"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-535,684"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml" effectiveDate="2019-06-30" severity="error" status="PROPOSED" cid="4409003704">[DQC.US.0081.9277] The line item concept us-gaap:IncreaseDecreaseInAccountsReceivableFromSecuritization with a value of -154,960 is represented as a child of us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities with a value of 1,986,814 in the companies extension taxonomy role 00000005 - Statement - STATEMENTS OF CASH FLOWS. The element us-gaap:IncreaseDecreaseInAccountsReceivableFromSecuritization however, is not represented as a component of us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:IncreaseDecreaseInAccountsReceivableFromSecuritization as a sibling element (or child of that sibling) relative to us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:AdjustmentsNoncashItemsToReconcileNetIncomeLossToCashProvidedByUsedInOperatingActivities and the child element us-gaap:IncreaseDecreaseInAccountsReceivableFromSecuritization.
+
+The properties of this us-gaap:IncreaseDecreaseInAccountsReceivableFromSecuritization fact are:
+
+Period :2018-03-31 to 2018-12-28
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml 1126</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml#element(/1/146)" sourceLine="1126">
+  <property name="label" value="Increase (Decrease) in Accounts Receivable from Securitization"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="IncreaseDecreaseInAccountsReceivableFromSecuritization"/>
+  <property name="QName" value="us-gaap:IncreaseDecreaseInAccountsReceivableFromSecuritization"/>
+  <property name="contextRef" value="From2018-03-31to2018-12-28">
+   <property name="entity" value="0000050292">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-03-31"/>
+   <property name="endDate" value="2018-12-28"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-154,960"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 27.59 secs - https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/50292/000117494719000338/iehc-20181229.xml"/></entry>
+</log>

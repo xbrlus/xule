@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.10 secs at 2020-07-26T08:25:43 - http://www.sec.gov/Archives/edgar/data/1692981/000169298120000011/none-20200430.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1692981/000169298120000011/none-20200430.xml"/></entry>
+<entry code="DQC.US.0004.9288" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1692981/000169298120000011/none-20200430.xml" severity="error" effectiveDate="2019-09-30" cid="2848113272192">[DQC.US.0004.9288] Net Cash Provided by (Used in) Investing Activities with a value of 0 is not equal to the combined total of Net Cash Provided by (Used in) Investing Activities, Continuing Operations and Cash Provided by (Used in) Investing Activities, Discontinued Operations ( 8,389 + 8,389 ) with a value of 16,778. 
+
+These values should be equal.
+The properties of this us-gaap:NetCashProvidedByUsedInInvestingActivities fact are:
+Period :2018-11-01 to 2019-04-30
+Dimensions :  
+Unit : USD
+Decimals of Net Cash Provided by (Used in) Investing Activities : 0
+Decimals of Net Cash Provided by (Used in) Investing Activities, Continuing Operations : 0
+Decimals of Cash Provided by (Used in) Investing Activities, Discontinued Operations : 0
+
+Rule Element Id:9288
+Rule version: 12.0.0 - http://www.sec.gov/Archives/edgar/data/1692981/000169298120000011/none-20200430.xml 888</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1692981/000169298120000011/none-20200430.xml#element(/1/273)" sourceLine="888">
+  <property name="label" value="Net Cash Provided by (Used in) Investing Activities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="NetCashProvidedByUsedInInvestingActivities"/>
+  <property name="QName" value="us-gaap:NetCashProvidedByUsedInInvestingActivities"/>
+  <property name="contextRef" value="Context7">
+   <property name="entity" value="0001692981">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-11-01"/>
+   <property name="endDate" value="2019-04-30"/>
+  </property>
+  <property name="unitRef" value="Unit2 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 2.96 secs - http://www.sec.gov/Archives/edgar/data/1692981/000169298120000011/none-20200430.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1692981/000169298120000011/none-20200430.xml"/></entry>
+</log>

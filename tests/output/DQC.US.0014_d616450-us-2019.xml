@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 12.60 secs at 2020-07-28T15:26:58 - http://www.sec.gov/Archives/edgar/data/1691299/000119312519298801/d616450ds4.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1691299/000119312519298801/d616450ds4.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpomf9zpuw\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpomf9zpuw\packages\resources.zip"/></entry>
+<entry code="DQC.US.0014.2787" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1691299/000119312519298801/d616450ds4.htm" rule-suffix="2787" severity="error" effectiveDate="2017-01-01" cid="2747349509504">[DQC.US.0014.2787] Derivative Liability has a value of -54,570,000 which is less than zero. This element should not have a negative value. The preparer should consider if the value is input correctly for this assertion and, after considering the appropriateness of the input, if incorrect, input the amount as a positive (i.e., absolute) value and provide a negated label. 
+
+The properties of this us-gaap:DerivativeLiabilities fact are:
+Period :2019-09-30
+Unit : USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1691299/000119312519298801/d616450ds4.htm 17545</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1691299/000119312519298801/d616450ds4.htm#element(TextSelection_8655380/2/3/9/6/1)" sourceLine="17545">
+  <property name="file" value="d616450ds4.htm"/>
+  <property name="line" value="17545"/>
+  <property name="label" value="Derivative Liability"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DerivativeLiabilities"/>
+  <property name="QName" value="us-gaap:DerivativeLiabilities"/>
+  <property name="contextRef" value="PAsOn09_30_2019">
+   <property name="entity" value="0001691299">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-09-30"/>
+  </property>
+  <property name="unitRef" value="Unit_USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-54,570,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="54,570"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 6.59 secs - http://www.sec.gov/Archives/edgar/data/1691299/000119312519298801/d616450ds4.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1691299/000119312519298801/d616450ds4.htm"/></entry>
+</log>

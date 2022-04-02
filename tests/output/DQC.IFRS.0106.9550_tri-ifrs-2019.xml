@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.36 secs at 2020-10-28T16:45:33 - https://www.sec.gov/Archives/edgar/data/1075124/000119312520213749/tri-20200630.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1075124/000119312520213749/tri-20200630.xml"/></entry>
+<entry code="DQC.IFRS.0106.9550" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1075124/000119312520213749/tri-20200630.xml" severity="error" effectiveDate="None" cid="2373358425472">[DQC.IFRS.0106.9550] The filer has used the axis AssetsAndLiabilitiesClassifiedAsHeldForSaleAxis with the concept ifrs-full:ComprehensiveIncomeAttributableToOwnersOfParent and a reported value of -37,000,000. This concept is a duration concept. This axis should only be used to disaggrate balances on the balance sheet between held for sale and not held for sale. If this value represents the loss or gain on a disposal group then the value should be tagged with the axis ContinuingAndDiscontinuedOperationsAxis with a member that reflects the disposal group or discontinued operation. If the members of DiscontinuedOperationsMember or DisposalGroupsClassifiedAsHeldForSaleMember are not used because either the member reflects a specific discontinued operation or specific disposal group then the specifc member should be included as either a child of DiscontinuedOperationsMember or DisposalGroupsClassifiedAsHeldForSaleMember.
+
+The properties of this ifrs-full:ComprehensiveIncomeAttributableToOwnersOfParent fact are:
+Period :2019-01-01 to 2019-06-30
+Dimensions :  ifrs-full:AssetsAndLiabilitiesClassifiedAsHeldForSaleAxis=ifrs-full:DiscontinuedOperationsMember
+Unit : USD
+
+Rule Element Id:9550
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1075124/000119312520213749/tri-20200630.xml 7457</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1075124/000119312520213749/tri-20200630.xml#Factid_14363994" sourceLine="7457">
+  <property name="label" value="Comprehensive income, attributable to owners of parent"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ComprehensiveIncomeAttributableToOwnersOfParent"/>
+  <property name="QName" value="ifrs-full:ComprehensiveIncomeAttributableToOwnersOfParent"/>
+  <property name="contextRef" value="P01_01_2019To06_30_2019_DiscontinuedOperationsMemberifrsfullAssetsAndLiabilitiesClassifiedAsHeldForSaleAxis">
+   <property name="entity" value="0001075124">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:AssetsAndLiabilitiesClassifiedAsHeldForSaleAxis" value="ifrs-full:DiscontinuedOperationsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-37,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0106.9550" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1075124/000119312520213749/tri-20200630.xml" severity="error" effectiveDate="None" cid="2373358425472">[DQC.IFRS.0106.9550] The filer has used the axis AssetsAndLiabilitiesClassifiedAsHeldForSaleAxis with the concept ifrs-full:ComprehensiveIncomeAttributableToOwnersOfParent and a reported value of 340,000,000. This concept is a duration concept. This axis should only be used to disaggrate balances on the balance sheet between held for sale and not held for sale. If this value represents the loss or gain on a disposal group then the value should be tagged with the axis ContinuingAndDiscontinuedOperationsAxis with a member that reflects the disposal group or discontinued operation. If the members of DiscontinuedOperationsMember or DisposalGroupsClassifiedAsHeldForSaleMember are not used because either the member reflects a specific discontinued operation or specific disposal group then the specifc member should be included as either a child of DiscontinuedOperationsMember or DisposalGroupsClassifiedAsHeldForSaleMember.
+
+The properties of this ifrs-full:ComprehensiveIncomeAttributableToOwnersOfParent fact are:
+Period :2019-01-01 to 2019-06-30
+Dimensions :  ifrs-full:AssetsAndLiabilitiesClassifiedAsHeldForSaleAxis=tri:ContinuingOperations1Member
+Unit : USD
+
+Rule Element Id:9550
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1075124/000119312520213749/tri-20200630.xml 7455</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1075124/000119312520213749/tri-20200630.xml#Factid_14363992" sourceLine="7455">
+  <property name="label" value="Comprehensive income, attributable to owners of parent"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ComprehensiveIncomeAttributableToOwnersOfParent"/>
+  <property name="QName" value="ifrs-full:ComprehensiveIncomeAttributableToOwnersOfParent"/>
+  <property name="contextRef" value="P01_01_2019To06_30_2019_ContinuingOperations1MemberifrsfullAssetsAndLiabilitiesClassifiedAsHeldForSaleAxis">
+   <property name="entity" value="0001075124">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:AssetsAndLiabilitiesClassifiedAsHeldForSaleAxis" value="tri:ContinuingOperations1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="340,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0106.9550" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1075124/000119312520213749/tri-20200630.xml" severity="error" effectiveDate="None" cid="2373358425472">[DQC.IFRS.0106.9550] The filer has used the axis AssetsAndLiabilitiesClassifiedAsHeldForSaleAxis with the concept ifrs-full:ComprehensiveIncomeAttributableToOwnersOfParent and a reported value of 95,000,000. This concept is a duration concept. This axis should only be used to disaggrate balances on the balance sheet between held for sale and not held for sale. If this value represents the loss or gain on a disposal group then the value should be tagged with the axis ContinuingAndDiscontinuedOperationsAxis with a member that reflects the disposal group or discontinued operation. If the members of DiscontinuedOperationsMember or DisposalGroupsClassifiedAsHeldForSaleMember are not used because either the member reflects a specific discontinued operation or specific disposal group then the specifc member should be included as either a child of DiscontinuedOperationsMember or DisposalGroupsClassifiedAsHeldForSaleMember.
+
+The properties of this ifrs-full:ComprehensiveIncomeAttributableToOwnersOfParent fact are:
+Period :2020-01-01 to 2020-06-30
+Dimensions :  ifrs-full:AssetsAndLiabilitiesClassifiedAsHeldForSaleAxis=tri:ContinuingOperations1Member
+Unit : USD
+
+Rule Element Id:9550
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1075124/000119312520213749/tri-20200630.xml 7454</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1075124/000119312520213749/tri-20200630.xml#Factid_14363991" sourceLine="7454">
+  <property name="label" value="Comprehensive income, attributable to owners of parent"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ComprehensiveIncomeAttributableToOwnersOfParent"/>
+  <property name="QName" value="ifrs-full:ComprehensiveIncomeAttributableToOwnersOfParent"/>
+  <property name="contextRef" value="P01_01_2020To06_30_2020_ContinuingOperations1MemberifrsfullAssetsAndLiabilitiesClassifiedAsHeldForSaleAxis">
+   <property name="entity" value="0001075124">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:AssetsAndLiabilitiesClassifiedAsHeldForSaleAxis" value="tri:ContinuingOperations1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="95,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0106.9550" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1075124/000119312520213749/tri-20200630.xml" severity="error" effectiveDate="None" cid="2373358425472">[DQC.IFRS.0106.9550] The filer has used the axis AssetsAndLiabilitiesClassifiedAsHeldForSaleAxis with the concept ifrs-full:ComprehensiveIncomeAttributableToOwnersOfParent and a reported value of -3,000,000. This concept is a duration concept. This axis should only be used to disaggrate balances on the balance sheet between held for sale and not held for sale. If this value represents the loss or gain on a disposal group then the value should be tagged with the axis ContinuingAndDiscontinuedOperationsAxis with a member that reflects the disposal group or discontinued operation. If the members of DiscontinuedOperationsMember or DisposalGroupsClassifiedAsHeldForSaleMember are not used because either the member reflects a specific discontinued operation or specific disposal group then the specifc member should be included as either a child of DiscontinuedOperationsMember or DisposalGroupsClassifiedAsHeldForSaleMember.
+
+The properties of this ifrs-full:ComprehensiveIncomeAttributableToOwnersOfParent fact are:
+Period :2020-01-01 to 2020-06-30
+Dimensions :  ifrs-full:AssetsAndLiabilitiesClassifiedAsHeldForSaleAxis=ifrs-full:DiscontinuedOperationsMember
+Unit : USD
+
+Rule Element Id:9550
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1075124/000119312520213749/tri-20200630.xml 7456</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1075124/000119312520213749/tri-20200630.xml#Factid_14363993" sourceLine="7456">
+  <property name="label" value="Comprehensive income, attributable to owners of parent"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ComprehensiveIncomeAttributableToOwnersOfParent"/>
+  <property name="QName" value="ifrs-full:ComprehensiveIncomeAttributableToOwnersOfParent"/>
+  <property name="contextRef" value="P01_01_2020To06_30_2020_DiscontinuedOperationsMemberifrsfullAssetsAndLiabilitiesClassifiedAsHeldForSaleAxis">
+   <property name="entity" value="0001075124">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-01-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:AssetsAndLiabilitiesClassifiedAsHeldForSaleAxis" value="ifrs-full:DiscontinuedOperationsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-3,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0106.9550" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1075124/000119312520213749/tri-20200630.xml" severity="error" effectiveDate="None" cid="2373358425472">[DQC.IFRS.0106.9550] The filer has used the axis AssetsAndLiabilitiesClassifiedAsHeldForSaleAxis with the concept ifrs-full:ComprehensiveIncomeAttributableToOwnersOfParent and a reported value of 238,000,000. This concept is a duration concept. This axis should only be used to disaggrate balances on the balance sheet between held for sale and not held for sale. If this value represents the loss or gain on a disposal group then the value should be tagged with the axis ContinuingAndDiscontinuedOperationsAxis with a member that reflects the disposal group or discontinued operation. If the members of DiscontinuedOperationsMember or DisposalGroupsClassifiedAsHeldForSaleMember are not used because either the member reflects a specific discontinued operation or specific disposal group then the specifc member should be included as either a child of DiscontinuedOperationsMember or DisposalGroupsClassifiedAsHeldForSaleMember.
+
+The properties of this ifrs-full:ComprehensiveIncomeAttributableToOwnersOfParent fact are:
+Period :2020-04-01 to 2020-06-30
+Dimensions :  ifrs-full:AssetsAndLiabilitiesClassifiedAsHeldForSaleAxis=tri:ContinuingOperations1Member
+Unit : USD
+
+Rule Element Id:9550
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1075124/000119312520213749/tri-20200630.xml 7439</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1075124/000119312520213749/tri-20200630.xml#Factid_14363975" sourceLine="7439">
+  <property name="label" value="Comprehensive income, attributable to owners of parent"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ComprehensiveIncomeAttributableToOwnersOfParent"/>
+  <property name="QName" value="ifrs-full:ComprehensiveIncomeAttributableToOwnersOfParent"/>
+  <property name="contextRef" value="P04_01_2020To06_30_2020_ContinuingOperations1MemberifrsfullAssetsAndLiabilitiesClassifiedAsHeldForSaleAxis">
+   <property name="entity" value="0001075124">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-04-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:AssetsAndLiabilitiesClassifiedAsHeldForSaleAxis" value="tri:ContinuingOperations1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="238,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0106.9550" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1075124/000119312520213749/tri-20200630.xml" severity="error" effectiveDate="None" cid="2373358425472">[DQC.IFRS.0106.9550] The filer has used the axis AssetsAndLiabilitiesClassifiedAsHeldForSaleAxis with the concept ifrs-full:ComprehensiveIncomeAttributableToOwnersOfParent and a reported value of -5,000,000. This concept is a duration concept. This axis should only be used to disaggrate balances on the balance sheet between held for sale and not held for sale. If this value represents the loss or gain on a disposal group then the value should be tagged with the axis ContinuingAndDiscontinuedOperationsAxis with a member that reflects the disposal group or discontinued operation. If the members of DiscontinuedOperationsMember or DisposalGroupsClassifiedAsHeldForSaleMember are not used because either the member reflects a specific discontinued operation or specific disposal group then the specifc member should be included as either a child of DiscontinuedOperationsMember or DisposalGroupsClassifiedAsHeldForSaleMember.
+
+The properties of this ifrs-full:ComprehensiveIncomeAttributableToOwnersOfParent fact are:
+Period :2020-04-01 to 2020-06-30
+Dimensions :  ifrs-full:AssetsAndLiabilitiesClassifiedAsHeldForSaleAxis=ifrs-full:DiscontinuedOperationsMember
+Unit : USD
+
+Rule Element Id:9550
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1075124/000119312520213749/tri-20200630.xml 7441</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1075124/000119312520213749/tri-20200630.xml#Factid_14363977" sourceLine="7441">
+  <property name="label" value="Comprehensive income, attributable to owners of parent"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ComprehensiveIncomeAttributableToOwnersOfParent"/>
+  <property name="QName" value="ifrs-full:ComprehensiveIncomeAttributableToOwnersOfParent"/>
+  <property name="contextRef" value="P04_01_2020To06_30_2020_DiscontinuedOperationsMemberifrsfullAssetsAndLiabilitiesClassifiedAsHeldForSaleAxis">
+   <property name="entity" value="0001075124">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2020-04-01"/>
+   <property name="endDate" value="2020-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:AssetsAndLiabilitiesClassifiedAsHeldForSaleAxis" value="ifrs-full:DiscontinuedOperationsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-5,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0106.9550" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1075124/000119312520213749/tri-20200630.xml" severity="error" effectiveDate="None" cid="2373358425472">[DQC.IFRS.0106.9550] The filer has used the axis AssetsAndLiabilitiesClassifiedAsHeldForSaleAxis with the concept ifrs-full:ComprehensiveIncomeAttributableToOwnersOfParent and a reported value of 228,000,000. This concept is a duration concept. This axis should only be used to disaggrate balances on the balance sheet between held for sale and not held for sale. If this value represents the loss or gain on a disposal group then the value should be tagged with the axis ContinuingAndDiscontinuedOperationsAxis with a member that reflects the disposal group or discontinued operation. If the members of DiscontinuedOperationsMember or DisposalGroupsClassifiedAsHeldForSaleMember are not used because either the member reflects a specific discontinued operation or specific disposal group then the specifc member should be included as either a child of DiscontinuedOperationsMember or DisposalGroupsClassifiedAsHeldForSaleMember.
+
+The properties of this ifrs-full:ComprehensiveIncomeAttributableToOwnersOfParent fact are:
+Period :2019-04-01 to 2019-06-30
+Dimensions :  ifrs-full:AssetsAndLiabilitiesClassifiedAsHeldForSaleAxis=tri:ContinuingOperations1Member
+Unit : USD
+
+Rule Element Id:9550
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1075124/000119312520213749/tri-20200630.xml 7440</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1075124/000119312520213749/tri-20200630.xml#Factid_14363976" sourceLine="7440">
+  <property name="label" value="Comprehensive income, attributable to owners of parent"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ComprehensiveIncomeAttributableToOwnersOfParent"/>
+  <property name="QName" value="ifrs-full:ComprehensiveIncomeAttributableToOwnersOfParent"/>
+  <property name="contextRef" value="P04_01_2019To06_30_2019_ContinuingOperations1MemberifrsfullAssetsAndLiabilitiesClassifiedAsHeldForSaleAxis">
+   <property name="entity" value="0001075124">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-04-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:AssetsAndLiabilitiesClassifiedAsHeldForSaleAxis" value="tri:ContinuingOperations1Member"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="228,000,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0106.9550" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1075124/000119312520213749/tri-20200630.xml" severity="error" effectiveDate="None" cid="2373358425472">[DQC.IFRS.0106.9550] The filer has used the axis AssetsAndLiabilitiesClassifiedAsHeldForSaleAxis with the concept ifrs-full:ComprehensiveIncomeAttributableToOwnersOfParent and a reported value of -27,000,000. This concept is a duration concept. This axis should only be used to disaggrate balances on the balance sheet between held for sale and not held for sale. If this value represents the loss or gain on a disposal group then the value should be tagged with the axis ContinuingAndDiscontinuedOperationsAxis with a member that reflects the disposal group or discontinued operation. If the members of DiscontinuedOperationsMember or DisposalGroupsClassifiedAsHeldForSaleMember are not used because either the member reflects a specific discontinued operation or specific disposal group then the specifc member should be included as either a child of DiscontinuedOperationsMember or DisposalGroupsClassifiedAsHeldForSaleMember.
+
+The properties of this ifrs-full:ComprehensiveIncomeAttributableToOwnersOfParent fact are:
+Period :2019-04-01 to 2019-06-30
+Dimensions :  ifrs-full:AssetsAndLiabilitiesClassifiedAsHeldForSaleAxis=ifrs-full:DiscontinuedOperationsMember
+Unit : USD
+
+Rule Element Id:9550
+Rule version: 14.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1075124/000119312520213749/tri-20200630.xml 7442</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1075124/000119312520213749/tri-20200630.xml#Factid_14363978" sourceLine="7442">
+  <property name="label" value="Comprehensive income, attributable to owners of parent"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="ComprehensiveIncomeAttributableToOwnersOfParent"/>
+  <property name="QName" value="ifrs-full:ComprehensiveIncomeAttributableToOwnersOfParent"/>
+  <property name="contextRef" value="P04_01_2019To06_30_2019_DiscontinuedOperationsMemberifrsfullAssetsAndLiabilitiesClassifiedAsHeldForSaleAxis">
+   <property name="entity" value="0001075124">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-04-01"/>
+   <property name="endDate" value="2019-06-30"/>
+   <property name="dimensions" value="(1)">
+    <property name="ifrs-full:AssetsAndLiabilitiesClassifiedAsHeldForSaleAxis" value="ifrs-full:DiscontinuedOperationsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Unit_USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="-27,000,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 2.51 secs - https://www.sec.gov/Archives/edgar/data/1075124/000119312520213749/tri-20200630.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1075124/000119312520213749/tri-20200630.xml"/></entry>
+</log>

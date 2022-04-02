@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 6.85 secs at 2021-01-07T13:25:14 - https://www.sec.gov/Archives/edgar/data/1538789/000117184320006150/je-20200630.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1538789/000117184320006150/je-20200630.xml"/></entry>
+<entry code="DQC.IFRS.0102.9540" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1538789/000117184320006150/je-20200630.xml" severity="error" effectiveDate="None" cid="2131644552576">[DQC.IFRS.0102.9540] ifrs-full_Assets with a value of 1,215,833,000 is not equal to the combined total of Current Assets and Noncurrent assets ( 686,767,000 + 521,455,000 ) with a value of 1,208,222,000. These values should be equal.  If assets held for sale is included in the Statement of Financial Position presentation, then consider using CurrentAssetsOtherThanAssetsOrDisposalGroupsClassifiedAsHeldForSaleOrAsHeldForDistributionToOwners instead of current assets.
+The properties of this ifrs-full:Assets fact are:
+Period :2020-03-31
+Dimensions :  
+Unit : CAD
+Decimals of Assets : -3
+Decimals of Current Assets : -3
+Decimals of Non Current Assets : -3
+
+Rule Element Id:9540
+Rule version: 14.0.0RC6 - https://www.sec.gov/Archives/edgar/data/1538789/000117184320006150/je-20200630.xml 58</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1538789/000117184320006150/je-20200630.xml#c64787490" sourceLine="58">
+  <property name="label" value="ifrs-full_Assets"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="ifrs-full:Assets"/>
+  <property name="contextRef" value="i_2020-03-31">
+   <property name="entity" value="0001538789">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-03-31"/>
+  </property>
+  <property name="unitRef" value="iso4217-cad ($)">
+   <property name="measure" value="iso4217:CAD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,215,833,000"/>
+ </ref></entry>
+<entry code="DQC.IFRS.0102.9540" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1538789/000117184320006150/je-20200630.xml" severity="error" effectiveDate="None" cid="2131644552576">[DQC.IFRS.0102.9540] ifrs-full_Assets with a value of 1,111,967,000 is not equal to the combined total of Current Assets and Noncurrent assets ( 611,191,000 + 497,374,000 ) with a value of 1,108,565,000. These values should be equal.  If assets held for sale is included in the Statement of Financial Position presentation, then consider using CurrentAssetsOtherThanAssetsOrDisposalGroupsClassifiedAsHeldForSaleOrAsHeldForDistributionToOwners instead of current assets.
+The properties of this ifrs-full:Assets fact are:
+Period :2020-06-30
+Dimensions :  
+Unit : CAD
+Decimals of Assets : -3
+Decimals of Current Assets : -3
+Decimals of Non Current Assets : -3
+
+Rule Element Id:9540
+Rule version: 14.0.0RC6 - https://www.sec.gov/Archives/edgar/data/1538789/000117184320006150/je-20200630.xml 57</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1538789/000117184320006150/je-20200630.xml#c64787489" sourceLine="57">
+  <property name="label" value="ifrs-full_Assets"/>
+  <property name="namespace" value="http://xbrl.ifrs.org/taxonomy/2019-03-27/ifrs-full"/>
+  <property name="name" value="Assets"/>
+  <property name="QName" value="ifrs-full:Assets"/>
+  <property name="contextRef" value="i_2020-06-30">
+   <property name="entity" value="0001538789">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-06-30"/>
+  </property>
+  <property name="unitRef" value="iso4217-cad ($)">
+   <property name="measure" value="iso4217:CAD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,111,967,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 3.35 secs - https://www.sec.gov/Archives/edgar/data/1538789/000117184320006150/je-20200630.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1538789/000117184320006150/je-20200630.xml"/></entry>
+</log>

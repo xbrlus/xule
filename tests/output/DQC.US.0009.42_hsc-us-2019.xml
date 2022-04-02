@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.78 secs at 2020-07-24T23:28:50 - http://www.sec.gov/Archives/edgar/data/13239/000001323920000006/hsc-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/13239/000001323920000006/hsc-20191231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpnlxnnr88\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpnlxnnr88\packages\resources.zip"/></entry>
+<entry code="DQC.US.0009.42" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/13239/000001323920000006/hsc-20191231.xml" severity="error" effectiveDate="2016-01-01" cid="2475139704192">[DQC.US.0009.42] The value of Defined Benefit Plan, Pension Plan with Accumulated Benefit Obligation in Excess of Plan Assets, Projected Benefit Obligation, 584,000,000, should be less than or equal to Defined Benefit Plan, Benefit Obligation, 583,000,000. Defined Benefit Plan, Pension Plan with Accumulated Benefit Obligation in Excess of Plan Assets, Projected Benefit Obligation is a subset of Defined Benefit Plan, Benefit Obligation.
+
+The properties of this us-gaap:DefinedBenefitPlanPensionPlansWithAccumulatedBenefitObligationsInExcessOfPlanAssetsAggregateProjectedBenefitObligation fact are:
+
+Period: 2018-12-31
+Dimensions: us-gaap:RetirementPlanTypeAxis=us-gaap:PensionPlansDefinedBenefitMember, us-gaap:RetirementPlanSponsorLocationAxis=us-gaap:ForeignPlanMember
+Unit: USD
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/13239/000001323920000006/hsc-20191231.xml 6256</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/13239/000001323920000006/hsc-20191231.xml#Fact-7C933599BFBB1039A9E9D90864CA1292" sourceLine="6256">
+  <property name="label" value="Defined Benefit Plan, Pension Plan with Accumulated Benefit Obligation in Excess of Plan Assets, Projected Benefit Obligation"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="DefinedBenefitPlanPensionPlansWithAccumulatedBenefitObligationsInExcessOfPlanAssetsAggregateProjectedBenefitObligation"/>
+  <property name="QName" value="us-gaap:DefinedBenefitPlanPensionPlansWithAccumulatedBenefitObligationsInExcessOfPlanAssetsAggregateProjectedBenefitObligation"/>
+  <property name="contextRef" value="FI2018Q4_us-gaap_RetirementPlanSponsorLocationAxis_us-gaap_ForeignPlanMember_us-gaap_RetirementPlanTypeAxis_us-gaap_PensionPlansDefinedBenefitMember">
+   <property name="entity" value="0000013239">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:RetirementPlanSponsorLocationAxis" value="us-gaap:ForeignPlanMember"/>
+    <property name="us-gaap:RetirementPlanTypeAxis" value="us-gaap:PensionPlansDefinedBenefitMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-6"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="584,000,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 7.34 secs - http://www.sec.gov/Archives/edgar/data/13239/000001323920000006/hsc-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/13239/000001323920000006/hsc-20191231.xml"/></entry>
+</log>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 2.28 secs at 2020-10-30T11:28:00 - https://www.sec.gov/Archives/edgar/data/1446687/000144668719000009/fil-20181231.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1446687/000144668719000009/fil-20181231.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpx66fw084\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpx66fw084\packages\resources.zip"/></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1446687/000144668719000009/fil-20181231.htm" severity="error" effectiveDate="2019-09-30" cid="1586811016576">[DQC.US.0081.9277] The line item concept us-gaap:PaymentsForLoans with a value of 1,169,000 is represented as a child of us-gaap:NetCashProvidedByUsedInFinancingActivities with a value of -8,217,000 in the companies extension taxonomy role 1005006 - Statement - CONSOLIDATED STATEMENTS OF CASH FLOWS. The element us-gaap:PaymentsForLoans however, is not represented as a component of us-gaap:NetCashProvidedByUsedInFinancingActivities in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:PaymentsForLoans as a sibling element (or child of that sibling) relative to us-gaap:NetCashProvidedByUsedInFinancingActivities in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:NetCashProvidedByUsedInFinancingActivities and the child element us-gaap:PaymentsForLoans.
+
+
+The properties of this us-gaap:PaymentsForLoans fact are:
+
+Period :2017-01-01 to 2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 14.0.0RC1
+ - https://www.sec.gov/Archives/edgar/data/1446687/000144668719000009/fil-20181231.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1446687/000144668719000009/fil-20181231.htm#id3VybDovL2RvY3MudjEvZG9jOmFlNmE2MDNmYTA5NjQ0ZWRhN2FhZmM2Zjg1ZDQ2MmNkL3NlYzphZTZhNjAzZmEwOTY0NGVkYTdhYWZjNmY4NWQ0NjJjZF8xMTM2L2ZyYWc6MTljOGFjZWQzMDgwNDhkYTg0NGRhN2UzNTdhNTkzZTkvdGFibGU6MGVkNmM0MmJjOGVhNDQwMmE0YmE2OTM2OGQwZDBhNjYvdGFibGVyYW5nZTowZWQ2YzQyYmM4ZWE0NDAyYTRiYTY5MzY4ZDBkMGE2Nl8zNC0zLTEtMS04NTE5_3714aaf9-1a7f-4411-bf01-137358ee0528" sourceLine="4">
+  <property name="file" value="fil-20181231.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Payments for Loans"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="PaymentsForLoans"/>
+  <property name="QName" value="us-gaap:PaymentsForLoans"/>
+  <property name="contextRef" value="i73c3ffab252e4c3b9ffca3d3825e1eb5_D20170101-20171231">
+   <property name="entity" value="0001446687">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,169,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="1,169"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1446687/000144668719000009/fil-20181231.htm" severity="error" effectiveDate="2019-09-30" cid="1586811016576">[DQC.US.0081.9277] The line item concept us-gaap:ProceedsFromLoans with a value of 259,000,000 is represented as a child of us-gaap:NetCashProvidedByUsedInFinancingActivities with a value of 18,603,000 in the companies extension taxonomy role 1005006 - Statement - CONSOLIDATED STATEMENTS OF CASH FLOWS. The element us-gaap:ProceedsFromLoans however, is not represented as a component of us-gaap:NetCashProvidedByUsedInFinancingActivities in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:ProceedsFromLoans as a sibling element (or child of that sibling) relative to us-gaap:NetCashProvidedByUsedInFinancingActivities in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:NetCashProvidedByUsedInFinancingActivities and the child element us-gaap:ProceedsFromLoans.
+The element ProceedsFromLoans is an operating cash receipt from principal payments made on loans related to operating activities.  Look to use one of the elements included as descendants of the abstract element ProceedsFromRepaymentsOfDebtAbstract.
+
+The properties of this us-gaap:ProceedsFromLoans fact are:
+
+Period :2018-01-01 to 2018-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 14.0.0RC1
+ - https://www.sec.gov/Archives/edgar/data/1446687/000144668719000009/fil-20181231.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1446687/000144668719000009/fil-20181231.htm#id3VybDovL2RvY3MudjEvZG9jOmFlNmE2MDNmYTA5NjQ0ZWRhN2FhZmM2Zjg1ZDQ2MmNkL3NlYzphZTZhNjAzZmEwOTY0NGVkYTdhYWZjNmY4NWQ0NjJjZF8xMTM2L2ZyYWc6MTljOGFjZWQzMDgwNDhkYTg0NGRhN2UzNTdhNTkzZTkvdGFibGU6MGVkNmM0MmJjOGVhNDQwMmE0YmE2OTM2OGQwZDBhNjYvdGFibGVyYW5nZTowZWQ2YzQyYmM4ZWE0NDAyYTRiYTY5MzY4ZDBkMGE2Nl8zNS0xLTEtMS04NTE5_aa7a5af3-2aa4-47ef-8b64-9885af8324e9" sourceLine="4">
+  <property name="file" value="fil-20181231.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Proceeds from Loans"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="ProceedsFromLoans"/>
+  <property name="QName" value="us-gaap:ProceedsFromLoans"/>
+  <property name="contextRef" value="ie54766817e4b44729c30aafb8e4bf3b2_D20180101-20181231">
+   <property name="entity" value="0001446687">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="259,000,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="259,000"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9277" level="error">
+ <message filing_url="https://www.sec.gov/Archives/edgar/data/1446687/000144668719000009/fil-20181231.htm" severity="error" effectiveDate="2019-09-30" cid="1586811016576">[DQC.US.0081.9277] The line item concept us-gaap:PaymentsForLoans with a value of 40,165,000 is represented as a child of us-gaap:NetCashProvidedByUsedInFinancingActivities with a value of 18,603,000 in the companies extension taxonomy role 1005006 - Statement - CONSOLIDATED STATEMENTS OF CASH FLOWS. The element us-gaap:PaymentsForLoans however, is not represented as a component of us-gaap:NetCashProvidedByUsedInFinancingActivities in the calculation relationships defined in the US GAAP taxonomy. The US-GAAP taxonomies include us-gaap:PaymentsForLoans as a sibling element (or child of that sibling) relative to us-gaap:NetCashProvidedByUsedInFinancingActivities in the calculation relationships of the US GAAP taxonomy. Please review the element selection to determine that an appropriate element has been used for the parent element us-gaap:NetCashProvidedByUsedInFinancingActivities and the child element us-gaap:PaymentsForLoans.
+
+
+The properties of this us-gaap:PaymentsForLoans fact are:
+
+Period :2018-01-01 to 2018-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9277
+Rule version: 14.0.0RC1
+ - https://www.sec.gov/Archives/edgar/data/1446687/000144668719000009/fil-20181231.htm 4</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1446687/000144668719000009/fil-20181231.htm#id3VybDovL2RvY3MudjEvZG9jOmFlNmE2MDNmYTA5NjQ0ZWRhN2FhZmM2Zjg1ZDQ2MmNkL3NlYzphZTZhNjAzZmEwOTY0NGVkYTdhYWZjNmY4NWQ0NjJjZF8xMTM2L2ZyYWc6MTljOGFjZWQzMDgwNDhkYTg0NGRhN2UzNTdhNTkzZTkvdGFibGU6MGVkNmM0MmJjOGVhNDQwMmE0YmE2OTM2OGQwZDBhNjYvdGFibGVyYW5nZTowZWQ2YzQyYmM4ZWE0NDAyYTRiYTY5MzY4ZDBkMGE2Nl8zNC0xLTEtMS04NTE5_1dc7d89d-1b8d-4932-a999-31d9ceb2b8bc" sourceLine="4">
+  <property name="file" value="fil-20181231.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Payments for Loans"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="PaymentsForLoans"/>
+  <property name="QName" value="us-gaap:PaymentsForLoans"/>
+  <property name="contextRef" value="ie54766817e4b44729c30aafb8e4bf3b2_D20180101-20181231">
+   <property name="entity" value="0001446687">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="40,165,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="40,165"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 71.42 secs - https://www.sec.gov/Archives/edgar/data/1446687/000144668719000009/fil-20181231.htm </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1446687/000144668719000009/fil-20181231.htm"/></entry>
+</log>

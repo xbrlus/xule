@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22790 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.22 secs at 2019-07-10T22:51:03 - https://www.sec.gov/Archives/edgar/data/1639836/000151116418000535/osmu-20180630.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1639836/000151116418000535/osmu-20180630.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv and effective_dates.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmps6gzfll1/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmps6gzfll1/packages/resources.zip"/></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4349030072" severity="error" filing_url="https://www.sec.gov/Archives/edgar/data/1639836/000151116418000535/osmu-20180630.xml" status="PROPOSED">[DQC.US.0081.9278] The line item concept us-gaap:NotesPayableRelatedPartiesCurrentAndNoncurrent with a value of 64,410 and a calculation parent of us-gaap:LiabilitiesAndStockholdersEquity is represented as a sibling of us-gaap:Liabilities with a value of 69,010 in the extension taxonomy role 000020 - Statement - Original Source Music, Inc. - Balance Sheets, but us-gaap:NotesPayableRelatedPartiesCurrentAndNoncurrent is represented as a descendent of us-gaap:Liabilities in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:NotesPayableRelatedPartiesCurrentAndNoncurrent fact are:
+
+Period :2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1639836/000151116418000535/osmu-20180630.xml 13</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1639836/000151116418000535/osmu-20180630.xml#element(/1/10)" sourceLine="13">
+  <property name="label" value="Notes payable, related party"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="NotesPayableRelatedPartiesCurrentAndNoncurrent"/>
+  <property name="QName" value="us-gaap:NotesPayableRelatedPartiesCurrentAndNoncurrent"/>
+  <property name="contextRef" value="E17">
+   <property name="entity" value="0001639836">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="64,410"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4349030072" severity="error" filing_url="https://www.sec.gov/Archives/edgar/data/1639836/000151116418000535/osmu-20180630.xml" status="PROPOSED">[DQC.US.0081.9278] The line item concept us-gaap:AccountsPayableAndAccruedLiabilitiesCurrent with a value of 4,600 and a calculation parent of us-gaap:LiabilitiesAndStockholdersEquity is represented as a sibling of us-gaap:Liabilities with a value of 69,010 in the extension taxonomy role 000020 - Statement - Original Source Music, Inc. - Balance Sheets, but us-gaap:AccountsPayableAndAccruedLiabilitiesCurrent is represented as a descendent of us-gaap:Liabilities in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:AccountsPayableAndAccruedLiabilitiesCurrent fact are:
+
+Period :2017-12-31
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1639836/000151116418000535/osmu-20180630.xml 10</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1639836/000151116418000535/osmu-20180630.xml#element(/1/7)" sourceLine="10">
+  <property name="label" value="Accounts payable and accrued expenses"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="AccountsPayableAndAccruedLiabilitiesCurrent"/>
+  <property name="QName" value="us-gaap:AccountsPayableAndAccruedLiabilitiesCurrent"/>
+  <property name="contextRef" value="E17">
+   <property name="entity" value="0001639836">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4,600"/>
+ </ref></entry>
+<entry code="DQC.US.0081.9278" level="error">
+ <message effectiveDate="2019-06-30" cid="4349030072" severity="error" filing_url="https://www.sec.gov/Archives/edgar/data/1639836/000151116418000535/osmu-20180630.xml" status="PROPOSED">[DQC.US.0081.9278] The line item concept us-gaap:AccountsPayableAndAccruedLiabilitiesCurrent with a value of 1,200 and a calculation parent of us-gaap:LiabilitiesAndStockholdersEquity is represented as a sibling of us-gaap:Liabilities with a value of 15,520 in the extension taxonomy role 000020 - Statement - Original Source Music, Inc. - Balance Sheets, but us-gaap:AccountsPayableAndAccruedLiabilitiesCurrent is represented as a descendent of us-gaap:Liabilities in the calculation relationships defined in the US GAAP taxonomies. Please review the element selection to determine that an appropriate element has been used for these two line item concepts.
+
+The properties of this us-gaap:AccountsPayableAndAccruedLiabilitiesCurrent fact are:
+
+Period :2018-06-30
+Dimensions : 
+Unit : USD
+
+
+Rule Element Id:9278
+Rule version: 9.0.0RC4
+ - https://www.sec.gov/Archives/edgar/data/1639836/000151116418000535/osmu-20180630.xml 9</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1639836/000151116418000535/osmu-20180630.xml#element(/1/6)" sourceLine="9">
+  <property name="label" value="Accounts payable and accrued expenses"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="AccountsPayableAndAccruedLiabilitiesCurrent"/>
+  <property name="QName" value="us-gaap:AccountsPayableAndAccruedLiabilitiesCurrent"/>
+  <property name="contextRef" value="E18Q2">
+   <property name="entity" value="0001639836">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-06-30"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,200"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 19.91 secs - https://www.sec.gov/Archives/edgar/data/1639836/000151116418000535/osmu-20180630.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1639836/000151116418000535/osmu-20180630.xml"/></entry>
+</log>

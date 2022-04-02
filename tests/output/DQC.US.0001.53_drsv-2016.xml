@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.89 secs at 2018-10-16T09:43:01 - http://www.sec.gov/Archives/edgar/data/1106645/000147793217005486/drsv-20170930.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1106645/000147793217005486/drsv-20170930.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2016-V7-ruleset.zip - drsv-20170930.xml </message>
+ <ref href="drsv-20170930.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpdgptq934/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpdgptq934/packages/resources.zip"/></entry>
+<entry code="DQC.US.0001.53" level="error">
+ <message severity="error" cid="4402339512" filing_url="http://www.sec.gov/Archives/edgar/data/1106645/000147793217005486/drsv-20170930.xml">[DQC.US.0001.53] The concept MinorityInterestOwnershipPercentageByNoncontrollingOwners with a value of 0.51 is dimensionally qualified with the OtherOwnershipInterestsByNameAxis and the base taxonomy member ParentCompanyMember. Only extension members should be used with the axis OtherOwnershipInterestsByNameAxis.
+The properties of the fact for MinorityInterestOwnershipPercentageByNoncontrollingOwners are:
+Period: 2016-02-29
+Dimensions: us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=DRSV:PaymentResolutionSystemsLlcMember, us-gaap:OtherOwnershipInterestsByNameAxis=us-gaap:ParentCompanyMember 
+Unit: pure
+
+Rule Element Id:53
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1106645/000147793217005486/drsv-20170930.xml 3038</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1106645/000147793217005486/drsv-20170930.xml#element(/1/365)" sourceLine="3038">
+  <property name="label" value="Ownership interests"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="MinorityInterestOwnershipPercentageByNoncontrollingOwners"/>
+  <property name="QName" value="us-gaap:MinorityInterestOwnershipPercentageByNoncontrollingOwners"/>
+  <property name="contextRef" value="AsOf2016-02-29_us-gaap_ParentCompanyMember_custom_PaymentResolutionSystemsLlcMember">
+   <property name="entity" value="0001106645">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-02-29"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:OtherOwnershipInterestsByNameAxis" value="us-gaap:ParentCompanyMember"/>
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="DRSV:PaymentResolutionSystemsLlcMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.51"/>
+ </ref></entry>
+<entry code="DQC.US.0001.53" level="error">
+ <message severity="error" cid="4402339512" filing_url="http://www.sec.gov/Archives/edgar/data/1106645/000147793217005486/drsv-20170930.xml">[DQC.US.0001.53] The concept MinorityInterestOwnershipPercentageByNoncontrollingOwners with a value of 0.51 is dimensionally qualified with the OtherOwnershipInterestsByNameAxis and the base taxonomy member ParentCompanyMember. Only extension members should be used with the axis OtherOwnershipInterestsByNameAxis.
+The properties of the fact for MinorityInterestOwnershipPercentageByNoncontrollingOwners are:
+Period: 2014-12-31
+Dimensions: us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=DRSV:ProgressAdvocatesIncMember, us-gaap:OtherOwnershipInterestsByNameAxis=us-gaap:ParentCompanyMember 
+Unit: pure
+
+Rule Element Id:53
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1106645/000147793217005486/drsv-20170930.xml 3036</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1106645/000147793217005486/drsv-20170930.xml#element(/1/363)" sourceLine="3036">
+  <property name="label" value="Ownership interests"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="MinorityInterestOwnershipPercentageByNoncontrollingOwners"/>
+  <property name="QName" value="us-gaap:MinorityInterestOwnershipPercentageByNoncontrollingOwners"/>
+  <property name="contextRef" value="AsOf2014-12-31_us-gaap_ParentCompanyMember_custom_ProgressAdvocatesIncMember">
+   <property name="entity" value="0001106645">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2014-12-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:OtherOwnershipInterestsByNameAxis" value="us-gaap:ParentCompanyMember"/>
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="DRSV:ProgressAdvocatesIncMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.51"/>
+ </ref></entry>
+<entry code="DQC.US.0001.53" level="error">
+ <message severity="error" cid="4402339512" filing_url="http://www.sec.gov/Archives/edgar/data/1106645/000147793217005486/drsv-20170930.xml">[DQC.US.0001.53] The concept MinorityInterestOwnershipPercentageByNoncontrollingOwners with a value of 0.51 is dimensionally qualified with the OtherOwnershipInterestsByNameAxis and the base taxonomy member ParentCompanyMember. Only extension members should be used with the axis OtherOwnershipInterestsByNameAxis.
+The properties of the fact for MinorityInterestOwnershipPercentageByNoncontrollingOwners are:
+Period: 2016-05-31
+Dimensions: us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis=DRSV:StudentLoanCareLLCMember, us-gaap:OtherOwnershipInterestsByNameAxis=us-gaap:ParentCompanyMember 
+Unit: pure
+
+Rule Element Id:53
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1106645/000147793217005486/drsv-20170930.xml 3040</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1106645/000147793217005486/drsv-20170930.xml#element(/1/367)" sourceLine="3040">
+  <property name="label" value="Ownership interests"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2016-01-31"/>
+  <property name="name" value="MinorityInterestOwnershipPercentageByNoncontrollingOwners"/>
+  <property name="QName" value="us-gaap:MinorityInterestOwnershipPercentageByNoncontrollingOwners"/>
+  <property name="contextRef" value="AsOf2016-05-31_us-gaap_ParentCompanyMember_custom_StudentLoanCareLLCMember">
+   <property name="entity" value="0001106645">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2016-05-31"/>
+   <property name="dimensions" value="(2)">
+    <property name="us-gaap:OtherOwnershipInterestsByNameAxis" value="us-gaap:ParentCompanyMember"/>
+    <property name="us-gaap:VariableInterestEntitiesByClassificationOfEntityAxis" value="DRSV:StudentLoanCareLLCMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="Percent (pure)">
+   <property name="measure" value="xbrli:pure"/>
+  </property>
+  <property name="decimals" value="INF"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="0.51"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 38.38 secs - http://www.sec.gov/Archives/edgar/data/1106645/000147793217005486/drsv-20170930.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1106645/000147793217005486/drsv-20170930.xml"/></entry>
+</log>

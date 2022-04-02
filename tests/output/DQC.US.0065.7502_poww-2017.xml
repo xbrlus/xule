@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.18 secs at 2018-10-16T09:40:10 - http://www.sec.gov/Archives/edgar/data/1015383/000155335018000776/poww-20180331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1015383/000155335018000776/poww-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - poww-20180331.xml </message>
+ <ref href="poww-20180331.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpl0epocm3/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpl0epocm3/packages/resources.zip"/></entry>
+<entry code="DQC.US.0065.7502" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1015383/000155335018000776/poww-20180331.xml" severity="error" cid="4502531768">[DQC.US.0065.7502] The Supplemental cash flow section has reported a value of 9,105 for the element us-gaap:InterestPaid but the element InterestPaidNet is not included in the supplemental cash flow section. Interest Paid Net of the capitalized component must be reported in this section. 
+The element us-gaap:InterestPaid includes capitalized interest. If this element has no capitalized interest component then use the element InterestPaidNet instead.
+
+The properties of this us-gaap:InterestPaid fact are:
+Period :2017-01-01 to 2017-12-31
+Dimensions : 
+Unit : USD
+
+Rule Element Id:7502
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1015383/000155335018000776/poww-20180331.xml 1652</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1015383/000155335018000776/poww-20180331.xml#element(/1/497)" sourceLine="1652">
+  <property name="label" value="Cash paid during the period for Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="InterestPaid"/>
+  <property name="QName" value="us-gaap:InterestPaid"/>
+  <property name="contextRef" value="From2017-01-01to2017-12-31">
+   <property name="entity" value="0001015383">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2017-01-01"/>
+   <property name="endDate" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="9,105"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 2.03 secs - http://www.sec.gov/Archives/edgar/data/1015383/000155335018000776/poww-20180331.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1015383/000155335018000776/poww-20180331.xml"/></entry>
+</log>

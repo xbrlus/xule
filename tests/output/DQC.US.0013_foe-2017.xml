@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 5.82 secs at 2018-10-16T09:54:47 - http://www.sec.gov/Archives/edgar/data/35214/000156276218000046/foe-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/35214/000156276218000046/foe-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Using ruleset /Users/campbellpryde/Documents/GitHub/xule.dqc/dqc_us_rules/dqc-us-2017-V7-ruleset.zip - foe-20171231.xml </message>
+ <ref href="foe-20171231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv and dqc_0011.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpv21yh_94/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmpv21yh_94/packages/resources.zip"/></entry>
+<entry code="DQC.US.0013.2874" level="error">
+ <message severity="error" rule-suffix="2874" filing_url="http://www.sec.gov/Archives/edgar/data/35214/000156276218000046/foe-20171231.xml" cid="4313988792">[DQC.US.0013.2874] It is expected that us-gaap:EffectiveIncomeTaxRateReconciliationNondeductibleExpenseImpairmentLosses with a value of -0.083 will be reported with a value equal to or greater than zero if net income before tax is positive. In this case net income before tax is 62,445,000. The value reported for the tax rate reconciliation item is less than zero. The preparer should consider if the value is input correctly for this assertion and, after considering the appropriateness of the input, if incorrect, input the amount as a positive (i.e., absolute) value and provide a negated label, if desired, for rendering purposes. 
+
+The properties of this us-gaap:EffectiveIncomeTaxRateReconciliationNondeductibleExpenseImpairmentLosses fact are:
+Period :2016-01-01 to 2016-12-31
+Dimensions : 
+Unit : pure
+Rule version: 9.0.0RC1 - http://www.sec.gov/Archives/edgar/data/35214/000156276218000046/foe-20171231.xml 25720</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/35214/000156276218000046/foe-20171231.xml#element(/1/1785)" sourceLine="25720">
+  <property name="label" value="Income Loss From Continuing Operations Before Income Taxes Extraordinary Items Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2017-01-31"/>
+  <property name="name" value="IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest"/>
+  <property name="QName" value="us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest"/>
+  <property name="contextRef" value="Duration_1_1_2016_To_12_31_2016">
+   <property name="entity" value="0000035214">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2016-01-01"/>
+   <property name="endDate" value="2016-12-31"/>
+  </property>
+  <property name="unitRef" value="Unit12 ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="62,445,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 3.76 secs - http://www.sec.gov/Archives/edgar/data/35214/000156276218000046/foe-20171231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/35214/000156276218000046/foe-20171231.xml"/></entry>
+</log>

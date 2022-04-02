@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.47 secs at 2020-07-26T17:46:33 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmps7lc29ra\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmps7lc29ra\packages\resources.zip"/></entry>
+<entry code="DQC.US.0009.21" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2016-01-01" cid="2270814184832">[DQC.US.0009.21] The value of Common Stock, Shares, Issued, 98,274,000, should be less than or equal to Common Stock, Shares Authorized, 180,000.
+
+The properties of this us-gaap:CommonStockSharesIssued fact are:
+
+Period: 2020-06-30
+Dimensions: 
+Unit: shares
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8xNi9mcmFnOmE4MDMzMTA3ZTQ1OTQ0OWM5ZGVhMGM2MGRmNmRkZTc1L3RhYmxlOjE1MGU2YjExZGQxYTQ2N2RiN2JjMzZlYjA3MzhjNGJhL3RhYmxlcmFuZ2U6MTUwZTZiMTFkZDFhNDY3ZGI3YmMzNmViMDczOGM0YmFfMzUtMC0xLTEtMC90ZXh0cmVnaW9uOmUwZDE1OGQwMDJmOTQxZGZiYTRkNDY1YzYyNjAwZjRmXzI3NDg3NzkwNjk1ODI_7573bf12-9f8f-44a7-b73e-0a8e0a9c29bd" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Common Stock, Shares, Issued"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="CommonStockSharesIssued"/>
+  <property name="QName" value="us-gaap:CommonStockSharesIssued"/>
+  <property name="contextRef" value="if0d49d73db3145cfbb767ae402b235c8_I20200630">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2020-06-30"/>
+  </property>
+  <property name="unitRef" value="shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="98,274,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="98,274"/>
+ </ref></entry>
+<entry code="DQC.US.0009.21" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm" severity="error" effectiveDate="2016-01-01" cid="2270814184832">[DQC.US.0009.21] The value of Common Stock, Shares, Issued, 93,180,000, should be less than or equal to Common Stock, Shares Authorized, 180,000.
+
+The properties of this us-gaap:CommonStockSharesIssued fact are:
+
+Period: 2019-12-31
+Dimensions: 
+Unit: shares
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm 4</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm#id3VybDovL2RvY3MudjEvZG9jOjM3Yjg2NTg5Y2VlZjQ4MjlhNDQyOWEwNTIyY2U5NzdkL3NlYzozN2I4NjU4OWNlZWY0ODI5YTQ0MjlhMDUyMmNlOTc3ZF8xNi9mcmFnOmE4MDMzMTA3ZTQ1OTQ0OWM5ZGVhMGM2MGRmNmRkZTc1L3RhYmxlOjE1MGU2YjExZGQxYTQ2N2RiN2JjMzZlYjA3MzhjNGJhL3RhYmxlcmFuZ2U6MTUwZTZiMTFkZDFhNDY3ZGI3YmMzNmViMDczOGM0YmFfMzUtMC0xLTEtMC90ZXh0cmVnaW9uOmUwZDE1OGQwMDJmOTQxZGZiYTRkNDY1YzYyNjAwZjRmXzI3NDg3NzkwNjk1OTA_ac729f0e-6178-4b02-b297-becd6dd41193" sourceLine="4">
+  <property name="file" value="sui-20200630.htm"/>
+  <property name="line" value="4"/>
+  <property name="label" value="Common Stock, Shares, Issued"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2020-01-31"/>
+  <property name="name" value="CommonStockSharesIssued"/>
+  <property name="QName" value="us-gaap:CommonStockSharesIssued"/>
+  <property name="contextRef" value="ic35e7a0d5a544ceca27fbb87024040b9_I20191231">
+   <property name="entity" value="0000912593">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-12-31"/>
+  </property>
+  <property name="unitRef" value="shares (shares)">
+   <property name="measure" value="xbrli:shares"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="93,180,000"/>
+  <property name="format" value="ixt:numdotdecimal"/>
+  <property name="scale" value="3"/>
+  <property name="html value" value="93,180"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 5.56 secs - http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/912593/000091259320000137/sui-20200630.htm"/></entry>
+</log>

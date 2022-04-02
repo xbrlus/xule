@@ -1,0 +1,672 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22790 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.92 secs at 2019-06-18T22:51:24 - https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml"/></entry>
+<entry code="DQC.US.0082.9999" level="error">
+ <message severity="error" effectiveDate="None" filing_url="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml" cid="4455022264">[DQC.US.0082.9999] The filer has used the element VariableInterestEntityConsolidatedCarryingAmountAssets to report a value of 177,352 in the filing. The filer should use the element Assets with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to VIE's.
+
+The properties of this us-gaap:VariableInterestEntityConsolidatedCarryingAmountAssets fact are:
+Period :2018-12-31
+Dimensions : 
+Unit : USD
+
+Rule Element Id:9999
+Rule version: 9.0.0RC4 - https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml 3383</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml#element(/1/831)" sourceLine="3383">
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedCarryingAmountAssets"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedCarryingAmountAssets"/>
+  <property name="contextRef" value="AsOf2018-12-31">
+   <property name="entity" value="0001730773">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="177,352"/>
+ </ref></entry>
+<entry code="DQC.US.0082.9999" level="error">
+ <message severity="error" effectiveDate="None" filing_url="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml" cid="4455022264">[DQC.US.0082.9999] The filer has used the element VariableInterestEntityConsolidatedCarryingAmountLiabilities to report a value of 95,720 in the filing. The filer should use the element Liabilities with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to VIE's.
+
+The properties of this us-gaap:VariableInterestEntityConsolidatedCarryingAmountLiabilities fact are:
+Period :2018-12-31
+Dimensions : 
+Unit : USD
+
+Rule Element Id:9999
+Rule version: 9.0.0RC4 - https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml 3386</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml#element(/1/834)" sourceLine="3386">
+  <property name="label" value="Liabilities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedCarryingAmountLiabilities"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedCarryingAmountLiabilities"/>
+  <property name="contextRef" value="AsOf2018-12-31">
+   <property name="entity" value="0001730773">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="95,720"/>
+ </ref></entry>
+<entry code="DQC.US.0082.9999" level="error">
+ <message severity="error" effectiveDate="None" filing_url="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml" cid="4455022264">[DQC.US.0082.9999] The filer has used the element VariableInterestEntityConsolidatedAssetsCurrent to report a value of 12,033 in the filing. The filer should use the element AssetsCurrent with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to VIE's.
+
+The properties of this us-gaap:VariableInterestEntityConsolidatedAssetsCurrent fact are:
+Period :2019-03-31
+Dimensions : us-gaap:LongTermPurchaseCommitmentByCategoryOfItemPurchasedAxis=us-gaap:InventoriesMember
+Unit : USD
+
+Rule Element Id:9999
+Rule version: 9.0.0RC4 - https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml 3015</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml#element(/1/463)" sourceLine="3015">
+  <property name="label" value="Current assets attributable to VIE"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedAssetsCurrent"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedAssetsCurrent"/>
+  <property name="contextRef" value="AsOf2019-03-31_us-gaap_InventoriesMember">
+   <property name="entity" value="0001730773">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:LongTermPurchaseCommitmentByCategoryOfItemPurchasedAxis" value="us-gaap:InventoriesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="12,033"/>
+ </ref></entry>
+<entry code="DQC.US.0082.9999" level="error">
+ <message severity="error" effectiveDate="None" filing_url="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml" cid="4455022264">[DQC.US.0082.9999] The filer has used the element VariableInterestEntityConsolidatedAssetsCurrent to report a value of 22,571 in the filing. The filer should use the element AssetsCurrent with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to VIE's.
+
+The properties of this us-gaap:VariableInterestEntityConsolidatedAssetsCurrent fact are:
+Period :2017-12-31
+Dimensions : us-gaap:CashAndCashEquivalentsAxis=us-gaap:CashMember
+Unit : USD
+
+Rule Element Id:9999
+Rule version: 9.0.0RC4 - https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml 3006</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml#element(/1/454)" sourceLine="3006">
+  <property name="label" value="Current assets attributable to VIE"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedAssetsCurrent"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedAssetsCurrent"/>
+  <property name="contextRef" value="AsOf2017-12-31_us-gaap_CashMember">
+   <property name="entity" value="0001730773">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:CashAndCashEquivalentsAxis" value="us-gaap:CashMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="22,571"/>
+ </ref></entry>
+<entry code="DQC.US.0082.9999" level="error">
+ <message severity="error" effectiveDate="None" filing_url="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml" cid="4455022264">[DQC.US.0082.9999] The filer has used the element VariableInterestEntityConsolidatedAssetsCurrent to report a value of 3,759 in the filing. The filer should use the element AssetsCurrent with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to VIE's.
+
+The properties of this us-gaap:VariableInterestEntityConsolidatedAssetsCurrent fact are:
+Period :2019-03-31
+Dimensions : us-gaap:BalanceSheetLocationAxis=us-gaap:OtherCurrentAssetsMember
+Unit : USD
+
+Rule Element Id:9999
+Rule version: 9.0.0RC4 - https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml 3016</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml#element(/1/464)" sourceLine="3016">
+  <property name="label" value="Current assets attributable to VIE"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedAssetsCurrent"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedAssetsCurrent"/>
+  <property name="contextRef" value="AsOf2019-03-31_us-gaap_OtherCurrentAssetsMember">
+   <property name="entity" value="0001730773">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:BalanceSheetLocationAxis" value="us-gaap:OtherCurrentAssetsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="3,759"/>
+ </ref></entry>
+<entry code="DQC.US.0082.9999" level="error">
+ <message severity="error" effectiveDate="None" filing_url="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml" cid="4455022264">[DQC.US.0082.9999] The filer has used the element VariableInterestEntityConsolidatedAssetsCurrent to report a value of 37,681 in the filing. The filer should use the element AssetsCurrent with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to VIE's.
+
+The properties of this us-gaap:VariableInterestEntityConsolidatedAssetsCurrent fact are:
+Period :2019-03-31
+Dimensions : us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:AccountsReceivableMember
+Unit : USD
+
+Rule Element Id:9999
+Rule version: 9.0.0RC4 - https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml 3014</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml#element(/1/462)" sourceLine="3014">
+  <property name="label" value="Current assets attributable to VIE"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedAssetsCurrent"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedAssetsCurrent"/>
+  <property name="contextRef" value="AsOf2019-03-31_us-gaap_AccountsReceivableMember">
+   <property name="entity" value="0001730773">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:AccountsReceivableMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="37,681"/>
+ </ref></entry>
+<entry code="DQC.US.0082.9999" level="error">
+ <message severity="error" effectiveDate="None" filing_url="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml" cid="4455022264">[DQC.US.0082.9999] The filer has used the element VariableInterestEntityConsolidatedAssetsCurrent to report a value of 4,351 in the filing. The filer should use the element AssetsCurrent with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to VIE's.
+
+The properties of this us-gaap:VariableInterestEntityConsolidatedAssetsCurrent fact are:
+Period :2018-12-31
+Dimensions : us-gaap:BalanceSheetLocationAxis=us-gaap:OtherCurrentAssetsMember
+Unit : USD
+
+Rule Element Id:9999
+Rule version: 9.0.0RC4 - https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml 3011</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml#element(/1/459)" sourceLine="3011">
+  <property name="label" value="Current assets attributable to VIE"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedAssetsCurrent"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedAssetsCurrent"/>
+  <property name="contextRef" value="AsOf2018-12-31_us-gaap_OtherCurrentAssetsMember">
+   <property name="entity" value="0001730773">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:BalanceSheetLocationAxis" value="us-gaap:OtherCurrentAssetsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="4,351"/>
+ </ref></entry>
+<entry code="DQC.US.0082.9999" level="error">
+ <message severity="error" effectiveDate="None" filing_url="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml" cid="4455022264">[DQC.US.0082.9999] The filer has used the element VariableInterestEntityConsolidatedLiabilitiesCurrent to report a value of 95,720 in the filing. The filer should use the element LiabilitiesCurrent with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to VIE's.
+
+The properties of this us-gaap:VariableInterestEntityConsolidatedLiabilitiesCurrent fact are:
+Period :2018-12-31
+Dimensions : us-gaap:ExtinguishmentOfDebtAxis=AAGI:AccountsPayableAndAccrualsMember
+Unit : USD
+
+Rule Element Id:9999
+Rule version: 9.0.0RC4 - https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml 3017</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml#element(/1/465)" sourceLine="3017">
+  <property name="label" value="Current liabilities of VIE"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedLiabilitiesCurrent"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedLiabilitiesCurrent"/>
+  <property name="contextRef" value="AsOf2018-12-31_custom_AccountsPayableAndAccrualsMember">
+   <property name="entity" value="0001730773">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ExtinguishmentOfDebtAxis" value="AAGI:AccountsPayableAndAccrualsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="95,720"/>
+ </ref></entry>
+<entry code="DQC.US.0082.9999" level="error">
+ <message severity="error" effectiveDate="None" filing_url="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml" cid="4455022264">[DQC.US.0082.9999] The filer has used the element VariableInterestEntityConsolidatedAssetsCurrent to report a value of 3,656 in the filing. The filer should use the element AssetsCurrent with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to VIE's.
+
+The properties of this us-gaap:VariableInterestEntityConsolidatedAssetsCurrent fact are:
+Period :2017-12-31
+Dimensions : us-gaap:BalanceSheetLocationAxis=us-gaap:OtherCurrentAssetsMember
+Unit : USD
+
+Rule Element Id:9999
+Rule version: 9.0.0RC4 - https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml 3012</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml#element(/1/460)" sourceLine="3012">
+  <property name="label" value="Current assets attributable to VIE"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedAssetsCurrent"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedAssetsCurrent"/>
+  <property name="contextRef" value="AsOf2017-12-31_us-gaap_OtherCurrentAssetsMember">
+   <property name="entity" value="0001730773">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:BalanceSheetLocationAxis" value="us-gaap:OtherCurrentAssetsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="3,656"/>
+ </ref></entry>
+<entry code="DQC.US.0082.9999" level="error">
+ <message severity="error" effectiveDate="None" filing_url="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml" cid="4455022264">[DQC.US.0082.9999] The filer has used the element VariableInterestEntityConsolidatedCarryingAmountAssets to report a value of 63,686 in the filing. The filer should use the element Assets with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to VIE's.
+
+The properties of this us-gaap:VariableInterestEntityConsolidatedCarryingAmountAssets fact are:
+Period :2019-03-31
+Dimensions : 
+Unit : USD
+
+Rule Element Id:9999
+Rule version: 9.0.0RC4 - https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml 3385</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml#element(/1/833)" sourceLine="3385">
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedCarryingAmountAssets"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedCarryingAmountAssets"/>
+  <property name="contextRef" value="AsOf2019-03-31">
+   <property name="entity" value="0001730773">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-03-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="63,686"/>
+ </ref></entry>
+<entry code="DQC.US.0082.9999" level="error">
+ <message severity="error" effectiveDate="None" filing_url="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml" cid="4455022264">[DQC.US.0082.9999] The filer has used the element VariableInterestEntityConsolidatedCarryingAmountLiabilities to report a value of 55,171 in the filing. The filer should use the element Liabilities with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to VIE's.
+
+The properties of this us-gaap:VariableInterestEntityConsolidatedCarryingAmountLiabilities fact are:
+Period :2019-03-31
+Dimensions : 
+Unit : USD
+
+Rule Element Id:9999
+Rule version: 9.0.0RC4 - https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml 3388</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml#element(/1/836)" sourceLine="3388">
+  <property name="label" value="Liabilities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedCarryingAmountLiabilities"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedCarryingAmountLiabilities"/>
+  <property name="contextRef" value="AsOf2019-03-31">
+   <property name="entity" value="0001730773">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-03-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="55,171"/>
+ </ref></entry>
+<entry code="DQC.US.0082.9999" level="error">
+ <message severity="error" effectiveDate="None" filing_url="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml" cid="4455022264">[DQC.US.0082.9999] The filer has used the element VariableInterestEntityConsolidatedLiabilitiesCurrent to report a value of 318,073 in the filing. The filer should use the element LiabilitiesCurrent with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to VIE's.
+
+The properties of this us-gaap:VariableInterestEntityConsolidatedLiabilitiesCurrent fact are:
+Period :2017-12-31
+Dimensions : us-gaap:ExtinguishmentOfDebtAxis=AAGI:AccountsPayableAndAccrualsMember
+Unit : USD
+
+Rule Element Id:9999
+Rule version: 9.0.0RC4 - https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml 3018</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml#element(/1/466)" sourceLine="3018">
+  <property name="label" value="Current liabilities of VIE"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedLiabilitiesCurrent"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedLiabilitiesCurrent"/>
+  <property name="contextRef" value="AsOf2017-12-31_custom_AccountsPayableAndAccrualsMember">
+   <property name="entity" value="0001730773">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ExtinguishmentOfDebtAxis" value="AAGI:AccountsPayableAndAccrualsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="318,073"/>
+ </ref></entry>
+<entry code="DQC.US.0082.9999" level="error">
+ <message severity="error" effectiveDate="None" filing_url="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml" cid="4455022264">[DQC.US.0082.9999] The filer has used the element VariableInterestEntityConsolidatedAssetsCurrent to report a value of 138,333 in the filing. The filer should use the element AssetsCurrent with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to VIE's.
+
+The properties of this us-gaap:VariableInterestEntityConsolidatedAssetsCurrent fact are:
+Period :2017-12-31
+Dimensions : us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:AccountsReceivableMember
+Unit : USD
+
+Rule Element Id:9999
+Rule version: 9.0.0RC4 - https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml 3008</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml#element(/1/456)" sourceLine="3008">
+  <property name="label" value="Current assets attributable to VIE"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedAssetsCurrent"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedAssetsCurrent"/>
+  <property name="contextRef" value="AsOf2017-12-31_us-gaap_AccountsReceivableMember">
+   <property name="entity" value="0001730773">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:AccountsReceivableMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="138,333"/>
+ </ref></entry>
+<entry code="DQC.US.0082.9999" level="error">
+ <message severity="error" effectiveDate="None" filing_url="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml" cid="4455022264">[DQC.US.0082.9999] The filer has used the element VariableInterestEntityConsolidatedAssetsCurrent to report a value of 49,624 in the filing. The filer should use the element AssetsCurrent with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to VIE's.
+
+The properties of this us-gaap:VariableInterestEntityConsolidatedAssetsCurrent fact are:
+Period :2018-12-31
+Dimensions : us-gaap:ConcentrationRiskByBenchmarkAxis=us-gaap:AccountsReceivableMember
+Unit : USD
+
+Rule Element Id:9999
+Rule version: 9.0.0RC4 - https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml 3007</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml#element(/1/455)" sourceLine="3007">
+  <property name="label" value="Current assets attributable to VIE"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedAssetsCurrent"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedAssetsCurrent"/>
+  <property name="contextRef" value="AsOf2018-12-31_us-gaap_AccountsReceivableMember">
+   <property name="entity" value="0001730773">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ConcentrationRiskByBenchmarkAxis" value="us-gaap:AccountsReceivableMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="49,624"/>
+ </ref></entry>
+<entry code="DQC.US.0082.9999" level="error">
+ <message severity="error" effectiveDate="None" filing_url="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml" cid="4455022264">[DQC.US.0082.9999] The filer has used the element VariableInterestEntityConsolidatedCarryingAmountAssets to report a value of 422,358 in the filing. The filer should use the element Assets with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to VIE's.
+
+The properties of this us-gaap:VariableInterestEntityConsolidatedCarryingAmountAssets fact are:
+Period :2017-12-31
+Dimensions : 
+Unit : USD
+
+Rule Element Id:9999
+Rule version: 9.0.0RC4 - https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml 3384</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml#element(/1/832)" sourceLine="3384">
+  <property name="label" value="Assets"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedCarryingAmountAssets"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedCarryingAmountAssets"/>
+  <property name="contextRef" value="AsOf2017-12-31">
+   <property name="entity" value="0001730773">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="422,358"/>
+ </ref></entry>
+<entry code="DQC.US.0082.9999" level="error">
+ <message severity="error" effectiveDate="None" filing_url="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml" cid="4455022264">[DQC.US.0082.9999] The filer has used the element VariableInterestEntityConsolidatedCarryingAmountLiabilities to report a value of 318,073 in the filing. The filer should use the element Liabilities with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to VIE's.
+
+The properties of this us-gaap:VariableInterestEntityConsolidatedCarryingAmountLiabilities fact are:
+Period :2017-12-31
+Dimensions : 
+Unit : USD
+
+Rule Element Id:9999
+Rule version: 9.0.0RC4 - https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml 3387</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml#element(/1/835)" sourceLine="3387">
+  <property name="label" value="Liabilities"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedCarryingAmountLiabilities"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedCarryingAmountLiabilities"/>
+  <property name="contextRef" value="AsOf2017-12-31">
+   <property name="entity" value="0001730773">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="318,073"/>
+ </ref></entry>
+<entry code="DQC.US.0082.9999" level="error">
+ <message severity="error" effectiveDate="None" filing_url="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml" cid="4455022264">[DQC.US.0082.9999] The filer has used the element VariableInterestEntityConsolidatedLiabilitiesCurrent to report a value of 55,171 in the filing. The filer should use the element LiabilitiesCurrent with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to VIE's.
+
+The properties of this us-gaap:VariableInterestEntityConsolidatedLiabilitiesCurrent fact are:
+Period :2019-03-31
+Dimensions : us-gaap:ExtinguishmentOfDebtAxis=AAGI:AccountsPayableAndAccrualsMember
+Unit : USD
+
+Rule Element Id:9999
+Rule version: 9.0.0RC4 - https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml 3019</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml#element(/1/467)" sourceLine="3019">
+  <property name="label" value="Current liabilities of VIE"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedLiabilitiesCurrent"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedLiabilitiesCurrent"/>
+  <property name="contextRef" value="AsOf2019-03-31_custom_AccountsPayableAndAccrualsMember">
+   <property name="entity" value="0001730773">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:ExtinguishmentOfDebtAxis" value="AAGI:AccountsPayableAndAccrualsMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="55,171"/>
+ </ref></entry>
+<entry code="DQC.US.0082.9999" level="error">
+ <message severity="error" effectiveDate="None" filing_url="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml" cid="4455022264">[DQC.US.0082.9999] The filer has used the element VariableInterestEntityConsolidatedAssetsCurrent to report a value of 257,798 in the filing. The filer should use the element AssetsCurrent with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to VIE's.
+
+The properties of this us-gaap:VariableInterestEntityConsolidatedAssetsCurrent fact are:
+Period :2017-12-31
+Dimensions : us-gaap:LongTermPurchaseCommitmentByCategoryOfItemPurchasedAxis=us-gaap:InventoriesMember
+Unit : USD
+
+Rule Element Id:9999
+Rule version: 9.0.0RC4 - https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml 3010</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml#element(/1/458)" sourceLine="3010">
+  <property name="label" value="Current assets attributable to VIE"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedAssetsCurrent"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedAssetsCurrent"/>
+  <property name="contextRef" value="AsOf2017-12-31_us-gaap_InventoriesMember">
+   <property name="entity" value="0001730773">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:LongTermPurchaseCommitmentByCategoryOfItemPurchasedAxis" value="us-gaap:InventoriesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="257,798"/>
+ </ref></entry>
+<entry code="DQC.US.0082.9999" level="error">
+ <message severity="error" effectiveDate="None" filing_url="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml" cid="4455022264">[DQC.US.0082.9999] The filer has used the element VariableInterestEntityConsolidatedAssetsCurrent to report a value of 10,213 in the filing. The filer should use the element AssetsCurrent with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to VIE's.
+
+The properties of this us-gaap:VariableInterestEntityConsolidatedAssetsCurrent fact are:
+Period :2019-03-31
+Dimensions : us-gaap:CashAndCashEquivalentsAxis=us-gaap:CashMember
+Unit : USD
+
+Rule Element Id:9999
+Rule version: 9.0.0RC4 - https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml 3013</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml#element(/1/461)" sourceLine="3013">
+  <property name="label" value="Current assets attributable to VIE"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedAssetsCurrent"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedAssetsCurrent"/>
+  <property name="contextRef" value="AsOf2019-03-31_us-gaap_CashMember">
+   <property name="entity" value="0001730773">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2019-03-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:CashAndCashEquivalentsAxis" value="us-gaap:CashMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="10,213"/>
+ </ref></entry>
+<entry code="DQC.US.0082.9999" level="error">
+ <message severity="error" effectiveDate="None" filing_url="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml" cid="4455022264">[DQC.US.0082.9999] The filer has used the element VariableInterestEntityConsolidatedAssetsCurrent to report a value of 117,816 in the filing. The filer should use the element AssetsCurrent with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to VIE's.
+
+The properties of this us-gaap:VariableInterestEntityConsolidatedAssetsCurrent fact are:
+Period :2018-12-31
+Dimensions : us-gaap:LongTermPurchaseCommitmentByCategoryOfItemPurchasedAxis=us-gaap:InventoriesMember
+Unit : USD
+
+Rule Element Id:9999
+Rule version: 9.0.0RC4 - https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml 3009</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml#element(/1/457)" sourceLine="3009">
+  <property name="label" value="Current assets attributable to VIE"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedAssetsCurrent"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedAssetsCurrent"/>
+  <property name="contextRef" value="AsOf2018-12-31_us-gaap_InventoriesMember">
+   <property name="entity" value="0001730773">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:LongTermPurchaseCommitmentByCategoryOfItemPurchasedAxis" value="us-gaap:InventoriesMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="117,816"/>
+ </ref></entry>
+<entry code="DQC.US.0082.9999" level="error">
+ <message severity="error" effectiveDate="None" filing_url="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml" cid="4455022264">[DQC.US.0082.9999] The filer has used the element VariableInterestEntityConsolidatedAssetsCurrent to report a value of 5,561 in the filing. The filer should use the element AssetsCurrent with the axis ConsolidatedEntitiesAxis and the member VariableInterestEntityPrimaryBeneficiaryMember to indicate the portion of the balance sheet category that is applicable to VIE's.
+
+The properties of this us-gaap:VariableInterestEntityConsolidatedAssetsCurrent fact are:
+Period :2018-12-31
+Dimensions : us-gaap:CashAndCashEquivalentsAxis=us-gaap:CashMember
+Unit : USD
+
+Rule Element Id:9999
+Rule version: 9.0.0RC4 - https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml 3005</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml#element(/1/453)" sourceLine="3005">
+  <property name="label" value="Current assets attributable to VIE"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="VariableInterestEntityConsolidatedAssetsCurrent"/>
+  <property name="QName" value="us-gaap:VariableInterestEntityConsolidatedAssetsCurrent"/>
+  <property name="contextRef" value="AsOf2018-12-31_us-gaap_CashMember">
+   <property name="entity" value="0001730773">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:CashAndCashEquivalentsAxis" value="us-gaap:CashMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="0"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="5,561"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 4.82 secs - https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1730773/000149315219009020/aagi-20190331.xml"/></entry>
+</log>

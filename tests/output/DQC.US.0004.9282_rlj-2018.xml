@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 1.0.0.178. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22739 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 3.40 secs at 2019-04-18T10:34:07 - https://www.sec.gov/Archives/edgar/data/1715629/000171562919000003/rlj-20181231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1715629/000171562919000003/rlj-20181231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv and effective_dates.csv successful. - /var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmptpau7ddu/packages/resources.zip </message>
+ <ref href="/var/folders/18/_kbcbv855dxf82x5yvny6h0c0000gn/T/tmptpau7ddu/packages/resources.zip"/></entry>
+<entry code="DQC.US.0004.9282" level="error">
+ <message severity="error" cid="4396453560" filing_url="https://www.sec.gov/Archives/edgar/data/1715629/000171562919000003/rlj-20181231.xml" effectiveDate="None">[DQC.US.0004.9282] Stockholders' Equity, Including Portion Attributable to Noncontrolling Interest with a value of 1,475,588,000 is not equal to the combined total of Stockholders Equity Excluding NI and Noncontrolling Interest ( 1,410,849,000 + 20,309,000 ) with a value of 1,431,158,000. 
+
+These values should be equal.
+The properties of this us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest fact are:
+Period :2018-12-31
+Dimensions :  dei:LegalEntityAxis=rlj:RangersSubILLCMember
+Unit : USD
+Decimals of Stockholders Equity Including Noncontrolling Interest : -3
+Decimals of Stockholders Equity Excluding NI : -3
+Decimals of Noncontrolling Interest : -3
+
+Rule Element Id:9282
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1715629/000171562919000003/rlj-20181231.xml 10007</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1715629/000171562919000003/rlj-20181231.xml#Fact-127D249417D93A2E73A561479C932CA5" sourceLine="10007">
+  <property name="label" value="Stockholders' Equity, Including Portion Attributable to Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="QName" value="us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="contextRef" value="FI2018Q4_dei_LegalEntityAxis_rlj_RangersSubILLCMember">
+   <property name="entity" value="0001715629">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="dei:LegalEntityAxis" value="rlj:RangersSubILLCMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,475,588,000"/>
+ </ref></entry>
+<entry code="DQC.US.0004.9282" level="error">
+ <message severity="error" cid="4396453560" filing_url="https://www.sec.gov/Archives/edgar/data/1715629/000171562919000003/rlj-20181231.xml" effectiveDate="None">[DQC.US.0004.9282] Stockholders' Equity, Including Portion Attributable to Noncontrolling Interest with a value of 1,370,359,000 is not equal to the combined total of Stockholders Equity Excluding NI and Noncontrolling Interest ( 1,306,829,000 + 19,100,000 ) with a value of 1,325,929,000. 
+
+These values should be equal.
+The properties of this us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest fact are:
+Period :2017-12-31
+Dimensions :  dei:LegalEntityAxis=rlj:RangersSubILLCMember
+Unit : USD
+Decimals of Stockholders Equity Including Noncontrolling Interest : -3
+Decimals of Stockholders Equity Excluding NI : -3
+Decimals of Noncontrolling Interest : -3
+
+Rule Element Id:9282
+Rule version: 9.0.0RC1 - https://www.sec.gov/Archives/edgar/data/1715629/000171562919000003/rlj-20181231.xml 9992</message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1715629/000171562919000003/rlj-20181231.xml#Fact-68BFA3EE95088A97C6FC61479ADA4F1C" sourceLine="9992">
+  <property name="label" value="Stockholders' Equity, Including Portion Attributable to Noncontrolling Interest"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2018-01-31"/>
+  <property name="name" value="StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="QName" value="us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"/>
+  <property name="contextRef" value="FI2017Q4_dei_LegalEntityAxis_rlj_RangersSubILLCMember">
+   <property name="entity" value="0001715629">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="instant" value="2017-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="dei:LegalEntityAxis" value="rlj:RangersSubILLCMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="usd ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="1,370,359,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 8.27 secs - https://www.sec.gov/Archives/edgar/data/1715629/000171562919000003/rlj-20181231.xml </message>
+ <ref href="https://www.sec.gov/Archives/edgar/data/1715629/000171562919000003/rlj-20181231.xml"/></entry>
+</log>

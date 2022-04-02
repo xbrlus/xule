@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in DQC Rules Validator successful, version Check version using Tools->DQC->Version on the GUI or --dqc-version on the command line. - validate/DQC </message>
+ <ref href="validate/DQC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of plug-in SEC Inline Transforms successful, version 19.2. - transforms/SEC </message>
+ <ref href="transforms/SEC"/></entry>
+<entry code="info" level="info">
+ <message>[info] Xule version: 3.0.22812 - </message>
+ <ref href=""/></entry>
+<entry code="info" level="info">
+ <message>[info] loaded in 1.51 secs at 2020-07-26T12:11:28 - http://www.sec.gov/Archives/edgar/data/1643301/000147793220001677/curr-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1643301/000147793220001677/curr-20191231.xml"/></entry>
+<entry code="info" level="info">
+ <message>[info] Activation of package dqc_15_concepts.csv, dqc_0011.csv, dqc_0079.csv, dqc_0080.csv, dqc_0081.csv, dqc_0091_ifrs_2018_concepts.csv, dqc_0091_ifrs_2019_concepts.csv, dqc_0094.csv and effective_dates.csv successful. - C:\Users\David\AppData\Local\Temp\tmpyhq04hcd\packages\resources.zip </message>
+ <ref href="C:\Users\David\AppData\Local\Temp\tmpyhq04hcd\packages\resources.zip"/></entry>
+<entry code="DQC.US.0001.72" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1643301/000147793220001677/curr-20191231.xml" severity="error" effectiveDate="2017-01-01" cid="2577917846912">[DQC.US.0001.72] The concept ShareBasedCompensation with a value of 500,000 is dimensionally qualified with the AwardDateAxis and the base taxonomy member RestrictedStockMember. Only extension members should be used with the axis AwardDateAxis.
+The properties of the fact for ShareBasedCompensation are:
+Period: 2019-01-01 to 2019-12-31
+Dimensions: us-gaap:AwardDateAxis=us-gaap:RestrictedStockMember 
+Unit: USD
+
+Rule Element Id:72
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1643301/000147793220001677/curr-20191231.xml 4077</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1643301/000147793220001677/curr-20191231.xml#element(/1/1178)" sourceLine="4077">
+  <property name="label" value="Compensation expense"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="ShareBasedCompensation"/>
+  <property name="QName" value="us-gaap:ShareBasedCompensation"/>
+  <property name="contextRef" value="From2019-01-01to2019-12-31_us-gaap_RestrictedStockMember">
+   <property name="entity" value="0001643301">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2019-01-01"/>
+   <property name="endDate" value="2019-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:AwardDateAxis" value="us-gaap:RestrictedStockMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="500,000"/>
+ </ref></entry>
+<entry code="DQC.US.0001.72" level="error">
+ <message filing_url="http://www.sec.gov/Archives/edgar/data/1643301/000147793220001677/curr-20191231.xml" severity="error" effectiveDate="2017-01-01" cid="2577917846912">[DQC.US.0001.72] The concept ShareBasedCompensation with a value of 400,000 is dimensionally qualified with the AwardDateAxis and the base taxonomy member RestrictedStockMember. Only extension members should be used with the axis AwardDateAxis.
+The properties of the fact for ShareBasedCompensation are:
+Period: 2018-01-01 to 2018-12-31
+Dimensions: us-gaap:AwardDateAxis=us-gaap:RestrictedStockMember 
+Unit: USD
+
+Rule Element Id:72
+Rule version: 13.0.0RC1 - http://www.sec.gov/Archives/edgar/data/1643301/000147793220001677/curr-20191231.xml 4078</message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1643301/000147793220001677/curr-20191231.xml#element(/1/1179)" sourceLine="4078">
+  <property name="label" value="Compensation expense"/>
+  <property name="namespace" value="http://fasb.org/us-gaap/2019-01-31"/>
+  <property name="name" value="ShareBasedCompensation"/>
+  <property name="QName" value="us-gaap:ShareBasedCompensation"/>
+  <property name="contextRef" value="From2018-01-01to2018-12-31_us-gaap_RestrictedStockMember">
+   <property name="entity" value="0001643301">
+    <property name="scheme" value="http://www.sec.gov/CIK"/>
+   </property>
+   <property name="startDate" value="2018-01-01"/>
+   <property name="endDate" value="2018-12-31"/>
+   <property name="dimensions" value="(1)">
+    <property name="us-gaap:AwardDateAxis" value="us-gaap:RestrictedStockMember"/>
+   </property>
+  </property>
+  <property name="unitRef" value="USD ($)">
+   <property name="measure" value="iso4217:USD"/>
+  </property>
+  <property name="decimals" value="-3"/>
+  <property name="precision" value="None"/>
+  <property name="xsi:nil" value="false"/>
+  <property name="value" value="400,000"/>
+ </ref></entry>
+<entry code="info" level="info">
+ <message>[info] validated in 26.31 secs - http://www.sec.gov/Archives/edgar/data/1643301/000147793220001677/curr-20191231.xml </message>
+ <ref href="http://www.sec.gov/Archives/edgar/data/1643301/000147793220001677/curr-20191231.xml"/></entry>
+</log>
