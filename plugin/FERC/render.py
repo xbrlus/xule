@@ -860,30 +860,39 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                         rule_focus_index = get_rule_focus_index(all_result_part or json_rule_result, json_result)
                         if rule_focus_index is not None:
                             use_refs = refs or rule_result.refs
-                            fact_object_index = use_refs[rule_focus_index]['objectId']
-                            model_fact = modelXbrl.modelObject(fact_object_index)
-                            processed_facts.add(model_fact)
-                            expression_node = get_node_by_pos(template, sub['expression-node'])
-                            content, new_fact_id = format_fact(expression_node, 
-                                                               model_fact, 
-                                                               main_html, 
-                                                               # This will check if the html flag is in meta data (sub) or calculated in the result
-                                                               sub.get('html', json_result.get('html', False)), 
-                                                               json_result, 
-                                                               template_nsmap, 
-                                                               fact_number)
+                            fact_object_index = use_refs[rule_focus_index]['objectId'] if rule_focus_index < len(use_refs) else None
+                            if fact_object_index is not None:
+                                model_fact = modelXbrl.modelObject(fact_object_index)
+                                processed_facts.add(model_fact)
+                                expression_node = get_node_by_pos(template, sub['expression-node'])
+                                content, new_fact_id = format_fact(expression_node,
+                                                                   model_fact,
+                                                                   main_html,
+                                                                   # This will check if the html flag is in meta data (sub) or calculated in the result
+                                                                   sub.get('html', json_result.get('html', False)),
+                                                                   json_result,
+                                                                   template_nsmap,
+                                                                   fact_number)
 
-                                            
-                            # Save the context and unit ids
-                            context_ids.add(model_fact.contextID)
-                            if model_fact.unitID is not None:
-                                unit_ids.add(model_fact.unitID)
-                            # Check if the fact is redacted
-                            is_redacted = fact_is_marked(model_fact, 'http://www.ferc.gov/arcrole/Redacted')
-                            # Check if the fact is confidential
-                            is_confidential = fact_is_marked(model_fact, 'http://www.ferc.gov/arcrole/Confidential')                                
-                            # Check if there are footnotes
-                            current_footnote_ids = get_footnotes(footnotes, model_fact, sub, new_fact_id, is_confidential, is_redacted)
+
+                                # Save the context and unit ids
+                                context_ids.add(model_fact.contextID)
+                                if model_fact.unitID is not None:
+                                    unit_ids.add(model_fact.unitID)
+                                # Check if the fact is redacted
+                                is_redacted = fact_is_marked(model_fact, 'http://www.ferc.gov/arcrole/Redacted')
+                                # Check if the fact is confidential
+                                is_confidential = fact_is_marked(model_fact, 'http://www.ferc.gov/arcrole/Confidential')
+                                # Check if there are footnotes
+                                current_footnote_ids = get_footnotes(footnotes, model_fact, sub, new_fact_id, is_confidential, is_redacted)
+                            else:
+                                content = 'ERROR: {} {}/{}'.format(rule_name, rule_focus_index, len(use_refs))
+                                modelXbrl.error(
+                                    'RenderError',
+                                    '{} - Rule focus index does not match list of processed facts - rule focus: {}, processed facts: {}'.format(
+                                        rule_name, rule_focus_index, len(use_refs)
+                                    )
+                                )
 
                     else: # json_result['type'] == 's': # result is a string
                         # This will check if the html flag is in meta data (sub) or calculated in the result
