@@ -202,7 +202,7 @@ def evaluate_rule_set(global_context):
                 if getattr(global_context.options, "xule_crash", False):
                     raise
                 else:
-                    xule_context.global_context.message_queue.error("xule:error", str(e))
+                    xule_context.global_context.message_queue.error("xule:error", "rule %s: %s" % (rule_name, str(e)))
 
             except XuleIterationStop:
                 pass
@@ -523,6 +523,9 @@ def evaluate(rule_part, xule_context, trace_dependent=False, override_table_id=N
     
     This evaluator also includes capturing information about the evaluation for debugging purposes.
     """
+    if xule_context.iter_count > xule_context.global_context.maximum_iterations:
+        raise XuleProcessingError('Rule has run too many iterations, either remove catesian products in the rule or the instance or increase the iterations using --xule-max-rule-iterations option.')
+
     try:
         # Setup trace information.
         if getattr(xule_context.global_context.options, "xule_trace", False) or getattr(
