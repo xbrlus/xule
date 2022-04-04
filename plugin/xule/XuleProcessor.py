@@ -268,7 +268,7 @@ def index_model(xule_context):
     fact_index = collections.defaultdict(lambda: collections.defaultdict(set))
 
     facts_to_index = collections.defaultdict(list)
-    if xule_context.model is not None:
+    if xule_context.model is not None and not xule_context.fact_index:
         for model_fact in xule_context.model.factsInInstance:
             if not fact_is_complete(model_fact):
                 # Fact is incomplete. This can be caused by a filing that is still in the process of being built.
