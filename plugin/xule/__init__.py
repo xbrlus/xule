@@ -449,6 +449,14 @@ def xuleCmdOptions(parser):
                       action="store_true",
                       dest="xule_run",
                       help=_("Indicates that the rules should be processed."))
+
+    parserGroup.add_option(
+        "--xule-max-rule-iterations",
+        action="store",
+        dest="xule_max_rule_iterations",
+        default=10000,
+        help=_("The maximum amount of iterations any xule rule should be allowed to run.")
+    )
     
     parserGroup.add_option("--xule-arg",
                           action="append",
