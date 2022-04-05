@@ -1,5 +1,5 @@
 '''
-Reivision number: $Change: 23359 $
+Revision number: $Change: 23359 $
 '''
 from arelle import FileSource
 from arelle import PluginManager
