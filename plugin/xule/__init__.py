@@ -7,7 +7,7 @@ This is the package init file.
 DOCSKIP
 See https://xbrl.us/dqc-license for license information.  
 See https://xbrl.us/dqc-patent for patent infringement notice.
-Copyright (c) 2017 - 2022 XBRL US, Inc.
+Copyright (c) 2017 - 2021 XBRL US, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23339 $
+$Change: 23361 $
 DOCSKIP
 """
 from .XuleProcessor import process_xule
@@ -450,6 +450,12 @@ def xuleCmdOptions(parser):
                       dest="xule_run",
                       help=_("Indicates that the rules should be processed."))
     
+    parserGroup.add_option("--xule-max-rule-iterations",
+                        action="store",
+                        dest="xule_max_rule_iterations",
+                        default=10000,
+                        help=_("The maximum amount of iterations any xule rule should be allowed to run.")
+                    )
     parserGroup.add_option("--xule-arg",
                           action="append",
                           dest="xule_arg",
