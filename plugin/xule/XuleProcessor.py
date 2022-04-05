@@ -21,7 +21,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23345 $
+$Change: 23361 $
 DOCSKIP
 """
 from .XuleContext import XuleGlobalContext, XuleRuleContext  # XuleContext
@@ -202,7 +202,7 @@ def evaluate_rule_set(global_context):
                 if getattr(global_context.options, "xule_crash", False):
                     raise
                 else:
-                    xule_context.global_context.message_queue.error("xule:error", str(e))
+                    xule_context.global_context.message_queue.error("xule:error", "rule %s: %s" % (rule_name, str(e)))
 
             except XuleIterationStop:
                 pass
@@ -268,7 +268,7 @@ def index_model(xule_context):
     fact_index = collections.defaultdict(lambda: collections.defaultdict(set))
 
     facts_to_index = collections.defaultdict(list)
-    if xule_context.model is not None:
+    if xule_context.model is not None and not xule_context.fact_index:
         for model_fact in xule_context.model.factsInInstance:
             if not fact_is_complete(model_fact):
                 # Fact is incomplete. This can be caused by a filing that is still in the process of being built.
@@ -523,6 +523,9 @@ def evaluate(rule_part, xule_context, trace_dependent=False, override_table_id=N
     
     This evaluator also includes capturing information about the evaluation for debugging purposes.
     """
+    if xule_context.iter_count > xule_context.global_context.maximum_iterations:
+        raise XuleProcessingError('Rule has run too many iterations, either remove catesian products in the rule or the instance or increase the iterations using --xule-max-rule-iterations option.')
+
     try:
         # Setup trace information.
         if getattr(xule_context.global_context.options, "xule_trace", False) or getattr(

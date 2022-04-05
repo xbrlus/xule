@@ -22,7 +22,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23204 $
+$Change: 23361 $
 DOCSKIP
 """
 from .XuleRunTime import XuleProcessingError
@@ -215,6 +215,7 @@ class XuleGlobalContext(object):
         self.precalc_constants = False
         self.expression_trace = dict()
         self.other_taxonomies = dict()
+        self.maximum_iterations = max(getattr(self.options, "xule_max_rule_iterations", 10000), len(model_xbrl.factsInInstance) + 10 )
         
         # Set up various queues
         self.message_queue = XuleMessageQueue(self.model, getattr(self.options, "xule_multi", False), getattr(self.options, "xule_async", False), cid=id(self.cntlr))

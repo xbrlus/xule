@@ -1,5 +1,5 @@
 '''
-Reivision number: $Change: 23300 $
+Revision number: $Change: 23359 $
 '''
 from arelle import FileSource
 from arelle import PluginManager
@@ -2661,7 +2661,12 @@ def format_numcommadot(model_fact, sign, scale, *args, **kwargs):
         return '{:,}'.format(val), '0' 
 
 def format_dateslahus(model_fact, *args, **kwargs):
-    return model_fact.xValue.strftime('%m/%d/%Y')
+    try:
+        return model_fact.xValue.strftime('%m/%d/%Y')
+    except AttributeError:
+        raise FERCRenderException(
+            "Invalid date '{}'. Can not convert value to month/day/year format".format(model_fact.xValue)
+        )
 
 def format_durwordsen(model_fact, *args, **kwargs):
     pattern = r'P((?P<year>\d+)Y)?((?P<month>\d+)M)?((?P<week>\d+)W)?((?P<day>\d+)D)?(T((?P<hour>\d+)H)?((?P<minute>\d+)M)?((?P<second>\d+(\.\d+)?)S)?)?'
