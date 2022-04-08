@@ -34,9 +34,9 @@ _version_prefix = '3.0.'
 _description = 'DQC rules validator.'
 _license = 'Apache-2'
 _author = 'XBRL US Inc.'
-_copyright = '(c) 2017-2018'
+_copyright = '(c) 2017-2022'
 _rule_set_map_name = 'rulesetMap.json'
-_latest_map_name = 'https://github.com/DataQualityCommittee/dqc_us_rules/blob/master/plugin/xule/rulesetMap.json?raw=true' 
+_latest_map_name = 'https://github.com/DataQualityCommittee/dqc_us_rules/raw/master/rulesetMap.json' 
 
 """Do not change anything below this line."""
 _xule_plugin_info = None
