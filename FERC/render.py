@@ -654,7 +654,7 @@ def build_line_number_rules(xule_rules, next_rule_number, template_tree, xule_no
 
     return line_number_subs, xule_rules, next_rule_number
 
-def substituteTemplate(rule_meta_data, rule_results, template, modelXbrl, main_html, template_number, fact_number, processed_facts, processed_footnotes):
+def substituteTemplate(rule_meta_data, rule_results, template, modelXbrl, main_html, template_number, template_name, fact_number, processed_facts, processed_footnotes):
     '''Subsititute the xule expressions in the template with the generated values.'''
 
     # Determine if the template should be rendered
@@ -713,10 +713,13 @@ def substituteTemplate(rule_meta_data, rule_results, template, modelXbrl, main_h
     footnotes = collections.defaultdict(list)
     has_confidential = False
     for rule_name, sub_info in non_repeating + repeating:
-        rule_has_confidential = substitute_rule(rule_name, sub_info, line_number_subs, rule_results[rule_name], template, 
-                                                modelXbrl, main_html, repeating_nodes, xule_node_locations,
-                                                context_ids, unit_ids, footnotes, template_number, fact_number, processed_facts)
-        if rule_has_confidential: has_confidential = True
+        try:
+            rule_has_confidential = substitute_rule(rule_name, sub_info, line_number_subs, rule_results[rule_name], template, 
+                                                    modelXbrl, main_html, repeating_nodes, xule_node_locations,
+                                                    context_ids, unit_ids, footnotes, template_number, fact_number, processed_facts)
+            if rule_has_confidential: has_confidential = True
+        except FERCRenderException as e:
+             modelXbrl.warning("RenderError","Encountered the following error in template {}\n{}".format(template_name, str(e)))
 
     footnote_page = build_footnote_page(template, template_number, footnotes, processed_footnotes, fact_number)
     if footnote_page is not None:
@@ -778,10 +781,23 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
         subs = sub_info
 
     for rule_result in rule_results:
+        # get rule focus facts
+        use_refs = refs or rule_result.refs
+        use_facts = [modelXbrl.modelObject(x['objectId']) for x in use_refs]
+
         if isinstance(rule_result, list):
             json_rule_result = rule_result
         else:
             json_rule_result = json.loads(rule_result.getMessage())
+
+        # Check if the number of facts in the rule result matches the number of fact in used_refs (rule focus)
+        if isinstance(json_rule_result, list):
+            result_fact_count = count_facts_in_result(json_rule_result)
+            if result_fact_count != len(use_facts):
+                list_facts = "\n".join([f"{x.concept.qname.localName}: {x.sValue}" for x in use_facts])
+                raise FERCRenderException("Mismatch between the number of facts returned in the rule result and the number of "
+                                          "facts in the rule focus. This is likely due to duplicate facts. The facts on the row "
+                                          "in question are:\n{}".format(list_facts))
 
         if repeating_model_node is not None:
             # Copy the model of the repeating node. This will be used to do the actual substitutions
@@ -859,9 +875,9 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                     if is_actual_fact(json_result, modelXbrl):
                         rule_focus_index = get_rule_focus_index(all_result_part or json_rule_result, json_result)
                         if rule_focus_index is not None:
-                            use_refs = refs or rule_result.refs
-                            fact_object_index = use_refs[rule_focus_index]['objectId']
-                            model_fact = modelXbrl.modelObject(fact_object_index)
+                            #fact_object_index = use_refs[rule_focus_index]['objectId']
+                            #model_fact = modelXbrl.modelObject(fact_object_index)
+                            model_fact = use_facts[rule_focus_index]
                             processed_facts.add(model_fact)
                             expression_node = get_node_by_pos(template, sub['expression-node'])
                             content, new_fact_id = format_fact(expression_node, 
@@ -1021,6 +1037,13 @@ def get_rule_focus_index(json_all_results, current_result):
             rule_focus_index = 0
 
     return rule_focus_index if rule_focus_index >= 0 else None  
+
+def count_facts_in_result(json_all_results):
+    if isinstance(json_all_results, list):
+        rule_focus_count, _x = traverse_for_facts(json_all_results, None)
+        return rule_focus_count + 1 # base 0 index
+    else:
+        return None
 
 def traverse_for_facts(json_results, current_result, focus_index=-1):
     found = False
@@ -2178,7 +2201,7 @@ def render_report(cntlr, options, modelXbrl, *args, **kwargs):
             template_number += 1
             template_result = substituteTemplate(rule_meta_data, 
                                                     log_capture_handler.captured, template, modelXbrl, main_html,
-                                                    template_number, fact_number, processed_facts, processed_footnotes)
+                                                    template_number, catalog_item['name'], fact_number, processed_facts, processed_footnotes)
             if template_result is not None: # the template_result is none when a xule:showif returns false
                 rendered_template, template_context_ids, template_unit_ids, template_has_confidential = template_result
                 used_context_ids |= template_context_ids
