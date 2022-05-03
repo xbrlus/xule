@@ -654,7 +654,8 @@ def build_line_number_rules(xule_rules, next_rule_number, template_tree, xule_no
 
     return line_number_subs, xule_rules, next_rule_number
 
-def substituteTemplate(rule_meta_data, rule_results, template, modelXbrl, main_html, template_number, fact_number, processed_facts, processed_footnotes):
+def substituteTemplate(rule_meta_data, rule_results, template, modelXbrl, main_html, template_number,
+                       fact_number, processed_facts, processed_footnotes):
     '''Subsititute the xule expressions in the template with the generated values.'''
 
     # Determine if the template should be rendered
@@ -712,6 +713,8 @@ def substituteTemplate(rule_meta_data, rule_results, template, modelXbrl, main_h
     repeating.sort(key=sort_by_ancestors, reverse=True)
     footnotes = collections.defaultdict(list)
     has_confidential = False
+
+
     for rule_name, sub_info in non_repeating + repeating:
         rule_has_confidential = substitute_rule(rule_name, sub_info, line_number_subs, rule_results[rule_name], template, 
                                                 modelXbrl, main_html, repeating_nodes, xule_node_locations,
@@ -859,9 +862,22 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                     if is_actual_fact(json_result, modelXbrl):
                         rule_focus_index = get_rule_focus_index(all_result_part or json_rule_result, json_result)
                         if rule_focus_index is not None:
-                            use_refs = refs or rule_result.refs
-                            fact_object_index = use_refs[rule_focus_index]['objectId']
-                            model_fact = modelXbrl.modelObject(fact_object_index)
+                            #use_refs = refs or rule_result.refs
+                            use_facts = [modelXbrl.modelObject(x['objectId']) for x in refs or rule_result.refs]
+                            # Check if the number of facts in the rule result matches the number of fact in used_refs (rule focus)
+                            if isinstance(json_rule_result, list):
+                                result_fact_count = count_facts_in_result(json_rule_result)
+                                if result_fact_count != len(use_facts):
+                                    list_facts = "\n".join([f"{x.concept.qname.localName}: {x.sValue}" for x in use_facts])
+                                    modelXbrl.warning("RenderError", "Mismatch between the number of facts returned in the rule result and the number of "
+                                                            "facts in the rule focus. This is likely due to duplicate facts. The facts on the row "
+                                                            "in question are:\n{}".format(list_facts))
+                                    break
+
+                            #fact_object_index = use_refs[rule_focus_index]['objectId']
+                            #model_fact = modelXbrl.modelObject(fact_object_index)
+                            model_fact = use_facts[rule_focus_index]
+
                             processed_facts.add(model_fact)
                             expression_node = get_node_by_pos(template, sub['expression-node'])
                             content, new_fact_id = format_fact(expression_node, 
@@ -872,8 +888,7 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                                                                json_result, 
                                                                template_nsmap, 
                                                                fact_number)
-
-                                            
+     
                             # Save the context and unit ids
                             context_ids.add(model_fact.contextID)
                             if model_fact.unitID is not None:
@@ -1021,6 +1036,13 @@ def get_rule_focus_index(json_all_results, current_result):
             rule_focus_index = 0
 
     return rule_focus_index if rule_focus_index >= 0 else None  
+
+def count_facts_in_result(json_all_results):
+    if isinstance(json_all_results, list):
+        rule_focus_count, _x = traverse_for_facts(json_all_results, None)
+        return rule_focus_count + 1 # base 0 index
+    else:
+        return None
 
 def traverse_for_facts(json_results, current_result, focus_index=-1):
     found = False
