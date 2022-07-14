@@ -7,7 +7,7 @@
 	"http://ferc.gov/form/2022-01-01/ferc-form-2q": "https://github.com/xbrlus/ferc-renderer/raw/master/ValidationRulesets/Form2.zip",
 	"http://ferc.gov/form/2022-01-01/ferc-form-6": "https://github.com/xbrlus/ferc-renderer/raw/master/ValidationRulesets/Form6.zip",
 	"http://ferc.gov/form/2022-01-01/ferc-form-6q": "https://github.com/xbrlus/ferc-renderer/raw/master/ValidationRulesets/Form6.zip",
-	"http://ferc.gov/form/2022-01-01/ferc-form-60": "https://github.com/xbrlus/ferc-renderer/raw/master/ValidationRulesets/Form60.zip",
+	"http://ferc.gov/form/2022-04-01/ferc-form-60": "https://github.com/xbrlus/ferc-renderer/raw/master/ValidationRulesets/Form60.zip",
 	"http://ferc.gov/form/2022-01-01/ferc-form-714": "https://github.com/xbrlus/ferc-renderer/raw/master/ValidationRulesets/Form714.zip",
 	"http://ferc.gov/form/2021-01-01/ferc-form-1": "https://github.com/xbrlus/ferc-renderer/raw/v1.9/ValidationRulesets/Form1.zip",
 	"http://ferc.gov/form/2021-01-01/ferc-form-1F": "https://github.com/xbrlus/ferc-renderer/raw/v1.9/ValidationRulesets/Form1.zip",
