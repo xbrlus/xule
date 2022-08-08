@@ -329,6 +329,7 @@ def property_networks(xule_context, object_value, *args):
 def property_role(xule_context, object_value, *args):
     if object_value.type == 'network':
         role_uri = object_value.value[NETWORK_INFO][NETWORK_ROLE]
+        role_parent_model = object_value.value[NETWORK_RELATIONSHIP_SET].modelXbrl
         #return xv.XuleValue(xule_context, object_value.value[NETWORK_INFO][NETWORK_ROLE], 'uri')
     elif object_value.type == 'relationship':
         role_uri = object_value.value.linkrole
@@ -336,7 +337,7 @@ def property_role(xule_context, object_value, *args):
         role_uri = object_value.value.role
         #return xv.XuleValue(xule_context, object_value.value.role, 'uri')
 
-    model_role = XuleUtility.role_uri_to_model_role(xule_context.model, role_uri)
+    model_role = XuleUtility.role_uri_to_model_role(role_parent_model, role_uri)
     return xv.XuleValue(xule_context, model_role, 'role')
 
 def property_role_uri(xule_context, object_value, *args):
@@ -354,6 +355,7 @@ def property_role_uri(xule_context, object_value, *args):
 def property_role_description(xule_context, object_value, *args):
     if object_value.type == 'network':
         role_uri = object_value.value[NETWORK_INFO][NETWORK_ROLE]
+        role_parent_model = object_value.value[NETWORK_RELATIONSHIP_SET].modelXbrl
         #return xv.XuleValue(xule_context, object_value.value[NETWORK_INFO][NETWORK_ROLE], 'uri')
     elif object_value.type == 'relationship':
         role_uri = object_value.value.linkrole        
@@ -361,17 +363,18 @@ def property_role_description(xule_context, object_value, *args):
         role_uri = object_value.value.role
         #return xv.XuleValue(xule_context, object_value.value.role, 'uri')
 
-    model_role = XuleUtility.role_uri_to_model_role(xule_context.model, role_uri)
+    model_role = XuleUtility.role_uri_to_model_role(role_parent_model, role_uri)
 
     return xv.XuleValue(xule_context, model_role.definition, 'string')
     
 def property_arcrole(xule_context, object_value, *args):
     if object_value.type == 'network':
         arcrole_uri = object_value.value[NETWORK_INFO][NETWORK_ARCROLE]
+        arcrole_parent_model = object_value.value[NETWORK_RELATIONSHIP_SET].modelXbrl
     else: # relationship
         arcrole_uri = object_value.value.arcrole
 
-    model_arcrole = XuleUtility.arcrole_uri_to_model_role(xule_context.model, arcrole_uri)
+    model_arcrole = XuleUtility.arcrole_uri_to_model_role(arcrole_parent_model, arcrole_uri)
     return xv.XuleValue(xule_context, model_arcrole, 'role')
 
 def property_arcrole_uri(xule_context, object_value, *args):
@@ -384,10 +387,11 @@ def property_arcrole_uri(xule_context, object_value, *args):
 def property_arcrole_description(xule_context, object_value, *args):
     if object_value.type == 'network':
         arcrole_uri = object_value.value[NETWORK_INFO][NETWORK_ARCROLE]
+        arcrole_parent_model = object_value.value[NETWORK_RELATIONSHIP_SET].modelXbrl
     else: # relationship
         arcrole_uri = object_value.value.arcrole
 
-    model_arcrole = XuleUtility.arcrole_uri_to_model_role(xule_context.model, arcrole_uri)
+    model_arcrole = XuleUtility.arcrole_uri_to_model_role(arcrole_parent_model, arcrole_uri)
     return xv.XuleValue(xule_context, model_arcrole.definition, 'string')
 
 def property_concept(xule_context, object_value, *args):
