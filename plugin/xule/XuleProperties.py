@@ -5,7 +5,7 @@ Xule is a rule processor for XBRL (X)brl r(ULE).
 DOCSKIP
 See https://xbrl.us/dqc-license for license information.  
 See https://xbrl.us/dqc-patent for patent infringement notice.
-Copyright (c) 2017 - 2022 XBRL US, Inc.
+Copyright (c) 2017 - 2021 XBRL US, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23260 $
+$Change: 23374 $
 DOCSKIP
 """
 
@@ -336,7 +336,10 @@ def property_role(xule_context, object_value, *args):
         role_uri = object_value.value.role
         #return xv.XuleValue(xule_context, object_value.value.role, 'uri')
 
-    model_role = XuleUtility.role_uri_to_model_role(xule_context.model, role_uri)
+    # The taxonomy is determined from the object_value. This could be the object of the loaded document
+    # or a taxonomy that was loaded with the xule taxonomy() function
+    cur_model = object_value.value[NETWORK_RELATIONSHIP_SET].modelXbrl if object_value.type == 'network' else object_value.value.modelXbrl
+    model_role = XuleUtility.role_uri_to_model_role(cur_model, role_uri)
     return xv.XuleValue(xule_context, model_role, 'role')
 
 def property_role_uri(xule_context, object_value, *args):
@@ -361,7 +364,10 @@ def property_role_description(xule_context, object_value, *args):
         role_uri = object_value.value.role
         #return xv.XuleValue(xule_context, object_value.value.role, 'uri')
 
-    model_role = XuleUtility.role_uri_to_model_role(xule_context.model, role_uri)
+    # The taxonomy is determined from the object_value. This could be the object of the loaded document
+    # or a taxonomy that was loaded with the xule taxonomy() function
+    cur_model = object_value.value[NETWORK_RELATIONSHIP_SET].modelXbrl if object_value.type == 'network' else object_value.value.modelXbrl
+    model_role = XuleUtility.role_uri_to_model_role(cur_model, role_uri)
 
     return xv.XuleValue(xule_context, model_role.definition, 'string')
     
@@ -371,7 +377,10 @@ def property_arcrole(xule_context, object_value, *args):
     else: # relationship
         arcrole_uri = object_value.value.arcrole
 
-    model_arcrole = XuleUtility.arcrole_uri_to_model_role(xule_context.model, arcrole_uri)
+    # The taxonomy is determined from the object_value. This could be the object of the loaded document
+    # or a taxonomy that was loaded with the xule taxonomy() function
+    cur_model = object_value.value[NETWORK_RELATIONSHIP_SET].modelXbrl if object_value.type == 'network' else object_value.value.modelXbrl
+    model_arcrole = XuleUtility.arcrole_uri_to_model_role(cur_model, arcrole_uri)
     return xv.XuleValue(xule_context, model_arcrole, 'role')
 
 def property_arcrole_uri(xule_context, object_value, *args):
@@ -387,7 +396,10 @@ def property_arcrole_description(xule_context, object_value, *args):
     else: # relationship
         arcrole_uri = object_value.value.arcrole
 
-    model_arcrole = XuleUtility.arcrole_uri_to_model_role(xule_context.model, arcrole_uri)
+    # The taxonomy is determined from the object_value. This could be the object of the loaded document
+    # or a taxonomy that was loaded with the xule taxonomy() function
+    cur_model = object_value.value[NETWORK_RELATIONSHIP_SET].modelXbrl if object_value.type == 'network' else object_value.value.modelXbrl
+    model_arcrole = XuleUtility.arcrole_uri_to_model_role(cur_model, arcrole_uri)
     return xv.XuleValue(xule_context, model_arcrole.definition, 'string')
 
 def property_concept(xule_context, object_value, *args):
