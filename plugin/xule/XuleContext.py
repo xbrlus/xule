@@ -32,6 +32,7 @@ from arelle import FileSource
 from arelle import ModelManager
 from queue import Queue
 from multiprocessing import Queue as M_Queue, Manager, cpu_count
+from collections import defaultdict
 import datetime
 from time import sleep
 import copy
@@ -216,6 +217,7 @@ class XuleGlobalContext(object):
         self.expression_trace = dict()
         self.other_taxonomies = dict()
         self.maximum_iterations = max(getattr(self.options, "xule_max_rule_iterations", 10000), len(model_xbrl.factsInInstance) + 10 )
+        self.ancestry_cache = defaultdict(dict)
         
         # Set up various queues
         self.message_queue = XuleMessageQueue(self.model, getattr(self.options, "xule_multi", False), getattr(self.options, "xule_async", False), cid=id(self.cntlr))
