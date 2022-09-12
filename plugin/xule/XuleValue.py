@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23303 $
+$Change: 23379 $
 DOCSKIP
 """
 from .XuleRunTime import XuleProcessingError
@@ -40,6 +40,13 @@ from fractions import Fraction
 import pprint
 import re
 import textwrap
+
+from enum import Enum
+
+
+class SpecialItemTypes(Enum):
+    ENUM_ITEM_TYPE = '{http://xbrl.org/2020/extensible-enumerations-2.0}enumerationItemType'
+    ENUM_SET_ITEM_TYPE = '{http://xbrl.org/2020/extensible-enumerations-2.0}enumerationSetItemType'
 
 
 class XuleValueSet:
@@ -94,7 +101,6 @@ class XuleValue:
         self.tag = tag if tag is not None else self
         
         if self.type in ('list', 'set') and self.shadow_collection is None:
-        #if self.type in ('list', 'set'):            
             shadow = [x.shadow_collection if x.type in ('set', 'list', 'dictionary') else x.value for x in self.value]
             if self.type == 'list':
                 self.shadow_collection = tuple(shadow)
@@ -190,7 +196,7 @@ class XuleValue:
         #set value, type, fact on the XuleValue
         if orig_type == 'fact':
             #get the underlying value and determine the type
-            if "{http://xbrl.org/2020/extensible-enumerations-2.0}enumerationSetItemType" in self._type_ancestry(orig_value.concept.type):
+            if self._special_type_in_ancestry(xule_context, SpecialItemTypes.ENUM_SET_ITEM_TYPE, orig_value.concept.type):
                 # This is concept that is an extensibile enumeration set. Arelle will pass the valueas
                 # a list of QNames. Need to convert to a set of XuleValues where each Xulevalue is a
                 # "qname" xule type.
@@ -202,7 +208,7 @@ class XuleValue:
                     enum_value_type, enum_compute_value = model_to_xule_type(xule_context, enum)
                     enum_set.add(XuleValue(xule_context, enum_compute_value, enum_value_type))
                 return 'set', enum_set, orig_value
-            elif "{http://xbrl.org/2020/extensible-enumerations-2.0}enumerationItemType" in self._type_ancestry(orig_value.concept.type):
+            elif self._special_type_in_ancestry(xule_context, SpecialItemTypes.ENUM_ITEM_TYPE, orig_value.concept.type):
                 # This should be a single qname, but Arelle puts it in a list
                 if isinstance(orig_value.xValue, list):
                     if len(orig_value.xValue) == 1:
@@ -218,11 +224,22 @@ class XuleValue:
         else:
             return orig_type, orig_value, None
 
-    def _type_ancestry(self, model_type):
-        if model_type.typeDerivedFrom is None:
-            return [model_type.qname.clarkNotation]
+    def _special_type_in_ancestry(self, xule_context, find, model_type):
+        cached_value = xule_context.global_context.ancestry_cache.get(model_type, {}).get(find)
+        if cached_value is not None:
+            return cached_value
+        elif model_type.qname.clarkNotation == find.value:
+            xule_context.global_context.ancestry_cache[model_type][find] = True
+            return True
+        derived = model_type.typeDerivedFrom
+        if isinstance(derived, list):
+            is_derived_from = any(
+                self._special_type_in_ancestry(xule_context, find, t) for t in model_type.typeDerivedFrom if t is not None
+            )
         else:
-            return [model_type.qname.clarkNotation] + self._type_ancestry(model_type.typeDerivedFrom)
+            is_derived_from = derived is not None and self._special_type_in_ancestry(xule_context, find, derived)
+        xule_context.global_context.ancestry_cache[model_type][find] = is_derived_from
+        return is_derived_from
 
     @property
     def is_fact(self):
