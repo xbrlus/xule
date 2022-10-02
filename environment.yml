@@ -1,0 +1,23 @@
+name: xbrl_api_playground
+
+dependencies:
+  - python=3.9
+  - numpy
+  - pandas
+  - requests
+  - xlrd
+  - openpyxl
+  - regex
+  - tabulate
+  - lxml>=4.6.3
+  - isodate==0.6.0
+  - aniso8601==9.0.1
+  - holidays==0.11.1
+  - pyparsing==2.4.7
+  - pip
+  - pip:
+    - lxml
+    - isodate
+    - aniso8601
+    - holidays
+    - pyparsing

@@ -1,0 +1,5 @@
+# excluded from release
+
+environment.yml export-ignore
+*.ipynb export-ignore
+.gitattributes export-ignore
