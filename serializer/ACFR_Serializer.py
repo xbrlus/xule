@@ -816,7 +816,7 @@ def new_part_element(new_model, model_element, tax_namespace):
     
     # Assign document
     if new_part_element.name.namespace in _CORE_NAMESPACES:
-        document = new_document(new_model, _CORE_NAMESPACES[tax_namespace]['uri'], new_model.DOCUMENT_TYPES.SCHEMA, _PART_NAMESPACE, _PART_DESCRIPTION)
+        document = new_document(new_model, _CORE_NAMESPACES[tax_namespace]['uri'], new_model.DOCUMENT_TYPES.SCHEMA, tax_namespace, _CORE_NAMESPACES[tax_namespace]['description'])
     else:
         document = new_document(new_model, model_element.modelDocument.uri, new_model.DOCUMENT_TYPES.SCHEMA, model_element.modelDocument.targetNamespace)
 
