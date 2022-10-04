@@ -569,8 +569,8 @@ class _SXMDefined(_SXMDTSBase):
 class SXMQName(_SXMDTSBase):
     def __init__(self, dts, namespace, local_name, prefix=None):
         super().__init__(dts)
-        self.namespace = namespace
-        self.local_name = local_name
+        self._namespace = namespace
+        self._local_name = local_name
 
         if namespace is not None:
             if namespace not in dts.namespaces:
@@ -599,6 +599,14 @@ class SXMQName(_SXMDTSBase):
     
     def __lt__(self, other):
         return str(self) < str(other)
+
+    @property # cannot be changed because it is part of the hash
+    def namespace(self):
+        return self._namespace
+
+    @property # cannot be changed because it is part of the hash
+    def local_name(self):
+        return self._local_name
 
     @property
     def prefix(self):
