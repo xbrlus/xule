@@ -274,7 +274,7 @@ def set_configuration(options, old_model):
             'network-location': f'acfr/state/{tax_name}',
             'uri': f'acfr/state/{tax_name}/elts/{tax_name}_{_NEW_VERSION}.xsd',
             'description': f'{tax_name} taxonomy',
-            'all-uri': f'acfr/state/{tax_name}/elts/{tax_name}-all_{_NEW_VERSION}.xsd',
+            'all-uri': f'acfr/state/{tax_name}/{tax_name}-all_{_NEW_VERSION}.xsd',
             'all-namespace': f'acfr/state/{tax_name}/all/{_NEW_VERSION}',
             'type-uri': f'acfr/state/{tax_name}/elts/{tax_name}_types_{_NEW_VERSION}.xsd',
             'type-namespace': f'{_NAMESPACE_START}{tax_name}/type/{_NEW_VERSION}',
@@ -378,18 +378,18 @@ def add_package_defaults(new_model):
 
     new_model.identifier = f'{_NAMESPACE_START}/taxonomy/acfr/{_NEW_VERSION}'
     new_model.name = 'ACFR Taxonomy'
-    new_model.name_language = 'en'
-    new_model.description = 'This taxonomy packacge contains the taxonomies used for ACFR'
+    new_model.name_language = 'en-US'
+    new_model.description = 'This taxonomy packacge contains the taxonomies used government reporting'
     new_model.description_language = 'en-US'
     new_model.version = _NEW_VERSION
     # TODO add license and publisher
-    new_model.license_href = 'https: LICENSE LOCATION GOES HERE'
+    #new_model.license_href = 'https: LICENSE LOCATION GOES HERE'
     new_model.license_name = 'Taxonomies Terms and Conditions'
-    new_model.publisher = 'PUBLISHER'
-    new_model.publisher_url = 'https: PUBLISHER URL'
+    #new_model.publisher = 'PUBLISHER'
+    #new_model.publisher_url = 'https: PUBLISHER URL'
     new_model.publisher_country = 'US'
     # TODO where to get pubication date
-    new_model.publication_date = f'{_NEW_VERSION}-01-01'
+    #new_model.publication_date = f'{_NEW_VERSION}-01-01'
     # TODO offical lcoations
     new_model.rewrites['../'] = f'{_NAMESPACE_START}'
 
@@ -918,7 +918,7 @@ def new_role(new_model, model_xbrl, role_uri, tax_namespace):
         definition = old_role[0].definition
 
     # The documents for the role definitions will be assigned later
-    role =  new_model.new('Role', new_role_uri, definition, usedons)
+    role =  new_model.new('Role', new_role_uri, definition, set(usedons))
 
     assign_role_document(role, tax_namespace)
 
@@ -1046,6 +1046,9 @@ def add_defintion_from_presentation(new_model, old_role_name, arcrole_name, arcr
     # Create the new network
     link_name = new_qname_from_clark(new_model, _DEFINITION_LINK_ELEMENT)
     arc_name = new_qname_from_clark(new_model, _DEFINITION_ARC_ELEMENT)
+    # make sure definition link is in the used on for the link role
+    if link_name not in pres_role.used_ons:
+        pres_role.used_ons.add(link_name)
     # Get or create the arcrole
     # See if there is already an arcrole
     arcrole = find_role(arcrole_name, 'arcrole', new_model)
@@ -1058,8 +1061,10 @@ def add_defintion_from_presentation(new_model, old_role_name, arcrole_name, arcr
             arcrole.document = dimension_document
         else:
             arcrole_uri = f"{_CORE_NAMESPACES[_ACFR_NAMESPACE]['role-start-uri']}{arcrole_name}" #TODO should _NEW_VERSION GO ON THE END
-            arcrole = new_model.new('Arcrole', arcrole_uri, 'undirected', arcrole_description, (link_name,))
-    
+            arcrole = new_model.new('Arcrole', arcrole_uri, 'undirected', arcrole_description, {arc_name,})
+    else:
+        if link_name not in arcrole.used_ons:
+            arcrole.used_ons.add(link_name)
     elrole = pres_role 
     network = new_model.new('Network', link_name, arc_name, arcrole, elrole)
 
@@ -1600,9 +1605,9 @@ def add_entry_points(new_model):
             #sub_taxonomy_documents.add(new_model.documents[tax_info['uri']])
             # Create entry point
             entry_point = new_model.new('PackageEntryPoint', f"{tax_info['name']} taxonomy entry point")
-            entry_point.names.append((tax_info['name'], 'en'))
+            entry_point.names.append((tax_info['name'], 'en-US'))
             entry_point.description = tax_info['description']
-            entry_point.description_language = 'en'
+            entry_point.description_language = 'en-US'
             entry_point.version = _NEW_VERSION
             entry_point.documents.append(sub_taxonomy_document)
 
