@@ -629,6 +629,7 @@ class _SXMPackageDTS(_SXMBase):
     # for organizational purposes
     def __init__(self):
         self.identifier = None
+        self.default_language = None
         self.name = None
         self.name_language = None
         self.description = None
