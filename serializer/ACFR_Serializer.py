@@ -385,6 +385,7 @@ def add_package_defaults(new_model):
 
     new_model.identifier = f'{_NAMESPACE_START}/taxonomy/grip/{_NEW_VERSION}'
     new_model.name = 'Government Reporting Information Package (GRIP) Taxonomy'
+    new_model.default_language = 'en-US'
     #new_model.name_language = 'en-US'
     new_model.description = 'This taxonomy packacge contains the taxonomies used government reporting'
     new_model.description_language = 'en-US'
@@ -1606,7 +1607,7 @@ def add_entry_points(new_model):
                 #sub_taxonomy_documents.add(new_model.documents[tax_info['uri']])
                 # Create entry point
                 entry_point = new_model.new('PackageEntryPoint', f"{tax_info['name']} taxonomy entry point")
-                entry_point.names.append((tax_info['name'], None))
+                entry_point.names.append((f"State {tax_info['name']}" if tax_info['type'] == 'state' else tax_info['name'], None))
                 entry_point.description = tax_info['description']
                 #entry_point.description_language = 'en-US'
                 entry_point.version = _NEW_VERSION
