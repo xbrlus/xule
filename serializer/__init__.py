@@ -1064,8 +1064,8 @@ def serialize_package_files(zip_file, dts):
 
 def add_entry_point_detail(entry_point_element, val, detail_name, namespaces, language=None):
     if val is not None:
-        if detail_name in ('description', 'name') and language is None:
-            raise SerializerException("The description element in the taxonomyPagckage.xml requires a language")
+        # if detail_name in ('description', 'name') and language is None:
+        #     raise SerializerException("The description element in the taxonomyPagckage.xml requires a language")
         child_element = etree.Element('{{http://xbrl.org/2016/taxonomy-package}}{}'.format(detail_name), nsmap=namespaces.ns_by_prefix)
         child_element.text = val
         if language is not None:

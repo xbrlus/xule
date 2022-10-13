@@ -68,7 +68,7 @@ _DEFAULT_ABSTRACT_TERSE_LABEL = 'This abastract element is used for creating tab
 _DEFAULT_ROLE_DEFINITION = 'Default'
 # TODO remove items above
 
-_CORE_NAME = 'acfr'
+_CORE_NAME = 'grip'
 _NAMESPACE_START = 'http://taxonomies.xbrl.us/'  # the rest of the namespace is version / taxonomy part (i.e. form1, ferc, sched-bla-bla)
 _DOCUMENTATION_LABEL_ROLE = 'http://www.xbrl.org/2003/role/documentation'
 
@@ -213,6 +213,12 @@ def set_configuration(options, old_model):
     global _NEW_SCHEDULE_TYPE
     _NEW_SCHEDULE_TYPE = '{{{}{}/types}}scheduleItemType'.format(_NAMESPACE_START, _NEW_VERSION)
 
+
+
+
+
+
+
     # TODO - remove all above
 
     global _GRANTS_NAMESPACE
@@ -235,7 +241,8 @@ def set_configuration(options, old_model):
                                         'description': 'ACFR Taxonomy'},
                         _COMBO_NAMESPACE: {'taxonomy': 'grip',
                                         'name': 'GRIP',
-                                        'description': 'Government Reporting Information Package Taxonomy'}
+                                        'description': 'Government Reporting Information Package Taxonomy',
+                                        'no-entry': True}
     }
 
     for tax_namespace, info in _CORE_NAMESPACES.items():
@@ -271,7 +278,7 @@ def set_configuration(options, old_model):
             'name': tax_name,
             'type': 'state',
             'taxonomy': state.qname.localName,
-            'network-location': f'acfr/state/{tax_name}',
+            'network-location': f'acfr/state/{tax_name}/',
             'uri': f'acfr/state/{tax_name}/elts/{tax_name}_{_NEW_VERSION}.xsd',
             'description': f'{tax_name} taxonomy',
             'all-uri': f'acfr/state/{tax_name}/{tax_name}-all_{_NEW_VERSION}.xsd',
@@ -376,15 +383,15 @@ def get_references(old_concept):
 
 def add_package_defaults(new_model):
 
-    new_model.identifier = f'{_NAMESPACE_START}/taxonomy/acfr/{_NEW_VERSION}'
-    new_model.name = 'ACFR Taxonomy'
-    new_model.name_language = 'en-US'
+    new_model.identifier = f'{_NAMESPACE_START}/taxonomy/grip/{_NEW_VERSION}'
+    new_model.name = 'Government Reporting Information Package (GRIP) Taxonomy'
+    #new_model.name_language = 'en-US'
     new_model.description = 'This taxonomy packacge contains the taxonomies used government reporting'
     new_model.description_language = 'en-US'
     new_model.version = _NEW_VERSION
     # TODO add license and publisher
     #new_model.license_href = 'https: LICENSE LOCATION GOES HERE'
-    new_model.license_name = 'Taxonomies Terms and Conditions'
+    #new_model.license_name = 'Taxonomies Terms and Conditions'
     #new_model.publisher = 'PUBLISHER'
     #new_model.publisher_url = 'https: PUBLISHER URL'
     new_model.publisher_country = 'US'
@@ -397,16 +404,8 @@ def organize_taxonomy(model_xbrl, new_model, options):
     global _OPTIONS
     _OPTIONS = options
 
-
-    concept_map = organize_networks(model_xbrl, new_model)
-    # get all relationships
-    # for arcrole, ELR, linkqname, arcqname in model_xbrl.baseSets.keys():
-    #     if ELR and linkqname and arcqname and arcrole and not arcrole.startswith("XBRL-"):
-    #         # This is an individual base set
-    #         #relationship_set = model_xbrl.relationshipSet(arcrole, ELR, linkqname, arcqname)
-    #         #map['rels'][(arcrole, ELR, linkqname, arcqname)]['relationship-set'] = relationship_set
-    #         organize_networks(model _xbrl.relationshipSet(arcrole, ELR, linkqname, arcqname), new_model)
-
+    # Find the networks, create them and the concepts in the networks. 
+    organize_networks(model_xbrl, new_model)
     #Build cubes from presentation
     organize_cubes(new_model)
     # Create entity-report relationships
@@ -416,7 +415,7 @@ def organize_taxonomy(model_xbrl, new_model, options):
     add_package_defaults(new_model)
     # Build entry points for forms and ferc-all
     add_entry_points(new_model)
-
+    # Determine where the network files will go.
     assign_network_documents(new_model)
     # Add states to acfr
     add_states_to_acfr(new_model)
@@ -554,8 +553,6 @@ def organize_networks(old_model, new_model):
                 else:
                     preferred_label = new_label_role(new_model, relationship.modelXbrl, relationship.preferredLabel)
                 network.add_relationship(from_concept, to_concept, 'calc', relationship.weight, preferred_label, rel_atts)
-
-    return concept_map
 
 def determine_taxonomy_for_existing_concept(new_model, old_qname, concept_map):
 
@@ -1355,14 +1352,18 @@ def clean_up_model_component(component):
     return remove
 
 def assign_network_documents(new_model):
+    '''The networks are organzied by type of network (statement, disclosure, document, meta) and then grouped by name. 
+    That is there will be several networks for net position and all of these will go together. For each name, their is
+    a folder and then a file for the presentation, defintion and calculation.'''
 
     grouped_by_root = group_network_roles(new_model)
 
+    # process the networks
     for network in new_model.networks.values():
 
         root = grouped_by_root[network.role.role_uri]['root']
         role_name = grouped_by_root[network.role.role_uri]['role-name']
-        document_name = "{start}/{doc_type}/{doc}_{link_type}_{version}.xml".format(
+        document_name = "{start}{doc_type}/{doc}/{doc}_{link_type}_{version}.xml".format(
                                                              start=_CORE_NAMESPACES[root.name.namespace]['network-location'],
                                                              doc_type=role_document_type(root).lower(),
                                                              doc=role_name,
@@ -1384,13 +1385,15 @@ def assign_network_documents(new_model):
                                             _CORE_NAMESPACES[root.name.namespace]['arcrole-description'])
             arcrole_document.add(network.arcrole) 
 
+    # process the cubes
     for cube in new_model.cubes.values():
         cube_tops = cube.primary_items + cube.dimensions 
-        pres_root = grouped_by_root[network.role.role_uri]['root']
+        pres_root = grouped_by_root[cube.role.role_uri]['root']
         if len(cube_tops) != 0:
             role_name = grouped_by_root[cube.role.role_uri]['role-name']
-            document_name = "{start}/{doc_type}/{doc}_{link_type}_{version}.xml".format(
-                                start=_CORE_NAMESPACES[cube.concept.name.namespace]['network-location'],
+            document_name = "{start}{doc_type}/{doc}/{doc}_{link_type}_{version}.xml".format(
+                                #start=_CORE_NAMESPACES[cube.concept.name.namespace]['network-location'],
+                                start=_CORE_NAMESPACES[pres_root.name.namespace]['network-location'],
                                 doc_type=role_document_type(pres_root).lower(),
                                 doc=role_name,
                                 link_type='def',
@@ -1404,7 +1407,6 @@ def assign_network_documents(new_model):
             # Add the linkbase ref to the schema document
             schema_document = new_model.documents[_CORE_NAMESPACES[cube.concept.name.namespace]['all-uri']]
             schema_document.add(document, new_model.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
-
 
 def group_network_roles(new_model):
 
@@ -1469,8 +1471,6 @@ def role_document_type(concept):
                 document_location = list(concept.labels[label_key])[0].content
                 if document_location.lower() not in _VALID_DOCUMENT_LOCATIONS:
                     warning(f'Unexpected document location for concept {concept.name.clark} location is {document_location}')
-                if document_location.lower() == 'state': # find the state in the entity-report relationship
-                    pass
                 return document_location
     # the document location was not found
     warning(f'Document location for {concept.name.clark} was not found. This is a root concept of a network and should have document location lable.')
@@ -1593,23 +1593,24 @@ def add_entry_points(new_model):
     sub_taxonomy_documents = set() # This will save all the form entry points for the all entry point
 
     for tax_ns, tax_info in sorted(_CORE_NAMESPACES.items(), key=lambda x: x[1]['name']):
-        # sub taxonomy all file
-        sub_taxonomy_document = new_document(new_model, 
-                                             tax_info['all-uri'], 
-                                             new_model.DOCUMENT_TYPES.SCHEMA, 
-                                             tax_info['all-namespace'])
-        # TODO fix handling of combo. This "if" is just to prevent a key error.
-        if tax_info['uri'] in new_model.documents:
-            sub_taxonomy_document.add(new_model.documents[tax_info['uri']], new_model.DOCUMENT_CONTENT_TYPES.IMPORT)
-            sub_taxonomy_documents.add(sub_taxonomy_document)
-            #sub_taxonomy_documents.add(new_model.documents[tax_info['uri']])
-            # Create entry point
-            entry_point = new_model.new('PackageEntryPoint', f"{tax_info['name']} taxonomy entry point")
-            entry_point.names.append((tax_info['name'], 'en-US'))
-            entry_point.description = tax_info['description']
-            entry_point.description_language = 'en-US'
-            entry_point.version = _NEW_VERSION
-            entry_point.documents.append(sub_taxonomy_document)
+        if not tax_info.get('no-entry', False):
+            # sub taxonomy all file
+            sub_taxonomy_document = new_document(new_model, 
+                                                tax_info['all-uri'], 
+                                                new_model.DOCUMENT_TYPES.SCHEMA, 
+                                                tax_info['all-namespace'])
+            # TODO fix handling of combo. This "if" is just to prevent a key error.
+            if tax_info['uri'] in new_model.documents:
+                sub_taxonomy_document.add(new_model.documents[tax_info['uri']], new_model.DOCUMENT_CONTENT_TYPES.IMPORT)
+                sub_taxonomy_documents.add(sub_taxonomy_document)
+                #sub_taxonomy_documents.add(new_model.documents[tax_info['uri']])
+                # Create entry point
+                entry_point = new_model.new('PackageEntryPoint', f"{tax_info['name']} taxonomy entry point")
+                entry_point.names.append((tax_info['name'], None))
+                entry_point.description = tax_info['description']
+                #entry_point.description_language = 'en-US'
+                entry_point.version = _NEW_VERSION
+                entry_point.documents.append(sub_taxonomy_document)
 
 
     # for form, schedules in sorted(forms.items(), key=lambda x: (len(x[0].name.local_name), x[0].name.local_name)):
@@ -1663,9 +1664,9 @@ def add_entry_points(new_model):
 
     # Add 'all' entry point
     entry_point = new_model.new('PackageEntryPoint', 'All')
-    entry_point.names.append(('ACFR - All', 'en'))
-    entry_point.description = 'This entry point contains the {} taxonomies'.format(', '.join(sorted( (x['name'] for x in _CORE_NAMESPACES.values()) )))
-    entry_point.description_language = 'en'
+    entry_point.names.append(('Main Entry Point', None))
+    entry_point.description = 'Main entry point for the Government Reporting Information Package Taxonomy'
+    # entry_point.description_language = 'en'
     entry_point.version = _NEW_VERSION
     entry_point.documents.append(all_document)
 

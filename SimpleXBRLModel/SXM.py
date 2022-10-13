@@ -652,6 +652,7 @@ class SXMPackageEntryPoint(_SXMDTSBase):
         self.identifier = identifier
         self.names = []
         self.description = None
+        self.description_language = None
         self.version = None
         self.documents = []
         self.languages = []
