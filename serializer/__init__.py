@@ -972,6 +972,8 @@ def serialize_package_files(zip_file, dts):
     namespaces = _TAXONOMY_PACKAGE_NS.copy()
 
     package = etree.Element('{http://xbrl.org/2016/taxonomy-package}taxonomyPackage', nsmap=namespaces.ns_by_prefix)
+    if dts.default_language is not None:
+        package.set('{http://www.w3.org/XML/1998/namespace}lang', dts.default_language)
     add_package_element(package, dts, 'identifier', 'serializer_package_identifier', 
                         '{http://xbrl.org/2016/taxonomy-package}identifier', namespaces)
     name_element = add_package_element(package, dts, 'name', 'serializer_package_meta_name', 
