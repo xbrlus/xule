@@ -272,7 +272,7 @@ def set_configuration(options, old_model):
     # Add the state taxonomy info
     states = get_state_concepts(old_model)
     for state, (labels, refs, parts, abstracts) in states.items():
-        state_namespace = f'{_NAMESPACE_START}acfr/state/{state.qname.localName}'
+        state_namespace = f'{_NAMESPACE_START}acfr/state/{state.qname.localName}/{_NEW_VERSION}'
         tax_name = state.qname.localName
         _CORE_NAMESPACES[state_namespace] = {
             'name': tax_name,
@@ -420,6 +420,8 @@ def organize_taxonomy(model_xbrl, new_model, options):
     assign_network_documents(new_model)
     # Add states to acfr
     add_states_to_acfr(new_model)
+    # Clean up
+    clean_up_orphans(new_model)
 
 
 
@@ -954,7 +956,7 @@ def new_label_role(new_model, old_model, old_role):
     label_role = new_model.get('Role', get_new_role_uri(old_role, _COMBO_NAMESPACE, old_model)) 
     if label_role is None:
         label_role = new_role(new_model, old_model, old_role, _COMBO_NAMESPACE)
-        assign_role_document(label_role, _COMBO_NAMESPACE)
+        #assign_role_document(label_role, _COMBO_NAMESPACE)
         # add import to core file
         # if label_role.document is not None: # if its none it is a core xbrl role
         #     core_document = new_document(new_model, 
@@ -1364,20 +1366,39 @@ def assign_network_documents(new_model):
 
         root = grouped_by_root[network.role.role_uri]['root']
         role_name = grouped_by_root[network.role.role_uri]['role-name']
-        document_name = "{start}{doc_type}/{doc}/{doc}_{link_type}_{version}.xml".format(
-                                                             start=_CORE_NAMESPACES[root.name.namespace]['network-location'],
-                                                             doc_type=role_document_type(root).lower(),
-                                                             doc=role_name,
-                                                             link_type=network.link_name.local_name[:3],
-                                                             version=_NEW_VERSION)
-
+        if network.role.role_uri.lower().endswith('entity-report'):
+            document_name = f"{_CORE_NAMESPACES[root.name.namespace]['network-location']}/elts/{role_name}_{network.link_name.local_name[:3]}_{_NEW_VERSION}.xml"
+            network_document = new_model.documents[_CORE_NAMESPACES[root.name.namespace]['uri']]
+        else:
+            document_type = role_document_type(root)
+            document_name = "{start}{doc_type}{doc}/{doc}_{link_type}_{version}.xml".format(
+                                                                start=_CORE_NAMESPACES[root.name.namespace]['network-location'],
+                                                                doc_type=f'{document_type.lower()}/' if document_type is not None else '',
+                                                                doc=role_name,
+                                                                link_type=network.link_name.local_name[:3],
+                                                                version=_NEW_VERSION)
+            network_document_name = "{start}{doc_type}{doc}/{doc}_{version}.xsd".format(
+                                                                start=_CORE_NAMESPACES[root.name.namespace]['network-location'],
+                                                                doc_type=f'{document_type.lower()}/' if document_type is not None else '',
+                                                                doc=role_name,
+                                                                version=_NEW_VERSION)
+            network_namespace = f"{root.name.namespace[:len(_NEW_VERSION)*-1]}{role_name}/{_NEW_VERSION}"
+            network_document = new_model.get('Document', network_document_name) or \
+                               new_model.new('Document', network_document_name, new_model.DOCUMENT_TYPES.SCHEMA, network_namespace)
         document = new_document(new_model, document_name, new_model.DOCUMENT_TYPES.LINKBASE)
+        network_document.add(document, new_model.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
+
         schema_document = new_model.documents[_CORE_NAMESPACES[root.name.namespace]['all-uri']]
-        schema_document.add(document, new_model.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
+        #schema_document.add(document, new_model.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
+        schema_document.add(network_document, new_model.DOCUMENT_CONTENT_TYPES.IMPORT)
         for rel in network.relationships:
             document.add(rel)
 
-        # make sure role is assigned a document
+
+        # reassign the role to the network document
+        network.role.document = network_document
+
+        # make sure arcrole is assigned a document
         if not network.arcrole.is_standard and network.arcrole.document is None:
             arcrole_document = new_document(new_model, 
                                             _CORE_NAMESPACES[root.name.namespace]['arcrole-doc-uri'], 
@@ -1392,14 +1413,30 @@ def assign_network_documents(new_model):
         pres_root = grouped_by_root[cube.role.role_uri]['root']
         if len(cube_tops) != 0:
             role_name = grouped_by_root[cube.role.role_uri]['role-name']
-            document_name = "{start}{doc_type}/{doc}/{doc}_{link_type}_{version}.xml".format(
-                                #start=_CORE_NAMESPACES[cube.concept.name.namespace]['network-location'],
-                                start=_CORE_NAMESPACES[pres_root.name.namespace]['network-location'],
-                                doc_type=role_document_type(pres_root).lower(),
-                                doc=role_name,
-                                link_type='def',
-                                version=_NEW_VERSION)
+            if cube.role.role_uri.lower().endswith('entity-report'):
+                document_name = f"{_CORE_NAMESPACES[pres_root.name.namespace]['network-location']}/elts/{role_name}_def_{_NEW_VERSION}.xml"
+                network_document = new_model.documents[_CORE_NAMESPACES[pres_root.name.namespace]['uri']]
+            else:
+                document_type = role_document_type(pres_root)
+                document_name = "{start}{doc_type}{doc}/{doc}_{link_type}_{version}.xml".format(
+                                    #start=_CORE_NAMESPACES[cube.concept.name.namespace]['network-location'],
+                                    start=_CORE_NAMESPACES[pres_root.name.namespace]['network-location'],
+                                    doc_type=f'{document_type.lower()}/' if document_type is not None else '',
+                                    doc=role_name,
+                                    link_type='def',
+                                    version=_NEW_VERSION)
+                network_document_name = "{start}{doc_type}{doc}/{doc}_{version}.xsd".format(
+                                        #start=_CORE_NAMESPACES[cube.concept.name.namespace]['network-location'],
+                                        start=_CORE_NAMESPACES[pres_root.name.namespace]['network-location'],
+                                        doc_type=f'{document_type.lower()}/' if document_type is not None else '',
+                                        doc=role_name,
+                                        version=_NEW_VERSION)
+                network_namespace = f"{pres_root.name.namespace[:len(_NEW_VERSION)*-1]}{role_name}/{_NEW_VERSION}"
+                network_document = new_model.get('Document', network_document_name) or \
+                                new_model.new('Document', network_document_name, new_model.DOCUMENT_TYPES.SCHEMA, network_namespace)
             document = new_document(new_model, document_name, new_model.DOCUMENT_TYPES.LINKBASE)
+            network_document.add(document, new_model.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
+
             document.add(cube)
             for cube_top in cube_tops:
                 document.add(cube_top) # This is either a primary or dimension
@@ -1407,7 +1444,12 @@ def assign_network_documents(new_model):
                     document.add(cube_node)
             # Add the linkbase ref to the schema document
             schema_document = new_model.documents[_CORE_NAMESPACES[cube.concept.name.namespace]['all-uri']]
-            schema_document.add(document, new_model.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
+            #schema_document.add(document, new_model.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
+            schema_document.add(network_document, new_model.DOCUMENT_CONTENT_TYPES.IMPORT)
+
+            # reassign the role to the network document
+            cube.role.document = network_document
+
 
 def group_network_roles(new_model):
 
@@ -1472,6 +1514,9 @@ def role_document_type(concept):
                 document_location = list(concept.labels[label_key])[0].content
                 if document_location.lower() not in _VALID_DOCUMENT_LOCATIONS:
                     warning(f'Unexpected document location for concept {concept.name.clark} location is {document_location}')
+
+                if document_location.lower() == 'state':
+                    return None
                 return document_location
     # the document location was not found
     warning(f'Document location for {concept.name.clark} was not found. This is a root concept of a network and should have document location lable.')
