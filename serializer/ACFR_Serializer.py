@@ -420,6 +420,8 @@ def organize_taxonomy(model_xbrl, new_model, options):
     assign_network_documents(new_model)
     # Add states to acfr
     add_states_to_acfr(new_model)
+    # Remove empty documents
+    clean_up_docs(new_model)
 
  
     return new_model
@@ -1056,6 +1058,7 @@ def add_defintion_from_presentation(new_model, old_role_name, arcrole_name, arcr
         else:
             arcrole_uri = f"{_CORE_NAMESPACES[_ACFR_NAMESPACE]['role-start-uri']}{arcrole_name}" #TODO should _NEW_VERSION GO ON THE END
             arcrole = new_model.new('Arcrole', arcrole_uri, 'undirected', arcrole_description, {arc_name,})
+            assign_arcrole_document(arcrole, _ACFR_NAMESPACE)
     else:
         if link_name not in arcrole.used_ons:
             arcrole.used_ons.add(link_name)
@@ -1393,14 +1396,14 @@ def assign_network_documents(new_model):
         if not network.role.role_uri.lower().endswith('entity-report'):
             network.role.document = network_document
 
-        # make sure arcrole is assigned a document
-        if not network.arcrole.is_standard and network.arcrole.document is None:
-            arcrole_document = new_document(new_model, 
-                                            _CORE_NAMESPACES[root.name.namespace]['arcrole-doc-uri'], 
-                                            new_model.DOCUMENT_TYPES.SCHEMA, 
-                                            _CORE_NAMESPACES[root.name.namespace]['arcrole-namespace'],
-                                            _CORE_NAMESPACES[root.name.namespace]['arcrole-description'])
-            arcrole_document.add(network.arcrole) 
+        # # make sure arcrole is assigned a document
+        # if not network.arcrole.is_standard and network.arcrole.document is None:
+        #     arcrole_document = new_document(new_model, 
+        #                                     _CORE_NAMESPACES[root.name.namespace]['arcrole-doc-uri'], 
+        #                                     new_model.DOCUMENT_TYPES.SCHEMA, 
+        #                                     _CORE_NAMESPACES[root.name.namespace]['arcrole-namespace'],
+        #                                     _CORE_NAMESPACES[root.name.namespace]['arcrole-description'])
+        #     arcrole_document.add(network.arcrole) 
 
     # process the cubes
     for cube in new_model.cubes.values():
@@ -1528,6 +1531,20 @@ def add_states_to_acfr(new_model):
         if info['type'] == 'state':
             state_document = new_document(new_model, info['all-uri'], new_model.DOCUMENT_TYPES.SCHEMA, info['all-namespace'], '')
             acfr_document.add(state_document, new_model.DOCUMENT_CONTENT_TYPES.IMPORT)
+
+def clean_up_docs(new_model):
+    # Because the roles get reasigned, there may be a document that has no content. Delete those files
+    for doc in list(new_model.documents.values()): # put in a list so the doucment can be deleted while processing the documents dictionary
+        uri = doc.uri
+        result = doc.remove()
+        if result:
+            print(f'Removing {uri}')
+
+
+
+
+
+
 
 def assign_documents_to_networks(new_model, schedule_role_map):
     schedule_documents = dict()
