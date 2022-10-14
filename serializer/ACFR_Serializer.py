@@ -420,14 +420,8 @@ def organize_taxonomy(model_xbrl, new_model, options):
     assign_network_documents(new_model)
     # Add states to acfr
     add_states_to_acfr(new_model)
-    # Clean up
-    clean_up_orphans(new_model)
 
-
-
-    # TODO create entity-report relationships in the definition
-
-
+ 
     return new_model
 
     
@@ -1367,8 +1361,8 @@ def assign_network_documents(new_model):
         root = grouped_by_root[network.role.role_uri]['root']
         role_name = grouped_by_root[network.role.role_uri]['role-name']
         if network.role.role_uri.lower().endswith('entity-report'):
-            document_name = f"{_CORE_NAMESPACES[root.name.namespace]['network-location']}/elts/{role_name}_{network.link_name.local_name[:3]}_{_NEW_VERSION}.xml"
-            network_document = new_model.documents[_CORE_NAMESPACES[root.name.namespace]['uri']]
+            document_name = f"{_CORE_NAMESPACES[root.name.namespace]['network-location']}{role_name}_{network.link_name.local_name[:3]}_{_NEW_VERSION}.xml"
+            network_document = new_model.documents[_CORE_NAMESPACES[root.name.namespace]['all-uri']]
         else:
             document_type = role_document_type(root)
             document_name = "{start}{doc_type}{doc}/{doc}_{link_type}_{version}.xml".format(
@@ -1390,13 +1384,14 @@ def assign_network_documents(new_model):
 
         schema_document = new_model.documents[_CORE_NAMESPACES[root.name.namespace]['all-uri']]
         #schema_document.add(document, new_model.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
-        schema_document.add(network_document, new_model.DOCUMENT_CONTENT_TYPES.IMPORT)
+        if not network.role.role_uri.lower().endswith('entity-report'): 
+            schema_document.add(network_document, new_model.DOCUMENT_CONTENT_TYPES.IMPORT)
         for rel in network.relationships:
             document.add(rel)
 
-
         # reassign the role to the network document
-        network.role.document = network_document
+        if not network.role.role_uri.lower().endswith('entity-report'):
+            network.role.document = network_document
 
         # make sure arcrole is assigned a document
         if not network.arcrole.is_standard and network.arcrole.document is None:
@@ -1414,8 +1409,8 @@ def assign_network_documents(new_model):
         if len(cube_tops) != 0:
             role_name = grouped_by_root[cube.role.role_uri]['role-name']
             if cube.role.role_uri.lower().endswith('entity-report'):
-                document_name = f"{_CORE_NAMESPACES[pres_root.name.namespace]['network-location']}/elts/{role_name}_def_{_NEW_VERSION}.xml"
-                network_document = new_model.documents[_CORE_NAMESPACES[pres_root.name.namespace]['uri']]
+                document_name = f"{_CORE_NAMESPACES[pres_root.name.namespace]['network-location']}{role_name}_def_{_NEW_VERSION}.xml"
+                network_document = new_model.documents[_CORE_NAMESPACES[pres_root.name.namespace]['all-uri']]
             else:
                 document_type = role_document_type(pres_root)
                 document_name = "{start}{doc_type}{doc}/{doc}_{link_type}_{version}.xml".format(
@@ -1445,10 +1440,12 @@ def assign_network_documents(new_model):
             # Add the linkbase ref to the schema document
             schema_document = new_model.documents[_CORE_NAMESPACES[cube.concept.name.namespace]['all-uri']]
             #schema_document.add(document, new_model.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
-            schema_document.add(network_document, new_model.DOCUMENT_CONTENT_TYPES.IMPORT)
+            if not cube.role.role_uri.lower().endswith('entity-report'):
+                schema_document.add(network_document, new_model.DOCUMENT_CONTENT_TYPES.IMPORT)
 
             # reassign the role to the network document
-            cube.role.document = network_document
+            if not cube.role.role_uri.lower().endswith('entity-report'):
+                cube.role.document = network_document
 
 
 def group_network_roles(new_model):
