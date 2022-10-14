@@ -539,6 +539,16 @@ class SXMDocument(_SXMDTSBase):
             self._seeds[seed] += 1
             return id
 
+    def remove(self):
+        if len(self.contents) + len(self.imports) + len(self.linkbase_refs) + len(self.arcrole_refs) + len(self.role_refs) != 0:
+            return False
+        else:
+            # the document does not have anything in it. Need to check that it is not referenced by anything else
+            for doc in self.dts.documents.values():
+                if self in doc.imports or self in doc.linkbase_refs:
+                    return False
+            return True
+
 class _SXMDefined(_SXMDTSBase):
     '''Defined objects are defined in a document'''
 
