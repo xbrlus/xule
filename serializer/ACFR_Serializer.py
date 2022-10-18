@@ -69,7 +69,7 @@ _DEFAULT_ROLE_DEFINITION = 'Default'
 # TODO remove items above
 
 _CORE_NAME = 'grip'
-_NAMESPACE_START = 'http://taxonomies.xbrl.us/'  # the rest of the namespace is version / taxonomy part (i.e. form1, ferc, sched-bla-bla)
+_NAMESPACE_START = 'https://taxonomies.xbrl.us/grip/'  # the rest of the namespace is version / taxonomy part (i.e. form1, ferc, sched-bla-bla)
 _DOCUMENTATION_LABEL_ROLE = 'http://www.xbrl.org/2003/role/documentation'
 
 _BASE_NAMESPACES = re.compile(r'^http://(www\.)?((w3)|(xbrl))\.org/')
@@ -222,13 +222,13 @@ def set_configuration(options, old_model):
     # TODO - remove all above
 
     global _GRANTS_NAMESPACE
-    _GRANTS_NAMESPACE = f'{_NAMESPACE_START}grants/{_NEW_VERSION}'
+    _GRANTS_NAMESPACE = f'{_NAMESPACE_START}{_NEW_VERSION}/grants'
     global _SINGLE_AUDIT_NAMESPACE
-    _SINGLE_AUDIT_NAMESPACE =  f'{_NAMESPACE_START}singleAudit/{_NEW_VERSION}'
+    _SINGLE_AUDIT_NAMESPACE =  f'{_NAMESPACE_START}{_NEW_VERSION}/singleAudit'
     global _ACFR_NAMESPACE
-    _ACFR_NAMESPACE = f'{_NAMESPACE_START}acfr/{_NEW_VERSION}'
+    _ACFR_NAMESPACE = f'{_NAMESPACE_START}{_NEW_VERSION}/acfr'
     global _COMBO_NAMESPACE
-    _COMBO_NAMESPACE = f'{_NAMESPACE_START}grip/{_NEW_VERSION}'
+    _COMBO_NAMESPACE = f'{_NAMESPACE_START}{_NEW_VERSION}/grip'
     global _CORE_NAMESPACES
     _CORE_NAMESPACES = {_GRANTS_NAMESPACE: {'taxonomy': 'grants',
                                             'name': 'Grants',
@@ -272,7 +272,7 @@ def set_configuration(options, old_model):
     # Add the state taxonomy info
     states = get_state_concepts(old_model)
     for state, (labels, refs, parts, abstracts) in states.items():
-        state_namespace = f'{_NAMESPACE_START}acfr/state/{state.qname.localName}/{_NEW_VERSION}'
+        state_namespace = f'{_NAMESPACE_START}{_NEW_VERSION}/acfr/state/{state.qname.localName}'
         tax_name = state.qname.localName
         _CORE_NAMESPACES[state_namespace] = {
             'name': tax_name,
@@ -383,7 +383,7 @@ def get_references(old_concept):
 
 def add_package_defaults(new_model):
 
-    new_model.identifier = f'{_NAMESPACE_START}/taxonomy/grip/{_NEW_VERSION}'
+    new_model.identifier = f'{_NAMESPACE_START}{_NEW_VERSION}'
     new_model.name = 'Government Reporting Information Package (GRIP) Taxonomy'
     new_model.default_language = 'en-US'
     #new_model.name_language = 'en-US'
@@ -399,7 +399,7 @@ def add_package_defaults(new_model):
     # TODO where to get pubication date
     #new_model.publication_date = f'{_NEW_VERSION}-01-01'
     # TODO offical lcoations
-    new_model.rewrites['../'] = f'{_NAMESPACE_START}'
+    new_model.rewrites['../'] = f'{_NAMESPACE_START}{_NEW_VERSION}/'
 
 def organize_taxonomy(model_xbrl, new_model, options):
     global _OPTIONS
