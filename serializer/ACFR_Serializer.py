@@ -12,9 +12,6 @@ from lxml import etree
 _OPTIONS = None
 _OLD_MODEL = None
 
-
-_NEW_FORM_TYPE = None
-_NEW_SCHEDULE_TYPE =  None
 _PARENT_CHILD = 'http://www.xbrl.org/2003/arcrole/parent-child'
 _SUMMATION_ITEM = 'http://www.xbrl.org/2003/arcrole/summation-item'
 
@@ -28,36 +25,13 @@ _LINK_NS = 'http://www.xbrl.org/2003/linkbase'
 _GEN_NS = 'http://xbrl.org/2008/generic'
 _DIMENSION_NAMESPACE = 'http://xbrl.org/2005/xbrldt'
 _LINK_PART_CLARK = '{http://www.xbrl.org/2003/linkbase}part'
-_DOCUMENT_MAP = dict()
+
 _NEW_VERSION = None
 _CORE_NAMESPACE = None
 _TYPE_NAMESPACE = None
-_ARCROLE_NAMESPACE = None
-_PART_NAMESPACE = None
-_OLD_PART_NAMESPACE = ''
-_OLD_NAMESPACE = ''
-_OLD_TYPE_NAMESPACE = ''
-_OLD_NS_MATCH = re.compile("^http://([^/]+\\.)?ferc\\.gov/(.*)$")
-_OLD_ARCROLE_MATCH = re.compile("^http://(?P<pre>[^\\.]+)\\.?ferc\\.gov/(?:form)/(?P<old_version>[^/]+)/arcroles/(?P<name>[^/]+)$")
-_OLD_ROLE_MATCH = re.compile("^http://(?:(?P<pre>[^\\.]+)\\.)?ferc\\.gov/(?:form)/(?P<old_version>[^/]+)/roles/(?P<role_type>[^/]+)/(?P<rest>.*)$")
-_NEW_NS_MATCH = None
-_NEW_ARCROLE_MATCH = None
-_NEW_ROLE_MATCH = None
-_NEW_SCHEDULE_ROLE_MATCH = None
-_SCHEDULE_FORM_ARCROLE = 'http://eforms.ferc.gov/form/2020-01-01/arcroles/schedule-form'
-_SCHEDULE_FORM_DEFINITION = 'Links schedules to forms'
-# Document descriptions
-_CORE_DESCRIPTION = 'This schema contains core elements for the FERC taxonomy.'
-_TYPE_DESCRIPTION = 'This schema contains ferc types.'
-_PART_DESCRIPTION = 'This schema contains ferc reference parts.'
-_ARCROLE_DESCRIPTION = 'This schema contains ferc arcrole role definitions'
-_FOOTNOTE_ARC_DESCRIPTION = 'This schema contains ferc footnote arcrole defintions.'
-_REFERENCE_ROLE_DESCRIPTION = 'This schema contains roles for references.'
-_LABEL_ROLE_DESCRIPTION = 'This schema contains roles for labels.'
 
-_ENTRY_POINT_LABEL_ROLE = 'http://ferc.gov/form/2020-01-01/roles/label/EntryPoint'
-_EFORMS_LABEL_ROLE = 'http://ferc.gov/form/2020-01-01/roles/label/eForm'
-_ENTRY_POINT_PATH_LABEL_ROLE= 'http://ferc.gov/form/2020-01-01/roles/label/EntryPointPath'
+# Document descriptions
+_TYPE_DESCRIPTION = 'This schema contains GRIP types.'
 
 _DEFAULT_TABLE_STANDARD_LABEL = 'Default [Table]'
 _DEFAULT_TABLE_TERSE_LABEL = 'This [Table] abastract element is used for creating table for "Total" line items without dimension assignment. The element is used in "Default" group.'
@@ -66,7 +40,6 @@ _DEFAULT_LINE_ITEMS_TERSE_LABEL = 'This [Line Items] abastract element is used f
 _DEFAULT_ABSTRACT_STANDARD_LABEL = 'Default [Abstract]'
 _DEFAULT_ABSTRACT_TERSE_LABEL = 'This abastract element is used for creating table for "Total" line items without dimension assignment. The element is used in "Default" group.'
 _DEFAULT_ROLE_DEFINITION = 'Default'
-# TODO remove items above
 
 _CORE_NAME = 'grip'
 _NAMESPACE_START = 'https://taxonomies.xbrl.us/grip/'  # the rest of the namespace is version / taxonomy part (i.e. form1, ferc, sched-bla-bla)
@@ -89,13 +62,6 @@ _STATE_CONCEPTS = dict() # key by concept local name, value is state namespace
 _STATE_PARTS = dict() # key is by part local name, value is the state namespace
 
 _CONCEPT_MAP = dict() # key = old model_concept, value = new concept
-#_ROLE_MAP = dict() # key = old role uri, value = new role uri
-
-
-
-# http://xbrl.us/grants
-# http://xbrl.us/singleaudit
-# http://xbrl.us/acfr-grants-singleaudit
 
 _VALID_DOCUMENT_LOCATIONS = ('disclosure', 'singleaudit', 'state', 'statement', 'grants', 'document', 'meta')
 _DEFINITION_ROLES_IGNORE = (
@@ -118,11 +84,6 @@ _DEFINITION_ARC_ELEMENT = '{http://www.xbrl.org/2003/linkbase}definitionArc'
 class ACFRSerialzierException(Exception):
     pass
 
-class FERCSerialzierException(Exception):
-    # TODO Remove this class
-    pass
-
-
 def serialize(model_xbrl, options, sxm):
     global _OPTIONS
     _OPTIONS = options
@@ -141,7 +102,7 @@ def error(code, msg):
 
     _OLD_MODEL.error(code, msg)
     if not getattr(_OPTIONS, 'serializer_package_allow_errors', False):
-        raise FERCSerialzierException(msg)
+        raise ACFRSerialzierException(msg)
 
 def warning(msg):
     _OLD_MODEL.warning('ACFRSerializationWarning', msg)
@@ -149,77 +110,6 @@ def warning(msg):
 def set_configuration(options, old_model):
     global _NEW_VERSION 
     _NEW_VERSION = getattr(options, 'serializer_package_version')
-
-    global _NEW_NS_MATCH
-    _NEW_NS_MATCH = re.compile("{}{}/(.*)$".format(re.escape(_NAMESPACE_START), re.escape(_NEW_VERSION)))
-
-    global _NEW_ARCROLE_MATCH
-    # for old_arcrole in old_model.arcroleTypes.keys():
-    #     match = _OLD_ARCROLE_MATCH.fullmatch(old_arcrole)
-    #     if match is not None:
-    #         ns_prefix = match.group(1)
-    #         _NEW_ARCROLE_MATCH = re.compile("http://{}\.ferc\.gov/form/{}/arcroles/.*".format(re.escape(ns_prefix), re.compile(_NEW_VERSION)))
-    #         break
-    _NEW_ARCROLE_MATCH = _OLD_ARCROLE_MATCH
-
-    global _NEW_SCHEDULE_ROLE_MATCH
-    _NEW_SCHEDULE_ROLE_MATCH = re.compile('(.*)/roles/Schedule/([^/]+)/(.*)')
-    global _DOCUMENT_MAP
-
-    global _CORE_NAMESPACE 
-    _CORE_NAMESPACE = '{}{}/{}'.format(_NAMESPACE_START, _NEW_VERSION, _CORE_NAME)  
-    _DOCUMENT_MAP[_CORE_NAMESPACE] = '{}-{}_{}.xsd'.format(_CORE_NAME, 'core', _NEW_VERSION)
-
-
-
-    global _ARCROLE_NAMESPACE
-    _ARCROLE_NAMESPACE = '{}{}/arcroles/core'.format(_NAMESPACE_START, _NEW_VERSION)
-    _DOCUMENT_MAP[_ARCROLE_NAMESPACE] = '{}-core-arcroles_{}.xsd'.format(_CORE_NAME, _NEW_VERSION)
-    
-    global _OLD_PART_NAMESPACE
-    for old_part_element in old_model.qnameConcepts.values():
-        if (_LINK_PART_CLARK in [x.clarkNotation for x in old_part_element.substitutionGroupQnames] and
-            _OLD_NS_MATCH.fullmatch(old_part_element.qname.namespaceURI)):
-            #_PART_NAMESPACE = old_part_element.name.namespaceURI
-            _OLD_PART_NAMESPACE = old_part_element.qname.namespaceURI
-            break
-
-    global _PART_NAMESPACE
-    #_PART_NAMESPACE = '{}{}/parts'.format(_NAMESPACE_START, _NEW_VERSION)
-    # Use the original namespace for the parts
-    _PART_NAMESPACE = _OLD_PART_NAMESPACE
-    _DOCUMENT_MAP[_PART_NAMESPACE] = '{}-core-ref-parts_{}.xsd'.format(_CORE_NAME, _NEW_VERSION)
-    
-    global _OLD_TYPE_NAMESPACE
-    for old_type_name in old_model.qnameTypes.keys():
-        if _OLD_NS_MATCH.fullmatch(old_type_name.namespaceURI) is not None and old_type_name.localName == 'formItemType':
-            _OLD_TYPE_NAMESPACE = old_type_name.namespaceURI
-            break
-
-    global _OLD_NAMESPACE
-    for old_concept_name in old_model.qnameConcepts.keys():
-        if old_model.qnameConcepts[old_concept_name].typeQname.localName == 'formItemType' and _OLD_NS_MATCH.fullmatch(old_concept_name.namespaceURI) is not None:
-            _OLD_NAMESPACE = old_concept_name.namespaceURI
-            break
-    if _OLD_NAMESPACE is None:
-        raise FERCSerialzierException("Cannot determine the namespace of the working taxonomy concepts. "
-                                      "The FERC Serializer uses the first concept that has a datatype with local name "
-                                      "of 'formItemType'. Did not find a concept with a 'formItemType' data type.")
- 
-
-    global _NEW_FORM_TYPE
-    _NEW_FORM_TYPE = '{{{}{}/types}}formItemType'.format(_NAMESPACE_START, _NEW_VERSION)
-    
-    global _NEW_SCHEDULE_TYPE
-    _NEW_SCHEDULE_TYPE = '{{{}{}/types}}scheduleItemType'.format(_NAMESPACE_START, _NEW_VERSION)
-
-
-
-
-
-
-
-    # TODO - remove all above
 
     global _GRANTS_NAMESPACE
     _GRANTS_NAMESPACE = f'{_NAMESPACE_START}{_NEW_VERSION}/grants'
@@ -311,19 +201,6 @@ def set_configuration(options, old_model):
         # add state parts
         for part in parts:
             _STATE_PARTS[part.qname.localName] = state_namespace
-
-# NS  http://taxonomies.xbrl.us/acfr/2022/stmt/netposition
-# URI http://taxonomies.xbrl.us/acfr/2022/stmt/netposition/netposition_2022.xsd
-
-
-# NS  http://taxonomies.xbrl.us/acfr/2022
-# URI http://taxonomies.xbrl.us/acfr/2022/elts/acfr_2022.xsd
-
-# NS  http://taxonomies.xbrl.us/acfr/2022/acfr-all
-# URI http://taxonomies.xbrl.us/acfr/2022/acfr-all_2022.xsd
-
-# NS  http://taxonomies.xbrl.us/acfr/2022/roles/name of role
-# URI http://taxonomies.xbrl.us/acfr/2022/elts/acfr-roles_2022.xsd
 
 def get_state_concepts(old_model):
     states = dict()
@@ -424,29 +301,6 @@ def organize_taxonomy(model_xbrl, new_model, options):
     clean_up_docs(new_model)
 
  
-    return new_model
-
-    
-    organize_references(model_xbrl, new_model)
-
-    # Find forms and the schedules that make up the form
-    forms, schedule_role_map  = find_forms(new_model)
-    # Remove networks that are not part of a form.
-    clean_up_networks(new_model, schedule_role_map)
-    # Add schedule form relationships
-    schedule_form_networks(new_model, forms, schedule_role_map)
-    # Build cubes
-    organize_cubes(new_model)
-    # assign documents to networks and cubes
-    schedule_documents = assign_documents_to_networks(new_model, schedule_role_map)
-    # Add arcroles for footnote instances.
-    add_footnote_arcroles(model_xbrl, new_model)
-    #count_docs(new_model)
-
-    # Add the default table
-    create_default_table(new_model, schedule_role_map)
-
-
     return new_model
 
 def organize_networks(old_model, new_model):
@@ -558,15 +412,6 @@ def determine_taxonomy_for_existing_concept(new_model, old_qname, concept_map):
     # TODO - move state concepts to state
 
     return concept_map.get(old_qname).name.namespace if concept_map.get(old_qname) is not None else None
-
-    if new_model.get('Concept', new_model.new('QName', _GRANTS_NAMESPACE, local_name)):
-        return _GRANTS_NAMESPACE
-    elif new_model.get('Concept', new_model.new('QName', _SINGLE_AUDIT_NAMESPACE, local_name)):
-        return _SINGLE_AUDIT_NAMESPACE
-    elif new_model.get('Concept', new_model.new('QName', _ACFR_NAMESPACE, local_name)):
-        return _ACFR_NAMESPACE
-    else:
-        return None
 
 def is_concept_to_concept_network(relationship_set):
     for rel in relationship_set.modelRelationships:
@@ -793,9 +638,6 @@ def new_element(new_model, model_element):
 
 def new_part_element(new_model, model_element, tax_namespace):
 
-    # if _BASE_NAMESPACES.match(model_element.qname.namespaceURI) is not None:
-    #     tax_namespace = None
-    # else:
     tax_namespace = _STATE_PARTS.get(model_element.qname.localName, tax_namespace)
 
     element_name, data_type, abstract, nillable, id, substitution_group, attributes = get_element_info(new_model, model_element, False, tax_namespace)
@@ -877,12 +719,6 @@ def get_new_role_uri(uri, tax_namespace, old_model):
             role_name = uri.split("/")[-1]
         else:
             old_role = old_roles[0]
-            used_ons = tuple(x.clarkNotation for x in old_role.usedOns)
-            # if '{http://www.xbrl.org/2003/linkbase}label' in used_ons or '{http://www.xbrl.org/2003/linkbase}reference' in used_ons:
-            #     # for label and reference roles the role name is composed from the descripton
-            #     role_name = re.sub(r'\W+', '', old_role.definition) # this eliminates all non alpha or numeric characters
-            # else:
-            #     role_name = uri.split("/")[-1]
             role_name = uri.split("/")[-1]
 
         # Get the last part of the old role uri
@@ -952,15 +788,6 @@ def new_label_role(new_model, old_model, old_role):
     label_role = new_model.get('Role', get_new_role_uri(old_role, _COMBO_NAMESPACE, old_model)) 
     if label_role is None:
         label_role = new_role(new_model, old_model, old_role, _COMBO_NAMESPACE)
-        #assign_role_document(label_role, _COMBO_NAMESPACE)
-        # add import to core file
-        # if label_role.document is not None: # if its none it is a core xbrl role
-        #     core_document = new_document(new_model, 
-        #                         _CORE_NAMESPACES[_COMBO_NAMESPACE]['uri'], 
-        #                         new_model.DOCUMENT_TYPES.SCHEMA, 
-        #                         _COMBO_NAMESPACE, 
-        #                         _CORE_NAMESPACES[_COMBO_NAMESPACE]['description'])
-        #     core_document.add(label_role.document, new_model.DOCUMENT_CONTENT_TYPES.IMPORT)
 
     return label_role
 
@@ -1184,10 +1011,10 @@ def create_default_table(new_model, schedule_role_map):
                                            _PARENT_CHILD,
                                            cube.role)
         if network is None:
-            raise FERCSerialzierException("Cannot find cooresponding network for cube {} in role {}".format(cube.concept.name, cube.role.role_uri))
+            raise ACFRSerialzierException("Cannot find cooresponding network for cube {} in role {}".format(cube.concept.name, cube.role.role_uri))
         parent_rels = network.get_parents(cube.concept)
         if len(parent_rels) != 1:
-            raise FERCSerialzierException("Cube {} is in a presentation network more than once in role {}.".find(cube.concept.name.clark, cube.role.role_uri))
+            raise ACFRSerialzierException("Cube {} is in a presentation network more than once in role {}.".find(cube.concept.name.clark, cube.role.role_uri))
         for child_rel in network.get_children(parent_rels[0].from_concept):
             if (child_rel.order >= parent_rels[0].order and # This indicates the child is a following sibling of the table
                 child_rel.to_concept.type.is_numeric and
@@ -1207,7 +1034,7 @@ def create_default_table(new_model, schedule_role_map):
                 else:
                     i += 1
                 if i > 1000000:
-                    raise FERCSerialzierException("In a terrible loop trying to create the total role for role {}".format(cube.role.role_uri))
+                    raise ACFRSerialzierException("In a terrible loop trying to create the total role for role {}".format(cube.role.role_uri))
             new_role = cube.role.copy(role_uri=new_role_uri, description='{} - Totals'.format(cube.role.description))
             # Create the new cube
             new_cube = cube.copy(role=new_role)
@@ -1217,7 +1044,7 @@ def create_default_table(new_model, schedule_role_map):
                     new_dimension = dimension.copy(deep=True, role=new_role)
                     new_cube.add_dimension_node(new_dimension)
             if len(cube.primary_items) == 0:
-                raise FERCSerialzierException("There are no primary items for table concept {}".format(cube.concept.name.clark))
+                raise ACFRSerialzierException("There are no primary items for table concept {}".format(cube.concept.name.clark))
             new_primary = cube.primary_items[0].copy(role=new_role)
             new_cube.add_primary_node(new_primary)
             # create the new presentation network
@@ -1237,119 +1064,6 @@ def create_default_table(new_model, schedule_role_map):
 
 def new_document(new_model, uri, document_type, target_namespace=None, description=None):
     return new_model.get('Document', uri) or new_model.new('Document', uri, document_type, target_namespace, description)
-
-def clean_up_networks(new_model, schedule_role_map):
-    '''Remove networks that are not part of the forms'''
-    # Get all the roles that will be outputed from the schedule map
-    schedule_roles = {x for y in schedule_role_map.values() for x in y}
-    # Go through all the networks and delete the ones that are not in the schedule roles
-    for network in list(new_model.networks.values()): # Using a list so we can delete netowrks in the new_model.networks dictionary
-        if network.role not in schedule_roles:
-            # this network will be deleted
-            delete_network(new_model, network)
-
-    # Next need to clean up left over orphans
-    clean_up_orphans(new_model)
-
-def delete_network(new_model, network):
-    for rel in network.relationships:
-        rel.remove()
-    new_model.remove(network)
-
-def count_docs(new_model):
-    counts = collections.defaultdict(lambda: [0,0])
-    for component in (list(new_model.networks.values()) +
-                      list(new_model.concepts.values()) +
-                      list(new_model.part_elements.values()) +
-                      list(new_model.typed_domains.values()) +
-                      list(new_model.elements.values()) +
-                      list(new_model.types.values()) +
-                      list(new_model.arcroles.values()) +
-                      list(new_model.roles.values()) +
-                      list(new_model.cubes.values())):
-        if component.document is None:
-            counts[component.get_class_name()][0] += 1
-        else:
-            counts[component.get_class_name()][1] += 1
-
-        if component.get_class_name() == 'Concept':
-            for labels in component.labels.values():
-                for label in labels:
-                    if label.document is None:
-                        counts[label.get_class_name()][0] += 1
-                    else:
-                        counts[label.get_class_name()][1] += 1
-            for refs in component.references.values():
-                for ref in refs:
-                    if ref.document is None:
-                        counts[ref.get_class_name()][0] += 1
-                    else:
-                        counts[ref.get_class_name()][1] += 1
-
-    print('class', 'no doc', 'doc')
-    for k, v in counts.items():
-        print(k, v[0], v[1])
-
-    return counts
-
-def clean_up_orphans(new_model):
-
-    for component in (list(new_model.networks.values()) +
-                      list(new_model.concepts.values()) +
-                      list(new_model.part_elements.values()) +
-                      list(new_model.typed_domains.values()) +
-                      list(new_model.elements.values()) +
-                      list(new_model.types.values()) +
-                      list(new_model.arcroles.values()) +
-                      list(new_model.roles.values())):
-        clean_up_model_component(component)
-
-def clean_up_model_component(component):
-    
-    remove = False
-    if component.dts.component_exists(component):
-        # Network
-        if isinstance(component, component.get_class('Network')):
-            if len(component.relationships) == 0:
-                remove = True
-        # Concept
-        elif isinstance(component, component.get_class('Concept')):
-            if _NEW_NS_MATCH.fullmatch(component.name.namespace)and (len(component.to_concept_relationships) + len(component.from_concept_relationships)) == 0:
-                remove =  all([clean_up_model_component(x) for x in component.derrived_concepts()])
-        # Part Element
-        elif isinstance(component, component.get_class('PartElement')):
-            if _NEW_NS_MATCH.fullmatch(component.name.namespace) and len(component.parts) == 0:
-                remove = all([clean_up_model_component(x) for x in component.derrived_substitution_groups()])
-        # Typed Domain
-        elif isinstance(component, component.get_class('TypedDomain')):
-            if _NEW_NS_MATCH.fullmatch(component.name.namespace) and len(component.concepts) == 0:
-                remove = all([clean_up_model_component(x) for x in component.derrived_substitution_groups()])
-        # Element
-        elif isinstance(component, component.get_class('Element')):
-            if _NEW_NS_MATCH.fullmatch(component.name.namespace):
-                remove = all([clean_up_model_component(x) for x in component.derrived_substitution_groups()])
-        # Type
-        elif isinstance(component, component.get_class('Type')):
-            if _NEW_NS_MATCH.fullmatch(component.name.namespace) and len(component.elements(True)) == 0:
-                remove = all([clean_up_model_component(x) for x in component.derrived_types()])
-        # Arcrole
-        elif isinstance(component, component.get_class('Arcrole')):
-            if (_NEW_ARCROLE_MATCH.fullmatch(component.arcrole_uri) is not None and 
-                len(component.networks) == 0):
-                remove = True
-        # Role
-        elif isinstance(component, component.get_class('Role')):
-            if (_NEW_ROLE_MATCH.fullmatch(component.role_uri) is not None and 
-                len(component.networks) == 0 and
-                len(component.resources) == 0):
-                remove = True
-        else:
-            raise FERCSerialzierException("Do not have a clean up method for '{}'".format(type(component).__name__))
-
-        if remove:
-            remove = component.dts.remove(component)
-
-    return remove
 
 def assign_network_documents(new_model):
     '''The networks are organzied by type of network (statement, disclosure, document, meta) and then grouped by name. 
@@ -1396,15 +1110,6 @@ def assign_network_documents(new_model):
         if not network.role.role_uri.lower().endswith('entity-report'):
             network.role.document = network_document
 
-        # # make sure arcrole is assigned a document
-        # if not network.arcrole.is_standard and network.arcrole.document is None:
-        #     arcrole_document = new_document(new_model, 
-        #                                     _CORE_NAMESPACES[root.name.namespace]['arcrole-doc-uri'], 
-        #                                     new_model.DOCUMENT_TYPES.SCHEMA, 
-        #                                     _CORE_NAMESPACES[root.name.namespace]['arcrole-namespace'],
-        #                                     _CORE_NAMESPACES[root.name.namespace]['arcrole-description'])
-        #     arcrole_document.add(network.arcrole) 
-
     # process the cubes
     for cube in new_model.cubes.values():
         cube_tops = cube.primary_items + cube.dimensions 
@@ -1450,7 +1155,6 @@ def assign_network_documents(new_model):
             if not cube.role.role_uri.lower().endswith('entity-report'):
                 cube.role.document = network_document
 
-
 def group_network_roles(new_model):
 
     grouped_calcs = dict() # this is keyed by role uri and the value will be the primary role
@@ -1477,25 +1181,8 @@ def group_network_roles(new_model):
 
     for role_uri, primary_role_uri in grouped_calcs.items():
         if primary_role_uri not in grouped_by_root:
-            warning('xxx', f'Primary role for calc is not in the presentation: {primary_role_uri}')
+            warning('ACFRSerializer', f'Primary role for calc is not in the presentation: {primary_role_uri}')
         grouped_by_root[role_uri] = grouped_by_root[primary_role_uri]
-
-        # if network.link_name.local_name == 'presentationLink':
-        #     if len(network.roots) != 1:
-        #             warning('ACFRSerializationException', f'{network.link_name.local_name} Network {network.role.description} has {len(network.roots)}. It can only have 1')
-        #     else:
-        #         root = network.roots[0]
-        #         root_name = remove_abstract(root.name.local_name.lower())
-        #         if root.name.namespace == _GRANTS_NAMESPACE:    
-        #             root_tax = 'grants'
-        #         elif root.name.namespace == _SINGLE_AUDIT_NAMESPACE:
-        #             root_tax = 'singleaudit'
-        #         else:
-        #             root_tax = 'acfr'
-
-        #         grouped_by_root[network.link_name.local_name[:3]][network.role.role_uri] = {'root-name': root_name, 
-        #                                                 'tax': root_tax, 
-        #                                                 'root-namespace': root.name.namespace}
 
     return grouped_by_root
 
@@ -1546,108 +1233,7 @@ def clean_up_docs(new_model):
 
 
 
-def assign_documents_to_networks(new_model, schedule_role_map):
-    schedule_documents = dict()
-    for schedule, roles in schedule_role_map.items():
-        if len(roles) == 0:
-            continue
-        # The folder for the schedule is the schedule element name
-        schedule_name = schedule.name.local_name.split('Abstract')[0]
-        if schedule.type.name.local_name == 'formItemType': # This is the list of schedules
-            schedule_name = 'ScheduleListOfSchedules{}'.format(schedule_name)
-        # The file name will be the page number
-        file_name = None
-        for label_info in sorted(schedule.labels, key=lambda x: x[0].role_uri):
-            if label_info[0].role_uri.lower().endswith('page'):
-                file_name = 'sched-{}'.format(sorted(schedule.labels[label_info], key=lambda x: x.content)[0].content)
-                break
-        if file_name is None: # no page number was found
-            file_name = 'sched-0'
-        document_start = 'schedules/{schedule_name}/{file_name}_{version}'.format(schedule_name=schedule_name, file_name=file_name, version=_NEW_VERSION)
-        schema_document = new_document(new_model, 
-            '{}.xsd'.format(document_start),
-            new_model.DOCUMENT_TYPES.SCHEMA,
-            '{}{}/sched-{}'.format(_NAMESPACE_START, _NEW_VERSION, schedule_name))
-        schedule_documents[schedule] = schema_document
 
-        for role in roles:
-            for network in new_model.get_match('Network', (None, None, None, role)):
-                if len(network.relationships) > 0:
-                    linkbase_type = network.link_name.local_name[:3].lower()
-                    linkbase_document = new_document(new_model,
-                                                    '{}_{}.xml'.format(document_start, linkbase_type),
-                                                    new_model.DOCUMENT_TYPES.LINKBASE)
-                    for rel in network.relationships:
-                        linkbase_document.add(rel)
-                    # add the linkbase ref to the schema document
-                    schema_document.add(role)
-                    schema_document.add(linkbase_document, new_model.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
-                    if not network.arcrole.is_standard:
-                        schema_document.add(network.arcrole, new_model.DOCUMENT_CONTENT_TYPES.ARCROLE_REF)
-            
-            for cube in new_model.get_match('Cube', role):
-                cube_tops = cube.primary_items + cube.dimensions 
-                if len(cube_tops) != 0:
-                    linkbase_document = new_document(new_model,
-                                                     '{}_def.xml'.format(document_start),
-                                                     new_model.DOCUMENT_TYPES.LINKBASE)
-                    linkbase_document.add(cube)
-                    for cube_top in cube_tops:
-                        linkbase_document.add(cube_top) # This is either a primary or dimension
-                        for cube_node in cube_top.all_descendants:
-                            linkbase_document.add(cube_node)
-                    # Add the linkbase ref to the schema document
-                    schema_document.add(linkbase_document, new_model.DOCUMENT_CONTENT_TYPES.LINKBASE_REF)
-
-    return schedule_documents
-                                        
-def schedule_form_networks(new_model, forms, schedule_role_map):
-    # Create the schedule-form arcrole
-    schedule_form_arcrole = new_model.new('Arcrole', 
-                                          _SCHEDULE_FORM_ARCROLE,
-                                          'none',
-                                          _SCHEDULE_FORM_DEFINITION,
-                                          (new_model.new('QName', _LINK_NS, 'presentationArc'),
-                                           new_model.new('QName', _LINK_NS, 'definitionArc'),
-                                           new_model.new('QName', _GEN_NS, 'arc')
-                                           )
-                                          )
-    document = new_document(new_model, _DOCUMENT_MAP[_ARCROLE_NAMESPACE], new_model.DOCUMENT_TYPES.SCHEMA, _ARCROLE_NAMESPACE, _ARCROLE_DESCRIPTION)
-    document.add(schedule_form_arcrole)
-
-    # network = new_model.new('Network', link_name, arc_name, arcrole, elrole)
-    for form, schedules in forms.items():
-        for schedule in schedules:
-            if schedule.type.name.clark == _NEW_FORM_TYPE:
-                # This is the list of schedules where the form is a child of the list of schedules. So skip
-                continue
-            # Get the extended link role
-            elroles = schedule_role_map.get(schedule)
-            if elroles is None or len(elroles) == 0:
-                continue
-            elrole = sorted(elroles)[0]
-            # Get or create the network
-            network_key = (new_qname_from_clark(new_model, _PRESENTATION_LINK_ELEMENT),
-                           new_qname_from_clark(new_model, _PRESENTATION_ARC_ELEMENT),
-                           schedule_form_arcrole,
-                           elrole)
-            network = new_model.get('Network', *network_key)
-            if network is None:
-                network = new_model.new('Network', *network_key)
-            # Add the relationship.
-            network.add_relationship(schedule, form, 1)
-
-def add_footnote_arcroles(old_model, new_model):
-    for arcroles in old_model.arcroleTypes.values():
-        document_name = '{}-core-footnote-roles_{}.xsd'.format(_CORE_NAME, _NEW_VERSION)
-        document_namespace = 'http://www.ferc.gov/form/roles/footnote'
-        for old_arcrole in arcroles:
-            if _FOOTNOTE_ARC_NAME in [x.clarkNotation for x in old_arcrole.usedOns]:
-                usedons = tuple(new_model.new('QName', x.namespaceURI, x.localName) for x in old_arcrole.usedOns)
-                definition = old_arcrole.definition
-                new_arcrole = new_model.new('Arcrole', old_arcrole.arcroleURI, old_arcrole.cyclesAllowed, definition, usedons)
-                arcrole_document = new_document(new_model, document_name, new_model.DOCUMENT_TYPES.SCHEMA, document_namespace, _FOOTNOTE_ARC_DESCRIPTION)
-                arcrole_document.add(new_arcrole)
 
 def add_entry_points(new_model):
     sub_taxonomy_documents = set() # This will save all the form entry points for the all entry point
@@ -1672,49 +1258,6 @@ def add_entry_points(new_model):
                 entry_point.version = _NEW_VERSION
                 entry_point.documents.append(sub_taxonomy_document)
 
-
-    # for form, schedules in sorted(forms.items(), key=lambda x: (len(x[0].name.local_name), x[0].name.local_name)):
-    #     # first form (in sorted order) is used for the 'all' entry point
-    #     if first_form is None:
-    #         first_form = form
-    #     try:
-    #         entry_point_name = list(form.labels.get((_ENTRY_POINT_PATH_LABEL_ROLE, 'en'), []))[0].content
-    #     except IndexError:
-    #         raise FERCSerialzierException("Cannot get {} label for form concept {}".format(_ENTRY_POINT_PATH_LABEL_ROLE, form.name.clark))
-    #     try:
-    #         form_name = list(form.labels.get((_EFORMS_LABEL_ROLE, 'en'), []))[0].content
-    #     except IndexError:
-    #         raise FERCSerialzierException("Cannot get {} label for form concept {}".format(_EFORMS_LABEL_ROLE, form.name.clark))
-
-    #     if first_form is form:
-    #         first_name = form_name
-    #     all_form_names.append(form_name)
-
-    #     # Create form document
-    #     document_name = 'form/{}_{}.xsd'.format(entry_point_name, _NEW_VERSION)
-    #     document_namespace = '{}{}/ferc-{}'.format(_NAMESPACE_START, _NEW_VERSION, form_name.lower().replace(' ', '-'))
-    #     form_document = new_document(new_model, document_name, new_model.DOCUMENT_TYPES.SCHEMA, document_namespace)
-    #     form_entry_documents.add(form_document)
-    #     for schedule in schedules:
-    #         try:
-    #             form_document.add(schedule_documents[schedule], new_model.DOCUMENT_CONTENT_TYPES.IMPORT)
-    #         except KeyError:
-    #             pass # This is a schedule in the list of schedules that isn't really schedule.
-
-    #     # Create entry point
-    #     entry_point = new_model.new('PackageEntryPoint', entry_point_name)
-    #     entry_point.names.append((form_name, 'en'))
-    #     try:
-    #         entry_point.description = list(form.labels.get((_ENTRY_POINT_LABEL_ROLE, 'en'), []))[0].content
-    #     except IndexError:
-    #         raise FERCSerialzierException("Cannot get {} label for form concept {}".format(_ENTRY_POINT_PATH_LABEL_ROLE, form.name.clark))
-    #     entry_point.description_language = 'en'
-    #     entry_point.version = _NEW_VERSION
-    #     entry_point.documents.append(form_document)
-    #     other_element_qname = new_model.new('QName', 'http://www.ferc.gov/form/taxonomy-package', 'entryPoint', 'tp')
-    #     entry_point.other_elements[other_element_qname] = form_name
-
-
         # Add 'all' document
     all_document_name = f'grip-all_{_NEW_VERSION}.xsd'
     all_namespace = f'{_NAMESPACE_START}{_NEW_VERSION}/grip-all'
@@ -1729,73 +1272,6 @@ def add_entry_points(new_model):
     # entry_point.description_language = 'en'
     entry_point.version = _NEW_VERSION
     entry_point.documents.append(all_document)
-
-def get_schedule_role(schedule_concept):
-    '''Find the role that cooresponds to the schedule concept'''
-    possible_roles = set()
-    for rels in schedule_concept.from_concept_relationships.values():
-        for rel in rels:
-            if rel.arcrole == _PARENT_CHILD and rel.is_root:
-                possible_roles.add(rel.role) # the 4th item inthe key is the role
-    if len(possible_roles) > 1:
-        # Have more than one option. Check if the abstract is used in different schedules. This is a little tricky as a schedule can have
-        # more than one role (i.e. retained earnings). In this case the roles will all have the same starting URI.
-        possible_roles = sorted(possible_roles)
-        base_roles = {possible_roles[0],} # this should be the basic role for a set of roles
-        for role in possible_roles:
-            if not any([role.role_uri.startswith(x.role_uri) for x in base_roles]):
-                base_roles.add(role)
-        if len(base_roles) > 1: # then the schedule abstract is being used in more than one schedule
-            warning('Found multiple roles for schedule {}\nRoles are:\n{}'.format(schedule_concept.name.clark,
-                                                '\n'.join([x.role_uri for x in sorted(base_roles)])))
-    return possible_roles
-
-def find_forms(new_model):
-    '''Get the form concepts and the list of schedules for each form
-
-    This method finds all the form concepts and the schedules that belong to each form. It also identifies a definitive
-    page number for each schedule. This page number will be used for the file names for the schedule schemas and related
-    linkbases. A schedule can be used in more than one form and so have different page numbers for each form. The page number
-    associated with the alphabetically first form name is used.
-    '''
-    # find form concepts that are in a presentation and they are the root. This should only happen
-    # in the list of schedules/Table of concepts.
-    form_concepts = dict()
-    schedule_map = dict()
-    for concept in new_model.concepts.values():
-        if concept.type.name.clark == _NEW_FORM_TYPE:
-            form_concepts[concept] = set()
-
-    for form_concept in form_concepts.keys(): # this must be keys() as if the form has no schedules, it 
-                                              # will be removed from the dictionary during the iteration.
-                                              # By using keys, the dictionary can change size.
-        for potential_rels in form_concept.from_concept_relationships.values():
-            # Get all the root rels in the presentation
-            rels = [x for x in potential_rels if (x.is_root and 
-                                                  x.arcrole == _PARENT_CHILD and
-                                                  x.to_concept.type.name.clark == _NEW_SCHEDULE_TYPE)]
-            # Check that there is only one network, this should be the list of schedules network
-            networks = {x.network for x in rels}
-            if len(networks) > 1:
-                raise FERCSerialzierException("Found form concept {} as root in more than network. The form concept should only "
-                                              "be the root in the list of schedules.".format(form_concept.name.clark))
-            # Add the form_concept as a schedule for the list of schedules which has the form concept at the root
-            # instead of a schedule concewpt.
-            form_concepts[form_concept].add(form_concept)
-            schedule_map[form_concept] = {next(iter(networks)).role,}
-            for rel in next(iter(networks)).relationships:
-                if rel.to_concept.type.name.clark == _NEW_SCHEDULE_TYPE:
-                    schedule_roles = get_schedule_role(rel.to_concept)
-                    if schedule_roles is not None: # if it is none then this element is just header but there is no real schedule
-                        schedule_map[rel.to_concept] = schedule_roles
-                    form_concepts[form_concept].add(rel.to_concept)
-
-    # remove forms that are not used
-    for form in list(form_concepts):
-        if len(form_concepts[form]) == 0:
-            del form_concepts[form]
-
-    return form_concepts, schedule_map
 
 def dummy(*args, **kwargs):
     pass
