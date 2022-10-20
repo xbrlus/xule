@@ -1,4 +1,4 @@
-name: xbrl_api_playground
+name: sample
 
 dependencies:
   - python=3.9
