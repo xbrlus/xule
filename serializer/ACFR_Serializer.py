@@ -172,7 +172,7 @@ def set_configuration(options, old_model):
             'uri': f'acfr/state/{tax_name}/elts/{tax_name}_{_NEW_VERSION}.xsd',
             'description': f'{tax_name} taxonomy',
             'all-uri': f'acfr/state/{tax_name}/{tax_name}-all_{_NEW_VERSION}.xsd',
-            'all-namespace': f'acfr/state/{tax_name}/all/{_NEW_VERSION}',
+            'all-namespace': f'{_NAMESPACE_START}acfr/state/{tax_name}/all/{_NEW_VERSION}',
             'type-uri': f'acfr/state/{tax_name}/elts/{tax_name}_types_{_NEW_VERSION}.xsd',
             'type-namespace': f'{_NAMESPACE_START}{tax_name}/type/{_NEW_VERSION}',
             'type-description': f'This schema contains types for the {tax_name} taxonomy',
