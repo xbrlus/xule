@@ -1881,6 +1881,9 @@ def property_namespace_map(xule_context, object_value, *args):
     result = {xv.XuleValue(xule_context, prefix, 'stirng'): xv.XuleValue(xule_context, uri, 'uri') for prefix, uri in nsmap.items()}
     return xv.XuleValue(xule_context, frozenset(result.items()), 'dictionary')
 
+def property_taxonomy(xule_context, object_value, *args):
+    return xv.XuleValue(xule_context, object_value.value, 'taxonomy')
+
 def property_regex_match(xule_context, object_value, pattern, *args):
     if pattern.type != 'string':
         raise XuleProcessingError(_("Property regex match requires a string for the regex pattern, found '{}'".format(pattern.type)))
@@ -2155,6 +2158,7 @@ PROPERTIES = {
               'facts': (property_facts, 0, ('cube',), False),
               'default': (property_default, 0, ('dimension',), False),
               'namespaces': (property_namespaces, 0, ('taxonomy',), False),
+              'taxonomy': (property_taxonomy, 0, ('instance', ), False),
 
               # Version 1.1 properties
               #'regex-match-first': (property_regex_match_first, 1, ('string', 'uri'), False),

@@ -120,6 +120,15 @@ class XuleValue:
         else:
             return None
     @property
+    def shadow_keys(self):
+        if self.type == 'dictionary':
+            # return a diction of the underlying value for the key and the corresponding XuleValue
+            if not hasattr(self, '_shadow_keys'):
+                self._shadow_keys = {k.shadow_collection if k.type in ('set', 'list') else k.value: k for k, _v in self.value}
+            return self._shadow_keys
+        else:
+            return None
+    @property
     def value_dictionary(self):
         if self.type == 'dictionary':
             if not hasattr(self, '_value_dictionary'):
@@ -286,7 +295,8 @@ class XuleValue:
 #                 unit_string = "%s/%s" % (" * ".join([x.localName for x in self.value[0]]), 
 #                                                  " * ".join([x.localName for x in self.value[1]]))
 #             return unit_string
-        
+        elif self.type == 'entity':
+            return '{}={}'.format(self.value[0].value, self.value[1].value)
         elif self.type == 'duration':
             if self.value[0] == datetime.datetime.min and self.value[1] == datetime.datetime.max:
                 return "forever"

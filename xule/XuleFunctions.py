@@ -33,6 +33,7 @@ import json
 from .XuleRunTime import XuleProcessingError
 from . import XuleValue as xv
 from . import XuleRollForward as xrf
+from . import XuleInstanceFunctions as xif
 from . import XuleUtility as xu
 
 
@@ -693,6 +694,30 @@ def func_rule_name(xule_context, *args):
     else:
         return xv.XuleValue(xule_context, xule_context.rule_name, 'string')
 
+def func_alignment(xule_context, *args):
+    
+    result = dict()
+    if xule_context.iteration_table.current_alignment is None:
+        return xv.XuleValue(xule_context, 'No Alignment', 'string')
+    for name_info, value in xule_context.iteration_table.current_alignment or tuple():
+        # name_info is a tuple 0 =  'builtin' or 'explicit_dimension' (even for typed dimensions), 1 = the value of the aspect
+        if name_info[0] == 'builtin':
+            if name_info[1] == 'entity':
+                xule_value = xv.XuleValue(xule_context, (xv.XuleValue(xule_context, value[0], 'string'), xv.XuleValue(xule_context, value[1], 'string')), 'entity')
+            elif name_info[1] == 'unit':
+                xule_value = xv.XuleValue(xule_context, value, 'unit')
+            else:
+                xule_type, xule_value = xv.model_to_xule_type(xule_context, value)
+                xule_value = xv.XuleValue(xule_context, xule_value, xule_type)
+            result[xv.XuleValue(xule_context, name_info[1], 'string')] = xule_value
+        else:
+            xule_type, xule_value = xv.model_to_xule_type(xule_context, value)
+            xule_value = xv.XuleValue(xule_context, xule_value, xule_type)
+            result[xv.XuleValue(xule_context, name_info[1].clarkNotation, 'string')] = xule_value
+        
+    return xv.XuleValue(xule_context, frozenset(result.items()), 'dictionary')
+
+
 #the position of the function information
 FUNCTION_TYPE = 0
 FUNCTION_EVALUATOR = 1
@@ -742,11 +767,13 @@ def built_in_functions():
              'difference': ('regular', func_difference, 2, False, 'single'),
              'symmetric_difference': ('regular', func_symmetric_difference, 2, False, 'single'),
              'version': ('regular', func_version, 0, False, 'single'),
-             'rule-name': ('regular', func_rule_name, 0, False, 'single')
+             'rule-name': ('regular', func_rule_name, 0, False, 'single'),
+             'alignment': ('regular', func_alignment, 0, False, 'single')
              }    
 
     try:
         funcs.update(xrf.BUILTIN_FUNCTIONS)
+        funcs.update(xif.BUILTIN_FUNCTIONS)
     except NameError:
         pass
     
