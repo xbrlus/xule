@@ -703,20 +703,37 @@ def func_alignment(xule_context, *args):
         # name_info is a tuple 0 =  'builtin' or 'explicit_dimension' (even for typed dimensions), 1 = the value of the aspect
         if name_info[0] == 'builtin':
             if name_info[1] == 'entity':
-                xule_value = xv.XuleValue(xule_context, (xv.XuleValue(xule_context, value[0], 'string'), xv.XuleValue(xule_context, value[1], 'string')), 'entity')
+                result['entity'] = (value[0], value[1])
+                #xule_value = xv.XuleValue(xule_context, (xv.XuleValue(xule_context, value[0], 'string'), xv.XuleValue(xule_context, value[1], 'string')), 'entity')
             elif name_info[1] == 'unit':
-                xule_value = xv.XuleValue(xule_context, value, 'unit')
-            else:
-                xule_type, xule_value = xv.model_to_xule_type(xule_context, value)
-                xule_value = xv.XuleValue(xule_context, xule_value, xule_type)
-            result[xv.XuleValue(xule_context, name_info[1], 'string')] = xule_value
+                result['unit'] = repr(value)
+                #xule_value = xv.XuleValue(xule_context, value, 'unit')
+            elif name_info[1] == 'concept':
+                result['concept'] = value.clarkNotation
+            elif name_info[1] == 'period': 
+                if isinstance(value, tuple):
+                    # This is a duration
+                    if value[0] == datetime.datetime.min and value[1] == datetime.datetime.max:
+                        result['period'] = 'forever'
+                    else:
+                        result['period'] = f'{value[0].isoformat()}/{value[1].isoformat()}'
+                else:
+                    result['period'] = value.isoformat()
+                #xule_type, xule_value = xv.model_to_xule_type(xule_context, value)
+                #xule_value = xv.XuleValue(xule_context, xule_value, xule_type)
+                #result[xv.XuleValue(xule_context, name_info[1], 'string')] = xule_value
         else:
-            xule_type, xule_value = xv.model_to_xule_type(xule_context, value)
-            xule_value = xv.XuleValue(xule_context, xule_value, xule_type)
-            result[xv.XuleValue(xule_context, name_info[1].clarkNotation, 'string')] = xule_value
-        
-    return xv.XuleValue(xule_context, frozenset(result.items()), 'dictionary')
+            if isinstance(value, QName):
+                result[name_info[1].clarkNotation] = value.clarkNotation
+            else:
+                result[name_info[1].clarkNotation] = str(value)
 
+            #xule_type, xule_value = xv.model_to_xule_type(xule_context, value)
+            #xule_value = xv.XuleValue(xule_context, xule_value, xule_type)
+            #result[xv.XuleValue(xule_context, name_info[1].clarkNotation, 'string')] = xule_value
+    
+    return xv.XuleValue(xule_context, json.dumps(result), 'string')
+    #return xv.XuleValue(xule_context, frozenset(result.items()), 'dictionary')
 
 #the position of the function information
 FUNCTION_TYPE = 0
