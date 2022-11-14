@@ -31,6 +31,7 @@ from arelle.ModelDocument import Type
 #from arelle.ModelRelationshipSet import ModelRelationshipSet
 from arelle.ModelValue import QName, qname
 import collections
+import datetime
 import decimal
 import json
 import math
@@ -174,16 +175,17 @@ class xule_json_encoder(json.JSONEncoder):
         return super.default(self, o)
 
 def property_to_json(xule_context, object_value, *args):
-    if object_value.type == 'dictionary':
-        unfrozen = dict(object_value.shadow_collection)
-    elif object_value.type == 'set':
-        unfrozen = tuple(object_value.shadow_collection)
-    else:
-        unfrozen = object_value.shadow_collection
+    # # This doesn't do anything 
+    # if object_value.type == 'dictionary':
+    #     unfrozen = dict(object_value.shadow_collection)
+    # elif object_value.type == 'set':
+    #     unfrozen = tuple(object_value.shadow_collection)
+    # else:
+    #     unfrozen = object_value.shadow_collection
     
     unfrozen = unfreeze_shadow(object_value, True)
-
     return xv.XuleValue(xule_context, json.dumps(unfrozen, cls=xule_json_encoder), 'string')
+
 
 def unfreeze_shadow(cur_val, for_json=False):
     if cur_val.type == 'list':
@@ -198,6 +200,23 @@ def unfreeze_shadow(cur_val, for_json=False):
         return {unfreeze_shadow(k): unfreeze_shadow(v) for k, v in cur_val.value}
     else:
         return cur_val.value
+
+def property_to_oim(xule_context, object_value, *args):
+    if object_value.type == 'entity':
+        return xv.XuleValue(xule_context, f'{{{object_value.value[0]}}}{object_value.value[1]}', 'string')
+    elif object_value.type == 'unit':
+        return xv.XuleValue(xule_context, repr(object_value.value), 'string')
+    elif object_value.type == 'duration':
+        if object_value.value[0] == datetime.datetime.min and object_value.value[1] == datetime.datetime.max:
+            return xv.XuleValue(xule_context, 'forever', 'string')
+        else:
+            return xv.XuleValue(xule_context, f'{object_value.value[0].isoformat()}/{object_value.value[1].isoformat()}', 'string')
+    elif object_value.type == 'instant':
+        return xv.XuleValue(xule_context, object_value.value.isoformat(), 'string')
+    elif object_value.type == 'qname':
+        return xv.XuleValue(xule_context, object_value.value.clarkNotation, 'string)')
+    else:
+        return xv.XuleValue(xule_context, object_value.value.format_value, 'string')
 
 def property_join(xule_context, object_value, *args):
     if object_value.type in ('list', 'set'):
@@ -943,6 +962,18 @@ def property_namespace_uri(xule_context, object_value, *args):
         return object_value
     else:
         return xv.XuleValue(xule_context, '', 'uri')
+
+def property_clark(xule_context, object_value, *args):
+    if object_value.is_fact:
+        return xv.XuleValue(xule_context, object_value.fact.concept.qname.clarkNotation, 'string')
+    elif object_value.type in ('concept', 'reference-part'):
+        return xv.XuleValue(xule_context, object_value.value.qname.clarkNotation, 'string')
+    elif object_value.type == 'qname':
+        return xv.XuleValue(xule_context, object_value.value.clarkNotation, 'string')
+    elif object_value.type == 'none':
+        return object_value
+    else:
+        return xv.XuleValue(xule_context, '', 'string')
 
 def property_period_type(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, object_value.value.periodType, 'string')
@@ -2034,7 +2065,8 @@ PROPERTIES = {
               'index': (property_index, 1, ('list', 'dictionary'), False),
               'is-subset': (property_is_subset, 1, ('set',), False),
               'is-superset': (property_is_superset, 1, ('set',), False),
-              'to-json': (property_to_json, 0, ('list', 'set', 'dictionary'), False),           
+              'to-json': (property_to_json, 0, ('list', 'set', 'dictionary'), False), 
+              'to-oim': (property_to_oim, 0, (), False),          
               'join': (property_join, -2, ('list', 'set', 'dictionary'), False),
               'sort': (property_sort, -1, ('list', 'set'), False),
               'keys': (property_keys, -1, ('dictionary',), False),
@@ -2088,7 +2120,8 @@ PROPERTIES = {
               'lang': (property_lang, 0, ('label',), False),              
               'name': (property_name, 0, ('fact', 'concept', 'reference-part', 'type'), True),
               'local-name': (property_local_name, 0, ('qname', 'concept', 'fact', 'reference-part'), True),
-              'namespace-uri': (property_namespace_uri, 0, ('qname', 'concept', 'fact', 'reference-part'), True),              
+              'namespace-uri': (property_namespace_uri, 0, ('qname', 'concept', 'fact', 'reference-part'), True),
+              'clark': (property_clark, 0, ('qname', 'concept', 'fact', 'reference-part'), True),             
               'period-type': (property_period_type, 0, ('concept',), False),
               'parts': (property_parts, 0, ('reference',), False),
               'part-value': (property_part_value, 0, ('reference-part',), False),
