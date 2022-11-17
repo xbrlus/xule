@@ -203,7 +203,7 @@ def unfreeze_shadow(cur_val, for_json=False):
 
 def property_to_oim(xule_context, object_value, *args):
     if object_value.type == 'entity':
-        return xv.XuleValue(xule_context, f'{{{object_value.value[0]}}}{object_value.value[1]}', 'string')
+        return xv.XuleValue(xule_context, json.dumps(object_value.value), 'string')
     elif object_value.type == 'unit':
         return xv.XuleValue(xule_context, repr(object_value.value), 'string')
     elif object_value.type == 'duration':

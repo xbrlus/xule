@@ -703,7 +703,7 @@ def func_alignment(xule_context, *args):
         # name_info is a tuple 0 =  'builtin' or 'explicit_dimension' (even for typed dimensions), 1 = the value of the aspect
         if name_info[0] == 'builtin':
             if name_info[1] == 'entity':
-                result['entity'] = (value[0], value[1])
+                result['entity'] = f'[\"{value[0]}\", \"{value[1]}\"]'
                 #xule_value = xv.XuleValue(xule_context, (xv.XuleValue(xule_context, value[0], 'string'), xv.XuleValue(xule_context, value[1], 'string')), 'entity')
             elif name_info[1] == 'unit':
                 result['unit'] = repr(value)
