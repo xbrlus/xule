@@ -186,7 +186,6 @@ def property_to_json(xule_context, object_value, *args):
     unfrozen = unfreeze_shadow(object_value, True)
     return xv.XuleValue(xule_context, json.dumps(unfrozen, cls=xule_json_encoder), 'string')
 
-
 def unfreeze_shadow(cur_val, for_json=False):
     if cur_val.type == 'list':
         return [unfreeze_shadow(x) for x in cur_val.value]
@@ -201,7 +200,7 @@ def unfreeze_shadow(cur_val, for_json=False):
     else:
         return cur_val.value
 
-def property_to_oim(xule_context, object_value, *args):
+def property_to_xince(xule_context, object_value, *args):
     if object_value.type == 'entity':
         return xv.XuleValue(xule_context, json.dumps(object_value.value), 'string')
     elif object_value.type == 'unit':
@@ -215,8 +214,13 @@ def property_to_oim(xule_context, object_value, *args):
         return xv.XuleValue(xule_context, object_value.value.isoformat(), 'string')
     elif object_value.type == 'qname':
         return xv.XuleValue(xule_context, object_value.value.clarkNotation, 'string)')
+    elif object_value.type in ('set', 'list', 'dictionary'):
+        return property_to_json(xule_context, object_value, *args)
+    elif object_value.type in ('none', 'unbound'):
+        return xv.XuleValue(xule_context, None, 'none')
     else:
-        return xv.XuleValue(xule_context, object_value.value.format_value, 'string')
+        print(object_value.type, type(object_value.value).__name__)
+        return xv.XuleValue(xule_context, object_value.format_value(), 'string')
 
 def property_join(xule_context, object_value, *args):
     if object_value.type in ('list', 'set'):
@@ -2066,7 +2070,7 @@ PROPERTIES = {
               'is-subset': (property_is_subset, 1, ('set',), False),
               'is-superset': (property_is_superset, 1, ('set',), False),
               'to-json': (property_to_json, 0, ('list', 'set', 'dictionary'), False), 
-              'to-oim': (property_to_oim, 0, (), False),          
+              'to-xince': (property_to_xince, 0, (), False),          
               'join': (property_join, -2, ('list', 'set', 'dictionary'), False),
               'sort': (property_sort, -1, ('list', 'set'), False),
               'keys': (property_keys, -1, ('dictionary',), False),
