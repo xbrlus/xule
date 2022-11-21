@@ -323,7 +323,10 @@ class XuleValue:
             return set_value
         
         elif self.type == 'dictionary': 
-            return pprint.pformat(self.system_value)
+            dict_content = ','.join('='.join((key.format_value(), val.format_value())) for (key,val) in self.value)
+            dict_value = "dictionary(" + dict_content + ")"
+            return dict_value
+            #return pprint.pformat(self.system_value)
         
         elif self.type == 'concept':
             return str(self.value.qname)
