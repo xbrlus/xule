@@ -224,8 +224,13 @@ def property_to_xince(xule_context, object_value, *args):
         return property_to_json(xule_context, object_value, *args)
     elif object_value.type in ('none', 'unbound'):
         return xv.XuleValue(xule_context, None, 'none')
+    elif isinstance(object_value.value, decimal.Decimal):
+        return xv.XuleValue(xule_context, str(object_value.value), 'string')
+    elif isinstance(object_value.value, datetime.datetime):
+        return xv.XuleValue(xule_context, object_value.value.isoformat()(), 'string')
+    elif type(object_value.value) in (int, float):
+        return xv.XuleValue(xule_context, str(object_value.value), 'string')
     else:
-        print(object_value.type, type(object_value.value).__name__)
         return xv.XuleValue(xule_context, object_value.format_value(), 'string')
 
 def property_join(xule_context, object_value, *args):
