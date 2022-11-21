@@ -171,6 +171,8 @@ class xule_json_encoder(json.JSONEncoder):
     def default(self, o):
         if isinstance(o, decimal.Decimal):
             return str(o)
+        elif isinstance(o, QName):
+            return o.clarkNotation
         # Let the base class default method raise the TypeError
         return super.default(self, o)
 
