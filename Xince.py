@@ -540,10 +540,8 @@ def add_fact(fact_info, instance, taxonomy, fact_id, nsmap, cntlr):
     if is_valid and not errors:
         fact_dict = dict()
         # TODO if the value is qname, then need to mark in the nsmap
-        if fact_value is None:
-            fact_value = 'nil'
         fact_dict['value'] = fact_value
-        if concept.isNumeric:
+        if concept.isNumeric and decimals != 'infinity' and fact_value is not None:
             fact_dict['decimals'] = decimals
         fact_dict['dimensions'] = dict()
         concept_qname = XinceQname(concept.qname.namespaceURI, concept.qname.localName)
@@ -569,6 +567,7 @@ def add_fact(fact_info, instance, taxonomy, fact_id, nsmap, cntlr):
             next_id = next(IDGenerator.get_id_generator(''.join(fact_info['fact-id'].split())))
         else:
             next_id = next(IDGenerator.get_id_generator())
+        
         instance['facts'][next_id] = fact_dict
                 
 def verify_fact(fact_info, taxonomy, cntlr):
@@ -627,7 +626,7 @@ def verify_fact(fact_info, taxonomy, cntlr):
                 decimals = 'infinity'
             else:
                 try:
-                    decimals = int(fact_info['fact-decimals'])
+                    decimals = int(decimal.Decimal(fact_info['fact-decimals']))
                 except ValueError:
                     cntlr.addToLog(f"Invalid decimals of {fact_info['fact-decimals']} for rule {fact_info['rule-name']}", "XinceError", level=logging.ERROR)
                     errors = True
@@ -779,6 +778,9 @@ def get_fact_value(fact_value, model_concept, cntlr):
         cntlr.addToLog(f"Data type '{model_concept.baseXsdType}' is not supported)")
         return None
     else:
+        # All XuleValue dates are datetimes. This is a problem if the new fact is a date (not a datetime)
+        if model_concept.baseXsdType == 'date':
+            fact_value = fact_value[:10] # this will take the date portion ignoring the time component
         return _TYPE_VERIFICATION_FUNCTION[model_concept.baseXsdType](fact_value)
 
 def canonical_decimal(val):
@@ -789,6 +791,15 @@ def canonical_decimal(val):
     num_string = str(num)
     if '.' not in num_string:
         num_string += '.0'
+    else:
+        i = len(num_string) - 1
+        while True:
+            if num_string[i] == '.' or num_string[i] != '0':
+                break
+            i -= 1
+        num_string = num_string[:i]
+        if '.' not in num_string:
+            num_string += '.0'
     return num_string
 
 def canonical_float(val):
