@@ -1,13 +1,15 @@
 name: sample
 
 dependencies:
-  - python=3.9
+  - python=3.10
   - regex
   - lxml>=4.6.3
   - isodate==0.6.0
   - aniso8601==9.0.1
   - holidays==0.11.1
-  - pyparsing==2.4.7
+  - tabulate
+  - numpy==1.22.0
+  - pyparsing==3.0.9
   - pip
   - pip:
-    - Arelle-release==2.0.0
+    - Arelle-release==2.1.4

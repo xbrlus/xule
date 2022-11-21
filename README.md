@@ -3,7 +3,7 @@ An open-source XBRL processor for business rules, rendering and custom data repo
 [XULE README](plugin/xule/README.md)
 
 Interactive Example - Running XULE in Arelle
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/xbrlus/xule/main?filepath=sample.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/xbrlus/xule/jupyter?filepath=sample.ipynb)
 
 ## License and Patent
 
