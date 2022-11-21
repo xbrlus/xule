@@ -173,8 +173,12 @@ class xule_json_encoder(json.JSONEncoder):
             return str(o)
         elif isinstance(o, QName):
             return o.clarkNotation
+        elif isinstance(o, datetime.datetime):
+            return o.isoformat()
+        elif isinstance(o, xv.XuleValue):
+            return o.format_value()
         # Let the base class default method raise the TypeError
-        return super.default(self, o)
+        return json.JSONEncoder.default(self, o)
 
 def property_to_json(xule_context, object_value, *args):
     # # This doesn't do anything 
