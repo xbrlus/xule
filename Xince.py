@@ -197,10 +197,10 @@ class XinceQname:
 
     def prefix(self, nsmap, mark=False):
         '''nsmap is a dictionary of namespaces to prefixes'''
-        ns = f'{nsmap.add_or_get_namespace(self.namespace)}'
+        result = f'{nsmap.add_or_get_namespace(self.namespace)}'
         if mark:
             self.mark_as_used(nsmap)
-        return ns
+        return result
 
     def serialize(self, nsmap, mark=False, format='json'):
         result = f'{self.prefix(nsmap, mark)}:{self.local_name}'
