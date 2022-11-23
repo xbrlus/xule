@@ -197,14 +197,14 @@ class XinceQname:
 
     def prefix(self, nsmap, mark=False):
         '''nsmap is a dictionary of namespaces to prefixes'''
+        ns = f'{nsmap.add_or_get_namespace(self.namespace)}'
         if mark:
             self.mark_as_used(nsmap)
-        return f'{nsmap.add_or_get_namespace(self.namespace)}'
+        return ns
 
     def serialize(self, nsmap, mark=False, format='json'):
-        if mark:
-            self.mark_as_used(nsmap)
-        return f'{self.prefix(nsmap)}:{self.local_name}'
+        result = f'{self.prefix(nsmap, mark)}:{self.local_name}'
+        return result
 
     def mark_as_used(self, nsmap):
         nsmap.mark_namespace_as_used(self.namespace)
@@ -367,7 +367,7 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
 
     if options.xince_location is None:
         # nothing to do
-        modelXbrl.info("Xule to Instance plugin is installed but the --xule-to-instance option was not provided. Not creating instances.")
+        modelXbrl.info("Xule to Instance plugin is installed but the --xince-location option was not provided. Not creating instances.")
     else:
         create_instance(cntlr, options, modelXbrl)
 
