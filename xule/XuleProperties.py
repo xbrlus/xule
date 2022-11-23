@@ -1754,6 +1754,22 @@ def property_number(xule_context, object_value, *args):
     else:
         raise XuleProcessingError(_("Property 'number' requires a string or numeric argument, found '%s'" % object_value.type), xule_context)
 
+def property_int(xule_context, object_value, *args):
+
+    try:
+        new_int = int(object_value.value)
+    except ValueError:
+        raise XuleProcessingError(_("Cannot convert '%s' to an int" % object_value.value), xule_context)
+    return xv.XuleValue(xule_context, new_int, 'int')
+
+def property_decimal(xule_context, object_value, *args):
+
+    try:
+        new_decimal = decimal.Decimal(object_value.value)
+    except decimal.InvalidOperation:
+        raise XuleProcessingError(_("Cannot convert '%s' to a decimal" % object_value.value), xule_context)
+    return xv.XuleValue(xule_context, new_decimal, 'decimal')
+
 def property_is_fact(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, object_value.is_fact, 'bool')
         
@@ -2179,6 +2195,8 @@ PROPERTIES = {
               'round': (property_round, 1, ('int', 'float', 'decimal', 'fact'), False),
               'mod': (property_mod, 1 ,('int', 'float', 'decimal', 'fact'), False),
               'number': (property_number, 0, ('int', 'float', 'decimal', 'fact'), False),
+              'int': (property_int, 0, ('int', 'float', 'decimal', 'string', 'fact'), False),
+              'decimal': (property_decimal, 0, ('int', 'float', 'decimal', 'string', 'fact'), False),
               'substring': (property_substring, -2, ('string', 'uri'), False),
               'index-of': (property_index_of, 1, ('string', 'uri'), False),
               'last-index-of': (property_last_index_of, 1, ('string', 'uri'), False),
