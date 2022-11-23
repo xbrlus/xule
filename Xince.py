@@ -886,17 +886,16 @@ def canonical_decimal(val):
     except decimal.InvalidOperation:
         return None
     num_string = str(num)
-    if '.' not in num_string:
-        num_string += '.0'
+    if '.' in num_string:
+        num_string = num_string.rstrip('0') # remove trailing 0s
+        if num_string[-1] == '.':
+            num_string += '0'
     else:
-        i = len(num_string) - 1
-        while True:
-            if num_string[i] == '.' or num_string[i] != '0':
-                break
-            i -= 1
-        num_string = num_string[:i]
-        if '.' not in num_string:
-            num_string += '.0'
+        num_string += '.0'
+
+    num_string = num_string.lstrip('0')
+    if num_string[0] == '.':
+        num_string = '0' + num_string
     return num_string
 
 def canonical_float(val):
