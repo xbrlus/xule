@@ -233,6 +233,16 @@ def property_to_xince(xule_context, object_value, *args):
     else:
         return xv.XuleValue(xule_context, object_value.format_value(), 'string')
 
+def _prep_for_xince_json(xule_context, xule_value):
+    if xule_value.type in ('set', 'list'):
+        children_string = []
+        for item in xule_value.value:
+            children_string.append(property_to_xince(xule_context, item))
+        return f"[{','.join(children_string)}]"
+    if xule_value.type == 'dictionary':
+        pass
+
+
 def property_join(xule_context, object_value, *args):
     if object_value.type in ('list', 'set'):
         if len(args) != 1:
