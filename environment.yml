@@ -1,7 +1,7 @@
 name: sample
 
 dependencies:
-  - python=3.10
+  - python==3.10
   - regex
   - lxml>=4.6.3
   - isodate==0.6.0
@@ -12,4 +12,4 @@ dependencies:
   - pyparsing==3.0.9
   - pip
   - pip:
-    - Arelle-release==2.1.4
+    - Arelle-release==2.2.0
