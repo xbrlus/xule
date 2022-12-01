@@ -49,7 +49,6 @@ from . import XuleFunctions
 from . import XuleProperties
 import os
 
-
 def process_xule(rule_set, model_xbrl, cntlr, options, saved_taxonomies=None):
     """Run xule rules against a filing.
     
@@ -524,6 +523,7 @@ def evaluate(rule_part, xule_context, trace_dependent=False, override_table_id=N
     
     This evaluator also includes capturing information about the evaluation for debugging purposes.
     """
+
     if xule_context.iter_count > xule_context.global_context.maximum_iterations:
         raise XuleProcessingError('Rule has run too many iterations, either remove catesian products in the rule or the instance or increase the iterations using --xule-max-rule-iterations option.')
 
@@ -941,6 +941,23 @@ def evaluate_assertion(assert_rule, xule_context):
         else:
             xule_context.reset_iteration()
 
+'''
+def x(xule_context):
+    result = dict()
+    for cinfo in xule_context.global_context.constant_store.values():
+        if cinfo['calculated']:
+            for alignment, vals in cinfo['value'].values.items():
+                for val in vals:
+                    for tname, tval in val.tags.items():
+                        if tname == 'ConceptName':
+                            result[cinfo['name']] = tval.value
+    return result
+
+def y(xule_context, const_name):
+    for cinfo in xule_context.global_context.constant_store.values():
+        if cinfo['name'] == const_name:
+            return cinfo['value']
+'''
 
 def evaluate_output_rule(output_rule, xule_context):
     """Evaluator for an output rule.
@@ -1465,10 +1482,10 @@ def evaluate_constant_assign(const_assign, xule_context):
             del const_context
     if 'is_iterable' in const_assign:
         # return the entire value set
-        return const_info['value']
+        return const_info['value'].clone()
     else:
         # retrieve the single value
-        return const_info['value'].values[None][0]
+        return const_info['value'].values[None][0].clone()
 
 
 def process_precalc_constants(global_context):
@@ -1655,7 +1672,7 @@ def evaluate_unary(unary_expr, xule_context):
     initial_value = evaluate(unary_expr['expr'], xule_context)
 
     if initial_value.type in ('unbound', 'none'):
-        return initial_value
+        return initial_value.clone()
 
     if initial_value.type not in ('int', 'float', 'decimal'):
         raise XuleProcessingError(_("Unary operator requires a numeric operand, found '%s'" % initial_value.type),
@@ -1664,7 +1681,7 @@ def evaluate_unary(unary_expr, xule_context):
     if unary_expr['op'] == '-':
         return XuleValue(xule_context, initial_value.value * -1, initial_value.type)
     else:
-        return initial_value
+        return initial_value.clone()
 
 def evaluate_in(in_expr, xule_context):
     """Evaluator for in expressions
@@ -1862,7 +1879,7 @@ def evaluate_add(add_expr, xule_context):
             # be the negative of the right.
             if right.type in ('int', 'float', 'decimal') and '-' in operator:
                 right = XuleValue(xule_context, right.value * -1, right.type)
-            left = right
+            left = right.clone()
             do_calc = False
         if right.type in ('unbound', 'none'):
             do_calc = False
@@ -2022,7 +2039,7 @@ def evaluate_and(and_expr, xule_context):
             elif left.type in ('unbound', 'none') and right.type in ('unbound', 'none'):
                 continue
             elif left.type in ('unbound', 'none') and right.type == 'bool':
-                left = right
+                left = right.clone()
                 if left.value == False:
                     value_found = True
             elif left.type == 'bool' and right.type in ('unbound', 'none'):
@@ -2073,7 +2090,7 @@ def evaluate_or(or_expr, xule_context):
             elif left.type in ('unbound', 'none') and right.type in ('unbound', 'none'):
                 continue
             elif left.type in ('unbound', 'none') and right.type == 'bool':
-                left = right
+                left = right.clone()
                 if left.value == True:
                     value_found = True
             elif left.type == 'bool' and right.type in ('unbound', 'none'):

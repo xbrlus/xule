@@ -73,10 +73,19 @@ class XuleValueSet:
         else:
             raise XuleProcessingError(_("Internal error: XuleValueSet can only append a XuleValue, found '%s'" % type(value)))
         
+    
+    def clone(self):
+        new_value_set = XuleValueSet()
+        for k, vals in self.values.items():
+            for val in vals:
+                new_value_set.values[k].append(val.clone())
+        return new_value_set
+
     def __copy__(self):
         new_value_set = XuleValueSet()
         new_value_set.values = copy.copy(self.values)
         return new_value_set
+    
         
 class XuleValue:
     def __init__(self, xule_context, orig_value, orig_type, alignment=None, from_model=False, shadow_collection=None, tag=None, orig_fact=None):
