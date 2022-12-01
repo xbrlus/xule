@@ -1032,7 +1032,7 @@ def canonical_string(val):
 def canonical_boolean(val):
     if val.strip().lower() in ('1', 'true'):
         return 'true'
-    elif val.string().lower() in ('0', 'false'):
+    elif val.strip().lower() in ('0', 'false'):
         return 'false'
     else:
         return None
