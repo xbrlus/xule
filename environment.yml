@@ -1,7 +1,4 @@
-name: sample
-
-channels:
-  - conda-forge/linux-64
+name: xule sample
 
 dependencies:
   - python<=3.10.6
