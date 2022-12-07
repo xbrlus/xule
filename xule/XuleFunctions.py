@@ -737,7 +737,12 @@ def func_rule_name(xule_context, *args):
 
 
 def func_alignment(xule_context, *args):
-    
+
+    # if the context as 'result_alignment', then it is already calculated and is being used in an output message.
+    return getattr(xule_context, 'result_alignment', _calc_alignment(xule_context))
+
+def _calc_alignment(xule_context):
+
     result = dict()
     if xule_context.iteration_table.current_alignment is None:
         return xv.XuleValue(xule_context, None, 'none')

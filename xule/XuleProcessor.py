@@ -4894,6 +4894,7 @@ def result_message(rule_ast, result_ast, xule_value, xule_context):
     message_context = xule_context.create_message_copy(rule_ast['node_id'], xule_context.get_processing_id(rule_ast['node_id']))
     message_context.tags['rule-value'] = xule_value
     message_context.tags['alignment'] = func_alignment(xule_context)
+    message_context.result_alignment = func_alignment(xule_context)
 
     try:
         # Caching does not work for expressions with tagRefs. The The results portion of a rule will have a tagRef for each varRef. This conversion is
