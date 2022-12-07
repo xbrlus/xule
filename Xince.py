@@ -676,10 +676,11 @@ def verify_fact(fact_info, taxonomy, cntlr):
             errors = True
 
     # Check concept
-    model_concept = get_concept(fact_info.get('fact-concept'), taxonomy)
-    if model_concept is None:
-        cntlr.addToLog(f"Concept {fact_info['fact-concept']} is not in the taxonomy for the instance. Rule {fact_info['rule-name']}", "XinceError", level=logging.ERROR)
-        errors = True
+    if 'fact-concept' in fact_info:
+        model_concept = get_concept(fact_info.get('fact-concept'), taxonomy)
+        if model_concept is None:
+            cntlr.addToLog(f"Concept {fact_info['fact-concept']} is not in the taxonomy for the instance. Rule {fact_info['rule-name']}", "XinceError", level=logging.ERROR)
+            errors = True
 
     # Check entity - it should look like a clark notation qname where the namespace is the scheme and the local part is the identifier
     if 'fact-entity' in fact_info:
@@ -1247,6 +1248,7 @@ def run_xule(cntlr, options, modelXbrl):
     #setattr(run_options, 'xule_arg', xule_args)
         # Get xule rule set
     # with ts.open(catalog_item['xule-rule-set']) as rule_set_file:
+    setattr(run_options, 'logRefObjectProperties', False)
     call_xule_method(cntlr, modelXbrl, options.xule_rule_set, run_options)
     
     # Remove the handler from the logger. This will stop the capture of messages
@@ -1270,10 +1272,10 @@ class _logCaptureHandler(logging.Handler):
 
 
 __pluginInfo__ = {
-    'name': 'FERC Renderer',
+    'name': 'Xince',
     'version': '0.9',
-    'description': "FERC Tools",
-    'copyright': '(c) Copyright 2018 XBRL US Inc., All rights reserved.',
+    'description': "Xince - Xule Instance creator",
+    'copyright': '(c) Copyright 2022 XBRL US Inc., All rights reserved.',
     'import': 'xule',
     # classes of mount points (required)
     'CntlrCmdLine.Options': cmdLineOptionExtender,
