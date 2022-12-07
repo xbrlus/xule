@@ -206,42 +206,64 @@ def unfreeze_shadow(cur_val, for_json=False):
     else:
         return cur_val.value
 
-def property_to_xince(xule_context, object_value, *args):
+def property_to_xince(xule_context, object_value, *args, _intermediate=False):
+    # _intermediate is used when recursing. The final value will be a string. But if there are collections
+    # (sets, list or dictionaries) then there needs to be recursion. The value passed up should be a
+    # python collection (list or dictionary) until the final value is sent to the original caller, which
+    # will be a string.
     if object_value.type == 'entity':
-        return xv.XuleValue(xule_context, json.dumps(object_value.value), 'string')
+        working_val =  (object_value.value[0].format_string, object_value.value[1].format_string)
     elif object_value.type == 'unit':
-        return xv.XuleValue(xule_context, repr(object_value.value), 'string')
+        working_val =  repr(object_value.value)
     elif object_value.type == 'duration':
         if object_value.value[0] == datetime.datetime.min and object_value.value[1] == datetime.datetime.max:
-            return xv.XuleValue(xule_context, 'forever', 'string')
+            working_val = 'forever'
         else:
-            return xv.XuleValue(xule_context, f'{object_value.value[0].isoformat()}/{object_value.value[1].isoformat()}', 'string')
+            working_val = f'{object_value.value[0].isoformat()}/{object_value.value[1].isoformat()}'
     elif object_value.type == 'instant':
-        return xv.XuleValue(xule_context, object_value.value.isoformat(), 'string')
+        working_val = object_value.value.isoformat()
     elif object_value.type == 'qname':
-        return xv.XuleValue(xule_context, object_value.value.clarkNotation, 'string)')
-    elif object_value.type in ('set', 'list', 'dictionary'):
-        return property_to_json(xule_context, object_value, *args)
+        working_val = object_value.value.clarkNotation
+    elif object_value.type in ('set', 'list'):
+        working_val = tuple(property_to_xince(xule_context, x, _intermediate=True) for x in object_value.value)
+    elif object_value.type == 'dictionary':
+        working_val = {property_to_xince(xule_context, k, _intermediate=True): property_to_xince(xule_context, v, _intermediate=True) for k, v in object_value.value}
     elif object_value.type in ('none', 'unbound'):
-        return xv.XuleValue(xule_context, None, 'none')
+        working_val = '' # empty string for None
     elif isinstance(object_value.value, decimal.Decimal):
-        return xv.XuleValue(xule_context, str(object_value.value), 'string')
+        working_val = str(object_value.value)
     elif isinstance(object_value.value, datetime.datetime):
-        return xv.XuleValue(xule_context, object_value.value.isoformat()(), 'string')
+        working_val =  object_value.value.isoformat()
     elif type(object_value.value) in (int, float):
-        return xv.XuleValue(xule_context, str(object_value.value), 'string')
+        working_val = str(object_value.value)
     else:
-        return xv.XuleValue(xule_context, object_value.format_value(), 'string')
+        working_val = object_value.format_value()
+
+    if _intermediate:
+        return working_val
+    else:
+        return xv.XuleValue(xule_context, json.dumps(working_val), 'string')
+
+# def _prep_for_xince_json(xule_context, xule_value):
+#     if xule_value.type in ('set', 'list'):
+#         children_string = []
+#         for item in xule_value.value:
+#             children_string.append(property_to_xince(xule_context, item))
+#         return f"[{','.join(children_string)}]"
+#     if xule_value.type == 'dictionary':
+#         pass
 
 def _prep_for_xince_json(xule_context, xule_value):
     if xule_value.type in ('set', 'list'):
         children_string = []
         for item in xule_value.value:
-            children_string.append(property_to_xince(xule_context, item))
-        return f"[{','.join(children_string)}]"
+            children_string.append(property_to_xince(xule_context, item, _intermediate=True).value)
+        return children_string
     if xule_value.type == 'dictionary':
-        pass
-
+        new_dict = dict()
+        for k, v in xule_value.value:
+            new_dict[property_to_xince(xule_context, k, _intermediate=True).value] = property_to_xince(xule_context, v, _intermediate=True).value
+        return new_dict
 
 def property_join(xule_context, object_value, *args):
     if object_value.type in ('list', 'set'):
