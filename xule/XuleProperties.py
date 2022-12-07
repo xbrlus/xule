@@ -211,7 +211,9 @@ def property_to_xince(xule_context, object_value, *args, _intermediate=False):
     # (sets, list or dictionaries) then there needs to be recursion. The value passed up should be a
     # python collection (list or dictionary) until the final value is sent to the original caller, which
     # will be a string.
+    basic = True
     if object_value.type == 'entity':
+        basic = False
         working_val =  (object_value.value[0].format_string, object_value.value[1].format_string)
     elif object_value.type == 'unit':
         working_val =  repr(object_value.value)
@@ -225,8 +227,10 @@ def property_to_xince(xule_context, object_value, *args, _intermediate=False):
     elif object_value.type == 'qname':
         working_val = object_value.value.clarkNotation
     elif object_value.type in ('set', 'list'):
+        basic = False
         working_val = tuple(property_to_xince(xule_context, x, _intermediate=True) for x in object_value.value)
     elif object_value.type == 'dictionary':
+        basic = False
         working_val = {property_to_xince(xule_context, k, _intermediate=True): property_to_xince(xule_context, v, _intermediate=True) for k, v in object_value.value}
     elif object_value.type in ('none', 'unbound'):
         working_val = '' # empty string for None
@@ -241,6 +245,8 @@ def property_to_xince(xule_context, object_value, *args, _intermediate=False):
 
     if _intermediate:
         return working_val
+    elif basic:
+        return xv.XuleValue(xule_context, working_val, 'string')
     else:
         return xv.XuleValue(xule_context, json.dumps(working_val), 'string')
 
