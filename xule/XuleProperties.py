@@ -213,8 +213,8 @@ def property_to_xince(xule_context, object_value, *args, _intermediate=False):
     # will be a string.
     basic = True
     if object_value.type == 'entity':
-        basic = False
-        working_val = (object_value.value[0], object_value.value[1])
+        #basic = False
+        working_val = f'["{object_value.value[0]}", "{object_value.value[1]}"]'
     elif object_value.type == 'unit':
         working_val =  repr(object_value.value)
     elif object_value.type == 'duration':
