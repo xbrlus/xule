@@ -15,6 +15,7 @@ import io
 import isodate
 import json
 import logging
+from lxml import etree as et
 import optparse
 import os
 import re
@@ -39,7 +40,7 @@ _FACT_OUTPUT_ATTRIBUTES = {'fact-value',
                            'fact-id',
                            'fact-footnote'
 }
-_INSTANCE_BASE_STRING = '''{
+_INSTANCE_BASE_JSON_STRING = '''{
     "documentInfo": {
         "documentType": "https://xbrl.org/2021/xbrl-json",
         "features": {
@@ -59,6 +60,14 @@ _INSTANCE_BASE_STRING = '''{
     "facts": {}
 }
 '''
+
+_INSTANCE_BASE_XML_STRING = '''<xbrli:xbrl
+  xmlns:xbrli="http://www.xbrl.org/2003/instance"
+  xmlns:xbrldi="http://xbrl.org/2006/xbrldi"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns:utr="http://www.xbrl.org/2009/utr"
+  xmlns:iso4217="http://www.xbrl.org/2003/iso4217"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>'''
 
 _TAXONOMY_MODEL_START = '''
     <xbrli:xbrl xmlns:xbrli="http://www.xbrl.org/2003/instance" 
@@ -348,6 +357,7 @@ def cmdLineOptionExtender(parser, *args, **kwargs):
 
     parserGroup.add_option("--xince-file-type",
                             action="store",
+                            choices=('json', 'xml'),
                             default="json",
                             help=_("type of output. values are 'json', 'xml'"))
 
@@ -444,12 +454,19 @@ def organize_instances_and_facts(log_capture, cntlr):
 
 def process_instance(instance_name, taxonomies, facts, cntlr, options):
 
-    instance = json.loads(_INSTANCE_BASE_STRING)
+    if options.xince_file_type == 'json':
+        process_json(instance_name, taxonomies, facts, cntlr, options)
+    else:
+        process_xml(instance_name, taxonomies, facts, cntlr, options)
+
+def process_json(instance_name, taxonomies, facts, cntlr, options):
+
+    instance = json.loads(_INSTANCE_BASE_JSON_STRING)
     # Create an Arelle model of the taxonomy. This is done by adding the taxonomies 
     # as schema refs and loading the file. The model is used to validate as facts are created
     # (i.e. the concept name is valid)
     taxonomy_model = get_taxonomy_model(instance_name, taxonomies, cntlr)
-    nsmap = get_initial_nsmap(instance, taxonomy_model)
+    nsmap = get_initial_nsmap(instance, taxonomy_model, instance['documentInfo']['namespaces'])
     # Always keep the 'xbrl' namespace
     nsmap.mark_namespace_as_used('https://xbrl.org/2021')
     # Add the schema refs
@@ -466,20 +483,50 @@ def process_instance(instance_name, taxonomies, facts, cntlr, options):
     #unused_prefixes =set(instance['namespaces'].keys()) - set(nsmap.map_by_prefix.keys())
     instance['documentInfo']['namespaces'] = nsmap.used_map_by_prefix
     
+    # Write the file
+    output_file_name = os.path.join(options.xince_location, f'{instance_name}.json')
+    with open(output_file_name, 'w') as f:
+        json.dump(instance, f, indent=2)
+    cntlr.addToLog(f"Writing instance file {output_file_name}", "XinceInfo")
+
+def process_xml(instance_name, taxonomies, facts, cntlr, options):
+
+    instance = et.fromstring(_INSTANCE_BASE_XML_STRING)
+    # Create an Arelle model of the taxonomy. This is done by adding the taxonomies 
+    # as schema refs and loading the file. The model is used to validate as facts are created
+    # (i.e. the concept name is valid)
+    taxonomy_model = get_taxonomy_model(instance_name, taxonomies, cntlr)
+    nsmap = get_initial_nsmap(instance, taxonomy_model, instance.nsmap)
+    # Add the schema refs
+    for taxonomy in taxonomies:
+        schema_ref = et.Element(f'{{{_XBRLI_NAMESPACE}}}schemaRef')
+        schema_ref.set(f'{{{nsmap.get_namespace("xlink")}}}href', taxonomy)
+        schema_ref.set(f'{{{nsmap.get_namespace("xlink")}}}type', 'simple')
+        instance.append(schema_ref)
+
+    # Add facts
+    for fact in facts:
+        add_fact(fact, instance, taxonomy_model, nsmap, cntlr)
+
+    # Clean up the namespaces
+    #nsmap.remove_unused_namespaces()
+    #unused_prefixes =set(instance['namespaces'].keys()) - set(nsmap.map_by_prefix.keys())
+    instance['documentInfo']['namespaces'] = nsmap.used_map_by_prefix
+    
+    #TODO - Add schema refs for role and arcroles that are used in the instance. 
     
     # Write the file
     output_file_name = os.path.join(options.xince_location, f'{instance_name}.json')
     with open(output_file_name, 'w') as f:
         json.dump(instance, f, indent=2)
     cntlr.addToLog(f"Writing instance file {output_file_name}", "XinceInfo")
-    
 
-def get_initial_nsmap(instance, taxonomy_model):
+def get_initial_nsmap(instance, taxonomy_model, namespaces):
     '''This will add namespaces and their prefixes'''
 
     # first add the namespaces in the instance. These are the basic ones
     nsmap = XinceNSMap()
-    for prefix, ns in instance['documentInfo']['namespaces'].items():
+    for prefix, ns in namespaces.items():
         nsmap.add_or_get_namespace(ns, prefix)
     # Then add namespaces defined in the the taxonomy
     for prefix, ns in taxonomy_model.prefixedNamespaces.items():
