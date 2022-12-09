@@ -752,7 +752,7 @@ def _calc_alignment(xule_context):
             if name_info[1] == 'entity':
                 #result['entity'] = f'[\"{value[0]}\", \"{value[1]}\"]'
                 #xule_value = xv.XuleValue(xule_context, (xv.XuleValue(xule_context, value[0], 'string'), xv.XuleValue(xule_context, value[1], 'string')), 'entity')
-                result[xv.XuleValue(xule_context, 'entity', 'string')] = xv.XuleValue(xule_context, (xv.XuleValue(xule_context, value[0], 'string'), xv.XuleValue(xule_context, value[1], 'string')), 'entity')
+                result[xv.XuleValue(xule_context, 'entity', 'string')] = xv.XuleValue(xule_context, (value[0], value[1]), 'entity') # a entity value is a tuple of the scheme and identifier
             elif name_info[1] == 'unit':
                 #result['unit'] = repr(value)
                 #xule_value = xv.XuleValue(xule_context, value, 'unit')
