@@ -26,6 +26,8 @@ import tempfile
 _xule_plugin_info = None
 
 _XBRLI_NAMESPACE = 'http://www.xbrl.org/2003/instance'
+_LINK_NAMESPACE = 'http://www.xbrl.org/2003/linkbase'
+_DIMENSION_NAMESPACE = 'http://xbrl.org/2006/xbrldi'
 _INSTANCE_OUTPUT_ATTRIBUTES = {'instance-name', 'instance-taxonomy'}
 _FACT_OUTPUT_ATTRIBUTES = {'fact-value', 
                            'fact-concept',
@@ -61,10 +63,12 @@ _INSTANCE_BASE_JSON_STRING = '''{
 }
 '''
 
-_INSTANCE_BASE_XML_STRING = '''<xbrli:xbrl
+_INSTANCE_BASE_XML_STRING = '''<!-- Created by Xince -->
+<xbrli:xbrl
   xmlns:xbrli="http://www.xbrl.org/2003/instance"
   xmlns:xbrldi="http://xbrl.org/2006/xbrldi"
   xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns:link="http://www.xbrl.org/2003/linkbase" 
   xmlns:utr="http://www.xbrl.org/2009/utr"
   xmlns:iso4217="http://www.xbrl.org/2003/iso4217"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>'''
@@ -141,6 +145,7 @@ class XinceException(Exception):
     pass
 
 class XinceNSMap:
+    # Note: This class will never allow default namespaces
     def __init__(self):
         self._map_by_ns = dict()
         self._map_by_prefix = dict()
@@ -206,10 +211,17 @@ class XinceQname:
 
     def prefix(self, nsmap, mark=False):
         '''nsmap is a dictionary of namespaces to prefixes'''
-        result = f'{nsmap.add_or_get_namespace(self.namespace)}'
+        result = nsmap.add_or_get_namespace(self.namespace)
         if mark:
             self.mark_as_used(nsmap)
         return result
+
+    def prefixed(self, nsmap, mark=False):
+        # Return a prefixed verison of the qname
+        prefix = nsmap.add_or_get_namespace(self.namespace)
+        if mark:
+            self.mark_as_used(nsmap)
+        return f'{prefix}:{self.local_name}'
 
     def serialize(self, nsmap, mark=False, format='json'):
         result = f'{self.prefix(nsmap, mark)}:{self.local_name}'
@@ -241,19 +253,48 @@ class XinceUnit:
     def is_pure(self):
         return self.denominators is None and len(self.numerators) == 1 and self.numerators[0].clark == '{http://www.xbrl.org/2003/instance}pure'
 
-    def serialize(self, nsmap, format='json'):
-        result = None
+    def serialize(self, nsmap, format='json', instance_name=None):
         if format == 'json':
-            result = '*'.join((x.serialize(nsmap, mark=True) for x in self.numerators))
-            if self.denominators is not None:
-                result += '/' + '*'.join((x.serialize(nsmap, mark=True)) for x in self.denominators)
+            result = None
+            if format == 'json':
+                result = '*'.join((x.serialize(nsmap, mark=True) for x in self.numerators))
+                if self.denominators is not None:
+                    result += '/' + '*'.join((x.serialize(nsmap, mark=True)) for x in self.denominators)
 
-        return result
+            return result
+        elif format == 'xml':
+            if instance_name is None:
+                raise XinceException(f'Serializing an XML unit requires an instance name')
+            unit_id = next(IDGenerator.get_id_generator(instance_name, self.numerators[0].local_name.lower()))
+            unit_node = et.Element(f'{{{_XBRLI_NAMESPACE}}}unit')
+            unit_node.set('id', unit_id)
+            if self.denominators is None:
+                for num in self.numerators:
+                    measure_node = et.Element(f'{{{_XBRLI_NAMESPACE}}}measure')
+                    measure_node.text = num.prefixed(nsmap, mark=True)
+                    unit_node.append(measure_node)
+            else: # there are denominators
+                if len(self.numerators) == 0:
+                    raise XinceException(f'Unit has no numerators')
+                if len(self.numerators) != 1:
+                    raise XinceException(f'Unit has more than one numerator and a denonminator. This cannot be serialized in XML')
+                divide_node = et.Element(f'{{{_XBRLI_NAMESPACE}}}divide')
+                unit_node.append(divide_node)
+                num_node = et.Element(f'{{{_XBRLI_NAMESPACE}}}measure')
+                num_node.text = self.numerators[0].prefixed(nsmap, mark=True)
+                divide_node.append(num_node)
+                den_node = et.Element(f'{{{_XBRLI_NAMESPACE}}}measure')
+                den_node.text = self.denominators[0].prefixed(nsmap, mark=True)
+                divide_node.append(den_node)
+            return unit_node
+        else:
+            raise XinceException(f'Trying to serialize a XinceUnit, but unknown format of "{format}" found')
 
     def __repr__(self):
-        result = '*'.join((x.clark for x in self.numerators))
+        result = '*'.join((x.clark for x in sorted(self.numerators)))
         if self.denominators is not None:
-            result += '/' + '*'.join((x.clark for x in self.denominators)) 
+            result += '/' + '*'.join((x.clark for x in sorted(self.denominators))) 
+        return result
 
 class XincePeriod:
     def __init__(self, start=None, end=None):
@@ -279,6 +320,14 @@ class XincePeriod:
     def is_forever(self):
         return self._start is None and self._end is None
     
+    @property
+    def start(self):
+        return self._start
+
+    @property
+    def end(self):
+        return self._end
+
     def serialize(self, format='json'):
         result = None
         if format == 'json':
@@ -295,28 +344,28 @@ class XincePeriod:
         return self.serialize()
 
 class IDGenerator:
-    _used_ids = set()
+    _used_ids = collections.defaultdict(set)
     _last_values = collections.defaultdict(int) # this will default the initial value to 0
     _generators = dict()
 
     @classmethod
-    def get_id_generator(cls, prefix='f'):
-        if prefix not in cls._generators:
+    def get_id_generator(cls, inst_name, prefix='f'):
+        if (inst_name, prefix) not in cls._generators:
             def id_generator():
                 while True:
-                    if cls._last_values[prefix] == 0:
+                    if cls._last_values[(inst_name, prefix)] == 0:
                         # The first time, the id will just be the prefix.
                         next_id = prefix
                     else:
-                        next_id =f'{prefix}{cls._last_values[prefix]}'
-                    if next_id not in cls._used_ids:
+                        next_id =f'{prefix}{cls._last_values[(inst_name, prefix)]}'
+                    if next_id not in cls._used_ids[inst_name]:
                         # make sure there isn't already an id created that is the same. This can happen if the prefix ends with a number. ie
-                        cls._used_ids.add(next_id)
+                        cls._used_ids[inst_name].add(next_id)
                         yield(next_id)
-                    cls._last_values[prefix] += 1
-            cls._generators[prefix] = id_generator()
+                    cls._last_values[(inst_name, prefix)] += 1
+            cls._generators[(inst_name, prefix)] = id_generator()
 
-        return cls._generators[prefix]
+        return cls._generators[(inst_name, prefix)]
 
 def getXulePlugin(cntlr):
     """Find the Xule plugin
@@ -440,12 +489,29 @@ def organize_instances_and_facts(log_capture, cntlr):
                 if 'fact-instance' not in fact_keys:
                     issues.append(f"A rule that creates a fact must have a 'fact-instance' output attribute. Error found in rule {rule_name}")
                 else:
-                    instance_facts[log_rec.args['fact-instance']].append({k: v for k, v in log_rec.args.items() if k in fact_keys} | {'message': log_rec.msg, 'rule-name': rule_name})# just take the fact output attributes
-
+                    fact_info = {k: v for k, v in log_rec.args.items() if k in fact_keys} | {'message': log_rec.msg, 'rule-name': rule_name}# just take the fact output attributes
+                    # Assign fact_id - this will prevent duplicate fact ids
+                    if 'fact-id' in log_rec.args:
+                        next_id = next(IDGenerator.get_id_generator(log_rec.args['fact-instance'], ''.join(log_rec.args['fact-id'].split())))
+                    else:
+                        next_id = next(IDGenerator.get_id_generator(log_rec.args['fact-instance']))
+                    fact_info['fact-id'] = next_id
+                    instance_facts[log_rec.args['fact-instance']].append(fact_info)
+                    
     # Check that there are not facts for an instance that was not created with an instance rule.
     fact_bad_instances = set(instance_facts.keys()) - set(instances.keys())
     for  bad_instance in fact_bad_instances:
         issues.append(f"There are {len(instance_facts[bad_instance])} facts in instance {bad_instance} but there is not a rule defining this instance")
+
+    # Check if a fact is related to another fact (as a fact footnote) that the other fact exists
+    for instance_name, facts in instance_facts.items():
+        fact_ids = {x['fact-id'] for x in facts}
+        for fact in facts:
+            if 'fact-footnote' in fact:
+                for footnote in json.loads(fact['fact-footnote']):
+                    if 'fact-id' in footnote:
+                        if footnote['fact-id'] not in fact_ids:
+                            issues.append(f"A fact is pointing to another fact (fact footnote) with ID {footnote['fact-id']} but the fact footnote does not existing in the {instance_name} instance")
 
     for message in issues:
         cntlr.addToLog(message, 'XinceError', level=logging.ERROR)
@@ -476,7 +542,9 @@ def process_json(instance_name, taxonomies, facts, cntlr, options):
 
     # Add facts
     for fact in facts:
-        add_fact(fact, instance, taxonomy_model, nsmap, cntlr)
+        is_valid, fact_value, concept, entity, period, unit, dimensions, decimals, language, footnotes = get_fact_data(fact, taxonomy_model, cntlr)
+        if is_valid:
+            create_json_fact(instance, instance_name, nsmap, cntlr, fact.get('rule-name'), fact.get('fact-id'), fact_value, concept, entity, period, unit, dimensions, decimals, language, footnotes)
 
     # Clean up the namespaces
     #nsmap.remove_unused_namespaces()
@@ -499,26 +567,39 @@ def process_xml(instance_name, taxonomies, facts, cntlr, options):
     nsmap = get_initial_nsmap(instance, taxonomy_model, instance.nsmap)
     # Add the schema refs
     for taxonomy in taxonomies:
-        schema_ref = et.Element(f'{{{_XBRLI_NAMESPACE}}}schemaRef')
+        schema_ref = et.Element(f'{{{_LINK_NAMESPACE}}}schemaRef')
         schema_ref.set(f'{{{nsmap.get_namespace("xlink")}}}href', taxonomy)
         schema_ref.set(f'{{{nsmap.get_namespace("xlink")}}}type', 'simple')
         instance.append(schema_ref)
 
+    contexts = dict()
+    units = dict()
     # Add facts
+    fact_nodes = []
     for fact in facts:
-        add_fact(fact, instance, taxonomy_model, nsmap, cntlr)
+        is_valid, fact_value, concept, entity, period, unit, dimensions, decimals, language, footnotes = get_fact_data(fact, taxonomy_model, cntlr)
+        if is_valid:
+            xml_fact = create_xml_fact(contexts, units, taxonomy_model, instance_name, nsmap, cntlr, fact.get('rule-name'), fact.get('fact-id'), fact_value, concept, entity, period, unit, dimensions, decimals, language, footnotes)
+            fact_nodes.append(xml_fact)
 
-    # Clean up the namespaces
-    #nsmap.remove_unused_namespaces()
-    #unused_prefixes =set(instance['namespaces'].keys()) - set(nsmap.map_by_prefix.keys())
-    instance['documentInfo']['namespaces'] = nsmap.used_map_by_prefix
-    
-    #TODO - Add schema refs for role and arcroles that are used in the instance. 
-    
+    # Add contexts
+    for context in contexts.values():
+        instance.append(context)
+    # Add units
+    for unit in units.values():
+        instance.append(unit)    
+    # Attach facts
+    for fact in fact_nodes:
+        instance.append(fact)
+
+    # #TODO - Add schema refs for role and arcroles that are used in the instance. 
+    # Clean up namespaces
+    et.cleanup_namespaces(instance, top_nsmap=nsmap.used_map_by_prefix, keep_ns_prefixes=nsmap.used_map_by_prefix)
     # Write the file
-    output_file_name = os.path.join(options.xince_location, f'{instance_name}.json')
-    with open(output_file_name, 'w') as f:
-        json.dump(instance, f, indent=2)
+    output_file_name = os.path.join(options.xince_location, f'{instance_name}.xml')
+    with open(output_file_name, 'wb') as f:
+        tree = et.ElementTree(instance)
+        tree.write(f, encoding="utf-8", pretty_print=True, xml_declaration=True)
     cntlr.addToLog(f"Writing instance file {output_file_name}", "XinceInfo")
 
 def get_initial_nsmap(instance, taxonomy_model, namespaces):
@@ -561,14 +642,13 @@ def get_taxonomy_model(tax_name, taxonomies, cntlr):
 
     return tax_model
 
-def add_fact(fact_info, instance, taxonomy, nsmap, cntlr):
+def get_fact_data(fact_info, taxonomy, cntlr):
     errors = False
     # default aspects are from fact-alignment
     dimensions = dict()
     merged_info = dict()
     alignment_string = fact_info.get('fact-alignment', '{}')
     try:
-
         alignment_info = json.loads(alignment_string)
         # Fix the keys. Alignment uses 'concept' but the key should be 'fact-concept'to match the Xince output attribute
         for info_item, info_value in alignment_info.items():
@@ -588,45 +668,42 @@ def add_fact(fact_info, instance, taxonomy, nsmap, cntlr):
         if k != 'fact-alignment':
             merged_info[k] = v
 
-    is_valid, fact_value, concept, entity, period, unit, dimensions, decimals, language, footnotes = verify_fact(merged_info, taxonomy, cntlr)
+    return verify_fact(merged_info, taxonomy, cntlr)
 
-    if is_valid and not errors:
-        fact_dict = dict()
-        # TODO if the value is qname, then need to mark in the nsmap
-        fact_dict['value'] = fact_value
-        if concept.isNumeric and decimals != 'infinity' and fact_value is not None:
-            fact_dict['decimals'] = decimals
-        fact_dict['dimensions'] = dict()
-        concept_qname = XinceQname(concept.qname.namespaceURI, concept.qname.localName)
-        fact_dict['dimensions']['concept'] = concept_qname.serialize(nsmap, mark=True)
-        if language is not None:
-            fact_dict['dimensions']['language'] = language
-        # entities are treated like qnames even though they are clearly not
-        entity_qname = XinceQname(entity.scheme, entity.identifier)
-        fact_dict['dimensions']['entity'] = entity_qname.serialize(nsmap, mark=True)
-        fact_dict['dimensions']['period'] = period.serialize()
-        if concept.isNumeric and not unit.is_pure:
-            fact_dict['dimensions']['unit'] = unit.serialize(nsmap)
-        if dimensions is not None and len(dimensions) > 0:
-            for dim, mem in dimensions.items():
-                # dim is a concept
-                dim_qname = XinceQname(dim.qname.namespaceURI, dim.qname.localName)
-                if dim.isExplicitDimension:
-                    mem_qname = XinceQname(mem.qname.namespaceURI, mem.qname.localName)
-                    fact_dict['dimensions'][dim_qname.serialize(nsmap, mark=True)] = mem_qname.serialize(nsmap, mark=True)
-                else: # typed dimension
-                    fact_dict['dimensions'][dim_qname.serialize(nsmap, mark=True)] = mem
-        if 'fact-id' in fact_info:
-            next_id = next(IDGenerator.get_id_generator(''.join(fact_info['fact-id'].split())))
-        else:
-            next_id = next(IDGenerator.get_id_generator())
-        
-        if footnotes is not None:
-            process_footnotes(fact_dict, instance, footnotes, fact_info['rule-name'], cntlr)
+def create_json_fact(instance, instance_name, nsmap, cntlr, rule_name, fact_id, fact_value, concept, entity, period, unit, dimensions, decimals, language, footnotes):
 
-        instance['facts'][next_id] = fact_dict
+    fact_dict = dict()
+    # TODO if the value is qname, then need to mark in the nsmap
+    fact_dict['value'] = fact_value
+    if concept.isNumeric and decimals != 'infinity' and fact_value is not None:
+        fact_dict['decimals'] = decimals
+    fact_dict['dimensions'] = dict()
+    concept_qname = XinceQname(concept.qname.namespaceURI, concept.qname.localName)
+    fact_dict['dimensions']['concept'] = concept_qname.serialize(nsmap, mark=True)
+    if language is not None:
+        fact_dict['dimensions']['language'] = language
+    # entities are treated like qnames even though they are clearly not
+    entity_qname = XinceQname(entity.scheme, entity.identifier)
+    fact_dict['dimensions']['entity'] = entity_qname.serialize(nsmap, mark=True)
+    fact_dict['dimensions']['period'] = period.serialize()
+    if concept.isNumeric and not unit.is_pure:
+        fact_dict['dimensions']['unit'] = unit.serialize(nsmap)
+    if dimensions is not None and len(dimensions) > 0:
+        for dim, mem in dimensions.items():
+            # dim is a concept
+            dim_qname = XinceQname(dim.qname.namespaceURI, dim.qname.localName)
+            if dim.isExplicitDimension:
+                mem_qname = XinceQname(mem.qname.namespaceURI, mem.qname.localName)
+                fact_dict['dimensions'][dim_qname.serialize(nsmap, mark=True)] = mem_qname.serialize(nsmap, mark=True)
+            else: # typed dimension
+                fact_dict['dimensions'][dim_qname.serialize(nsmap, mark=True)] = mem
+    
+    if footnotes is not None:
+        process_json_footnotes(fact_dict, instance, instance_name, footnotes, rule_name, cntlr)
 
-def process_footnotes(fact_dict, instance, footnotes, rule_name, cntlr):
+    instance['facts'][fact_id] = fact_dict
+
+def process_json_footnotes(fact_dict, instance, instance_name, footnotes, rule_name, cntlr):
     if isinstance(footnotes, dict):
         footnotes = [footnotes,]
     
@@ -646,7 +723,7 @@ def process_footnotes(fact_dict, instance, footnotes, rule_name, cntlr):
                 continue
 
             # create the footnote pseudo fact
-            footnote_id = next(IDGenerator.get_id_generator('fn'))
+            footnote_id = next(IDGenerator.get_id_generator(instance_name, 'fn'))
             footnote_node = {'value': footnote['content'],
                              'dimensions': {
                                 'concept': 'xbrl:note',
@@ -660,7 +737,7 @@ def process_footnotes(fact_dict, instance, footnotes, rule_name, cntlr):
         if 'links' not in fact_dict:
             fact_dict['links'] = dict()
 
-        alias = get_alias(instance, 'linkTypes', footnote['arcrole'])
+        alias = get_alias(instance,instance_name, 'linkTypes', footnote['arcrole'])
         if alias not in fact_dict['links']:
             fact_dict['links'][alias] = dict()
         if _STANDARD_ROLE_ALIAS not in fact_dict['links'][alias]:
@@ -668,26 +745,147 @@ def process_footnotes(fact_dict, instance, footnotes, rule_name, cntlr):
 
         fact_dict['links'][alias][_STANDARD_ROLE_ALIAS].append(footnote_id)
 
+def create_xml_fact(contexts, units, taxonomy, instance_name, nsmap, cntlr, rule_name, fact_id, fact_value, concept, entity, period, unit, dimensions, decimals, language, footnotes):
+
+    concept_qname = XinceQname(concept.qname.namespaceURI, concept.qname.localName)
+    concept_qname.mark_as_used(nsmap)
+    fact = et.Element(concept_qname.clark)
+    fact.text = fact_value
+    # TODO if fact_value is a qname, need to make sure the nsmap has the namespace
+    fact.set('id', fact_id)
+    if decimals is not None:
+        if decimals == 'infinity':
+            fact.set('decimals', 'INF')
+        else:
+            fact.set('decimals', str(decimals))
+    if language is not None:
+        fact.set('xmlns:lang', language)
+
+    context_id = get_context(instance_name, contexts, taxonomy, nsmap, entity, period, dimensions)
+    fact.set('contextRef', context_id)
+    if unit is not None:
+        unit_id = get_xml_unit(instance_name, units, nsmap, unit)
+        fact.set('unitRef', unit_id)
+    
+    return fact
+
+    # fact_dict = dict()
+    # # TODO if the value is qname, then need to mark in the nsmap
+    # fact_dict['value'] = fact_value
+    # if concept.isNumeric and decimals != 'infinity' and fact_value is not None:
+    #     fact_dict['decimals'] = decimals
+    # fact_dict['dimensions'] = dict()
+    # concept_qname = XinceQname(concept.qname.namespaceURI, concept.qname.localName)
+    # fact_dict['dimensions']['concept'] = concept_qname.serialize(nsmap, mark=True)
+    # if language is not None:
+    #     fact_dict['dimensions']['language'] = language
+    # # entities are treated like qnames even though they are clearly not
+    # entity_qname = XinceQname(entity.scheme, entity.identifier)
+    # fact_dict['dimensions']['entity'] = entity_qname.serialize(nsmap, mark=True)
+    # fact_dict['dimensions']['period'] = period.serialize()
+    # if concept.isNumeric and not unit.is_pure:
+    #     fact_dict['dimensions']['unit'] = unit.serialize(nsmap)
+    # if dimensions is not None and len(dimensions) > 0:
+    #     for dim, mem in dimensions.items():
+    #         # dim is a concept
+    #         dim_qname = XinceQname(dim.qname.namespaceURI, dim.qname.localName)
+    #         if dim.isExplicitDimension:
+    #             mem_qname = XinceQname(mem.qname.namespaceURI, mem.qname.localName)
+    #             fact_dict['dimensions'][dim_qname.serialize(nsmap, mark=True)] = mem_qname.serialize(nsmap, mark=True)
+    #         else: # typed dimension
+    #             fact_dict['dimensions'][dim_qname.serialize(nsmap, mark=True)] = mem
+    
+    # if footnotes is not None:
+    #     process_json_footnotes(fact_dict, instance, instance_name, footnotes, rule_name, cntlr)
+
+    # instance['facts'][fact_id] = fact_dict
+
+def get_context(instance_name, contexts, taxonomy, nsmap, entity, period, dimensions):
+    hash = context_hash(entity, period, dimensions)
+    if hash not in contexts:
+        # Create the context
+        context_id = next(IDGenerator.get_id_generator(instance_name, 'c'))
+        context_node = et.Element(f'{{{_XBRLI_NAMESPACE}}}context')
+        context_node.set('id', context_id)
+        # Entity
+        entity_node = et.Element(f'{{{_XBRLI_NAMESPACE}}}entity')
+        ident_node = et.Element(f'{{{_XBRLI_NAMESPACE}}}identifier')
+        ident_node.set('scheme', entity.scheme)
+        ident_node.text = entity.identifier
+        entity_node.append(ident_node)
+        context_node.append(entity_node)
+        # Period
+        period_node = et.Element(f'{{{_XBRLI_NAMESPACE}}}period')
+        if period.is_forever:
+            forever_node = et.Element(f'{{{_XBRLI_NAMESPACE}}}forever')
+            period_node.append(forever_node)
+        elif period.is_instance:
+            instant_node = et.Element(f'{{{_XBRLI_NAMESPACE}}}instant')
+            period_node.append(instant_node)
+            if period.start.hour + period.start.minute + period.start.second + period.start.microsecond == 0:
+                # the time is midnight the end of day
+                instant_node.text = (period.start + datetime.timedelta(days=1)).date().isoformat()
+            else:
+                instant_node.text = period.start.isoformat()
+        else: # duration
+            start_node = et.Element(f'{{{_XBRLI_NAMESPACE}}}startDate')
+            if period.start.hour + period.start.minute + period.start.second + period.start.microsecond == 0:
+                start_node.text = period.start.date().isoformat()
+            else:
+                start_node.text = period.start.isoformat()
+            period_node.append(start_node)
+        
+            end_node = et.Element(f'{{{_XBRLI_NAMESPACE}}}endDate')
+            if period.end.hour + period.end.minute + period.end.second + period.end.microsecond == 0:
+                end_node.text = (period.end + datetime.timedelta(days=1)).date().isoformat()
+            else:
+                end_node.text = period.end.isoformat()
+            period_node.append(end_node)
+        context_node.append(period_node)
+        # Dimensions
+        if dimensions is not None and len(dimensions) > 0:
+            # create segment to contain the dimensions
+            segment_node = et.Element(f'{{{_XBRLI_NAMESPACE}}}segment')
+            entity_node.append(segment_node)
+            for dim, mem in dimensions.items():
+                # dim is a concept
+                dim_qname = XinceQname(dim.qname.namespaceURI, dim.qname.localName)
+                if dim.isExplicitDimension:
+                    dim_node = et.Element(f'{{{_DIMENSION_NAMESPACE}}}explicitMember')
+                    segment_node.append(dim_node)
+                    dim_node.set('dimension', dim_qname.prefixed(nsmap, mark=True))
+                    mem_qname = XinceQname(mem.qname.namespaceURI, mem.qname.localName)
+                    dim_node.text = mem_qname.prefixed(nsmap, mark=True)
+                else: # typed dimension
+                    dim_node = et.Element(f'{{{_DIMENSION_NAMESPACE}}}typedMember')
+                    segment_node.append(dim_node)
+                    dim_node.set('dimension', dim_qname.prefixed(nsmap, mark=True))
+                    # Need to get the typed domain
+                    dim_concept = get_concept(dim_qname.clark, taxonomy)
+                    typed_qname = XinceQname(dim_concept.typedDomainElement.qname.namespaceUri, dim_concept.typedDomainElement.qname.localName)
+                    typed_qname.mark_as_used(nsmap)
+                    typed_domain_node = et.Element(typed_qname.clark)
+                    dim_node.append(typed_domain_node)
+                    typed_domain_node.text = mem
             
+        contexts[hash] = context_node
+    
+    return contexts[hash].get('id')
 
-                
-    '''
-        "links": {
-      "footnote": {
-        "_": [ "f123", "f456" ]
-       }
-    }
-  },
-  "f123": {
-    "value": "This is an <b>important</b> footnote",
-    "dimensions": {
-      "concept": "xbrl:note",
-      "noteId": "f123",
-      "language": "en"
-    },
-    '''
+def context_hash(entity, period, dimensions):
+    dims = []
+    if dimensions is not None:
+        for dim, mem in dimensions.items():
+            dims.append( (dim.qname.clarkNotation, mem.qname.clarkNotation if dim.isExplicitDimension else mem) )
 
-def get_alias(instance, alias_type, link_value):
+    return hash( (entity.scheme, entity.identifier, repr(period), tuple(dims)) )
+
+def get_xml_unit(instance_name, units, nsmap, unit):
+    if repr(unit) not in units:
+        units[repr(unit)] = unit.serialize(nsmap, 'xml', instance_name)
+    return units[repr(unit)].get('id')
+
+def get_alias(instance, instance_name, alias_type, link_value):
     # if a standard shortcut is used. I.e just 'foootnote'
     link_value = _LINK_ALIASES_BY_ALIAS.get(link_value.lower(), link_value)
     # See if the alias and role are already in the document
@@ -698,7 +896,7 @@ def get_alias(instance, alias_type, link_value):
     else:
         instance['documentInfo'][alias_type] = dict()
     # if here, then there was not an existing arcrole
-    alias = _LINK_ALIASES_BY_URI.get(link_value, next(IDGenerator.get_id_generator(link_value.rsplit('/', 1)[-1])))
+    alias = _LINK_ALIASES_BY_URI.get(link_value, next(IDGenerator.get_id_generator(instance_name, link_value.rsplit('/', 1)[-1])))
     instance['documentInfo'][alias_type][alias] = link_value
 
     return alias
