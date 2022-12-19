@@ -658,7 +658,7 @@ def func_xml_data_flat(xule_context, *args):
     
     mapped_file_url = PackageManager.mappedUrl(file_url.value)
     try:
-        xml = et.parse(FileSource.openFileStream(xule_context.global_context.cntlr, mapped_file_url))
+        xml = et.parse(FileSource.openFileStream(xule_context.global_context.cntlr, file_url.value))
     except IOError:
         raise XuleProcessingError(_(f"Cannot find file {file_url.value} for function xml-data-flat()"), xule_context)
     except:
