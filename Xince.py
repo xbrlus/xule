@@ -27,6 +27,10 @@ _xule_plugin_info = None
 
 _XBRLI_NAMESPACE = 'http://www.xbrl.org/2003/instance'
 _LINK_NAMESPACE = 'http://www.xbrl.org/2003/linkbase'
+_XLINK_NAMESPACE = 'http://www.w3.org/1999/xlink'
+_LINKROLE_REGISTRY_URI = 'http://www.xbrl.org/lrr/lrr.xml'
+_LINKROLE_REGISTRY = None
+_LINKROLE_REGISTRY_NAMESPACE = 'http://www.xbrl.org/2005/lrr'
 _DIMENSION_NAMESPACE = 'http://xbrl.org/2006/xbrldi'
 _INSTANCE_OUTPUT_ATTRIBUTES = {'instance-name', 'instance-taxonomy'}
 _FACT_OUTPUT_ATTRIBUTES = {'fact-value', 
@@ -431,7 +435,8 @@ def cmdLineXbrlLoaded(cntlr, options, modelXbrl, *args, **kwargs):
         create_instance(cntlr, options, modelXbrl)
 
 def create_instance(cntlr, options, modelXbrl):
-
+    import platform
+    print(platform.python_version())
     # Run Xule rules
     log_capture = run_xule(cntlr, options, modelXbrl)
 
@@ -449,7 +454,8 @@ def organize_instances_and_facts(log_capture, cntlr):
     belong to that instance'''
     instances = collections.defaultdict(list)
     instance_facts = collections.defaultdict(list)
-
+    footnotes = collections.defaultdict(dict) # dictionary of footnotes by instance
+    fact_footnotes = collections.defaultdict(dict) # 
     issues = []
 
     for rule_name, log_recs in log_capture.items():
@@ -497,6 +503,22 @@ def organize_instances_and_facts(log_capture, cntlr):
                         next_id = next(IDGenerator.get_id_generator(log_rec.args['fact-instance']))
                     fact_info['fact-id'] = next_id
                     instance_facts[log_rec.args['fact-instance']].append(fact_info)
+
+                    # organize footnotes
+                    if 'fact-footnote' in fact_keys:
+                        footnotes = json.loads(log_rec.args['fact-footnote'])
+                        if not isinstance(footnotes, list):
+                            issues.append(f'The fact-footnote must be a list, found "{type(footnote).__name__}". Error found in rule {rule_name}')
+                        # else:
+                        #     for footnote in footnotes:
+                        #         # a footnote is a dictionary
+                        #         if not isinstance(footnote, dict):
+                        #             issues.append(f'The footnote in a fact-footnote must be a dictionary, found "{type(footnote).__name__}". Error found in rule { rule_name}')
+                        #             continue
+                        #         if 'content' in footnote:
+                        #             footnote_id = next(IDGenerator.get_id_generator(log_rec.args['fact-instance'], 'fn'))
+                        #             footnotes[log_rec.args['fact-instance']][footnote_id] = footnote
+
                     
     # Check that there are not facts for an instance that was not created with an instance rule.
     fact_bad_instances = set(instance_facts.keys()) - set(instances.keys())
@@ -520,12 +542,68 @@ def organize_instances_and_facts(log_capture, cntlr):
 
 def process_instance(instance_name, taxonomies, facts, cntlr, options):
 
-    if options.xince_file_type == 'json':
-        process_json(instance_name, taxonomies, facts, cntlr, options)
-    else:
-        process_xml(instance_name, taxonomies, facts, cntlr, options)
+    used_footnotes, fact_footnotes = organize_footnotes(instance_name, facts, cntlr)
 
-def process_json(instance_name, taxonomies, facts, cntlr, options):
+    if options.xince_file_type == 'json':
+        process_json(instance_name, taxonomies, facts, used_footnotes, fact_footnotes, cntlr, options)
+    else:
+        process_xml(instance_name, taxonomies, facts, used_footnotes, fact_footnotes, cntlr, options)
+
+def organize_footnotes(instance_name, facts, cntlr):
+    '''This fucntion dedups the footnotes and assigns footnote ids'''
+    used_footnotes = dict()
+    fact_footnotes = collections.defaultdict(list)
+
+    for fact in facts:
+        if 'fact-footnote' in fact:
+            footnotes = json.loads(fact['fact-footnote'])
+            if not isinstance(footnotes, list) and not (isinstance(footnotes, dict)):
+                cntlr.addToLog(f"fact-footnote is not in the right format. Found in rule {fact['ruile-name']}", "XinceError", level=logging.ERROR)
+                continue
+            if isinstance(footnotes, dict):
+                footnotes = (footnotes,)
+            for footnote in footnotes:
+                if not isinstance(footnote, dict):
+                    cntlr.addToLog(f"footnotd of a fact-footnote is not in the right format. Found in rule {fact['ruile-name']}", "XinceError", level=logging.ERROR)
+                    continue
+                
+                hash = footnote_hash(footnote, fact['rule-name'], cntlr)
+                if hash is None:
+                    continue
+                fact_footnotes[fact['fact-id']].append(hash)
+                if hash not in used_footnotes:
+                    footnote_id = next(IDGenerator.get_id_generator(instance_name, 'fn'))
+                    footnote['id'] = footnote_id
+                    used_footnotes[hash] = footnote
+    return used_footnotes, fact_footnotes
+          
+def footnote_hash(footnote, rule_name, cntlr):
+    ''''
+    lang
+    arcrole
+    content
+    fact-id'''
+
+    if 'content' not in footnote and 'fact-id' not in footnote:
+        cntlr.addToLog(f"footnote does not contain content or a reference to another fact. Found in rule {rule_name}", "XinceError", level=logging.ERROR)
+        return None
+    if 'content'in footnote and 'lang' not in footnote:
+        cntlr.addToLog(f"Footnote with content requires a language. Found in rule {rule_name}", "XinceError", level=logging.ERROR)
+        return None
+    if 'arcrole' not in footnote:
+        cntlr.addToLog(f"Footnote requires and arcrole. Found in rule {rule_name}", "XinceError", level=logging.ERROR)
+        return None
+    if 'content' in footnote and 'fact-id' in footnote:
+        cntlr.addToLog(f"Footnote can eihter have content or a fact-id (reference to anther fact) but not both. Found in rule {rule_name}", "XinceError", level=logging.ERROR)
+        return None
+    
+    arcrole = _LINK_ALIASES_BY_ALIAS.get(footnote['arcrole'], footnote['arcrole'])
+
+    hash_dict = copy.copy(footnote)
+    hash_dict['arcrole'] = arcrole
+    return hash(frozenset(hash_dict.items()))
+
+def process_json(instance_name, taxonomies, facts, used_footnotes, fact_footnotes, cntlr, options):
 
     instance = json.loads(_INSTANCE_BASE_JSON_STRING)
     # Create an Arelle model of the taxonomy. This is done by adding the taxonomies 
@@ -542,9 +620,23 @@ def process_json(instance_name, taxonomies, facts, cntlr, options):
 
     # Add facts
     for fact in facts:
-        is_valid, fact_value, concept, entity, period, unit, dimensions, decimals, language, footnotes = get_fact_data(fact, taxonomy_model, cntlr)
+        is_valid, fact_value, concept, entity, period, unit, dimensions, decimals, language = get_fact_data(fact, taxonomy_model, cntlr)
         if is_valid:
+            footnotes = (used_footnotes[h] for h in fact_footnotes[fact['fact-id']])
             create_json_fact(instance, instance_name, nsmap, cntlr, fact.get('rule-name'), fact.get('fact-id'), fact_value, concept, entity, period, unit, dimensions, decimals, language, footnotes)
+
+    # Add footnotes
+    for footnote in used_footnotes.values():
+        # create the footnote pseudo fact
+        if 'content' in footnote:
+            footnote_id = footnote['id']
+            footnote_node = {'value': footnote['content'],
+                                'dimensions': {
+                                'concept': 'xbrl:note',
+                                'noteId': footnote_id,
+                                'language': footnote['lang']
+                                }}
+            instance['facts'][footnote_id] = footnote_node
 
     # Clean up the namespaces
     #nsmap.remove_unused_namespaces()
@@ -557,7 +649,7 @@ def process_json(instance_name, taxonomies, facts, cntlr, options):
         json.dump(instance, f, indent=2)
     cntlr.addToLog(f"Writing instance file {output_file_name}", "XinceInfo")
 
-def process_xml(instance_name, taxonomies, facts, cntlr, options):
+def process_xml(instance_name, taxonomies, facts, used_footnotes, fact_footnotes, cntlr, options):
 
     instance = et.fromstring(_INSTANCE_BASE_XML_STRING)
     # Create an Arelle model of the taxonomy. This is done by adding the taxonomies 
@@ -574,14 +666,17 @@ def process_xml(instance_name, taxonomies, facts, cntlr, options):
 
     contexts = dict()
     units = dict()
+    footnote_rels = []
     # Add facts
     fact_nodes = []
     for fact in facts:
-        is_valid, fact_value, concept, entity, period, unit, dimensions, decimals, language, footnotes = get_fact_data(fact, taxonomy_model, cntlr)
+        is_valid, fact_value, concept, entity, period, unit, dimensions, decimals, language = get_fact_data(fact, taxonomy_model, cntlr)
         if is_valid:
-            xml_fact = create_xml_fact(contexts, units, taxonomy_model, instance_name, nsmap, cntlr, fact.get('rule-name'), fact.get('fact-id'), fact_value, concept, entity, period, unit, dimensions, decimals, language, footnotes)
+            xml_fact = create_xml_fact(contexts, units, taxonomy_model, instance_name, nsmap, cntlr, fact.get('rule-name'), fact.get('fact-id'), fact_value, concept, entity, period, unit, dimensions, decimals, language)
             fact_nodes.append(xml_fact)
-
+    
+    # add arcrole refs for footnotes
+    add_arcrole_refs(instance, used_footnotes.values(), taxonomy_model, cntlr)
     # Add contexts
     for context in contexts.values():
         instance.append(context)
@@ -591,7 +686,9 @@ def process_xml(instance_name, taxonomies, facts, cntlr, options):
     # Attach facts
     for fact in fact_nodes:
         instance.append(fact)
-
+    # Add footnotes
+    add_xml_footnotes(instance_name, instance, fact_footnotes, used_footnotes, cntlr)
+    
     # #TODO - Add schema refs for role and arcroles that are used in the instance. 
     # Clean up namespaces
     et.cleanup_namespaces(instance, top_nsmap=nsmap.used_map_by_prefix, keep_ns_prefixes=nsmap.used_map_by_prefix)
@@ -699,38 +796,18 @@ def create_json_fact(instance, instance_name, nsmap, cntlr, rule_name, fact_id, 
                 fact_dict['dimensions'][dim_qname.serialize(nsmap, mark=True)] = mem
     
     if footnotes is not None:
-        process_json_footnotes(fact_dict, instance, instance_name, footnotes, rule_name, cntlr)
+        process_json_footnotes(fact_dict, instance, instance_name, footnotes)
 
     instance['facts'][fact_id] = fact_dict
 
-def process_json_footnotes(fact_dict, instance, instance_name, footnotes, rule_name, cntlr):
+def process_json_footnotes(fact_dict, instance, instance_name, footnotes):
     if isinstance(footnotes, dict):
         footnotes = [footnotes,]
     
     for footnote in footnotes:
-        if not isinstance(footnote, dict):
-            cntlr.addToLog(f"Footnote must be a dictionary, found {type(footnote).__name__}. Found in rule {rule_name}", "XinceError", level=logging.ERROR)
-            continue
-        if 'arcrole' not in footnote:
-            cntlr.addToLog(f"Footnote requires an arcrole. Found in {rule_name}", "XinceError", level=logging.ERROR)
-            continue
-        if 'content' in footnote and 'fact-id' in footnote:
-            cntlr.addToLog(f"Footnote cannot have both 'content' and 'fact-id'. Found in rule {rule_name}", "XinceError", level=logging.ERROR)
-            continue
+ 
         if 'content' in footnote:
-            if 'lang' not in footnote:
-                cntlr.addToLog(f"Footnote with text content must also have a 'lang'. Found in rule {rule_name}", "XinceError", level=logging.ERROR)
-                continue
-
-            # create the footnote pseudo fact
-            footnote_id = next(IDGenerator.get_id_generator(instance_name, 'fn'))
-            footnote_node = {'value': footnote['content'],
-                             'dimensions': {
-                                'concept': 'xbrl:note',
-                                'noteId': footnote_id,
-                                'language': footnote['lang']
-                                }}
-            instance['facts'][footnote_id] = footnote_node
+            footnote_id = footnote['id']
         elif 'fact-id' in footnote:
             footnote_id = footnote['fact-id']
         # Add the link to the fact
@@ -745,21 +822,25 @@ def process_json_footnotes(fact_dict, instance, instance_name, footnotes, rule_n
 
         fact_dict['links'][alias][_STANDARD_ROLE_ALIAS].append(footnote_id)
 
-def create_xml_fact(contexts, units, taxonomy, instance_name, nsmap, cntlr, rule_name, fact_id, fact_value, concept, entity, period, unit, dimensions, decimals, language, footnotes):
+def create_xml_fact(contexts, units, taxonomy, instance_name, nsmap, cntlr, rule_name, fact_id, fact_value, concept, entity, period, unit, dimensions, decimals, language):
 
     concept_qname = XinceQname(concept.qname.namespaceURI, concept.qname.localName)
     concept_qname.mark_as_used(nsmap)
     fact = et.Element(concept_qname.clark)
-    fact.text = fact_value
     # TODO if fact_value is a qname, need to make sure the nsmap has the namespace
     fact.set('id', fact_id)
-    if decimals is not None:
-        if decimals == 'infinity':
-            fact.set('decimals', 'INF')
-        else:
-            fact.set('decimals', str(decimals))
-    if language is not None:
-        fact.set('xmlns:lang', language)
+    if fact_value is None or fact_value == '':
+        fact.set(f'{{http://www.w3.org/2001/XMLSchema-instance}}nil', 'true')
+    else:
+        fact.text = fact_value
+    
+        if decimals is not None:
+            if decimals == 'infinity':
+                fact.set('decimals', 'INF')
+            else:
+                fact.set('decimals', str(decimals))
+        if language is not None:
+            fact.set('xmlns:lang', language)
 
     context_id = get_context(instance_name, contexts, taxonomy, nsmap, entity, period, dimensions)
     fact.set('contextRef', context_id)
@@ -768,37 +849,6 @@ def create_xml_fact(contexts, units, taxonomy, instance_name, nsmap, cntlr, rule
         fact.set('unitRef', unit_id)
     
     return fact
-
-    # fact_dict = dict()
-    # # TODO if the value is qname, then need to mark in the nsmap
-    # fact_dict['value'] = fact_value
-    # if concept.isNumeric and decimals != 'infinity' and fact_value is not None:
-    #     fact_dict['decimals'] = decimals
-    # fact_dict['dimensions'] = dict()
-    # concept_qname = XinceQname(concept.qname.namespaceURI, concept.qname.localName)
-    # fact_dict['dimensions']['concept'] = concept_qname.serialize(nsmap, mark=True)
-    # if language is not None:
-    #     fact_dict['dimensions']['language'] = language
-    # # entities are treated like qnames even though they are clearly not
-    # entity_qname = XinceQname(entity.scheme, entity.identifier)
-    # fact_dict['dimensions']['entity'] = entity_qname.serialize(nsmap, mark=True)
-    # fact_dict['dimensions']['period'] = period.serialize()
-    # if concept.isNumeric and not unit.is_pure:
-    #     fact_dict['dimensions']['unit'] = unit.serialize(nsmap)
-    # if dimensions is not None and len(dimensions) > 0:
-    #     for dim, mem in dimensions.items():
-    #         # dim is a concept
-    #         dim_qname = XinceQname(dim.qname.namespaceURI, dim.qname.localName)
-    #         if dim.isExplicitDimension:
-    #             mem_qname = XinceQname(mem.qname.namespaceURI, mem.qname.localName)
-    #             fact_dict['dimensions'][dim_qname.serialize(nsmap, mark=True)] = mem_qname.serialize(nsmap, mark=True)
-    #         else: # typed dimension
-    #             fact_dict['dimensions'][dim_qname.serialize(nsmap, mark=True)] = mem
-    
-    # if footnotes is not None:
-    #     process_json_footnotes(fact_dict, instance, instance_name, footnotes, rule_name, cntlr)
-
-    # instance['facts'][fact_id] = fact_dict
 
 def get_context(instance_name, contexts, taxonomy, nsmap, entity, period, dimensions):
     hash = context_hash(entity, period, dimensions)
@@ -862,7 +912,7 @@ def get_context(instance_name, contexts, taxonomy, nsmap, entity, period, dimens
                     dim_node.set('dimension', dim_qname.prefixed(nsmap, mark=True))
                     # Need to get the typed domain
                     dim_concept = get_concept(dim_qname.clark, taxonomy)
-                    typed_qname = XinceQname(dim_concept.typedDomainElement.qname.namespaceUri, dim_concept.typedDomainElement.qname.localName)
+                    typed_qname = XinceQname(dim_concept.typedDomainElement.qname.namespaceURI, dim_concept.typedDomainElement.qname.localName)
                     typed_qname.mark_as_used(nsmap)
                     typed_domain_node = et.Element(typed_qname.clark)
                     dim_node.append(typed_domain_node)
@@ -884,6 +934,87 @@ def get_xml_unit(instance_name, units, nsmap, unit):
     if repr(unit) not in units:
         units[repr(unit)] = unit.serialize(nsmap, 'xml', instance_name)
     return units[repr(unit)].get('id')
+
+def add_arcrole_refs(instance, footnotes, taxonomy, cntlr):
+    for footnote in footnotes:
+         arcroles = {_LINK_ALIASES_BY_ALIAS.get(footnote['arcrole'], footnote['arcrole']) for x in footnotes}
+         for arcrole in arcroles:
+            if arcrole != 'http://www.xbrl.org/2003/arcrole/fact-footnote':
+                if arcrole in taxonomy.arcroleTypes:
+                    arcrole_doc = taxonomy.arcroleTypes[arcrole].document.uri
+                    arcrole_href = f'{arcrole_doc}#{taxonomy.arcroleTypes[arcrole].id}'
+                else:
+                    # check the linkrole registry
+                    arcrole_href = get_uri_from_lrr(arcrole, cntlr)
+                if arcrole_href is None:
+                    cntlr.addToLog(f"Cannot determine the location for arcrole '{arcrole}' to add an arcroleRef", "XinceError", level=logging.ERROR)
+                    continue
+                # otherwise write the arcroleRef element
+                arcrole_ref = et.Element(f'{{{_LINK_NAMESPACE}}}arcroleRef')
+                arcrole_ref.set(f'{{{_XLINK_NAMESPACE}}}type', 'simple')
+                arcrole_ref.set('arcroleURI', arcrole)
+                arcrole_ref.set(f'{{{_XLINK_NAMESPACE}}}href', arcrole_href)
+                instance.append(arcrole_ref)
+
+def get_uri_from_lrr(role, cntlr):
+    global _LINKROLE_REGISTRY
+    if _LINKROLE_REGISTRY is None:
+        _LINKROLE_REGISTRY = et.parse(FileSource.openFileStream(cntlr, _LINKROLE_REGISTRY_URI))
+    
+    # find arcrole in lrr
+    for entry in _LINKROLE_REGISTRY.xpath(f"lrr:arcroles/lrr:arcrole[normalize-space(lrr:roleURI) = '{role}']", namespaces={'lrr': _LINKROLE_REGISTRY_NAMESPACE}):
+        href_node = entry.find("lrr:authoritativeHref", namespaces={'lrr': _LINKROLE_REGISTRY_NAMESPACE})
+        if href_node is not None:
+            return href_node.text.strip()
+
+def add_xml_footnotes(instance_name, instance, fact_footnotes, used_footnotes, cntlr):
+    if len(fact_footnotes) == 0:
+        return # there are no footnotes so, just go back
+    footnote_link = et.Element(f'{{{_LINK_NAMESPACE}}}footnoteLink')
+    footnote_link.set(f'{{{_XLINK_NAMESPACE}}}role', 'http://www.xbrl.org/2003/role/link')
+    footnote_link.set(f'{{{_XLINK_NAMESPACE}}}type', 'extended')
+    instance.append(footnote_link)
+    # create the arcs
+    locators = dict()
+    for fact_id, footnotes in fact_footnotes.items():
+        for footnote_hash in footnotes:
+            footnote = used_footnotes[footnote_hash]
+            arcrole = _LINK_ALIASES_BY_ALIAS.get(footnote['arcrole'], footnote['arcrole'])
+            fact_loc = get_locator(footnote_link, locators, fact_id)
+            if 'fact-id' in footnote: # this is fact to fact (explanatoryFact) footnote
+                footnote_res = get_locator(footnote_link, locators, footnote['fact-id'])
+            else: # This is a resource
+                footnote_res = get_resource(footnote_link, locators, footnote)
+            arc = et.Element(f'{{{_LINK_NAMESPACE}}}footnoteArc')
+            arc.set(f'{{{_XLINK_NAMESPACE}}}type', 'arc')
+            arc.set(f'{{{_XLINK_NAMESPACE}}}arcrole', arcrole)
+            arc.set(f'{{{_XLINK_NAMESPACE}}}from', fact_loc.get(f'{{{_XLINK_NAMESPACE}}}label'))
+            arc.set(f'{{{_XLINK_NAMESPACE}}}to', footnote_res.get(f'{{{_XLINK_NAMESPACE}}}label'))
+            footnote_link.append(arc)
+
+def get_locator(parent, locators, id):
+    if id not in locators:
+        loc = et.Element(f'{{{_LINK_NAMESPACE}}}loc')
+        loc.set(f'{{{_XLINK_NAMESPACE}}}type', 'locator')
+        loc.set(f'{{{_XLINK_NAMESPACE}}}label', f'{id}_lab')
+        loc.set(f'{{{_XLINK_NAMESPACE}}}href', f'#{id}')
+        locators[id] = loc
+        parent.append(loc)
+    return locators[id]
+
+def get_resource(parent, locators, footnote):
+    if footnote['id'] not in locators:
+        res = et.Element(f'{{{_LINK_NAMESPACE}}}footnote')
+        res.set(f'{{{_XLINK_NAMESPACE}}}type', 'resource')
+        res.set(f'{{{_XLINK_NAMESPACE}}}label', f'{footnote["id"]}_lab')
+        res.set(f'{{{_XLINK_NAMESPACE}}}role', 'http://www.xbrl.org/2003/role/footnote')
+        res.set('{http://www.w3.org/XML/1998/namespace}lang', footnote['lang'])
+        res.text = footnote['content']
+        locators[footnote['id']] = res
+        parent.append(res)
+
+    return locators[footnote['id']]
+
 
 def get_alias(instance, instance_name, alias_type, link_value):
     # if a standard shortcut is used. I.e just 'foootnote'
@@ -912,7 +1043,7 @@ def verify_fact(fact_info, taxonomy, cntlr):
     dimensions = None 
     decimals = None
     language = None
-    footnotes = None
+    #footnotes = None
 
     # Check concept, entity and period exists. These are always required
     for aspect in ('fact-concept', 'fact-entity', 'fact-period'):
@@ -986,18 +1117,18 @@ def verify_fact(fact_info, taxonomy, cntlr):
                 # There was a problem with the value
                 cntlr.addToLog(f"Fact value '{fact_info['fact-value']}' is not valid for concept '{model_concept.qname.localName}' with type '{model_concept.typeQname.localName}'. Found in rule '{fact_info['rule-name']}'", "XinceError", level=logging.ERROR)
                 errors = True
-    # check footnotes
-    if 'fact-footnote' in fact_info:
-        try:
-            footnotes = json.loads(fact_info['fact-footnote'])
-            if type(footnotes) not in (list, dict):
-                cntlr.addToLog(f"Footnotes for fact should be a list or a dictionary, but found {type(footnotes).__name__}. Found in rule {fact_info['rule-name']}", "XinceError", level=logging.ERROR)
-                errors = True
-        except json.decoder.JSONDecodeError:
-            cntlr.addToLog(f"Footnotes for fact are not a json string. Probably missing 'to-xince'. Found in rule '{fact_info['rule-name']}'", "XinceError", level=logging.ERROR)
-            errors = True
+    # # check footnotes
+    # if 'fact-footnote' in fact_info:
+    #     try:
+    #         footnotes = json.loads(fact_info['fact-footnote'])
+    #         if type(footnotes) not in (list, dict):
+    #             cntlr.addToLog(f"Footnotes for fact should be a list or a dictionary, but found {type(footnotes).__name__}. Found in rule {fact_info['rule-name']}", "XinceError", level=logging.ERROR)
+    #             errors = True
+    #     except json.decoder.JSONDecodeError:
+    #         cntlr.addToLog(f"Footnotes for fact are not a json string. Probably missing 'to-xince'. Found in rule '{fact_info['rule-name']}'", "XinceError", level=logging.ERROR)
+    #         errors = True
 
-    return not errors, fact_value, model_concept, entity, period, unit, dimensions, decimals, language, footnotes
+    return not errors, fact_value, model_concept, entity, period, unit, dimensions, decimals, language,# footnotes
 
 def get_concept(clark, taxonomy):
     if not hasattr(taxonomy, 'clarkConcepts'):
