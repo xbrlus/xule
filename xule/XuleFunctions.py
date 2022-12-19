@@ -25,10 +25,12 @@ DOCSKIP
 
 from aniso8601 import parse_duration
 from arelle.ModelValue import qname, QName
+from arelle import FileSource, PackageManager
 import collections
 import datetime
 import decimal
 import json
+from lxml import etree as et
 
 from .XuleRunTime import XuleProcessingError
 from . import XuleValue as xv
@@ -468,11 +470,9 @@ def func_csv_data(xule_context, *args):
     result = list()
     result_shadow = list()
     
-    from arelle import PackageManager
     mapped_file_url = PackageManager.mappedUrl(file_url.value)
 
     # Using the FileSource object in arelle. This will open the file and handle taxonomy package mappings.
-    from arelle import FileSource
     file_source = FileSource.openFileSource(file_url.value, xule_context.global_context.cntlr)
     file = file_source.file(file_url.value, binary=True)
     # file is  tuple of one item as a BytesIO stream. Since this is in bytes, it needs to be converted to text via a decoder.
@@ -579,11 +579,9 @@ def func_json_data(xule_context, *args):
     if file_url.type not in ('string', 'uri'):
         raise XuleProcessingError(_("The file url argument of the json-dta() function must be a string or uri, found '{}'.".format(file_url.value)), xule_context)
 
-    from arelle import PackageManager
     mapped_file_url = PackageManager.mappedUrl(file_url.value)
 
     # Using the FileSource object in arelle. This will open the file and handle taxonomy package mappings.
-    from arelle import FileSource
     file_source = FileSource.openFileSource(file_url.value, xule_context.global_context.cntlr)
     file = file_source.file(file_url.value, binary=True)
     # file is  tuple of one item as a BytesIO stream. Since this is in bytes, it needs to be converted to text via a decoder.
@@ -597,6 +595,111 @@ def func_json_data(xule_context, *args):
     
     x = xv.system_collection_to_xule(json_source, xule_context)
     return xv.system_collection_to_xule(json_source, xule_context)
+
+def func_xml_data_flat(xule_context, *args):
+    """Reads an XML file and returns a list of records
+     
+       This function take 5 arguments:
+          1 - file name
+          2 - xpath expression of elements to get
+          3 - list of fields to return. Each field is an xpath expression based on the element retrieved.
+          4 - column types
+          5 - namespace map
+    """
+    result = []
+    shadow_result = []
+
+    if len(args) < 3:
+        raise XuleProcessingError(_(f"The xml-data-flat() funciton requires at least 3 arguments (file, locator xpath, list of fields), found {len(args)}"), xule_context)
+
+    file_url = args[0]
+    locator_xpath = args[1]
+    fields = args[2]
+
+    if file_url.type not in ('string', 'uri'):
+        raise XuleProcessingError(_("The file url argument of the xml-data-flat() function must be a string or uri, found '{}'.".format(file_url.value)), xule_context)
+
+    if locator_xpath.type != 'string':
+        raise XuleProcessingError(_("The xpath locator for function xml-data-flat() is not a string"), xule_context)
+    
+    if fields.type != 'list':
+        raise XuleProcessingError(_("The fields list for function xml-data-flat() is not a string"), xule_context)
+    
+    nsmap = {k: v['uri'] for k, v in xule_context.global_context.catalog['namespaces'].items()}
+
+    # Column types
+    if len(args) == 4:  
+        column_types = args[3]
+        if column_types.type == 'none':
+            ordered_cols = None
+        elif column_types.type == 'list':
+            ordered_cols = list()
+            for col in column_types.value:
+                if col.type != 'string':
+                    raise XuleProcessingError(_("The type list argument (34th argument) of the xml-data-flat() function must be a list of strings, found '{}'.".format(col.type)), xule_context)
+                ordered_cols.append(col.value)
+        else:
+            raise XuleProcessingError(_("The type list argument (4th argument) of the xml-data-flat() fucntion must be list, found '{}'.".format(column_types.type)), xule_context)
+    else:
+        ordered_cols = None
+
+    # namespace dictionary
+    if len(args) == 5:
+        namespaces = args[3]
+        if namespaces.type != 'dictionary':
+            raise XuleProcessingError(_("The namespace map argument of the xml-data-flat() function (4th argument) must be a dictionary"), xule_context)
+        nsmap.update(namespaces.shadow_dictionary)
+
+    field_count = 0
+    for field in fields.value:
+        field_count += 1
+        if field.type != 'string':
+            raise XuleProcessingError(_(f"Field in the {field_count} position is not a string"), xule_context)
+    
+    mapped_file_url = PackageManager.mappedUrl(file_url.value)
+    try:
+        xml = et.parse(FileSource.openFileStream(xule_context.global_context.cntlr, mapped_file_url))
+    except IOError:
+        raise XuleProcessingError(_(f"Cannot find file {file_url.value} for function xml-data-flat()"), xule_context)
+    except:
+        raise XuleProcessingError(_(f"Cannot open file {file_url.value} as an xml file"), xule_context)
+    
+    try:
+        nodes = xml.xpath(locator_xpath.value, namespaces=nsmap)
+    except:
+        raise XuleProcessingError(_(f"In function xml-data-flat(), xpath failed. File: {file_url.value}, XPath: {locator_xpath.value}"), xule_context)
+    
+    for node in nodes:
+        record = []
+        shadow_record = []
+        field_count = 0
+        for field in fields.value:
+            try:
+                field_result = node.xpath(field.value, namespaces=nsmap)
+                if len(field_result) == 0:
+                    field_val = xv.XuleValue(xule_context, None, 'none')
+                else:
+                    if hasattr(field_result[0], 'text'):
+                        field_val = field_result[0].text
+                    else:
+                        field_val = field_result[0]
+                    if ordered_cols is not None and field_count >= len(ordered_cols):
+                        raise XuleProcessingError(_("The nubmer of columns on row {} is greater than the number of column types provided in the third argument of the csv-data() function. File: {}".format(row_num, file_url.value)), xule_context)
+            
+                    field_val = convert_file_data_item(field_val, ordered_cols[field_count] if ordered_cols is not None else None, xule_context)
+            except:
+                raise XuleProcessingError(_(f"In function xml-data-flat, field xpath of '{field.value + 1}' is not valid."), xule_context)
+
+            record.append(field_val)
+            shadow_record.append(field_val.value)
+
+            field_count += 1
+
+        record_xule_val = xv.XuleValue(xule_context, tuple(record), 'list', shadow_collection=shadow_record)
+        result.append(record_xule_val)
+        shadow_result.append(shadow_record)
+        
+    return xv.XuleValue(xule_context, tuple(result), 'list', shadow_collection=shadow_result)
 
 def func_first_value(xule_context, *args):
     """Return the first non None value.
@@ -833,6 +936,7 @@ def built_in_functions():
              'taxonomy': ('regular', func_taxonomy, -1, False, 'single'),
              'csv-data': ('regular', func_csv_data, -4, False, 'single'),
              'json-data': ('regular', func_json_data, 1, False, 'single'),
+             'xml-data-flat': ('regular', func_xml_data_flat, -5, False, 'single'),
              'first-value': ('regular', func_first_value, None, True, 'single'),
              'range': ('regular', func_range, -3, False, 'single'),
              'difference': ('regular', func_difference, 2, False, 'single'),
