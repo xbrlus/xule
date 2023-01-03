@@ -414,7 +414,7 @@ def func_taxonomy(xule_context, *args):
         return xv.XuleValue(xule_context, other_taxonomy , 'taxonomy')
     else:
         raise XuleProcessingError(_("The taxonomy() function takes at most 1 argument, found {}".format(len(args))))
- 
+
 def func_csv_data(xule_context, *args):
     """Read a csv file/url.
     

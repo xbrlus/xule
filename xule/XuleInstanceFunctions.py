@@ -1,13 +1,42 @@
 from . import XuleValue as xv
 from .XuleRunTime import XuleProcessingError
-from arelle import ModelXbrl, ModelDocument, FileSource
-from arelle import ModelValue
+from .XuleUtility import index_model
+from arelle import ModelXbrl, ModelDocument, FileSource, ModelManager, ModelValue
 from arelle.PrototypeInstanceObject import DimValuePrototype
-import copy
+import datetime
 import os.path
 import tempfile
 
 BUILT_IN_ASPECTS = ('concept', 'entity', 'unit', 'period', 'language')
+
+def func_instance(xule_context, *args):
+    if len(args) == 0:
+        # Return the default instance which is the instance loaded by Arelle
+        if xule_context.model is None:
+            # There is no instance doucment
+            return xv.XuleValue(xule_context, None, 'none')
+        else:
+            return xv.XuleValue(xule_context, xule_context.model, 'instance')
+    elif len(args) == 1:
+        instance_url = args[0]
+        if instance_url.type not in ('string', 'uri'):
+            raise XuleProcessingError(_("The instance() function takes a string or uri, found {}.".format(instance_url.type)), xule_context)
+        
+        start = datetime.datetime.today()
+        instance_filesource = FileSource.openFileSource(instance_url, xule_context.cntlr)            
+        modelManager = ModelManager.initialize(xule_context.cntlr)
+        instance_model = modelManager.load(instance_filesource)
+        if 'IOerror' in instance_model.errors:
+            raise XuleProcessingError(_("Instance {} not found.".format(instance_url)))
+        end = datetime.datetime.today()
+        
+        xule_context.cntlr.addToLog("Instance Loaded. Load time %s from '%s' " % (end - start, instance_url))            
+        
+        index_model(xule_context, instance_model)
+
+        return xv.XuleValue(xule_context, instance_model, 'instance')
+    else:
+        raise XuleProcessingError(_("The instance() function takes at most 1 argument, found {}".format(len(args))))
 
 def func_new_instance(xule_context, *args):
     '''Create a new instance
@@ -78,11 +107,6 @@ def func_new_instance(xule_context, *args):
     #         'unitRef': 'u01'}
     
     # fact = new_model.createFact(q, atts, '200')
-
-
-
-
-
 
     return xv.XuleValue(xule_context, new_model, 'instance')
 
@@ -171,7 +195,7 @@ def get_concept_qname(aspects, instance, xule_context):
 
     # check the concept name is in the taxonomy
     if concept_qname not in instance.value.qnameConcepts:
-        raise XuleProcessingError(_("Trying to create fact for concpet {} but it is not in the dts for the instance".format(concept.qname.clarkNotation)), xule_context)
+        raise XuleProcessingError(_("Trying to create fact for concpet {} but it is not in the dts for the instance".format(concept_qname.clarkNotation)), xule_context)
     
     return concept_qname
 
@@ -263,7 +287,8 @@ def get_unit(aspects, instance, concept_qname, xule_context):
 
 def built_in_functions():
     funcs = {'fact': ('regular', func_fact, -4, False, 'single'),
-             'new_instance':('regular', func_new_instance, -3, False, 'single')}
+             'new_instance':('regular', func_new_instance, -3, False, 'single'),
+             'instance': ('regular', func_instance, 1, False, 'single')}
     
     return funcs
 
