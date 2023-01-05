@@ -23,7 +23,6 @@ $Change$
 DOCSKIP
 """
 from .XuleRunTime import XuleProcessingError
-from . import XuleProperties
 from . import XuleUtility
 from arelle.ModelValue import AnyURI, QName, dayTimeDuration, DateTime, gYear, gMonthDay, gYearMonth, InvalidValue, IsoDuration
 from arelle.ModelInstanceObject import ModelFact, ModelUnit
@@ -43,6 +42,11 @@ import textwrap
 
 from enum import Enum
 
+#Network info tuple
+NETWORK_ARCROLE = 0
+NETWORK_ROLE = 1
+NETWORK_LINK = 2
+NETWORK_ARC = 3
 
 class SpecialItemTypes(Enum):
     ENUM_ITEM_TYPE = '{http://xbrl.org/2020/extensible-enumerations-2.0}enumerationItemType'
@@ -983,26 +987,26 @@ class XuleDimensionCube:
             dts.xuleBaseDimensionSets = collections.defaultdict(set)
 
             for base_set in dts.baseSets:
-                if (base_set[XuleProperties.NETWORK_ARCROLE] in ('http://xbrl.org/int/dim/arcrole/all',
+                if (base_set[NETWORK_ARCROLE] in ('http://xbrl.org/int/dim/arcrole/all',
                                                                  'http://xbrl.org/int/dim/arcrole/notAll') and
-                        base_set[XuleProperties.NETWORK_ROLE] is not None and
-                        base_set[XuleProperties.NETWORK_LINK] is not None and
-                        base_set[XuleProperties.NETWORK_ARC] is not None):
+                        base_set[NETWORK_ROLE] is not None and
+                        base_set[NETWORK_LINK] is not None and
+                        base_set[NETWORK_ARC] is not None):
                     # This is an 'all' dimension base set find the hypercubes
                     relationship_set = dts.relationshipSets.get(base_set,
                                                                 ModelRelationshipSet(dts,
                                                                                      base_set[
-                                                                                         XuleProperties.NETWORK_ARCROLE],
+                                                                                         NETWORK_ARCROLE],
                                                                                      base_set[
-                                                                                         XuleProperties.NETWORK_ROLE],
+                                                                                         NETWORK_ROLE],
                                                                                      base_set[
-                                                                                         XuleProperties.NETWORK_LINK],
+                                                                                         NETWORK_LINK],
                                                                                      base_set[
-                                                                                         XuleProperties.NETWORK_ARC]))
+                                                                                         NETWORK_ARC]))
 
                     for rel in relationship_set.modelRelationships:
                         if rel.toModelObject is not None:
-                            drs_role = base_set[XuleProperties.NETWORK_ROLE]
+                            drs_role = base_set[NETWORK_ROLE]
                             dts.xuleBaseDimensionSets[(drs_role, rel.toModelObject)].add(rel)
 
     @classmethod
@@ -1011,20 +1015,20 @@ class XuleDimensionCube:
             dts.xuleDimensionDefaults = dict()
 
             for base_set in dts.baseSets:
-                if (base_set[XuleProperties.NETWORK_ARCROLE] == 'http://xbrl.org/int/dim/arcrole/dimension-default' and
-                        base_set[XuleProperties.NETWORK_ROLE] is not None and
-                        base_set[XuleProperties.NETWORK_LINK] is not None and
-                        base_set[XuleProperties.NETWORK_ARC] is not None):
+                if (base_set[NETWORK_ARCROLE] == 'http://xbrl.org/int/dim/arcrole/dimension-default' and
+                        base_set[NETWORK_ROLE] is not None and
+                        base_set[NETWORK_LINK] is not None and
+                        base_set[NETWORK_ARC] is not None):
                     relationship_set = dts.relationshipSets.get(base_set,
                                                                 ModelRelationshipSet(dts,
                                                                                      base_set[
-                                                                                         XuleProperties.NETWORK_ARCROLE],
+                                                                                         NETWORK_ARCROLE],
                                                                                      base_set[
-                                                                                         XuleProperties.NETWORK_ROLE],
+                                                                                         NETWORK_ROLE],
                                                                                      base_set[
-                                                                                         XuleProperties.NETWORK_LINK],
+                                                                                         NETWORK_LINK],
                                                                                      base_set[
-                                                                                         XuleProperties.NETWORK_ARC]))
+                                                                                         NETWORK_ARC]))
 
                     for rel in relationship_set.modelRelationships:
                         dts.xuleDimensionDefaults[rel.fromModelObject] = rel.toModelObject

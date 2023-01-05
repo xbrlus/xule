@@ -660,7 +660,7 @@ def property_dimensions(xule_context, object_value, *args):
         result_shadow = dict()
 
         for dim_qname, member_model in object_value.fact.context.qnameDims.items():
-            dim_value = xv.XuleValue(xule_context, get_concept(xule_context.model, dim_qname), 'concept')
+            dim_value = xv.XuleValue(xule_context, get_concept(object_value.fact.modelXbrl, dim_qname), 'concept')
             if member_model.isExplicit:
                 member_value = xv.XuleValue(xule_context, member_model.member, 'concept')
             else: # Typed dimension
@@ -679,7 +679,7 @@ def property_dimensions_explicit(xule_context, object_value, *args):
     result_shadow = dict()
     
     for dim_qname, member_model in object_value.fact.context.qnameDims.items():
-        dim_value = xv.XuleValue(xule_context, get_concept(xule_context.model, dim_qname), 'concept')
+        dim_value = xv.XuleValue(xule_context, get_concept(object_value.fact.modelXbrl, dim_qname), 'concept')
         if member_model.isExplicit:
             member_value = xv.XuleValue(xule_context, member_model.member, 'concept')
     
@@ -696,7 +696,7 @@ def property_dimensions_typed(xule_context, object_value, *args):
     result_shadow = dict()
     
     for dim_qname, member_model in object_value.fact.context.qnameDims.items():
-        dim_value = xv.XuleValue(xule_context, get_concept(xule_context.model, dim_qname), 'concept')
+        dim_value = xv.XuleValue(xule_context, get_concept(object_value.fact.modelXbrl, dim_qname), 'concept')
         if not member_model.isExplicit:
             member_value = xv.XuleValue(xule_context, member_model.typedMember.xValue, xv.model_to_xule_type(xule_context, member_model.typedMember.xValue))
             
@@ -730,7 +730,7 @@ def property_aspects(xule_context, object_value, *args):
         result_shadow['unit'] = unit_value.value
         
     for dim_qname, member_model in object_value.fact.context.qnameDims.items():
-        dim_value = xv.XuleValue(xule_context, get_concept(xule_context.model, dim_qname), 'concept')
+        dim_value = xv.XuleValue(xule_context, get_concept(object_value.fact.modelXbrl, dim_qname), 'concept')
         if member_model.isExplicit:
             member_value = xv.XuleValue(xule_context, member_model.member, 'concept')
         else: # Typed dimension

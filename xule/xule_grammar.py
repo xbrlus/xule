@@ -314,6 +314,7 @@ def get_grammar():
                                CaselessKeyword('unit').setResultsName('value') | 
                                CaselessKeyword('entity').setResultsName('value') | 
                                CaselessKeyword('period').setResultsName('value') | 
+                               CaselessKeyword('instance').setResultsName('value') |
                                CaselessKeyword('cube').setResultsName('value')) + nodeName('aspectName')
                               )
     

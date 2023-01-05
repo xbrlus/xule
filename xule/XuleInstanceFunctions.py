@@ -1,6 +1,6 @@
 from . import XuleValue as xv
 from .XuleRunTime import XuleProcessingError
-from .XuleUtility import index_model
+from .XuleModelInexer import index_model
 from arelle import ModelXbrl, ModelDocument, FileSource, ModelManager, ModelValue
 from arelle.PrototypeInstanceObject import DimValuePrototype
 import datetime
@@ -23,14 +23,14 @@ def func_instance(xule_context, *args):
             raise XuleProcessingError(_("The instance() function takes a string or uri, found {}.".format(instance_url.type)), xule_context)
         
         start = datetime.datetime.today()
-        instance_filesource = FileSource.openFileSource(instance_url, xule_context.cntlr)            
-        modelManager = ModelManager.initialize(xule_context.cntlr)
+        instance_filesource = FileSource.openFileSource(instance_url.value, xule_context.global_context.cntlr)            
+        modelManager = ModelManager.initialize(xule_context.global_context.cntlr)
         instance_model = modelManager.load(instance_filesource)
         if 'IOerror' in instance_model.errors:
             raise XuleProcessingError(_("Instance {} not found.".format(instance_url)))
         end = datetime.datetime.today()
         
-        xule_context.cntlr.addToLog("Instance Loaded. Load time %s from '%s' " % (end - start, instance_url))            
+        xule_context.global_context.cntlr.addToLog("Instance Loaded. Load time %s from '%s' " % (end - start, instance_url.value))            
         
         index_model(xule_context, instance_model)
 
@@ -288,7 +288,7 @@ def get_unit(aspects, instance, concept_qname, xule_context):
 def built_in_functions():
     funcs = {'fact': ('regular', func_fact, -4, False, 'single'),
              'new_instance':('regular', func_new_instance, -3, False, 'single'),
-             'instance': ('regular', func_instance, 1, False, 'single')}
+             'instance': ('regular', func_instance, -1, False, 'single')}
     
     return funcs
 
