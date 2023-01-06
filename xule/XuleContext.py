@@ -381,7 +381,6 @@ class XuleRuleContext(object):
         self.iter_except_count = 0
         
         self.fact_alignments = collections.defaultdict(dict)
-        self._override_model = None
 
     @property
     def tags(self):
@@ -735,20 +734,11 @@ class XuleRuleContext(object):
                           #'EXT_CONCEPT_LOCAL_NAMES': _const_ext_concept_local_name
                           }    
 
-    def override_model(self, new_model):
-        if new_model is self.global_context.model:
-            self._override_model = None
-        else:
-            self._override_model = new_model
-
-    def reset_model(self):
-        self._override_model = None
-
     #properties from the global_context   
     @property
     def model(self):
-        return self._override_model or self.global_context.model
-    
+        return self.global_context.model
+        
     @property
     def rules_model(self):
         return self.global_context.rules_model
@@ -759,7 +749,7 @@ class XuleRuleContext(object):
     
     @property
     def fact_index(self):
-        return getattr(self.model, 'xuleFactIndex', dict())
+        return self.global_context.fact_index
     
     @property
     def include_nils(self):
