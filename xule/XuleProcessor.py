@@ -2239,7 +2239,7 @@ def evaluate_factset_detail(factset, xule_context):
     saved_used_expressions = xule_context.used_expressions
     xule_context.used_expressions = set()
     try:
-        non_align_aspects, align_aspects, aspect_vars, new_model = process_factset_aspects(factset, xule_context)
+        non_align_aspects, align_aspects, aspect_vars, new_models = process_factset_aspects(factset, xule_context)
     finally:
         used_expressions = xule_context.used_expressions
         xule_context.used_expressions = saved_used_expressions | xule_context.used_expressions
@@ -2272,7 +2272,7 @@ def evaluate_factset_detail(factset, xule_context):
     This is done by intersecting the sets of the fact_index. The fact index is a dictionary of dictionaries.
     The outer dictionary is keyed by aspect and the inner by member. So fact_index[aspect][member] contains a 
     set of facts that have that aspect and member.'''
-    pre_matched_facts = factset_pre_match(factset, all_aspect_filters, non_align_aspects, align_aspects, new_model, xule_context)
+    pre_matched_facts = factset_pre_match(factset, all_aspect_filters, non_align_aspects, align_aspects, new_models, xule_context)
 
     pre_count1 = len(pre_matched_facts)
     f_pre_end = datetime.datetime.today()
@@ -2334,7 +2334,7 @@ def evaluate_factset_detail(factset, xule_context):
             unfrozen_alignment = {k: v for k, v in xac.alignment}
             additional_aspect_filters = list(alignment_to_aspect_info(unfrozen_alignment, xule_context).items())
             pre_matched_facts = factset_pre_match(factset, additional_aspect_filters, non_align_aspects, align_aspects,
-                                                xule_context, starting_facts=pre_matched_facts)
+                                                  new_models, xule_context, starting_facts=pre_matched_facts)
             # try again
             try:
                 results, default_where_used_expressions = process_filtered_facts(factset, pre_matched_facts,
@@ -2375,7 +2375,7 @@ def evaluate_factset_detail(factset, xule_context):
         
     return results
 
-def factset_pre_match(factset, filters, non_aligned_filters, align_aspects, model, xule_context, starting_facts=None):
+def factset_pre_match(factset, filters, non_aligned_filters, align_aspects, models, xule_context, starting_facts=None):
     """Match facts based on the factset  
        
     Match facts based on the aspects in the first part of the factset and any additional filters.
@@ -2384,133 +2384,138 @@ def factset_pre_match(factset, filters, non_aligned_filters, align_aspects, mode
     The outer dictionary is keyed by aspect and the inner by member. So fact_index[aspect][member] contains a 
     set of facts that have that aspect and member.
     """
-    fact_index = getattr(model, 'xuleFactIndex', dict()) # The model may be from a @instance which is different from the model in the xule_context
 
-    if starting_facts is None:
-        pre_matched_facts = None
-        first = True
-    else:
-        pre_matched_facts = copy.copy(starting_facts)
-        first = False
-    # first = pre_matched_facts is None
+    pre_matched_facts = set()
 
-    for aspect_info, filter_member in filters:
-        # Handle case where the filter only contains boolean values. Treat the filter_member as true.
-        # For example: @concept.is-numeric This should be treated as @concept.is-numeric=true
-        if (filter_member is None and
-            aspect_info[ASPECT_OPERATOR] is None and
-            aspect_info[SPECIAL_VALUE] is None and
-            aspect_info[ASPECT_PROPERTY] is not None):
+    for model in models:
+        if starting_facts is None:
+            pre_matched_model_facts = None
+            first = True
+        else:
+            pre_matched_model_facts = copy.copy(starting_facts)
+            first = False
+        # models is a list of models based on the instance document
+        fact_index = getattr(model, 'xuleFactIndex', dict()) # The model may be from a @instance which is different from the model in the xule_context
 
-            aspect_info = list(aspect_info)
-            aspect_info[ASPECT_OPERATOR] = '='
-            filter_member = XuleValue(xule_context, True, 'bool')
+        for aspect_info, filter_member in filters:
+            # Handle case where the filter only contains boolean values. Treat the filter_member as true.
+            # For example: @concept.is-numeric This should be treated as @concept.is-numeric=true
+            if (filter_member is None and
+                aspect_info[ASPECT_OPERATOR] is None and
+                aspect_info[SPECIAL_VALUE] is None and
+                aspect_info[ASPECT_PROPERTY] is not None):
 
-        if filter_member is not None:
-            # if aspect_info[ASPECT_PROPERTY] is None:
-            #     index_key = (aspect_info[TYPE], aspect_info[ASPECT])
-            # else:
-            #     # aspect_info[ASPECT_PROPERTY][0] is the aspect property name
-            #     # aspect_info[ASPECT_PROPERTY][1] is a tuple of the arguments
-            #     index_key = ('property', aspect_info[ASPECT], aspect_info[ASPECT_PROPERTY][0]) + \
-            #                 aspect_info[ASPECT_PROPERTY][1]
-            #     if index_key not in xule_context.fact_index and index_key not in _FACT_INDEX_PROPERTIES:
-            #         raise XuleProcessingError(_(
-            #             "Factset aspect property '{}' is not a valid property of aspect '{}'.".format(index_key[2],
-            #                                                                                           index_key[1])),
-            #                                   xule_context)
+                aspect_info = list(aspect_info)
+                aspect_info[ASPECT_OPERATOR] = '='
+                filter_member = XuleValue(xule_context, True, 'bool')
 
-            index_key = fact_index_key(aspect_info, fact_index, xule_context)
-            facts_by_aspect = set()
+            if filter_member is not None:
+                # if aspect_info[ASPECT_PROPERTY] is None:
+                #     index_key = (aspect_info[TYPE], aspect_info[ASPECT])
+                # else:
+                #     # aspect_info[ASPECT_PROPERTY][0] is the aspect property name
+                #     # aspect_info[ASPECT_PROPERTY][1] is a tuple of the arguments
+                #     index_key = ('property', aspect_info[ASPECT], aspect_info[ASPECT_PROPERTY][0]) + \
+                #                 aspect_info[ASPECT_PROPERTY][1]
+                #     if index_key not in xule_context.fact_index and index_key not in _FACT_INDEX_PROPERTIES:
+                #         raise XuleProcessingError(_(
+                #             "Factset aspect property '{}' is not a valid property of aspect '{}'.".format(index_key[2],
+                #                                                                                           index_key[1])),
+                #                                   xule_context)
 
-            '''THIS MIGHT BE MORE EFFICIENTLY HANDLED BY IGNORING THE ASPECT IF THE MEMBER IS None OR ELIMINATING ALL FACTS'''
-            # When the aspect key is not in the fact index, then the instance doesn't use this aspect (dimension). So create an entry for the 'None' key and put all the facts in it.
-            if index_key not in fact_index:
-                fact_index[index_key][None] = fact_index['all']
+                index_key = fact_index_key(aspect_info, fact_index, xule_context)
+                facts_by_aspect = set()
 
-            if aspect_info[SPECIAL_VALUE] is not None:
-                if aspect_info[SPECIAL_VALUE] == '*':
-                    if aspect_info[ASPECT_OPERATOR] == '=':
-                        if aspect_info[TYPE] == 'builtin' and aspect_info[ASPECT] in ('concept', 'period', 'entity') and aspect_info[ASPECT_PROPERTY] is None:
-                            # this is all facts
-                            continue
-                        else:
-                            # need to combine all the facts that have that aspect
-                            facts_by_aspect = set(it.chain.from_iterable(
-                                v for k, v in fact_index[index_key].items() if k is not None))
-                    else:  # the operator is != ('in' and 'not in' are not allowed with a special value)
-                        if aspect_info[TYPE] == 'builtin' and aspect_info[ASPECT] in ('concept', 'period', 'entity'):
-                            # No facts can match these aspects not equal to * (i.e. @concept != *)
-                            pre_matched_facts = []
-                            break
-                        else:
-                            facts_by_aspect = fact_index[index_key][None]
-            else:
-                if aspect_info[ASPECT_OPERATOR] == 'in' and filter_member.type not in ('list', 'set'):
-                    raise XuleProcessingError(_("The value for '%s' with 'in' must be a set or list, found '%s'" % (
-                    index_key[ASPECT], filter_member.type)), xule_context)
+                '''THIS MIGHT BE MORE EFFICIENTLY HANDLED BY IGNORING THE ASPECT IF THE MEMBER IS None OR ELIMINATING ALL FACTS'''
+                # When the aspect key is not in the fact index, then the instance doesn't use this aspect (dimension). So create an entry for the 'None' key and put all the facts in it.
+                if index_key not in fact_index:
+                    fact_index[index_key][None] = fact_index['all']
 
-                # fix for aspects that take qname members (concept and explicit dimensions. The member can be a concept or a qname. The index is by qname.
-                if index_key in (('builtin', 'concept'), ('property', 'cube', 'name')):
-                    if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
-                        member_values = {convert_value_to_qname(filter_member, xule_context), }
-                    else:
-                        member_values = {convert_value_to_qname(x, xule_context) for x in filter_member.value}
-                elif index_key[TYPE] == 'explicit_dimension':
-                    if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
-                        if filter_member.type == 'concept':
+                if aspect_info[SPECIAL_VALUE] is not None:
+                    if aspect_info[SPECIAL_VALUE] == '*':
+                        if aspect_info[ASPECT_OPERATOR] == '=':
+                            if aspect_info[TYPE] == 'builtin' and aspect_info[ASPECT] in ('concept', 'period', 'entity') and aspect_info[ASPECT_PROPERTY] is None:
+                                # this is all facts
+                                continue
+                            else:
+                                # need to combine all the facts that have that aspect
+                                facts_by_aspect = set(it.chain.from_iterable(
+                                    v for k, v in fact_index[index_key].items() if k is not None))
+                        else:  # the operator is != ('in' and 'not in' are not allowed with a special value)
+                            if aspect_info[TYPE] == 'builtin' and aspect_info[ASPECT] in ('concept', 'period', 'entity'):
+                                # No facts can match these aspects not equal to * (i.e. @concept != *)
+                                pre_matched_model_facts = []
+                                break
+                            else:
+                                facts_by_aspect = fact_index[index_key][None]
+                else:
+                    if aspect_info[ASPECT_OPERATOR] == 'in' and filter_member.type not in ('list', 'set'):
+                        raise XuleProcessingError(_("The value for '%s' with 'in' must be a set or list, found '%s'" % (
+                        index_key[ASPECT], filter_member.type)), xule_context)
+
+                    # fix for aspects that take qname members (concept and explicit dimensions. The member can be a concept or a qname. The index is by qname.
+                    if index_key in (('builtin', 'concept'), ('property', 'cube', 'name')):
+                        if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
                             member_values = {convert_value_to_qname(filter_member, xule_context), }
                         else:
+                            member_values = {convert_value_to_qname(x, xule_context) for x in filter_member.value}
+                    elif index_key[TYPE] == 'explicit_dimension':
+                        if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
+                            if filter_member.type == 'concept':
+                                member_values = {convert_value_to_qname(filter_member, xule_context), }
+                            else:
+                                member_values = {filter_member.value, }
+                        else:
+                            member_values = {convert_value_to_qname(x, xule_context) if x.type == 'concept' else x.value for x
+                                            in filter_member.value}
+                    # Also fix for period aspect
+                    elif index_key == ('builtin', 'period'):
+                        if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
+                            member_values = {convert_value_to_model_period(filter_member, xule_context), }
+                        else:
+                            member_values = {convert_value_to_model_period(x, xule_context) for x in filter_member.value}
+                    # Allow units to be a qname or a xule 'unit'
+                    elif index_key == ('builtin', 'unit'):
+                        conversion_function = lambda x: XuleUnit(x) if x.type == 'qname' else x.value
+                        if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
+                            member_values = {conversion_function(filter_member), }
+                        else:
+                            member_values = {conversion_function(x) for x in filter_member.value}
+                    # Allow @table.drs-role to take a short role name
+                    elif index_key == ('property', 'cube', 'drs-role'):
+                        if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
+                            member_values = {convert_value_to_role(filter_member, xule_context), }
+                        else:
+                            member_values = {convert_value_to_role(x, xule_context) for x in filter_member.value}
+                    else:
+                        if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
                             member_values = {filter_member.value, }
-                    else:
-                        member_values = {convert_value_to_qname(x, xule_context) if x.type == 'concept' else x.value for x
-                                         in filter_member.value}
-                # Also fix for period aspect
-                elif index_key == ('builtin', 'period'):
-                    if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
-                        member_values = {convert_value_to_model_period(filter_member, xule_context), }
-                    else:
-                        member_values = {convert_value_to_model_period(x, xule_context) for x in filter_member.value}
-                # Allow units to be a qname or a xule 'unit'
-                elif index_key == ('builtin', 'unit'):
-                    conversion_function = lambda x: XuleUnit(x) if x.type == 'qname' else x.value
-                    if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
-                        member_values = {conversion_function(filter_member), }
-                    else:
-                        member_values = {conversion_function(x) for x in filter_member.value}
-                # Allow @table.drs-role to take a short role name
-                elif index_key == ('property', 'cube', 'drs-role'):
-                    if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
-                        member_values = {convert_value_to_role(filter_member, xule_context), }
-                    else:
-                        member_values = {convert_value_to_role(x, xule_context) for x in filter_member.value}
+                        else:
+                            member_values = {x.value for x in filter_member.value}
+                            '''THIS COULD USE THE SHADOW COLLECTION
+                            member_values = set(filter_member.shadow_collection)
+                            '''
+                    if aspect_info[ASPECT_OPERATOR] in ('=', 'in'):
+                        found_members = member_values & fact_index[index_key].keys()
+                    else:  # aspect operator is '!=' or 'not in'
+                        found_members = (fact_index[index_key].keys() - {None, }) - member_values
+
+                    for member in found_members:
+                        facts_by_aspect |= fact_index[index_key][member]
+
+                # intersect the facts with previous facts by aspect
+                if first:
+                    first = False
+                    pre_matched_model_facts = facts_by_aspect
                 else:
-                    if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
-                        member_values = {filter_member.value, }
-                    else:
-                        member_values = {x.value for x in filter_member.value}
-                        '''THIS COULD USE THE SHADOW COLLECTION
-                        member_values = set(filter_member.shadow_collection)
-                        '''
-                if aspect_info[ASPECT_OPERATOR] in ('=', 'in'):
-                    found_members = member_values & fact_index[index_key].keys()
-                else:  # aspect operator is '!=' or 'not in'
-                    found_members = (fact_index[index_key].keys() - {None, }) - member_values
+                    pre_matched_model_facts &= facts_by_aspect
 
-                for member in found_members:
-                    facts_by_aspect |= fact_index[index_key][member]
-
-            # intersect the facts with previous facts by aspect
-            if first:
-                first = False
-                pre_matched_facts = facts_by_aspect
-            else:
-                pre_matched_facts &= facts_by_aspect
-
-    if first:
-        # there were no apsects to start the matching, so use the full set
-        # pre_matched_facts = xule_context.model.factsInInstance
-        pre_matched_facts = fact_index['all']
+        if first:
+            # there were no apsects to start the matching, so use the full set
+            # pre_matched_model_facts = xule_context.model.factsInInstance
+            pre_matched_model_facts = fact_index['all']
+        
+        pre_matched_facts |= pre_matched_model_facts
 
     if starting_facts is None:
         # Check the alignment of pre matched facts to the dependent alignment
@@ -4500,7 +4505,7 @@ def process_factset_aspects(factset, xule_context):
     alternate_notation = False
 
     # Set the model to the default model
-    model = xule_context.model
+    models = (xule_context.model,)
     # evaluate all the aspect names. If there is an @instance aspect then need to change the model
     aspects = dict()
     for aspect_filter in factset.get('aspectFilters', list()):
@@ -4508,10 +4513,20 @@ def process_factset_aspects(factset, xule_context):
         # Check if @instance. If so, change the model
         if aspect_name.type == 'aspect_name' and aspect_name.value == 'instance':
             instance = evaluate(aspect_filter['aspectExpr'], xule_context)
-            if instance.type == 'instance':
-                model = instance.value
-            else:
-                raise XuleProcessingError(_("Value of the @instance aspect of a fact must be an instance, but found {}".format(instance.type)), xule_context)
+            if aspect_filter['aspectOperator'] == '=':
+                if instance.type == 'instance':
+                    models = (instance.value,)
+                else:
+                    raise XuleProcessingError(_("Value of the @instance aspect of a factset must be an instance, but found {}".format(instance.type)), xule_context)
+            elif aspect_filter['aspectOperator'] == 'in':
+                if instance.type not in ('set', 'list'):
+                    raise XuleProcessingError(_("The value of the @instance aspect with 'in' must be a set or a list, found {}".format(instance.type)), xule_context)
+                models = list()
+                for sub_instance in instance.value:
+                    if sub_instance.type == 'instance':
+                        models.append(sub_instance.value)
+                    else:
+                        raise XuleProcessingError(_("Value of the @instance aspect of a factset must be an instance, found {}".format(sub_instance.type)), xule_context)
         else:
             aspects[aspect_name] = aspect_filter
     '''COULD CHECK FOR DUPLICATE ASPECTS IN THE FACTSET'''
@@ -4536,8 +4551,13 @@ def process_factset_aspects(factset, xule_context):
                 aspect_dictionary[aspect_info] = aspect_value
         elif aspect_name.type == 'qname':
             # This is either a dimension aspect or the default concept aspect. The aspect name is determined by evaluating the aspectDimensionName
-            # Get the model concept to determine if the aspect is a dimension
-            aspect_filter_model_concept = model.qnameConcepts.get(aspect_name.value)
+            # Get the model concept to determine if the aspect is a dimension.
+            # Models is a list or tuple of models. Find the the concept in the first model where it exists
+            for model in models:
+                aspect_filter_model_concept = model.qnameConcepts.get(aspect_name.value)
+                if aspect_filter_model_concept is not None:
+                    break
+    
             if aspect_filter_model_concept is None:
                 raise XuleProcessingError(
                     _("Error while processing factset aspect. Concept %s not found." % aspect_name.value.clarkNotation),
@@ -4601,7 +4621,7 @@ def process_factset_aspects(factset, xule_context):
     #                     non_align_aspects[('explicit_dimension', aspect_filter_qname, None, aspect_filter.aspectOperator)] = member_rs
     #                     add_aspect_var(aspect_vars, 'explicit_dimension', aspect_filter_qname, aspect_var_name, aspect_filter['node_id'], xule_context)
 
-    return (non_align_aspects, align_aspects, aspect_vars, model)
+    return (non_align_aspects, align_aspects, aspect_vars, models)
 
 
 def aspect_in_filters(aspect_type, aspect_name, filters):
