@@ -3119,7 +3119,7 @@ def evaluate_navigate(nav_expr, xule_context):
                         result_items += nav_decorate(rel, 'up', return_names, include_start, paths, xule_context)
                 if direction == 'siblings':
                     for parent_rel in nav_traverse(nav_expr, xule_context, 'up', relationship_set, from_concept, None,
-                                                   1, list(), dimension_arcroles):
+                                                   1, list(), dimension_arcroles, ignore_where=True):
                         for sibling_rel in nav_traverse(nav_expr, xule_context, 'down', relationship_set,
                                                         parent_rel['relationship'].fromModelObject, nav_to_concepts, 1,
                                                         return_names, dimension_arcroles):
@@ -3128,7 +3128,7 @@ def evaluate_navigate(nav_expr, xule_context):
                                                              xule_context)
                 if direction == 'previous-siblings':
                     for parent_rel in nav_traverse(nav_expr, xule_context, 'up', relationship_set, from_concept, None,
-                                                   1, list(), dimension_arcroles):
+                                                   1, list(), dimension_arcroles, ignore_where=True):
                         for sibling_rel in nav_traverse(nav_expr, xule_context, 'down', relationship_set,
                                                         parent_rel['relationship'].fromModelObject, nav_to_concepts, 1,
                                                         return_names, dimension_arcroles):
@@ -3139,7 +3139,7 @@ def evaluate_navigate(nav_expr, xule_context):
                                 break  # We are done.
                 if direction == 'following-siblings':
                     for parent_rel in nav_traverse(nav_expr, xule_context, 'up', relationship_set, from_concept, None,
-                                                   1, list(), dimension_arcroles):
+                                                   1, list(), dimension_arcroles, ignore_where=True):
                         start_rel_found = False
                         for sibling_rel in nav_traverse(nav_expr, xule_context, 'down', relationship_set,
                                                         parent_rel['relationship'].fromModelObject, nav_to_concepts, 1,
@@ -3164,7 +3164,7 @@ def evaluate_navigate(nav_expr, xule_context):
 
 def nav_traverse(nav_expr, xule_context, direction, network, parent, end_concepts, remaining_depth, return_names,
                  dimension_arcroles=None, previous_concepts=None, nav_depth=1, result_order=0,
-                 arc_attribute_names=None):
+                 arc_attribute_names=None, ignore_where=False):
     """Traverse a network
     
     Arguments:
@@ -3228,21 +3228,22 @@ def nav_traverse(nav_expr, xule_context, direction, network, parent, end_concept
             rel_info[arc_attribute_name] = rel.arcElement.get(arc_attribute_name.clarkNotation)
 
         # Decide if the child will be in the results. If the child is not in the results, the navigation does not stop.
-        if not (
-                nav_traverse_where(nav_expr, 'whereExpr', rel, xule_context) and
-                (
-                        dimension_arcroles is None or
-                        'dimensional' not in nav_expr or
-                        ('dimensional' in nav_expr and rel.arcrole in dimension_arcroles[
-                            xc.DIMENSION_PSEUD0_ARCROLE_PART] and
-                         (
-                                 dimension_arcroles[xc.DIMENSION_PSEUD0_SIDE] == 'all' or
-                                 rel.side == dimension_arcroles[xc.DIMENSION_PSEUD0_SIDE]
-                         )
-                        )
-                )
-               ):
-            rel_info['relationship'] = None
+        if not ignore_where:
+            if not (
+                    nav_traverse_where(nav_expr, 'whereExpr', rel, xule_context) and
+                    (
+                            dimension_arcroles is None or
+                            'dimensional' not in nav_expr or
+                            ('dimensional' in nav_expr and rel.arcrole in dimension_arcroles[
+                                xc.DIMENSION_PSEUD0_ARCROLE_PART] and
+                            (
+                                    dimension_arcroles[xc.DIMENSION_PSEUD0_SIDE] == 'all' or
+                                    rel.side == dimension_arcroles[xc.DIMENSION_PSEUD0_SIDE]
+                            )
+                            )
+                    )
+                ):
+                rel_info['relationship'] = None
 
         keep_rel = rel_info
 
