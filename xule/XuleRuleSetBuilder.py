@@ -96,6 +96,7 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
                             "name": self.name,
                             "files": [],
                             "namespaces": {},
+                            "namespace_groups": {},
                             "rules": {},
                             "rules_by_file": {}, 
                             "functions": {},
@@ -124,6 +125,7 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
 
         #clear out the catalog. This will be rebuilt as files are added.
         self.catalog['namespaces'] = {}
+        self.catalog['namespace_groups'] = {}
         self.catalog['rules'] = {}
         self.catalog['rules_by_file'] = {}
         self.catalog['functions'] = {}
@@ -167,6 +169,7 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
         constants = {}
 #         preconditions = {}
         output_attributes = {}
+        namespace_groups = {}
         
         #defaults
         rule_name_prefix = ''
@@ -190,7 +193,13 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
                     #duplicate namespace prefix
                     print("Duplicate namespace prefix: %s" % prefix) #, file=stderr)
                     error_in_file = True
-                
+            
+            elif cur_name == 'namespaceGroupDeclaration':
+                if cur_node['namespaceGroupName'] in namespace_groups:
+                    print("Duplicate namespace group '%s'" % cur_node['namespaceGroupName'])
+                    error_in_file = True
+                namespace_groups[cur_node['namespaceGroupName']] = {"file": file_num, "index": i}
+
             elif cur_name == 'outputAttributeDeclaration':
                 output_attributes[cur_node['attributeName']] = {"file": file_num, "index": i}
                 
@@ -258,19 +267,23 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
         error_in_file = self._dup_names(rules.keys(), self.catalog['rules'].keys()) or error_in_file
         error_in_file = self._dup_names(functions.keys(), self.catalog['functions'].keys()) or error_in_file
         error_in_file = self._dup_names(output_attributes.keys(), self.catalog['output_attributes'].keys()) or error_in_file
+        error_in_file = self._dup_names(namespace_groups.keys(), self.catalog['namespace_groups'].keys()) or error_in_file
         error_in_file = self._dup_namespace_declarations(namespaces) or error_in_file
-        
+
         if error_in_file:
             raise xr.XuleRuleSetError("Duplicate names.")
         
         #merge current catalog info into the shelf catalog
         self.catalog['namespaces'].update(namespaces)
+        if self._dup_names(namespace_groups.keys(), self.catalog['namespaces'].keys()):
+            raise xr.XuleRuleCompatibilityError("Duplicate name between a namespace and a namespace group.")
         self.catalog['rules_by_file'][file_num] = rules
 #         self.catalog['preconditions'].update(preconditions)
         self.catalog['rules'].update(rules)
         self.catalog['constants'].update(constants)
         self.catalog['functions'].update(functions)
         self.catalog['output_attributes'].update(output_attributes)    
+        self.catalog['namespace_groups'].update(namespace_groups)
                 
     def _dup_names(self, one, two):
         """Determine if two sets of names have duplicates.
@@ -792,6 +805,13 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
                     else:
                         parse_node['var_refs'] = [(parse_node['var_declaration'], parse_node['varName'], parse_node, 3),]
 
+            # elif current_part == 'groupQname':
+            #     ns_group_info = self.catalog['namespace_groups'][parse_node['prefix']]
+            #     ns_group_expr = self.getItem(ns_group_info['file'], ns_group_info['index'])
+            #     self._walk_for_iterable(item_name, ns_group_expr, var_defs)
+            #     parse_node['number'] = ns_group_expr['number']
+            #     parse_node['has_alignment'] = ns_group_expr['has_alignment']
+
             elif current_part == 'blockExpr':
                 var_assignments = parse_node['varDeclarations']
 
@@ -808,7 +828,21 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
                 
             elif current_part == 'qname':
                 #find the namespace uri for the prefix
-                parse_node['namespace_uri'] = self.getNamespaceUri(parse_node['prefix'])
+                #parse_node['namespace_uri'] = self.getNamespaceUri(parse_node['prefix'])
+
+                prefix = parse_node['prefix']
+                #This case there is a file, but it didn't have any namespace declarations
+                if prefix not in self.catalog['namespaces']:
+                    if prefix == '*':
+                        parse_node['namespace_uri'] = None
+                    else:
+                        # The prefix may be a namespace group
+                        if prefix in self.catalog['namespace_groups']:
+                            parse_node['exprName'] = 'groupQname' # Change the exprName to a groupQname
+                        else:
+                            raise xr.XuleRuleSetError("Prefix %s does not have a namespace or namespace-group declaration." % prefix)
+                else: # prefix is in namespaces
+                    parse_node['namespace_uri'] = self.catalog['namespaces'][prefix]['uri']
 
             elif current_part == 'constantDeclaration':
                 if parse_node['number'] == 'multi':
@@ -825,7 +859,7 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
                          raise xr.XuleRuleSetError("In rule {}, the result name '{}' is not defined as an output-attribute.".format(item_name, parse_node['resultName']))
             
             #set the table id for the iterables under the top level node. 
-            if current_part in ('assertion', 'outputRule', 'functionDeclaration', 'constantDeclaration'):
+            if current_part in ('assertion', 'outputRule', 'functionDeclaration', 'constantDeclaration', 'namespaceGroupDeclaration'):
                 self.assign_table_id(parse_node, var_defs)
 
                 #assign table id to variable references to constants.
@@ -952,6 +986,8 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
         for rule_name, rule_info in self.catalog['rules'].items():
             ast_rule = self.getItem(rule_info['file'], rule_info['index'])
             self._walk_for_iterable(rule_name, ast_rule)
+        for ns_group_name, ns_group_info in self.catalog['namespace_groups'].items():
+            self._walk_for_iterable(ns_group_name, self.getItem(ns_group_info['file'], ns_group_info['index']))
 
         self._cleanup_ruleset()
 

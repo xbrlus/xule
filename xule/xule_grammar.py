@@ -149,6 +149,7 @@ def get_grammar():
     ruleNameSeparatorKeyword = CaselessKeyword('rule-name-separator')
     namespaceKeyword = CaselessKeyword('namespace')
     constantKeyword = CaselessKeyword('constant')
+    namespaceGroupKeyword = CaselessKeyword('namespace-group')
     functionKeyword = CaselessKeyword('function')
     versionKeyword = CaselessKeyword('version')
 
@@ -683,6 +684,14 @@ def get_grammar():
                   nodeName('constantDeclaration')
             )                            
 
+    namespaceGroupDeclaration = (
+                  Suppress(namespaceGroupKeyword) +
+                  simpleName.setResultsName("namespaceGroupName") + 
+                  Suppress(assignOp) + 
+                  expr.setResultsName("body") +
+                  nodeName('namespaceGroupDeclaration')
+            )  
+
     functionDeclaration = (
         Suppress(functionKeyword) + 
         simpleName.setResultsName("functionName") + ~White() +
@@ -704,6 +713,7 @@ def get_grammar():
     xuleFile = (stringStart +
                 ZeroOrMore(Group(ruleNameSeparator |
                                  ruleNamePrefix |
+                                 namespaceGroupDeclaration | 
                                  namespaceDeclaration |
                                  outputAttributeDeclaration |
                                  functionDeclaration |

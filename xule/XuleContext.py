@@ -203,6 +203,7 @@ class XuleGlobalContext(object):
         #self.fact_index = None
         self.include_nils = getattr(self.options, "xule_include_nils", False)
         self._constants = {}
+        self._namespace_groups = {}
         self.preconditions = {}
         self.expression_cache = {}
         self.show_trace = False
@@ -620,6 +621,20 @@ class XuleRuleContext(object):
                         
         return var_info                
     
+    def find_namespace_group(self, namespace_group_name):
+        ns_group_info = self.global_context._namespace_groups.get(namespace_group_name)
+        if ns_group_info is None: # This is the first time getting this namespace group
+            cat_ns_group = self.global_context.catalog['namespace_groups'].get(namespace_group_name)
+            if not cat_ns_group: # the namespace group is not found
+                raise XuleProcessingError(_("Namespace group '%s' is not declared" % namespace_group_name), self)
+            ns_group_info = {"name": namespace_group_name,
+                             "expr": self.global_context.rule_set.getItem(cat_ns_group),
+                             "calculated": False,
+                             }
+            self.global_context._namespace_groups[namespace_group_name] = ns_group_info
+        
+        return ns_group_info
+
     def filter_add(self, filter_type, filter_dict):
         """Add a factset filter to the filter stack
         

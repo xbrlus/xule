@@ -1207,6 +1207,33 @@ def evaluate_qname_literal(literal, xule_context):
     return XuleValue(xule_context,
                      QName(prefix if prefix != '*' else None, literal['namespace_uri'], literal['localName']), 'qname')
 
+def evaluate_namespace_group(ns_group, xule_context):
+    """Evaluator for literal group qname expressions
+    This is like a qname, but the prefix does not resolve to a specific namespace. Instead, the local name can come from a
+    list of namespaces. This is used for refering to the different versions of a taxonomy with a single prefix. I.E. 
+    usgaap could be a namespace group prefix for all the different versions of the USGAAP taxonomuy. The va
+    
+    :param literal: Rule expression
+    :type literal: dict
+    :param xule_context: Rule processing context
+    :type xule_context: XuleRuleContext
+    :rtype: XuleValue
+    """
+
+    ns_group_info = xule_context.find_namespace_group(ns_group['prefix'])
+    if not ns_group_info['calculated']:
+        ns_list = evaluate(ns_group_info['expr']['body'], xule_context, override_table_id=xule_context.iteration_table.current_table.table_id)
+        if ns_list.type not in ('set', 'list', 'string'):
+            raise XuleProcessingError(_("Value of a namespace group must be a string or a set or list of strings, found '%s'" % ns_list.type), xule_context)
+        if ns_list.type in ('list', 'set'):
+            for fragment in ns_list.value:
+                if fragment.type != 'string':
+                    raise XuleProcessingError(_("The values in a namespace group set or list must be strings, found '%s'"% fragment.type), xule_context)
+
+        ns_group_info['calculated'] = True
+        ns_group_info['value'] = ns_list
+
+    return XuleValue(xule_context, (ns_group_info['value'], ns_group['localName']), 'groupQname')
 
 def evaluate_severity(severity_expr, xule_context):
     """Evaluator for literal severity expressions
@@ -1508,7 +1535,6 @@ def process_precalc_constants(global_context):
                 calc_constant(const_info, const_context)
             # Clean up
             del const_context
-
 
 def evaluate_if(if_expr, xule_context):
     """Evaluator for if expressions
@@ -2454,20 +2480,20 @@ def factset_pre_match(factset, filters, non_aligned_filters, align_aspects, mode
                         index_key[ASPECT], filter_member.type)), xule_context)
 
                     # fix for aspects that take qname members (concept and explicit dimensions. The member can be a concept or a qname. The index is by qname.
-                    if index_key in (('builtin', 'concept'), ('property', 'cube', 'name')):
+                    if index_key in (('builtin', 'concept'), ('property', 'cube', 'name')) or index_key[TYPE] == 'explicitDimension':
                         if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
-                            member_values = {convert_value_to_qname(filter_member, xule_context), }
+                            member_values = convert_value_to_qname(filter_member,model, xule_context)
                         else:
-                            member_values = {convert_value_to_qname(x, xule_context) for x in filter_member.value}
-                    elif index_key[TYPE] == 'explicit_dimension':
-                        if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
-                            if filter_member.type == 'concept':
-                                member_values = {convert_value_to_qname(filter_member, xule_context), }
-                            else:
-                                member_values = {filter_member.value, }
-                        else:
-                            member_values = {convert_value_to_qname(x, xule_context) if x.type == 'concept' else x.value for x
-                                            in filter_member.value}
+                            member_values = set()
+                            for filter_val in filter_member.value:
+                                for x in convert_value_to_qname(filter_val, model, xule_context):
+                                    member_values.add(x)
+                    # elif index_key[TYPE] == 'explicit_dimension':
+                    #     if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
+                    #         member_values = convert_value_to_qname(filter_member, model, xule_context)
+                    #     else:
+                    #         member_values = {convert_value_to_qname(x, model, xule_context) if x.type == 'concept' else x.value for x
+                    #                         in filter_member.value}
                     # Also fix for period aspect
                     elif index_key == ('builtin', 'period'):
                         if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
@@ -4404,6 +4430,7 @@ EVALUATOR = {
     "string": evaluate_string_literal,
     "period": evaluate_period_literal,
     "qname": evaluate_qname_literal,
+    "groupQname": evaluate_namespace_group,
     # "skip": evaluate_void_literal,
     "none": evaluate_void_literal,
 
@@ -4550,15 +4577,32 @@ def process_factset_aspects(factset, xule_context):
             aspect_info, aspect_value = process_aspect_expr(aspect_filter, 'builtin', aspect_name.value, xule_context)
             if aspect_info is not None:
                 aspect_dictionary[aspect_info] = aspect_value
-        elif aspect_name.type == 'qname':
+        elif aspect_name.type in ('qname', 'groupQname'):
             # This is either a dimension aspect or the default concept aspect. The aspect name is determined by evaluating the aspectDimensionName
             # Get the model concept to determine if the aspect is a dimension.
             # Models is a list or tuple of models. Find the the concept in the first model where it exists
+            aspect_filter_model_concept = None
             for model in models:
-                aspect_filter_model_concept = model.qnameConcepts.get(aspect_name.value)
-                if aspect_filter_model_concept is not None:
-                    break
-    
+                if aspect_name.type == 'qname':
+                    aspect_filter_model_concept = model.qnameConcepts.get(aspect_name.value)
+                    if aspect_filter_model_concept is not None:
+                        break
+                else: # This is a groupQname
+                    # the whole purpose of getting the model concept for the aspect_name is to see if it is a dimension. If it is 
+                    # a dimension, then this is a dimension aspect. If it is not a dimension, then this is a shorthand notation for 
+                    # the concept aspect (i.e @usgaap:Assets instead of @concept=usgaap:Assets). If there are multiple
+                    # concepts that match, then they all have to be dimensions or all not dimensions, that is it can't 
+                    # be a mix of some dimension concepts and some not. If there is a mix, then is will be an error.
+                    # The groupQname xule value is a tuple of a list of namespace uri fragments and the local name.
+                    for model_concept in model.nameConcepts.get(aspect_name.value[1], ()): # get all the concepts by local name
+                        if match_namespace_group(aspect_name.value[0], model_concept.qname):
+                            if aspect_filter_model_concept is None:
+                                aspect_filter_model_concept = model_concept
+                            else:
+                                # verify that the first found model_concept matches the isDimension
+                                if model_concept.isDimensionItem != aspect_filter_model_concept.isDimensionItem:
+                                    raise XuleProcessingError(_("Found facset aspect that uses a namespace group prefix in the aspect name, but there are multiple concepts that are not all dimensions or all non dimensions. This is not allowed"), xule_context)
+
             if aspect_filter_model_concept is None:
                 raise XuleProcessingError(
                     _("Error while processing factset aspect. Concept %s not found." % aspect_name.value.clarkNotation),
@@ -4624,7 +4668,6 @@ def process_factset_aspects(factset, xule_context):
 
     return (non_align_aspects, align_aspects, aspect_vars, models)
 
-
 def aspect_in_filters(aspect_type, aspect_name, filters):
     """Checks if an aspect is in the existing set of filters
     
@@ -4639,7 +4682,6 @@ def aspect_in_filters(aspect_type, aspect_name, filters):
             return True
     # This will only hit if the aspect was not found in the filters.
     return False
-
 
 def process_aspect_expr(aspect_filter, aspect_type, aspect_name, xule_context):
     """Process the expression on the right side of an aspect filter.
@@ -4711,9 +4753,6 @@ def fix_for_default_member(dim, aspect_value, xule_context):
     else:
         return new_values[0]
 
-
-
-
 def add_aspect_var(aspect_vars, aspect_type, aspect_name, var_name, aspect_index, xule_context):
     if var_name:
         if var_name in aspect_vars:
@@ -4722,12 +4761,29 @@ def add_aspect_var(aspect_vars, aspect_type, aspect_name, var_name, aspect_index
         else:
             aspect_vars[var_name] = (aspect_type, aspect_name, aspect_index)
 
+def match_namespace_group(fragment_list, namespace_uri):
+    if fragment_list.type == 'string':
+        fragments = (fragment_list,) 
+    else:
+        fragments = fragment_list.value
+    for fragment in fragments:
+        if fragment.value in namespace_uri.namespaceURI:
+            return True
 
-def convert_value_to_qname(value, xule_context):
+    # if here, there were no matching fragments
+    return False
+
+def convert_value_to_qname(value, model, xule_context):
     if value.type == 'concept':
-        return value.value.qname
+        return {value.value.qname,}
     elif value.type == 'qname':
-        return value.value
+        return {value.value,}
+    elif value.type == 'groupQname':
+        return_values = set()
+        for model_concept in model.nameConcepts.get(value.value[1], tuple()):
+            if match_namespace_group(value.value[0], model_concept.qname):
+                return_values.add(model_concept.qname)
+        return return_values
     elif value.type in ('unbound', 'none'):
         return None
     else:
