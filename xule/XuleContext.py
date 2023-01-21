@@ -217,7 +217,7 @@ class XuleGlobalContext(object):
         self.precalc_constants = False
         self.expression_trace = dict()
         self.other_taxonomies = dict()
-        self.maximum_iterations = max(getattr(self.options, "xule_max_rule_iterations", 10000), len(model_xbrl.factsInInstance) + 10 )
+        self.maximum_iterations = max(getattr(self.options, "xule_max_rule_iterations", 10000), len(getattr(model_xbrl, "factsInInstance", tuple())) + 10 )
         self.ancestry_cache = defaultdict(dict)
         
         # Set up various queues
