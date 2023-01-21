@@ -25,7 +25,7 @@ DOCSKIP
 
 from aniso8601 import parse_duration
 from arelle.ModelValue import qname, QName
-from arelle import FileSource, PackageManager
+from arelle import FileSource, PackageManager, FunctionIxt
 import collections
 import datetime
 import decimal
@@ -446,9 +446,9 @@ def func_csv_data(xule_context, *args):
         elif column_types.type == 'list':
             ordered_cols = list()
             for col in column_types.value:
-                if col.type != 'string':
-                    raise XuleProcessingError(_("The type list argument (3rd argument) of the csv-data() function must be a list of strings, found '{}'.".format(col.type)), xule_context)
-                ordered_cols.append(col.value)
+                if col.type not in  ('string', 'qname', 'list'): # qnames are used for transforms
+                    raise XuleProcessingError(_("The type list argument (3rd argument) of the csv-data() function must be a list of strings or qnames (for transforms) or a 2 item list of the transform and output type, found '{}'.".format(col.type)), xule_context)
+                ordered_cols.append(col)
         else:
             raise XuleProcessingError(_("The type list argument (3rd argument) of the csv-data() fucntion must be list, found '{}'.".format(column_types.type)), xule_context)
     else:
@@ -533,37 +533,89 @@ def convert_file_data_item(item, type, xule_context):
     
     if type is None:
         return xv.XuleValue(xule_context, item, 'string')
-    elif type == 'qname':
-        if item.count(':') == 0:
+    elif type.type in ('qname', 'list'):
+        # this is a transform
+        # Need to convert the stering version of the value to the canonical string version using the transform format.
+        if type.type == 'qname': # This is just a transform, the type will be a string
+            f = type.value
+            output_type = 'string'
+        else: # this is a list of 2 items. the first is the transform and the second is output type
+            if len(type.value) != 2:
+                raise XuleProcessingError(_("When the type value is a list, it must have 2 items, the first is the transform name and the second is output type"), xule_context)
+            if type.value[0].type != 'qname':
+                raise XuleProcessingError(_("The fist item in a type list must be a qname for a transform. Found '{}'".format(type.value[0].type)), xule_context)
+            f = type.value[0].value
+            if type.value[1].type != 'string':
+                raise XuleProcessingError(_("The second item in a type list must be sting indicating the output type. Found '{}'".format(type.value[1].type)), xule_context)
+            output_type = type.value[1].value
+        v = item
+        if f.namespaceURI in FunctionIxt.ixtNamespaceFunctions:
+            try:
+                v = FunctionIxt.ixtNamespaceFunctions[f.namespaceURI][f.localName](v)
+            except Exception as err:
+                raise XuleProcessingError(_("Unable to convert '{}' using transform '{}'.".format(item, f.clarkNotation)))
+        else:
+            try:
+                v = xule_context.model.modelManager.customTransforms[f](v)
+            except KeyError as err:
+                raise XuleProcessingError(_("Transform '{}' is unknown".format(f.clarkNotation)))
+            except Exception as err:
+                raise XuleProcessingError(_("Unable to convert '{}' using transform '{}'.".format(item, f.clarkNotation)))
+    else: #This is a string of the output type
+        output_type = type.value
+        v = item
+    
+    if output_type == 'qname':
+        if v.count(':') == 0:
             prefix = '*' # This indicates the default namespace
-            local_name = item
-        elif item.count(':') == 1:
-            prefix, local_name = item.split(':')
+            local_name = v
+        elif v.count(':') == 1:
+            prefix, local_name = v.split(':')
         else:
             raise XuleProcessingError(_("While processing a data file, QName in a file can only have one ':', found {} ':'s".format(item.count(':'))), xule_context)
         
         namespace = xule_context.rule_set.getNamespaceUri(prefix)
         
         return xv.XuleValue(xule_context, QName(prefix if prefix != '*' else None, namespace, local_name), 'qname')
-    elif type == 'int':
+    elif output_type == 'int':
         try:
-            return xv.XuleValue(xule_context, int(item), 'int')
+            return xv.XuleValue(xule_context, int(v), 'int')
         except ValueError:
             raise XuleProcessingError(_("While processing a data file, cannot convert '{}' to an {}.".format(item, type)), xule_context)
-    elif type == 'float':
+    elif output_type == 'float':
         try:
-            return xv.XuleValue(xule_context, float(item), 'float')
+            return xv.XuleValue(xule_context, float(v), 'float')
         except ValueError:
             raise XuleProcessingError(_("While processing a data file, cannot convert '{}' to a {}.".format(item, type)), xule_context)
-    elif type == 'decimal':
+    elif output_type == 'decimal':
         try:
-            return xv.XuleValue(xule_context, decimal.Decimal(item), 'decimal')
+            return xv.XuleValue(xule_context, decimal.Decimal(v), 'decimal')
         except decimal.InvalidOperation:
             raise XuleProcessingError(_("While processing a data file, cannot convert '{}' to a {}.".format(item, type)), xule_context)
-    elif type == 'string':
-        return xv.XuleValue(xule_context, item, type)        
+    elif output_type == 'string':
+        return xv.XuleValue(xule_context, v, 'string')  
+    elif output_type == 'date':
+        return xv.XuleValue(xule_context, datetime.date.fromisoformat(v), 'date')
+    elif output_type == 'boolean':
+        return xv.XuleValue(xule_context, bool(v), 'boolean')
     else:
-        raise XuleProcessingError(_("While processing a data file, {} is not implemented.".format(type)), xule_context)
+        raise XuleProcessingError(_("While processing a data file, {} is not implemented.".format(output_type)), xule_context)
+
+def inline_transform_value(transform_name, val, output_type, xule_context):
+    if transform_name.namespaceURI in FunctionIxt.ixtNamespaceFunctions:
+        try:
+            new_val = FunctionIxt.ixtNamespaceFunctions[transform_name.namespaceURI][transform_name.localName](val)
+        except Exception as err:
+            raise XuleProcessingError(_("Unable to convert '{}' using transform '{}'.".format(val, transform_name.clarkNotation)))
+    else:
+        try:
+            new_val = xule_context.model.modelManager.customTransforms[transform_name](val)
+        except KeyError as err:
+            raise XuleProcessingError(_("Transform '{}' is unknown".format(transform_name.clarkNotation)))
+        except Exception as err:
+            raise XuleProcessingError(_("Unable to convert '{}' using transform '{}'.".format(val, transform_name.clarkNotation)))
+
+    return new_val
 
 def func_json_data(xule_context, *args):
     """Read a json file/url.
