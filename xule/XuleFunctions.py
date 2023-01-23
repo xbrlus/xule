@@ -439,18 +439,8 @@ def func_csv_data(xule_context, *args):
     if has_headers.type != 'bool':
         raise XuleProcessingError(_("The has headers argument (2nd argument) of the csv-data() function muset be a boolean, found '{}'.".format(has_headers.type)), xule_context)
     
-    if len(args) >= 3:    
-        column_types = args[2]
-        if column_types.type == 'none':
-            ordered_cols = None
-        elif column_types.type == 'list':
-            ordered_cols = list()
-            for col in column_types.value:
-                if col.type not in  ('string', 'qname', 'list'): # qnames are used for transforms
-                    raise XuleProcessingError(_("The type list argument (3rd argument) of the csv-data() function must be a list of strings or qnames (for transforms) or a 2 item list of the transform and output type, found '{}'.".format(col.type)), xule_context)
-                ordered_cols.append(col)
-        else:
-            raise XuleProcessingError(_("The type list argument (3rd argument) of the csv-data() fucntion must be list, found '{}'.".format(column_types.type)), xule_context)
+    if len(args) >= 3: 
+        ordered_cols = validate_data_field_types(args[2], 'csv-data', xule_context)   
     else:
         ordered_cols = None
     
@@ -528,12 +518,28 @@ def func_csv_data(xule_context, *args):
             result_shadow.append(frozenset(result_line_shadow.items()))
           
     return xv.XuleValue(xule_context, tuple(result), 'list', shadow_collection=tuple(result_shadow))
-                
-def convert_file_data_item(item, type, xule_context):
+
+def validate_data_field_types(column_types, func_name, xule_context):
+
+    if column_types.type == 'none':
+        ordered_cols = None
+    elif column_types.type == 'list':
+        ordered_cols = list()
+        for col in column_types.value:
+            if col.type not in  ('string', 'qname', 'list'): # qnames are used for transforms
+                raise XuleProcessingError(_("The type list argument (3rd argument) of the {}() function must be a list of strings or qnames (for transforms) or a 2 item list of the transform and output type, found '{}'.".format(func_name, col.type)), xule_context)
+            ordered_cols.append(col)
+    else:
+        raise XuleProcessingError(_("The type list argument (3rd argument) of the {}() fucntion must be list, found '{}'.".format(func_name, column_types.type)), xule_context)
+
+    return ordered_cols
+
+def convert_file_data_item(val, type, xule_context):
     
     if type is None:
         return xv.XuleValue(xule_context, item, 'string')
-    elif type.type in ('qname', 'list'):
+
+    if type.type in ('qname', 'list'):
         # this is a transform
         # Need to convert the stering version of the value to the canonical string version using the transform format.
         if type.type == 'qname': # This is just a transform, the type will be a string
@@ -548,23 +554,23 @@ def convert_file_data_item(item, type, xule_context):
             if type.value[1].type != 'string':
                 raise XuleProcessingError(_("The second item in a type list must be sting indicating the output type. Found '{}'".format(type.value[1].type)), xule_context)
             output_type = type.value[1].value
-        v = item
+        v = val
         if f.namespaceURI in FunctionIxt.ixtNamespaceFunctions:
             try:
-                v = FunctionIxt.ixtNamespaceFunctions[f.namespaceURI][f.localName](v)
+                v = FunctionIxt.ixtNamespaceFunctions[f.namespaceURI][f.localName](val)
             except Exception as err:
-                raise XuleProcessingError(_("Unable to convert '{}' using transform '{}'.".format(item, f.clarkNotation)))
+                raise XuleProcessingError(_("Unable to convert '{}' using transform '{}'.".format(val, f.clarkNotation)))
         else:
             try:
-                v = xule_context.model.modelManager.customTransforms[f](v)
+                v = xule_context.model.modelManager.customTransforms[f](val)
             except KeyError as err:
                 raise XuleProcessingError(_("Transform '{}' is unknown".format(f.clarkNotation)))
             except Exception as err:
-                raise XuleProcessingError(_("Unable to convert '{}' using transform '{}'.".format(item, f.clarkNotation)))
-    else: #This is a string of the output type
+                raise XuleProcessingError(_("Unable to convert '{}' using transform '{}'.".format(val, f.clarkNotation)))
+    else: #This is a string indicating the output type
         output_type = type.value
-        v = item
-    
+        v = val
+
     if output_type == 'qname':
         if v.count(':') == 0:
             prefix = '*' # This indicates the default namespace
@@ -601,21 +607,6 @@ def convert_file_data_item(item, type, xule_context):
     else:
         raise XuleProcessingError(_("While processing a data file, {} is not implemented.".format(output_type)), xule_context)
 
-def inline_transform_value(transform_name, val, output_type, xule_context):
-    if transform_name.namespaceURI in FunctionIxt.ixtNamespaceFunctions:
-        try:
-            new_val = FunctionIxt.ixtNamespaceFunctions[transform_name.namespaceURI][transform_name.localName](val)
-        except Exception as err:
-            raise XuleProcessingError(_("Unable to convert '{}' using transform '{}'.".format(val, transform_name.clarkNotation)))
-    else:
-        try:
-            new_val = xule_context.model.modelManager.customTransforms[transform_name](val)
-        except KeyError as err:
-            raise XuleProcessingError(_("Transform '{}' is unknown".format(transform_name.clarkNotation)))
-        except Exception as err:
-            raise XuleProcessingError(_("Unable to convert '{}' using transform '{}'.".format(val, transform_name.clarkNotation)))
-
-    return new_val
 
 def func_json_data(xule_context, *args):
     """Read a json file/url.
@@ -676,31 +667,22 @@ def func_xml_data_flat(xule_context, *args):
     
     if fields.type != 'list':
         raise XuleProcessingError(_("The fields list for function xml-data-flat() is not a string"), xule_context)
-    
-    nsmap = {k: v['uri'] for k, v in xule_context.global_context.catalog['namespaces'].items()}
 
     # Column types
-    if len(args) == 4:  
-        column_types = args[3]
-        if column_types.type == 'none':
-            ordered_cols = None
-        elif column_types.type == 'list':
-            ordered_cols = list()
-            for col in column_types.value:
-                if col.type != 'string':
-                    raise XuleProcessingError(_("The type list argument (34th argument) of the xml-data-flat() function must be a list of strings, found '{}'.".format(col.type)), xule_context)
-                ordered_cols.append(col.value)
-        else:
-            raise XuleProcessingError(_("The type list argument (4th argument) of the xml-data-flat() fucntion must be list, found '{}'.".format(column_types.type)), xule_context)
+    if len(args) >= 4:  
+        ordered_cols = validate_data_field_types(args[3], 'xml-data-flat', xule_context)
     else:
         ordered_cols = None
 
     # namespace dictionary
+    nsmap = {k: v['uri'] for k, v in xule_context.global_context.catalog['namespaces'].items() if k != '*'} 
     if len(args) == 5:
-        namespaces = args[3]
+        namespaces = args[4]
         if namespaces.type != 'dictionary':
             raise XuleProcessingError(_("The namespace map argument of the xml-data-flat() function (4th argument) must be a dictionary"), xule_context)
         nsmap.update(namespaces.shadow_dictionary)
+    if None in nsmap.keys():
+        del nsmap[None] # this means there is no namespace for the default. A default is not allowed for etree element.xpath()
 
     field_count = 0
     for field in fields.value:
