@@ -537,7 +537,7 @@ def validate_data_field_types(column_types, func_name, xule_context):
 def convert_file_data_item(val, type, xule_context):
     
     if type is None:
-        return xv.XuleValue(xule_context, item, 'string')
+        return xv.XuleValue(xule_context, val, 'string')
 
     if type.type in ('qname', 'list'):
         # this is a transform
@@ -578,7 +578,7 @@ def convert_file_data_item(val, type, xule_context):
         elif v.count(':') == 1:
             prefix, local_name = v.split(':')
         else:
-            raise XuleProcessingError(_("While processing a data file, QName in a file can only have one ':', found {} ':'s".format(item.count(':'))), xule_context)
+            raise XuleProcessingError(_("While processing a data file, QName in a file can only have one ':', found {} ':'s".format(val.count(':'))), xule_context)
         
         namespace = xule_context.rule_set.getNamespaceUri(prefix)
         
@@ -587,17 +587,17 @@ def convert_file_data_item(val, type, xule_context):
         try:
             return xv.XuleValue(xule_context, int(v), 'int')
         except ValueError:
-            raise XuleProcessingError(_("While processing a data file, cannot convert '{}' to an {}.".format(item, type)), xule_context)
+            raise XuleProcessingError(_("While processing a data file, cannot convert '{}' to an {}.".format(val, type)), xule_context)
     elif output_type == 'float':
         try:
             return xv.XuleValue(xule_context, float(v), 'float')
         except ValueError:
-            raise XuleProcessingError(_("While processing a data file, cannot convert '{}' to a {}.".format(item, type)), xule_context)
+            raise XuleProcessingError(_("While processing a data file, cannot convert '{}' to a {}.".format(val, type)), xule_context)
     elif output_type == 'decimal':
         try:
             return xv.XuleValue(xule_context, decimal.Decimal(v), 'decimal')
         except decimal.InvalidOperation:
-            raise XuleProcessingError(_("While processing a data file, cannot convert '{}' to a {}.".format(item, type)), xule_context)
+            raise XuleProcessingError(_("While processing a data file, cannot convert '{}' to a {}.".format(val, type)), xule_context)
     elif output_type == 'string':
         return xv.XuleValue(xule_context, v, 'string')  
     elif output_type == 'date':

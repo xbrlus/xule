@@ -1477,6 +1477,28 @@ def property_to_qname(xule_context, object_value, *args):
 
     return xv.XuleValue(xule_context, QName(prefix, namespace_uri, local_name), 'qname')
 
+def property_inline_transform(xule_context, object_value, *args):
+    '''Apply an Inline XBRL transform to a string.
+    
+    There are 2 arguments:
+      1 - transform qname
+      2 - type to convert to. This is optional, default is a string.'''
+
+    if len(args) == 0:
+        raise XuleProcessingError(_("The inline-transform property requires at least 1 argument indicating the transform qname"), xule_context)
+
+    if args[0].type != 'qname':
+        raise XuleProcessingError(_("The transform name of the inline-transform property must be a qname. found '{}'".format(args[0].type)), xule_context)
+    
+    if len(args) == 2:
+        # there is an option output type
+        if args[1].type != 'string':
+            raise XuleProcessingError(_("The return type of the inline-transform property must be a string. Found '{}'"), xule_context)
+        type_to_send = xv.XuleValue(xule_context, tuple(args), 'list')
+    else:
+        type_to_send = args[0]
+
+    return XuleFunctions.convert_file_data_item(object_value.value, type_to_send, xule_context)
 
 def property_day(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, object_value.value.day, 'int')
@@ -2232,6 +2254,7 @@ PROPERTIES = {
               'upper-case': (property_upper_case, 0, ('string', 'uri'), False),
               'split': (property_split, 1, ('string', 'uri'), False),
               'to-qname': (property_to_qname, -1, ('string'), False),
+              'inline-transform': (property_inline_transform, -2, ('string'), False),
               'day': (property_day, 0, ('instant',), False),
               'month': (property_month, 0, ('instant',), False),
               'year': (property_year, 0, ('instant',), False),
