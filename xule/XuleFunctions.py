@@ -30,8 +30,8 @@ import collections
 import datetime
 import decimal
 import json
+import random
 from lxml import etree as et
-
 from .XuleRunTime import XuleProcessingError
 from . import XuleValue as xv
 from . import XuleRollForward as xrf
@@ -164,6 +164,40 @@ def func_mod(xule_context, *args):
     
     combined_type, numerator_compute_value, denominator_compute_value = xv.combine_xule_types(numerator, denominator, xule_context)
     return xv.XuleValue(xule_context, numerator_compute_value % denominator_compute_value, combined_type)
+
+def func_random(xule_context, *args):
+    if len(args) == 0:
+        return xv.XuleValue(xule_context, decimal.Decimal(random.random()), 'decimal')
+    
+    if len(args) >= 1:
+        if args[0].type not in ('int', 'decimal', 'float', 'none'):
+            raise XuleProcessingError(_("First argument of the random() function must be numeric, found '{}'".format(args[0].type)), xule_context)
+        start = args[0].value or 0.0
+    else:
+        start = 0.0
+    
+    if len(args) >= 2:
+        if args[1].type not in ('int', 'decimal', 'float', 'none'):
+            raise XuleProcessingError(_("Second argument of the random() function must be numeric, found '{}'".format(args[1].type)), xule_context)
+        end = args[1].value or 1.0
+    else:
+        end = 1.0
+
+    if len(args) == 3:
+        if args[2].type != 'string':
+            raise XuleProcessingError(_("Third argument of the random() function must be a string of 'int' or 'decimal', found non string of type '{}'".format(args[2].type)), xule_context)
+        if args[2].value not in ('int', 'decimal'):
+            raise XuleProcessingError(_("Third argument of the random() function must be a string of 'int' or 'decimal', found '{}''".format(args[2].value)), xule_context)
+        result_type = args[2].value
+    else:
+        result_type = 'decimal'
+
+    if result_type == 'int':
+        random_val = round(random.uniform(start, end))
+    else:
+        random_val = decimal.Decimal(random.uniform(start, end))
+
+    return xv.XuleValue(xule_context, random_val, result_type)
 
 def func_extension_concept(xule_context, *args):   
     extension_ns_value_set = xule_context._const_extension_ns()
@@ -966,6 +1000,7 @@ def built_in_functions():
              'schema-type': ('regular', func_schema_type, 1, False, 'single'),
              'num-to-string': ('regular', func_num_to_string, 1, False, 'single'),
              'mod': ('regular', func_mod, 2, False, 'single'),
+             'random': ('regular', func_random, -3, False, 'single'),
              'extension-concepts': ('regular', func_extension_concept, 0, False, 'single'),
              'taxonomy': ('regular', func_taxonomy, -1, False, 'single'),
              'csv-data': ('regular', func_csv_data, -4, False, 'single'),
