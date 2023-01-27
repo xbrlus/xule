@@ -28,6 +28,7 @@ from . import XuleValue as xv
 from . import XuleUtility 
 from . import XuleFunctions
 from arelle.ModelDocument import Type
+from arelle.ModelInstanceObject import ModelInlineFact
 #from arelle.ModelRelationshipSet import ModelRelationshipSet
 from arelle.ModelValue import QName, qname
 import collections
@@ -2134,6 +2135,38 @@ def regex_match_string(xule_context, search_string, pattern, group_num=None):
         except IndexError:
             raise XuleProcessingError(_("Group does not exist for group number {} for regex-match-string".format(group_num)))
 
+def property_inline_parent(xule_context, object_value, *args):
+
+    ancestors = tuple(x for x in object_value.fact.iterancestors() if isinstance(x, ModelInlineFact))
+    if len(ancestors) > 0:
+        return xv.XuleValue(xule_context, ancestors[0], 'fact')
+    else:
+        return xv.XuleValue(xule_context, None, 'none')
+
+def property_inline_ancestors(xule_context, object_value, *args):
+    result = tuple(xv.XuleValue(xule_context, x, 'fact') for x in object_value.fact.iterancestors() if isinstance(x, ModelInlineFact))
+    return xv.XuleValue(xule_context, result, 'list')
+
+def property_inline_children(xule_context, object_value, *args):
+    result = []
+    for child in object_value.fact.iterchildren():
+        if isinstance(child, ModelInlineFact):
+            result.apend(child)
+        else: 
+            # check if there is a descendant
+            descendants = tuple(x for x in child.iterdescendants() if isinstance(x, ModelInlineFact))
+            if len(descendants) > 0:
+                result.append(descendants[0])
+    return xv.XuleValue(xule_context, tuple(xv.XuleValue(xule_context, x, 'fact') for x in result), 'list')
+
+def x():
+    pass
+
+def property_inline_descendants(xule_context, object_value, *args):
+    result = tuple(xv.XuleValue(xule_context, x, 'fact') for x in object_value.fact.iterdescendants() if isinstance(x, ModelInlineFact))
+    return xv.XuleValue(xule_context, result, 'list')
+
+
 #Property tuple
 PROP_FUNCTION = 0
 PROP_ARG_NUM = 1 #arg num allows negative numbers to indicated that the arguments are optional
@@ -2293,6 +2326,12 @@ PROPERTIES = {
               'regex-match-all': (property_regex_match_all, 1, ('string', 'uri'), False),
               'regex-match-string': (property_regex_match_string, -2, ('string', 'uri'), False),
               'regex-match-string-all': (property_regex_match_string_all, -2, ('string', 'uri'), False),
+
+              # inline properties
+              'inline-parent': (property_inline_parent, 0, ('fact',), False),
+              'inline-ancestors': (property_inline_ancestors, 0, ('fact', ), False),
+              'inline-children': (property_inline_children, 0, ('fact', ), False),
+              'inline-descendants': (property_inline_descendants, 0, ('fact', ), False),
 
               # Debugging properties
               '_type': (property_type, 0, (), False),
