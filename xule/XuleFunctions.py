@@ -27,9 +27,12 @@ from aniso8601 import parse_duration
 from arelle.ModelValue import qname, QName
 from arelle import FileSource, PackageManager, FunctionIxt
 import collections
+from collections.abc import Iterable
+from contextlib import contextmanager
 import datetime
 import decimal
 import json
+import openpyxl
 import random
 from lxml import etree as et
 from .XuleRunTime import XuleProcessingError
@@ -449,6 +452,172 @@ def func_taxonomy(xule_context, *args):
     else:
         raise XuleProcessingError(_("The taxonomy() function takes at most 1 argument, found {}".format(len(args))))
 
+def func_excel_data(xule_context, *args):
+    """Read an excel file/url
+    
+    Arguments:
+        file_url (stirng or url)
+        range (string) - A sheet name, named range or cell range
+        has_header (boolean) - determines if the first line of the cs file has headers
+        type_list (list) - list of xule types/transformatons in the order of the columns of the columns of the specified range in the excel sheet. If omitted
+                           the columns will be strings
+        as_dictionary (boolean) - return the row as a dictionary instead of a list. Optional
+    """
+    # Validate the arguments
+    if len(args) < 1:
+        raise XuleProcessingError(_("The excel-datat() function requires at least 1 argument (file url, found {} arguments".format(len(args))), xule_context)
+    if len(args) > 5:
+        raise XuleProcessingError(_("The excel-data() function takes no more than 5 arguments (file url, range, has_headers, columne types, as dictionary), found {}".format(len(args))), xule_context)
+
+    file_url = args[0]
+    if file_url.type not in ('string', 'uri'):
+        raise XuleProcessingError(_("The file url argument (1st) of the excel-data() function must be a string or uri, found {}".format(file_url.type)), xule_context)
+
+    if len(args) > 1:
+        range_descriptor = args[1]
+        if range_descriptor.type != 'string':
+            raise XuleProcessingError(_("The cell range argument (2nd) of the excel-data() function must be a string, found {}".format(range_descriptor.type)), xule_context)
+    else:
+        range_descriptor = None
+
+    if len(args) > 2:
+        if args[2].type != 'bool':
+            raise XuleProcessingError(_("The has headers argument (3rd) of the excel-data() function muset be a boolean, found '{}'.".format(args[2].type)), xule_context)
+        has_headers = args[2].value
+    else: # default is false
+        has_headers = False
+
+    if len(args) >= 4: 
+        ordered_cols = validate_data_field_types(args[3], 'excel-data', xule_context)   
+    else:
+        ordered_cols = None
+    
+    if len(args) == 5:
+        if args[4].type != 'bool':
+            raise XuleProcessingError(_("The as dictionary argument (5th) of the excel-data() function must be a boolean, found '{}'.".format(args[4].type)), xule_context)
+        if args[2].value:
+            return_row_type = 'dictionary'
+        else:
+            return_row_type = 'list'
+    else:
+        return_row_type = 'list'
+        
+    if return_row_type == 'dictionary' and not has_headers:
+        raise XuleProcessingError(_("When the excel-data() function is returning the rows as dictionaries (5th argument), the has headers argument (3rd argument) must be true."), xule_context)
+
+    # Open the workbook      
+    # Using the FileSource object in arelle. This will open the file and handle taxonomy package mappings.
+    file_source = FileSource.openFileSource(file_url.value, xule_context.global_context.cntlr)
+    file = file_source.file(file_url.value, binary=True)
+    # file is  tuple of one item as a BytesIO stream. Since this is in bytes, it needs to be converted to text via a decoder.
+    # Assuming the file is in utf-8. 
+    with open_excel(file[0]) as wb:
+
+        # get cell range - for named ranges there may be multiple, so the cell range will be a tuple of ranges
+        # cell range may be a sheet name, named range or a cell reference (i.e. sheet1!a1:c3) or a single cell
+        sheet_name = None
+        cell_range_text = None
+        named_range_text = None
+
+        if range_descriptor is not None:
+            if ':' in range_descriptor.value or '!' in range_descriptor.value:
+                # this is a cell range (i.e sheet11:a1:c3)
+                if '!' in range_descriptor.value:
+                    sheet_name, cell_range_text = range_descriptor.value.split('!')
+                else:
+                    cell_range_text = range_descriptor.value
+            else:
+                # This is either a sheet name, named range or a single cell
+                if range_descriptor.value in wb.sheetnames:
+                    sheet_name = range_descriptor.value
+                elif range_descriptor.value in wb.defined_names:
+                    named_range_text = range_descriptor.value
+                else: # this may be a single cell
+                    cell_range_text = range_descriptor.value
+            
+            if named_range_text is not None:
+                ranges = wb.defined_names[named_range_text].destinations # This returns a list of tuples. The tuple contest 0 - sheet anem 1 - cell range
+            else:
+                if sheet_name is None:
+                    sheet_name = wb.active.title
+                ranges = [(sheet_name, cell_range_text)] # This mimics what wb.defined_names returns
+        
+        result = []
+        result_shadow = []
+        first_line = True
+        row_num = 0
+        for range_sheet, range_cells_text in ranges:
+            try:
+                ws = wb[range_sheet]
+            except KeyError:
+                raise XuleProcessingError(_("Sheet '{}' does not exist in workbook '{}'".format(range_sheet, file_url.value)), xule_context)
+            if range_cells_text is None:
+                # it will be the whole sheet
+                rows = ws.rows
+            else:
+                try:
+                    rows = ws[range_cells_text]
+                except ValueError:
+                    raise XuleProcessingError(_("Cell range '{}' is not a valid cell range for worksheet '{}' in workbook '{}'".format(range_cells_text, range_sheet, file_url.value)), xule_context)
+
+            if not isinstance(rows, Iterable):
+                # This is a single cell refernce. Row will be the cell
+                rows = ((rows,),)
+            for row in rows:
+                row_num += 1
+                if first_line and has_headers:
+                    first_line = False
+                    #skip the headers line
+                    if return_row_type == 'dictionary':
+                        # Need to get the names from the first row
+                        column_names = [x.value for x in row]
+                        if len(column_names) != len(set(column_names)):
+                            raise XuleProcessingError(_("There are duplicate column names in the excel file. This is not allowed when return rows as dictionaries. File: {}".format(file_url.value)), xule_context)
+                    continue # now skip to the next line
+                if return_row_type == 'list':
+                    result_line = list()
+                    result_line_shadow = list()
+                else: #dictionary
+                    result_line = dict()
+                    result_line_shadow = dict()
+                
+                for col_num, item in enumerate(row):
+                    if ordered_cols is not None and col_num >= len(ordered_cols):
+                        raise XuleProcessingError(_("The nubmer of columns on row {} is greater than the number of column types provided in the 4th argument of the excel-data() function. File: {}".format(row_num, file_url.value)), xule_context)
+                    
+                    if type(item.value) == datetime.datetime:
+                        v = item.value.isoformat()
+                    else:
+                        v = str(item.value)
+
+                    item_value = convert_file_data_item(v, ordered_cols[col_num] if ordered_cols is not None else None, xule_context)
+
+                    if return_row_type == 'list':
+                        result_line.append(item_value)
+                        result_line_shadow.append(item_value.value)
+                    else: #dictonary
+                        if col_num >= len(column_names):
+                            raise xule_context(_("The number of columns on row {} is greater than the number of headers in the csv file. File: {}".format(row_num, 
+                                                                                                                                                        mappedUrl if mapped_file_url == file_url.value else file_url.value + ' --> ' + mapped_file_url)), xule_context)
+
+                        result_line[xv.XuleValue(xule_context, column_names[col_num], 'string')] = item_value
+                        result_line_shadow[column_names[col_num]] = item_value.value
+                        
+                if return_row_type == 'list':
+                    result.append(xv.XuleValue(xule_context, tuple(result_line), 'list', shadow_collection=tuple(result_line_shadow)))
+                    result_shadow.append(tuple(result_line_shadow))
+                else: #dictionary
+                    result.append(xv.XuleValue(xule_context, frozenset(result_line.items()), 'dictionary', shadow_collection=frozenset(result_line_shadow.items())))
+                    result_shadow.append(frozenset(result_line_shadow.items()))
+          
+    return xv.XuleValue(xule_context, tuple(result), 'list', shadow_collection=tuple(result_shadow))
+
+@contextmanager
+def open_excel(file_name):
+    workbook = openpyxl.load_workbook(file_name)
+    yield workbook
+    workbook.close()
+
 def func_csv_data(xule_context, *args):
     """Read a csv file/url.
     
@@ -459,20 +628,24 @@ def func_csv_data(xule_context, *args):
                            treated as stirngs.
         as_dictionary (boolean) - return the row as a dictionary instead of a list. This is optional.
     """
-    if len(args) < 2:
-        raise XuleProcessingError(_("The csv-data() function requires at least 2 arguments (file url, has headers), found {} arguments.".format(len(args))), xule_context)
+    if len(args) == 0:
+        raise XuleProcessingError(_("The csv-data() function requires at least 1 argument (file url), found no arguments."), xule_context)
     if len(args) > 4:
-        raise XuleProcessingError(_("The csv-data() function takes no more than 3 arguments (file url, has headers, column types, as dictionary), found {} arguments.".format(len(args))), xule_context)
+        raise XuleProcessingError(_("The csv-data() function takes no more than 4 arguments (file url, has headers, column types, as dictionary), found {} arguments.".format(len(args))), xule_context)
 
     file_url = args[0]
-    has_headers = args[1]
+    
 
     if file_url.type not in ('string', 'uri'):
         raise XuleProcessingError(_("The file url argument (1st argument) of the csv-dta() function must be a string or uri, found '{}'.".format(file_url.value)), xule_context)
     
-    if has_headers.type != 'bool':
-        raise XuleProcessingError(_("The has headers argument (2nd argument) of the csv-data() function muset be a boolean, found '{}'.".format(has_headers.type)), xule_context)
-    
+    if len(args) > 1:
+        if args[1].type != 'bool':
+            raise XuleProcessingError(_("The has headers argument (2nd argument) of the csv-data() function muset be a boolean, found '{}'.".format(args[1].type)), xule_context)
+        has_headers = args[1].value
+    else: # default is false
+        has_headers = False
+
     if len(args) >= 3: 
         ordered_cols = validate_data_field_types(args[2], 'csv-data', xule_context)   
     else:
@@ -488,7 +661,7 @@ def func_csv_data(xule_context, *args):
     else:
         return_row_type = 'list'
         
-    if return_row_type == 'dictionary' and not has_headers.value:
+    if return_row_type == 'dictionary' and not has_headers:
         raise XuleProcessingError(_("When the csv-data() function is returning the rows as dictionaries (4th argument), the has headers argument (2nd argument) must be true."), xule_context)
         
     result = list()
@@ -509,7 +682,7 @@ def func_csv_data(xule_context, *args):
     row_num = 0
     for line in reader:
         row_num += 1
-        if first_line and has_headers.value:
+        if first_line and has_headers:
             first_line = False
             #skip the headers line
             if return_row_type == 'dictionary':
@@ -588,7 +761,7 @@ def convert_file_data_item(val, type, xule_context):
             if type.value[1].type != 'string':
                 raise XuleProcessingError(_("The second item in a type list must be sting indicating the output type. Found '{}'".format(type.value[1].type)), xule_context)
             output_type = type.value[1].value
-        v = val
+
         if f.namespaceURI in FunctionIxt.ixtNamespaceFunctions:
             try:
                 v = FunctionIxt.ixtNamespaceFunctions[f.namespaceURI][f.localName](val)
@@ -635,7 +808,7 @@ def convert_file_data_item(val, type, xule_context):
     elif output_type == 'string':
         return xv.XuleValue(xule_context, v, 'string')  
     elif output_type == 'date':
-        return xv.XuleValue(xule_context, datetime.date.fromisoformat(v), 'date')
+        return xv.XuleValue(xule_context, datetime.datetime.fromisoformat(v).date(), 'date')
     elif output_type == 'boolean':
         return xv.XuleValue(xule_context, bool(v), 'boolean')
     else:
@@ -1006,6 +1179,7 @@ def built_in_functions():
              'csv-data': ('regular', func_csv_data, -4, False, 'single'),
              'json-data': ('regular', func_json_data, 1, False, 'single'),
              'xml-data-flat': ('regular', func_xml_data_flat, -5, False, 'single'),
+             'excel-data': ('regular', func_excel_data, -5, False, 'single'),
              'first-value': ('regular', func_first_value, None, True, 'single'),
              'range': ('regular', func_range, -3, False, 'single'),
              'difference': ('regular', func_difference, 2, False, 'single'),
