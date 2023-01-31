@@ -1530,8 +1530,19 @@ def property_dts_document_locations(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, frozenset(locations), 'set') 
 
 def property_document_location(xule_context, object_value, *args):
-    if hasattr(object_value.value, 'modelDocument'):
+    if object_value.type == 'taxonomy':
+        # The object_value.value is a modelXbrl, but this may be an instance or a taxonomy
+        if object_value.value.modelDocument.type == Type.SCHEMA:
+            # This is model based on a taxonomy
+            return xv.XuleValue(xule_context, object_value.value.modelDocument.uri, 'uri')
+        else:
+            # This modelXbrl is an instance document. The taxonomy location is the in the referencesDocument.
+            tax_docs = [x.uri for x in object_value.value.modelDocument.referencesDocument.keys()]
+            return xv.XuleValue(xule_context, ', '.join(tax_docs), 'uri')
+    elif hasattr(object_value.value, 'modelDocument'):
         return xv.XuleValue(xule_context, object_value.value.modelDocument.uri, 'uri')
+    elif object_value.fact is not None:
+        return xv.XuleValue(xule_context, object_value.fact.modelDocument.uri, 'uri')
     else:
         return xv.XuleValue(xule_context, None, 'none')
 
