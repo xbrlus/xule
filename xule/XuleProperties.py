@@ -2016,7 +2016,13 @@ def property_namespace_map(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, frozenset(result.items()), 'dictionary')
 
 def property_taxonomy(xule_context, object_value, *args):
-    return xv.XuleValue(xule_context, object_value.value, 'taxonomy')
+    if object_value.type == 'taxonomy':
+        return xv.XuleValue(xule_context, object_value.value, 'taxonomy')
+    else: # this is a fact
+        return xv.XuleValue(xule_context, object_value.fact.modelXbrl, 'taxonomy')
+
+def property_instance(xule_context, object_value, *args):
+    return xv.XuleValue(xule_context, object_value.fact.modelXbrl, 'instance')
 
 def property_regex_match(xule_context, object_value, pattern, *args):
     if pattern.type != 'string':
@@ -2329,7 +2335,8 @@ PROPERTIES = {
               'facts': (property_facts, 0, ('cube',), False),
               'default': (property_default, 0, ('dimension',), False),
               'namespaces': (property_namespaces, 0, ('taxonomy',), False),
-              'taxonomy': (property_taxonomy, 0, ('instance', ), False),
+              'taxonomy': (property_taxonomy, 0, ('instance', 'fact'), False),
+              'instance': (property_instance, 0, ('fact',), False),
 
               # Version 1.1 properties
               #'regex-match-first': (property_regex_match_first, 1, ('string', 'uri'), False),
