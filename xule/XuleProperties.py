@@ -2024,6 +2024,16 @@ def property_taxonomy(xule_context, object_value, *args):
 def property_instance(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, object_value.fact.modelXbrl, 'instance')
 
+def property_facts(xule_context, object_value, *args):
+    result = []
+    shadow = []
+    for fact in object_value.value.facts:
+        item = xv.XuleValue(xule_context, fact, 'fact')
+        result.append(item)
+        shadow.append(item.value)
+    
+    return xv.XuleValue(xule_context, tuple(result), 'list', shadow_collection=tuple(shadow))
+
 def property_regex_match(xule_context, object_value, pattern, *args):
     if pattern.type != 'string':
         raise XuleProcessingError(_("Property regex match requires a string for the regex pattern, found '{}'".format(pattern.type)))
@@ -2260,8 +2270,8 @@ PROPERTIES = {
               'text': (property_text, 0, ('label',), False),
               'lang': (property_lang, 0, ('label',), False),              
               'name': (property_name, 0, ('fact', 'concept', 'reference-part', 'type'), True),
-              'local-name': (property_local_name, 0, ('qname', 'concept', 'fact', 'reference-part'), True),
-              'namespace-uri': (property_namespace_uri, 0, ('qname', 'concept', 'fact', 'reference-part'), True),
+              'local-name': (property_local_name, 0, ('qname', 'concept', 'fact', 'reference-part', 'type'), True),
+              'namespace-uri': (property_namespace_uri, 0, ('qname', 'concept', 'fact', 'reference-part', 'type'), True),
               'clark': (property_clark, 0, ('qname', 'concept', 'fact', 'reference-part'), True),             
               'period-type': (property_period_type, 0, ('concept',), False),
               'parts': (property_parts, 0, ('reference',), False),
@@ -2337,6 +2347,7 @@ PROPERTIES = {
               'namespaces': (property_namespaces, 0, ('taxonomy',), False),
               'taxonomy': (property_taxonomy, 0, ('instance', 'fact'), False),
               'instance': (property_instance, 0, ('fact',), False),
+              'facts': (property_facts, 0, ('instance', ), False),
 
               # Version 1.1 properties
               #'regex-match-first': (property_regex_match_first, 1, ('string', 'uri'), False),
