@@ -18,6 +18,7 @@ import zipfile
 
 _RULE_NAME_PREFIX = 'rule-'
 _EXTRA_ATTRIBUTES = ('format', 'scale', 'sign', 'decimals')
+_DEFAULT_CONSTANT_FILE_NAME = 'xendr-constants.xule'
 
 def compile_templates(cntlr, options):
 
@@ -241,7 +242,7 @@ def process_template(cntlr, template_file_name, options):
     # build the namespace declaration for xule
     xule_namespaces = build_xule_namespaces(template_tree, options)
     # build constants
-    xule_constants = build_constants(options)
+    xule_constants = build_constants(options, template_tree)
     # Create list of Xule nodes in the template
     xule_node_locations = {template_tree.getelementpath(xule_node): node_number for  node_number, xule_node in enumerate(template_tree.xpath('//xule:*', namespaces=XULE_NAMESPACE_MAP))}
     # create the rules for xule and retrieve the update template with the substitutions identified.
@@ -268,17 +269,24 @@ def build_xule_namespaces(template_tree, options):
 
     return '\n'.join(namespaces)
 
-def build_constants(options):
+def build_constants(options, template_tree):
     '''Create constants used by the expressions. '''
 
-    constant_file_name = getattr(options, 'xendr_constants') or os.path.join(os.path.dirname(os.path.realpath(__file__)), 'render-constants.xule')
+    # Constants are found in a specified file (xendr-constants.xule is the default) or in the <xule:global> element
+    constant_file_name = getattr(options, 'xendr_constants') or os.path.join(os.path.dirname(os.path.realpath(__file__)), _DEFAULT_CONSTANT_FILE_NAME)
+    constants = []
     try:
         with open(constant_file_name, 'r') as constant_file:
-            constants = constant_file.read()
+            constants.append(constant_file.read())
     except FileNotFoundError:
-        raise XendrException("Constant file {} is not found.".format(constant_file_name))
+        if constant_file_name != _DEFAULT_CONSTANT_FILE_NAME:
+            raise XendrException("Constant file {} is not found.".format(constant_file_name))
 
-    return constants
+    # Find all the <xule:global> nodes
+    for node in template_tree.findall('//xule:global', XULE_NAMESPACE_MAP):
+        constants.append(node.text)
+    
+    return '\n'.join(constants)
 
 def build_xule_rules(template_tree, template_file_name, xule_node_locations):
     '''Extract the rules and identify the subsititions in the template

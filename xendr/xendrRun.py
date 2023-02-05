@@ -825,13 +825,17 @@ def setup_inline_html(modelXbrl, title=None):
         '<?xml version="1.0"?>' \
         '<html {}>' \
         '<head>' \
-        '<title>{}</title>'.format(title) if title is not None else '' \
         '<meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>' \
         '</head>' \
         '<body><div style="display:none"><ix:header><ix:references/><ix:resources/></ix:header></div></body>' \
         '</html>'.format(namespace_string)
 
     html = etree.fromstring(initial_html_content)
+    if title is not None:
+        meta_node = html.find('{http://www.w3.org/1999/xhtml}head/{http://www.w3.org/1999/xhtml}meta')
+        title_node = etree.Element('{http://www.w3.org/1999/xhtml}title')
+        meta_node.addprevious(title_node)
+        title_node.text = title
 
     # Add schema and linbase references
     irefs = html.find('.//ix:references', namespaces=XULE_NAMESPACE_MAP)
