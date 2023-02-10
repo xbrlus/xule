@@ -2,6 +2,11 @@
 
 #### On this page: [Deploying the DQC Arelle Plugin](#deploying) || [Usage and Results - DQC Rules with Arelle](#using) || [License and Patent](#licensing)
 
+An open-source XBRL processor for business rules, rendering and custom data reporting. See https://xbrl.us/xule for documentation and https://xbrl.us/xule-editor for a VS Code syntax highlighter.
+
+Interactive Example - Running XULE in Arelle
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/xbrlus/xule/main?filepath=sample.ipynb)
+
 ## <a name="deploying"></a>Deploying the DQC Arelle Plugin
 ### Windows/Mac/Linux Application Install
 1. Download the latest version of [Arelle](http://arelle.org/pub/) to your environment and install. 

@@ -21,7 +21,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23361 $
+$Change: 23373 $
 DOCSKIP
 """
 from .XuleProcessor import process_xule
@@ -454,6 +454,7 @@ def xuleCmdOptions(parser):
                         action="store",
                         dest="xule_max_rule_iterations",
                         default=10000,
+                        type="int",
                         help=_("The maximum amount of iterations any xule rule should be allowed to run.")
                     )
     parserGroup.add_option("--xule-arg",
