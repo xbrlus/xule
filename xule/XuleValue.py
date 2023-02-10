@@ -282,12 +282,8 @@ class XuleValue:
     def format_value(self):
 
         if self.type in ('float', 'decimal'):
-            str_val = numpy.format_float_positional(self.value)
-            if str_val[-1] == '.': # This ends in a decimal point
-                str_val += '0'
-            
-            return str_val
-
+            return numpy.format_float_positional(self.value, trim='0')
+    
             # format_rounded = "{0:,.4f}".format(self.value)
             # reduced_round = self._reduce_number(format_rounded)
             # format_orig = "{0:,}".format(self.value)
