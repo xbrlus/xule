@@ -239,8 +239,11 @@ def property_to_xince(xule_context, object_value, *args, _intermediate=False):
     #     working_val = str(object_value.value)
     elif isinstance(object_value.value, datetime.datetime):
         working_val =  object_value.value.isoformat()
-    # elif type(object_value.value) in (int, float):
-    #     working_val = str(object_value.value)
+    elif type(object_value.value) in (float, decimal.Decimal):
+        working_val = numpy.format_float_positional(object_value.value, trim='0')
+        #working_val = str(object_value.value)
+    elif type(object_value.value) == int:
+        working_val = str(object_value.value)
     else:
         working_val = object_value.format_value()
 
