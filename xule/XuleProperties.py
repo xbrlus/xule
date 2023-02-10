@@ -235,12 +235,12 @@ def property_to_xince(xule_context, object_value, *args, _intermediate=False):
         working_val = {property_to_xince(xule_context, k, _intermediate=True): property_to_xince(xule_context, v, _intermediate=True) for k, v in object_value.value}
     elif object_value.type in ('none', 'unbound'):
         working_val = '' # empty string for None
-    elif isinstance(object_value.value, decimal.Decimal):
-        working_val = str(object_value.value)
+    # elif isinstance(object_value.value, decimal.Decimal):
+    #     working_val = str(object_value.value)
     elif isinstance(object_value.value, datetime.datetime):
         working_val =  object_value.value.isoformat()
-    elif type(object_value.value) in (int, float):
-        working_val = str(object_value.value)
+    # elif type(object_value.value) in (int, float):
+    #     working_val = str(object_value.value)
     else:
         working_val = object_value.format_value()
 
