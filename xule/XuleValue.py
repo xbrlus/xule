@@ -36,7 +36,6 @@ from aniso8601.__init__ import parse_duration, parse_datetime, parse_date
 import collections
 import copy
 from fractions import Fraction
-import numpy
 import pprint
 import re
 import textwrap
@@ -280,19 +279,17 @@ class XuleValue:
             return self.value
     
     def format_value(self):
-
-        if self.type in ('float', 'decimal'):
-            return numpy.format_float_positional(self.value, trim='0')
-    
-            # format_rounded = "{0:,.4f}".format(self.value)
-            # reduced_round = self._reduce_number(format_rounded)
-            # format_orig = "{0:,}".format(self.value)
-            # reduced_orig = self._reduce_number(format_orig)
             
-            # if reduced_round != reduced_orig:
-            #     reduced_round += " (rounded 4d)" 
+        if self.type in ('float', 'decimal'):
+            format_rounded = "{0:,.4f}".format(self.value)
+            reduced_round = self._reduce_number(format_rounded)
+            format_orig = "{0:,}".format(self.value)
+            reduced_orig = self._reduce_number(format_orig)
+            
+            if reduced_round != reduced_orig:
+                reduced_round += " (rounded 4d)" 
                 
-            # return reduced_round
+            return reduced_round
         
         elif self.type == 'int':
             if self.fact is not None:
