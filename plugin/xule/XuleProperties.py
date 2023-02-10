@@ -5,7 +5,7 @@ Xule is a rule processor for XBRL (X)brl r(ULE).
 DOCSKIP
 See https://xbrl.us/dqc-license for license information.  
 See https://xbrl.us/dqc-patent for patent infringement notice.
-Copyright (c) 2017 - 2022 XBRL US, Inc.
+Copyright (c) 2017 - 2021 XBRL US, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23374 $
+$Change: 23466 $
 DOCSKIP
 """
 
@@ -28,9 +28,11 @@ from . import XuleValue as xv
 from . import XuleUtility 
 from . import XuleFunctions
 from arelle.ModelDocument import Type
+from arelle.ModelInstanceObject import ModelInlineFact
 #from arelle.ModelRelationshipSet import ModelRelationshipSet
 from arelle.ModelValue import QName, qname
 import collections
+import datetime
 import decimal
 import json
 import math
@@ -170,19 +172,25 @@ class xule_json_encoder(json.JSONEncoder):
     def default(self, o):
         if isinstance(o, decimal.Decimal):
             return str(o)
+        elif isinstance(o, QName):
+            return o.clarkNotation
+        elif isinstance(o, datetime.datetime):
+            return o.isoformat()
+        elif isinstance(o, xv.XuleValue):
+            return o.format_value()
         # Let the base class default method raise the TypeError
-        return super.default(self, o)
+        return json.JSONEncoder.default(self, o)
 
 def property_to_json(xule_context, object_value, *args):
-    if object_value.type == 'dictionary':
-        unfrozen = dict(object_value.shadow_collection)
-    elif object_value.type == 'set':
-        unfrozen = tuple(object_value.shadow_collection)
-    else:
-        unfrozen = object_value.shadow_collection
+    # # This doesn't do anything 
+    # if object_value.type == 'dictionary':
+    #     unfrozen = dict(object_value.shadow_collection)
+    # elif object_value.type == 'set':
+    #     unfrozen = tuple(object_value.shadow_collection)
+    # else:
+    #     unfrozen = object_value.shadow_collection
     
     unfrozen = unfreeze_shadow(object_value, True)
-
     return xv.XuleValue(xule_context, json.dumps(unfrozen, cls=xule_json_encoder), 'string')
 
 def unfreeze_shadow(cur_val, for_json=False):
@@ -198,6 +206,74 @@ def unfreeze_shadow(cur_val, for_json=False):
         return {unfreeze_shadow(k): unfreeze_shadow(v) for k, v in cur_val.value}
     else:
         return cur_val.value
+
+def property_to_xince(xule_context, object_value, *args, _intermediate=False):
+    # _intermediate is used when recursing. The final value will be a string. But if there are collections
+    # (sets, list or dictionaries) then there needs to be recursion. The value passed up should be a
+    # python collection (list or dictionary) until the final value is sent to the original caller, which
+    # will be a string.
+    basic = True
+    if object_value.type == 'entity':
+        #basic = False
+        working_val = f'["{object_value.value[0]}", "{object_value.value[1]}"]'
+    elif object_value.type == 'unit':
+        working_val =  repr(object_value.value)
+    elif object_value.type == 'duration':
+        if object_value.value[0] == datetime.datetime.min and object_value.value[1] == datetime.datetime.max:
+            working_val = 'forever'
+        else:
+            working_val = f'{object_value.value[0].isoformat()}/{object_value.value[1].isoformat()}'
+    elif object_value.type == 'instant':
+        working_val = object_value.value.isoformat()
+    elif object_value.type == 'qname':
+        working_val = object_value.value.clarkNotation
+    elif object_value.type in ('set', 'list'):
+        basic = False
+        working_val = tuple(property_to_xince(xule_context, x, _intermediate=True) for x in object_value.value)
+    elif object_value.type == 'dictionary':
+        basic = False
+        working_val = {property_to_xince(xule_context, k, _intermediate=True): property_to_xince(xule_context, v, _intermediate=True) for k, v in object_value.value}
+    elif object_value.type in ('none', 'unbound'):
+        working_val = '' # empty string for None
+    # elif isinstance(object_value.value, decimal.Decimal):
+    #     working_val = str(object_value.value)
+    elif isinstance(object_value.value, datetime.datetime):
+        working_val =  object_value.value.isoformat()
+    elif type(object_value.value) in (float, decimal.Decimal):
+        working_val = numpy.format_float_positional(object_value.value, trim='0')
+        #working_val = str(object_value.value)
+    elif type(object_value.value) == int:
+        working_val = str(object_value.value)
+    else:
+        working_val = object_value.format_value()
+
+    if _intermediate:
+        return working_val
+    elif basic:
+        return xv.XuleValue(xule_context, working_val, 'string')
+    else:
+        return xv.XuleValue(xule_context, json.dumps(working_val), 'string')
+
+# def _prep_for_xince_json(xule_context, xule_value):
+#     if xule_value.type in ('set', 'list'):
+#         children_string = []
+#         for item in xule_value.value:
+#             children_string.append(property_to_xince(xule_context, item))
+#         return f"[{','.join(children_string)}]"
+#     if xule_value.type == 'dictionary':
+#         pass
+
+def _prep_for_xince_json(xule_context, xule_value):
+    if xule_value.type in ('set', 'list'):
+        children_string = []
+        for item in xule_value.value:
+            children_string.append(property_to_xince(xule_context, item, _intermediate=True).value)
+        return children_string
+    if xule_value.type == 'dictionary':
+        new_dict = dict()
+        for k, v in xule_value.value:
+            new_dict[property_to_xince(xule_context, k, _intermediate=True).value] = property_to_xince(xule_context, v, _intermediate=True).value
+        return new_dict
 
 def property_join(xule_context, object_value, *args):
     if object_value.type in ('list', 'set'):
@@ -588,7 +664,7 @@ def property_dimensions(xule_context, object_value, *args):
         result_shadow = dict()
 
         for dim_qname, member_model in object_value.fact.context.qnameDims.items():
-            dim_value = xv.XuleValue(xule_context, get_concept(xule_context.model, dim_qname), 'concept')
+            dim_value = xv.XuleValue(xule_context, get_concept(object_value.fact.modelXbrl, dim_qname), 'concept')
             if member_model.isExplicit:
                 member_value = xv.XuleValue(xule_context, member_model.member, 'concept')
             else: # Typed dimension
@@ -607,7 +683,7 @@ def property_dimensions_explicit(xule_context, object_value, *args):
     result_shadow = dict()
     
     for dim_qname, member_model in object_value.fact.context.qnameDims.items():
-        dim_value = xv.XuleValue(xule_context, get_concept(xule_context.model, dim_qname), 'concept')
+        dim_value = xv.XuleValue(xule_context, get_concept(object_value.fact.modelXbrl, dim_qname), 'concept')
         if member_model.isExplicit:
             member_value = xv.XuleValue(xule_context, member_model.member, 'concept')
     
@@ -624,7 +700,7 @@ def property_dimensions_typed(xule_context, object_value, *args):
     result_shadow = dict()
     
     for dim_qname, member_model in object_value.fact.context.qnameDims.items():
-        dim_value = xv.XuleValue(xule_context, get_concept(xule_context.model, dim_qname), 'concept')
+        dim_value = xv.XuleValue(xule_context, get_concept(object_value.fact.modelXbrl, dim_qname), 'concept')
         if not member_model.isExplicit:
             member_value = xv.XuleValue(xule_context, member_model.typedMember.xValue, xv.model_to_xule_type(xule_context, member_model.typedMember.xValue))
             
@@ -658,7 +734,7 @@ def property_aspects(xule_context, object_value, *args):
         result_shadow['unit'] = unit_value.value
         
     for dim_qname, member_model in object_value.fact.context.qnameDims.items():
-        dim_value = xv.XuleValue(xule_context, get_concept(xule_context.model, dim_qname), 'concept')
+        dim_value = xv.XuleValue(xule_context, get_concept(object_value.fact.modelXbrl, dim_qname), 'concept')
         if member_model.isExplicit:
             member_value = xv.XuleValue(xule_context, member_model.member, 'concept')
         else: # Typed dimension
@@ -734,7 +810,7 @@ def property_balance(xule_context, object_value, *args):
 
 def property_base_type(xule_context, object_value, *args):
     if object_value.is_fact:
-        return xv.XuleValue(xule_context, object_value.value.modelXbrl.qnameTypes[object_value.fact.concept.baseXbrliTypeQname], 'type')
+        return xv.XuleValue(xule_context, object_value.fact.modelXbrl.qnameTypes[object_value.fact.concept.baseXbrliTypeQname], 'type')
     elif object_value.type == 'concept':
         return xv.XuleValue(xule_context, object_value.value.modelXbrl.qnameTypes[object_value.value.baseXbrliTypeQname], 'type')
     else: #none value
@@ -943,6 +1019,18 @@ def property_namespace_uri(xule_context, object_value, *args):
         return object_value
     else:
         return xv.XuleValue(xule_context, '', 'uri')
+
+def property_clark(xule_context, object_value, *args):
+    if object_value.is_fact:
+        return xv.XuleValue(xule_context, object_value.fact.concept.qname.clarkNotation, 'string')
+    elif object_value.type in ('concept', 'reference-part'):
+        return xv.XuleValue(xule_context, object_value.value.qname.clarkNotation, 'string')
+    elif object_value.type == 'qname':
+        return xv.XuleValue(xule_context, object_value.value.clarkNotation, 'string')
+    elif object_value.type == 'none':
+        return object_value
+    else:
+        return xv.XuleValue(xule_context, '', 'string')
 
 def property_period_type(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, object_value.value.periodType, 'string')
@@ -1393,6 +1481,28 @@ def property_to_qname(xule_context, object_value, *args):
 
     return xv.XuleValue(xule_context, QName(prefix, namespace_uri, local_name), 'qname')
 
+def property_inline_transform(xule_context, object_value, *args):
+    '''Apply an Inline XBRL transform to a string.
+    
+    There are 2 arguments:
+      1 - transform qname
+      2 - type to convert to. This is optional, default is a string.'''
+
+    if len(args) == 0:
+        raise XuleProcessingError(_("The inline-transform property requires at least 1 argument indicating the transform qname"), xule_context)
+
+    if args[0].type != 'qname':
+        raise XuleProcessingError(_("The transform name of the inline-transform property must be a qname. found '{}'".format(args[0].type)), xule_context)
+    
+    if len(args) == 2:
+        # there is an option output type
+        if args[1].type != 'string':
+            raise XuleProcessingError(_("The return type of the inline-transform property must be a string. Found '{}'"), xule_context)
+        type_to_send = xv.XuleValue(xule_context, tuple(args), 'list')
+    else:
+        type_to_send = args[0]
+
+    return XuleFunctions.convert_file_data_item(object_value.value, type_to_send, xule_context)
 
 def property_day(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, object_value.value.day, 'int')
@@ -1423,8 +1533,19 @@ def property_dts_document_locations(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, frozenset(locations), 'set') 
 
 def property_document_location(xule_context, object_value, *args):
-    if hasattr(object_value.value, 'modelDocument'):
+    if object_value.type == 'taxonomy':
+        # The object_value.value is a modelXbrl, but this may be an instance or a taxonomy
+        if object_value.value.modelDocument.type == Type.SCHEMA:
+            # This is model based on a taxonomy
+            return xv.XuleValue(xule_context, object_value.value.modelDocument.uri, 'uri')
+        else:
+            # This modelXbrl is an instance document. The taxonomy location is the in the referencesDocument.
+            tax_docs = [x.uri for x in object_value.value.modelDocument.referencesDocument.keys()]
+            return xv.XuleValue(xule_context, ', '.join(tax_docs), 'uri')
+    elif hasattr(object_value.value, 'modelDocument'):
         return xv.XuleValue(xule_context, object_value.value.modelDocument.uri, 'uri')
+    elif object_value.fact is not None:
+        return xv.XuleValue(xule_context, object_value.fact.modelDocument.uri, 'uri')
     else:
         return xv.XuleValue(xule_context, None, 'none')
 
@@ -1698,6 +1819,22 @@ def property_number(xule_context, object_value, *args):
     else:
         raise XuleProcessingError(_("Property 'number' requires a string or numeric argument, found '%s'" % object_value.type), xule_context)
 
+def property_int(xule_context, object_value, *args):
+
+    try:
+        new_int = int(object_value.value)
+    except ValueError:
+        raise XuleProcessingError(_("Cannot convert '%s' to an int" % object_value.value), xule_context)
+    return xv.XuleValue(xule_context, new_int, 'int')
+
+def property_decimal(xule_context, object_value, *args):
+
+    try:
+        new_decimal = decimal.Decimal(object_value.value)
+    except decimal.InvalidOperation:
+        raise XuleProcessingError(_("Cannot convert '%s' to a decimal" % object_value.value), xule_context)
+    return xv.XuleValue(xule_context, new_decimal, 'decimal')
+
 def property_is_fact(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, object_value.is_fact, 'bool')
         
@@ -1881,6 +2018,25 @@ def property_namespace_map(xule_context, object_value, *args):
     result = {xv.XuleValue(xule_context, prefix, 'stirng'): xv.XuleValue(xule_context, uri, 'uri') for prefix, uri in nsmap.items()}
     return xv.XuleValue(xule_context, frozenset(result.items()), 'dictionary')
 
+def property_taxonomy(xule_context, object_value, *args):
+    if object_value.type == 'taxonomy':
+        return xv.XuleValue(xule_context, object_value.value, 'taxonomy')
+    else: # this is a fact
+        return xv.XuleValue(xule_context, object_value.fact.modelXbrl, 'taxonomy')
+
+def property_instance(xule_context, object_value, *args):
+    return xv.XuleValue(xule_context, object_value.fact.modelXbrl, 'instance')
+
+def property_facts(xule_context, object_value, *args):
+    result = []
+    shadow = []
+    for fact in object_value.value.facts:
+        item = xv.XuleValue(xule_context, fact, 'fact')
+        result.append(item)
+        shadow.append(item.value)
+    
+    return xv.XuleValue(xule_context, tuple(result), 'list', shadow_collection=tuple(shadow))
+
 def property_regex_match(xule_context, object_value, pattern, *args):
     if pattern.type != 'string':
         raise XuleProcessingError(_("Property regex match requires a string for the regex pattern, found '{}'".format(pattern.type)))
@@ -2009,6 +2165,38 @@ def regex_match_string(xule_context, search_string, pattern, group_num=None):
         except IndexError:
             raise XuleProcessingError(_("Group does not exist for group number {} for regex-match-string".format(group_num)))
 
+def property_inline_parent(xule_context, object_value, *args):
+
+    ancestors = tuple(x for x in object_value.fact.iterancestors() if isinstance(x, ModelInlineFact))
+    if len(ancestors) > 0:
+        return xv.XuleValue(xule_context, ancestors[0], 'fact')
+    else:
+        return xv.XuleValue(xule_context, None, 'none')
+
+def property_inline_ancestors(xule_context, object_value, *args):
+    result = tuple(xv.XuleValue(xule_context, x, 'fact') for x in object_value.fact.iterancestors() if isinstance(x, ModelInlineFact))
+    return xv.XuleValue(xule_context, result, 'list')
+
+def property_inline_children(xule_context, object_value, *args):
+    result = []
+    for child in object_value.fact.iterchildren():
+        if isinstance(child, ModelInlineFact):
+            result.apend(child)
+        else: 
+            # check if there is a descendant
+            descendants = tuple(x for x in child.iterdescendants() if isinstance(x, ModelInlineFact))
+            if len(descendants) > 0:
+                result.append(descendants[0])
+    return xv.XuleValue(xule_context, tuple(xv.XuleValue(xule_context, x, 'fact') for x in result), 'list')
+
+def x():
+    pass
+
+def property_inline_descendants(xule_context, object_value, *args):
+    result = tuple(xv.XuleValue(xule_context, x, 'fact') for x in object_value.fact.iterdescendants() if isinstance(x, ModelInlineFact))
+    return xv.XuleValue(xule_context, result, 'list')
+
+
 #Property tuple
 PROP_FUNCTION = 0
 PROP_ARG_NUM = 1 #arg num allows negative numbers to indicated that the arguments are optional
@@ -2031,7 +2219,8 @@ PROPERTIES = {
               'index': (property_index, 1, ('list', 'dictionary'), False),
               'is-subset': (property_is_subset, 1, ('set',), False),
               'is-superset': (property_is_superset, 1, ('set',), False),
-              'to-json': (property_to_json, 0, ('list', 'set', 'dictionary'), False),           
+              'to-json': (property_to_json, 0, ('list', 'set', 'dictionary'), False), 
+              'to-xince': (property_to_xince, 0, (), False),          
               'join': (property_join, -2, ('list', 'set', 'dictionary'), False),
               'sort': (property_sort, -1, ('list', 'set'), False),
               'keys': (property_keys, -1, ('dictionary',), False),
@@ -2084,8 +2273,9 @@ PROPERTIES = {
               'text': (property_text, 0, ('label',), False),
               'lang': (property_lang, 0, ('label',), False),              
               'name': (property_name, 0, ('fact', 'concept', 'reference-part', 'type'), True),
-              'local-name': (property_local_name, 0, ('qname', 'concept', 'fact', 'reference-part'), True),
-              'namespace-uri': (property_namespace_uri, 0, ('qname', 'concept', 'fact', 'reference-part'), True),              
+              'local-name': (property_local_name, 0, ('qname', 'concept', 'fact', 'reference-part', 'type'), True),
+              'namespace-uri': (property_namespace_uri, 0, ('qname', 'concept', 'fact', 'reference-part', 'type'), True),
+              'clark': (property_clark, 0, ('qname', 'concept', 'fact', 'reference-part'), True),             
               'period-type': (property_period_type, 0, ('concept',), False),
               'parts': (property_parts, 0, ('reference',), False),
               'part-value': (property_part_value, 0, ('reference-part',), False),
@@ -2118,6 +2308,8 @@ PROPERTIES = {
               'round': (property_round, 1, ('int', 'float', 'decimal', 'fact'), False),
               'mod': (property_mod, 1 ,('int', 'float', 'decimal', 'fact'), False),
               'number': (property_number, 0, ('int', 'float', 'decimal', 'fact'), False),
+              'int': (property_int, 0, ('int', 'float', 'decimal', 'string', 'fact'), False),
+              'decimal': (property_decimal, 0, ('int', 'float', 'decimal', 'string', 'fact'), False),
               'substring': (property_substring, -2, ('string', 'uri'), False),
               'index-of': (property_index_of, 1, ('string', 'uri'), False),
               'last-index-of': (property_last_index_of, 1, ('string', 'uri'), False),
@@ -2125,6 +2317,7 @@ PROPERTIES = {
               'upper-case': (property_upper_case, 0, ('string', 'uri'), False),
               'split': (property_split, 1, ('string', 'uri'), False),
               'to-qname': (property_to_qname, -1, ('string'), False),
+              'inline-transform': (property_inline_transform, -2, ('string'), False),
               'day': (property_day, 0, ('instant',), False),
               'month': (property_month, 0, ('instant',), False),
               'year': (property_year, 0, ('instant',), False),
@@ -2155,6 +2348,9 @@ PROPERTIES = {
               'facts': (property_facts, 0, ('cube',), False),
               'default': (property_default, 0, ('dimension',), False),
               'namespaces': (property_namespaces, 0, ('taxonomy',), False),
+              'taxonomy': (property_taxonomy, 0, ('instance', 'fact'), False),
+              'instance': (property_instance, 0, ('fact',), False),
+              'facts': (property_facts, 0, ('instance', ), False),
 
               # Version 1.1 properties
               #'regex-match-first': (property_regex_match_first, 1, ('string', 'uri'), False),
@@ -2162,6 +2358,12 @@ PROPERTIES = {
               'regex-match-all': (property_regex_match_all, 1, ('string', 'uri'), False),
               'regex-match-string': (property_regex_match_string, -2, ('string', 'uri'), False),
               'regex-match-string-all': (property_regex_match_string_all, -2, ('string', 'uri'), False),
+
+              # inline properties
+              'inline-parent': (property_inline_parent, 0, ('fact',), False),
+              'inline-ancestors': (property_inline_ancestors, 0, ('fact', ), False),
+              'inline-children': (property_inline_children, 0, ('fact', ), False),
+              'inline-descendants': (property_inline_descendants, 0, ('fact', ), False),
 
               # Debugging properties
               '_type': (property_type, 0, (), False),
