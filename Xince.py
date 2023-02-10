@@ -1112,11 +1112,15 @@ def verify_fact(fact_info, taxonomy, cntlr):
         if fact_info.get('fact-is-nil', 'false').lower() in ('true', '1'):
             fact_value = None
         else:
-            fact_value = get_fact_value(fact_info['fact-value'], model_concept, cntlr)
-            if fact_value is None:
-                # There was a problem with the value
-                cntlr.addToLog(f"Fact value '{fact_info['fact-value']}' is not valid for concept '{model_concept.qname.localName}' with type '{model_concept.typeQname.localName}'. Found in rule '{fact_info['rule-name']}'", "XinceError", level=logging.ERROR)
+            if 'fact-value' not in fact_info:
+                cntlr.addToLog(f"'fact-value' is missing from the rule. This is required if 'fact-is-nil' is false or not present. Found in rule '{fact_info['rule-name']}'", "XinceError", level=logging.ERROR)
                 errors = True
+            else:
+                fact_value = get_fact_value(fact_info['fact-value'], model_concept, cntlr)
+                if fact_value is None:
+                    # There was a problem with the value
+                    cntlr.addToLog(f"Fact value '{fact_info['fact-value']}' is not valid for concept '{model_concept.qname.localName}' with type '{model_concept.typeQname.localName}'. Found in rule '{fact_info['rule-name']}'", "XinceError", level=logging.ERROR)
+                    errors = True
     # # check footnotes
     # if 'fact-footnote' in fact_info:
     #     try:
