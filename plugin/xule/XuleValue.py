@@ -5,7 +5,7 @@ Xule is a rule processor for XBRL (X)brl r(ULE).
 DOCSKIP
 See https://xbrl.us/dqc-license for license information.  
 See https://xbrl.us/dqc-patent for patent infringement notice.
-Copyright (c) 2017 - 2022 XBRL US, Inc.
+Copyright (c) 2017 - 2023 XBRL US, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -19,11 +19,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23303 $
+$Change: 23465 $
 DOCSKIP
 """
 from .XuleRunTime import XuleProcessingError
-from . import XuleProperties
 from . import XuleUtility
 from arelle.ModelValue import AnyURI, QName, dayTimeDuration, DateTime, gYear, gMonthDay, gYearMonth, InvalidValue, IsoDuration
 from arelle.ModelInstanceObject import ModelFact, ModelUnit
@@ -40,6 +39,18 @@ from fractions import Fraction
 import pprint
 import re
 import textwrap
+
+from enum import Enum
+
+#Network info tuple
+NETWORK_ARCROLE = 0
+NETWORK_ROLE = 1
+NETWORK_LINK = 2
+NETWORK_ARC = 3
+
+class SpecialItemTypes(Enum):
+    ENUM_ITEM_TYPE = '{http://xbrl.org/2020/extensible-enumerations-2.0}enumerationItemType'
+    ENUM_SET_ITEM_TYPE = '{http://xbrl.org/2020/extensible-enumerations-2.0}enumerationSetItemType'
 
 
 class XuleValueSet:
@@ -66,10 +77,19 @@ class XuleValueSet:
         else:
             raise XuleProcessingError(_("Internal error: XuleValueSet can only append a XuleValue, found '%s'" % type(value)))
         
+    
+    def clone(self):
+        new_value_set = XuleValueSet()
+        for k, vals in self.values.items():
+            for val in vals:
+                new_value_set.values[k].append(val.clone())
+        return new_value_set
+
     def __copy__(self):
         new_value_set = XuleValueSet()
         new_value_set.values = copy.copy(self.values)
         return new_value_set
+    
         
 class XuleValue:
     def __init__(self, xule_context, orig_value, orig_type, alignment=None, from_model=False, shadow_collection=None, tag=None, orig_fact=None):
@@ -94,7 +114,6 @@ class XuleValue:
         self.tag = tag if tag is not None else self
         
         if self.type in ('list', 'set') and self.shadow_collection is None:
-        #if self.type in ('list', 'set'):            
             shadow = [x.shadow_collection if x.type in ('set', 'list', 'dictionary') else x.value for x in self.value]
             if self.type == 'list':
                 self.shadow_collection = tuple(shadow)
@@ -111,6 +130,15 @@ class XuleValue:
             if not hasattr(self, '_shadow_dictionary'):
                 self._shadow_dictionary = {k.shadow_collection if k.type in ('set', 'list') else k.value: v.shadow_collection if v.type in ('set', 'list', 'dictionary') else v.value for k, v in self.value}
             return self._shadow_dictionary
+        else:
+            return None
+    @property
+    def shadow_keys(self):
+        if self.type == 'dictionary':
+            # return a diction of the underlying value for the key and the corresponding XuleValue
+            if not hasattr(self, '_shadow_keys'):
+                self._shadow_keys = {k.shadow_collection if k.type in ('set', 'list') else k.value: k for k, _v in self.value}
+            return self._shadow_keys
         else:
             return None
     @property
@@ -190,7 +218,7 @@ class XuleValue:
         #set value, type, fact on the XuleValue
         if orig_type == 'fact':
             #get the underlying value and determine the type
-            if "{http://xbrl.org/2020/extensible-enumerations-2.0}enumerationSetItemType" in self._type_ancestry(orig_value.concept.type):
+            if self._special_type_in_ancestry(xule_context, SpecialItemTypes.ENUM_SET_ITEM_TYPE, orig_value.concept.type):
                 # This is concept that is an extensibile enumeration set. Arelle will pass the valueas
                 # a list of QNames. Need to convert to a set of XuleValues where each Xulevalue is a
                 # "qname" xule type.
@@ -202,7 +230,7 @@ class XuleValue:
                     enum_value_type, enum_compute_value = model_to_xule_type(xule_context, enum)
                     enum_set.add(XuleValue(xule_context, enum_compute_value, enum_value_type))
                 return 'set', enum_set, orig_value
-            elif "{http://xbrl.org/2020/extensible-enumerations-2.0}enumerationItemType" in self._type_ancestry(orig_value.concept.type):
+            elif self._special_type_in_ancestry(xule_context, SpecialItemTypes.ENUM_ITEM_TYPE, orig_value.concept.type):
                 # This should be a single qname, but Arelle puts it in a list
                 if isinstance(orig_value.xValue, list):
                     if len(orig_value.xValue) == 1:
@@ -218,11 +246,22 @@ class XuleValue:
         else:
             return orig_type, orig_value, None
 
-    def _type_ancestry(self, model_type):
-        if model_type.typeDerivedFrom is None:
-            return [model_type.qname.clarkNotation]
+    def _special_type_in_ancestry(self, xule_context, find, model_type):
+        cached_value = xule_context.global_context.ancestry_cache.get(model_type, {}).get(find)
+        if cached_value is not None:
+            return cached_value
+        elif model_type.qname.clarkNotation == find.value:
+            xule_context.global_context.ancestry_cache[model_type][find] = True
+            return True
+        derived = model_type.typeDerivedFrom
+        if isinstance(derived, list):
+            is_derived_from = any(
+                self._special_type_in_ancestry(xule_context, find, t) for t in model_type.typeDerivedFrom if t is not None
+            )
         else:
-            return [model_type.qname.clarkNotation] + self._type_ancestry(model_type.typeDerivedFrom)
+            is_derived_from = derived is not None and self._special_type_in_ancestry(xule_context, find, derived)
+        xule_context.global_context.ancestry_cache[model_type][find] = is_derived_from
+        return is_derived_from
 
     @property
     def is_fact(self):
@@ -269,7 +308,8 @@ class XuleValue:
 #                 unit_string = "%s/%s" % (" * ".join([x.localName for x in self.value[0]]), 
 #                                                  " * ".join([x.localName for x in self.value[1]]))
 #             return unit_string
-        
+        elif self.type == 'entity':
+            return '{}={}'.format(self.value[0].value, self.value[1].value)
         elif self.type == 'duration':
             if self.value[0] == datetime.datetime.min and self.value[1] == datetime.datetime.max:
                 return "forever"
@@ -296,7 +336,10 @@ class XuleValue:
             return set_value
         
         elif self.type == 'dictionary': 
-            return pprint.pformat(self.system_value)
+            dict_content = ','.join('='.join((key.format_value(), val.format_value())) for (key,val) in self.value)
+            dict_value = "dictionary(" + dict_content + ")"
+            return dict_value
+            #return pprint.pformat(self.system_value)
         
         elif self.type == 'concept':
             return str(self.value.qname)
@@ -944,26 +987,26 @@ class XuleDimensionCube:
             dts.xuleBaseDimensionSets = collections.defaultdict(set)
 
             for base_set in dts.baseSets:
-                if (base_set[XuleProperties.NETWORK_ARCROLE] in ('http://xbrl.org/int/dim/arcrole/all',
+                if (base_set[NETWORK_ARCROLE] in ('http://xbrl.org/int/dim/arcrole/all',
                                                                  'http://xbrl.org/int/dim/arcrole/notAll') and
-                        base_set[XuleProperties.NETWORK_ROLE] is not None and
-                        base_set[XuleProperties.NETWORK_LINK] is not None and
-                        base_set[XuleProperties.NETWORK_ARC] is not None):
+                        base_set[NETWORK_ROLE] is not None and
+                        base_set[NETWORK_LINK] is not None and
+                        base_set[NETWORK_ARC] is not None):
                     # This is an 'all' dimension base set find the hypercubes
                     relationship_set = dts.relationshipSets.get(base_set,
                                                                 ModelRelationshipSet(dts,
                                                                                      base_set[
-                                                                                         XuleProperties.NETWORK_ARCROLE],
+                                                                                         NETWORK_ARCROLE],
                                                                                      base_set[
-                                                                                         XuleProperties.NETWORK_ROLE],
+                                                                                         NETWORK_ROLE],
                                                                                      base_set[
-                                                                                         XuleProperties.NETWORK_LINK],
+                                                                                         NETWORK_LINK],
                                                                                      base_set[
-                                                                                         XuleProperties.NETWORK_ARC]))
+                                                                                         NETWORK_ARC]))
 
                     for rel in relationship_set.modelRelationships:
                         if rel.toModelObject is not None:
-                            drs_role = base_set[XuleProperties.NETWORK_ROLE]
+                            drs_role = base_set[NETWORK_ROLE]
                             dts.xuleBaseDimensionSets[(drs_role, rel.toModelObject)].add(rel)
 
     @classmethod
@@ -972,20 +1015,20 @@ class XuleDimensionCube:
             dts.xuleDimensionDefaults = dict()
 
             for base_set in dts.baseSets:
-                if (base_set[XuleProperties.NETWORK_ARCROLE] == 'http://xbrl.org/int/dim/arcrole/dimension-default' and
-                        base_set[XuleProperties.NETWORK_ROLE] is not None and
-                        base_set[XuleProperties.NETWORK_LINK] is not None and
-                        base_set[XuleProperties.NETWORK_ARC] is not None):
+                if (base_set[NETWORK_ARCROLE] == 'http://xbrl.org/int/dim/arcrole/dimension-default' and
+                        base_set[NETWORK_ROLE] is not None and
+                        base_set[NETWORK_LINK] is not None and
+                        base_set[NETWORK_ARC] is not None):
                     relationship_set = dts.relationshipSets.get(base_set,
                                                                 ModelRelationshipSet(dts,
                                                                                      base_set[
-                                                                                         XuleProperties.NETWORK_ARCROLE],
+                                                                                         NETWORK_ARCROLE],
                                                                                      base_set[
-                                                                                         XuleProperties.NETWORK_ROLE],
+                                                                                         NETWORK_ROLE],
                                                                                      base_set[
-                                                                                         XuleProperties.NETWORK_LINK],
+                                                                                         NETWORK_LINK],
                                                                                      base_set[
-                                                                                         XuleProperties.NETWORK_ARC]))
+                                                                                         NETWORK_ARC]))
 
                     for rel in relationship_set.modelRelationships:
                         dts.xuleDimensionDefaults[rel.fromModelObject] = rel.toModelObject
