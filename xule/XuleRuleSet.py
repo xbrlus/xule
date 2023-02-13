@@ -362,6 +362,24 @@ class XuleRuleSet(object):
         """
         return name in self.catalog['output_attributes']
         
+    def getNamespaceUri(self, prefix):
+        """Get namespace uri for a prefix from the rule set
+        
+        :param prefix: The prefix to look up
+        :type prefix: str
+        :return: The namespace uri
+        :rtype: str or None if not found
+        """
+        #This case there is a file, but it didn't have any namespace declarations
+        if prefix not in self.catalog['namespaces']:
+            if prefix == '*':
+                return None
+                #raise XuleRuleSetError("There is no default namespace declaration.")
+            else:
+                raise XuleRuleSetError("Prefix %s does not have a namespace declaration." % prefix)
+        
+        return self.catalog['namespaces'][prefix]['uri']
+        
     def getNamespaceInfoByUri(self, namespace_uri):   
         """Get catalog information for a namespace
         
