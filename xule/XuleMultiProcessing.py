@@ -39,7 +39,7 @@ def start_process(rule_set, model_xbrl, cntlr, options):
     
     global_context = XuleGlobalContext(rule_set, model_xbrl, cntlr, options=options)
     xule_context = XuleRuleContext(global_context)
-    from .XuleProcessor import index_model
+    from .XuleModelIndexer import index_model
     index_model(xule_context)
     
     global_context.message_queue.logging("Processing Filing...")

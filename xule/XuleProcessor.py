@@ -29,7 +29,7 @@ from .XuleFunctions import func_alignment
 from .XuleRunTime import XuleProcessingError, XuleIterationStop, XuleException, XuleBuildTableError, XuleReEvaluate
 from .XuleValue import *
 from . import XuleConstants as xc
-from . import XuleModelInexer as xmi
+from . import XuleModelIndexer as xmi
 from . import XuleUtility
 import itertools as it
 from arelle.ModelValue import QName, dayTimeDuration, DateTime, gYear, gMonthDay, gYearMonth, qname

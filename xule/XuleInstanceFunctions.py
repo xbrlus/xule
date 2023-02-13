@@ -1,6 +1,6 @@
 from . import XuleValue as xv
 from .XuleRunTime import XuleProcessingError
-from .XuleModelInexer import index_model
+from .XuleModelIndexer import index_model
 from arelle import ModelXbrl, ModelDocument, FileSource, ModelManager, ModelValue
 from arelle.PrototypeInstanceObject import DimValuePrototype
 import datetime
