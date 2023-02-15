@@ -1199,6 +1199,8 @@ def built_in_functions():
 
 BUILTIN_FUNCTIONS = built_in_functions()
 
-
-
-#BUILTIN_FUNCTIONS = {}
+def add_normal_function(function_name, function, num_of_args, allow_unbound=False, result_number='single'):
+    if function_name in BUILTIN_FUNCTIONS:
+        raise XuleProcessingError(_("Cannot add function {}() to xule, it already exists".format(function_name)))
+    else:
+        BUILTIN_FUNCTIONS[function_name] = ('regular', function, num_of_args, allow_unbound, result_number)
