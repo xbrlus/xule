@@ -1193,12 +1193,6 @@ def property_primary_concepts(xule_context, object_value, *args):
 
     return xv.XuleValue(xule_context, frozenset(prim), 'set', shadow_collection=frozenset(prim_shadow))
 
-def property_facts(xule_context, object_value, *args):
-    facts_shadow = object_value.value.facts
-    facts = {xv.XuleValue(xule_context, x, 'fact', alignment=None) for x in facts_shadow}
-
-    return xv.XuleValue(xule_context, frozenset(facts), 'set', shadow_collection=frozenset(facts_shadow))
-
 def property_default(xule_context, object_value, *args):
     default = object_value.value.default
     if default is None:
@@ -2035,7 +2029,7 @@ def property_facts(xule_context, object_value, *args):
         result.append(item)
         shadow.append(item.value)
     
-    return xv.XuleValue(xule_context, tuple(result), 'list', shadow_collection=tuple(shadow))
+    return xv.XuleValue(xule_context, frozenset(result), 'set', shadow_collection=frozenset(shadow))
 
 def property_regex_match(xule_context, object_value, pattern, *args):
     if pattern.type != 'string':
@@ -2345,12 +2339,11 @@ PROPERTIES = {
               'drs-role': (property_drs_role, 0, ('cube',), False),
               'cube-concept': (property_cube_concept, 0, ('cube',), False),
               'primary-concepts': (property_primary_concepts, 0, ('cube',), False),
-              'facts': (property_facts, 0, ('cube',), False),
+              'facts': (property_facts, 0, ('cube','instance'), False),
               'default': (property_default, 0, ('dimension',), False),
               'namespaces': (property_namespaces, 0, ('taxonomy',), False),
               'taxonomy': (property_taxonomy, 0, ('instance', 'fact'), False),
               'instance': (property_instance, 0, ('fact',), False),
-              'facts': (property_facts, 0, ('instance', ), False),
 
               # Version 1.1 properties
               #'regex-match-first': (property_regex_match_first, 1, ('string', 'uri'), False),
