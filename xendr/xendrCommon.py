@@ -6,10 +6,8 @@ This file contains general until code that is common to the whole xender process
 Reivision number: $Change: $
 '''
 
-from arelle import PluginManager, FileSource
+from arelle import FileSource
 
-# This will hold the xule plugin module
-_xule_plugin_info = None
 
 # xule namespace used in the template
 XULE_NAMESPACE_MAP = {'xule': 'http://xbrl.us/xule/2.0/template', 
@@ -18,29 +16,6 @@ XULE_NAMESPACE_MAP = {'xule': 'http://xbrl.us/xule/2.0/template',
 
 class XendrException(Exception):
     pass
-
-def getXulePlugin(cntlr):
-    """Find the Xule plugin
-    
-    This will locate the Xule plugin module.
-    """
-    global _xule_plugin_info
-    if _xule_plugin_info is None:
-        for _plugin_name, plugin_info in PluginManager.modulePluginInfos.items():
-            if plugin_info.get('moduleURL') == 'xule':
-                _xule_plugin_info = plugin_info
-                break
-        else:
-            cntlr.addToLog(_("Xule plugin is not loaded. Xule plugin is required to run DQC rules. This plugin should be automatically loaded."))
-    
-    return _xule_plugin_info
-
-def getXuleMethod(cntlr, method_name):
-    """Get method from Xule
-    
-    Get a method/function from the Xule plugin. This is how this validator calls functions in the Xule plugin.
-    """
-    return getXulePlugin(cntlr).get(method_name)
 
 def clean_entities(text):
     '''Clean up HTML entities 

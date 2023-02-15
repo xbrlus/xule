@@ -6,7 +6,7 @@ This file contains code to compile xendr templates
 Reivision number: $Change: $
 '''
 from arelle import FileSource
-from .xendrCommon import XendrException, getXuleMethod, clean_entities, get_file_or_url, XULE_NAMESPACE_MAP
+from .xendrCommon import XendrException, clean_entities, get_file_or_url, XULE_NAMESPACE_MAP
 from lxml import etree
 
 import collections
@@ -69,7 +69,8 @@ def process_single_template(cntlr, options, template_catalog, template_set_file,
 
         # xule rule set name
         xule_rule_set_name = os.path.join(temp_dir, 'temp-ruleset.zip')
-        compile_method = getXuleMethod(cntlr, 'Xule.compile')
+        from .xule import __pluginInfo__ as xule_plugin_info
+        compile_method = xule_plugin_info['Xule.compile']
         compile_method(xule_rule_file_name, xule_rule_set_name, 'pickle', getattr(options, "xule_max_recurse_depth"))
 
         template_catalog.append({'name': template_name,
@@ -334,9 +335,21 @@ def build_xule_rules(template_tree, template_file_name, xule_node_locations):
     # Create rules for starting line numbers.                                                                                 
     line_number_subs, xule_rules, next_rule_number = build_line_number_rules(xule_rules, next_rule_number, template_tree, xule_node_locations)   
 
+    # divide the rules into regular rules and footnote rules
+    standard_rules = []
+    footnote_rules = []
+    for rule_name, rule_info in substitutions.items():
+        if 'footnote-name' in rule_info:
+            footnote_rules.append(rule_name)
+        else:
+            standard_rules.append(rule_name)
+
     rule_meta_data = {'substitutions': substitutions,
                       'line-numbers': line_number_subs,
-                      'showifs': showifs}
+                      'showifs': showifs,
+                      'footnotes': get_footnote_info(template_tree), # find footnote productions - these are the footnote elements where a rule will write a footnote
+                      'standard-rules': standard_rules,
+                      'footnote-rules': footnote_rules} 
 
     return '\n\n'.join(showif_rules + xule_rules), rule_meta_data
 
@@ -347,7 +360,7 @@ def build_template_show_if(xule_rules, next_rule_number, template_tree, template
     '''
     meta_data = collections.defaultdict(list)
     xule_rules = list()
-    # The <sule:showif> must be a node under the html body node.
+    # The <xule:showif> must be a node under the html body node.
     for showif_node in template_tree.findall('xhtml:body/xule:showif', XULE_NAMESPACE_MAP):
         rule_name = _RULE_NAME_PREFIX + str(next_rule_number)
         next_rule_number += 1 
@@ -367,6 +380,7 @@ def build_template_show_if(xule_rules, next_rule_number, template_tree, template
 
 def build_unamed_rules(xule_rules, next_rule_number, named_rules, template_tree, template_file_name, xule_node_locations, node_pos):
     substitutions = collections.defaultdict(list)
+    footnotes = dict() # keyed by footnote name, value dictionary of groups, style
     # Go through each of the xule expressions in the template
     for xule_expression in template_tree.findall('//xule:expression', XULE_NAMESPACE_MAP):
         named_rule = xule_expression.get("name")
@@ -384,7 +398,8 @@ def build_unamed_rules(xule_rules, next_rule_number, named_rules, template_tree,
                 extra_expressions = format_extra_expressions(replacement_node)
             
             extra_attributes = get_extra_attributes(xule_expression)
-            comment_text = '    // {} - line {}'.format(template_file_name, xule_expression.sourceline)            
+            comment_text = '    // {} - line {}'.format(template_file_name, xule_expression.sourceline)   
+
             if xule_expression.get('fact','').lower() == 'true' or 'fact' in extra_expressions:
                 sub_content = {'part': None, 
                               'replacement-node': xule_node_locations[template_tree.getelementpath(replacement_node)],
@@ -392,9 +407,6 @@ def build_unamed_rules(xule_rules, next_rule_number, named_rules, template_tree,
                               'template-line-number': xule_expression.sourceline,
                               'node-pos': node_pos[replacement_node]}
                 #rule_text = 'output {}\n{}\nlist((({})#rv-0).string).to-json\nrule-focus list($rv-0)'.format(rule_name, comment_text, xule_expression.text.strip())
-
-   
-
                 rule_text = 'output {rule_name}\n{comment}\n{result_text}{rule_focus}'\
                     ''.format(rule_name=rule_name,
                               comment=comment_text,
@@ -424,6 +436,10 @@ def build_unamed_rules(xule_rules, next_rule_number, named_rules, template_tree,
 
             if xule_expression.get('html', 'false').lower() == 'true':
                 sub_content['html'] = True
+            # Check if we are in a footnote group that is collecting facts.
+            footnote_groups = get_footnote_groups(xule_expression)
+            if len(footnote_groups) > 0:
+                sub_content['footnote-collectors'] = footnote_groups
             substitutions[rule_name].append(sub_content)
         else: # This is a named rule
             # Saved the named rule part for later
@@ -493,6 +509,7 @@ def build_named_rule_info(named_rule, part_list, next_rule_number, template_tree
             extra_expressions = format_extra_expressions(replacement_node)
 
         extra_attributes = get_extra_attributes(expression)
+        footnote_groups = get_footnote_groups(expression)
 
         comments.append('    // {} - {}'.format(template_file_name, expression.sourceline))
         if part is None:
@@ -519,7 +536,6 @@ def build_named_rule_info(named_rule, part_list, next_rule_number, template_tree
                                 'node-pos': node_pos[replacement_node]}
                 if expression.get('html', 'false').lower() == 'true':
                     sub_content['html'] = True
-                substitutions.append(sub_content)
             else: # not a fact, just a string result
                 #result_parts.append('({}).string'.format(expression.text.strip()))
                 result_parts.append('{result_text}'.format(result_text=format_rule_result_text_part(expression.text.strip(),
@@ -537,9 +553,17 @@ def build_named_rule_info(named_rule, part_list, next_rule_number, template_tree
                                 'extras': extra_attributes,
                                 'node-pos': node_pos[replacement_node]}
                 if expression.get('html', 'false').lower() == 'true':
-                    sub_content['html'] = True                                   
-                substitutions.append(sub_content)
+                    sub_content['html'] = True 
+            
+            # Check if we should be capturing footnotes        
+            if len(footnote_groups) > 0:
+                sub_content['footnote-groups'] = footnote_groups                                  
+            # Check if we are in a footnote production (writing a footnote)
+            footnote_name = get_footnote_productions(expression)
+            if footnote_name is not None:
+                sub_content['footnote-name'] = footnote_name
 
+            substitutions.append(sub_content)
             next_text_number += 1
             sequence_number += 1
     
@@ -587,6 +611,11 @@ def build_named_rules(xule_rules, next_rule_number, named_rules, template_tree, 
                             node_pos)
 
         substitutions[rule_info['rule_name']] = {'name': named_rule, 'subs': rule_substitutions + child_substitutions}
+        # If there is a child sub that is for a footnote, then this is a footnote rule.
+        for child_sub in substitutions[rule_info['rule_name']]['subs']:
+            if 'footnote-name' in child_sub: # this is a footnote rule
+                substitutions[rule_info['rule_name']]['footnote-name'] = child_sub['footnote-name']
+            break
         rule_info['result_parts'] += child_parts
         #build rule text
         rule_text = 'output {}\n'.format(rule_info['rule_name'])
@@ -767,7 +796,20 @@ def get_extra_attributes(expression_node):
             extra_attributes[name] = val
     return extra_attributes
 
+def get_footnote_groups(expression_node):
+    # find the ancestor footnoteFact elements and make a list of all the group identifiers
+    return list({x.get('group') for x in expression_node.iterancestors('{{{}}}footnoteFacts'.format(XULE_NAMESPACE_MAP['xule'])) if x.get('group') is not None})
 
+def get_footnote_productions(expression_node):
+    # find the ancestor footnote elements and make a list of all the group identifiers
+    for footnote_node in expression_node.iterancestors('{{{}}}footnotes'.format(XULE_NAMESPACE_MAP['xule'])):
+        if 'name' not in footnote_node.keys():
+            raise XendrException("{{{}}}footnotes must have a 'name' attribute".foramt(XULE_NAMESPACE_MAP['xule']))
+        if footnote_node.get('name') == expression_node.get('name'):
+            return footnote_node.get('name')
+        else:
+            return None
+  
 def build_line_number_rules(xule_rules, next_rule_number, template_tree, xule_node_locations):
     line_number_subs = collections.defaultdict(list)
     for line_number_node in template_tree.findall('//xule:lineNumber', XULE_NAMESPACE_MAP):
@@ -806,3 +848,23 @@ def build_line_number_rules(xule_rules, next_rule_number, template_tree, xule_no
             line_number_subs[name].append(line_number_content)
 
     return line_number_subs, xule_rules, next_rule_number
+
+def get_footnote_info(template_tree):
+    footnote_info = dict() # keyed by name.
+    for footnote_node in template_tree.findall('//{{{}}}footnotes'.format(XULE_NAMESPACE_MAP['xule'])):
+        if next(footnote_node.iterancestors('{{{}}}footnotes'.format(XULE_NAMESPACE_MAP['xule'])), False) != False:
+            # The <footnotes> is nested. This is not allowed
+            raise XendrException("Found a <footnotes> inside another <footnotes>")
+        if next(footnote_node.iterancestors('{{{}}}footnoteFacts'.format(XULE_NAMESPACE_MAP['xule'])), False) != False:
+            # the <footnotes> is inside a <footnoteFacts>. This is not allowed
+            raise XendrException("Found a <footnotes> inside a <footnoteFacts>")
+        footnote_name = footnote_node.get('name')
+        if footnote_name is None:
+            raise XendrException("Found a <footnotes> without a name attribute")
+        footnote_groups = footnote_node.get('groups', '').split() # this will split on whitespace
+        if len(footnote_groups) == 0:
+            raise XendrException("Found a <footnotes> wihtout a group")
+        footnote_style = footnote_node.get('list-style') # its okay if there isn't a style. It will be defaulted to lowercase letters
+        footnote_info[footnote_name] = {'groups': footnote_groups, 'sytle': footnote_style}
+    
+    return footnote_info

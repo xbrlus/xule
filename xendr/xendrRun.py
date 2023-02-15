@@ -14,7 +14,8 @@ from arelle.XmlValidate import VALID
 from copy import deepcopy
 from lxml import etree
 from lxml.builder import E
-from .xendrCommon import XendrException, clean_entities, get_file_or_url, XULE_NAMESPACE_MAP, getXuleMethod
+from .xendrCommon import XendrException, clean_entities, get_file_or_url, XULE_NAMESPACE_MAP
+from . import xendrXuleFunctions as xxf
 import datetime
 import decimal
 import calendar
@@ -26,9 +27,6 @@ import os
 import os.path
 import re
 import zipfile
-
-# This will hold the xule plugin module
-_xule_plugin_info = None
 
 # xule namespace used in the template
 XULE_NAMESPACE_MAP = {'xule': 'http://xbrl.us/xule/2.0/template', 
@@ -44,6 +42,7 @@ _PHRASING_CONTENT_TAGS = {'a', 'audio', 'b', 'bdi', 'bdo', 'br', 'button', 'canv
 _NAMESPACE_DECLARATION = 'TEMPORARY_NAMESPACE_DECLARATION'
 _ORIGINAL_FACT_ID_ATTRIBUTE = 'original_fact_id'
 
+_OPTIONS = None
 
 def substituteTemplate(rule_meta_data, rule_results, template, modelXbrl, main_html, template_number,
                        fact_number, processed_facts, processed_footnotes):
@@ -112,14 +111,16 @@ def substituteTemplate(rule_meta_data, rule_results, template, modelXbrl, main_h
                                                 context_ids, unit_ids, footnotes, template_number, fact_number, processed_facts)
         if rule_has_confidential: has_confidential = True
 
-    footnote_page = build_footnote_page(template, template_number, footnotes, processed_footnotes, fact_number)
-    if footnote_page is not None:
-        template_body = template.find('xhtml:body', namespaces=XULE_NAMESPACE_MAP)
-        if template_body is None:
-            raise XendrException("Cannot find body of the template")  
-        template_body.append(etree.Element('{{{}}}hr'.format(_XHTM_NAMESPACE), attrib={"class": "xbrl footnote-separator screen-page-separator"}))
-        template_body.append(etree.Element('{{{}}}div'.format(_XHTM_NAMESPACE), attrib={'class': 'print-page-separator footnote-separator'}))
-        template_body.append(footnote_page)
+    # if the default footnote page option was selected
+    if getattr(_OPTIONS, 'xendr_default_footnote_page', False):
+        footnote_page = build_footnote_page(template, template_number, footnotes, processed_footnotes, fact_number)
+        if footnote_page is not None:
+            template_body = template.find('xhtml:body', namespaces=XULE_NAMESPACE_MAP)
+            if template_body is None:
+                raise XendrException("Cannot find body of the template")  
+            template_body.append(etree.Element('{{{}}}hr'.format(_XHTM_NAMESPACE), attrib={"class": "xbrl footnote-separator screen-page-separator"}))
+            template_body.append(etree.Element('{{{}}}div'.format(_XHTM_NAMESPACE), attrib={'class': 'print-page-separator footnote-separator'}))
+            template_body.append(footnote_page)
 
     # Remove any left over xule:replace nodes
     for xule_node in template.findall('//xule:replace', XULE_NAMESPACE_MAP):
@@ -131,6 +132,10 @@ def substituteTemplate(rule_meta_data, rule_results, template, modelXbrl, main_h
     # Remove any left over xule template nodes
     for xule_node in template.findall('//xule:*', XULE_NAMESPACE_MAP):
         parent = xule_node.getparent()
+        if xule_node.tag == '{{{}}}footnoteFacts'.format(XULE_NAMESPACE_MAP['xule']):
+            # move the children to after the current xule:footnoteFacts element
+            for child in xule_node:
+                xule_node.addnext(child)
         parent.remove(xule_node)
     
     # Remove any left over xule attributes
@@ -289,7 +294,13 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                             # Check if the fact is confidential
                             is_confidential = fact_is_marked(model_fact, 'http://www.ferc.gov/arcrole/Confidential')                                
                             # Check if there are footnotes
-                            current_footnote_ids = get_footnotes(footnotes, model_fact, sub, new_fact_id, is_confidential, is_redacted)
+                       
+                            if getattr(_OPTIONS, 'xendr_default_footnote_page', False):
+                                current_footnote_ids = get_footnotes(footnotes, model_fact, sub, new_fact_id, is_confidential, is_redacted)
+                            else:
+                                # Only need to worry about footnotes if this is in a footnote group
+                                for footnote_group in sub.get('footnote-collectors', tuple()):
+                                    footnotes[footnote_group].append(model_fact)
 
                     else: # json_result['type'] == 's': # result is a string
                         # This will check if the html flag is in meta data (sub) or calculated in the result
@@ -1060,6 +1071,10 @@ def add_footnote_relationships(main_html, processed_footnotes):
             resources.append(rel)
 
 def render_report(cntlr, options, modelXbrl, *args, **kwargs):
+    # Save options to a global
+    global _OPTIONS
+    _OPTIONS = options
+
     if options.xendr_debug:
         start_time = datetime.datetime.now()
 
@@ -1134,13 +1149,23 @@ def render_report(cntlr, options, modelXbrl, *args, **kwargs):
                 cntlr.logger.removeHandler(cntlr.logHandler)
             cntlr.logger.addHandler(log_capture_handler)
 
+            # Xendr needs to add a xule function to convert modelObject ids to footnotes
+            from .xule.XuleFunctions import add_normal_function as add_normal_function_to_xule
+            add_normal_function_to_xule('xendr-get-footnotes-from-fact-ids', xxf.get_fact_footnotes, 1)
+
             # Call the xule processor to run the rules
-            call_xule_method = getXuleMethod(cntlr, 'Xule.callXuleProcessor')
+            from .xule import __pluginInfo__ as xule_plugin_info
+            call_xule_method = xule_plugin_info['Xule.callXuleProcessor']
+
+
+            #call_xule_method = getXuleMethod(cntlr, 'Xule.callXuleProcessor')
             run_options = deepcopy(options)
             xule_args = getattr(run_options, 'xule_arg', []) or []
             xule_args += list(xule_date_args)
             setattr(run_options, 'xule_arg', xule_args)
-                # Get xule rule set
+            # run only standard rules (the other rules are footnote rules and they will be run later)
+            setattr(run_options, "xule_run_only", ','.join(rule_meta_data['standard-rules']))
+            # Get xule rule set
             with ts.open(catalog_item['xule-rule-set']) as rule_set_file:
                 call_xule_method(cntlr, modelXbrl, io.BytesIO(rule_set_file.read()), run_options)
             

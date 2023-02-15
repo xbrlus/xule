@@ -102,6 +102,11 @@ def cmdLineOptionExtender(parser, *args, **kwargs):
                       dest="xendr_title",
                       help=_("Value of the <title> element in the created html"))
 
+    parserGroup.add_option("--xendr-default-footnote-page",
+                      action="store_true",
+                      dest="xendr_default_footnote_page",
+                      help=_("Create a default footnote page at the end of the template. This will override any footnote handling (<footnotes>) that is built into the template."))
+
     parserGroup.add_option("--xendr-save-xule", 
                       action="store", 
                       dest="xendr_save_xule", 
