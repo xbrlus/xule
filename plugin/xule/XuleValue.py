@@ -5,7 +5,7 @@ Xule is a rule processor for XBRL (X)brl r(ULE).
 DOCSKIP
 See https://xbrl.us/dqc-license for license information.  
 See https://xbrl.us/dqc-patent for patent infringement notice.
-Copyright (c) 2017 - 2023 XBRL US, Inc.
+Copyright (c) 2017 - 2022 XBRL US, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23465 $
+$Change: 23478 $
 DOCSKIP
 """
 from .XuleRunTime import XuleProcessingError
@@ -36,6 +36,7 @@ from aniso8601.__init__ import parse_duration, parse_datetime, parse_date
 import collections
 import copy
 from fractions import Fraction
+import numpy
 import pprint
 import re
 import textwrap
@@ -279,17 +280,23 @@ class XuleValue:
             return self.value
     
     def format_value(self):
-            
+
         if self.type in ('float', 'decimal'):
-            format_rounded = "{0:,.4f}".format(self.value)
-            reduced_round = self._reduce_number(format_rounded)
-            format_orig = "{0:,}".format(self.value)
-            reduced_orig = self._reduce_number(format_orig)
+            str_val = numpy.format_float_positional(self.value)
+            if str_val[-1] == '.': # This ends in a decimal point
+                str_val += '0'
             
-            if reduced_round != reduced_orig:
-                reduced_round += " (rounded 4d)" 
+            return str_val
+
+            # format_rounded = "{0:,.4f}".format(self.value)
+            # reduced_round = self._reduce_number(format_rounded)
+            # format_orig = "{0:,}".format(self.value)
+            # reduced_orig = self._reduce_number(format_orig)
+            
+            # if reduced_round != reduced_orig:
+            #     reduced_round += " (rounded 4d)" 
                 
-            return reduced_round
+            # return reduced_round
         
         elif self.type == 'int':
             if self.fact is not None:
