@@ -284,11 +284,15 @@ class XinceUnit:
                     raise XinceException(f'Unit has more than one numerator and a denonminator. This cannot be serialized in XML')
                 divide_node = et.Element(f'{{{_XBRLI_NAMESPACE}}}divide')
                 unit_node.append(divide_node)
-                num_node = et.Element(f'{{{_XBRLI_NAMESPACE}}}measure')
-                num_node.text = self.numerators[0].prefixed(nsmap, mark=True)
+                num_node = et.Element(f'{{{_XBRLI_NAMESPACE}}}unitNumerator')
+                num_mes_node = et.Element(f'{{{_XBRLI_NAMESPACE}}}measure')
+                num_mes_node.text = self.numerators[0].prefixed(nsmap, mark=True)
+                num_node.append(num_mes_node)
                 divide_node.append(num_node)
-                den_node = et.Element(f'{{{_XBRLI_NAMESPACE}}}measure')
-                den_node.text = self.denominators[0].prefixed(nsmap, mark=True)
+                den_node = et.Element(f'{{{_XBRLI_NAMESPACE}}}unitDenominator')
+                den_mes_node = et.Element(f'{{{_XBRLI_NAMESPACE}}}measure')
+                den_mes_node.text = self.denominators[0].prefixed(nsmap, mark=True)
+                den_node.append(den_mes_node)
                 divide_node.append(den_node)
             return unit_node
         else:
@@ -1112,11 +1116,15 @@ def verify_fact(fact_info, taxonomy, cntlr):
         if fact_info.get('fact-is-nil', 'false').lower() in ('true', '1'):
             fact_value = None
         else:
-            fact_value = get_fact_value(fact_info['fact-value'], model_concept, cntlr)
-            if fact_value is None:
-                # There was a problem with the value
-                cntlr.addToLog(f"Fact value '{fact_info['fact-value']}' is not valid for concept '{model_concept.qname.localName}' with type '{model_concept.typeQname.localName}'. Found in rule '{fact_info['rule-name']}'", "XinceError", level=logging.ERROR)
+            if 'fact-value' not in fact_info:
+                cntlr.addToLog(f"'fact-value' is missing from the rule. This is required if 'fact-is-nil' is false or not present. Found in rule '{fact_info['rule-name']}'", "XinceError", level=logging.ERROR)
                 errors = True
+            else:
+                fact_value = get_fact_value(fact_info['fact-value'], model_concept, cntlr)
+                if fact_value is None:
+                    # There was a problem with the value
+                    cntlr.addToLog(f"Fact value '{fact_info['fact-value']}' is not valid for concept '{model_concept.qname.localName}' with type '{model_concept.typeQname.localName}'. Found in rule '{fact_info['rule-name']}'", "XinceError", level=logging.ERROR)
+                    errors = True
     # # check footnotes
     # if 'fact-footnote' in fact_info:
     #     try:
