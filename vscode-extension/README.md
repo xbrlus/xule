@@ -8,7 +8,7 @@ The settings .zip file below includes a Visual Studio Code .code-workspace and s
 The files in the .zip linked below include: 
   1. a **DQC.code-workspace** file defining folders corresponding to the reference implementation 
   1. **settings.json files** that define imports and namespaces required by the Xule Editor in each workspace folder, and 
-  1. US GAAP (2014 - 2022) and IFRS (2018 - 2022) **Taxonomies in .json format** called by the settings.json files. 
+  1. US GAAP (2014 - 2023) and IFRS (2018 - 2022) **Taxonomies in .json format** called by the settings.json files. 
 
 Together, these resources enable highlighting and code completion in the Xule Editor. 
 
@@ -29,42 +29,3 @@ Once the DQC.code-workspace and .json files are extracted, **open the DQC.code-w
 <div style="text-align:center"><img align=center width="300" src="https://github.com/xbrlus/xule-editor/raw/master/src/problem-xule-editor.png" /> &nbsp; <img align=center width="300" src="https://github.com/xbrlus/xule-editor/raw/master/src/xule-folder-settings.png" /> 
 
 <a href="https://github.com/xbrlus/xule-editor/raw/master/src/problem-xule-editor.png">full size - problem</a> &nbsp; <a href="https://github.com/xbrlus/xule-editor/raw/master/src/xule-folder-settings.png">full size - settings</a></div>
-
-## About the Xule Editor Extension
-
-### Requirements
-
-All dependencies are available from npm and the build process installs them automatically.
-
-### Extension Settings
-
-There are no settings so far.
-
-### Known Issues
-
-None so far.
-
-### Release Notes
-
-See the [Changelog](CHANGELOG.md).
-
-## Building and Testing
-
-To compile the extension use: `npm run compile`. This will also rebuild the lexer and the parser from the grammar (nb: if you receive a 'JavaScript heap out of memory' error run the following command to increase the memory limit for the session - Windows: `set NODE_OPTIONS=--max_old_space_size=8192` Linux `export NODE_OPTIONS=--max_old_space_size=4096`)
-To package it: `vsce package`.
-To run the tests: `npm run test`.
-
-### Development and Debugging
-
-If we open the extension directory with VSCode, we can:
-
- * Build and watch for modifications: on OSX, Cmd+Shift+B
- * Launch a new VSCode window with the development extension installed: "Run" panel (Cmd+Shift+D on OSX) and launch the configuration "Client + Server". With this, VSCode should attach the debugger and stop at breakpoints.
- 
-### Notable extension points
-
- * Built-in taxonomies are defined in builtInNamespaces.ts.
- * Built-in variables, constants, and some keywords are defined as wellKnownVariables in symbols.ts.
- * Built-in functions and properties and other identifiers/keywords are defined at the bottom of semanticCheckVisitor.ts.
-   * These are used by the semantic checker.
- * Syntax highlighting is defined in syntaxes/xule.tmLanguage.json. It includes both keywords and known identifiers (functions, constants, variables).
