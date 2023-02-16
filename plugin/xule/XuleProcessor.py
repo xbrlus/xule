@@ -21,7 +21,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23481 $
+$Change: 23483 $
 DOCSKIP
 """
 from .XuleContext import XuleGlobalContext, XuleRuleContext  # XuleContext
@@ -2480,7 +2480,7 @@ def factset_pre_match(factset, filters, non_aligned_filters, align_aspects, mode
                         index_key[ASPECT], filter_member.type)), xule_context)
 
                     # fix for aspects that take qname members (concept and explicit dimensions. The member can be a concept or a qname. The index is by qname.
-                    if index_key in (('builtin', 'concept'), ('property', 'cube', 'name')) or index_key[TYPE] == 'explicitDimension':
+                    if index_key in (('builtin', 'concept'), ('property', 'cube', 'name')) or index_key[TYPE] == 'explicit_dimension':
                         if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
                             member_values = convert_value_to_qname(filter_member,model, xule_context)
                         else:
