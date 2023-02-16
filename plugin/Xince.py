@@ -1659,7 +1659,7 @@ __pluginInfo__ = {
     'name': 'Xince',
     'version': '0.9',
     'description': "Xince - Xule Instance creator",
-    'copyright': '(c) Copyright 2022 XBRL US Inc., All rights reserved.',
+    'copyright': '(c) Copyright 2023 XBRL US Inc., All rights reserved.',
     'import': 'xule',
     # classes of mount points (required)
     'CntlrCmdLine.Options': cmdLineOptionExtender,
