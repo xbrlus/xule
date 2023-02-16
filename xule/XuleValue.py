@@ -309,7 +309,7 @@ class XuleValue:
 #                                                  " * ".join([x.localName for x in self.value[1]]))
 #             return unit_string
         elif self.type == 'entity':
-            return '{}={}'.format(self.value[0].value, self.value[1].value)
+            return '{}={}'.format(self.value[0], self.value[1])
         elif self.type == 'duration':
             if self.value[0] == datetime.datetime.min and self.value[1] == datetime.datetime.max:
                 return "forever"
