@@ -975,6 +975,21 @@ def get_label(xule_context, concept, base_label_type, base_lang):
     else:
         return None
 
+def property_footnotes(xule_context, object_value, *args):
+
+    network_keys = [x for x in object_value.fact.modelXbrl.baseSets.keys() if x[2] is not None and x[2].clarkNotation == '{http://www.xbrl.org/2003/linkbase}footnoteLink']
+    for network_key in network_keys:
+        network = object_value.fact.modelXbrl.relationshipSet(network_key)
+        for rel in network.fromModelObject(object_value.fact):
+            x = 1
+
+
+
+
+
+
+    return xv.XuleValue(xule_context, frozenset(), 'set')
+
 #def get_relationshipset(model_xbrl, arcrole, linkrole=None, linkqname=None, arcqname=None, includeProhibits=False):
 #    # This checks if the relationship set is already built. If not it will build it. The ModelRelationshipSet class
 #    # stores the relationship set in the model at .relationshipSets.
@@ -2265,7 +2280,8 @@ PROPERTIES = {
               'inline-hidden': (property_hidden, 0, ('fact',), True),
               'label': (property_label, -2, ('concept', 'fact'), True),
               'text': (property_text, 0, ('label',), False),
-              'lang': (property_lang, 0, ('label',), False),              
+              'lang': (property_lang, 0, ('label',), False),   
+              'footnotes': (property_footnotes, 0, ('fact',), False),           
               'name': (property_name, 0, ('fact', 'concept', 'reference-part', 'type'), True),
               'local-name': (property_local_name, 0, ('qname', 'concept', 'fact', 'reference-part', 'type'), True),
               'namespace-uri': (property_namespace_uri, 0, ('qname', 'concept', 'fact', 'reference-part', 'type'), True),
