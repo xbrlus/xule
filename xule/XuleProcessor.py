@@ -4785,7 +4785,7 @@ def convert_value_to_qname(value, model, xule_context):
                 return_values.add(model_concept.qname)
         return return_values
     elif value.type in ('unbound', 'none'):
-        return None
+        return {None}
     else:
         raise XuleProcessingError(
             _("The value for a line item or dimension must be a qname or concept, found '%s'." % value.type),
