@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23479 $
+$Change: 23482 $
 DOCSKIP
 """
 from .XuleRunTime import XuleProcessingError
@@ -309,7 +309,7 @@ class XuleValue:
 #                                                  " * ".join([x.localName for x in self.value[1]]))
 #             return unit_string
         elif self.type == 'entity':
-            return '{}={}'.format(self.value[0].value, self.value[1].value)
+            return '{}={}'.format(self.value[0], self.value[1])
         elif self.type == 'duration':
             if self.value[0] == datetime.datetime.min and self.value[1] == datetime.datetime.max:
                 return "forever"
