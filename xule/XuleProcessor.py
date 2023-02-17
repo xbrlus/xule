@@ -2813,7 +2813,7 @@ def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non
                         else:
                             # This is a typed dimension
                             member = XuleValue(xule_context, model_dimension.typedMember.xValue,
-                                               model_to_xule_type(xule_context, model_dimension.typedMember.xValue))
+                                               model_to_xule_type(xule_context, model_dimension.typedMember.xValue)[0])
 
                     xule_context.add_arg(var_name,
                                          declaration_id,
@@ -4904,7 +4904,7 @@ def alignment_to_aspect_info(alignment, xule_context):
             else:
                 raise XuleProcessingError(_("Unknown built in aspect '%s'" % align_key[1]), xule_context)
         elif align_key[0] == 'explicit_dimension':
-            aspect_value = XuleValue(xule_context, align_value, model_to_xule_type(xule_context, align_value))
+            aspect_value = XuleValue(xule_context, align_value, model_to_xule_type(xule_context, align_value)[0])
 
         else:
             raise XuleProcessingError(_("Unknown aspect type '%s'" % align_key[0]), xule_context)
