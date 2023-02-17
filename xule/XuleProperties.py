@@ -28,9 +28,11 @@ from . import XuleValue as xv
 from . import XuleUtility 
 from . import XuleFunctions
 from arelle.ModelDocument import Type
-from arelle.ModelInstanceObject import ModelInlineFact
+from arelle.ModelInstanceObject import ModelInlineFact, ModelFact
+from arelle.ModelDtsObject import ModelResource
 #from arelle.ModelRelationshipSet import ModelRelationshipSet
 from arelle.ModelValue import QName, qname
+from lxml import etree
 import collections
 import datetime
 import decimal
@@ -408,13 +410,22 @@ def property_role(xule_context, object_value, *args):
         #return xv.XuleValue(xule_context, object_value.value[NETWORK_INFO][NETWORK_ROLE], 'uri')
     elif object_value.type == 'relationship':
         role_uri = object_value.value.linkrole
+    elif object_value.type == 'footnote':
+        role_uri = object_value.value[xv.FOOTNOTE_ROLE]
+        if role_uri is None: # this can happen if a footnote is to another fact,
+            return xv.XuleValue(xule_context, None, 'none')
     else: # label or reference
         role_uri = object_value.value.role
         #return xv.XuleValue(xule_context, object_value.value.role, 'uri')
 
     # The taxonomy is determined from the object_value. This could be the object of the loaded document
     # or a taxonomy that was loaded with the xule taxonomy() function
-    cur_model = object_value.value[NETWORK_RELATIONSHIP_SET].modelXbrl if object_value.type == 'network' else object_value.value.modelXbrl
+    if object_value.type == 'network':
+        cur_model = object_value.value[NETWORK_RELATIONSHIP_SET].modelXbrl 
+    elif object_value.type == 'footnote':
+        cur_model = object_value.value[xv.FOOTNOTE_CONTENT].modelXbrl
+    else:
+        cur_model = object_value.value.modelXbrl
     model_role = XuleUtility.role_uri_to_model_role(cur_model, role_uri)
     return xv.XuleValue(xule_context, model_role, 'role')
 
@@ -450,12 +461,19 @@ def property_role_description(xule_context, object_value, *args):
 def property_arcrole(xule_context, object_value, *args):
     if object_value.type == 'network':
         arcrole_uri = object_value.value[NETWORK_INFO][NETWORK_ARCROLE]
+    elif object_value.type == 'footnote':
+        arcrole_uri = object_value.value[xv.FOOTNOTE_ARCROLE]
     else: # relationship
         arcrole_uri = object_value.value.arcrole
 
     # The taxonomy is determined from the object_value. This could be the object of the loaded document
     # or a taxonomy that was loaded with the xule taxonomy() function
-    cur_model = object_value.value[NETWORK_RELATIONSHIP_SET].modelXbrl if object_value.type == 'network' else object_value.value.modelXbrl
+    if object_value.type == 'network':
+        cur_model = object_value.value[NETWORK_RELATIONSHIP_SET].modelXbrl 
+    elif object_value.type == 'footnote':
+        cur_model = object_value.value[xv.FOOTNOTE_CONTENT].modelXbrl
+    else: # relationship
+        cur_model = object_value.value.modelXbrl
     model_arcrole = XuleUtility.arcrole_uri_to_model_role(cur_model, arcrole_uri)
     return xv.XuleValue(xule_context, model_arcrole, 'role')
 
@@ -977,18 +995,43 @@ def get_label(xule_context, concept, base_label_type, base_lang):
 
 def property_footnotes(xule_context, object_value, *args):
 
-    network_keys = [x for x in object_value.fact.modelXbrl.baseSets.keys() if x[2] is not None and x[2].clarkNotation == '{http://www.xbrl.org/2003/linkbase}footnoteLink']
+    footnotes = set()
+    shadow = set()
+
+    network_keys = [x for x in object_value.fact.modelXbrl.baseSets.keys() if x[2] is not None and
+                        x[2].clarkNotation == '{http://www.xbrl.org/2003/linkbase}footnoteLink' and
+                        x[0] is not None and x[1] is not None and x[2] is not None and x[3] is not None]
     for network_key in network_keys:
         network = object_value.fact.modelXbrl.relationshipSet(network_key)
         for rel in network.fromModelObject(object_value.fact):
-            x = 1
+            footnote_resource = rel.toModelObject
+            footnote_value = [
+                rel.arcrole,
+                getattr(footnote_resource, 'role', None), # if the to object is a fact, it won't have a role
+                footnote_resource.get('{http://www.w3.org/XML/1998/namespace}lang')
+            ]
+            if isinstance(footnote_resource, ModelFact):
+                footnote_value.append('fact')
+            elif isinstance(footnote_resource, ModelResource):
+                footnote_value.append('resource')
+            else:
+                raise XuleProcessingError(_("Found enxpected type of footnote (not a footnote resource nor a fact)."), xule_context)
+            
+            footnote_value.append(footnote_resource)
+            footnotes.add(xv.XuleValue(xule_context, tuple(footnote_value), 'footnote'))
+            shadow.add(tuple(footnote_value))
 
+    return xv.XuleValue(xule_context, frozenset(footnotes), 'set', shadow_collection=frozenset(shadow))
 
-
-
-
-
-    return xv.XuleValue(xule_context, frozenset(), 'set')
+def property_content(xule_context, object_value, *args):
+    if object_value.value[xv.FOOTNOTE_TYPE] == 'fact':
+        return xv.XuleValue(xule_context, object_value.value[xv.FOOTNOTE_CONTENT], 'fact')
+    else:
+        footnote_resource = object_value.value[xv.FOOTNOTE_CONTENT]
+        footnote_text = footnote_resource.text or ''
+        for child in footnote_resource.getchildren():
+            footnote_text += etree.tostring(child).decode()
+        return xv.XuleValue(xule_context, footnote_text, 'string')
 
 #def get_relationshipset(model_xbrl, arcrole, linkrole=None, linkqname=None, arcqname=None, includeProhibits=False):
 #    # This checks if the relationship set is already built. If not it will build it. The ModelRelationshipSet class
@@ -1000,7 +1043,10 @@ def property_text(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, object_value.value.textValue, 'string')
  
 def property_lang(xule_context, object_value, *args):
-    return xv.XuleValue(xule_context, object_value.value.xmlLang, 'string')
+    if object_value.type == 'label':
+        return xv.XuleValue(xule_context, object_value.value.xmlLang, 'string')
+    else: # footnote
+        return xv.XuleValue(xule_context, object_value.value[xv.FOOTNOTE_LANGUAGE], 'string')
  
 def property_name(xule_context, object_value, *args):
     if object_value.is_fact:
@@ -2237,10 +2283,10 @@ PROPERTIES = {
               'has-key': (property_has_key, 1, ('dictionary',), False),
               'decimals': (property_decimals, 0, (), True),
               'networks':(property_networks, -2, ('taxonomy',), False),
-              'role': (property_role, 0, ('network', 'label', 'reference', 'relationship'), False),
+              'role': (property_role, 0, ('network', 'label', 'footnote', 'reference', 'relationship'), False),
               'role-uri': (property_role_uri, 0, ('network', 'label', 'reference', 'relationship'), False),
               'role-description': (property_role_description, 0, ('network', 'label', 'reference', 'relationship'), False),
-              'arcrole':(property_arcrole, 0, ('network', 'relationship'), False),
+              'arcrole':(property_arcrole, 0, ('network', 'relationship', 'footnote'), False),
               'arcrole-uri':(property_arcrole_uri, 0, ('network', 'relationship'), False),
               'arcrole-description':(property_arcrole_description, 0, ('network', 'relationship'), False),
               'concept': (property_concept, -1, ('fact', 'taxonomy', 'dimension'), True),
@@ -2280,8 +2326,9 @@ PROPERTIES = {
               'inline-hidden': (property_hidden, 0, ('fact',), True),
               'label': (property_label, -2, ('concept', 'fact'), True),
               'text': (property_text, 0, ('label',), False),
-              'lang': (property_lang, 0, ('label',), False),   
-              #'footnotes': (property_footnotes, 0, ('fact',), False),           
+              'lang': (property_lang, 0, ('label', 'footnote'), False),   
+              'footnotes': (property_footnotes, 0, ('fact',), False),   
+              'content': (property_content, 0, ('footnote',), False),        
               'name': (property_name, 0, ('fact', 'concept', 'reference-part', 'type'), True),
               'local-name': (property_local_name, 0, ('qname', 'concept', 'fact', 'reference-part', 'type'), True),
               'namespace-uri': (property_namespace_uri, 0, ('qname', 'concept', 'fact', 'reference-part', 'type'), True),
