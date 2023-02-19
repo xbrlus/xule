@@ -5,7 +5,7 @@ Xule is a rule processor for XBRL (X)brl r(ULE).
 DOCSKIP
 See https://xbrl.us/dqc-license for license information.  
 See https://xbrl.us/dqc-patent for patent infringement notice.
-Copyright (c) 2017 - 2023 XBRL US, Inc.
+Copyright (c) 2017 - 2022 XBRL US, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23482 $
+$Change: 23487 $
 DOCSKIP
 """
 from .XuleRunTime import XuleProcessingError
@@ -30,6 +30,7 @@ from arelle.ModelRelationshipSet import ModelRelationshipSet
 from arelle.ModelDtsObject import ModelRelationship
 from arelle.ValidateXbrlDimensions import loadDimensionDefaults
 from arelle.Validate import validate
+from lxml import etree
 import datetime
 import decimal
 from aniso8601.__init__ import parse_duration, parse_datetime, parse_date
@@ -47,6 +48,13 @@ NETWORK_ARCROLE = 0
 NETWORK_ROLE = 1
 NETWORK_LINK = 2
 NETWORK_ARC = 3
+
+#Footnote tuple
+FOOTNOTE_ARCROLE = 0
+FOOTNOTE_ROLE = 1
+FOOTNOTE_LANGUAGE = 2
+FOOTNOTE_TYPE = 3
+FOOTNOTE_CONTENT = 4
 
 class SpecialItemTypes(Enum):
     ENUM_ITEM_TYPE = '{http://xbrl.org/2020/extensible-enumerations-2.0}enumerationItemType'
@@ -395,6 +403,20 @@ class XuleValue:
             role_string = getattr(self.value, 'roleURI', None) or getattr(self.value, 'arcroleURI', None)
             role_string += ' - ' + self.value.definition
             return role_string
+        elif self.type == 'footnote':
+            footnote_string = f'arcrole: {self.value[FOOTNOTE_ARCROLE]}\nrole: {self.value[FOOTNOTE_ROLE]}\n'
+            if self.value[FOOTNOTE_LANGUAGE] is not None:
+                footnote_string += f'lang: {self.value[FOOTNOTE_LANGUAGE]}\n'
+            
+            if self.value[FOOTNOTE_TYPE] == 'fact':
+                footnote_string +=  self.value[FOOTNOTE_CONTENT].textValue
+            else:
+                footnote_resource = self.value[FOOTNOTE_CONTENT]
+                footnote_text = footnote_resource.text or ''
+                for child in footnote_resource.getchildren():
+                    footnote_text += etree.tostring(child).decode()    
+                footnote_string += footnote_text
+            return footnote_string
         else:
             return str(self.value)
 
