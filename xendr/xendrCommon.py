@@ -10,9 +10,12 @@ from arelle import FileSource
 
 
 # xule namespace used in the template
-XULE_NAMESPACE_MAP = {'xule': 'http://xbrl.us/xule/2.0/template', 
+XULE_NAMESPACE_MAP = {'xule': 'http://xbrl.us/xendr/2.0/template', 
                        'xhtml': 'http://www.w3.org/1999/xhtml',
                        'ix': 'http://www.xbrl.org/2013/inlineXBRL'}
+
+XENDR_FOOTNOTE_FACT_ID_CONSTANT_NAME = 'xendr-footnote-fact-ids'
+XENDR_FOOTNOTE_FACT_XULE_FUNCTION_NAME = 'xendr-get-footnotes-from-fact-ids'
 
 class XendrException(Exception):
     pass

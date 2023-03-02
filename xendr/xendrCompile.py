@@ -6,7 +6,7 @@ This file contains code to compile xendr templates
 Reivision number: $Change: $
 '''
 from arelle import FileSource
-from .xendrCommon import XendrException, clean_entities, get_file_or_url, XULE_NAMESPACE_MAP
+from .xendrCommon import XendrException, clean_entities, get_file_or_url, XULE_NAMESPACE_MAP, XENDR_FOOTNOTE_FACT_ID_CONSTANT_NAME, XENDR_FOOTNOTE_FACT_XULE_FUNCTION_NAME
 from lxml import etree
 
 import collections
@@ -286,6 +286,9 @@ def build_constants(options, template_tree):
     # Find all the <xule:global> nodes
     for node in template_tree.findall('//xule:global', XULE_NAMESPACE_MAP):
         constants.append(node.text)
+
+    # Add constant for fact ids for footnotes. This is used by the footnote rules.
+    constants.append(f'constant ${XENDR_FOOTNOTE_FACT_ID_CONSTANT_NAME} = none')
     
     return '\n'.join(constants)
 
@@ -619,7 +622,10 @@ def build_named_rules(xule_rules, next_rule_number, named_rules, template_tree, 
         rule_info['result_parts'] += child_parts
         #build rule text
         rule_text = 'output {}\n'.format(rule_info['rule_name'])
+        
         rule_text += '\n'.join(rule_info['comments']) + '\n'
+        if 'footnote-name' in substitutions[rule_info['rule_name']]: # This is a footnote rule - add the $footnoteFacts variable
+            rule_text += '\n$footnoteFacts = {}(${})'.format(XENDR_FOOTNOTE_FACT_XULE_FUNCTION_NAME, XENDR_FOOTNOTE_FACT_ID_CONSTANT_NAME)
         rule_text += '\n{}'.format(rule_info['preliminary_rule_text'])
         result_text = ',\n'.join(["{}".format(expression) for expression in rule_info['result_parts']])
         
@@ -865,6 +871,6 @@ def get_footnote_info(template_tree):
         if len(footnote_groups) == 0:
             raise XendrException("Found a <footnotes> wihtout a group")
         footnote_style = footnote_node.get('list-style') # its okay if there isn't a style. It will be defaulted to lowercase letters
-        footnote_info[footnote_name] = {'groups': footnote_groups, 'sytle': footnote_style}
+        footnote_info[footnote_name] = {'groups': footnote_groups, 'style': footnote_style}
     
     return footnote_info

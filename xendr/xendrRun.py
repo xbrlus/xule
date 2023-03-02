@@ -14,7 +14,7 @@ from arelle.XmlValidate import VALID
 from copy import deepcopy
 from lxml import etree
 from lxml.builder import E
-from .xendrCommon import XendrException, clean_entities, get_file_or_url, XULE_NAMESPACE_MAP
+from .xendrCommon import XendrException, clean_entities, get_file_or_url, XULE_NAMESPACE_MAP, XENDR_FOOTNOTE_FACT_ID_CONSTANT_NAME, XENDR_FOOTNOTE_FACT_XULE_FUNCTION_NAME
 from . import xendrXuleFunctions as xxf
 import datetime
 import decimal
@@ -28,10 +28,6 @@ import os.path
 import re
 import zipfile
 
-# xule namespace used in the template
-XULE_NAMESPACE_MAP = {'xule': 'http://xbrl.us/xule/2.0/template', 
-                       'xhtml': 'http://www.w3.org/1999/xhtml',
-                       'ix': 'http://www.xbrl.org/2013/inlineXBRL'}
 _XBRLI_NAMESPACE = 'http://www.xbrl.org/2003/instance'
 _XHTM_NAMESPACE = 'http://www.w3.org/1999/xhtml'
 _PHRASING_CONTENT_TAGS = {'a', 'audio', 'b', 'bdi', 'bdo', 'br', 'button', 'canvas', 'cite', 'code', 'command',
@@ -45,7 +41,7 @@ _ORIGINAL_FACT_ID_ATTRIBUTE = 'original_fact_id'
 _OPTIONS = None
 
 def substituteTemplate(rule_meta_data, rule_results, template, modelXbrl, main_html, template_number,
-                       fact_number, processed_facts, processed_footnotes):
+                       fact_number, processed_facts, processed_footnotes, template_set, catalog_item, cntlr, options):
     '''Subsititute the xule expressions in the template with the generated values.'''
 
     # Determine if the template should be rendered
@@ -79,28 +75,22 @@ def substituteTemplate(rule_meta_data, rule_results, template, modelXbrl, main_h
     # is copied.
     non_repeating = []
     repeating = []
+    footnote_rules = []
     for rule_name, sub_info in rule_meta_data['substitutions'].items():
-        if 'name' in sub_info and sub_info['name'] in repeating_nodes:
-        #if len(subs) > 0 and subs[0].get('name') in repeating_nodes:
+        if 'footnote-name' in sub_info:
+            # This is a footnote rule. Put it to the side. These will be processed after
+            footnote_rules.append((rule_name, sub_info))
+        elif 'name' in sub_info and sub_info['name'] in repeating_nodes:
             repeating.append((rule_name, sub_info))
         else:
             non_repeating.append((rule_name, sub_info))
 
     # Sort the repeating so that the deepest template node substitutions are processed first. This will allow repeating within
     # repeating.
-    def sort_by_ancestors(key):
-        sub_info = key[1]
-        if 'name' in sub_info:
-            subs = sub_info['subs']
-        else:
-            subs = sub_info
-
-        if len(subs) == 0:
-            return 0
-        return max([x.get('node-pos', 0) for x in subs ])
-        #return len([x for x in xule_node_locations[subs[0]['replacement-node']].iterancestors()])
-
     repeating.sort(key=sort_by_ancestors, reverse=True)
+    # Also sort the footnote rules in the same way. These will be processed later
+    footnote_rules.sort(key=sort_by_ancestors, reverse=True)
+
     footnotes = collections.defaultdict(list)
     has_confidential = False
 
@@ -111,6 +101,7 @@ def substituteTemplate(rule_meta_data, rule_results, template, modelXbrl, main_h
                                                 context_ids, unit_ids, footnotes, template_number, fact_number, processed_facts)
         if rule_has_confidential: has_confidential = True
 
+    # Process the footnotes
     # if the default footnote page option was selected
     if getattr(_OPTIONS, 'xendr_default_footnote_page', False):
         footnote_page = build_footnote_page(template, template_number, footnotes, processed_footnotes, fact_number)
@@ -121,7 +112,11 @@ def substituteTemplate(rule_meta_data, rule_results, template, modelXbrl, main_h
             template_body.append(etree.Element('{{{}}}hr'.format(_XHTM_NAMESPACE), attrib={"class": "xbrl footnote-separator screen-page-separator"}))
             template_body.append(etree.Element('{{{}}}div'.format(_XHTM_NAMESPACE), attrib={'class': 'print-page-separator footnote-separator'}))
             template_body.append(footnote_page)
-
+    else: # process any footnotes
+        process_footnotes(rule_meta_data, template, footnote_rules, footnotes, template_set, catalog_item, cntlr, modelXbrl, options,
+                          line_number_subs, main_html, repeating_nodes, xule_node_locations, context_ids, unit_ids, footnotes,
+                          template_number, fact_number, processed_facts)
+        
     # Remove any left over xule:replace nodes
     for xule_node in template.findall('//xule:replace', XULE_NAMESPACE_MAP):
         parent = xule_node.getparent()
@@ -132,8 +127,8 @@ def substituteTemplate(rule_meta_data, rule_results, template, modelXbrl, main_h
     # Remove any left over xule template nodes
     for xule_node in template.findall('//xule:*', XULE_NAMESPACE_MAP):
         parent = xule_node.getparent()
-        if xule_node.tag == '{{{}}}footnoteFacts'.format(XULE_NAMESPACE_MAP['xule']):
-            # move the children to after the current xule:footnoteFacts element
+        if xule_node.tag in ('{{{}}}footnoteFacts'.format(XULE_NAMESPACE_MAP['xule']), '{{{}}}footnotes'.format(XULE_NAMESPACE_MAP['xule'])):
+            # move the children to after the current xule:footnoteFacts or xule:footnotes element
             for child in xule_node:
                 xule_node.addnext(child)
         parent.remove(xule_node)
@@ -145,6 +140,20 @@ def substituteTemplate(rule_meta_data, rule_results, template, modelXbrl, main_h
                 del xule_node.attrib[att_name]
 
     return template, context_ids, unit_ids, has_confidential
+
+def sort_by_ancestors(key):
+    # Sort the repeating so that the deepest template node substitutions are processed first. This will allow repeating within
+    # repeating.
+    sub_info = key[1]
+    if 'name' in sub_info:
+        subs = sub_info['subs']
+    else:
+        subs = sub_info
+
+    if len(subs) == 0:
+        return 0
+    return max([x.get('node-pos', 0) for x in subs ])
+    #return len([x for x in xule_node_locations[subs[0]['replacement-node']].iterancestors()])
 
 def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, template,
                     modelXbrl, main_html, repeating_nodes, xule_node_locations, context_ids, unit_ids, 
@@ -406,8 +415,6 @@ def is_actual_fact(json_result, model_xbrl):
     else:
         return False
 
-
-
 def get_rule_focus_index(json_all_results, current_result):
     
     if current_result['is-fact'].lower() == 'false':
@@ -600,7 +607,7 @@ def get_relationshipset(model_xbrl, arcrole, linkrole=None, linkqname=None, arcq
     return model_xbrl.relationshipSets[relationship_key] if relationship_key in model_xbrl.relationshipSets else ModelRelationshipSet(model_xbrl, *relationship_key)
 
 def build_footnote_page(template, template_number, footnotes, processed_footnotes, fact_number):
-    '''Create the footnote page for the schedule'''
+    '''Create the footnote page for the schedule. This is the default footnote page'''
 
     footnote_counter = 0
     footnote_table = etree.Element('table', attrib={"class": "xbrl footnote-table"})
@@ -711,6 +718,28 @@ def build_footnote_page(template, template_number, footnotes, processed_footnote
         break
 
     return page
+
+def process_footnotes(rule_meta_data, template, footnote_rules, footnote_facts, template_set, catalog_item, cntlr, modelXbrl, options,
+                      line_number_subs, main_html, repeating_nodes, xule_node_locations, context_ids, unit_ids, footnotes,
+                      template_number, fact_number, processed_facts):
+    
+    # footnote_rules is a dictionary keyed by rule name and the value is the substitution information for just footnote rules.
+    # footnote_facts is a dictionary keyed by the footnote group and the value is a list of model facts
+    for rule_name, sub_info in footnote_rules:
+        footnote_name_to_groups = rule_meta_data['footnotes'].get(sub_info['footnote-name'])
+        groups = footnote_name_to_groups.get('groups')
+        footnote_style = footnote_name_to_groups.get('style')
+        facts = []
+        for group in groups:
+            facts.extend(footnote_facts.get(group, []))
+        fact_ids = [x.objectId() for x in facts]
+
+        fact_ids_xule_arg = [f'{XENDR_FOOTNOTE_FACT_ID_CONSTANT_NAME}={",".join(fact_ids)}']
+        rule_results = run_xule_rules(cntlr, options, modelXbrl, template_set, (rule_name,), catalog_item['xule-rule-set'], fact_ids_xule_arg)
+
+        substitute_rule(rule_name, sub_info, line_number_subs, rule_results[rule_name], template, 
+                        modelXbrl, main_html, repeating_nodes, xule_node_locations,
+                        context_ids, unit_ids, footnotes, template_number, fact_number, processed_facts)
 
 def is_valid_xml(potential_text):
     '''Check if the passed string is valid XML'''
@@ -1081,6 +1110,10 @@ def render_report(cntlr, options, modelXbrl, *args, **kwargs):
     used_context_ids = set()
     used_unit_ids = set()
 
+    # Xendr needs to add a xule function to convert modelObject ids to footnotes
+    from .xule.XuleFunctions import add_normal_function as add_normal_function_to_xule
+    add_normal_function_to_xule(XENDR_FOOTNOTE_FACT_XULE_FUNCTION_NAME, xxf.get_footnotes_from_fact_ids, 1)
+
     template_number = 0
     fact_number = initialize_fact_number(modelXbrl)
     processed_facts = set() # track which facts have been outputed
@@ -1139,46 +1172,14 @@ def render_report(cntlr, options, modelXbrl, *args, **kwargs):
                 rule_meta_data = {'substitutions': meta_substitutions,
                                     'line-numbers': meta_line_number_subs}
 
-            # Get the date values from the instance
-            xule_date_args = get_dates(modelXbrl)
-
-            # Run Xule rules
-            # Create a log handler that will capture the messages when the rules are run.
-            log_capture_handler = _logCaptureHandler()
-            if not options.xendr_show_xule_log:
-                cntlr.logger.removeHandler(cntlr.logHandler)
-            cntlr.logger.addHandler(log_capture_handler)
-
-            # Xendr needs to add a xule function to convert modelObject ids to footnotes
-            from .xule.XuleFunctions import add_normal_function as add_normal_function_to_xule
-            add_normal_function_to_xule('xendr-get-footnotes-from-fact-ids', xxf.get_fact_footnotes, 1)
-
-            # Call the xule processor to run the rules
-            from .xule import __pluginInfo__ as xule_plugin_info
-            call_xule_method = xule_plugin_info['Xule.callXuleProcessor']
-
-
-            #call_xule_method = getXuleMethod(cntlr, 'Xule.callXuleProcessor')
-            run_options = deepcopy(options)
-            xule_args = getattr(run_options, 'xule_arg', []) or []
-            xule_args += list(xule_date_args)
-            setattr(run_options, 'xule_arg', xule_args)
-            # run only standard rules (the other rules are footnote rules and they will be run later)
-            setattr(run_options, "xule_run_only", ','.join(rule_meta_data['standard-rules']))
-            # Get xule rule set
-            with ts.open(catalog_item['xule-rule-set']) as rule_set_file:
-                call_xule_method(cntlr, modelXbrl, io.BytesIO(rule_set_file.read()), run_options)
-            
-            # Remove the handler from the logger. This will stop the capture of messages
-            cntlr.logger.removeHandler(log_capture_handler)
-            if not options.xendr_show_xule_log:
-                cntlr.logger.addHandler(cntlr.logHandler)
+            rule_results = run_xule_rules(cntlr, options, modelXbrl, ts, rule_meta_data['standard-rules'], catalog_item['xule-rule-set'])
             
             # Substitute template
             template_number += 1
             template_result = substituteTemplate(rule_meta_data, 
-                                                    log_capture_handler.captured, template, modelXbrl, main_html,
-                                                    template_number, fact_number, processed_facts, processed_footnotes)
+                                                    rule_results, template, modelXbrl, main_html,
+                                                    template_number, fact_number, processed_facts, processed_footnotes, 
+                                                    ts, catalog_item, cntlr, options)
             if template_result is not None: # the template_result is none when a xule:showif returns false
                 rendered_template, template_context_ids, template_unit_ids, template_has_confidential = template_result
                 used_context_ids |= template_context_ids
@@ -1275,6 +1276,42 @@ def render_report(cntlr, options, modelXbrl, *args, **kwargs):
     if options.xendr_debug:
         end_time = datetime.datetime.now()
         cntlr.addToLog(_("Processing time: {}".format(str(end_time - start_time))), "info")
+
+def run_xule_rules(cntlr, options, modelXbrl, taxonomy_set, rule_names, rule_set_file_name, xule_args=None):
+            # Get the date values from the instance
+            xule_date_args = get_dates(modelXbrl)
+
+            # Run Xule rules
+            # Create a log handler that will capture the messages when the rules are run.
+            log_capture_handler = _logCaptureHandler()
+            if not options.xendr_show_xule_log:
+                cntlr.logger.removeHandler(cntlr.logHandler)
+            cntlr.logger.addHandler(log_capture_handler)
+
+            # Call the xule processor to run the rules
+            from .xule import __pluginInfo__ as xule_plugin_info
+            call_xule_method = xule_plugin_info['Xule.callXuleProcessor']
+
+
+            #call_xule_method = getXuleMethod(cntlr, 'Xule.callXuleProcessor')
+            run_options = deepcopy(options)
+            if xule_args is None:
+                xule_args = []
+            xule_args += getattr(run_options, 'xule_arg', []) or []
+            xule_args += list(xule_date_args)
+            setattr(run_options, 'xule_arg', xule_args)
+            # run only standard rules (the other rules are footnote rules and they will be run later)
+            setattr(run_options, "xule_run_only", ",".join(rule_names))
+            # Get xule rule set
+            with taxonomy_set.open(rule_set_file_name) as rule_set_file:
+                call_xule_method(cntlr, modelXbrl, io.BytesIO(rule_set_file.read()), run_options)
+            
+            # Remove the handler from the logger. This will stop the capture of messages
+            cntlr.logger.removeHandler(log_capture_handler)
+            if not options.xendr_show_xule_log:
+                cntlr.logger.addHandler(cntlr.logHandler)
+
+            return log_capture_handler.captured
 
 def dedup_id_full_document(root, fact_number):
     all_ids = collections.defaultdict(set)
