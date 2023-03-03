@@ -21,7 +21,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23484 $
+$Change: 23497 $
 DOCSKIP
 """
 from .XuleContext import XuleGlobalContext, XuleRuleContext  # XuleContext
@@ -704,7 +704,13 @@ def evaluate(rule_part, xule_context, trace_dependent=False, override_table_id=N
                 if not getattr(xule_context.global_context.options, "xule_no_cache", False):
                     if local_cache_key is not None:
                         # The cache value is cloned so it is not corrupted by further processing after this point.
-                        xule_context.local_cache[local_cache_key] = value.clone() if value is not None else value
+                        # Copy the value and copy the exisiting tags
+                        cache_value = value.clone()
+                        cache_value.tags = copy.copy(xule_context.tags)
+                        cache_value.facts = copy.copy(xule_context.facts)
+                        cache_value.aligned_result_only = xule_context.aligned_result_only
+                        cache_value.used_expressions = copy.copy(xule_context.used_expressions)
+                        xule_context.local_cache[local_cache_key] = cache_value if value is not None else value
 
         # If the look_for_alignment flag is set, check if there is now alignment after adding the column. This is used in 'where' clause processing.
         if (xule_context.look_for_alignment and
