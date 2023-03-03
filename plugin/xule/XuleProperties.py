@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23487 $
+$Change: 23495 $
 DOCSKIP
 """
 
@@ -694,38 +694,76 @@ def property_dimensions(xule_context, object_value, *args):
         return xv.XuleValue(xule_context, frozenset(result_dict.items()), 'dictionary', shadow_collection=frozenset(result_shadow.items()))
 
 def property_dimensions_explicit(xule_context, object_value, *args):
-    if not object_value.is_fact:
-        return object_value
-    
-    result_dict = dict()
-    result_shadow = dict()
-    
-    for dim_qname, member_model in object_value.fact.context.qnameDims.items():
-        dim_value = xv.XuleValue(xule_context, get_concept(object_value.fact.modelXbrl, dim_qname), 'concept')
-        if member_model.isExplicit:
-            member_value = xv.XuleValue(xule_context, member_model.member, 'concept')
-    
-            result_dict[dim_value] = member_value
-            result_shadow[dim_value.value] = member_value.value
-    
-    return xv.XuleValue(xule_context, frozenset(result_dict.items()), 'dictionary', shadow_collection=frozenset(result_shadow.items()))
+    if object_value.type == 'taxonomy':
+        # Get the cubes of the taxonomy
+        cubes = [xv.XuleDimensionCube(object_value.value, *cube_base)
+                 for cube_base in xv.XuleDimensionCube.base_dimension_sets(object_value.value)]
+        # For each cube get the dimensions
+        dims_shadow = set()
+        for cube in cubes:
+            dims_shadow |=  {x for x in cube.dimensions if x.dimension_concept.isExplicitDimension}
+        dims = [xv.XuleValue(xule_context, x, 'dimension') for x in dims_shadow]
+        return xv.XuleValue(xule_context, frozenset(dims), 'set', shadow_collection=frozenset(dims_shadow))
+    if object_value.type == 'cube':
+        dims_shadow = object_value.value.dimensions
+        dims = {xv.XuleValue(xule_context, x, 'dimension') for x in dims_shadow if x.dimension_concept.isExplicitDimension}
+
+        return xv.XuleValue(xule_context, frozenset(dims), 'set', shadow_collection=frozenset(dims_shadow))
+    else: #fact
+        if not object_value.is_fact:
+            return object_value
+        
+        result_dict = dict()
+        result_shadow = dict()
+        
+        for dim_qname, member_model in object_value.fact.context.qnameDims.items():
+            dim_value = xv.XuleValue(xule_context, get_concept(object_value.fact.modelXbrl, dim_qname), 'concept')
+            if member_model.isExplicit:
+                member_value = xv.XuleValue(xule_context, member_model.member, 'concept')
+        
+                result_dict[dim_value] = member_value
+                result_shadow[dim_value.value] = member_value.value
+        
+        return xv.XuleValue(xule_context, frozenset(result_dict.items()), 'dictionary', shadow_collection=frozenset(result_shadow.items()))
 
 def property_dimensions_typed(xule_context, object_value, *args):
-    if not object_value.is_fact:
-        return object_value
-    
-    result_dict = dict()
-    result_shadow = dict()
-    
-    for dim_qname, member_model in object_value.fact.context.qnameDims.items():
-        dim_value = xv.XuleValue(xule_context, get_concept(object_value.fact.modelXbrl, dim_qname), 'concept')
-        if not member_model.isExplicit:
-            member_value = xv.XuleValue(xule_context, member_model.typedMember.xValue, xv.model_to_xule_type(xule_context, member_model.typedMember.xValue)[0])
-            
-            result_dict[dim_value] = member_value
-            result_shadow[dim_value.value] = member_value.value
-    
-    return xv.XuleValue(xule_context, frozenset(result_dict.items()), 'dictionary', shadow_collection=frozenset(result_shadow.items()))
+    if object_value.type == 'taxonomy':
+        # Get the cubes of the taxonomy
+        cubes = [xv.XuleDimensionCube(object_value.value, *cube_base)
+                 for cube_base in xv.XuleDimensionCube.base_dimension_sets(object_value.value)]
+        # For each cube get the dimensions
+        dims_shadow = set()
+        for cube in cubes:
+            dims_shadow |=  {x for x in cube.dimensions if x.dimension_concept.isTypedDimension}
+        dims = [xv.XuleValue(xule_context, x, 'dimension') for x in dims_shadow]
+        return xv.XuleValue(xule_context, frozenset(dims), 'set', shadow_collection=frozenset(dims_shadow))
+    if object_value.type == 'cube':
+        dims_shadow = object_value.value.dimensions
+        dims = {xv.XuleValue(xule_context, x, 'dimension') for x in dims_shadow if x.dimension_concept.isTypedDimension}
+
+        return xv.XuleValue(xule_context, frozenset(dims), 'set', shadow_collection=frozenset(dims_shadow))
+    else: #fact
+        if not object_value.is_fact:
+            return object_value
+        
+        result_dict = dict()
+        result_shadow = dict()
+        
+        for dim_qname, member_model in object_value.fact.context.qnameDims.items():
+            dim_value = xv.XuleValue(xule_context, get_concept(object_value.fact.modelXbrl, dim_qname), 'concept')
+            if not member_model.isExplicit:
+                member_value = xv.XuleValue(xule_context, member_model.typedMember.xValue, xv.model_to_xule_type(xule_context, member_model.typedMember.xValue)[0])
+                
+                result_dict[dim_value] = member_value
+                result_shadow[dim_value.value] = member_value.value
+        
+        return xv.XuleValue(xule_context, frozenset(result_dict.items()), 'dictionary', shadow_collection=frozenset(result_shadow.items()))
+
+def property_dimension_type(xule_context, object_value, *args):
+    if object_value.value.dimension_concept.isExplicitDimension:
+        return xv.XuleValue(xule_context, 'explicit', 'string')
+    else:
+        return xv.XuleValue(xule_context, 'typed', 'string')
 
 def property_aspects(xule_context, object_value, *args):
     if not object_value.is_fact:
@@ -2298,8 +2336,9 @@ PROPERTIES = {
               'scheme': (property_scheme, 0, ('entity',), False),
               'dimension': (property_dimension, 1, ('fact', 'taxonomy'), True),
               'dimensions': (property_dimensions, 0, ('fact', 'cube', 'taxonomy'), True),
-              'dimensions-explicit': (property_dimensions_explicit, 0, ('fact',), True),
-              'dimensions-typed': (property_dimensions_typed, 0, ('fact',), True),                            
+              'dimensions-explicit': (property_dimensions_explicit, 0, ('fact', 'cube', 'taxonomy'), True),
+              'dimensions-typed': (property_dimensions_typed, 0, ('fact', 'cube', 'taxonomy'), True),  
+              'dimension-type': (property_dimension_type, 0, ('dimension',), True),                          
               'aspects': (property_aspects, 0, ('fact',), True),
               'start': (property_start, 0, ('instant', 'duration'), False),
               'end': (property_end, 0, ('instant', 'duration'), False),
