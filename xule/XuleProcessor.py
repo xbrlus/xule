@@ -702,7 +702,7 @@ def evaluate(rule_part, xule_context, trace_dependent=False, override_table_id=N
                     raise
 
                 if not getattr(xule_context.global_context.options, "xule_no_cache", False):
-                    if local_cache_key is not None:
+                    if local_cache_key is not None and value is not None:
                         # The cache value is cloned so it is not corrupted by further processing after this point.
                         # Copy the value and copy the exisiting tags
                         cache_value = value.clone()
@@ -710,7 +710,7 @@ def evaluate(rule_part, xule_context, trace_dependent=False, override_table_id=N
                         cache_value.facts = copy.copy(xule_context.facts)
                         cache_value.aligned_result_only = xule_context.aligned_result_only
                         cache_value.used_expressions = copy.copy(xule_context.used_expressions)
-                        xule_context.local_cache[local_cache_key] = cache_value if value is not None else value
+                        xule_context.local_cache[local_cache_key] = cache_value
 
         # If the look_for_alignment flag is set, check if there is now alignment after adding the column. This is used in 'where' clause processing.
         if (xule_context.look_for_alignment and
