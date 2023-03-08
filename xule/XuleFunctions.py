@@ -505,14 +505,8 @@ def func_excel_data(xule_context, *args):
     if return_row_type == 'dictionary' and not has_headers:
         raise XuleProcessingError(_("When the excel-data() function is returning the rows as dictionaries (5th argument), the has headers argument (3rd argument) must be true."), xule_context)
 
-    # Open the workbook      
-    # Using the FileSource object in arelle. This will open the file and handle taxonomy package mappings.
-    file_source = FileSource.openFileSource(file_url.value, xule_context.global_context.cntlr)
-    file = file_source.file(file_url.value, binary=True)
-    # file is  tuple of one item as a BytesIO stream. Since this is in bytes, it needs to be converted to text via a decoder.
-    # Assuming the file is in utf-8. 
-    with open_excel(file[0]) as wb:
 
+    with open_excel(file_url.value, xule_context) as wb:
         # get cell range - for named ranges there may be multiple, so the cell range will be a tuple of ranges
         # cell range may be a sheet name, named range or a cell reference (i.e. sheet1!a1:c3) or a single cell
         sheet_name = None
@@ -613,10 +607,29 @@ def func_excel_data(xule_context, *args):
     return xv.XuleValue(xule_context, tuple(result), 'list', shadow_collection=tuple(result_shadow))
 
 @contextmanager
-def open_excel(file_name):
-    workbook = openpyxl.load_workbook(file_name)
+def open_excel(file_name, xule_context):
+    # Check if the file is already open
+
+    # If this is the first time, need to create a place on the global context to save the file
+    if not hasattr(xule_context.global_context, 'excel_files'):
+        xule_context.global_context.excel_files = collections.OrderedDict()
+    if file_name not in xule_context.global_context.excel_files:
+        # Open the file      
+        # Using the FileSource object in arelle. This will open the file and handle taxonomy package mappings.
+        file_source = FileSource.openFileSource(file_name, xule_context.global_context.cntlr)
+        file = file_source.file(file_name, binary=True)
+        # file is  tuple of one item as a BytesIO stream. Since this is in bytes
+        xule_context.global_context.excel_files[file_name] = file[0]
+    
+    xule_context.global_context.excel_files.move_to_end(file_name) # move the key to the end of the ordered dict.
+    
+    # Trim the number of open files based on the last recently used. The last item in the ordered dict is the most recently used.
+    while len(xule_context.global_context.excel_files) > getattr(xule_context.global_context.options, 'xule_max_excel_files', 5):
+        x = xule_context.global_context.excel_files.popitem(last=False)
+        print(f'removing {x[0]}')
+    workbook = openpyxl.load_workbook(xule_context.global_context.excel_files[file_name])
     yield workbook
-    workbook.close()
+    return # Do nothing on the closing of the context.
 
 def func_csv_data(xule_context, *args):
     """Read a csv file/url.
