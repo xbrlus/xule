@@ -619,15 +619,17 @@ def open_excel(file_name, xule_context):
         file_source = FileSource.openFileSource(file_name, xule_context.global_context.cntlr)
         file = file_source.file(file_name, binary=True)
         # file is  tuple of one item as a BytesIO stream. Since this is in bytes
-        xule_context.global_context.excel_files[file_name] = file[0]
+        # open the excel file and save it in the cache
+        xule_context.global_context.excel_files[file_name] = openpyxl.load_workbook(file[0])
     
     xule_context.global_context.excel_files.move_to_end(file_name) # move the key to the end of the ordered dict.
     
     # Trim the number of open files based on the last recently used. The last item in the ordered dict is the most recently used.
     while len(xule_context.global_context.excel_files) > getattr(xule_context.global_context.options, 'xule_max_excel_files', 5):
-        x = xule_context.global_context.excel_files.popitem(last=False)
-        print(f'removing {x[0]}')
-    workbook = openpyxl.load_workbook(xule_context.global_context.excel_files[file_name])
+        deleted_workbook = xule_context.global_context.excel_files.popitem(last=False)
+        deleted_workbook[1].close()
+        
+    workbook = xule_context.global_context.excel_files[file_name] 
     yield workbook
     return # Do nothing on the closing of the context.
 
