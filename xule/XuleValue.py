@@ -237,7 +237,7 @@ class XuleValue:
                 for enum in orig_value.xValue:
                     enum_value_type, enum_compute_value = model_to_xule_type(xule_context, enum)
                     enum_set.add(XuleValue(xule_context, enum_compute_value, enum_value_type))
-                return 'set', enum_set, orig_value
+                return 'set', frozenset(enum_set), orig_value
             elif self._special_type_in_ancestry(xule_context, SpecialItemTypes.ENUM_ITEM_TYPE, orig_value.concept.type):
                 # This should be a single qname, but Arelle puts it in a list
                 if isinstance(orig_value.xValue, list):
