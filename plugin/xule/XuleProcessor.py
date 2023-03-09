@@ -21,7 +21,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23498 $
+$Change: 23503 $
 DOCSKIP
 """
 from .XuleContext import XuleGlobalContext, XuleRuleContext  # XuleContext
@@ -2486,10 +2486,10 @@ def factset_pre_match(factset, filters, non_aligned_filters, align_aspects, mode
                         index_key[ASPECT], filter_member.type)), xule_context)
 
                     # fix for aspects that take qname members (concept and explicit dimensions. The member can be a concept or a qname. The index is by qname.
-                    if index_key in (('builtin', 'concept'), ('property', 'cube', 'name')) or index_key[TYPE] == 'explicit_dimension':
+                    if index_key in (('builtin', 'concept'), ('property', 'cube', 'name')):
                         if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
                             member_values = convert_value_to_qname(filter_member,model, xule_context)
-                        else:
+                        else: # in operator
                             member_values = set()
                             for filter_val in filter_member.value:
                                 for x in convert_value_to_qname(filter_val, model, xule_context):
@@ -2501,6 +2501,26 @@ def factset_pre_match(factset, filters, non_aligned_filters, align_aspects, mode
                     #         member_values = {convert_value_to_qname(x, model, xule_context) if x.type == 'concept' else x.value for x
                     #                         in filter_member.value}
                     # Also fix for period aspect
+                    elif index_key[TYPE] == 'explicit_dimension':
+                        # Get the dimension concept to see if it is explicit or typed.
+                        model_dimension = model.qnameConcepts.get(aspect_info[ASPECT])
+                        if model_dimension is None:
+                                raise XuleProcessingError(_(f"Cannot find dimension concept for {aspect_info[ASPECT].clarkNotation} while processing a factset"), xule_context)
+                        if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
+                            if model_dimension.isExplicitDimension:
+                                member_values = convert_value_to_qname(filter_member, model, xule_context)
+                            else:
+                                # This is a typed dimension
+                                member_values = {filter_member.value,}
+                        else: # in or not in operator
+                            if model_dimension.isExplicitDimension:
+                                member_values = set()
+                                for filter_val in filter_member.value:
+                                    for x in convert_value_to_qname(filter_val, model, xule_context):
+                                        member_values.add(x)
+                            else: # Typed dimension
+                                member_values = {x.value for x in filter_member.value}
+                            
                     elif index_key == ('builtin', 'period'):
                         if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
                             member_values = {convert_value_to_model_period(filter_member, xule_context), }
