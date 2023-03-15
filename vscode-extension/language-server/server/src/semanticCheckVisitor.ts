@@ -484,6 +484,7 @@ export const wellKnownFunctions: { [name: string]: FunctionInfo } = {
     "day": new FunctionInfo(1),
     "dict": new FunctionInfo(),
     "duration": new FunctionInfo(2),
+    "entity": new FunctionInfo(2),
     "entry-point-namespace": new FunctionInfo(1),
     "entry-point": new FunctionInfo(1),   
     "dts-document-locations": new FunctionInfo(1),
