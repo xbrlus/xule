@@ -55,6 +55,7 @@ FOOTNOTE_ROLE = 1
 FOOTNOTE_LANGUAGE = 2
 FOOTNOTE_TYPE = 3
 FOOTNOTE_CONTENT = 4
+FOOTNOTE_FACT = 5
 
 class SpecialItemTypes(Enum):
     ENUM_ITEM_TYPE = '{http://xbrl.org/2020/extensible-enumerations-2.0}enumerationItemType'

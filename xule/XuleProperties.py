@@ -1056,6 +1056,7 @@ def property_footnotes(xule_context, object_value, *args):
                 raise XuleProcessingError(_("Found enxpected type of footnote (not a footnote resource nor a fact)."), xule_context)
             
             footnote_value.append(footnote_resource)
+            footnote_value.append(object_value.fact)
             footnotes.add(xv.XuleValue(xule_context, tuple(footnote_value), 'footnote'))
             shadow.add(tuple(footnote_value))
 
@@ -1064,12 +1065,16 @@ def property_footnotes(xule_context, object_value, *args):
 def property_content(xule_context, object_value, *args):
     if object_value.value[xv.FOOTNOTE_TYPE] == 'fact':
         return xv.XuleValue(xule_context, object_value.value[xv.FOOTNOTE_CONTENT], 'fact')
-    else:
+    else: # footnote
         footnote_resource = object_value.value[xv.FOOTNOTE_CONTENT]
         footnote_text = footnote_resource.text or ''
         for child in footnote_resource.getchildren():
             footnote_text += etree.tostring(child).decode()
         return xv.XuleValue(xule_context, footnote_text, 'string')
+
+def property_fact(xule_context, object_value, *args):
+    # object value is a footnote
+    return xv.XuleValue(xule_context, object_value.value[xv.FOOTNOTE_FACT], 'fact')
 
 #def get_relationshipset(model_xbrl, arcrole, linkrole=None, linkqname=None, arcqname=None, includeProhibits=False):
 #    # This checks if the relationship set is already built. If not it will build it. The ModelRelationshipSet class
@@ -2367,7 +2372,8 @@ PROPERTIES = {
               'text': (property_text, 0, ('label',), False),
               'lang': (property_lang, 0, ('label', 'footnote'), False),   
               'footnotes': (property_footnotes, 0, ('fact',), False),   
-              'content': (property_content, 0, ('footnote',), False),        
+              'content': (property_content, 0, ('footnote',), False),   
+              'fact': (property_fact, 0, ('footnote',), False),     
               'name': (property_name, 0, ('fact', 'concept', 'reference-part', 'type'), True),
               'local-name': (property_local_name, 0, ('qname', 'concept', 'fact', 'reference-part', 'type'), True),
               'namespace-uri': (property_namespace_uri, 0, ('qname', 'concept', 'fact', 'reference-part', 'type'), True),
