@@ -148,6 +148,7 @@ def cmdLineOptionExtender(parser, *args, **kwargs):
                       dest="xendr_only",
                       help=_("List of template names to render. All others will be skipped. Template names are separated by '|' character."))
 
+
 def cmdUtilityRun(cntlr, options, **kwargs): 
     #check option combinations
     parser = optparse.OptionParser()

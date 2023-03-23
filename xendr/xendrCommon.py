@@ -15,7 +15,9 @@ XULE_NAMESPACE_MAP = {'xule': 'http://xbrl.us/xendr/2.0/template',
                        'ix': 'http://www.xbrl.org/2013/inlineXBRL'}
 
 XENDR_FOOTNOTE_FACT_ID_CONSTANT_NAME = 'xendr-footnote-fact-ids'
-XENDR_FOOTNOTE_FACT_XULE_FUNCTION_NAME = 'xendr-get-footnotes-from-fact-ids'
+XENDR_FOOTNOTE_FACT_XULE_FUNCTION_NAME = 'xendr-footnote-facts'
+XENDR_OBJECT_ID_XULE_FUNCTION_NAME = 'xendr-model-id'
+XENDR_FORMAT_FOOTNOTE = 'xendr-format-footnote'
 
 class XendrException(Exception):
     pass
