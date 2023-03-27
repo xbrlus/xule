@@ -344,7 +344,7 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                         footnote_fact = None
                     else:
                         footnote_fact = footnote_info['fact'] # This is the model object id of the fact
-                    content = get_footnote_number(footnote_fact, footnote_number, footnote_style, footnote_fact_sub_nodes, template, rule_name)
+                    content = get_footnote_number(footnote_fact, footnote_number, sub_node.get('footnote-style'), footnote_fact_sub_nodes, template, rule_name)
                     footnote_number += 1
 
                 # If the node is going into an <a> or <span> then it needs to be a <span> otherwise it can be a <div>
@@ -792,7 +792,9 @@ def get_footnote_lang(footnote_info, modelXbrl):
 def get_footnote_number(fact_id, footnote_number, footnote_style, footnote_fact_nodes, template, rule_name):
 
     footnote_id = f"fn_{rule_name}_{footnote_number}"
-    styled_footnote_number = convert_number_to_letter(footnote_number) # this is the default method
+    if (footnote_style or 'letter') not in _footnote_styles:
+        raise XendrException(f"Invlaid footnote style '{footnote_style}'")
+    styled_footnote_number = _footnote_styles[footnote_style or 'letter'](footnote_number)
     footnote_node = etree.Element('a', nsmap=XULE_NAMESPACE_MAP)
     footnote_node.set('id', footnote_id)
     footnote_node.set('class', 'xbrl footnote-number')
@@ -851,6 +853,50 @@ def convert_number_to_letter(num):
         else:
             num = quotient - 1
     return result[::-1] # reverse the string
+
+def convert_number_to_roman(num):
+    # the footnote number is based 0, so add 1
+    num += 1
+    val = [
+        1000, 900, 500, 400,
+        100, 90, 50, 40,
+        10, 9, 5, 4,
+        1
+        ]
+    syb = [
+        "m", "cm", "d", "cd",
+        "c", "xc", "l", "xl",
+        "x", "ix", "v", "iv",
+        "i"
+        ]
+    roman_num = ''
+    i = 0
+    while  num > 0:
+        for _ in range(num // val[i]):
+            roman_num += syb[i]
+            num -= val[i]
+        i += 1
+    return roman_num
+
+def convert_number_to_number(num):
+    # the footnote number is based 0, so add 1
+    return str(num + 1)
+
+def convert_number_to_symbol(num):
+
+    #1. asterisk (*), 2. dagger (†), 3. double dagger (‡), 4. paragraph symbol (¶), 5. section mark (§), 6. parallel rules (¶), 7. number sign (#)
+
+    symbols = ('*', '†', '‡', '¶', '§', '¶', '#')
+    multiplier = (num // 7) + 1
+    index = num % 7
+
+    return symbols[index] * multiplier
+
+
+_footnote_styles = {'letter': convert_number_to_letter,
+                    'roman': convert_number_to_roman,
+                    'number': convert_number_to_number,
+                    'symbol': convert_number_to_symbol}
 
 def nodes_for_class(root, node_class):
     class_xpath = "descendant-or-self::*[@class and contains(concat(' ', normalize-space(@class), ' '), ' {} ')]".format(node_class)
