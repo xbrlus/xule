@@ -95,15 +95,11 @@ def substituteTemplate(rule_meta_data, rule_results, template, modelXbrl, main_h
     footnote_rules.sort(key=sort_by_ancestors, reverse=True)
 
     footnotes = collections.defaultdict(list)
-    has_confidential = False
-
 
     for rule_name, sub_info in non_repeating + repeating:
-        rule_has_confidential = substitute_rule(rule_name, sub_info, line_number_subs, rule_results[rule_name], template, 
+        substitute_rule(rule_name, sub_info, line_number_subs, rule_results[rule_name], template, 
                                                 modelXbrl, main_html, repeating_nodes, xule_node_locations,
                                                 context_ids, unit_ids, footnotes, template_number, used_ids, processed_facts, processed_footnotes)
-        if rule_has_confidential: has_confidential = True
-
     # Process the footnotes
     # if the default footnote page option was selected
     if getattr(_OPTIONS, 'xendr_default_footnote_page', False):
@@ -142,7 +138,7 @@ def substituteTemplate(rule_meta_data, rule_results, template, modelXbrl, main_h
             if att_name.startswith('{{{}}}'.format(XULE_NAMESPACE_MAP['xule'])):
                 del xule_node.attrib[att_name]
 
-    return template, context_ids, unit_ids, has_confidential
+    return template, context_ids, unit_ids
 
 def sort_by_ancestors(key):
     # Sort the repeating so that the deepest template node substitutions are processed first. This will allow repeating within
@@ -165,8 +161,6 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
     # Determine if this is a repeating rule.
     new_nodes = []
     attribute_nodes = []
-
-    has_confidential = False
 
     footnote_number = 0
 
@@ -287,8 +281,6 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                 # Check if the result is a fact
                 content = None
                 current_footnote_ids = []
-                is_redacted = False
-                is_confidential = False
                 parent_classes = []
                 if is_actual_fact(json_result, modelXbrl):
                     rule_focus_index = get_rule_focus_index(all_result_part or json_rule_result, json_result)
@@ -323,15 +315,10 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                         # Save the context and unit ids
                         context_ids.add(model_fact.contextID)
                         if model_fact.unitID is not None:
-                            unit_ids.add(model_fact.unitID)
-                        # Check if the fact is redacted
-                        is_redacted = fact_is_marked(model_fact, 'http://www.ferc.gov/arcrole/Redacted')
-                        # Check if the fact is confidential
-                        is_confidential = fact_is_marked(model_fact, 'http://www.ferc.gov/arcrole/Confidential')                                
+                            unit_ids.add(model_fact.unitID)                               
                         # Check if there are footnotes
-                    
                         if getattr(_OPTIONS, 'xendr_default_footnote_page', False):
-                            current_footnote_ids = get_footnotes(footnotes, model_fact, sub, new_fact_id, is_confidential, is_redacted)
+                            current_footnote_ids = get_footnotes(footnotes, model_fact, sub, new_fact_id)
                         else:
                             possible_footnotes_fact = model_fact
 
@@ -349,14 +336,6 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                     span_classes += ['sub-value', 'sub-no-replacement']
                 else:
                     span_classes += ['sub-value', 'sub-replacement']
-                
-                # if is_redacted: 
-                #     span_classes.append('redacted')
-                #     parent_classes.append('parent-redacted')
-                # if is_confidential: 
-                #     has_confidential = True
-                #     span_classes.append('confidential')
-                #     parent_classes.append('parent-confidential')
 
                 if sub_node.tag == '{http://xbrl.us/xendr/2.0/template}footnoteNumber':
                     # This is a footnote number
@@ -430,7 +409,6 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
             att_node = node.getparent().getparent()
         if att_node is not None:
             att_node.set(att_name, att_value)
-    return has_confidential
 
 def is_actual_fact(json_result, model_xbrl):
     if json_result['type'] == 'f':
@@ -639,7 +617,7 @@ def find_inline_facts(fact_sub_nodes):
 
     return inline_facts
 
-def get_footnotes(footnotes, model_fact, sub, fact_id, is_confidential, is_redacted):
+def get_footnotes(footnotes, model_fact, sub, fact_id):
     ''' Find if there is a footnote for this fact
 
     This will find the the footnote and if there is one will add it to the footnotes dictionary.
@@ -655,9 +633,7 @@ def get_footnotes(footnotes, model_fact, sub, fact_id, is_confidential, is_redac
             footnote_info = {'node': rel.toModelObject,
                             'model_fact': rel.fromModelObject,
                             'id': current_count,
-                            'fact_id': fact_id,
-                            'is_confidential': is_confidential,
-                            'is_redacted': is_redacted}                        
+                            'fact_id': fact_id}                        
             footnotes[sub['node-pos']].append(footnote_info)
             current_footnotes.append(current_count)
     
@@ -668,15 +644,6 @@ def count_footnotes(footnotes):
     for k, v in footnotes.items():
         i += len(v)
     return i
-
-def fact_is_marked(model_fact, arcrole):
-    '''Check if the fact is marked as redacted or confdential based on the special footnote relationships'''
-    network = get_relationshipset(model_fact.modelXbrl, arcrole)
-    rels = network.fromModelObject(model_fact)
-    if len(rels) > 0:
-        return True
-    else:
-        return False
 
 def get_relationshipset(model_xbrl, arcrole, linkrole=None, linkqname=None, arcqname=None, includeProhibits=False):
     # This checks if the relationship set is already built. If not it will build it. The ModelRelationshipSet class
@@ -731,10 +698,6 @@ def build_footnote_page(template, template_number, footnotes, processed_footnote
 
             footnote_data_cell = etree.Element('td')
             footnote_data_cell_classes = ['xbrl', 'footnote-data-cell']
-            if footnote.get('is_confidential', False): 
-                footnote_data_cell_classes.append('confidential')
-            if footnote.get('is_redacted', False):
-                footnote_data_cell_classes.append('redacted')
             footnote_data_cell.set('class', ' '.join(footnote_data_cell_classes))
             inline_footnote, is_preformatted = create_inline_footnote_node(footnote['node'])
             inline_footnote.set('id', footnote_id)
@@ -830,18 +793,28 @@ def get_footnote_number(fact_id, footnote_number, footnote_style, footnote_fact_
 
     footnote_id = f"fn_{rule_name}_{footnote_number}"
     styled_footnote_number = convert_number_to_letter(footnote_number) # this is the default method
-    footnote_node = etree.Element('span', nsmap=XULE_NAMESPACE_MAP)
+    footnote_node = etree.Element('a', nsmap=XULE_NAMESPACE_MAP)
     footnote_node.set('id', footnote_id)
     footnote_node.set('class', 'xbrl footnote-number')
     footnote_node.text = styled_footnote_number
 
+    first_fact = True
     for fact_node in footnote_fact_nodes.get(fact_id, []):
         # This will be the parent span/div that contains the actual fact value that is being footnoted
         footnote_ref_node = etree.Element('a', nsmap=XULE_NAMESPACE_MAP)
         footnote_ref_node.set('href', f'#{footnote_id}')
         footnote_ref_node.set('class', 'xbrl footnote-ref')
         footnote_ref_node.text = styled_footnote_number
-        fact_node.insert(0, footnote_ref_node)
+        fact_parent = fact_node.getparent()
+        fact_node_index = fact_parent.index(fact_node)
+        fact_parent.insert(fact_node_index, footnote_ref_node)
+        if first_fact:
+            # link the footnote number to the first fact
+            first_fact = False
+            actual_fact_node = find_inline_facts((fact_node,))[0]
+            footnote_node.set('href', f'#{actual_fact_node.get("id")}')
+
+        #fact_node.insert(0, footnote_ref_node)
 
 
     return footnote_node
@@ -1229,8 +1202,6 @@ def render_report(cntlr, options, modelXbrl, *args, **kwargs):
     # Footnotes were originally only outputted once as an ix
     processed_footnotes = collections.defaultdict(lambda: {'footnote_id': None, 'fact_ids': list(), 'refs': list()}) # track when a footnote is outputted.
 
-    has_confidential = False
-
     main_html = setup_inline_html(modelXbrl, options.xendr_title)
 
     schedule_divs = []
@@ -1289,10 +1260,9 @@ def render_report(cntlr, options, modelXbrl, *args, **kwargs):
                                                     template_number, used_ids, processed_facts, processed_footnotes, 
                                                     ts, catalog_item, cntlr, options)
             if template_result is not None: # the template_result is none when a xule:showif returns false
-                rendered_template, template_context_ids, template_unit_ids, template_has_confidential = template_result
+                rendered_template, template_context_ids, template_unit_ids = template_result
                 used_context_ids |= template_context_ids
                 used_unit_ids |= template_unit_ids
-                if template_has_confidential: has_confidential = True
                 # Save the body as a div
                 body = rendered_template.find('xhtml:body', namespaces=XULE_NAMESPACE_MAP)
                 if body is None:
@@ -1302,15 +1272,6 @@ def render_report(cntlr, options, modelXbrl, *args, **kwargs):
 
     main_body = main_html.find('xhtml:body', namespaces=XULE_NAMESPACE_MAP)
 
-    # Add confidential indicator
-    # if has_confidential: 
-    #     watermark_div = etree.Element('{{{}}}div'.format(_XHTM_NAMESPACE))
-    #     watermark_div.set('id', 'watermark')
-    #     watermark_p = etree.Element('{{{}}}p'.format(_XHTM_NAMESPACE))
-    #     watermark_p.set('id', 'watermark')
-    #     watermark_p.text = "Contains confidential information"
-    #     watermark_div.append(watermark_p)
-    #     main_body.append(watermark_div)
     for div in schedule_divs:
         main_body.append(div)
         if div is not schedule_divs[-1]: # If it is not the last span put a separator in
