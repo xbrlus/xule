@@ -343,7 +343,7 @@ def substitute_rule(rule_name, sub_info, line_number_subs, rule_results, templat
                     elif json_result['value'] is not None:
                         content = json_result['value']
                 elif json_result['type'] == 'fn': # This is a footnote
-                    content = get_footnote_content(footnote_info, footnote_fact_sub_nodes, modelXbrl, used_ids, processed_footnotes)
+                    content = get_footnote_content(footnote_info, footnote_fact_sub_nodes, modelXbrl, used_ids, processed_footnotes, processed_facts, main_html)
 
                 if content is None:
                     span_classes += ['sub-value', 'sub-no-replacement']
@@ -602,20 +602,23 @@ def get_attributes(json_result):
     
     return attributes
 
-def get_footnote_content(footnote_info, footnote_fact_sub_nodes, model_xbrl, used_ids, processed_footnotes):
+def get_footnote_content(footnote_info, footnote_fact_sub_nodes, model_xbrl, used_ids, processed_footnotes, processed_facts, main_html):
         
         # Get the fact ids from the template that will be linked to this footnote
-        fact_ids = [x.get('id') for x in find_inline_facts(footnote_info['fact'], footnote_fact_sub_nodes)]
+        fact_ids = [x.get('id') for x in find_inline_facts(footnote_fact_sub_nodes.get(footnote_info['fact'], tuple()))]
 
         # Build the content 
+        footnote_id = None
         footnote_model = model_xbrl.modelObject(footnote_info['content'])
-        content, _x = create_inline_footnote_node(footnote_model)
-        footnote_id = footnote_model.get('id', None)
-        if footnote_id is None:
-            # use the first fact for the footnote as the basis of the id
-            if len(fact_ids) > 0:
-                footnote_id = f"fn-{fact_ids[0]}"
-        footnote_id = dedup_id(footnote_id, used_ids)
+        if footnote_info['type'] == 'fact':
+            content, _x = format_fact(None, footnote_model, main_html, False, None, None, used_ids)
+            processed_facts.add(footnote_model)
+            for fact in find_inline_facts((content,)):
+                footnote_id = fact.get('id')
+        else: # its a footnote resouce
+            content, _x = create_inline_footnote_node(footnote_model)
+            footnote_id = dedup_id(footnote_model.get('id', f"fn-{fact_ids[0] if len(fact_ids) > 0 else 'fn'}"), used_ids)
+
         content.set('id', footnote_id)
 
         # update processed_footnotes - this is used later to create the relationships
@@ -624,17 +627,15 @@ def get_footnote_content(footnote_info, footnote_fact_sub_nodes, model_xbrl, use
 
         return content
 
-def find_inline_facts(model_fact_id, fact_sub_nodes):
+def find_inline_facts(fact_sub_nodes):
     inline_facts = []
     # This will find all the inline facts that were created for a specified fact.
     # The fact_sub_nodes is a dictionary by the model fact object id. The value is a list of html nodes that are or contain the inline fact
-    for html_node in fact_sub_nodes[model_fact_id]:
-        if html_node.tag == f"{{{XULE_NAMESPACE_MAP['ix']}}}nonNumeic":
-            inline_fact = html_node
-        else:
-            inline_fact = html_node.find('.//ix:nonNumeric', XULE_NAMESPACE_MAP)
-        if inline_fact is not None:
-            inline_facts.append(inline_fact)
+    for html_node in fact_sub_nodes:
+        possible_facts = html_node.xpath('.//descendant-or-self::ix:*[local-name() = "nonNumeric" or local-name() = "nonFraction" or local-name() = "fraction"]', namespaces=XULE_NAMESPACE_MAP) 
+        if len(possible_facts) > 0:
+            # just get the first one. There should not be more than one.
+            inline_facts.append(possible_facts[0])
 
     return inline_facts
 
@@ -856,6 +857,7 @@ def is_valid_xml(potential_text):
 
 def create_inline_footnote_node(footnote_node):
     inline_footnote = etree.Element('{{{}}}footnote'.format(XULE_NAMESPACE_MAP['ix']))
+
     inline_footnote.set('{http://www.w3.org/XML/1998/namespace}lang', footnote_node.get('{http://www.w3.org/XML/1998/namespace}lang'))
     if footnote_node.xValue is not None:
         inline_footnote.text = footnote_node.text
