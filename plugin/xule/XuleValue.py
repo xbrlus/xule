@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23507 $
+$Change: 23509 $
 DOCSKIP
 """
 from .XuleRunTime import XuleProcessingError
@@ -55,6 +55,7 @@ FOOTNOTE_ROLE = 1
 FOOTNOTE_LANGUAGE = 2
 FOOTNOTE_TYPE = 3
 FOOTNOTE_CONTENT = 4
+FOOTNOTE_FACT = 5
 
 class SpecialItemTypes(Enum):
     ENUM_ITEM_TYPE = '{http://xbrl.org/2020/extensible-enumerations-2.0}enumerationItemType'
