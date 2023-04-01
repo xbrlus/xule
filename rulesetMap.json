@@ -1,4 +1,5 @@
 {
+    "https://xbrl.ifrs.org/taxonomy/2023-03-23/ifrs-full": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v20/dqc_us_rules/dqc-ifrs-2023-V20-ruleset.zip",
     "https://xbrl.ifrs.org/taxonomy/2022-03-24/ifrs-full": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v20/dqc_us_rules/dqc-ifrs-2022-V20-ruleset.zip",
     "http://xbrl.ifrs.org/taxonomy/2021-03-24/ifrs-full": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v20/dqc_us_rules/dqc-ifrs-2021-V20-ruleset.zip",
     "http://xbrl.ifrs.org/taxonomy/2020-03-16/ifrs-full": "https://github.com/DataQualityCommittee/dqc_us_rules/raw/v20/dqc_us_rules/dqc-ifrs-2020-V20-ruleset.zip",
