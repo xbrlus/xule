@@ -1,0 +1,58 @@
+import datetime
+import decimal
+import json
+import numpy
+from .XodelVars import save_arelle_model
+
+def property_to_xodel(xule_context, object_value, *args, _intermediate=False):
+    # _intermediate is used when recursing. The final value will be a string. But if there are collections
+    # (sets, list or dictionaries) then there needs to be recursion. The value passed up should be a
+    # python collection (list or dictionary) until the final value is sent to the original caller, which
+    # will be a string.
+    from .xule import XuleValue as xv
+
+    basic = True
+    if object_value.type == 'entity':
+        #basic = False
+        working_val = f'["{object_value.value[0]}", "{object_value.value[1]}"]'
+    elif object_value.type == 'unit':
+        working_val =  repr(object_value.value)
+    elif object_value.type == 'duration':
+        if object_value.value[0] == datetime.datetime.min and object_value.value[1] == datetime.datetime.max:
+            working_val = 'forever'
+        else:
+            working_val = f'{object_value.value[0].isoformat()}/{object_value.value[1].isoformat()}'
+    elif object_value.type == 'instant':
+        working_val = object_value.value.isoformat()
+    elif object_value.type == 'qname':
+        working_val = object_value.value.clarkNotation
+    elif object_value.type in ('set', 'list'):
+        basic = False
+        working_val = tuple(property_to_xodel(xule_context, x, _intermediate=True) for x in object_value.value)
+    elif object_value.type == 'dictionary':
+        basic = False
+        working_val = {property_to_xodel(xule_context, k, _intermediate=True): property_to_xodel(xule_context, v, _intermediate=True) for k, v in object_value.value}
+    elif object_value.type == 'concept':
+        # Need to save the arelle model and the concept
+        save_arelle_model(object_value.value.modelXbrl)
+        working_val = json.dumps((id(object_value.value.modelXbrl), object_value.value.objectId()))
+    elif object_value.type in ('none', 'unbound'):
+        working_val = '' # empty string for None
+    # elif isinstance(object_value.value, decimal.Decimal):
+    #     working_val = str(object_value.value)
+    elif isinstance(object_value.value, datetime.datetime):
+        working_val =  object_value.value.isoformat()
+    elif type(object_value.value) in (float, decimal.Decimal):
+        working_val = numpy.format_float_positional(object_value.value, trim='0')
+        #working_val = str(object_value.value)
+    elif type(object_value.value) == int:
+        working_val = str(object_value.value)
+    else:
+        working_val = object_value.format_value()
+
+    if _intermediate:
+        return working_val
+    elif basic:
+        return xv.XuleValue(xule_context, working_val, 'string')
+    else:
+        return xv.XuleValue(xule_context, json.dumps(working_val), 'string')
