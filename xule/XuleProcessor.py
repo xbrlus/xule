@@ -708,7 +708,7 @@ def evaluate(rule_part, xule_context, trace_dependent=False, override_table_id=N
                         cache_value = value.clone()
                         cache_value.tags = copy.copy(xule_context.tags)
                         cache_value.facts = copy.copy(xule_context.facts)
-                        cache_value.aligned_result_only = xule_context.aligned_result_only
+                        #cache_value.aligned_result_only = xule_context.aligned_result_only
                         cache_value.used_expressions = copy.copy(xule_context.used_expressions)
                         xule_context.local_cache[local_cache_key] = cache_value
 
