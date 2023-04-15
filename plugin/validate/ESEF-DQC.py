@@ -36,7 +36,7 @@ _license = 'Apache-2'
 _author = 'XBRL US Inc.'
 _copyright = '(c) 2017-2023'
 _rule_set_map_name = 'esefRulesetMap.json'
-_latest_map_name = 'https://github.com/DataQualityCommittee/esef-dqr/raw/main/esefRulesetMap.json' 
+_latest_map_name = 'https://github.com/xbrlus/xule/raw/main/plugin/xule/esefRulesetMap.json' 
 
 """Do not change anything below this line."""
 _xule_plugin_info = None
