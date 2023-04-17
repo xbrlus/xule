@@ -825,6 +825,9 @@ def get_local_cache_key(rule_part, xule_context):
                                        xule_context,
                                        override_table_id=var_ref[2]['table_id'])
                 dep_var_index.add((var_info['name'], const_value))
+            else:
+                # Don't know the value of the constant, so cannot create the cache key
+                return None
         else:
             if var_ref[0] in xule_context.vars:
                 if var_info['calculated']:
