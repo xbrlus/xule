@@ -821,13 +821,14 @@ def get_local_cache_key(rule_part, xule_context):
         if var_info['type'] == xule_context._VAR_TYPE_CONSTANT:
             # If it is a constant, the var_info will not contain the value. To determine if the constant is used, the used_expressions are checked.
             if xule_context.get_processing_id(var_info['expr']['node_id']) in xule_context.used_expressions:
+            #if var_info['expr']['node_id'] in xule_context.used_expressions:
                 const_value = evaluate(var_info['expr'],
                                        xule_context,
                                        override_table_id=var_ref[2]['table_id'])
                 dep_var_index.add((var_info['name'], const_value))
-            else:
-                # Don't know the value of the constant, so cannot create the cache key
-                return None
+            # else:
+            #     # Don't know the value of the constant, so cannot create the cache key
+            #     return None
         else:
             if var_ref[0] in xule_context.vars:
                 if var_info['calculated']:
@@ -4177,6 +4178,7 @@ def isolated_evaluation(xule_context, node_id, expr, setup_function=None, cleanu
     save_aligned_result_only = xule_context.aligned_result_only
     save_used_expressions = xule_context.used_expressions
     # pre_aggregation_table_list_size = len(xule_context.iteration_table)
+    save_table = xule_context.iteration_table.current_table
     isolated_table = xule_context.iteration_table.add_table(node_id, xule_context.get_processing_id(node_id),
                                                             is_aggregation=True)
     try:
@@ -4198,7 +4200,17 @@ def isolated_evaluation(xule_context, node_id, expr, setup_function=None, cleanu
             return_value.tags = xule_context.tags.copy()
             return_value.aligned_result_only = xule_context.aligned_result_only
             return_value.used_expressions = xule_context.used_expressions
-            return_value.alignment = xule_context.iteration_table.current_table.current_alignment
+            
+            # Orginal - Liberty fails - Doesn't put the alignment on and the cache key value is the same for different periods.
+            return_value.alignment = return_value.alignment or xule_context.iteration_table.current_table.current_alignment
+
+            #return_value.alginment, alignment_table_id = isolated_table.current_alignment_to_this_table      
+
+            if xule_context.iteration_table.current_table.current_alignment is not None:
+                if xule_context.iteration_table.current_alignment != xule_context.iteration_table.current_table.current_alignment:
+                    xule_context.global_context.cntlr.addToLog(f"Rule {xule_context.rule_name} has different alignments in isolated evaluation","Info")
+            
+            
             # return_value.alignment = isolated_table.current_alignment
             return_values.append(return_value)
 
@@ -4233,6 +4245,15 @@ def evaluate_aggregate_function(function_ref, function_info, xule_context):
     for function_arg in function_ref['functionArgs']:
         values_by_argument.append(isolated_evaluation(xule_context, function_ref['node_id'], function_arg))
 
+    # if function_ref['functionName'] == 'dict':
+    #     print(function_ref['functionName'], function_ref['node_id'])
+    #     for c, x in enumerate(values_by_argument):
+    #         print("Argument", c)
+    #         for z in x.values.values():
+    #             for y in z:
+    #                 print("Value", y.type, y.format_value(), y.alignment)
+
+
     # Combine the value sets created from each argument
     # Get all alignments
     all_alignments = set()
@@ -4265,12 +4286,17 @@ def evaluate_aggregate_function(function_ref, function_info, xule_context):
     agg_values = XuleValueSet()
     # add default value if there are no None aligned results and the aggregation has a default value.
     if None not in values_by_alignment and function_info[FUNCTION_DEFAULT_VALUE] is not None:
-        agg_values.append(
-            XuleValue(xule_context, function_info[FUNCTION_DEFAULT_VALUE], function_info[FUNCTION_DEFAULT_TYPE]))
+        default_value = XuleValue(xule_context, function_info[FUNCTION_DEFAULT_VALUE], function_info[FUNCTION_DEFAULT_TYPE])
+        default_value.aligned_result_only = any(aligned_result_only_by_alignment.values())
+        agg_values.append(default_value)
 
     for alignment in values_by_alignment:
-        if len(values_by_alignment[alignment]) > 0:
-            agg_value = function_info[FUNCTION_EVALUATOR](xule_context, values_by_alignment[alignment])
+        # if alignment is None and any(aligned_result_only_by_alignment.values()):
+        #     continue # Because the result needs alignment, the None aligment is skipped.
+        if len(values_by_alignment[alignment]) > 0: # and not (alignment is None and aligned_result_only_by_alignment[None]):
+            agg_value = function_info[FUNCTION_EVALUATOR](xule_context, values_by_alignment[alignment], 
+                                                          alignment, 
+                                                          xule_context.aligned_result_only or aligned_result_only_by_alignment[alignment])
         else:
             # Add the default value if there is one
             if function_info[FUNCTION_DEFAULT_VALUE] is not None:

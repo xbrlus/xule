@@ -321,7 +321,7 @@ def agg_min(xule_context, values):
             
     return agg_value    
     
-def agg_list(xule_context, values):
+def agg_list(xule_context, values, alignment=None, aligned_result_only=None):
 #Commented out for elimination of the shadow_collection
 #     list_values = []
 #     shadow = []
@@ -352,7 +352,7 @@ def agg_list(xule_context, values):
         return_value.facts = facts
     return return_value #xv.XuleValue(xule_context, tuple(list_values), 'list')
 
-def agg_set(xule_context, values):
+def agg_set(xule_context, values, alignment=None, aligned_result_only=None):
     set_values = []
     shadow = []
     tags = {}
@@ -383,7 +383,7 @@ def agg_set(xule_context, values):
         return_value.facts = facts
     return return_value #xv.XuleValue(xule_context, frozenset(set_values), 'set')
 
-def agg_dict(xule_context, values):
+def agg_dict(xule_context, values, alignment=None, aligned_result_only=None):
     shadow = []
     tags = {}
     facts = collections.OrderedDict()
@@ -391,7 +391,15 @@ def agg_dict(xule_context, values):
     dict_values = dict()
     shadow = dict()
     
+    # If the aligned result only is None, this means it wasn't sent by the calling function. This happens with the to-dict property
+    # in this case, we should look at the alignment and algined results only from the context.
+    if aligned_result_only is None:
+        alignment = xule_context.iteration_table.alignment
+        aligned_result_only = xule_context.aligned_result_only
+
     for current_value in values:
+        if alignment is None and aligned_result_only:
+            continue
         if current_value.type != 'list':
             raise XuleProcessingError(_("Arguments for the dict() function must be lists of key/value pairs, found %s" % current_value.type),
                                       xule_context)
@@ -1147,7 +1155,6 @@ def _calc_alignment(xule_context):
     #return xv.XuleValue(xule_context, json.dumps(result), 'string')
     return xv.XuleValue(xule_context, frozenset(result.items()), 'dictionary')
 
-
 #the position of the function information
 FUNCTION_TYPE = 0
 FUNCTION_EVALUATOR = 1
@@ -1201,7 +1208,7 @@ def built_in_functions():
              'symmetric_difference': ('regular', func_symmetric_difference, 2, False, 'single'),
              'version': ('regular', func_version, 0, False, 'single'),
              'rule-name': ('regular', func_rule_name, 0, False, 'single'),
-             'alignment': ('regular', func_alignment, 0, False, 'single')
+             'alignment': ('regular', func_alignment, 0, False, 'single'),
              }    
 
     try:
