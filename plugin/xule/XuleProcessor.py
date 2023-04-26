@@ -7,7 +7,7 @@ The XuleProcessor module is the main module for processing a rule set against an
 DOCSKIP
 See https://xbrl.us/dqc-license for license information.  
 See https://xbrl.us/dqc-patent for patent infringement notice.
-Copyright (c) 2017 - 2023 XBRL US, Inc.
+Copyright (c) 2017 - 2021 XBRL US, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23525 $
+$Change: 23528 $
 DOCSKIP
 """
 from .XuleContext import XuleGlobalContext, XuleRuleContext  # XuleContext
@@ -825,9 +825,6 @@ def get_local_cache_key(rule_part, xule_context):
                                        xule_context,
                                        override_table_id=var_ref[2]['table_id'])
                 dep_var_index.add((var_info['name'], const_value))
-            else:
-                # Don't know the value of the constant, so cannot create the cache key
-                return None
         else:
             if var_ref[0] in xule_context.vars:
                 if var_info['calculated']:
@@ -4176,7 +4173,6 @@ def isolated_evaluation(xule_context, node_id, expr, setup_function=None, cleanu
                         iteration_reset_function=None):
     save_aligned_result_only = xule_context.aligned_result_only
     save_used_expressions = xule_context.used_expressions
-    # pre_aggregation_table_list_size = len(xule_context.iteration_table)
     isolated_table = xule_context.iteration_table.add_table(node_id, xule_context.get_processing_id(node_id),
                                                             is_aggregation=True)
     try:
@@ -4198,8 +4194,10 @@ def isolated_evaluation(xule_context, node_id, expr, setup_function=None, cleanu
             return_value.tags = xule_context.tags.copy()
             return_value.aligned_result_only = xule_context.aligned_result_only
             return_value.used_expressions = xule_context.used_expressions
-            return_value.alignment = xule_context.iteration_table.current_table.current_alignment
-            # return_value.alignment = isolated_table.current_alignment
+
+            # The return_value.alignment was added because often there is nothing on the isolated table but there is alignment
+            # on the returned value. This ensures that the proper alignment is carried forward with the value.
+            return_value.alignment = return_value.alignment or xule_context.iteration_table.current_table.current_alignment
             return_values.append(return_value)
 
             # xule_context.iteration_table.del_current()
@@ -4232,7 +4230,6 @@ def evaluate_aggregate_function(function_ref, function_info, xule_context):
     values_by_argument = list()
     for function_arg in function_ref['functionArgs']:
         values_by_argument.append(isolated_evaluation(xule_context, function_ref['node_id'], function_arg))
-
     # Combine the value sets created from each argument
     # Get all alignments
     all_alignments = set()
@@ -4265,12 +4262,15 @@ def evaluate_aggregate_function(function_ref, function_info, xule_context):
     agg_values = XuleValueSet()
     # add default value if there are no None aligned results and the aggregation has a default value.
     if None not in values_by_alignment and function_info[FUNCTION_DEFAULT_VALUE] is not None:
-        agg_values.append(
-            XuleValue(xule_context, function_info[FUNCTION_DEFAULT_VALUE], function_info[FUNCTION_DEFAULT_TYPE]))
+        default_value = XuleValue(xule_context, function_info[FUNCTION_DEFAULT_VALUE], function_info[FUNCTION_DEFAULT_TYPE])
+        #default_value.aligned_result_only = any(aligned_result_only_by_alignment.values())
+        agg_values.append(default_value)
 
     for alignment in values_by_alignment:
         if len(values_by_alignment[alignment]) > 0:
-            agg_value = function_info[FUNCTION_EVALUATOR](xule_context, values_by_alignment[alignment])
+            agg_value = function_info[FUNCTION_EVALUATOR](xule_context, values_by_alignment[alignment], 
+                                                          alignment, 
+                                                          xule_context.aligned_result_only or aligned_result_only_by_alignment[alignment])
         else:
             # Add the default value if there is one
             if function_info[FUNCTION_DEFAULT_VALUE] is not None:
