@@ -209,53 +209,6 @@ def unfreeze_shadow(cur_val, for_json=False):
     else:
         return cur_val.value
 
-def property_to_xince(xule_context, object_value, *args, _intermediate=False):
-    # _intermediate is used when recursing. The final value will be a string. But if there are collections
-    # (sets, list or dictionaries) then there needs to be recursion. The value passed up should be a
-    # python collection (list or dictionary) until the final value is sent to the original caller, which
-    # will be a string.
-    basic = True
-    if object_value.type == 'entity':
-        #basic = False
-        working_val = f'["{object_value.value[0]}", "{object_value.value[1]}"]'
-    elif object_value.type == 'unit':
-        working_val =  repr(object_value.value)
-    elif object_value.type == 'duration':
-        if object_value.value[0] == datetime.datetime.min and object_value.value[1] == datetime.datetime.max:
-            working_val = 'forever'
-        else:
-            working_val = f'{object_value.value[0].isoformat()}/{object_value.value[1].isoformat()}'
-    elif object_value.type == 'instant':
-        working_val = object_value.value.isoformat()
-    elif object_value.type == 'qname':
-        working_val = object_value.value.clarkNotation
-    elif object_value.type in ('set', 'list'):
-        basic = False
-        working_val = tuple(property_to_xince(xule_context, x, _intermediate=True) for x in object_value.value)
-    elif object_value.type == 'dictionary':
-        basic = False
-        working_val = {property_to_xince(xule_context, k, _intermediate=True): property_to_xince(xule_context, v, _intermediate=True) for k, v in object_value.value}
-    elif object_value.type in ('none', 'unbound'):
-        working_val = '' # empty string for None
-    # elif isinstance(object_value.value, decimal.Decimal):
-    #     working_val = str(object_value.value)
-    elif isinstance(object_value.value, datetime.datetime):
-        working_val =  object_value.value.isoformat()
-    elif type(object_value.value) in (float, decimal.Decimal):
-        working_val = numpy.format_float_positional(object_value.value, trim='0')
-        #working_val = str(object_value.value)
-    elif type(object_value.value) == int:
-        working_val = str(object_value.value)
-    else:
-        working_val = object_value.format_value()
-
-    if _intermediate:
-        return working_val
-    elif basic:
-        return xv.XuleValue(xule_context, working_val, 'string')
-    else:
-        return xv.XuleValue(xule_context, json.dumps(working_val), 'string')
-
 # def _prep_for_xince_json(xule_context, xule_value):
 #     if xule_value.type in ('set', 'list'):
 #         children_string = []
@@ -1226,7 +1179,9 @@ def property_order(xule_context, object_value, *args):
 def property_concepts(xule_context, object_value, *args):
      
     if object_value.type == 'taxonomy':
-        concepts = set(xv.XuleValue(xule_context, x, 'concept') for x in object_value.value.qnameConcepts.values() if x.isItem or x.isTuple)
+        concepts = set(xv.XuleValue(xule_context, x, 'concept') for x in object_value.value.qnameConcepts.values() 
+                       if (x.isItem or x.isTuple) and
+                           x.qname.clarkNotation not in ('{http://www.xbrl.org/2003/instance}tuple', '{http://www.xbrl.org/2003/instance}item'))
     elif object_value.type == 'network':
         concepts = set(xv.XuleValue(xule_context, x, 'concept') for x in (object_value.value[1].fromModelObjects().keys()) | frozenset(object_value.value[1].toModelObjects().keys()))
     else:
@@ -2317,8 +2272,7 @@ PROPERTIES = {
               'index': (property_index, 1, ('list', 'dictionary'), False),
               'is-subset': (property_is_subset, 1, ('set',), False),
               'is-superset': (property_is_superset, 1, ('set',), False),
-              'to-json': (property_to_json, 0, ('list', 'set', 'dictionary'), False), 
-              'to-xince': (property_to_xince, 0, (), False),          
+              'to-json': (property_to_json, 0, ('list', 'set', 'dictionary'), False),          
               'join': (property_join, -2, ('list', 'set', 'dictionary'), False),
               'sort': (property_sort, -1, ('list', 'set'), False),
               'keys': (property_keys, -1, ('dictionary',), False),
@@ -2539,3 +2493,13 @@ ORDERED_REFERENCE_ROLE = ['http://www.xbrl.org/2003/role/reference',
                         'http://www.xbrl.org/2003/role/measurementRef',
                         'http://www.xbrl.org/2003/role/commentaryRef',
                         'http://www.xbrl.org/2003/role/exampleRef']
+
+def add_property(property_name, property_function, num_of_args, objects, allow_unbound=False):
+    if property_name in PROPERTIES:
+        raise XuleProcessingError(_("Cannot add property .{} to xule, it already exists".format(property_name)))
+    else:
+        if not isinstance(objects, (list, set, tuple)):
+            raise XuleProcessingError(_('The list of objects supplied to add_property() function must be a list, set or tuple. Found {}'.format(type(objects).__name__)))
+        if any(tuple(type(x) != str for x in objects)):
+            raise XuleProcessingError(_('The items in the list of objects for the add_property() function must be strings. Found something that is not a string'))
+        PROPERTIES[property_name] = (property_function, num_of_args, objects, allow_unbound)
