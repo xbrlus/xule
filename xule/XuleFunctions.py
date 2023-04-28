@@ -394,7 +394,7 @@ def agg_dict(xule_context, values, alignment=None, aligned_result_only=None):
     # If the aligned result only is None, this means it wasn't sent by the calling function. This happens with the to-dict property
     # in this case, we should look at the alignment and algined results only from the context.
     if aligned_result_only is None:
-        alignment = xule_context.iteration_table.alignment
+        alignment = xule_context.iteration_table.current_alignment
         aligned_result_only = xule_context.aligned_result_only
 
     for current_value in values:
