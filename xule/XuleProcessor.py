@@ -826,10 +826,17 @@ def get_local_cache_key(rule_part, xule_context, val=None):
             # 2 cases - I'm here before evaluating the expression to see if it is in the cache
             if val is None: # we are checking the cache
                 if var_info['calculated']:
-                    const_value = evaluate(var_info['expr'],
-                                       xule_context,
-                                       override_table_id=var_ref[2]['table_id'])
-                    dep_var_index.add((var_info['name'], const_value))
+                    const_value = xule_context.iteration_table.current_value(var_ref[2]['var_declaration'], xule_context)
+                    if const_value is not None:
+                    # const_value = evaluate(var_info['expr'],
+                    #                    xule_context,
+                    #                    override_table_id=var_ref[2]['table_id'])
+                        dep_var_index.add((var_info['name'], const_value))
+                    else:
+                        # In this case I have a constant that the rule part is dependent on, but there is no value for, so
+                        # we cannot rely on the cache key because it is incomplete, so return None which will force
+                        # doing the evaluation.
+                        return None
             else: # get a cache key to store into the cache
                 if isinstance(val, XuleValueSet):
                     # collect all the used expressions from the values in the value set
