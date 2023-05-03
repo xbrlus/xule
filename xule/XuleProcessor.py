@@ -826,7 +826,8 @@ def get_local_cache_key(rule_part, xule_context, val=None):
             # 2 cases - I'm here before evaluating the expression to see if it is in the cache
             if val is None: # we are checking the cache
                 if var_info['calculated']:
-                    const_value = xule_context.iteration_table.current_value(var_ref[2]['var_declaration'], xule_context)
+                    const_processing_id = xule_context.get_column_id(var_ref[2]['var_declaration'])
+                    const_value = xule_context.iteration_table.current_value(const_processing_id, xule_context)
                     if const_value is not None:
                     # const_value = evaluate(var_info['expr'],
                     #                    xule_context,
