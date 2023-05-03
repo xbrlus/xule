@@ -91,13 +91,9 @@ def property_to_list(xule_context, object_value, *args):
         return item.value
 
     try:
-        result_value = xv.XuleValue(xule_context, tuple(sorted(object_value.value, key=set_sort)), 'list')
+        return xv.XuleValue(xule_context, tuple(sorted(object_value.value, key=set_sort)), 'list')
     except TypeError:
-        result_value = xv.XuleValue(xule_context, tuple(object_value.value), 'list')
-
-    result_value.alignment = xule_context.iteration_table.current_alignment
-
-    return result_value
+        return xv.XuleValue(xule_context, tuple(object_value.value), 'list')
  
 def property_to_set(xule_context, object_value, *args):
     if object_value.type == 'dictionary':
@@ -107,13 +103,9 @@ def property_to_set(xule_context, object_value, *args):
             item_value = XuleFunctions.agg_list(xule_context, (k, v))
             result.append(item_value)
             shadow.append(item_value.shadow_collection)
-        result_value = xv.XuleValue(xule_context, frozenset(result), 'set', shadow_collection=frozenset(shadow))
+        return xv.XuleValue(xule_context, frozenset(result), 'set', shadow_collection=frozenset(shadow))
     else: #list or set
-        result_value = XuleFunctions.agg_set(xule_context, object_value.value)
-
-    result_value.alignment = xule_context.iteration_table.current_alignment
-
-    return result_value
+        return XuleFunctions.agg_set(xule_context, object_value.value)
 
 def property_to_dict(xule_context, object_value, *args):
     return XuleFunctions.agg_dict(xule_context, object_value.value)
