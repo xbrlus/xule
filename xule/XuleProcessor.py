@@ -582,6 +582,10 @@ def evaluate(rule_part, xule_context, trace_dependent=False, override_table_id=N
             trace += rule_part_name + " " + str(processing_id)  # + " " + str(rule_part)
             print(">", trace_is_dependent, " ", processing_id, trace.replace("\n", " "))
 
+        has_key = False
+
+
+
         if ('is_iterable' in rule_part):
             # is_iterable is always true if it is present, so don't need to check the actual value
             xule_context.used_expressions.add(processing_id)
@@ -604,10 +608,16 @@ def evaluate(rule_part, xule_context, trace_dependent=False, override_table_id=N
                                     is_dependent):
                                 local_cache_key = get_local_cache_key(rule_part, xule_context)
                                 if local_cache_key is not None:
+                                    
+                                    has_key = True
+                                    
                                     values = xule_context.local_cache.get(local_cache_key)
                                 else:
                                     values = None
                         if values is None:
+                            # if has_key:
+                            #     print("Not I", rule_part['node_id'],rule_part['exprName'])
+
                             values = EVALUATOR[rule_part_name](rule_part, xule_context)
                             trace_source = "E"
                             if not getattr(xule_context.global_context.options, "xule_no_cache", False):
@@ -619,6 +629,9 @@ def evaluate(rule_part, xule_context, trace_dependent=False, override_table_id=N
                                         # print("caching", rule_part['node_id'], [(x[0], x[1].format_value()[:10]) for x in local_cache_key[1]], len(values.values))
                                         xule_context.local_cache[local_cache_key] = values
                         else:
+                            # if has_key:
+                            #     print("Found I", rule_part['node_id'], rule_part['exprName'])
+
                             # print("using cache", rule_part['node_id'], [x[0] for x in local_cache_key[1]])
                             trace_source = "c"
                     except XuleIterationStop:
@@ -673,6 +686,9 @@ def evaluate(rule_part, xule_context, trace_dependent=False, override_table_id=N
             if local_cache_key is None:
                 value = None
             else:
+
+                has_key = True
+
                 cache_value = xule_context.local_cache.get(local_cache_key)
                 value = cache_value.clone() if cache_value is not None else None
                 # The tags on the value may not apply to this iteration.  For exmaple, if the expression is not dependent, then it will
@@ -681,7 +697,15 @@ def evaluate(rule_part, xule_context, trace_dependent=False, override_table_id=N
                     new_tags = value.tags.copy()
                     new_tags.update(xule_context.tags)
                     value.tags = new_tags
+
+            # if value is not None and has_key:
+            #     print("Found N", rule_part['node_id'], rule_part['exprName'])
+
             if value is None:
+
+                # if has_key:
+                #     print("Not N", rule_part['node_id'], rule_part['exprName'])
+
                 try:
                     value = EVALUATOR[rule_part_name](rule_part, xule_context)
                 except XuleIterationStop:
@@ -826,13 +850,16 @@ def get_local_cache_key(rule_part, xule_context, val=None):
             # 2 cases - I'm here before evaluating the expression to see if it is in the cache
             if val is None: # we are checking the cache
                 if var_info['calculated']:
-                    const_processing_id = xule_context.get_column_id(var_ref[2]['var_declaration'])
-                    const_value = xule_context.iteration_table.current_value(const_processing_id, xule_context)
+                    #const_processing_id = xule_context.get_column_id(var_ref[2]['var_declaration'])
+                    #const_value = xule_context.iteration_table.current_value(const_processing_id, xule_context)
+                    const_value = evaluate(var_info['expr'],
+                                       xule_context,
+                                       override_table_id=var_ref[2]['table_id'])
                     if const_value is not None:
                     # const_value = evaluate(var_info['expr'],
                     #                    xule_context,
                     #                    override_table_id=var_ref[2]['table_id'])
-                        dep_var_index.add((var_info['name'], const_value))
+                        dep_var_index.add((var_info['name'], const_value.hashable_system_value))
                     else:
                         # In this case I have a constant that the rule part is dependent on, but there is no value for, so
                         # we cannot rely on the cache key because it is incomplete, so return None which will force
@@ -849,13 +876,14 @@ def get_local_cache_key(rule_part, xule_context, val=None):
                         const_value = evaluate(var_info['expr'],
                                        xule_context,
                                        override_table_id=var_ref[2]['table_id'])
-                        dep_var_index.add((var_info['name'], const_value))
+                        dep_var_index.add((var_info['name'], const_value.hashable_system_value))
                 else: # val is a single XuleValue
-                    if var_info['expr']['node_id'] in (val.used_expressions or set())| xule_context.used_expressions:
+                    if var_info['calculated']:
+                    #if var_info['expr']['node_id'] in (val.used_expressions or set())| xule_context.used_expressions:
                         const_value = evaluate(var_info['expr'],
                                        xule_context,
                                        override_table_id=var_ref[2]['table_id'])
-                        dep_var_index.add((var_info['name'], const_value))
+                        dep_var_index.add((var_info['name'], const_value.hashable_system_value))
 
             # if xule_context.get_processing_id(var_info['expr']['node_id']) in xule_context.used_expressions:
             #     const_value = evaluate(var_info['expr'],

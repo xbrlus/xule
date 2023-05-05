@@ -286,6 +286,24 @@ class XuleValue:
             return {n.system_value: v.system_value for n, v in self.value}
         else:
             return self.value
+        
+    @property
+    def hashable_system_value(self):
+        if self.type == 'set':
+            return frozenset({x.hashable_system_value for x in self.value})
+        elif self.type == 'list':
+            return tuple([x.hashable_system_value for x in self.value])
+        elif self.type == 'dictionary':
+            return frozenset({n.hashable_system_value: v.hashable_system_value for n, v in self.value}.items())
+        else:
+            if isinstance(self.value, list):
+                return tuple(self.value)
+            elif isinstance(self.value, set):
+                return frozenset(self.value)
+            elif isinstance(self.value, dict):
+                return frozenset(self.value.items())
+            else:
+                return self.value  
     
     def format_value(self):
             
