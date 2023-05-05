@@ -624,7 +624,7 @@ def evaluate(rule_part, xule_context, trace_dependent=False, override_table_id=N
                                 # if not xule_context.global_context.no_cache:
                                 if (rule_part.get('table_id') != xule_context.iteration_table.main_table_id or
                                         is_dependent):
-                                    local_cache_key = get_local_cache_key(rule_part, xule_context, values)
+                                    local_cache_key = get_local_cache_key(rule_part, xule_context)
                                     if local_cache_key is not None:
                                         # print("caching", rule_part['node_id'], [(x[0], x[1].format_value()[:10]) for x in local_cache_key[1]], len(values.values))
                                         xule_context.local_cache[local_cache_key] = values
@@ -727,7 +727,7 @@ def evaluate(rule_part, xule_context, trace_dependent=False, override_table_id=N
 
                 if not getattr(xule_context.global_context.options, "xule_no_cache", False):
                     if value is not None:
-                        local_cache_key = get_local_cache_key(rule_part, xule_context, value)
+                        local_cache_key = get_local_cache_key(rule_part, xule_context)
                         if local_cache_key is not None:
                             # The cache value is cloned so it is not corrupted by further processing after this point.
                             # Copy the value and copy the exisiting tags
@@ -827,7 +827,7 @@ def post_evaluate_value(rule_part, value, xule_context):
     return value
 
 
-def get_local_cache_key(rule_part, xule_context, val=None):
+def get_local_cache_key(rule_part, xule_context):
     """Get a cache key for storing a value in the cache
     
     :param rule_part: xule expression
@@ -845,45 +845,68 @@ def get_local_cache_key(rule_part, xule_context, val=None):
         # var_ref tuple: 0 = var declaration id, 1 = var name, 2 = var ref ast, 3 = var type (1=block variable or 'for' variable, 2=constant, 3=function argument, factset variable)
         var_info = xule_context.find_var(var_ref[1], var_ref[0])
         if var_info['type'] == xule_context._VAR_TYPE_CONSTANT:
-            # If it is a constant, the var_info will not contain the value. To determine if the constant is used, the used_expressions are checked.
 
-            # 2 cases - I'm here before evaluating the expression to see if it is in the cache
-            if val is None: # we are checking the cache
-                if var_info['calculated']:
-                    #const_processing_id = xule_context.get_column_id(var_ref[2]['var_declaration'])
-                    #const_value = xule_context.iteration_table.current_value(const_processing_id, xule_context)
-                    const_value = evaluate(var_info['expr'],
-                                       xule_context,
-                                       override_table_id=var_ref[2]['table_id'])
-                    if const_value is not None:
-                    # const_value = evaluate(var_info['expr'],
-                    #                    xule_context,
-                    #                    override_table_id=var_ref[2]['table_id'])
-                        dep_var_index.add((var_info['name'], const_value.hashable_system_value))
-                    else:
-                        # In this case I have a constant that the rule part is dependent on, but there is no value for, so
-                        # we cannot rely on the cache key because it is incomplete, so return None which will force
-                        # doing the evaluation.
-                        return None
-            else: # get a cache key to store into the cache
-                if isinstance(val, XuleValueSet):
-                    # collect all the used expressions from the values in the value set
-                    used_expressions = set()
-                    for values in val.values.values():
-                        for value in values:
-                            used_expressions.update(value.used_expressions or set())
-                    if var_info['expr']['node_id'] in used_expressions | xule_context.used_expressions:
-                        const_value = evaluate(var_info['expr'],
-                                       xule_context,
-                                       override_table_id=var_ref[2]['table_id'])
-                        dep_var_index.add((var_info['name'], const_value.hashable_system_value))
-                else: # val is a single XuleValue
-                    if var_info['calculated']:
-                    #if var_info['expr']['node_id'] in (val.used_expressions or set())| xule_context.used_expressions:
-                        const_value = evaluate(var_info['expr'],
-                                       xule_context,
-                                       override_table_id=var_ref[2]['table_id'])
-                        dep_var_index.add((var_info['name'], const_value.hashable_system_value))
+            if var_info['calculated']:
+                const_values = var_info['value']
+                # if the constant only have one alignment which is None and there is only one value, then thats the value, there is no
+                # other option
+                if len(const_values.values) == 1 and None in const_values.values and len(const_values.values[None]) == 1:
+                    const_value = const_values.values[None][0]                      
+                else:
+                    # Here there is more than one value for the constant, so find it on the iteration table.
+                    const_value = xule_context.iteration_table.current_value(var_ref[0], xule_context)
+                if const_value is not None:
+                    dep_var_index.add((var_info['name'], const_value.hashable_system_value))  
+
+
+            # if val is None: # we are checking the cache
+            #     if var_info['calculated']:
+            #         #const_processing_id = xule_context.get_column_id(var_ref[2]['var_declaration'])
+            #         #const_value = xule_context.iteration_table.current_value(const_processing_id, xule_context)
+            #         const_value = evaluate(var_info['expr'],
+            #                            xule_context,
+            #                            override_table_id=var_ref[2]['table_id'])
+            #         if const_value is not None:
+            #         # const_value = evaluate(var_info['expr'],
+            #         #                    xule_context,
+            #         #                    override_table_id=var_ref[2]['table_id'])
+            #             dep_var_index.add((var_info['name'], const_value.hashable_system_value))
+            #         else:
+            #             # In this case I have a constant that the rule part is dependent on, but there is no value for, so
+            #             # we cannot rely on the cache key because it is incomplete, so return None which will force
+            #             # doing the evaluation.
+            #             return None
+            # else: # get a cache key to store into the cache
+            #     if var_info['calculated']:
+            #         const_values = var_info['value']
+            #         if len(const_values.values) == 1 and None in const_values.values and len(const_values.values[None]) == 1:
+            #             const_value = const_values.values[None][0]                      
+            #         else:
+            #             const_value = xule_context.iteration_table.current_value(var_ref[0], xule_context)
+            #         if const_value is not None:
+            #             dep_var_index.add((var_info['name'], const_value.hashable_system_value))  
+
+
+
+                # if isinstance(val, XuleValueSet):
+                #     # collect all the used expressions from the values in the value set
+                #     used_expressions = set()
+                #     for values in val.values.values():
+                #         for value in values:
+                #             used_expressions.update(value.used_expressions or set())
+                #     if var_info['expr']['node_id'] in used_expressions | xule_context.used_expressions:
+                #         const_value = evaluate(var_info['expr'],
+                #                        xule_context,
+                #                        override_table_id=var_ref[2]['table_id'])
+                #         dep_var_index.add((var_info['name'], const_value.hashable_system_value))
+                # else: # val is a single XuleValue
+                #     if var_info['calculated']:
+                #     #if var_info['expr']['node_id'] in (val.used_expressions or set())| xule_context.used_expressions:
+                #         const_value = var_info['value']
+                #         # const_value = evaluate(var_info['expr'],
+                #         #                xule_context,
+                #         #                override_table_id=var_ref[2]['table_id'])
+                #         dep_var_index.add((var_info['name'], const_value.hashable_system_value))
 
             # if xule_context.get_processing_id(var_info['expr']['node_id']) in xule_context.used_expressions:
             #     const_value = evaluate(var_info['expr'],
