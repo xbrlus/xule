@@ -121,6 +121,7 @@ class XuleValue:
         self.used_expressions = None
         self.shadow_collection = shadow_collection
         self.tag = tag if tag is not None else self
+        self._hashable_system_value = None
         
         if self.type in ('list', 'set') and self.shadow_collection is None:
             shadow = [x.shadow_collection if x.type in ('set', 'list', 'dictionary') else x.value for x in self.value]
@@ -289,21 +290,23 @@ class XuleValue:
         
     @property
     def hashable_system_value(self):
-        if self.type == 'set':
-            return frozenset({x.hashable_system_value for x in self.value})
-        elif self.type == 'list':
-            return tuple([x.hashable_system_value for x in self.value])
-        elif self.type == 'dictionary':
-            return frozenset({n.hashable_system_value: v.hashable_system_value for n, v in self.value}.items())
-        else:
-            if isinstance(self.value, list):
-                return tuple(self.value)
-            elif isinstance(self.value, set):
-                return frozenset(self.value)
-            elif isinstance(self.value, dict):
-                return frozenset(self.value.items())
+        if self._hashable_system_value is None:
+            if self.type == 'set':
+                self._hashable_system_value = frozenset({x.hashable_system_value for x in self.value})
+            elif self.type == 'list':
+                self._hashable_system_value = tuple([x.hashable_system_value for x in self.value])
+            elif self.type == 'dictionary':
+                self._hashable_system_value = frozenset({n.hashable_system_value: v.hashable_system_value for n, v in self.value}.items())
             else:
-                return self.value  
+                if isinstance(self.value, list):
+                    self._hashable_system_value = tuple(self.value)
+                elif isinstance(self.value, set):
+                    self._hashable_system_value = frozenset(self.value)
+                elif isinstance(self.value, dict):
+                    self._hashable_system_value = frozenset(self.value.items())
+                else:
+                    self._hashable_system_value = self.value  
+        return self._hashable_system_value
     
     def format_value(self):
             
