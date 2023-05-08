@@ -682,20 +682,21 @@ class XuleRuleSetBuilder(xr.XuleRuleSet):
             elif current_part == 'filter':
                 if 'whereExpr' in parse_node or 'returnsExpr' in parse_node:
                     parse_node['var_refs'] = [x for x in parse_node['var_refs'] if x[0] != parse_node['expr']['node_id']]
+
                 #self.assign_table_id(parse_node, var_defs, skip=parse_node['expr'])
 
-                # colleciton_dependent_vars = self.get_dependent_vars(parse_node['expr'], var_defs)
-                # collection_iterables = parse_node['expr']['downstream_iterables'] + self.get_dependent_var_iterables(parse_node['expr'], colleciton_dependent_vars, var_defs)
+                colleciton_dependent_vars = self.get_dependent_vars(parse_node['expr'], var_defs)
+                collection_iterables = parse_node['expr']['downstream_iterables'] + self.get_dependent_var_iterables(parse_node['expr'], colleciton_dependent_vars, var_defs)
         
                 # collection_iterables = parse_node['expr']['dependent_iterables']
 
-                # if 'whereExpr' in parse_node:
-                #     for iterable_expr in parse_node['whereExpr']['downstream_iterables']:
-                #         iterable_expr['dependent_iterables'].extend(collection_iterables)
+                if 'whereExpr' in parse_node:
+                    for iterable_expr in parse_node['whereExpr']['downstream_iterables']:
+                        iterable_expr['dependent_iterables'].extend(collection_iterables)
                 #     #parse_node['whereExpr']['dependent_iterables'].extend(collection_iterables)
-                # if 'returnsExpr' in parse_node:
-                #     for iterable_expr in parse_node['returnsExpr']['downstream_iterables']:
-                #         iterable_expr['dependent_iterables'].extend(collection_iterables)
+                if 'returnsExpr' in parse_node:
+                    for iterable_expr in parse_node['returnsExpr']['downstream_iterables']:
+                        iterable_expr['dependent_iterables'].extend(collection_iterables)
                 #     #parse_node['returnsExpr']['dependent_iterables'].extend(collection_iterables)
 
             elif current_part == 'forExpr':

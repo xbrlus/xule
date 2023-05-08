@@ -4284,7 +4284,7 @@ def isolated_evaluation(xule_context, node_id, expr, setup_function=None, cleanu
             return_value.tags = xule_context.tags.copy()
             return_value.aligned_result_only = xule_context.aligned_result_only
             return_value.used_expressions = xule_context.used_expressions
-            return_value.alignment = xule_context.iteration_table.current_table.current_alignment
+            return_value.alignment = return_value.alignment or xule_context.iteration_table.current_table.current_alignment
             # return_value.alignment = isolated_table.current_alignment
             return_values.append(return_value)
 
@@ -4350,7 +4350,8 @@ def evaluate_aggregate_function(function_ref, function_info, xule_context):
     # Go through each alignment and apply the aggregation function
     agg_values = XuleValueSet()
     # add default value if there are no None aligned results and the aggregation has a default value.
-    if None not in values_by_alignment and function_info[FUNCTION_DEFAULT_VALUE] is not None:
+    # if None not in values_by_alignment and function_info[FUNCTION_DEFAULT_VALUE] is not None:
+    if len(values_by_alignment) == 0:
         agg_values.append(
             XuleValue(xule_context, function_info[FUNCTION_DEFAULT_VALUE], function_info[FUNCTION_DEFAULT_TYPE]))
 
