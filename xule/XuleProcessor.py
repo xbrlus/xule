@@ -4317,11 +4317,7 @@ def evaluate_aggregate_function(function_ref, function_info, xule_context):
     # Evaluate each argument
     values_by_argument = list()
     for function_arg in function_ref['functionArgs']:
-        arg_value = isolated_evaluation(xule_context, function_ref['node_id'], function_arg)
-        if len(arg_value.values) == 0:
-            x = 1
-        else:
-            values_by_argument.append(arg_value)
+        values_by_argument.append(isolated_evaluation(xule_context, function_ref['node_id'], function_arg))
 
     # Combine the value sets created from each argument
     # Get all alignments
