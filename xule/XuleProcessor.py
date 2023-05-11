@@ -4317,7 +4317,11 @@ def evaluate_aggregate_function(function_ref, function_info, xule_context):
     # Evaluate each argument
     values_by_argument = list()
     for function_arg in function_ref['functionArgs']:
-        values_by_argument.append(isolated_evaluation(xule_context, function_ref['node_id'], function_arg))
+        arg_value = isolated_evaluation(xule_context, function_ref['node_id'], function_arg)
+        if len(arg_value.values) == 0:
+            x = 1
+        else:
+            values_by_argument.append(arg_value)
 
     # Combine the value sets created from each argument
     # Get all alignments
@@ -4331,6 +4335,7 @@ def evaluate_aggregate_function(function_ref, function_info, xule_context):
     # The aligned_result_only and used_expressions need to be aggregated
     aligned_result_only_by_alignment = collections.defaultdict(lambda: False)
     used_expressions_by_alignment = collections.defaultdict(set)
+    unbound_by_alignment = collections.defaultdict(lambda: False)
 
     for alignment in all_alignments:
         values_by_alignment[alignment] = list()
@@ -4341,11 +4346,18 @@ def evaluate_aggregate_function(function_ref, function_info, xule_context):
                 # This will match none aligned values to aligned values (i.e. 1 and @Assets)
                 arg_alignment = None
 
-            for arg_value in arg_value_set.values[arg_alignment]:
-                if arg_value.type != 'unbound':
-                    values_by_alignment[alignment].append(arg_value)
-                aligned_result_only_by_alignment[alignment] = aligned_result_only_by_alignment[alignment] or arg_value.aligned_result_only
-                used_expressions_by_alignment[alignment].update((arg_value.used_expressions))
+            if arg_alignment in arg_value_set.values:
+                for arg_value in arg_value_set.values[arg_alignment]:
+                    if arg_value.type == 'unbound':
+                        unbound_by_alignment[alignment] = True
+                    else:
+                        values_by_alignment[alignment].append(arg_value)
+                    aligned_result_only_by_alignment[alignment] = aligned_result_only_by_alignment[alignment] or arg_value.aligned_result_only
+                    used_expressions_by_alignment[alignment].update((arg_value.used_expressions))
+            else:
+                # The argument does not have this alignment. If we are in the None alignment, treat it as if the value is unbound.
+                if alignment is None:
+                    unbound_by_alignment[alignment] = True
 
     # Go through each alignment and apply the aggregation function
     agg_values = XuleValueSet()
@@ -4356,7 +4368,9 @@ def evaluate_aggregate_function(function_ref, function_info, xule_context):
         agg_values.append(XuleValue(xule_context, function_info[FUNCTION_DEFAULT_VALUE], function_info[FUNCTION_DEFAULT_TYPE]))
 
     for alignment in values_by_alignment:
-        if len(values_by_alignment[alignment]) > 0:
+        if unbound_by_alignment[alignment]:
+            agg_value = XuleValue(xule_context, None, 'unbound')
+        elif len(values_by_alignment[alignment]) > 0:
             agg_value = function_info[FUNCTION_EVALUATOR](xule_context, values_by_alignment[alignment])
         else:
             # Add the default value if there is one
@@ -4375,13 +4389,12 @@ def evaluate_aggregate_function(function_ref, function_info, xule_context):
             #if (aligned_result_only_by_alignment[alignment] and 
             #    alignment is None ):
             #    agg_value = XuleValue(xule_context, None, 'unbound')
-
             agg_value.alignment = alignment
             agg_value.aligned_result_only = aligned_result_only_by_alignment[alignment]
             # print("agg", function_ref['exprName'], function_ref['node_id'], len(xule_context.used_expressions), len(used_expressions))
             agg_value.used_expressions = used_expressions_by_alignment[alignment]
             agg_values.append(agg_value)
-        
+    
     return agg_values
 
 
