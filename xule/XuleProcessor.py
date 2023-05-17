@@ -4348,7 +4348,7 @@ def evaluate_aggregate_function(function_ref, function_info, xule_context):
                         if xule_context.global_context.options.xule_no_for_hack:
                             unbound_by_alignment[alignment] = True
                         else:
-                            # where are in the for hack
+                            # we are in the for hack
                             if function_ref['functionArgs'][arg_number]['exprName'] == 'forExpr':
                                 pass # we do not recognize the unbound value
                             else:
