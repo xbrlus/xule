@@ -4335,7 +4335,7 @@ def evaluate_aggregate_function(function_ref, function_info, xule_context):
 
     for alignment in all_alignments:
         values_by_alignment[alignment] = list()
-        for arg_value_set in values_by_argument:
+        for arg_number, arg_value_set in enumerate(values_by_argument):
             if alignment in arg_value_set:
                 arg_alignment = alignment
             else:
@@ -4345,7 +4345,14 @@ def evaluate_aggregate_function(function_ref, function_info, xule_context):
             if arg_alignment in arg_value_set.values:
                 for arg_value in arg_value_set.values[arg_alignment]:
                     if arg_value.type == 'unbound':
-                        unbound_by_alignment[alignment] = True
+                        if xule_context.global_context.options.xule_no_for_hack:
+                            unbound_by_alignment[alignment] = True
+                        else:
+                            # where are in the for hack
+                            if function_ref['functionArgs'][arg_number]['exprName'] == 'forExpr':
+                                pass # we do not recognize the unbound value
+                            else:
+                                unbound_by_alignment[alignment] = True
                     else:
                         values_by_alignment[alignment].append(arg_value)
                     aligned_result_only_by_alignment[alignment] = aligned_result_only_by_alignment[alignment] or arg_value.aligned_result_only
