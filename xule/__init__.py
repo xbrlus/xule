@@ -591,22 +591,6 @@ def xuleCmdOptions(parser):
                         action="store_true",
                         dest="xule_no_cache",
                         help=_("Turns off local caching for a rule."))
-
-    parserGroup.add_option("--xule-no-for-hack",
-                        action="store_true",
-                        default=False,
-                        help=_("The no-for-hack is a change to how a for loop in an aggregation function (list, set, dict) will work with unbound or skip values. "
-                               "With the hack, which is the default, if there is an unbound or skip value in the collection of values or an alignment, "
-                               "if will cause the iteration to be skipped. This can happen when filtering a list with using a for:\n"
-                               "     list(for $x in list(1,2,3, none) if $x == none skip else $x)\n"
-                               "This looks like is should produce a list of 1,2,3, however, this will instead produce no result because the skip "
-                               "is aggregated witht he 1,2,3 and then the whole aggregated iteration is skipped. Instead a filter should be used:\n"
-                               "     filter list(1,2,3,none) where $item != none\n"
-                               "This will produced the expected result of a list of 1,2,3 (without the none)\n"
-                               "To produce the list using the for loop inside the aggregation a hack was added to the code to handle this "
-                               "specific case. The hack is on by default. This option will turn off the hack to work in the correct way. "
-                               "THE HACK IS INTENDED TO BE TEMPORARY. THE DEFAULT MAY BE CHANGED TO RUN WITHOUT THE HACK. To future proof "
-                               "your rules, use filters instead of for loops inside aggregation when that is what is intended."))
     
     parserGroup.add_option("--xule-precalc-constants",
                         action="store_true",

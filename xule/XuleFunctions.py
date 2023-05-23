@@ -396,8 +396,8 @@ def agg_dict(xule_context, values):
             raise XuleProcessingError(_("Arguments for the dict() function must be lists of key/value pairs, found %s" % current_value.type),
                                       xule_context)
         if len(current_value.value) != 2:
-            # continue
-            raise XuleProcessingError(_("Arguments for the dict() function must be lists of length 2 (key/value pair). Found list of length %i" % len(current_value.value)))
+            continue
+            # raise XuleProcessingError(_("Arguments for the dict() function must be lists of length 2 (key/value pair). Found list of length %i" % len(current_value.value)))
     
         key = current_value.value[0]
         if key.type == 'dictionary':
