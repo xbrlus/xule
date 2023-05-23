@@ -4365,11 +4365,6 @@ def evaluate_aggregate_function(function_ref, function_info, xule_context):
     # Go through each alignment and apply the aggregation function
     agg_values = XuleValueSet()
 
-    # add default value if there are no None aligned results and the aggregation has a default value.
-    # if None not in values_by_alignment and function_info[FUNCTION_DEFAULT_VALUE] is not None:
-    if len(values_by_alignment) == 0:
-        agg_values.append(XuleValue(xule_context, function_info[FUNCTION_DEFAULT_VALUE], function_info[FUNCTION_DEFAULT_TYPE]))
-
     for alignment in values_by_alignment:
         if unbound_by_alignment[alignment]:
             agg_value = XuleValue(xule_context, None, 'unbound')
@@ -4397,6 +4392,12 @@ def evaluate_aggregate_function(function_ref, function_info, xule_context):
             # print("agg", function_ref['exprName'], function_ref['node_id'], len(xule_context.used_expressions), len(used_expressions))
             agg_value.used_expressions = used_expressions_by_alignment[alignment]
             agg_values.append(agg_value)
+    
+    # add default value if there are no None aligned results and the aggregation has a default value.
+    if None not in values_by_alignment and function_info[FUNCTION_DEFAULT_VALUE] is not None:
+    # if len(values_by_alignment) == 0:
+        agg_value = XuleValue(xule_context, function_info[FUNCTION_DEFAULT_VALUE], function_info[FUNCTION_DEFAULT_TYPE])
+        agg_values.append(agg_value)
     
     return agg_values
 
