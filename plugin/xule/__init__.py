@@ -21,7 +21,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23373 $
+$Change: 23499 $
 DOCSKIP
 """
 from .XuleProcessor import process_xule
@@ -629,9 +629,16 @@ def xuleCmdOptions(parser):
     
     parserGroup.add_option("--xule-reset-rule-set-map",
                             action="store_true",
-                            dest=("xule_reset_rule_set_map"),
+                            dest="xule_reset_rule_set_map",
                             help=_("Reset the rule set map to the default."))
     
+    parserGroup.add_option("--xule-max-excel-files",
+                           action="store",
+                           type="int",
+                           default=5,
+                           dest="xule_max_excel_files",
+                           help=_("The maximun number of excel files that can open at the same time. The default is 5."))
+
     if xv is not None: # The XuleValidate module is imported
         parserGroup.add_option("--xule-validate",
                                action="store_true",
@@ -688,6 +695,9 @@ def xuleCmdUtilityRun(cntlr, options, **kwargs):
 
     if getattr(options, 'xule_filing_list', None) is not None and getattr(options, 'entrypointFile', None) is not None:
         parser.error(_("--xule-filing-list cannot be used with -f"))
+
+    if getattr(options, 'xule_max_excel_files') < 1:
+        parser.error(_("--xule-max-excel-files must be greater than 0, found {}".format(getattr(options, 'xule_max_excel_files'))))
 
     # compile rules
     if getattr(options, "xule_compile", None):

@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23465 $
+$Change: 23509 $
 DOCSKIP
 """
 from .XuleRunTime import XuleProcessingError
@@ -30,6 +30,7 @@ from arelle.ModelRelationshipSet import ModelRelationshipSet
 from arelle.ModelDtsObject import ModelRelationship
 from arelle.ValidateXbrlDimensions import loadDimensionDefaults
 from arelle.Validate import validate
+from lxml import etree
 import datetime
 import decimal
 from aniso8601.__init__ import parse_duration, parse_datetime, parse_date
@@ -47,6 +48,14 @@ NETWORK_ARCROLE = 0
 NETWORK_ROLE = 1
 NETWORK_LINK = 2
 NETWORK_ARC = 3
+
+#Footnote tuple
+FOOTNOTE_ARCROLE = 0
+FOOTNOTE_ROLE = 1
+FOOTNOTE_LANGUAGE = 2
+FOOTNOTE_TYPE = 3
+FOOTNOTE_CONTENT = 4
+FOOTNOTE_FACT = 5
 
 class SpecialItemTypes(Enum):
     ENUM_ITEM_TYPE = '{http://xbrl.org/2020/extensible-enumerations-2.0}enumerationItemType'
@@ -229,7 +238,7 @@ class XuleValue:
                 for enum in orig_value.xValue:
                     enum_value_type, enum_compute_value = model_to_xule_type(xule_context, enum)
                     enum_set.add(XuleValue(xule_context, enum_compute_value, enum_value_type))
-                return 'set', enum_set, orig_value
+                return 'set', frozenset(enum_set), orig_value
             elif self._special_type_in_ancestry(xule_context, SpecialItemTypes.ENUM_ITEM_TYPE, orig_value.concept.type):
                 # This should be a single qname, but Arelle puts it in a list
                 if isinstance(orig_value.xValue, list):
@@ -309,7 +318,7 @@ class XuleValue:
 #                                                  " * ".join([x.localName for x in self.value[1]]))
 #             return unit_string
         elif self.type == 'entity':
-            return '{}={}'.format(self.value[0].value, self.value[1].value)
+            return '{}={}'.format(self.value[0], self.value[1])
         elif self.type == 'duration':
             if self.value[0] == datetime.datetime.min and self.value[1] == datetime.datetime.max:
                 return "forever"
@@ -395,6 +404,20 @@ class XuleValue:
             role_string = getattr(self.value, 'roleURI', None) or getattr(self.value, 'arcroleURI', None)
             role_string += ' - ' + self.value.definition
             return role_string
+        elif self.type == 'footnote':
+            footnote_string = f'arcrole: {self.value[FOOTNOTE_ARCROLE]}\nrole: {self.value[FOOTNOTE_ROLE]}\n'
+            if self.value[FOOTNOTE_LANGUAGE] is not None:
+                footnote_string += f'lang: {self.value[FOOTNOTE_LANGUAGE]}\n'
+            
+            if self.value[FOOTNOTE_TYPE] == 'fact':
+                footnote_string +=  self.value[FOOTNOTE_CONTENT].textValue
+            else:
+                footnote_resource = self.value[FOOTNOTE_CONTENT]
+                footnote_text = footnote_resource.text or ''
+                for child in footnote_resource.getchildren():
+                    footnote_text += etree.tostring(child).decode()    
+                footnote_string += footnote_text
+            return footnote_string
         else:
             return str(self.value)
 
