@@ -475,6 +475,8 @@ export const wellKnownFunctions: { [name: string]: FunctionInfo } = {
     "abs": new FunctionInfo(1),
     "alignment": new FunctionInfo(0),
     "all": new FunctionInfo(1),
+    "all-labels": new FunctionInfo({ min: 1, max: 3 }),
+    "all-references": new FunctionInfo({ min: 1, max: 2 }),
     "any": new FunctionInfo(1),
     "arcrole": new FunctionInfo(1),
     "arcrole-description": new FunctionInfo(1),
@@ -576,6 +578,8 @@ export const wellKnownFunctions: { [name: string]: FunctionInfo } = {
 export const wellKnownProperties: { [name: string]: PropertyInfo } = {
     "abs": new PropertyInfo(0),
     "all": new PropertyInfo(0),
+    "all-labels": new PropertyInfo({ min: 0, max: 2 }),
+    "all-references": new PropertyInfo({ min: 0, max: 1 }),
     "any": new PropertyInfo(0),
     "arc-name": new PropertyInfo(0),
     "arcrole": new PropertyInfo(0),
