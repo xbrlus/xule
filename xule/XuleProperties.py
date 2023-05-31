@@ -1224,9 +1224,11 @@ def property_order(xule_context, object_value, *args):
         return xv.XuleValue(xule_context, None, 'none')
 
 def property_concepts(xule_context, object_value, *args):
-     
+
     if object_value.type == 'taxonomy':
-        concepts = set(xv.XuleValue(xule_context, x, 'concept') for x in object_value.value.qnameConcepts.values() if x.isItem or x.isTuple)
+        concepts = set(xv.XuleValue(xule_context, x, 'concept') for x in object_value.value.qnameConcepts.values() 
+                       if (x.isItem or x.isTuple) and
+                           x.qname.clarkNotation not in ('{http://www.xbrl.org/2003/instance}tuple', '{http://www.xbrl.org/2003/instance}item'))
     elif object_value.type == 'network':
         concepts = set(xv.XuleValue(xule_context, x, 'concept') for x in (object_value.value[1].fromModelObjects().keys()) | frozenset(object_value.value[1].toModelObjects().keys()))
     else:
@@ -2539,3 +2541,13 @@ ORDERED_REFERENCE_ROLE = ['http://www.xbrl.org/2003/role/reference',
                         'http://www.xbrl.org/2003/role/measurementRef',
                         'http://www.xbrl.org/2003/role/commentaryRef',
                         'http://www.xbrl.org/2003/role/exampleRef']
+
+def add_property(property_name, property_function, num_of_args, objects, allow_unbound=False):
+    if property_name in PROPERTIES:
+        raise XuleProcessingError(_("Cannot add property .{} to xule, it already exists".format(property_name)))
+    else:
+        if not isinstance(objects, (list, set, tuple)):
+            raise XuleProcessingError(_('The list of objects supplied to add_property() function must be a list, set or tuple. Found {}'.format(type(objects).__name__)))
+        if any(tuple(type(x) != str for x in objects)):
+            raise XuleProcessingError(_('The items in the list of objects for the add_property() function must be strings. Found something that is not a string'))
+        PROPERTIES[property_name] = (property_function, num_of_args, objects, allow_unbound)
