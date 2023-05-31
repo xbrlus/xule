@@ -22,7 +22,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23446 $
+$Change: 23555 $
 DOCSKIP
 """
 from .XuleRunTime import XuleProcessingError
@@ -1070,7 +1070,7 @@ class XuleIterationTable:
         return table_processing_id not in self._ordered_tables or self._ordered_tables[table_processing_id].is_empty
 
     def to_csv(self):
-        table_strings = [self.xule_context.rule_name]
+        table_strings = [self.xule_context.rule_name or "NONE"]
         if not self.is_empty:
             print("Columns: " + (" | ".join([str((str(t.processing_id), k)) for k, t in self._columns.items()])))
             for table_id, table in self._ordered_tables.items():

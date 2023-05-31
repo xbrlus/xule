@@ -21,7 +21,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23443 $
+$Change: 23570 $
 DOCSKIP
 """
 from .XuleContext import XuleGlobalContext, XuleRuleContext  # XuleContext
@@ -29,7 +29,7 @@ from .XuleFunctions import func_alignment
 from .XuleRunTime import XuleProcessingError, XuleIterationStop, XuleException, XuleBuildTableError, XuleReEvaluate
 from .XuleValue import *
 from . import XuleConstants as xc
-from . import XuleModelInexer as xmi
+from . import XuleModelIndexer as xmi
 from . import XuleUtility
 import itertools as it
 from arelle.ModelValue import QName, dayTimeDuration, DateTime, gYear, gMonthDay, gYearMonth, qname
@@ -582,6 +582,10 @@ def evaluate(rule_part, xule_context, trace_dependent=False, override_table_id=N
             trace += rule_part_name + " " + str(processing_id)  # + " " + str(rule_part)
             print(">", trace_is_dependent, " ", processing_id, trace.replace("\n", " "))
 
+        has_key = False
+
+
+
         if ('is_iterable' in rule_part):
             # is_iterable is always true if it is present, so don't need to check the actual value
             xule_context.used_expressions.add(processing_id)
@@ -604,10 +608,16 @@ def evaluate(rule_part, xule_context, trace_dependent=False, override_table_id=N
                                     is_dependent):
                                 local_cache_key = get_local_cache_key(rule_part, xule_context)
                                 if local_cache_key is not None:
+                                    
+                                    has_key = True
+                                    
                                     values = xule_context.local_cache.get(local_cache_key)
                                 else:
                                     values = None
                         if values is None:
+                            # if has_key:
+                            #     print("Not I", rule_part['node_id'],rule_part['exprName'])
+
                             values = EVALUATOR[rule_part_name](rule_part, xule_context)
                             trace_source = "E"
                             if not getattr(xule_context.global_context.options, "xule_no_cache", False):
@@ -619,6 +629,9 @@ def evaluate(rule_part, xule_context, trace_dependent=False, override_table_id=N
                                         # print("caching", rule_part['node_id'], [(x[0], x[1].format_value()[:10]) for x in local_cache_key[1]], len(values.values))
                                         xule_context.local_cache[local_cache_key] = values
                         else:
+                            # if has_key:
+                            #     print("Found I", rule_part['node_id'], rule_part['exprName'])
+
                             # print("using cache", rule_part['node_id'], [x[0] for x in local_cache_key[1]])
                             trace_source = "c"
                     except XuleIterationStop:
@@ -673,6 +686,9 @@ def evaluate(rule_part, xule_context, trace_dependent=False, override_table_id=N
             if local_cache_key is None:
                 value = None
             else:
+
+                has_key = True
+
                 cache_value = xule_context.local_cache.get(local_cache_key)
                 value = cache_value.clone() if cache_value is not None else None
                 # The tags on the value may not apply to this iteration.  For exmaple, if the expression is not dependent, then it will
@@ -681,7 +697,15 @@ def evaluate(rule_part, xule_context, trace_dependent=False, override_table_id=N
                     new_tags = value.tags.copy()
                     new_tags.update(xule_context.tags)
                     value.tags = new_tags
+
+            # if value is not None and has_key:
+            #     print("Found N", rule_part['node_id'], rule_part['exprName'])
+
             if value is None:
+
+                # if has_key:
+                #     print("Not N", rule_part['node_id'], rule_part['exprName'])
+
                 try:
                     value = EVALUATOR[rule_part_name](rule_part, xule_context)
                 except XuleIterationStop:
@@ -702,9 +726,17 @@ def evaluate(rule_part, xule_context, trace_dependent=False, override_table_id=N
                     raise
 
                 if not getattr(xule_context.global_context.options, "xule_no_cache", False):
-                    if local_cache_key is not None:
-                        # The cache value is cloned so it is not corrupted by further processing after this point.
-                        xule_context.local_cache[local_cache_key] = value.clone() if value is not None else value
+                    if value is not None:
+                        local_cache_key = get_local_cache_key(rule_part, xule_context)
+                        if local_cache_key is not None:
+                            # The cache value is cloned so it is not corrupted by further processing after this point.
+                            # Copy the value and copy the exisiting tags
+                            cache_value = value.clone()
+                            cache_value.tags = copy.copy(xule_context.tags)
+                            cache_value.facts = copy.copy(xule_context.facts)
+                            #cache_value.aligned_result_only = xule_context.aligned_result_only
+                            #cache_value.used_expressions = copy.copy(xule_context.used_expressions)
+                            xule_context.local_cache[local_cache_key] = cache_value
 
         # If the look_for_alignment flag is set, check if there is now alignment after adding the column. This is used in 'where' clause processing.
         if (xule_context.look_for_alignment and
@@ -813,12 +845,75 @@ def get_local_cache_key(rule_part, xule_context):
         # var_ref tuple: 0 = var declaration id, 1 = var name, 2 = var ref ast, 3 = var type (1=block variable or 'for' variable, 2=constant, 3=function argument, factset variable)
         var_info = xule_context.find_var(var_ref[1], var_ref[0])
         if var_info['type'] == xule_context._VAR_TYPE_CONSTANT:
-            # If it is a constant, the var_info will not contain the value. To determine if the constant is used, the used_expressions are checked.
-            if xule_context.get_processing_id(var_info['expr']['node_id']) in xule_context.used_expressions:
-                const_value = evaluate(var_info['expr'],
-                                       xule_context,
-                                       override_table_id=var_ref[2]['table_id'])
-                dep_var_index.add((var_info['name'], const_value))
+
+            if var_info['calculated']:
+                const_values = var_info['value']
+                # if the constant only have one alignment which is None and there is only one value, then thats the value, there is no
+                # other option
+                if len(const_values.values) == 1 and None in const_values.values and len(const_values.values[None]) == 1:
+                    const_value = const_values.values[None][0]                      
+                else:
+                    # Here there is more than one value for the constant, so find it on the iteration table.
+                    const_value = xule_context.iteration_table.current_value(var_ref[0], xule_context)
+                if const_value is not None:
+                    dep_var_index.add((var_info['name'], const_value.hashable_system_value))  
+
+
+            # if val is None: # we are checking the cache
+            #     if var_info['calculated']:
+            #         #const_processing_id = xule_context.get_column_id(var_ref[2]['var_declaration'])
+            #         #const_value = xule_context.iteration_table.current_value(const_processing_id, xule_context)
+            #         const_value = evaluate(var_info['expr'],
+            #                            xule_context,
+            #                            override_table_id=var_ref[2]['table_id'])
+            #         if const_value is not None:
+            #         # const_value = evaluate(var_info['expr'],
+            #         #                    xule_context,
+            #         #                    override_table_id=var_ref[2]['table_id'])
+            #             dep_var_index.add((var_info['name'], const_value.hashable_system_value))
+            #         else:
+            #             # In this case I have a constant that the rule part is dependent on, but there is no value for, so
+            #             # we cannot rely on the cache key because it is incomplete, so return None which will force
+            #             # doing the evaluation.
+            #             return None
+            # else: # get a cache key to store into the cache
+            #     if var_info['calculated']:
+            #         const_values = var_info['value']
+            #         if len(const_values.values) == 1 and None in const_values.values and len(const_values.values[None]) == 1:
+            #             const_value = const_values.values[None][0]                      
+            #         else:
+            #             const_value = xule_context.iteration_table.current_value(var_ref[0], xule_context)
+            #         if const_value is not None:
+            #             dep_var_index.add((var_info['name'], const_value.hashable_system_value))  
+
+
+
+                # if isinstance(val, XuleValueSet):
+                #     # collect all the used expressions from the values in the value set
+                #     used_expressions = set()
+                #     for values in val.values.values():
+                #         for value in values:
+                #             used_expressions.update(value.used_expressions or set())
+                #     if var_info['expr']['node_id'] in used_expressions | xule_context.used_expressions:
+                #         const_value = evaluate(var_info['expr'],
+                #                        xule_context,
+                #                        override_table_id=var_ref[2]['table_id'])
+                #         dep_var_index.add((var_info['name'], const_value.hashable_system_value))
+                # else: # val is a single XuleValue
+                #     if var_info['calculated']:
+                #     #if var_info['expr']['node_id'] in (val.used_expressions or set())| xule_context.used_expressions:
+                #         const_value = var_info['value']
+                #         # const_value = evaluate(var_info['expr'],
+                #         #                xule_context,
+                #         #                override_table_id=var_ref[2]['table_id'])
+                #         dep_var_index.add((var_info['name'], const_value.hashable_system_value))
+
+            # if xule_context.get_processing_id(var_info['expr']['node_id']) in xule_context.used_expressions:
+            #     const_value = evaluate(var_info['expr'],
+            #                            xule_context,
+            #                            override_table_id=var_ref[2]['table_id'])
+            #     dep_var_index.add((var_info['name'], const_value))
+
         else:
             if var_ref[0] in xule_context.vars:
                 if var_info['calculated']:
@@ -2480,10 +2575,10 @@ def factset_pre_match(factset, filters, non_aligned_filters, align_aspects, mode
                         index_key[ASPECT], filter_member.type)), xule_context)
 
                     # fix for aspects that take qname members (concept and explicit dimensions. The member can be a concept or a qname. The index is by qname.
-                    if index_key in (('builtin', 'concept'), ('property', 'cube', 'name')) or index_key[TYPE] == 'explicitDimension':
+                    if index_key in (('builtin', 'concept'), ('property', 'cube', 'name')):
                         if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
                             member_values = convert_value_to_qname(filter_member,model, xule_context)
-                        else:
+                        else: # in operator
                             member_values = set()
                             for filter_val in filter_member.value:
                                 for x in convert_value_to_qname(filter_val, model, xule_context):
@@ -2495,6 +2590,26 @@ def factset_pre_match(factset, filters, non_aligned_filters, align_aspects, mode
                     #         member_values = {convert_value_to_qname(x, model, xule_context) if x.type == 'concept' else x.value for x
                     #                         in filter_member.value}
                     # Also fix for period aspect
+                    elif index_key[TYPE] == 'explicit_dimension':
+                        # Get the dimension concept to see if it is explicit or typed.
+                        model_dimension = model.qnameConcepts.get(aspect_info[ASPECT])
+                        if model_dimension is None:
+                                raise XuleProcessingError(_(f"Cannot find dimension concept for {aspect_info[ASPECT].clarkNotation} while processing a factset"), xule_context)
+                        if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
+                            if model_dimension.isExplicitDimension:
+                                member_values = convert_value_to_qname(filter_member, model, xule_context)
+                            else:
+                                # This is a typed dimension
+                                member_values = {filter_member.value,}
+                        else: # in or not in operator
+                            if model_dimension.isExplicitDimension:
+                                member_values = set()
+                                for filter_val in filter_member.value:
+                                    for x in convert_value_to_qname(filter_val, model, xule_context):
+                                        member_values.add(x)
+                            else: # Typed dimension
+                                member_values = {x.value for x in filter_member.value}
+                            
                     elif index_key == ('builtin', 'period'):
                         if aspect_info[ASPECT_OPERATOR] in ('=', '!='):
                             member_values = {convert_value_to_model_period(filter_member, xule_context), }
@@ -2813,7 +2928,7 @@ def process_filtered_facts(factset, pre_matched_facts, current_no_alignment, non
                         else:
                             # This is a typed dimension
                             member = XuleValue(xule_context, model_dimension.typedMember.xValue,
-                                               model_to_xule_type(xule_context, model_dimension.typedMember.xValue))
+                                               model_to_xule_type(xule_context, model_dimension.typedMember.xValue)[0])
 
                     xule_context.add_arg(var_name,
                                          declaration_id,
@@ -4169,7 +4284,7 @@ def isolated_evaluation(xule_context, node_id, expr, setup_function=None, cleanu
             return_value.tags = xule_context.tags.copy()
             return_value.aligned_result_only = xule_context.aligned_result_only
             return_value.used_expressions = xule_context.used_expressions
-            return_value.alignment = xule_context.iteration_table.current_table.current_alignment
+            return_value.alignment = return_value.alignment or xule_context.iteration_table.current_table.current_alignment
             # return_value.alignment = isolated_table.current_alignment
             return_values.append(return_value)
 
@@ -4234,10 +4349,11 @@ def evaluate_aggregate_function(function_ref, function_info, xule_context):
 
     # Go through each alignment and apply the aggregation function
     agg_values = XuleValueSet()
+
     # add default value if there are no None aligned results and the aggregation has a default value.
-    if None not in values_by_alignment and function_info[FUNCTION_DEFAULT_VALUE] is not None:
-        agg_values.append(
-            XuleValue(xule_context, function_info[FUNCTION_DEFAULT_VALUE], function_info[FUNCTION_DEFAULT_TYPE]))
+    # if None not in values_by_alignment and function_info[FUNCTION_DEFAULT_VALUE] is not None:
+    if len(values_by_alignment) == 0:
+        agg_values.append(XuleValue(xule_context, function_info[FUNCTION_DEFAULT_VALUE], function_info[FUNCTION_DEFAULT_TYPE]))
 
     for alignment in values_by_alignment:
         if len(values_by_alignment[alignment]) > 0:
@@ -4265,7 +4381,7 @@ def evaluate_aggregate_function(function_ref, function_info, xule_context):
             # print("agg", function_ref['exprName'], function_ref['node_id'], len(xule_context.used_expressions), len(used_expressions))
             agg_value.used_expressions = used_expressions_by_alignment[alignment]
             agg_values.append(agg_value)
-
+        
     return agg_values
 
 
@@ -4785,7 +4901,7 @@ def convert_value_to_qname(value, model, xule_context):
                 return_values.add(model_concept.qname)
         return return_values
     elif value.type in ('unbound', 'none'):
-        return None
+        return {None}
     else:
         raise XuleProcessingError(
             _("The value for a line item or dimension must be a qname or concept, found '%s'." % value.type),
@@ -4904,7 +5020,7 @@ def alignment_to_aspect_info(alignment, xule_context):
             else:
                 raise XuleProcessingError(_("Unknown built in aspect '%s'" % align_key[1]), xule_context)
         elif align_key[0] == 'explicit_dimension':
-            aspect_value = XuleValue(xule_context, align_value, model_to_xule_type(xule_context, align_value))
+            aspect_value = XuleValue(xule_context, align_value, model_to_xule_type(xule_context, align_value)[0])
 
         else:
             raise XuleProcessingError(_("Unknown aspect type '%s'" % align_key[0]), xule_context)

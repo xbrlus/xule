@@ -5,7 +5,9 @@
 An open-source XBRL processor for business rules, rendering and custom data reporting. See https://xbrl.us/xule for documentation and https://xbrl.us/xule-editor for a VS Code syntax highlighter.
 
 Interactive Example - Running XULE in Arelle
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/xbrlus/xule/main?filepath=sample.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/xbrlus/xule/jupyter?filepath=sample.ipynb)
+[![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/xbrlus/xule/blob/jupyter/sample-colab.ipynb)
+[Learn about using XULE and XBRL](https://xbrl.us/online-learning)
 
 ## <a name="deploying"></a>Deploying the DQC Arelle Plugin
 ### Windows/Mac/Linux Application Install
@@ -23,7 +25,7 @@ Interactive Example - Running XULE in Arelle
   * numpy
 * Follow steps 2 and 3 from the **Windows/Mac/Linux Application Install** section above to add the DQC plugin to the source copy of Arelle. The Arelle location is where the Arelle source code from GitHub was extracted on the local machine or server. The Arelle plugin foler is at ```arelle/plugin``` in the source distribution. For *step 2*, add the xule folder and files to the ```arelle/plugin``` folder. For *step 3*, add the **DQC.py** file from the DQC release's ```plugin/validate``` subfolder to the ```arelle/plugin/validate``` folder.
 
-The DQC plugin requires **Python 3.5** or later and is **not compatible with earlier versions of Python**.
+The DQC plugin requires **Python 3.8** or later and is **not compatible with earlier versions of Python**.
 
 ### Updating the ruleset map file
 After the installation, the ruleset map file needs to be updated for the latest version. The latest ruleset map is "plugin/xule/rulesetMap.json" in the GitHub distribution. Use the following command to update the ruleset map:

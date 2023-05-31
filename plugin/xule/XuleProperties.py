@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23466 $
+$Change: 23547 $
 DOCSKIP
 """
 
@@ -28,9 +28,11 @@ from . import XuleValue as xv
 from . import XuleUtility 
 from . import XuleFunctions
 from arelle.ModelDocument import Type
-from arelle.ModelInstanceObject import ModelInlineFact
+from arelle.ModelInstanceObject import ModelInlineFact, ModelFact
+from arelle.ModelDtsObject import ModelResource
 #from arelle.ModelRelationshipSet import ModelRelationshipSet
 from arelle.ModelValue import QName, qname
+from lxml import etree
 import collections
 import datetime
 import decimal
@@ -408,13 +410,22 @@ def property_role(xule_context, object_value, *args):
         #return xv.XuleValue(xule_context, object_value.value[NETWORK_INFO][NETWORK_ROLE], 'uri')
     elif object_value.type == 'relationship':
         role_uri = object_value.value.linkrole
+    elif object_value.type == 'footnote':
+        role_uri = object_value.value[xv.FOOTNOTE_ROLE]
+        if role_uri is None: # this can happen if a footnote is to another fact,
+            return xv.XuleValue(xule_context, None, 'none')
     else: # label or reference
         role_uri = object_value.value.role
         #return xv.XuleValue(xule_context, object_value.value.role, 'uri')
 
     # The taxonomy is determined from the object_value. This could be the object of the loaded document
     # or a taxonomy that was loaded with the xule taxonomy() function
-    cur_model = object_value.value[NETWORK_RELATIONSHIP_SET].modelXbrl if object_value.type == 'network' else object_value.value.modelXbrl
+    if object_value.type == 'network':
+        cur_model = object_value.value[NETWORK_RELATIONSHIP_SET].modelXbrl 
+    elif object_value.type == 'footnote':
+        cur_model = object_value.value[xv.FOOTNOTE_CONTENT].modelXbrl
+    else:
+        cur_model = object_value.value.modelXbrl
     model_role = XuleUtility.role_uri_to_model_role(cur_model, role_uri)
     return xv.XuleValue(xule_context, model_role, 'role')
 
@@ -450,12 +461,19 @@ def property_role_description(xule_context, object_value, *args):
 def property_arcrole(xule_context, object_value, *args):
     if object_value.type == 'network':
         arcrole_uri = object_value.value[NETWORK_INFO][NETWORK_ARCROLE]
+    elif object_value.type == 'footnote':
+        arcrole_uri = object_value.value[xv.FOOTNOTE_ARCROLE]
     else: # relationship
         arcrole_uri = object_value.value.arcrole
 
     # The taxonomy is determined from the object_value. This could be the object of the loaded document
     # or a taxonomy that was loaded with the xule taxonomy() function
-    cur_model = object_value.value[NETWORK_RELATIONSHIP_SET].modelXbrl if object_value.type == 'network' else object_value.value.modelXbrl
+    if object_value.type == 'network':
+        cur_model = object_value.value[NETWORK_RELATIONSHIP_SET].modelXbrl 
+    elif object_value.type == 'footnote':
+        cur_model = object_value.value[xv.FOOTNOTE_CONTENT].modelXbrl
+    else: # relationship
+        cur_model = object_value.value.modelXbrl
     model_arcrole = XuleUtility.arcrole_uri_to_model_role(cur_model, arcrole_uri)
     return xv.XuleValue(xule_context, model_arcrole, 'role')
 
@@ -624,7 +642,7 @@ def property_dimension(xule_context, object_value, *args):
                 return xv.XuleValue(xule_context, member_model.member, 'concept')
             else:
                 #this is a typed dimension
-                return xv.XuleValue(xule_context, member_model.typedMember.xValue, xv.model_to_xule_type(xule_context, member_model.typedMember.xValue))
+                return xv.XuleValue(xule_context, member_model.typedMember.xValue, xv.model_to_xule_type(xule_context, member_model.typedMember.xValue)[0])
 
     else: # taxonomy
         # Get the cubes of the taxonomy
@@ -668,7 +686,7 @@ def property_dimensions(xule_context, object_value, *args):
             if member_model.isExplicit:
                 member_value = xv.XuleValue(xule_context, member_model.member, 'concept')
             else: # Typed dimension
-                member_value = xv.XuleValue(xule_context, member_model.typedMember.xValue, xv.model_to_xule_type(xule_context, member_model.typedMember.xValue))
+                member_value = xv.XuleValue(xule_context, member_model.typedMember.xValue, xv.model_to_xule_type(xule_context, member_model.typedMember.xValue)[0])
 
             result_dict[dim_value] = member_value
             result_shadow[dim_value.value] = member_value.value
@@ -676,38 +694,76 @@ def property_dimensions(xule_context, object_value, *args):
         return xv.XuleValue(xule_context, frozenset(result_dict.items()), 'dictionary', shadow_collection=frozenset(result_shadow.items()))
 
 def property_dimensions_explicit(xule_context, object_value, *args):
-    if not object_value.is_fact:
-        return object_value
-    
-    result_dict = dict()
-    result_shadow = dict()
-    
-    for dim_qname, member_model in object_value.fact.context.qnameDims.items():
-        dim_value = xv.XuleValue(xule_context, get_concept(object_value.fact.modelXbrl, dim_qname), 'concept')
-        if member_model.isExplicit:
-            member_value = xv.XuleValue(xule_context, member_model.member, 'concept')
-    
-            result_dict[dim_value] = member_value
-            result_shadow[dim_value.value] = member_value.value
-    
-    return xv.XuleValue(xule_context, frozenset(result_dict.items()), 'dictionary', shadow_collection=frozenset(result_shadow.items()))
+    if object_value.type == 'taxonomy':
+        # Get the cubes of the taxonomy
+        cubes = [xv.XuleDimensionCube(object_value.value, *cube_base)
+                 for cube_base in xv.XuleDimensionCube.base_dimension_sets(object_value.value)]
+        # For each cube get the dimensions
+        dims_shadow = set()
+        for cube in cubes:
+            dims_shadow |=  {x for x in cube.dimensions if x.dimension_concept.isExplicitDimension}
+        dims = [xv.XuleValue(xule_context, x, 'dimension') for x in dims_shadow]
+        return xv.XuleValue(xule_context, frozenset(dims), 'set', shadow_collection=frozenset(dims_shadow))
+    if object_value.type == 'cube':
+        dims_shadow = object_value.value.dimensions
+        dims = {xv.XuleValue(xule_context, x, 'dimension') for x in dims_shadow if x.dimension_concept.isExplicitDimension}
+
+        return xv.XuleValue(xule_context, frozenset(dims), 'set', shadow_collection=frozenset(dims_shadow))
+    else: #fact
+        if not object_value.is_fact:
+            return object_value
+        
+        result_dict = dict()
+        result_shadow = dict()
+        
+        for dim_qname, member_model in object_value.fact.context.qnameDims.items():
+            dim_value = xv.XuleValue(xule_context, get_concept(object_value.fact.modelXbrl, dim_qname), 'concept')
+            if member_model.isExplicit:
+                member_value = xv.XuleValue(xule_context, member_model.member, 'concept')
+        
+                result_dict[dim_value] = member_value
+                result_shadow[dim_value.value] = member_value.value
+        
+        return xv.XuleValue(xule_context, frozenset(result_dict.items()), 'dictionary', shadow_collection=frozenset(result_shadow.items()))
 
 def property_dimensions_typed(xule_context, object_value, *args):
-    if not object_value.is_fact:
-        return object_value
-    
-    result_dict = dict()
-    result_shadow = dict()
-    
-    for dim_qname, member_model in object_value.fact.context.qnameDims.items():
-        dim_value = xv.XuleValue(xule_context, get_concept(object_value.fact.modelXbrl, dim_qname), 'concept')
-        if not member_model.isExplicit:
-            member_value = xv.XuleValue(xule_context, member_model.typedMember.xValue, xv.model_to_xule_type(xule_context, member_model.typedMember.xValue))
-            
-            result_dict[dim_value] = member_value
-            result_shadow[dim_value.value] = member_value.value
-    
-    return xv.XuleValue(xule_context, frozenset(result_dict.items()), 'dictionary', shadow_collection=frozenset(result_shadow.items()))
+    if object_value.type == 'taxonomy':
+        # Get the cubes of the taxonomy
+        cubes = [xv.XuleDimensionCube(object_value.value, *cube_base)
+                 for cube_base in xv.XuleDimensionCube.base_dimension_sets(object_value.value)]
+        # For each cube get the dimensions
+        dims_shadow = set()
+        for cube in cubes:
+            dims_shadow |=  {x for x in cube.dimensions if x.dimension_concept.isTypedDimension}
+        dims = [xv.XuleValue(xule_context, x, 'dimension') for x in dims_shadow]
+        return xv.XuleValue(xule_context, frozenset(dims), 'set', shadow_collection=frozenset(dims_shadow))
+    if object_value.type == 'cube':
+        dims_shadow = object_value.value.dimensions
+        dims = {xv.XuleValue(xule_context, x, 'dimension') for x in dims_shadow if x.dimension_concept.isTypedDimension}
+
+        return xv.XuleValue(xule_context, frozenset(dims), 'set', shadow_collection=frozenset(dims_shadow))
+    else: #fact
+        if not object_value.is_fact:
+            return object_value
+        
+        result_dict = dict()
+        result_shadow = dict()
+        
+        for dim_qname, member_model in object_value.fact.context.qnameDims.items():
+            dim_value = xv.XuleValue(xule_context, get_concept(object_value.fact.modelXbrl, dim_qname), 'concept')
+            if not member_model.isExplicit:
+                member_value = xv.XuleValue(xule_context, member_model.typedMember.xValue, xv.model_to_xule_type(xule_context, member_model.typedMember.xValue)[0])
+                
+                result_dict[dim_value] = member_value
+                result_shadow[dim_value.value] = member_value.value
+        
+        return xv.XuleValue(xule_context, frozenset(result_dict.items()), 'dictionary', shadow_collection=frozenset(result_shadow.items()))
+
+def property_dimension_type(xule_context, object_value, *args):
+    if object_value.value.dimension_concept.isExplicitDimension:
+        return xv.XuleValue(xule_context, 'explicit', 'string')
+    else:
+        return xv.XuleValue(xule_context, 'typed', 'string')
 
 def property_aspects(xule_context, object_value, *args):
     if not object_value.is_fact:
@@ -738,7 +794,7 @@ def property_aspects(xule_context, object_value, *args):
         if member_model.isExplicit:
             member_value = xv.XuleValue(xule_context, member_model.member, 'concept')
         else: # Typed dimension
-            member_value = xv.XuleValue(xule_context, member_model.typedMember.xValue, xv.model_to_xule_type(xule_context, member_model.typedMember.xValue))
+            member_value = xv.XuleValue(xule_context, member_model.typedMember.xValue, xv.model_to_xule_type(xule_context, member_model.typedMember.xValue)[0])
             
         result_dict[dim_value] = member_value
         result_shadow[dim_value.value] = member_value.value
@@ -846,7 +902,7 @@ def property_enumerations(xule_context, object_value, *args):
         return xv.XuleValue(xule_context, frozenset(), 'set')
     else:
         if 'enumeration' in model_type.facets:
-            enumerations = {xv.XuleValue(xule_context, x.value, xv.model_to_xule_type(xule_context, x.value)) for x in model_type.facets['enumeration'].values()}
+            enumerations = {xv.XuleValue(xule_context, x.value, xv.model_to_xule_type(xule_context, x.value)[0]) for x in model_type.facets['enumeration'].values()}
             return xv.XuleValue(xule_context, frozenset(enumerations), 'set')
         else:
             return xv.XuleValue(xule_context, frozenset(), 'set')
@@ -975,6 +1031,51 @@ def get_label(xule_context, concept, base_label_type, base_lang):
     else:
         return None
 
+def property_footnotes(xule_context, object_value, *args):
+
+    footnotes = set()
+    shadow = set()
+
+    network_keys = [x for x in object_value.fact.modelXbrl.baseSets.keys() if x[2] is not None and
+                        x[2].clarkNotation == '{http://www.xbrl.org/2003/linkbase}footnoteLink' and
+                        x[0] is not None and x[1] is not None and x[2] is not None and x[3] is not None]
+    for network_key in network_keys:
+        network = object_value.fact.modelXbrl.relationshipSet(network_key)
+        for rel in network.fromModelObject(object_value.fact):
+            footnote_resource = rel.toModelObject
+            footnote_value = [
+                rel.arcrole,
+                getattr(footnote_resource, 'role', None), # if the to object is a fact, it won't have a role
+                footnote_resource.get('{http://www.w3.org/XML/1998/namespace}lang')
+            ]
+            if isinstance(footnote_resource, ModelFact):
+                footnote_value.append('fact')
+            elif isinstance(footnote_resource, ModelResource):
+                footnote_value.append('resource')
+            else:
+                raise XuleProcessingError(_("Found enxpected type of footnote (not a footnote resource nor a fact)."), xule_context)
+            
+            footnote_value.append(footnote_resource)
+            footnote_value.append(object_value.fact)
+            footnotes.add(xv.XuleValue(xule_context, tuple(footnote_value), 'footnote'))
+            shadow.add(tuple(footnote_value))
+
+    return xv.XuleValue(xule_context, frozenset(footnotes), 'set', shadow_collection=frozenset(shadow))
+
+def property_content(xule_context, object_value, *args):
+    if object_value.value[xv.FOOTNOTE_TYPE] == 'fact':
+        return xv.XuleValue(xule_context, object_value.value[xv.FOOTNOTE_CONTENT], 'fact')
+    else: # footnote
+        footnote_resource = object_value.value[xv.FOOTNOTE_CONTENT]
+        footnote_text = footnote_resource.text or ''
+        for child in footnote_resource.getchildren():
+            footnote_text += etree.tostring(child).decode()
+        return xv.XuleValue(xule_context, footnote_text, 'string')
+
+def property_fact(xule_context, object_value, *args):
+    # object value is a footnote
+    return xv.XuleValue(xule_context, object_value.value[xv.FOOTNOTE_FACT], 'fact')
+
 #def get_relationshipset(model_xbrl, arcrole, linkrole=None, linkqname=None, arcqname=None, includeProhibits=False):
 #    # This checks if the relationship set is already built. If not it will build it. The ModelRelationshipSet class
 #    # stores the relationship set in the model at .relationshipSets.
@@ -985,7 +1086,10 @@ def property_text(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, object_value.value.textValue, 'string')
  
 def property_lang(xule_context, object_value, *args):
-    return xv.XuleValue(xule_context, object_value.value.xmlLang, 'string')
+    if object_value.type == 'label':
+        return xv.XuleValue(xule_context, object_value.value.xmlLang, 'string')
+    else: # footnote
+        return xv.XuleValue(xule_context, object_value.value[xv.FOOTNOTE_LANGUAGE], 'string')
  
 def property_name(xule_context, object_value, *args):
     if object_value.is_fact:
@@ -1192,12 +1296,6 @@ def property_primary_concepts(xule_context, object_value, *args):
     prim = {xv.XuleValue(xule_context, x, 'concept') for x in prim_shadow}
 
     return xv.XuleValue(xule_context, frozenset(prim), 'set', shadow_collection=frozenset(prim_shadow))
-
-def property_facts(xule_context, object_value, *args):
-    facts_shadow = object_value.value.facts
-    facts = {xv.XuleValue(xule_context, x, 'fact', alignment=None) for x in facts_shadow}
-
-    return xv.XuleValue(xule_context, frozenset(facts), 'set', shadow_collection=frozenset(facts_shadow))
 
 def property_default(xule_context, object_value, *args):
     default = object_value.value.default
@@ -2035,7 +2133,7 @@ def property_facts(xule_context, object_value, *args):
         result.append(item)
         shadow.append(item.value)
     
-    return xv.XuleValue(xule_context, tuple(result), 'list', shadow_collection=tuple(shadow))
+    return xv.XuleValue(xule_context, frozenset(result), 'set', shadow_collection=frozenset(shadow))
 
 def property_regex_match(xule_context, object_value, pattern, *args):
     if pattern.type != 'string':
@@ -2228,10 +2326,10 @@ PROPERTIES = {
               'has-key': (property_has_key, 1, ('dictionary',), False),
               'decimals': (property_decimals, 0, (), True),
               'networks':(property_networks, -2, ('taxonomy',), False),
-              'role': (property_role, 0, ('network', 'label', 'reference', 'relationship'), False),
+              'role': (property_role, 0, ('network', 'label', 'footnote', 'reference', 'relationship'), False),
               'role-uri': (property_role_uri, 0, ('network', 'label', 'reference', 'relationship'), False),
               'role-description': (property_role_description, 0, ('network', 'label', 'reference', 'relationship'), False),
-              'arcrole':(property_arcrole, 0, ('network', 'relationship'), False),
+              'arcrole':(property_arcrole, 0, ('network', 'relationship', 'footnote'), False),
               'arcrole-uri':(property_arcrole_uri, 0, ('network', 'relationship'), False),
               'arcrole-description':(property_arcrole_description, 0, ('network', 'relationship'), False),
               'concept': (property_concept, -1, ('fact', 'taxonomy', 'dimension'), True),
@@ -2243,8 +2341,9 @@ PROPERTIES = {
               'scheme': (property_scheme, 0, ('entity',), False),
               'dimension': (property_dimension, 1, ('fact', 'taxonomy'), True),
               'dimensions': (property_dimensions, 0, ('fact', 'cube', 'taxonomy'), True),
-              'dimensions-explicit': (property_dimensions_explicit, 0, ('fact',), True),
-              'dimensions-typed': (property_dimensions_typed, 0, ('fact',), True),                            
+              'dimensions-explicit': (property_dimensions_explicit, 0, ('fact', 'cube', 'taxonomy'), True),
+              'dimensions-typed': (property_dimensions_typed, 0, ('fact', 'cube', 'taxonomy'), True),  
+              'dimension-type': (property_dimension_type, 0, ('dimension',), True),                          
               'aspects': (property_aspects, 0, ('fact',), True),
               'start': (property_start, 0, ('instant', 'duration'), False),
               'end': (property_end, 0, ('instant', 'duration'), False),
@@ -2271,7 +2370,10 @@ PROPERTIES = {
               'inline-hidden': (property_hidden, 0, ('fact',), True),
               'label': (property_label, -2, ('concept', 'fact'), True),
               'text': (property_text, 0, ('label',), False),
-              'lang': (property_lang, 0, ('label',), False),              
+              'lang': (property_lang, 0, ('label', 'footnote'), False),   
+              'footnotes': (property_footnotes, 0, ('fact',), False),   
+              'content': (property_content, 0, ('footnote',), False),   
+              'fact': (property_fact, 0, ('footnote',), False),     
               'name': (property_name, 0, ('fact', 'concept', 'reference-part', 'type'), True),
               'local-name': (property_local_name, 0, ('qname', 'concept', 'fact', 'reference-part', 'type'), True),
               'namespace-uri': (property_namespace_uri, 0, ('qname', 'concept', 'fact', 'reference-part', 'type'), True),
@@ -2345,12 +2447,11 @@ PROPERTIES = {
               'drs-role': (property_drs_role, 0, ('cube',), False),
               'cube-concept': (property_cube_concept, 0, ('cube',), False),
               'primary-concepts': (property_primary_concepts, 0, ('cube',), False),
-              'facts': (property_facts, 0, ('cube',), False),
+              'facts': (property_facts, 0, ('cube','instance'), False),
               'default': (property_default, 0, ('dimension',), False),
               'namespaces': (property_namespaces, 0, ('taxonomy',), False),
               'taxonomy': (property_taxonomy, 0, ('instance', 'fact'), False),
               'instance': (property_instance, 0, ('fact',), False),
-              'facts': (property_facts, 0, ('instance', ), False),
 
               # Version 1.1 properties
               #'regex-match-first': (property_regex_match_first, 1, ('string', 'uri'), False),

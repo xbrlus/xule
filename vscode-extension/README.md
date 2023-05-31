@@ -8,7 +8,7 @@ The settings .zip file below includes a Visual Studio Code .code-workspace and s
 The files in the .zip linked below include: 
   1. a **DQC.code-workspace** file defining folders corresponding to the reference implementation 
   1. **settings.json files** that define imports and namespaces required by the Xule Editor in each workspace folder, and 
-  1. US GAAP (2014 - 2023) and IFRS (2018 - 2022) **Taxonomies in .json format** called by the settings.json files. 
+  1. US GAAP (2014 - 2023) and IFRS (2018 - 2023) **Taxonomies in .json format** called by the settings.json files. 
 
 Together, these resources enable highlighting and code completion in the Xule Editor. 
 
