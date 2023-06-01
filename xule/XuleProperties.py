@@ -1139,6 +1139,20 @@ def property_clark(xule_context, object_value, *args):
 def property_period_type(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, object_value.value.periodType, 'string')
 
+def property_all_references(xule_context, object_value, *args):
+    
+    if object_value.is_fact:
+        concept = object_value.fact.concept
+    else:
+        concept = object_value.value
+    references_by_type = get_references(concept) # This is a defaultdict(list)
+    result_value = set()
+    for refs in references_by_type.values():
+        for ref in refs:
+            result_value.add(ref)
+    
+    return xv.XuleValue(xule_context, frozenset(set(xv.XuleValue(xule_context, x, 'reference') for x in result_value)), 'set')
+
 def property_references(xule_context, object_value, *args):
     #reference type
     if len(args) > 0:
@@ -1161,9 +1175,29 @@ def property_references(xule_context, object_value, *args):
     if concept is None:
         return xv.XuleValue(xule_context, frozenset(), 'set')
  
+    references_by_type = get_references(concept) # This is a defaultdict(list)
+    if len(references_by_type) == 0:
+        # There are no references, return an empty set
+        return xv.XuleValue(xule_context, frozenset(), 'set')
+    
+    if base_reference_type is None:
+        # find the first role that has references
+        for role in ORDERED_REFERENCE_ROLE:
+            if role in references_by_type:
+                xule_references = xule_references = set(xv.XuleValue(xule_context, x, 'reference') for x in references_by_type[role])
+                return xv.XuleValue(xule_context, frozenset(xule_references), 'set')
+        # If here, then there was no references that use one of the roles in the ORDERED_REFERENCE_ROLE.
+        # So just pick a random role if there are any references
+        return xv.XuleValue(xule_context, frozenset(set(xv.XuleValue(xule_context, x, 'reference') for x in next(iter(references_by_type.values())))), 'set')
+    else: # there is a base_reference type
+        xule_references = set(xv.XuleValue(xule_context, x, 'reference') for x in references_by_type[base_reference_type])
+        return xv.XuleValue(xule_context, frozenset(xule_references), 'set')
+
+
     #reference_network = get_relationshipset(concept.modelXbrl, CONCEPT_REFERENCE)
     reference_network = concept.modelXbrl.relationshipSet(CONCEPT_REFERENCE)
     reference_rels = reference_network.fromModelObject(concept)
+
     if len(reference_rels) > 0:
         #filter the references
         reference_by_type = collections.defaultdict(list)
@@ -1188,6 +1222,17 @@ def property_references(xule_context, object_value, *args):
             return xv.XuleValue(xule_context, frozenset(), 'set')        
     else:
         return xv.XuleValue(xule_context, frozenset(), 'set')       
+
+def get_references(concept):
+    reference_network = concept.modelXbrl.relationshipSet(CONCEPT_REFERENCE)
+    reference_rels = reference_network.fromModelObject(concept)
+    reference_by_type = collections.defaultdict(list)
+
+    for reference_rel in reference_rels:
+        reference = reference_rel.toModelObject
+        reference_by_type[reference.role].append(reference)
+    
+    return reference_by_type
  
 def property_parts(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, tuple(list(xv.XuleValue(xule_context, x, 'reference-part') for x in object_value.value)), 'list')
@@ -2385,6 +2430,7 @@ PROPERTIES = {
               'part-value': (property_part_value, 0, ('reference-part',), False),
               'part-by-name': (property_part_by_name, 1, ('reference',), False),              
               'references':(property_references, -1, ('concept', 'fact'), True),
+              'all-references': (property_all_references, 0, ('concept', 'fact'), True),
               'relationships': (property_relationships, 0, ('network',), False),
               'concepts': (property_concepts, 0, ('taxonomy', 'network'), False),
               'concept-names': (property_concept_names, 0, ('taxonomy', 'network'), False),
