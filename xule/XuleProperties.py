@@ -1001,35 +1001,73 @@ def property_label(xule_context, object_value, *args):
         return xv.XuleValue(xule_context, None, 'none')
     else:
         return xv.XuleValue(xule_context, label, 'label')
+
+def property_all_labels(xule_context, object_value, *args):
+    if object_value.is_fact:
+        concept = object_value.fact.concept
+    elif object_value.type == 'concept':
+        concept = object_value.value
+    else: #none value
+        return object_value
+    
+    base_label_type = None
+    base_lang = None
+    if len(args) > 0:
+        lang = None
+        label_type = args[0]
+        if label_type.type == 'none':
+            base_label_type = None
+        elif xv.xule_castable(label_type, 'string', xule_context):
+            base_label_type = xv.xule_cast(label_type, 'string', xule_context)
+        else:
+            raise XuleProcessingError(_("The first argument for property 'all-labels' must be a string, found '%s'" % label_type.type), xule_context)
+    if len(args) > 1: #there are 2 args
+        lang = args[1]
+        if lang.type == 'none':
+            base_lang = None
+        elif xv.xule_castable(lang, 'string', xule_context):
+            base_lang = xv.xule_cast(lang, 'string', xule_context)
+        else:
+            raise XuleProcessingError(_("The second argument for property 'all-labels' must be a string, found '%s'" % lang.type), xule_context)        
      
+    labels_by_type = get_all_labels(concept, base_label_type, base_lang)
+    
+    result_set = set()
+    for labels in labels_by_type.values():
+        result_set |= set(labels)
+
+    return xv.XuleValue(xule_context, frozenset(set(xv.XuleValue(xule_context, x, 'label') for x in result_set)), 'set')
+
 def get_label(xule_context, concept, base_label_type, base_lang):
-    #label_network = get_relationshipset(concept.modelXbrl, CONCEPT_LABEL)
-    label_network = concept.modelXbrl.relationshipSet(CONCEPT_LABEL)
-    label_rels = label_network.fromModelObject(concept)
-    if len(label_rels) > 0:
+
+    label_by_type = get_all_labels(concept, base_label_type, base_lang)
+
+    if len(label_by_type) == 0:
+        return None
+    
+    if base_label_type is None:
+        for role in ORDERED_LABEL_ROLE:
+            label = label_by_type.get(role)
+            if label is not None:
+                return label[0]
+            
+    # if we are here, there were no matching labels in the ordered list of label types so just pick the first one, or there is
+    # a base_label_type and the label_by_type has
+    return next(iter(label_by_type.values()))[0]
+
+def get_all_labels(concept, base_label_type, base_lang):
+        #label_network = get_relationshipset(concept.modelXbrl, CONCEPT_LABEL)
+        label_network = concept.modelXbrl.relationshipSet(CONCEPT_LABEL)
+        label_rels = label_network.fromModelObject(concept)
+        label_by_type = collections.defaultdict(list)
         #filter the labels
-        label_by_type = dict()
         for lab_rel in label_rels:
             label = lab_rel.toModelObject
             if ((base_lang is None or label.xmlLang.lower().startswith(base_lang.lower())) and
                 (base_label_type is None or label.role == base_label_type)):
-                label_by_type[label.role] = label
- 
-        if len(label_by_type) > 1:
-            if base_label_type is None:
-                for role in ORDERED_LABEL_ROLE:
-                    label = label_by_type.get(role)
-                    if label is not None:
-                        return label
-            #if we are here, there were no matching labels in the ordered list of label types, so just pick one
-            return next(iter(label_by_type.values()))
-        elif len(label_by_type) > 0:
-            #there is only one label just return it
-            return next(iter(label_by_type.values()))
-        else:
-            return None        
-    else:
-        return None
+                label_by_type[label.role].append(label)
+
+        return label_by_type
 
 def property_footnotes(xule_context, object_value, *args):
 
@@ -1148,8 +1186,7 @@ def property_all_references(xule_context, object_value, *args):
     references_by_type = get_references(concept) # This is a defaultdict(list)
     result_value = set()
     for refs in references_by_type.values():
-        for ref in refs:
-            result_value.add(ref)
+        result_value |= set(refs)
     
     return xv.XuleValue(xule_context, frozenset(set(xv.XuleValue(xule_context, x, 'reference') for x in result_value)), 'set')
 
@@ -2416,6 +2453,7 @@ PROPERTIES = {
               'inline-negated': (property_negated, 0, ('fact',), True),
               'inline-hidden': (property_hidden, 0, ('fact',), True),
               'label': (property_label, -2, ('concept', 'fact'), True),
+              'all-labels': (property_all_labels, -2, ('concept', 'fact'), True),
               'text': (property_text, 0, ('label',), False),
               'lang': (property_lang, 0, ('label', 'footnote'), False),   
               'footnotes': (property_footnotes, 0, ('fact',), False),   
