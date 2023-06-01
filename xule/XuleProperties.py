@@ -2371,13 +2371,23 @@ def property_inline_children(xule_context, object_value, *args):
                 result.append(descendants[0])
     return xv.XuleValue(xule_context, tuple(xv.XuleValue(xule_context, x, 'fact') for x in result), 'list')
 
-def x():
-    pass
-
 def property_inline_descendants(xule_context, object_value, *args):
     result = tuple(xv.XuleValue(xule_context, x, 'fact') for x in object_value.fact.iterdescendants() if isinstance(x, ModelInlineFact))
     return xv.XuleValue(xule_context, result, 'list')
 
+def property_roles(xule_context, object_value, *args):
+    result_set = set()
+    for roles in object_value.value.roleTypes.values():
+        result_set |= set(roles)
+
+    return xv.XuleValue(xule_context, frozenset(set(xv.XuleValue(xule_context, x, 'role') for x in result_set)), 'set')
+
+def property_arcroles(xule_context, object_value, *args):
+    result_set = set()
+    for arcroles in object_value.value.arcroleTypes.values():
+        result_set |= set(arcroles)
+
+    return xv.XuleValue(xule_context, frozenset(set(xv.XuleValue(xule_context, x, 'role') for x in result_set)), 'set')
 
 #Property tuple
 PROP_FUNCTION = 0
@@ -2427,6 +2437,8 @@ PROPERTIES = {
               'dimensions': (property_dimensions, 0, ('fact', 'cube', 'taxonomy'), True),
               'dimensions-explicit': (property_dimensions_explicit, 0, ('fact', 'cube', 'taxonomy'), True),
               'dimensions-typed': (property_dimensions_typed, 0, ('fact', 'cube', 'taxonomy'), True),  
+              'roles': (property_roles, 0, ('taxonomy',), False),
+              'arcroles': (property_arcroles, 0, ('taxonomy',), False),
               'dimension-type': (property_dimension_type, 0, ('dimension',), True),                          
               'aspects': (property_aspects, 0, ('fact',), True),
               'start': (property_start, 0, ('instant', 'duration'), False),
@@ -2477,7 +2489,7 @@ PROPERTIES = {
               'roots': (property_roots, 0, ('network',), False),
               'uri': (property_uri, 0, ('role', 'taxonomy'), False),
               'description': (property_description, 0, ('role',), False),
-              'used-on': (property_used_on, 0, ('role',), False),
+              'used-on': (property_used_on, 0, ('role'), False),
               'source': (property_source, 0, ('relationship',), False),
               'target': (property_target, 0, ('relationship',), False),              
               'source-name': (property_source_name, 0, ('relationship',), False),
