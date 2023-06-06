@@ -1874,7 +1874,14 @@ def property_sum(xule_context, object_value, *args):
         for next_value in values[1:]:
             combined_type, left, right = xv.combine_xule_types(sum_value, next_value, xule_context)
             if combined_type == 'set':
-                sum_value = xv.XuleValue(xule_context, left | right, combined_type)
+                # For summing sets, need to too at the hash value of the items in the set
+                shadow_values = set()
+                result_values = set()
+                for item in left | right:
+                    if item.value not in shadow_values:
+                        shadow_values.add(item.value)
+                        result_values.add(item)
+                sum_value = xv.XuleValue(xule_context, frozenset(result_values), combined_type)
             else:
                 sum_value = xv.XuleValue(xule_context, left + right, combined_type)
                 
