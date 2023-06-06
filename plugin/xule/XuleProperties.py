@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23547 $
+$Change: 23577 $
 DOCSKIP
 """
 
@@ -1001,35 +1001,73 @@ def property_label(xule_context, object_value, *args):
         return xv.XuleValue(xule_context, None, 'none')
     else:
         return xv.XuleValue(xule_context, label, 'label')
+
+def property_all_labels(xule_context, object_value, *args):
+    if object_value.is_fact:
+        concept = object_value.fact.concept
+    elif object_value.type == 'concept':
+        concept = object_value.value
+    else: #none value
+        return object_value
+    
+    base_label_type = None
+    base_lang = None
+    if len(args) > 0:
+        lang = None
+        label_type = args[0]
+        if label_type.type == 'none':
+            base_label_type = None
+        elif xv.xule_castable(label_type, 'string', xule_context):
+            base_label_type = xv.xule_cast(label_type, 'string', xule_context)
+        else:
+            raise XuleProcessingError(_("The first argument for property 'all-labels' must be a string, found '%s'" % label_type.type), xule_context)
+    if len(args) > 1: #there are 2 args
+        lang = args[1]
+        if lang.type == 'none':
+            base_lang = None
+        elif xv.xule_castable(lang, 'string', xule_context):
+            base_lang = xv.xule_cast(lang, 'string', xule_context)
+        else:
+            raise XuleProcessingError(_("The second argument for property 'all-labels' must be a string, found '%s'" % lang.type), xule_context)        
      
+    labels_by_type = get_all_labels(concept, base_label_type, base_lang)
+    
+    result_set = set()
+    for labels in labels_by_type.values():
+        result_set |= set(labels)
+
+    return xv.XuleValue(xule_context, frozenset(set(xv.XuleValue(xule_context, x, 'label') for x in result_set)), 'set')
+
 def get_label(xule_context, concept, base_label_type, base_lang):
-    #label_network = get_relationshipset(concept.modelXbrl, CONCEPT_LABEL)
-    label_network = concept.modelXbrl.relationshipSet(CONCEPT_LABEL)
-    label_rels = label_network.fromModelObject(concept)
-    if len(label_rels) > 0:
+
+    label_by_type = get_all_labels(concept, base_label_type, base_lang)
+
+    if len(label_by_type) == 0:
+        return None
+    
+    if base_label_type is None:
+        for role in ORDERED_LABEL_ROLE:
+            label = label_by_type.get(role)
+            if label is not None:
+                return label[0]
+            
+    # if we are here, there were no matching labels in the ordered list of label types so just pick the first one, or there is
+    # a base_label_type and the label_by_type has
+    return next(iter(label_by_type.values()))[0]
+
+def get_all_labels(concept, base_label_type, base_lang):
+        #label_network = get_relationshipset(concept.modelXbrl, CONCEPT_LABEL)
+        label_network = concept.modelXbrl.relationshipSet(CONCEPT_LABEL)
+        label_rels = label_network.fromModelObject(concept)
+        label_by_type = collections.defaultdict(list)
         #filter the labels
-        label_by_type = dict()
         for lab_rel in label_rels:
             label = lab_rel.toModelObject
             if ((base_lang is None or label.xmlLang.lower().startswith(base_lang.lower())) and
                 (base_label_type is None or label.role == base_label_type)):
-                label_by_type[label.role] = label
- 
-        if len(label_by_type) > 1:
-            if base_label_type is None:
-                for role in ORDERED_LABEL_ROLE:
-                    label = label_by_type.get(role)
-                    if label is not None:
-                        return label
-            #if we are here, there were no matching labels in the ordered list of label types, so just pick one
-            return next(iter(label_by_type.values()))
-        elif len(label_by_type) > 0:
-            #there is only one label just return it
-            return next(iter(label_by_type.values()))
-        else:
-            return None        
-    else:
-        return None
+                label_by_type[label.role].append(label)
+
+        return label_by_type
 
 def property_footnotes(xule_context, object_value, *args):
 
@@ -1139,6 +1177,19 @@ def property_clark(xule_context, object_value, *args):
 def property_period_type(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, object_value.value.periodType, 'string')
 
+def property_all_references(xule_context, object_value, *args):
+    
+    if object_value.is_fact:
+        concept = object_value.fact.concept
+    else:
+        concept = object_value.value
+    references_by_type = get_references(concept) # This is a defaultdict(list)
+    result_value = set()
+    for refs in references_by_type.values():
+        result_value |= set(refs)
+    
+    return xv.XuleValue(xule_context, frozenset(set(xv.XuleValue(xule_context, x, 'reference') for x in result_value)), 'set')
+
 def property_references(xule_context, object_value, *args):
     #reference type
     if len(args) > 0:
@@ -1161,9 +1212,29 @@ def property_references(xule_context, object_value, *args):
     if concept is None:
         return xv.XuleValue(xule_context, frozenset(), 'set')
  
+    references_by_type = get_references(concept) # This is a defaultdict(list)
+    if len(references_by_type) == 0:
+        # There are no references, return an empty set
+        return xv.XuleValue(xule_context, frozenset(), 'set')
+    
+    if base_reference_type is None:
+        # find the first role that has references
+        for role in ORDERED_REFERENCE_ROLE:
+            if role in references_by_type:
+                xule_references = xule_references = set(xv.XuleValue(xule_context, x, 'reference') for x in references_by_type[role])
+                return xv.XuleValue(xule_context, frozenset(xule_references), 'set')
+        # If here, then there was no references that use one of the roles in the ORDERED_REFERENCE_ROLE.
+        # So just pick a random role if there are any references
+        return xv.XuleValue(xule_context, frozenset(set(xv.XuleValue(xule_context, x, 'reference') for x in next(iter(references_by_type.values())))), 'set')
+    else: # there is a base_reference type
+        xule_references = set(xv.XuleValue(xule_context, x, 'reference') for x in references_by_type[base_reference_type])
+        return xv.XuleValue(xule_context, frozenset(xule_references), 'set')
+
+
     #reference_network = get_relationshipset(concept.modelXbrl, CONCEPT_REFERENCE)
     reference_network = concept.modelXbrl.relationshipSet(CONCEPT_REFERENCE)
     reference_rels = reference_network.fromModelObject(concept)
+
     if len(reference_rels) > 0:
         #filter the references
         reference_by_type = collections.defaultdict(list)
@@ -1188,6 +1259,17 @@ def property_references(xule_context, object_value, *args):
             return xv.XuleValue(xule_context, frozenset(), 'set')        
     else:
         return xv.XuleValue(xule_context, frozenset(), 'set')       
+
+def get_references(concept):
+    reference_network = concept.modelXbrl.relationshipSet(CONCEPT_REFERENCE)
+    reference_rels = reference_network.fromModelObject(concept)
+    reference_by_type = collections.defaultdict(list)
+
+    for reference_rel in reference_rels:
+        reference = reference_rel.toModelObject
+        reference_by_type[reference.role].append(reference)
+    
+    return reference_by_type
  
 def property_parts(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, tuple(list(xv.XuleValue(xule_context, x, 'reference-part') for x in object_value.value)), 'list')
@@ -1224,9 +1306,11 @@ def property_order(xule_context, object_value, *args):
         return xv.XuleValue(xule_context, None, 'none')
 
 def property_concepts(xule_context, object_value, *args):
-     
+
     if object_value.type == 'taxonomy':
-        concepts = set(xv.XuleValue(xule_context, x, 'concept') for x in object_value.value.qnameConcepts.values() if x.isItem or x.isTuple)
+        concepts = set(xv.XuleValue(xule_context, x, 'concept') for x in object_value.value.qnameConcepts.values() 
+                       if (x.isItem or x.isTuple) and
+                           x.qname.clarkNotation not in ('{http://www.xbrl.org/2003/instance}tuple', '{http://www.xbrl.org/2003/instance}item'))
     elif object_value.type == 'network':
         concepts = set(xv.XuleValue(xule_context, x, 'concept') for x in (object_value.value[1].fromModelObjects().keys()) | frozenset(object_value.value[1].toModelObjects().keys()))
     else:
@@ -1790,7 +1874,14 @@ def property_sum(xule_context, object_value, *args):
         for next_value in values[1:]:
             combined_type, left, right = xv.combine_xule_types(sum_value, next_value, xule_context)
             if combined_type == 'set':
-                sum_value = xv.XuleValue(xule_context, left | right, combined_type)
+                # For summing sets, need to too at the hash value of the items in the set
+                shadow_values = set()
+                result_values = set()
+                for item in left | right:
+                    if item.value not in shadow_values:
+                        shadow_values.add(item.value)
+                        result_values.add(item)
+                sum_value = xv.XuleValue(xule_context, frozenset(result_values), combined_type)
             else:
                 sum_value = xv.XuleValue(xule_context, left + right, combined_type)
                 
@@ -2287,13 +2378,23 @@ def property_inline_children(xule_context, object_value, *args):
                 result.append(descendants[0])
     return xv.XuleValue(xule_context, tuple(xv.XuleValue(xule_context, x, 'fact') for x in result), 'list')
 
-def x():
-    pass
-
 def property_inline_descendants(xule_context, object_value, *args):
     result = tuple(xv.XuleValue(xule_context, x, 'fact') for x in object_value.fact.iterdescendants() if isinstance(x, ModelInlineFact))
     return xv.XuleValue(xule_context, result, 'list')
 
+def property_roles(xule_context, object_value, *args):
+    result_set = set()
+    for roles in object_value.value.roleTypes.values():
+        result_set |= set(roles)
+
+    return xv.XuleValue(xule_context, frozenset(set(xv.XuleValue(xule_context, x, 'role') for x in result_set)), 'set')
+
+def property_arcroles(xule_context, object_value, *args):
+    result_set = set()
+    for arcroles in object_value.value.arcroleTypes.values():
+        result_set |= set(arcroles)
+
+    return xv.XuleValue(xule_context, frozenset(set(xv.XuleValue(xule_context, x, 'role') for x in result_set)), 'set')
 
 #Property tuple
 PROP_FUNCTION = 0
@@ -2343,6 +2444,8 @@ PROPERTIES = {
               'dimensions': (property_dimensions, 0, ('fact', 'cube', 'taxonomy'), True),
               'dimensions-explicit': (property_dimensions_explicit, 0, ('fact', 'cube', 'taxonomy'), True),
               'dimensions-typed': (property_dimensions_typed, 0, ('fact', 'cube', 'taxonomy'), True),  
+              'roles': (property_roles, 0, ('taxonomy',), False),
+              'arcroles': (property_arcroles, 0, ('taxonomy',), False),
               'dimension-type': (property_dimension_type, 0, ('dimension',), True),                          
               'aspects': (property_aspects, 0, ('fact',), True),
               'start': (property_start, 0, ('instant', 'duration'), False),
@@ -2369,6 +2472,7 @@ PROPERTIES = {
               'inline-negated': (property_negated, 0, ('fact',), True),
               'inline-hidden': (property_hidden, 0, ('fact',), True),
               'label': (property_label, -2, ('concept', 'fact'), True),
+              'all-labels': (property_all_labels, -2, ('concept', 'fact'), True),
               'text': (property_text, 0, ('label',), False),
               'lang': (property_lang, 0, ('label', 'footnote'), False),   
               'footnotes': (property_footnotes, 0, ('fact',), False),   
@@ -2383,6 +2487,7 @@ PROPERTIES = {
               'part-value': (property_part_value, 0, ('reference-part',), False),
               'part-by-name': (property_part_by_name, 1, ('reference',), False),              
               'references':(property_references, -1, ('concept', 'fact'), True),
+              'all-references': (property_all_references, 0, ('concept', 'fact'), True),
               'relationships': (property_relationships, 0, ('network',), False),
               'concepts': (property_concepts, 0, ('taxonomy', 'network'), False),
               'concept-names': (property_concept_names, 0, ('taxonomy', 'network'), False),
@@ -2391,7 +2496,7 @@ PROPERTIES = {
               'roots': (property_roots, 0, ('network',), False),
               'uri': (property_uri, 0, ('role', 'taxonomy'), False),
               'description': (property_description, 0, ('role',), False),
-              'used-on': (property_used_on, 0, ('role',), False),
+              'used-on': (property_used_on, 0, ('role'), False),
               'source': (property_source, 0, ('relationship',), False),
               'target': (property_target, 0, ('relationship',), False),              
               'source-name': (property_source_name, 0, ('relationship',), False),
@@ -2539,3 +2644,13 @@ ORDERED_REFERENCE_ROLE = ['http://www.xbrl.org/2003/role/reference',
                         'http://www.xbrl.org/2003/role/measurementRef',
                         'http://www.xbrl.org/2003/role/commentaryRef',
                         'http://www.xbrl.org/2003/role/exampleRef']
+
+def add_property(property_name, property_function, num_of_args, objects, allow_unbound=False):
+    if property_name in PROPERTIES:
+        raise XuleProcessingError(_("Cannot add property .{} to xule, it already exists".format(property_name)))
+    else:
+        if not isinstance(objects, (list, set, tuple)):
+            raise XuleProcessingError(_('The list of objects supplied to add_property() function must be a list, set or tuple. Found {}'.format(type(objects).__name__)))
+        if any(tuple(type(x) != str for x in objects)):
+            raise XuleProcessingError(_('The items in the list of objects for the add_property() function must be strings. Found something that is not a string'))
+        PROPERTIES[property_name] = (property_function, num_of_args, objects, allow_unbound)
