@@ -1,0 +1,2126 @@
+{
+    "http://fasb.org/us-gaap-sup/2022q3": [
+        {
+            "localName": "InvestmentCompanyPurchasePremiumPerShare",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyPurchasePremiumPerShare",
+            "isAbstract": "false",
+            "dataType": "dtr-types:perShareItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "DepositSecuritySoldShort",
+            "type": "Concept",
+            "label": "us-gaap-supplement:DepositSecuritySoldShort",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "SecuritySoldShortAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:SecuritySoldShortAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "RealizedAndUnrealizedGainLossInvestmentAndDerivativeOperatingAfterTaxAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RealizedAndUnrealizedGainLossInvestmentAndDerivativeOperatingAfterTaxAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "UnrealizedGainLossInvestmentAndDerivativeOperatingAfterTaxAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:UnrealizedGainLossInvestmentAndDerivativeOperatingAfterTaxAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "RealizedAndUnrealizedGainLossInvestmentAndDerivativeOperatingTaxExpenseBenefitAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RealizedAndUnrealizedGainLossInvestmentAndDerivativeOperatingTaxExpenseBenefitAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentCompanyNonconsolidatedSubsidiaryTable",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyNonconsolidatedSubsidiaryTable",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "DebtInstrumentIssuedPrincipal",
+            "type": "Concept",
+            "label": "us-gaap-supplement:DebtInstrumentIssuedPrincipal",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "InvestmentUnrestrictedPurchasePriceDatePerUnit",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentUnrestrictedPurchasePriceDatePerUnit",
+            "isAbstract": "false",
+            "dataType": "srt-types:perUnitItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "DepositDerivativeContract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:DepositDerivativeContract",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "InvestmentCompanyStatementOfCashFlowsItemsAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyStatementOfCashFlowsItemsAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ForeignCurrencyTransactionGainLossExcludingInvestmentPriceChangeBeforeTaxAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:ForeignCurrencyTransactionGainLossExcludingInvestmentPriceChangeBeforeTaxAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "RealizedAndUnrealizedGainLossInvestmentAndDerivativeOperatingCurrentTaxExpenseBenefitAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RealizedAndUnrealizedGainLossInvestmentAndDerivativeOperatingCurrentTaxExpenseBenefitAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentInForeignSecurityIlliquidForeignMarketMarketPriceNotFairValue",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentInForeignSecurityIlliquidForeignMarketMarketPriceNotFairValue",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "RepurchaseAgreementDate",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RepurchaseAgreementDate",
+            "isAbstract": "false",
+            "dataType": "xbrli:dateItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "RealizedAndUnrealizedGainLossInvestmentAndDerivativeOperatingAfterTaxAlternativeAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RealizedAndUnrealizedGainLossInvestmentAndDerivativeOperatingAfterTaxAlternativeAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentCompanyExpenseAfterReductionOfFeeWaiverAndReimbursementAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyExpenseAfterReductionOfFeeWaiverAndReimbursementAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "OpenSwapContractIdentifierAxis",
+            "type": "Concept",
+            "label": "us-gaap-supplement:OpenSwapContractIdentifierAxis",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentCompanyIncentiveAllocationToAverageNetAssets",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyIncentiveAllocationToAverageNetAssets",
+            "isAbstract": "false",
+            "dataType": "dtr-types:percentItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ManagementAndServiceFeesIncentiveRate",
+            "type": "Concept",
+            "label": "us-gaap-supplement:ManagementAndServiceFeesIncentiveRate",
+            "isAbstract": "false",
+            "dataType": "dtr-types:percentItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentIssuerGeographicRegionExtensibleEnumeration",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentIssuerGeographicRegionExtensibleEnumeration",
+            "isAbstract": "false",
+            "dataType": "enum2:enumerationSetItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "TransportationSectorMember",
+            "type": "Concept",
+            "label": "us-gaap-supplement:TransportationSectorMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ProceedsFromDispositionOfInvestmentOperatingActivity",
+            "type": "Concept",
+            "label": "us-gaap-supplement:ProceedsFromDispositionOfInvestmentOperatingActivity",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "InvestmentIssuerNameAxis",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentIssuerNameAxis",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "RealizedGainLossInvestmentDerivativeAndForeignCurrencyTransactionPriceChangeOperatingAfterTax",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RealizedGainLossInvestmentDerivativeAndForeignCurrencyTransactionPriceChangeOperatingAfterTax",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "InvestmentCompanyDistributionPolicyTextBlock",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyDistributionPolicyTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ExpenseOffsetArrangementUseOfAsset",
+            "type": "Concept",
+            "label": "us-gaap-supplement:ExpenseOffsetArrangementUseOfAsset",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "UnrealizedGainLossInvestmentAndDerivativeOperatingBeforeTaxAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:UnrealizedGainLossInvestmentAndDerivativeOperatingBeforeTaxAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentCompanyNonconsolidatedSubsidiarySummarizedFinancialInformationTableTextBlock",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyNonconsolidatedSubsidiarySummarizedFinancialInformationTableTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentCompanyPortfolioTurnover",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyPortfolioTurnover",
+            "isAbstract": "false",
+            "dataType": "dtr-types:percentItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CashNotHeldInForeignCurrency",
+            "type": "Concept",
+            "label": "us-gaap-supplement:CashNotHeldInForeignCurrency",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "OpenOptionContractIdentifierAxis",
+            "type": "Concept",
+            "label": "us-gaap-supplement:OpenOptionContractIdentifierAxis",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentNonIncomeProducing",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentNonIncomeProducing",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "costBearerItemType",
+            "type": "Type",
+            "label": "costBearerItemType"
+        },
+        {
+            "localName": "InvestmentUnrestrictedEnforceableRightToAcquireDatePerUnit",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentUnrestrictedEnforceableRightToAcquireDatePerUnit",
+            "isAbstract": "false",
+            "dataType": "srt-types:perUnitItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "MidwestRegionMember",
+            "type": "Concept",
+            "label": "us-gaap-supplement:MidwestRegionMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "RealizedAndUnrealizedGainLossInvestmentDerivativeAndForeignCurrencyTransactionPriceChangeOperatingAfterTaxAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RealizedAndUnrealizedGainLossInvestmentDerivativeAndForeignCurrencyTransactionPriceChangeOperatingAfterTaxAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentCompanyPreferredShareAmountRepurchasedToLiquidationValueExcessLess",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyPreferredShareAmountRepurchasedToLiquidationValueExcessLess",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "DerivativeUnderlyingInvestmentPercentageToNetAssetsOfBasketOrIndex",
+            "type": "Concept",
+            "label": "us-gaap-supplement:DerivativeUnderlyingInvestmentPercentageToNetAssetsOfBasketOrIndex",
+            "isAbstract": "false",
+            "dataType": "dtr-types:percentItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "SecuritySoldShortAndForeignCurrencyTransactionPriceChangeUnrealizedGainLossOperatingBeforeTax",
+            "type": "Concept",
+            "label": "us-gaap-supplement:SecuritySoldShortAndForeignCurrencyTransactionPriceChangeUnrealizedGainLossOperatingBeforeTax",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "IncreaseDecreaseInManagementAndIncentiveFeesPayable",
+            "type": "Concept",
+            "label": "us-gaap-supplement:IncreaseDecreaseInManagementAndIncentiveFeesPayable",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "CashHeldInForeignCurrencyAcquisitionCost",
+            "type": "Concept",
+            "label": "us-gaap-supplement:CashHeldInForeignCurrencyAcquisitionCost",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "OpenFuturesContractTable",
+            "type": "Concept",
+            "label": "us-gaap-supplement:OpenFuturesContractTable",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "SecuritySoldShortAndForeignCurrencyTransactionPriceChangeRealizedGainLossOperatingBeforeTax",
+            "type": "Concept",
+            "label": "us-gaap-supplement:SecuritySoldShortAndForeignCurrencyTransactionPriceChangeRealizedGainLossOperatingBeforeTax",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "DebtAndEquitySecuritiesAndForeignCurrencyTransactionPriceChangeRealizedGainLossOperatingBeforeTax",
+            "type": "Concept",
+            "label": "us-gaap-supplement:DebtAndEquitySecuritiesAndForeignCurrencyTransactionPriceChangeRealizedGainLossOperatingBeforeTax",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "DerivativeUnderlyingInvestmentFairValue",
+            "type": "Concept",
+            "label": "us-gaap-supplement:DerivativeUnderlyingInvestmentFairValue",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "UnrealizedGainLossInvestmentAndDerivativeOperatingBeforeTax",
+            "type": "Concept",
+            "label": "us-gaap-supplement:UnrealizedGainLossInvestmentAndDerivativeOperatingBeforeTax",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "InvestmentExtensibleEnumerationAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentExtensibleEnumerationAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentCompanyLossOnInvestmentInViolation",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyLossOnInvestmentInViolation",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "InvestmentVariableInterestRateTypeExtensibleEnumeration",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentVariableInterestRateTypeExtensibleEnumeration",
+            "isAbstract": "false",
+            "dataType": "enum2:enumerationSetItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "DerivativeAndForeignCurrencyTransactionPriceChangeRealizedGainLossOperatingBeforeTax",
+            "type": "Concept",
+            "label": "us-gaap-supplement:DerivativeAndForeignCurrencyTransactionPriceChangeRealizedGainLossOperatingBeforeTax",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "NorthwestRegionMember",
+            "type": "Concept",
+            "label": "us-gaap-supplement:NorthwestRegionMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "BrokerAndExpenseOffsetArrangementsAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:BrokerAndExpenseOffsetArrangementsAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentCompanyChangesInNetAssetsLineItems",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyChangesInNetAssetsLineItems",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ForeignCurrencyTransactionGainLossExcludingInvestmentPriceChangeBeforeTax",
+            "type": "Concept",
+            "label": "us-gaap-supplement:ForeignCurrencyTransactionGainLossExcludingInvestmentPriceChangeBeforeTax",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "InvestmentIssuerNameOtherMember",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentIssuerNameOtherMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "RetailSectorMember",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RetailSectorMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "DerivativeRestrictionStatus",
+            "type": "Concept",
+            "label": "us-gaap-supplement:DerivativeRestrictionStatus",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "DerivativeAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:DerivativeAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentCompanyAmountReceivedToNavExcessLess",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyAmountReceivedToNavExcessLess",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "RealizedAndUnrealizedGainLossInvestmentAndDerivativeOperatingFederalDeferredTaxExpenseBenefit",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RealizedAndUnrealizedGainLossInvestmentAndDerivativeOperatingFederalDeferredTaxExpenseBenefit",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "ForeignCurrencyRiskInvestmentDescription",
+            "type": "Concept",
+            "label": "us-gaap-supplement:ForeignCurrencyRiskInvestmentDescription",
+            "isAbstract": "false",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentIncomeOperatingTaxExpenseBenefit",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentIncomeOperatingTaxExpenseBenefit",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "ForeignCurrencyTransactionGainLossRealizedExcludingInvestmentPriceChangeBeforeTax",
+            "type": "Concept",
+            "label": "us-gaap-supplement:ForeignCurrencyTransactionGainLossRealizedExcludingInvestmentPriceChangeBeforeTax",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "RealizedAndUnrealizedGainLossInvestmentAndDerivativeOperatingDeferredTaxExpenseBenefitAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RealizedAndUnrealizedGainLossInvestmentAndDerivativeOperatingDeferredTaxExpenseBenefitAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentIncomeOperatingAfterExpenseAndTaxAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentIncomeOperatingAfterExpenseAndTaxAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "RealizedGainLossInvestmentAndDerivativeOperatingAfterTax",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RealizedGainLossInvestmentAndDerivativeOperatingAfterTax",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "ForeignCurrencyTransactionGainLossUnrealizedAfterTax",
+            "type": "Concept",
+            "label": "us-gaap-supplement:ForeignCurrencyTransactionGainLossUnrealizedAfterTax",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "ReceivableInvestmentSale",
+            "type": "Concept",
+            "label": "us-gaap-supplement:ReceivableInvestmentSale",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "PaymentsForPurchaseOfInvestmentOperatingActivity",
+            "type": "Concept",
+            "label": "us-gaap-supplement:PaymentsForPurchaseOfInvestmentOperatingActivity",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "InvestmentCompanyDistributionOrdinaryIncome",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyDistributionOrdinaryIncome",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "ForeignCurrencyTransactionGainLossUnrealizedExcludingInvestmentPriceChangeAfterTax",
+            "type": "Concept",
+            "label": "us-gaap-supplement:ForeignCurrencyTransactionGainLossUnrealizedExcludingInvestmentPriceChangeAfterTax",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "ForeignCurrencyTransactionGainLossRealizedExcludingInvestmentPriceChangeAfterTax",
+            "type": "Concept",
+            "label": "us-gaap-supplement:ForeignCurrencyTransactionGainLossRealizedExcludingInvestmentPriceChangeAfterTax",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "DerivativePositionExtensibleEnumeration",
+            "type": "Concept",
+            "label": "us-gaap-supplement:DerivativePositionExtensibleEnumeration",
+            "isAbstract": "false",
+            "dataType": "enum2:enumerationSetItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentCompanyDividendDistributionAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyDividendDistributionAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentCompanyExpenseLimitationAgreement",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyExpenseLimitationAgreement",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentRestrictedPerUnit",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentRestrictedPerUnit",
+            "isAbstract": "false",
+            "dataType": "srt-types:perUnitItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "EastRegionMember",
+            "type": "Concept",
+            "label": "us-gaap-supplement:EastRegionMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentInForeignSecurityLowMarketCapitalizationFairValueNotPrice",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentInForeignSecurityLowMarketCapitalizationFairValueNotPrice",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "ChemicalsSectorMember",
+            "type": "Concept",
+            "label": "us-gaap-supplement:ChemicalsSectorMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "NortheastRegionMember",
+            "type": "Concept",
+            "label": "us-gaap-supplement:NortheastRegionMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentCompanyVoluntaryPaymentByAffiliateLossReimbursement",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyVoluntaryPaymentByAffiliateLossReimbursement",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "InvestmentCompanyDebtInstrumentAmountRepaidToNavExcessLess",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyDebtInstrumentAmountRepaidToNavExcessLess",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "InvestmentCompanyInternalRateOfReturnSinceInceptionNetOfIncentive",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyInternalRateOfReturnSinceInceptionNetOfIncentive",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "InvestmentCompanyInvesteePortfolioNotAvailable",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyInvesteePortfolioNotAvailable",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "InvestmentAffiliatedIssuerMember",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentAffiliatedIssuerMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "DerivativeUnderlyingInvestmentPrincipal",
+            "type": "Concept",
+            "label": "us-gaap-supplement:DerivativeUnderlyingInvestmentPrincipal",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "PayableInvestmentPurchase",
+            "type": "Concept",
+            "label": "us-gaap-supplement:PayableInvestmentPurchase",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "EntertainmentSectorMember",
+            "type": "Concept",
+            "label": "us-gaap-supplement:EntertainmentSectorMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentCompanyForeignIncomeTaxWithheldNotReclaimable",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyForeignIncomeTaxWithheldNotReclaimable",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "InvestmentIssuerAffiliationExtensibleEnumeration",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentIssuerAffiliationExtensibleEnumeration",
+            "isAbstract": "false",
+            "dataType": "enum2:enumerationSetItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "InvestmentIssuerAffiliationDomain",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentIssuerAffiliationDomain",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "SoutheastRegionMember",
+            "type": "Concept",
+            "label": "us-gaap-supplement:SoutheastRegionMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "OpenForwardForeignCurrencyContractIdentifierAxis",
+            "type": "Concept",
+            "label": "us-gaap-supplement:OpenForwardForeignCurrencyContractIdentifierAxis",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "DerivativeAndForeignCurrencyTransactionPriceChangeUnrealizedGainLossOperatingBeforeTax",
+            "type": "Concept",
+            "label": "us-gaap-supplement:DerivativeAndForeignCurrencyTransactionPriceChangeUnrealizedGainLossOperatingBeforeTax",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "OpenForwardForeignCurrencyContractTableTextBlock",
+            "type": "Concept",
+            "label": "us-gaap-supplement:OpenForwardForeignCurrencyContractTableTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentCompanySeniorSecurityStockAssetCoverageRatio",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanySeniorSecurityStockAssetCoverageRatio",
+            "isAbstract": "false",
+            "dataType": "dtr-types:percentItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "InvestmentInterestRatePaidInCash",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentInterestRatePaidInCash",
+            "isAbstract": "false",
+            "dataType": "dtr-types:percentItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "InvestmentIncomeOperatingAfterExpenseAndTax",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentIncomeOperatingAfterExpenseAndTax",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "RealizedAndUnrealizedGainLossInvestmentDerivativeAndForeignCurrencyTransactionOperatingAfterTaxAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RealizedAndUnrealizedGainLossInvestmentDerivativeAndForeignCurrencyTransactionOperatingAfterTaxAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "LetterOfCreditIssuerNameExtensibleEnumeration",
+            "type": "Concept",
+            "label": "us-gaap-supplement:LetterOfCreditIssuerNameExtensibleEnumeration",
+            "isAbstract": "false",
+            "dataType": "enum2:enumerationSetItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentAffiliatedIssuerNoncontrolledMember",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentAffiliatedIssuerNoncontrolledMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentInterestRatePaidInKind",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentInterestRatePaidInKind",
+            "isAbstract": "false",
+            "dataType": "dtr-types:percentItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "RealizedAndUnrealizedGainLossInvestmentDerivativeAndForeignCurrencyTransactionOperatingAfterTax",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RealizedAndUnrealizedGainLossInvestmentDerivativeAndForeignCurrencyTransactionOperatingAfterTax",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "UnrealizedGainLossInvestmentAndDerivativeOperatingTaxExpenseBenefit",
+            "type": "Concept",
+            "label": "us-gaap-supplement:UnrealizedGainLossInvestmentAndDerivativeOperatingTaxExpenseBenefit",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "AerospaceSectorMember",
+            "type": "Concept",
+            "label": "us-gaap-supplement:AerospaceSectorMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "OpenFuturesContractLineItems",
+            "type": "Concept",
+            "label": "us-gaap-supplement:OpenFuturesContractLineItems",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "SouthRegionMember",
+            "type": "Concept",
+            "label": "us-gaap-supplement:SouthRegionMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "IncreaseDecreaseInIncentiveFeePayable",
+            "type": "Concept",
+            "label": "us-gaap-supplement:IncreaseDecreaseInIncentiveFeePayable",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "InvestmentCompanyRepurchaseOfSharesPerShare",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyRepurchaseOfSharesPerShare",
+            "isAbstract": "false",
+            "dataType": "dtr-types:perShareItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "DividendAndInterestReceivable",
+            "type": "Concept",
+            "label": "us-gaap-supplement:DividendAndInterestReceivable",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "InvestmentCompanyChangesInNetAssetsTable",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyChangesInNetAssetsTable",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentCompanyExpenseAfterReductionOfFeeWaiverAndReimbursement",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyExpenseAfterReductionOfFeeWaiverAndReimbursement",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "OpenFuturesContractIdentifierAxis",
+            "type": "Concept",
+            "label": "us-gaap-supplement:OpenFuturesContractIdentifierAxis",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ForeignCurrencyTransactionGainLossAfterTax",
+            "type": "Concept",
+            "label": "us-gaap-supplement:ForeignCurrencyTransactionGainLossAfterTax",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "AutomotiveSectorMember",
+            "type": "Concept",
+            "label": "us-gaap-supplement:AutomotiveSectorMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "DividendIncomeOperatingAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:DividendIncomeOperatingAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "RepurchaseAgreementDateOfRepurchase",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RepurchaseAgreementDateOfRepurchase",
+            "isAbstract": "false",
+            "dataType": "xbrli:dateItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentCompanyAccountingAndReportingUnderTopic946",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyAccountingAndReportingUnderTopic946",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "VariationMarginPayableDerivative",
+            "type": "Concept",
+            "label": "us-gaap-supplement:VariationMarginPayableDerivative",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "BrokerServiceArrangementExpenseIncrease",
+            "type": "Concept",
+            "label": "us-gaap-supplement:BrokerServiceArrangementExpenseIncrease",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "RealizedAndUnrealizedGainLossInvestmentAndDerivativeOperatingBeforeTaxAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RealizedAndUnrealizedGainLossInvestmentAndDerivativeOperatingBeforeTaxAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "RealizedAndUnrealizedGainLossInvestmentAndDerivativeOperatingDeferredTaxExpenseBenefit",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RealizedAndUnrealizedGainLossInvestmentAndDerivativeOperatingDeferredTaxExpenseBenefit",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "DerivativeSignificantUnobservableInput",
+            "type": "Concept",
+            "label": "us-gaap-supplement:DerivativeSignificantUnobservableInput",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "ManagementAndServiceFeesRate",
+            "type": "Concept",
+            "label": "us-gaap-supplement:ManagementAndServiceFeesRate",
+            "isAbstract": "false",
+            "dataType": "dtr-types:percentItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentUnaffiliatedIssuerMember",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentUnaffiliatedIssuerMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "DistributionPayable",
+            "type": "Concept",
+            "label": "us-gaap-supplement:DistributionPayable",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "InvestmentCompanyIncreaseDecreaseFromShareTransaction",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyIncreaseDecreaseFromShareTransaction",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "InterestIncomeOperatingPaidInCash",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InterestIncomeOperatingPaidInCash",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "InvestmentCompanySeniorSecurityIndebtednessAssetCoverageRatio",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanySeniorSecurityIndebtednessAssetCoverageRatio",
+            "isAbstract": "false",
+            "dataType": "dtr-types:percentItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "InvestmentCompanyTotalReturnExcludingGainOnInvestmentInViolation",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyTotalReturnExcludingGainOnInvestmentInViolation",
+            "isAbstract": "false",
+            "dataType": "dtr-types:percentItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "DerivativeUnderlyingInvestmentBasketOrIndexAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:DerivativeUnderlyingInvestmentBasketOrIndexAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentCompanyDisclosureItemsAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyDisclosureItemsAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentCompanyPreferredShareAmountRepurchasedToNavExcessLess",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyPreferredShareAmountRepurchasedToNavExcessLess",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "VariationMarginReceivableDerivative",
+            "type": "Concept",
+            "label": "us-gaap-supplement:VariationMarginReceivableDerivative",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "InvestmentRestrictionStatus",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentRestrictionStatus",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "IncreaseDecreaseInPayableForInvestmentPurchased",
+            "type": "Concept",
+            "label": "us-gaap-supplement:IncreaseDecreaseInPayableForInvestmentPurchased",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "OpenSwapContractTable",
+            "type": "Concept",
+            "label": "us-gaap-supplement:OpenSwapContractTable",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "OpenForwardForeignCurrencyContractTable",
+            "type": "Concept",
+            "label": "us-gaap-supplement:OpenForwardForeignCurrencyContractTable",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "RealizedGainLossInvestmentAndDerivativeOperatingTaxExpenseBenefit",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RealizedGainLossInvestmentAndDerivativeOperatingTaxExpenseBenefit",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "InvestmentCompanyTotalReturnAnnualized",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyTotalReturnAnnualized",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentCompanyMarketValuePerShare",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyMarketValuePerShare",
+            "isAbstract": "false",
+            "dataType": "dtr-types:perShareItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "ExpenseOffsetArrangementExpenseIncreaseStatementOfIncomeOrComprehensiveIncomeExtensibleEnumeration",
+            "type": "Concept",
+            "label": "us-gaap-supplement:ExpenseOffsetArrangementExpenseIncreaseStatementOfIncomeOrComprehensiveIncomeExtensibleEnumeration",
+            "isAbstract": "false",
+            "dataType": "enum2:enumerationSetItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentInterestRateFloor",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentInterestRateFloor",
+            "isAbstract": "false",
+            "dataType": "dtr-types:percentItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "InvestmentCompanyBalanceSheetItemsAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyBalanceSheetItemsAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "CashHeldInForeignCurrency",
+            "type": "Concept",
+            "label": "us-gaap-supplement:CashHeldInForeignCurrency",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "DerivativeUnderlyingInvestmentBasketOrIndexExtensibleEnumeration",
+            "type": "Concept",
+            "label": "us-gaap-supplement:DerivativeUnderlyingInvestmentBasketOrIndexExtensibleEnumeration",
+            "isAbstract": "false",
+            "dataType": "enum2:enumerationSetItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "RealizedAndUnrealizedGainLossInvestmentAndDerivativeOperatingTaxExpenseBenefit",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RealizedAndUnrealizedGainLossInvestmentAndDerivativeOperatingTaxExpenseBenefit",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "IncreaseDecreaseInManagementFeePayable",
+            "type": "Concept",
+            "label": "us-gaap-supplement:IncreaseDecreaseInManagementFeePayable",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "PayablePreferredStockRedeemed",
+            "type": "Concept",
+            "label": "us-gaap-supplement:PayablePreferredStockRedeemed",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "StandardPoors500IndexMember",
+            "type": "Concept",
+            "label": "us-gaap-supplement:StandardPoors500IndexMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentCompanyTotalReturnExcludingLossOnInvestmentInViolation",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyTotalReturnExcludingLossOnInvestmentInViolation",
+            "isAbstract": "false",
+            "dataType": "dtr-types:percentItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ForeignCurrencyTransactionGainLossExcludingInvestmentPriceChangeAfterTaxAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:ForeignCurrencyTransactionGainLossExcludingInvestmentPriceChangeAfterTaxAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ForeignCurrencyTransactionGainLossExcludingInvestmentPriceChangeAfterTax",
+            "type": "Concept",
+            "label": "us-gaap-supplement:ForeignCurrencyTransactionGainLossExcludingInvestmentPriceChangeAfterTax",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "SouthwestRegionMember",
+            "type": "Concept",
+            "label": "us-gaap-supplement:SouthwestRegionMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "IncentiveFeePayable",
+            "type": "Concept",
+            "label": "us-gaap-supplement:IncentiveFeePayable",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "RealizedAndUnrealizedGainLossInvestmentAndDerivativeOperatingAfterTax",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RealizedAndUnrealizedGainLossInvestmentAndDerivativeOperatingAfterTax",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "InterestAndDividendIncomeOperatingPaidInKind",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InterestAndDividendIncomeOperatingPaidInKind",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "OpenOptionContractWrittenAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:OpenOptionContractWrittenAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ConstructionSectorMember",
+            "type": "Concept",
+            "label": "us-gaap-supplement:ConstructionSectorMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ContainerAndPackagingSectorMember",
+            "type": "Concept",
+            "label": "us-gaap-supplement:ContainerAndPackagingSectorMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "OpenForwardForeignCurrencyContractLineItems",
+            "type": "Concept",
+            "label": "us-gaap-supplement:OpenForwardForeignCurrencyContractLineItems",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "RealizedAndUnrealizedGainLossInvestmentAndDerivativeOperatingFederalCurrentTaxExpenseBenefit",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RealizedAndUnrealizedGainLossInvestmentAndDerivativeOperatingFederalCurrentTaxExpenseBenefit",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "IssuanceAndRepurchaseOwnSecurityAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:IssuanceAndRepurchaseOwnSecurityAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "EnergySectorMember",
+            "type": "Concept",
+            "label": "us-gaap-supplement:EnergySectorMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "FeeIncome",
+            "type": "Concept",
+            "label": "us-gaap-supplement:FeeIncome",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "DerivativeNetAssetsPercentage",
+            "type": "Concept",
+            "label": "us-gaap-supplement:DerivativeNetAssetsPercentage",
+            "isAbstract": "false",
+            "dataType": "dtr-types:percentItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "DerivativeUnderlyingInvestmentShares",
+            "type": "Concept",
+            "label": "us-gaap-supplement:DerivativeUnderlyingInvestmentShares",
+            "isAbstract": "false",
+            "dataType": "xbrli:sharesItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "OpenSwapContractLineItems",
+            "type": "Concept",
+            "label": "us-gaap-supplement:OpenSwapContractLineItems",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentCompanyNonconsolidatedSubsidiaryLineItems",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyNonconsolidatedSubsidiaryLineItems",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentIdentifierAxis",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentIdentifierAxis",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentCompanyGeneralPartnerAdvisoryServiceAllocation",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyGeneralPartnerAdvisoryServiceAllocation",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "UnrealizedGainLossInvestmentAndDerivativeOperatingAfterTax",
+            "type": "Concept",
+            "label": "us-gaap-supplement:UnrealizedGainLossInvestmentAndDerivativeOperatingAfterTax",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "RealizedAndUnrealizedGainLossInvestmentAndDerivativeOperatingNonfederalDeferredTaxExpenseBenefit",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RealizedAndUnrealizedGainLossInvestmentAndDerivativeOperatingNonfederalDeferredTaxExpenseBenefit",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "InvestmentCompanyRegulatedStatus",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyRegulatedStatus",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InterestIncomeOperatingPaidInKind",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InterestIncomeOperatingPaidInKind",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "InvestmentCompanyTotalReturnLossOnInvestmentInViolation",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyTotalReturnLossOnInvestmentInViolation",
+            "isAbstract": "false",
+            "dataType": "dtr-types:percentItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentIssuerNameDomain",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentIssuerNameDomain",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ForeignCurrencyTransactionGainLossRealizedAfterTax",
+            "type": "Concept",
+            "label": "us-gaap-supplement:ForeignCurrencyTransactionGainLossRealizedAfterTax",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "RealizedGainLossInvestmentAndDerivativeOperatingBeforeTax",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RealizedGainLossInvestmentAndDerivativeOperatingBeforeTax",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "GeographicBasisCorporateHeadquartersMember",
+            "type": "Concept",
+            "label": "us-gaap-supplement:GeographicBasisCorporateHeadquartersMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "NasdaqCompositeIndexMember",
+            "type": "Concept",
+            "label": "us-gaap-supplement:NasdaqCompositeIndexMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "RealizedAndUnrealizedGainLossInvestmentDerivativeAndForeignCurrencyTransactionPriceChangeOperatingBeforeTax",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RealizedAndUnrealizedGainLossInvestmentDerivativeAndForeignCurrencyTransactionPriceChangeOperatingBeforeTax",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "BrokerServiceArrangementExpenseIncreaseStatementOfIncomeOrComprehensiveIncomeExtensibleEnumeration",
+            "type": "Concept",
+            "label": "us-gaap-supplement:BrokerServiceArrangementExpenseIncreaseStatementOfIncomeOrComprehensiveIncomeExtensibleEnumeration",
+            "isAbstract": "false",
+            "dataType": "enum2:enumerationSetItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "SharesAcquiredWeightedAverageDiscountToNetAssetsPercentage",
+            "type": "Concept",
+            "label": "us-gaap-supplement:SharesAcquiredWeightedAverageDiscountToNetAssetsPercentage",
+            "isAbstract": "false",
+            "dataType": "dtr-types:percentItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "UnrealizedGainLossInvestmentDerivativeAndForeignCurrencyTransactionPriceChangeOperatingBeforeTaxAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:UnrealizedGainLossInvestmentDerivativeAndForeignCurrencyTransactionPriceChangeOperatingBeforeTaxAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentCompanyChangesInNetAssetsTableTextBlock",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyChangesInNetAssetsTableTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentIssuerNameExtensibleEnumeration",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentIssuerNameExtensibleEnumeration",
+            "isAbstract": "false",
+            "dataType": "enum2:enumerationSetItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InterestIncomeOperatingAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InterestIncomeOperatingAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ManagementAndServiceFeesRateAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:ManagementAndServiceFeesRateAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "DerivativePremiumPaid",
+            "type": "Concept",
+            "label": "us-gaap-supplement:DerivativePremiumPaid",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "InvestmentAffiliatedIssuerControlledMember",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentAffiliatedIssuerControlledMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentCompanyNonconsolidatedSubsidiaryAxis",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyNonconsolidatedSubsidiaryAxis",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ForeignCurrencyTransactionGainLossUnrealizedExcludingInvestmentPriceChangeBeforeTax",
+            "type": "Concept",
+            "label": "us-gaap-supplement:ForeignCurrencyTransactionGainLossUnrealizedExcludingInvestmentPriceChangeBeforeTax",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "PayableCommonStockRedeemed",
+            "type": "Concept",
+            "label": "us-gaap-supplement:PayableCommonStockRedeemed",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "instant",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "RealizedGainLossInvestmentAndDerivativeOperatingAfterTaxAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RealizedGainLossInvestmentAndDerivativeOperatingAfterTaxAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "DebtInstrumentRepaidPrincipal",
+            "type": "Concept",
+            "label": "us-gaap-supplement:DebtInstrumentRepaidPrincipal",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "InvestmentCompanyDistributionLongTermCapitalGain",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyDistributionLongTermCapitalGain",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "RestrictedSecurityDispositionCostBearerFixedList",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RestrictedSecurityDispositionCostBearerFixedList",
+            "isAbstract": "false",
+            "dataType": "us-gaap-supplement:costBearerItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentIssuerAffiliationAxis",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentIssuerAffiliationAxis",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentCompanyDebtInstrumentAmountRepaidToPrincipalExcessLess",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyDebtInstrumentAmountRepaidToPrincipalExcessLess",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "InvestmentAcquisitionDate",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentAcquisitionDate",
+            "isAbstract": "false",
+            "dataType": "xbrli:dateItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentCompanyNonconsolidatedSubsidiaryDomain",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyNonconsolidatedSubsidiaryDomain",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "GeographicBasisCountryOfDomicileMember",
+            "type": "Concept",
+            "label": "us-gaap-supplement:GeographicBasisCountryOfDomicileMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "ExpenseOffsetArrangementExpenseIncrease",
+            "type": "Concept",
+            "label": "us-gaap-supplement:ExpenseOffsetArrangementExpenseIncrease",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "InvestmentCompanyIssuanceOfSharesPerShare",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyIssuanceOfSharesPerShare",
+            "isAbstract": "false",
+            "dataType": "dtr-types:perShareItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentIssuerGeographicRegionBasisExtensibleEnumeration",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentIssuerGeographicRegionBasisExtensibleEnumeration",
+            "isAbstract": "false",
+            "dataType": "enum2:enumerationSetItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "InvestmentCompanyTotalReturnGainOnInvestmentInViolation",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyTotalReturnGainOnInvestmentInViolation",
+            "isAbstract": "false",
+            "dataType": "dtr-types:percentItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentPartialDividendDeclared",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentPartialDividendDeclared",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "RealizedGainLossSecuritySoldShortOperating",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RealizedGainLossSecuritySoldShortOperating",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "DebtAndEquitySecuritiesAndForeignCurrencyTransactionPriceChangeUnrealizedGainLossOperatingBeforeTax",
+            "type": "Concept",
+            "label": "us-gaap-supplement:DebtAndEquitySecuritiesAndForeignCurrencyTransactionPriceChangeUnrealizedGainLossOperatingBeforeTax",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "ManagementAndServiceFeesBaseRate",
+            "type": "Concept",
+            "label": "us-gaap-supplement:ManagementAndServiceFeesBaseRate",
+            "isAbstract": "false",
+            "dataType": "dtr-types:percentItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InterestAndDividendIncomeOperatingPaidInCash",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InterestAndDividendIncomeOperatingPaidInCash",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "InvestmentSignificantUnobservableInput",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentSignificantUnobservableInput",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "InvestmentBasisSpreadVariableRate",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentBasisSpreadVariableRate",
+            "isAbstract": "false",
+            "dataType": "dtr-types:percentItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "InvestmentCompanyExcessExpenseReimbursable",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyExcessExpenseReimbursable",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "InvestmentCompanyGainOnInvestmentInViolation",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyGainOnInvestmentInViolation",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "UnrealizedGainLossSecuritySoldShortOperating",
+            "type": "Concept",
+            "label": "us-gaap-supplement:UnrealizedGainLossSecuritySoldShortOperating",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "SecuritySoldShortIdentifierAxis",
+            "type": "Concept",
+            "label": "us-gaap-supplement:SecuritySoldShortIdentifierAxis",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "WestRegionMember",
+            "type": "Concept",
+            "label": "us-gaap-supplement:WestRegionMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentCompanyAmountReceivedToLiquidationValueExcessLess",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyAmountReceivedToLiquidationValueExcessLess",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "RealizedAndUnrealizedGainLossInvestmentDerivativeAndForeignCurrencyTransactionPriceChangeOperatingBeforeTaxAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RealizedAndUnrealizedGainLossInvestmentDerivativeAndForeignCurrencyTransactionPriceChangeOperatingBeforeTaxAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "OpenSwapContractTableTextBlock",
+            "type": "Concept",
+            "label": "us-gaap-supplement:OpenSwapContractTableTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "GeographicBasisAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:GeographicBasisAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "DowJonesIndustrialAverageMember",
+            "type": "Concept",
+            "label": "us-gaap-supplement:DowJonesIndustrialAverageMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentTypeExtensibleEnumeration",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentTypeExtensibleEnumeration",
+            "isAbstract": "false",
+            "dataType": "enum2:enumerationSetItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "RealizedGainLossInvestmentDerivativeAndForeignCurrencyTransactionPriceChangeOperatingBeforeTaxAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RealizedGainLossInvestmentDerivativeAndForeignCurrencyTransactionPriceChangeOperatingBeforeTaxAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "DividendIncomeOperatingPaidInKind",
+            "type": "Concept",
+            "label": "us-gaap-supplement:DividendIncomeOperatingPaidInKind",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "ForeignCurrencyTransactionGainLossAfterTaxAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:ForeignCurrencyTransactionGainLossAfterTaxAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "RealizedAndUnrealizedGainLossInvestmentAndDerivativeOperatingBeforeTax",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RealizedAndUnrealizedGainLossInvestmentAndDerivativeOperatingBeforeTax",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "OpenOptionContractPurchasedAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:OpenOptionContractPurchasedAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "FoodAndBeverageSectorMember",
+            "type": "Concept",
+            "label": "us-gaap-supplement:FoodAndBeverageSectorMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InsuranceSectorMember",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InsuranceSectorMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentPartialInterestPaid",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentPartialInterestPaid",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "InvestmentCompanyPaymentByAffiliateLossOnInvestmentInViolation",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyPaymentByAffiliateLossOnInvestmentInViolation",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "ConsumerSectorMember",
+            "type": "Concept",
+            "label": "us-gaap-supplement:ConsumerSectorMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "DividendIncomeOperatingPaidInCash",
+            "type": "Concept",
+            "label": "us-gaap-supplement:DividendIncomeOperatingPaidInCash",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "RealizedAndUnrealizedGainLossInvestmentAndDerivativeOperatingNonfederalCurrentTaxExpenseBenefit",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RealizedAndUnrealizedGainLossInvestmentAndDerivativeOperatingNonfederalCurrentTaxExpenseBenefit",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "IncreaseDecreaseInReceivableForInvestmentSold",
+            "type": "Concept",
+            "label": "us-gaap-supplement:IncreaseDecreaseInReceivableForInvestmentSold",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "InvestmentInForeignSecurityRiskAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentInForeignSecurityRiskAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "RealizedAndUnrealizedGainLossInvestmentAndDerivativeOperatingCurrentTaxExpenseBenefit",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RealizedAndUnrealizedGainLossInvestmentAndDerivativeOperatingCurrentTaxExpenseBenefit",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "debit"
+        },
+        {
+            "localName": "NorthRegionMember",
+            "type": "Concept",
+            "label": "us-gaap-supplement:NorthRegionMember",
+            "isAbstract": "true",
+            "dataType": "dtr-types:domainItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "UnrealizedGainLossInvestmentDerivativeAndForeignCurrencyTransactionPriceChangeOperatingAfterTax",
+            "type": "Concept",
+            "label": "us-gaap-supplement:UnrealizedGainLossInvestmentDerivativeAndForeignCurrencyTransactionPriceChangeOperatingAfterTax",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "RealizedGainLossInvestmentDerivativeAndForeignCurrencyTransactionPriceChangeOperatingBeforeTax",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RealizedGainLossInvestmentDerivativeAndForeignCurrencyTransactionPriceChangeOperatingBeforeTax",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "InvestmentCompanyTotalReturnMarketValue",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyTotalReturnMarketValue",
+            "isAbstract": "false",
+            "dataType": "dtr-types:percentItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "PaymentByAffiliateAndViolationOfInvestmentGuidelineAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:PaymentByAffiliateAndViolationOfInvestmentGuidelineAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentIndustrySectorExtensibleEnumeration",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentIndustrySectorExtensibleEnumeration",
+            "isAbstract": "false",
+            "dataType": "enum2:enumerationSetItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "InvestmentInForeignSecurityValuationNotActiveMarket",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentInForeignSecurityValuationNotActiveMarket",
+            "isAbstract": "false",
+            "dataType": "xbrli:booleanItemType",
+            "periodType": "instant"
+        },
+        {
+            "localName": "RealizedAndUnrealizedGainLossInvestmentDerivativeAndForeignCurrencyTransactionPriceChangeOperatingAfterTax",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RealizedAndUnrealizedGainLossInvestmentDerivativeAndForeignCurrencyTransactionPriceChangeOperatingAfterTax",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "OpenFuturesContractTableTextBlock",
+            "type": "Concept",
+            "label": "us-gaap-supplement:OpenFuturesContractTableTextBlock",
+            "isAbstract": "false",
+            "dataType": "dtr-types:textBlockItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentCompanyTotalReturnPaymentByAffiliateLossOnInvestmentInViolation",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyTotalReturnPaymentByAffiliateLossOnInvestmentInViolation",
+            "isAbstract": "false",
+            "dataType": "dtr-types:percentItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "UnrealizedGainLossInvestmentDerivativeAndForeignCurrencyTransactionPriceChangeOperatingBeforeTax",
+            "type": "Concept",
+            "label": "us-gaap-supplement:UnrealizedGainLossInvestmentDerivativeAndForeignCurrencyTransactionPriceChangeOperatingBeforeTax",
+            "isAbstract": "false",
+            "dataType": "xbrli:monetaryItemType",
+            "periodType": "duration",
+            "balanceType": "credit"
+        },
+        {
+            "localName": "RealizedGainLossInvestmentAndDerivativeOperatingBeforeTaxAbstract",
+            "type": "Concept",
+            "label": "us-gaap-supplement:RealizedGainLossInvestmentAndDerivativeOperatingBeforeTaxAbstract",
+            "isAbstract": "true",
+            "dataType": "xbrli:stringItemType",
+            "periodType": "duration"
+        },
+        {
+            "localName": "InvestmentCompanyTotalReturnExcludingVoluntaryPaymentByAffiliate",
+            "type": "Concept",
+            "label": "us-gaap-supplement:InvestmentCompanyTotalReturnExcludingVoluntaryPaymentByAffiliate",
+            "isAbstract": "false",
+            "dataType": "dtr-types:percentItemType",
+            "periodType": "duration"
+        }
+    ]
+}

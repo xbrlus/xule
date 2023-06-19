@@ -1,0 +1,365 @@
+/* DateFunctions */
+output FDATE101
+/* 2 */
+
+  date('2022-02-02').day
+
+output FDATE102
+/* list(2, 13, 2) */
+
+  list(date('2022-02-02'), date('2022-02-13'), date('2022-02-02')).day
+
+output FDATE103
+/* set(2, 13) */
+
+  set(date('2022-02-02'), date('2022-02-13'), date('2022-02-02')).day
+
+output FDATE104
+/* Property 'day' is not a property of a 'duration' */
+
+  duration('2022-02-02', '2022-02-20').day
+
+output FDATE105
+/* Property 'day' is not a property of a 'string' */
+
+  '2022-02-99'.day
+
+output FDATE106
+/* 89 */
+
+  duration('2022-01-01', '2022-03-31').days
+
+output FDATE107
+/* list(89, 180) */
+
+  list(duration('2022-01-01', '2022-03-31'), duration('2022-01-01', '2022-06-30')).days
+
+output FDATE108
+/* set(180, 89) */
+
+  set(duration('2022-01-01', '2022-03-31'), duration('2022-01-01', '2022-06-30')).days
+
+output FDATE109
+/* 0 */
+
+  date('2022-01-01').days
+
+output FDATE110
+/* 43921 */
+
+  duration('2020-01-01', '2020-03-31').end
+
+output FDATE111
+/* 43831 */
+
+  date('2020-01-01').end
+
+output FDATE112
+/* Property 'end' is not a property of a 'string'. */
+
+  '2020-01-01'.end
+
+output FDATE113
+/* set(2020-03-31, 2022-01-01) */
+
+  set(duration('2020-01-01', '2020-03-31'), date('2022-01-01')).end
+
+output FDATE114
+/* set(2020-06-30, 2022-01-01) */
+
+  set(duration('2020-01-01', '2020-06-30'), duration('2020-03-01', '2020-06-30'), date('2022-01-01')).end
+
+output FDATE115
+/* list(2020-03-31, 2022-01-01) */
+
+  list(duration('2020-01-01', '2020-03-31'), date('2022-01-01')).end
+
+output FDATE116
+/* Property 'end' is not a property of a 'qname'. */
+
+  list(duration('2020-01-01', '2020-03-31'), date('2022-01-01'), Assets).end
+
+output FDATE117
+/* 2 */
+
+  date('2022-02-02').month
+
+output FDATE118
+/* list(2, 2, 2) */
+
+  list(date('2022-02-02'), date('2022-02-13'), date('2022-02-02')).month
+
+output FDATE119
+/* set(2) */
+
+  set(date('2022-02-02'), date('2022-02-13'), date('2022-02-02')).month
+
+output FDATE120
+/* Property 'month' is not a property of a 'duration'. */
+
+  duration('2022-02-02', '2022-02-20').month
+
+output FDATE121
+/* Property 'month' is not a property of a 'string' */
+
+  '2022-02-99'.month
+
+output FDATE122
+/* 43831 */
+
+  duration('2020-01-01', '2020-03-31').start
+
+output FDATE123
+/* 43831 */
+
+  date('2020-01-01').start
+
+output FDATE124
+/* Property 'start' is not a property of a 'string' */
+
+  '2020-01-01'.start
+
+output FDATE125
+/* set(2020-01-01, 2022-01-01) */
+
+  set(duration('2020-01-01', '2020-03-31'), date('2022-01-01')).start
+
+output FDATE126
+/* set(2020-01-01, 2022-01-01) */
+
+  set(duration('2020-01-01', '2020-03-31'), duration('2020-01-01', '2020-06-30'), date('2022-01-01')).start
+
+output FDATE127
+/* list(2020-01-01, 2022-01-01) */
+
+  list(duration('2020-01-01', '2020-03-31'), date('2022-01-01')).start
+
+output FDATE128
+/* Property 'start' is not a property of a 'qname'. */
+
+  list(duration('2020-01-01', '2020-03-31'), date('2022-01-01'), Assets).start
+
+output FDATE129
+/* 2022 */
+
+  date('2022-02-02').year
+
+output FDATE130
+/* list(2,022, 2,022, 2,022) */
+
+  list(date('2022-02-02'), date('2022-02-13'), date('2022-02-02')).year
+
+output FDATE131
+/* set(2022) */
+
+  set(date('2022-02-02'), date('2022-02-13'), date('2022-02-02')).year
+
+output FDATE132
+/* Property 'year' is not a property of a 'duration'. */
+
+  duration('2022-02-02', '2022-02-20').year
+
+output DAT001
+/* 44562 */
+
+  date('2022-01-01')
+
+output DAT002
+/* 44562.5208333333 */
+
+  date('2022-01-01T12:30:00')
+
+output DAT003
+/* 44620 */
+
+  date('2022-02-28')
+
+output DAT004
+/* 45351 */
+
+  date('2024-02-29')
+
+output DAT090
+/* Syntax error in parameter '2022-02-32' for 'date()' */
+
+  date('2022-02-32')
+
+output DAT091
+/* date */
+
+  date
+
+output DAT092
+/* Incorrect number of parameters for 'date()' */
+
+  date()
+
+output DAT093
+/* Syntax error in parameter 'cat' for 'date()' */
+
+  date('cat')
+
+output DAT094
+/* Syntax error in parameter '2022-02-29' for 'date()' */
+
+  date('2022-02-29')
+
+output DAT095
+/* 43832 */
+
+  date('2020-01-02')
+
+output DAY001
+/* 2 */
+
+  day(date('2020-01-02'))
+
+output DAY002
+/* 31 */
+
+  day(date('1999-12-31'))
+
+output DAY091
+/* Incorrect number of parameters for 'day()' */
+
+  day()
+
+output DAY092
+/* Parameter for 'day()' must be an 'instant' date */
+
+  day('2020-01-02')
+
+output DUR001
+/* 2022-01-01 to 2022-03-31 */
+
+  duration('2022-01-01', '2022-03-31')
+
+output DUR091
+/* Parameter 2 syntax error '20220331' for 'duration()' */
+
+  duration('2022-01-01', '20220331')
+
+output DUR092
+/* Parameter 1 syntax error '2022-01-aa' for 'duration()' */
+
+  duration('2022-01-aa', '2022-03-31')
+
+output DUR093
+/* Dates out of order for 'duration()' */
+
+  duration('2022-03-31', '2022-01-01')
+
+output FVR001
+/* forever */
+
+  forever()
+
+output FVR002
+/* 2958465 */
+
+  forever().end
+
+output FVR003
+/* 36892 */
+
+  forever().start
+
+output FVR004
+/* forever */
+
+  forever
+
+output MON001
+/* 12 */
+
+  month(date('2021-12-03'))
+
+output MON002
+/* 12 */
+
+  month(date('1999-12-31'))
+
+output MON091
+/* ncorrect number of parameters for 'month()' */
+
+  month()
+
+output MON092
+/* Parameter for 'month()' must be an instant date */
+
+  month('2020-01-02')
+
+output TSP101
+/* 4 */
+
+  time-span('P4D')
+
+output TSP102
+/* 4 */
+
+  time-span(P4D)
+
+output TSP104
+/* 428 */
+
+  time-span(P1Y2M3D)
+
+output TSP105
+/* 28 */
+
+  time-span(P4W)
+
+output TSP106
+/* Function 'time-span' expects a string, fount 'qname'. */
+
+  time-span(P4W2D)
+
+output TSP107
+/* 0.5 */
+
+  time-span('PT12H')
+
+output TSP191
+/* Expected parameter to resolve to 'string' type (was 'qname') */
+
+  time-span(P4D)
+
+output TSP192
+/* Incorrect number of parameters for 'time-span()' */
+
+  time-span()
+
+output TSP193
+/* Expected parameter to resolve to 'string' type (was 'qname') */
+
+  time-span(cat)
+
+output TSP194
+/* Negative duration value '-P4D' not allowed for function 'time-span()' */
+
+  time-span('-P4D')
+
+output YER001
+/* 2021 */
+
+  year(date('2021-12-03'))
+
+output YER002
+/* 1999 */
+
+  year(date('1999-12-31'))
+
+output YER091
+/* Incorrect number of parameters for 'year()' */
+
+  year()
+
+output YER092
+/* Parameter for 'year()' must be an instant date */
+
+  year('2020-01-02')
+
+output FDATE133
+/* Property 'year' is not a property of a 'string'. */
+
+  '2022-02-99'.year

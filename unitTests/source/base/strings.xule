@@ -1,0 +1,390 @@
+/* Strings */
+output DCO101
+/* True */
+
+  'http://some/role/for/cashflow/'.contains(cashflow)
+
+output DCO102
+/* False */
+
+  'http://some/role/for/cashflow/'.contains(cashflows)
+
+output CON101
+/* True */
+
+  contains('a frog and a house', 'hou')
+
+output CON102
+/* False */
+
+  contains('a frog and a house', 'hout')
+
+output DIO101
+/* 3 */
+
+  'Hello Mr. Stains'.index-of('llo')
+
+output DIO102
+/* 5 */
+
+  'Hello Mr Stains-o-there'.index-of('o')
+
+output DIO191
+/* Property 'index-of' must have 1 arguments. Found 0. */
+
+  'Hello Mr Stains-o-there'.index-of
+
+output DIO192
+/* Property 'index-of' must have 1 arguments. Found 0 */
+
+  'Hello Mr Stains-o-there'.index-of()
+
+output IXO101
+/* 14 */
+
+  index-of('a frog and a house', 'hou')
+
+output IXO102
+/* 0 */
+
+  index-of('a frog and a house', 'hout')
+
+output DLI101
+/* 17 */
+
+  'Hello Mr Stains-o-there'.last-index-of('o')
+
+output LIO101
+/* 12 */
+
+  last-index-of('a frog and a house', 'a')
+
+output LIO102
+/* 3 */
+
+  last-index-of('a frog and a house', 'f')
+
+output LIO103
+/* 0 */
+
+  last-index-of('Hello Mr Stains', 'z')
+
+output LIO104
+/* Incorrect number of parameters for 'last-index-of()' */
+
+  last-index-of()
+
+output LIO105
+/* Incorrect number of parameters for 'last-index-of()' */
+
+  last-index-of('Hello Mr Stains')
+
+output LIO106
+/* Incorrect number of parameters for 'last-index-of()' */
+
+  last-index-of('Hello Mr Stains', 'o', 'o')
+
+output LIO107
+/* Parameter 1 must be string for 'last-index-of()' */
+
+  last-index-of(list('Hello Mr Stains'), 'o')
+
+output LEN101
+/* 0 */
+
+  ''.length
+
+output LEN102
+/* 1 */
+
+  'a'.length
+
+output LEN103
+/* 3 */
+
+  'aaa'.length
+
+output LEN104
+/* 18 */
+
+  length('a frog and a house')
+
+output LEN105
+/* 1 */
+
+  length('z')
+
+output LEN106
+/* 0 */
+
+  length('')
+
+output DLO101
+/* abcdef */
+
+  'ABCdef'.lower-case
+
+output DLO102
+/* abcdef */
+
+  'abcdef'.lower-case
+
+output DLO111
+/* set(dog, hello kitty, cat) */
+
+  set('HELLO KITTY','DOG', 'cAT').lower-case
+
+output LOW101
+/* xule is my favorite language. yeah!' */
+
+  lower-case('XULE is my favorite language. Yeah!')
+
+output LOW102
+/*  */
+
+  lower-case('')
+
+output LOW103
+/* 123,000 */
+
+  lower-case('123,000')
+
+output DNU101
+/* 67 */
+
+  '67'.number
+
+output DNU102
+/* 12345 */
+
+  '12345'.number
+
+output DNU103
+/* 12.345 */
+
+  '12.345'.number
+
+output DNU104
+/* 12345 */
+
+  12345.number
+
+output DNU105
+/* inf */
+
+  inf.number
+
+output DNU111
+/* list(3.14, 22, -3) */
+
+  list('3.14', '22', '-3').number
+
+output DNU112
+/* list() */
+
+  list().number
+
+output DNU114
+/* set(3.14, -3, 22) */
+
+  set('3.14', '22', '-3', '22').number
+
+output DNU116
+/* set() */
+
+  set().number
+
+output DNU191
+/* Cannot convert 'z67' to a number  */
+
+  'z67'.number
+
+output DNU192
+/* Cannot convert '' to a number */
+
+  ''.number
+
+output NUM101
+/* 15.01111 */
+
+  number('15.01111')
+
+output NUM102
+/* inf */
+
+  number('inf')
+
+output NUM103
+/* -22 */
+
+  number('-22')
+
+output NUM104
+/* Cannot convert '' to a number */
+
+  number('')
+
+output NUM105
+/* The first argument of function 'number' must be int, float, decimal, fact, found 'none'. */
+
+  number(none)
+
+output DSP101
+/* list(The, quick, fox, jumped, over, the, lazy, dogs, back) */
+
+  'The quick fox jumped over the lazy dogs back'.split(' ')
+
+output DSP102
+/* list(The quick fox jumped over the lazy dogs back) */
+
+  'The quick fox jumped over the lazy dogs back'.split('')
+
+output DSP103
+/* set(list(dog), list(b, t), list(c, t), list(mouse))  */
+
+  set('cat','dog','mouse','bat').split('a')
+
+output DSP104
+/* list(list(c, t), list(dog), list(mouse), list(b, t)) */
+
+  list('cat','dog','mouse','bat').split('a')
+
+output DSP191
+/* The separator argument for property 'string' must be a 'string', found 'int' */
+
+  'The quick fox jumped over the lazy dogs back'.split(3)
+
+output DSP192
+/* int' object has no attribute 'split'  */
+
+  2.split('.')
+
+output DSP193
+/* Property 'split' is not a property of a 'qname' */
+
+  katteringram.split('r')
+
+output DST101
+/* 27 */
+
+  27.string
+
+output STR101
+/* '5' */
+
+  string(5)
+
+output STR102
+/* 'cat' */
+
+  string('cat')
+
+output DSS101
+/* Hello */
+
+  'Hello Mr. Stains'.substring(1,5)
+
+output DSS102
+/* Mr. */
+
+  'Hello Mr. Stains'.substring(7,9)
+
+output SUBS101
+/* Hello */
+
+  substring('Hello Mr. Stains', 1, 5)
+
+output SUBS102
+/* Mr. Stains  */
+
+  substring('Hello Mr. Stains', 7)
+
+output INTRSF001
+/* 44075 */
+
+  inline-transform('01-septembre-2020',ixt:date-day-monthname-year-fr, 'date')
+
+output INTRSF002
+/* 44075 */
+
+  '01-septembre-2020'.inline-transform(ixt:date-day-monthname-year-fr, 'date')
+
+output TOQ101
+/* Assets1 */
+
+  'Assets1'.to-qname
+
+output TOQ102
+/* Assets1 */
+
+  to-qname('Assets1')
+
+output DTR101
+/* (item) */
+
+  '(' + ' item '.trim() + ')'
+
+output DTR102
+/* (item ) */
+
+  '(' + ' item '.trim('left') + ')'
+
+output DTR103
+/* ( item) */
+
+  '(' + ' item '.trim('right') + ')'
+
+output DTR104
+/* (item) */
+
+  '(' + ' item '.trim('both') + ')'
+
+output DTR105
+/* (item) */
+
+  '(' +  trim(' item ') + ')'
+
+output DTR106
+/* QName' object has no attribute 'lower' */
+
+  '(' + ' item '.trim(both) + ')'
+
+output TRIM100
+/* (item) */
+
+  '(' +  trim(' item ') + ')'
+
+output TRIM101
+/* (item ) */
+
+  '(' +  trim(' item ', 'left') + ')'
+
+output TRIM102
+/* ( item) */
+
+  '(' +  trim(' item ', 'right') + ')'
+
+output TRIM103
+/* (item) */
+
+  '(' +  trim(' item ', 'both') + ')'
+
+output TRIM104
+/* The argument for property 'trim' must be one of 'left', 'right' or 'both', found 'none' */
+
+  '(' +  trim(' item ', 'none') + ')'
+
+output DUC101
+/* ABC1 */
+
+  'ABC1'.upper-case
+
+output DUC102
+/* ABCDEF */
+
+  'ABCdef'.upper-case
+
+output DUC103
+/* ABCDEF */
+
+  'abcdef'.upper-case

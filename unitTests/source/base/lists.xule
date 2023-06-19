@@ -1,0 +1,123 @@
+/* Lists */
+output LM001
+/* list(1,2,3,4,a,b,c,4,1,2,3,4) */
+
+  list(1,2,3,4) + list('a','b','c',4) + list(1,2,3,4)
+
+output LM002
+/* TRUE */
+
+  'a' in list('a','b','c','d')
+
+output LM003
+/* FALSE */
+
+  'n' in list('a','b','c','d')
+
+output LM004
+/* list(123) */
+
+  list(1,2,3,none)
+
+output LM005
+/* No iteration */
+
+  list(1,2,3,skip)
+
+output LM006
+/* Cannot deduct a list */
+
+  list(1,2,3) - list(1,2)
+
+output LM007
+/* Error: Cannot multiply a list */
+
+  list(1,2,3) * list(1,2)
+
+output LM008
+/* Error: Cannot do a intersection on a list */
+
+  list(2,3,5) & list(1,2,3,4)
+
+output LM009
+/* Error: Cannot deduct a list */
+
+  list() - list('a','b','c','d') 
+
+output LM010
+/*  true */
+
+  'a' in list('a','b','c','d') 
+
+output LM011
+/*  false */
+
+  'n' in list('a','b','c','d') 
+
+output LM012
+/*  false */
+
+  '' in list()
+
+output LM013
+/*  false */
+
+  list(1) in list(1,'b','c')
+
+output LM014
+/*  false */
+
+  'dog' in list('cat')
+
+output LM015
+/*  false */
+
+  'a' not in list('a','b','c','d') 
+
+output LM016
+/*  true */
+
+  'n' not in list('a','b','c','d') 
+
+output LM017
+/*  true */
+
+  '' not in list()
+
+output LM018
+/*  list(40,230,000,000)
+ list(42,144,000,000)
+ list(45,436,000,000) */
+
+  list([@instance = $INSTANCE1 @Assets])
+
+output LM019
+/*  list(lang, 40,230,000,000)
+ list(lang, 42,144,000,000)
+ list(lang, 45,436,000,000) */
+
+  list('lang',[@instance = $INSTANCE1 @Assets])
+
+output LM020
+/*  list(lang, 40,230,000,000)
+ list(lang, 42,144,000,000)
+ list(lang, 45,436,000,000) */
+
+  $x = [@instance = $INSTANCE1 @Assets]
+
+list('lang',  $x)
+
+output LM021
+/*  list(lang, 40,230,000,000)
+ list(lang, 42,144,000,000)
+ list(lang, 45,436,000,000) */
+
+  list('lang',  $CONSTANT_ASSETS)
+
+output LM022
+/*  list(lang, list(40,230,000,000))
+ list(lang, list(42,144,000,000))
+ list(lang, list(45,436,000,000)) */
+
+  $x = filter list([@instance = $INSTANCE1 @Assets]) returns $item
+  list('lang',  $x)

@@ -1,0 +1,70 @@
+/* Collections */
+output LIST001
+/* list(1, 2, 3, 4, 5)  */
+
+  list(1,2,3,4,5)
+
+output LIST002
+/* list(a, b, c) */
+
+  list('a','b', 'c')
+
+output LIST003
+/* list(one Item) */
+
+  list('one Item')
+
+output LIST004
+/* list(a, list, of strings,  leading and trailing space , end)  */
+
+  list('a','list', 'of strings', ' leading and trailing space ', 'end')
+
+output LIST005
+/* list(1, 2, -199, -9) */
+
+  list(1,2,-199,-9)
+
+output LIST006
+/* list(2016-01-01 to 2016-12-31, 2016-12-31) */
+
+  list(duration('2016-01-01', '2016-12-31'), date('2016-12-31'))
+
+output LIST007
+/* list(none) */
+
+  list(none)
+
+output LIST008
+/* list('2017','2016','2015') */
+
+  list('2017','2016','2015')
+
+output LIST009
+/* list(Assets, Land,Cash, AccountsReceivable) */
+
+  list(Assets, Land,Cash, AccountsReceivable)
+
+output SET101
+/* set(4, 1, 2, 3)  */
+
+  set(1,2,3,4)
+
+output SET102
+/* set(b, b, a, a) */
+
+  set('a', a, b, 'b')
+
+output SET103
+/* set(none) */
+
+  set(none)
+
+output SET104
+/* set(None)  */
+
+  set()
+
+output SET105
+/* set() */
+
+  set(skip)

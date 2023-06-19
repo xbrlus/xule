@@ -1,0 +1,70 @@
+/* Precedence */
+output XU200
+/* integer: 7 */
+
+  2 + 10 / 2
+
+output XU201
+/* integer: 6 */
+
+  (2 + 10) / 2
+
+output XU202
+/* integer: 12 */
+
+  2 + 5 * 2
+
+output XU203
+/* set(1,2,3,4) */
+
+  set(1,2,3,4) - set(1,2,3) + set(1,2,3)
+
+output XU204
+/* set(1,2,3,4) */
+
+  set(1,2,3,4) + (set(1,2,3) - set(1,2,3))
+
+output XU205
+/* set(4) */
+
+  set(1,2,3,4) + set(1,2,3) - set(1,2,3)
+
+output XU206
+/* set(4) */
+
+  set(1,2,3,4) - set(1,2,3) - set(1,2,3)
+
+output XU207
+/* set(1,2,3,4) */
+
+  set(1,2,3,4) - (set(1,2,3) - set(1,2,3))
+
+output XU208
+/* set() */
+
+  set(1,2,3,4) - set(1,2,3) & set(1,2)
+
+output XU209
+/* set(3,4) */
+
+  set(1,2,3,4) - (set(1,2,3) & set(1,2))
+
+output XU210
+/* set() */
+
+  set(1,2,3,4) & set(1,2,3) - set(1,2,3) & set(1,2)
+
+output XU211
+/* set(3) */
+
+  (set(1,2,3,4) & set(1,2,3)) - (set(1,2,3) & set(1,2))
+
+output XU212
+/* set(1, 3, 2, 5, 4)  */
+
+  set(1,2,3,4) ^ set(1,2,3,5) & set(5)
+
+output XU213
+/* set(5) */
+
+  (set(1,2,3,4) ^ set(1,2,3,5)) & set(5)

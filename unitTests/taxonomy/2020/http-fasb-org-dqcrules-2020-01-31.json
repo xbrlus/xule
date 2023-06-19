@@ -1,0 +1,135 @@
+{
+    "http://fasb.org/dqcrules/2020-01-31": [
+        {
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "Dqc_0001_AxisAllowListedBaseMembersAndExtensionsAbstract",
+            "type": "Concept",
+            "label": "DQC.US.0001.Axis allows listed base members and extensions [Abstract]",
+            "dataType": "xbrli:stringItemType"
+        },
+        {
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "Dqc_0015",
+            "type": "Concept",
+            "label": "DQC.US.0015 [Abstract]",
+            "dataType": "xbrli:stringItemType"
+        },
+        {
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "Dqc_0001_AxisRestrictExtensionsAbstract",
+            "type": "Concept",
+            "label": "DQC.US.0001.Axis restricts extensions [Abstract]",
+            "dataType": "xbrli:stringItemType"
+        },
+        {
+            "localName": "ruleName",
+            "type": "Reference",
+            "label": "ruleName",
+            "dataType": "string",
+            "isAbstract": "false"
+        },
+        {
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "Dqc_0001_AxisAllowExtensionsOnlyAbstract",
+            "type": "Concept",
+            "label": "DQC.US.0001.Axis allows extensions [Abstract]",
+            "dataType": "xbrli:stringItemType"
+        },
+        {
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "Dqc_0015_ExcludeNonNegAxisAbstract",
+            "type": "Concept",
+            "label": "DQC.US.0015.Exclude Non-negative Axis [Abstract]",
+            "dataType": "xbrli:stringItemType"
+        },
+        {
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "Dqc_0001",
+            "type": "Concept",
+            "label": "DQC.US.0001 [Abstract]",
+            "dataType": "xbrli:stringItemType"
+        },
+        {
+            "localName": "allowableSubString",
+            "type": "Reference",
+            "label": "allowableSubString",
+            "dataType": "string",
+            "isAbstract": "false"
+        },
+        {
+            "localName": "ruleElementId",
+            "type": "Reference",
+            "label": "ruleElementId",
+            "dataType": "dqcrules:elementIdItemType",
+            "isAbstract": "false"
+        },
+        {
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "Dqc_0015_ExcludeNonNegAxisMembersAbstract",
+            "type": "Concept",
+            "label": "DQC.US.0015.Exclude Non-negative Axis and Members [Abstract]",
+            "dataType": "xbrli:stringItemType"
+        },
+        {
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "Dqc_0008_ReversalOfElementCalculations",
+            "type": "Concept",
+            "label": "DQC.US.0008.Reversal of Element Calculations [Abstract]",
+            "dataType": "xbrli:stringItemType"
+        },
+        {
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "Dqc_0015_ExcludeNonNegMemberStringsAbstract",
+            "type": "Concept",
+            "label": "DQC.US.0015.Exclude Non-negative Member Strings [Abstract]",
+            "dataType": "xbrli:stringItemType"
+        },
+        {
+            "localName": "ruleId",
+            "type": "Reference",
+            "label": "ruleId",
+            "dataType": "dqcrules:ruleIdItemType",
+            "isAbstract": "false"
+        },
+        {
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "Dqc_0008",
+            "type": "Concept",
+            "label": "DQC.US.0008 [Abstract]",
+            "dataType": "xbrli:stringItemType"
+        },
+        {
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "Dqc_0015_ExcludeNonNegMembersAbstract",
+            "type": "Concept",
+            "label": "DQC.US.0015.Exclude Non-negative Members [Abstract]",
+            "dataType": "xbrli:stringItemType"
+        },
+        {
+            "localName": "ruleDocumentation",
+            "type": "Reference",
+            "label": "ruleDocumentation",
+            "dataType": "string",
+            "isAbstract": "false"
+        },
+        {
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "Dqc_0015_ListOfElements",
+            "type": "Concept",
+            "label": "DQC.US.0015.Non-negative Items [Abstract]",
+            "dataType": "xbrli:stringItemType"
+        }
+    ]
+}

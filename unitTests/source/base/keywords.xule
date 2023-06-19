@@ -1,0 +1,45 @@
+/* Keywords */
+output LU101
+/*  None */
+
+  none
+
+output LU102
+/*  None */
+
+  None
+
+output LU103
+/*  None */
+
+  NONE
+
+output LU104
+/*  True */
+
+  true
+
+output LU105
+/*  True */
+
+  TRUE
+
+output LU106
+/*  True */
+
+  True
+
+output LU107
+/*  False */
+
+  false
+
+output LU108
+/*  False */
+
+  FALSE
+
+output LU109
+/*  False */
+
+  False

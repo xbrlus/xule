@@ -1,0 +1,55 @@
+/* ValueExist */
+output VE101
+/* No Iteration */
+
+  exists([@instance = $INSTANCE1 @BelowMarketLeaseAmortizationIncomeYearThree])
+
+output VE102
+/* False */
+
+  exists([covered @instance = $INSTANCE1 @BelowMarketLeaseAmortizationIncomeYearThree])
+
+output VE103
+/* No Iteration */
+
+  missing([@instance = $INSTANCE1 @BelowMarketLeaseAmortizationIncomeYearThree])
+
+output VE104
+/* True */
+
+  missing([covered @instance = $INSTANCE1 @BelowMarketLeaseAmortizationIncomeYearThree])
+
+output VE105
+/* Iterations for Assets */
+
+  first-value([@instance = $INSTANCE1 @BelowMarketLeaseAmortizationIncomeYearThree],[@instance = $INSTANCE1 @Assets])
+
+output VE106
+/* Iterations for Assets */
+
+  first-value(none,[@instance = $INSTANCE1 @Assets])
+
+output VE107
+/* Iterations for Assets */
+
+  first-value([@instance = $INSTANCE1 @Assets],skip)
+
+output VE108
+/* Iterations for Assets */
+
+  first-value(skip,[@instance = $INSTANCE1 @Assets])
+
+output VE109
+/* No Iteration */
+
+  first-value(none,none,none)
+
+output VE110
+/* No Iteration */
+
+  first-value(skip)
+
+output VE111
+/* Iterations for Assets */
+
+  first-value([@instance = $INSTANCE1 @BelowMarketLeaseAmortizationIncomeYearThree],none,[@instance = $INSTANCE1 @Assets])

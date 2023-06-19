@@ -1,0 +1,157 @@
+/* Sets */
+output SM001
+/* set(a, b, c, m, n) */
+
+  set('a','b','c') + set('a', 'm', 'n')
+
+output SM002
+/* set(A, B, C, D, a, b, c, d) */
+
+  set('a','b','c','d') + set('A','B','C','D')
+
+output SM003
+/* set(1, 2, 3, 4) */
+
+  set(1,2,3,4) + set(1.0,2.0,3,4)
+
+output SM004
+/* set(a, b, c, d, e, f, g, h, i, j) */
+
+  set('a','b','c') + set('c', 'd', 'e', 'f') + set('f', 'g', 'h') + set('h', 'i', 'j')
+
+output SM005
+/* set(1, 2, 3, 4) */
+
+  set() + set(1,2,3,4)
+
+output SM006
+/* set(1, 2, 3, 4) */
+
+  set(1,2,3,4) + set()
+
+output SM007
+/* set(NULL) */
+
+  set() + set()
+
+output SM008
+/* set(1, 2, 3, 4, none) */
+
+  set(none) + set(1,2,3,4)
+
+output SM009
+/*  0x8A000000 - All items must be of same type in expression */
+
+  set(1,2,3,4) + list('a','b','c',4) + list(1,2,3,4)
+
+output SM010
+/* set(2,3) */
+
+  set(2,3,5) & set(1,2,3,4)
+
+output SM011
+/* set(NULL) */
+
+  set('a','b','c','d') & set('A','B','C','D')
+
+output SM012
+/* set(b, c) */
+
+  set('a','b','c','d') - set('a', 'd')
+
+output SM013
+/* set(a, b, c, d) */
+
+  set('a','b','c','d') - set()
+
+output SM014
+/* set(NULL) */
+
+  set() - set('a','b','c','d') 
+
+output SM015
+/* set(EarningsPerShareBasic, BankLoans, Assets, DebtAndCapitalLeaseObligations) */
+
+  $A = set(Assets,BankLoans,Capital); 
+ $B = set(Capital, DebtAndCapitalLeaseObligations,EarningsPerShareBasic);
+ $A.symmetric-difference($B)
+
+output SM016
+/*  true */
+
+  'a' in set('a','b','c','d') 
+
+output SM017
+/*  false */
+
+  'n' in set('a','b','c','d') 
+
+output SM018
+/*  false */
+
+  '' in set()
+
+output SM019
+/*  true */
+
+  set(1) in set(1,'b','c')
+
+output SM020
+/*  false */
+
+  'dog' in 'cat'
+
+output SM021
+/*  false */
+
+  'a' not in set('a','b','c','d') 
+
+output SM022
+/*  true */
+
+  'n' not in set('a','b','c','d') 
+
+output SM023
+/*  true */
+
+  '' not in set()
+
+output SM024
+/* set(3,2,1) */
+
+  set(1,2,3,skip)
+
+output SM025
+/* The 'index' property or index expression '[]' can only operate on a list or dictionary, found 'int' */
+
+  set(1,2,3[1])
+
+output SM026
+/*  set(40,230,000,000)
+ set(42,144,000,000)
+ set(45,436,000,000) */
+
+  set([@instance = $INSTANCE1 @Assets])
+
+output SM027
+/*  set(lang, 40,230,000,000)
+ set(42,144,000,000, lang)
+ set(lang, 45,436,000,000) */
+
+  set('lang',[@instance = $INSTANCE1 @Assets])
+
+output SM028
+/*  set(lang, 40,230,000,000)
+ set(lang, 42,144,000,000)
+ set(lang, 45,436,000,000) */
+
+  $x = [@instance = $INSTANCE1 @Assets]
+
+set('lang',  $x)
+
+output SM029
+/*  set(40,230,000,000, lang)
+ set(lang, 42,144,000,000)
+ set(lang, 45,436,000,000) */
+
+  set('lang',  $CONSTANT_ASSETS)

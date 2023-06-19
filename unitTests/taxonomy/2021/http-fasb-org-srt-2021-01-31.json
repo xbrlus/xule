@@ -1,0 +1,4532 @@
+{
+    "http://fasb.org/srt/2021-01-31": [
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:CreditRatingMoodysAxis",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "CreditRatingMoodysAxis"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:ExecutiveVicePresidentMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ExecutiveVicePresidentMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:MortgageLoansOnRealEstateOriginalLoanAmountAxis",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateOriginalLoanAmountAxis"
+        },
+        {
+            "dataType": "dtr-types:areaItemType",
+            "label": "srt:GasAndOilAreaDevelopedNet",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "GasAndOilAreaDevelopedNet"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:LifeInsuranceInForceCeded",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "LifeInsuranceInForceCeded",
+            "balanceType": "debit"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:SalesAndTransfersOfOilAndGasProducedNetOfProductionCosts",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "SalesAndTransfersOfOilAndGasProducedNetOfProductionCosts",
+            "balanceType": "credit"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:RealEstateWriteDownOrReserveBasis",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "RealEstateWriteDownOrReserveBasis"
+        },
+        {
+            "dataType": "xbrli:integerItemType",
+            "label": "srt:ProductiveOilWellsNumberOfWellsGross",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "ProductiveOilWellsNumberOfWellsGross"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:ExternalCreditRatingFitchMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ExternalCreditRatingFitchMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:CumulativeEffectPeriodOfAdoptionDomain",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "CumulativeEffectPeriodOfAdoptionDomain"
+        },
+        {
+            "dataType": "dtr-types:volumeItemType",
+            "label": "srt:ProvedDevelopedAndUndevelopedReservesSalesOfMineralsInPlace",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ProvedDevelopedAndUndevelopedReservesSalesOfMineralsInPlace"
+        },
+        {
+            "dataType": "xbrli:dateItemType",
+            "label": "srt:RealEstateAndAccumulatedDepreciationDateOfConstruction1",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "RealEstateAndAccumulatedDepreciationDateOfConstruction1"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:ScheduleOfOilAndGasInProcessActivitiesTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ScheduleOfOilAndGasInProcessActivitiesTextBlock"
+        },
+        {
+            "dataType": "dtr-types:percentItemType",
+            "label": "srt:FinancingReceivableBeforeAllowanceForCreditLossAverageYield",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "FinancingReceivableBeforeAllowanceForCreditLossAverageYield"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:MortgageLoansOnRealEstateDelinquentPrincipalOrInterestAcquiredFromAffiliates",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "MortgageLoansOnRealEstateDelinquentPrincipalOrInterestAcquiredFromAffiliates",
+            "balanceType": "debit"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:ScheduleOfSupplementalInformationForPropertyCasualtyInsuranceUnderwritersTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ScheduleOfSupplementalInformationForPropertyCasualtyInsuranceUnderwritersTextBlock"
+        },
+        {
+            "dataType": "dtr-types:percentItemType",
+            "label": "srt:InterestEarningAssetsAverageYield",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "InterestEarningAssetsAverageYield"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:MortgageLoansOnRealEstateTransactionsWithAffiliates",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateTransactionsWithAffiliates"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:ReportableLegalEntityObligorGroupAfterEliminationMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ReportableLegalEntityObligorGroupAfterEliminationMember"
+        },
+        {
+            "dataType": "xbrli:integerItemType",
+            "label": "srt:ProductiveGasWellsNumberOfWellsNet",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "ProductiveGasWellsNumberOfWellsNet"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:RealEstateAndAccumulatedDepreciationLineItems",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "RealEstateAndAccumulatedDepreciationLineItems"
+        },
+        {
+            "dataType": "dtr-types:percentItemType",
+            "label": "srt:SavingsDepositLiabilitiesAverageRatePaid",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "SavingsDepositLiabilitiesAverageRatePaid"
+        },
+        {
+            "dataType": "dtr-types:energyItemType",
+            "label": "srt:ProvedDevelopedAndUndevelopedReservesSaleOfMineralInPlaceEnergy",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ProvedDevelopedAndUndevelopedReservesSaleOfMineralInPlaceEnergy"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:SummaryOfInvestmentsOtherThanInvestmentsInRelatedPartiesTable",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "SummaryOfInvestmentsOtherThanInvestmentsInRelatedPartiesTable"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:ComputationOfNetCapitalUnderSecuritiesAndExchangeCommissionRegulationTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ComputationOfNetCapitalUnderSecuritiesAndExchangeCommissionRegulationTextBlock"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:FederalHomeLoanBankAdvancesBranchOfFHLBBankAxis",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FederalHomeLoanBankAdvancesBranchOfFHLBBankAxis"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:GuarantorAndIssuerGuaranteedSecurityLineItems",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "GuarantorAndIssuerGuaranteedSecurityLineItems"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:AdditionalInformationNecessaryToPreventDisclosureOfDiscountsFutureNetCashFlowsFromBeingMisleading",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "AdditionalInformationNecessaryToPreventDisclosureOfDiscountsFutureNetCashFlowsFromBeingMisleading"
+        },
+        {
+            "dataType": "dtr-types:volumeItemType",
+            "label": "srt:ReservesShareOfEquityMethodInvesteesNetProvedOilAndGasReserves",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "ReservesShareOfEquityMethodInvesteesNetProvedOilAndGasReserves"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:ProductOrServiceAxis",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ProductOrServiceAxis"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FitchAAMinusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FitchAAMinusRatingMember"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:GuarantorAndIssuerGuaranteedSecurityTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "GuarantorAndIssuerGuaranteedSecurityTextBlock"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:AffiliateCollateralizedSecurityTableTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "AffiliateCollateralizedSecurityTableTextBlock"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:B777200Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "B777200Member"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:OfficerMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "OfficerMember"
+        },
+        {
+            "dataType": "dtr-types:energyItemType",
+            "label": "srt:ProvedDevelopedAndUndevelopedReserveNetEnergy",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "ProvedDevelopedAndUndevelopedReserveNetEnergy"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:AffiliateCollateralizedSecurityTable",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "AffiliateCollateralizedSecurityTable"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:IncreaseDecreaseInProvedDevelopedAndUndevelopedReservesRollForward",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "IncreaseDecreaseInProvedDevelopedAndUndevelopedReservesRollForward"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:PartnershipInterestMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "PartnershipInterestMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:SyntheticGasMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "SyntheticGasMember"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:FutureNetCashFlowsRelatingToProvedOilAndGasReservesNetCashFlows",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "FutureNetCashFlowsRelatingToProvedOilAndGasReservesNetCashFlows",
+            "balanceType": "debit"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:DescriptionOfMandatoryDividendOrRedemptionProvisionsOfRedeemableStockOfParentCompany",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "DescriptionOfMandatoryDividendOrRedemptionProvisionsOfRedeemableStockOfParentCompany"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:ConsolidationItemsDomain",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ConsolidationItemsDomain"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:StandardPoorsAARatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "StandardPoorsAARatingMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:ReinsurancePremiumsForInsuranceCompaniesByProductSegmentLineItems",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ReinsurancePremiumsForInsuranceCompaniesByProductSegmentLineItems"
+        },
+        {
+            "dataType": "xbrli:booleanItemType",
+            "label": "srt:FinanceSubsidiaryIssuerGuaranteedByParent",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "FinanceSubsidiaryIssuerGuaranteedByParent"
+        },
+        {
+            "dataType": "dtr-types:volumeItemType",
+            "label": "srt:OilAndGasQuantitiesReceivedUnderLongTermSupplyAgreementsWithGovernmentsOrAuthorities",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "OilAndGasQuantitiesReceivedUnderLongTermSupplyAgreementsWithGovernmentsOrAuthorities"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:AMBestBPlusPlusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "AMBestBPlusPlusRatingMember"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:MinimumNetCapitalRequired1",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "MinimumNetCapitalRequired1",
+            "balanceType": "credit"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:MinimumNetCapitalRequiredForBrokerDealerSubsidiary1",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "MinimumNetCapitalRequiredForBrokerDealerSubsidiary1",
+            "balanceType": "credit"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:CreditRatingFitchAxis",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "CreditRatingFitchAxis"
+        },
+        {
+            "dataType": "dtr-types:percentItemType",
+            "label": "srt:InterestBearingLiabilitiesAverageRatePaid",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "InterestBearingLiabilitiesAverageRatePaid"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:InterestRateAndInterestDifferentialAnalysisTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "InterestRateAndInterestDifferentialAnalysisTextBlock"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:ScheduleOfCondensedFinancialStatementsTable",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ScheduleOfCondensedFinancialStatementsTable"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:DescriptionOfNetCapitalRequirementsUnderCommodityExchangeAct",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "DescriptionOfNetCapitalRequirementsUnderCommodityExchangeAct"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:CRJ200Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "CRJ200Member"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:NaturalGasPerThousandCubicFeetMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "NaturalGasPerThousandCubicFeetMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:StandardPoorsBBBRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "StandardPoorsBBBRatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FitchCCCRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FitchCCCRatingMember"
+        },
+        {
+            "dataType": "xbrli:booleanItemType",
+            "label": "srt:ObligorGroupNotMateriallyDifferent",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ObligorGroupNotMateriallyDifferent"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:StandardPoorsCCRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "StandardPoorsCCRatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:AMBestCMinusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "AMBestCMinusRatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:AMBestERatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "AMBestERatingMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:InterestBearingLiabilitiesAverageRatePaidAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "InterestBearingLiabilitiesAverageRatePaidAbstract"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:ReserveQuantitiesLineItems",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ReserveQuantitiesLineItems"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:ExploratoryWellsDrilledLineItems",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ExploratoryWellsDrilledLineItems"
+        },
+        {
+            "dataType": "dtr-types:volumeItemType",
+            "label": "srt:OilAndGasDeliveryCommitmentsAndContractsAvailableAmountsToBeReceived",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "OilAndGasDeliveryCommitmentsAndContractsAvailableAmountsToBeReceived"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:A320Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "A320Member"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FuelMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FuelMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:StandardPoorsARatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "StandardPoorsARatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:EMB145Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "EMB145Member"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:InterestRateAndInterestDifferentialAnalysisTable",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "InterestRateAndInterestDifferentialAnalysisTable"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:B737MaxMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "B737MaxMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:ConsolidationItemsAxis",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ConsolidationItemsAxis"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:ScenarioUnspecifiedDomain",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ScenarioUnspecifiedDomain"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FitchCRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FitchCRatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:ConsolidatedEntitiesDomain",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ConsolidatedEntitiesDomain"
+        },
+        {
+            "dataType": "dtr-types:volumeItemType",
+            "label": "srt:ProvedDevelopedAndUndevelopedReservesPurchasesOfMineralsInPlace",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ProvedDevelopedAndUndevelopedReservesPurchasesOfMineralsInPlace"
+        },
+        {
+            "dataType": "xbrli:integerItemType",
+            "label": "srt:MortgageLoansOnRealEstateNumberOfLoans",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateNumberOfLoans"
+        },
+        {
+            "dataType": "dtr-types:percentItemType",
+            "label": "srt:FederalFundsSoldAverageYield",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "FederalFundsSoldAverageYield"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:VicePresidentMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "VicePresidentMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:StandardPoorsCCCPlusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "StandardPoorsCCCPlusRatingMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:SupplementaryInsuranceInformationAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "SupplementaryInsuranceInformationAbstract"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:ScheduleOfProvedDevelopedAndUndevelopedOilAndGasReserveQuantitiesTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ScheduleOfProvedDevelopedAndUndevelopedOilAndGasReserveQuantitiesTextBlock"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:SubsidiaryIssuerMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "SubsidiaryIssuerMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:AMBestCRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "AMBestCRatingMember"
+        },
+        {
+            "dataType": "dtr-types:volumeItemType",
+            "label": "srt:ProvedDevelopedReservesVolume",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "ProvedDevelopedReservesVolume"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:ScheduleOfDevelopmentWellsDrilledTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ScheduleOfDevelopmentWellsDrilledTextBlock"
+        },
+        {
+            "dataType": "dtr-types:percentItemType",
+            "label": "srt:InterestBearingDepositsInBanksAverageYield",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "InterestBearingDepositsInBanksAverageYield"
+        },
+        {
+            "dataType": "dtr-types:volumeItemType",
+            "label": "srt:OilAndGasDeliveryCommitmentsAndContractsRemainingContractualVolume",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "OilAndGasDeliveryCommitmentsAndContractsRemainingContractualVolume"
+        },
+        {
+            "dataType": "dtr-types:percentItemType",
+            "label": "srt:FinancingReceivableBeforeAllowanceForCreditLossToTotalPercent",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "FinancingReceivableBeforeAllowanceForCreditLossToTotalPercent"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:DecreaseDueToSalesOfMineralsInPlace",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "DecreaseDueToSalesOfMineralsInPlace",
+            "balanceType": "credit"
+        },
+        {
+            "dataType": "xbrli:booleanItemType",
+            "label": "srt:AffiliateGroupSecurityPledgedAsCollateralNotMaterial",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "AffiliateGroupSecurityPledgedAsCollateralNotMaterial"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:ConsolidatedPropertyAndCasualtyInsuranceEntityMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ConsolidatedPropertyAndCasualtyInsuranceEntityMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:SupplementalInformationForPropertyCasualtyInsuranceUnderwritersByAffiliationWithRegistrantAxis",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "SupplementalInformationForPropertyCasualtyInsuranceUnderwritersByAffiliationWithRegistrantAxis"
+        },
+        {
+            "dataType": "dtr-types:energyItemType",
+            "label": "srt:ProvedDevelopedAndUndevelopedReserveNetEnergyPeriodIncreaseDecrease",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ProvedDevelopedAndUndevelopedReserveNetEnergyPeriodIncreaseDecrease"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:ScheduleOfExploratoryWellsDrilledTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ScheduleOfExploratoryWellsDrilledTextBlock"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:CondensedFinancialStatementsTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "CondensedFinancialStatementsTextBlock"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:CondensedIncomeStatementTable",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "CondensedIncomeStatementTable"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:AlternativeExcessNetCapitalAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "AlternativeExcessNetCapitalAbstract"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:RevisionOfPriorPeriodErrorCorrectionAdjustmentMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "RevisionOfPriorPeriodErrorCorrectionAdjustmentMember"
+        },
+        {
+            "dataType": "dtr-types:energyItemType",
+            "label": "srt:ProductionBarrelsOfOilEquivalents1",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ProductionBarrelsOfOilEquivalents1"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:MortgageLoansOnRealEstateDescriptionLoanCategoryAxis",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateDescriptionLoanCategoryAxis"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:RealEstateFederalIncomeTaxBasis",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "RealEstateFederalIncomeTaxBasis",
+            "balanceType": "debit"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FitchCCCMinusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FitchCCCMinusRatingMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:ProvedDevelopedAndUndevelopedOilAndGasReserveQuantitiesTable",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ProvedDevelopedAndUndevelopedOilAndGasReserveQuantitiesTable"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:GuarantorSubsidiariesMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "GuarantorSubsidiariesMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:DiscountedFutureNetCashFlowsRelatingToProvedOilAndGasReservesStandardizedMeasureAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "DiscountedFutureNetCashFlowsRelatingToProvedOilAndGasReservesStandardizedMeasureAbstract"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:SupplementaryInsuranceInformationBySegmentLineItems",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "SupplementaryInsuranceInformationBySegmentLineItems"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FederalHomeLoanBankAdvancesBranchOfFHLBBankStateDomain",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FederalHomeLoanBankAdvancesBranchOfFHLBBankStateDomain"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:MortgageLoansOnRealEstatePeriodicPaymentTerms",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstatePeriodicPaymentTerms"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:ValuationAndQualifyingAccountsAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ValuationAndQualifyingAccountsAbstract"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MoodysA1RatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MoodysA1RatingMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis"
+        },
+        {
+            "dataType": "srt-types:perUnitItemType",
+            "label": "srt:AverageSalesPrices",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "AverageSalesPrices"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:CRJMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "CRJMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:OilAndGasDeliveryCommitmentsAndContractsTable",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "OilAndGasDeliveryCommitmentsAndContractsTable"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:SyntheticOilMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "SyntheticOilMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:ProductiveWellsTable",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ProductiveWellsTable"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:CondensedCashFlowStatementTable",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "CondensedCashFlowStatementTable"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FitchDRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FitchDRatingMember"
+        },
+        {
+            "dataType": "xbrli:booleanItemType",
+            "label": "srt:ReserveQuantityAttributableToConsolidatedSubsidiaryNoncontrollingInterest",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "ReserveQuantityAttributableToConsolidatedSubsidiaryNoncontrollingInterest"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:ExploratoryWellsDrilledTable",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ExploratoryWellsDrilledTable"
+        },
+        {
+            "dataType": "dtr-types:percentItemType",
+            "label": "srt:TaxableInvestmentSecuritiesAverageYield",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "TaxableInvestmentSecuritiesAverageYield"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:MortgageLoansOnRealEstateScheduleTable",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateScheduleTable"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:SignificantChangesInReserves",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "SignificantChangesInReserves"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:ConsolidationEliminationsMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ConsolidationEliminationsMember"
+        },
+        {
+            "dataType": "dtr-types:volumeItemType",
+            "label": "srt:ProvedDevelopedAndUndevelopedReservesNetPeriodIncreaseDecrease",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ProvedDevelopedAndUndevelopedReservesNetPeriodIncreaseDecrease"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:ConsolidatedOilAndGasProductionAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ConsolidatedOilAndGasProductionAbstract"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:InterestRateAndInterestDifferentialAnalysisTableTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "InterestRateAndInterestDifferentialAnalysisTableTextBlock"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:B717200Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "B717200Member"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:StatisticalDisclosureForBanksAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "StatisticalDisclosureForBanksAbstract"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:ValuationAndQualifyingAccountsDisclosureTable",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ValuationAndQualifyingAccountsDisclosureTable"
+        },
+        {
+            "dataType": "xbrli:durationItemType",
+            "label": "srt:MinimumRemainingTermsOfLeasesAndConcessionsOnUndevelopedAcreage1",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "MinimumRemainingTermsOfLeasesAndConcessionsOnUndevelopedAcreage1"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:DiscountedFutureNetCashFlowsRelatingToProvedOilAndGasReservesFutureNetCashFlowsAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "DiscountedFutureNetCashFlowsRelatingToProvedOilAndGasReservesFutureNetCashFlowsAbstract"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FitchBBPlusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FitchBBPlusRatingMember"
+        },
+        {
+            "dataType": "xbrli:booleanItemType",
+            "label": "srt:AffiliateGroupSecurityPledgedAsCollateralNotMateriallyDifferent",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "AffiliateGroupSecurityPledgedAsCollateralNotMateriallyDifferent"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:ConsolidationEliminationObligorGroupAndNonobligorSubsidiaryMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ConsolidationEliminationObligorGroupAndNonobligorSubsidiaryMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MoodysAaaRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MoodysAaaRatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:ApartmentBuildingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ApartmentBuildingMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:RangeAxis",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "RangeAxis"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FitchCCRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FitchCCRatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:StandardPoorsCCCMinusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "StandardPoorsCCCMinusRatingMember"
+        },
+        {
+            "dataType": "dtr-types:volumeItemType",
+            "label": "srt:ProvedUndevelopedReserveVolume",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "ProvedUndevelopedReserveVolume"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FitchBMinusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FitchBMinusRatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:AffiliatedEntityMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "AffiliatedEntityMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FederalHomeLoanBankOfAtlantaMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FederalHomeLoanBankOfAtlantaMember"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:BankLoans",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "BankLoans",
+            "balanceType": "credit"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:ExcessNetCapitalAt1500PercentAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ExcessNetCapitalAt1500PercentAbstract"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FederalHomeLoanBankOfDallasMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FederalHomeLoanBankOfDallasMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MoodysBaa3RatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MoodysBaa3RatingMember"
+        },
+        {
+            "dataType": "xbrli:decimalItemType",
+            "label": "srt:OilAndGasDeliveryCommitmentsAndContractsSignificantSuppliesDedicatedOrContractedToEntity",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "OilAndGasDeliveryCommitmentsAndContractsSignificantSuppliesDedicatedOrContractedToEntity"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FitchAMinusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FitchAMinusRatingMember"
+        },
+        {
+            "dataType": "enum2:enumerationSetItemType",
+            "label": "srt:SecSchedule1229InvestmentInMortgageLoansOnRealEstateLocationOfPropertyExtensibleList",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "SecSchedule1229InvestmentInMortgageLoansOnRealEstateLocationOfPropertyExtensibleList"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:AircraftTypeMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "AircraftTypeMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:OwnershipDomain",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "OwnershipDomain"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:B717Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "B717Member"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:CondensedBalanceSheetStatementsCaptionsLineItems",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "CondensedBalanceSheetStatementsCaptionsLineItems"
+        },
+        {
+            "dataType": "xbrli:decimalItemType",
+            "label": "srt:WellsInProcessOfDrilling",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "WellsInProcessOfDrilling"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:B737820Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "B737820Member"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FederalHomeLoanBankOfSanFranciscoMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FederalHomeLoanBankOfSanFranciscoMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:SupplementalInformationForPropertyCasualtyInsuranceUnderwritersTable",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "SupplementalInformationForPropertyCasualtyInsuranceUnderwritersTable"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:StatementGeographicalAxis",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "StatementGeographicalAxis"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:OilAndGasNetProductionAverageSalesPriceAndAverageProductionCostsDisclosureTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "OilAndGasNetProductionAverageSalesPriceAndAverageProductionCostsDisclosureTextBlock"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FitchBBBMinusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FitchBBBMinusRatingMember"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:RevisionsOfPreviousQuantityEstimates",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "RevisionsOfPreviousQuantityEstimates",
+            "balanceType": "debit"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:TypeOfReserveDomain",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "TypeOfReserveDomain"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:B767300Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "B767300Member"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:CrudeOilAndNGLPerBarrelMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "CrudeOilAndNGLPerBarrelMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:B767Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "B767Member"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:ExternalCreditRatingMoodysMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ExternalCreditRatingMoodysMember"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:StandardizedMeasureOfDiscountedFutureNetCashFlowOfProvedOilAndGasReservesOther",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "StandardizedMeasureOfDiscountedFutureNetCashFlowOfProvedOilAndGasReservesOther",
+            "balanceType": "debit"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:TwoPercentOfDebitItems",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "TwoPercentOfDebitItems",
+            "balanceType": "credit"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MoodysCaa2RatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MoodysCaa2RatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:B757Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "B757Member"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:AMBestBRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "AMBestBRatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:ConsolidationEliminationObligorGroupMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ConsolidationEliminationObligorGroupMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:EuropeMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "EuropeMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MoodysBa1RatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MoodysBa1RatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:NorthAmericaMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "NorthAmericaMember"
+        },
+        {
+            "dataType": "dtr-types:percentItemType",
+            "label": "srt:SecuritiesPurchasedUnderAgreementsToResellAverageYield",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "SecuritiesPurchasedUnderAgreementsToResellAverageYield"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:ConsolidatedEntityExcludingVariableInterestEntitiesVIEMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ConsolidatedEntityExcludingVariableInterestEntitiesVIEMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:AverageSalesPriceAndProductionCostsPerUnitOfProductionTable",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "AverageSalesPriceAndProductionCostsPerUnitOfProductionTable"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:RequiredNetCapitalUnderCommodityExchangeAct1",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "RequiredNetCapitalUnderCommodityExchangeAct1",
+            "balanceType": "credit"
+        },
+        {
+            "dataType": "xbrli:booleanItemType",
+            "label": "srt:FinanceSubsidiaryIssuerCoissuedWithParent",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "FinanceSubsidiaryIssuerCoissuedWithParent"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:RealEstateWriteDownOrReserveLineItems",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "RealEstateWriteDownOrReserveLineItems"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MoodysAa3RatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MoodysAa3RatingMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:ReserveQuantitiesByTypeOfReserveAxis",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ReserveQuantitiesByTypeOfReserveAxis"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:B767323Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "B767323Member"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FitchBBBPlusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FitchBBBPlusRatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:ProductsAndServicesDomain",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ProductsAndServicesDomain"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:FinancingReceivableCreditRatioLineItems",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FinancingReceivableCreditRatioLineItems"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:WarehouseMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "WarehouseMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:RangeMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "RangeMember"
+        },
+        {
+            "dataType": "xbrli:dateItemType",
+            "label": "srt:RealEstateAndAccumulatedDepreciationDateAcquired1",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "RealEstateAndAccumulatedDepreciationDateAcquired1"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:AlternativeNetCapitalRequirement1",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "AlternativeNetCapitalRequirement1",
+            "balanceType": "credit"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:ReportableGeographicalComponentsMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ReportableGeographicalComponentsMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:InterestEarningAssetAndInterestBearingLiabilityInterestChangeTypeDomain",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "InterestEarningAssetAndInterestBearingLiabilityInterestChangeTypeDomain"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:GuarantorAndIssuerGuaranteedSecurityTableTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "GuarantorAndIssuerGuaranteedSecurityTableTextBlock"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FitchBRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FitchBRatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FederalHomeLoanBankOfPittsburghMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FederalHomeLoanBankOfPittsburghMember"
+        },
+        {
+            "dataType": "dtr-types:volumeItemType",
+            "label": "srt:ProvedDevelopedAndUndevelopedReservesRevisionsOfPreviousEstimatesIncreaseDecrease",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ProvedDevelopedAndUndevelopedReservesRevisionsOfPreviousEstimatesIncreaseDecrease"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:ProductiveWellsLineItems",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ProductiveWellsLineItems"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FitchAPlusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FitchAPlusRatingMember"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:CapitalRequirementOfConsolidatedBrokerDealerSubsidiaryElectingAlternativeMethod",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "CapitalRequirementOfConsolidatedBrokerDealerSubsidiaryElectingAlternativeMethod",
+            "balanceType": "credit"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:IncreaseDueToPurchasesOfMineralsInPlace",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "IncreaseDueToPurchasesOfMineralsInPlace",
+            "balanceType": "debit"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:LatinAmericaMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "LatinAmericaMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:OtherPropertyMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "OtherPropertyMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:ExternalCreditRatingStandardPoorsMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ExternalCreditRatingStandardPoorsMember"
+        },
+        {
+            "dataType": "dtr-types:energyItemType",
+            "label": "srt:ProvedDevelopedAndUndevelopedReservePurchaseOfMineralInPlaceEnergy",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ProvedDevelopedAndUndevelopedReservePurchaseOfMineralInPlaceEnergy"
+        },
+        {
+            "dataType": "dtr-types:energyItemType",
+            "label": "srt:ProvedUndevelopedReserveBOE1",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "ProvedUndevelopedReserveBOE1"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FederalHomeLoanBankOfChicagoMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FederalHomeLoanBankOfChicagoMember"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:RealEstateAndAccumulatedDepreciationDisclosureTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "RealEstateAndAccumulatedDepreciationDisclosureTextBlock"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MoodysAa2RatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MoodysAa2RatingMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:ProvedDevelopedAndUndevelopedReserveEnergyRollForward",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ProvedDevelopedAndUndevelopedReserveEnergyRollForward"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:ItemsIncludedInConsolidatedStatementOfFinancialConditionAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ItemsIncludedInConsolidatedStatementOfFinancialConditionAbstract"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MortgageLoansOnRealEstateLoanTypeDomain",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateLoanTypeDomain"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MoodysA3RatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MoodysA3RatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:StandardPoorsBBBPlusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "StandardPoorsBBBPlusRatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MortgageLoansOnRealEstateLoanCategoryDomain",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateLoanCategoryDomain"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MinimumMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MinimumMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FitchBBBRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FitchBBBRatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:DirectorMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "DirectorMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:SignificantEconomicInterestInStandardizedMeasureOfDiscountedFutureNetCashFlowsAttributableToConsolidatedSubsidiaryIesWithSignificantMinorityInterests",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "SignificantEconomicInterestInStandardizedMeasureOfDiscountedFutureNetCashFlowsAttributableToConsolidatedSubsidiaryIesWithSignificantMinorityInterests"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:CumulativeEffectPeriodOfAdoptionAdjustedBalanceMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "CumulativeEffectPeriodOfAdoptionAdjustedBalanceMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:TitleOfIndividualAxis",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "TitleOfIndividualAxis"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:CondensedStatementOfIncomeCaptionsLineItems",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "CondensedStatementOfIncomeCaptionsLineItems"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:OilAndGasInProcessActivitiesTable",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "OilAndGasInProcessActivitiesTable"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:StandardizedMeasureOfDiscountedFutureCashFlowsRelatingToProvedReservesDisclosureTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "StandardizedMeasureOfDiscountedFutureCashFlowsRelatingToProvedReservesDisclosureTextBlock"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MoodysCaa3RatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MoodysCaa3RatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:StandardPoorsDRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "StandardPoorsDRatingMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:MortgageLoansOnRealEstatePeriodicPaymentTermsVaryingAmounts",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstatePeriodicPaymentTermsVaryingAmounts"
+        },
+        {
+            "dataType": "xbrli:integerItemType",
+            "label": "srt:ExploratoryWellsDrilledNetProductive",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ExploratoryWellsDrilledNetProductive"
+        },
+        {
+            "dataType": "dtr-types:percentItemType",
+            "label": "srt:ShortTermDebtOtherAverageRatePaid",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ShortTermDebtOtherAverageRatePaid"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MoodysBa2RatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MoodysBa2RatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:SingleFamilyMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "SingleFamilyMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:ValuationAndQualifyingAccountsDisclosureLineItems",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ValuationAndQualifyingAccountsDisclosureLineItems"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:StandardPoorsCCCRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "StandardPoorsCCCRatingMember"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:MortgageLoansOnRealEstatePrincipalAmountOfDelinquentLoans",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "MortgageLoansOnRealEstatePrincipalAmountOfDelinquentLoans",
+            "balanceType": "debit"
+        },
+        {
+            "dataType": "xbrli:integerItemType",
+            "label": "srt:SECScheduleIIIRealEstateNumberOfUnits",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "SECScheduleIIIRealEstateNumberOfUnits"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:NetIncreaseDecreaseInSalesAndTransferPricesAndProductionCosts",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "NetIncreaseDecreaseInSalesAndTransferPricesAndProductionCosts",
+            "balanceType": "debit"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:RealEstateAndAccumulatedDepreciationDisclosureAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "RealEstateAndAccumulatedDepreciationDisclosureAbstract"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:AMBestFRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "AMBestFRatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:AMBestSRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "AMBestSRatingMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:CommonTable",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "CommonTable"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MultifamilyMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MultifamilyMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:CumulativeEffectPeriodOfAdoptionAdjustmentMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "CumulativeEffectPeriodOfAdoptionAdjustmentMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:MortgageLoansOnRealEstateOtherRequiredDisclosuresAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateOtherRequiredDisclosuresAbstract"
+        },
+        {
+            "dataType": "xbrli:booleanItemType",
+            "label": "srt:ObligorGroupNotMaterial",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ObligorGroupNotMaterial"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:CreditRatingAMBestDomain",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "CreditRatingAMBestDomain"
+        },
+        {
+            "dataType": "xbrli:integerItemType",
+            "label": "srt:ProductiveOilWellsNumberOfWellsNet",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "ProductiveOilWellsNumberOfWellsNet"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:AlternativeNetCapitalRequirementAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "AlternativeNetCapitalRequirementAbstract"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MoodysB2RatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MoodysB2RatingMember"
+        },
+        {
+            "dataType": "dtr-types:energyItemType",
+            "label": "srt:ProvedDevelopedReservesBOE1",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "ProvedDevelopedReservesBOE1"
+        },
+        {
+            "dataType": "dtr-types:volumeItemType",
+            "label": "srt:ReserveQuantityAttributableToConsolidatedSubsidiaryNoncontrollingInterestVolume",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "ReserveQuantityAttributableToConsolidatedSubsidiaryNoncontrollingInterestVolume"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:SECScheduleIIIRealEstateTransactionsWithAffiliatesDisclosure",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "SECScheduleIIIRealEstateTransactionsWithAffiliatesDisclosure"
+        },
+        {
+            "dataType": "xbrli:dateItemType",
+            "label": "srt:MortgageLoanOnRealEstateFinalMaturityDate",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "MortgageLoanOnRealEstateFinalMaturityDate"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MortgageLoansBetween750000And999999Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MortgageLoansBetween750000And999999Member"
+        },
+        {
+            "dataType": "dtr-types:volumeItemType",
+            "label": "srt:ProvedDevelopedAndUndevelopedReservesNet",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "ProvedDevelopedAndUndevelopedReservesNet"
+        },
+        {
+            "dataType": "dtr-types:volumeItemType",
+            "label": "srt:ProvedDevelopedAndUndevelopedReservesImprovedRecovery",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ProvedDevelopedAndUndevelopedReservesImprovedRecovery"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:EMB120Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "EMB120Member"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:CentralAmericaMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "CentralAmericaMember"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:FinancingReceivableCreditRatioTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "FinancingReceivableCreditRatioTextBlock"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:FutureNetCashFlowsRelatingToProvedOilAndGasReservesProductionCosts",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "FutureNetCashFlowsRelatingToProvedOilAndGasReservesProductionCosts",
+            "balanceType": "credit"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:B737800Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "B737800Member"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:OwnershipAxis",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "OwnershipAxis"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:AMBestCPlusPlusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "AMBestCPlusPlusRatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:AMBestARatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "AMBestARatingMember"
+        },
+        {
+            "dataType": "dtr-types:percentItemType",
+            "label": "srt:MortgageLoansOnRealEstateInterestRate",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateInterestRate"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MaximumMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MaximumMember"
+        },
+        {
+            "dataType": "dtr-types:energyItemType",
+            "label": "srt:ProvedDevelopedAndUndevelopedReserveImprovedRecoveryEnergy",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ProvedDevelopedAndUndevelopedReserveImprovedRecoveryEnergy"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:RevisionOfPriorPeriodChangeInAccountingPrincipleAdjustmentMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "RevisionOfPriorPeriodChangeInAccountingPrincipleAdjustmentMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:GasAndOilAcreageLineItems",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "GasAndOilAcreageLineItems"
+        },
+        {
+            "dataType": "dtr-types:percentItemType",
+            "label": "srt:ShortTermInvestmentsOtherAverageYield",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ShortTermInvestmentsOtherAverageYield"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:MortgageLoansOnRealEstateAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateAbstract"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:StandardPoorsAMinusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "StandardPoorsAMinusRatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FitchBBMinusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FitchBBMinusRatingMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:MortgageLoansOnRealEstateLineItems",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateLineItems"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:ExtensionsDiscoveriesAdditionsAndImprovedRecoveryLessRelatedCosts",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ExtensionsDiscoveriesAdditionsAndImprovedRecoveryLessRelatedCosts",
+            "balanceType": "debit"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:ReinsurancePremiumsForInsuranceCompaniesByProductSegmentTable",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ReinsurancePremiumsForInsuranceCompaniesByProductSegmentTable"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:FutureNetCashFlowsRelatingToProvedOilAndGasReservesDevelopmentCosts",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "FutureNetCashFlowsRelatingToProvedOilAndGasReservesDevelopmentCosts",
+            "balanceType": "credit"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:ReportableLegalEntityAffiliateGroupSecurityPledgedAsCollateralAfterEliminationMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ReportableLegalEntityAffiliateGroupSecurityPledgedAsCollateralAfterEliminationMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FitchAAPlusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FitchAAPlusRatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:B777Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "B777Member"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FederalHomeLoanBankOfIndianapolisMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FederalHomeLoanBankOfIndianapolisMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:CommonDomainMembersAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "CommonDomainMembersAbstract"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:MortgageLoansOnRealEstateWriteDownOrReserveTable",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateWriteDownOrReserveTable"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:LitigationCaseTypeDomain",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "LitigationCaseTypeDomain"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:RealEstateAndAccumulatedDepreciationNameOfPropertyDomain",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "RealEstateAndAccumulatedDepreciationNameOfPropertyDomain"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:ScheduleOfGasAndOilAcreageTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ScheduleOfGasAndOilAcreageTextBlock"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:ArithmeticAverageMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ArithmeticAverageMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:RestatementAdjustmentMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "RestatementAdjustmentMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FederalHomeLoanBankOfBostonMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FederalHomeLoanBankOfBostonMember"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:IncreaseDecreaseInFutureIncomeTaxExpenseEstimatesOnFutureCashFlowsRelatedToProvedOilAndGasReserves",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "IncreaseDecreaseInFutureIncomeTaxExpenseEstimatesOnFutureCashFlowsRelatedToProvedOilAndGasReserves",
+            "balanceType": "debit"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:IncreaseDecreaseInStandardizedMeasureOfDiscountedFutureNetCashFlowRelatingToProvedOilAndGasReservesRollForward",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "IncreaseDecreaseInStandardizedMeasureOfDiscountedFutureNetCashFlowRelatingToProvedOilAndGasReservesRollForward"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:MortgageLoansOnRealEstateCollectionsOfPrincipal",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateCollectionsOfPrincipal",
+            "balanceType": "credit"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:StandardPoorsBBBMinusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "StandardPoorsBBBMinusRatingMember"
+        },
+        {
+            "dataType": "dtr-types:areaItemType",
+            "label": "srt:GasAndOilAreaUndevelopedGross",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "GasAndOilAreaUndevelopedGross"
+        },
+        {
+            "dataType": "xbrli:integerItemType",
+            "label": "srt:ProductiveGasWellsNumberOfWellsGross",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "ProductiveGasWellsNumberOfWellsGross"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:AfricaMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "AfricaMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:LifeInsuranceInForceNetAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "LifeInsuranceInForceNetAbstract"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:RealEstateAndAccumulatedDepreciationAmountOfEncumbrances",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "RealEstateAndAccumulatedDepreciationAmountOfEncumbrances",
+            "balanceType": "credit"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:ContractualObligationFiscalYearMaturityScheduleTableTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ContractualObligationFiscalYearMaturityScheduleTableTextBlock"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:MortgageLoansOnRealEstateWriteDownOrReserveByLoanAxis",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateWriteDownOrReserveByLoanAxis"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:CumulativeEffectPeriodOfAdoptionAxis",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "CumulativeEffectPeriodOfAdoptionAxis"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:FutureNetCashFlowsRelatingToProvedOilAndGasReservesTenPercentAnnualDiscountForEstimatedTimingOfCashFlows",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "FutureNetCashFlowsRelatingToProvedOilAndGasReservesTenPercentAnnualDiscountForEstimatedTimingOfCashFlows",
+            "balanceType": "credit"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:StandardPoorsAAMinusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "StandardPoorsAAMinusRatingMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:SecDisclosureSecurityRegisteredOrBeingRegisteredAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "SecDisclosureSecurityRegisteredOrBeingRegisteredAbstract"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FitchAAARatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FitchAAARatingMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:ExtractiveIndustriesAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ExtractiveIndustriesAbstract"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FederalHomeLoanBankOfNewYorkMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FederalHomeLoanBankOfNewYorkMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:SupplementalInformationForPropertyCasualtyInsuranceUnderwritersAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "SupplementalInformationForPropertyCasualtyInsuranceUnderwritersAbstract"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:CondensedStatementOfComprehensiveIncomeTableTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "CondensedStatementOfComprehensiveIncomeTableTextBlock"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:RestatementAxis",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "RestatementAxis"
+        },
+        {
+            "dataType": "xbrli:integerItemType",
+            "label": "srt:DevelopmentWellsDrilledNetNonproductive",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "DevelopmentWellsDrilledNetNonproductive"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:StandardPoorsBBMinusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "StandardPoorsBBMinusRatingMember"
+        },
+        {
+            "dataType": "dtr-types:areaItemType",
+            "label": "srt:GasAndOilAreaUndevelopedNet",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "GasAndOilAreaUndevelopedNet"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:DevelopmentWellsDrilledTable",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "DevelopmentWellsDrilledTable"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:EnergyAxis",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "EnergyAxis"
+        },
+        {
+            "dataType": "xbrli:integerItemType",
+            "label": "srt:ExploratoryWellsDrilledNetNonproductive",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ExploratoryWellsDrilledNetNonproductive"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:CurrencyAxis",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "CurrencyAxis"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:AffiliateCollateralizedSecurityLineItems",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "AffiliateCollateralizedSecurityLineItems"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MoodysCaa1RatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MoodysCaa1RatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:ParentCompanyMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ParentCompanyMember"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:PayablesToCustomers",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "PayablesToCustomers",
+            "balanceType": "credit"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:MortgageLoansOnRealEstateWriteDownOrReserveLineItems",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateWriteDownOrReserveLineItems"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:SupplementalInformationForPropertyCasualtyInsuranceUnderwritersLineItems",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "SupplementalInformationForPropertyCasualtyInsuranceUnderwritersLineItems"
+        },
+        {
+            "dataType": "dtr-types:percentItemType",
+            "label": "srt:FinancingReceivableAllowanceForCreditLossToOutstandingPercent",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "FinancingReceivableAllowanceForCreditLossToOutstandingPercent"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MortgageLoansUnder250000Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MortgageLoansUnder250000Member"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:MortgageLoansOnRealEstateWriteDownOrReserveBasis",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateWriteDownOrReserveBasis"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:SupplementalScheduleOfReinsurancePremiumsForInsuranceCompaniesAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "SupplementalScheduleOfReinsurancePremiumsForInsuranceCompaniesAbstract"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:A330200Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "A330200Member"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:NonGuarantorSubsidiariesMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "NonGuarantorSubsidiariesMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:TitleOfIndividualWithRelationshipToEntityDomain",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "TitleOfIndividualWithRelationshipToEntityDomain"
+        },
+        {
+            "dataType": "srt-types:perUnitItemType",
+            "label": "srt:ConsolidatedOilAndGasProductionCostsPerUnitOfProduction",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ConsolidatedOilAndGasProductionCostsPerUnitOfProduction"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:CreditRatingStandardPoorsAxis",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "CreditRatingStandardPoorsAxis"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:StatementScenarioAxis",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "StatementScenarioAxis"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:ScheduleOfChangesInStandardizedMeasureOfDiscountedFutureNetCashFlowsTableTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ScheduleOfChangesInStandardizedMeasureOfDiscountedFutureNetCashFlowsTableTextBlock"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MortgageLoansOver1000000Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MortgageLoansOver1000000Member"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:StandardPoorsAAARatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "StandardPoorsAAARatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:B757223Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "B757223Member"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:A312Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "A312Member"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:CreditRatingAMBestAxis",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "CreditRatingAMBestAxis"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:CondensedFinancialInformationOfParentCompanyOnlyDisclosureAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "CondensedFinancialInformationOfParentCompanyOnlyDisclosureAbstract"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:RepurchaseAgreementCounterpartyNameDomain",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "RepurchaseAgreementCounterpartyNameDomain"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:DistributionOfAssetsLiabilitiesAndStockholdersEquityTableTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "DistributionOfAssetsLiabilitiesAndStockholdersEquityTableTextBlock"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:OfficeBuildingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "OfficeBuildingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:EMBMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "EMBMember"
+        },
+        {
+            "dataType": "xbrli:integerItemType",
+            "label": "srt:DevelopmentWellsDrilledNetProductive",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "DevelopmentWellsDrilledNetProductive"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MortgageLoansOnRealEstateOriginalLoanAmountDomain",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateOriginalLoanAmountDomain"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MortgageLoansOnRealEstateWriteDownOrReserveLoanDomain",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateWriteDownOrReserveLoanDomain"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:B757200Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "B757200Member"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:AMBestAPlusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "AMBestAPlusRatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:EnergyDomain",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "EnergyDomain"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MoodysA2RatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MoodysA2RatingMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:FinancingReceivableBeforeAllowanceForCreditLossMaturityTable",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FinancingReceivableBeforeAllowanceForCreditLossMaturityTable"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:StandardPoorsAAPlusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "StandardPoorsAAPlusRatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:RestatementDomain",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "RestatementDomain"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:ScheduleOfCondensedCashFlowStatementTableTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ScheduleOfCondensedCashFlowStatementTableTextBlock"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:AMBestAMinusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "AMBestAMinusRatingMember"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:MortgageLoansOnRealEstateFaceAmountOfMortgages",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "MortgageLoansOnRealEstateFaceAmountOfMortgages",
+            "balanceType": "debit"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:MortgageLoansOnRealEstateRenewedAndExtended",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateRenewedAndExtended"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:A330Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "A330Member"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:ObligorGroupMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ObligorGroupMember"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:SupplementaryInsuranceInformationForInsuranceCompaniesDisclosureTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "SupplementaryInsuranceInformationForInsuranceCompaniesDisclosureTextBlock"
+        },
+        {
+            "dataType": "dtr-types:areaItemType",
+            "label": "srt:GasAndOilAreaDevelopedGross",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "GasAndOilAreaDevelopedGross"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FitchBPlusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FitchBPlusRatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:ChiefFinancialOfficerMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ChiefFinancialOfficerMember"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:ScheduleOfProductiveWellsTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ScheduleOfProductiveWellsTextBlock"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:MortgageLoansOnRealEstateLoanTypeAxis",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateLoanTypeAxis"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:RevisionOfPriorPeriodReclassificationAdjustmentMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "RevisionOfPriorPeriodReclassificationAdjustmentMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:StandardPoorsBPlusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "StandardPoorsBPlusRatingMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:MortgageLoansOnRealEstatePeriodicPaymentTermsLevelPayments",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstatePeriodicPaymentTermsLevelPayments"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:ExecutiveOfficerMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ExecutiveOfficerMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:BrokersAndDealersAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "BrokersAndDealersAbstract"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:AlternativeExcessNetCapital",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "AlternativeExcessNetCapital",
+            "balanceType": "credit"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MedianMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MedianMember"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:NetCapitalUnderCommodityExchangeActComputation",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "NetCapitalUnderCommodityExchangeActComputation",
+            "balanceType": "credit"
+        },
+        {
+            "dataType": "xbrli:booleanItemType",
+            "label": "srt:ProvedReserveQuantityLocationInHomeCountry",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "ProvedReserveQuantityLocationInHomeCountry"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MortgageLoansOnRealEstateNamePropertyTypeDomain",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateNamePropertyTypeDomain"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:OilAndGasDeliveryCommitmentsAndContractsLineItems",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "OilAndGasDeliveryCommitmentsAndContractsLineItems"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:NetCapitalExcessShortageUnderCommodityExchangeAct",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "NetCapitalExcessShortageUnderCommodityExchangeAct",
+            "balanceType": "credit"
+        },
+        {
+            "dataType": "dtr-types:percentItemType",
+            "label": "srt:FinancingReceivableAllowanceForCreditLossToNonaccrualPercent",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "FinancingReceivableAllowanceForCreditLossToNonaccrualPercent"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MoodysCRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MoodysCRatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MoodysB1RatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MoodysB1RatingMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:AffiliateCollateralizedSecurityAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "AffiliateCollateralizedSecurityAbstract"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:RealEstateAndAccumulatedDepreciationByPropertyTable",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "RealEstateAndAccumulatedDepreciationByPropertyTable"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:MortgageLoansOnRealEstateByLoanDisclosureTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateByLoanDisclosureTextBlock"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:ProFormaMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ProFormaMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:RealEstateAndAccumulatedDepreciationDescriptionOfPropertyAxis",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "RealEstateAndAccumulatedDepreciationDescriptionOfPropertyAxis"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:StandardPoorsAPlusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "StandardPoorsAPlusRatingMember"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:MortgageLoansOnRealEstateFederalIncomeTaxBasis1",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "MortgageLoansOnRealEstateFederalIncomeTaxBasis1",
+            "balanceType": "debit"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:ControllerMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ControllerMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:SummaryOfInvestmentsOtherThanInvestmentsInRelatedPartiesCarryingAmountExplanation",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "SummaryOfInvestmentsOtherThanInvestmentsInRelatedPartiesCarryingAmountExplanation"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:WeightedAverageMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "WeightedAverageMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:SummaryOfInvestmentsOtherThanInvestmentsInRelatedPartiesAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "SummaryOfInvestmentsOtherThanInvestmentsInRelatedPartiesAbstract"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:CondensedFinancialStatementsCaptionsLineItems",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "CondensedFinancialStatementsCaptionsLineItems"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:SummaryOfInvestmentsOtherThanInvestmentsInRelatedPartiesReportableDataLineItems",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "SummaryOfInvestmentsOtherThanInvestmentsInRelatedPartiesReportableDataLineItems"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:AMBestAPlusPlusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "AMBestAPlusPlusRatingMember"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:ExcessNetCapitalAt1500Percent",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "ExcessNetCapitalAt1500Percent",
+            "balanceType": "credit"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:DraftsPayable",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "DraftsPayable",
+            "balanceType": "credit"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:LongTermSupplyAgreementsWithGovernmentsOrAuthoritiesAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "LongTermSupplyAgreementsWithGovernmentsOrAuthoritiesAbstract"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:OilAndGasInProcessActivitiesLineItems",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "OilAndGasInProcessActivitiesLineItems"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:B777300Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "B777300Member"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:ScheduleOfCondensedBalanceSheetTableTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ScheduleOfCondensedBalanceSheetTableTextBlock"
+        },
+        {
+            "dataType": "xbrli:decimalItemType",
+            "label": "srt:ProductiveOilWellsNumberOfWellsWithMultipleCompletionsNet",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "ProductiveOilWellsNumberOfWellsWithMultipleCompletionsNet"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:B777223Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "B777223Member"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:PrincipalSourcesOfChangeInStandardizedMeasureOfDiscountedFutureNetCashFlowRelatingToProvedOilAndGasReservesAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "PrincipalSourcesOfChangeInStandardizedMeasureOfDiscountedFutureNetCashFlowRelatingToProvedOilAndGasReservesAbstract"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:ChiefOperatingOfficerMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ChiefOperatingOfficerMember"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:PayablesToBrokerDealersAndClearingOrganizations",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "PayablesToBrokerDealersAndClearingOrganizations",
+            "balanceType": "credit"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:A320NeoMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "A320NeoMember"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:MortgageLoansOnRealEstatePeriodicPaymentTermsBalloonPaymentToBeReceived",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "MortgageLoansOnRealEstatePeriodicPaymentTermsBalloonPaymentToBeReceived",
+            "balanceType": "debit"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:FutureNetCashFlowsRelatingToProvedOilAndGasReservesCashInflows",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "FutureNetCashFlowsRelatingToProvedOilAndGasReservesCashInflows",
+            "balanceType": "debit"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:IncreaseDecreaseInEstimatedFutureDevelopmentCosts",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "IncreaseDecreaseInEstimatedFutureDevelopmentCosts",
+            "balanceType": "debit"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:EMB135Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "EMB135Member"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:RegulatoryCapitalRequirementsAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "RegulatoryCapitalRequirementsAbstract"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:DescriptionOfMaterialContingenciesOfParentCompany",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "DescriptionOfMaterialContingenciesOfParentCompany"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:StandardizedMeasureOfDiscountedFutureNetCashFlowOfProvedOilAndGasReservesPeriodIncreaseDecrease",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "StandardizedMeasureOfDiscountedFutureNetCashFlowOfProvedOilAndGasReservesPeriodIncreaseDecrease"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:PreviouslyEstimatedDevelopmentCostsIncurred",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "PreviouslyEstimatedDevelopmentCostsIncurred",
+            "balanceType": "debit"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:B767200Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "B767200Member"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:ManagementMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ManagementMember"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:OilAndGasDeliveryCommitmentsAndContractsDisclosureTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "OilAndGasDeliveryCommitmentsAndContractsDisclosureTextBlock"
+        },
+        {
+            "dataType": "dtr-types:percentItemType",
+            "label": "srt:LifeInsuranceInForcePercentageAssumedToNet",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "LifeInsuranceInForcePercentageAssumedToNet"
+        },
+        {
+            "dataType": "dtr-types:percentItemType",
+            "label": "srt:CommercialPaperAverageRatePaid",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "CommercialPaperAverageRatePaid"
+        },
+        {
+            "dataType": "xbrli:booleanItemType",
+            "label": "srt:AffiliateSecurityPledgedAsCollateralTradingMarket",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "AffiliateSecurityPledgedAsCollateralTradingMarket"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MoodysAa1RatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MoodysAa1RatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MoodysCaRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MoodysCaRatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FederalHomeLoanBankOfTopekaMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FederalHomeLoanBankOfTopekaMember"
+        },
+        {
+            "dataType": "dtr-types:percentItemType",
+            "label": "srt:NontaxableInvestmentSecuritiesAverageYield",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "NontaxableInvestmentSecuritiesAverageYield"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:SupplementaryInsuranceInformationBySegmentTable",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "SupplementaryInsuranceInformationBySegmentTable"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:PropertyCasualtyInsuranceUnderwritersAffiliationWithRegistrantDomain",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "PropertyCasualtyInsuranceUnderwritersAffiliationWithRegistrantDomain"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:A300Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "A300Member"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:LitigationCaseAxis",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "LitigationCaseAxis"
+        },
+        {
+            "dataType": "dtr-types:percentItemType",
+            "label": "srt:SecuritiesSoldUnderAgreementsToRepurchaseAverageRatePaid",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "SecuritiesSoldUnderAgreementsToRepurchaseAverageRatePaid"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:NetCapitalExcessShortageUnderCommodityExchangeActAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "NetCapitalExcessShortageUnderCommodityExchangeActAbstract"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:StandardPoorsBBRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "StandardPoorsBBRatingMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:MortgageLoansOnRealEstateDescriptionTypeOfPropertyAxis",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateDescriptionTypeOfPropertyAxis"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:ConsolidatedEntitiesAxis",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ConsolidatedEntitiesAxis"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:ScheduleOfCondensedIncomeStatementTableTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ScheduleOfCondensedIncomeStatementTableTextBlock"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FitchARatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FitchARatingMember"
+        },
+        {
+            "dataType": "dtr-types:percentItemType",
+            "label": "srt:FinancingReceivableWriteoffAfterRecoveryToAverageOutstandingPercent",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "FinancingReceivableWriteoffAfterRecoveryToAverageOutstandingPercent"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:B737900Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "B737900Member"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:LifeInsuranceInForceGross",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "LifeInsuranceInForceGross",
+            "balanceType": "credit"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:ScheduleOfCondensedFinancialStatementsTableTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ScheduleOfCondensedFinancialStatementsTableTextBlock"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:SupplementalScheduleOfReinsurancePremiumsForInsuranceCompaniesTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "SupplementalScheduleOfReinsurancePremiumsForInsuranceCompaniesTextBlock"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:IndustrialPropertyMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "IndustrialPropertyMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:ConsolidationEliminationAffiliateGroupAndRegistrantMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ConsolidationEliminationAffiliateGroupAndRegistrantMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:CondensedIncomeStatementsCaptionsLineItems",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "CondensedIncomeStatementsCaptionsLineItems"
+        },
+        {
+            "dataType": "dtr-types:percentItemType",
+            "label": "srt:FederalFundsPurchasedAverageRatePaid",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "FederalFundsPurchasedAverageRatePaid"
+        },
+        {
+            "dataType": "xbrli:booleanItemType",
+            "label": "srt:GuarantorAndIssuerPreacquisitionSummarizedFinancialInformation",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "GuarantorAndIssuerPreacquisitionSummarizedFinancialInformation"
+        },
+        {
+            "dataType": "dtr-types:percentItemType",
+            "label": "srt:TimeDepositLiabilitiesAverageRatePaid",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "TimeDepositLiabilitiesAverageRatePaid"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:DistributionOfAssetsLiabilitiesAndStockholdersEquityTable",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "DistributionOfAssetsLiabilitiesAndStockholdersEquityTable"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:CondensedCashFlowStatementsCaptionsLineItems",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "CondensedCashFlowStatementsCaptionsLineItems"
+        },
+        {
+            "dataType": "dtr-types:energyItemType",
+            "label": "srt:ProvedDevelopedAndUndevelopedReserveExtensionAndDiscoveryEnergy",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ProvedDevelopedAndUndevelopedReserveExtensionAndDiscoveryEnergy"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MoodysB3RatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MoodysB3RatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:EquityMethodInvesteeNameDomain",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "EquityMethodInvesteeNameDomain"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:StandardizedMeasureOfDiscountedFutureNetCashFlowRelatingToProvedOilAndGasReservesAccretionOfDiscount",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "StandardizedMeasureOfDiscountedFutureNetCashFlowRelatingToProvedOilAndGasReservesAccretionOfDiscount",
+            "balanceType": "credit"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:LifeInsuranceInForceNet",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "LifeInsuranceInForceNet",
+            "balanceType": "credit"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:StandardizedMeasureOfDiscountedFutureNetCashFlowsRelatingToProvedOilAndGasReserves",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "StandardizedMeasureOfDiscountedFutureNetCashFlowsRelatingToProvedOilAndGasReserves",
+            "balanceType": "debit"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:MajorCustomersAxis",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MajorCustomersAxis"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:SubsidiariesMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "SubsidiariesMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:AMBestBPlusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "AMBestBPlusRatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:CRJ700Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "CRJ700Member"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:InterestEarningAssetAndInterestBearingLiabilityInterestChangeTypeAxis",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "InterestEarningAssetAndInterestBearingLiabilityInterestChangeTypeAxis"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:RealEstateAndAccumulatedDepreciationOtherRequiredDisclosuresAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "RealEstateAndAccumulatedDepreciationOtherRequiredDisclosuresAbstract"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:B737Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "B737Member"
+        },
+        {
+            "dataType": "dtr-types:volumeItemType",
+            "label": "srt:ProvedDevelopedAndUndevelopedReservesProduction",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ProvedDevelopedAndUndevelopedReservesProduction"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:DescriptionOfGuaranteesGivenByParentCompany",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "DescriptionOfGuaranteesGivenByParentCompany"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MoodysBaa2RatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MoodysBaa2RatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:PresidentMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "PresidentMember"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:MinimumFinancialRequirementsForFuturesCommissionMerchantsUnderCommodityExchangeActTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "MinimumFinancialRequirementsForFuturesCommissionMerchantsUnderCommodityExchangeActTextBlock"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:AMBestDRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "AMBestDRatingMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:InterestRateAndInterestDifferentialAnalysisLineItems",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "InterestRateAndInterestDifferentialAnalysisLineItems"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:SummaryOfInvestmentsOtherThanInvestmentsInRelatedPartiesTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "SummaryOfInvestmentsOtherThanInvestmentsInRelatedPartiesTextBlock"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FederalHomeLoanBankOfSeattleMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FederalHomeLoanBankOfSeattleMember"
+        },
+        {
+            "dataType": "dtr-types:volumeItemType",
+            "label": "srt:ProvedDevelopedAndUndevelopedReservesExtensionsDiscoveriesAndAdditions",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ProvedDevelopedAndUndevelopedReservesExtensionsDiscoveriesAndAdditions"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:UnconsolidatedPropertyAndCasualtyInsuranceEntityMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "UnconsolidatedPropertyAndCasualtyInsuranceEntityMember"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:AffiliateCollateralizedSecurityTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "AffiliateCollateralizedSecurityTextBlock"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:CrudeOilMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "CrudeOilMember"
+        },
+        {
+            "dataType": "dtr-types:percentItemType",
+            "label": "srt:DemandDepositLiabilitiesInterestBearingAverageRatePaid",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "DemandDepositLiabilitiesInterestBearingAverageRatePaid"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:RealEstateOtherDisclosures",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "RealEstateOtherDisclosures"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:AsiaMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "AsiaMember"
+        },
+        {
+            "dataType": "dtr-types:volumeItemType",
+            "label": "srt:ProvedOilAndGasReserveQuantitiesApplicableToLongTermSupplyAgreementsWithGovernmentsOrAuthorities",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "ProvedOilAndGasReserveQuantitiesApplicableToLongTermSupplyAgreementsWithGovernmentsOrAuthorities"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:GuarantorAndIssuerGuaranteedSecurityAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "GuarantorAndIssuerGuaranteedSecurityAbstract"
+        },
+        {
+            "dataType": "dtr-types:percentItemType",
+            "label": "srt:LongTermDebtAverageRatePaid",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "LongTermDebtAverageRatePaid"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:FinancingReceivableCreditRatioTableTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "FinancingReceivableCreditRatioTableTextBlock"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MortgageLoansBetween500000And749999Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MortgageLoansBetween500000And749999Member"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FitchCCCPlusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FitchCCCPlusRatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:AsiaPacificMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "AsiaPacificMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FederalHomeLoanBankOfCincinnatiMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FederalHomeLoanBankOfCincinnatiMember"
+        },
+        {
+            "dataType": "dtr-types:percentItemType",
+            "label": "srt:FinancingReceivableNonaccrualToOutstandingPercent",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "FinancingReceivableNonaccrualToOutstandingPercent"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:CondensedBalanceSheetStatementTable",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "CondensedBalanceSheetStatementTable"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:StandardPoorsBMinusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "StandardPoorsBMinusRatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:ScenarioForecastMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ScenarioForecastMember"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:MortgageLoansOnRealEstatePriorLiens1",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "MortgageLoansOnRealEstatePriorLiens1",
+            "balanceType": "credit"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:CondensedStatementOfComprehensiveIncomeTable",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "CondensedStatementOfComprehensiveIncomeTable"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FederalHomeLoanBankOfDesMoinesMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FederalHomeLoanBankOfDesMoinesMember"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:NetCapital",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "NetCapital",
+            "balanceType": "credit"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:OilReservesMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "OilReservesMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MoodysBa3RatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MoodysBa3RatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:StandardPoorsCRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "StandardPoorsCRatingMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:DevelopmentWellsDrilledLineItems",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "DevelopmentWellsDrilledLineItems"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:CounterpartyNameAxis",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "CounterpartyNameAxis"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:GeographyEliminationsMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "GeographyEliminationsMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:SouthAmericaMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "SouthAmericaMember"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:FinancingReceivableBeforeAllowanceForCreditLossMaturityTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "FinancingReceivableBeforeAllowanceForCreditLossMaturityTextBlock"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:ComputationOfNetCapitalRequirementAlternativeStandardAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ComputationOfNetCapitalRequirementAlternativeStandardAbstract"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:BoardOfDirectorsChairmanMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "BoardOfDirectorsChairmanMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:EquityInvestmentInPropertyAndCasualtyInsuranceInvesteeMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "EquityInvestmentInPropertyAndCasualtyInsuranceInvesteeMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:GasAndOilAcreageTable",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "GasAndOilAcreageTable"
+        },
+        {
+            "dataType": "xbrli:decimalItemType",
+            "label": "srt:ProductiveOilWellsNumberOfWellsWithMultipleCompletionsGross",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "ProductiveOilWellsNumberOfWellsWithMultipleCompletionsGross"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:InterestEarningAssetAndInterestBearingLiabilityInterestChangeInRateMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "InterestEarningAssetAndInterestBearingLiabilityInterestChangeInRateMember"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:LifeInsuranceInForceAssumed",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "LifeInsuranceInForceAssumed",
+            "balanceType": "credit"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:AircraftTypeAxis",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "AircraftTypeAxis"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MoodysBaa1RatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MoodysBaa1RatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:AMBestCPlusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "AMBestCPlusRatingMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:RealEstateWriteDownOrReserveTable",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "RealEstateWriteDownOrReserveTable"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:FinancingReceivableCreditRatioTable",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FinancingReceivableCreditRatioTable"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:InterestEarningAssetsAverageYieldAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "InterestEarningAssetsAverageYieldAbstract"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:CRJ900Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "CRJ900Member"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:MortgageLoansOnRealEstateReserves",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "MortgageLoansOnRealEstateReserves"
+        },
+        {
+            "dataType": "dtr-types:energyItemType",
+            "label": "srt:ProvedDevelopedAndUndevelopedReserveRevisionOfPreviousEstimateEnergy",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ProvedDevelopedAndUndevelopedReserveRevisionOfPreviousEstimateEnergy"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:RevisionOfPriorPeriodAccountingStandardsUpdateAdjustmentMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "RevisionOfPriorPeriodAccountingStandardsUpdateAdjustmentMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:ScenarioPreviouslyReportedMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ScenarioPreviouslyReportedMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:DiscountedFutureNetCashFlowsRelatingToProvedOilAndGasReservesLineItems",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "DiscountedFutureNetCashFlowsRelatingToProvedOilAndGasReservesLineItems"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:ChiefExecutiveOfficerMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ChiefExecutiveOfficerMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:DiscountedFutureNetCashFlowsRelatingToProvedOilAndGasReservesTable",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "DiscountedFutureNetCashFlowsRelatingToProvedOilAndGasReservesTable"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FitchAARatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FitchAARatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:HotelMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "HotelMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:A320200Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "A320200Member"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:ConsolidationEliminationAffiliateGroupAndNotPartOfAffiliateGroupMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ConsolidationEliminationAffiliateGroupAndNotPartOfAffiliateGroupMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:HeatingOilMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "HeatingOilMember"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:FinancingReceivableBeforeAllowanceForCreditLossMaturityTableTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "FinancingReceivableBeforeAllowanceForCreditLossMaturityTableTextBlock"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:B737700Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "B737700Member"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:InterestEarningAssetAndInterestBearingLiabilityInterestChangeInVolumeMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "InterestEarningAssetAndInterestBearingLiabilityInterestChangeInVolumeMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:SegmentGeographicalDomain",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "SegmentGeographicalDomain"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:NameOfMajorCustomerDomain",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "NameOfMajorCustomerDomain"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:DistributionOfAssetsLiabilitiesAndStockholdersEquityTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "DistributionOfAssetsLiabilitiesAndStockholdersEquityTextBlock"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:StandardPoorsBBPlusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "StandardPoorsBBPlusRatingMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:FitchBBRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "FitchBBRatingMember"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:MinimumNetCapitalRequiredForEntity1",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "MinimumNetCapitalRequiredForEntity1",
+            "balanceType": "credit"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:NetCapitalInExcessOfFivePercentOfDebitItems",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "NetCapitalInExcessOfFivePercentOfDebitItems",
+            "balanceType": "credit"
+        },
+        {
+            "dataType": "xbrli:decimalItemType",
+            "label": "srt:WellsTemporarilySuspended",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "WellsTemporarilySuspended"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:NaturalGasReservesMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "NaturalGasReservesMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:ReportableLegalEntitiesMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "ReportableLegalEntitiesMember"
+        },
+        {
+            "dataType": "xbrli:monetaryItemType",
+            "label": "srt:FutureNetCashFlowsRelatingToProvedOilAndGasReservesIncomeTaxExpense",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "instant",
+            "localName": "FutureNetCashFlowsRelatingToProvedOilAndGasReservesIncomeTaxExpense",
+            "balanceType": "credit"
+        },
+        {
+            "dataType": "xbrli:booleanItemType",
+            "label": "srt:AffiliateGroupPreacquisitionSummarizedFinancialInformation",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "AffiliateGroupPreacquisitionSummarizedFinancialInformation"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:DescriptionOfSignificantProvisionsOfLongTermObligationsOfParentCompany",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "DescriptionOfSignificantProvisionsOfLongTermObligationsOfParentCompany"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:AMBestBMinusRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "AMBestBMinusRatingMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:GuarantorAndIssuerGuaranteedSecurityTable",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "GuarantorAndIssuerGuaranteedSecurityTable"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:OtherNonrenewableNaturalResourcesMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "OtherNonrenewableNaturalResourcesMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:RetailSiteMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "RetailSiteMember"
+        },
+        {
+            "dataType": "dtr-types:textBlockItemType",
+            "label": "srt:ScheduleOfValuationAndQualifyingAccountsDisclosureTextBlock",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ScheduleOfValuationAndQualifyingAccountsDisclosureTextBlock"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:AmericasMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "AmericasMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:NaturalGasLiquidsReservesMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "NaturalGasLiquidsReservesMember"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:MortgageLoansBetween250000And499999Member",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MortgageLoansBetween250000And499999Member"
+        },
+        {
+            "dataType": "dtr-types:energyItemType",
+            "label": "srt:ProvedDevelopedAndUndevelopedReserveProductionEnergy",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "ProvedDevelopedAndUndevelopedReserveProductionEnergy"
+        },
+        {
+            "dataType": "dtr-types:domainItemType",
+            "label": "srt:StandardPoorsBRatingMember",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "StandardPoorsBRatingMember"
+        },
+        {
+            "dataType": "xbrli:stringItemType",
+            "label": "srt:MinimumNetCapitalRequiredAbstract",
+            "type": "Concept",
+            "isAbstract": "true",
+            "periodType": "duration",
+            "localName": "MinimumNetCapitalRequiredAbstract"
+        },
+        {
+            "dataType": "dtr-types:percentItemType",
+            "label": "srt:InterestEarningAssetsNetYield",
+            "type": "Concept",
+            "isAbstract": "false",
+            "periodType": "duration",
+            "localName": "InterestEarningAssetsNetYield"
+        }
+    ]
+}

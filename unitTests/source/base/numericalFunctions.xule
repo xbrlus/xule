@@ -1,0 +1,390 @@
+/* NumericalFunctions */
+output DABS101
+/* 10 */
+
+  -10.abs
+
+output DABS102
+/* 10 */
+
+  (-10).abs
+
+output DABS103
+/* list(1, 3, 2, 1.1) */
+
+  list(-1,3,-2,1.10).abs
+
+output DABS104
+/* set(1, 3, 2002) */
+
+  set(-1,3,-2,1.0).abs
+
+output DABS105
+/* set(NULL) */
+
+  set().abs
+
+output DABS106
+/* Property 'abs' is not a property of a 'qname' */
+
+  set(-1,3,-2,Assets).abs
+
+output DABS107
+/* Property 'abs' is not a property of a 'qname' */
+
+  Assets.abs
+
+output DABS108
+/* None */
+
+  none.abs
+
+output ABS101
+/* 10 */
+
+  abs(10)
+
+output ABS102
+/* 10 */
+
+  abs(-10)
+
+output ABS103
+/* 1.123 */
+
+  abs(1.123)
+
+output ABS104
+/* 1.123 */
+
+  abs(-1.123)
+
+output ABS105
+/* The first argument of function 'abs' must be int, float, decimal, fact, found 'none */
+
+  abs(none)
+
+output DAVG101
+/* 3.5 */
+
+  list(1,2,3,4,5,6).avg
+
+output DAVG102
+/* 12 */
+
+  list(12, 12).avg
+
+output DAVG103
+/* 0 */
+
+  list(12, -12).avg
+
+output DAVG104
+/* 0.62 */
+
+  list(0.12, 1.12).avg
+
+output DAVG105
+/*  nan */
+
+  list().avg
+
+output DAVG106
+/* 3.85 */
+
+  set(1.1,2.2,3.3,4.4,5.5,6.6).avg
+
+output DAVG107
+/* Property 'avg' is not a property of a 'int'. */
+
+  112.avg
+
+output DAVG108
+/* Statistic properties expect nuemric inputs, found 'string'. */
+
+  list(1.12, 'cat').avg
+
+output DAVG109
+/* Statistic properties expect nuemric inputs, found 'none'. */
+
+  list(none,none,3).avg
+
+output AVG101
+/* 29.833333 */
+
+  avg(list(12, 1, 55, 6, 105, 0))
+
+output AVG102
+/* 12 */
+
+  avg(list(12, 12))
+
+output AVG103
+/* 0 */
+
+  avg(list(12, -12))
+
+output AVG104
+/* 0.62 */
+
+  avg(list(0.12, 1.12))
+
+output AVG191
+/* Incorrect number of parameters for 'avg()' */
+
+  avg(0.12, 1.12)
+
+output AVG192
+/* Element 2 must be 'integer' or 'float' (was 'string') for 'avg()' */
+
+  avg(list(1.12, 'cat'))
+
+output DLOG101
+/* 2 */
+
+  100.log10
+
+output DLOG102
+/*  nan */
+
+  -1234.log10
+
+output LOG101
+/* 2 */
+
+  log10(100)
+
+output LOG102
+/*  nan */
+
+  log10(-1234)
+
+output LOG103
+/* The first argument of function 'log10' must be int, float, decimal, found 'none'. */
+
+  log10(none)
+
+output MOD101
+/* 0 */
+
+  mod(9, 3)
+
+output MOD102
+/* 1 */
+
+  mod(9, 4)
+
+output MOD109
+/* integer division or modulo by zero */
+
+  mod(9, 0)
+
+output MOD111
+/* 0 */
+
+  mod(9.0, 3.0)
+
+output MOD112
+/* 1 */
+
+  mod(9.0, 4.0)
+
+output MOD119
+/* float modulo */
+
+  mod(9.0, 0.0)
+
+output MOD120
+/* 1 */
+
+  9.mod(4)
+
+output DPOW101
+/* 8 */
+
+  2.power(3)
+
+output DPOW102
+/* 0.125 */
+
+  2.power(-3)
+
+output DPOW103
+/* list(1, 4, 10.89) */
+
+  list(1,2,3.3).power(2.0)
+
+output DPOW104
+/* list(0.008264, 0.002066, 0.000918) */
+
+  list(11,22,33).power(-2)
+
+output DPOW105
+/* set(121, 484, 1,089) */
+
+  set(11,22,33).power(2)
+
+output DPOW106
+/* set(1, 4, 9, 25, 36) */
+
+  set(1,2,3,5,6,2,1).power(2)
+
+output DPOW107
+/* unsupported operand type(s) for ** or pow(): 'XuleString' and 'str' */
+
+  'cat'.power(2)
+
+output DPOW108
+/* unsupported operand type(s) for ** or pow(): 'XuleString' and 'str' */
+
+  '4'.power(2)
+
+output DPOW109
+/* unsupported operand type(s) for ** or pow(): 'XuleString' and 'str' */
+
+  list(1,2,'dog').power(2)
+
+output DPOW110
+/* Incorrect number of parameters for '.power' */
+
+  list(1,2).power()
+
+output DPOW111
+/* Incorrect number of parameters for '.power' */
+
+  list(1,2).power(1,2)
+
+output POW101
+/* 8 */
+
+  power(2, 3)
+
+output POW102
+/* 27 */
+
+  power(3, 3)
+
+output POW103
+/* 0.125 */
+
+  power(0.5, 3)
+
+output POW104
+/* 1.861646 */
+
+  power(500, 0.1)
+
+output RAND101
+/* 4d less than 1 */
+
+  random()
+
+output RAND102
+/* 4d greater than 1 */
+
+  random(8)
+
+output RAND103
+/* 4d less than 1 */
+
+  random(0)
+
+output RAND104
+/* negative number */
+
+  random(-3)
+
+output RAND105
+/* 4d less than 1 */
+
+  random(none)
+
+output RAND106
+/* list(0.8241 (rounded 4d), 1, 1.7733 (rounded 4d)) */
+
+  list(random(),random(1),random(2))
+
+output RAND107
+/* random' is not a valid property. */
+
+  3.random
+
+output ROUN101
+/* list(1.03, 21.34)  */
+
+  list(1.03456,21.34345).round(2)
+
+output ROUN102
+/* 21.34 */
+
+  21.34345.round(2)
+
+output ROUN104
+/* 1.03 */
+
+  round(1.03456,2)
+
+output ROUN105
+/* The first argument of function 'round' must be int, float, decimal, fact, found 'none' */
+
+  round(none,3)
+
+output ROUN106
+/* 0 */
+
+  round(0,3)
+
+output ROUN107
+/* type XuleString doesn't define __round__ method */
+
+  round('cat',2)
+
+output SIG101
+/* 1 */
+
+  signum(10)
+
+output SIG102
+/* -1 */
+
+  signum(-10)
+
+output SIG103
+/* 0 */
+
+  signum(0)
+
+output SIG104
+/* &lt;' not supported between instances of 'XuleString' and 'int'  */
+
+  signum('cat')
+
+output TRUN101
+/* 10.01 */
+
+  10.0123.trunc(2)
+
+output TRUN102
+/* 123000 */
+
+  123456.trunc(-3)
+
+output TRUN103
+/* 102.23 */
+
+  trunc(102.2345,2)
+
+output TRUN104
+/* The first argument of function 'trunc' must be int, float, decimal, fact, found 'none' */
+
+  trunc(none,2)
+
+output TRUN105
+/* [&lt;class 'decimal.ConversionSyntax'>]  */
+
+  trunc('cat',2)
+
+output TRUN106
+/* 100 */
+
+  trunc(100.23456)

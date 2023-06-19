@@ -1,0 +1,10 @@
+/* MathErrors */
+output ME101
+/* error: */
+
+  '3' / 3
+
+output ME102
+/* error: */
+
+  7 / 0

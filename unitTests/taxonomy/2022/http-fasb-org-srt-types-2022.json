@@ -1,0 +1,9 @@
+{
+    "http://fasb.org/srt-types/2022": [
+        {
+            "localName": "perUnitItemType",
+            "type": "Type",
+            "label": "perUnitItemType"
+        }
+    ]
+}

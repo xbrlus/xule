@@ -1,0 +1,68 @@
+/* Constants */
+
+/* Constant representing default Asset fact values */
+
+  constant $CONSTANT_ASSETS = [@instance = $INSTANCE1 @Assets]
+
+
+/* Constant representing the us-gaap 2020 taxonomy */
+
+  constant $US-GAAP-2020 = taxonomy('https://xbrl.fasb.org/us-gaap/2020/entire/us-gaap-entryPoint-all-2020-01-31.xsd')
+
+
+/* Constant representing the us-gaap 2023 taxonomy */
+
+  constant $US-GAAP-2022 = taxonomy('https://xbrl.fasb.org/us-gaap/2022/entire/us-gaap-entryPoint-all-2022.xsd')
+
+
+/* Constant representing the us-gaap 2023 taxonomy */
+
+  constant $US-GAAP-2023 = taxonomy('https://xbrl.fasb.org/us-gaap/2023/entire/us-gaap-entryPoint-all-2023.xsd')
+
+
+/* Constant representing a BS relationship */
+
+  constant $NETWORK_BS = networks($US-GAAP-2020,parent-child,'http://fasb.org/us-gaap/role/statement/StatementOfFinancialPositionClassified')
+
+
+/* Constant defining a cube */
+
+  constant $CUBE =$US-GAAP-2020.cube(ScheduleOfFairValueOffBalanceSheetRisksTable, FinancialInstrumentsFairValueDisclosuresScheduleOfFairValueOffBalanceSheetRisksTable)
+
+
+/* Constant representing the BS network */
+
+  constant $PRES_RELATIONSHIP = filter sum($NETWORK_BS).relationships where $item.source-name == NotesAndLoansReceivableNetNoncurrentAbstract and $item.target-name == NotesAndLoansReceivableGrossNoncurrent
+
+
+/* Constant representing a CSV file */
+
+  constant $NON_NEG_ITEMS= dict(
+                for $pair in (csv-data('https://raw.githubusercontent.com/DataQualityCommittee/dqc_us_rules/v20/dqc_us_rules/resources/DQC_US_0015/dqc_15_usgaap_2020_concepts.csv', false, list('string', 'qname')) + csv-data('https://raw.githubusercontent.com/DataQualityCommittee/dqc_us_rules/v20/dqc_us_rules/resources/DQC_US_0015/dqc_15_dei_concepts.csv', false, list('string', 'qname')))
+                                list($pair[2], $pair[1])
+)
+
+
+/* Constant representing an XML file */
+
+  constant $FORM_13F = xml-data-flat('https://www.sec.gov/Archives/edgar/data/1099219/000162828023018062/information_table.xml', 'j:infoTable', list('j:nameOfIssuer', 'j:titleOfClass', 'j:cusip', 'j:value'), list('string','string','string','decimal'), dict(list('j','http://www.sec.gov/edgar/document/thirteenf/informationtable')))
+
+
+/* Constant representing a JSON file */
+
+  constant $JSON_DATA = json-data('https://raw.githubusercontent.com/DataQualityCommittee/dqc_us_rules/v21/dqc_us_rules/resources/DQC_US_0081/parent_elements_with_children_promotable_to_sibling.json')
+
+
+/* Constant representing a portion of an excel file */
+
+  constant $EXCEL_DATA = excel-data('https://www.sec.gov/Archives/edgar/data/1089815/000114036123018265/Financial_Report.xlsx', 'Document and Entity Information!B4',false, list('string'))
+
+
+/* Constant representing an XBRL instance */
+
+  constant $INSTANCE1 = instance('https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/fcx-20210630.htm')
+
+
+/*  */
+
+  

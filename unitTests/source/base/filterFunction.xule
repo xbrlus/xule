@@ -1,0 +1,127 @@
+/* FilterFunction */
+output FIL101
+/* set(2,3) */
+
+  filter set(1,2,3) where $item > 1
+
+output FIL102
+/* set(cat, cup) */
+
+  filter set('cat','dog','cup') where $item.contains('c')
+
+output FIL103
+/* set(CAT, CUP) */
+
+  filter set('cat','dog','cup') where $item.contains('c') returns $item.upper-case
+
+output FIL104
+/* set(CAT, DOG, CUP) */
+
+  set('cat','dog','cup').upper-case
+
+output FIL105
+/* set(2, 6, 3) */
+
+  filter set(1,2,3) + filter set(4,5,6) where $item > 5 where $item > 1
+
+output FIL106
+/* set(2, 6, 3) */
+
+  filter set(1,2,3) + (filter set(4,5,6) where $item > 5) where $item > 1
+
+output FIL107
+/* set(3,4) */
+
+  filter (filter set(1,2,3,4,5) where $item > 2) where $item < 5
+
+output FIL108
+/* set(debit, credit) */
+
+  filter set($US-GAAP-2020.concept(Assets), $US-GAAP-2020.concept(Liabilities)) returns $item.balance
+
+output FIL109
+/* list(2,2,3) */
+
+  filter list(1,2,2,3) where $item > 1
+
+output FIL110
+/* list(cat, cup) */
+
+  filter list('cat','dog','cup') where $item.contains('c')
+
+output FIL111
+/* list(CAT, CUP) */
+
+  filter list('cat','dog','cup') where $item.contains('c') returns $item.upper-case
+
+output FIL112
+/* list(ABACUS, CAT, CUP) */
+
+  filter list('cat','dog','cup','abacus').sort where $item.contains('c') returns $item.upper-case
+
+output FIL113
+/* list('cat','dog','cup','abacus') */
+
+  filter list('cat','dog','cup','abacus')
+
+output FIL114
+/* list(list(1,2)) */
+
+  filter list(list(1,2),list(3,4,5),list(1,3)) where $item[2] == 2
+
+output FIL115
+/* list(list(2),list(),list()) */
+
+  $source = list(list(1,2),list(3,4,5),list(1,3));
+list(for $x in $source
+        filter $x where $item == 2)
+
+output FIL116
+/* list(list(1,2)) */
+
+  $source = list(list(1,2),list(3,4,5),list(1,3));
+filter $source where length(filter $item where $item == 2) > 0
+
+output FIL117
+/* list(list(6,7),list(8,9,10),list(6,8)) */
+
+  $source = list(list(1,2),list(3,4,5),list(1,3));
+filter $source returns list(for $x in $item $x + 5)
+
+output FIL118
+/* list(list(6,7),list(8,9,10),list(6,8)) */
+
+  $source = list(list(1,2),list(3,4,5),list(1,3));
+filter $source returns filter $item returns $item + 5
+
+output FIL119
+/* 1 */
+
+  $source = list(none, 1,2,3,none)
+min(filter $source where $item != none)
+
+output FIL120
+/* list(1,2,3) */
+
+  $source = list(none, 1,2,3,none)
+filter $source where $item != none
+
+output FIL121
+/* 3 iterations */
+
+  $source = list(1,2,240000000000)
+filter $source where $item > [@instance = $INSTANCE1 @Assets]
+
+output FIL122
+/*  */
+
+  $source = list(1,2,240000000000)
+filter $source where $item > filter set([covered @instance = $INSTANCE1 @Assets])
+
+output FIL123
+/* 4 iterations */
+
+   $a = [@instance = $INSTANCE1 @IncomeTaxExpenseBenefit]
+ filter list(1,2,3)
+        returns
+            $item + [@instance = $INSTANCE1 @IncomeLossFromEquityMethodInvestments where $fact < $a]

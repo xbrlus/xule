@@ -1,0 +1,195 @@
+/* BasicMathOperators */
+output XU101
+/* 9 */
+
+  2 + 7
+
+output XU102
+/* 7.9 */
+
+  1.2 + 6.7
+
+output XU103
+/* 7.7 */
+
+  1 + 6.7
+
+output XU104
+/* 7.25 */
+
+  1.25 + 6
+
+output XU105
+/*  cat */
+
+  'c' + 'a' + 't'
+
+output XU106
+/* -5 */
+
+  2 - 7
+
+output XU107
+/* 3.5 */
+
+  10.2 - 6.7
+
+output XU108
+/* 3.3 */
+
+  10 - 6.7
+
+output XU109
+/* 4.25 */
+
+  10.25 - 6
+
+output XU110
+/* -5 */
+
+  1.25 - 6.25
+
+output XU111
+/* 14 */
+
+  2 * 7
+
+output XU112
+/* 8.04 */
+
+  1.2 * 6.7
+
+output XU113
+/* 6.7 */
+
+  1 * 6.7
+
+output XU114
+/* 7.5 */
+
+  1.25 * 6
+
+output XU115
+/* 2 */
+
+  14 / 7
+
+output XU116
+/* 0.179104 */
+
+  1.2 / 6.7
+
+output XU117
+/* 1.492537 */
+
+  10 / 6.7
+
+output XU118
+/* 205.708333 */
+
+  1234.25 / 6
+
+output XU119
+/* 1.75 */
+
+  14 / 8
+
+output XU120
+/* 55 */
+
+  55 + none
+
+output XU121
+/* 55 */
+
+  none + 55
+
+output XU122
+/* 2.345 */
+
+  2.345 + none
+
+output XU123
+/* 2.345 */
+
+  none + 2.345
+
+output XU124
+/*  a String */
+
+  none + 'a String'
+
+output XU125
+/* 55 */
+
+  55 - none
+
+output XU126
+/* -55 */
+
+  none - 55
+
+output XU127
+/* 2.345 */
+
+  2.345 - none
+
+output XU128
+/* -2.345 */
+
+  none - 2.345
+
+output XU129
+/* none */
+
+  none - none
+
+output XU130
+/* none */
+
+  none + none
+
+output XU131
+/* string: a3 */
+
+  'a' + 3
+
+output XU132
+/* string: 33 */
+
+  '3' + 3
+
+output XU133
+/* Unsupported operand type(s) for -: 'XuleString' and 'str' */
+
+  '3' - 3
+
+output XU134
+/*  true */
+
+  1 < 2
+
+output XU135
+/*  false */
+
+  2 < 1
+
+output XU136
+/*  true */
+
+  1.1 < 2.2
+
+output XU137
+/*  false */
+
+  2.2 < 1.1
+
+output XU138
+/*  true */
+
+  'a' < 'b'
+
+output XU139
+/*  false */
+
+  'b' < 'a'

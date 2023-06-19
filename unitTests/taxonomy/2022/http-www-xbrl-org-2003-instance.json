@@ -1,0 +1,228 @@
+{
+    "http://www.xbrl.org/2003/instance": [
+        {
+            "localName": "floatItemType",
+            "type": "Type",
+            "label": "floatItemType"
+        },
+        {
+            "localName": "integerItemType",
+            "type": "Type",
+            "label": "integerItemType"
+        },
+        {
+            "localName": "intItemType",
+            "type": "Type",
+            "label": "intItemType"
+        },
+        {
+            "localName": "shortItemType",
+            "type": "Type",
+            "label": "shortItemType"
+        },
+        {
+            "localName": "gMonthItemType",
+            "type": "Type",
+            "label": "gMonthItemType"
+        },
+        {
+            "localName": "fractionItemType",
+            "type": "Type",
+            "label": "fractionItemType"
+        },
+        {
+            "localName": "NCNameItemType",
+            "type": "Type",
+            "label": "NCNameItemType"
+        },
+        {
+            "localName": "nonPositiveIntegerItemType",
+            "type": "Type",
+            "label": "nonPositiveIntegerItemType"
+        },
+        {
+            "localName": "base64BinaryItemType",
+            "type": "Type",
+            "label": "base64BinaryItemType"
+        },
+        {
+            "localName": "tokenItemType",
+            "type": "Type",
+            "label": "tokenItemType"
+        },
+        {
+            "localName": "monetaryItemType",
+            "type": "Type",
+            "label": "monetaryItemType"
+        },
+        {
+            "localName": "hexBinaryItemType",
+            "type": "Type",
+            "label": "hexBinaryItemType"
+        },
+        {
+            "localName": "positiveIntegerItemType",
+            "type": "Type",
+            "label": "positiveIntegerItemType"
+        },
+        {
+            "localName": "longItemType",
+            "type": "Type",
+            "label": "longItemType"
+        },
+        {
+            "localName": "QNameItemType",
+            "type": "Type",
+            "label": "QNameItemType"
+        },
+        {
+            "localName": "nonNegativeIntegerItemType",
+            "type": "Type",
+            "label": "nonNegativeIntegerItemType"
+        },
+        {
+            "localName": "gYearMonthItemType",
+            "type": "Type",
+            "label": "gYearMonthItemType"
+        },
+        {
+            "localName": "byteItemType",
+            "type": "Type",
+            "label": "byteItemType"
+        },
+        {
+            "localName": "durationItemType",
+            "type": "Type",
+            "label": "durationItemType"
+        },
+        {
+            "localName": "dateTimeItemType",
+            "type": "Type",
+            "label": "dateTimeItemType"
+        },
+        {
+            "localName": "timeItemType",
+            "type": "Type",
+            "label": "timeItemType"
+        },
+        {
+            "localName": "unsignedLongItemType",
+            "type": "Type",
+            "label": "unsignedLongItemType"
+        },
+        {
+            "localName": "dateItemType",
+            "type": "Type",
+            "label": "dateItemType"
+        },
+        {
+            "localName": "gYearItemType",
+            "type": "Type",
+            "label": "gYearItemType"
+        },
+        {
+            "localName": "normalizedStringItemType",
+            "type": "Type",
+            "label": "normalizedStringItemType"
+        },
+        {
+            "localName": "NameItemType",
+            "type": "Type",
+            "label": "NameItemType"
+        },
+        {
+            "localName": "booleanItemType",
+            "type": "Type",
+            "label": "booleanItemType"
+        },
+        {
+            "localName": "unsignedShortItemType",
+            "type": "Type",
+            "label": "unsignedShortItemType"
+        },
+        {
+            "localName": "gDayItemType",
+            "type": "Type",
+            "label": "gDayItemType"
+        },
+        {
+            "localName": "languageItemType",
+            "type": "Type",
+            "label": "languageItemType"
+        },
+        {
+            "localName": "tuple",
+            "type": "Concept",
+            "label": "xbrli:tuple",
+            "isAbstract": "true",
+            "dataType": "anyType"
+        },
+        {
+            "localName": "doubleItemType",
+            "type": "Type",
+            "label": "doubleItemType"
+        },
+        {
+            "localName": "unsignedIntItemType",
+            "type": "Type",
+            "label": "unsignedIntItemType"
+        },
+        {
+            "localName": "anyURIItemType",
+            "type": "Type",
+            "label": "anyURIItemType"
+        },
+        {
+            "localName": "sharesItemType",
+            "type": "Type",
+            "label": "sharesItemType"
+        },
+        {
+            "localName": "pureItemType",
+            "type": "Type",
+            "label": "pureItemType"
+        },
+        {
+            "localName": "pure",
+            "type": "Unit",
+            "label": "pure"
+        },
+        {
+            "localName": "unsignedByteItemType",
+            "type": "Type",
+            "label": "unsignedByteItemType"
+        },
+        {
+            "localName": "item",
+            "type": "Concept",
+            "label": "xbrli:item",
+            "isAbstract": "true",
+            "dataType": "anyType"
+        },
+        {
+            "localName": "negativeIntegerItemType",
+            "type": "Type",
+            "label": "negativeIntegerItemType"
+        },
+        {
+            "localName": "stringItemType",
+            "type": "Type",
+            "label": "stringItemType"
+        },
+        {
+            "localName": "decimalItemType",
+            "type": "Type",
+            "label": "decimalItemType"
+        },
+        {
+            "localName": "shares",
+            "type": "Unit",
+            "label": "Share"
+        },
+        {
+            "localName": "gMonthDayItemType",
+            "type": "Type",
+            "label": "gMonthDayItemType"
+        }
+    ]
+}

@@ -1,0 +1,45 @@
+/* Skip */
+output SK100
+/* 2 */
+
+  (skip  * 100) + 2
+
+output SK101
+/* skip iteration */
+
+  skip * 100
+
+output SK102
+/* list(3) */
+
+  list(3, skip)
+
+output SK103
+/* 3 */
+
+  skip + 3
+
+output SK104
+/* 7 */
+
+  sum(list(skip,3,4))
+
+output SK105
+/* list() */
+
+  list(skip)
+
+output SK106
+/* 0 */
+
+  list(skip).length
+
+output SK107
+/* set() */
+
+  set(skip)
+
+output SK108
+/* list(3) */
+
+  list(skip + 3)

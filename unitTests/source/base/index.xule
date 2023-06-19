@@ -1,0 +1,132 @@
+/* Index */
+output SLO101
+/*  c.c */
+
+  list('a.a', 'b.b', 'c.c')[3]
+
+output SLO102
+/*  zero string */
+
+  dict(list('0', 'zero string'), list(Assets, 'a qname'), list('a', 'a string'), list(0, 'zero number'))['0']
+
+output SLO103
+/*  a qname */
+
+  dict(list('0', 'zero string'), list(Assets, 'a qname'), list('a', 'a string'), list(0, 'zero number'))[Assets]
+
+output SLO104
+/*  a string */
+
+  dict(list('0', 'zero string'), list(Assets, 'a qname'), list('a', 'a string'), list(0, 'zero number'))['a']
+
+output SLO105
+/*  zero number */
+
+  dict(list('0', 'zero string'), list(Assets, 'a qname'), list('a', 'a string'), list(0, 'zero number'))[0]
+
+output SLO106
+/*  none */
+
+  dict(list('0', 'zero string'), list(Assets, 'a qname'), list('a', 'a string'), list(0, 'zero number'))['kitten']
+
+output SLO107
+/* Index value of 0 is out of range for the list with length of 3 */
+
+  list('a.a', 'b.b', 'c.c')[0]
+
+output SLO108
+/* Index value of 4 is out of range for the list with length of 3 */
+
+  list('a.a', 'b.b', 'c.c')[4]
+
+output SLO109
+/* Index value of 1 is out of range for the list with length of 0 */
+
+  list()[1]
+
+output SLO110
+/* 40,230,000,000
+42,144,000,000
+45,436,000,000 */
+
+  list([@instance = $INSTANCE1 @Assets])[1]
+
+output SLO111
+/* The 'index' property or index expression '[]' can only operate on a list or dictionary, found 'set' */
+
+  set('a.a', 'b.b', 'c.c')[2]
+
+output DIX010
+/* c */
+
+  list(a,b,c,d,e,g).index(3)
+
+output DIX011
+/* 1 */
+
+  list(1,2,3.3,4,e,g).index(1)
+
+output DIX012
+/* 3.3 */
+
+  list(1,2,3.3,4,e,g).index(3)
+
+output DIX014
+/* g */
+
+  list(1,2,3.3,4,e,g).index(6)
+
+output DIX021
+/* zero string */
+
+  dict(list('0', 'zero string'), list(Assets, 'a qname'), list('a', 'a string'), list(0, 'zero number')).index('0')
+
+output DIX022
+/* a qname */
+
+  dict(list('0', 'zero string'), list(Assets, 'a qname'), list('a', 'a string'), list(0, 'zero number')).index(a)
+
+output DIX023
+/* a string */
+
+  dict(list('0', 'zero string'), list(Assets, 'a qname'), list('a', 'a string'), list(0, 'zero number')).index('a')
+
+output DIX024
+/* zero number */
+
+  dict(list('0', 'zero string'), list(Assets, 'a qname'), list('a', 'a string'), list(0, 'zero number')).index(0)
+
+output DIX025
+/* none */
+
+  dict(list('0', 'zero string'), list(Liabilities, 'a qname'), list('a', 'a string'), list(0, 'zero number')).index(Assets)
+
+output DIX091
+/* Error: Index out of range, must be 1 to 6 */
+
+  list(a,b,c,d,e,g).index(0)
+
+output DIX092
+/* Error: Object data type must be 'list' or 'dict' for '.index()' */
+
+  set(a,b,c,d,e,g).index(0)
+
+output DIX093
+/* Error: Single parameter required for '.index()' */
+
+  list(a,b,c,d,e,g).index()
+
+output DIX094
+/* Error: Single parameter required for '.index()' */
+
+  list(a,b,c,d,e,g).index(1,2)
+
+output DIX095
+/* Error: Bad index value 'cat', must be integer/numeric */
+
+  list(a,b,c,d,e,g).index('cat')
+
+output DIX096
+/* Error: Expected .property(), missing paramters '(...)' */
+
+  list(a,b,c,d,e,g).index

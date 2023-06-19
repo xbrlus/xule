@@ -1,0 +1,23 @@
+/* BlockExpressions */
+output BLOCK101
+/* 7 */
+
+  $y = (3 + 4) * -1;
+abs($y)
+
+output BLOCK102
+/* 7 */
+
+  abs($y = (3 + 4) * -1; $y)
+
+output BLOCK103
+/* 3 */
+
+  $x = list($y = 1; $y, $z = 2; $z) 
+sum($x)
+
+output BLOCK104
+/* 3 */
+
+  $x = list($y = 1; $z = 2; list($y, $z))
+sum(sum($x))

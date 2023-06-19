@@ -1,0 +1,25 @@
+/* Resources */
+output RES001
+/* 3214 */
+
+  $NON_NEG_ITEMS[RealEstateGrossAtCarryingValue]
+
+output RES002
+/* list(list(ISHARES MSCI CHILE ETF, MSCI CHILE ETF, 464286640, 2,674,884), list(ISHARES MSCI PACIFIC EX JAPAN ETF, MSCI PAC JP ETF, 464286665, 498,160), list(ISHARES LATIN AMERICA  ETF, LATN AMER 40 ETF, 464287390, 2,000,516 */
+
+  $FORM_13F
+
+output RES003
+/* list(AccountsPayableAndAccruedLiabilitiesCurrent, list(AccountsPayableCurrent, AccruedLiabilitiesCurrent, AccountsPayableOtherCurrent, OtherAccruedLiabilitiesCurrent)) */
+
+  $JSON_DATA[1]
+
+output RES004
+/* list(list(10-K)) */
+
+  $EXCEL_DATA
+
+output RES005
+/* list(Commitments and Contingencies, Guarantees and Product Liability (Details) - USD ($), 12 Months Ended, None) */
+
+  excel-data('https://www.sec.gov/Archives/edgar/data/1089815/000114036123018265/Financial_Report.xlsx', 'Commitments and Contingencies_2',false, list('string','string','string'))[1]

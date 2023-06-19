@@ -1,0 +1,270 @@
+/* FactFilter */
+output CFILT101
+/* set(debit) */
+
+  set([covered @instance = $INSTANCE1 @Assets]).concept.balance
+
+output CFILT102
+/* Rule: CFILT102 - Property 'balance' is not a property of a 'decimal'. */
+
+  set([covered @instance = $INSTANCE1  @Assets]).balance
+
+output CFILT103
+/* set(us-gaap:Assets) */
+
+  $a = [covered @instance = $INSTANCE1 @Assets];  set($a.concept.name)
+
+output CFILT104
+/* set(modelType[45864, qname: xbrli:monetaryItemType, derivedFrom: xbrli:monetary, xbrl-instance-2003-12-31.xsd, line 269] */
+
+  $a = [covered @instance = $INSTANCE1 @Assets];  set($a.concept.data-type)
+
+output CFILT105
+/* set(modelType[45864, qname: xbrli:monetaryItemType, derivedFrom: xbrli:monetary, xbrl-instance-2003-12-31.xsd, line 269]) */
+
+  $a = [covered @instance = $INSTANCE1 @Assets];  set($a.data-type)
+
+output CFILT106
+/* set(none) */
+
+  $a = set([covered @instance = $INSTANCE1 @Assets]);  set($a.decimals)
+
+output CFILT107
+/* none */
+
+  $a = set([covered @instance = $INSTANCE1 @Assets]); $a.decimals
+
+output CFILT108
+/* set(-6) */
+
+  $a = list([covered @instance = $INSTANCE1 @Assets]);  set($a[1].decimals)
+
+output CFILT109
+/* -6 */
+
+  $a = list([covered @instance = $INSTANCE1 @Assets]); $a[1].decimals
+
+output CFILT110
+/* Assets */
+
+  $a = list([covered @instance = $INSTANCE1 @Assets]); $a[2].concept.name.local-name
+
+output CFILT111
+/* DepreciationAndAmortizationDiscontinuedOperations */
+
+  $a = $US-GAAP-2020.concepts.to-list;  $a[2].name.local-name
+
+output CFILT112
+/* all - error message missing for index on set. */
+
+  $a = set([covered @instance = $INSTANCE1 @]);  $a[2].name
+
+output CFILT113
+/* Rule: CFILT113 - The 'index' property or index expression '[]' can only operate on a list or dictionary, found 'none' */
+
+  $a = taxonomy().concepts.to-set;  $a[2].name
+
+output CFILT114
+/* set(instant) */
+
+  $a = set([covered @instance = $INSTANCE1 @Assets]); $a.concept.period-type
+
+output CFILT115
+/* Property 'period-type' is not a property of a 'decimal'. */
+
+  $a = set([covered @instance = $INSTANCE1 @Assets]); $a.period-type
+
+output CFILT116
+/* set(xbrli:item) */
+
+  $a = set([covered @instance = $INSTANCE1 @Assets]); $a.concept.substitution
+
+output CFILT117
+/* set(xbrli:item) */
+
+  $a = set([covered @instance = $INSTANCE1 @Assets]); $a.substitution
+
+output CFILT118
+/* set(5,198,000,000, 7,895,000,000, 8,515,000,000, 2,635,000,000, 10,146,000,000, 1,631,000,000, 16,848,000,000, 2,579,000,000, 40,230,000,000, 1,740,000,000, 271,000,000, 1,117,000,000, 45,436,000,000, 2,697,000,000, 5,288,000,000, 7,923,000,000, 180,000,000, 8,795,000,000, 1,795,000,000, 10,590,000,000, 259,000,000, 1,777,000,000, 18,461,000,000, 726,000,000, 5,334,000,000, 42,144,000,000) */
+
+  set({covered @instance = $INSTANCE1 @concept = Assets})
+
+output CFILT119
+/* set(45,436,000,000, 42,144,000,000, 40,230,000,000) */
+
+  set([covered @instance = $INSTANCE1 @Assets])
+
+output CFILT120
+/* 632 */
+
+  set({covered @instance = $INSTANCE1 @concept}).count
+
+output CFILT121
+/* 315 */
+
+  set([covered @instance = $INSTANCE1 @concept]).count
+
+output CFILT122
+/* 315 */
+
+  set([covered @instance = $INSTANCE1 @concept = *]).count
+
+output CFILT123
+/* 3 */
+
+  list([covered @instance = $INSTANCE1 @concept.local-name = 'Assets']).count
+
+output CFILT124
+/* 112 */
+
+  list([covered @instance = $INSTANCE1 @concept.period-type = instant]).count
+
+output CFILT125
+/* 112 */
+
+  list([covered @instance = $INSTANCE1 @concept.period-type = INSTANT]).count
+
+output CFILT126
+/* 112 */
+
+  list([covered @instance = $INSTANCE1 @concept.period-type = 'instant']).count
+
+output CFILT127
+/* 305 */
+
+  list([covered @instance = $INSTANCE1 @concept.period-type = duration]).count
+
+output CFILT128
+/* 305 */
+
+  list([covered @instance = $INSTANCE1 @concept.period-type = Duration]).count
+
+output CFILT129
+/* 305 */
+
+  list([covered @instance = $INSTANCE1 @concept.period-type = 'duration']).count
+
+output CFILT130
+/* 166 */
+
+  list([covered @instance = $INSTANCE1 @concept.balance = credit]).count
+
+output CFILT131
+/* 166 */
+
+  list([covered @instance = $INSTANCE1 @concept.balance = 'credit']).count
+
+output CFILT132
+/* 167 */
+
+  list([covered @instance = $INSTANCE1 @concept.balance = debit]).count
+
+output CFILT133
+/* 167 */
+
+  list([covered @instance = $INSTANCE1 @concept.balance = 'debit']).count
+
+output CFILT134
+/* 84 */
+
+  list([covered @instance = $INSTANCE1 @concept.balance = none]).count
+
+output CFILT135
+/* 0 */
+
+  list([covered @instance = $INSTANCE1 @concept.balance = 'none']).count
+
+output CFILT136
+/* 333 */
+
+  list([covered @instance = $INSTANCE1 @concept.balance = *]).count
+
+output CFILT137
+/* list() */
+
+  list({covered @instance = $INSTANCE1 @concept.attribute(someattr) = *})
+
+output CFILT138
+/* 1449 */
+
+  list({covered @instance = $INSTANCE1 @concept.data-type = xbrli:monetaryItemType}).count
+
+output CFILT139
+/* 1449 */
+
+  list({covered @instance = $INSTANCE1 @concept.is-monetary = true}).count
+
+output CFILT140
+/* 1535 */
+
+  list({covered @instance = $INSTANCE1 @concept.is-numeric = true}).count
+
+output CFILT141
+/* 1579 */
+
+  list({covered @instance = $INSTANCE1 @concept.substitution = xbrli:item}).count
+
+output CFILT142
+/* 21 */
+
+  list({covered @instance = $INSTANCE1 @concept.namespace-uri = 'http://xbrl.sec.gov/dei/2020-01-31'}).count
+
+output CFILT143
+/* 318 */
+
+  list({covered @instance = $INSTANCE1 @concept.period-type = instant @concept.balance = debit}).count
+
+output CFILT144
+/* 27 */
+
+  list({covered @instance = $INSTANCE1 @concept.base-type = xbrli:stringItemType @concept.data-type != us-types:zoneStatusItemType}).count
+
+output CFILT145
+/* 26 */
+
+  list({covered @instance = $INSTANCE1 @concept in list(Assets, Land, Cash, AccountsReceivable)}).count
+
+output CFILT146
+/* 1553 */
+
+  list({covered @instance = $INSTANCE1 @concept not in list(Assets, Land, Cash, AccountsReceivable)}).count
+
+output PFILT101
+/* 205 */
+
+  list({covered @instance = $INSTANCE1 @period = date('2020-12-31')}).count
+
+output PFILT102
+/* 0 */
+
+  list({covered @instance = $INSTANCE1 @period = duration('2020-01-01', '2021-01-01')}).count
+
+output PFILT103
+/* 50 */
+
+  list([covered @instance = $INSTANCE1@period = date('2020-12-31')]).count
+
+output PFILT104
+/* Expected period = function, keyword or varaible */
+
+  [@period = cats('2020-12-31')]
+
+output NOFILT001
+/* 1579 */
+
+  list(covered @instance = $INSTANCE1).count
+
+output NOFILT002
+/* error */
+
+  list({covered @instance = $INSTANCE1 @}).count
+
+output NOFILT003
+/* 632 */
+
+  set({covered @instance = $INSTANCE1}).count
+
+output NOFILT004
+/* 135 */
+
+  set([covered @instance = $INSTANCE1]).count

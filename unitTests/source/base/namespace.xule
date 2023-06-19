@@ -1,0 +1,32 @@
+/**
+
+Mapping
+ (c) Copyright 2017 - 2020, XBRL US Inc. All rights reserved.
+
+Taxonomy: US GAAP 2020
+
+**/
+
+namespace http://fasb.org/us-gaap/2020-01-31
+namespace us-gaap = http://fasb.org/us-gaap/2020-01-31
+namespace srt = http://fasb.org/srt/2020-01-31
+namespace us-gaap-2022 = http://fasb.org/us-gaap/2022
+namespace srt-2022 = http://fasb.org/srt/2022
+namespace us-gaap-2023 = http://fasb.org/us-gaap/2023
+namespace srt-2023 = http://fasb.org/srt/2023
+namespace dei-2023 = http://xbrl.sec.gov/dei/2023
+namespace country-2023 = http://xbrl.sec.gov/country/2023
+namespace iso4217 = http://www.xbrl.org/2003/iso4217
+namespace dei = http://xbrl.sec.gov/dei/2019-01-31
+namespace country = http://xbrl.sec.gov/country/2020-01-31
+namespace xbrli = http://www.xbrl.org/2003/instance
+namespace exch = http://xbrl.sec.gov/exch/2020-01-31 
+namespace currency = http://xbrl.sec.gov/currency/2020-01-31
+namespace invest = http://xbrl.sec.gov/invest/2013-01-31
+namespace stpr = http://xbrl.sec.gov/stpr/2018-01-31
+namespace sic = http://xbrl.sec.gov/sic/2020-01-31
+namespace naics = http://xbrl.sec.gov/naics/2017-01-31
+namespace nonnum = http://www.xbrl.org/dtr/type/non-numeric
+namespace num = http://www.xbrl.org/dtr/type/numeric
+namespace us-types = http://fasb.org/us-types/2019-01-31
+namespace ixt = http://www.xbrl.org/inlineXBRL/transformation/2020-02-12

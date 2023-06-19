@@ -1,0 +1,620 @@
+/* Navigate */
+output NAX001
+/* 158686 */
+
+  count(navigate descendants taxonomy $US-GAAP-2020)
+
+output NAX002
+/* 44109 */
+
+  count(navigate parent-child descendants taxonomy $US-GAAP-2020)
+
+output NAX003
+/* 44109 */
+
+  count(navigate 'http://www.xbrl.org/2003/arcrole/parent-child' descendants taxonomy $US-GAAP-2020)
+
+output NAX004
+/* 6909 */
+
+  count(navigate parent-child descendants 2 taxonomy $US-GAAP-2020)
+
+output NAX005
+/* 7090 */
+
+  count(navigate parent-child descendants 2 include start taxonomy $US-GAAP-2020)
+
+output NAX006
+/* 608 */
+
+  count(navigate parent-child descendants role StatementOfFinancialPositionClassified taxonomy $US-GAAP-2020)
+
+output NAX007
+/* 3485 */
+
+  count(navigate parent-child descendants from IncomeStatementAbstract stop when $relationship.target.name == CostsAndExpensesAbstract taxonomy $US-GAAP-2020)
+
+output NAX008
+/* 17 */
+
+  count(navigate parent-child descendants from IncomeStatementAbstract to CostsAndExpensesAbstract taxonomy $US-GAAP-2020)
+
+output NAX009
+/* 96757 */
+
+  count(navigate children taxonomy $US-GAAP-2020)
+
+output NAX010
+/* 4000 */
+
+  count(navigate parent-child children taxonomy $US-GAAP-2020)
+
+output NAX011
+/* 4000 */
+
+  count(navigate 'http://www.xbrl.org/2003/arcrole/parent-child' children taxonomy $US-GAAP-2020)
+
+output NAX012
+/* 1 */
+
+  count(navigate parent-child children role StatementOfFinancialPositionClassified taxonomy $US-GAAP-2020 )
+
+output NAX013
+/* 156 */
+
+  count(navigate ancestors from CashAndCashEquivalentsAtCarryingValue taxonomy $US-GAAP-2020)
+
+output NAX014
+/* 115 */
+
+  count(navigate parent-child ancestors from CashAndCashEquivalentsAtCarryingValue taxonomy $US-GAAP-2020)
+
+output NAX015
+/* 115 */
+
+  count(navigate 'http://www.xbrl.org/2003/arcrole/parent-child' ancestors from CashAndCashEquivalentsAtCarryingValue  taxonomy $US-GAAP-2020)
+
+output NAX016
+/* 56 */
+
+  count(navigate parent-child ancestors 2 from CashAndCashEquivalentsAtCarryingValue  taxonomy $US-GAAP-2020)
+
+output NAX017
+/* 69 */
+
+  count(navigate parent-child ancestors 2 include start from CashAndCashEquivalentsAtCarryingValue  taxonomy $US-GAAP-2020)
+
+output NAX018
+/* 7 */
+
+  count(navigate parent-child ancestors from CashAndCashEquivalentsAtCarryingValue role StatementOfFinancialPositionClassified  taxonomy $US-GAAP-2020)
+
+output NAX019
+/* 47 */
+
+  count(navigate parents from CashAndCashEquivalentsAtCarryingValue  taxonomy $US-GAAP-2020)
+
+output NAX020
+/* 28 */
+
+  count(navigate parent-child parents from CashAndCashEquivalentsAtCarryingValue taxonomy $US-GAAP-2020)
+
+output NAX021
+/* 28 */
+
+  count(navigate 'http://www.xbrl.org/2003/arcrole/parent-child' parents from CashAndCashEquivalentsAtCarryingValue taxonomy $US-GAAP-2020)
+
+output NAX023
+/* 41 */
+
+  count(navigate parent-child parents  include start from CashAndCashEquivalentsAtCarryingValue taxonomy $US-GAAP-2020)
+
+output NAX024
+/* 1 */
+
+  count(navigate parent-child parents from CashAndCashEquivalentsAtCarryingValue role StatementOfFinancialPositionClassified taxonomy $US-GAAP-2020)
+
+output NAX025
+/* 212 */
+
+  count(navigate siblings from CashAndCashEquivalentsAtCarryingValue taxonomy $US-GAAP-2020)
+
+output NAX026
+/* 148 */
+
+  count(navigate parent-child siblings from CashAndCashEquivalentsAtCarryingValue taxonomy $US-GAAP-2020)
+
+output NAX027
+/* 148 */
+
+  count(navigate 'http://www.xbrl.org/2003/arcrole/parent-child' siblings from CashAndCashEquivalentsAtCarryingValue taxonomy $US-GAAP-2020)
+
+output NAX028
+/* 176 */
+
+  count(navigate parent-child siblings  include start from CashAndCashEquivalentsAtCarryingValue taxonomy $US-GAAP-2020)
+
+output NAX029
+/* 2 */
+
+  count(navigate parent-child siblings from CashAndCashEquivalentsAtCarryingValue role StatementOfFinancialPositionClassified taxonomy $US-GAAP-2020)
+
+output NAX030
+/* 592 */
+
+  count(navigate summation-item descendants include start from Assets stop when $relationship.weight == -1 taxonomy $US-GAAP-2020)
+
+output NAX031
+/* 68 */
+
+  count(navigate summation-item descendants include start from Assets stop when $relationship.weight == 1 taxonomy $US-GAAP-2020)
+
+output NAX032
+/* 0 */
+
+  count(navigate summation-item self taxonomy $US-GAAP-2020)
+
+output NAX033
+/* 65 */
+
+  count(navigate summation-item descendants 2 from Assets role StatementOfFinancialPositionClassified taxonomy $US-GAAP-2020) 
+
+output NAX034
+/* 66 */
+
+  count(navigate summation-item descendants 2 include start from Assets role StatementOfFinancialPositionClassified taxonomy $US-GAAP-2020) 
+
+output NAX035
+/* 2 */
+
+  count(navigate summation-item descendants 1 from Assets role StatementOfFinancialPositionClassified taxonomy $US-GAAP-2020) 
+
+output NAX036
+/* 0 */
+
+  count(navigate summation-item descendants 0 from Assets role StatementOfFinancialPositionClassified taxonomy $US-GAAP-2020) 
+
+output NAX037
+/* 342 */
+
+  count(navigate summation-item descendants include start from Assets role StatementOfFinancialPositionClassified taxonomy $US-GAAP-2020 returns source)
+
+output NAX038
+/* 0 */
+
+  count(navigate ancestors taxonomy $US-GAAP-2020)
+
+output NAX039
+/* 0 */
+
+  count(navigate parent-child ancestors taxonomy $US-GAAP-2020)
+
+output NAX040
+/* 94 */
+
+  count((Navigate summation-item descendants taxonomy $US-GAAP-2020 returns by network source-name).values)
+
+output NAX041
+/* 439 */
+
+  count((Navigate hypercube-dimension descendants taxonomy $US-GAAP-2020 returns by network list paths arcrole-cycles-allowed).values)
+
+output NAX042
+/* 94 */
+
+  count((Navigate summation-item children taxonomy $US-GAAP-2020 returns by network network).values)
+
+output NAX043
+/* 439 */
+
+  count((Navigate hypercube-dimension children taxonomy $US-GAAP-2020 returns by network list paths role).values)
+
+output NAX044
+/* 94 */
+
+  count((Navigate summation-item descendants taxonomy $US-GAAP-2020 returns by network target).values)
+
+output NAX045
+/* 439 */
+
+  count((Navigate hypercube-dimension descendants taxonomy $US-GAAP-2020 returns by network list paths link-name).values)
+
+output NAX046
+/* 94 */
+
+  count((Navigate summation-item children taxonomy $US-GAAP-2020 returns by network cycle).values)
+
+output NAX047
+/* 439 */
+
+  count((Navigate hypercube-dimension children taxonomy $US-GAAP-2020 returns by network list paths role-uri).values)
+
+output NAX048
+/* 94 */
+
+  count((Navigate summation-item descendants taxonomy $US-GAAP-2020 returns by network target-name).values)
+
+output NAX049
+/* 439 */
+
+  count((Navigate hypercube-dimension descendants taxonomy $US-GAAP-2020 returns by network list paths arc-name).values)
+
+output NAX050
+/* 94 */
+
+  count((Navigate summation-item children taxonomy $US-GAAP-2020 returns by network navigation-order).values)
+
+output NAX051
+/* 439 */
+
+  count((Navigate hypercube-dimension children taxonomy $US-GAAP-2020 returns by network list paths role-description).values)
+
+output NAX052
+/* 94 */
+
+  count((Navigate summation-item descendants taxonomy $US-GAAP-2020 returns by network order).values)
+
+output NAX053
+/* 439 */
+
+  count((Navigate hypercube-dimension descendants taxonomy $US-GAAP-2020 returns by network list paths network).values)
+
+output NAX054
+/* 94 */
+
+  count((Navigate summation-item children taxonomy $US-GAAP-2020 returns by network navigation-depth).values)
+
+output NAX055
+/* 439 */
+
+  count((Navigate hypercube-dimension children taxonomy $US-GAAP-2020 returns by network list paths arcrole).values)
+
+output NAX056
+/* 94 */
+
+  count((Navigate summation-item descendants taxonomy $US-GAAP-2020 returns by network weight).values)
+
+output NAX057
+/* 439 */
+
+  count((Navigate hypercube-dimension descendants taxonomy $US-GAAP-2020 returns by network list paths cycle).values)
+
+output NAX058
+/* 94 */
+
+  count((Navigate summation-item children taxonomy $US-GAAP-2020 returns by network).values)
+
+output NAX059
+/* 439 */
+
+  count((Navigate hypercube-dimension children taxonomy $US-GAAP-2020 returns by network list paths arcrole-uri).values)
+
+output NAX060
+/* 94 */
+
+  count((Navigate summation-item descendants taxonomy $US-GAAP-2020 returns by network preferred-label).values)
+
+output NAX061
+/* 439 */
+
+  count((Navigate hypercube-dimension descendants taxonomy $US-GAAP-2020 returns by network list paths navigation-order).values)
+
+output NAX062
+/* 94 */
+
+  count((Navigate summation-item children taxonomy $US-GAAP-2020 returns by network source).values)
+
+output NAX063
+/* 439 */
+
+  count((Navigate hypercube-dimension children taxonomy $US-GAAP-2020 returns by network list paths arcrole-description).values)
+
+output NAX064
+/* 94 */
+
+  count((Navigate summation-item descendants taxonomy $US-GAAP-2020 returns by network preferred-label-role).values)
+
+output NAX065
+/* 439 */
+
+  count((Navigate hypercube-dimension descendants taxonomy $US-GAAP-2020 returns by network list paths navigation-depth).values)
+
+output NAX066
+/* 94 */
+
+  count((Navigate summation-item children taxonomy $US-GAAP-2020 returns by network source-name).values)
+
+output NAX067
+/* 439 */
+
+  count((Navigate hypercube-dimension children taxonomy $US-GAAP-2020 returns by network list paths arcrole-cycles-allowed).values)
+
+output NAX068
+/* 94 */
+
+  count((Navigate summation-item descendants taxonomy $US-GAAP-2020 returns by network relationship).values)
+
+output NAX069
+/* 439 */
+
+  count((Navigate hypercube-dimension descendants taxonomy $US-GAAP-2020 returns by network list paths).values)
+
+output NAX070
+/* 94 */
+
+  count((Navigate summation-item children taxonomy $US-GAAP-2020 returns by network target).values)
+
+output NAX071
+/* 439 */
+
+  count((Navigate hypercube-dimension children taxonomy $US-GAAP-2020 returns by network list paths link-name).values)
+
+output NAX072
+/* 94 */
+
+  count((Navigate summation-item descendants taxonomy $US-GAAP-2020 returns by network role).values)
+
+output NAX073
+/* 439 */
+
+  count((Navigate hypercube-dimension descendants taxonomy $US-GAAP-2020 returns by network list paths source).values)
+
+output NAX074
+/* 94 */
+
+  count((Navigate summation-item children taxonomy $US-GAAP-2020 returns by network target-name).values)
+
+output NAX075
+/* 439 */
+
+  count((Navigate hypercube-dimension children taxonomy $US-GAAP-2020 returns by network list paths arc-name).values)
+
+output NAX076
+/* 94 */
+
+  count((Navigate summation-item descendants taxonomy $US-GAAP-2020 returns by network role-uri).values)
+
+output NAX077
+/* 439 */
+
+  count((Navigate hypercube-dimension descendants taxonomy $US-GAAP-2020 returns by network list paths source-name).values)
+
+output NAX078
+/* 94 */
+
+  count((Navigate summation-item children taxonomy $US-GAAP-2020 returns by network order).values)
+
+output NAX079
+/* 439 */
+
+  count((Navigate hypercube-dimension children taxonomy $US-GAAP-2020 returns by network list paths network).values)
+
+output NAX080
+/* 94 */
+
+  count((Navigate summation-item descendants taxonomy $US-GAAP-2020 returns by network role-description).values)
+
+output NAX081
+/* 439 */
+
+  count((Navigate hypercube-dimension descendants taxonomy $US-GAAP-2020 returns by network list paths target).values)
+
+output NAX082
+/* 94 */
+
+  count((Navigate summation-item children taxonomy $US-GAAP-2020 returns by network weight).values)
+
+output NAX083
+/* 439 */
+
+  count((Navigate hypercube-dimension children taxonomy $US-GAAP-2020 returns by network list paths cycle).values)
+
+output NAX084
+/* 94 */
+
+  count((Navigate summation-item descendants taxonomy $US-GAAP-2020 returns by network arcrole).values)
+
+output NAX085
+/* 439 */
+
+  count((Navigate hypercube-dimension descendants taxonomy $US-GAAP-2020 returns by network list paths target-name).values)
+
+output NAX086
+/* 94 */
+
+  count((Navigate summation-item children taxonomy $US-GAAP-2020 returns by network preferred-label).values)
+
+output NAX087
+/* 439 */
+
+  count((Navigate hypercube-dimension children taxonomy $US-GAAP-2020 returns by network list paths navigation-order).values)
+
+output NAX088
+/* 94 */
+
+  count((Navigate summation-item descendants taxonomy $US-GAAP-2020 returns by network arcrole-uri).values)
+
+output NAX089
+/* 439 */
+
+  count((Navigate hypercube-dimension descendants taxonomy $US-GAAP-2020 returns by network list paths order).values)
+
+output NAX090
+/* 94 */
+
+  count((Navigate summation-item children taxonomy $US-GAAP-2020 returns by network preferred-label-role).values)
+
+output NAX091
+/* 439 */
+
+  count((Navigate hypercube-dimension children taxonomy $US-GAAP-2020 returns by network list paths navigation-depth).values)
+
+output NAX092
+/* 94 */
+
+  count((Navigate summation-item descendants taxonomy $US-GAAP-2020 returns by network arcrole-description).values)
+
+output NAX093
+/* 439 */
+
+  count((Navigate hypercube-dimension descendants taxonomy $US-GAAP-2020 returns by network list paths weight).values)
+
+output NAX094
+/* set(list(http://xbrl.org/int/dim/arcrole/dimension-default)) */
+
+  Navigate dimension-default children taxonomy $US-GAAP-2020 returns set paths arcrole-uri
+
+output NAX095
+/* set(list(1)) */
+
+  (Navigate dimension-default descendants taxonomy $US-GAAP-2020 returns set paths navigation-order)
+
+output NAX096
+/* set(list(Source (a dimension) declares that there is a default member that is the target of the arc (a member).)) */
+
+  (Navigate dimension-default children taxonomy $US-GAAP-2020 returns set paths arcrole-description)
+
+output NAX097
+/* set(list(1)) */
+
+  (Navigate dimension-default descendants taxonomy $US-GAAP-2020 returns set paths navigation-depth)
+
+output NAX098
+/* set(list(none)) */
+
+  (Navigate dimension-default children taxonomy $US-GAAP-2020 returns set paths arcrole-cycles-allowed)
+
+output NAX099
+/* 260 */
+
+  count(Navigate dimension-default descendants taxonomy $US-GAAP-2020 returns set paths)
+
+output NAX100
+/* set(list(link:definitionLink)) */
+
+  (Navigate dimension-default children taxonomy $US-GAAP-2020 returns set paths link-name)
+
+output NAX101
+/* 263 */
+
+  count(Navigate dimension-default descendants taxonomy $US-GAAP-2020 returns set paths source)
+
+output NAX102
+/* set(list(link:definitionArc)) */
+
+  (Navigate dimension-default children taxonomy $US-GAAP-2020 returns set paths arc-name)
+
+output NAX103
+/* 263 */
+
+  count(Navigate dimension-default descendants taxonomy $US-GAAP-2020 returns set paths source-name)
+
+output NAX104
+/* 437 */
+
+  count(Navigate dimension-default children taxonomy $US-GAAP-2020 returns set paths network)
+
+output NAX105
+/* 260 */
+
+  count(Navigate dimension-default descendants taxonomy $US-GAAP-2020 returns set paths target)
+
+output NAX106
+/* set(list(False)) */
+
+  (Navigate dimension-default children taxonomy $US-GAAP-2020 returns set paths cycle)
+
+output NAX107
+/* 260 */
+
+  count(Navigate dimension-default descendants taxonomy $US-GAAP-2020 returns set paths target-name)
+
+output NAX108
+/* set(list(1)) */
+
+  (Navigate dimension-default children taxonomy $US-GAAP-2020 returns set paths navigation-order)
+
+output NAX109
+/* 23 */
+
+  count(Navigate dimension-default descendants taxonomy $US-GAAP-2020 returns set paths order)
+
+output NAX110
+/*  set(list(1)) */
+
+  (Navigate dimension-default children taxonomy $US-GAAP-2020 returns set paths navigation-depth)
+
+output NAX111
+/* set(list(None)) */
+
+  (Navigate dimension-default descendants taxonomy $US-GAAP-2020 returns set paths weight)
+
+output NAX112
+/* 260 */
+
+  count(Navigate dimension-default children taxonomy $US-GAAP-2020 returns set paths)
+
+output NAX113
+/* set(list(None)) */
+
+  (Navigate dimension-default descendants taxonomy $US-GAAP-2020 returns set paths preferred-label)
+
+output NAX114
+/* 263 */
+
+  count(Navigate dimension-default children taxonomy $US-GAAP-2020 returns set paths source)
+
+output NAX115
+/* set(list(None))  */
+
+  (Navigate dimension-default descendants taxonomy $US-GAAP-2020 returns set paths preferred-label-role)
+
+output NAX116
+/* 263 */
+
+  count(Navigate dimension-default children taxonomy $US-GAAP-2020 returns set paths source-name)
+
+output NAX117
+/* 1077 */
+
+  count(Navigate dimension-default descendants taxonomy $US-GAAP-2020 returns set paths relationship)
+
+output NAX118
+/* 260 */
+
+  count(Navigate dimension-default children taxonomy $US-GAAP-2020 returns set paths target)
+
+output NAX119
+/* 437 */
+
+  count(Navigate dimension-default descendants taxonomy $US-GAAP-2020 returns set paths role)
+
+output NAX120
+/* 260 */
+
+  count(Navigate dimension-default children taxonomy $US-GAAP-2020 returns set paths target-name)
+
+output NAX121
+/* 0 */
+
+  count(Navigate following-siblings taxonomy $US-GAAP-2020)
+
+output NAX122
+/* 0 */
+
+  count(Navigate previous-siblings taxonomy $US-GAAP-2020)
+
+output NAX123
+/* 0 */
+
+  count(Navigate siblings taxonomy $US-GAAP-2020)
+
+output NAX124
+/* 0 */
+
+  count(Navigate ancestors taxonomy $US-GAAP-2020)
+
+output NAX125
+/* 0 */
+
+  count(Navigate following-siblings from AssetsAbstract taxonomy $US-GAAP-2020)
