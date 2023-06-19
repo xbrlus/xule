@@ -288,7 +288,7 @@ output INSFILT003
 output INSFILT004
 /* 1577 */
 
-  (filter ($INSTANCE1.facts.sort) where $item.concept.is-numeric == true and $item.concept.is-monetary != true)
+  (filter ($INSTANCE1.facts.sort) where $item.concept.is-numeric == true and $item.concept.is-monetary != true).count
 
 output INSFILT005
 /* 1577 */
