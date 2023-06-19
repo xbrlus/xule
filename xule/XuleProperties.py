@@ -1346,7 +1346,8 @@ def property_cube(xule_context, object_value, *args):
     if args[1].type in ('string', 'uri'):
         drs_role = args[1].value
     elif args[1].type == 'qname':
-        drs_role = XuleUtility.resolve_role(args[1], 'role', xule_context.model, xule_context)
+        # get the taxonomy from the object_value, which is the taxonomy.
+        drs_role = XuleUtility.resolve_role(args[1], 'role', object_value.value, xule_context)
     else:
         raise XuleProcessingError(_("The second argument of property 'cube' must be a role uri or a short role, found '{}'.".format(args[1].type)), xule_context)
 
