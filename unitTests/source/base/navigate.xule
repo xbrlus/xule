@@ -615,6 +615,16 @@ output NAX124
   count(Navigate ancestors taxonomy $US-GAAP-2020)
 
 output NAX125
-/* 0 */
+/* 22 */
 
   count(Navigate following-siblings from AssetsAbstract taxonomy $US-GAAP-2020)
+
+output NAX126
+/* 2 */
+
+  count(Navigate previous-siblings from AssetsAbstract taxonomy $US-GAAP-2020)
+
+output NAX127
+/* list(list(us-gaap:VariableInterestEntityPrimaryBeneficiaryDoesNotHoldMajorityVotingInterestDisclosuresAbstract, us-gaap:VariableInterestEntityInitialConsolidationGainOrLoss), list(us-gaap:VariableInterestEntityPrimaryBeneficiaryDoesNotHoldMajorityVotingInterestDisclosuresAbstract, us-gaap:VariableInterestEntityInitialConsolidationGainOrLoss)) */
+
+  Navigate previous-siblings from AssetsAbstract taxonomy $US-GAAP-2020 returns ( source-name, target-name)

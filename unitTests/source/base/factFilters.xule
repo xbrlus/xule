@@ -270,20 +270,19 @@ output NOFILT004
   set([covered @instance = $INSTANCE1]).count
 
 output INSFILT001
-/* 1579 */
+/* 1739 */
 
   $INSTANCE1.facts.count
 
 output INSFILT002
-/* 1579 */
+/* -41000000 */
 
   first($INSTANCE1.facts.sort)
 
 output INSFILT003
-/* 1579 */
+/* 1577 */
 
-(filter ($INSTANCE1.facts.sort) where $item.concept.is-monetary == true).count
-
+  (filter ($INSTANCE1.facts.sort) where $item.concept.is-monetary == true).count
 
 output INSFILT004
 /* 1577 */
@@ -294,4 +293,3 @@ output INSFILT005
 /* 1577 */
 
   list({covered @instance = $INSTANCE1 @concept.is-numeric = true @concept.is-monetary = false}).count
-

@@ -601,6 +601,11 @@ output DHK095
 
   list('a', 'b').has-key('a')
 
+output DHK096
+/* Property 'has-key' is not a property of a 'string'. */
+
+  dict(list(set('a', 'b'), 'apple')).has-key(set('a', 'b'))
+
 output HKY001
 /*  true */
 
