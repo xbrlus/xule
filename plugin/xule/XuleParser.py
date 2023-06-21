@@ -144,7 +144,36 @@ def parseRules(files, dest, compile_type, max_recurse_depth=None):
     if orig_recursionlimit < new_depth:
         sys.setrecursionlimit(new_depth)
     
-    xuleGrammar = get_grammar()
+    # Process files only to extract output attribute declarations
+    xuleFile_outAttrDeclarations = get_grammar(only_output_attr_declarations=True)
+    found_output_declarations = []
+    for ruleFile in sorted(files):
+        processFile = ruleFile.strip()
+        if os.path.isfile(processFile):
+            parseRes = xuleFile_outAttrDeclarations.parseFile(processFile).asDict()['xuleDoc']
+            out_declarations = [x for x in parseRes if x['exprName'] == 'outputAttributeDeclaration']
+            found_output_declarations.extend(out_declarations)
+
+        elif os.path.isdir(processFile):
+            #Remove an ending slash if there is one
+            processFile = processFile[:-1] if processFile.endswith(os.sep) else processFile
+            for root, dirs, walk_files in os.walk(ruleFile.strip()):
+                for name in sorted(walk_files):
+                    if os.path.splitext(name)[1] == ".xule":
+                        print("Processing output attribute declarations for: %s" % os.path.basename(name))
+                        relpath = os.path.relpath(root, processFile)
+                        if relpath == '.': 
+                            relpath = ''
+                        parseRes = xuleFile_outAttrDeclarations.parseFile(os.path.join(processFile, relpath,name)).asDict()['xuleDoc']
+                        out_declarations = [x for x in parseRes if x['exprName'] == 'outputAttributeDeclaration']
+                        found_output_declarations.extend(out_declarations)           
+        else:
+            print("Not a file or directory: %s" % processFile)
+    new_output_attributes = [x['attributeName'] for x in found_output_declarations]
+
+
+    # Process files with completed grammar
+    xuleGrammar = get_grammar(extra_output_attributes=new_output_attributes)
     ruleSet = xrsb.XuleRuleSetBuilder(compile_type)
     ruleSet.append(dest)
     
