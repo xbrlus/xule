@@ -628,3 +628,91 @@ output NAX127
 /* list(list(us-gaap:VariableInterestEntityPrimaryBeneficiaryDoesNotHoldMajorityVotingInterestDisclosuresAbstract, us-gaap:VariableInterestEntityInitialConsolidationGainOrLoss), list(us-gaap:VariableInterestEntityPrimaryBeneficiaryDoesNotHoldMajorityVotingInterestDisclosuresAbstract, us-gaap:VariableInterestEntityInitialConsolidationGainOrLoss)) */
 
   Navigate previous-siblings from AssetsAbstract taxonomy $US-GAAP-2020 returns ( source-name, target-name)
+
+output NAX128
+/* list(-1, 1) */
+
+  navigate summation-item descendants from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns weight
+
+output NAX129
+/* list(relationship from us-gaap:PaymentsForProceedsFromOtherDeposits to us-gaap:ProceedsFromOtherDeposits, relationship from us-gaap:PaymentsForProceedsFromOtherDeposits to us-gaap:PaymentsForOtherDeposits) */
+
+  navigate summation-item descendants from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns relationship
+
+output NAX130
+/*   */
+
+  navigate summation-item descendants from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns role
+
+output NAX131
+/* list(http://fasb.org/us-gaap/role/statement/StatementOfCashFlowsIndirect, http://fasb.org/us-gaap/role/statement/StatementOfCashFlowsIndirect) */
+
+  navigate summation-item descendants from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns role-uri
+
+output NAX132
+/*   */
+
+  navigate summation-item descendants from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns role-description
+
+output NAX133
+/*   */
+
+  navigate summation-item descendants from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns arcrole
+
+output NAX134
+/* list(http://www.xbrl.org/2003/arcrole/summation-item, http://www.xbrl.org/2003/arcrole/summation-item) */
+
+  navigate summation-item descendants from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns arcrole-uri
+
+output NAX135
+/*   */
+
+  navigate summation-item descendants from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns arcrole-description
+
+output NAX136
+/*   */
+
+  navigate summation-item descendants from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns arcrole-cycles-allowed
+
+output NAX137
+/* list(link:calculationLink, link:calculationLink) */
+
+  navigate summation-item descendants from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns link-name
+
+output NAX138
+/* list(link:calculationArc, link:calculationArc) */
+
+  navigate summation-item descendants from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns arc-name
+
+output NAX139
+/* list(
+http://www.xbrl.org/2003/arcrole/summation-item
+http://fasb.org/us-gaap/role/statement/StatementOfCashFlowsIndirect
+link:calculationArc
+link:calculationLink
+False
+# of relationships: 763
+, 
+http://www.xbrl.org/2003/arcrole/summation-item
+http://fasb.org/us-gaap/role/statement/StatementOfCashFlowsIndirect
+link:calculationArc
+link:calculationLink
+False
+# o */
+
+  navigate summation-item descendants from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns network
+
+output NAX140
+/* list(False, False) */
+
+  navigate summation-item descendants from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns cycle
+
+output NAX141
+/* list(1, 2) */
+
+  navigate summation-item descendants from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns navigation-order
+
+output NAX142
+/* list(1, 1) */
+
+  navigate summation-item descendants from PaymentsForProceedsFromOtherDeposits taxonomy $US-GAAP-2020 returns navigation-depth
