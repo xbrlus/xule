@@ -285,7 +285,7 @@ output INSFILT003
   (filter ($INSTANCE1.facts.sort) where $item.concept.is-monetary == true).count
 
 output INSFILT004
-/* 1577 */
+/* 110 */
 
   (filter ($INSTANCE1.facts.sort) where $item.concept.is-numeric == true and $item.concept.is-monetary != true).count
 
@@ -293,3 +293,97 @@ output INSFILT005
 /* 1577 */
 
   list({covered @instance = $INSTANCE1 @concept.is-numeric = true @concept.is-monetary = false}).count
+
+output UNITFILT001
+/* False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,period=2021-01-01 to 2021-07-01)
+False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259) */
+
+  any(list([@instance = $INSTANCE1 @concept=Assets @unit=* @period=*] > 0 and exists([@instance = $INSTANCE1 @concept=dei-2020:EntityRegistrantName])))
+
+  message
+  '{$rule-value} with alignment {$alignment}'
+
+output UNITFILT002
+/* True with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259) */
+
+  any(list([@instance = $INSTANCE1 @concept=Assets @unit=* @period=*] > 0 and exists([@instance = $INSTANCE1 @concept=dei-2020:EntityRegistrantName @period])))
+
+  message
+  '{$rule-value} with alignment {$alignment}'
+
+output UNITFILT003
+/* True with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259) */
+
+  any(list([@instance = $INSTANCE1 @concept=Assets @unit=* @period=*] > 0 and exists([@instance = $INSTANCE1 @concept=dei-2020:EntityRegistrantName @period=*])))
+
+  message
+  '{$rule-value} with alignment {$alignment}'
+
+output UNITFILT004
+/* False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259) */
+
+  any(list([@instance = $INSTANCE1 @concept=Assets @unit=* @period=*] > 0 and exists([@instance = $INSTANCE1 @concept=dei-2020:EntityRegistrantName @unit=* @period=*])))
+  
+  message
+  '{$rule-value} with alignment {$alignment}'
+
+output UNITFILT005
+/* False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,period=2021-01-01 to 2021-07-01)
+False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259) */
+
+  any(list([@instance = $INSTANCE1 @concept=Assets @unit @period] > 0 and exists([@instance = $INSTANCE1 @concept=dei-2020:EntityRegistrantName])))
+
+  message
+  '{$rule-value} with alignment {$alignment}'
+
+output UNITFILT006
+/* False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,unit=USD)
+False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,period=2021-01-01 to 2021-07-01) */
+
+  any(list([@instance = $INSTANCE1 @concept=Assets  @period] > 0 and exists([@instance = $INSTANCE1 @concept=dei-2020:EntityRegistrantName @unit])))
+
+  message
+  '{$rule-value} with alignment {$alignment}'
+
+output UNITFILT007
+/* True with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259) */
+
+  any(list([@instance = $INSTANCE1 @concept=Assets @unit @period] > 0 and exists([@instance = $INSTANCE1 @concept=dei-2020:EntityRegistrantName @period])))
+
+  message
+  '{$rule-value} with alignment {$alignment}'
+
+output UNITFILT008
+/* True with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259) */
+
+  any(list([@instance = $INSTANCE1 @concept=Assets @unit=* @period] > 0 and exists([@instance = $INSTANCE1 @concept=dei-2020:EntityRegistrantName @period])))
+
+  message
+  '$rule-value} with alignment {$alignment}'
+
+output UNITFILT009
+/* False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,unit=USD)
+False with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259) */
+
+  any(list([@instance = $INSTANCE1 @concept=Assets  @period] > 0 and exists([@instance = $INSTANCE1 @concept=dei-2020:EntityRegistrantName @unit @period])))
+
+  message
+  '{$rule-value} with alignment {$alignment}'
+
+output UNITFILT010
+/* True with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,unit=USD) */
+
+  any(list([@instance = $INSTANCE1 @concept=Assets  @period] > 0 and exists([covered @instance = $INSTANCE1 @concept=dei-2020:EntityRegistrantName])))
+
+  message
+  '{$rule-value} with alignment {$alignment}'
+
+output UNITFILT011
+/* True with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,unit=USD,period=2021-01-01)
+True with alignment dictionary(period=2020-07-01,unit=USD,entity=http://www.sec.gov/CIK=0000831259)
+True with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,unit=USD,period=2021-07-01) */
+
+  any(list([@instance = $INSTANCE1 @concept=Assets] > 0 and exists([covered @instance = $INSTANCE1 @concept=dei-2020:EntityRegistrantName @unit @period])))
+
+  message
+  '{$rule-value} with alignment {$alignment}'

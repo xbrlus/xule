@@ -15,6 +15,7 @@ namespace srt-2022 = http://fasb.org/srt/2022
 namespace us-gaap-2023 = http://fasb.org/us-gaap/2023
 namespace srt-2023 = http://fasb.org/srt/2023
 namespace dei-2023 = http://xbrl.sec.gov/dei/2023
+namespace dei-2020 = http://xbrl.sec.gov/dei/2020-01-31
 namespace country-2023 = http://xbrl.sec.gov/country/2023
 namespace iso4217 = http://www.xbrl.org/2003/iso4217
 namespace dei = http://xbrl.sec.gov/dei/2019-01-31
