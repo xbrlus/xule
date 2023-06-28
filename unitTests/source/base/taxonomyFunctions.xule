@@ -157,7 +157,7 @@ output CONPROP018
 	ref:Subparagraph: (a)
 	codification-part:URI: http://asc.fasb.org/extlink&amp;oid=116870748&amp;loc=SL6758485-165988 */
 
-  $US-GAAP-2020.concept(Assets).references
+  $US-GAAP-2020.concept(Assets).references.to-list.sort
 
 output CONPROP019
 /* Property 'relationships' is not a property of a 'concept' */
