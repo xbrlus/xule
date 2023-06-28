@@ -229,6 +229,51 @@ output NUM105
 
   number(none)
 
+output REGEX001
+/* dictionary(groups=list(),end=5,match-count=1,match=de,start=4) */
+
+  'abcdefg'.regex-match('de+')
+
+output REGEX002
+/* list(dictionary(groups=list(),start=4,match=de,end=5,match-count=1)) */
+
+  'abcdefg'.regex-match-all('de+')
+
+output REGEX003
+/* de */
+
+  'abcdefg'.regex-match-string('de+')
+
+output REGEX004
+/* d */
+
+  'abcdefgabcdefg'.regex-match-string('(c)(d)', 2) 
+
+output REGEX005
+/* list(cd, fg, cd, fg) */
+
+  'abcdefggabcdefg'.regex-match-string-all('[cf]([dg])') 
+
+output REGEX006
+/* list(d, g, d, g) */
+
+  'abcdefggabcdefg'.regex-match-string-all('[cf]([dg])', 1) 
+
+output REGEX007
+/* dictionary(groups=list(),end=5,match-count=1,match=de,start=4) */
+
+  regex-match('abcdefg','de+')
+
+output REGEX008
+/* list(dictionary(groups=list(),start=4,match=de,end=5,match-count=1)) */
+
+  regex-match-all('abcdefg','de+')
+
+output REGEX009
+/* de */
+
+  regex-match-string('abcdefg','de+')
+
 output DSP101
 /* list(The, quick, fox, jumped, over, the, lazy, dogs, back) */
 

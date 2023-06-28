@@ -387,3 +387,13 @@ True with alignment dictionary(entity=http://www.sec.gov/CIK=0000831259,unit=USD
 
   message
   '{$rule-value} with alignment {$alignment}'
+
+output MULTIIN001
+/* 3215 */
+
+  list(covered @instance in list($INSTANCE1, $INSTANCE2)).count
+
+output MULTIIN002
+/*  */
+
+  list([covered @instance in list($INSTANCE1, $INSTANCE2) @concept=Assets]).sort

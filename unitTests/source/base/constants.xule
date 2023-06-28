@@ -63,6 +63,6 @@
   constant $INSTANCE1 = instance('https://www.sec.gov/Archives/edgar/data/831259/000083125921000029/fcx-20210630.htm')
 
 
-/*  */
+/* Constant representing an XBRL instance */
 
-  
+  constant $INSTANCE2 = instance('https://www.sec.gov/Archives/edgar/data/831259/000083125921000038/fcx-20210930.htm')
