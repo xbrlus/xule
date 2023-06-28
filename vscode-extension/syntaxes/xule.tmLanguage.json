@@ -15,7 +15,7 @@
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.xule",
-				"match": "(?i)(^|(?<=\\*/|[\\s=,;'\"()\\[\\]{}]))((?<![a-zA-Z]])-)?(assert|constant|else|false|filter|for|function|if|message|namespace|navigate|output-attribute|output)(?!-)\\b"
+				"match": "(?i)(^|(?<=\\*/|[\\s=,;'\"()\\[\\]{}]))((?<![a-zA-Z]])-)?(assert|constant|else|false|filter|for|function|if|message|namespace|navigate|output-attribute|output|namespace-group)(?!-)\\b"
 			},
 			{
 				"name": "keyword.control.xule",
