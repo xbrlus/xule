@@ -1,5 +1,6 @@
 # excluded from release
 
+unitTests export-ignore
 environment.yml export-ignore
 *.ipynb export-ignore
 .gitattributes export-ignore
