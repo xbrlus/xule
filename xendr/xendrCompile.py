@@ -20,7 +20,6 @@ import zipfile
 
 _RULE_NAME_PREFIX = 'rule-'
 _EXTRA_ATTRIBUTES = ('format', 'scale', 'sign', 'decimals')
-_DEFAULT_CONSTANT_FILE_NAME = 'xendr-constants.xule'
 
 def compile_templates(cntlr, options):
 
@@ -275,14 +274,16 @@ def build_xule_namespaces(template_tree, options):
 def build_constants(options, template_tree):
     '''Create constants used by the expressions. '''
 
-    # Constants are found in a specified file (xendr-constants.xule is the default) or in the <xule:global> element
-    constant_file_name = getattr(options, 'xendr_constants') or os.path.join(os.path.dirname(os.path.realpath(__file__)), _DEFAULT_CONSTANT_FILE_NAME)
     constants = []
-    try:
-        with open(constant_file_name, 'r') as constant_file:
-            constants.append(constant_file.read())
-    except FileNotFoundError:
-        if constant_file_name != _DEFAULT_CONSTANT_FILE_NAME:
+    # Constants are found in a specified file (xendr-constants.xule is the default) or in the <xule:global> element
+    # The default constant file is eliminated. Now if the xendr-constants option is not used there is no default
+    constant_file_name = getattr(options, 'xendr_constants')
+    constants = []
+    if constant_file_name is not None:
+        try:
+            with open(constant_file_name, 'r') as constant_file:
+                constants.append(constant_file.read())
+        except FileNotFoundError:
             raise XendrException("Constant file {} is not found.".format(constant_file_name))
 
     # Find all the <xule:global> nodes

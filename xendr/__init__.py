@@ -236,7 +236,7 @@ __pluginInfo__ = {
     'version': '0.9',
     'description': "XBRL Renderer",
     'copyright': '(c) Copyright 2023 XBRL US Inc., All rights reserved.',
-    'import': 'xule',
+    'imports': ['xule'],
     # classes of mount points (required)
     'CntlrCmdLine.Options': cmdLineOptionExtender,
     'CntlrCmdLine.Utility.Run': cmdUtilityRun,

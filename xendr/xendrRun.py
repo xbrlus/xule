@@ -421,7 +421,7 @@ def is_actual_fact(json_result, model_xbrl):
                 elif dynamic_fact.lower().strip() == 'true':
                     dynamic_fact = True
             if dynamic_fact is not None and not isinstance(dynamic_fact, bool) :
-                model_xbrl.warning("RenderError", "Result of <xule:fact> in template is not boolean. Found '{}'".format(str(dynamic_fact)))
+                model_xbrl.warning("RenderError", "Result of <xendr:fact> in template is not boolean. Found '{}'".format(str(dynamic_fact)))
                 # Set to none.
                 dynamic_fact = False
 
@@ -903,62 +903,11 @@ def nodes_for_class(root, node_class):
     for node in root.xpath(class_xpath):
         yield node
 
-def get_dates(modelXbrl):
-    '''This returns a dictionary of dates for the filing'''
-
-    if modelXbrl.modelDocument.type == Type.SCHEMA:
-        # This will be a blank rendering
-        return (
-            'current-start',
-            'current-end',
-            'prior-start',
-            'prior-end',
-            'prior2-start',
-            'prior2-end',
-            'month-ends'
-            )        
-
-    report_year_fact = get_fact_by_local_name(modelXbrl, 'ReportYear')
-    report_period_fact = get_fact_by_local_name(modelXbrl, 'ReportPeriod')
-    report_year = report_year_fact.value if report_year_fact is not None else None
-    report_period = report_period_fact.value if report_period_fact is not None else None
-    if not report_year or not report_period:
-        report_year_period_fact = get_fact_by_local_name(modelXbrl, 'ReportYearPeriod')
-        if report_year_period_fact is not None:
-            year_match = re.match(r'.*([1-2][0-9]{3})', report_year_period_fact.value)
-            period_match = re.match(r'.*([qQ][1-4])', report_year_period_fact.value)
-            report_year = year_match[1] if year_match is not None else None
-            report_period = period_match[1].upper() if period_match is not None else None
-
-    if not report_year or not report_period:
-        raise XendrException(
-            'Cannot obtain a valid report year({year}) or report period({period}) from the XBRL document'.format(
-                year=report_year, period=report_period
-            )
-        )
-    month_day = {
-        'Q4': ('01-01', '12-31'),
-        'Q3': ('01-01', '09-30'),
-        'Q2': ('01-01', '06-30'),
-        'Q1': ('01-01', '03-31')
-    }
-
-    return (
-        ('current-start={}-{}'.format(report_year, '01-01')),
-        ('current-end={}-{}'.format(report_year, month_day[report_period][1])),
-        ('prior-start={}-{}'.format(int(report_year) - 1, '01-01')),
-        ('prior-end={}-{}'.format(int(report_year) - 1, month_day[report_period][1])),
-        ('prior2-start={}-{}'.format(int(report_year) - 2, '01-01')),
-        ('prior2-end={}-{}'.format(int(report_year) - 2, month_day[report_period][1])),
-        ('month-ends={}'.format(','.join(tuple(str(calendar.monthrange(int(report_year), x)[1]) for x in range(1,13)))))
-    )
-
 def get_fact_by_local_name(modelXbrl, fact_name):
     for fact in modelXbrl.factsInInstance:
         if fact.concept.qname.localName == fact_name:
             return fact
     return None
-
 
 def setup_inline_html(modelXbrl, title=None):
     # Create the new HTML rendered document
@@ -1393,40 +1342,36 @@ def render_report(cntlr, options, modelXbrl, *args, **kwargs):
         cntlr.addToLog(_("Processing time: {}".format(str(end_time - start_time))), "info")
 
 def run_xule_rules(cntlr, options, modelXbrl, taxonomy_set, rule_names, rule_set_file_name, xule_args=None):
-            # Get the date values from the instance
-            xule_date_args = get_dates(modelXbrl)
+        # Run Xule rules
+        # Create a log handler that will capture the messages when the rules are run.
+        log_capture_handler = _logCaptureHandler()
+        if not options.xendr_show_xule_log:
+            cntlr.logger.removeHandler(cntlr.logHandler)
+        cntlr.logger.addHandler(log_capture_handler)
 
-            # Run Xule rules
-            # Create a log handler that will capture the messages when the rules are run.
-            log_capture_handler = _logCaptureHandler()
-            if not options.xendr_show_xule_log:
-                cntlr.logger.removeHandler(cntlr.logHandler)
-            cntlr.logger.addHandler(log_capture_handler)
-
-            # Call the xule processor to run the rules
-            from .xule import __pluginInfo__ as xule_plugin_info
-            call_xule_method = xule_plugin_info['Xule.callXuleProcessor']
+        # Call the xule processor to run the rules
+        from .xule import __pluginInfo__ as xule_plugin_info
+        call_xule_method = xule_plugin_info['Xule.callXuleProcessor']
 
 
-            #call_xule_method = getXuleMethod(cntlr, 'Xule.callXuleProcessor')
-            run_options = deepcopy(options)
-            if xule_args is None:
-                xule_args = []
-            xule_args += getattr(run_options, 'xule_arg', []) or []
-            xule_args += list(xule_date_args)
-            setattr(run_options, 'xule_arg', xule_args)
-            # run only standard rules (the other rules are footnote rules and they will be run later)
-            setattr(run_options, "xule_run_only", ",".join(rule_names))
-            # Get xule rule set
-            with taxonomy_set.open(rule_set_file_name) as rule_set_file:
-                call_xule_method(cntlr, modelXbrl, io.BytesIO(rule_set_file.read()), run_options)
-            
-            # Remove the handler from the logger. This will stop the capture of messages
-            cntlr.logger.removeHandler(log_capture_handler)
-            if not options.xendr_show_xule_log:
-                cntlr.logger.addHandler(cntlr.logHandler)
+        #call_xule_method = getXuleMethod(cntlr, 'Xule.callXuleProcessor')
+        run_options = deepcopy(options)
+        if xule_args is None:
+            xule_args = []
+        xule_args += getattr(run_options, 'xule_arg', []) or []
+        setattr(run_options, 'xule_arg', xule_args)
+        # run only standard rules (the other rules are footnote rules and they will be run later)
+        setattr(run_options, "xule_run_only", ",".join(rule_names))
+        # Get xule rule set
+        with taxonomy_set.open(rule_set_file_name) as rule_set_file:
+            call_xule_method(cntlr, modelXbrl, io.BytesIO(rule_set_file.read()), run_options)
+        
+        # Remove the handler from the logger. This will stop the capture of messages
+        cntlr.logger.removeHandler(log_capture_handler)
+        if not options.xendr_show_xule_log:
+            cntlr.logger.addHandler(cntlr.logHandler)
 
-            return log_capture_handler.captured
+        return log_capture_handler.captured
 
 def dedup_id_full_document(root, used_ids):
     all_ids = collections.defaultdict(set)
