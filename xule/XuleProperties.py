@@ -2209,7 +2209,7 @@ def property_namespace_map(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, frozenset(result.items()), 'dictionary')
 
 def property_taxonomy(xule_context, object_value, *args):
-    if object_value.type == 'taxonomy':
+    if object_value.type == 'instance':
         return xv.XuleValue(xule_context, object_value.value, 'taxonomy')
     else: # this is a fact
         return xv.XuleValue(xule_context, object_value.fact.modelXbrl, 'taxonomy')
