@@ -829,12 +829,11 @@ output TAXPROP119
   namespaces($US-GAAP-2020).length
 
 output TAXPROP120
-/* 1054 */
+/* 68 */
 
   $INSTANCE1.taxonomy.dimensions.length
 
-
-  output TAXPROP121
-/* 1054 */
+output TAXPROP121
+/* 68 */
 
   taxonomy($INSTANCE1).dimensions.length
