@@ -31,3 +31,6 @@ namespace nonnum = http://www.xbrl.org/dtr/type/non-numeric
 namespace num = http://www.xbrl.org/dtr/type/numeric
 namespace us-types = http://fasb.org/us-types/2019-01-31
 namespace ixt = http://www.xbrl.org/inlineXBRL/transformation/2020-02-12
+
+
+namespace-group fasb-all = list('fasb.org')
