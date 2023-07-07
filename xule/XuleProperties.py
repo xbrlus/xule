@@ -1611,6 +1611,8 @@ def property_trim(xule_context, object_value, *args):
     if len(args) == 0:
         side = 'both'
     else:
+        if args[0].type != 'string':
+            raise XuleProcessingError(_("The argument for property 'trim' must be a string with the value of 'left', 'right' or 'both', found a value of type '%s'" % args[0].type), xule_context)
         if args[0].value.lower() in ('left', 'right', 'both'):
             side = args[0].value.lower()
         else:
