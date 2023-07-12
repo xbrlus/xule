@@ -5,7 +5,7 @@ Xule is a rule processor for XBRL (X)brl r(ULE).
 DOCSKIP
 See https://xbrl.us/dqc-license for license information.  
 See https://xbrl.us/dqc-patent for patent infringement notice.
-Copyright (c) 2017 - 2023 XBRL US, Inc.
+Copyright (c) 2017 - 2021 XBRL US, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-$Change: 23577 $
+$Change: 23584 $
 DOCSKIP
 """
 
@@ -1346,7 +1346,8 @@ def property_cube(xule_context, object_value, *args):
     if args[1].type in ('string', 'uri'):
         drs_role = args[1].value
     elif args[1].type == 'qname':
-        drs_role = XuleUtility.resolve_role(args[1], 'role', xule_context.model, xule_context)
+        # get the taxonomy from the object_value, which is the taxonomy.
+        drs_role = XuleUtility.resolve_role(args[1], 'role', object_value.value, xule_context)
     else:
         raise XuleProcessingError(_("The second argument of property 'cube' must be a role uri or a short role, found '{}'.".format(args[1].type)), xule_context)
 
@@ -2208,7 +2209,7 @@ def property_namespace_map(xule_context, object_value, *args):
     return xv.XuleValue(xule_context, frozenset(result.items()), 'dictionary')
 
 def property_taxonomy(xule_context, object_value, *args):
-    if object_value.type == 'taxonomy':
+    if object_value.type == 'instance':
         return xv.XuleValue(xule_context, object_value.value, 'taxonomy')
     else: # this is a fact
         return xv.XuleValue(xule_context, object_value.fact.modelXbrl, 'taxonomy')

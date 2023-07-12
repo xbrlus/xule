@@ -215,7 +215,7 @@ output DCOU107
   dict(list('a', 'apple'), list('b', 'boy'), list('c', 'cat'), list('d', 'dog')).count
 
 output DCOU108
-/* 3093 */
+/* 18274 */
 
   $INSTANCE1.taxonomy.concepts.count
 
@@ -510,9 +510,9 @@ output DTS004
   set('a', a, b, 'b').to-set
 
 output DTS005
-/*  */
+/* NoneType' object has no attribute 'modelXbrl' */
 
-  $INSTANCE1.taxonomy.concepts.to-set
+  count($INSTANCE1.taxonomy.concepts.to-set)
 
 output DTS006
 /* Property 'to-set' is not a property of a 'string'. */
@@ -540,7 +540,7 @@ output TSE106
   to-set(set('a', 'a', 'b', 'b'))
 
 output TSE111
-/*  */
+/* 18274 */
 
   to-set($INSTANCE1.taxonomy().concepts).count
 
@@ -974,7 +974,7 @@ output STDEV106
 output SUM101
 /* float: 117.305 */
 
-  sum(list(.25, 1.45, 5.5, 6, 105.105, -1))
+  sum(list(0.25, 1.45, 5.5, 6, 105.105, -1))
 
 output SUM102
 /* integer: 181 */
@@ -989,7 +989,7 @@ output SUM103
 output SUM191
 /* unsupported operand type(s) for +: 'float' and 'XuleString' */
 
-  sum(set(.25, 'cat', 1.45, 5.5))
+  sum(set(0.25, 'cat', 1.45, 5.5))
 
 output SUM192
 /* The first argument of function 'sum' must be set, list, found 'int'. */

@@ -85,77 +85,77 @@ output CONPROP017
   $US-GAAP-2020.concept(Assets).period-type
 
 output CONPROP018
-/* set(http://www.xbrl.org/2003/role/disclosureRef
-	ref:Publisher: FASB
-	ref:Name: Accounting Standards Codification
-	codification-part:Topic: 810
-	codification-part:SubTopic: 10
-	ref:Section: 50
-	ref:Paragraph: 3
-	ref:Subparagraph: (bb)
-	codification-part:URI: http://asc.fasb.org/extlink&amp;oid=121559654&amp;loc=d3e5710-111685
+/* list(http://www.xbrl.org/2003/role/disclosureRef
+        ref:Publisher: FASB
+        ref:Name: Accounting Standards Codification
+        codification-part:Topic: 810
+        codification-part:SubTopic: 10
+        ref:Section: 50
+        ref:Paragraph: 3
+        ref:Subparagraph: (bb)
+        codification-part:URI: http://asc.fasb.org/extlink&amp;oid=121559654&amp;loc=d3e5710-111685
 , http://www.xbrl.org/2003/role/disclosureRef
-	ref:Publisher: FASB
-	ref:Name: Accounting Standards Codification
-	codification-part:Topic: 280
-	codification-part:SubTopic: 10
-	ref:Section: 50
-	ref:Paragraph: 30
-	ref:Subparagraph: (c)
-	codification-part:URI: http://asc.fasb.org/extlink&amp;oid=120311839&amp;loc=d3e8906-108599
+        ref:Publisher: FASB
+        ref:Name: Accounting Standards Codification
+        codification-part:Topic: 280
+        codification-part:SubTopic: 10
+        ref:Section: 50
+        ref:Paragraph: 30
+        ref:Subparagraph: (c)
+        codification-part:URI: http://asc.fasb.org/extlink&amp;oid=120311839&amp;loc=d3e8906-108599
 , http://www.xbrl.org/2003/role/disclosureRef
-	ref:Publisher: FASB
-	ref:Name: Accounting Standards Codification
-	codification-part:Topic: 825
-	codification-part:SubTopic: 10
-	ref:Section: 50
-	ref:Paragraph: 28
-	ref:Subparagraph: (f)
-	codification-part:URI: http://asc.fasb.org/extlink&amp;oid=75031198&amp;loc=d3e14064-108612
+        ref:Publisher: FASB
+        ref:Name: Accounting Standards Codification
+        codification-part:Topic: 825
+        codification-part:SubTopic: 10
+        ref:Section: 50
+        ref:Paragraph: 28
+        ref:Subparagraph: (f)
+        codification-part:URI: http://asc.fasb.org/extlink&amp;oid=75031198&amp;loc=d3e14064-108612
 , http://www.xbrl.org/2003/role/disclosureRef
-	ref:Publisher: FASB
-	ref:Name: Accounting Standards Codification
-	codification-part:Topic: 323
-	codification-part:SubTopic: 10
-	ref:Section: 50
-	ref:Paragraph: 3
-	ref:Subparagraph: (c)
-	codification-part:URI: http://asc.fasb.org/extlink&amp;oid=114001798&amp;loc=d3e33918-111571
+        ref:Publisher: FASB
+        ref:Name: Accounting Standards Codification
+        codification-part:Topic: 323
+        codification-part:SubTopic: 10
+        ref:Section: 50
+        ref:Paragraph: 3
+        ref:Subparagraph: (c)
+        codification-part:URI: http://asc.fasb.org/extlink&amp;oid=114001798&amp;loc=d3e33918-111571
 , http://www.xbrl.org/2003/role/disclosureRef
-	ref:Publisher: FASB
-	ref:Name: Accounting Standards Codification
-	codification-part:Topic: 235
-	codification-part:SubTopic: 10
-	ref:Section: S99
-	ref:Paragraph: 1
-	ref:Subparagraph: (SX 210.4-08(g)(1)(ii))
-	codification-part:URI: http://asc.fasb.org/extlink&amp;oid=120395691&amp;loc=d3e23780-122690
+        ref:Publisher: FASB
+        ref:Name: Accounting Standards Codification
+        codification-part:Topic: 235
+        codification-part:SubTopic: 10
+        ref:Section: S99
+        ref:Paragraph: 1
+        ref:Subparagraph: (SX 210.4-08(g)(1)(ii))
+        codification-part:URI: http://asc.fasb.org/extlink&amp;oid=120395691&amp;loc=d3e23780-122690
 , http://www.xbrl.org/2003/role/disclosureRef
-	ref:Publisher: FASB
-	ref:Name: Accounting Standards Codification
-	codification-part:Topic: 280
-	codification-part:SubTopic: 10
-	ref:Section: 50
-	ref:Paragraph: 22
-	codification-part:URI: http://asc.fasb.org/extlink&amp;oid=120311839&amp;loc=d3e8736-108599
+        ref:Publisher: FASB
+        ref:Name: Accounting Standards Codification
+        codification-part:Topic: 280
+        codification-part:SubTopic: 10
+        ref:Section: 50
+        ref:Paragraph: 22
+        codification-part:URI: http://asc.fasb.org/extlink&amp;oid=120311839&amp;loc=d3e8736-108599
 , http://www.xbrl.org/2003/role/disclosureRef
-	ref:Publisher: FASB
-	ref:Name: Accounting Standards Codification
-	codification-part:Topic: 280
-	codification-part:SubTopic: 10
-	ref:Section: 50
-	ref:Paragraph: 32
-	ref:Subparagraph: (d)
-	codification-part:URI: http://asc.fasb.org/extlink&amp;oid=120311839&amp;loc=d3e8933-108599
+        ref:Publisher: FASB
+        ref:Name: Accounting Standards Codification
+        codification-part:Topic: 280
+        codification-part:SubTopic: 10
+        ref:Section: 50
+        ref:Paragraph: 32
+        ref:Subparagraph: (d)
+        codification-part:URI: http://asc.fasb.org/extlink&amp;oid=120311839&amp;loc=d3e8933-108599
 , http://www.xbrl.org/2003/role/disclosureRef
-	ref:Publisher: FASB
-	ref:Name: Accounting Standards Codification
-	codification-part:Topic: 810
-	codification-part:SubTopic: 10
-	ref:Section: 45
-	ref:Paragraph: 25
-	ref:Subparagraph: (a)
-	codification-part:URI: http://asc.fasb.org/extlink&amp;oid=116870748&amp;loc=SL6758485-165988 */
+        ref:Publisher: FASB
+        ref:Name: Accounting Standards Codification
+        codification-part:Topic: 810
+        codification-part:SubTopic: 10
+        ref:Section: 45
+        ref:Paragraph: 25
+        ref:Subparagraph: (a)
+        codification-part:URI: http://asc.fasb.org/extlink&amp;oid=116870748&amp;loc=SL6758485-165988 */
 
   $US-GAAP-2020.concept(Assets).references.to-list.sort
 
@@ -827,3 +827,13 @@ output TAXPROP119
 /* 225 */
 
   namespaces($US-GAAP-2020).length
+
+output TAXPROP120
+/* 68 */
+
+  $INSTANCE1.taxonomy.dimensions.length
+
+output TAXPROP121
+/* 68 */
+
+  taxonomy($INSTANCE1).dimensions.length
