@@ -28,6 +28,7 @@ from . import XuleRuleSetBuilder as xrsb
 from .xule_grammar import get_grammar
 import os
 import datetime
+import json
 import sys
 import hashlib
 import threading
@@ -84,13 +85,19 @@ def parseFile(dir, fileName, xuleGrammar, ruleSet):
             t.join()
             parseRes = returns[0]
 
+            # Write the parse results as a josn file
+            if hasattr(_options, 'xule_compile_save_pyparsing_result_location') and _options.xule_compile_save_pyparsing_result_location is not None:
+                from pathlib import Path
+                pyparsing_result_file_name = f'{os.path.join(_options.xule_compile_save_pyparsing_result_location, fileName)}.pyparsed.json'
+                Path(os.path.dirname(pyparsing_result_file_name)).mkdir(parents=True, exist_ok=True)
+                with open(pyparsing_result_file_name, 'w') as py_write:
+                    py_write.write(json.dumps(parseRes, indent=2))
+
             # Fix parse result for later versions of PyParsing. PyParsing up to version 2.3.0 works fine. After 2.3.0 
             # the parse creates an extra layer in the hiearachy of the parse result for tagged, indexed and property
             # expressions. 
             fixForPyParsing(parseRes)
 
-
-            #parseRes = xuleGrammar.parseFile(full_file_name).asDict()
             end_time = datetime.datetime.today()
             print("%s: parse end. Took %s" % (datetime.datetime.isoformat(end_time), end_time - start_time))
             ast_start = datetime.datetime.today()

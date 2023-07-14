@@ -440,6 +440,10 @@ def xuleCmdOptions(parser):
                               default="pickle",
                               help=_("Determines how the compiled rules are stored. Options are 'pickle', 'json'."))
     
+        parserGroup.add_option("--xule-compile-save-pyparsing-result-location",
+                               action="store",
+                               help=_("This will save the result from pyparsing as a json file. This is the raw parse results before post parsing. Used for debugging purpsoses."))
+
     parserGroup.add_option("--xule-rule-set",
                       action="store",
                       dest="xule_rule_set",
