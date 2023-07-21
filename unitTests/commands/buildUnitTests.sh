@@ -84,6 +84,18 @@ curl -L "https://docs.google.com/spreadsheets/d/e/2PACX-1vSEtUfyuj8X_KCiptdgLOmx
 sed -e "s/\"//g" x12.csv > index.xule
 rm x12.csv
 
+#information
+curl -L "https://docs.google.com/spreadsheets/d/e/2PACX-1vSEtUfyuj8X_KCiptdgLOmx0RmtIakd9raP59ydC_CLzITTNH5CiSNnW5uVPH6gxSFEx8hs2L7UKVv6/pub?gid=1499764642&single=true&output=csv" --output x12.csv
+
+sed -e "s/\"//g" x12.csv > information.xule
+rm x12.csv
+
+#information
+curl -L "https://docs.google.com/spreadsheets/d/e/2PACX-1vSEtUfyuj8X_KCiptdgLOmx0RmtIakd9raP59ydC_CLzITTNH5CiSNnW5uVPH6gxSFEx8hs2L7UKVv6/pub?gid=372670520&single=true&output=csv" --output x12.csv
+
+sed -e "s/\"//g" x12.csv > inlineFunctions.xule
+rm x12.csv
+
 #keywords
 curl -L "https://docs.google.com/spreadsheets/d/e/2PACX-1vSEtUfyuj8X_KCiptdgLOmx0RmtIakd9raP59ydC_CLzITTNH5CiSNnW5uVPH6gxSFEx8hs2L7UKVv6/pub?gid=710919262&single=true&output=csv" --output x13.csv
 

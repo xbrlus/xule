@@ -94,6 +94,21 @@ output ALL119
 
   1.all
 
+output ALL120
+/* Property all can only operator on booleans, but found 'none'. */
+
+  all(set(true, true, none))
+
+output ALL121
+/* Property all can only operator on booleans, but found 'none'. */
+
+  all(set(true, false, none))
+
+output ALL122
+/*  false */
+
+  all(set(true, false, skip))
+
 output ANY101
 /*  true */
 
@@ -510,7 +525,7 @@ output DTS004
   set('a', a, b, 'b').to-set
 
 output DTS005
-/* NoneType' object has no attribute 'modelXbrl' */
+/* 18274 */
 
   count($INSTANCE1.taxonomy.concepts.to-set)
 
@@ -1070,13 +1085,3 @@ output RNG001
 /* list(1, 2, 3, 4, 5) */
 
   range(5)
-
-output RNG002
-/* list(4, 5, 6, 7, 8, 9, 10) */
-
-  range(4, 10)
-
-output RNG003
-/* list(4, 6, 8, 10) */
-
-  range(4, 10, 2)

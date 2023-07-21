@@ -1,0 +1,19 @@
+/* Concepts */
+output CON001
+/*  */
+for $concept in $CONSTANT_DEI
+        $conceptName = $concept[2]
+       true
+       message
+       'concept={$conceptName}, data-type={xbrli:monetaryItemType}'
+concept-name $conceptName.to-xodel
+concept-data-type xbrli:monetaryItemType.to-xodel
+concept-abstract false.to-xodel
+concept-nillable true.to-xodel
+concept-period-type instant.to-xodel
+concept-substitution-group xbrli:item.to-xodel
+taxonomy-name 'MyTaxonomy1'
+
+
+
+

@@ -1,0 +1,63 @@
+/* Information */
+output INFO0001
+/* INFO0001 */
+
+  rule-name()
+
+output INFO0002
+/* The 'alignment' function must have only 0 argument, found 1. */
+
+  alignment([covered @instance = $INSTANCE1 @concept.local-name = 'Assets' @period=date('2020-12-31')])
+
+output INFO0003
+/* None */
+
+  $factValue = [covered @instance = $INSTANCE1 @concept.local-name = 'Assets' @period=date('2020-12-31')];
+ alignment()
+
+output INFO0004
+/* dictionary(entity=http://www.sec.gov/CIK=0000831259,unit=USD) */
+
+  $factValue = [@instance = $INSTANCE1 @concept.local-name = 'Assets' @period=date('2020-12-31')];
+ alignment()
+
+output INFO0005
+/* set */
+
+  set(1,2,3,none)._type
+
+output INFO0006
+/* instant */
+
+  date('2022-12-31')._type
+
+output INFO0007
+/* instant */
+
+  date('2022-12-31T11:00:00')._type
+
+output INFO0008
+/* taxonomy */
+
+  $US-GAAP-2020._type
+
+output INFO0009
+/* instance */
+
+  $INSTANCE1._type
+
+output INFO0010
+/* list */
+
+  list(1,2,3,none)._type
+
+output INFO0011
+/* duration */
+
+  duration('2022-01-30','2022-12-31')._type
+
+output INFO0012
+/* INFO0012.v1 */
+
+  rule-name()
+ rule-suffix 'v1'

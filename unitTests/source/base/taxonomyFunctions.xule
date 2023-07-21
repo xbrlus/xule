@@ -834,6 +834,6 @@ output TAXPROP120
   $INSTANCE1.taxonomy.dimensions.length
 
 output TAXPROP121
-/* 68 */
+/* The taxonomy() function takes a string or uri, found instance. */
 
   taxonomy($INSTANCE1).dimensions.length

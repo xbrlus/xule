@@ -45,116 +45,121 @@ output FDATE109
   date('2022-01-01').days
 
 output FDATE110
+/* 112 */
+
+  list([covered @instance = $INSTANCE1 where $fact.period.days == 0]).count
+
+output FDATE111
 /* 43921 */
 
   duration('2020-01-01', '2020-03-31').end
 
-output FDATE111
+output FDATE112
 /* 43831 */
 
   date('2020-01-01').end
 
-output FDATE112
+output FDATE113
 /* Property 'end' is not a property of a 'string'. */
 
   '2020-01-01'.end
 
-output FDATE113
+output FDATE114
 /* set(2020-03-31, 2022-01-01) */
 
   set(duration('2020-01-01', '2020-03-31'), date('2022-01-01')).end
 
-output FDATE114
+output FDATE115
 /* set(2020-06-30, 2022-01-01) */
 
   set(duration('2020-01-01', '2020-06-30'), duration('2020-03-01', '2020-06-30'), date('2022-01-01')).end
 
-output FDATE115
+output FDATE116
 /* list(2020-03-31, 2022-01-01) */
 
   list(duration('2020-01-01', '2020-03-31'), date('2022-01-01')).end
 
-output FDATE116
+output FDATE117
 /* Property 'end' is not a property of a 'qname'. */
 
   list(duration('2020-01-01', '2020-03-31'), date('2022-01-01'), Assets).end
 
-output FDATE117
+output FDATE118
 /* 2 */
 
   date('2022-02-02').month
 
-output FDATE118
+output FDATE119
 /* list(2, 2, 2) */
 
   list(date('2022-02-02'), date('2022-02-13'), date('2022-02-02')).month
 
-output FDATE119
+output FDATE120
 /* set(2) */
 
   set(date('2022-02-02'), date('2022-02-13'), date('2022-02-02')).month
 
-output FDATE120
+output FDATE121
 /* Property 'month' is not a property of a 'duration'. */
 
   duration('2022-02-02', '2022-02-20').month
 
-output FDATE121
+output FDATE122
 /* Property 'month' is not a property of a 'string' */
 
   '2022-02-99'.month
 
-output FDATE122
+output FDATE123
 /* 43831 */
 
   duration('2020-01-01', '2020-03-31').start
 
-output FDATE123
+output FDATE124
 /* 43831 */
 
   date('2020-01-01').start
 
-output FDATE124
+output FDATE125
 /* Property 'start' is not a property of a 'string' */
 
   '2020-01-01'.start
 
-output FDATE125
+output FDATE126
 /* set(2020-01-01, 2022-01-01) */
 
   set(duration('2020-01-01', '2020-03-31'), date('2022-01-01')).start
 
-output FDATE126
+output FDATE127
 /* set(2020-01-01, 2022-01-01) */
 
   set(duration('2020-01-01', '2020-03-31'), duration('2020-01-01', '2020-06-30'), date('2022-01-01')).start
 
-output FDATE127
+output FDATE128
 /* list(2020-01-01, 2022-01-01) */
 
   list(duration('2020-01-01', '2020-03-31'), date('2022-01-01')).start
 
-output FDATE128
+output FDATE129
 /* Property 'start' is not a property of a 'qname'. */
 
   list(duration('2020-01-01', '2020-03-31'), date('2022-01-01'), Assets).start
 
-output FDATE129
+output FDATE130
 /* 2022 */
 
   date('2022-02-02').year
 
-output FDATE130
+output FDATE131
 /* list(2,022, 2,022, 2,022) */
 
   list(date('2022-02-02'), date('2022-02-13'), date('2022-02-02')).year
 
-output FDATE131
+output FDATE132
 /* set(2022) */
 
   set(date('2022-02-02'), date('2022-02-13'), date('2022-02-02')).year
 
-output FDATE132
+output FDATE133
 /* Property 'year' is not a property of a 'duration'. */
 
   duration('2022-02-02', '2022-02-20').year
@@ -297,22 +302,22 @@ output TSP101
 output TSP102
 /* 4 */
 
-  time-span(P4D)
+  time-span('P4D')
 
 output TSP104
 /* 428 */
 
-  time-span(P1Y2M3D)
+  time-span('P1Y2M3D')
 
 output TSP105
 /* 28 */
 
-  time-span(P4W)
+  time-span('P4W')
 
 output TSP106
 /* Function 'time-span' expects a string, fount 'qname'. */
 
-  time-span(P4W2D)
+  time-span('P4W2D')
 
 output TSP107
 /* 0.5 */
@@ -359,7 +364,7 @@ output YER092
 
   year('2020-01-02')
 
-output FDATE133
+output YER093
 /* Property 'year' is not a property of a 'string'. */
 
   '2022-02-99'.year
