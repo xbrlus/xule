@@ -1,0 +1,10 @@
+/* InlineFunctions */
+output INLIN001
+/*  */
+
+  { @instance=$INSTANCE3 @concept=SellingAndMarketingExpense @RelatedPartyTransactionsByRelatedPartyAxis= * where $fact.inline-ancestors.length > 0}
+
+output INLIN002
+/*  */
+
+  { @instance=$INSTANCE3 @concept=SellingAndMarketingExpense @RelatedPartyTransactionsByRelatedPartyAxis= * where $fact.inline-ancestors.length == 0}

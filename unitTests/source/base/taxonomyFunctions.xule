@@ -332,7 +332,7 @@ output TAXPROP024
   dimensions($US-GAAP-2020).length
 
 output TAXPROP025
-/*  */
+/* srt:StatementGeographicalAxis */
 
   $US-GAAP-2020.dimension(srt:StatementGeographicalAxis)
 
