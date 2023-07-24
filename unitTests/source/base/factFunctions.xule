@@ -1,0 +1,100 @@
+/* FactFunctions */
+output FACT001
+/* -6 */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).decimals
+
+output FACT002
+/* None */
+
+  first(list([covered @instance = $INSTANCE1 @EarningsPerShareTextBlock])).decimals
+
+output FACT003
+/* 45436000000 */
+
+  max(list([covered @instance = $INSTANCE1 @Assets where $fact.decimals > -7]))
+
+output FACT004
+/* us-gaap:Assets */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).concept
+
+output FACT005
+/* None */
+
+  max(list([covered @instance = $INSTANCE1 @Assets where $fact.concept == Assets]))
+
+output FACT006
+/* 45436000000 */
+
+  max(list([covered @instance = $INSTANCE1 @Assets where $fact.concept.name == Assets]))
+
+output FACT007
+/* 44377 */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).period
+
+output FACT008
+/* 2021-01-01 to 2021-06-30 */
+
+  first(list([covered @instance = $INSTANCE1 @EarningsPerShareTextBlock])).period
+
+output FACT009
+/* 45436000000 */
+
+  max(list([covered @instance = $INSTANCE1 @Assets where $fact.period > date('2020-12-30')]))
+
+output FACT010
+/* USD */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).unit
+
+output FACT011
+/* None */
+
+  first(list([covered @instance = $INSTANCE1 @EarningsPerShareTextBlock])).unit
+
+output FACT012
+/* 45436000000 */
+
+  max(list([covered @instance = $INSTANCE1 @Assets where $fact.unit == unit(iso4217:USD)]))
+
+output FACT013
+/* http://www.sec.gov/CIK=0000831259 */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).entity
+
+output FACT014
+/* http://www.sec.gov/CIK=0000831259 */
+
+  first(list([covered @instance = $INSTANCE1 @EarningsPerShareTextBlock])).entity
+
+output FACT015
+/* 45436000000 */
+
+  max(list([covered @instance = $INSTANCE1 @Assets where $fact.entity.id == '0000831259']))
+
+output FACT016
+/* fcx:CopperInConcentratesMember */
+
+  max(list({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax @srt:ProductOrServiceAxis=*})).dimension(srt:ProductOrServiceAxis)
+
+output FACT017
+/* 1115000000 */
+
+  max(list({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax where $fact.dimension(srt:ProductOrServiceAxis).name == GoldMember }))
+
+output FACT018
+/*  */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).id
+
+output FACT019
+/*  */
+
+  max(list([covered @instance = $INSTANCE1 where $fact.id == 'id3VybDovL2RvY3MudjEvZG9jOjBjNGY0MDFmYTkzZDQ2ZTI4ZThhZjAxZmZjM2Y0YTZlL3NlYzowYzRmNDAxZmE5M2Q0NmUyOGU4YWYwMWZmYzNmNGE2ZV8xNi9mcmFnOjc0ZmNjZWZjMzhjMzRiOWZhMmM1OWM4OGJkNTQzOTUzL3RhYmxlOmM0YTNmOWY5NDdlYjQ1ZTM4MTBjZmU5NzhiNzQ1NjAwL3RhYmxlcmFuZ2U6YzRhM2Y5Zjk0N2ViNDVlMzgxMGNmZTk3OGI3NDU2MDBfMjItMS0xLTEtMA_05140392']))
+
+output FACT020
+/*  */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).instance

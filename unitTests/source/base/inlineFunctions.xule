@@ -2,9 +2,64 @@
 output INLIN001
 /*  */
 
-  { @instance=$INSTANCE3 @concept=SellingAndMarketingExpense @RelatedPartyTransactionsByRelatedPartyAxis= * where $fact.inline-ancestors.length > 0}
+  { @instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionSellingGeneralAndAdministrativeExpensesFromTransactionsWithRelatedParty }.inline-ancestors
 
 output INLIN002
 /*  */
 
-  { @instance=$INSTANCE3 @concept=SellingAndMarketingExpense @RelatedPartyTransactionsByRelatedPartyAxis= * where $fact.inline-ancestors.length == 0}
+  { @instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionSellingGeneralAndAdministrativeExpensesFromTransactionsWithRelatedParty where $fact.inline-ancestors.length > 0}
+
+output INLIN003
+/*  */
+
+  { @instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionSellingGeneralAndAdministrativeExpensesFromTransactionsWithRelatedParty  where $fact.inline-parent.length > 0}
+
+output INLIN004
+/*  */
+
+  { @instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionSellingGeneralAndAdministrativeExpensesFromTransactionsWithRelatedParty }.inline-parent
+
+output INLIN005
+/*  */
+
+  { @instance=$INSTANCE3 @concept.local-name = 'RelatedPartyTransactionRelationshipDescription'}.inline-parent.concept.name
+
+output INLIN006
+/*  */
+
+  {@instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionsDisclosureTextBlock}.inline-children.concept.name
+
+output INLIN007
+/*  */
+
+  {@instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionsDisclosureTextBlock}.inline-descendants
+
+output INLIN008
+/*  */
+
+  {@instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionsDisclosureTextBlock}.inline-descendants.concept.name
+
+output INLIN009
+/*  */
+
+  {@instance=$INSTANCE3 @concept=us-gaap-2022:SellingAndMarketingExpense @us-gaap-2022:RelatedPartyTransactionsByRelatedPartyAxis= * where $fact.inline-ancestors.length == 0}
+
+output INLIN010
+/*  */
+
+  list({ covered @instance=$INSTANCE3 where $fact.inline-negated == true}).count
+
+output INLIN011
+/*  */
+
+  list({ covered @instance=$INSTANCE3 where $fact.inline-hidden == true}).count
+
+output INLIN012
+/*  */
+
+  list({ covered @instance=$INSTANCE3 where $fact.inline-scale == 6}).count
+
+output INLIN013
+/*  */
+
+  list({ covered @instance=$INSTANCE3 where $fact.inline-format == ixt-2015:datemonthyearen}).count

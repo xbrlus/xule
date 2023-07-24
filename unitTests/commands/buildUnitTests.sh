@@ -54,6 +54,13 @@ curl -L "https://docs.google.com/spreadsheets/d/e/2PACX-1vSEtUfyuj8X_KCiptdgLOmx
 sed -e "s/\"//g" x8.csv > factFilters.xule
 rm x8.csv
 
+#factFunctions
+curl -L "https://docs.google.com/spreadsheets/d/e/2PACX-1vSEtUfyuj8X_KCiptdgLOmx0RmtIakd9raP59ydC_CLzITTNH5CiSNnW5uVPH6gxSFEx8hs2L7UKVv6/pub?gid=388876612&single=true&output=csv" --output x8.csv
+
+sed -e "s/\"//g" x8.csv > factFunctions.xule
+rm x8.csv
+
+
 #filterFunction
 curl -L "https://docs.google.com/spreadsheets/d/e/2PACX-1vSEtUfyuj8X_KCiptdgLOmx0RmtIakd9raP59ydC_CLzITTNH5CiSNnW5uVPH6gxSFEx8hs2L7UKVv6/pub?gid=651122003&single=true&output=csv" --output x9.csv
 
