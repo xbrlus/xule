@@ -85,16 +85,26 @@ output FACT017
   max(list({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax where $fact.dimension(srt:ProductOrServiceAxis).name == GoldMember }))
 
 output FACT018
-/*  */
+/* id3VybDovL2RvY3MudjEvZG9jOjBjNGY0MDFmYTkzZDQ2ZTI4ZThhZjAxZmZjM2Y0YTZlL3NlYzowYzRmNDAxZmE5M2Q0NmUyOGU4YWYwMWZmYzNmNGE2ZV84NS9mcmFnOjc3ODM5NWZjZGU2YjRlMGJhMzE3MGI3Nzc2NmFjMTNkL3RhYmxlOmMzZmNlZTEzMDUyNjRlYzc4NTYyYmVhM2Q0ZDVmYmFiL3RhYmxlcmFuZ2U6YzNmY2VlMTMwNTI2NGVjNzg1NjJiZWEzZDRkNWZiYWJfMjMtMzMtMS0xLTA_c4eb4598-51a9-477f-b124-4d491471499d */
 
   max(list([covered @instance = $INSTANCE1 @Assets])).id
 
 output FACT019
 /*  */
 
-  max(list([covered @instance = $INSTANCE1 where $fact.id == 'id3VybDovL2RvY3MudjEvZG9jOjBjNGY0MDFmYTkzZDQ2ZTI4ZThhZjAxZmZjM2Y0YTZlL3NlYzowYzRmNDAxZmE5M2Q0NmUyOGU4YWYwMWZmYzNmNGE2ZV8xNi9mcmFnOjc0ZmNjZWZjMzhjMzRiOWZhMmM1OWM4OGJkNTQzOTUzL3RhYmxlOmM0YTNmOWY5NDdlYjQ1ZTM4MTBjZmU5NzhiNzQ1NjAwL3RhYmxlcmFuZ2U6YzRhM2Y5Zjk0N2ViNDVlMzgxMGNmZTk3OGI3NDU2MDBfMjItMS0xLTEtMA_05140392']))
+  max(list([covered @instance = $INSTANCE1 where $fact.id == 'id3VybDovL2RvY3MudjEvZG9jOjBjNGY0MDFmYTkzZDQ2ZTI4ZThhZjAxZmZjM2Y0YTZlL3NlYzowYzRmNDAxZmE5M2Q0NmUyOGU4YWYwMWZmYzNmNGE2ZV84NS9mcmFnOjc3ODM5NWZjZGU2YjRlMGJhMzE3MGI3Nzc2NmFjMTNkL3RhYmxlOmMzZmNlZTEzMDUyNjRlYzc4NTYyYmVhM2Q0ZDVmYmFiL3RhYmxlcmFuZ2U6YzNmY2VlMTMwNTI2NGVjNzg1NjJiZWEzZDRkNWZiYWJfMjMtMzMtMS0xLTA_c4eb4598-51a9-477f-b124-4d491471499d']))
 
 output FACT020
-/*  */
+/* 1739 */
 
-  max(list([covered @instance = $INSTANCE1 @Assets])).instance
+  max(list([covered @instance = $INSTANCE1 @Assets])).instance.facts.count
+
+output FACT021
+/* FACT021 - Property 'name' is not a property of a 'cube' */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).cubes.name
+
+output FACT022
+/* set(us-gaap:ScheduleOfCollaborativeArrangementsAndNoncollaborativeArrangementTransactionsTable, us-gaap:ScheduleOfSegmentReportingInformationBySegmentTable) */
+
+  max(list([covered @instance = $INSTANCE1 @Assets])).cubes.cube-concept
