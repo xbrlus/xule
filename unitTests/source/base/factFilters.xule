@@ -404,9 +404,9 @@ output CUBEFILT001
   list({covered @instance = $INSTANCE1 @cube in $STATEMENT_CUBES}).count
 
 output CUBEFILT002
-/* 243 */
+/* 28 */
 
-  list({covered @instance = $INSTANCE1 @cube in $STATEMENT_CUBES @cube in $STATEMENT_CUBES}).count
+  list({covered @instance = $INSTANCE1 @cube in $STATEMENT_CUBES @cube not in $STATEMENT_CUBES}).count
 
 output CUBEFILT003
 /* 1185 */
@@ -414,6 +414,16 @@ output CUBEFILT003
   list({covered @instance = $INSTANCE1 @cube not in $STATEMENT_CUBES}).count
 
 output CUBEFILT004
+/* 1185 */
+
+  list({covered @instance = $INSTANCE1 @cube in $STATEMENT_CUBES @cube in $NOTES_CUBES}).count
+
+output CUBEFILT005
+/*  */
+
+  list({covered @instance = $INSTANCE1 @cube in $NOTES_CUBES}).count
+
+output CUBEFILT006
 /* 14 */
 
   list({covered @instance = $INSTANCE1 @concept=PaymentsToAcquireProductiveAssets @cube.name = StatementTable @cube.drs-role = 'http://www.fcx.com/role/ConsolidatedStatementsofCashFlowsUnaudited'}).count

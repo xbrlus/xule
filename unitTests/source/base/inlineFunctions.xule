@@ -2,7 +2,7 @@
 output INLIN001
 /*  */
 
-  { @instance=$INSTANCE3 @concept=us-gaap-2022:RelatedPartyTransactionSellingGeneralAndAdministrativeExpensesFromTransactionsWithRelatedParty }.inline-ancestors
+  max(list({@instance = $INSTANCE3 @concept=us-gaap-2022:AssetsFairValueDisclosure})).footnotes.lang
 
 output INLIN002
 /*  */

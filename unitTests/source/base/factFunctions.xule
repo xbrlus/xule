@@ -85,12 +85,12 @@ output FACT017
   max(list({covered @instance = $INSTANCE1 @RevenueFromContractWithCustomerIncludingAssessedTax where $fact.dimension(srt:ProductOrServiceAxis).name == GoldMember }))
 
 output FACT018
-/* id3VybDovL2RvY3MudjEvZG9jOjBjNGY0MDFmYTkzZDQ2ZTI4ZThhZjAxZmZjM2Y0YTZlL3NlYzowYzRmNDAxZmE5M2Q0NmUyOGU4YWYwMWZmYzNmNGE2ZV84NS9mcmFnOjc3ODM5NWZjZGU2YjRlMGJhMzE3MGI3Nzc2NmFjMTNkL3RhYmxlOmMzZmNlZTEzMDUyNjRlYzc4NTYyYmVhM2Q0ZDVmYmFiL3RhYmxlcmFuZ2U6YzNmY2VlMTMwNTI2NGVjNzg1NjJiZWEzZDRkNWZiYWJfMjMtMzMtMS0xLTA_c4eb4598-51a9-477f-b124-4d491471499d */
+/*  */
 
-  max(list([covered @instance = $INSTANCE1 @Assets])).id
+  max(list([covered @instance = $INSTANCE1 @PaymentsToAcquireProductiveAssets])).id
 
 output FACT019
-/*  */
+/* none or 45436 */
 
   max(list([covered @instance = $INSTANCE1 where $fact.id == 'id3VybDovL2RvY3MudjEvZG9jOjBjNGY0MDFmYTkzZDQ2ZTI4ZThhZjAxZmZjM2Y0YTZlL3NlYzowYzRmNDAxZmE5M2Q0NmUyOGU4YWYwMWZmYzNmNGE2ZV84NS9mcmFnOjc3ODM5NWZjZGU2YjRlMGJhMzE3MGI3Nzc2NmFjMTNkL3RhYmxlOmMzZmNlZTEzMDUyNjRlYzc4NTYyYmVhM2Q0ZDVmYmFiL3RhYmxlcmFuZ2U6YzNmY2VlMTMwNTI2NGVjNzg1NjJiZWEzZDRkNWZiYWJfMjMtMzMtMS0xLTA_c4eb4598-51a9-477f-b124-4d491471499d']))
 
@@ -108,3 +108,33 @@ output FACT022
 /* set(us-gaap:ScheduleOfCollaborativeArrangementsAndNoncollaborativeArrangementTransactionsTable, us-gaap:ScheduleOfSegmentReportingInformationBySegmentTable) */
 
   max(list([covered @instance = $INSTANCE1 @Assets])).cubes.cube-concept
+
+output FACT023
+/*  */
+
+  max(list({covered @instance = $INSTANCE3 @us-gaap-2022:AssetsFairValueDisclosure})).footnotes.role
+
+output FACT024
+/*  */
+
+  max(list({covered @instance = $INSTANCE3 @concept=us-gaap-2022:AssetsFairValueDisclosure @us-gaap-2022:FairValueByFairValueHierarchyLevelAxis=us-gaap-2022:FairValueInputsLevel2Member})).footnotes.lang
+
+output FACT025
+/*  */
+
+  max(list({covered @instance = $INSTANCE3 @concept=us-gaap-2022:AssetsFairValueDisclosure @us-gaap-2022:FairValueByFairValueHierarchyLevelAxis=FairValueInputsLevel2Member}))
+
+output FACT026
+/*  */
+
+  max(list({covered @instance = $INSTANCE3 @us-gaap-2022:AssetsFairValueDisclosure @us-gaap-2022:FairValueByFairValueHierarchyLevelAxis=us-gaap-2022:FairValueInputsLevel2Member})).footnotes.footnote-role
+
+output FACT027
+/*  */
+
+  max(list({covered @instance = $INSTANCE3 @concept=us-gaap-2022:AssetsFairValueDisclosure @us-gaap-2022:FairValueByFairValueHierarchyLevelAxis =us-gaap-2022:FairValueInputsLevel2Member})).footnotes.arcrole
+
+output FACT028
+/*  */
+
+  max(list({covered @instance = $INSTANCE3 @concept=us-gaap-2022:AssetsFairValueDisclosure @us-gaap-2022:FairValueByFairValueHierarchyLevelAxis=us-gaap-2022:FairValueInputsLevel2Member})).footnotes.arcrole
