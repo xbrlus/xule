@@ -68,6 +68,11 @@
   constant $INSTANCE2 = instance('https://www.sec.gov/Archives/edgar/data/831259/000083125921000038/fcx-20210930.htm')
 
 
+/* Statement Cubes */
+
+  constant $STATEMENT_CUBES = FILTER $INSTANCE1.taxonomy.cubes where $item.drs-role.description.contains('- Statement -')
+
+
 /* Constant representing an XBRL instance */
 
   constant $INSTANCE3 = instance('https://www.sec.gov/Archives/edgar/data/1742770/000110465923049651/viot-20221231x20f.htm')
