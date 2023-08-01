@@ -2595,7 +2595,7 @@ def factset_pre_match(factset, filters, non_aligned_filters, align_aspects, mode
                         # With namespace groups, there may be more than one dimension concept
                         if isinstance(aspect_info[ASPECT], tuple):
                             # this is a namespace group qname for the dimension. This is not supported
-                            raise XuleProcessingError(_(f"The prefix {aspect_info[ASPECT][0].value} is a namespace-group prefix. Namepsace-group prefixes cannot be used for dimension aspects of a factset. Full namespace-group name is {aspect_info[ASPECT][0].value}:{aspect_info[ASPECT][1]}."))
+                            raise XuleProcessingError(_(f"The prefix {aspect_info[ASPECT][0].value} is a namespace-group prefix. Namespace-group prefixes cannot be used for dimension aspects of a factset. Full namespace-group name is {aspect_info[ASPECT][0].value}:{aspect_info[ASPECT][1]}."))
                         model_dimension = model.qnameConcepts.get(aspect_info[ASPECT])
                         if model_dimension is None:
                                 raise XuleProcessingError(_(f"Cannot find dimension concept for {aspect_info[ASPECT].clarkNotation} while processing a factset"), xule_context)
